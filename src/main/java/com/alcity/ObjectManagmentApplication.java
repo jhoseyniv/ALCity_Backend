@@ -1,9 +1,13 @@
 package com.alcity;
 
+import com.alcity.entity.base.DataType;
+import com.alcity.entity.base.PuzzleCategory;
 import com.alcity.entity.users.ApplicationMember;
 import com.alcity.entity.users.ClientType;
 import com.alcity.entity.users.MemberType;
 import com.alcity.entity.users.UserGender;
+import com.alcity.repository.base.DataTypeRepository;
+import com.alcity.service.base.PuzzleCategoryService;
 import com.alcity.service.users.ApplicationMemberService;
 import com.alcity.service.users.ClientTypeService;
 import com.alcity.service.users.MemberTypeService;
@@ -43,6 +47,13 @@ public class ObjectManagmentApplication {
 
 	@Autowired
 	private ClientTypeService clientTypeService;
+
+	@Autowired
+	private PuzzleCategoryService puzzleCategoryService;
+
+	@Autowired
+	private DataTypeRepository dataTypeRepository;
+
 
 	public byte[] getAvatarImage(String imageDirectory, String imageName) throws IOException {
 		Path imagePath = Path.of(imageDirectory, imageName);
@@ -91,20 +102,36 @@ public class ObjectManagmentApplication {
 			MemberType administrator = new MemberType(1L,now,1L,now,1L,"Administrator","Administrator");
 			memberTypeService.save(administrator);
 
-			ClientType  mobile = new ClientType(1L,now,administrator.getId(),now,administrator.getId(),"mobile","mobile");
-			ClientType  web = new ClientType(1L,now,administrator.getId(),now,administrator.getId(),"web","web");
-			ClientType  tablet = new ClientType(1L,now,administrator.getId(),now,administrator.getId(),"tablet","tablet");
-			clientTypeService.save(mobile);
-			clientTypeService.save(web);
-			clientTypeService.save(tablet);
+
+
 
 			ApplicationMember admin= new ApplicationMember(1L,now,1L,now,1L,35,"admin","admin","admin","09123580100","jhoseyni_yahoo.com",avatar,male,administrator);
 
 			applicationMemberService.save(admin);
 
+			ClientType  mobile = new ClientType(1L,now,admin.getId(),now,admin.getId(),"mobile","mobile");
+			ClientType  web = new ClientType(1L,now,admin.getId(),now,admin.getId(),"web","web");
+			ClientType  tablet = new ClientType(1L,now,admin.getId(),now,admin.getId(),"tablet","tablet");
+			clientTypeService.save(mobile);
+			clientTypeService.save(web);
+			clientTypeService.save(tablet);
 
 
+			PuzzleCategory  mathematic = new PuzzleCategory(1L,now,admin.getId(),now,admin.getId(),"mathematic","mathematic");
+			PuzzleCategory  physic = new PuzzleCategory(2L,now,admin.getId(),now,admin.getId(),"physic","physic");
+			PuzzleCategory  IQ = new PuzzleCategory(2L,now,admin.getId(),now,admin.getId(),"IQ","IQ");
+			puzzleCategoryService.save(mathematic);
+			puzzleCategoryService.save(physic);
+			puzzleCategoryService.save(IQ);
 
+			DataType alcity_Int = new DataType(1L,now,admin.getId(),now,admin.getId(),"Integer","Integer");
+			DataType alcity_Long = new DataType(1L,now,admin.getId(),now,admin.getId(),"Long","Long");
+			DataType alcity_Boolean = new DataType(1L,now,admin.getId(),now,admin.getId(),"Boolean","Boolean");
+			DataType alcity_String = new DataType(1L,now,admin.getId(),now,admin.getId(),"String","String");
+			dataTypeRepository.save(alcity_Int);
+			dataTypeRepository.save(alcity_Long);
+			dataTypeRepository.save(alcity_Boolean);
+			dataTypeRepository.save(alcity_String);
 
 //			Commodity hat = new Commodity("hat",10d,"krona",null,null,null);
 //			Commodity shirt = new Commodity("shirt",20d,"krona",null,null,null);
