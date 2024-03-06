@@ -1,5 +1,6 @@
 package com.alcity;
 
+import com.alcity.entity.users.MemberType;
 import com.alcity.entity.users.UserGender;
 import com.alcity.service.users.MemberTypeService;
 import com.alcity.service.users.UserGenderService;
@@ -50,11 +51,18 @@ public class ObjectManagmentApplication {
 			ZonedDateTime  createdDate= ZonedDateTime.now();
 			Long now = createdDate.toInstant().toEpochMilli();
 			UserGender female = new UserGender(1L,now,1L,now,now,"F","Female");
-			UserGender male = new UserGender(2L,now,1L,now,now,"M","Male");
+			UserGender male = new UserGender(1L,now,1L,now,now,"M","Male");
 			userGenderService.save(female);
 			userGenderService.save(male);
 
+			MemberType puzzlePlayer = new MemberType(1L,now,1L,now,1L,"Puzzle Player","Puzzle_Player");
+			memberTypeService.save(puzzlePlayer);
 
+			MemberType guest = new MemberType(1L,now,1L,now,1L,"Guest","Guest");
+			memberTypeService.save(guest);
+
+			MemberType puzzleCreator = new MemberType(1L,now,1L,now,1L,"Puzzle Creator","Puzzle_Creator");
+			memberTypeService.save(puzzleCreator);
 
 
 //			Commodity hat = new Commodity("hat",10d,"krona",null,null,null);
