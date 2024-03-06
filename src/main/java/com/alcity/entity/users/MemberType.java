@@ -2,11 +2,11 @@ package com.alcity.entity.users;
 
 
 import com.alcity.entity.base.BaseTable;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Set;
 
 @Entity
 @Table(name="MemberType")
@@ -41,4 +41,10 @@ public class MemberType extends BaseTable implements Serializable {
     public void setValue(String value) {
         this.value = value;
     }
+
+    @OneToMany(mappedBy = "gender", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JsonIgnore
+    private Set<ApplicationMember> users;
+
+
 }

@@ -1,7 +1,9 @@
 package com.alcity;
 
+import com.alcity.entity.users.ApplicationMember;
 import com.alcity.entity.users.MemberType;
 import com.alcity.entity.users.UserGender;
+import com.alcity.service.users.ApplicationMemberService;
 import com.alcity.service.users.MemberTypeService;
 import com.alcity.service.users.UserGenderService;
 import org.springframework.boot.SpringApplication;
@@ -34,7 +36,10 @@ public class ObjectManagmentApplication {
 	@Autowired
 	private MemberTypeService memberTypeService;
 
-	public byte[] getImage(String imageDirectory, String imageName) throws IOException {
+	@Autowired
+	private ApplicationMemberService applicationMemberService;
+
+	public byte[] getAvatarImage(String imageDirectory, String imageName) throws IOException {
 		Path imagePath = Path.of(imageDirectory, imageName);
 
 		if (Files.exists(imagePath)) {
@@ -60,6 +65,7 @@ public class ObjectManagmentApplication {
 			ZoneId zoneId = ZoneId.of("Europe/London").getRules().getOffset(Instant.now());
 			ZonedDateTime startDate = ZonedDateTime.now();
 			ZonedDateTime endDate = ZonedDateTime.of(2022, 3, 30, 23, 45, 59, 1234, zoneId);
+			byte[] avatar = getAvatarImage("src/main/resources/images/","avatar.png");
 
 			ZonedDateTime  createdDate= ZonedDateTime.now();
 			Long now = createdDate.toInstant().toEpochMilli();
@@ -77,7 +83,14 @@ public class ObjectManagmentApplication {
 			MemberType puzzleCreator = new MemberType(1L,now,1L,now,1L,"Puzzle Creator","Puzzle_Creator");
 			memberTypeService.save(puzzleCreator);
 
-			byte[] avatar = getImage("src/main/resources/images/","avatar.png");
+			MemberType administrator = new MemberType(1L,now,1L,now,1L,"Administrator","Administrator");
+			memberTypeService.save(administrator);
+
+			ApplicationMember admin= new ApplicationMember(1L,now,1L,now,1L,35,"admin","admin","admin","09123580100","jhoseyni_yahoo.com",avatar,male,administrator);
+
+			applicationMemberService.save(admin);
+
+
 //			Commodity hat = new Commodity("hat",10d,"krona",null,null,null);
 //			Commodity shirt = new Commodity("shirt",20d,"krona",null,null,null);
 //			Commodity pants = new Commodity("pants",30d,"krona",null,null,null);

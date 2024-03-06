@@ -2,6 +2,7 @@ package com.alcity.entity.users;
 
 
 import com.alcity.entity.base.BaseTable;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -33,5 +34,102 @@ public class ApplicationMember extends BaseTable implements Serializable {
     @Basic(fetch = FetchType.LAZY)
     private byte[] avatar;
 
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "gender_id", nullable = false)
+    @JsonIgnore
+    private UserGender gender;
 
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "memberType_id", nullable = false)
+    @JsonIgnore
+    private MemberType memberType;
+
+    public Integer getAge() {
+        return age;
+    }
+
+    public void setAge(Integer age) {
+        this.age = age;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
+    public String getMobile() {
+        return mobile;
+    }
+
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public byte[] getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(byte[] avatar) {
+        this.avatar = avatar;
+    }
+
+    public UserGender getGender() {
+        return gender;
+    }
+
+    public void setGender(UserGender gender) {
+        this.gender = gender;
+    }
+
+    public MemberType getMemberType() {
+        return memberType;
+    }
+
+    public void setMemberType(MemberType memberType) {
+        this.memberType = memberType;
+    }
+
+    public ApplicationMember() {
+    }
+
+    public ApplicationMember(Long version, Long creationDate, Long creatorUser, Long lastModifiedDate, Long lastModifiedUser, Integer age, String username, String password, String nickname, String mobile, String email, byte[] avatar, UserGender gender, MemberType memberType) {
+        super(version, creationDate, creatorUser, lastModifiedDate, lastModifiedUser);
+        this.age = age;
+        this.username = username;
+        this.password = password;
+        this.nickname = nickname;
+        this.mobile = mobile;
+        this.email = email;
+        this.avatar = avatar;
+        this.gender = gender;
+        this.memberType = memberType;
+    }
 }
