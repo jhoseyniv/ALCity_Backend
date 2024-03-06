@@ -1,9 +1,11 @@
-package com.alcity.service.appuser;
+package com.alcity.service.users;
 
 
-import com.alcity.entity.appuser.MemberType;
-import com.alcity.entity.appuser.UserGender;
-import com.alcity.repository.appuser.MemberTypeRepository;
+import com.alcity.entity.users.MemberType;
+import com.alcity.entity.users.UserGender;
+import com.alcity.repository.users.MemberTypeRepository;
+import com.alcity.repository.users.UserGenderRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -14,9 +16,13 @@ import java.util.Optional;
 @Transactional
 
 public class MemberTypeService implements MemberTypeRepository {
+
+    @Autowired
+    private MemberTypeRepository memberTypeRepository;
+
     @Override
     public <S extends MemberType> S save(S entity) {
-        return null;
+        return memberTypeRepository.save(entity);
     }
 
     @Override

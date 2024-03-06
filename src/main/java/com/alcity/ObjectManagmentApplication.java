@@ -1,8 +1,8 @@
 package com.alcity;
 
-import com.alcity.entity.appuser.UserGender;
-import com.alcity.service.appuser.MemberTypeService;
-import com.alcity.service.appuser.UserGenderService;
+import com.alcity.entity.users.UserGender;
+import com.alcity.service.users.MemberTypeService;
+import com.alcity.service.users.UserGenderService;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.slf4j.Logger;
@@ -48,9 +48,9 @@ public class ObjectManagmentApplication {
 			ZonedDateTime endDate = ZonedDateTime.of(2022, 3, 30, 23, 45, 59, 1234, zoneId);
 
 			ZonedDateTime  createdDate= ZonedDateTime.now();
-
-			UserGender female = new UserGender(1L,10L,10L,10L,10L,"F","Female");
-			UserGender male = new UserGender(2L,10L,10L,10L,10L,"M","Male");
+			Long now = createdDate.toInstant().toEpochMilli();
+			UserGender female = new UserGender(1L,now,1L,now,now,"F","Female");
+			UserGender male = new UserGender(2L,now,1L,now,now,"M","Male");
 			userGenderService.save(female);
 			userGenderService.save(male);
 

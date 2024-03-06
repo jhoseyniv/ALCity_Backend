@@ -9,11 +9,11 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.sample</groupId>
-	<artifactId>object_service</artifactId>
+	<artifactId>alcity_service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
-	<name>object_service</name>
-	<description>object_service</description>
+	<name>alcity_service</name>
+	<description>alcity_service</description>
 	<properties>
 		<java.version>18</java.version>
 		<repackage.classifier/>

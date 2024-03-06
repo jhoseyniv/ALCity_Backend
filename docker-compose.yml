@@ -1,31 +1,31 @@
 version: '3.8'
 services:
-  object_mgm_api:
+  alcity_mgm_api:
     build: .
-    image: 'object_management_system'
+    image: 'alcity_management_system'
     ports:
       - "8080:8080"
     depends_on:
-      -   object_mgm_db
+      -   alcity_mgm_db
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://172.17.0.1:5432/object_management_db
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://172.17.0.1:5432/alcity_management_db
       - SPRING_DATASOURCE_USERNAME=postgres
       - SPRING_DATASOURCE_PASSWORD=postgres
       - SPRING_JPA_HIBERNATE_DDL_AUTO=create
 
-  object_mgm_db:
+  alcity_mgm_db:
     container_name: postgres_db
     image: postgres
     restart: always
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: object_management_db
+      POSTGRES_DB: alcity_management_db
     ports:
       - "5432:5432"
   pgadmin:
     container_name: pgadmin4_container
-    image: dpage/pgadmin4
+    image: dpage/pgadmin4:latest
     restart: always
     environment:
       PGADMIN_DEFAULT_EMAIL: admin@admin.com

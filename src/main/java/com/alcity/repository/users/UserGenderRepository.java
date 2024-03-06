@@ -1,6 +1,6 @@
-package com.alcity.repository.appuser;
+package com.alcity.repository.users;
 
-import com.alcity.entity.appuser.UserGender;
+import com.alcity.entity.users.UserGender;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.Collection;
