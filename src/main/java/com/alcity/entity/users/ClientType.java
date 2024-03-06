@@ -9,7 +9,7 @@ import java.io.Serializable;
 @Entity
 public class ClientType extends BaseTable implements Serializable {
 
-    @Column(name="label")
+    @Column(name="label22")
     private String label;
 
     @Column(name="value")
