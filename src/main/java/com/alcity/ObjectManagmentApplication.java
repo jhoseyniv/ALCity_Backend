@@ -1,9 +1,11 @@
 package com.alcity;
 
 import com.alcity.entity.users.ApplicationMember;
+import com.alcity.entity.users.ClientType;
 import com.alcity.entity.users.MemberType;
 import com.alcity.entity.users.UserGender;
 import com.alcity.service.users.ApplicationMemberService;
+import com.alcity.service.users.ClientTypeService;
 import com.alcity.service.users.MemberTypeService;
 import com.alcity.service.users.UserGenderService;
 import org.springframework.boot.SpringApplication;
@@ -38,6 +40,9 @@ public class ObjectManagmentApplication {
 
 	@Autowired
 	private ApplicationMemberService applicationMemberService;
+
+	@Autowired
+	private ClientTypeService clientTypeService;
 
 	public byte[] getAvatarImage(String imageDirectory, String imageName) throws IOException {
 		Path imagePath = Path.of(imageDirectory, imageName);
@@ -86,9 +91,19 @@ public class ObjectManagmentApplication {
 			MemberType administrator = new MemberType(1L,now,1L,now,1L,"Administrator","Administrator");
 			memberTypeService.save(administrator);
 
+			ClientType  mobile = new ClientType(1L,now,administrator.getId(),now,administrator.getId(),"mobile","mobile");
+			ClientType  web = new ClientType(1L,now,administrator.getId(),now,administrator.getId(),"web","web");
+			ClientType  tablet = new ClientType(1L,now,administrator.getId(),now,administrator.getId(),"tablet","tablet");
+			clientTypeService.save(mobile);
+			clientTypeService.save(web);
+			clientTypeService.save(tablet);
+
 			ApplicationMember admin= new ApplicationMember(1L,now,1L,now,1L,35,"admin","admin","admin","09123580100","jhoseyni_yahoo.com",avatar,male,administrator);
 
 			applicationMemberService.save(admin);
+
+
+
 
 
 //			Commodity hat = new Commodity("hat",10d,"krona",null,null,null);

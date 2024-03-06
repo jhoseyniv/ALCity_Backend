@@ -10,7 +10,7 @@ import java.util.Optional;
 public interface MemberTypeRepository extends CrudRepository<MemberType,Long> {
     Optional<MemberType> findById(Long id);
     Collection<MemberType> findAll();
-    UserGender findByLabel(String label);
-    UserGender findByValue(String value);
+    MemberType findByLabel(String label);
+    MemberType findByValue(String value);
 
 }

@@ -1,10 +1,8 @@
 package com.alcity.service.users;
 
-
-import com.alcity.entity.users.MemberType;
-import com.alcity.entity.users.UserGender;
+import com.alcity.entity.users.ClientType;
+import com.alcity.repository.users.ClientTypeRepository;
 import com.alcity.repository.users.MemberTypeRepository;
-import com.alcity.repository.users.UserGenderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,24 +12,22 @@ import java.util.Optional;
 
 @Service
 @Transactional
-
-public class MemberTypeService implements MemberTypeRepository {
-
+public class ClientTypeService  implements ClientTypeRepository {
     @Autowired
-    private MemberTypeRepository memberTypeRepository;
+    private ClientTypeRepository clientTypeRepository;
 
     @Override
-    public <S extends MemberType> S save(S entity) {
-        return memberTypeRepository.save(entity);
+    public <S extends ClientType> S save(S entity) {
+        return clientTypeRepository.save(entity);
     }
 
     @Override
-    public <S extends MemberType> Iterable<S> saveAll(Iterable<S> entities) {
+    public <S extends ClientType> Iterable<S> saveAll(Iterable<S> entities) {
         return null;
     }
 
     @Override
-    public Optional<MemberType> findById(Long id) {
+    public Optional<ClientType> findById(Long id) {
         return Optional.empty();
     }
 
@@ -41,12 +37,12 @@ public class MemberTypeService implements MemberTypeRepository {
     }
 
     @Override
-    public Collection<MemberType> findAll() {
+    public Collection<ClientType> findAll() {
         return null;
     }
 
     @Override
-    public Iterable<MemberType> findAllById(Iterable<Long> longs) {
+    public Iterable<ClientType> findAllById(Iterable<Long> longs) {
         return null;
     }
 
@@ -61,7 +57,7 @@ public class MemberTypeService implements MemberTypeRepository {
     }
 
     @Override
-    public void delete(MemberType entity) {
+    public void delete(ClientType entity) {
 
     }
 
@@ -71,7 +67,7 @@ public class MemberTypeService implements MemberTypeRepository {
     }
 
     @Override
-    public void deleteAll(Iterable<? extends MemberType> entities) {
+    public void deleteAll(Iterable<? extends ClientType> entities) {
 
     }
 
@@ -81,12 +77,12 @@ public class MemberTypeService implements MemberTypeRepository {
     }
 
     @Override
-    public MemberType findByLabel(String label) {
+    public ClientType findByLabel(String label) {
         return null;
     }
 
     @Override
-    public MemberType findByValue(String value) {
+    public ClientType findByValue(String value) {
         return null;
     }
 }
