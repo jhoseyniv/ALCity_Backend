@@ -3,9 +3,7 @@ package com.alcity.entity.users;
 
 import com.alcity.entity.base.BaseTable;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
@@ -31,7 +29,9 @@ public class ApplicationMember extends BaseTable implements Serializable {
     @Column(name="email")
     private String email;
 
-    @Column(name="avatar")
-    private String avatar;
+    @Lob
+    @Basic(fetch = FetchType.LAZY)
+    private byte[] avatar;
+
 
 }

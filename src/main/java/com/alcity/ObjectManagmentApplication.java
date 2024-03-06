@@ -13,6 +13,10 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.env.Environment;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.time.Instant;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
@@ -30,7 +34,16 @@ public class ObjectManagmentApplication {
 	@Autowired
 	private MemberTypeService memberTypeService;
 
+	public byte[] getImage(String imageDirectory, String imageName) throws IOException {
+		Path imagePath = Path.of(imageDirectory, imageName);
 
+		if (Files.exists(imagePath)) {
+			byte[] imageBytes = Files.readAllBytes(imagePath);
+			return imageBytes;
+		} else {
+			return null; // Handle missing images
+		}
+	}
 
 	@Autowired
 	private Environment environment;
@@ -64,7 +77,7 @@ public class ObjectManagmentApplication {
 			MemberType puzzleCreator = new MemberType(1L,now,1L,now,1L,"Puzzle Creator","Puzzle_Creator");
 			memberTypeService.save(puzzleCreator);
 
-
+			byte[] avatar = getImage("src/main/resources/images/","avatar.png");
 //			Commodity hat = new Commodity("hat",10d,"krona",null,null,null);
 //			Commodity shirt = new Commodity("shirt",20d,"krona",null,null,null);
 //			Commodity pants = new Commodity("pants",30d,"krona",null,null,null);
