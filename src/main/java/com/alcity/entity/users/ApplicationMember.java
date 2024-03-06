@@ -31,7 +31,6 @@ public class ApplicationMember extends BaseTable implements Serializable {
     @Column(name="email")
     private String email;
 
-
     @Column(name="avatar")
     private String avatar;
 
