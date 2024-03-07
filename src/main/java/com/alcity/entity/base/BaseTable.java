@@ -2,6 +2,8 @@ package com.alcity.entity.base;
 
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
@@ -18,77 +20,44 @@ public abstract class BaseTable implements Serializable {
         return id;
     }
 
+    @Column(name="label")
+    private String label;
+
+    @Column(name="value")
+    private String value;
+
+
     @NotNull(message = "{bName.notempty}")
     private Long version;
 
     @NotNull(message = "{bLength.notempty}")
     private Long creationDate;
 
-    @NotNull(message = "{bWidth.notempty}")
-    private Long creatorUser;
 
     @NotNull(message = "{bHeight.notempty}")
     private Long lastModifiedDate;
 
-    @NotNull(message = "{bWeight.notempty}")
-    private Long lastModifiedUser;
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn( name ="creatorUser", nullable = false)
+    @JsonIgnore
+    private ALCitySystemUser creatorUser;
 
-
-
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn( name ="lastModifiedUser",  nullable = false)
+    @JsonIgnore
+    private ALCitySystemUser lastModifiedUser;
 
 
     public BaseTable() {
     }
 
-    public BaseTable(Long version, Long creationDate, Long creatorUser, Long lastModifiedDate, Long lastModifiedUser) {
+    public BaseTable(String label, String value, Long version, Long creationDate, Long lastModifiedDate, ALCitySystemUser creatorUser, ALCitySystemUser lastModifiedUser) {
+        this.label = label;
+        this.value = value;
         this.version = version;
         this.creationDate = creationDate;
-        this.creatorUser = creatorUser;
         this.lastModifiedDate = lastModifiedDate;
-        this.lastModifiedUser = lastModifiedUser;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getVersion() {
-        return version;
-    }
-
-    public void setVersion(Long version) {
-        this.version = version;
-    }
-
-    public Long getCreationDate() {
-        return creationDate;
-    }
-
-    public void setCreationDate(Long creationDate) {
-        this.creationDate = creationDate;
-    }
-
-    public Long getCreatorUser() {
-        return creatorUser;
-    }
-
-    public void setCreatorUser(Long creatorUser) {
         this.creatorUser = creatorUser;
-    }
-
-    public Long getLastModifiedDate() {
-        return lastModifiedDate;
-    }
-
-    public void setLastModifiedDate(Long lastModifiedDate) {
-        this.lastModifiedDate = lastModifiedDate;
-    }
-
-    public Long getLastModifiedUser() {
-        return lastModifiedUser;
-    }
-
-    public void setLastModifiedUser(Long lastModifiedUser) {
         this.lastModifiedUser = lastModifiedUser;
     }
 }

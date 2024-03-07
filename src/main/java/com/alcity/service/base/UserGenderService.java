@@ -1,7 +1,7 @@
-package com.alcity.service.users;
+package com.alcity.service.base;
 
-import com.alcity.entity.users.UserGender;
-import com.alcity.repository.users.UserGenderRepository;
+import com.alcity.entity.base.UserGender;
+import com.alcity.repository.base.UserGenderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

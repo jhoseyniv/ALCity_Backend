@@ -1,15 +1,19 @@
 package com.alcity.entity.base;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 @Entity
 
-public class PuzzleLevelStatus extends BaseTable implements Serializable {
-    @Column(name="label")
-    private String label;
+public class PuzzleLevelStatus  extends BaseTable implements Serializable {
 
-    @Column(name="value")
-    private String value;
+    public PuzzleLevelStatus() {
+    }
+
+    public PuzzleLevelStatus(String label, String value, Long version, Long creationDate, Long lastModifiedDate, ALCitySystemUser creatorUser, ALCitySystemUser lastModifiedUser) {
+        super(label, value, version, creationDate, lastModifiedDate, creatorUser, lastModifiedUser);
+    }
 }

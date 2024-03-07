@@ -2,7 +2,6 @@ package com.alcity.service.users;
 
 import com.alcity.entity.users.ApplicationMember;
 import com.alcity.repository.users.ApplicationMemberRepository;
-import com.alcity.repository.users.MemberTypeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -1,9 +1,8 @@
 package com.alcity.api;
 
 import com.alcity.dto.BirdDTO;
-import com.alcity.entity.base.BaseTable;
-import com.alcity.entity.users.UserGender;
-import com.alcity.service.users.UserGenderService;
+import com.alcity.entity.base.UserGender;
+import com.alcity.service.base.UserGenderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -35,7 +34,7 @@ public class BirdConroller {
 
     @GetMapping( "/bnames/{bname}")
     public BirdDTO getBirdByName(@PathVariable String bvalue) {
-        BaseTable bird = userGenderService.findByValue(bvalue);
+       // BaseTable bird = userGenderService.findByValue(bvalue);
         //must be implementd
         BirdDTO birdBean= null;
         return birdBean;

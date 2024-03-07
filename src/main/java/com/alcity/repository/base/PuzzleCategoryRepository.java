@@ -1,7 +1,6 @@
 package com.alcity.repository.base;
 
 import com.alcity.entity.base.PuzzleCategory;
-import com.alcity.entity.users.MemberType;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.Collection;

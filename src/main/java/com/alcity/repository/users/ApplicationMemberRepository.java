@@ -1,8 +1,6 @@
 package com.alcity.repository.users;
 
 import com.alcity.entity.users.ApplicationMember;
-import com.alcity.entity.users.MemberType;
-import com.alcity.entity.users.UserGender;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.Collection;

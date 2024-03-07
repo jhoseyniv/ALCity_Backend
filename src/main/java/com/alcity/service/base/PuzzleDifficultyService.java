@@ -1,8 +1,9 @@
 package com.alcity.service.base;
 
 
-import com.alcity.entity.base.PuzzleCategory;
+import com.alcity.entity.base.PuzzleDifficulty;
 import com.alcity.repository.base.PuzzleCategoryRepository;
+import com.alcity.repository.base.PuzzleDifficultyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,23 +13,23 @@ import java.util.Optional;
 
 @Service
 @Transactional
-public class PuzzleCategoryService implements PuzzleCategoryRepository {
+public class PuzzleDifficultyService implements PuzzleDifficultyRepository {
 
     @Autowired
-    private PuzzleCategoryRepository puzzleCategoryRepository;
+    PuzzleDifficultyRepository puzzleDifficultyRepository;
 
     @Override
-    public <S extends PuzzleCategory> S save(S entity) {
-        return puzzleCategoryRepository.save(entity);
+    public <S extends PuzzleDifficulty> S save(S entity) {
+        return puzzleDifficultyRepository.save(entity);
     }
 
     @Override
-    public <S extends PuzzleCategory> Iterable<S> saveAll(Iterable<S> entities) {
+    public <S extends PuzzleDifficulty> Iterable<S> saveAll(Iterable<S> entities) {
         return null;
     }
 
     @Override
-    public Optional<PuzzleCategory> findById(Long id) {
+    public Optional<PuzzleDifficulty> findById(Long id) {
         return Optional.empty();
     }
 
@@ -38,12 +39,12 @@ public class PuzzleCategoryService implements PuzzleCategoryRepository {
     }
 
     @Override
-    public Collection<PuzzleCategory> findAll() {
+    public Collection<PuzzleDifficulty> findAll() {
         return null;
     }
 
     @Override
-    public Iterable<PuzzleCategory> findAllById(Iterable<Long> longs) {
+    public Iterable<PuzzleDifficulty> findAllById(Iterable<Long> longs) {
         return null;
     }
 
@@ -58,7 +59,7 @@ public class PuzzleCategoryService implements PuzzleCategoryRepository {
     }
 
     @Override
-    public void delete(PuzzleCategory entity) {
+    public void delete(PuzzleDifficulty entity) {
 
     }
 
@@ -68,7 +69,7 @@ public class PuzzleCategoryService implements PuzzleCategoryRepository {
     }
 
     @Override
-    public void deleteAll(Iterable<? extends PuzzleCategory> entities) {
+    public void deleteAll(Iterable<? extends PuzzleDifficulty> entities) {
 
     }
 
@@ -78,12 +79,12 @@ public class PuzzleCategoryService implements PuzzleCategoryRepository {
     }
 
     @Override
-    public PuzzleCategory findByLabel(String label) {
+    public PuzzleDifficulty findByLabel(String label) {
         return null;
     }
 
     @Override
-    public PuzzleCategory findByValue(String value) {
+    public PuzzleDifficulty findByValue(String value) {
         return null;
     }
 }

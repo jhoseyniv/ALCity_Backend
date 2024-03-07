@@ -1,24 +1,19 @@
 package com.alcity.entity.base;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 @Entity
 public class PuzzleCategory extends BaseTable implements Serializable {
-    @Column(name="label")
-    private String label;
 
-    @Column(name="value")
-    private String value;
 
     public PuzzleCategory() {
     }
 
-    public PuzzleCategory(Long version, Long creationDate, Long creatorUser, Long lastModifiedDate, Long lastModifiedUser, String label, String value) {
-        super(version, creationDate, creatorUser, lastModifiedDate, lastModifiedUser);
-        this.label = label;
-        this.value = value;
+    public PuzzleCategory(String label, String value, Long version, Long creationDate, Long lastModifiedDate, ALCitySystemUser creatorUser, ALCitySystemUser lastModifiedUser) {
+        super(label, value, version, creationDate, lastModifiedDate, creatorUser, lastModifiedUser);
     }
 }

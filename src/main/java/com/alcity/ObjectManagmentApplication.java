@@ -1,17 +1,21 @@
 package com.alcity;
 
+import com.alcity.entity.base.ALCitySystemUser;
 import com.alcity.entity.base.DataType;
 import com.alcity.entity.base.PuzzleCategory;
+import com.alcity.entity.base.PuzzleDifficulty;
 import com.alcity.entity.users.ApplicationMember;
-import com.alcity.entity.users.ClientType;
-import com.alcity.entity.users.MemberType;
-import com.alcity.entity.users.UserGender;
+import com.alcity.entity.base.ClientType;
+import com.alcity.entity.base.MemberType;
+import com.alcity.entity.base.UserGender;
 import com.alcity.repository.base.DataTypeRepository;
+import com.alcity.service.base.ALCitySystemUserService;
 import com.alcity.service.base.PuzzleCategoryService;
+import com.alcity.service.base.PuzzleDifficultyService;
 import com.alcity.service.users.ApplicationMemberService;
-import com.alcity.service.users.ClientTypeService;
-import com.alcity.service.users.MemberTypeService;
-import com.alcity.service.users.UserGenderService;
+import com.alcity.service.base.ClientTypeService;
+import com.alcity.service.base.MemberTypeService;
+import com.alcity.service.base.UserGenderService;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.slf4j.Logger;
@@ -28,6 +32,8 @@ import java.nio.file.Path;
 import java.time.Instant;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 @SpringBootApplication
 public class ObjectManagmentApplication {
@@ -35,6 +41,10 @@ public class ObjectManagmentApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(ObjectManagmentApplication.class, args);
 	}
+
+
+	@Autowired
+	private ALCitySystemUserService alCitySystemUserService;
 
 	@Autowired
 	private UserGenderService userGenderService;
@@ -53,6 +63,9 @@ public class ObjectManagmentApplication {
 
 	@Autowired
 	private DataTypeRepository dataTypeRepository;
+
+	@Autowired
+	private PuzzleDifficultyService puzzleDifficultyService;
 
 
 	public byte[] getAvatarImage(String imageDirectory, String imageName) throws IOException {
@@ -85,53 +98,70 @@ public class ObjectManagmentApplication {
 
 			ZonedDateTime  createdDate= ZonedDateTime.now();
 			Long now = createdDate.toInstant().toEpochMilli();
-			UserGender female = new UserGender(1L,now,1L,now,now,"F","Female");
-			UserGender male = new UserGender(1L,now,1L,now,now,"M","Male");
+
+
+			ALCitySystemUser currentUser = new ALCitySystemUser("admin","admin","admin","09123509000","j_hoseyni@yahoo.com");
+			alCitySystemUserService.save(currentUser);
+
+			UserGender female = new UserGender("F","Female",1L,now,now,currentUser,currentUser);
+			UserGender male = new UserGender("M","Male",1L,now,now,currentUser,currentUser);
 			userGenderService.save(female);
 			userGenderService.save(male);
 
-			MemberType puzzlePlayer = new MemberType(1L,now,1L,now,1L,"Puzzle Player","Puzzle_Player");
+			MemberType puzzlePlayer = new MemberType("Puzzle Player","Puzzle_Player",1L,now,now,currentUser,currentUser);
 			memberTypeService.save(puzzlePlayer);
 
-			MemberType guest = new MemberType(1L,now,1L,now,1L,"Guest","Guest");
+			MemberType guest = new MemberType("Guest","Guest",1L,now,now,currentUser,currentUser);
 			memberTypeService.save(guest);
 
-			MemberType puzzleCreator = new MemberType(1L,now,1L,now,1L,"Puzzle Creator","Puzzle_Creator");
+			MemberType puzzleCreator = new MemberType("Puzzle Creator","Puzzle_Creator",1L,now,now,currentUser,currentUser);
 			memberTypeService.save(puzzleCreator);
 
-			MemberType administrator = new MemberType(1L,now,1L,now,1L,"Administrator","Administrator");
+			MemberType administrator = new MemberType("Administrator","Administrator",1L,now,now,currentUser,currentUser);
 			memberTypeService.save(administrator);
 
 
-
-
-			ApplicationMember admin= new ApplicationMember(1L,now,1L,now,1L,35,"admin","admin","admin","09123580100","jhoseyni_yahoo.com",avatar,male,administrator);
-
-			applicationMemberService.save(admin);
-
-			ClientType  mobile = new ClientType(1L,now,admin.getId(),now,admin.getId(),"mobile","mobile");
-			ClientType  web = new ClientType(1L,now,admin.getId(),now,admin.getId(),"web","web");
-			ClientType  tablet = new ClientType(1L,now,admin.getId(),now,admin.getId(),"tablet","tablet");
+			ClientType  mobile = new ClientType("mobile","mobile",1L,now,now,currentUser,currentUser);
+			ClientType  web = new ClientType("web","web",1L,now,now,currentUser,currentUser);
+			ClientType  tablet = new ClientType("tablet","tablet",1L,now,now,currentUser,currentUser);
 			clientTypeService.save(mobile);
 			clientTypeService.save(web);
 			clientTypeService.save(tablet);
 
 
-			PuzzleCategory  mathematic = new PuzzleCategory(1L,now,admin.getId(),now,admin.getId(),"mathematic","mathematic");
-			PuzzleCategory  physic = new PuzzleCategory(2L,now,admin.getId(),now,admin.getId(),"physic","physic");
-			PuzzleCategory  IQ = new PuzzleCategory(2L,now,admin.getId(),now,admin.getId(),"IQ","IQ");
+			PuzzleCategory  mathematic = new PuzzleCategory("mathematic","mathematic",1L,now,now,currentUser,currentUser);
+			PuzzleCategory  physic = new PuzzleCategory("physic","physic",1L,now,now,currentUser,currentUser);
+			PuzzleCategory  IQ = new PuzzleCategory("IQ","IQ",1L,now,now,currentUser,currentUser);
 			puzzleCategoryService.save(mathematic);
 			puzzleCategoryService.save(physic);
 			puzzleCategoryService.save(IQ);
 
-			DataType alcity_Int = new DataType(1L,now,admin.getId(),now,admin.getId(),"Integer","Integer");
-			DataType alcity_Long = new DataType(1L,now,admin.getId(),now,admin.getId(),"Long","Long");
-			DataType alcity_Boolean = new DataType(1L,now,admin.getId(),now,admin.getId(),"Boolean","Boolean");
-			DataType alcity_String = new DataType(1L,now,admin.getId(),now,admin.getId(),"String","String");
+			DataType alcity_Int = new DataType("Integer","Integer",1L,now,now,currentUser,currentUser);
+			DataType alcity_Long =new DataType("Long","Long",1L,now,now,currentUser,currentUser);
+
+			DataType alcity_Boolean = new DataType("Boolean","Boolean",1L,now,now,currentUser,currentUser);
+
+			DataType alcity_String = new DataType("String","String",1L,now,now,currentUser,currentUser);
 			dataTypeRepository.save(alcity_Int);
 			dataTypeRepository.save(alcity_Long);
 			dataTypeRepository.save(alcity_Boolean);
 			dataTypeRepository.save(alcity_String);
+
+			PuzzleDifficulty easy= new PuzzleDifficulty("Easy","Easy",1L,now,now,currentUser,currentUser);
+			PuzzleDifficulty medium= new PuzzleDifficulty("Medium","Medium",1L,now,now,currentUser,currentUser);
+			PuzzleDifficulty hard= new PuzzleDifficulty("Hard","Hard",1L,now,now,currentUser,currentUser);
+
+			puzzleDifficultyService.save(easy);
+			puzzleDifficultyService.save(medium);
+			puzzleDifficultyService.save(hard);
+
+
+			ApplicationMember member1= new ApplicationMember(35,"admin","admin","admin","09123580100","jhoseyni_yahoo.com",avatar,male,guest,1L,now,now,currentUser,currentUser);
+			Set clientTypeSet = new HashSet<ClientType>();
+			clientTypeSet.add(mobile);
+			member1.setClientTypeSet(clientTypeSet);
+			applicationMemberService.save(member1);
+
 
 //			Commodity hat = new Commodity("hat",10d,"krona",null,null,null);
 //			Commodity shirt = new Commodity("shirt",20d,"krona",null,null,null);
