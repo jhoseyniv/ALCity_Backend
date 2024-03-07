@@ -1,21 +1,12 @@
 package com.alcity;
 
-import com.alcity.entity.base.ALCitySystemUser;
-import com.alcity.entity.base.DataType;
-import com.alcity.entity.base.PuzzleCategory;
-import com.alcity.entity.base.PuzzleDifficulty;
+import com.alcity.entity.base.*;
 import com.alcity.entity.users.ApplicationMember;
-import com.alcity.entity.base.ClientType;
-import com.alcity.entity.base.MemberType;
-import com.alcity.entity.base.UserGender;
+import com.alcity.entity.users.WalletItem;
 import com.alcity.repository.base.DataTypeRepository;
-import com.alcity.service.base.ALCitySystemUserService;
-import com.alcity.service.base.PuzzleCategoryService;
-import com.alcity.service.base.PuzzleDifficultyService;
+import com.alcity.service.base.*;
 import com.alcity.service.users.ApplicationMemberService;
-import com.alcity.service.base.ClientTypeService;
-import com.alcity.service.base.MemberTypeService;
-import com.alcity.service.base.UserGenderService;
+import com.alcity.service.users.WalletItemService;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.slf4j.Logger;
@@ -67,8 +58,14 @@ public class ObjectManagmentApplication {
 	@Autowired
 	private PuzzleDifficultyService puzzleDifficultyService;
 
+	@Autowired
+	private WalletItemTypeService walletItemTypeService;
 
-	public byte[] getAvatarImage(String imageDirectory, String imageName) throws IOException {
+	@Autowired
+	private WalletItemService walletItemService;
+
+
+	public byte[] getImage(String imageDirectory, String imageName) throws IOException {
 		Path imagePath = Path.of(imageDirectory, imageName);
 
 		if (Files.exists(imagePath)) {
@@ -94,7 +91,7 @@ public class ObjectManagmentApplication {
 			ZoneId zoneId = ZoneId.of("Europe/London").getRules().getOffset(Instant.now());
 			ZonedDateTime startDate = ZonedDateTime.now();
 			ZonedDateTime endDate = ZonedDateTime.of(2022, 3, 30, 23, 45, 59, 1234, zoneId);
-			byte[] avatar = getAvatarImage("src/main/resources/images/","avatar.png");
+			byte[] avatar = getImage("src/main/resources/images/","avatar.png");
 
 			ZonedDateTime  createdDate= ZonedDateTime.now();
 			Long now = createdDate.toInstant().toEpochMilli();
@@ -155,12 +152,34 @@ public class ObjectManagmentApplication {
 			puzzleDifficultyService.save(medium);
 			puzzleDifficultyService.save(hard);
 
+			WalletItemType fiat = new WalletItemType("fiat","fiat",1L,now,now,currentUser,currentUser);
+			WalletItemType crypto = new WalletItemType("crypto","crypto",1L,now,now,currentUser,currentUser);
+			WalletItemType alCoin = new WalletItemType("al_coin","al_coin",1L,now,now,currentUser,currentUser);
+			WalletItemType cityObject = new WalletItemType("cityObject","cityObject",1L,now,now,currentUser,currentUser);
+
+			walletItemTypeService.save(fiat);
+			walletItemTypeService.save(crypto);
+			walletItemTypeService.save(alCoin);
+			walletItemTypeService.save(cityObject);
+
+			byte[] tetherIcon = getImage("src/main/resources/images/","Tether.png");
+			byte[] carIcon = getImage("src/main/resources/images/","car.png");
+
+			WalletItem teterWalletItem= new WalletItem("teter","teter",1L,now,now,currentUser,currentUser,fiat,tetherIcon);
+			WalletItem alCoin10WalletItem= new WalletItem("al_coin_10","al_coin_10",1L,now,now,currentUser,currentUser,alCoin,tetherIcon);
+			WalletItem carWalletItem= new WalletItem("car object","car_object",1L,now,now,currentUser,currentUser,cityObject,carIcon);
+
+			walletItemService.save(teterWalletItem);
+			walletItemService.save(alCoin10WalletItem);
+			walletItemService.save(carWalletItem);
 
 			ApplicationMember member1= new ApplicationMember(35,"admin","admin","admin","09123580100","jhoseyni_yahoo.com",avatar,male,guest,1L,now,now,currentUser,currentUser);
 			Set clientTypeSet = new HashSet<ClientType>();
 			clientTypeSet.add(mobile);
 			member1.setClientTypeSet(clientTypeSet);
 			applicationMemberService.save(member1);
+
+
 
 
 //			Commodity hat = new Commodity("hat",10d,"krona",null,null,null);
