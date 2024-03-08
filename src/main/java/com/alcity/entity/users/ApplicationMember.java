@@ -84,6 +84,11 @@ public class ApplicationMember implements Serializable {
         this.clientTypeSet = clientTypeSet;
     }
 
+    @OneToMany(mappedBy = "applicationMember", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JsonIgnore
+    private Set<ApplicationMember_WalletItem> walletItems;
+
+
     public ApplicationMember() {
     }
 

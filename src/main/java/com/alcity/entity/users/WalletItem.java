@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Set;
 
 @Entity
 public class WalletItem extends BaseTable implements Serializable {
@@ -20,6 +21,10 @@ public class WalletItem extends BaseTable implements Serializable {
     @Lob
     @Basic(fetch = FetchType.LAZY)
     private byte[] icon;
+
+    @OneToMany(mappedBy = "walletItem", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JsonIgnore
+    private Set<ApplicationMember_WalletItem> applicationMembers;
 
     public WalletItem() {
     }

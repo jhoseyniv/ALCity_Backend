@@ -1,4 +1,4 @@
-package com.alcity.entity;
+package com.alcity.entity.journey;
 
 
 import com.alcity.entity.base.BaseTable;

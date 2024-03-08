@@ -182,6 +182,7 @@ public class ObjectManagmentApplication {
 
 
 
+
 //			Commodity hat = new Commodity("hat",10d,"krona",null,null,null);
 //			Commodity shirt = new Commodity("shirt",20d,"krona",null,null,null);
 //			Commodity pants = new Commodity("pants",30d,"krona",null,null,null);
