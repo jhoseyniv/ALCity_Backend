@@ -2,10 +2,12 @@ package com.alcity;
 
 import com.alcity.entity.base.*;
 import com.alcity.entity.users.ApplicationMember;
+import com.alcity.entity.users.ApplicationMember_WalletItem;
 import com.alcity.entity.users.WalletItem;
 import com.alcity.repository.base.DataTypeRepository;
 import com.alcity.service.base.*;
 import com.alcity.service.users.ApplicationMemberService;
+import com.alcity.service.users.ApplicationMember_WalletItemService;
 import com.alcity.service.users.WalletItemService;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -64,6 +66,8 @@ public class ObjectManagmentApplication {
 	@Autowired
 	private WalletItemService walletItemService;
 
+	@Autowired
+	private ApplicationMember_WalletItemService applicationMember_walletItemService;
 
 	public byte[] getImage(String imageDirectory, String imageName) throws IOException {
 		Path imagePath = Path.of(imageDirectory, imageName);
@@ -179,7 +183,10 @@ public class ObjectManagmentApplication {
 			member1.setClientTypeSet(clientTypeSet);
 			applicationMemberService.save(member1);
 
-
+			ApplicationMember_WalletItem member1_alcoin_10= new ApplicationMember_WalletItem(member1,alCoin10WalletItem,10f);
+			ApplicationMember_WalletItem member1_carObject_10= new ApplicationMember_WalletItem(member1,carWalletItem,3f);
+			applicationMember_walletItemService.save(member1_alcoin_10);
+			applicationMember_walletItemService.save(member1_carObject_10);
 
 
 
