@@ -37,9 +37,6 @@ public class ObjectManagmentApplication {
 
 
 	@Autowired
-	private ALCitySystemUserService alCitySystemUserService;
-
-	@Autowired
 	private UserGenderService userGenderService;
 
 	@Autowired
@@ -101,65 +98,74 @@ public class ObjectManagmentApplication {
 			Long now = createdDate.toInstant().toEpochMilli();
 
 
-			ALCitySystemUser currentUser = new ALCitySystemUser("admin","admin","admin","09123509000","j_hoseyni@yahoo.com");
-			alCitySystemUserService.save(currentUser);
 
-			UserGender female = new UserGender("F","Female",1L,now,now,currentUser,currentUser);
-			UserGender male = new UserGender("M","Male",1L,now,now,currentUser,currentUser);
+			UserGender female = new UserGender("F","Female",1L,now,now,null,null);
+			UserGender male = new UserGender("M","Male",1L,now,now,null,null);
 			userGenderService.save(female);
 			userGenderService.save(male);
 
-			MemberType puzzlePlayer = new MemberType("Puzzle Player","Puzzle_Player",1L,now,now,currentUser,currentUser);
+			MemberType puzzlePlayer = new MemberType("Puzzle Player","Puzzle_Player",1L,now,now,null,null);
 			memberTypeService.save(puzzlePlayer);
 
-			MemberType guest = new MemberType("Guest","Guest",1L,now,now,currentUser,currentUser);
+			MemberType guest = new MemberType("Guest","Guest",1L,now,now,null,null);
 			memberTypeService.save(guest);
 
-			MemberType puzzleCreator = new MemberType("Puzzle Creator","Puzzle_Creator",1L,now,now,currentUser,currentUser);
+			MemberType puzzleCreator = new MemberType("Puzzle Creator","Puzzle_Creator",1L,now,now,null,null);
 			memberTypeService.save(puzzleCreator);
 
-			MemberType administrator = new MemberType("Administrator","Administrator",1L,now,now,currentUser,currentUser);
+			MemberType administrator = new MemberType("Administrator","Administrator",1L,now,now,null,null);
 			memberTypeService.save(administrator);
 
-
-			ClientType  mobile = new ClientType("mobile","mobile",1L,now,now,currentUser,currentUser);
-			ClientType  web = new ClientType("web","web",1L,now,now,currentUser,currentUser);
-			ClientType  tablet = new ClientType("tablet","tablet",1L,now,now,currentUser,currentUser);
+			ClientType  mobile = new ClientType("mobile","mobile",1L,now,now,null,null);
+			ClientType  web = new ClientType("web","web",1L,now,now,null,null);
+			ClientType  tablet = new ClientType("tablet","tablet",1L,now,now,null,null);
 			clientTypeService.save(mobile);
 			clientTypeService.save(web);
 			clientTypeService.save(tablet);
 
+			//ApplicationMember admin_1= new ApplicationMember(35,"admin","admin","admin","09123580100","jhoseyni_yahoo.com",avatar,male,administrator,now,now,null,null);
+			ApplicationMember admin_1= new ApplicationMember(35,"admin","admin","admin0","0912350550","j_hoseyni@yahoo.com",avatar,male,administrator,1L,now,now,null,null);
+			Set clientTypeSet = new HashSet<ClientType>();
+			clientTypeSet.add(web);
+			admin_1.setClientTypeSet(clientTypeSet);
+			applicationMemberService.save(admin_1);
 
-			PuzzleCategory  mathematic = new PuzzleCategory("mathematic","mathematic",1L,now,now,currentUser,currentUser);
-			PuzzleCategory  physic = new PuzzleCategory("physic","physic",1L,now,now,currentUser,currentUser);
-			PuzzleCategory  IQ = new PuzzleCategory("IQ","IQ",1L,now,now,currentUser,currentUser);
+			ApplicationMember jalalHoseyni= new ApplicationMember(35,"jalal","jalal","jalal","0912350550","j_hoseyni@yahoo.com",avatar,male,guest,1L,now,now,null,null);
+			Set jalalClientTypeSet = new HashSet<ClientType>();
+			clientTypeSet.add(mobile);
+			jalalHoseyni.setClientTypeSet(jalalClientTypeSet);
+			applicationMemberService.save(jalalHoseyni);
+
+			PuzzleCategory  mathematic = new PuzzleCategory("mathematic","mathematic",1L,now,now,admin_1,admin_1);
+			PuzzleCategory  physic = new PuzzleCategory("physic","physic",1L,now,now,admin_1,admin_1);
+			PuzzleCategory  IQ = new PuzzleCategory("IQ","IQ",1L,now,now,admin_1,admin_1);
 			puzzleCategoryService.save(mathematic);
 			puzzleCategoryService.save(physic);
 			puzzleCategoryService.save(IQ);
 
-			DataType alcity_Int = new DataType("Integer","Integer",1L,now,now,currentUser,currentUser);
-			DataType alcity_Long =new DataType("Long","Long",1L,now,now,currentUser,currentUser);
+			DataType alcity_Int = new DataType("Integer","Integer",1L,now,now,admin_1,admin_1);
+			DataType alcity_Long =new DataType("Long","Long",1L,now,now,admin_1,admin_1);
 
-			DataType alcity_Boolean = new DataType("Boolean","Boolean",1L,now,now,currentUser,currentUser);
+			DataType alcity_Boolean = new DataType("Boolean","Boolean",1L,now,now,admin_1,admin_1);
 
-			DataType alcity_String = new DataType("String","String",1L,now,now,currentUser,currentUser);
+			DataType alcity_String = new DataType("String","String",1L,now,now,admin_1,admin_1);
 			dataTypeRepository.save(alcity_Int);
 			dataTypeRepository.save(alcity_Long);
 			dataTypeRepository.save(alcity_Boolean);
 			dataTypeRepository.save(alcity_String);
 
-			PuzzleDifficulty easy= new PuzzleDifficulty("Easy","Easy",1L,now,now,currentUser,currentUser);
-			PuzzleDifficulty medium= new PuzzleDifficulty("Medium","Medium",1L,now,now,currentUser,currentUser);
-			PuzzleDifficulty hard= new PuzzleDifficulty("Hard","Hard",1L,now,now,currentUser,currentUser);
+			PuzzleDifficulty easy= new PuzzleDifficulty("Easy","Easy",1L,now,now,admin_1,admin_1);
+			PuzzleDifficulty medium= new PuzzleDifficulty("Medium","Medium",1L,now,now,admin_1,admin_1);
+			PuzzleDifficulty hard= new PuzzleDifficulty("Hard","Hard",1L,now,now,admin_1,admin_1);
 
 			puzzleDifficultyService.save(easy);
 			puzzleDifficultyService.save(medium);
 			puzzleDifficultyService.save(hard);
 
-			WalletItemType fiat = new WalletItemType("fiat","fiat",1L,now,now,currentUser,currentUser);
-			WalletItemType crypto = new WalletItemType("crypto","crypto",1L,now,now,currentUser,currentUser);
-			WalletItemType alCoin = new WalletItemType("al_coin","al_coin",1L,now,now,currentUser,currentUser);
-			WalletItemType cityObject = new WalletItemType("cityObject","cityObject",1L,now,now,currentUser,currentUser);
+			WalletItemType fiat = new WalletItemType("fiat","fiat",1L,now,now,admin_1,admin_1);
+			WalletItemType crypto = new WalletItemType("crypto","crypto",1L,now,now,admin_1,admin_1);
+			WalletItemType alCoin = new WalletItemType("al_coin","al_coin",1L,now,now,admin_1,admin_1);
+			WalletItemType cityObject = new WalletItemType("cityObject","cityObject",1L,now,now,admin_1,admin_1);
 
 			walletItemTypeService.save(fiat);
 			walletItemTypeService.save(crypto);
@@ -169,24 +175,19 @@ public class ObjectManagmentApplication {
 			byte[] tetherIcon = getImage("src/main/resources/images/","Tether.png");
 			byte[] carIcon = getImage("src/main/resources/images/","car.png");
 
-			WalletItem teterWalletItem= new WalletItem("teter","teter",1L,now,now,currentUser,currentUser,fiat,tetherIcon);
-			WalletItem alCoin10WalletItem= new WalletItem("al_coin_10","al_coin_10",1L,now,now,currentUser,currentUser,alCoin,tetherIcon);
-			WalletItem carWalletItem= new WalletItem("car object","car_object",1L,now,now,currentUser,currentUser,cityObject,carIcon);
+			WalletItem teterWalletItem= new WalletItem(fiat,tetherIcon,"tether","tether",1L,now,now,admin_1,admin_1);
+			WalletItem alCoin10WalletItem= new WalletItem(alCoin,tetherIcon,"al_coin_10","al_coin_10",1L,now,now,admin_1,admin_1);
+			WalletItem carWalletItem= new WalletItem(cityObject,carIcon,"car object","car_object",1L,now,now,admin_1,admin_1);
 
 			walletItemService.save(teterWalletItem);
 			walletItemService.save(alCoin10WalletItem);
 			walletItemService.save(carWalletItem);
 
-			ApplicationMember member1= new ApplicationMember(35,"admin","admin","admin","09123580100","jhoseyni_yahoo.com",avatar,male,guest,1L,now,now,currentUser,currentUser);
-			Set clientTypeSet = new HashSet<ClientType>();
-			clientTypeSet.add(mobile);
-			member1.setClientTypeSet(clientTypeSet);
-			applicationMemberService.save(member1);
 
-			ApplicationMember_WalletItem member1_alcoin_10= new ApplicationMember_WalletItem(member1,alCoin10WalletItem,10f);
-			ApplicationMember_WalletItem member1_carObject_10= new ApplicationMember_WalletItem(member1,carWalletItem,3f);
-			applicationMember_walletItemService.save(member1_alcoin_10);
-			applicationMember_walletItemService.save(member1_carObject_10);
+			ApplicationMember_WalletItem jalalHoseyni_alcoin_10= new ApplicationMember_WalletItem(jalalHoseyni,alCoin10WalletItem,10f,1L,now,now,admin_1,admin_1);
+			ApplicationMember_WalletItem jalalHoseyni_carObject_10= new ApplicationMember_WalletItem(jalalHoseyni,carWalletItem,20f,1L,now,now,admin_1,admin_1);
+			applicationMember_walletItemService.save(jalalHoseyni_alcoin_10);
+			applicationMember_walletItemService.save(jalalHoseyni_carObject_10);
 
 
 

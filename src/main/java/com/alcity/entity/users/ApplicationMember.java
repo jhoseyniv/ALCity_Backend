@@ -1,10 +1,7 @@
 package com.alcity.entity.users;
 
 
-import com.alcity.entity.base.ALCitySystemUser;
-import com.alcity.entity.base.ClientType;
-import com.alcity.entity.base.MemberType;
-import com.alcity.entity.base.UserGender;
+import com.alcity.entity.base.*;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -13,7 +10,7 @@ import java.util.Set;
 
 @Entity
 @Table(name="ApplicationMember")
-public class ApplicationMember implements Serializable {
+public class ApplicationMember extends RecordInformation implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
     private Long id;
@@ -52,24 +49,6 @@ public class ApplicationMember implements Serializable {
     @JsonIgnore
     private MemberType memberType;
 
-    @NotNull(message = "{bName.notempty}")
-    private Long version;
-
-    @NotNull(message = "{bLength.notempty}")
-    private Long creationDate;
-    @NotNull(message = "{bHeight.notempty}")
-    private Long lastModifiedDate;
-
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "creatorUser", nullable = false)
-    @JsonIgnore
-    private ALCitySystemUser creatorUser;
-
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "lastModifiedUser", nullable = false)
-    @JsonIgnore
-    private ALCitySystemUser lastModifiedUser;
-
     @ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.MERGE })
     @JoinTable(name = "ApplicationMember_ClientType_MAPPING", joinColumns = @JoinColumn(name = "application_member_id"),
             inverseJoinColumns = @JoinColumn(name = "client_type_id"))
@@ -92,7 +71,8 @@ public class ApplicationMember implements Serializable {
     public ApplicationMember() {
     }
 
-    public ApplicationMember(Integer age, String username, String password, String nickname, String mobile, String email, byte[] avatar, UserGender gender, MemberType memberType, Long version, Long creationDate, Long lastModifiedDate, ALCitySystemUser creatorUser, ALCitySystemUser lastModifiedUser) {
+    public ApplicationMember(Integer age, String username, String password, String nickname, String mobile, String email, byte[] avatar, UserGender gender, MemberType memberType,Long version, Long creationDate, Long lastModifiedDate, ApplicationMember createdBy, ApplicationMember updatedBy) {
+        super(version, creationDate, lastModifiedDate, createdBy, updatedBy);
         this.age = age;
         this.username = username;
         this.password = password;
@@ -102,10 +82,5 @@ public class ApplicationMember implements Serializable {
         this.avatar = avatar;
         this.gender = gender;
         this.memberType = memberType;
-        this.version = version;
-        this.creationDate = creationDate;
-        this.lastModifiedDate = lastModifiedDate;
-        this.creatorUser = creatorUser;
-        this.lastModifiedUser = lastModifiedUser;
     }
 }

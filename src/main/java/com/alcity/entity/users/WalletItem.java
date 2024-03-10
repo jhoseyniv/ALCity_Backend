@@ -1,8 +1,7 @@
 package com.alcity.entity.users;
 
-import com.alcity.entity.base.ALCitySystemUser;
 import com.alcity.entity.base.BaseTable;
-import com.alcity.entity.base.MemberType;
+import com.alcity.entity.base.RecordInformation;
 import com.alcity.entity.base.WalletItemType;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -29,10 +28,9 @@ public class WalletItem extends BaseTable implements Serializable {
     public WalletItem() {
     }
 
-    public WalletItem(String label, String value, Long version, Long creationDate, Long lastModifiedDate, ALCitySystemUser creatorUser, ALCitySystemUser lastModifiedUser, WalletItemType walletItemType, byte[] icon) {
-        super(label, value, version, creationDate, lastModifiedDate, creatorUser, lastModifiedUser);
+    public WalletItem(WalletItemType walletItemType, byte[] icon, String label, String value, Long version, Long creationDate, Long lastModifiedDate, ApplicationMember createdBy, ApplicationMember updatedBy) {
+        super(label, value, version, creationDate, lastModifiedDate, createdBy, updatedBy);
         this.walletItemType = walletItemType;
         this.icon = icon;
     }
-
 }
