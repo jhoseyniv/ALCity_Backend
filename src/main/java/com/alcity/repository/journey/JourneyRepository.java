@@ -1,4 +1,15 @@
 package com.alcity.repository.journey;
 
-public class JourneyRepository {
+import com.alcity.entity.journey.Journey;
+import com.alcity.entity.users.WalletItem;
+import org.springframework.data.repository.CrudRepository;
+
+import java.util.Collection;
+import java.util.Optional;
+
+public interface JourneyRepository extends CrudRepository<Journey,Long> {
+    Optional<Journey> findById(Long id);
+    Collection<Journey> findAll();
+    Journey findByTitle(String title);
+
 }

@@ -1,11 +1,13 @@
 package com.alcity;
 
 import com.alcity.entity.base.*;
+import com.alcity.entity.journey.Journey;
 import com.alcity.entity.users.ApplicationMember;
 import com.alcity.entity.users.ApplicationMember_WalletItem;
 import com.alcity.entity.users.WalletItem;
 import com.alcity.entity.users.WalletTransaction;
 import com.alcity.repository.base.DataTypeRepository;
+import com.alcity.service.Journey.JourneyService;
 import com.alcity.service.base.*;
 import com.alcity.service.users.ApplicationMemberService;
 import com.alcity.service.users.ApplicationMember_WalletItemService;
@@ -73,6 +75,15 @@ public class ObjectManagmentApplication {
 
 	@Autowired
  	private WalletTransactionService  walletTransactionService;
+
+	@Autowired
+	private  BinaryContentTypeService  binaryContentTypeService;
+
+	@Autowired
+	private  BinaryContentService  binaryContentService;
+
+	@Autowired
+	private JourneyService journeyService;
 
 
 	public byte[] getImage(String imageDirectory, String imageName) throws IOException {
@@ -173,6 +184,17 @@ public class ObjectManagmentApplication {
 			puzzleLevelStatusService.save(canceled);
 			puzzleLevelStatusService.save(ongoing);
 
+			BinaryContentType imageType= new BinaryContentType("image","image",1L,now,now,admin_1,admin_1);
+			BinaryContentType fileType= new BinaryContentType("file","file",1L,now,now,admin_1,admin_1);
+			BinaryContentType videoType= new BinaryContentType("video","video",1L,now,now,admin_1,admin_1);
+			BinaryContentType iconType= new BinaryContentType("icon","icon",1L,now,now,admin_1,admin_1);
+			BinaryContentType voiceType= new BinaryContentType("voice","voice",1L,now,now,admin_1,admin_1);
+			binaryContentTypeService.save(imageType);
+			binaryContentTypeService.save(fileType);
+			binaryContentTypeService.save(videoType);
+			binaryContentTypeService.save(iconType);
+			binaryContentTypeService.save(voiceType);
+
 			WalletItemType fiat = new WalletItemType("fiat","fiat",1L,now,now,admin_1,admin_1);
 			WalletItemType crypto = new WalletItemType("crypto","crypto",1L,now,now,admin_1,admin_1);
 			WalletItemType alCoin = new WalletItemType("al_coin","al_coin",1L,now,now,admin_1,admin_1);
@@ -205,70 +227,19 @@ public class ObjectManagmentApplication {
 			applicationMember_walletItemService.save(jalalHoseyni_alcoin_10);
 			applicationMember_walletItemService.save(jalalHoseyni_carObject_10);
 
-			WalletTransaction transaction1 = new WalletTransaction(now,1.5f,new Boolean(true),"desc",jalalHoseyni_alcoin_10,1L,now,now,jalalHoseyni,jalalHoseyni);
-			WalletTransaction transaction2 = new WalletTransaction(now,1f,new Boolean(true),"desc",jalalHoseyni_carObject_10,1L,now,now,jalalHoseyni,jalalHoseyni);
+			WalletTransaction transaction1 = new WalletTransaction(now,1.5f,Boolean.TRUE,"desc",jalalHoseyni_alcoin_10,1L,now,now,jalalHoseyni,jalalHoseyni);
+			WalletTransaction transaction2 = new WalletTransaction(now,1f,Boolean.TRUE,"desc",jalalHoseyni_carObject_10,1L,now,now,jalalHoseyni,jalalHoseyni);
 			walletTransactionService.save(transaction1);
 			walletTransactionService.save(transaction2);
 
-//			Commodity hat = new Commodity("hat",10d,"krona",null,null,null);
-//			Commodity shirt = new Commodity("shirt",20d,"krona",null,null,null);
-//			Commodity pants = new Commodity("pants",30d,"krona",null,null,null);
-//			Commodity shoe = new Commodity("shoe",50d,"krona",null,null,null);
-//			Commodity mobile = new Commodity("mobile",500d,"krona",null,null,null);
-//			Commodity tablet = new Commodity("tablet",600d,"krona",null,null,null);
-//			Commodity tv = new Commodity("tv",600d,"krona",null,null,null);
-//
-//			commodityService.save(hat);
-//			commodityService.save(shirt);
-//			commodityService.save(pants);
-//			commodityService.save(shoe);
-//			commodityService.save(mobile);
-//			commodityService.save(tablet);
-//			commodityService.save(tv);
-//
-//
-//			Cart shopingCartAli= new Cart(ali,"cart100","ALi Ordered 2 hats",createdDate,null, cartStatusDraft,null);
-//			cartService.save(shopingCartAli);
-//
-//			CartCommodity hatItem= new CartCommodity(hat,shopingCartAli,1L);
-//			cartCommodityService.save(hatItem);
-//
-//			CartCommodity shoeItem= new CartCommodity(shoe,shopingCartAli,2L);
-//			cartCommodityService.save(shoeItem);
-//
-//
-//			Cart orderReza= new Cart(reza,"cart200","Reza Ordered a Shirt and 2 pants",createdDate,null, cartStatusDraft,null);
-//			cartService.save(orderReza);
-//
-//			CartCommodity shirtItem= new CartCommodity(shirt,orderReza,1L);
-//			cartCommodityService.save(shirtItem);
-//
-//			CartCommodity pantsItem= new CartCommodity(pants,orderReza,2L);
-//			cartCommodityService.save(pantsItem);
-//
-//			CartCommodity shoeItem2= new CartCommodity(shoe,orderReza,6L);
-//			cartCommodityService.save(shoeItem2);
-//
-//			CartCommodity hatItem2= new CartCommodity(hat,orderReza,10L);
-//			cartCommodityService.saveAndFlush(hatItem2);
-//
-//			DiscountStrategy giftAHatStrategy = new DiscountStrategy("Gift a Hat to client if buy 1 shirt and 2 pants",StrategyTypes.GIFT.toString(),1L,null,startDate,endDate);
-//			DiscountStrategy giftAHatStrategyIfFiveHat = new DiscountStrategy("Gift 2 Hats to client if buy a 5 hat ",StrategyTypes.GIFT.toString(),2L,null,startDate,endDate);
-//			DiscountStrategy discountOnAHatStrategy = new DiscountStrategy("DisCount 20% in a Hat at this time",StrategyTypes.DISCOUNT.toString(),20L,null,startDate,endDate);
-//			discountStrategyService.save(giftAHatStrategy);
-//			discountStrategyService.save(discountOnAHatStrategy);
-//			discountStrategyService.save(giftAHatStrategyIfFiveHat);
-//
-//			CommodityDiscountStrategy hatDiscountByHatStrategy= new CommodityDiscountStrategy(hat,discountOnAHatStrategy,1L);
-//			CommodityDiscountStrategy hatGfitByHatStrategy= new CommodityDiscountStrategy(hat,giftAHatStrategyIfFiveHat,5L);
-//
-//			commodityDiscountStrategyService.save(hatDiscountByHatStrategy);
-//			commodityDiscountStrategyService.save(hatGfitByHatStrategy);
-//
-//			CommodityDiscountStrategy shirtDiscountByGiftHatStrategy= new CommodityDiscountStrategy(shirt,giftAHatStrategy,1L);
-//			CommodityDiscountStrategy pantsDiscountByGiftHatStrategy= new CommodityDiscountStrategy(pants,giftAHatStrategy,2L);
-//			commodityDiscountStrategyService.save(shirtDiscountByGiftHatStrategy);
-//			commodityDiscountStrategyService.save(pantsDiscountByGiftHatStrategy);
+			byte[] jouerny_1_Image = getImage("src/main/resources/images/","jungle.png");
+
+			BinaryContent image_journey_1 = new BinaryContent("image_journey_1",jouerny_1_Image,imageType,1L,now,now,admin_1,admin_1);
+			binaryContentService.save(image_journey_1);
+
+
+			Journey journey_1 = new Journey("Journey_1",image_journey_1,1L,now,now,admin_1,admin_1);
+
 
 			System.out.println("All Things is OK!!!!");
 		};
