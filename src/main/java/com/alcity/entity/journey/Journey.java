@@ -10,6 +10,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Set;
 
 @Entity
 @Table(name="Journey")
@@ -21,6 +22,10 @@ public class Journey  extends RecordInformation implements Serializable {
     @JoinColumn(name = "binary_content_id", nullable = false)
     @JsonIgnore
     private BinaryContent graphic;
+
+    @OneToMany(mappedBy = "journey", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JsonIgnore
+    private Set<JourneyStep> journeyStepSet;
 
     public Journey() {
     }

@@ -1,14 +1,21 @@
 package com.alcity.entity.base;
 
+import com.alcity.entity.puzzle.PuzzleGroup;
 import com.alcity.entity.users.ApplicationMember;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.util.Set;
 
 @Entity
 public class PuzzleCategory extends BaseTable implements Serializable {
+
+
+
+    @OneToMany(mappedBy = "puzzleCategory", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JsonIgnore
+    private Set<PuzzleGroup> puzzleGroupSet;
 
 
     public PuzzleCategory() {

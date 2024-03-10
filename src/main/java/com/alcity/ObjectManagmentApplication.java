@@ -2,13 +2,17 @@ package com.alcity;
 
 import com.alcity.entity.base.*;
 import com.alcity.entity.journey.Journey;
+import com.alcity.entity.journey.JourneyStep;
+import com.alcity.entity.puzzle.PuzzleGroup;
 import com.alcity.entity.users.ApplicationMember;
 import com.alcity.entity.users.ApplicationMember_WalletItem;
 import com.alcity.entity.users.WalletItem;
 import com.alcity.entity.users.WalletTransaction;
 import com.alcity.repository.base.DataTypeRepository;
 import com.alcity.service.Journey.JourneyService;
+import com.alcity.service.Journey.JourneyStepService;
 import com.alcity.service.base.*;
+import com.alcity.service.puzzle.PuzzleGroupService;
 import com.alcity.service.users.ApplicationMemberService;
 import com.alcity.service.users.ApplicationMember_WalletItemService;
 import com.alcity.service.users.WalletItemService;
@@ -84,6 +88,12 @@ public class ObjectManagmentApplication {
 
 	@Autowired
 	private JourneyService journeyService;
+
+	@Autowired
+	private JourneyStepService journeyStepService;
+
+	@Autowired
+	private PuzzleGroupService puzzleGroupService;
 
 
 	public byte[] getImage(String imageDirectory, String imageName) throws IOException {
@@ -233,12 +243,34 @@ public class ObjectManagmentApplication {
 			walletTransactionService.save(transaction2);
 
 			byte[] jouerny_1_Image = getImage("src/main/resources/images/","jungle.png");
+			byte[] jouerny_2_Image = getImage("src/main/resources/images/","desert.png");
+			byte[] jouerny_3_Image = getImage("src/main/resources/images/","city.png");
 
 			BinaryContent image_journey_1 = new BinaryContent("image_journey_1",jouerny_1_Image,imageType,1L,now,now,admin_1,admin_1);
+			BinaryContent image_journey_2 = new BinaryContent("image_journey_2",jouerny_2_Image,imageType,1L,now,now,admin_1,admin_1);
+			BinaryContent image_journey_3 = new BinaryContent("image_journey_3",jouerny_3_Image,imageType,1L,now,now,admin_1,admin_1);
 			binaryContentService.save(image_journey_1);
+			binaryContentService.save(image_journey_2);
+			binaryContentService.save(image_journey_3);
 
 
 			Journey journey_1 = new Journey("Journey_1",image_journey_1,1L,now,now,admin_1,admin_1);
+			Journey journey_2 = new Journey("Journey_2",image_journey_2,1L,now,now,admin_1,admin_1);
+			Journey journey_3 = new Journey("Journey_3",image_journey_3,1L,now,now,admin_1,admin_1);
+			journeyService.save(journey_1);
+			journeyService.save(journey_2);
+			journeyService.save(journey_3);
+
+
+			byte[] puzzle_group_Icon_1 = getImage("src/main/resources/images/","puzzle_group_1.png");
+			BinaryContent puzzle_group_binary_content_1 = new BinaryContent("image_puzzle_group_1",puzzle_group_Icon_1,imageType,1L,now,now,admin_1,admin_1);
+			binaryContentService.save(puzzle_group_binary_content_1);
+
+			PuzzleGroup puzzleGroup_1 = new PuzzleGroup("Hash Image - Puzzle Group 1",mathematic,puzzle_group_binary_content_1,puzzle_group_binary_content_1,1L,now,now,admin_1,admin_1);
+
+			puzzleGroupService.save(puzzleGroup_1);
+
+			JourneyStep journeyStep_1 = new JourneyStep("step1_journey_1",1,30,30,journey_1,puzzleGroup_1,1L,now,now,admin_1,admin_1);
 
 
 			System.out.println("All Things is OK!!!!");
