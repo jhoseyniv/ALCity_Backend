@@ -16,7 +16,7 @@ public class UserGender extends  BaseTable  implements Serializable {
     @JsonIgnore
     private Set<ApplicationMember> users;
 
-    public UserGender(String label, String value, Long version, Long creationDate, Long lastModifiedDate, ApplicationMember createdBy, ApplicationMember updatedBy) {
-        super(label, value, version, creationDate, lastModifiedDate, createdBy,updatedBy);
+    public UserGender(String label, String value, Long version, Long created, Long updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
+        super(label, value, version, created, updated, createdBy,updatedBy);
     }
 }

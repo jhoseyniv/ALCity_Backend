@@ -4,11 +4,13 @@ import com.alcity.entity.base.*;
 import com.alcity.entity.users.ApplicationMember;
 import com.alcity.entity.users.ApplicationMember_WalletItem;
 import com.alcity.entity.users.WalletItem;
+import com.alcity.entity.users.WalletTransaction;
 import com.alcity.repository.base.DataTypeRepository;
 import com.alcity.service.base.*;
 import com.alcity.service.users.ApplicationMemberService;
 import com.alcity.service.users.ApplicationMember_WalletItemService;
 import com.alcity.service.users.WalletItemService;
+import com.alcity.service.users.WalletTransactionService;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.slf4j.Logger;
@@ -58,6 +60,9 @@ public class ObjectManagmentApplication {
 	private PuzzleDifficultyService puzzleDifficultyService;
 
 	@Autowired
+	private PuzzleLevelStatusService puzzleLevelStatusService;
+
+	@Autowired
 	private WalletItemTypeService walletItemTypeService;
 
 	@Autowired
@@ -65,6 +70,10 @@ public class ObjectManagmentApplication {
 
 	@Autowired
 	private ApplicationMember_WalletItemService applicationMember_walletItemService;
+
+	@Autowired
+ 	private WalletTransactionService  walletTransactionService;
+
 
 	public byte[] getImage(String imageDirectory, String imageName) throws IOException {
 		Path imagePath = Path.of(imageDirectory, imageName);
@@ -130,11 +139,6 @@ public class ObjectManagmentApplication {
 			admin_1.setClientTypeSet(clientTypeSet);
 			applicationMemberService.save(admin_1);
 
-			ApplicationMember jalalHoseyni= new ApplicationMember(35,"jalal","jalal","jalal","0912350550","j_hoseyni@yahoo.com",avatar,male,guest,1L,now,now,null,null);
-			Set jalalClientTypeSet = new HashSet<ClientType>();
-			clientTypeSet.add(mobile);
-			jalalHoseyni.setClientTypeSet(jalalClientTypeSet);
-			applicationMemberService.save(jalalHoseyni);
 
 			PuzzleCategory  mathematic = new PuzzleCategory("mathematic","mathematic",1L,now,now,admin_1,admin_1);
 			PuzzleCategory  physic = new PuzzleCategory("physic","physic",1L,now,now,admin_1,admin_1);
@@ -162,6 +166,13 @@ public class ObjectManagmentApplication {
 			puzzleDifficultyService.save(medium);
 			puzzleDifficultyService.save(hard);
 
+			PuzzleLevelStatus compeleted = new PuzzleLevelStatus("Completed","Completed",1L,now,now,admin_1,admin_1);
+			PuzzleLevelStatus canceled = new PuzzleLevelStatus("canceled","canceled",1L,now,now,admin_1,admin_1);
+			PuzzleLevelStatus ongoing = new PuzzleLevelStatus("ongoing","ongoing",1L,now,now,admin_1,admin_1);
+			puzzleLevelStatusService.save(compeleted);
+			puzzleLevelStatusService.save(canceled);
+			puzzleLevelStatusService.save(ongoing);
+
 			WalletItemType fiat = new WalletItemType("fiat","fiat",1L,now,now,admin_1,admin_1);
 			WalletItemType crypto = new WalletItemType("crypto","crypto",1L,now,now,admin_1,admin_1);
 			WalletItemType alCoin = new WalletItemType("al_coin","al_coin",1L,now,now,admin_1,admin_1);
@@ -183,13 +194,21 @@ public class ObjectManagmentApplication {
 			walletItemService.save(alCoin10WalletItem);
 			walletItemService.save(carWalletItem);
 
+			ApplicationMember jalalHoseyni= new ApplicationMember(35,"jalal","jalal","jalal","0912350550","j_hoseyni@yahoo.com",avatar,male,guest,1L,now,now,null,null);
+			Set jalalClientTypeSet = new HashSet<ClientType>();
+			clientTypeSet.add(mobile);
+			jalalHoseyni.setClientTypeSet(jalalClientTypeSet);
+			applicationMemberService.save(jalalHoseyni);
 
 			ApplicationMember_WalletItem jalalHoseyni_alcoin_10= new ApplicationMember_WalletItem(jalalHoseyni,alCoin10WalletItem,10f,1L,now,now,admin_1,admin_1);
 			ApplicationMember_WalletItem jalalHoseyni_carObject_10= new ApplicationMember_WalletItem(jalalHoseyni,carWalletItem,20f,1L,now,now,admin_1,admin_1);
 			applicationMember_walletItemService.save(jalalHoseyni_alcoin_10);
 			applicationMember_walletItemService.save(jalalHoseyni_carObject_10);
 
-
+			WalletTransaction transaction1 = new WalletTransaction(now,1.5f,new Boolean(true),"desc",jalalHoseyni_alcoin_10,1L,now,now,jalalHoseyni,jalalHoseyni);
+			WalletTransaction transaction2 = new WalletTransaction(now,1f,new Boolean(true),"desc",jalalHoseyni_carObject_10,1L,now,now,jalalHoseyni,jalalHoseyni);
+			walletTransactionService.save(transaction1);
+			walletTransactionService.save(transaction2);
 
 //			Commodity hat = new Commodity("hat",10d,"krona",null,null,null);
 //			Commodity shirt = new Commodity("shirt",20d,"krona",null,null,null);

@@ -32,11 +32,11 @@ public abstract class BaseTable implements Serializable {
     private Long version;
 
     @NotNull(message = "{bLength.notempty}")
-    private Long creationDate;
+    private Long created;
 
 
     @NotNull(message = "{bHeight.notempty}")
-    private Long lastModifiedDate;
+    private Long updated;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = true)
     @JoinColumn(name ="createdBy",nullable = true)
@@ -54,12 +54,12 @@ public abstract class BaseTable implements Serializable {
     public BaseTable() {
     }
 
-    public BaseTable(String label, String value, Long version, Long creationDate, Long lastModifiedDate, ApplicationMember createdBy ,ApplicationMember updatedBy) {
+    public BaseTable(String label, String value, Long version, Long created, Long updated, ApplicationMember createdBy ,ApplicationMember updatedBy) {
         this.label = label;
         this.value = value;
         this.version = version;
-        this.creationDate = creationDate;
-        this.lastModifiedDate = lastModifiedDate;
+        this.created = created;
+        this.updated = updated;
         this.createdBy = createdBy;
         this.updatedBy = updatedBy;
     }

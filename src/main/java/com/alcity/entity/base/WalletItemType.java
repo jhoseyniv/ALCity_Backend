@@ -11,7 +11,7 @@ public class WalletItemType extends  BaseTable implements Serializable {
     public WalletItemType() {
     }
 
-    public WalletItemType(String label, String value, Long version, Long creationDate, Long lastModifiedDate,  ApplicationMember createdBy, ApplicationMember updatedBy) {
-        super(label, value, version, creationDate, lastModifiedDate, createdBy,updatedBy);
+    public WalletItemType(String label, String value, Long version, Long created, Long updated,  ApplicationMember createdBy, ApplicationMember updatedBy) {
+        super(label, value, version, created, updated, createdBy,updatedBy);
     }
 }

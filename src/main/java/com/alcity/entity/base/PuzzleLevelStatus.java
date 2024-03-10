@@ -14,7 +14,7 @@ public class PuzzleLevelStatus  extends BaseTable implements Serializable {
     public PuzzleLevelStatus() {
     }
 
-    public PuzzleLevelStatus(String label, String value, Long version, Long creationDate, Long lastModifiedDate, ApplicationMember createdBy, ApplicationMember updatedBy) {
-        super(label, value, version, creationDate, lastModifiedDate, createdBy,updatedBy);
+    public PuzzleLevelStatus(String label, String value, Long version, Long created, Long updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
+        super(label, value, version, created, updated, createdBy,updatedBy);
     }
 }

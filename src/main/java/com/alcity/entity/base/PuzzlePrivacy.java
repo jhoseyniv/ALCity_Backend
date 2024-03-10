@@ -14,7 +14,7 @@ public class PuzzlePrivacy extends BaseTable implements Serializable {
     public PuzzlePrivacy() {
     }
 
-    public PuzzlePrivacy(String label, String value, Long version, Long creationDate, Long lastModifiedDate,  ApplicationMember createdBy, ApplicationMember updatedBy) {
-        super(label, value, version, creationDate, lastModifiedDate, createdBy,updatedBy);
+    public PuzzlePrivacy(String label, String value, Long version, Long created, Long updated,  ApplicationMember createdBy, ApplicationMember updatedBy) {
+        super(label, value, version, created, updated, createdBy,updatedBy);
     }
 }

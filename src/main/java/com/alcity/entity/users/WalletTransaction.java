@@ -31,6 +31,15 @@ public class WalletTransaction extends RecordInformation implements Serializable
     @JsonIgnore
     private ApplicationMember_WalletItem applicationMember_WalletItem;
 
+    public WalletTransaction() {
+    }
 
-
+    public WalletTransaction( Long transactionDate, Float amount, Boolean incTransaction, String description, ApplicationMember_WalletItem applicationMember_WalletItem,Long version, Long created, Long updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
+        super(version, created, updated, createdBy, updatedBy);
+        this.transactionDate = transactionDate;
+        this.amount = amount;
+        this.incTransaction = incTransaction;
+        this.description = description;
+        this.applicationMember_WalletItem = applicationMember_WalletItem;
+    }
 }
