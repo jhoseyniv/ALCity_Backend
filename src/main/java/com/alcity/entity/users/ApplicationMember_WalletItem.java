@@ -13,9 +13,6 @@ import java.util.Set;
 @Entity
 public class ApplicationMember_WalletItem extends RecordInformation implements Serializable {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
 
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "application_member_id", referencedColumnName = "id")

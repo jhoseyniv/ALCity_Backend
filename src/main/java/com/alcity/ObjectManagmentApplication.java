@@ -17,6 +17,7 @@ import com.alcity.service.Journey.JourneyService;
 import com.alcity.service.Journey.JourneyStepService;
 import com.alcity.service.base.*;
 import com.alcity.service.learning.LearningSkillService;
+import com.alcity.service.learning.LearningSkill_LearningTopicService;
 import com.alcity.service.learning.LearningTopicService;
 import com.alcity.service.puzzle.PuzzleGroupService;
 import com.alcity.service.users.ApplicationMemberService;
@@ -110,6 +111,9 @@ public class ObjectManagmentApplication {
 
 	@Autowired
 	JourneyLearningSkillService journeyLearningSkillService;
+
+	@Autowired
+	LearningSkill_LearningTopicService learningSkill_LearningTopicService;
 
 
 	public byte[] getImage(String imageDirectory, String imageName) throws IOException {
