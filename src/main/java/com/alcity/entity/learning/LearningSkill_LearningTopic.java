@@ -1,6 +1,7 @@
 package com.alcity.entity.learning;
 
 import com.alcity.entity.base.BaseTable;
+import com.alcity.entity.base.RecordInformation;
 import com.alcity.entity.users.ApplicationMember;
 import com.alcity.entity.users.WalletItem;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -10,7 +11,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-public class LearningSkill_LearningTopic extends BaseTable implements Serializable {
+public class LearningSkill_LearningTopic extends RecordInformation implements Serializable {
 
 
     @Column(name="title")
@@ -31,8 +32,8 @@ public class LearningSkill_LearningTopic extends BaseTable implements Serializab
     public LearningSkill_LearningTopic() {
     }
 
-    public LearningSkill_LearningTopic(String title, LearningSkill learningSkill, LearningTopic learningTopic, String label, String value, Long version, Long created, Long updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
-        super(label, value, version, created, updated, createdBy, updatedBy);
+    public LearningSkill_LearningTopic(String title, LearningSkill learningSkill, LearningTopic learningTopic,Long version, Long created, Long updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
+        super(version, created, updated, createdBy, updatedBy);
         this.title = title;
         this.learningSkill = learningSkill;
         this.learningTopic = learningTopic;

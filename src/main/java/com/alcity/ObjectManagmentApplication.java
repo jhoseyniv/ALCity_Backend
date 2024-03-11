@@ -4,9 +4,14 @@ import com.alcity.entity.base.*;
 import com.alcity.entity.journey.Journey;
 import com.alcity.entity.journey.JourneyLearningSkill;
 import com.alcity.entity.journey.JourneyStep;
+import com.alcity.entity.learning.LearningContent;
 import com.alcity.entity.learning.LearningSkill;
+import com.alcity.entity.learning.LearningSkill_LearningTopic;
 import com.alcity.entity.learning.LearningTopic;
 import com.alcity.entity.puzzle.PuzzleGroup;
+import com.alcity.entity.puzzle.PuzzleLevel;
+import com.alcity.entity.puzzle.PuzzleLevelObjective;
+import com.alcity.entity.puzzle.PuzzleSkillLearningContent;
 import com.alcity.entity.users.ApplicationMember;
 import com.alcity.entity.users.ApplicationMember_WalletItem;
 import com.alcity.entity.users.WalletItem;
@@ -16,10 +21,14 @@ import com.alcity.service.Journey.JourneyLearningSkillService;
 import com.alcity.service.Journey.JourneyService;
 import com.alcity.service.Journey.JourneyStepService;
 import com.alcity.service.base.*;
+import com.alcity.service.learning.LearningContentService;
 import com.alcity.service.learning.LearningSkillService;
 import com.alcity.service.learning.LearningSkill_LearningTopicService;
 import com.alcity.service.learning.LearningTopicService;
 import com.alcity.service.puzzle.PuzzleGroupService;
+import com.alcity.service.puzzle.PuzzleLevelObjectiveService;
+import com.alcity.service.puzzle.PuzzleLevelService;
+import com.alcity.service.puzzle.PuzzleSkillLearningContentService;
 import com.alcity.service.users.ApplicationMemberService;
 import com.alcity.service.users.ApplicationMember_WalletItemService;
 import com.alcity.service.users.WalletItemService;
@@ -115,6 +124,17 @@ public class ObjectManagmentApplication {
 	@Autowired
 	LearningSkill_LearningTopicService learningSkill_LearningTopicService;
 
+	@Autowired
+	PuzzleSkillLearningContentService puzzleSkillLearningContentService;
+
+	@Autowired
+	PuzzleLevelObjectiveService puzzleLevelObjectiveService;
+
+	@Autowired
+	LearningContentService learningContentService;
+
+	@Autowired
+	PuzzleLevelService puzzleLevelService;
 
 	public byte[] getImage(String imageDirectory, String imageName) throws IOException {
 		Path imagePath = Path.of(imageDirectory, imageName);
@@ -233,6 +253,12 @@ public class ObjectManagmentApplication {
 			learningTopicService.save(algorithm_Topic);
 
 
+			LearningSkill_LearningTopic learningSkill_learningTopic_1 = new LearningSkill_LearningTopic("title1",timeManagement,algorithm_Topic,1L,now,now,admin_1,admin_1);
+			LearningSkill_LearningTopic learningSkill_learningTopic_2 = new LearningSkill_LearningTopic("title2",division,algorithm_Topic,1L,now,now,admin_1,admin_1);
+			learningSkill_LearningTopicService.save(learningSkill_learningTopic_1);
+			learningSkill_LearningTopicService.save(learningSkill_learningTopic_2);
+
+
 			BinaryContentType imageType= new BinaryContentType("image","image",1L,now,now,admin_1,admin_1);
 			BinaryContentType fileType= new BinaryContentType("file","file",1L,now,now,admin_1,admin_1);
 			BinaryContentType videoType= new BinaryContentType("video","video",1L,now,now,admin_1,admin_1);
@@ -307,12 +333,32 @@ public class ObjectManagmentApplication {
 
 
 			byte[] puzzle_group_Icon_1 = getImage("src/main/resources/images/","puzzle_group_1.png");
-			BinaryContent puzzle_group_binary_content_1 = new BinaryContent("image_puzzle_group_1",puzzle_group_Icon_1,imageType,1L,now,now,admin_1,admin_1);
+			BinaryContent puzzle_group_binary_content_1 = new BinaryContent("image_puzzle_group_matematic",puzzle_group_Icon_1,imageType,1L,now,now,admin_1,admin_1);
 			binaryContentService.save(puzzle_group_binary_content_1);
 
-			PuzzleGroup puzzleGroup_1 = new PuzzleGroup("Hash Image - Puzzle Group 1",mathematic,puzzle_group_binary_content_1,puzzle_group_binary_content_1,1L,now,now,admin_1,admin_1);
+			byte[] puzzle_group_Icon_2 = getImage("src/main/resources/images/","physic.png");
+			BinaryContent puzzle_group_binary_content_2 = new BinaryContent("image_puzzle_group_physic",puzzle_group_Icon_2,imageType,1L,now,now,admin_1,admin_1);
+			binaryContentService.save(puzzle_group_binary_content_2);
 
+			byte[] puzzle_group_Icon_3 = getImage("src/main/resources/images/","IQ.png");
+			BinaryContent puzzle_group_binary_content_3 = new BinaryContent("image_puzzle_group_IQ",puzzle_group_Icon_3,imageType,1L,now,now,admin_1,admin_1);
+			binaryContentService.save(puzzle_group_binary_content_3);
+
+			byte[] puzzle_group_Hash_Image = getImage("src/main/resources/images/","hashImage.png");
+			BinaryContent puzzle_group_Hash_Image_binary_content = new BinaryContent("hashImage",puzzle_group_Hash_Image,imageType,1L,now,now,admin_1,admin_1);
+			binaryContentService.save(puzzle_group_Hash_Image_binary_content);
+
+
+			LearningContent learningContent_Division=new LearningContent("help to math","this content is about hash images",puzzle_group_Hash_Image_binary_content,1L,now,now,admin_1,admin_1);
+			learningContentService.save(learningContent_Division);
+
+			PuzzleGroup puzzleGroup_1 = new PuzzleGroup("Hash Image - Puzzle Group 1",mathematic,puzzle_group_binary_content_1,puzzle_group_binary_content_1,1L,now,now,admin_1,admin_1);
+			PuzzleGroup puzzleGroup_2 = new PuzzleGroup("Physics Puzzle Group",physic,puzzle_group_binary_content_2,puzzle_group_binary_content_3,1L,now,now,admin_1,admin_1);
+			PuzzleGroup puzzleGroup_3 = new PuzzleGroup("IQ Puzzle Group",IQ,puzzle_group_binary_content_3,puzzle_group_binary_content_3,1L,now,now,admin_1,admin_1);
 			puzzleGroupService.save(puzzleGroup_1);
+			puzzleGroupService.save(puzzleGroup_2);
+			puzzleGroupService.save(puzzleGroup_3);
+
 
 			JourneyStep journey_1_Step_1 = new JourneyStep("step1_journey_1",1,30,30,journey_1,puzzleGroup_1,1L,now,now,admin_1,admin_1);
 			JourneyStep journey_1_Step_2 = new JourneyStep("step2_journey_1",1,30,30,journey_1,puzzleGroup_1,1L,now,now,admin_1,admin_1);
@@ -320,6 +366,25 @@ public class ObjectManagmentApplication {
 			journeyStepService.save(journey_1_Step_1);
 			journeyStepService.save(journey_1_Step_2);
 			journeyStepService.save(journey_2_Step_1);
+
+
+			PuzzleSkillLearningContent puzzleSkillLearningContent_1 = new PuzzleSkillLearningContent(division,puzzleGroup_1,learningContent_Division,1L,now,now,admin_1,admin_1);
+			puzzleSkillLearningContentService.save(puzzleSkillLearningContent_1);
+
+			PuzzleLevel puzzleLevel_hashimage = new PuzzleLevel(3L,now,now,admin_1,admin_1);
+			puzzleLevelService.save(puzzleLevel_hashimage);
+			StringBuffer  condition = new StringBuffer("(img1.x == img1.targetX)&&(img1.y == img1.targetY)" +","
+			 			   + "(img2.x == img2.targetX)&&(img2.y == img2.targetY)" + ","
+					       + "(img3.x == img3.targetX)&&(img3.y == img3.targetY)" + ","
+						   + "(img4.x == img4.targetX)&&(img4.y == img4.targetY)" + ","
+						   + "(img5.x == img5.targetX)&&(img5.y == img5.targetY)" +  ","
+					       + "(img6.x == img6.targetX)&&(img6.y == img6.targetY)" +	","
+					       + "(img7.x == img7.targetX)&&(img7.y == img7.targetY)"+","
+						   + "(img8.x == img8.targetX)&&(img8.y == img8.targetY)");
+
+			PuzzleLevelObjective puzzleLevelObjective = new PuzzleLevelObjective("arrange image pieces","arrange image pieces as correct image",10f,2f,condition,timeManagement,alCoin10WalletItem,puzzleLevel_hashimage
+																					,1L,now,now,admin_1,admin_1);
+			puzzleLevelObjectiveService.save(puzzleLevelObjective);
 
 			System.out.println("All Things is OK!!!!");
 		};
