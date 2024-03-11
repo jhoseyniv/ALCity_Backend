@@ -44,7 +44,6 @@ public abstract class BaseTable implements Serializable {
     private ApplicationMember createdBy;
 
 
-
     @ManyToOne(fetch = FetchType.LAZY, optional = true)
     @JoinColumn( name ="updatedBy",  nullable = true)
     @JsonIgnore

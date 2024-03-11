@@ -1,7 +1,6 @@
-package com.alcity.repository.base;
+package com.alcity.repository.learning;
 
-import com.alcity.entity.base.DataType;
-import com.alcity.entity.base.LearningSkill;
+import com.alcity.entity.learning.LearningSkill;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.Collection;

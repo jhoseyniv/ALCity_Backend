@@ -1,6 +1,6 @@
 package com.alcity.entity.journey;
 
-import com.alcity.entity.base.LearningSkill;
+import com.alcity.entity.learning.LearningSkill;
 import com.alcity.entity.base.RecordInformation;
 import com.alcity.entity.users.ApplicationMember;
 import com.fasterxml.jackson.annotation.JsonIgnore;

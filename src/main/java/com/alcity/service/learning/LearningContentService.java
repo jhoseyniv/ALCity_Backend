@@ -1,7 +1,7 @@
-package com.alcity.service.base;
+package com.alcity.service.learning;
 
-import com.alcity.entity.base.LearningSkill;
-import com.alcity.repository.base.LearningSkillRepository;
+import com.alcity.entity.learning.LearningContent;
+import com.alcity.repository.learning.LearningContentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,23 +11,23 @@ import java.util.Optional;
 
 @Service
 @Transactional
-public class LearningSkillService implements LearningSkillRepository {
-
+public class LearningContentService implements LearningContentRepository {
 
     @Autowired
-    LearningSkillRepository learningSkillRepository;
+    LearningContentRepository learningContentRepository;
+
     @Override
-    public <S extends LearningSkill> S save(S entity) {
-        return learningSkillRepository.save(entity);
+    public <S extends LearningContent> S save(S entity) {
+        return learningContentRepository.save(entity);
     }
 
     @Override
-    public <S extends LearningSkill> Iterable<S> saveAll(Iterable<S> entities) {
+    public <S extends LearningContent> Iterable<S> saveAll(Iterable<S> entities) {
         return null;
     }
 
     @Override
-    public Optional<LearningSkill> findById(Long id) {
+    public Optional<LearningContent> findById(Long id) {
         return Optional.empty();
     }
 
@@ -37,12 +37,12 @@ public class LearningSkillService implements LearningSkillRepository {
     }
 
     @Override
-    public Collection<LearningSkill> findAll() {
+    public Collection<LearningContent> findAll() {
         return null;
     }
 
     @Override
-    public Iterable<LearningSkill> findAllById(Iterable<Long> longs) {
+    public Iterable<LearningContent> findAllById(Iterable<Long> longs) {
         return null;
     }
 
@@ -57,7 +57,7 @@ public class LearningSkillService implements LearningSkillRepository {
     }
 
     @Override
-    public void delete(LearningSkill entity) {
+    public void delete(LearningContent entity) {
 
     }
 
@@ -67,7 +67,7 @@ public class LearningSkillService implements LearningSkillRepository {
     }
 
     @Override
-    public void deleteAll(Iterable<? extends LearningSkill> entities) {
+    public void deleteAll(Iterable<? extends LearningContent> entities) {
 
     }
 
@@ -77,12 +77,12 @@ public class LearningSkillService implements LearningSkillRepository {
     }
 
     @Override
-    public LearningSkill findByLabel(String label) {
+    public Collection<LearningContent> findByDescText(String desc) {
         return null;
     }
 
     @Override
-    public LearningSkill findByValue(String value) {
+    public Collection<LearningContent> findByDescBrief(String brief) {
         return null;
     }
 }

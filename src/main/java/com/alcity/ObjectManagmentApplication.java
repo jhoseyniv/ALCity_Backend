@@ -4,6 +4,8 @@ import com.alcity.entity.base.*;
 import com.alcity.entity.journey.Journey;
 import com.alcity.entity.journey.JourneyLearningSkill;
 import com.alcity.entity.journey.JourneyStep;
+import com.alcity.entity.learning.LearningSkill;
+import com.alcity.entity.learning.LearningTopic;
 import com.alcity.entity.puzzle.PuzzleGroup;
 import com.alcity.entity.users.ApplicationMember;
 import com.alcity.entity.users.ApplicationMember_WalletItem;
@@ -14,6 +16,8 @@ import com.alcity.service.Journey.JourneyLearningSkillService;
 import com.alcity.service.Journey.JourneyService;
 import com.alcity.service.Journey.JourneyStepService;
 import com.alcity.service.base.*;
+import com.alcity.service.learning.LearningSkillService;
+import com.alcity.service.learning.LearningTopicService;
 import com.alcity.service.puzzle.PuzzleGroupService;
 import com.alcity.service.users.ApplicationMemberService;
 import com.alcity.service.users.ApplicationMember_WalletItemService;
@@ -99,6 +103,9 @@ public class ObjectManagmentApplication {
 
 	@Autowired
 	private LearningSkillService learningSkillService;
+
+	@Autowired
+	private LearningTopicService learningTopicService;
 
 
 	@Autowired
@@ -211,6 +218,13 @@ public class ObjectManagmentApplication {
 			learningSkillService.save(loop);
 			learningSkillService.save(timeManagement);
 			learningSkillService.save(division);
+
+			LearningTopic hashImage_Topic = new LearningTopic("Hash Image",1L,now,now,admin_1,admin_1);
+			LearningTopic magic_matrix_Topic = new LearningTopic("Magic Matrix",1L,now,now,admin_1,admin_1);
+			LearningTopic algorithm_Topic = new LearningTopic("Magic Matrix",1L,now,now,admin_1,admin_1);
+			learningTopicService.save(hashImage_Topic);
+			learningTopicService.save(magic_matrix_Topic);
+			learningTopicService.save(algorithm_Topic);
 
 
 			BinaryContentType imageType= new BinaryContentType("image","image",1L,now,now,admin_1,admin_1);
