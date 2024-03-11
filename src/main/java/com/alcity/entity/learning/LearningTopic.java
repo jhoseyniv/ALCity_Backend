@@ -14,22 +14,22 @@ public class LearningTopic extends RecordInformation {
     @NotNull(message = "{bHeight.notempty}")
     private String title;
 
-    @Column(name="parentId", insertable=false, updatable=false)
-    private Long parentId;
+//    @Column(name="parentId", insertable=false, updatable=false)
+//    private Long parentId;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private LearningTopic parentTopic;
 
-    @OneToMany(mappedBy = "parentId", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany( fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JsonIgnore
     private Set<LearningTopic> learningTopicSet;
 
     public LearningTopic() {
     }
 
-    public LearningTopic(String title, Long version, Long created, Long updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
+    public LearningTopic(String title, LearningTopic parentTopic , Long version, Long created, Long updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
         super(version, created, updated, createdBy, updatedBy);
         this.title = title;
+        this.parentTopic = parentTopic;
     }
-
 }

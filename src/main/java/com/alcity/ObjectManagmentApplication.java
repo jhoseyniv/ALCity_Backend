@@ -223,9 +223,11 @@ public class ObjectManagmentApplication {
 			learningSkillService.save(timeManagement);
 			learningSkillService.save(division);
 
-			LearningTopic hashImage_Topic = new LearningTopic("Hash Image",1L,now,now,admin_1,admin_1);
-			LearningTopic magic_matrix_Topic = new LearningTopic("Magic Matrix",1L,now,now,admin_1,admin_1);
-			LearningTopic algorithm_Topic = new LearningTopic("Magic Matrix",1L,now,now,admin_1,admin_1);
+			LearningTopic root_Topic = new LearningTopic("Root Topic",null,1L,now,now,admin_1,admin_1);
+			LearningTopic hashImage_Topic = new LearningTopic("Hash Image",root_Topic,1L,now,now,admin_1,admin_1);
+			LearningTopic magic_matrix_Topic = new LearningTopic("Magic Matrix",root_Topic,1L,now,now,admin_1,admin_1);
+			LearningTopic algorithm_Topic = new LearningTopic("Magic Matrix",root_Topic,1L,now,now,admin_1,admin_1);
+			learningTopicService.save(root_Topic);
 			learningTopicService.save(hashImage_Topic);
 			learningTopicService.save(magic_matrix_Topic);
 			learningTopicService.save(algorithm_Topic);
