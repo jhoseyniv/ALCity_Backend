@@ -9,6 +9,6 @@ import java.util.Optional;
 public interface PuzzleGroupRepository extends CrudRepository<PuzzleGroup,Long> {
     Optional<PuzzleGroup> findById(Long id);
     Collection<PuzzleGroup> findAll();
-    PuzzleGroup findByTitle(String title);
+    Collection<PuzzleGroup> findByTitle(String title);
 
 }

@@ -2,6 +2,7 @@ package com.alcity;
 
 import com.alcity.entity.base.*;
 import com.alcity.entity.journey.Journey;
+import com.alcity.entity.journey.JourneyLearningSkill;
 import com.alcity.entity.journey.JourneyStep;
 import com.alcity.entity.puzzle.PuzzleGroup;
 import com.alcity.entity.users.ApplicationMember;
@@ -9,6 +10,7 @@ import com.alcity.entity.users.ApplicationMember_WalletItem;
 import com.alcity.entity.users.WalletItem;
 import com.alcity.entity.users.WalletTransaction;
 import com.alcity.repository.base.DataTypeRepository;
+import com.alcity.service.Journey.JourneyLearningSkillService;
 import com.alcity.service.Journey.JourneyService;
 import com.alcity.service.Journey.JourneyStepService;
 import com.alcity.service.base.*;
@@ -95,6 +97,13 @@ public class ObjectManagmentApplication {
 	@Autowired
 	private PuzzleGroupService puzzleGroupService;
 
+	@Autowired
+	private LearningSkillService learningSkillService;
+
+
+	@Autowired
+	JourneyLearningSkillService journeyLearningSkillService;
+
 
 	public byte[] getImage(String imageDirectory, String imageName) throws IOException {
 		Path imagePath = Path.of(imageDirectory, imageName);
@@ -160,7 +169,6 @@ public class ObjectManagmentApplication {
 			admin_1.setClientTypeSet(clientTypeSet);
 			applicationMemberService.save(admin_1);
 
-
 			PuzzleCategory  mathematic = new PuzzleCategory("mathematic","mathematic",1L,now,now,admin_1,admin_1);
 			PuzzleCategory  physic = new PuzzleCategory("physic","physic",1L,now,now,admin_1,admin_1);
 			PuzzleCategory  IQ = new PuzzleCategory("IQ","IQ",1L,now,now,admin_1,admin_1);
@@ -193,6 +201,17 @@ public class ObjectManagmentApplication {
 			puzzleLevelStatusService.save(compeleted);
 			puzzleLevelStatusService.save(canceled);
 			puzzleLevelStatusService.save(ongoing);
+
+			LearningSkill constraint = new LearningSkill("Constraint","Constraint",1L,now,now,admin_1,admin_1);
+			LearningSkill loop = new LearningSkill("loop","loop",1L,now,now,admin_1,admin_1);
+			LearningSkill timeManagement = new LearningSkill("time Management","timeManagement",1L,now,now,admin_1,admin_1);
+			LearningSkill division = new LearningSkill("division","division",1L,now,now,admin_1,admin_1);
+
+			learningSkillService.save(constraint);
+			learningSkillService.save(loop);
+			learningSkillService.save(timeManagement);
+			learningSkillService.save(division);
+
 
 			BinaryContentType imageType= new BinaryContentType("image","image",1L,now,now,admin_1,admin_1);
 			BinaryContentType fileType= new BinaryContentType("file","file",1L,now,now,admin_1,admin_1);
@@ -261,6 +280,11 @@ public class ObjectManagmentApplication {
 			journeyService.save(journey_2);
 			journeyService.save(journey_3);
 
+			JourneyLearningSkill journey_1_Skill_1 = new JourneyLearningSkill(0.5f,journey_1,timeManagement,1L,now,now,admin_1,admin_1);
+			JourneyLearningSkill journey_1_Skill_2 = new JourneyLearningSkill(0.5f,journey_1,division,1L,now,now,admin_1,admin_1);
+			journeyLearningSkillService.save(journey_1_Skill_1);
+			journeyLearningSkillService.save(journey_1_Skill_2);
+
 
 			byte[] puzzle_group_Icon_1 = getImage("src/main/resources/images/","puzzle_group_1.png");
 			BinaryContent puzzle_group_binary_content_1 = new BinaryContent("image_puzzle_group_1",puzzle_group_Icon_1,imageType,1L,now,now,admin_1,admin_1);
@@ -270,8 +294,12 @@ public class ObjectManagmentApplication {
 
 			puzzleGroupService.save(puzzleGroup_1);
 
-			JourneyStep journeyStep_1 = new JourneyStep("step1_journey_1",1,30,30,journey_1,puzzleGroup_1,1L,now,now,admin_1,admin_1);
-
+			JourneyStep journey_1_Step_1 = new JourneyStep("step1_journey_1",1,30,30,journey_1,puzzleGroup_1,1L,now,now,admin_1,admin_1);
+			JourneyStep journey_1_Step_2 = new JourneyStep("step2_journey_1",1,30,30,journey_1,puzzleGroup_1,1L,now,now,admin_1,admin_1);
+			JourneyStep journey_2_Step_1 = new JourneyStep("step1_journey_2",1,30,30,journey_2,puzzleGroup_1,1L,now,now,admin_1,admin_1);
+			journeyStepService.save(journey_1_Step_1);
+			journeyStepService.save(journey_1_Step_2);
+			journeyStepService.save(journey_2_Step_1);
 
 			System.out.println("All Things is OK!!!!");
 		};

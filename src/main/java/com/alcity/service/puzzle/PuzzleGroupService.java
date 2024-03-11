@@ -76,7 +76,7 @@ public class PuzzleGroupService  implements PuzzleGroupRepository {
     }
 
     @Override
-    public PuzzleGroup findByTitle(String title) {
+    public  Collection<PuzzleGroup> findByTitle(String title) {
         return null;
     }
 }

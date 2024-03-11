@@ -27,6 +27,10 @@ public class Journey  extends RecordInformation implements Serializable {
     @JsonIgnore
     private Set<JourneyStep> journeyStepSet;
 
+    @OneToMany(mappedBy = "journey", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JsonIgnore
+    private Set<JourneyLearningSkill> journeyLearningSkillSet;
+
     public Journey() {
     }
 
