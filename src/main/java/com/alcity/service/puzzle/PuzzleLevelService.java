@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.Collection;
 import java.util.Optional;
 
 @Service
@@ -31,12 +32,24 @@ public class PuzzleLevelService implements PuzzleLevelRepository {
     }
 
     @Override
+    public Collection<PuzzleLevel> findAll() {
+        return null;
+    }
+
+    @Override
     public boolean existsById(Long aLong) {
         return false;
     }
 
+
+
     @Override
-    public Iterable<PuzzleLevel> findAll() {
+    public Collection<PuzzleLevel> findByTitle(String title) {
+        return null;
+    }
+
+    @Override
+    public Collection<PuzzleLevel> findByCode(String code) {
         return null;
     }
 

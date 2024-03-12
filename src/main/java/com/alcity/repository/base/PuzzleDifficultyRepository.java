@@ -1,17 +1,16 @@
 package com.alcity.repository.base;
 
-import com.alcity.entity.base.PuzzleCategory;
-import com.alcity.entity.base.PuzzleDifficulty;
+import com.alcity.entity.base.PuzzleLevelDifficulty;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.Collection;
 import java.util.Optional;
 
-public interface PuzzleDifficultyRepository  extends CrudRepository<PuzzleDifficulty,Long> {
+public interface PuzzleDifficultyRepository  extends CrudRepository<PuzzleLevelDifficulty,Long> {
 
-    Optional<PuzzleDifficulty> findById(Long id);
-    Collection<PuzzleDifficulty> findAll();
-    PuzzleDifficulty findByLabel(String label);
-    PuzzleDifficulty findByValue(String value);
+    Optional<PuzzleLevelDifficulty> findById(Long id);
+    Collection<PuzzleLevelDifficulty> findAll();
+    PuzzleLevelDifficulty findByLabel(String label);
+    PuzzleLevelDifficulty findByValue(String value);
 
 }

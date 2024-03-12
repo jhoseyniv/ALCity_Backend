@@ -1,8 +1,7 @@
 package com.alcity.service.base;
 
-
-import com.alcity.entity.base.PuzzleLevelDifficulty;
-import com.alcity.repository.base.PuzzleDifficultyRepository;
+import com.alcity.entity.base.PuzzleLevelPrivacy;
+import com.alcity.repository.base.PuzzleLevelPrivacyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,25 +9,25 @@ import javax.transaction.Transactional;
 import java.util.Collection;
 import java.util.Optional;
 
+
 @Service
 @Transactional
-public class PuzzleDifficultyService implements PuzzleDifficultyRepository {
+public class PuzzleLevelPrivacyService implements PuzzleLevelPrivacyRepository {
 
-    @Autowired
-    PuzzleDifficultyRepository puzzleDifficultyRepository;
-
+   @Autowired
+    PuzzleLevelPrivacyRepository puzzleLevelPrivacyRepository;
     @Override
-    public <S extends PuzzleLevelDifficulty> S save(S entity) {
-        return puzzleDifficultyRepository.save(entity);
+    public <S extends PuzzleLevelPrivacy> S save(S entity) {
+        return puzzleLevelPrivacyRepository.save(entity);
     }
 
     @Override
-    public <S extends PuzzleLevelDifficulty> Iterable<S> saveAll(Iterable<S> entities) {
+    public <S extends PuzzleLevelPrivacy> Iterable<S> saveAll(Iterable<S> entities) {
         return null;
     }
 
     @Override
-    public Optional<PuzzleLevelDifficulty> findById(Long id) {
+    public Optional<PuzzleLevelPrivacy> findById(Long id) {
         return Optional.empty();
     }
 
@@ -38,12 +37,12 @@ public class PuzzleDifficultyService implements PuzzleDifficultyRepository {
     }
 
     @Override
-    public Collection<PuzzleLevelDifficulty> findAll() {
+    public Collection<PuzzleLevelPrivacy> findAll() {
         return null;
     }
 
     @Override
-    public Iterable<PuzzleLevelDifficulty> findAllById(Iterable<Long> longs) {
+    public Iterable<PuzzleLevelPrivacy> findAllById(Iterable<Long> longs) {
         return null;
     }
 
@@ -58,7 +57,7 @@ public class PuzzleDifficultyService implements PuzzleDifficultyRepository {
     }
 
     @Override
-    public void delete(PuzzleLevelDifficulty entity) {
+    public void delete(PuzzleLevelPrivacy entity) {
 
     }
 
@@ -68,7 +67,7 @@ public class PuzzleDifficultyService implements PuzzleDifficultyRepository {
     }
 
     @Override
-    public void deleteAll(Iterable<? extends PuzzleLevelDifficulty> entities) {
+    public void deleteAll(Iterable<? extends PuzzleLevelPrivacy> entities) {
 
     }
 
@@ -78,12 +77,12 @@ public class PuzzleDifficultyService implements PuzzleDifficultyRepository {
     }
 
     @Override
-    public PuzzleLevelDifficulty findByLabel(String label) {
+    public PuzzleLevelPrivacy findByLabel(String label) {
         return null;
     }
 
     @Override
-    public PuzzleLevelDifficulty findByValue(String value) {
+    public PuzzleLevelPrivacy findByValue(String value) {
         return null;
     }
 }

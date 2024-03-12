@@ -85,6 +85,9 @@ public class ObjectManagmentApplication {
 	private PuzzleLevelStatusService puzzleLevelStatusService;
 
 	@Autowired
+	private PuzzleLevelPrivacyService puzzleLevelPrivacyService;
+
+	@Autowired
 	private WalletItemTypeService walletItemTypeService;
 
 	@Autowired
@@ -218,9 +221,9 @@ public class ObjectManagmentApplication {
 			dataTypeRepository.save(alcity_Boolean);
 			dataTypeRepository.save(alcity_String);
 
-			PuzzleDifficulty easy= new PuzzleDifficulty("Easy","Easy",1L,now,now,admin_1,admin_1);
-			PuzzleDifficulty medium= new PuzzleDifficulty("Medium","Medium",1L,now,now,admin_1,admin_1);
-			PuzzleDifficulty hard= new PuzzleDifficulty("Hard","Hard",1L,now,now,admin_1,admin_1);
+			PuzzleLevelDifficulty easy= new PuzzleLevelDifficulty("Easy","Easy",1L,now,now,admin_1,admin_1);
+			PuzzleLevelDifficulty medium= new PuzzleLevelDifficulty("Medium","Medium",1L,now,now,admin_1,admin_1);
+			PuzzleLevelDifficulty hard= new PuzzleLevelDifficulty("Hard","Hard",1L,now,now,admin_1,admin_1);
 
 			puzzleDifficultyService.save(easy);
 			puzzleDifficultyService.save(medium);
@@ -232,6 +235,13 @@ public class ObjectManagmentApplication {
 			puzzleLevelStatusService.save(compeleted);
 			puzzleLevelStatusService.save(canceled);
 			puzzleLevelStatusService.save(ongoing);
+
+			PuzzleLevelPrivacy privacy_1 = new PuzzleLevelPrivacy("privacy 1","privacy1",1L,now,now,admin_1,admin_1);
+			PuzzleLevelPrivacy privacy_2 = new PuzzleLevelPrivacy("privacy 2","privacy2",1L,now,now,admin_1,admin_1);
+			PuzzleLevelPrivacy privacy_3 = new PuzzleLevelPrivacy("privacy 3","privacy3",1L,now,now,admin_1,admin_1);
+			puzzleLevelPrivacyService.save(privacy_1);
+			puzzleLevelPrivacyService.save(privacy_2);
+			puzzleLevelPrivacyService.save(privacy_3);
 
 			LearningSkill constraint = new LearningSkill("Constraint","Constraint",1L,now,now,admin_1,admin_1);
 			LearningSkill loop = new LearningSkill("loop","loop",1L,now,now,admin_1,admin_1);
@@ -371,8 +381,13 @@ public class ObjectManagmentApplication {
 			PuzzleSkillLearningContent puzzleSkillLearningContent_1 = new PuzzleSkillLearningContent(division,puzzleGroup_1,learningContent_Division,1L,now,now,admin_1,admin_1);
 			puzzleSkillLearningContentService.save(puzzleSkillLearningContent_1);
 
-			PuzzleLevel puzzleLevel_hashimage = new PuzzleLevel(3L,now,now,admin_1,admin_1);
+			PuzzleLevel puzzleLevel_hashimage = new PuzzleLevel(now,1L,"arrange hash image","HASH_IMAGe",10,14,5f,puzzleGroup_1,easy,ongoing,privacy_1, 3L,now,now,admin_1,admin_1);
 			puzzleLevelService.save(puzzleLevel_hashimage);
+
+			PuzzleLevel puzzleLevel_hashimage2 = new PuzzleLevel(now,1L,"arrange hash image 2","HASH_IMAGe 2",5,8,8f,puzzleGroup_1,hard,ongoing,privacy_2, 3L,now,now,admin_1,admin_1);
+			puzzleLevelService.save(puzzleLevel_hashimage2);
+
+
 			StringBuffer  condition = new StringBuffer("(img1.x == img1.targetX)&&(img1.y == img1.targetY)" +","
 			 			   + "(img2.x == img2.targetX)&&(img2.y == img2.targetY)" + ","
 					       + "(img3.x == img3.targetX)&&(img3.y == img3.targetY)" + ","

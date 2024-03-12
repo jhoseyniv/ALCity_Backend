@@ -39,6 +39,12 @@ public class PuzzleGroup extends RecordInformation implements Serializable {
     @JsonIgnore
     private BinaryContent pic;
 
+
+
+    @OneToMany(mappedBy = "puzzleGroup", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JsonIgnore
+    private Set<PuzzleLevel> puzzleLevelSet;
+
     public PuzzleGroup() {
     }
 
