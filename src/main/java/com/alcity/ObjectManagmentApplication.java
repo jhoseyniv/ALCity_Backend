@@ -1,5 +1,6 @@
 package com.alcity;
 
+import com.alcity.dto.CameraSetupDTO;
 import com.alcity.entity.base.*;
 import com.alcity.entity.journey.Journey;
 import com.alcity.entity.journey.JourneyLearningSkill;
@@ -8,15 +9,15 @@ import com.alcity.entity.learning.LearningContent;
 import com.alcity.entity.learning.LearningSkill;
 import com.alcity.entity.learning.LearningSkill_LearningTopic;
 import com.alcity.entity.learning.LearningTopic;
-import com.alcity.entity.puzzle.PuzzleGroup;
-import com.alcity.entity.puzzle.PuzzleLevel;
-import com.alcity.entity.puzzle.PuzzleLevelObjective;
-import com.alcity.entity.puzzle.PuzzleSkillLearningContent;
+import com.alcity.entity.play.PermitedPlayer;
+import com.alcity.entity.play.PlayHistory;
+import com.alcity.entity.puzzle.*;
 import com.alcity.entity.users.ApplicationMember;
 import com.alcity.entity.users.ApplicationMember_WalletItem;
 import com.alcity.entity.users.WalletItem;
 import com.alcity.entity.users.WalletTransaction;
 import com.alcity.repository.base.DataTypeRepository;
+import com.alcity.repository.play.PermitedPlayerRepository;
 import com.alcity.service.Journey.JourneyLearningSkillService;
 import com.alcity.service.Journey.JourneyService;
 import com.alcity.service.Journey.JourneyStepService;
@@ -25,10 +26,8 @@ import com.alcity.service.learning.LearningContentService;
 import com.alcity.service.learning.LearningSkillService;
 import com.alcity.service.learning.LearningSkill_LearningTopicService;
 import com.alcity.service.learning.LearningTopicService;
-import com.alcity.service.puzzle.PuzzleGroupService;
-import com.alcity.service.puzzle.PuzzleLevelObjectiveService;
-import com.alcity.service.puzzle.PuzzleLevelService;
-import com.alcity.service.puzzle.PuzzleSkillLearningContentService;
+import com.alcity.service.play.PlayHistoryService;
+import com.alcity.service.puzzle.*;
 import com.alcity.service.users.ApplicationMemberService;
 import com.alcity.service.users.ApplicationMember_WalletItemService;
 import com.alcity.service.users.WalletItemService;
@@ -138,6 +137,18 @@ public class ObjectManagmentApplication {
 
 	@Autowired
 	PuzzleLevelService puzzleLevelService;
+
+	@Autowired
+	PuzzleLevelLearningTopicService puzzleLevelLearningTopicService;
+
+	@Autowired
+	PermitedPlayerRepository permitedPlayerRepository;
+
+	@Autowired
+	PlayHistoryService playHistoryService;
+
+	@Autowired
+	PuzzleLevelGroundService  puzzleLevelGroundService;
 
 	public byte[] getImage(String imageDirectory, String imageName) throws IOException {
 		Path imagePath = Path.of(imageDirectory, imageName);
@@ -341,6 +352,10 @@ public class ObjectManagmentApplication {
 			journeyLearningSkillService.save(journey_1_Skill_1);
 			journeyLearningSkillService.save(journey_1_Skill_2);
 
+			byte[] puzzle_Ground_Image_1 = getImage("src/main/resources/images/","playGround.png");
+			BinaryContent puzzle_ground_binary_content_1 = new BinaryContent("puzzle ground for hash image",puzzle_Ground_Image_1,imageType,1L,now,now,admin_1,admin_1);
+			binaryContentService.save(puzzle_ground_binary_content_1);
+
 
 			byte[] puzzle_group_Icon_1 = getImage("src/main/resources/images/","puzzle_group_1.png");
 			BinaryContent puzzle_group_binary_content_1 = new BinaryContent("image_puzzle_group_matematic",puzzle_group_Icon_1,imageType,1L,now,now,admin_1,admin_1);
@@ -381,11 +396,26 @@ public class ObjectManagmentApplication {
 			PuzzleSkillLearningContent puzzleSkillLearningContent_1 = new PuzzleSkillLearningContent(division,puzzleGroup_1,learningContent_Division,1L,now,now,admin_1,admin_1);
 			puzzleSkillLearningContentService.save(puzzleSkillLearningContent_1);
 
-			PuzzleLevel puzzleLevel_hashimage = new PuzzleLevel(now,1L,"arrange hash image","HASH_IMAGe",10,14,5f,puzzleGroup_1,easy,ongoing,privacy_1, 3L,now,now,admin_1,admin_1);
+			PuzzleLevel puzzleLevel_hashimage = new PuzzleLevel(now,1L,"arrange hash image","HASH_IMAGe",10,14,5f,puzzleGroup_1,easy,ongoing,privacy_1,puzzle_group_binary_content_1,puzzle_group_binary_content_2,3L,now,now,admin_1,admin_1);
 			puzzleLevelService.save(puzzleLevel_hashimage);
 
-			PuzzleLevel puzzleLevel_hashimage2 = new PuzzleLevel(now,1L,"arrange hash image 2","HASH_IMAGe 2",5,8,8f,puzzleGroup_1,hard,ongoing,privacy_2, 3L,now,now,admin_1,admin_1);
+			PuzzleLevel puzzleLevel_hashimage2 = new PuzzleLevel(now,1L,"arrange hash image 2","HASH_IMAGe 2",5,8,8f,puzzleGroup_1,hard,ongoing,privacy_2,puzzle_group_binary_content_1,puzzle_group_binary_content_2, 3L,now,now,admin_1,admin_1);
 			puzzleLevelService.save(puzzleLevel_hashimage2);
+			CameraSetupDTO cameraSetupDTO = new CameraSetupDTO();
+			String cameraSetup="";
+			PuzzleLevelGround puzzleLevel_hashImage_ground = new PuzzleLevelGround(3,3,cameraSetup,puzzleLevel_hashimage,puzzle_ground_binary_content_1,1L,now,now,admin_1,admin_1);
+
+			PermitedPlayer player_1_puzzleLevel_hashimage = new PermitedPlayer(jalalHoseyni,puzzleLevel_hashimage,1L,now,now,admin_1,admin_1);
+			permitedPlayerRepository.save(player_1_puzzleLevel_hashimage);
+
+
+			PuzzleLevelLearningTopic puzzleLevelLearningTopic_1 = new PuzzleLevelLearningTopic(puzzleLevel_hashimage,hashImage_Topic,learningContent_Division,1L,now,now,admin_1,admin_1);
+			PuzzleLevelLearningTopic puzzleLevelLearningTopic_2 = new PuzzleLevelLearningTopic(puzzleLevel_hashimage,magic_matrix_Topic,learningContent_Division,1L,now,now,admin_1,admin_1);
+			puzzleLevelLearningTopicService.save(puzzleLevelLearningTopic_1);
+			puzzleLevelLearningTopicService.save(puzzleLevelLearningTopic_2);
+
+			PlayHistory playHistory_1 = new PlayHistory(jalalHoseyni,puzzleLevel_hashimage,now,100,10f,1L,now,now,jalalHoseyni,jalalHoseyni);
+			playHistoryService.save(playHistory_1);
 
 
 			StringBuffer  condition = new StringBuffer("(img1.x == img1.targetX)&&(img1.y == img1.targetY)" +","

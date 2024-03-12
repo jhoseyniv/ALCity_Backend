@@ -1,6 +1,5 @@
 package com.alcity.api;
 
-import com.alcity.dto.BirdDTO;
 import com.alcity.entity.base.UserGender;
 import com.alcity.service.base.UserGenderService;
 import org.springframework.beans.factory.annotation.Autowired;
