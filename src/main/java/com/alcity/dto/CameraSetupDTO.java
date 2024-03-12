@@ -69,4 +69,12 @@ public class CameraSetupDTO {
         this.yRotation = yRotation;
         this.zRotation = zRotation;
     }
+    public String getCameraSetupInfo(){
+        return "position:{" +
+                "x:" + getxPosition() +",y:"+getyPosition()+",z:" + getzPosition() +
+                "},"+
+                "rotation:{"+
+                "x:" + getxRotation() +",y:"+getyRotation()+",z:" + getzRotation() +
+                "}";
+    }
 }

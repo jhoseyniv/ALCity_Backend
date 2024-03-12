@@ -31,13 +31,13 @@ public class BirdConroller {
         return bird;
     }
 
-    @GetMapping( "/bnames/{bname}")
-    public BirdDTO getBirdByName(@PathVariable String bvalue) {
-       // BaseTable bird = userGenderService.findByValue(bvalue);
-        //must be implementd
-        BirdDTO birdBean= null;
-        return birdBean;
-    }
+//    @GetMapping( "/bnames/{bname}")
+//    public BirdDTO getBirdByName(@PathVariable String bvalue) {
+//       // BaseTable bird = userGenderService.findByValue(bvalue);
+//        //must be implementd
+//        BirdDTO birdBean= null;
+//        return birdBean;
+//    }
 
 
 

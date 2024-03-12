@@ -401,9 +401,10 @@ public class ObjectManagmentApplication {
 
 			PuzzleLevel puzzleLevel_hashimage2 = new PuzzleLevel(now,1L,"arrange hash image 2","HASH_IMAGe 2",5,8,8f,puzzleGroup_1,hard,ongoing,privacy_2,puzzle_group_binary_content_1,puzzle_group_binary_content_2, 3L,now,now,admin_1,admin_1);
 			puzzleLevelService.save(puzzleLevel_hashimage2);
-			CameraSetupDTO cameraSetupDTO = new CameraSetupDTO();
-			String cameraSetup="";
-			PuzzleLevelGround puzzleLevel_hashImage_ground = new PuzzleLevelGround(3,3,cameraSetup,puzzleLevel_hashimage,puzzle_ground_binary_content_1,1L,now,now,admin_1,admin_1);
+			CameraSetupDTO cameraSetupDTO = new CameraSetupDTO(5,5,5,5,5,5);
+			PuzzleLevelGround puzzleLevel_hashImage_ground = new PuzzleLevelGround(3,3,cameraSetupDTO.getCameraSetupInfo(),puzzleLevel_hashimage,puzzle_ground_binary_content_1,1L,now,now,admin_1,admin_1);
+			puzzleLevelGroundService.save(puzzleLevel_hashImage_ground);
+
 
 			PermitedPlayer player_1_puzzleLevel_hashimage = new PermitedPlayer(jalalHoseyni,puzzleLevel_hashimage,1L,now,now,admin_1,admin_1);
 			permitedPlayerRepository.save(player_1_puzzleLevel_hashimage);
