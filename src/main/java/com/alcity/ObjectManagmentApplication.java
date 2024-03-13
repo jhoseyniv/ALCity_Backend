@@ -156,6 +156,12 @@ public class ObjectManagmentApplication {
 	@Autowired
 	PuzzleLevelGameInstanceService puzzleLevelGameInstanceService;
 
+	@Autowired
+	ObjectCategoryService objectCategoryService;
+
+	@Autowired
+
+	PuzzleObjectService puzzleObjectService;
 
 	public byte[] getImage(String imageDirectory, String imageName) throws IOException {
 		Path imagePath = Path.of(imageDirectory, imageName);
@@ -285,6 +291,14 @@ public class ObjectManagmentApplication {
 			LearningSkill_LearningTopic learningSkill_learningTopic_2 = new LearningSkill_LearningTopic("title2",division,algorithm_Topic,1L,now,now,admin_1,admin_1);
 			learningSkill_LearningTopicService.save(learningSkill_learningTopic_1);
 			learningSkill_LearningTopicService.save(learningSkill_learningTopic_2);
+
+
+			ObjectCategory objectCategory_animal = new ObjectCategory("Animal","Animal",1L,now,now,admin_1,admin_1);
+			ObjectCategory objectCategory_bird = new ObjectCategory("Bird","Bird",1L,now,now,admin_1,admin_1);
+			ObjectCategory objectCategory_cereal = new ObjectCategory("cereal","cereal",1L,now,now,admin_1,admin_1);
+			objectCategoryService.save(objectCategory_animal);
+			objectCategoryService.save(objectCategory_bird);
+			objectCategoryService.save(objectCategory_cereal);
 
 
 			BinaryContentType imageType= new BinaryContentType("image","image",1L,now,now,admin_1,admin_1);
