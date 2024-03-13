@@ -1,6 +1,6 @@
 package com.alcity.entity.play;
 
-import com.alcity.entity.base.RecordInformation;
+import com.alcity.entity.base.BaseTable;
 import com.alcity.entity.puzzle.PuzzleLevel;
 import com.alcity.entity.users.ApplicationMember;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -13,7 +13,7 @@ import javax.persistence.ManyToOne;
 
 
 @Entity
-public class PermitedPlayer extends RecordInformation {
+public class PermitedPlayer extends BaseTable {
 
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "player_id", referencedColumnName = "id")

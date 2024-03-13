@@ -6,7 +6,7 @@ import javax.persistence.Entity;
 import java.io.Serializable;
 
 @Entity
-public class WalletItemType extends  BaseTable implements Serializable {
+public class WalletItemType extends BaseItemSet implements Serializable {
 
     public WalletItemType() {
     }

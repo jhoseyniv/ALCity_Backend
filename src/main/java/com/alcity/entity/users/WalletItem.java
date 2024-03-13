@@ -1,7 +1,6 @@
 package com.alcity.entity.users;
 
-import com.alcity.entity.base.BaseTable;
-import com.alcity.entity.base.RecordInformation;
+import com.alcity.entity.base.BaseItemSet;
 import com.alcity.entity.base.WalletItemType;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -10,7 +9,7 @@ import java.io.Serializable;
 import java.util.Set;
 
 @Entity
-public class WalletItem extends BaseTable implements Serializable {
+public class WalletItem extends BaseItemSet implements Serializable {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "wallet_item_type_id", nullable = false)

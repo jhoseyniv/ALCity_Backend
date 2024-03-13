@@ -1,7 +1,5 @@
 package com.alcity.entity.base;
 
-
-
 import com.alcity.entity.users.ApplicationMember;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -9,25 +7,15 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
-
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS )
-public abstract class BaseTable implements Serializable {
-
+public class BaseTable implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
     private Long id;
     public Long getId() {
         return id;
     }
-
-    @Column(name="label")
-    private String label;
-
-    @Column(name="value")
-    private String value;
-
-
     @NotNull(message = "{bName.notempty}")
     private Long version;
 
@@ -44,18 +32,16 @@ public abstract class BaseTable implements Serializable {
     private ApplicationMember createdBy;
 
 
+
     @ManyToOne(fetch = FetchType.LAZY, optional = true)
     @JoinColumn( name ="updatedBy",  nullable = true)
     @JsonIgnore
     private ApplicationMember updatedBy;
 
-
     public BaseTable() {
     }
 
-    public BaseTable(String label, String value, Long version, Long created, Long updated, ApplicationMember createdBy ,ApplicationMember updatedBy) {
-        this.label = label;
-        this.value = value;
+    public BaseTable(Long version, Long created, Long updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
         this.version = version;
         this.created = created;
         this.updated = updated;

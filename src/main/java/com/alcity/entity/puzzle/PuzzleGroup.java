@@ -3,7 +3,7 @@ package com.alcity.entity.puzzle;
 
 import com.alcity.entity.base.BinaryContent;
 import com.alcity.entity.base.PuzzleCategory;
-import com.alcity.entity.base.RecordInformation;
+import com.alcity.entity.base.BaseTable;
 import com.alcity.entity.journey.JourneyStep;
 import com.alcity.entity.users.ApplicationMember;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -13,7 +13,7 @@ import java.io.Serializable;
 import java.util.Set;
 
 @Entity
-public class PuzzleGroup extends RecordInformation implements Serializable {
+public class PuzzleGroup extends BaseTable implements Serializable {
 
     @Column(name="title")
     private String title;

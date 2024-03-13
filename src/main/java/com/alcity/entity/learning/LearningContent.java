@@ -1,8 +1,7 @@
 package com.alcity.entity.learning;
 
 import com.alcity.entity.base.BinaryContent;
-import com.alcity.entity.base.RecordInformation;
-import com.alcity.entity.journey.Journey;
+import com.alcity.entity.base.BaseTable;
 import com.alcity.entity.users.ApplicationMember;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -14,7 +13,7 @@ import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 @Entity
-public class LearningContent  extends RecordInformation implements Serializable {
+public class LearningContent  extends BaseTable implements Serializable {
 
 
     @NotNull(message = "{bHeight.notempty}")

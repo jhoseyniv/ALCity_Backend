@@ -7,7 +7,7 @@ import javax.persistence.Entity;
 import java.io.Serializable;
 
 @Entity
-public class GameStatus extends BaseTable implements Serializable {
+public class GameStatus extends BaseItemSet implements Serializable {
 
     public GameStatus() {
     }

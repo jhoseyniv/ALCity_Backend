@@ -1,10 +1,8 @@
 package com.alcity.entity.journey;
 
 
-import com.alcity.entity.base.BaseTable;
 import com.alcity.entity.base.BinaryContent;
-import com.alcity.entity.base.BinaryContentType;
-import com.alcity.entity.base.RecordInformation;
+import com.alcity.entity.base.BaseTable;
 import com.alcity.entity.users.ApplicationMember;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -14,7 +12,7 @@ import java.util.Set;
 
 @Entity
 @Table(name="Journey")
-public class Journey  extends RecordInformation implements Serializable {
+public class Journey  extends BaseTable implements Serializable {
     @Column(name="title")
     private String title;
 

@@ -1,6 +1,6 @@
 package com.alcity.entity.puzzle;
 
-import com.alcity.entity.base.RecordInformation;
+import com.alcity.entity.base.BaseTable;
 import com.alcity.entity.learning.LearningContent;
 import com.alcity.entity.learning.LearningTopic;
 import com.alcity.entity.users.ApplicationMember;
@@ -12,7 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 @Entity
-public class PuzzleLevelLearningTopic extends RecordInformation {
+public class PuzzleLevelLearningTopic extends BaseTable {
 
 
     @ManyToOne(fetch = FetchType.LAZY, optional = true)

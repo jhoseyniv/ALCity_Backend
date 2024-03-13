@@ -6,7 +6,7 @@ import com.alcity.entity.users.ApplicationMember;
 import javax.persistence.Entity;
 
 @Entity
-public class BinaryContentType extends BaseTable {
+public class BinaryContentType extends BaseItemSet {
     public BinaryContentType() {
     }
 

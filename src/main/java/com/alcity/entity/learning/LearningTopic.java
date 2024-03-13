@@ -1,6 +1,6 @@
 package com.alcity.entity.learning;
 
-import com.alcity.entity.base.RecordInformation;
+import com.alcity.entity.base.BaseTable;
 import com.alcity.entity.users.ApplicationMember;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -9,7 +9,7 @@ import javax.validation.constraints.NotNull;
 import java.util.Set;
 
 @Entity
-public class LearningTopic extends RecordInformation {
+public class LearningTopic extends BaseTable {
 
     @NotNull(message = "{bHeight.notempty}")
     private String title;

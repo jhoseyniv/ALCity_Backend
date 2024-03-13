@@ -1,7 +1,6 @@
 package com.alcity.entity.users;
 
 import com.alcity.entity.base.BaseTable;
-import com.alcity.entity.base.RecordInformation;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.Entity;
@@ -12,7 +11,7 @@ import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 @Entity
-public class WalletTransaction extends RecordInformation implements Serializable {
+public class WalletTransaction extends BaseTable implements Serializable {
 
     @NotNull(message = "{transactionDate.notempty}")
     private Long transactionDate;

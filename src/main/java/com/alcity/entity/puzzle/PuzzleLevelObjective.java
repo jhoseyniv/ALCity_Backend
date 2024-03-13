@@ -1,6 +1,6 @@
 package com.alcity.entity.puzzle;
 
-import com.alcity.entity.base.RecordInformation;
+import com.alcity.entity.base.BaseTable;
 import com.alcity.entity.learning.LearningSkill;
 import com.alcity.entity.users.ApplicationMember;
 import com.alcity.entity.users.WalletItem;
@@ -10,7 +10,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-public class PuzzleLevelObjective extends RecordInformation implements Serializable {
+public class PuzzleLevelObjective extends BaseTable implements Serializable {
 
     @Column(name="title")
     private String title;

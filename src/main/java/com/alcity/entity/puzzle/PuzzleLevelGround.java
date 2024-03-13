@@ -2,14 +2,14 @@ package com.alcity.entity.puzzle;
 
 
 import com.alcity.entity.base.BinaryContent;
-import com.alcity.entity.base.RecordInformation;
+import com.alcity.entity.base.BaseTable;
 import com.alcity.entity.users.ApplicationMember;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 
 @Entity
-public class PuzzleLevelGround extends RecordInformation {
+public class PuzzleLevelGround extends BaseTable {
 
     @Column(name="numRows")
     private Integer numRows;

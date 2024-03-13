@@ -9,7 +9,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-public class PuzzleLevel extends RecordInformation implements Serializable {
+public class PuzzleLevel extends BaseTable implements Serializable {
 
     @Column(name="approveDate")
     private Long approveDate;

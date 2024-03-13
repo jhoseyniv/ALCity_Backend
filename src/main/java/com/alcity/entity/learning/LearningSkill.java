@@ -1,6 +1,6 @@
 package com.alcity.entity.learning;
 
-import com.alcity.entity.base.BaseTable;
+import com.alcity.entity.base.BaseItemSet;
 import com.alcity.entity.users.ApplicationMember;
 
 import javax.persistence.Entity;
@@ -8,7 +8,7 @@ import java.io.Serializable;
 
 
 @Entity
-public class LearningSkill extends BaseTable implements Serializable {
+public class LearningSkill extends BaseItemSet implements Serializable {
     public LearningSkill() {
     }
 

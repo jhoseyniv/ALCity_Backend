@@ -1,7 +1,6 @@
 package com.alcity.entity.puzzle;
 
-import com.alcity.entity.base.BinaryContent;
-import com.alcity.entity.base.RecordInformation;
+import com.alcity.entity.base.BaseTable;
 import com.alcity.entity.learning.LearningContent;
 import com.alcity.entity.learning.LearningSkill;
 import com.alcity.entity.users.ApplicationMember;
@@ -14,7 +13,7 @@ import javax.persistence.ManyToOne;
 import java.io.Serializable;
 
 @Entity
-public class PuzzleSkillLearningContent extends RecordInformation implements Serializable {
+public class PuzzleSkillLearningContent extends BaseTable implements Serializable {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = true)
     @JoinColumn(name = "learning_skill_id", nullable = true)

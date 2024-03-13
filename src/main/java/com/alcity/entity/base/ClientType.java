@@ -7,7 +7,7 @@ import java.io.Serializable;
 import java.util.Set;
 
 @Entity
-public class ClientType extends BaseTable implements Serializable {
+public class ClientType extends BaseItemSet implements Serializable {
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.MERGE })
     @JoinTable(name = "ApplicationMember_ClientType_MAPPING", joinColumns = @JoinColumn(name = "client_type_id"),

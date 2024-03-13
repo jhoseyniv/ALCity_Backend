@@ -9,7 +9,7 @@ import java.io.Serializable;
 import java.util.Set;
 
 @Entity
-public class PuzzleCategory extends BaseTable implements Serializable {
+public class PuzzleCategory extends BaseItemSet implements Serializable {
 
 
 

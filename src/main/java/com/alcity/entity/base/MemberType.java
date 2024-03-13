@@ -9,7 +9,7 @@ import java.io.Serializable;
 import java.util.Set;
 
 @Entity
-public class MemberType  extends BaseTable implements Serializable {
+public class MemberType  extends BaseItemSet implements Serializable {
 
     public MemberType() {
     }

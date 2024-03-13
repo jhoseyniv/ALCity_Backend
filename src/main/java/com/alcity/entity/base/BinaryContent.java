@@ -7,7 +7,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.*;
 
 @Entity
-public class BinaryContent extends RecordInformation {
+public class BinaryContent extends BaseTable {
 
     @Column(name="fileName")
     private String fileName;

@@ -4,13 +4,12 @@ package com.alcity.entity.users;
 import com.alcity.entity.base.*;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Set;
 
 @Entity
 @Table(name="ApplicationMember")
-public class ApplicationMember extends RecordInformation implements Serializable {
+public class ApplicationMember extends BaseTable implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
     private Long id;

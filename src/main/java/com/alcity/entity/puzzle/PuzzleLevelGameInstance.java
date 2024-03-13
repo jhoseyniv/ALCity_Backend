@@ -1,7 +1,7 @@
 package com.alcity.entity.puzzle;
 
 import com.alcity.entity.base.GameStatus;
-import com.alcity.entity.base.RecordInformation;
+import com.alcity.entity.base.BaseTable;
 import com.alcity.entity.users.ApplicationMember;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -13,7 +13,7 @@ import javax.persistence.ManyToOne;
 import java.io.Serializable;
 
 @Entity
-public class PuzzleLevelGameInstance extends RecordInformation implements Serializable {
+public class PuzzleLevelGameInstance extends BaseTable implements Serializable {
 
 
     @ManyToOne(fetch = FetchType.EAGER, optional = false)

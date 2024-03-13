@@ -8,7 +8,7 @@ import java.io.Serializable;
 import java.util.Set;
 
 @Entity
-public class UserGender extends  BaseTable  implements Serializable {
+public class UserGender extends BaseItemSet implements Serializable {
 
     public UserGender() {
     }

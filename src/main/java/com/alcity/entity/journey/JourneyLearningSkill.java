@@ -1,7 +1,7 @@
 package com.alcity.entity.journey;
 
 import com.alcity.entity.learning.LearningSkill;
-import com.alcity.entity.base.RecordInformation;
+import com.alcity.entity.base.BaseTable;
 import com.alcity.entity.users.ApplicationMember;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -9,7 +9,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-public class JourneyLearningSkill extends RecordInformation implements Serializable {
+public class JourneyLearningSkill extends BaseTable implements Serializable {
 
     @Column(name="requiredAmount")
     private Float requiredAmount;

@@ -1,9 +1,7 @@
 package com.alcity.entity.learning;
 
 import com.alcity.entity.base.BaseTable;
-import com.alcity.entity.base.RecordInformation;
 import com.alcity.entity.users.ApplicationMember;
-import com.alcity.entity.users.WalletItem;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -11,7 +9,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-public class LearningSkill_LearningTopic extends RecordInformation implements Serializable {
+public class LearningSkill_LearningTopic extends BaseTable implements Serializable {
 
 
     @Column(name="title")

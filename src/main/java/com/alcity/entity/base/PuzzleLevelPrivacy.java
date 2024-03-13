@@ -6,7 +6,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-public class PuzzleLevelPrivacy extends BaseTable implements Serializable {
+public class PuzzleLevelPrivacy extends BaseItemSet implements Serializable {
 
 
     public PuzzleLevelPrivacy() {
