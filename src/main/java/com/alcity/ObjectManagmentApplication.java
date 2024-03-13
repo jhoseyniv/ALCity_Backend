@@ -150,6 +150,13 @@ public class ObjectManagmentApplication {
 	@Autowired
 	PuzzleLevelGroundService  puzzleLevelGroundService;
 
+	@Autowired
+	GameStatusService gameStatusService;
+
+	@Autowired
+	PuzzleLevelGameInstanceService puzzleLevelGameInstanceService;
+
+
 	public byte[] getImage(String imageDirectory, String imageName) throws IOException {
 		Path imagePath = Path.of(imageDirectory, imageName);
 
@@ -431,6 +438,16 @@ public class ObjectManagmentApplication {
 			PuzzleLevelObjective puzzleLevelObjective = new PuzzleLevelObjective("arrange image pieces","arrange image pieces as correct image",10f,2f,condition,timeManagement,alCoin10WalletItem,puzzleLevel_hashimage
 																					,1L,now,now,admin_1,admin_1);
 			puzzleLevelObjectiveService.save(puzzleLevelObjective);
+
+			GameStatus gameStatus_1 = new GameStatus("gameStatus_1","gameStatus_1",1L,now,now,admin_1,admin_1);
+			GameStatus gameStatus_2 = new GameStatus("gameStatus_2","gameStatus_2",1L,now,now,admin_1,admin_1);
+			GameStatus gameStatus_3 = new GameStatus("gameStatus_3","gameStatus_3",1L,now,now,admin_1,admin_1);
+			gameStatusService.save(gameStatus_1);
+			gameStatusService.save(gameStatus_2);
+			gameStatusService.save(gameStatus_3);
+
+			PuzzleLevelGameInstance puzzleLevelGameInstance= new PuzzleLevelGameInstance(jalalHoseyni,puzzleLevel_hashimage,gameStatus_1,1L,now,now,jalalHoseyni,jalalHoseyni);
+			puzzleLevelGameInstanceService.save(puzzleLevelGameInstance);
 
 			System.out.println("All Things is OK!!!!");
 		};
