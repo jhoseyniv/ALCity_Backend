@@ -23,6 +23,9 @@ public class PuzzleGroup extends BaseTable implements Serializable {
     @JsonIgnore
     private Set<JourneyStep> journeyStepSet;
 
+    @OneToMany(mappedBy = "puzzleGroup", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JsonIgnore
+    private Set<PuzzleGroup_PuzzleObject> puzzleGroup_puzzleObjectSet;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "puzzle_category_id", nullable = false)

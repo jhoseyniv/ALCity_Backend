@@ -19,7 +19,8 @@ public class PuzzleObjectService implements PuzzleObjectRepository {
 
     @Override
     public <S extends PuzzleObject> S save(S entity) {
-        return null;
+
+        return puzzleObjectRepository.save(entity);
     }
 
     @Override

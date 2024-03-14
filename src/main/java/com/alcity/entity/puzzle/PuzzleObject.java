@@ -4,10 +4,12 @@ package com.alcity.entity.puzzle;
 import com.alcity.entity.base.BaseTable;
 import com.alcity.entity.base.BinaryContent;
 import com.alcity.entity.base.ObjectCategory;
+import com.alcity.entity.users.ApplicationMember;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Set;
 
 @Entity
 public class PuzzleObject extends BaseTable implements Serializable {
@@ -32,6 +34,18 @@ public class PuzzleObject extends BaseTable implements Serializable {
     private BinaryContent icon;
 
 
+    @OneToMany(mappedBy = "puzzleObject", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JsonIgnore
+    private Set<PuzzleGroup_PuzzleObject> puzzleGroup_puzzleObjectSet;
 
+    public PuzzleObject() {
+    }
 
+    public PuzzleObject(String title, ObjectCategory objectCategory, BinaryContent picture, BinaryContent icon, Long version, Long created, Long updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
+        super(version, created, updated, createdBy, updatedBy);
+        this.title = title;
+        this.objectCategory = objectCategory;
+        this.picture = picture;
+        this.icon = icon;
+    }
 }

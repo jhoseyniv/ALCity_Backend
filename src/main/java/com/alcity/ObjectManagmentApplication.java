@@ -160,8 +160,11 @@ public class ObjectManagmentApplication {
 	ObjectCategoryService objectCategoryService;
 
 	@Autowired
-
 	PuzzleObjectService puzzleObjectService;
+
+	@Autowired
+	PuzzleGroup_PuzzleObjectService puzzleGroup_PuzzleObjectService;
+
 
 	public byte[] getImage(String imageDirectory, String imageName) throws IOException {
 		Path imagePath = Path.of(imageDirectory, imageName);
@@ -296,9 +299,13 @@ public class ObjectManagmentApplication {
 			ObjectCategory objectCategory_animal = new ObjectCategory("Animal","Animal",1L,now,now,admin_1,admin_1);
 			ObjectCategory objectCategory_bird = new ObjectCategory("Bird","Bird",1L,now,now,admin_1,admin_1);
 			ObjectCategory objectCategory_cereal = new ObjectCategory("cereal","cereal",1L,now,now,admin_1,admin_1);
+			ObjectCategory objectCategory_Image = new ObjectCategory("Image","Image",1L,now,now,admin_1,admin_1);
+			ObjectCategory objectCategory_Mamals = new ObjectCategory("Mamals","Mamals",1L,now,now,admin_1,admin_1);
 			objectCategoryService.save(objectCategory_animal);
 			objectCategoryService.save(objectCategory_bird);
 			objectCategoryService.save(objectCategory_cereal);
+			objectCategoryService.save(objectCategory_Image);
+			objectCategoryService.save(objectCategory_Mamals);
 
 
 			BinaryContentType imageType= new BinaryContentType("image","image",1L,now,now,admin_1,admin_1);
@@ -431,8 +438,8 @@ public class ObjectManagmentApplication {
 			permitedPlayerRepository.save(player_1_puzzleLevel_hashimage);
 
 
-			PuzzleLevelLearningTopic puzzleLevelLearningTopic_1 = new PuzzleLevelLearningTopic(puzzleLevel_hashimage,hashImage_Topic,learningContent_Division,1L,now,now,admin_1,admin_1);
-			PuzzleLevelLearningTopic puzzleLevelLearningTopic_2 = new PuzzleLevelLearningTopic(puzzleLevel_hashimage,magic_matrix_Topic,learningContent_Division,1L,now,now,admin_1,admin_1);
+			PuzzleLevel_LearningTopic puzzleLevelLearningTopic_1 = new PuzzleLevel_LearningTopic(puzzleLevel_hashimage,hashImage_Topic,learningContent_Division,1L,now,now,admin_1,admin_1);
+			PuzzleLevel_LearningTopic puzzleLevelLearningTopic_2 = new PuzzleLevel_LearningTopic(puzzleLevel_hashimage,magic_matrix_Topic,learningContent_Division,1L,now,now,admin_1,admin_1);
 			puzzleLevelLearningTopicService.save(puzzleLevelLearningTopic_1);
 			puzzleLevelLearningTopicService.save(puzzleLevelLearningTopic_2);
 
@@ -462,6 +469,31 @@ public class ObjectManagmentApplication {
 
 			PuzzleLevelGameInstance puzzleLevelGameInstance= new PuzzleLevelGameInstance(jalalHoseyni,puzzleLevel_hashimage,gameStatus_1,1L,now,now,jalalHoseyni,jalalHoseyni);
 			puzzleLevelGameInstanceService.save(puzzleLevelGameInstance);
+
+			byte[] goose_Image = getImage("src/main/resources/images/","goose.png");
+			BinaryContent goose_Image_binary_content = new BinaryContent("goose image",goose_Image,imageType,1L,now,now,admin_1,admin_1);
+			binaryContentService.save(goose_Image_binary_content);
+
+			byte[] fox_Image = getImage("src/main/resources/images/","fox.png");
+			BinaryContent fox_Image_binary_content = new BinaryContent("fox image",fox_Image,imageType,1L,now,now,admin_1,admin_1);
+			binaryContentService.save(fox_Image_binary_content);
+
+			byte[] wheat_Image = getImage("src/main/resources/images/","wheat.png");
+			BinaryContent wheat_Image_binary_content = new BinaryContent("wheat image",wheat_Image,imageType,1L,now,now,admin_1,admin_1);
+			binaryContentService.save(wheat_Image_binary_content);
+
+			PuzzleObject goose = new PuzzleObject("Goose",objectCategory_bird,goose_Image_binary_content,goose_Image_binary_content,1L,now,now,jalalHoseyni,jalalHoseyni);
+			puzzleObjectService.save(goose);
+
+			PuzzleObject fox = new PuzzleObject("Fox",objectCategory_Mamals,fox_Image_binary_content,fox_Image_binary_content,1L,now,now,jalalHoseyni,jalalHoseyni);
+			puzzleObjectService.save(fox);
+
+			PuzzleObject wheat = new PuzzleObject("Wheat",objectCategory_cereal,wheat_Image_binary_content,wheat_Image_binary_content,1L,now,now,jalalHoseyni,jalalHoseyni);
+			puzzleObjectService.save(wheat);
+
+			PuzzleObject ImageObject01 = new PuzzleObject("ImageObject01",objectCategory_Image,wheat_Image_binary_content,wheat_Image_binary_content,1L,now,now,jalalHoseyni,jalalHoseyni);
+			puzzleObjectService.save(ImageObject01);
+
 
 			System.out.println("All Things is OK!!!!");
 		};

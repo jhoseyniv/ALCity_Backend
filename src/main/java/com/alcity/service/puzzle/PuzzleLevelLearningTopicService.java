@@ -1,6 +1,6 @@
 package com.alcity.service.puzzle;
 
-import com.alcity.entity.puzzle.PuzzleLevelLearningTopic;
+import com.alcity.entity.puzzle.PuzzleLevel_LearningTopic;
 import com.alcity.repository.puzzle.PuzzleLevelLearningTopicRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,17 +16,17 @@ public class PuzzleLevelLearningTopicService implements PuzzleLevelLearningTopic
     @Autowired
     PuzzleLevelLearningTopicRepository puzzleLevelLearningTopicRepository;
     @Override
-    public <S extends PuzzleLevelLearningTopic> S save(S entity) {
+    public <S extends PuzzleLevel_LearningTopic> S save(S entity) {
         return puzzleLevelLearningTopicRepository.save(entity);
     }
 
     @Override
-    public <S extends PuzzleLevelLearningTopic> Iterable<S> saveAll(Iterable<S> entities) {
+    public <S extends PuzzleLevel_LearningTopic> Iterable<S> saveAll(Iterable<S> entities) {
         return null;
     }
 
     @Override
-    public Optional<PuzzleLevelLearningTopic> findById(Long id) {
+    public Optional<PuzzleLevel_LearningTopic> findById(Long id) {
         return Optional.empty();
     }
 
@@ -36,12 +36,12 @@ public class PuzzleLevelLearningTopicService implements PuzzleLevelLearningTopic
     }
 
     @Override
-    public Collection<PuzzleLevelLearningTopic> findAll() {
+    public Collection<PuzzleLevel_LearningTopic> findAll() {
         return null;
     }
 
     @Override
-    public Iterable<PuzzleLevelLearningTopic> findAllById(Iterable<Long> longs) {
+    public Iterable<PuzzleLevel_LearningTopic> findAllById(Iterable<Long> longs) {
         return null;
     }
 
@@ -56,7 +56,7 @@ public class PuzzleLevelLearningTopicService implements PuzzleLevelLearningTopic
     }
 
     @Override
-    public void delete(PuzzleLevelLearningTopic entity) {
+    public void delete(PuzzleLevel_LearningTopic entity) {
 
     }
 
@@ -66,7 +66,7 @@ public class PuzzleLevelLearningTopicService implements PuzzleLevelLearningTopic
     }
 
     @Override
-    public void deleteAll(Iterable<? extends PuzzleLevelLearningTopic> entities) {
+    public void deleteAll(Iterable<? extends PuzzleLevel_LearningTopic> entities) {
 
     }
 

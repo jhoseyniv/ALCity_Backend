@@ -12,7 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 @Entity
-public class PuzzleLevelLearningTopic extends BaseTable {
+public class PuzzleLevel_LearningTopic extends BaseTable {
 
 
     @ManyToOne(fetch = FetchType.LAZY, optional = true)
@@ -30,10 +30,10 @@ public class PuzzleLevelLearningTopic extends BaseTable {
     @JsonIgnore
     private LearningContent learningContent;
 
-    public PuzzleLevelLearningTopic() {
+    public PuzzleLevel_LearningTopic() {
     }
 
-    public PuzzleLevelLearningTopic(PuzzleLevel puzzleLevel, LearningTopic learningTopic, LearningContent learningContent,Long version, Long created, Long updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
+    public PuzzleLevel_LearningTopic(PuzzleLevel puzzleLevel, LearningTopic learningTopic, LearningContent learningContent, Long version, Long created, Long updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
         super(version, created, updated, createdBy, updatedBy);
         this.puzzleLevel = puzzleLevel;
         this.learningTopic = learningTopic;
