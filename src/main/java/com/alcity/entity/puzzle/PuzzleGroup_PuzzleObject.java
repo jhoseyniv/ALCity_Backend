@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Set;
 
 @Entity
 public class PuzzleGroup_PuzzleObject extends BaseTable implements Serializable {
@@ -25,6 +26,11 @@ public class PuzzleGroup_PuzzleObject extends BaseTable implements Serializable 
     @JoinColumn(name = "puzzle_object_id", nullable = false)
     @JsonIgnore
     private PuzzleObject puzzleObject;
+
+    @OneToMany(mappedBy = "puzzleGroup_PuzzleObject", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JsonIgnore
+    private Set<PuzzleGroupObjectInstance> puzzleGroupObjectInstanceSet;
+
 
     public PuzzleGroup_PuzzleObject() {
     }

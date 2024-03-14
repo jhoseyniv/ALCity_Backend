@@ -21,10 +21,10 @@ public abstract class BaseItemSet implements Serializable {
         return id;
     }
 
-    @Column(name="label")
+    @Column(name="label",unique = true)
     private String label;
 
-    @Column(name="value")
+    @Column(name="value",unique = true)
     private String value;
 
 

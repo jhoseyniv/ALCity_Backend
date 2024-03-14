@@ -1,7 +1,7 @@
-package com.alcity.service.base;
+package com.alcity.service.alobject;
 
-import com.alcity.entity.base.ObjectCategory;
-import com.alcity.repository.base.ObjectCategoryRepository;
+import com.alcity.entity.alobject.ObjectCategory;
+import com.alcity.repository.alobject.ObjectCategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

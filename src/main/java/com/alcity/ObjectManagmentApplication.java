@@ -1,6 +1,9 @@
 package com.alcity;
 
 import com.alcity.dto.CameraSetupDTO;
+import com.alcity.entity.alobject.ObjectAction;
+import com.alcity.entity.alobject.ObjectCategory;
+import com.alcity.entity.alobject.PuzzleObjectActionOwnerType;
 import com.alcity.entity.base.*;
 import com.alcity.entity.journey.Journey;
 import com.alcity.entity.journey.JourneyLearningSkill;
@@ -21,6 +24,9 @@ import com.alcity.repository.play.PermitedPlayerRepository;
 import com.alcity.service.Journey.JourneyLearningSkillService;
 import com.alcity.service.Journey.JourneyService;
 import com.alcity.service.Journey.JourneyStepService;
+import com.alcity.service.alobject.ObjectActionService;
+import com.alcity.service.alobject.ObjectCategoryService;
+import com.alcity.service.alobject.PuzzleObjectActionOwnerTypeService;
 import com.alcity.service.base.*;
 import com.alcity.service.learning.LearningContentService;
 import com.alcity.service.learning.LearningSkillService;
@@ -165,6 +171,11 @@ public class ObjectManagmentApplication {
 	@Autowired
 	PuzzleGroup_PuzzleObjectService puzzleGroup_PuzzleObjectService;
 
+	@Autowired
+	ObjectActionService objectActionService;
+
+	@Autowired
+	PuzzleObjectActionOwnerTypeService puzzleObjectActionOwnerTypeService;
 
 	public byte[] getImage(String imageDirectory, String imageName) throws IOException {
 		Path imagePath = Path.of(imageDirectory, imageName);
@@ -494,6 +505,38 @@ public class ObjectManagmentApplication {
 			PuzzleObject ImageObject01 = new PuzzleObject("ImageObject01",objectCategory_Image,wheat_Image_binary_content,wheat_Image_binary_content,1L,now,now,jalalHoseyni,jalalHoseyni);
 			puzzleObjectService.save(ImageObject01);
 
+			PuzzleGroup_PuzzleObject  puzzleGroup_puzzleObject = new PuzzleGroup_PuzzleObject ("Image Hash Puzzle Group with Image Object","Hash_ImageObject",puzzleGroup_1,ImageObject01,1L,now,now,admin_1,admin_1);
+			puzzleGroup_PuzzleObjectService.save(puzzleGroup_puzzleObject);
+
+
+			ObjectAction moveAction= new ObjectAction("Move","Move",1L,now,now,admin_1,admin_1);
+			ObjectAction removeAction= new ObjectAction("Remove","Remove",1L,now,now,admin_1,admin_1);
+			ObjectAction rotateAction= new ObjectAction("Rotate","Rotate",1L,now,now,admin_1,admin_1);
+			ObjectAction showAction= new ObjectAction("Show","Show",1L,now,now,admin_1,admin_1);
+			ObjectAction hideAction= new ObjectAction("Hide","Hide",1L,now,now,admin_1,admin_1);
+			ObjectAction enableAction= new ObjectAction("Enable","Enable",1L,now,now,admin_1,admin_1);
+			ObjectAction disableAction= new ObjectAction("Disable","Disable",1L,now,now,admin_1,admin_1);
+			ObjectAction createAction= new ObjectAction("Create","Create",1L,now,now,admin_1,admin_1);
+			ObjectAction convertAction= new ObjectAction("Convert","Convert",1L,now,now,admin_1,admin_1);
+			ObjectAction playSoundAction= new ObjectAction("PlaySound","PlaySound",1L,now,now,admin_1,admin_1);
+			objectActionService.save(moveAction);
+			objectActionService.save(removeAction);
+			objectActionService.save(rotateAction);
+			objectActionService.save(enableAction);
+			objectActionService.save(disableAction);
+			objectActionService.save(hideAction);
+			objectActionService.save(createAction);
+			objectActionService.save(convertAction);
+			objectActionService.save(showAction);
+			objectActionService.save(playSoundAction);
+
+			PuzzleObjectActionOwnerType  puzzleObjectIsOwner = new PuzzleObjectActionOwnerType("Puzzle Object","Puzzle Object",1L,now,now,admin_1,admin_1);
+			PuzzleObjectActionOwnerType  puzzleGroupObjectIsOwner = new PuzzleObjectActionOwnerType("Puzzle Group Object","Puzzl Group Object",1L,now,now,admin_1,admin_1);
+			PuzzleObjectActionOwnerType  puzzleGroupObjectInstanceIsOwner = new PuzzleObjectActionOwnerType("Puzzle Group Object Instance","Puzzle Group Object Instance",1L,now,now,admin_1,admin_1);
+
+			puzzleObjectActionOwnerTypeService.save(puzzleObjectIsOwner);
+			puzzleObjectActionOwnerTypeService.save(puzzleGroupObjectIsOwner);
+			puzzleObjectActionOwnerTypeService.save(puzzleGroupObjectInstanceIsOwner);
 
 			System.out.println("All Things is OK!!!!");
 		};

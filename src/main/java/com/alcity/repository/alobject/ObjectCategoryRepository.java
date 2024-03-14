@@ -1,6 +1,6 @@
-package com.alcity.repository.base;
+package com.alcity.repository.alobject;
 
-import com.alcity.entity.base.ObjectCategory;
+import com.alcity.entity.alobject.ObjectCategory;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.Collection;

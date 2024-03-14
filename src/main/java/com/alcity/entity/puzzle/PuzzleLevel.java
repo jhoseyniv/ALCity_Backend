@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Set;
 
 @Entity
 public class PuzzleLevel extends BaseTable implements Serializable {
@@ -62,6 +63,10 @@ public class PuzzleLevel extends BaseTable implements Serializable {
     @JoinColumn(name = "icon_id", nullable = true)
     @JsonIgnore
     private BinaryContent icon;
+
+    @OneToMany(mappedBy = "puzzleLevel", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JsonIgnore
+    private Set<PuzzleGroupObjectInstance> puzzleGroupObjectInstanceSet;
 
     public PuzzleLevel() {
     }
