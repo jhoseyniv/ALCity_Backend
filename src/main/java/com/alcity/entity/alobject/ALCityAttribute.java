@@ -9,6 +9,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Set;
 
 @Entity
 public class ALCityAttribute extends BaseTable implements Serializable {
@@ -29,10 +30,11 @@ public class ALCityAttribute extends BaseTable implements Serializable {
     @JsonIgnore
     private DataType dataType;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "binary_content_id", nullable = false)
+
+    @OneToMany(mappedBy = "attributeId", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JsonIgnore
-    private BinaryContent binaryContent;
+    private Set<ALCityAttributeValue> attributeValueSet;
+
 
     public ALCityAttribute() {
     }
