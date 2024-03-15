@@ -1,7 +1,7 @@
 package com.alcity.entity.base;
 
 
-import com.alcity.entity.alobject.Attribute;
+import com.alcity.entity.alobject.ALCityAttribute;
 import com.alcity.entity.users.ApplicationMember;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -30,7 +30,7 @@ public class BinaryContent extends BaseTable implements Serializable {
 
     @OneToMany(mappedBy = "binaryContent", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JsonIgnore
-    private Set<Attribute> attributeSet;
+    private Set<ALCityAttribute> attributeSet;
 
 
     public BinaryContent() {

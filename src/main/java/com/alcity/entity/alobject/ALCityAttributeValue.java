@@ -9,12 +9,12 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-public class AttributeValue extends BaseTable implements Serializable {
+public class ALCityAttributeValue extends BaseTable implements Serializable {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "attribute__id", nullable = false)
     @JsonIgnore
-    private Attribute attribute;
+    private ALCityAttribute attribute;
 
     @Column(name="booleanValue")
     private Boolean booleanValue;
@@ -39,12 +39,12 @@ public class AttributeValue extends BaseTable implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "binded_attribute__id", nullable = false)
     @JsonIgnore
-    private Attribute bindedAttributeId;
+    private ALCityAttribute bindedAttributeId;
 
-    public AttributeValue() {
+    public ALCityAttributeValue() {
     }
 
-    public AttributeValue(Long version, Long created, Long updated, ApplicationMember createdBy, ApplicationMember updatedBy, Attribute attribute, Boolean booleanValue, Integer intValue, String stringValue, Float doubleValue, Long binaryValueId, BinaryContent binaryContent) {
+    public ALCityAttributeValue(Long version, Long created, Long updated, ApplicationMember createdBy, ApplicationMember updatedBy, ALCityAttribute attribute, Boolean booleanValue, Integer intValue, String stringValue, Float doubleValue, Long binaryValueId, BinaryContent binaryContent) {
         super(version, created, updated, createdBy, updatedBy);
         this.attribute = attribute;
         this.booleanValue = booleanValue;

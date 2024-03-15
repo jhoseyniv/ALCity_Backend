@@ -1,6 +1,7 @@
 package com.alcity;
 
 import com.alcity.dto.CameraSetupDTO;
+import com.alcity.entity.alobject.ALCityAttribute;
 import com.alcity.entity.alobject.AttributeOwnerType;
 import com.alcity.entity.alobject.ObjectCategory;
 import com.alcity.entity.base.*;
@@ -23,9 +24,7 @@ import com.alcity.repository.play.PermitedPlayerRepository;
 import com.alcity.service.Journey.JourneyLearningSkillService;
 import com.alcity.service.Journey.JourneyService;
 import com.alcity.service.Journey.JourneyStepService;
-import com.alcity.service.alobject.ObjectActionService;
-import com.alcity.service.alobject.ObjectCategoryService;
-import com.alcity.service.alobject.PuzzleObjectActionOwnerTypeService;
+import com.alcity.service.alobject.*;
 import com.alcity.service.base.*;
 import com.alcity.service.learning.LearningContentService;
 import com.alcity.service.learning.LearningSkillService;
@@ -190,6 +189,14 @@ public class ObjectManagmentApplication {
 
 	@Autowired
 	PuzzleGroupObjectInstanceService puzzleGroupObjectInstanceService;
+
+	@Autowired
+	ALCityAttributeService alCityAttributeService;
+
+	@Autowired
+	ALCityAttributeValueService alCityAttributeValueService;
+
+
 	public byte[] getImage(String imageDirectory, String imageName) throws IOException {
 		Path imagePath = Path.of(imageDirectory, imageName);
 
@@ -263,14 +270,15 @@ public class ObjectManagmentApplication {
 
 			DataType alcity_Int = new DataType("Integer","Integer",1L,now,now,admin_1,admin_1);
 			DataType alcity_Long =new DataType("Long","Long",1L,now,now,admin_1,admin_1);
-
 			DataType alcity_Boolean = new DataType("Boolean","Boolean",1L,now,now,admin_1,admin_1);
-
 			DataType alcity_String = new DataType("String","String",1L,now,now,admin_1,admin_1);
+			DataType alcity_Binary = new DataType("Binary","Binary",1L,now,now,admin_1,admin_1);
+
 			dataTypeRepository.save(alcity_Int);
 			dataTypeRepository.save(alcity_Long);
 			dataTypeRepository.save(alcity_Boolean);
 			dataTypeRepository.save(alcity_String);
+			dataTypeRepository.save(alcity_Binary);
 
 			PuzzleLevelDifficulty easy= new PuzzleLevelDifficulty("Easy","Easy",1L,now,now,admin_1,admin_1);
 			PuzzleLevelDifficulty medium= new PuzzleLevelDifficulty("Medium","Medium",1L,now,now,admin_1,admin_1);
@@ -585,7 +593,8 @@ public class ObjectManagmentApplication {
 			binaryContentService.save(image_7_Instance_content);
 			binaryContentService.save(image_8_Instance_content);
 
-
+			ALCityAttribute bgImage =new ALCityAttribute("bgImage",ImageObject01.getId(),puzzleObjectProperty,alcity_Binary,1L,now,now,admin_1,admin_1);
+			alCityAttributeService.save(bgImage);
 
 //			ObjectAction moveAction= new ObjectAction("Move","Move",1L,now,now,admin_1,admin_1);
 //			ObjectAction removeAction= new ObjectAction("Remove","Remove",1L,now,now,admin_1,admin_1);

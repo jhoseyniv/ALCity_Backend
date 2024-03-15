@@ -17,7 +17,7 @@ public class AttributeOwnerType extends BaseItemSet implements Serializable {
 
     @OneToMany(mappedBy = "attributeOwnerType", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JsonIgnore
-    private Set<Attribute> attributeSet;
+    private Set<ALCityAttribute> attributeSet;
 
 
     public AttributeOwnerType() {

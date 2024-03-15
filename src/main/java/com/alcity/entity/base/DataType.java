@@ -1,6 +1,6 @@
 package com.alcity.entity.base;
 
-import com.alcity.entity.alobject.Attribute;
+import com.alcity.entity.alobject.ALCityAttribute;
 import com.alcity.entity.users.ApplicationMember;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -13,7 +13,7 @@ public class DataType extends BaseItemSet implements Serializable {
 
     @OneToMany(mappedBy = "dataType", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JsonIgnore
-    private Set<Attribute> attributeSet;
+    private Set<ALCityAttribute> attributeSet;
 
 
     public DataType() {
