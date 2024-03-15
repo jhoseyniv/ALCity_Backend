@@ -1,6 +1,6 @@
 package com.alcity.service.base;
 
-import com.alcity.entity.base.AttributeOwnerType;
+import com.alcity.entity.alobject.AttributeOwnerType;
 import com.alcity.repository.base.AttributeOwnerTypeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

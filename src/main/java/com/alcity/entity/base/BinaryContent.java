@@ -1,13 +1,16 @@
 package com.alcity.entity.base;
 
 
+import com.alcity.entity.alobject.Attribute;
 import com.alcity.entity.users.ApplicationMember;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import java.io.Serializable;
+import java.util.Set;
 
 @Entity
-public class BinaryContent extends BaseTable {
+public class BinaryContent extends BaseTable implements Serializable {
 
     @Column(name="fileName")
     private String fileName;
@@ -24,6 +27,11 @@ public class BinaryContent extends BaseTable {
     @JoinColumn(name = "binary_content_type_id", nullable = false)
     @JsonIgnore
     private BinaryContentType contentType;
+
+    @OneToMany(mappedBy = "binaryContent", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JsonIgnore
+    private Set<Attribute> attributeSet;
+
 
     public BinaryContent() {
     }

@@ -1,7 +1,6 @@
 package com.alcity.repository.base;
 
-import com.alcity.entity.base.AttributeOwnerType;
-import com.alcity.entity.base.DataType;
+import com.alcity.entity.alobject.AttributeOwnerType;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.Collection;

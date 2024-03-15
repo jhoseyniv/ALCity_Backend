@@ -1,9 +1,8 @@
 package com.alcity;
 
 import com.alcity.dto.CameraSetupDTO;
-import com.alcity.entity.alobject.ObjectAction;
+import com.alcity.entity.alobject.AttributeOwnerType;
 import com.alcity.entity.alobject.ObjectCategory;
-import com.alcity.entity.alobject.PuzzleObjectActionOwnerType;
 import com.alcity.entity.base.*;
 import com.alcity.entity.journey.Journey;
 import com.alcity.entity.journey.JourneyLearningSkill;
@@ -15,13 +14,10 @@ import com.alcity.entity.learning.LearningTopic;
 import com.alcity.entity.play.PermitedPlayer;
 import com.alcity.entity.play.PlayHistory;
 import com.alcity.entity.puzzle.*;
-import com.alcity.entity.ruleengine.SystemEvent;
-import com.alcity.entity.ruleengine.UserEvent;
 import com.alcity.entity.users.ApplicationMember;
 import com.alcity.entity.users.ApplicationMember_WalletItem;
 import com.alcity.entity.users.WalletItem;
 import com.alcity.entity.users.WalletTransaction;
-import com.alcity.repository.base.AttributeOwnerTypeRepository;
 import com.alcity.repository.base.DataTypeRepository;
 import com.alcity.repository.play.PermitedPlayerRepository;
 import com.alcity.service.Journey.JourneyLearningSkillService;
@@ -556,6 +552,40 @@ public class ObjectManagmentApplication {
 			puzzleGroupObjectInstanceService.save(instance_img6);
 			puzzleGroupObjectInstanceService.save(instance_img7);
 			puzzleGroupObjectInstanceService.save(instance_img8);
+
+
+			byte[] image_0_hash = getImage("src/main/resources/images/hashImage_Puzzle","1.png");
+			byte[] image_1_hash = getImage("src/main/resources/images/hashImage_Puzzle","2.png");
+			byte[] image_2_hash = getImage("src/main/resources/images/hashImage_Puzzle","3.png");
+			byte[] image_3_hash = getImage("src/main/resources/images/hashImage_Puzzle","4.png");
+			byte[] image_4_hash = getImage("src/main/resources/images/hashImage_Puzzle","5.png");
+			byte[] image_5_hash = getImage("src/main/resources/images/hashImage_Puzzle","6.png");
+			byte[] image_6_hash = getImage("src/main/resources/images/hashImage_Puzzle","7.png");
+			byte[] image_7_hash = getImage("src/main/resources/images/hashImage_Puzzle","8.png");
+			byte[] image_8_hash = getImage("src/main/resources/images/hashImage_Puzzle","9.png");
+
+
+			BinaryContent image_0_Instance_content = new BinaryContent("img0",image_0_hash,imageType,1L,now,now,admin_1,admin_1);
+			BinaryContent image_1_Instance_content = new BinaryContent("img1",image_1_hash,imageType,1L,now,now,admin_1,admin_1);
+			BinaryContent image_2_Instance_content = new BinaryContent("img2",image_2_hash,imageType,1L,now,now,admin_1,admin_1);
+			BinaryContent image_3_Instance_content = new BinaryContent("img3",image_3_hash,imageType,1L,now,now,admin_1,admin_1);
+			BinaryContent image_4_Instance_content = new BinaryContent("img4",image_4_hash,imageType,1L,now,now,admin_1,admin_1);
+			BinaryContent image_5_Instance_content = new BinaryContent("img5",image_5_hash,imageType,1L,now,now,admin_1,admin_1);
+			BinaryContent image_6_Instance_content = new BinaryContent("img6",image_6_hash,imageType,1L,now,now,admin_1,admin_1);
+			BinaryContent image_7_Instance_content = new BinaryContent("img7",image_7_hash,imageType,1L,now,now,admin_1,admin_1);
+			BinaryContent image_8_Instance_content = new BinaryContent("img8",image_8_hash,imageType,1L,now,now,admin_1,admin_1);
+
+			binaryContentService.save(image_0_Instance_content);
+			binaryContentService.save(image_1_Instance_content);
+			binaryContentService.save(image_2_Instance_content);
+			binaryContentService.save(image_3_Instance_content);
+			binaryContentService.save(image_4_Instance_content);
+			binaryContentService.save(image_5_Instance_content);
+			binaryContentService.save(image_6_Instance_content);
+			binaryContentService.save(image_7_Instance_content);
+			binaryContentService.save(image_8_Instance_content);
+
+
 
 //			ObjectAction moveAction= new ObjectAction("Move","Move",1L,now,now,admin_1,admin_1);
 //			ObjectAction removeAction= new ObjectAction("Remove","Remove",1L,now,now,admin_1,admin_1);

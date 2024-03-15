@@ -1,12 +1,25 @@
-package com.alcity.entity.base;
+package com.alcity.entity.alobject;
 
+import com.alcity.entity.base.BaseItemSet;
 import com.alcity.entity.users.ApplicationMember;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.OneToMany;
 import java.io.Serializable;
+import java.util.Set;
 
 @Entity
 public class AttributeOwnerType extends BaseItemSet implements Serializable {
+
+
+    @OneToMany(mappedBy = "attributeOwnerType", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JsonIgnore
+    private Set<Attribute> attributeSet;
+
+
     public AttributeOwnerType() {
     }
 
