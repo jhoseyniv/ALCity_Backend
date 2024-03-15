@@ -12,13 +12,13 @@ import java.util.Set;
 public class PuzzleGroupObjectInstance extends BaseTable implements Serializable {
 
     @Column(name="row")
-    private Long row;
+    private Integer row;
 
     @Column(name="col")
-    private Long col;
+    private Integer col;
 
     @Column(name="zOrder")
-    private Long zOrder;
+    private Integer zOrder;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "puzzle_group_puzzle_object_id", nullable = false)
@@ -35,7 +35,7 @@ public class PuzzleGroupObjectInstance extends BaseTable implements Serializable
     public PuzzleGroupObjectInstance() {
     }
 
-    public PuzzleGroupObjectInstance(Long version, Long created, Long updated, ApplicationMember createdBy, ApplicationMember updatedBy, Long row, Long col, Long zOrder, PuzzleGroup_PuzzleObject puzzleGroup_PuzzleObject, PuzzleLevel puzzleLevel) {
+    public PuzzleGroupObjectInstance( Integer row, Integer col, Integer zOrder, PuzzleGroup_PuzzleObject puzzleGroup_PuzzleObject, PuzzleLevel puzzleLevel,Long version, Long created, Long updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
         super(version, created, updated, createdBy, updatedBy);
         this.row = row;
         this.col = col;

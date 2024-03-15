@@ -15,10 +15,13 @@ import com.alcity.entity.learning.LearningTopic;
 import com.alcity.entity.play.PermitedPlayer;
 import com.alcity.entity.play.PlayHistory;
 import com.alcity.entity.puzzle.*;
+import com.alcity.entity.ruleengine.SystemEvent;
+import com.alcity.entity.ruleengine.UserEvent;
 import com.alcity.entity.users.ApplicationMember;
 import com.alcity.entity.users.ApplicationMember_WalletItem;
 import com.alcity.entity.users.WalletItem;
 import com.alcity.entity.users.WalletTransaction;
+import com.alcity.repository.base.AttributeOwnerTypeRepository;
 import com.alcity.repository.base.DataTypeRepository;
 import com.alcity.repository.play.PermitedPlayerRepository;
 import com.alcity.service.Journey.JourneyLearningSkillService;
@@ -34,6 +37,8 @@ import com.alcity.service.learning.LearningSkill_LearningTopicService;
 import com.alcity.service.learning.LearningTopicService;
 import com.alcity.service.play.PlayHistoryService;
 import com.alcity.service.puzzle.*;
+import com.alcity.service.ruleengine.SystemEventService;
+import com.alcity.service.ruleengine.UserEventService;
 import com.alcity.service.users.ApplicationMemberService;
 import com.alcity.service.users.ApplicationMember_WalletItemService;
 import com.alcity.service.users.WalletItemService;
@@ -177,6 +182,18 @@ public class ObjectManagmentApplication {
 	@Autowired
 	PuzzleObjectActionOwnerTypeService puzzleObjectActionOwnerTypeService;
 
+
+	@Autowired
+	UserEventService userEventService;
+
+	@Autowired
+	SystemEventService systemEventService;
+
+	@Autowired
+	AttributeOwnerTypeService attributeOwnerTypeService;
+
+	@Autowired
+	PuzzleGroupObjectInstanceService puzzleGroupObjectInstanceService;
 	public byte[] getImage(String imageDirectory, String imageName) throws IOException {
 		Path imagePath = Path.of(imageDirectory, imageName);
 
@@ -508,35 +525,79 @@ public class ObjectManagmentApplication {
 			PuzzleGroup_PuzzleObject  puzzleGroup_puzzleObject = new PuzzleGroup_PuzzleObject ("Image Hash Puzzle Group with Image Object","Hash_ImageObject",puzzleGroup_1,ImageObject01,1L,now,now,admin_1,admin_1);
 			puzzleGroup_PuzzleObjectService.save(puzzleGroup_puzzleObject);
 
+			AttributeOwnerType puzzleObjectProperty = new AttributeOwnerType("PuzzleObjectProperty","PuzzleObjectProperty",1L,now,now,admin_1,admin_1);
+			AttributeOwnerType puzzleGroupObjectProperty = new AttributeOwnerType("PuzzleGroupObjectProperty","PuzzleGroupObjectProperty",1L,now,now,admin_1,admin_1);
+			AttributeOwnerType puzzleGroupObjectInstanceProperty = new AttributeOwnerType("PuzzleGroupObjectInstanceProperty","PuzzleGroupObjectInstanceProperty",1L,now,now,admin_1,admin_1);
+			AttributeOwnerType PuzzleGroupObjectVariable = new AttributeOwnerType("PuzzleGroupObjectVariable","PuzzleGroupObjectVariable",1L,now,now,admin_1,admin_1);
+			AttributeOwnerType puzzleGroupObjectInstanceVariable = new AttributeOwnerType("PuzzleGroupObjectInstanceVariable","PuzzleGroupObjectInstanceVariable",1L,now,now,admin_1,admin_1);
 
-			ObjectAction moveAction= new ObjectAction("Move","Move",1L,now,now,admin_1,admin_1);
-			ObjectAction removeAction= new ObjectAction("Remove","Remove",1L,now,now,admin_1,admin_1);
-			ObjectAction rotateAction= new ObjectAction("Rotate","Rotate",1L,now,now,admin_1,admin_1);
-			ObjectAction showAction= new ObjectAction("Show","Show",1L,now,now,admin_1,admin_1);
-			ObjectAction hideAction= new ObjectAction("Hide","Hide",1L,now,now,admin_1,admin_1);
-			ObjectAction enableAction= new ObjectAction("Enable","Enable",1L,now,now,admin_1,admin_1);
-			ObjectAction disableAction= new ObjectAction("Disable","Disable",1L,now,now,admin_1,admin_1);
-			ObjectAction createAction= new ObjectAction("Create","Create",1L,now,now,admin_1,admin_1);
-			ObjectAction convertAction= new ObjectAction("Convert","Convert",1L,now,now,admin_1,admin_1);
-			ObjectAction playSoundAction= new ObjectAction("PlaySound","PlaySound",1L,now,now,admin_1,admin_1);
-			objectActionService.save(moveAction);
-			objectActionService.save(removeAction);
-			objectActionService.save(rotateAction);
-			objectActionService.save(enableAction);
-			objectActionService.save(disableAction);
-			objectActionService.save(hideAction);
-			objectActionService.save(createAction);
-			objectActionService.save(convertAction);
-			objectActionService.save(showAction);
-			objectActionService.save(playSoundAction);
+			attributeOwnerTypeService.save(puzzleObjectProperty);
+			attributeOwnerTypeService.save(puzzleGroupObjectProperty);
+			attributeOwnerTypeService.save(puzzleGroupObjectInstanceProperty);
+			attributeOwnerTypeService.save(PuzzleGroupObjectVariable);
+			attributeOwnerTypeService.save(puzzleGroupObjectInstanceVariable);
 
-			PuzzleObjectActionOwnerType  puzzleObjectIsOwner = new PuzzleObjectActionOwnerType("Puzzle Object","Puzzle Object",1L,now,now,admin_1,admin_1);
-			PuzzleObjectActionOwnerType  puzzleGroupObjectIsOwner = new PuzzleObjectActionOwnerType("Puzzle Group Object","Puzzl Group Object",1L,now,now,admin_1,admin_1);
-			PuzzleObjectActionOwnerType  puzzleGroupObjectInstanceIsOwner = new PuzzleObjectActionOwnerType("Puzzle Group Object Instance","Puzzle Group Object Instance",1L,now,now,admin_1,admin_1);
+			PuzzleGroupObjectInstance instance_img0 = new PuzzleGroupObjectInstance(1,1,1,puzzleGroup_puzzleObject,puzzleLevel_hashimage,1L,now,now,admin_1,admin_1);
+			PuzzleGroupObjectInstance instance_img1 = new PuzzleGroupObjectInstance(2,3,1,puzzleGroup_puzzleObject,puzzleLevel_hashimage,1L,now,now,admin_1,admin_1);
+			PuzzleGroupObjectInstance instance_img2 = new PuzzleGroupObjectInstance(1,2,1,puzzleGroup_puzzleObject,puzzleLevel_hashimage,1L,now,now,admin_1,admin_1);
+			PuzzleGroupObjectInstance instance_img3 = new PuzzleGroupObjectInstance(2,1,1,puzzleGroup_puzzleObject,puzzleLevel_hashimage,1L,now,now,admin_1,admin_1);
+			PuzzleGroupObjectInstance instance_img4 = new PuzzleGroupObjectInstance(3,2,1,puzzleGroup_puzzleObject,puzzleLevel_hashimage,1L,now,now,admin_1,admin_1);
+			PuzzleGroupObjectInstance instance_img5 = new PuzzleGroupObjectInstance(1,3,1,puzzleGroup_puzzleObject,puzzleLevel_hashimage,1L,now,now,admin_1,admin_1);
+			PuzzleGroupObjectInstance instance_img6 = new PuzzleGroupObjectInstance(2,2,1,puzzleGroup_puzzleObject,puzzleLevel_hashimage,1L,now,now,admin_1,admin_1);
+			PuzzleGroupObjectInstance instance_img7 = new PuzzleGroupObjectInstance(3,3,1,puzzleGroup_puzzleObject,puzzleLevel_hashimage,1L,now,now,admin_1,admin_1);
+			PuzzleGroupObjectInstance instance_img8 = new PuzzleGroupObjectInstance(3,1,1,puzzleGroup_puzzleObject,puzzleLevel_hashimage,1L,now,now,admin_1,admin_1);
 
-			puzzleObjectActionOwnerTypeService.save(puzzleObjectIsOwner);
-			puzzleObjectActionOwnerTypeService.save(puzzleGroupObjectIsOwner);
-			puzzleObjectActionOwnerTypeService.save(puzzleGroupObjectInstanceIsOwner);
+			puzzleGroupObjectInstanceService.save(instance_img0);
+			puzzleGroupObjectInstanceService.save(instance_img1);
+			puzzleGroupObjectInstanceService.save(instance_img2);
+			puzzleGroupObjectInstanceService.save(instance_img3);
+			puzzleGroupObjectInstanceService.save(instance_img4);
+			puzzleGroupObjectInstanceService.save(instance_img5);
+			puzzleGroupObjectInstanceService.save(instance_img6);
+			puzzleGroupObjectInstanceService.save(instance_img7);
+			puzzleGroupObjectInstanceService.save(instance_img8);
+
+//			ObjectAction moveAction= new ObjectAction("Move","Move",1L,now,now,admin_1,admin_1);
+//			ObjectAction removeAction= new ObjectAction("Remove","Remove",1L,now,now,admin_1,admin_1);
+//			ObjectAction rotateAction= new ObjectAction("Rotate","Rotate",1L,now,now,admin_1,admin_1);
+//			ObjectAction showAction= new ObjectAction("Show","Show",1L,now,now,admin_1,admin_1);
+//			ObjectAction hideAction= new ObjectAction("Hide","Hide",1L,now,now,admin_1,admin_1);
+//			ObjectAction enableAction= new ObjectAction("Enable","Enable",1L,now,now,admin_1,admin_1);
+//			ObjectAction disableAction= new ObjectAction("Disable","Disable",1L,now,now,admin_1,admin_1);
+//			ObjectAction createAction= new ObjectAction("Create","Create",1L,now,now,admin_1,admin_1);
+//			ObjectAction convertAction= new ObjectAction("Convert","Convert",1L,now,now,admin_1,admin_1);
+//			ObjectAction playSoundAction= new ObjectAction("PlaySound","PlaySound",1L,now,now,admin_1,admin_1);
+//			objectActionService.save(moveAction);
+//			objectActionService.save(removeAction);
+//			objectActionService.save(rotateAction);
+//			objectActionService.save(enableAction);
+//			objectActionService.save(disableAction);
+//			objectActionService.save(hideAction);
+//			objectActionService.save(createAction);
+//			objectActionService.save(convertAction);
+//			objectActionService.save(showAction);
+//			objectActionService.save(playSoundAction);
+
+//			PuzzleObjectActionOwnerType  puzzleObjectIsOwner = new PuzzleObjectActionOwnerType("Puzzle Object","Puzzle Object",1L,now,now,admin_1,admin_1);
+//			PuzzleObjectActionOwnerType  puzzleGroupObjectIsOwner = new PuzzleObjectActionOwnerType("Puzzle Group Object","Puzzl Group Object",1L,now,now,admin_1,admin_1);
+//			PuzzleObjectActionOwnerType  puzzleGroupObjectInstanceIsOwner = new PuzzleObjectActionOwnerType("Puzzle Group Object Instance","Puzzle Group Object Instance",1L,now,now,admin_1,admin_1);
+//
+//			puzzleObjectActionOwnerTypeService.save(puzzleObjectIsOwner);
+//			puzzleObjectActionOwnerTypeService.save(puzzleGroupObjectIsOwner);
+//			puzzleObjectActionOwnerTypeService.save(puzzleGroupObjectInstanceIsOwner);
+//
+//			UserEvent clickEvent = new UserEvent("Click","Click",1L,now,now,admin_1,admin_1);
+//			UserEvent doubleClickEvent = new UserEvent("Double Click","Double Click",1L,now,now,admin_1,admin_1);
+//			UserEvent startDragEvent = new UserEvent("Start Drag","Start Drag",1L,now,now,admin_1,admin_1);
+//			UserEvent endDragEvent = new UserEvent("End Drag","End Drag",1L,now,now,admin_1,admin_1);
+//
+//			userEventService.save(clickEvent);
+//			userEventService.save(doubleClickEvent);
+//			userEventService.save(startDragEvent);
+//			userEventService.save(endDragEvent);
+//
+//			SystemEvent timerSystemEvent = new SystemEvent("Timer","Timer",1L,now,now,admin_1,admin_1);
+//			systemEventService.save(timerSystemEvent);
 
 			System.out.println("All Things is OK!!!!");
 		};
