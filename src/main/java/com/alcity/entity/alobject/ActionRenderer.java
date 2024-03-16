@@ -4,6 +4,7 @@ import com.alcity.entity.base.BaseTable;
 import com.alcity.entity.base.ClientType;
 import com.alcity.entity.journey.Journey;
 import com.alcity.entity.journey.JourneyStep;
+import com.alcity.entity.users.ApplicationMember;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
@@ -29,5 +30,13 @@ public class ActionRenderer extends BaseTable implements Serializable {
     @JsonIgnore
     private Set<PuzzleObject_ObjectAction> puzzleObject_ObjectAction;
 
+    public ActionRenderer() {
+    }
 
+    public ActionRenderer(String handler, ClientType clientType, ObjectAction objectAction,Long version, Long created, Long updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
+        super(version, created, updated, createdBy, updatedBy);
+        this.handler = handler;
+        this.clientType = clientType;
+        this.objectAction = objectAction;
+    }
 }

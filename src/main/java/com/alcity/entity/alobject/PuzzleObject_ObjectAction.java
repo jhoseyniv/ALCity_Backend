@@ -1,6 +1,7 @@
 package com.alcity.entity.alobject;
 
 import com.alcity.entity.base.BaseTable;
+import com.alcity.entity.users.ApplicationMember;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
@@ -26,4 +27,14 @@ public class PuzzleObject_ObjectAction extends BaseTable implements Serializable
     @JsonIgnore
     private ActionRenderer actionRenderer;
 
+    public PuzzleObject_ObjectAction() {
+    }
+
+    public PuzzleObject_ObjectAction(PuzzleObjectActionOwnerType puzzleObjectActionOwnerType,Long ownerObjectid,  ObjectAction objectAction, ActionRenderer actionRenderer,Long version, Long created, Long updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
+        super(version, created, updated, createdBy, updatedBy);
+        this.ownerObjectid = ownerObjectid;
+        this.puzzleObjectActionOwnerType = puzzleObjectActionOwnerType;
+        this.objectAction = objectAction;
+        this.actionRenderer = actionRenderer;
+    }
 }
