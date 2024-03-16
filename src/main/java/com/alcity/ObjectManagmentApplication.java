@@ -2,6 +2,7 @@ package com.alcity;
 
 import com.alcity.dto.CameraSetupDTO;
 import com.alcity.entity.alobject.ALCityAttribute;
+import com.alcity.entity.alobject.ALCityAttributeValue;
 import com.alcity.entity.alobject.AttributeOwnerType;
 import com.alcity.entity.alobject.ObjectCategory;
 import com.alcity.entity.base.*;
@@ -562,15 +563,15 @@ public class ObjectManagmentApplication {
 			puzzleGroupObjectInstanceService.save(instance_img8);
 
 
-			byte[] image_0_hash = getImage("src/main/resources/images/hashImage_Puzzle","1.png");
-			byte[] image_1_hash = getImage("src/main/resources/images/hashImage_Puzzle","2.png");
-			byte[] image_2_hash = getImage("src/main/resources/images/hashImage_Puzzle","3.png");
-			byte[] image_3_hash = getImage("src/main/resources/images/hashImage_Puzzle","4.png");
-			byte[] image_4_hash = getImage("src/main/resources/images/hashImage_Puzzle","5.png");
-			byte[] image_5_hash = getImage("src/main/resources/images/hashImage_Puzzle","6.png");
-			byte[] image_6_hash = getImage("src/main/resources/images/hashImage_Puzzle","7.png");
-			byte[] image_7_hash = getImage("src/main/resources/images/hashImage_Puzzle","8.png");
-			byte[] image_8_hash = getImage("src/main/resources/images/hashImage_Puzzle","9.png");
+			byte[] image_0_hash = getImage("src/main/resources/images/hashImage_Puzzle/","0.png");
+			byte[] image_1_hash = getImage("src/main/resources/images/hashImage_Puzzle/","1.png");
+			byte[] image_2_hash = getImage("src/main/resources/images/hashImage_Puzzle/","2.png");
+			byte[] image_3_hash = getImage("src/main/resources/images/hashImage_Puzzle/","3.png");
+			byte[] image_4_hash = getImage("src/main/resources/images/hashImage_Puzzle/","4.png");
+			byte[] image_5_hash = getImage("src/main/resources/images/hashImage_Puzzle/","5.png");
+			byte[] image_6_hash = getImage("src/main/resources/images/hashImage_Puzzle/","6.png");
+			byte[] image_7_hash = getImage("src/main/resources/images/hashImage_Puzzle/","7.png");
+			byte[] image_8_hash = getImage("src/main/resources/images/hashImage_Puzzle/","8.png");
 
 
 			BinaryContent image_0_Instance_content = new BinaryContent("img0",image_0_hash,imageType,1L,now,now,admin_1,admin_1);
@@ -593,8 +594,27 @@ public class ObjectManagmentApplication {
 			binaryContentService.save(image_7_Instance_content);
 			binaryContentService.save(image_8_Instance_content);
 
-			ALCityAttribute bgImage =new ALCityAttribute("bgImage",ImageObject01.getId(),puzzleObjectProperty,alcity_Binary,1L,now,now,admin_1,admin_1);
-			alCityAttributeService.save(bgImage);
+			ALCityAttribute alCityAttribute_bgImage =new ALCityAttribute("bgImage",ImageObject01.getId(),puzzleObjectProperty,alcity_Binary,1L,now,now,admin_1,admin_1);
+			alCityAttributeService.save(alCityAttribute_bgImage);
+
+			ALCityAttributeValue alCityAttributeValue_binary_0= new ALCityAttributeValue(null,null,null,null,image_0_Instance_content,alCityAttribute_bgImage,alCityAttribute_bgImage,1L,now,now,admin_1,admin_1);
+			ALCityAttributeValue alCityAttributeValue_binary_1= new ALCityAttributeValue(null,null,null,null,image_1_Instance_content,alCityAttribute_bgImage,alCityAttribute_bgImage,1L,now,now,admin_1,admin_1);
+			ALCityAttributeValue alCityAttributeValue_binary_2= new ALCityAttributeValue(null,null,null,null,image_2_Instance_content,alCityAttribute_bgImage,alCityAttribute_bgImage,1L,now,now,admin_1,admin_1);
+			ALCityAttributeValue alCityAttributeValue_binary_3= new ALCityAttributeValue(null,null,null,null,image_3_Instance_content,alCityAttribute_bgImage,alCityAttribute_bgImage,1L,now,now,admin_1,admin_1);
+			ALCityAttributeValue alCityAttributeValue_binary_4= new ALCityAttributeValue(null,null,null,null,image_4_Instance_content,alCityAttribute_bgImage,alCityAttribute_bgImage,1L,now,now,admin_1,admin_1);
+			ALCityAttributeValue alCityAttributeValue_binary_5= new ALCityAttributeValue(null,null,null,null,image_5_Instance_content,alCityAttribute_bgImage,alCityAttribute_bgImage,1L,now,now,admin_1,admin_1);
+			ALCityAttributeValue alCityAttributeValue_binary_6= new ALCityAttributeValue(null,null,null,null,image_6_Instance_content,alCityAttribute_bgImage,alCityAttribute_bgImage,1L,now,now,admin_1,admin_1);
+			ALCityAttributeValue alCityAttributeValue_binary_7= new ALCityAttributeValue(null,null,null,null,image_7_Instance_content,alCityAttribute_bgImage,alCityAttribute_bgImage,1L,now,now,admin_1,admin_1);
+			ALCityAttributeValue alCityAttributeValue_binary_8= new ALCityAttributeValue(null,null,null,null,image_8_Instance_content,alCityAttribute_bgImage,alCityAttribute_bgImage,1L,now,now,admin_1,admin_1);
+			alCityAttributeValueService.save(alCityAttributeValue_binary_0);
+			alCityAttributeValueService.save(alCityAttributeValue_binary_1);
+			alCityAttributeValueService.save(alCityAttributeValue_binary_2);
+			alCityAttributeValueService.save(alCityAttributeValue_binary_3);
+			alCityAttributeValueService.save(alCityAttributeValue_binary_4);
+			alCityAttributeValueService.save(alCityAttributeValue_binary_5);
+			alCityAttributeValueService.save(alCityAttributeValue_binary_6);
+			alCityAttributeValueService.save(alCityAttributeValue_binary_7);
+			alCityAttributeValueService.save(alCityAttributeValue_binary_8);
 
 //			ObjectAction moveAction= new ObjectAction("Move","Move",1L,now,now,admin_1,admin_1);
 //			ObjectAction removeAction= new ObjectAction("Remove","Remove",1L,now,now,admin_1,admin_1);
