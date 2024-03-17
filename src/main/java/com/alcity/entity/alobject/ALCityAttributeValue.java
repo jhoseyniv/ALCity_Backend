@@ -18,6 +18,9 @@ public class ALCityAttributeValue extends BaseTable implements Serializable {
     @Column(name="intValue")
     private Integer intValue;
 
+    @Column(name="longValue")
+    private Long longValue;
+
     @Column(name="stringValue")
     private String stringValue;
 
@@ -27,8 +30,8 @@ public class ALCityAttributeValue extends BaseTable implements Serializable {
 //    @Column(name="binaryValueId")
 //    private Long binaryValueId;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "binary_content_id", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = true)
+    @JoinColumn(name = "binary_content_id", nullable = true)
     @JsonIgnore
     private BinaryContent binaryContent;
 
@@ -46,10 +49,11 @@ public class ALCityAttributeValue extends BaseTable implements Serializable {
     public ALCityAttributeValue() {
     }
 
-    public ALCityAttributeValue(Boolean booleanValue, Integer intValue, String stringValue, Float doubleValue, BinaryContent binaryContent, ALCityAttribute bindedAttributeId, ALCityAttribute attributeId, Long version, Long created, Long updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
+    public ALCityAttributeValue(Boolean booleanValue, Integer intValue,Long longValue, String stringValue, Float doubleValue, BinaryContent binaryContent, ALCityAttribute bindedAttributeId, ALCityAttribute attributeId, Long version, Long created, Long updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
         super(version, created, updated, createdBy, updatedBy);
         this.booleanValue = booleanValue;
         this.intValue = intValue;
+        this.longValue = longValue;
         this.stringValue = stringValue;
         this.doubleValue = doubleValue;
         this.binaryContent = binaryContent;

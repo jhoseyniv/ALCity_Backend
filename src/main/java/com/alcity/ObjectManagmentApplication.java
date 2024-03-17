@@ -601,15 +601,15 @@ public class ObjectManagmentApplication {
 			ALCityAttribute alCityAttribute_bgImage =new ALCityAttribute("bgImage",ImageObject01.getId(),puzzleObjectProperty,alcity_Binary,1L,now,now,admin_1,admin_1);
 			alCityAttributeService.save(alCityAttribute_bgImage);
 
-			ALCityAttributeValue alCityAttributeValue_binary_0= new ALCityAttributeValue(null,null,null,null,image_0_Instance_content,alCityAttribute_bgImage,alCityAttribute_bgImage,1L,now,now,admin_1,admin_1);
-			ALCityAttributeValue alCityAttributeValue_binary_1= new ALCityAttributeValue(null,null,null,null,image_1_Instance_content,alCityAttribute_bgImage,alCityAttribute_bgImage,1L,now,now,admin_1,admin_1);
-			ALCityAttributeValue alCityAttributeValue_binary_2= new ALCityAttributeValue(null,null,null,null,image_2_Instance_content,alCityAttribute_bgImage,alCityAttribute_bgImage,1L,now,now,admin_1,admin_1);
-			ALCityAttributeValue alCityAttributeValue_binary_3= new ALCityAttributeValue(null,null,null,null,image_3_Instance_content,alCityAttribute_bgImage,alCityAttribute_bgImage,1L,now,now,admin_1,admin_1);
-			ALCityAttributeValue alCityAttributeValue_binary_4= new ALCityAttributeValue(null,null,null,null,image_4_Instance_content,alCityAttribute_bgImage,alCityAttribute_bgImage,1L,now,now,admin_1,admin_1);
-			ALCityAttributeValue alCityAttributeValue_binary_5= new ALCityAttributeValue(null,null,null,null,image_5_Instance_content,alCityAttribute_bgImage,alCityAttribute_bgImage,1L,now,now,admin_1,admin_1);
-			ALCityAttributeValue alCityAttributeValue_binary_6= new ALCityAttributeValue(null,null,null,null,image_6_Instance_content,alCityAttribute_bgImage,alCityAttribute_bgImage,1L,now,now,admin_1,admin_1);
-			ALCityAttributeValue alCityAttributeValue_binary_7= new ALCityAttributeValue(null,null,null,null,image_7_Instance_content,alCityAttribute_bgImage,alCityAttribute_bgImage,1L,now,now,admin_1,admin_1);
-			ALCityAttributeValue alCityAttributeValue_binary_8= new ALCityAttributeValue(null,null,null,null,image_8_Instance_content,alCityAttribute_bgImage,alCityAttribute_bgImage,1L,now,now,admin_1,admin_1);
+			ALCityAttributeValue alCityAttributeValue_binary_0= new ALCityAttributeValue(null,null,null,null,null,image_0_Instance_content,alCityAttribute_bgImage,alCityAttribute_bgImage,1L,now,now,admin_1,admin_1);
+			ALCityAttributeValue alCityAttributeValue_binary_1= new ALCityAttributeValue(null,null,null,null,null,image_1_Instance_content,alCityAttribute_bgImage,alCityAttribute_bgImage,1L,now,now,admin_1,admin_1);
+			ALCityAttributeValue alCityAttributeValue_binary_2= new ALCityAttributeValue(null,null,null,null,null,image_2_Instance_content,alCityAttribute_bgImage,alCityAttribute_bgImage,1L,now,now,admin_1,admin_1);
+			ALCityAttributeValue alCityAttributeValue_binary_3= new ALCityAttributeValue(null,null,null,null,null,image_3_Instance_content,alCityAttribute_bgImage,alCityAttribute_bgImage,1L,now,now,admin_1,admin_1);
+			ALCityAttributeValue alCityAttributeValue_binary_4= new ALCityAttributeValue(null,null,null,null,null,image_4_Instance_content,alCityAttribute_bgImage,alCityAttribute_bgImage,1L,now,now,admin_1,admin_1);
+			ALCityAttributeValue alCityAttributeValue_binary_5= new ALCityAttributeValue(null,null,null,null,null,image_5_Instance_content,alCityAttribute_bgImage,alCityAttribute_bgImage,1L,now,now,admin_1,admin_1);
+			ALCityAttributeValue alCityAttributeValue_binary_6= new ALCityAttributeValue(null,null,null,null,null,image_6_Instance_content,alCityAttribute_bgImage,alCityAttribute_bgImage,1L,now,now,admin_1,admin_1);
+			ALCityAttributeValue alCityAttributeValue_binary_7= new ALCityAttributeValue(null,null,null,null,null,image_7_Instance_content,alCityAttribute_bgImage,alCityAttribute_bgImage,1L,now,now,admin_1,admin_1);
+			ALCityAttributeValue alCityAttributeValue_binary_8= new ALCityAttributeValue(null,null,null,null,null,image_8_Instance_content,alCityAttribute_bgImage,alCityAttribute_bgImage,1L,now,now,admin_1,admin_1);
 			alCityAttributeValueService.save(alCityAttributeValue_binary_0);
 			alCityAttributeValueService.save(alCityAttributeValue_binary_1);
 			alCityAttributeValueService.save(alCityAttributeValue_binary_2);
@@ -654,6 +654,12 @@ public class ObjectManagmentApplication {
 
 			PuzzleObject_ObjectAction  ImageObject01_MoveAction = new PuzzleObject_ObjectAction(puzzleObjectIsOwner,ImageObject01.getId(),moveAction,moveActionRenderer,1L,now,now,admin_1,admin_1);
 			puzzleObject_ObjectActionService.save(ImageObject01_MoveAction);
+
+			ALCityAttribute alCityAttribute_move_action =new ALCityAttribute("actionId",ImageObject01.getId(),puzzleObjectProperty,alcity_Long,1L,now,now,admin_1,admin_1);
+			alCityAttributeService.save(alCityAttribute_move_action);
+			ALCityAttributeValue alCity_moveAction_parameter_action_id= new ALCityAttributeValue(null,null,moveAction.getId(),null,null,null,alCityAttribute_move_action,alCityAttribute_move_action,1L,now,now,admin_1,admin_1);
+
+			alCityAttributeValueService.save(alCity_moveAction_parameter_action_id);
 
 //			UserEvent clickEvent = new UserEvent("Click","Click",1L,now,now,admin_1,admin_1);
 //			UserEvent doubleClickEvent = new UserEvent("Double Click","Double Click",1L,now,now,admin_1,admin_1);
