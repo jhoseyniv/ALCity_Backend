@@ -28,11 +28,7 @@ public class PuzzleLevelRule extends BaseTable implements Serializable {
     @JsonIgnore
     private PuzzleLevel puzzleLevel;
 
-    @OneToMany(mappedBy = "puzzleLevelRule", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JsonIgnore
-    private Set<PuzzleLevelRuleEvent> puzzleLevelRuleEventSet;
-
-    public PuzzleLevelRule() {
+     public PuzzleLevelRule() {
     }
 
     public PuzzleLevelRule(Long version, Long created, Long updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
