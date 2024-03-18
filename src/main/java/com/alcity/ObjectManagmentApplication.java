@@ -13,6 +13,8 @@ import com.alcity.entity.learning.LearningTopic;
 import com.alcity.entity.play.PermitedPlayer;
 import com.alcity.entity.play.PlayHistory;
 import com.alcity.entity.puzzle.*;
+import com.alcity.entity.ruleengine.SystemEvent;
+import com.alcity.entity.ruleengine.UserEvent;
 import com.alcity.entity.users.ApplicationMember;
 import com.alcity.entity.users.ApplicationMember_WalletItem;
 import com.alcity.entity.users.WalletItem;
@@ -200,6 +202,8 @@ public class ObjectManagmentApplication {
 	@Autowired
 	PuzzleObject_ObjectActionService puzzleObject_ObjectActionService;
 
+	@Autowired
+	PuzzleLevelRuleEventTypeService  puzzleLevelRuleEventTypeService;
 
 
 	public byte[] getImage(String imageDirectory, String imageName) throws IOException {
@@ -661,18 +665,29 @@ public class ObjectManagmentApplication {
 
 			alCityAttributeValueService.save(alCity_moveAction_parameter_action_id);
 
-//			UserEvent clickEvent = new UserEvent("Click","Click",1L,now,now,admin_1,admin_1);
-//			UserEvent doubleClickEvent = new UserEvent("Double Click","Double Click",1L,now,now,admin_1,admin_1);
-//			UserEvent startDragEvent = new UserEvent("Start Drag","Start Drag",1L,now,now,admin_1,admin_1);
-//			UserEvent endDragEvent = new UserEvent("End Drag","End Drag",1L,now,now,admin_1,admin_1);
-//
-//			userEventService.save(clickEvent);
-//			userEventService.save(doubleClickEvent);
-//			userEventService.save(startDragEvent);
-//			userEventService.save(endDragEvent);
-//
-//			SystemEvent timerSystemEvent = new SystemEvent("Timer","Timer",1L,now,now,admin_1,admin_1);
-//			systemEventService.save(timerSystemEvent);
+
+			PuzzleLevelRuleEventType systemEvent = new PuzzleLevelRuleEventType("System Event","System Event",1L,now,now,admin_1,admin_1);
+			PuzzleLevelRuleEventType objectActionEvent = new PuzzleLevelRuleEventType("Object Action Event","Object Action Event",1L,now,now,admin_1,admin_1);
+			PuzzleLevelRuleEventType userEvent = new PuzzleLevelRuleEventType("User Event","User Event",1L,now,now,admin_1,admin_1);
+			PuzzleLevelRuleEventType rulePostActionEvent = new PuzzleLevelRuleEventType("Rule Post Action Event","Rule Post Action Event",1L,now,now,admin_1,admin_1);
+			puzzleLevelRuleEventTypeService.save(systemEvent);
+			puzzleLevelRuleEventTypeService.save(objectActionEvent);
+			puzzleLevelRuleEventTypeService.save(userEvent);
+			puzzleLevelRuleEventTypeService.save(rulePostActionEvent);
+
+
+			UserEvent clickEvent = new UserEvent("Click","Click",1L,now,now,admin_1,admin_1);
+			UserEvent doubleClickEvent = new UserEvent("Double Click","Double Click",1L,now,now,admin_1,admin_1);
+			UserEvent startDragEvent = new UserEvent("Start Drag","Start Drag",1L,now,now,admin_1,admin_1);
+			UserEvent endDragEvent = new UserEvent("End Drag","End Drag",1L,now,now,admin_1,admin_1);
+
+			userEventService.save(clickEvent);
+			userEventService.save(doubleClickEvent);
+			userEventService.save(startDragEvent);
+			userEventService.save(endDragEvent);
+
+			SystemEvent timerSystemEvent = new SystemEvent("Timer","Timer",1L,now,now,admin_1,admin_1);
+			systemEventService.save(timerSystemEvent);
 
 			System.out.println("All Things is OK!!!!");
 		};

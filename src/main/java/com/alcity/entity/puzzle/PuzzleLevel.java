@@ -2,6 +2,7 @@ package com.alcity.entity.puzzle;
 
 
 import com.alcity.entity.base.*;
+import com.alcity.entity.journey.JourneyStep;
 import com.alcity.entity.users.ApplicationMember;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -67,6 +68,12 @@ public class PuzzleLevel extends BaseTable implements Serializable {
     @OneToMany(mappedBy = "puzzleLevel", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JsonIgnore
     private Set<PuzzleGroupObjectInstance> puzzleGroupObjectInstanceSet;
+
+    @OneToMany(mappedBy = "puzzleLevel", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JsonIgnore
+    private Set<PuzzleLevelRule> puzzleLevelRuleSet;
+
+
 
     public PuzzleLevel() {
     }
