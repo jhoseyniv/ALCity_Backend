@@ -2,10 +2,12 @@ package com.alcity.entity.puzzle;
 
 import com.alcity.entity.base.BaseTable;
 import com.alcity.entity.journey.Journey;
+import com.alcity.entity.users.ApplicationMember;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Set;
 
 @Entity
 public class PuzzleLevelRule extends BaseTable implements Serializable {
@@ -26,6 +28,18 @@ public class PuzzleLevelRule extends BaseTable implements Serializable {
     @JsonIgnore
     private PuzzleLevel puzzleLevel;
 
+    @OneToMany(mappedBy = "puzzleLevelRule", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JsonIgnore
+    private Set<PuzzleLevelRuleEvent> puzzleLevelRuleEventSet;
 
+    public PuzzleLevelRule() {
+    }
 
+    public PuzzleLevelRule(Long version, Long created, Long updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
+        super(version, created, updated, createdBy, updatedBy);
+        this.title = title;
+        this.ordering = ordering;
+        this.condition = condition;
+        this.puzzleLevel = puzzleLevel;
+    }
 }
