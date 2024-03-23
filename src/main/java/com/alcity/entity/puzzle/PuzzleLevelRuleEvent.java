@@ -30,7 +30,7 @@ public class PuzzleLevelRuleEvent extends BaseTable implements Serializable {
     public PuzzleLevelRuleEvent() {
     }
 
-    public PuzzleLevelRuleEvent(String name, PuzzleLevelRuleEventType puzzleLevelRuleEventType, PuzzleLevelRule puzzleLevelRule, Long eventId,Long version, Long created, Long updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
+    public PuzzleLevelRuleEvent(String name, PuzzleLevelRuleEventType puzzleLevelRuleEventType, Long eventId, PuzzleLevelRule puzzleLevelRule,Long version, Long created, Long updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
         super(version, created, updated, createdBy, updatedBy);
         this.name = name;
         this.puzzleLevelRuleEventType = puzzleLevelRuleEventType;

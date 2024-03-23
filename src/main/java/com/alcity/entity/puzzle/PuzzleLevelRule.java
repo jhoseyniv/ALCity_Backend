@@ -20,6 +20,7 @@ public class PuzzleLevelRule extends BaseTable implements Serializable {
     @Column(name="condition")
     private String condition;
 
+    //why this column is in puzzle level rule
 //    @Column(name="ruleEventid")
 //    private Integer ruleEventid;
 
@@ -31,11 +32,12 @@ public class PuzzleLevelRule extends BaseTable implements Serializable {
      public PuzzleLevelRule() {
     }
 
-    public PuzzleLevelRule(Long version, Long created, Long updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
+    public PuzzleLevelRule( String title, Integer ordering, String condition, PuzzleLevel puzzleLevel,Long version, Long created, Long updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
         super(version, created, updated, createdBy, updatedBy);
         this.title = title;
         this.ordering = ordering;
         this.condition = condition;
+       // this.ruleEventid = ruleEventid;
         this.puzzleLevel = puzzleLevel;
     }
 }

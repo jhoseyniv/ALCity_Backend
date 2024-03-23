@@ -3,6 +3,7 @@ package com.alcity.service.puzzle;
 
 import com.alcity.entity.base.PuzzleLevelRulePostActionType;
 import com.alcity.repository.puzzle.PuzzleLevelRulePostActionTypeRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -13,6 +14,7 @@ import java.util.Optional;
 @Transactional
 public class PuzzleLevelRulePostActionTypeService implements PuzzleLevelRulePostActionTypeRepository {
 
+    @Autowired
     PuzzleLevelRulePostActionTypeRepository puzzleLevelRulePostActionTypeRepository;
 
     @Override
