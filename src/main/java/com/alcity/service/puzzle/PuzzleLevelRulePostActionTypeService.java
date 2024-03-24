@@ -1,7 +1,7 @@
 package com.alcity.service.puzzle;
 
 
-import com.alcity.entity.base.PuzzleLevelRulePostActionType;
+import com.alcity.entity.puzzle.PuzzleLevelRulePostActionType;
 import com.alcity.repository.puzzle.PuzzleLevelRulePostActionTypeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -1,7 +1,6 @@
 package com.alcity.repository.puzzle;
 
-import com.alcity.entity.base.DataType;
-import com.alcity.entity.base.PuzzleLevelRulePostActionType;
+import com.alcity.entity.puzzle.PuzzleLevelRulePostActionType;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.Collection;

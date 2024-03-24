@@ -211,6 +211,12 @@ public class ObjectManagmentApplication {
 	@Autowired
 	PuzzleLevelRuleEventService  puzzleLevelRuleEventService;
 
+	@Autowired
+	PuzzleLevelRulePostActionTypeService puzzleLevelRulePostActionTypeService;
+
+	@Autowired
+	PuzzleLevelRulePostActionService  puzzleLevelRulePostActionService;
+
 
 	public byte[] getImage(String imageDirectory, String imageName) throws IOException {
 		Path imagePath = Path.of(imageDirectory, imageName);
@@ -903,6 +909,15 @@ public class ObjectManagmentApplication {
 			SystemEvent timerSystemEvent = new SystemEvent("Timer","Timer",1L,now,now,admin_1,admin_1);
 			systemEventService.save(timerSystemEvent);
 
+			PuzzleLevelRulePostActionType callObjectAction = new PuzzleLevelRulePostActionType("CallObjectAction","CallObjectAction",1L,now,now,admin_1,admin_1);
+			PuzzleLevelRulePostActionType variableAssignmentAction = new PuzzleLevelRulePostActionType("VariableAssignmentAction","VariableAssignmentAction",1L,now,now,admin_1,admin_1);
+			PuzzleLevelRulePostActionType fireEvent = new PuzzleLevelRulePostActionType("FireEvent","FireEvent",1L,now,now,admin_1,admin_1);
+			PuzzleLevelRulePostActionType userAlert = new PuzzleLevelRulePostActionType("UserAlert","UserAlert",1L,now,now,admin_1,admin_1);
+			puzzleLevelRulePostActionTypeService.save(callObjectAction);
+			puzzleLevelRulePostActionTypeService.save(variableAssignmentAction);
+			puzzleLevelRulePostActionTypeService.save(fireEvent);
+			puzzleLevelRulePostActionTypeService.save(userAlert);
+
 
 			PuzzleLevelRule rule_for_move_objects_in_hash_image = new PuzzleLevelRule("Move object by click around empty object",1
 					,"((e.x==X)&&((e.y==Y-1)||(e.y==Y+1)))  ||  ((e.y==Y)&&((e.x==X-1)||(e.x==X+1)))",puzzleLevel_hashimage,1L,now,now,admin_1,admin_1);
@@ -910,6 +925,18 @@ public class ObjectManagmentApplication {
 
 			PuzzleLevelRuleEvent puzzleLevelRuleEvent_click = new PuzzleLevelRuleEvent("Click",userEvent,clickEvent.getId(),rule_for_move_objects_in_hash_image,1L,now,now,admin_1,admin_1);
 			puzzleLevelRuleEventService.save(puzzleLevelRuleEvent_click);
+			String moveActionExpression=" objects[e.x][e.y] , move , parameters:[" +
+					"{name:'' , value''}," +
+					"{name:'' , value''}," +
+					"{name:'' , value''}," +
+					"{name:'' , value''}," +
+					"{name:'' , value''}," +
+					"{name:'' , value''}," +
+					"{name:'' , value''}," +
+					"{name:'' , value''}] ";
+			PuzzleLevelRulePostAction objectAction_move = new PuzzleLevelRulePostAction(rule_for_move_objects_in_hash_image,1,moveActionExpression,callObjectAction,1L,now,now,admin_1,admin_1);
+
+			puzzleLevelRulePostActionService.save(objectAction_move);
 
 			System.out.println("All Things is OK!!!!");
 		};
