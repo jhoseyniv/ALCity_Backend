@@ -40,7 +40,7 @@ public class LearningTopicService implements LearningTopicRepository {
 
     @Override
     public Collection<LearningTopic> findAll() {
-        return null;
+        return learningTopicRepository.findAll();
     }
 
     @Override

@@ -38,7 +38,7 @@ public class LearningSkillService implements LearningSkillRepository {
 
     @Override
     public Collection<LearningSkill> findAll() {
-        return null;
+        return learningSkillRepository.findAll();
     }
 
     @Override

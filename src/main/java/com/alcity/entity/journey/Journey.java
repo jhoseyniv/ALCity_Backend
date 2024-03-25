@@ -22,12 +22,42 @@ public class Journey  extends BaseTable implements Serializable {
     private BinaryContent graphic;
 
     @OneToMany(mappedBy = "journey", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JsonIgnore
     private Set<JourneyStep> journeyStepSet;
 
     @OneToMany(mappedBy = "journey", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JsonIgnore
     private Set<JourneyLearningSkill> journeyLearningSkillSet;
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public BinaryContent getGraphic() {
+        return graphic;
+    }
+
+    public void setGraphic(BinaryContent graphic) {
+        this.graphic = graphic;
+    }
+
+    public Set<JourneyStep> getJourneyStepSet() {
+        return journeyStepSet;
+    }
+
+    public void setJourneyStepSet(Set<JourneyStep> journeyStepSet) {
+        this.journeyStepSet = journeyStepSet;
+    }
+
+    public Set<JourneyLearningSkill> getJourneyLearningSkillSet() {
+        return journeyLearningSkillSet;
+    }
+
+    public void setJourneyLearningSkillSet(Set<JourneyLearningSkill> journeyLearningSkillSet) {
+        this.journeyLearningSkillSet = journeyLearningSkillSet;
+    }
 
     public Journey() {
     }

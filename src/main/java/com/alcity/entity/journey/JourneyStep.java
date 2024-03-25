@@ -34,6 +34,54 @@ public class JourneyStep extends BaseTable implements Serializable {
     @JsonIgnore
     private PuzzleGroup puzzleGroup;
 
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public Integer getOrdering() {
+        return ordering;
+    }
+
+    public void setOrdering(Integer ordering) {
+        this.ordering = ordering;
+    }
+
+    public Integer getXpos() {
+        return xpos;
+    }
+
+    public void setXpos(Integer xpos) {
+        this.xpos = xpos;
+    }
+
+    public Integer getYpos() {
+        return ypos;
+    }
+
+    public void setYpos(Integer ypos) {
+        this.ypos = ypos;
+    }
+
+    public Journey getJourney() {
+        return journey;
+    }
+
+    public void setJourney(Journey journey) {
+        this.journey = journey;
+    }
+
+    public PuzzleGroup getPuzzleGroup() {
+        return puzzleGroup;
+    }
+
+    public void setPuzzleGroup(PuzzleGroup puzzleGroup) {
+        this.puzzleGroup = puzzleGroup;
+    }
+
     public JourneyStep() {
     }
 

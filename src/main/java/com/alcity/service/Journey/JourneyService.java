@@ -37,7 +37,7 @@ public class JourneyService implements JourneyRepository {
 
     @Override
     public Collection<Journey> findAll() {
-        return null;
+        return journeyRepository.findAll();
     }
 
     @Override

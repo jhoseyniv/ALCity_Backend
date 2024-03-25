@@ -28,6 +28,30 @@ public class LearningContent  extends BaseTable implements Serializable {
     @JsonIgnore
     private BinaryContent binaryContent;
 
+    public String getDescText() {
+        return descText;
+    }
+
+    public void setDescText(String descText) {
+        this.descText = descText;
+    }
+
+    public String getDescBrief() {
+        return descBrief;
+    }
+
+    public void setDescBrief(String descBrief) {
+        this.descBrief = descBrief;
+    }
+
+    public BinaryContent getBinaryContent() {
+        return binaryContent;
+    }
+
+    public void setBinaryContent(BinaryContent binaryContent) {
+        this.binaryContent = binaryContent;
+    }
+
     public LearningContent() {
     }
 

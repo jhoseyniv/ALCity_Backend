@@ -3,6 +3,7 @@ package com.alcity.entity.base;
 
 import com.alcity.entity.alobject.ALCityAttribute;
 import com.alcity.entity.alobject.ALCityAttributeValue;
+import com.alcity.entity.learning.LearningContent;
 import com.alcity.entity.users.ApplicationMember;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -28,6 +29,17 @@ public class BinaryContent extends BaseTable implements Serializable {
     @JoinColumn(name = "binary_content_type_id", nullable = false)
     @JsonIgnore
     private BinaryContentType contentType;
+
+    @OneToMany(mappedBy = "binaryContent", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<LearningContent> learningContentSet;
+
+    public Set<LearningContent> getLearningContentSet() {
+        return learningContentSet;
+    }
+
+    public void setLearningContentSet(Set<LearningContent> learningContentSet) {
+        this.learningContentSet = learningContentSet;
+    }
 
     @OneToMany(mappedBy = "binaryContent", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JsonIgnore

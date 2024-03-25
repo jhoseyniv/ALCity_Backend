@@ -51,8 +51,8 @@ public class BaseItemConrollerTest {
     @org.junit.Test
     public void BaseItemsTestUnit() throws Exception {
         RestTemplate restTemplate = new RestTemplate();
-        ResponseEntity responseGenders = restTemplate.getForEntity("http://127.0.0.1:8080/base/genders/id/1", String.class);
-        ResponseEntity responseAllGenders = restTemplate.getForEntity("http://127.0.0.1:8080/base/genders/", String.class);
+        ResponseEntity responseGendersById = restTemplate.getForEntity("http://127.0.0.1:8080/base/genders/id/1", String.class);
+        ResponseEntity responseUserGenders = restTemplate.getForEntity("http://127.0.0.1:8080/base/genders/", String.class);
         ResponseEntity responsePuzzleStatus = restTemplate.getForEntity("http://127.0.0.1:8080/base/pl-status/", String.class);
         ResponseEntity responsePuzzleCategory = restTemplate.getForEntity("http://127.0.0.1:8080/base/pl-category/", String.class);
         ResponseEntity responsePuzzleDifficulty = restTemplate.getForEntity("http://127.0.0.1:8080/base/pl-difficulties/", String.class);
@@ -64,6 +64,9 @@ public class BaseItemConrollerTest {
         ResponseEntity responseWalletItemTypes = restTemplate.getForEntity("http://127.0.0.1:8080/base/wallet-types/", String.class);
         ResponseEntity responseBinaryContentTypes = restTemplate.getForEntity("http://127.0.0.1:8080/base/binary-types/", String.class);
         ResponseEntity responseContentById = restTemplate.getForEntity("http://127.0.0.1:8080/base/binary-content/id/60", String.class);
+        ResponseEntity responseLearningSkills = restTemplate.getForEntity("http://127.0.0.1:8080/base/learning-skills", String.class);
+        ResponseEntity responseLearningTopics = restTemplate.getForEntity("http://127.0.0.1:8080/base/learning-topics", String.class);
+        ResponseEntity responseJourneis = restTemplate.getForEntity("http://127.0.0.1:8080/base/learning-topics", String.class);
 
 
         ResponseEntity responseApplicationMembers = restTemplate.getForEntity(" http://127.0.0.1:8080/user/members/", String.class);
@@ -72,7 +75,7 @@ public class BaseItemConrollerTest {
         //ResponseEntity resp2 = restTemplate.getForEntity("http://localhost:8080/"+name2 , String.class);
         String expectedGenderJson = "{\"id\":\"1\",\"label\":\"F\",\"value\":\"Female\",\"version\":\"1\",\"created\":\"1711360835820\",\"updated\":\"1711360835820\"}";
 
-        assertEquals(responseGenders.getBody(), expectedGenderJson );
+        assertEquals(responseGendersById.getBody(), expectedGenderJson );
         //assertEquals(resp2.getBody(), "Hello, World "+ name );
     }
 

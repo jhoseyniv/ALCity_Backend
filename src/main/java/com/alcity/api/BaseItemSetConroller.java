@@ -1,7 +1,13 @@
 package com.alcity.api;
 
 import com.alcity.entity.base.*;
+import com.alcity.entity.learning.LearningContent;
+import com.alcity.entity.learning.LearningSkill;
+import com.alcity.entity.learning.LearningTopic;
 import com.alcity.service.base.*;
+import com.alcity.service.learning.LearningContentService;
+import com.alcity.service.learning.LearningSkillService;
+import com.alcity.service.learning.LearningTopicService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -74,14 +80,6 @@ public class BaseItemSetConroller {
         return puzzleLevelStatusCollection;
     }
 
-    @Autowired
-    private UserGenderService userGenderService;
-    @RequestMapping(value = "genders/id/{id}", method = RequestMethod.GET)
-    @ResponseBody
-    public Optional<UserGender> getGenderById(@PathVariable Long id) {
-        Optional<UserGender> gender = userGenderService.findById(id);
-        return gender;
-    }
 
     @Autowired
     private GameStatusService gameStatusService;
@@ -119,6 +117,35 @@ public class BaseItemSetConroller {
     }
 
     @Autowired
+    private LearningSkillService learningSkillService;
+
+    @GetMapping("/learning-skills")
+    public Collection<LearningSkill> getLearningSkills(Model model) {
+        Collection<LearningSkill> learningSkillCollection = learningSkillService.findAll();
+        return learningSkillCollection;
+    }
+
+    @Autowired
+    private LearningTopicService learningTopicService;
+
+    @GetMapping("/learning-topics")
+    public Collection<LearningTopic> getLearningTopics(Model model) {
+        Collection<LearningTopic> learningTopicCollection = learningTopicService.findAll();
+        return learningTopicCollection;
+    }
+
+
+    @Autowired
+    private LearningContentService learningContentService;
+
+    @RequestMapping(value="/learning-content/id/{id}", method = RequestMethod.GET)
+    @ResponseBody
+    public Optional<LearningContent> getLearningContentById(@PathVariable Long id) {
+        Optional<LearningContent> learningContentOptional = learningContentService.findById(id);
+        return learningContentOptional;
+    }
+
+    @Autowired
     private BinaryContentService binaryContentService;
 
     @RequestMapping(value="/binary-content/id/{id}", method = RequestMethod.GET)
@@ -126,6 +153,14 @@ public class BaseItemSetConroller {
     public Optional<BinaryContent> getBinaryContentById(@PathVariable Long id) {
         Optional<BinaryContent> binaryContentCollection = binaryContentService.findById(id);
         return binaryContentCollection;
+    }
+    @Autowired
+    private UserGenderService userGenderService;
+    @RequestMapping(value = "genders/id/{id}", method = RequestMethod.GET)
+    @ResponseBody
+    public Optional<UserGender> getGenderById(@PathVariable Long id) {
+        Optional<UserGender> gender = userGenderService.findById(id);
+        return gender;
     }
 
 

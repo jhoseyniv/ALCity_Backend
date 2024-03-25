@@ -24,6 +24,30 @@ public class JourneyLearningSkill extends BaseTable implements Serializable {
     @JsonIgnore
     private LearningSkill learningSkill;
 
+    public Float getRequiredAmount() {
+        return requiredAmount;
+    }
+
+    public void setRequiredAmount(Float requiredAmount) {
+        this.requiredAmount = requiredAmount;
+    }
+
+    public Journey getJourney() {
+        return journey;
+    }
+
+    public void setJourney(Journey journey) {
+        this.journey = journey;
+    }
+
+    public LearningSkill getLearningSkill() {
+        return learningSkill;
+    }
+
+    public void setLearningSkill(LearningSkill learningSkill) {
+        this.learningSkill = learningSkill;
+    }
+
     public JourneyLearningSkill() {
     }
 
