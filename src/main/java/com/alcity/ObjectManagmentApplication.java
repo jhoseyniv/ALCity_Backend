@@ -553,14 +553,22 @@ public class ObjectManagmentApplication {
 			AttributeOwnerType puzzleObjectProperty = new AttributeOwnerType("PuzzleObjectProperty","PuzzleObjectProperty",1L,now,now,admin_1,admin_1);
 			AttributeOwnerType puzzleGroupObjectProperty = new AttributeOwnerType("PuzzleGroupObjectProperty","PuzzleGroupObjectProperty",1L,now,now,admin_1,admin_1);
 			AttributeOwnerType puzzleGroupObjectInstanceProperty = new AttributeOwnerType("PuzzleGroupObjectInstanceProperty","PuzzleGroupObjectInstanceProperty",1L,now,now,admin_1,admin_1);
-			AttributeOwnerType PuzzleGroupObjectVariable = new AttributeOwnerType("PuzzleGroupObjectVariable","PuzzleGroupObjectVariable",1L,now,now,admin_1,admin_1);
+			AttributeOwnerType puzzleGroupObjectVariable = new AttributeOwnerType("PuzzleGroupObjectVariable","PuzzleGroupObjectVariable",1L,now,now,admin_1,admin_1);
 			AttributeOwnerType puzzleGroupObjectInstanceVariable = new AttributeOwnerType("PuzzleGroupObjectInstanceVariable","PuzzleGroupObjectInstanceVariable",1L,now,now,admin_1,admin_1);
 
 			attributeOwnerTypeService.save(puzzleObjectProperty);
 			attributeOwnerTypeService.save(puzzleGroupObjectProperty);
 			attributeOwnerTypeService.save(puzzleGroupObjectInstanceProperty);
-			attributeOwnerTypeService.save(PuzzleGroupObjectVariable);
+			attributeOwnerTypeService.save(puzzleGroupObjectVariable);
 			attributeOwnerTypeService.save(puzzleGroupObjectInstanceVariable);
+
+			ALCityAttribute alCityAttribute_variable_X =new ALCityAttribute("X",ImageObject01.getId(),puzzleGroupObjectVariable,alcity_Int,1L,now,now,admin_1,admin_1);
+			ALCityAttribute alCityAttribute_variable_Y =new ALCityAttribute("Y",ImageObject01.getId(),puzzleGroupObjectVariable,alcity_Int,1L,now,now,admin_1,admin_1);
+			alCityAttributeService.save(alCityAttribute_variable_X);
+			alCityAttributeService.save(alCityAttribute_variable_Y);
+			ALCityAttributeValue alCityAttribute_variable_X_value= new ALCityAttributeValue(null,1,null,null,null,null,alCityAttribute_variable_X,alCityAttribute_variable_X,1L,now,now,admin_1,admin_1);
+			ALCityAttributeValue alCityAttribute_variable_Y_value= new ALCityAttributeValue(null,1,null,null,null,null,alCityAttribute_variable_Y,alCityAttribute_variable_Y,1L,now,now,admin_1,admin_1);
+
 
 			PuzzleGroupObjectInstance instance_img0 = new PuzzleGroupObjectInstance(1,1,1,puzzleGroup_puzzleObject,puzzleLevel_hashimage,1L,now,now,admin_1,admin_1);
 			PuzzleGroupObjectInstance instance_img1 = new PuzzleGroupObjectInstance(2,3,1,puzzleGroup_puzzleObject,puzzleLevel_hashimage,1L,now,now,admin_1,admin_1);
@@ -885,8 +893,6 @@ public class ObjectManagmentApplication {
 			alCityAttributeValueService.save(alCityAttributeValue_instance_8_Y);
 
 
-
-
 			PuzzleLevelRuleEventType systemEvent = new PuzzleLevelRuleEventType("System Event","System Event",1L,now,now,admin_1,admin_1);
 			PuzzleLevelRuleEventType objectActionEvent = new PuzzleLevelRuleEventType("Object Action Event","Object Action Event",1L,now,now,admin_1,admin_1);
 			PuzzleLevelRuleEventType userEvent = new PuzzleLevelRuleEventType("User Event","User Event",1L,now,now,admin_1,admin_1);
@@ -925,18 +931,63 @@ public class ObjectManagmentApplication {
 
 			PuzzleLevelRuleEvent puzzleLevelRuleEvent_click = new PuzzleLevelRuleEvent("Click",userEvent,clickEvent.getId(),rule_for_move_objects_in_hash_image,1L,now,now,admin_1,admin_1);
 			puzzleLevelRuleEventService.save(puzzleLevelRuleEvent_click);
-			String moveActionExpression=" objects[e.x][e.y] , move , parameters:[" +
-					"{name:'' , value''}," +
-					"{name:'' , value''}," +
-					"{name:'' , value''}," +
-					"{name:'' , value''}," +
-					"{name:'' , value''}," +
-					"{name:'' , value''}," +
-					"{name:'' , value''}," +
-					"{name:'' , value''}] ";
-			PuzzleLevelRulePostAction objectAction_move = new PuzzleLevelRulePostAction(rule_for_move_objects_in_hash_image,1,moveActionExpression,callObjectAction,1L,now,now,admin_1,admin_1);
+			StringBuffer moveActionExpression=new StringBuffer(" objects[e.x][e.y] , move , parameters:[" +
+					"{name:'actionId  IN UNITY' , value:'move action id'}," +
+					"{name:'aSync' , value:'false'}," +
+					"{name:'formRow' , value:'e.x'}," +
+					"{name:'fromCol' , value:'e.y'}," +
+					"{name:'toRow' , value:'x'}," +
+					"{name:'toCol' , value:'y'}," +
+					"{name:'ObjectId' , value:'objects[e.x][e.y]'}," +
+					"{name:'moveType' , value:'jump'}] ");
 
-			puzzleLevelRulePostActionService.save(objectAction_move);
+			PuzzleLevelRulePostAction rulePostAction_1_move = new PuzzleLevelRulePostAction(rule_for_move_objects_in_hash_image,1,moveActionExpression,callObjectAction,1L,now,now,admin_1,admin_1);
+			puzzleLevelRulePostActionService.save(rulePostAction_1_move);
+
+			StringBuffer moveActionExpression_2=new StringBuffer(" objects[e.x][e.y] , move , parameters:[" +
+					"{name:'actionId' , value:'move action id'}," +
+					"{name:'aSync' , value:'false'}," +
+					"{name:'formRow' , value:'e.x'}," +
+					"{name:'fromCol' , value:'e.y'}," +
+					"{name:'toRow' , value:'x'}," +
+					"{name:'toCol' , value:'y'}," +
+					"{name:'ObjectId' , value:'objects[e.x][e.y]'}," +
+					"{name:'moveType' , value:'jump'}] ");
+
+			PuzzleLevelRulePostAction rulePostAction_2_move = new PuzzleLevelRulePostAction(rule_for_move_objects_in_hash_image,2,moveActionExpression_2,callObjectAction,1L,now,now,admin_1,admin_1);
+			puzzleLevelRulePostActionService.save(rulePostAction_2_move);
+
+			StringBuffer assignActionExpression_3=new StringBuffer(" parameters:[" +
+					"{variable:'objects[X][Y].x'}," +
+					"{valueExperssion:'x'}" +
+					"]") ;
+
+			PuzzleLevelRulePostAction rulePostAction_3_assignment = new PuzzleLevelRulePostAction(rule_for_move_objects_in_hash_image,3,assignActionExpression_3,variableAssignmentAction,1L,now,now,admin_1,admin_1);
+			puzzleLevelRulePostActionService.save(rulePostAction_3_assignment);
+
+			StringBuffer assignActionExpression_4=new StringBuffer(" parameters:[" +
+					"{variable:'objects[X][Y].x'}," +
+					"{valueExperssion:'Y'}" +
+					"]") ;
+
+			PuzzleLevelRulePostAction rulePostAction_4_assignment = new PuzzleLevelRulePostAction(rule_for_move_objects_in_hash_image,4,assignActionExpression_4,variableAssignmentAction,1L,now,now,admin_1,admin_1);
+			puzzleLevelRulePostActionService.save(rulePostAction_4_assignment);
+
+			StringBuffer assignActionExpression_5=new StringBuffer(" parameters:[" +
+					"{variable:'X'}," +
+					"{valueExperssion:'e.x'}" +
+					"]") ;
+
+			PuzzleLevelRulePostAction rulePostAction_5_assignment = new PuzzleLevelRulePostAction(rule_for_move_objects_in_hash_image,5,assignActionExpression_5,variableAssignmentAction,1L,now,now,admin_1,admin_1);
+			puzzleLevelRulePostActionService.save(rulePostAction_5_assignment);
+
+			StringBuffer assignActionExpression_6=new StringBuffer(" parameters:[" +
+					"{variable:'Y'}," +
+					"{valueExperssion:'e.y'}" +
+					"]") ;
+
+			PuzzleLevelRulePostAction rulePostAction_6_assignment = new PuzzleLevelRulePostAction(rule_for_move_objects_in_hash_image,6,assignActionExpression_6,variableAssignmentAction,1L,now,now,admin_1,admin_1);
+			puzzleLevelRulePostActionService.save(rulePostAction_6_assignment);
 
 			System.out.println("All Things is OK!!!!");
 		};

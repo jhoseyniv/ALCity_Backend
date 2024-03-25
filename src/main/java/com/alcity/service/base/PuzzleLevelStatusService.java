@@ -38,7 +38,7 @@ public class PuzzleLevelStatusService implements PuzzleLevelStatusRepository {
 
     @Override
     public Collection<PuzzleLevelStatus> findAll() {
-        return null;
+        return puzzleLevelStatusRepository.findAll();
     }
 
     @Override

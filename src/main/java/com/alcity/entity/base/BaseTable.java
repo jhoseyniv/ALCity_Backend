@@ -38,6 +38,26 @@ public class BaseTable implements Serializable {
     @JsonIgnore
     private ApplicationMember updatedBy;
 
+    public Long getVersion() {
+        return version;
+    }
+
+    public Long getCreated() {
+        return created;
+    }
+
+    public Long getUpdated() {
+        return updated;
+    }
+
+    public ApplicationMember getCreatedBy() {
+        return createdBy;
+    }
+
+    public ApplicationMember getUpdatedBy() {
+        return updatedBy;
+    }
+
     public BaseTable() {
     }
 

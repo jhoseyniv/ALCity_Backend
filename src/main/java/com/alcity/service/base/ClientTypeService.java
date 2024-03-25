@@ -37,7 +37,7 @@ public class ClientTypeService  implements ClientTypeRepository {
 
     @Override
     public Collection<ClientType> findAll() {
-        return null;
+        return clientTypeRepository.findAll();
     }
 
     @Override

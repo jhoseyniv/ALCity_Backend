@@ -38,6 +38,34 @@ public abstract class BaseItemSet implements Serializable {
     @NotNull(message = "{bHeight.notempty}")
     private Long updated;
 
+    public String getLabel() {
+        return label;
+    }
+
+    public String getValue() {
+        return value;
+    }
+
+    public Long getVersion() {
+        return version;
+    }
+
+    public Long getCreated() {
+        return created;
+    }
+
+    public Long getUpdated() {
+        return updated;
+    }
+
+    public ApplicationMember getCreatedBy() {
+        return createdBy;
+    }
+
+    public ApplicationMember getUpdatedBy() {
+        return updatedBy;
+    }
+
     @ManyToOne(fetch = FetchType.LAZY, optional = true)
     @JoinColumn(name ="createdBy",nullable = true)
     @JsonIgnore

@@ -39,7 +39,7 @@ public class DataTypeService implements DataTypeRepository {
 
     @Override
     public Collection<DataType> findAll() {
-        return null;
+        return dataTypeRepository.findAll();
     }
 
     @Override

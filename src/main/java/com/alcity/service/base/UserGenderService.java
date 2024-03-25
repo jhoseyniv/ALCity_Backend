@@ -28,7 +28,7 @@ public class UserGenderService implements UserGenderRepository {
 
     @Override
     public Optional<UserGender> findById(Long id) {
-        return Optional.empty();
+        return userGenderRepository.findById(id);
     }
 
     @Override
@@ -38,13 +38,14 @@ public class UserGenderService implements UserGenderRepository {
 
     @Override
     public List<UserGender> findAll() {
-        return null;
+        return userGenderRepository.findAll();
     }
 
     @Override
     public Iterable<UserGender> findAllById(Iterable<Long> longs) {
         return null;
     }
+
 
     @Override
     public long count() {

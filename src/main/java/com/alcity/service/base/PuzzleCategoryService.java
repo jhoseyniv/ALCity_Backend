@@ -39,13 +39,14 @@ public class PuzzleCategoryService implements PuzzleCategoryRepository {
 
     @Override
     public Collection<PuzzleCategory> findAll() {
-        return null;
+        return puzzleCategoryRepository.findAll();
     }
 
     @Override
     public Iterable<PuzzleCategory> findAllById(Iterable<Long> longs) {
         return null;
     }
+
 
     @Override
     public long count() {

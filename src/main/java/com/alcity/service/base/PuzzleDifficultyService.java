@@ -39,7 +39,8 @@ public class PuzzleDifficultyService implements PuzzleDifficultyRepository {
 
     @Override
     public Collection<PuzzleLevelDifficulty> findAll() {
-        return null;
+
+        return puzzleDifficultyRepository.findAll();
     }
 
     @Override

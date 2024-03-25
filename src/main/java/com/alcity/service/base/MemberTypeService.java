@@ -40,7 +40,7 @@ public class MemberTypeService implements MemberTypeRepository {
 
     @Override
     public Collection<MemberType> findAll() {
-        return null;
+        return memberTypeRepository.findAll();
     }
 
     @Override

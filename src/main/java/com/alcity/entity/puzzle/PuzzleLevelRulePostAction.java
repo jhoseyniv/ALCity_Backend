@@ -11,7 +11,7 @@ import java.io.Serializable;
 public class PuzzleLevelRulePostAction extends BaseTable implements Serializable {
 
     @Column(name="actionExpression")
-    private String actionExpression;
+    private StringBuffer actionExpression;
 
     @Column(name="ordering")
     private Integer ordering;
@@ -29,7 +29,7 @@ public class PuzzleLevelRulePostAction extends BaseTable implements Serializable
     public PuzzleLevelRulePostAction() {
     }
 
-    public PuzzleLevelRulePostAction( PuzzleLevelRule ruleId,Integer ordering,String actionExpression, PuzzleLevelRulePostActionType actionTypeid, Long version, Long created, Long updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
+    public PuzzleLevelRulePostAction( PuzzleLevelRule ruleId,Integer ordering,StringBuffer actionExpression, PuzzleLevelRulePostActionType actionTypeid, Long version, Long created, Long updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
         super(version, created, updated, createdBy, updatedBy);
         this.ordering = ordering;
         this.actionExpression = actionExpression;
