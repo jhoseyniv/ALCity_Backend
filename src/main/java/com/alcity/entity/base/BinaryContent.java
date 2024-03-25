@@ -33,6 +33,45 @@ public class BinaryContent extends BaseTable implements Serializable {
     @JsonIgnore
     private Set<ALCityAttributeValue> attributeValueSet;
 
+    public String getFileName() {
+        return fileName;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
+    }
+
+    public Integer getSize() {
+        return size;
+    }
+
+    public void setSize(Integer size) {
+        this.size = size;
+    }
+
+    public byte[] getContent() {
+        return content;
+    }
+
+    public void setContent(byte[] content) {
+        this.content = content;
+    }
+
+    public BinaryContentType getContentType() {
+        return contentType;
+    }
+
+    public void setContentType(BinaryContentType contentType) {
+        this.contentType = contentType;
+    }
+
+    public Set<ALCityAttributeValue> getAttributeValueSet() {
+        return attributeValueSet;
+    }
+
+    public void setAttributeValueSet(Set<ALCityAttributeValue> attributeValueSet) {
+        this.attributeValueSet = attributeValueSet;
+    }
 
     public BinaryContent() {
     }

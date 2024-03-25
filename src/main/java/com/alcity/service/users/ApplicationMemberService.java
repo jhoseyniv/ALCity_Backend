@@ -29,7 +29,7 @@ public class ApplicationMemberService implements ApplicationMemberRepository {
 
     @Override
     public Optional<ApplicationMember> findById(Long id) {
-        return Optional.empty();
+        return applicationMemberRepository.findById(id);
     }
 
     @Override
@@ -39,7 +39,7 @@ public class ApplicationMemberService implements ApplicationMemberRepository {
 
     @Override
     public Collection<ApplicationMember> findAll() {
-        return null;
+        return applicationMemberRepository.findAll();
     }
 
     @Override

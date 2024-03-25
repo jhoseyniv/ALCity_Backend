@@ -38,7 +38,7 @@ public class WalletItemTypeService implements WalletItemTypeRepository {
 
     @Override
     public Collection<WalletItemType> findAll() {
-        return null;
+        return walletItemTypeRepository.findAll();
     }
 
     @Override

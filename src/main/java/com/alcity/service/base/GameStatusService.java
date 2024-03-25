@@ -41,7 +41,7 @@ public class GameStatusService implements GameStatusRepository {
 
     @Override
     public Collection<GameStatus> findAll() {
-        return null;
+        return gameStatusRepository.findAll();
     }
 
     @Override

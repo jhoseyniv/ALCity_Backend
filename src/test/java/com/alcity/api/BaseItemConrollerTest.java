@@ -52,6 +52,23 @@ public class BaseItemConrollerTest {
     public void BaseItemsTestUnit() throws Exception {
         RestTemplate restTemplate = new RestTemplate();
         ResponseEntity responseGenders = restTemplate.getForEntity("http://127.0.0.1:8080/base/genders/id/1", String.class);
+        ResponseEntity responseAllGenders = restTemplate.getForEntity("http://127.0.0.1:8080/base/genders/", String.class);
+        ResponseEntity responsePuzzleStatus = restTemplate.getForEntity("http://127.0.0.1:8080/base/pl-status/", String.class);
+        ResponseEntity responsePuzzleCategory = restTemplate.getForEntity("http://127.0.0.1:8080/base/pl-category/", String.class);
+        ResponseEntity responsePuzzleDifficulty = restTemplate.getForEntity("http://127.0.0.1:8080/base/pl-difficulties/", String.class);
+        ResponseEntity responseMemberTypes = restTemplate.getForEntity("http://127.0.0.1:8080/base/member-types/", String.class);
+        ResponseEntity responseDataTypes = restTemplate.getForEntity("http://127.0.0.1:8080/base/data-types/", String.class);
+        ResponseEntity responseClientTypes = restTemplate.getForEntity("http://127.0.0.1:8080/base/client-types/", String.class);
+        ResponseEntity responseGameStatus = restTemplate.getForEntity("http://127.0.0.1:8080/base/game-status/", String.class);
+        ResponseEntity responsePuzzlePrivacyStatus = restTemplate.getForEntity("http://127.0.0.1:8080/base/pl-privacy/", String.class);
+        ResponseEntity responseWalletItemTypes = restTemplate.getForEntity("http://127.0.0.1:8080/base/wallet-types/", String.class);
+        ResponseEntity responseBinaryContentTypes = restTemplate.getForEntity("http://127.0.0.1:8080/base/binary-types/", String.class);
+        ResponseEntity responseContentById = restTemplate.getForEntity("http://127.0.0.1:8080/base/binary-content/id/60", String.class);
+
+
+        ResponseEntity responseApplicationMembers = restTemplate.getForEntity(" http://127.0.0.1:8080/user/members/", String.class);
+        ResponseEntity responseApplicationMemberById = restTemplate.getForEntity(" http://127.0.0.1:8080/user/member/10", String.class);
+
         //ResponseEntity resp2 = restTemplate.getForEntity("http://localhost:8080/"+name2 , String.class);
         String expectedGenderJson = "{\"id\":\"1\",\"label\":\"F\",\"value\":\"Female\",\"version\":\"1\",\"created\":\"1711360835820\",\"updated\":\"1711360835820\"}";
 

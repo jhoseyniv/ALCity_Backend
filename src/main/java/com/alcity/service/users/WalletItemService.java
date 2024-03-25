@@ -39,7 +39,7 @@ public class WalletItemService implements WalletItemRespository {
 
     @Override
     public Collection<WalletItem> findAll() {
-        return null;
+        return walletItemRespository.findAll();
     }
 
     @Override

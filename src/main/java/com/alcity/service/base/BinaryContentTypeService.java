@@ -37,7 +37,7 @@ public class BinaryContentTypeService implements BinaryContentTypeRepository {
 
     @Override
     public Collection<BinaryContentType> findAll() {
-        return null;
+        return binaryContentTypeRepository.findAll();
     }
 
     @Override

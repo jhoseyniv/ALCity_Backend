@@ -38,7 +38,7 @@ public class PuzzleLevelPrivacyService implements PuzzleLevelPrivacyRepository {
 
     @Override
     public Collection<PuzzleLevelPrivacy> findAll() {
-        return null;
+        return puzzleLevelPrivacyRepository.findAll();
     }
 
     @Override
