@@ -118,12 +118,15 @@ public class ApplicationMember extends BaseTable implements Serializable {
         this.memberType = memberType;
     }
 
-    public Set<ApplicationMember_WalletItem> getWalletItems() {
+    @OneToMany(mappedBy = "applicationMember", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<ApplicationMember_WalletItem> walletItems;
+
+    public Set<ApplicationMember_WalletItem> getApplicationMember_walletItems() {
         return walletItems;
     }
 
-    public void setWalletItems(Set<ApplicationMember_WalletItem> walletItems) {
-        this.walletItems = walletItems;
+    public void setApplicationMember_walletItems(Set<ApplicationMember_WalletItem> applicationMember_walletItems) {
+        this.walletItems = applicationMember_walletItems;
     }
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
@@ -151,9 +154,6 @@ public class ApplicationMember extends BaseTable implements Serializable {
         this.clientTypeSet = clientTypeSet;
     }
 
-    @OneToMany(mappedBy = "applicationMember", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JsonIgnore
-    private Set<ApplicationMember_WalletItem> walletItems;
 
 
     public ApplicationMember() {

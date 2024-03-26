@@ -13,18 +13,42 @@ import java.util.Set;
 public class ApplicationMember_WalletItem extends BaseTable implements Serializable {
 
 
-    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "application_member_id", referencedColumnName = "id")
-    @JsonProperty("applicationMember")
+    @JsonIgnore
     private ApplicationMember applicationMember;
 
-    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "wallet_item_id", referencedColumnName = "id")
     @JsonIgnore
     private WalletItem walletItem;
 
     @Column(name="amount")
     private Float amount;
+
+    public Float getAmount() {
+        return amount;
+    }
+
+    public void setAmount(Float amount) {
+        this.amount = amount;
+    }
+
+    public ApplicationMember getApplicationMember() {
+        return applicationMember;
+    }
+
+    public void setApplicationMember(ApplicationMember applicationMember) {
+        this.applicationMember = applicationMember;
+    }
+
+    public WalletItem getWalletItem() {
+        return walletItem;
+    }
+
+    public void setWalletItem(WalletItem walletItem) {
+        this.walletItem = walletItem;
+    }
 
     @OneToMany(mappedBy = "applicationMember_WalletItem", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JsonIgnore

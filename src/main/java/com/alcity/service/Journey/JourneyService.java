@@ -27,7 +27,7 @@ public class JourneyService implements JourneyRepository {
 
     @Override
     public Optional<Journey> findById(Long id) {
-        return Optional.empty();
+        return journeyRepository.findById(id);
     }
 
     @Override

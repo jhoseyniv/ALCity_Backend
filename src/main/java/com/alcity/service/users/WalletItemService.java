@@ -29,7 +29,7 @@ public class WalletItemService implements WalletItemRespository {
 
     @Override
     public Optional<WalletItem> findById(Long id) {
-        return Optional.empty();
+        return walletItemRespository.findById(id);
     }
 
     @Override

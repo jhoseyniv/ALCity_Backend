@@ -66,8 +66,14 @@ public class BaseItemConrollerTest {
         ResponseEntity responseContentById = restTemplate.getForEntity("http://127.0.0.1:8080/base/binary-content/id/60", String.class);
         ResponseEntity responseLearningSkills = restTemplate.getForEntity("http://127.0.0.1:8080/base/learning-skills", String.class);
         ResponseEntity responseLearningTopics = restTemplate.getForEntity("http://127.0.0.1:8080/base/learning-topics", String.class);
-        ResponseEntity responseJourneis = restTemplate.getForEntity("http://127.0.0.1:8080/base/learning-topics", String.class);
 
+
+        ResponseEntity responseJourneis = restTemplate.getForEntity("http://127.0.0.1:8080/journey/", String.class);
+        ResponseEntity responseJourneyById= restTemplate.getForEntity("http://127.0.0.1:8080/journey/63", String.class);
+
+
+        ResponseEntity responseWalletItems = restTemplate.getForEntity("http://127.0.0.1:8080/user/wallet-items", String.class);
+        ResponseEntity responseWalletItemById = restTemplate.getForEntity("http://127.0.0.1:8080/wallet-items/id/53", String.class);
 
         ResponseEntity responseApplicationMembers = restTemplate.getForEntity(" http://127.0.0.1:8080/user/members/", String.class);
         ResponseEntity responseApplicationMemberById = restTemplate.getForEntity(" http://127.0.0.1:8080/user/member/10", String.class);

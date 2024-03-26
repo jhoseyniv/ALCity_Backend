@@ -275,7 +275,6 @@ public class ObjectManagmentApplication {
 			clientTypeService.save(web);
 			clientTypeService.save(tablet);
 
-			//ApplicationMember admin_1= new ApplicationMember(35,"admin","admin","admin","09123580100","jhoseyni_yahoo.com",avatar,male,administrator,now,now,null,null);
 			ApplicationMember admin_1= new ApplicationMember(35,"admin","admin","admin0","0912350550","j_hoseyni@yahoo.com",avatar,male,administrator,1L,now,now,null,null);
 			Set clientTypeSet = new HashSet<ClientType>();
 			clientTypeSet.add(web);
@@ -395,7 +394,7 @@ public class ObjectManagmentApplication {
 
 			ApplicationMember jalalHoseyni= new ApplicationMember(35,"jalal","jalal","jalal","0912350550","j_hoseyni@yahoo.com",avatar,male,guest,1L,now,now,null,null);
 			Set jalalClientTypeSet = new HashSet<ClientType>();
-			clientTypeSet.add(mobile);
+			jalalClientTypeSet.add(mobile);
 			jalalHoseyni.setClientTypeSet(jalalClientTypeSet);
 			applicationMemberService.save(jalalHoseyni);
 
@@ -404,8 +403,14 @@ public class ObjectManagmentApplication {
 			applicationMember_walletItemService.save(jalalHoseyni_alcoin_10);
 			applicationMember_walletItemService.save(jalalHoseyni_carObject_10);
 
-			WalletTransaction transaction1 = new WalletTransaction(now,1.5f,Boolean.TRUE,"desc",jalalHoseyni_alcoin_10,1L,now,now,jalalHoseyni,jalalHoseyni);
-			WalletTransaction transaction2 = new WalletTransaction(now,1f,Boolean.TRUE,"desc",jalalHoseyni_carObject_10,1L,now,now,jalalHoseyni,jalalHoseyni);
+			ApplicationMember_WalletItem admin_1_alcoin_10= new ApplicationMember_WalletItem(admin_1,alCoin10WalletItem,10f,1L,now,now,admin_1,admin_1);
+			ApplicationMember_WalletItem admin_1_carObject_10= new ApplicationMember_WalletItem(admin_1,carWalletItem,20f,1L,now,now,admin_1,admin_1);
+			applicationMember_walletItemService.save(admin_1_alcoin_10);
+			applicationMember_walletItemService.save(admin_1_carObject_10);
+
+
+			WalletTransaction transaction1 = new WalletTransaction(now,1.5f,Boolean.TRUE,"desc",jalalHoseyni_alcoin_10,1L,now,now,admin_1,admin_1);
+			WalletTransaction transaction2 = new WalletTransaction(now,1f,Boolean.TRUE,"desc",jalalHoseyni_carObject_10,1L,now,now,admin_1,admin_1);
 			walletTransactionService.save(transaction1);
 			walletTransactionService.save(transaction2);
 

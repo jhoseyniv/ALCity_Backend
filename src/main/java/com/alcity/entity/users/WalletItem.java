@@ -3,6 +3,7 @@ package com.alcity.entity.users;
 import com.alcity.entity.base.BaseItemSet;
 import com.alcity.entity.base.WalletItemType;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -18,11 +19,27 @@ public class WalletItem extends BaseItemSet implements Serializable {
 
     @Lob
     @Basic(fetch = FetchType.LAZY)
+    @Type(type = "org.hibernate.type.ImageType")
     private byte[] icon;
 
-    @OneToMany(mappedBy = "walletItem", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JsonIgnore
-    private Set<ApplicationMember_WalletItem> applicationMembers;
+    public byte[] getIcon() {
+        return icon;
+    }
+
+    public void setIcon(byte[] icon) {
+        this.icon = icon;
+    }
+
+    @OneToMany(mappedBy = "walletItem", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private Set<ApplicationMember_WalletItem> applicationMember_walletItems;
+
+    public Set<ApplicationMember_WalletItem> getApplicationMember_walletItems() {
+        return applicationMember_walletItems;
+    }
+
+    public void setApplicationMember_walletItems(Set<ApplicationMember_WalletItem> applicationMember_walletItems) {
+        this.applicationMember_walletItems = applicationMember_walletItems;
+    }
 
     public WalletItem() {
     }
