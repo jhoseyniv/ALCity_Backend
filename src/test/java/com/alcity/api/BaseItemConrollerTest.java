@@ -77,6 +77,11 @@ public class BaseItemConrollerTest {
 
         ResponseEntity responseApplicationMembers = restTemplate.getForEntity(" http://127.0.0.1:8080/user/members/", String.class);
         ResponseEntity responseApplicationMemberById = restTemplate.getForEntity(" http://127.0.0.1:8080/user/member/10", String.class);
+        ResponseEntity responseApplicationMemberWalletDataById = restTemplate.getForEntity(" http://127.0.0.1:8080/user/member/55/wallet/", String.class);
+
+
+        ResponseEntity responseAttributes = restTemplate.getForEntity("http://127.0.0.1:8080/object/attributes/", String.class);
+        ResponseEntity responseAttributeById = restTemplate.getForEntity("http://127.0.0.1:8080/object/attribute/id/153", String.class);
 
         //ResponseEntity resp2 = restTemplate.getForEntity("http://localhost:8080/"+name2 , String.class);
         String expectedGenderJson = "{\"id\":\"1\",\"label\":\"F\",\"value\":\"Female\",\"version\":\"1\",\"created\":\"1711360835820\",\"updated\":\"1711360835820\"}";

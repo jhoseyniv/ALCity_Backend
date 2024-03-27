@@ -30,6 +30,54 @@ public class ALCityAttributeValue extends BaseTable implements Serializable {
 //    @Column(name="binaryValueId")
 //    private Long binaryValueId;
 
+    public Boolean getBooleanValue() {
+        return booleanValue;
+    }
+
+    public void setBooleanValue(Boolean booleanValue) {
+        this.booleanValue = booleanValue;
+    }
+
+    public Integer getIntValue() {
+        return intValue;
+    }
+
+    public void setIntValue(Integer intValue) {
+        this.intValue = intValue;
+    }
+
+    public Long getLongValue() {
+        return longValue;
+    }
+
+    public void setLongValue(Long longValue) {
+        this.longValue = longValue;
+    }
+
+    public String getStringValue() {
+        return stringValue;
+    }
+
+    public void setStringValue(String stringValue) {
+        this.stringValue = stringValue;
+    }
+
+    public Float getDoubleValue() {
+        return doubleValue;
+    }
+
+    public void setDoubleValue(Float doubleValue) {
+        this.doubleValue = doubleValue;
+    }
+
+    public BinaryContent getBinaryContent() {
+        return binaryContent;
+    }
+
+    public void setBinaryContent(BinaryContent binaryContent) {
+        this.binaryContent = binaryContent;
+    }
+
     @ManyToOne(fetch = FetchType.LAZY, optional = true)
     @JoinColumn(name = "binary_content_id", nullable = true)
     @JsonIgnore

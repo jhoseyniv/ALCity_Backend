@@ -30,6 +30,38 @@ public class WalletTransaction extends BaseTable implements Serializable {
     @JsonIgnore
     private ApplicationMember_WalletItem applicationMember_WalletItem;
 
+    public Long getTransactionDate() {
+        return transactionDate;
+    }
+
+    public void setTransactionDate(Long transactionDate) {
+        this.transactionDate = transactionDate;
+    }
+
+    public Float getAmount() {
+        return amount;
+    }
+
+    public void setAmount(Float amount) {
+        this.amount = amount;
+    }
+
+    public Boolean getIncTransaction() {
+        return incTransaction;
+    }
+
+    public void setIncTransaction(Boolean incTransaction) {
+        this.incTransaction = incTransaction;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     public WalletTransaction() {
     }
 

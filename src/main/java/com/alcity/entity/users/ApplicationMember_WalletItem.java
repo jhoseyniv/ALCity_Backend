@@ -12,7 +12,6 @@ import java.util.Set;
 @Entity
 public class ApplicationMember_WalletItem extends BaseTable implements Serializable {
 
-
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "application_member_id", referencedColumnName = "id")
     @JsonIgnore
@@ -51,8 +50,15 @@ public class ApplicationMember_WalletItem extends BaseTable implements Serializa
     }
 
     @OneToMany(mappedBy = "applicationMember_WalletItem", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JsonIgnore
     private Set<WalletTransaction>  walletTransactionSet;
+
+    public Set<WalletTransaction> getWalletTransactionSet() {
+        return walletTransactionSet;
+    }
+
+    public void setWalletTransactionSet(Set<WalletTransaction> walletTransactionSet) {
+        this.walletTransactionSet = walletTransactionSet;
+    }
 
     public ApplicationMember_WalletItem() {
     }

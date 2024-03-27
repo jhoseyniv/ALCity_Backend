@@ -16,8 +16,8 @@ import java.util.Map;
 public class ObjectManagmentException extends ResponseEntityExceptionHandler {
 
 
-    @ExceptionHandler(AnimalNotFoundException.class)
-    public ResponseEntity<Object> handleAnimalNotFoundException( AnimalNotFoundException ex, WebRequest request) {
+    @ExceptionHandler(ApplicationMemberNotFoundException.class)
+    public ResponseEntity<Object> handleAnimalNotFoundException(ApplicationMemberNotFoundException ex, WebRequest request) {
 
         Map<String, Object> body = new LinkedHashMap<>();
         body.put("timestamp", LocalDateTime.now());

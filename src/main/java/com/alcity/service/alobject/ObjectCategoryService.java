@@ -38,7 +38,7 @@ public class ObjectCategoryService implements ObjectCategoryRepository {
 
     @Override
     public Collection<ObjectCategory> findAll() {
-        return null;
+        return objectCategoryRepository.findAll();
     }
 
     @Override

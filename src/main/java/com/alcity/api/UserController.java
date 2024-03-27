@@ -2,10 +2,12 @@ package com.alcity.api;
 
 import com.alcity.dto.ApplicationMemberDTO;
 import com.alcity.dto.ApplicationMemberWalletDTO;
+import com.alcity.dto.WalletItemTransactionDTO;
 import com.alcity.entity.base.UserGender;
 import com.alcity.entity.users.ApplicationMember;
 import com.alcity.entity.users.ApplicationMember_WalletItem;
 import com.alcity.entity.users.WalletItem;
+import com.alcity.entity.users.WalletTransaction;
 import com.alcity.service.base.UserGenderService;
 import com.alcity.service.users.ApplicationMemberService;
 import com.alcity.service.users.WalletItemService;
@@ -42,6 +44,8 @@ public class UserController {
         Collection<ApplicationMemberWalletDTO> applicationMemberWalletDTOS = new ArrayList<>();
         Optional<ApplicationMember> member = applicationMemberService.findById(id);
         Collection<ApplicationMember_WalletItem> applicationMember_walletItems = member.get().getApplicationMember_walletItems();
+        Collection<WalletItemTransactionDTO> transactionDTOS = new ArrayList<>();
+
         Iterator<ApplicationMember_WalletItem> itr = applicationMember_walletItems.iterator();
         while(itr.hasNext()) {
             ApplicationMember_WalletItem applicationMember_walletItem = itr.next();
@@ -50,6 +54,19 @@ public class UserController {
             applicationMemberWalletDTO.setWalletItemTitle(walletItem.getLabel());
             applicationMemberWalletDTO.setWalletItemId(walletItem.getId());
             applicationMemberWalletDTO.setAmount(applicationMember_walletItem.getAmount());
+
+            WalletItemTransactionDTO transactionDTO = new WalletItemTransactionDTO();
+            Collection<WalletTransaction>  transactions = applicationMember_walletItem.getWalletTransactionSet();
+            Iterator<WalletTransaction> itrTransactions = transactions.iterator();
+            while (itrTransactions.hasNext()) {
+                WalletTransaction walletTransaction = itrTransactions.next();
+                transactionDTO.setIncTransaction(walletTransaction.getIncTransaction());
+                transactionDTO.setDescription(walletTransaction.getDescription());
+                transactionDTO.setAmount(walletTransaction.getAmount());
+                transactionDTO.setTransactionDate(walletTransaction.getTransactionDate());
+                transactionDTOS.add(transactionDTO);
+            }
+            applicationMemberWalletDTO.setWalletItemTransactionDTOSet(transactionDTOS);
             applicationMemberWalletDTOS.add(applicationMemberWalletDTO);
         }
 

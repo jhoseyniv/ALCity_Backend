@@ -28,7 +28,8 @@ public class ALCityAttributeService implements ALCityAttributeRepository {
 
     @Override
     public Optional<ALCityAttribute> findById(Long id) {
-        return Optional.empty();
+
+        return ALCityAttributeRepository.findById(id);
     }
 
     @Override
@@ -38,7 +39,7 @@ public class ALCityAttributeService implements ALCityAttributeRepository {
 
     @Override
     public Collection<ALCityAttribute> findAll() {
-        return null;
+        return ALCityAttributeRepository.findAll();
     }
 
     @Override

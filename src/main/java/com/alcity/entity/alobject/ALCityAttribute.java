@@ -19,6 +19,29 @@ public class ALCityAttribute extends BaseTable implements Serializable {
     @Column(name="ownerId")
     private Long ownerId;
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Long getOwnerId() {
+        return ownerId;
+    }
+
+    public void setOwnerId(Long ownerId) {
+        this.ownerId = ownerId;
+    }
+
+    public Set<ALCityAttributeValue> getAttributeValueSet() {
+        return attributeValueSet;
+    }
+
+    public void setAttributeValueSet(Set<ALCityAttributeValue> attributeValueSet) {
+        this.attributeValueSet = attributeValueSet;
+    }
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "attribute_owner_type_id", nullable = false)
@@ -32,7 +55,6 @@ public class ALCityAttribute extends BaseTable implements Serializable {
 
 
     @OneToMany(mappedBy = "attributeId", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JsonIgnore
     private Set<ALCityAttributeValue> attributeValueSet;
 
 

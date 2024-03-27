@@ -1,6 +1,6 @@
 package com.alcity.customexception;
 
-public class AnimalNotFoundException extends  RuntimeException {
+public class ApplicationMemberNotFoundException extends  RuntimeException {
 
     private String animal;
     private String  message;
@@ -22,7 +22,7 @@ public class AnimalNotFoundException extends  RuntimeException {
         this.message = message;
     }
 
-    public AnimalNotFoundException(String animal, String message) {
+    public ApplicationMemberNotFoundException(String animal, String message) {
         this.animal = animal;
         this.message =  message;
     }
