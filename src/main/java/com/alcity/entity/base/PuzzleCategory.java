@@ -12,8 +12,15 @@ import java.util.Set;
 public class PuzzleCategory extends BaseItemSet implements Serializable {
 
     @OneToMany(mappedBy = "puzzleCategory", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JsonIgnore
     private Set<PuzzleGroup> puzzleGroupSet;
+
+    public Set<PuzzleGroup> getPuzzleGroupSet() {
+        return puzzleGroupSet;
+    }
+
+    public void setPuzzleGroupSet(Set<PuzzleGroup> puzzleGroupSet) {
+        this.puzzleGroupSet = puzzleGroupSet;
+    }
 
     public PuzzleCategory() {
     }

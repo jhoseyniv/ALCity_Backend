@@ -1,4 +1,4 @@
-package com.alcity.dto;
+package com.alcity.dto.user;
 
 public class WalletItemTransactionDTO {
 

@@ -247,7 +247,7 @@ public class ObjectManagmentApplication {
 			byte[] avatar = getImage("src/main/resources/images/","avatar.png");
 
 			ZonedDateTime  createdDate= ZonedDateTime.now();
-			Long now = createdDate.toInstant().toEpochMilli();
+			Long now = createdDate.toEpochSecond();
 
 
 
@@ -464,8 +464,8 @@ public class ObjectManagmentApplication {
 			learningContentService.save(learningContent_Division);
 
 			PuzzleGroup puzzleGroup_1 = new PuzzleGroup("Hash Image - Puzzle Group 1",mathematic,puzzle_group_binary_content_1,puzzle_group_binary_content_1,1L,now,now,admin_1,admin_1);
-			PuzzleGroup puzzleGroup_2 = new PuzzleGroup("Physics Puzzle Group",physic,puzzle_group_binary_content_2,puzzle_group_binary_content_3,1L,now,now,admin_1,admin_1);
-			PuzzleGroup puzzleGroup_3 = new PuzzleGroup("IQ Puzzle Group",IQ,puzzle_group_binary_content_3,puzzle_group_binary_content_3,1L,now,now,admin_1,admin_1);
+			PuzzleGroup puzzleGroup_2 = new PuzzleGroup("Physics Puzzle Group",mathematic,puzzle_group_binary_content_2,puzzle_group_binary_content_3,1L,now,now,admin_1,admin_1);
+			PuzzleGroup puzzleGroup_3 = new PuzzleGroup("IQ Puzzle Group",mathematic,puzzle_group_binary_content_3,puzzle_group_binary_content_3,1L,now,now,admin_1,admin_1);
 			puzzleGroupService.save(puzzleGroup_1);
 			puzzleGroupService.save(puzzleGroup_2);
 			puzzleGroupService.save(puzzleGroup_3);

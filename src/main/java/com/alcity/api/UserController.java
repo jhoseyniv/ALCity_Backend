@@ -1,14 +1,11 @@
 package com.alcity.api;
 
-import com.alcity.dto.ApplicationMemberDTO;
-import com.alcity.dto.ApplicationMemberWalletDTO;
-import com.alcity.dto.WalletItemTransactionDTO;
-import com.alcity.entity.base.UserGender;
+import com.alcity.dto.user.ApplicationMemberWalletDTO;
+import com.alcity.dto.user.WalletItemTransactionDTO;
 import com.alcity.entity.users.ApplicationMember;
 import com.alcity.entity.users.ApplicationMember_WalletItem;
 import com.alcity.entity.users.WalletItem;
 import com.alcity.entity.users.WalletTransaction;
-import com.alcity.service.base.UserGenderService;
 import com.alcity.service.users.ApplicationMemberService;
 import com.alcity.service.users.WalletItemService;
 import org.springframework.beans.factory.annotation.Autowired;

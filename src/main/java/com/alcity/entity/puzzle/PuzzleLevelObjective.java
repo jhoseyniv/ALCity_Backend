@@ -42,6 +42,46 @@ public class PuzzleLevelObjective extends BaseTable implements Serializable {
     @JsonIgnore
     private PuzzleLevel puzzleLevel;
 
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Float getSkillAmount() {
+        return skillAmount;
+    }
+
+    public void setSkillAmount(Float skillAmount) {
+        this.skillAmount = skillAmount;
+    }
+
+    public Float getRewardAmount() {
+        return rewardAmount;
+    }
+
+    public void setRewardAmount(Float rewardAmount) {
+        this.rewardAmount = rewardAmount;
+    }
+
+    public StringBuffer getCondition() {
+        return condition;
+    }
+
+    public void setCondition(StringBuffer condition) {
+        this.condition = condition;
+    }
+
     public PuzzleLevelObjective() {
     }
 

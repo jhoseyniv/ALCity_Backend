@@ -29,7 +29,7 @@ public class PuzzleCategoryService implements PuzzleCategoryRepository {
 
     @Override
     public Optional<PuzzleCategory> findById(Long id) {
-        return Optional.empty();
+        return puzzleCategoryRepository.findById(id);
     }
 
     @Override

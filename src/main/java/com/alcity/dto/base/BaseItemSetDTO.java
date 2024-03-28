@@ -1,15 +1,14 @@
-package com.alcity.dto;
+package com.alcity.dto.base;
 
 import java.time.ZonedDateTime;
 
-public class UserGenderDTO {
-
+public class BaseItemSetDTO {
     private Long id;
-    private String value;
     private String label;
+    private String value;
     private Long version;
-    private ZonedDateTime created;
-    private ZonedDateTime updated;
+    private String created;
+    private String updated;
 
     public Long getId() {
         return id;
@@ -17,14 +16,6 @@ public class UserGenderDTO {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public String getValue() {
-        return value;
-    }
-
-    public void setValue(String value) {
-        this.value = value;
     }
 
     public String getLabel() {
@@ -35,6 +26,14 @@ public class UserGenderDTO {
         this.label = label;
     }
 
+    public String getValue() {
+        return value;
+    }
+
+    public void setValue(String value) {
+        this.value = value;
+    }
+
     public Long getVersion() {
         return version;
     }
@@ -43,31 +42,32 @@ public class UserGenderDTO {
         this.version = version;
     }
 
-    public ZonedDateTime getCreated() {
+    public String getCreated() {
         return created;
     }
 
-    public void setCreated(ZonedDateTime created) {
+    public void setCreated(String created) {
         this.created = created;
     }
 
-    public ZonedDateTime getUpdated() {
+    public String getUpdated() {
         return updated;
     }
 
-    public void setUpdated(ZonedDateTime updated) {
+    public void setUpdated(String updated) {
         this.updated = updated;
     }
 
-    public UserGenderDTO() {
+    public BaseItemSetDTO() {
     }
 
-    public UserGenderDTO(Long id, String value, String label, Long version, ZonedDateTime created, ZonedDateTime updated) {
+    public BaseItemSetDTO(Long id, String label, String value, Long version, String created, String updated) {
         this.id = id;
-        this.value = value;
         this.label = label;
+        this.value = value;
         this.version = version;
         this.created = created;
         this.updated = updated;
     }
 }
+

@@ -1,9 +1,8 @@
-package com.alcity.dto;
+package com.alcity.dto.user;
 
-import com.alcity.entity.users.WalletTransaction;
+import com.alcity.dto.user.WalletItemTransactionDTO;
 
 import java.util.Collection;
-import java.util.Set;
 
 public class ApplicationMemberWalletDTO {
     private Long walletItemId;

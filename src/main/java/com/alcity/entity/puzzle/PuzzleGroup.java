@@ -48,6 +48,46 @@ public class PuzzleGroup extends BaseTable implements Serializable {
     @JsonIgnore
     private Set<PuzzleLevel> puzzleLevelSet;
 
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public Set<JourneyStep> getJourneyStepSet() {
+        return journeyStepSet;
+    }
+
+    public void setJourneyStepSet(Set<JourneyStep> journeyStepSet) {
+        this.journeyStepSet = journeyStepSet;
+    }
+
+    public BinaryContent getIcon() {
+        return icon;
+    }
+
+    public void setIcon(BinaryContent icon) {
+        this.icon = icon;
+    }
+
+    public BinaryContent getPic() {
+        return pic;
+    }
+
+    public void setPic(BinaryContent pic) {
+        this.pic = pic;
+    }
+
+    public Set<PuzzleLevel> getPuzzleLevelSet() {
+        return puzzleLevelSet;
+    }
+
+    public void setPuzzleLevelSet(Set<PuzzleLevel> puzzleLevelSet) {
+        this.puzzleLevelSet = puzzleLevelSet;
+    }
+
     public PuzzleGroup() {
     }
 

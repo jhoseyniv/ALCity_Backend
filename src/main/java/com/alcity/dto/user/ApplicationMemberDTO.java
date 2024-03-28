@@ -1,8 +1,9 @@
-package com.alcity.dto;
+package com.alcity.dto.user;
 
 
+import com.alcity.dto.base.BaseItemSetDTO;
 
-public class ApplicationMemberDTO {
+public class ApplicationMemberDTO extends BaseItemSetDTO {
 
     private Long id;
     private Integer age;
