@@ -4,6 +4,7 @@ import com.alcity.dto.base.BaseTableDTO;
 import com.alcity.dto.base.BinaryContentDTO;
 import com.alcity.dto.journey.JourneyStepDTO;
 
+import java.util.Collection;
 import java.util.Set;
 
 public class PuzzleGroupDTO extends BaseTableDTO {
@@ -12,8 +13,9 @@ public class PuzzleGroupDTO extends BaseTableDTO {
     private BinaryContentDTO icon;
     private BinaryContentDTO pic;
 
-    private Set<JourneyStepDTO> journeyStepDTOSet;
-    private Set<PuzzleLevelDTO> puzzleLevelDTOSet;
+    private Collection<JourneyStepDTO> journeyStepDTOCollection;
+    private Collection<PuzzleLevelDTO> puzzleLevelDTOCollection;
+    private Collection<PuzzleSkillLearningContentDTO> puzzleSkillLearningContentDTOCollection;
 
     public String getTitle() {
         return title;
@@ -39,31 +41,40 @@ public class PuzzleGroupDTO extends BaseTableDTO {
         this.pic = pic;
     }
 
-    public Set<JourneyStepDTO> getJourneyStepDTOSet() {
-        return journeyStepDTOSet;
+    public Collection<JourneyStepDTO> getJourneyStepDTOCollection() {
+        return journeyStepDTOCollection;
     }
 
-    public void setJourneyStepDTOSet(Set<JourneyStepDTO> journeyStepDTOSet) {
-        this.journeyStepDTOSet = journeyStepDTOSet;
+    public void setJourneyStepDTOCollection(Collection<JourneyStepDTO> journeyStepDTOCollection) {
+        this.journeyStepDTOCollection = journeyStepDTOCollection;
     }
 
-    public Set<PuzzleLevelDTO> getPuzzleLevelDTOSet() {
-        return puzzleLevelDTOSet;
+    public Collection<PuzzleLevelDTO> getPuzzleLevelDTOCollection() {
+        return puzzleLevelDTOCollection;
     }
 
-    public void setPuzzleLevelDTOSet(Set<PuzzleLevelDTO> puzzleLevelDTOSet) {
-        this.puzzleLevelDTOSet = puzzleLevelDTOSet;
+    public void setPuzzleLevelDTOCollection(Collection<PuzzleLevelDTO> puzzleLevelDTOCollection) {
+        this.puzzleLevelDTOCollection = puzzleLevelDTOCollection;
+    }
+
+    public Collection<PuzzleSkillLearningContentDTO> getPuzzleSkillLearningContentDTOCollection() {
+        return puzzleSkillLearningContentDTOCollection;
+    }
+
+    public void setPuzzleSkillLearningContentDTOCollection(Collection<PuzzleSkillLearningContentDTO> puzzleSkillLearningContentDTOCollection) {
+        this.puzzleSkillLearningContentDTOCollection = puzzleSkillLearningContentDTOCollection;
     }
 
     public PuzzleGroupDTO() {
     }
 
-    public PuzzleGroupDTO(Long id, Long version, String created, String updated, String title, BinaryContentDTO icon, BinaryContentDTO pic, Set<JourneyStepDTO> journeyStepDTOSet, Set<PuzzleLevelDTO> puzzleLevelDTOSet) {
+    public PuzzleGroupDTO(Long id, Long version, String created, String updated, String title, BinaryContentDTO icon, BinaryContentDTO pic, Collection<JourneyStepDTO> journeyStepDTOCollection, Collection<PuzzleLevelDTO> puzzleLevelDTOCollection, Collection<PuzzleSkillLearningContentDTO> puzzleSkillLearningContentDTOCollection) {
         super(id, version, created, updated);
         this.title = title;
         this.icon = icon;
         this.pic = pic;
-        this.journeyStepDTOSet = journeyStepDTOSet;
-        this.puzzleLevelDTOSet = puzzleLevelDTOSet;
+        this.journeyStepDTOCollection = journeyStepDTOCollection;
+        this.puzzleLevelDTOCollection = puzzleLevelDTOCollection;
+        this.puzzleSkillLearningContentDTOCollection = puzzleSkillLearningContentDTOCollection;
     }
 }

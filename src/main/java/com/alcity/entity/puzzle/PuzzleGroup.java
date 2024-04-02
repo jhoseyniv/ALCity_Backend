@@ -42,7 +42,17 @@ public class PuzzleGroup extends BaseTable implements Serializable {
     @JsonIgnore
     private BinaryContent pic;
 
+    @OneToMany(mappedBy = "puzzleGroup", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JsonIgnore
+    private Set<PuzzleSkillLearningContent> puzzleSkillLearningContentSet;
 
+    public Set<PuzzleSkillLearningContent> getPuzzleSkillLearningContentSet() {
+        return puzzleSkillLearningContentSet;
+    }
+
+    public void setPuzzleSkillLearningContentSet(Set<PuzzleSkillLearningContent> puzzleSkillLearningContentSet) {
+        this.puzzleSkillLearningContentSet = puzzleSkillLearningContentSet;
+    }
 
     @OneToMany(mappedBy = "puzzleGroup", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JsonIgnore

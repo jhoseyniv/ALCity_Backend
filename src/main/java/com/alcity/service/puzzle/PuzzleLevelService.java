@@ -28,12 +28,13 @@ public class PuzzleLevelService implements PuzzleLevelRepository {
 
     @Override
     public Optional<PuzzleLevel> findById(Long aLong) {
-        return Optional.empty();
+
+        return puzzleLevelRepository.findById(aLong);
     }
 
     @Override
     public Collection<PuzzleLevel> findAll() {
-        return null;
+        return puzzleLevelRepository.findAll();
     }
 
     @Override

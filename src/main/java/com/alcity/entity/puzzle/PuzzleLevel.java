@@ -35,6 +35,62 @@ public class PuzzleLevel extends BaseTable implements Serializable {
     @Column(name="maxScore")
     private Float maxScore;
 
+    public Long getApproveDate() {
+        return approveDate;
+    }
+
+    public void setApproveDate(Long approveDate) {
+        this.approveDate = approveDate;
+    }
+
+    public Long getOrdering() {
+        return ordering;
+    }
+
+    public void setOrdering(Long ordering) {
+        this.ordering = ordering;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public Integer getFromAge() {
+        return fromAge;
+    }
+
+    public void setFromAge(Integer fromAge) {
+        this.fromAge = fromAge;
+    }
+
+    public Integer getToAge() {
+        return toAge;
+    }
+
+    public void setToAge(Integer toAge) {
+        this.toAge = toAge;
+    }
+
+    public Float getMaxScore() {
+        return maxScore;
+    }
+
+    public void setMaxScore(Float maxScore) {
+        this.maxScore = maxScore;
+    }
+
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "puzzle_group_id", nullable = false)
     @JsonIgnore
