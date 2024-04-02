@@ -1,18 +1,19 @@
 package com.alcity.dto.puzzle;
 
-import com.alcity.dto.base.BaseItemSetDTO;
 import com.alcity.dto.base.BaseTableDTO;
-import com.alcity.entity.journey.JourneyStep;
-import com.alcity.entity.puzzle.PuzzleLevel;
+import com.alcity.dto.base.BinaryContentDTO;
+import com.alcity.dto.journey.JourneyStepDTO;
 
-import java.time.ZonedDateTime;
 import java.util.Set;
 
 public class PuzzleGroupDTO extends BaseTableDTO {
 
     private String title;
-    private Set<JourneyStep> journeyStepSet;
-    private Set<PuzzleLevel> puzzleLevelSet;
+    private BinaryContentDTO icon;
+    private BinaryContentDTO pic;
+
+    private Set<JourneyStepDTO> journeyStepDTOSet;
+    private Set<PuzzleLevelDTO> puzzleLevelDTOSet;
 
     public String getTitle() {
         return title;
@@ -22,29 +23,47 @@ public class PuzzleGroupDTO extends BaseTableDTO {
         this.title = title;
     }
 
-    public Set<JourneyStep> getJourneyStepSet() {
-        return journeyStepSet;
+    public BinaryContentDTO getIcon() {
+        return icon;
     }
 
-    public void setJourneyStepSet(Set<JourneyStep> journeyStepSet) {
-        this.journeyStepSet = journeyStepSet;
+    public void setIcon(BinaryContentDTO icon) {
+        this.icon = icon;
     }
 
-    public Set<PuzzleLevel> getPuzzleLevelSet() {
-        return puzzleLevelSet;
+    public BinaryContentDTO getPic() {
+        return pic;
     }
 
-    public void setPuzzleLevelSet(Set<PuzzleLevel> puzzleLevelSet) {
-        this.puzzleLevelSet = puzzleLevelSet;
+    public void setPic(BinaryContentDTO pic) {
+        this.pic = pic;
+    }
+
+    public Set<JourneyStepDTO> getJourneyStepDTOSet() {
+        return journeyStepDTOSet;
+    }
+
+    public void setJourneyStepDTOSet(Set<JourneyStepDTO> journeyStepDTOSet) {
+        this.journeyStepDTOSet = journeyStepDTOSet;
+    }
+
+    public Set<PuzzleLevelDTO> getPuzzleLevelDTOSet() {
+        return puzzleLevelDTOSet;
+    }
+
+    public void setPuzzleLevelDTOSet(Set<PuzzleLevelDTO> puzzleLevelDTOSet) {
+        this.puzzleLevelDTOSet = puzzleLevelDTOSet;
     }
 
     public PuzzleGroupDTO() {
     }
 
-    public PuzzleGroupDTO(Long id, Long version, ZonedDateTime created, ZonedDateTime updated, String title, Set<JourneyStep> journeyStepSet, Set<PuzzleLevel> puzzleLevelSet) {
+    public PuzzleGroupDTO(Long id, Long version, String created, String updated, String title, BinaryContentDTO icon, BinaryContentDTO pic, Set<JourneyStepDTO> journeyStepDTOSet, Set<PuzzleLevelDTO> puzzleLevelDTOSet) {
         super(id, version, created, updated);
         this.title = title;
-        this.journeyStepSet = journeyStepSet;
-        this.puzzleLevelSet = puzzleLevelSet;
+        this.icon = icon;
+        this.pic = pic;
+        this.journeyStepDTOSet = journeyStepDTOSet;
+        this.puzzleLevelDTOSet = puzzleLevelDTOSet;
     }
 }

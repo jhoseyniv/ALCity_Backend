@@ -27,7 +27,7 @@ public class PuzzleGroupService  implements PuzzleGroupRepository {
 
     @Override
     public Optional<PuzzleGroup> findById(Long id) {
-        return Optional.empty();
+        return puzzleGroupRepository.findById(id);
     }
 
     @Override
@@ -37,7 +37,7 @@ public class PuzzleGroupService  implements PuzzleGroupRepository {
 
     @Override
     public Collection<PuzzleGroup> findAll() {
-        return null;
+        return puzzleGroupRepository.findAll();
     }
 
     @Override

@@ -5,8 +5,8 @@ import java.time.ZonedDateTime;
 public class BaseTableDTO {
     private Long id;
     private Long version;
-    private ZonedDateTime created;
-    private ZonedDateTime updated;
+    private String created;
+    private String updated;
 
     public Long getId() {
         return id;
@@ -24,26 +24,26 @@ public class BaseTableDTO {
         this.version = version;
     }
 
-    public ZonedDateTime getCreated() {
+    public String getCreated() {
         return created;
     }
 
-    public void setCreated(ZonedDateTime created) {
+    public void setCreated(String created) {
         this.created = created;
     }
 
-    public ZonedDateTime getUpdated() {
+    public String getUpdated() {
         return updated;
     }
 
-    public void setUpdated(ZonedDateTime updated) {
+    public void setUpdated(String updated) {
         this.updated = updated;
     }
 
     public BaseTableDTO() {
     }
 
-    public BaseTableDTO(Long id, Long version, ZonedDateTime created, ZonedDateTime updated) {
+    public BaseTableDTO(Long id, Long version, String created, String updated) {
         this.id = id;
         this.version = version;
         this.created = created;

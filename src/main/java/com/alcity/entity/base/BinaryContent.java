@@ -6,6 +6,7 @@ import com.alcity.entity.alobject.ALCityAttributeValue;
 import com.alcity.entity.learning.LearningContent;
 import com.alcity.entity.users.ApplicationMember;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -23,6 +24,7 @@ public class BinaryContent extends BaseTable implements Serializable {
 
     @Lob
     @Basic(fetch = FetchType.LAZY)
+    @Type(type = "org.hibernate.type.ImageType")
     private byte[] content;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
