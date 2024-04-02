@@ -225,4 +225,15 @@ public class PuzzleController {
         }
         return puzzleLevelDTOCollection;
     }
+
+    @RequestMapping(value = "/level/id/{id}", method = RequestMethod.GET)
+    @ResponseBody
+    public PuzzleLevelDTO getPuzzleLevelById(@PathVariable Long id) {
+        PuzzleLevelDTO puzzleLevelDTO= new PuzzleLevelDTO();
+        Optional<PuzzleLevel> puzzleLevel = puzzleLevelService.findById(id);
+
+
+
+        return puzzleLevelDTO;
+    }
 }

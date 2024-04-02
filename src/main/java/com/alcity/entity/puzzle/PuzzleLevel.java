@@ -129,6 +129,9 @@ public class PuzzleLevel extends BaseTable implements Serializable {
     @JsonIgnore
     private Set<PuzzleLevelRule> puzzleLevelRuleSet;
 
+    @OneToMany(mappedBy = "puzzleLevel", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JsonIgnore
+    private Set<PuzzleLevelObjective> puzzleLevelObjectiveSet;
 
 
     public PuzzleLevel() {
