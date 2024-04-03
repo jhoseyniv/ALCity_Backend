@@ -30,6 +30,22 @@ public class PuzzleLevel_LearningTopic extends BaseTable {
     @JsonIgnore
     private LearningContent learningContent;
 
+    public LearningTopic getLearningTopic() {
+        return learningTopic;
+    }
+
+    public void setLearningTopic(LearningTopic learningTopic) {
+        this.learningTopic = learningTopic;
+    }
+
+    public LearningContent getLearningContent() {
+        return learningContent;
+    }
+
+    public void setLearningContent(LearningContent learningContent) {
+        this.learningContent = learningContent;
+    }
+
     public PuzzleLevel_LearningTopic() {
     }
 

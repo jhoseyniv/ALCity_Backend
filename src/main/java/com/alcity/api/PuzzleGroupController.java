@@ -2,36 +2,38 @@ package com.alcity.api;
 
 import com.alcity.dto.base.BinaryContentDTO;
 import com.alcity.dto.journey.JourneyStepDTO;
-import com.alcity.dto.puzzle.*;
+import com.alcity.dto.puzzle.PuzzleCategoryDTO;
+import com.alcity.dto.puzzle.PuzzleGroupDTO;
+import com.alcity.dto.puzzle.PuzzleLevelDTO;
+import com.alcity.dto.puzzle.PuzzleSkillLearningContentDTO;
 import com.alcity.entity.base.BinaryContent;
 import com.alcity.entity.base.PuzzleCategory;
 import com.alcity.entity.journey.JourneyStep;
-import com.alcity.entity.puzzle.*;
-import com.alcity.entity.users.ApplicationMember_WalletItem;
+import com.alcity.entity.puzzle.PuzzleGroup;
+import com.alcity.entity.puzzle.PuzzleLevel;
+import com.alcity.entity.puzzle.PuzzleSkillLearningContent;
 import com.alcity.service.base.PuzzleCategoryService;
 import com.alcity.service.puzzle.PuzzleGroupService;
-import com.alcity.service.puzzle.PuzzleLevelService;
 import com.alcity.utility.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.Optional;
 
 @RestController
-@RequestMapping("/puzzle")
-public class PuzzleController {
+@RequestMapping("/p-group")
 
+public class PuzzleGroupController {
     @Autowired
     private PuzzleCategoryService puzzleCategoryService;
 
     @Autowired
     private PuzzleGroupService puzzleGroupService;
-
-    @Autowired
-    private PuzzleLevelService puzzleLevelService;
-
-    @GetMapping("/categories")
+    @GetMapping("/category/all")
     public Collection<PuzzleCategoryDTO> getPuzzleCategories(Model model) {
         Collection<PuzzleCategoryDTO> puzzleCategoryDTOCollection = new ArrayList<PuzzleCategoryDTO>();
 
@@ -61,36 +63,36 @@ public class PuzzleController {
             puzzleCategoryDTOCollection.add(puzzleCategoryDTO);
         }
 
-     return puzzleCategoryDTOCollection;
+        return puzzleCategoryDTOCollection;
     }
 
 
     @RequestMapping(value = "/category/id/{id}", method = RequestMethod.GET)
     @ResponseBody
     public PuzzleCategoryDTO getPuzzleCategoryById(@PathVariable Long id) {
-            Optional<PuzzleCategory> puzzleCategory = puzzleCategoryService.findById(id);
-            Collection<PuzzleGroupDTO> puzzleGroupDTOCollection = new ArrayList<>();
-            PuzzleCategoryDTO puzzleCategoryDTO = new PuzzleCategoryDTO();
+        Optional<PuzzleCategory> puzzleCategory = puzzleCategoryService.findById(id);
+        Collection<PuzzleGroupDTO> puzzleGroupDTOCollection = new ArrayList<>();
+        PuzzleCategoryDTO puzzleCategoryDTO = new PuzzleCategoryDTO();
 
-            if(puzzleCategory.isPresent()) {
-                puzzleCategoryDTO.setId(puzzleCategory.get().getId());
-                puzzleCategoryDTO.setLabel(puzzleCategory.get().getLabel());
-                puzzleCategoryDTO.setValue(puzzleCategory.get().getValue());
-                puzzleCategoryDTO.setVersion(puzzleCategory.get().getVersion());
-                puzzleCategoryDTO.setCreated(DateUtils.getDatatimeFromLong(puzzleCategory.get().getCreated()));
-                puzzleCategoryDTO.setUpdated(DateUtils.getDatatimeFromLong(puzzleCategory.get().getUpdated()));
-                Collection<PuzzleGroup> puzzleGroupSet = puzzleCategory.get().getPuzzleGroupSet();
+        if(puzzleCategory.isPresent()) {
+            puzzleCategoryDTO.setId(puzzleCategory.get().getId());
+            puzzleCategoryDTO.setLabel(puzzleCategory.get().getLabel());
+            puzzleCategoryDTO.setValue(puzzleCategory.get().getValue());
+            puzzleCategoryDTO.setVersion(puzzleCategory.get().getVersion());
+            puzzleCategoryDTO.setCreated(DateUtils.getDatatimeFromLong(puzzleCategory.get().getCreated()));
+            puzzleCategoryDTO.setUpdated(DateUtils.getDatatimeFromLong(puzzleCategory.get().getUpdated()));
+            Collection<PuzzleGroup> puzzleGroupSet = puzzleCategory.get().getPuzzleGroupSet();
 
-                Iterator<PuzzleGroup> itrPuzzleGroupSet = puzzleGroupSet.iterator();
-                while (itrPuzzleGroupSet.hasNext()) {
-                    PuzzleGroupDTO puzzleGroupDTO = new PuzzleGroupDTO();
-                    PuzzleGroup puzzleGroup = itrPuzzleGroupSet.next();
-                    puzzleGroupDTO.setTitle(puzzleGroup.getTitle());
-                    puzzleGroupDTO.setId(puzzleGroup.getId());
-                    puzzleGroupDTOCollection.add(puzzleGroupDTO);
-                }
-                puzzleCategoryDTO.setPuzzleGroupDTOSet(puzzleGroupDTOCollection);
+            Iterator<PuzzleGroup> itrPuzzleGroupSet = puzzleGroupSet.iterator();
+            while (itrPuzzleGroupSet.hasNext()) {
+                PuzzleGroupDTO puzzleGroupDTO = new PuzzleGroupDTO();
+                PuzzleGroup puzzleGroup = itrPuzzleGroupSet.next();
+                puzzleGroupDTO.setTitle(puzzleGroup.getTitle());
+                puzzleGroupDTO.setId(puzzleGroup.getId());
+                puzzleGroupDTOCollection.add(puzzleGroupDTO);
             }
+            puzzleCategoryDTO.setPuzzleGroupDTOSet(puzzleGroupDTOCollection);
+        }
 
         return puzzleCategoryDTO;
     }
@@ -191,88 +193,5 @@ public class PuzzleController {
         }
 
         return  puzzleGroupDTO;
-    }
-    @GetMapping("/levels/")
-    public Collection<PuzzleLevelDTO> getPuzzleLevels(Model model) {
-        Collection<PuzzleLevelDTO> puzzleLevelDTOCollection = new ArrayList<PuzzleLevelDTO>();
-
-        Collection<PuzzleLevel> puzzleLevelCollection = puzzleLevelService.findAll();
-        Iterator<PuzzleLevel> itr = puzzleLevelCollection.iterator();
-        while(itr.hasNext()){
-            PuzzleLevel puzzleLevel = itr.next();
-            PuzzleLevelDTO puzzleLevelDTO = new PuzzleLevelDTO();
-            puzzleLevelDTO.setId(puzzleLevel.getId());
-            puzzleLevelDTO.setVersion(puzzleLevel.getVersion());
-            puzzleLevelDTO.setCode(puzzleLevel.getCode());
-            puzzleLevelDTO.setApproveDate(DateUtils.getDatatimeFromLong(puzzleLevel.getApproveDate()));
-            puzzleLevelDTO.setTitle(puzzleLevel.getTitle());
-            puzzleLevelDTO.setToAge(puzzleLevel.getToAge());
-            puzzleLevelDTO.setFromAge(puzzleLevel.getFromAge());
-            puzzleLevelDTO.setOrdering(puzzleLevel.getOrdering());
-            puzzleLevelDTO.setMaxScore(puzzleLevel.getMaxScore());
-            puzzleLevelDTO.setUpdated(DateUtils.getDatatimeFromLong(puzzleLevel.getUpdated()));
-            puzzleLevelDTO.setCreated(DateUtils.getDatatimeFromLong(puzzleLevel.getCreated()));
-
-            puzzleLevelDTOCollection.add(puzzleLevelDTO);
-
-        }
-        return puzzleLevelDTOCollection;
-    }
-
-    @RequestMapping(value = "/level/id/{id}", method = RequestMethod.GET)
-    @ResponseBody
-    public PuzzleLevelDTO getPuzzleLevelById(@PathVariable Long id) {
-        PuzzleLevelDTO puzzleLevelDTO= new PuzzleLevelDTO();
-        Optional<PuzzleLevel> puzzleLevelOptional = puzzleLevelService.findById(id);
-        PuzzleLevel puzzleLevel = new PuzzleLevel();
-
-        if(puzzleLevelOptional.isPresent()){
-            puzzleLevel = puzzleLevelOptional.get();
-
-            Collection<PuzzleLevelObjectiveDTO> puzzleLevelObjectiveDTOCollection = new ArrayList<PuzzleLevelObjectiveDTO>();
-            Collection<PuzzleLevel_LearningTopicDTO> puzzleLevel_learningTopicDTOCollection = new ArrayList<PuzzleLevel_LearningTopicDTO>();
-
-            Collection<PuzzleLevelObjective> puzzleLevelObjectiveCollection = puzzleLevel.getPuzzleLevelObjectiveCollection();
-            Collection<PuzzleLevel_LearningTopic> puzzleLevel_learningTopicCollection = puzzleLevel.getPuzzleLevel_learningTopics();
-
-            Iterator<PuzzleLevelObjective> itr_objectives = puzzleLevelObjectiveCollection.iterator();
-            Iterator<PuzzleLevel_LearningTopic> itr_learningTopics = puzzleLevel_learningTopicCollection.iterator();
-
-            puzzleLevelDTO.setId(puzzleLevel.getId());
-            puzzleLevelDTO.setVersion(puzzleLevel.getVersion());
-            puzzleLevelDTO.setCode(puzzleLevel.getCode());
-            puzzleLevelDTO.setApproveDate(DateUtils.getDatatimeFromLong(puzzleLevel.getApproveDate()));
-            puzzleLevelDTO.setTitle(puzzleLevel.getTitle());
-            puzzleLevelDTO.setToAge(puzzleLevel.getToAge());
-            puzzleLevelDTO.setFromAge(puzzleLevel.getFromAge());
-            puzzleLevelDTO.setOrdering(puzzleLevel.getOrdering());
-            puzzleLevelDTO.setMaxScore(puzzleLevel.getMaxScore());
-            puzzleLevelDTO.setUpdated(DateUtils.getDatatimeFromLong(puzzleLevel.getUpdated()));
-            puzzleLevelDTO.setCreated(DateUtils.getDatatimeFromLong(puzzleLevel.getCreated()));
-
-            while(itr_objectives.hasNext()){
-                PuzzleLevelObjective puzzleLevelObjective = itr_objectives.next();
-                PuzzleLevelObjectiveDTO puzzleLevelObjectiveDTO = new PuzzleLevelObjectiveDTO();
-                puzzleLevelObjectiveDTO.setId(puzzleLevelObjective.getId());
-                puzzleLevelObjectiveDTO.setVersion(puzzleLevelObjective.getVersion());
-                puzzleLevelObjectiveDTO.setTitle(puzzleLevelObjective.getTitle());
-                puzzleLevelObjectiveDTO.setCondition(puzzleLevelObjective.getCondition());
-                puzzleLevelObjectiveDTO.setRewardAmount(puzzleLevelObjective.getRewardAmount());
-                puzzleLevelObjectiveDTO.setSkillAmount(puzzleLevelObjective.getSkillAmount());
-                puzzleLevelObjectiveDTO.setUpdated(DateUtils.getDatatimeFromLong(puzzleLevelObjective.getUpdated()));
-                puzzleLevelObjectiveDTO.setCreated(DateUtils.getDatatimeFromLong(puzzleLevelObjective.getCreated()));
-
-                puzzleLevelObjectiveDTOCollection.add(puzzleLevelObjectiveDTO);
-            }
-            while(itr_learningTopics.hasNext()) {
-
-            }
-
-            puzzleLevelDTO.setPuzzleLevelObjectiveDTOCollection(puzzleLevelObjectiveDTOCollection);
-
-        }
-
-
-        return puzzleLevelDTO;
     }
 }

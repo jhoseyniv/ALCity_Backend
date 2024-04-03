@@ -74,6 +74,7 @@ public class PuzzleLevelDTO extends BaseTableDTO {
     }
 
     private Collection<PuzzleLevelObjectiveDTO> puzzleLevelObjectiveDTOCollection;
+    private Collection<PuzzleLevel_LearningTopicDTO> puzzleLevel_learningTopicDTOCollection;
 
     public Collection<PuzzleLevelObjectiveDTO> getPuzzleLevelObjectiveDTOCollection() {
         return puzzleLevelObjectiveDTOCollection;
@@ -83,6 +84,13 @@ public class PuzzleLevelDTO extends BaseTableDTO {
         this.puzzleLevelObjectiveDTOCollection = puzzleLevelObjectiveDTOCollection;
     }
 
+    public Collection<PuzzleLevel_LearningTopicDTO> getPuzzleLevel_learningTopicDTOCollection() {
+        return puzzleLevel_learningTopicDTOCollection;
+    }
+
+    public void setPuzzleLevel_learningTopicDTOCollection(Collection<PuzzleLevel_LearningTopicDTO> puzzleLevel_learningTopicDTOCollection) {
+        this.puzzleLevel_learningTopicDTOCollection = puzzleLevel_learningTopicDTOCollection;
+    }
 
     public PuzzleLevelDTO() {
     }

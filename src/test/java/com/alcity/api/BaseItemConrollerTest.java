@@ -79,11 +79,18 @@ public class BaseItemConrollerTest {
         ResponseEntity responseApplicationMemberById = restTemplate.getForEntity(" http://127.0.0.1:8080/user/member/10", String.class);
         ResponseEntity responseApplicationMemberWalletDataById = restTemplate.getForEntity(" http://127.0.0.1:8080/user/member/55/wallet/", String.class);
 
-
         ResponseEntity responseAttributes = restTemplate.getForEntity("http://127.0.0.1:8080/object/attributes/", String.class);
         ResponseEntity responseAttributeById = restTemplate.getForEntity("http://127.0.0.1:8080/object/attribute/id/153", String.class);
 
-        ResponseEntity responsePpuzzleLevelById = restTemplate.getForEntity("http://127.0.0.1:8080/puzzle/level/id/83", String.class);
+        ResponseEntity responsePuzzleLevelById = restTemplate.getForEntity("http://127.0.0.1:8080/p-level/id/83", String.class);
+        ResponseEntity responsePuzzleLevels = restTemplate.getForEntity("http://127.0.0.1:8080/p-level/all", String.class);
+
+
+        ResponseEntity responsePuzzleGroupById = restTemplate.getForEntity("http://127.0.0.1:8080/p-group/id/{id}", String.class);
+        ResponseEntity responsePuzzleGroups = restTemplate.getForEntity("http://127.0.0.1:8080/p-group/all", String.class);
+
+        ResponseEntity responsePpuzzleGroupById = restTemplate.getForEntity("http://127.0.0.1:8080/p-group/id/{id}", String.class);
+        ResponseEntity responsePpuzzleCategories = restTemplate.getForEntity("http://127.0.0.1:8080/p-group/category/all", String.class);
 
         //ResponseEntity resp2 = restTemplate.getForEntity("http://localhost:8080/"+name2 , String.class);
         String expectedGenderJson = "{\"id\":\"1\",\"label\":\"F\",\"value\":\"Female\",\"version\":\"1\",\"created\":\"1711360835820\",\"updated\":\"1711360835820\"}";
