@@ -66,13 +66,19 @@ public class PuzzleLevelController {
             puzzleLevel = puzzleLevelOptional.get();
 
             Collection<PuzzleLevelObjectiveDTO> puzzleLevelObjectiveDTOCollection = new ArrayList<PuzzleLevelObjectiveDTO>();
-            Collection<PuzzleLevel_LearningTopicDTO> puzzleLevel_learningTopicDTOCollection = new ArrayList<PuzzleLevel_LearningTopicDTO>();
-
             Collection<PuzzleLevelObjective> puzzleLevelObjectiveCollection = puzzleLevel.getPuzzleLevelObjectiveCollection();
-            Collection<PuzzleLevel_LearningTopic> puzzleLevel_learningTopicCollection = puzzleLevel.getPuzzleLevel_learningTopics();
-
             Iterator<PuzzleLevelObjective> itr_objectives = puzzleLevelObjectiveCollection.iterator();
+
+
+            Collection<PuzzleLevel_LearningTopicDTO> puzzleLevel_learningTopicDTOCollection = new ArrayList<PuzzleLevel_LearningTopicDTO>();
+            Collection<PuzzleLevel_LearningTopic> puzzleLevel_learningTopicCollection = puzzleLevel.getPuzzleLevel_learningTopics();
             Iterator<PuzzleLevel_LearningTopic> itr_learningTopics = puzzleLevel_learningTopicCollection.iterator();
+
+
+
+            Collection<PuzzleLevelGroundDTO> puzzleLevelGroundDTOCollection = new ArrayList<PuzzleLevelGroundDTO>();
+            Collection<PuzzleLevelGround> puzzleLevelGroundCollection = puzzleLevel.getPuzzleLevelGroundCollection();
+            Iterator<PuzzleLevelGround> itr_Grounds = puzzleLevelGroundCollection.iterator();
 
             puzzleLevelDTO.setId(puzzleLevel.getId());
             puzzleLevelDTO.setVersion(puzzleLevel.getVersion());
@@ -130,6 +136,9 @@ public class PuzzleLevelController {
 
 
                 puzzleLevel_learningTopicDTOCollection.add(puzzleLevel_learningTopicDTO);
+            }
+            while(itr_Grounds.hasNext()) {
+
             }
 
             puzzleLevelDTO.setPuzzleLevelObjectiveDTOCollection(puzzleLevelObjectiveDTOCollection);

@@ -2,6 +2,7 @@ package com.alcity.dto.puzzle;
 
 import com.alcity.dto.base.BaseTableDTO;
 import com.alcity.entity.base.BaseTable;
+import com.alcity.entity.puzzle.PuzzleLevelGround;
 import com.alcity.entity.puzzle.PuzzleLevelObjective;
 
 import java.util.Collection;
@@ -75,6 +76,16 @@ public class PuzzleLevelDTO extends BaseTableDTO {
 
     private Collection<PuzzleLevelObjectiveDTO> puzzleLevelObjectiveDTOCollection;
     private Collection<PuzzleLevel_LearningTopicDTO> puzzleLevel_learningTopicDTOCollection;
+
+    private Collection<PuzzleLevelGround> puzzleLevelGroundCollection;
+
+    public Collection<PuzzleLevelGround> getPuzzleLevelGroundCollection() {
+        return puzzleLevelGroundCollection;
+    }
+
+    public void setPuzzleLevelGroundCollection(Collection<PuzzleLevelGround> puzzleLevelGroundCollection) {
+        this.puzzleLevelGroundCollection = puzzleLevelGroundCollection;
+    }
 
     public Collection<PuzzleLevelObjectiveDTO> getPuzzleLevelObjectiveDTOCollection() {
         return puzzleLevelObjectiveDTOCollection;
