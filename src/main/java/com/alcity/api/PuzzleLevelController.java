@@ -138,6 +138,9 @@ public class PuzzleLevelController {
                 puzzleLevel_learningTopicDTOCollection.add(puzzleLevel_learningTopicDTO);
             }
             while(itr_Grounds.hasNext()) {
+                PuzzleLevelGround puzzleLevelGround = itr_Grounds.next();
+                PuzzleLevelGroundDTO puzzleLevelGroundDTO = new PuzzleLevelGroundDTO();
+
 
             }
 
