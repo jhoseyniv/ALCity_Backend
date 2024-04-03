@@ -2,6 +2,10 @@ package com.alcity.dto.puzzle;
 
 import com.alcity.dto.base.BaseTableDTO;
 import com.alcity.entity.base.BaseTable;
+import com.alcity.entity.puzzle.PuzzleLevelObjective;
+
+import java.util.Collection;
+import java.util.Set;
 
 public class PuzzleLevelDTO extends BaseTableDTO {
 
@@ -69,8 +73,20 @@ public class PuzzleLevelDTO extends BaseTableDTO {
         this.maxScore = maxScore;
     }
 
+    private Collection<PuzzleLevelObjectiveDTO> puzzleLevelObjectiveDTOCollection;
+
+    public Collection<PuzzleLevelObjectiveDTO> getPuzzleLevelObjectiveDTOCollection() {
+        return puzzleLevelObjectiveDTOCollection;
+    }
+
+    public void setPuzzleLevelObjectiveDTOCollection(Collection<PuzzleLevelObjectiveDTO> puzzleLevelObjectiveDTOCollection) {
+        this.puzzleLevelObjectiveDTOCollection = puzzleLevelObjectiveDTOCollection;
+    }
+
+
     public PuzzleLevelDTO() {
     }
+
 
     public PuzzleLevelDTO(Long id, Long version, String created, String updated, String approveDate, Long ordering, String title, String code, Integer fromAge, Integer toAge, Float maxScore) {
         super(id, version, created, updated);

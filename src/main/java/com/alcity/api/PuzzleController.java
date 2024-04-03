@@ -2,16 +2,11 @@ package com.alcity.api;
 
 import com.alcity.dto.base.BinaryContentDTO;
 import com.alcity.dto.journey.JourneyStepDTO;
-import com.alcity.dto.puzzle.PuzzleCategoryDTO;
-import com.alcity.dto.puzzle.PuzzleGroupDTO;
-import com.alcity.dto.puzzle.PuzzleLevelDTO;
-import com.alcity.dto.puzzle.PuzzleSkillLearningContentDTO;
+import com.alcity.dto.puzzle.*;
 import com.alcity.entity.base.BinaryContent;
 import com.alcity.entity.base.PuzzleCategory;
 import com.alcity.entity.journey.JourneyStep;
-import com.alcity.entity.puzzle.PuzzleGroup;
-import com.alcity.entity.puzzle.PuzzleLevel;
-import com.alcity.entity.puzzle.PuzzleSkillLearningContent;
+import com.alcity.entity.puzzle.*;
 import com.alcity.entity.users.ApplicationMember_WalletItem;
 import com.alcity.service.base.PuzzleCategoryService;
 import com.alcity.service.puzzle.PuzzleGroupService;
@@ -20,10 +15,8 @@ import com.alcity.utility.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.Optional;
+
+import java.util.*;
 
 @RestController
 @RequestMapping("/puzzle")
@@ -230,8 +223,54 @@ public class PuzzleController {
     @ResponseBody
     public PuzzleLevelDTO getPuzzleLevelById(@PathVariable Long id) {
         PuzzleLevelDTO puzzleLevelDTO= new PuzzleLevelDTO();
-        Optional<PuzzleLevel> puzzleLevel = puzzleLevelService.findById(id);
+        Optional<PuzzleLevel> puzzleLevelOptional = puzzleLevelService.findById(id);
+        PuzzleLevel puzzleLevel = new PuzzleLevel();
 
+        if(puzzleLevelOptional.isPresent()){
+            puzzleLevel = puzzleLevelOptional.get();
+
+            Collection<PuzzleLevelObjectiveDTO> puzzleLevelObjectiveDTOCollection = new ArrayList<PuzzleLevelObjectiveDTO>();
+            Collection<PuzzleLevel_LearningTopicDTO> puzzleLevel_learningTopicDTOCollection = new ArrayList<PuzzleLevel_LearningTopicDTO>();
+
+            Collection<PuzzleLevelObjective> puzzleLevelObjectiveCollection = puzzleLevel.getPuzzleLevelObjectiveCollection();
+            Collection<PuzzleLevel_LearningTopic> puzzleLevel_learningTopicCollection = puzzleLevel.getPuzzleLevel_learningTopics();
+
+            Iterator<PuzzleLevelObjective> itr_objectives = puzzleLevelObjectiveCollection.iterator();
+            Iterator<PuzzleLevel_LearningTopic> itr_learningTopics = puzzleLevel_learningTopicCollection.iterator();
+
+            puzzleLevelDTO.setId(puzzleLevel.getId());
+            puzzleLevelDTO.setVersion(puzzleLevel.getVersion());
+            puzzleLevelDTO.setCode(puzzleLevel.getCode());
+            puzzleLevelDTO.setApproveDate(DateUtils.getDatatimeFromLong(puzzleLevel.getApproveDate()));
+            puzzleLevelDTO.setTitle(puzzleLevel.getTitle());
+            puzzleLevelDTO.setToAge(puzzleLevel.getToAge());
+            puzzleLevelDTO.setFromAge(puzzleLevel.getFromAge());
+            puzzleLevelDTO.setOrdering(puzzleLevel.getOrdering());
+            puzzleLevelDTO.setMaxScore(puzzleLevel.getMaxScore());
+            puzzleLevelDTO.setUpdated(DateUtils.getDatatimeFromLong(puzzleLevel.getUpdated()));
+            puzzleLevelDTO.setCreated(DateUtils.getDatatimeFromLong(puzzleLevel.getCreated()));
+
+            while(itr_objectives.hasNext()){
+                PuzzleLevelObjective puzzleLevelObjective = itr_objectives.next();
+                PuzzleLevelObjectiveDTO puzzleLevelObjectiveDTO = new PuzzleLevelObjectiveDTO();
+                puzzleLevelObjectiveDTO.setId(puzzleLevelObjective.getId());
+                puzzleLevelObjectiveDTO.setVersion(puzzleLevelObjective.getVersion());
+                puzzleLevelObjectiveDTO.setTitle(puzzleLevelObjective.getTitle());
+                puzzleLevelObjectiveDTO.setCondition(puzzleLevelObjective.getCondition());
+                puzzleLevelObjectiveDTO.setRewardAmount(puzzleLevelObjective.getRewardAmount());
+                puzzleLevelObjectiveDTO.setSkillAmount(puzzleLevelObjective.getSkillAmount());
+                puzzleLevelObjectiveDTO.setUpdated(DateUtils.getDatatimeFromLong(puzzleLevelObjective.getUpdated()));
+                puzzleLevelObjectiveDTO.setCreated(DateUtils.getDatatimeFromLong(puzzleLevelObjective.getCreated()));
+
+                puzzleLevelObjectiveDTOCollection.add(puzzleLevelObjectiveDTO);
+            }
+            while(itr_learningTopics.hasNext()) {
+
+            }
+
+            puzzleLevelDTO.setPuzzleLevelObjectiveDTOCollection(puzzleLevelObjectiveDTOCollection);
+
+        }
 
 
         return puzzleLevelDTO;

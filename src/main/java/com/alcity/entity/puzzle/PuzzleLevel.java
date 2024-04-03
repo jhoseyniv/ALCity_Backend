@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Set;
 
 @Entity
@@ -131,8 +132,27 @@ public class PuzzleLevel extends BaseTable implements Serializable {
 
     @OneToMany(mappedBy = "puzzleLevel", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JsonIgnore
-    private Set<PuzzleLevelObjective> puzzleLevelObjectiveSet;
+    private Collection<PuzzleLevelObjective> puzzleLevelObjectiveCollection;
 
+    public Collection<PuzzleLevelObjective> getPuzzleLevelObjectiveCollection() {
+        return puzzleLevelObjectiveCollection;
+    }
+
+    public void setPuzzleLevelObjectiveCollection(Collection<PuzzleLevelObjective> puzzleLevelObjectiveCollection) {
+        this.puzzleLevelObjectiveCollection = puzzleLevelObjectiveCollection;
+    }
+
+    @OneToMany(mappedBy = "puzzleLevel", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JsonIgnore
+    private Collection<PuzzleLevel_LearningTopic> puzzleLevel_learningTopics;
+
+    public Collection<PuzzleLevel_LearningTopic> getPuzzleLevel_learningTopics() {
+        return puzzleLevel_learningTopics;
+    }
+
+    public void setPuzzleLevel_learningTopics(Collection<PuzzleLevel_LearningTopic> puzzleLevel_learningTopics) {
+        this.puzzleLevel_learningTopics = puzzleLevel_learningTopics;
+    }
 
     public PuzzleLevel() {
     }
