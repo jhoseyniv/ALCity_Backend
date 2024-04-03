@@ -20,6 +20,30 @@ public class PuzzleLevelGround extends BaseTable {
     @Column(name="cameraSetup")
     private String cameraSetup;
 
+    public Integer getNumRows() {
+        return numRows;
+    }
+
+    public void setNumRows(Integer numRows) {
+        this.numRows = numRows;
+    }
+
+    public Integer getNumColumns() {
+        return numColumns;
+    }
+
+    public void setNumColumns(Integer numColumns) {
+        this.numColumns = numColumns;
+    }
+
+    public String getCameraSetup() {
+        return cameraSetup;
+    }
+
+    public void setCameraSetup(String cameraSetup) {
+        this.cameraSetup = cameraSetup;
+    }
+
     @ManyToOne(fetch = FetchType.LAZY, optional = true)
     @JoinColumn(name = "puzzle_Level_id", nullable = true)
     @JsonIgnore
