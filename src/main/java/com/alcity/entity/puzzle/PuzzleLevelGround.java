@@ -54,6 +54,14 @@ public class PuzzleLevelGround extends BaseTable {
     @JsonIgnore
     private BinaryContent boardGraphic;
 
+    public BinaryContent getBoardGraphic() {
+        return boardGraphic;
+    }
+
+    public void setBoardGraphic(BinaryContent boardGraphic) {
+        this.boardGraphic = boardGraphic;
+    }
+
     public PuzzleLevelGround() {
     }
 

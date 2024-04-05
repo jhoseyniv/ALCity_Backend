@@ -140,10 +140,23 @@ public class PuzzleLevelController {
             while(itr_Grounds.hasNext()) {
                 PuzzleLevelGround puzzleLevelGround = itr_Grounds.next();
                 PuzzleLevelGroundDTO puzzleLevelGroundDTO = new PuzzleLevelGroundDTO();
+                puzzleLevelGroundDTO.setId(puzzleLevelGround.getId());
+                puzzleLevelGroundDTO.setVersion(puzzleLevelGround.getVersion());
+                puzzleLevelGroundDTO.setCreated(DateUtils.getDatatimeFromLong(puzzleLevelGround.getCreated()));
+                puzzleLevelGroundDTO.setUpdated(DateUtils.getDatatimeFromLong(puzzleLevelGround.getUpdated()));
+                puzzleLevelGroundDTO.setNumRows(puzzleLevelGround.getNumRows());
+                puzzleLevelGroundDTO.setNumColumns(puzzleLevelGround.getNumColumns());
+                puzzleLevelGroundDTO.setCameraSetup(puzzleLevelGround.getCameraSetup());
 
+                BinaryContent boardGraphic = puzzleLevelGround.getBoardGraphic();
+                BinaryContentDTO backGroundDTO= new BinaryContentDTO();
+                backGroundDTO.setId(boardGraphic.getId());
+                backGroundDTO.setFileName(boardGraphic.getFileName());
 
+                puzzleLevelGroundDTO.setBoardGraphic(backGroundDTO);
+                puzzleLevelGroundDTOCollection.add(puzzleLevelGroundDTO);
             }
-
+            puzzleLevelDTO.setPuzzleLevelGroundDTOCollection(puzzleLevelGroundDTOCollection);
             puzzleLevelDTO.setPuzzleLevelObjectiveDTOCollection(puzzleLevelObjectiveDTOCollection);
             puzzleLevelDTO.setPuzzleLevel_learningTopicDTOCollection(puzzleLevel_learningTopicDTOCollection);
 
