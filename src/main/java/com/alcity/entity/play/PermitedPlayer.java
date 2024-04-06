@@ -28,6 +28,14 @@ public class PermitedPlayer extends BaseTable {
     public PermitedPlayer() {
     }
 
+    public ApplicationMember getPlayer() {
+        return player;
+    }
+
+    public void setPlayer(ApplicationMember player) {
+        this.player = player;
+    }
+
     public PermitedPlayer(ApplicationMember player, PuzzleLevel puzzleLevel, Long version, Long created, Long updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
         super(version, created, updated, createdBy, updatedBy);
         this.player = player;

@@ -1,6 +1,7 @@
 package com.alcity.dto.puzzle;
 
 import com.alcity.dto.base.BaseTableDTO;
+import com.alcity.dto.player.PermitedPlayerDTO;
 import com.alcity.entity.base.BaseTable;
 import com.alcity.entity.puzzle.PuzzleLevelGround;
 import com.alcity.entity.puzzle.PuzzleLevelObjective;
@@ -78,7 +79,15 @@ public class PuzzleLevelDTO extends BaseTableDTO {
     private Collection<PuzzleLevel_LearningTopicDTO> puzzleLevel_learningTopicDTOCollection;
 
     private Collection<PuzzleLevelGroundDTO> puzzleLevelGroundDTOCollection;
+    private Collection<PermitedPlayerDTO> permitedPlayerDTOCollection;
 
+    public Collection<PermitedPlayerDTO> getPermitedPlayerDTOCollection() {
+        return permitedPlayerDTOCollection;
+    }
+
+    public void setPermitedPlayerDTOCollection(Collection<PermitedPlayerDTO> permitedPlayerDTOCollection) {
+        this.permitedPlayerDTOCollection = permitedPlayerDTOCollection;
+    }
 
     public Collection<PuzzleLevelGroundDTO> getPuzzleLevelGroundDTOCollection() {
         return puzzleLevelGroundDTOCollection;

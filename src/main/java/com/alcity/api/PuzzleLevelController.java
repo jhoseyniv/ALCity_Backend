@@ -4,10 +4,12 @@ import com.alcity.dto.base.BinaryContentDTO;
 import com.alcity.dto.journey.JourneyStepDTO;
 import com.alcity.dto.learning.LearningContentDTO;
 import com.alcity.dto.learning.LearningTopicDTO;
+import com.alcity.dto.player.PermitedPlayerDTO;
 import com.alcity.dto.puzzle.*;
 import com.alcity.entity.base.BinaryContent;
 import com.alcity.entity.base.PuzzleCategory;
 import com.alcity.entity.journey.JourneyStep;
+import com.alcity.entity.play.PermitedPlayer;
 import com.alcity.entity.puzzle.*;
 import com.alcity.service.base.PuzzleCategoryService;
 import com.alcity.service.puzzle.PuzzleGroupService;
@@ -23,10 +25,8 @@ import java.util.*;
 @RequestMapping("/p-level")
 public class PuzzleLevelController {
 
-
     @Autowired
     private PuzzleLevelService puzzleLevelService;
-
 
     @GetMapping("/all/")
     public Collection<PuzzleLevelDTO> getPuzzleLevels(Model model) {
@@ -79,6 +79,12 @@ public class PuzzleLevelController {
             Collection<PuzzleLevelGroundDTO> puzzleLevelGroundDTOCollection = new ArrayList<PuzzleLevelGroundDTO>();
             Collection<PuzzleLevelGround> puzzleLevelGroundCollection = puzzleLevel.getPuzzleLevelGroundCollection();
             Iterator<PuzzleLevelGround> itr_Grounds = puzzleLevelGroundCollection.iterator();
+
+            Collection<PermitedPlayerDTO> permitedPlayerDTOCollection = new ArrayList<PermitedPlayerDTO>();
+            Collection<PermitedPlayer> permitedPlayerCollection = puzzleLevel.getPermitedPlayerCollection();
+            Iterator<PermitedPlayer> itr_permitedPlayers = permitedPlayerCollection.iterator();
+
+
 
             puzzleLevelDTO.setId(puzzleLevel.getId());
             puzzleLevelDTO.setVersion(puzzleLevel.getVersion());
@@ -152,14 +158,31 @@ public class PuzzleLevelController {
                 BinaryContentDTO backGroundDTO= new BinaryContentDTO();
                 backGroundDTO.setId(boardGraphic.getId());
                 backGroundDTO.setFileName(boardGraphic.getFileName());
+                backGroundDTO.setVersion(boardGraphic.getVersion());
+                backGroundDTO.setSize(boardGraphic.getSize());
+                backGroundDTO.setUpdated(DateUtils.getDatatimeFromLong(puzzleLevelGround.getUpdated()));
+                backGroundDTO.setCreated(DateUtils.getDatatimeFromLong(puzzleLevelGround.getCreated()));
+
 
                 puzzleLevelGroundDTO.setBoardGraphic(backGroundDTO);
                 puzzleLevelGroundDTOCollection.add(puzzleLevelGroundDTO);
             }
+            while(itr_permitedPlayers.hasNext()){
+                PermitedPlayer permitedPlayer = itr_permitedPlayers.next();
+                PermitedPlayerDTO permitedPlayerDTO = new PermitedPlayerDTO();
+                permitedPlayerDTO.setId(permitedPlayer.getId());
+                permitedPlayerDTO.setVersion(permitedPlayer.getVersion());
+                permitedPlayerDTO.setPlayerUsername(permitedPlayer.getPlayer().getUsername());
+                permitedPlayerDTO.setUpdated(DateUtils.getDatatimeFromLong(permitedPlayer.getUpdated()));
+                permitedPlayerDTO.setCreated(DateUtils.getDatatimeFromLong(permitedPlayer.getCreated()));
+                permitedPlayerDTOCollection.add(permitedPlayerDTO);
+
+            }
+
             puzzleLevelDTO.setPuzzleLevelGroundDTOCollection(puzzleLevelGroundDTOCollection);
             puzzleLevelDTO.setPuzzleLevelObjectiveDTOCollection(puzzleLevelObjectiveDTOCollection);
             puzzleLevelDTO.setPuzzleLevel_learningTopicDTOCollection(puzzleLevel_learningTopicDTOCollection);
-
+            puzzleLevelDTO.setPermitedPlayerDTOCollection(permitedPlayerDTOCollection);
         }
 
 

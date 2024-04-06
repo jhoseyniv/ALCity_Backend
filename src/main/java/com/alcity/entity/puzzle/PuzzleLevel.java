@@ -3,6 +3,7 @@ package com.alcity.entity.puzzle;
 
 import com.alcity.entity.base.*;
 import com.alcity.entity.journey.JourneyStep;
+import com.alcity.entity.play.PermitedPlayer;
 import com.alcity.entity.users.ApplicationMember;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -137,6 +138,18 @@ public class PuzzleLevel extends BaseTable implements Serializable {
     @OneToMany(mappedBy = "puzzleLevel", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JsonIgnore
     private Collection<PuzzleLevelGround> puzzleLevelGroundCollection;
+
+    @OneToMany(mappedBy = "puzzleLevel", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JsonIgnore
+    private Collection<PermitedPlayer> permitedPlayerCollection;
+
+    public Collection<PermitedPlayer> getPermitedPlayerCollection() {
+        return permitedPlayerCollection;
+    }
+
+    public void setPermitedPlayerCollection(Collection<PermitedPlayer> permitedPlayerCollection) {
+        this.permitedPlayerCollection = permitedPlayerCollection;
+    }
 
     public Collection<PuzzleLevelGround> getPuzzleLevelGroundCollection() {
         return puzzleLevelGroundCollection;
