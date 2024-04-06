@@ -31,6 +31,8 @@ public class PuzzleObjectController {
             po= puzzleObject.get();
             puzzleObjectDTO.setId(puzzleObject.get().getId());
             puzzleObjectDTO.setObjectCategory(po.getObjectCategory().getLabel());
+            puzzleObjectDTO.setTitle(po.getTitle());
+            puzzleObjectDTO.setVersion(po.getVersion());
         }
         return  puzzleObjectDTO;
     }

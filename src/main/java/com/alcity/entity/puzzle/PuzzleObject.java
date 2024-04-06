@@ -46,6 +46,14 @@ public class PuzzleObject extends BaseTable implements Serializable {
         this.objectCategory = objectCategory;
     }
 
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
     public PuzzleObject() {
     }
 
