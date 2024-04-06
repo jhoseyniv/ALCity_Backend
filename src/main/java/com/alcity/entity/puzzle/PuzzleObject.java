@@ -38,6 +38,14 @@ public class PuzzleObject extends BaseTable implements Serializable {
     @JsonIgnore
     private Set<PuzzleGroup_PuzzleObject> puzzleGroup_puzzleObjectSet;
 
+    public ObjectCategory getObjectCategory() {
+        return objectCategory;
+    }
+
+    public void setObjectCategory(ObjectCategory objectCategory) {
+        this.objectCategory = objectCategory;
+    }
+
     public PuzzleObject() {
     }
 

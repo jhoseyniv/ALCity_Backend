@@ -16,5 +16,47 @@ public class PuzzleObjectDTO extends BaseTableDTO {
     private BinaryContentDTO icon;
     private Collection<PuzzleGroup_PuzzleObjectDTO> puzzleGroup_puzzleObjectDTOCollection;
 
+    public PuzzleObjectDTO() {
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getObjectCategory() {
+        return objectCategory;
+    }
+
+    public void setObjectCategory(String objectCategory) {
+        this.objectCategory = objectCategory;
+    }
+
+    public BinaryContentDTO getPicture() {
+        return picture;
+    }
+
+    public void setPicture(BinaryContentDTO picture) {
+        this.picture = picture;
+    }
+
+    public BinaryContentDTO getIcon() {
+        return icon;
+    }
+
+    public void setIcon(BinaryContentDTO icon) {
+        this.icon = icon;
+    }
+
+    public Collection<PuzzleGroup_PuzzleObjectDTO> getPuzzleGroup_puzzleObjectDTOCollection() {
+        return puzzleGroup_puzzleObjectDTOCollection;
+    }
+
+    public void setPuzzleGroup_puzzleObjectDTOCollection(Collection<PuzzleGroup_PuzzleObjectDTO> puzzleGroup_puzzleObjectDTOCollection) {
+        this.puzzleGroup_puzzleObjectDTOCollection = puzzleGroup_puzzleObjectDTOCollection;
+    }
 
 }

@@ -30,7 +30,7 @@ public class PuzzleObjectService implements PuzzleObjectRepository {
 
     @Override
     public Optional<PuzzleObject> findById(Long id) {
-        return Optional.empty();
+        return puzzleObjectRepository.findById(id);
     }
 
     @Override
