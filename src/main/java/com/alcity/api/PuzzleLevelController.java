@@ -173,6 +173,7 @@ public class PuzzleLevelController {
                 permitedPlayerDTO.setId(permitedPlayer.getId());
                 permitedPlayerDTO.setVersion(permitedPlayer.getVersion());
                 permitedPlayerDTO.setPlayerUsername(permitedPlayer.getPlayer().getUsername());
+                permitedPlayerDTO.setEmail(permitedPlayer.getPlayer().getEmail());
                 permitedPlayerDTO.setUpdated(DateUtils.getDatatimeFromLong(permitedPlayer.getUpdated()));
                 permitedPlayerDTO.setCreated(DateUtils.getDatatimeFromLong(permitedPlayer.getCreated()));
                 permitedPlayerDTOCollection.add(permitedPlayerDTO);

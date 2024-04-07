@@ -12,6 +12,7 @@ import java.util.Set;
 public class PuzzleObjectDTO extends BaseTableDTO {
     private String title;
     private String objectCategory;
+
     private BinaryContentDTO picture;
     private BinaryContentDTO icon;
     private Collection<PuzzleGroup_PuzzleObjectDTO> puzzleGroup_puzzleObjectDTOCollection;

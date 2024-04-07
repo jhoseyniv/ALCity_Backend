@@ -54,6 +54,22 @@ public class PuzzleObject extends BaseTable implements Serializable {
         this.title = title;
     }
 
+    public BinaryContent getPicture() {
+        return picture;
+    }
+
+    public void setPicture(BinaryContent picture) {
+        this.picture = picture;
+    }
+
+    public BinaryContent getIcon() {
+        return icon;
+    }
+
+    public void setIcon(BinaryContent icon) {
+        this.icon = icon;
+    }
+
     public PuzzleObject() {
     }
 

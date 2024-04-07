@@ -1,6 +1,7 @@
 package com.alcity.service.puzzle;
 
 import com.alcity.entity.puzzle.PuzzleObject;
+import com.alcity.repository.base.PuzzleCategoryRepository;
 import com.alcity.repository.puzzle.PuzzleObjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -82,4 +83,6 @@ public class PuzzleObjectService implements PuzzleObjectRepository {
     public Collection<PuzzleObject> findByTitle(String title) {
         return null;
     }
+
+
 }
