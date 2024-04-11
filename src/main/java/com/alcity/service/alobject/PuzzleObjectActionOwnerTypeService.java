@@ -79,11 +79,11 @@ public class PuzzleObjectActionOwnerTypeService implements PuzzleObjectActionOwn
 
     @Override
     public PuzzleObjectActionOwnerType findByLabel(String label) {
-        return null;
+        return puzzleObjectActionOwnerTypeRepository.findByLabel(label);
     }
 
     @Override
     public PuzzleObjectActionOwnerType findByValue(String value) {
-        return null;
+        return puzzleObjectActionOwnerTypeRepository.findByValue(value);
     }
 }

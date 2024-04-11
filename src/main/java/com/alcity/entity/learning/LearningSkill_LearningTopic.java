@@ -12,7 +12,7 @@ import java.io.Serializable;
 public class LearningSkill_LearningTopic extends BaseTable implements Serializable {
 
 
-    @Column(name="title")
+    @Column(name="title",unique = true)
     private String title;
 
 

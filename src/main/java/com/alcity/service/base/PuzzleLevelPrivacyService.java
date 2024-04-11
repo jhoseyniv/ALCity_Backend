@@ -78,11 +78,12 @@ public class PuzzleLevelPrivacyService implements PuzzleLevelPrivacyRepository {
 
     @Override
     public PuzzleLevelPrivacy findByLabel(String label) {
-        return null;
+
+     return puzzleLevelPrivacyRepository.findByLabel(label);
     }
 
     @Override
     public PuzzleLevelPrivacy findByValue(String value) {
-        return null;
+        return puzzleLevelPrivacyRepository.findByValue(value);
     }
 }

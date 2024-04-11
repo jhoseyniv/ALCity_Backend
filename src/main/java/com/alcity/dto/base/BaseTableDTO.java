@@ -1,5 +1,7 @@
 package com.alcity.dto.base;
 
+import com.alcity.dto.user.ApplicationMemberDTO;
+
 import java.time.ZonedDateTime;
 
 public class BaseTableDTO {
@@ -7,6 +9,8 @@ public class BaseTableDTO {
     private Long version;
     private String created;
     private String updated;
+    private ApplicationMemberDTO createdBy;
+    private ApplicationMemberDTO updatedBy;
 
     public Long getId() {
         return id;

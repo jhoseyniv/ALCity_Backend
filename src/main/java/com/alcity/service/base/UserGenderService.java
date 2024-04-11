@@ -78,11 +78,12 @@ public class UserGenderService implements UserGenderRepository {
     }
 
     @Override
-    public UserGender findByLabel(String bLabel) {
-        return null;
+    public UserGender findByLabel(String label) {
+        return userGenderRepository.findByLabel(label);
     }
     @Override
-    public UserGender findByValue(String bValue) {
-        return null;
+    public UserGender findByValue(String value) {
+
+        return userGenderRepository.findByValue(value);
     }
 }

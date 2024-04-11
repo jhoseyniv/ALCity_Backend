@@ -79,11 +79,12 @@ public class PuzzleLevelRulePostActionTypeService implements PuzzleLevelRulePost
 
     @Override
     public PuzzleLevelRulePostActionType findByLabel(String label) {
-        return null;
+
+        return puzzleLevelRulePostActionTypeRepository.findByLabel(label);
     }
 
     @Override
     public PuzzleLevelRulePostActionType findByValue(String value) {
-        return null;
+        return puzzleLevelRulePostActionTypeRepository.findByValue(value);
     }
 }

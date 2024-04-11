@@ -78,11 +78,12 @@ public class UserEventService implements UserEventRepository {
 
     @Override
     public UserEvent findByLabel(String label) {
-        return null;
+
+        return userEventRepository.findByLabel(label);
     }
 
     @Override
     public UserEvent findByValue(String value) {
-        return null;
+        return userEventRepository.findByValue(value);
     }
 }

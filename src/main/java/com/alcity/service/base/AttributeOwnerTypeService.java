@@ -78,11 +78,12 @@ public class AttributeOwnerTypeService implements AttributeOwnerTypeRepository {
 
     @Override
     public AttributeOwnerType findByLabel(String label) {
-        return null;
+
+       return attributeOwnerTypeRepository.findByLabel(label);
     }
 
     @Override
     public AttributeOwnerType findByValue(String value) {
-        return null;
+        return attributeOwnerTypeRepository.findByValue(value);
     }
 }

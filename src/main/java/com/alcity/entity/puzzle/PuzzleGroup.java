@@ -10,6 +10,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Set;
 
 @Entity
@@ -22,10 +23,6 @@ public class PuzzleGroup extends BaseTable implements Serializable {
     @OneToMany(mappedBy = "puzzleGroup", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JsonIgnore
     private Set<JourneyStep> journeyStepSet;
-
-    @OneToMany(mappedBy = "puzzleGroup", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JsonIgnore
-    private Set<PuzzleGroup_PuzzleObject> puzzleGroup_puzzleObjectSet;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "puzzle_category_id", nullable = false)
@@ -41,6 +38,19 @@ public class PuzzleGroup extends BaseTable implements Serializable {
     @JoinColumn(name = "pic_content_id", nullable = false)
     @JsonIgnore
     private BinaryContent pic;
+
+
+    @OneToMany(mappedBy = "puzzleGroup", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JsonIgnore
+    private Collection<PuzzleGroup_PuzzleObject> puzzleGroup_puzzleObjectCollection;
+
+    public Collection<PuzzleGroup_PuzzleObject> getPuzzleGroup_puzzleObjectCollection() {
+        return puzzleGroup_puzzleObjectCollection;
+    }
+
+    public void setPuzzleGroup_puzzleObjectCollection(Collection<PuzzleGroup_PuzzleObject> puzzleGroup_puzzleObjectCollection) {
+        this.puzzleGroup_puzzleObjectCollection = puzzleGroup_puzzleObjectCollection;
+    }
 
     @OneToMany(mappedBy = "puzzleGroup", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JsonIgnore

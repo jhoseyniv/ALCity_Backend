@@ -77,11 +77,11 @@ public class ClientTypeService  implements ClientTypeRepository {
 
     @Override
     public ClientType findByLabel(String label) {
-        return null;
+        return clientTypeRepository.findByLabel(label);
     }
 
     @Override
     public ClientType findByValue(String value) {
-        return null;
+        return clientTypeRepository.findByValue(value);
     }
 }

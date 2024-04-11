@@ -2,16 +2,11 @@ package com.alcity.api;
 
 import com.alcity.dto.base.BinaryContentDTO;
 import com.alcity.dto.journey.JourneyStepDTO;
-import com.alcity.dto.puzzle.PuzzleCategoryDTO;
-import com.alcity.dto.puzzle.PuzzleGroupDTO;
-import com.alcity.dto.puzzle.PuzzleLevelDTO;
-import com.alcity.dto.puzzle.PuzzleSkillLearningContentDTO;
+import com.alcity.dto.puzzle.*;
 import com.alcity.entity.base.BinaryContent;
 import com.alcity.entity.base.PuzzleCategory;
 import com.alcity.entity.journey.JourneyStep;
-import com.alcity.entity.puzzle.PuzzleGroup;
-import com.alcity.entity.puzzle.PuzzleLevel;
-import com.alcity.entity.puzzle.PuzzleSkillLearningContent;
+import com.alcity.entity.puzzle.*;
 import com.alcity.service.base.PuzzleCategoryService;
 import com.alcity.service.puzzle.PuzzleGroupService;
 import com.alcity.utility.DateUtils;
@@ -36,8 +31,7 @@ public class PuzzleGroupController {
     @GetMapping("/category/all")
     public Collection<PuzzleCategoryDTO> getPuzzleCategories(Model model) {
         Collection<PuzzleCategoryDTO> puzzleCategoryDTOCollection = new ArrayList<PuzzleCategoryDTO>();
-
-        Collection<PuzzleCategory> puzzleCategoryCollection = puzzleCategoryService.findAll();
+       Collection<PuzzleCategory> puzzleCategoryCollection = puzzleCategoryService.findAll();
         Iterator<PuzzleCategory> itr = puzzleCategoryCollection.iterator();
         while(itr.hasNext()) {
             Collection<PuzzleGroupDTO> puzzleGroupDTOCollection = new ArrayList<PuzzleGroupDTO>();
@@ -62,7 +56,6 @@ public class PuzzleGroupController {
             puzzleCategoryDTO.setPuzzleGroupDTOSet(puzzleGroupDTOCollection);
             puzzleCategoryDTOCollection.add(puzzleCategoryDTO);
         }
-
         return puzzleCategoryDTOCollection;
     }
 
@@ -93,11 +86,10 @@ public class PuzzleGroupController {
             }
             puzzleCategoryDTO.setPuzzleGroupDTOSet(puzzleGroupDTOCollection);
         }
-
         return puzzleCategoryDTO;
     }
 
-    @GetMapping("/groups/")
+    @GetMapping("/all/")
     public Collection<PuzzleGroupDTO> getPuzzleGroups(Model model) {
         Collection<PuzzleGroup> puzzleGroupCollection = puzzleGroupService.findAll();
         Collection<PuzzleGroupDTO> puzzleGroupDTOCollection = new ArrayList<PuzzleGroupDTO>();
@@ -193,5 +185,26 @@ public class PuzzleGroupController {
         }
 
         return  puzzleGroupDTO;
+    }
+
+    @RequestMapping(value = "/id/{id}", method = RequestMethod.GET)
+    @ResponseBody
+    public Collection<PuzzleObjectDTO> getPuzzleObjectsByPuzzleGroupId(@PathVariable Long id) {
+        Collection<PuzzleObjectDTO> puzzleObjectDTOCollection = new ArrayList<>();
+        Collection<PuzzleGroup_PuzzleObject> puzzleGroup_puzzleObjectCollection = new ArrayList<>();
+        Optional<PuzzleGroup> puzzleGroup = puzzleGroupService.findById(id);
+        if(puzzleGroup.isPresent()){
+            PuzzleGroup pg = puzzleGroup.get();
+            puzzleGroup_puzzleObjectCollection = pg.getPuzzleGroup_puzzleObjectCollection();
+            Iterator<PuzzleGroup_PuzzleObject> iterator = puzzleGroup_puzzleObjectCollection.iterator();
+            while(iterator.hasNext()){
+                PuzzleGroup_PuzzleObject puzzleGroup_puzzleObject = iterator.next();
+                PuzzleObjectDTO puzzleObjectDTO = new PuzzleObjectDTO();
+                puzzleObjectDTO.setId(puzzleGroup_puzzleObject.getPuzzleObject().getId());
+                puzzleObjectDTOCollection.add(puzzleObjectDTO);
+            }
+        }
+
+        return puzzleObjectDTOCollection;
     }
 }

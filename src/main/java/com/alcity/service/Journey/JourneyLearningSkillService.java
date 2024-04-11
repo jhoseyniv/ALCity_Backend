@@ -1,6 +1,8 @@
 package com.alcity.service.Journey;
 
+import com.alcity.entity.journey.Journey;
 import com.alcity.entity.journey.JourneyLearningSkill;
+import com.alcity.entity.learning.LearningSkill;
 import com.alcity.repository.journey.JourneyLearningSkillRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -79,5 +81,10 @@ public class JourneyLearningSkillService implements JourneyLearningSkillReposito
     @Override
     public Collection<JourneyLearningSkill> findByRequiredAmount(Float amount) {
         return null;
+    }
+
+    @Override
+    public Optional<JourneyLearningSkill> findByJourneyAndLearningSkill(Journey journey, LearningSkill learningSkill) {
+        return journeyLearningSkillRepository.findByJourneyAndLearningSkill(journey,learningSkill);
     }
 }

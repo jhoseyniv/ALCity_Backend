@@ -79,11 +79,12 @@ public class DataTypeService implements DataTypeRepository {
 
     @Override
     public DataType findByLabel(String label) {
-        return null;
+
+        return dataTypeRepository.findByLabel(label);
     }
 
     @Override
     public DataType findByValue(String value) {
-        return null;
+        return dataTypeRepository.findByValue(value);
     }
 }

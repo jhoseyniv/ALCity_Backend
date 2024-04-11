@@ -77,11 +77,12 @@ public class BinaryContentTypeService implements BinaryContentTypeRepository {
 
     @Override
     public BinaryContentType findByLabel(String label) {
-        return null;
+
+     return binaryContentTypeRepository.findByLabel(label);
     }
 
     @Override
     public BinaryContentType findByValue(String value) {
-        return null;
+        return binaryContentTypeRepository.findByValue(value);
     }
 }

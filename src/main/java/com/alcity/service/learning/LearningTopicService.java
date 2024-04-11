@@ -79,7 +79,7 @@ public class LearningTopicService implements LearningTopicRepository {
     }
 
     @Override
-    public Collection<LearningTopic> findByTitle(String title) {
-        return null;
+    public LearningTopic findByTitle(String title) {
+        return learningTopicRepository.findByTitle(title);
     }
 }

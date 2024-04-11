@@ -79,7 +79,7 @@ public class ApplicationMemberService implements ApplicationMemberRepository {
 
     @Override
     public ApplicationMember findByUsername(String username) {
-        return null;
+        return applicationMemberRepository.findByUsername(username);
     }
 
     @Override

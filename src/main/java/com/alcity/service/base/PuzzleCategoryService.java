@@ -80,11 +80,11 @@ public class PuzzleCategoryService implements PuzzleCategoryRepository {
 
     @Override
     public PuzzleCategory findByLabel(String label) {
-        return null;
+        return puzzleCategoryRepository.findByLabel(label);
     }
 
     @Override
     public PuzzleCategory findByValue(String value) {
-        return null;
+        return puzzleCategoryRepository.findByValue(value);
     }
 }

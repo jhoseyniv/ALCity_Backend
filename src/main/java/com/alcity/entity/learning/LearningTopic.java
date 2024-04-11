@@ -12,6 +12,7 @@ import java.util.Set;
 public class LearningTopic extends BaseTable {
 
     @NotNull(message = "{bHeight.notempty}")
+    @Column(name="title",unique = true)
     private String title;
 
     @ManyToOne(fetch = FetchType.LAZY)

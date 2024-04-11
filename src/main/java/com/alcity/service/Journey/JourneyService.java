@@ -77,6 +77,6 @@ public class JourneyService implements JourneyRepository {
 
     @Override
     public Journey findByTitle(String title) {
-        return null;
+        return journeyRepository.findByTitle(title);
     }
 }

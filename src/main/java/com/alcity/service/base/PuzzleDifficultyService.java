@@ -80,11 +80,11 @@ public class PuzzleDifficultyService implements PuzzleDifficultyRepository {
 
     @Override
     public PuzzleLevelDifficulty findByLabel(String label) {
-        return null;
+        return puzzleDifficultyRepository.findByLabel(label);
     }
 
     @Override
     public PuzzleLevelDifficulty findByValue(String value) {
-        return null;
+        return puzzleDifficultyRepository.findByValue(value);
     }
 }

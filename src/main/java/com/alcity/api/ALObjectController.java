@@ -1,5 +1,6 @@
 package com.alcity.api;
 
+import com.alcity.dto.alobject.ObjectCategoryDTO;
 import com.alcity.dto.base.BinaryContentDTO;
 import com.alcity.dto.puzzle.PuzzleCategoryDTO;
 import com.alcity.dto.puzzle.PuzzleGroupDTO;
@@ -39,10 +40,23 @@ public class ALObjectController {
     private PuzzleObjectService puzzleObjectService;
 
 
-    @GetMapping("/categories/")
-    public Collection<ObjectCategory> getObjectCategorie(Model model) {
+    @GetMapping("/categories/all")
+    public Collection<ObjectCategoryDTO> getObjectCategorie(Model model) {
+        Collection<ObjectCategoryDTO> objectCategoryDTOCollection = new ArrayList<ObjectCategoryDTO>();
         Collection<ObjectCategory> objectCategories = objectCategoryService.findAll();
-        return objectCategories;
+        Iterator<ObjectCategory> iterator = objectCategories.iterator();
+        while(iterator.hasNext()){
+            ObjectCategoryDTO objectCategoryDTO = new ObjectCategoryDTO();
+            ObjectCategory objectCategory = iterator.next();
+            objectCategoryDTO.setId(objectCategory.getId());
+            objectCategoryDTO.setCreated(DateUtils.getDatatimeFromLong(objectCategory.getCreated()));
+            objectCategoryDTO.setUpdated(DateUtils.getDatatimeFromLong(objectCategory.getUpdated()));
+            objectCategoryDTO.setVersion(objectCategory.getVersion());
+            objectCategoryDTO.setLabel(objectCategory.getLabel());
+            objectCategoryDTO.setValue(objectCategory.getValue());
+            objectCategoryDTOCollection.add(objectCategoryDTO);
+        }
+        return objectCategoryDTOCollection;
     }
 
     @GetMapping("/attributes/")
@@ -77,6 +91,9 @@ public class ALObjectController {
                 puzzleObjectDTO.setObjectCategory(puzzleObject.getObjectCategory().getLabel());
                 puzzleObjectDTO.setTitle(puzzleObject.getTitle());
                 puzzleObjectDTO.setVersion(puzzleObject.getVersion());
+                puzzleObjectDTO.setCreated(DateUtils.getDatatimeFromLong(objectCategory.getCreated()));
+                puzzleObjectDTO.setUpdated(DateUtils.getDatatimeFromLong(objectCategory.getUpdated()));
+
                 BinaryContentDTO iconDTO = new BinaryContentDTO(puzzleObject.getIcon().getFileName(),puzzleObject.getIcon().getSize(),
                         puzzleObject.getIcon().getContent(),puzzleObject.getIcon().getId(),puzzleObject.getIcon().getVersion(),
                         DateUtils.getDatatimeFromLong(puzzleObject.getIcon().getCreated())

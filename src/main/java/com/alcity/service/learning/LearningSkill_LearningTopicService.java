@@ -77,7 +77,7 @@ public class LearningSkill_LearningTopicService implements LearningSkill_Learnin
     }
 
     @Override
-    public Collection<LearningSkill_LearningTopic> findByTitle(String title) {
-        return null;
+    public LearningSkill_LearningTopic findByTitle(String title) {
+        return learningSkill_LearningTopicRepository.findByTitle(title);
     }
 }

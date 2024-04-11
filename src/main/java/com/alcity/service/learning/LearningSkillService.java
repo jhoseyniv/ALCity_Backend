@@ -78,11 +78,12 @@ public class LearningSkillService implements LearningSkillRepository {
 
     @Override
     public LearningSkill findByLabel(String label) {
-        return null;
+
+        return learningSkillRepository.findByLabel(label);
     }
 
     @Override
     public LearningSkill findByValue(String value) {
-        return null;
+        return learningSkillRepository.findByValue(value);
     }
 }

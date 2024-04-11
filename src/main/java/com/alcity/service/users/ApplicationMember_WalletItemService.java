@@ -1,14 +1,19 @@
 package com.alcity.service.users;
 
 
+import com.alcity.entity.users.ApplicationMember;
 import com.alcity.entity.users.ApplicationMember_WalletItem;
+import com.alcity.entity.users.WalletItem;
 import com.alcity.repository.users.ApplicationMember_WalletItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.Collection;
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -31,6 +36,11 @@ public class ApplicationMember_WalletItemService implements ApplicationMember_Wa
     @Override
     public Optional<ApplicationMember_WalletItem> findById(Long id) {
         return Optional.empty();
+    }
+
+    @Override
+    public Optional<ApplicationMember_WalletItem> findByApplicationMemberAndWalletItem(ApplicationMember applicationMember, WalletItem walletItem) {
+        return applicationMember_WalletItemRepository.findByApplicationMemberAndWalletItem(applicationMember,walletItem);
     }
 
     @Override

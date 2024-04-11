@@ -77,11 +77,12 @@ public class ObjectActionService implements ObjectActionRepository {
 
     @Override
     public ObjectAction findByLabel(String label) {
-        return null;
+
+        return objectActionRepository.findByLabel(label);
     }
 
     @Override
     public ObjectAction findByValue(String value) {
-        return null;
+        return objectActionRepository.findByValue(value);
     }
 }

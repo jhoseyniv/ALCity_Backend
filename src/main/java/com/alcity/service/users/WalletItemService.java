@@ -79,11 +79,11 @@ public class WalletItemService implements WalletItemRespository {
 
     @Override
     public WalletItem findByLabel(String label) {
-        return null;
+        return walletItemRespository.findByLabel(label);
     }
 
     @Override
     public WalletItem findByValue(String value) {
-        return null;
+        return walletItemRespository.findByValue(value);
     }
 }

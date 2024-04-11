@@ -10,5 +10,5 @@ import java.util.Optional;
 public interface LearningTopicRepository extends CrudRepository<LearningTopic,Long> {
     Optional<LearningTopic> findById(Long id);
     Collection<LearningTopic> findAll();
-    Collection<LearningTopic> findByTitle(String title);
+    LearningTopic findByTitle(String title);
 }

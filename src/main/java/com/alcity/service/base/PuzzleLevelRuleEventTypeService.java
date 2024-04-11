@@ -79,11 +79,12 @@ public class PuzzleLevelRuleEventTypeService implements PuzzleLevelRuleEventType
 
     @Override
     public PuzzleLevelRuleEventType findByLabel(String label) {
-        return null;
+
+        return puzzleLevelRuleEventTypeRepository.findByLabel(label);
     }
 
     @Override
     public PuzzleLevelRuleEventType findByValue(String value) {
-        return null;
+        return puzzleLevelRuleEventTypeRepository.findByValue(value);
     }
 }

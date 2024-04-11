@@ -13,7 +13,7 @@ import java.util.Set;
 @Entity
 @Table(name="Journey")
 public class Journey  extends BaseTable implements Serializable {
-    @Column(name="title")
+    @Column(name="title",unique = true)
     private String title;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)

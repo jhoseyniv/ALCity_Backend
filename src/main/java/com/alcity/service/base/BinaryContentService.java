@@ -76,8 +76,8 @@ public class BinaryContentService implements BinaryContentRepository {
     }
 
     @Override
-    public BinaryContent findByfileName(String label) {
-        return null;
+    public BinaryContent findByfileName(String fileName) {
+        return binaryContentRepository.findByfileName(fileName);
     }
 
     @Override

@@ -78,11 +78,12 @@ public class PuzzleLevelStatusService implements PuzzleLevelStatusRepository {
 
     @Override
     public PuzzleLevelStatus findByLabel(String label) {
-        return null;
+
+        return puzzleLevelStatusRepository.findByLabel(label);
     }
 
     @Override
     public PuzzleLevelStatus findByValue(String value) {
-        return null;
+        return puzzleLevelStatusRepository.findByValue(value);
     }
 }

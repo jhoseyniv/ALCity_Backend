@@ -10,6 +10,6 @@ import java.util.Optional;
 public interface LearningSkill_LearningTopicRepository  extends CrudRepository<LearningSkill_LearningTopic,Long> {
     Optional<LearningSkill_LearningTopic> findById(Long id);
     Collection<LearningSkill_LearningTopic> findAll();
-    Collection<LearningSkill_LearningTopic> findByTitle(String title);
+    LearningSkill_LearningTopic findByTitle(String title);
 
 }

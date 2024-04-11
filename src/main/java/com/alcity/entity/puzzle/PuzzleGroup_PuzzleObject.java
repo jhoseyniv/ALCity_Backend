@@ -35,7 +35,39 @@ public class PuzzleGroup_PuzzleObject extends BaseTable implements Serializable 
     public PuzzleGroup_PuzzleObject() {
     }
 
-    public PuzzleGroup_PuzzleObject( String title, String code, PuzzleGroup puzzleGroup, PuzzleObject puzzleObject,Long version, Long created, Long updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public PuzzleGroup getPuzzleGroup() {
+        return puzzleGroup;
+    }
+
+    public void setPuzzleGroup(PuzzleGroup puzzleGroup) {
+        this.puzzleGroup = puzzleGroup;
+    }
+
+    public PuzzleObject getPuzzleObject() {
+        return puzzleObject;
+    }
+
+    public void setPuzzleObject(PuzzleObject puzzleObject) {
+        this.puzzleObject = puzzleObject;
+    }
+
+    public PuzzleGroup_PuzzleObject(String title, String code, PuzzleGroup puzzleGroup, PuzzleObject puzzleObject, Long version, Long created, Long updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
         super(version, created, updated, createdBy, updatedBy);
         this.title = title;
         this.code = code;

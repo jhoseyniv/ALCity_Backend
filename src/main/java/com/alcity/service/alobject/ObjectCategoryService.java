@@ -78,11 +78,11 @@ public class ObjectCategoryService implements ObjectCategoryRepository {
 
     @Override
     public ObjectCategory findByLabel(String label) {
-        return null;
+        return objectCategoryRepository.findByLabel(label);
     }
 
     @Override
     public ObjectCategory findByValue(String value) {
-        return null;
+        return objectCategoryRepository.findByValue(value);
     }
 }
