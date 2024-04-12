@@ -21,31 +21,47 @@ import java.util.Optional;
 @RequestMapping("/base")
 public class BaseItemSetConroller {
 
-
     @Autowired
-    private PuzzleLevelStatusService puzzleLevelStatusService;
-    @GetMapping("/genders")
+    private UserGenderService userGenderService;
+    @GetMapping("/gender/all")
     public List<UserGender> getGenders(Model model) {
         List<UserGender> genders = userGenderService.findAll();
         return genders;
     }
+    @RequestMapping(value = "/gender/id/{id}", method = RequestMethod.GET)
+    @ResponseBody
+    public Optional<UserGender> getGenderById(@PathVariable Long id) {
+        Optional<UserGender> gender = userGenderService.findById(id);
+        return gender;
+    }
 
     @Autowired
     private ClientTypeService clientTypeService;
-    @GetMapping("/client-types")
+    @GetMapping("/client-type/all")
     public Collection<ClientType> getClientTypes(Model model) {
         Collection<ClientType> clientTypes = clientTypeService.findAll();
         return clientTypes;
     }
 
-
+    @RequestMapping(value = "/client-type/id/{id}", method = RequestMethod.GET)
+    @ResponseBody
+    public Optional<ClientType> getClientTypeById(@PathVariable Long id) {
+        Optional<ClientType> clientType = clientTypeService.findById(id);
+        return clientType;
+    }
 
     @Autowired
     private DataTypeService dataTypeService;
-    @GetMapping("/data-types")
+    @GetMapping("/data-type/all")
     public Collection<DataType> getDataTypes(Model model) {
         Collection<DataType> dataTypes = dataTypeService.findAll();
         return dataTypes;
+    }
+    @RequestMapping(value = "/data-type/id/{id}", method = RequestMethod.GET)
+    @ResponseBody
+    public Optional<DataType> getDataTypeById(@PathVariable Long id) {
+        Optional<DataType> dataType = dataTypeService.findById(id);
+        return dataType;
     }
 
     @Autowired
@@ -55,88 +71,184 @@ public class BaseItemSetConroller {
         Collection<MemberType> memberTypes = memberTypeService.findAll();
         return memberTypes;
     }
+    @RequestMapping(value = "/member-type/id/{id}", method = RequestMethod.GET)
+    @ResponseBody
+    public Optional<MemberType> getMemberTypeById(@PathVariable Long id) {
+        Optional<MemberType> memberType = memberTypeService.findById(id);
+        return memberType;
+    }
 
 
     @Autowired
     private PuzzleDifficultyService puzzleDifficultyService;
 
-    @GetMapping("/pl-difficulties")
-    public Collection<PuzzleLevelDifficulty> getPuzzleDiffcultyType(Model model) {
+    @GetMapping("/pl-difficulty/all")
+    public Collection<PuzzleLevelDifficulty> getPuzzleLevelDiffculty(Model model) {
         Collection<PuzzleLevelDifficulty> puzzleLevelDifficultiesCollection = puzzleDifficultyService.findAll();
         return puzzleLevelDifficultiesCollection;
     }
 
+    @RequestMapping(value = "/pl-difficulty/id/{id}", method = RequestMethod.GET)
+    @ResponseBody
+    public Optional<PuzzleLevelDifficulty> getPuzzleLevelDifficultyById(@PathVariable Long id) {
+        Optional<PuzzleLevelDifficulty> puzzleLevelDifficulty = puzzleDifficultyService.findById(id);
+        return puzzleLevelDifficulty;
+    }
+
+
+
     @Autowired
     private PuzzleCategoryService puzzleCategoryService;
-    @GetMapping("/pl-category")
+    @GetMapping("/pl-category/all")
     public Collection<PuzzleCategory> getPuzzleCategories(Model model) {
         Collection<PuzzleCategory> puzzleCategoryCollection = puzzleCategoryService.findAll();
         return puzzleCategoryCollection;
     }
+    @RequestMapping(value = "/pl-category/id/{id}", method = RequestMethod.GET)
+    @ResponseBody
+    public Optional<PuzzleCategory> getPuzzleCategoryById(@PathVariable Long id) {
+        Optional<PuzzleCategory> puzzleCategory = puzzleCategoryService.findById(id);
+        return puzzleCategory;
+    }
 
-    @GetMapping("/pl-status")
+
+    @Autowired
+    private PuzzleLevelStatusService puzzleLevelStatusService;
+
+    @GetMapping("/pl-status/all")
     public Collection<PuzzleLevelStatus> getPuzzleLevelStatus(Model model) {
         Collection<PuzzleLevelStatus> puzzleLevelStatusCollection = puzzleLevelStatusService.findAll();
         return puzzleLevelStatusCollection;
+    }
+    @RequestMapping(value = "/pl-status/id/{id}", method = RequestMethod.GET)
+    @ResponseBody
+    public Optional<PuzzleLevelStatus> getPuzzleLevelStatusById(@PathVariable Long id) {
+        Optional<PuzzleLevelStatus> puzzleLevelStatus = puzzleLevelStatusService.findById(id);
+        return puzzleLevelStatus;
+    }
+
+    @Autowired
+    private PuzzleLevelRuleEventTypeService puzzleLevelRuleEventTypeService;
+
+    @GetMapping("/pl-rule-event-type/all")
+    public Collection<PuzzleLevelRuleEventType> getPuzzleLevelRuleEventTypes(Model model) {
+        Collection<PuzzleLevelRuleEventType> puzzleLevelRuleEventTypeCollection = puzzleLevelRuleEventTypeService.findAll();
+        return puzzleLevelRuleEventTypeCollection;
+    }
+    @RequestMapping(value = "/pl-rule-event-type/id/{id}", method = RequestMethod.GET)
+    @ResponseBody
+    public Optional<PuzzleLevelRuleEventType> getPuzzleLevelRuleEventTypesById(@PathVariable Long id) {
+        Optional<PuzzleLevelRuleEventType> puzzleLevelRuleEventType = puzzleLevelRuleEventTypeService.findById(id);
+        return puzzleLevelRuleEventType;
     }
 
 
     @Autowired
     private GameStatusService gameStatusService;
 
-    @GetMapping("/game-status")
+    @GetMapping("/game-status/all")
     public Collection<GameStatus> getGameStatus(Model model) {
         Collection<GameStatus> gameStatusCollection = gameStatusService.findAll();
         return gameStatusCollection;
     }
 
+    @RequestMapping(value = "/game-status/id/{id}", method = RequestMethod.GET)
+    @ResponseBody
+    public Optional<GameStatus> getGameStatusById(@PathVariable Long id) {
+        Optional<GameStatus> gameStatus = gameStatusService.findById(id);
+        return gameStatus;
+    }
+
+
     @Autowired
     private PuzzleLevelPrivacyService puzzleLevelPrivacyService;
 
-    @GetMapping("/pl-privacy")
+    @GetMapping("/pl-privacy/all")
     public Collection<PuzzleLevelPrivacy> getPuzzleLevelPrivacy(Model model) {
         Collection<PuzzleLevelPrivacy> puzzleLevelPrivacyCollection = puzzleLevelPrivacyService.findAll();
         return puzzleLevelPrivacyCollection;
     }
 
+    @RequestMapping(value = "/game-privacy/id/{id}", method = RequestMethod.GET)
+    @ResponseBody
+    public Optional<PuzzleLevelPrivacy> getPuzzleLevelPrivacyById(@PathVariable Long id) {
+        Optional<PuzzleLevelPrivacy> puzzleLevelPrivacy = puzzleLevelPrivacyService.findById(id);
+        return puzzleLevelPrivacy;
+    }
+
+
+
     @Autowired
     private WalletItemTypeService walletItemTypeService;
-
-    @GetMapping("/wallet-types")
+    @GetMapping("/wallet-type/all")
     public Collection<WalletItemType> getWalletItemTypes(Model model) {
         Collection<WalletItemType> walletItemTypeCollection = walletItemTypeService.findAll();
         return walletItemTypeCollection;
     }
+    @RequestMapping(value = "/wallet-type/id/{id}", method = RequestMethod.GET)
+    @ResponseBody
+    public Optional<WalletItemType> getWalletItemTypeById(@PathVariable Long id) {
+        Optional<WalletItemType> walletItemType = walletItemTypeService.findById(id);
+        return walletItemType;
+    }
+
+
     @Autowired
     private BinaryContentTypeService binaryContentTypeService;
 
-    @GetMapping("/binary-types")
+    @GetMapping("/binary-type/all")
     public Collection<BinaryContentType> getBinaryTypes(Model model) {
         Collection<BinaryContentType> binaryContentTypeCollection = binaryContentTypeService.findAll();
         return binaryContentTypeCollection;
     }
+    @RequestMapping(value = "/binary-type/id/{id}", method = RequestMethod.GET)
+    @ResponseBody
+    public Optional<BinaryContentType> getBinaryTypeById(@PathVariable Long id) {
+        Optional<BinaryContentType> binaryContentType = binaryContentTypeService.findById(id);
+        return binaryContentType;
+    }
+
 
     @Autowired
     private LearningSkillService learningSkillService;
 
-    @GetMapping("/learning-skills")
+    @GetMapping("/learning-skill/all")
     public Collection<LearningSkill> getLearningSkills(Model model) {
         Collection<LearningSkill> learningSkillCollection = learningSkillService.findAll();
         return learningSkillCollection;
     }
 
+    @RequestMapping(value = "/learning-skill/id/{id}", method = RequestMethod.GET)
+    @ResponseBody
+    public Optional<LearningSkill> getLearningSkillById(@PathVariable Long id) {
+        Optional<LearningSkill> learningSkill = learningSkillService.findById(id);
+        return learningSkill;
+    }
+
+
     @Autowired
     private LearningTopicService learningTopicService;
 
-    @GetMapping("/learning-topics")
+    @GetMapping("/learning-topic/all")
     public Collection<LearningTopic> getLearningTopics(Model model) {
         Collection<LearningTopic> learningTopicCollection = learningTopicService.findAll();
         return learningTopicCollection;
+    }
+    @RequestMapping(value = "/learning-topic/id/{id}", method = RequestMethod.GET)
+    @ResponseBody
+    public Optional<LearningTopic> getLearningTopicById(@PathVariable Long id) {
+        Optional<LearningTopic> learningTopic = learningTopicService.findById(id);
+        return learningTopic;
     }
 
 
     @Autowired
     private LearningContentService learningContentService;
+    @GetMapping("/learning-content/all")
+    public Collection<LearningContent> getLearningContents(Model model) {
+        Collection<LearningContent> learningTopicCollection = learningContentService.findAll();
+        return learningTopicCollection;
+    }
 
     @RequestMapping(value="/learning-content/id/{id}", method = RequestMethod.GET)
     @ResponseBody
@@ -153,14 +265,6 @@ public class BaseItemSetConroller {
     public Optional<BinaryContent> getBinaryContentById(@PathVariable Long id) {
         Optional<BinaryContent> binaryContentCollection = binaryContentService.findById(id);
         return binaryContentCollection;
-    }
-    @Autowired
-    private UserGenderService userGenderService;
-    @RequestMapping(value = "genders/id/{id}", method = RequestMethod.GET)
-    @ResponseBody
-    public Optional<UserGender> getGenderById(@PathVariable Long id) {
-        Optional<UserGender> gender = userGenderService.findById(id);
-        return gender;
     }
 
 

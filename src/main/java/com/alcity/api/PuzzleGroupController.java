@@ -28,66 +28,8 @@ public class PuzzleGroupController {
 
     @Autowired
     private PuzzleGroupService puzzleGroupService;
-    @GetMapping("/category/all")
-    public Collection<PuzzleCategoryDTO> getPuzzleCategories(Model model) {
-        Collection<PuzzleCategoryDTO> puzzleCategoryDTOCollection = new ArrayList<PuzzleCategoryDTO>();
-       Collection<PuzzleCategory> puzzleCategoryCollection = puzzleCategoryService.findAll();
-        Iterator<PuzzleCategory> itr = puzzleCategoryCollection.iterator();
-        while(itr.hasNext()) {
-            Collection<PuzzleGroupDTO> puzzleGroupDTOCollection = new ArrayList<PuzzleGroupDTO>();
-            PuzzleCategoryDTO puzzleCategoryDTO = new PuzzleCategoryDTO();
-            PuzzleCategory puzzleCategory = itr.next();
-            puzzleCategoryDTO.setId(puzzleCategory.getId());
-            puzzleCategoryDTO.setLabel(puzzleCategory.getLabel());
-            puzzleCategoryDTO.setValue(puzzleCategory.getValue());
-            puzzleCategoryDTO.setVersion(puzzleCategory.getVersion());
-            puzzleCategoryDTO.setCreated(DateUtils.getDatatimeFromLong(puzzleCategory.getCreated()));
-            puzzleCategoryDTO.setUpdated(DateUtils.getDatatimeFromLong(puzzleCategory.getUpdated()));
-            Collection<PuzzleGroup>  puzzleGroupSet = puzzleCategory.getPuzzleGroupSet();
-
-            Iterator<PuzzleGroup> itrPuzzleGroupSet = puzzleGroupSet.iterator();
-            while(itrPuzzleGroupSet.hasNext()){
-                PuzzleGroupDTO puzzleGroupDTO = new PuzzleGroupDTO();
-                PuzzleGroup puzzleGroup = itrPuzzleGroupSet.next();
-                puzzleGroupDTO.setTitle(puzzleGroup.getTitle());
-                puzzleGroupDTO.setId(puzzleGroup.getId());
-                puzzleGroupDTOCollection.add(puzzleGroupDTO);
-            }
-            puzzleCategoryDTO.setPuzzleGroupDTOSet(puzzleGroupDTOCollection);
-            puzzleCategoryDTOCollection.add(puzzleCategoryDTO);
-        }
-        return puzzleCategoryDTOCollection;
-    }
 
 
-    @RequestMapping(value = "/category/id/{id}", method = RequestMethod.GET)
-    @ResponseBody
-    public PuzzleCategoryDTO getPuzzleCategoryById(@PathVariable Long id) {
-        Optional<PuzzleCategory> puzzleCategory = puzzleCategoryService.findById(id);
-        Collection<PuzzleGroupDTO> puzzleGroupDTOCollection = new ArrayList<>();
-        PuzzleCategoryDTO puzzleCategoryDTO = new PuzzleCategoryDTO();
-
-        if(puzzleCategory.isPresent()) {
-            puzzleCategoryDTO.setId(puzzleCategory.get().getId());
-            puzzleCategoryDTO.setLabel(puzzleCategory.get().getLabel());
-            puzzleCategoryDTO.setValue(puzzleCategory.get().getValue());
-            puzzleCategoryDTO.setVersion(puzzleCategory.get().getVersion());
-            puzzleCategoryDTO.setCreated(DateUtils.getDatatimeFromLong(puzzleCategory.get().getCreated()));
-            puzzleCategoryDTO.setUpdated(DateUtils.getDatatimeFromLong(puzzleCategory.get().getUpdated()));
-            Collection<PuzzleGroup> puzzleGroupSet = puzzleCategory.get().getPuzzleGroupSet();
-
-            Iterator<PuzzleGroup> itrPuzzleGroupSet = puzzleGroupSet.iterator();
-            while (itrPuzzleGroupSet.hasNext()) {
-                PuzzleGroupDTO puzzleGroupDTO = new PuzzleGroupDTO();
-                PuzzleGroup puzzleGroup = itrPuzzleGroupSet.next();
-                puzzleGroupDTO.setTitle(puzzleGroup.getTitle());
-                puzzleGroupDTO.setId(puzzleGroup.getId());
-                puzzleGroupDTOCollection.add(puzzleGroupDTO);
-            }
-            puzzleCategoryDTO.setPuzzleGroupDTOSet(puzzleGroupDTOCollection);
-        }
-        return puzzleCategoryDTO;
-    }
 
     @GetMapping("/all/")
     public Collection<PuzzleGroupDTO> getPuzzleGroups(Model model) {
@@ -201,6 +143,24 @@ public class PuzzleGroupController {
                 PuzzleGroup_PuzzleObject puzzleGroup_puzzleObject = iterator.next();
                 PuzzleObjectDTO puzzleObjectDTO = new PuzzleObjectDTO();
                 puzzleObjectDTO.setId(puzzleGroup_puzzleObject.getPuzzleObject().getId());
+                puzzleObjectDTO.setObjectCategory(puzzleGroup_puzzleObject.getPuzzleObject().getObjectCategory().getLabel());
+                puzzleObjectDTO.setTitle(puzzleGroup_puzzleObject.getTitle());
+                puzzleObjectDTO.setCode(puzzleGroup_puzzleObject.getCode());
+                puzzleObjectDTO.setVersion(puzzleGroup_puzzleObject.getVersion());
+                puzzleObjectDTO.setCreated(DateUtils.getDatatimeFromLong(puzzleGroup_puzzleObject.getCreated()));
+                puzzleObjectDTO.setUpdated(DateUtils.getDatatimeFromLong(puzzleGroup_puzzleObject.getUpdated()));
+                BinaryContent picture = puzzleGroup_puzzleObject.getPuzzleObject().getPicture();
+                BinaryContentDTO pictureDTO = new BinaryContentDTO(picture.getFileName(),picture.getSize(),picture.getContent(),picture.getId(),picture.getVersion(),
+                        DateUtils.getDatatimeFromLong(picture.getCreated()),
+                        DateUtils.getDatatimeFromLong(picture.getUpdated()));
+                puzzleObjectDTO.setPicture(pictureDTO);
+
+                BinaryContent icon = puzzleGroup_puzzleObject.getPuzzleObject().getIcon();
+                BinaryContentDTO iconDTO = new BinaryContentDTO(icon.getFileName(),icon.getSize(),icon.getContent(),icon.getId(),icon.getVersion(),
+                        DateUtils.getDatatimeFromLong(icon.getCreated()),
+                        DateUtils.getDatatimeFromLong(icon.getUpdated()));
+                puzzleObjectDTO.setIcon(iconDTO);
+
                 puzzleObjectDTOCollection.add(puzzleObjectDTO);
             }
         }

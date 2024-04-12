@@ -19,8 +19,7 @@ public class JourneyController {
 
     @Autowired
     private JourneyService journeyService;
-
-    @GetMapping("/")
+    @GetMapping("/all")
     public Collection<Journey> getJourneis(Model model) {
         Collection<Journey> journeyCollection = journeyService.findAll();
         return journeyCollection;
@@ -31,7 +30,5 @@ public class JourneyController {
         Optional<Journey> journey = journeyService.findById(id);
         return journey;
     }
-
-
 
 }

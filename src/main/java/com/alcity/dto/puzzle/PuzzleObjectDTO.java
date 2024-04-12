@@ -12,10 +12,10 @@ import java.util.Set;
 public class PuzzleObjectDTO extends BaseTableDTO {
     private String title;
     private String objectCategory;
+    private String code;
 
     private BinaryContentDTO picture;
     private BinaryContentDTO icon;
-    private Collection<PuzzleGroup_PuzzleObjectDTO> puzzleGroup_puzzleObjectDTOCollection;
 
     public PuzzleObjectDTO() {
     }
@@ -52,12 +52,13 @@ public class PuzzleObjectDTO extends BaseTableDTO {
         this.icon = icon;
     }
 
-    public Collection<PuzzleGroup_PuzzleObjectDTO> getPuzzleGroup_puzzleObjectDTOCollection() {
-        return puzzleGroup_puzzleObjectDTOCollection;
+    public String getCode() {
+        return code;
     }
 
-    public void setPuzzleGroup_puzzleObjectDTOCollection(Collection<PuzzleGroup_PuzzleObjectDTO> puzzleGroup_puzzleObjectDTOCollection) {
-        this.puzzleGroup_puzzleObjectDTOCollection = puzzleGroup_puzzleObjectDTOCollection;
+    public void setCode(String code) {
+        this.code = code;
     }
+
 
 }
