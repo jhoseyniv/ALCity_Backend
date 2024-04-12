@@ -51,7 +51,7 @@ public class PuzzleCategoryController {
         }
         return puzzleCategoryDTOCollection;
     }
-    @RequestMapping(value = "/category/id/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/id/{id}", method = RequestMethod.GET)
     @ResponseBody
     public PuzzleCategoryDTO getPuzzleCategoryById(@PathVariable Long id) {
         Optional<PuzzleCategory> puzzleCategory = puzzleCategoryService.findById(id);

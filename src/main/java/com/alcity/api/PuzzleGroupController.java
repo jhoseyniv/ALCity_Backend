@@ -2,10 +2,14 @@ package com.alcity.api;
 
 import com.alcity.dto.base.BinaryContentDTO;
 import com.alcity.dto.journey.JourneyStepDTO;
+import com.alcity.dto.learning.LearningContentDTO;
+import com.alcity.dto.learning.LearningSkillDTO;
 import com.alcity.dto.puzzle.*;
 import com.alcity.entity.base.BinaryContent;
 import com.alcity.entity.base.PuzzleCategory;
 import com.alcity.entity.journey.JourneyStep;
+import com.alcity.entity.learning.LearningContent;
+import com.alcity.entity.learning.LearningSkill;
 import com.alcity.entity.puzzle.*;
 import com.alcity.service.base.PuzzleCategoryService;
 import com.alcity.service.puzzle.PuzzleGroupService;
@@ -20,7 +24,7 @@ import java.util.Iterator;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/p-group")
+@RequestMapping("/pg")
 
 public class PuzzleGroupController {
     @Autowired
@@ -31,7 +35,7 @@ public class PuzzleGroupController {
 
 
 
-    @GetMapping("/all/")
+    @GetMapping("/all")
     public Collection<PuzzleGroupDTO> getPuzzleGroups(Model model) {
         Collection<PuzzleGroup> puzzleGroupCollection = puzzleGroupService.findAll();
         Collection<PuzzleGroupDTO> puzzleGroupDTOCollection = new ArrayList<PuzzleGroupDTO>();
@@ -55,7 +59,7 @@ public class PuzzleGroupController {
 
         return puzzleGroupDTOCollection;
     }
-    @RequestMapping(value = "/group/id/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/id/{id}", method = RequestMethod.GET)
     @ResponseBody
     public PuzzleGroupDTO getPuzzleGroupById(@PathVariable Long id) {
         Optional<PuzzleGroup> puzzleGroup = puzzleGroupService.findById(id);
@@ -119,7 +123,33 @@ public class PuzzleGroupController {
             while(itrPuzzleSkills.hasNext()) {
                 PuzzleSkillLearningContentDTO puzzleSkillLearningContentDTO = new PuzzleSkillLearningContentDTO();
                 PuzzleSkillLearningContent puzzleSkillLearningContent = itrPuzzleSkills.next();
+
                 puzzleSkillLearningContentDTO.setId(puzzleSkillLearningContent.getId());
+                puzzleSkillLearningContentDTO.setVersion(puzzleSkillLearningContent.getVersion());
+                puzzleSkillLearningContentDTO.setCreated(DateUtils.getDatatimeFromLong(puzzleSkillLearningContent.getCreated()));
+                puzzleSkillLearningContentDTO.setUpdated(DateUtils.getDatatimeFromLong(puzzleSkillLearningContent.getUpdated()));
+
+                LearningSkill learningSkill = puzzleSkillLearningContent.getLearningSkill();
+                LearningSkillDTO learningSkillDTO = new LearningSkillDTO(learningSkill.getId(),learningSkill.getLabel(), learningSkill.getValue(), learningSkill.getVersion(),
+                        DateUtils.getDatatimeFromLong(learningSkill.getCreated()),DateUtils.getDatatimeFromLong(learningSkill.getUpdated()));
+                puzzleSkillLearningContentDTO.setLearningSkillDTO(learningSkillDTO);
+
+                LearningContent learningContent = puzzleSkillLearningContent.getLearningContent();
+                BinaryContent binaryContent = learningContent.getBinaryContent();
+                BinaryContentDTO binaryContentDTO = new BinaryContentDTO(binaryContent.getFileName(),binaryContent.getSize(),binaryContent.getContent(), binaryContent.getId(),binaryContent.getVersion(),
+                        DateUtils.getDatatimeFromLong(binaryContent.getCreated()),DateUtils.getDatatimeFromLong(binaryContent.getUpdated()));
+
+                LearningContentDTO learningContentDTO = new LearningContentDTO();
+                learningContentDTO.setId(learningContent.getId());
+                learningContentDTO.setVersion(learningContent.getVersion());
+                learningContentDTO.setCreated(DateUtils.getDatatimeFromLong(learningContent.getCreated()));
+                learningContentDTO.setUpdated(DateUtils.getDatatimeFromLong(learningContent.getUpdated()));
+                learningContentDTO.setBinaryContentDTO(binaryContentDTO);
+                learningContentDTO.setDescBrief(learningContent.getDescBrief());
+                learningContentDTO.setDescText(learningContent.getDescText());
+                puzzleSkillLearningContentDTO.setLearningContentDTO(learningContentDTO);
+
+                puzzleSkillLearningContentDTOCollection.add(puzzleSkillLearningContentDTO);
             }
             puzzleGroupDTO.setJourneyStepDTOCollection(journeyStepDTOCollection);
             puzzleGroupDTO.setPuzzleLevelDTOCollection(puzzleLevelDTOCollection);
@@ -128,7 +158,7 @@ public class PuzzleGroupController {
 
         return  puzzleGroupDTO;
     }
-
+/*
     @RequestMapping(value = "/id/{id}", method = RequestMethod.GET)
     @ResponseBody
     public Collection<PuzzleObjectDTO> getPuzzleObjectsByPuzzleGroupId(@PathVariable Long id) {
@@ -166,5 +196,5 @@ public class PuzzleGroupController {
         }
 
         return puzzleObjectDTOCollection;
-    }
+    }*/
 }

@@ -30,6 +30,22 @@ public class PuzzleSkillLearningContent extends BaseTable implements Serializabl
     @JsonIgnore
     private LearningContent learningContent;
 
+    public LearningSkill getLearningSkill() {
+        return learningSkill;
+    }
+
+    public void setLearningSkill(LearningSkill learningSkill) {
+        this.learningSkill = learningSkill;
+    }
+
+    public LearningContent getLearningContent() {
+        return learningContent;
+    }
+
+    public void setLearningContent(LearningContent learningContent) {
+        this.learningContent = learningContent;
+    }
+
     public PuzzleSkillLearningContent() {
     }
 

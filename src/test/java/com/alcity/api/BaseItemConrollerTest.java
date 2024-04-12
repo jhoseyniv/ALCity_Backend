@@ -104,6 +104,14 @@ public class BaseItemConrollerTest {
         ResponseEntity Journeies = restTemplate.getForEntity(address +"/journey/all" , String.class);
         ResponseEntity JourneyById = restTemplate.getForEntity(address +"/journey/id/70" , String.class);
 
+        //Puzzle Category Object API
+        ResponseEntity puzzleCategories = restTemplate.getForEntity(address +"/pc/all" , String.class);
+        ResponseEntity puzzleCategoryById = restTemplate.getForEntity(address +"/pc/id/30" , String.class);
+
+        //Puzzle Group Object API
+        ResponseEntity puzzleGroups = restTemplate.getForEntity(address +"/pg/all" , String.class);
+        ResponseEntity puzzleGroupById = restTemplate.getForEntity(address +"/pg/id/30" , String.class);
+
 
         ResponseEntity responsePuzzleStatus = restTemplate.getForEntity("http://127.0.0.1:8080" + "/base/pl-status/", String.class);
         ResponseEntity responsePuzzleCategory = restTemplate.getForEntity("http://127.0.0.1:8080/base/pl-category/", String.class);
