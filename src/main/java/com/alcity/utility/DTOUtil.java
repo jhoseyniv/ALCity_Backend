@@ -176,7 +176,9 @@ public class DTOUtil {
         puzzleLevelDTO.setMaxScore(puzzleLevel.getMaxScore());
         puzzleLevelDTO.setUpdated(DateUtils.getDatatimeFromLong(puzzleLevel.getUpdated()));
         puzzleLevelDTO.setCreated(DateUtils.getDatatimeFromLong(puzzleLevel.getCreated()));
-
+        puzzleLevelDTO.setPuzzleLevelDifficulty(puzzleLevel.getPuzzleDifficulty().getLabel());
+        puzzleLevelDTO.setPuzzleLevelPrivacy(puzzleLevel.getPuzzleLevelPrivacy().getLabel());
+        puzzleLevelDTO.setPuzzleLevelStatus(puzzleLevel.getPuzzleLevelStatus().getLabel());
         return puzzleLevelDTO;
     }
 
@@ -241,7 +243,7 @@ public class DTOUtil {
         return puzzleLevel_learningTopicDTOCollection;
     }
 
-    public static Collection<PuzzleLevelGroundDTO> getPuzzleLevelGroundDTS(PuzzleLevel puzzleLevel) {
+    public static Collection<PuzzleLevelGroundDTO> getPuzzleLevelGroundDTOS(PuzzleLevel puzzleLevel) {
         Collection<PuzzleLevelGroundDTO> puzzleLevelGroundDTOCollection = new ArrayList<PuzzleLevelGroundDTO>();
         Collection<PuzzleLevelGround> puzzleLevelGroundCollection = puzzleLevel.getPuzzleLevelGroundCollection();
         Iterator<PuzzleLevelGround> itr_Grounds = puzzleLevelGroundCollection.iterator();
@@ -274,7 +276,7 @@ public class DTOUtil {
         return puzzleLevelGroundDTOCollection;
     }
 
-    public static Collection<PermitedPlayerDTO> getPermitedPlayerDTS(PuzzleLevel puzzleLevel) {
+    public static Collection<PermitedPlayerDTO> getPermitedPlayerDTOS(PuzzleLevel puzzleLevel) {
         Collection<PermitedPlayerDTO> permitedPlayerDTOCollection = new ArrayList<PermitedPlayerDTO>();
         Collection<PermitedPlayer> permitedPlayerCollection = puzzleLevel.getPermitedPlayerCollection();
         Iterator<PermitedPlayer> itr_permitedPlayers = permitedPlayerCollection.iterator();
@@ -291,11 +293,40 @@ public class DTOUtil {
             permitedPlayerDTOCollection.add(permitedPlayerDTO);
 
         }
-
-
         return permitedPlayerDTOCollection;
     }
 
+    public static Collection<PuzzleGroupObjectInstanceDTO>  getPuzzleGroupObjectInstance(PuzzleLevel puzzleLevel){
+        Collection<PuzzleGroupObjectInstanceDTO> puzzleGroupObjectInstanceDTOCollection = new ArrayList<PuzzleGroupObjectInstanceDTO>();
+        Collection<PuzzleGroupObjectInstance> puzzleGroupObjectInstanceCollection = puzzleLevel.getPuzzleGroupObjectInstanceCollection();
+        Iterator<PuzzleGroupObjectInstance> itr = puzzleGroupObjectInstanceCollection.iterator();
+
+        while(itr.hasNext()){
+            PuzzleGroupObjectInstance puzzleGroupObjectInstance = itr.next();
+            PuzzleGroupObjectInstanceDTO puzzleGroupObjectInstanceDTO = new PuzzleGroupObjectInstanceDTO();
+            puzzleGroupObjectInstanceDTO.setId(puzzleGroupObjectInstance.getId());
+            puzzleGroupObjectInstanceDTO.setVersion(puzzleGroupObjectInstance.getVersion());
+            puzzleGroupObjectInstanceDTO.setCol(puzzleGroupObjectInstance.getCol());
+            puzzleGroupObjectInstanceDTO.setRow(puzzleGroupObjectInstance.getRow());
+            puzzleGroupObjectInstanceDTO.setzOrder(puzzleGroupObjectInstance.getzOrder());
+            puzzleGroupObjectInstanceDTO.setCreated(DateUtils.getDatatimeFromLong(puzzleGroupObjectInstance.getCreated()));
+            puzzleGroupObjectInstanceDTO.setUpdated(DateUtils.getDatatimeFromLong(puzzleGroupObjectInstance.getUpdated()));
+
+            PuzzleGroup_PuzzleObject puzzleGroup_puzzleObject = puzzleGroupObjectInstance.getPuzzleGroup_PuzzleObject();
+            PuzzleGroup_PuzzleObjectDTO  puzzleGroup_puzzleObjectDTO= new PuzzleGroup_PuzzleObjectDTO();
+            puzzleGroup_puzzleObjectDTO.setId(puzzleGroup_puzzleObject.getId());
+            puzzleGroup_puzzleObjectDTO.setVersion(puzzleGroup_puzzleObject.getVersion());
+            puzzleGroup_puzzleObjectDTO.setCode(puzzleGroup_puzzleObject.getCode());
+            puzzleGroup_puzzleObjectDTO.setTitle(puzzleGroup_puzzleObject.getTitle());
+            puzzleGroup_puzzleObjectDTO.setCreated(DateUtils.getDatatimeFromLong(puzzleGroup_puzzleObject.getCreated()));
+            puzzleGroup_puzzleObjectDTO.setUpdated(DateUtils.getDatatimeFromLong(puzzleGroup_puzzleObject.getUpdated()));
+
+            puzzleGroupObjectInstanceDTO.setPuzzleGroup_puzzleObjectDTO(puzzleGroup_puzzleObjectDTO);
+
+            puzzleGroupObjectInstanceDTOCollection.add(puzzleGroupObjectInstanceDTO);
+        }
+        return puzzleGroupObjectInstanceDTOCollection;
+    }
 
 
 }

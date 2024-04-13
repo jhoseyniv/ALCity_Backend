@@ -1,8 +1,12 @@
 package com.alcity.dto.puzzle;
 
 import com.alcity.dto.base.BaseTableDTO;
+import com.alcity.dto.base.PuzzleLevelDifficultyDTO;
+import com.alcity.dto.base.PuzzleLevelPrivacyDTO;
+import com.alcity.dto.base.PuzzleLevelStatusDTO;
 import com.alcity.dto.player.PermitedPlayerDTO;
 import com.alcity.entity.base.BaseTable;
+import com.alcity.entity.puzzle.PuzzleGroupObjectInstance;
 import com.alcity.entity.puzzle.PuzzleLevelGround;
 import com.alcity.entity.puzzle.PuzzleLevelObjective;
 
@@ -18,6 +22,12 @@ public class PuzzleLevelDTO extends BaseTableDTO {
     private Integer fromAge;
     private Integer toAge;
     private Float maxScore;
+
+    private String puzzleLevelStatus;
+
+    private String puzzleLevelPrivacy;
+
+    private String puzzleLevelDifficulty;
 
     public String getApproveDate() {
         return approveDate;
@@ -81,6 +91,31 @@ public class PuzzleLevelDTO extends BaseTableDTO {
     private Collection<PuzzleLevelGroundDTO> puzzleLevelGroundDTOCollection;
     private Collection<PermitedPlayerDTO> permitedPlayerDTOCollection;
 
+
+    public String getPuzzleLevelStatus() {
+        return puzzleLevelStatus;
+    }
+
+    public void setPuzzleLevelStatus(String puzzleLevelStatus) {
+        this.puzzleLevelStatus = puzzleLevelStatus;
+    }
+
+    public String getPuzzleLevelPrivacy() {
+        return puzzleLevelPrivacy;
+    }
+
+    public void setPuzzleLevelPrivacy(String puzzleLevelPrivacy) {
+        this.puzzleLevelPrivacy = puzzleLevelPrivacy;
+    }
+
+    public String getPuzzleLevelDifficulty() {
+        return puzzleLevelDifficulty;
+    }
+
+    public void setPuzzleLevelDifficulty(String puzzleLevelDifficulty) {
+        this.puzzleLevelDifficulty = puzzleLevelDifficulty;
+    }
+
     public Collection<PermitedPlayerDTO> getPermitedPlayerDTOCollection() {
         return permitedPlayerDTOCollection;
     }
@@ -111,6 +146,16 @@ public class PuzzleLevelDTO extends BaseTableDTO {
 
     public void setPuzzleLevel_learningTopicDTOCollection(Collection<PuzzleLevel_LearningTopicDTO> puzzleLevel_learningTopicDTOCollection) {
         this.puzzleLevel_learningTopicDTOCollection = puzzleLevel_learningTopicDTOCollection;
+    }
+
+    private Collection<PuzzleGroupObjectInstanceDTO> puzzleGroupObjectInstanceDTOCollection;
+
+    public Collection<PuzzleGroupObjectInstanceDTO> getPuzzleGroupObjectInstanceDTOCollection() {
+        return puzzleGroupObjectInstanceDTOCollection;
+    }
+
+    public void setPuzzleGroupObjectInstanceDTOCollection(Collection<PuzzleGroupObjectInstanceDTO> puzzleGroupObjectInstanceDTOCollection) {
+        this.puzzleGroupObjectInstanceDTOCollection = puzzleGroupObjectInstanceDTOCollection;
     }
 
     public PuzzleLevelDTO() {

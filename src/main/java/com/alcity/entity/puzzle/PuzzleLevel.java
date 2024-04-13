@@ -125,10 +125,6 @@ public class PuzzleLevel extends BaseTable implements Serializable {
 
     @OneToMany(mappedBy = "puzzleLevel", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JsonIgnore
-    private Set<PuzzleGroupObjectInstance> puzzleGroupObjectInstanceSet;
-
-    @OneToMany(mappedBy = "puzzleLevel", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JsonIgnore
     private Set<PuzzleLevelRule> puzzleLevelRuleSet;
 
     @OneToMany(mappedBy = "puzzleLevel", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -167,6 +163,62 @@ public class PuzzleLevel extends BaseTable implements Serializable {
         this.puzzleLevelObjectiveCollection = puzzleLevelObjectiveCollection;
     }
 
+    public PuzzleGroup getPuzzleGroup() {
+        return puzzleGroup;
+    }
+
+    public void setPuzzleGroup(PuzzleGroup puzzleGroup) {
+        this.puzzleGroup = puzzleGroup;
+    }
+
+    public PuzzleLevelDifficulty getPuzzleDifficulty() {
+        return puzzleDifficulty;
+    }
+
+    public void setPuzzleDifficulty(PuzzleLevelDifficulty puzzleDifficulty) {
+        this.puzzleDifficulty = puzzleDifficulty;
+    }
+
+    public PuzzleLevelStatus getPuzzleLevelStatus() {
+        return puzzleLevelStatus;
+    }
+
+    public void setPuzzleLevelStatus(PuzzleLevelStatus puzzleLevelStatus) {
+        this.puzzleLevelStatus = puzzleLevelStatus;
+    }
+
+    public PuzzleLevelPrivacy getPuzzleLevelPrivacy() {
+        return puzzleLevelPrivacy;
+    }
+
+    public void setPuzzleLevelPrivacy(PuzzleLevelPrivacy puzzleLevelPrivacy) {
+        this.puzzleLevelPrivacy = puzzleLevelPrivacy;
+    }
+
+    public BinaryContent getPicture() {
+        return picture;
+    }
+
+    public void setPicture(BinaryContent picture) {
+        this.picture = picture;
+    }
+
+    public BinaryContent getIcon() {
+        return icon;
+    }
+
+    public void setIcon(BinaryContent icon) {
+        this.icon = icon;
+    }
+
+    public Set<PuzzleLevelRule> getPuzzleLevelRuleSet() {
+        return puzzleLevelRuleSet;
+    }
+
+    public void setPuzzleLevelRuleSet(Set<PuzzleLevelRule> puzzleLevelRuleSet) {
+        this.puzzleLevelRuleSet = puzzleLevelRuleSet;
+    }
+
     @OneToMany(mappedBy = "puzzleLevel", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JsonIgnore
     private Collection<PuzzleLevel_LearningTopic> puzzleLevel_learningTopics;
@@ -177,6 +229,18 @@ public class PuzzleLevel extends BaseTable implements Serializable {
 
     public void setPuzzleLevel_learningTopics(Collection<PuzzleLevel_LearningTopic> puzzleLevel_learningTopics) {
         this.puzzleLevel_learningTopics = puzzleLevel_learningTopics;
+    }
+
+    @OneToMany(mappedBy = "puzzleLevel", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JsonIgnore
+    private Collection<PuzzleGroupObjectInstance> puzzleGroupObjectInstanceCollection;
+
+    public Collection<PuzzleGroupObjectInstance> getPuzzleGroupObjectInstanceCollection() {
+        return puzzleGroupObjectInstanceCollection;
+    }
+
+    public void setPuzzleGroupObjectInstanceCollection(Collection<PuzzleGroupObjectInstance> puzzleGroupObjectInstanceCollection) {
+        this.puzzleGroupObjectInstanceCollection = puzzleGroupObjectInstanceCollection;
     }
 
     public PuzzleLevel() {

@@ -117,6 +117,7 @@ public class BaseItemConrollerTest {
         ResponseEntity puzzleLevelById = restTemplate.getForEntity(address +"/pl/id/115" , String.class);
 
 
+
         ResponseEntity responsePuzzleStatus = restTemplate.getForEntity("http://127.0.0.1:8080" + "/base/pl-status/", String.class);
         ResponseEntity responsePuzzleCategory = restTemplate.getForEntity("http://127.0.0.1:8080/base/pl-category/", String.class);
         ResponseEntity responsePuzzleDifficulty = restTemplate.getForEntity("http://127.0.0.1:8080/base/pl-difficulties/", String.class);

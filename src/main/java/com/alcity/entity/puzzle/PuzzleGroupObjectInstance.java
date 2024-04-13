@@ -25,12 +25,42 @@ public class PuzzleGroupObjectInstance extends BaseTable implements Serializable
     @JsonIgnore
     private PuzzleGroup_PuzzleObject puzzleGroup_PuzzleObject;
 
+    public PuzzleGroup_PuzzleObject getPuzzleGroup_PuzzleObject() {
+        return puzzleGroup_PuzzleObject;
+    }
+
+    public void setPuzzleGroup_PuzzleObject(PuzzleGroup_PuzzleObject puzzleGroup_PuzzleObject) {
+        this.puzzleGroup_PuzzleObject = puzzleGroup_PuzzleObject;
+    }
+
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "puzzle_Level_id", nullable = false)
     @JsonIgnore
     private PuzzleLevel puzzleLevel;
 
+    public Integer getRow() {
+        return row;
+    }
 
+    public void setRow(Integer row) {
+        this.row = row;
+    }
+
+    public Integer getCol() {
+        return col;
+    }
+
+    public void setCol(Integer col) {
+        this.col = col;
+    }
+
+    public Integer getzOrder() {
+        return zOrder;
+    }
+
+    public void setzOrder(Integer zOrder) {
+        this.zOrder = zOrder;
+    }
 
     public PuzzleGroupObjectInstance() {
     }
