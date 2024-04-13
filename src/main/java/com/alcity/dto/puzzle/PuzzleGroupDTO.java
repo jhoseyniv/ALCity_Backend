@@ -3,6 +3,7 @@ package com.alcity.dto.puzzle;
 import com.alcity.dto.base.BaseTableDTO;
 import com.alcity.dto.base.BinaryContentDTO;
 import com.alcity.dto.journey.JourneyStepDTO;
+import com.alcity.entity.puzzle.PuzzleGroup_PuzzleObject;
 
 import java.util.Collection;
 import java.util.Set;
@@ -15,6 +16,9 @@ public class PuzzleGroupDTO extends BaseTableDTO {
 
     private Collection<JourneyStepDTO> journeyStepDTOCollection;
     private Collection<PuzzleLevelDTO> puzzleLevelDTOCollection;
+
+    private Collection<PuzzleGroup_PuzzleObjectDTO> puzzleGroup_puzzleObjectDTOCollection;
+
     private Collection<PuzzleSkillLearningContentDTO> puzzleSkillLearningContentDTOCollection;
 
     public String getTitle() {
@@ -66,6 +70,14 @@ public class PuzzleGroupDTO extends BaseTableDTO {
     }
 
     public PuzzleGroupDTO() {
+    }
+
+    public Collection<PuzzleGroup_PuzzleObjectDTO> getPuzzleGroup_puzzleObjectDTOCollection() {
+        return puzzleGroup_puzzleObjectDTOCollection;
+    }
+
+    public void setPuzzleGroup_puzzleObjectDTOCollection(Collection<PuzzleGroup_PuzzleObjectDTO> puzzleGroup_puzzleObjectDTOCollection) {
+        this.puzzleGroup_puzzleObjectDTOCollection = puzzleGroup_puzzleObjectDTOCollection;
     }
 
     public PuzzleGroupDTO(Long id, Long version, String created, String updated, String title, BinaryContentDTO icon, BinaryContentDTO pic, Collection<JourneyStepDTO> journeyStepDTOCollection, Collection<PuzzleLevelDTO> puzzleLevelDTOCollection, Collection<PuzzleSkillLearningContentDTO> puzzleSkillLearningContentDTOCollection) {

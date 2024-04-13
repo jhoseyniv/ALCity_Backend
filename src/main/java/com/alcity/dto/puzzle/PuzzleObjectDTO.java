@@ -12,7 +12,7 @@ import java.util.Set;
 public class PuzzleObjectDTO extends BaseTableDTO {
     private String title;
     private String objectCategory;
-    private String code;
+ //   private String code;
 
     private BinaryContentDTO picture;
     private BinaryContentDTO icon;
@@ -52,13 +52,6 @@ public class PuzzleObjectDTO extends BaseTableDTO {
         this.icon = icon;
     }
 
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
-    }
 
 
 }
