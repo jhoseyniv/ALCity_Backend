@@ -18,6 +18,7 @@ import com.alcity.entity.puzzle.PuzzleObject;
 import com.alcity.service.alobject.*;
 import com.alcity.service.base.UserGenderService;
 import com.alcity.service.puzzle.PuzzleObjectService;
+import com.alcity.utility.DTOUtil;
 import com.alcity.utility.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
@@ -161,7 +162,7 @@ public class ALObjectController {
     }
 
 
-      @GetMapping("/action/renderer/all")
+    @GetMapping("/action/renderer/all")
     public Collection<ActionRendererDTO> getActionRenderers(Model model) {
           Collection<ActionRendererDTO> actionRendererDTOCollection = new ArrayList<ActionRendererDTO>();
           Collection<ActionRenderer> actionRendererCollection = actionRendererService.findAll();
@@ -186,11 +187,21 @@ public class ALObjectController {
                       DateUtils.getDatatimeFromLong(clientType.getCreated()),
                       DateUtils.getDatatimeFromLong(clientType.getUpdated()));
 
+              actionRendererDTO.setClientTypeDTO(clientTypeDTO);
               actionRendererDTO.setHandler(actionRenderer.getHandler());
+              actionRendererDTOCollection.add(actionRendererDTO);
           }
           return actionRendererDTOCollection;
       }
-
+    @RequestMapping(value = "/action/renderer/id/{id}", method = RequestMethod.GET)
+    @ResponseBody
+    public ActionRendererDTO getObjectActionRendererById(@PathVariable Long id) {
+        Optional<ActionRenderer> actionRendererOptional = actionRendererService.findById(id);
+        ActionRendererDTO actionRendererDTO = new ActionRendererDTO();
+        if(actionRendererOptional.isPresent())  DTOUtil.getActionRenderer(actionRendererOptional.get());
+        else actionRendererDTO = null;
+    return actionRendererDTO;
+    }
 
     @GetMapping("/attributes/")
     public Collection<ALCityAttribute> getAttributes(Model model) {

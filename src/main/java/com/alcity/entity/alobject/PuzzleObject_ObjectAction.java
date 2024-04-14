@@ -12,6 +12,14 @@ public class PuzzleObject_ObjectAction extends BaseTable implements Serializable
     @Column(name="ownerObjectid")
     private Long ownerObjectid;
 
+    public Long getOwnerObjectid() {
+        return ownerObjectid;
+    }
+
+    public void setOwnerObjectid(Long ownerObjectid) {
+        this.ownerObjectid = ownerObjectid;
+    }
+
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "Puzzle_object_action_owner_type_id", nullable = false)
     @JsonIgnore
@@ -42,6 +50,14 @@ public class PuzzleObject_ObjectAction extends BaseTable implements Serializable
     @JoinColumn(name = "action_renderer_id", nullable = false)
     @JsonIgnore
     private ActionRenderer actionRenderer;
+
+    public ActionRenderer getActionRenderer() {
+        return actionRenderer;
+    }
+
+    public void setActionRenderer(ActionRenderer actionRenderer) {
+        this.actionRenderer = actionRenderer;
+    }
 
     public PuzzleObject_ObjectAction() {
     }

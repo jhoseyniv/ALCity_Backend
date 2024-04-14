@@ -4,9 +4,8 @@ import com.alcity.dto.alobject.ActionRendererDTO;
 import com.alcity.dto.alobject.ObjectActionDTO;
 import com.alcity.dto.alobject.PuzzleObjectActionOwnerTypeDTO;
 import com.alcity.dto.base.BaseTableDTO;
-import com.alcity.entity.alobject.ObjectAction;
 
-public class PuzzleObjectActionDTO extends BaseTableDTO {
+public class PuzzleObject_ObjectActionDTO extends BaseTableDTO {
 
     public Long getOwnerObjectid() {
         return ownerObjectid;
@@ -45,10 +44,10 @@ public class PuzzleObjectActionDTO extends BaseTableDTO {
     private PuzzleObjectActionOwnerTypeDTO puzzleObjectActionOwnerTypeDTO;
     private ActionRendererDTO actionRendererDTO;
 
-    public PuzzleObjectActionDTO() {
+    public PuzzleObject_ObjectActionDTO() {
     }
 
-    public PuzzleObjectActionDTO(Long id, Long version, String created, String updated, Long ownerObjectid, ObjectActionDTO objectActionDTO, PuzzleObjectActionOwnerTypeDTO puzzleObjectActionOwnerTypeDTO, ActionRendererDTO actionRendererDTO) {
+    public PuzzleObject_ObjectActionDTO(Long id, Long version, String created, String updated, Long ownerObjectid, ObjectActionDTO objectActionDTO, PuzzleObjectActionOwnerTypeDTO puzzleObjectActionOwnerTypeDTO, ActionRendererDTO actionRendererDTO) {
         super(id, version, created, updated);
         this.ownerObjectid = ownerObjectid;
         this.objectActionDTO = objectActionDTO;

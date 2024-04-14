@@ -29,7 +29,7 @@ public class PuzzleObject_ObjectActionService implements PuzzleObject_ObjectActi
 
     @Override
     public Optional<PuzzleObject_ObjectAction> findById(Long id) {
-        return Optional.empty();
+        return puzzleObject_ObjectActionRepository.findById(id);
     }
 
     @Override
@@ -39,7 +39,7 @@ public class PuzzleObject_ObjectActionService implements PuzzleObject_ObjectActi
 
     @Override
     public Collection<PuzzleObject_ObjectAction> findAll() {
-        return null;
+        return puzzleObject_ObjectActionRepository.findAll();
     }
 
     @Override

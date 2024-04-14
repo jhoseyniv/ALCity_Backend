@@ -131,16 +131,17 @@ public class BaseItemConrollerTest {
 
         //Action Renderer Entity API
         ResponseEntity actionRenderers = restTemplate.getForEntity(address +"/obj/action/renderer/all" , String.class);
-        ResponseEntity actionRenderersById = restTemplate.getForEntity(address +"/obj/action/renderer/id/115" , String.class);
+        ResponseEntity actionRenderersById = restTemplate.getForEntity(address +"/obj/action/renderer/id/161" , String.class);
 
         //Puzzle Object Entity API
-        ResponseEntity puzzleObjects = restTemplate.getForEntity(address +"/po/action/renderer/all" , String.class);
-        ResponseEntity puzzleObjectById = restTemplate.getForEntity(address +"/po/action/renderer/id/115" , String.class);
+        ResponseEntity puzzleObjects = restTemplate.getForEntity(address +"/po/all" , String.class);
+        ResponseEntity puzzleObjectById = restTemplate.getForEntity(address +"/po/id/125" , String.class);
 
 
         //Puzzle Object Action Entity API
-        ResponseEntity puzzleObjectActions = restTemplate.getForEntity(address +"/obj/action/renderer/all" , String.class);
-        ResponseEntity puzzleObjectActionById = restTemplate.getForEntity(address +"/obj/action/renderer/id/115" , String.class);
+        ResponseEntity puzzleObjectActions = restTemplate.getForEntity(address +"/po/action/all" , String.class);
+        ResponseEntity puzzleObjectActionById = restTemplate.getForEntity(address +"/po/action/id/162" , String.class);
+
 
         ResponseEntity responsePuzzleStatus = restTemplate.getForEntity("http://127.0.0.1:8080" + "/base/pl-status/", String.class);
         ResponseEntity responsePuzzleCategory = restTemplate.getForEntity("http://127.0.0.1:8080/base/pl-category/", String.class);
