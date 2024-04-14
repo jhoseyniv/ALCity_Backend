@@ -15,7 +15,7 @@ import java.util.Collection;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/p-object")
+@RequestMapping("/po")
 public class PuzzleObjectController {
 
     @Autowired

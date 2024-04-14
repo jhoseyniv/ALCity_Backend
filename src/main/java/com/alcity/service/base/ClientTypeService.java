@@ -27,7 +27,7 @@ public class ClientTypeService  implements ClientTypeRepository {
 
     @Override
     public Optional<ClientType> findById(Long id) {
-        return Optional.empty();
+        return clientTypeRepository.findById(id);
     }
 
     @Override

@@ -17,10 +17,26 @@ public class PuzzleObject_ObjectAction extends BaseTable implements Serializable
     @JsonIgnore
     private PuzzleObjectActionOwnerType puzzleObjectActionOwnerType;
 
+    public PuzzleObjectActionOwnerType getPuzzleObjectActionOwnerType() {
+        return puzzleObjectActionOwnerType;
+    }
+
+    public void setPuzzleObjectActionOwnerType(PuzzleObjectActionOwnerType puzzleObjectActionOwnerType) {
+        this.puzzleObjectActionOwnerType = puzzleObjectActionOwnerType;
+    }
+
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "object_action_id", nullable = false)
     @JsonIgnore
     private ObjectAction objectAction;
+
+    public ObjectAction getObjectAction() {
+        return objectAction;
+    }
+
+    public void setObjectAction(ObjectAction objectAction) {
+        this.objectAction = objectAction;
+    }
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "action_renderer_id", nullable = false)

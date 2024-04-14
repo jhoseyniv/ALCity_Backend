@@ -1,18 +1,21 @@
 package com.alcity.api;
 
+import com.alcity.dto.alobject.ActionRendererDTO;
+import com.alcity.dto.alobject.ObjectActionDTO;
 import com.alcity.dto.alobject.ObjectCategoryDTO;
+import com.alcity.dto.alobject.PuzzleObjectActionOwnerTypeDTO;
 import com.alcity.dto.base.BinaryContentDTO;
+import com.alcity.dto.base.ClientTypeDTO;
 import com.alcity.dto.puzzle.PuzzleCategoryDTO;
 import com.alcity.dto.puzzle.PuzzleGroupDTO;
 import com.alcity.dto.puzzle.PuzzleObjectDTO;
-import com.alcity.entity.alobject.ALCityAttribute;
-import com.alcity.entity.alobject.ObjectCategory;
+import com.alcity.entity.alobject.*;
+import com.alcity.entity.base.ClientType;
 import com.alcity.entity.base.PuzzleCategory;
 import com.alcity.entity.base.UserGender;
 import com.alcity.entity.learning.LearningTopic;
 import com.alcity.entity.puzzle.PuzzleObject;
-import com.alcity.service.alobject.ALCityAttributeService;
-import com.alcity.service.alobject.ObjectCategoryService;
+import com.alcity.service.alobject.*;
 import com.alcity.service.base.UserGenderService;
 import com.alcity.service.puzzle.PuzzleObjectService;
 import com.alcity.utility.DateUtils;
@@ -26,7 +29,7 @@ import java.util.Iterator;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/object")
+@RequestMapping("/obj")
 
 public class ALObjectController {
 
@@ -39,8 +42,11 @@ public class ALObjectController {
     @Autowired
     private PuzzleObjectService puzzleObjectService;
 
+    @Autowired
+    private ActionRendererService actionRendererService;
 
-    @GetMapping("/categories/all")
+
+    @GetMapping("/cat/all")
     public Collection<ObjectCategoryDTO> getObjectCategorie(Model model) {
         Collection<ObjectCategoryDTO> objectCategoryDTOCollection = new ArrayList<ObjectCategoryDTO>();
         Collection<ObjectCategory> objectCategories = objectCategoryService.findAll();
@@ -58,6 +64,133 @@ public class ALObjectController {
         }
         return objectCategoryDTOCollection;
     }
+    @RequestMapping(value = "/cat/id/{id}", method = RequestMethod.GET)
+    @ResponseBody
+    public ObjectCategoryDTO getObjectCategoryById(@PathVariable Long id) {
+        Optional<ObjectCategory> objectCategoryOptional = objectCategoryService.findById(id);
+        ObjectCategoryDTO objectCategoryDTO = new ObjectCategoryDTO();
+        if(objectCategoryOptional.isPresent()){
+            ObjectCategory objectCategory = objectCategoryOptional.get();
+            objectCategoryDTO.setId(objectCategory.getId());
+            objectCategoryDTO.setCreated(DateUtils.getDatatimeFromLong(objectCategory.getCreated()));
+            objectCategoryDTO.setUpdated(DateUtils.getDatatimeFromLong(objectCategory.getUpdated()));
+            objectCategoryDTO.setVersion(objectCategory.getVersion());
+            objectCategoryDTO.setLabel(objectCategory.getLabel());
+            objectCategoryDTO.setValue(objectCategory.getValue());
+        } else objectCategoryDTO = null;
+
+        return objectCategoryDTO;
+    }
+    @Autowired
+    private ObjectActionService objectActionService;
+
+    @GetMapping("/action/all")
+    public Collection<ObjectActionDTO> getObjectActions(Model model) {
+        Collection<ObjectActionDTO> objectActionDTOCollection = new ArrayList<ObjectActionDTO>();
+        Collection<ObjectAction> objectActions = objectActionService.findAll();
+        Iterator<ObjectAction> iterator = objectActions.iterator();
+        while(iterator.hasNext()){
+            ObjectActionDTO objectActionDTO = new ObjectActionDTO();
+            ObjectAction objectAction = iterator.next();
+            objectActionDTO.setId(objectAction.getId());
+            objectActionDTO.setCreated(DateUtils.getDatatimeFromLong(objectAction.getCreated()));
+            objectActionDTO.setUpdated(DateUtils.getDatatimeFromLong(objectAction.getUpdated()));
+            objectActionDTO.setVersion(objectAction.getVersion());
+            objectActionDTO.setLabel(objectAction.getLabel());
+            objectActionDTO.setValue(objectAction.getValue());
+            objectActionDTOCollection.add(objectActionDTO);
+        }
+        return objectActionDTOCollection;
+    }
+
+    @RequestMapping(value = "/action/id/{id}", method = RequestMethod.GET)
+    @ResponseBody
+    public ObjectActionDTO getObjectActionById(@PathVariable Long id) {
+        ObjectActionDTO objectActionDTO = new ObjectActionDTO();
+        Optional<ObjectAction> objectActionOptional = objectActionService.findById(id);
+        if(objectActionOptional.isPresent()) {
+            ObjectAction objectAction = objectActionOptional.get();
+            objectActionDTO.setId(objectAction.getId());
+            objectActionDTO.setLabel(objectAction.getLabel());
+            objectActionDTO.setVersion(objectAction.getVersion());
+            objectActionDTO.setValue(objectAction.getValue());
+            objectActionDTO.setCreated(DateUtils.getDatatimeFromLong(objectAction.getCreated()));
+            objectActionDTO.setUpdated(DateUtils.getDatatimeFromLong(objectAction.getUpdated()));
+        } else
+            objectActionDTO=null;
+       return objectActionDTO;
+    }
+    @Autowired
+    private PuzzleObjectActionOwnerTypeService puzzleObjectActionOwnerTypeService;
+
+    @GetMapping("/action/ownertype/all")
+    public Collection<PuzzleObjectActionOwnerTypeDTO> getObjectActionOwnerTypes(Model model) {
+        Collection<PuzzleObjectActionOwnerTypeDTO> puzzleObjectActionOwnerTypeDTOCollection = new ArrayList<PuzzleObjectActionOwnerTypeDTO>();
+        Collection<PuzzleObjectActionOwnerType> puzzleObjectActionOwnerTypeCollection = puzzleObjectActionOwnerTypeService.findAll();
+        Iterator<PuzzleObjectActionOwnerType> iterator = puzzleObjectActionOwnerTypeCollection.iterator();
+        while(iterator.hasNext()){
+            PuzzleObjectActionOwnerTypeDTO puzzleObjectActionOwnerTypeDTO = new PuzzleObjectActionOwnerTypeDTO();
+            PuzzleObjectActionOwnerType puzzleObjectActionOwnerType = iterator.next();
+            puzzleObjectActionOwnerTypeDTO.setId(puzzleObjectActionOwnerType.getId());
+            puzzleObjectActionOwnerTypeDTO.setCreated(DateUtils.getDatatimeFromLong(puzzleObjectActionOwnerType.getCreated()));
+            puzzleObjectActionOwnerTypeDTO.setUpdated(DateUtils.getDatatimeFromLong(puzzleObjectActionOwnerType.getUpdated()));
+            puzzleObjectActionOwnerTypeDTO.setVersion(puzzleObjectActionOwnerType.getVersion());
+            puzzleObjectActionOwnerTypeDTO.setLabel(puzzleObjectActionOwnerType.getLabel());
+            puzzleObjectActionOwnerTypeDTO.setValue(puzzleObjectActionOwnerType.getValue());
+            puzzleObjectActionOwnerTypeDTOCollection.add(puzzleObjectActionOwnerTypeDTO);
+        }
+        return puzzleObjectActionOwnerTypeDTOCollection;
+    }
+
+    @RequestMapping(value = "/action/ownertype/id/{id}", method = RequestMethod.GET)
+    @ResponseBody
+    public PuzzleObjectActionOwnerTypeDTO getObjectActionOwnerTypeById(@PathVariable Long id) {
+        PuzzleObjectActionOwnerTypeDTO puzzleObjectActionOwnerTypeDTO=new PuzzleObjectActionOwnerTypeDTO();
+        Optional<PuzzleObjectActionOwnerType> puzzleObjectActionOwnerTypeOptional = puzzleObjectActionOwnerTypeService.findById(id);
+        if(puzzleObjectActionOwnerTypeOptional.isPresent()){
+            PuzzleObjectActionOwnerType puzzleObjectActionOwnerType = puzzleObjectActionOwnerTypeOptional.get();
+            puzzleObjectActionOwnerTypeDTO.setId(puzzleObjectActionOwnerType.getId());
+            puzzleObjectActionOwnerTypeDTO.setLabel(puzzleObjectActionOwnerType.getLabel());
+            puzzleObjectActionOwnerTypeDTO.setValue(puzzleObjectActionOwnerType.getValue());
+            puzzleObjectActionOwnerTypeDTO.setVersion(puzzleObjectActionOwnerType.getVersion());
+            puzzleObjectActionOwnerTypeDTO.setCreated(DateUtils.getDatatimeFromLong(puzzleObjectActionOwnerType.getCreated()));
+            puzzleObjectActionOwnerTypeDTO.setUpdated(DateUtils.getDatatimeFromLong(puzzleObjectActionOwnerType.getUpdated()));
+        }else puzzleObjectActionOwnerTypeDTO = null;
+
+        return puzzleObjectActionOwnerTypeDTO;
+    }
+
+
+      @GetMapping("/action/renderer/all")
+    public Collection<ActionRendererDTO> getActionRenderers(Model model) {
+          Collection<ActionRendererDTO> actionRendererDTOCollection = new ArrayList<ActionRendererDTO>();
+          Collection<ActionRenderer> actionRendererCollection = actionRendererService.findAll();
+          Iterator<ActionRenderer> iterator = actionRendererCollection.iterator();
+          while(iterator.hasNext()){
+              ActionRendererDTO actionRendererDTO = new ActionRendererDTO();
+              ActionRenderer actionRenderer = iterator.next();
+              actionRendererDTO.setId(actionRenderer.getId());
+              actionRendererDTO.setCreated(DateUtils.getDatatimeFromLong(actionRenderer.getCreated()));
+              actionRendererDTO.setUpdated(DateUtils.getDatatimeFromLong(actionRenderer.getUpdated()));
+              actionRendererDTO.setVersion(actionRenderer.getVersion());
+              ObjectAction objectAction = actionRenderer.getObjectAction();
+
+              ObjectActionDTO objectActionDTO = new ObjectActionDTO(objectAction.getId(),objectAction.getLabel(),objectAction.getValue(),objectAction.getVersion(),
+                      DateUtils.getDatatimeFromLong(objectAction.getCreated()),
+                      DateUtils.getDatatimeFromLong(objectAction.getUpdated()));
+
+              actionRendererDTO.setObjectActionDTO(objectActionDTO);
+
+              ClientType clientType = actionRenderer.getClientType();
+              ClientTypeDTO clientTypeDTO = new ClientTypeDTO(clientType.getId(),clientType.getLabel(),clientType.getValue(), clientType.getVersion(),
+                      DateUtils.getDatatimeFromLong(clientType.getCreated()),
+                      DateUtils.getDatatimeFromLong(clientType.getUpdated()));
+
+              actionRendererDTO.setHandler(actionRenderer.getHandler());
+          }
+          return actionRendererDTOCollection;
+      }
+
 
     @GetMapping("/attributes/")
     public Collection<ALCityAttribute> getAttributes(Model model) {
@@ -73,7 +206,9 @@ public class ALObjectController {
         return alCityAttribute;
     }
 
-    @RequestMapping(value = "category/id/{id}", method = RequestMethod.GET)
+
+    /*
+    @RequestMapping(value = "/cat/id/{id}", method = RequestMethod.GET)
     @ResponseBody
     public Collection<PuzzleObjectDTO> getPuzzleObjectsByObjectCategoryById(@PathVariable Long id) {
         Collection<PuzzleObjectDTO> puzzleObjectDTOCollection = new ArrayList<PuzzleObjectDTO>();
@@ -102,9 +237,11 @@ public class ALObjectController {
                 puzzleObjectDTOCollection.add(puzzleObjectDTO);
             }
 
-        }
+        } else
+            puzzleObjectDTOCollection=null;
 
       return puzzleObjectDTOCollection;
     }
+*/
 
 }

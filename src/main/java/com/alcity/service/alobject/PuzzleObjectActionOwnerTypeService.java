@@ -29,7 +29,7 @@ public class PuzzleObjectActionOwnerTypeService implements PuzzleObjectActionOwn
 
     @Override
     public Optional<PuzzleObjectActionOwnerType> findById(Long id) {
-        return Optional.empty();
+        return puzzleObjectActionOwnerTypeRepository.findById(id);
     }
 
     @Override
@@ -39,7 +39,8 @@ public class PuzzleObjectActionOwnerTypeService implements PuzzleObjectActionOwn
 
     @Override
     public Collection<PuzzleObjectActionOwnerType> findAll() {
-        return null;
+
+        return puzzleObjectActionOwnerTypeRepository.findAll();
     }
 
     @Override

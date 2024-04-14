@@ -21,6 +21,30 @@ public class ActionRenderer extends BaseTable implements Serializable {
     @JsonIgnore
     private ClientType clientType;
 
+    public String getHandler() {
+        return handler;
+    }
+
+    public void setHandler(String handler) {
+        this.handler = handler;
+    }
+
+    public ClientType getClientType() {
+        return clientType;
+    }
+
+    public void setClientType(ClientType clientType) {
+        this.clientType = clientType;
+    }
+
+    public ObjectAction getObjectAction() {
+        return objectAction;
+    }
+
+    public void setObjectAction(ObjectAction objectAction) {
+        this.objectAction = objectAction;
+    }
+
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "object_action_id", nullable = false)
     @JsonIgnore

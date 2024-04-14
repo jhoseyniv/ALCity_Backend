@@ -27,7 +27,8 @@ public class ObjectActionService implements ObjectActionRepository {
 
     @Override
     public Optional<ObjectAction> findById(Long id) {
-        return Optional.empty();
+
+        return objectActionRepository.findById(id);
     }
 
     @Override
@@ -37,7 +38,7 @@ public class ObjectActionService implements ObjectActionRepository {
 
     @Override
     public Collection<ObjectAction> findAll() {
-        return null;
+        return objectActionRepository.findAll();
     }
 
     @Override

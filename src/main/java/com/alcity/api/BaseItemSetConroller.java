@@ -1,17 +1,22 @@
 package com.alcity.api;
 
+import com.alcity.dto.base.ClientTypeDTO;
+import com.alcity.entity.alobject.ActionRenderer;
 import com.alcity.entity.base.*;
 import com.alcity.entity.learning.LearningContent;
 import com.alcity.entity.learning.LearningSkill;
 import com.alcity.entity.learning.LearningTopic;
+import com.alcity.service.alobject.ActionRendererService;
 import com.alcity.service.base.*;
 import com.alcity.service.learning.LearningContentService;
 import com.alcity.service.learning.LearningSkillService;
 import com.alcity.service.learning.LearningTopicService;
+import com.alcity.utility.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
@@ -38,16 +43,30 @@ public class BaseItemSetConroller {
     @Autowired
     private ClientTypeService clientTypeService;
     @GetMapping("/client-type/all")
-    public Collection<ClientType> getClientTypes(Model model) {
+    public Collection<ClientTypeDTO> getClientTypes(Model model) {
+        Collection<ClientTypeDTO> clientTypeDTOCollection = new ArrayList<>();
         Collection<ClientType> clientTypes = clientTypeService.findAll();
-        return clientTypes;
+
+        return clientTypeDTOCollection;
     }
 
     @RequestMapping(value = "/client-type/id/{id}", method = RequestMethod.GET)
     @ResponseBody
-    public Optional<ClientType> getClientTypeById(@PathVariable Long id) {
-        Optional<ClientType> clientType = clientTypeService.findById(id);
-        return clientType;
+    public ClientTypeDTO getClientTypeById(@PathVariable Long id) {
+        ClientTypeDTO clientTypeDTO = new ClientTypeDTO();
+        Optional<ClientType> clientTypeOptional = clientTypeService.findById(id);
+         if(clientTypeOptional.isPresent()){
+             ClientType clientType = clientTypeOptional.get();
+             clientTypeDTO.setId(clientType.getId());
+             clientTypeDTO.setLabel(clientType.getLabel());
+             clientTypeDTO.setValue(clientType.getValue());
+             clientTypeDTO.setVersion(clientType.getVersion());
+             clientTypeDTO.setCreated(DateUtils.getDatatimeFromLong(clientType.getCreated()));
+             clientTypeDTO.setUpdated(DateUtils.getDatatimeFromLong(clientType.getUpdated()));
+
+         }else clientTypeDTO=null;
+
+        return clientTypeDTO;
     }
 
     @Autowired

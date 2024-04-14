@@ -82,4 +82,11 @@ public class PuzzleLevelController {
 
         return puzzleLevelDTO;
     }
-}
+//    @RequestMapping(value = "/id/{id}", method = RequestMethod.GET)
+//    @ResponseBody
+//    public PuzzleLevelDTO getPuzzleLevelForInterpreter(@PathVariable Long id) {
+//
+//    }
+
+
+    }

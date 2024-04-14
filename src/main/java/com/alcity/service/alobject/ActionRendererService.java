@@ -29,7 +29,8 @@ public class ActionRendererService implements ActionRendererRepository {
 
     @Override
     public Optional<ActionRenderer> findById(Long id) {
-        return Optional.empty();
+        return
+                actionRendererRepository.findById(id);
     }
 
     @Override
@@ -39,7 +40,7 @@ public class ActionRendererService implements ActionRendererRepository {
 
     @Override
     public Collection<ActionRenderer> findAll() {
-        return null;
+        return actionRendererRepository.findAll();
     }
 
     @Override
