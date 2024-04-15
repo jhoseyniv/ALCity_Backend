@@ -1,6 +1,7 @@
 package com.alcity.utility;
 
 import com.alcity.dto.alobject.ActionRendererDTO;
+import com.alcity.dto.alobject.AttributeOwnerTypeDTO;
 import com.alcity.dto.alobject.ObjectActionDTO;
 import com.alcity.dto.alobject.PuzzleObjectActionOwnerTypeDTO;
 import com.alcity.dto.base.BinaryContentDTO;
@@ -11,10 +12,7 @@ import com.alcity.dto.learning.LearningSkillDTO;
 import com.alcity.dto.learning.LearningTopicDTO;
 import com.alcity.dto.player.PermitedPlayerDTO;
 import com.alcity.dto.puzzle.*;
-import com.alcity.entity.alobject.ActionRenderer;
-import com.alcity.entity.alobject.ObjectAction;
-import com.alcity.entity.alobject.PuzzleObjectActionOwnerType;
-import com.alcity.entity.alobject.PuzzleObject_ObjectAction;
+import com.alcity.entity.alobject.*;
 import com.alcity.entity.base.BinaryContent;
 import com.alcity.entity.base.ClientType;
 import com.alcity.entity.journey.JourneyStep;
@@ -30,6 +28,42 @@ import java.util.Iterator;
 import java.util.Optional;
 
 public class DTOUtil {
+
+
+
+
+    public static AttributeOwnerTypeDTO getAttributeOwnerType(Optional<AttributeOwnerType> attributeOwnerTypeOptional) {
+        AttributeOwnerTypeDTO attributeOwnerTypeDTO = new AttributeOwnerTypeDTO();
+        if (attributeOwnerTypeOptional.isPresent()) {
+            AttributeOwnerType attributeOwnerType = attributeOwnerTypeOptional.get();
+            attributeOwnerTypeDTO.setId(attributeOwnerType.getId());
+            attributeOwnerTypeDTO.setVersion(attributeOwnerType.getVersion());
+            attributeOwnerTypeDTO.setLabel(attributeOwnerType.getLabel());
+            attributeOwnerTypeDTO.setValue(attributeOwnerType.getValue());
+            attributeOwnerTypeDTO.setCreated(DateUtils.getDatatimeFromLong(attributeOwnerType.getCreated()));
+            attributeOwnerTypeDTO.setUpdated(DateUtils.getDatatimeFromLong(attributeOwnerType.getUpdated()));
+        }else attributeOwnerTypeDTO = null;
+        return attributeOwnerTypeDTO;
+    }
+
+
+
+    public static Collection<AttributeOwnerTypeDTO> getAttributeOwnerTypes(Collection<AttributeOwnerType> attributeOwnerTypeCollection) {
+        Collection<AttributeOwnerTypeDTO> attributeOwnerTypeDTOCollection = new ArrayList<AttributeOwnerTypeDTO>();
+        Iterator<AttributeOwnerType> itr = attributeOwnerTypeCollection.iterator();
+        while (itr.hasNext()) {
+            AttributeOwnerType attributeOwnerType = itr.next();
+            AttributeOwnerTypeDTO attributeOwnerTypeDTO = new AttributeOwnerTypeDTO();
+            attributeOwnerTypeDTO.setId(attributeOwnerType.getId());
+            attributeOwnerTypeDTO.setVersion(attributeOwnerType.getVersion());
+            attributeOwnerTypeDTO.setLabel(attributeOwnerType.getLabel());
+            attributeOwnerTypeDTO.setValue(attributeOwnerType.getValue());
+            attributeOwnerTypeDTO.setCreated(DateUtils.getDatatimeFromLong(attributeOwnerType.getCreated()));
+            attributeOwnerTypeDTO.setUpdated(DateUtils.getDatatimeFromLong(attributeOwnerType.getUpdated()));
+            attributeOwnerTypeDTOCollection.add(attributeOwnerTypeDTO);
+        }
+        return attributeOwnerTypeDTOCollection;
+    }
 
 
     public static Collection<JourneyStepDTO> getJorenyStepsDTOS(Collection<JourneyStep> journeyStepCollection) {
@@ -400,6 +434,7 @@ public class DTOUtil {
 
             puzzleObject_objectActionDTO.setId(poa.getId());
             puzzleObject_objectActionDTO.setVersion(poa.getVersion());
+            puzzleObject_objectActionDTO.setOwnerObjectid(poa.getOwnerObjectid());
             puzzleObject_objectActionDTO.setCreated(DateUtils.getDatatimeFromLong(poa.getCreated()));
             puzzleObject_objectActionDTO.setUpdated(DateUtils.getDatatimeFromLong(poa.getUpdated()));
             ObjectAction objectAction = new ObjectAction();
@@ -410,19 +445,14 @@ public class DTOUtil {
             puzzleObject_objectActionDTO.setObjectActionDTO(objectActionDTO);
 
             PuzzleObjectActionOwnerType poaot = new PuzzleObjectActionOwnerType();
-
+            poaot = poa.getPuzzleObjectActionOwnerType();
             PuzzleObjectActionOwnerTypeDTO puzzleObjectActionOwnerTypeDTO = new PuzzleObjectActionOwnerTypeDTO(poaot.getId(),poaot.getLabel(),poaot.getValue(),poaot.getVersion(),
                     DateUtils.getDatatimeFromLong(poaot.getCreated()),DateUtils.getDatatimeFromLong(poaot.getUpdated()));
 
             puzzleObject_objectActionDTO.setPuzzleObjectActionOwnerTypeDTO(puzzleObjectActionOwnerTypeDTO);
 
             ActionRenderer actionRenderer = poa.getActionRenderer();
-//            ActionRendererDTO actionRendererDTO = new ActionRendererDTO();
-//            actionRendererDTO.setId(actionRenderer.getId());
-//            actionRendererDTO.setVersion(actionRenderer.getVersion());
-//            actionRendererDTO.setCreated(DateUtils.getDatatimeFromLong(actionRenderer.getCreated()));
-//            actionRendererDTO.setUpdated(DateUtils.getDatatimeFromLong(actionRenderer.getUpdated()));
-//            actionRendererDTO.setHandler(actionRenderer.getHandler());
+
             ActionRendererDTO actionRendererDTO=DTOUtil.getActionRenderer(actionRenderer);
             puzzleObject_objectActionDTO.setActionRendererDTO(actionRendererDTO);
             puzzleObject_objectActionDTOCollection.add(puzzleObject_objectActionDTO);
@@ -431,7 +461,39 @@ public class DTOUtil {
         return puzzleObject_objectActionDTOCollection;
     }
 
-   public static ActionRendererDTO getActionRenderer(ActionRenderer actionRenderer){
+    public static  PuzzleObject_ObjectActionDTO getPuzzleObjectAction(Optional<PuzzleObject_ObjectAction> puzzleObject_objectActionOptional) {
+        PuzzleObject_ObjectActionDTO puzzleObject_objectActionDTO = new PuzzleObject_ObjectActionDTO();
+          if(puzzleObject_objectActionOptional.isPresent()) {
+            PuzzleObject_ObjectAction poa= puzzleObject_objectActionOptional.get();
+            puzzleObject_objectActionDTO.setId(poa.getId());
+            puzzleObject_objectActionDTO.setVersion(poa.getVersion());
+            puzzleObject_objectActionDTO.setOwnerObjectid(poa.getOwnerObjectid());
+            puzzleObject_objectActionDTO.setCreated(DateUtils.getDatatimeFromLong(poa.getCreated()));
+            puzzleObject_objectActionDTO.setUpdated(DateUtils.getDatatimeFromLong(poa.getUpdated()));
+            ObjectAction objectAction = new ObjectAction();
+            objectAction = poa.getObjectAction();
+            ObjectActionDTO objectActionDTO = new ObjectActionDTO(objectAction.getId(), objectAction.getLabel(), objectAction.getValue(), objectAction.getVersion(),
+                    DateUtils.getDatatimeFromLong(objectAction.getCreated()),DateUtils.getDatatimeFromLong(objectAction.getUpdated()));
+
+            puzzleObject_objectActionDTO.setObjectActionDTO(objectActionDTO);
+
+            PuzzleObjectActionOwnerType poaot = new PuzzleObjectActionOwnerType();
+            poaot = poa.getPuzzleObjectActionOwnerType();
+            PuzzleObjectActionOwnerTypeDTO puzzleObjectActionOwnerTypeDTO = new PuzzleObjectActionOwnerTypeDTO(poaot.getId(),poaot.getLabel(),poaot.getValue(),poaot.getVersion(),
+                    DateUtils.getDatatimeFromLong(poaot.getCreated()),DateUtils.getDatatimeFromLong(poaot.getUpdated()));
+
+            puzzleObject_objectActionDTO.setPuzzleObjectActionOwnerTypeDTO(puzzleObjectActionOwnerTypeDTO);
+
+            ActionRenderer actionRenderer = poa.getActionRenderer();
+
+            ActionRendererDTO actionRendererDTO=DTOUtil.getActionRenderer(actionRenderer);
+            puzzleObject_objectActionDTO.setActionRendererDTO(actionRendererDTO);
+        } else puzzleObject_objectActionDTO=null;
+
+        return puzzleObject_objectActionDTO;
+    }
+
+    public static ActionRendererDTO getActionRenderer(ActionRenderer actionRenderer){
            ActionRendererDTO actionRendererDTO = new ActionRendererDTO();
            actionRendererDTO.setId(actionRenderer.getId());
            actionRendererDTO.setCreated(DateUtils.getDatatimeFromLong(actionRenderer.getCreated()));
@@ -449,10 +511,11 @@ public class DTOUtil {
            ClientTypeDTO clientTypeDTO = new ClientTypeDTO(clientType.getId(),clientType.getLabel(),clientType.getValue(), clientType.getVersion(),
                    DateUtils.getDatatimeFromLong(clientType.getCreated()),
                    DateUtils.getDatatimeFromLong(clientType.getUpdated()));
-
+           actionRendererDTO.setClientTypeDTO(clientTypeDTO);
            actionRendererDTO.setHandler(actionRenderer.getHandler());
 
        return actionRendererDTO;
    }
+
 
 }

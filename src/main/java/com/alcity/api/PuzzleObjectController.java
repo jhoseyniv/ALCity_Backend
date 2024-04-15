@@ -31,6 +31,7 @@ public class PuzzleObjectController {
         puzzleObjectDTO = DTOUtil.getPuzzleObjectById(puzzleObject);
         return  puzzleObjectDTO;
     }
+
     @GetMapping("/all")
     public Collection<PuzzleObjectDTO> getPuzzleObject(Model model) {
         Collection<PuzzleObject> puzzleObjectCollection = puzzleObjectService.findAll();
@@ -51,5 +52,16 @@ public class PuzzleObjectController {
 
         return puzzleObject_objectActionDTOCollection;
     }
+
+    @RequestMapping(value = "/action/id/{id}", method = RequestMethod.GET)
+    @ResponseBody
+    public PuzzleObject_ObjectActionDTO getPuzzleObjectActionById(@PathVariable Long id) {
+        PuzzleObject_ObjectActionDTO puzzleObject_objectActionDTO= new PuzzleObject_ObjectActionDTO();
+        Optional<PuzzleObject_ObjectAction> puzzleObject_objectActionOptional = puzzleObject_objectActionService.findById(id);
+        puzzleObject_objectActionDTO = DTOUtil.getPuzzleObjectAction(puzzleObject_objectActionOptional);
+        return  puzzleObject_objectActionDTO;
+    }
+
+
 
 }

@@ -126,8 +126,8 @@ public class BaseItemConrollerTest {
         ResponseEntity objectActionById = restTemplate.getForEntity(address +"/obj/action/id/115" , String.class);
 
         //Puzzle Oboject Action Type Entity API
-        ResponseEntity objectActionOwnerTypes = restTemplate.getForEntity(address +"/obj/action/ownertype/all" , String.class);
-        ResponseEntity objectActionOwnerTypeById = restTemplate.getForEntity(address +"/obj/action/ownertype/id/115" , String.class);
+        ResponseEntity objectActionOwnerTypes = restTemplate.getForEntity(address +"/obj/action/owner/type/all" , String.class);
+        ResponseEntity objectActionOwnerTypeById = restTemplate.getForEntity(address +"/obj/action/owner/type/id/115" , String.class);
 
         //Action Renderer Entity API
         ResponseEntity actionRenderers = restTemplate.getForEntity(address +"/obj/action/renderer/all" , String.class);
@@ -141,6 +141,10 @@ public class BaseItemConrollerTest {
         //Puzzle Object Action Entity API
         ResponseEntity puzzleObjectActions = restTemplate.getForEntity(address +"/po/action/all" , String.class);
         ResponseEntity puzzleObjectActionById = restTemplate.getForEntity(address +"/po/action/id/162" , String.class);
+
+        //Puzzle Object Action Entity API
+        ResponseEntity attributeOwnerTypes = restTemplate.getForEntity(address +"/obj/att/owner/type/all" , String.class);
+        ResponseEntity attributeOwnerTypeById = restTemplate.getForEntity(address +"/obj/att/owner/type/id/162" , String.class);
 
 
         ResponseEntity responsePuzzleStatus = restTemplate.getForEntity("http://127.0.0.1:8080" + "/base/pl-status/", String.class);

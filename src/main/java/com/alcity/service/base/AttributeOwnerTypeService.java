@@ -28,7 +28,7 @@ public class AttributeOwnerTypeService implements AttributeOwnerTypeRepository {
 
     @Override
     public Optional<AttributeOwnerType> findById(Long id) {
-        return Optional.empty();
+       return attributeOwnerTypeRepository.findById(id);
     }
 
     @Override
@@ -38,7 +38,7 @@ public class AttributeOwnerTypeService implements AttributeOwnerTypeRepository {
 
     @Override
     public Collection<AttributeOwnerType> findAll() {
-        return null;
+        return attributeOwnerTypeRepository.findAll();
     }
 
     @Override

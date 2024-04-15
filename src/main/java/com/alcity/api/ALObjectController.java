@@ -1,9 +1,6 @@
 package com.alcity.api;
 
-import com.alcity.dto.alobject.ActionRendererDTO;
-import com.alcity.dto.alobject.ObjectActionDTO;
-import com.alcity.dto.alobject.ObjectCategoryDTO;
-import com.alcity.dto.alobject.PuzzleObjectActionOwnerTypeDTO;
+import com.alcity.dto.alobject.*;
 import com.alcity.dto.base.BinaryContentDTO;
 import com.alcity.dto.base.ClientTypeDTO;
 import com.alcity.dto.puzzle.PuzzleCategoryDTO;
@@ -16,6 +13,7 @@ import com.alcity.entity.base.UserGender;
 import com.alcity.entity.learning.LearningTopic;
 import com.alcity.entity.puzzle.PuzzleObject;
 import com.alcity.service.alobject.*;
+import com.alcity.service.base.AttributeOwnerTypeService;
 import com.alcity.service.base.UserGenderService;
 import com.alcity.service.puzzle.PuzzleObjectService;
 import com.alcity.utility.DTOUtil;
@@ -45,6 +43,9 @@ public class ALObjectController {
 
     @Autowired
     private ActionRendererService actionRendererService;
+    @Autowired
+    private AttributeOwnerTypeService attributeOwnerTypeService;
+
 
 
     @GetMapping("/cat/all")
@@ -124,7 +125,7 @@ public class ALObjectController {
     @Autowired
     private PuzzleObjectActionOwnerTypeService puzzleObjectActionOwnerTypeService;
 
-    @GetMapping("/action/ownertype/all")
+    @GetMapping("/action/owner/type/all")
     public Collection<PuzzleObjectActionOwnerTypeDTO> getObjectActionOwnerTypes(Model model) {
         Collection<PuzzleObjectActionOwnerTypeDTO> puzzleObjectActionOwnerTypeDTOCollection = new ArrayList<PuzzleObjectActionOwnerTypeDTO>();
         Collection<PuzzleObjectActionOwnerType> puzzleObjectActionOwnerTypeCollection = puzzleObjectActionOwnerTypeService.findAll();
@@ -143,7 +144,7 @@ public class ALObjectController {
         return puzzleObjectActionOwnerTypeDTOCollection;
     }
 
-    @RequestMapping(value = "/action/ownertype/id/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/action/owner/type/id/{id}", method = RequestMethod.GET)
     @ResponseBody
     public PuzzleObjectActionOwnerTypeDTO getObjectActionOwnerTypeById(@PathVariable Long id) {
         PuzzleObjectActionOwnerTypeDTO puzzleObjectActionOwnerTypeDTO=new PuzzleObjectActionOwnerTypeDTO();
@@ -203,18 +204,22 @@ public class ALObjectController {
     return actionRendererDTO;
     }
 
-    @GetMapping("/attributes/")
-    public Collection<ALCityAttribute> getAttributes(Model model) {
-        Collection<ALCityAttribute> alCityAttributes = alCityAttributeService.findAll();
-        return alCityAttributes;
+    @GetMapping("/att/owner/type/all")
+    public Collection<AttributeOwnerTypeDTO> getAttributeOwnerTypes(Model model) {
+        Collection<AttributeOwnerType> attributeOwnerTypeCollection = attributeOwnerTypeService.findAll();
+        Collection<AttributeOwnerTypeDTO> attributeOwnerTypeDTOCollection = new ArrayList<AttributeOwnerTypeDTO>();
+        attributeOwnerTypeDTOCollection = DTOUtil.getAttributeOwnerTypes(attributeOwnerTypeCollection);
+        return attributeOwnerTypeDTOCollection;
     }
 
 
-    @RequestMapping(value = "attribute/id/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/att/owner/type/id/{id}", method = RequestMethod.GET)
     @ResponseBody
-    public Optional<ALCityAttribute> getALCityAttributeById(@PathVariable Long id) {
-        Optional<ALCityAttribute> alCityAttribute = alCityAttributeService.findById(id);
-        return alCityAttribute;
+    public AttributeOwnerTypeDTO getAttributeOwnerTypeById(@PathVariable Long id) {
+        Optional<AttributeOwnerType> attributeOwnerTypeOptional = attributeOwnerTypeService.findById(id);
+        AttributeOwnerTypeDTO attributeOwnerTypeDTO = new AttributeOwnerTypeDTO();
+        attributeOwnerTypeDTO = DTOUtil.getAttributeOwnerType(attributeOwnerTypeOptional);
+        return attributeOwnerTypeDTO;
     }
 
 
