@@ -430,7 +430,7 @@ public class ImportProblemData_1 implements CommandLineRunner {
         ActionRenderer moveActionRenderer = new ActionRenderer("Move",mobile,moveAction,1L,now,now,admin_1,admin_1);
         actionRendererService.save(moveActionRenderer);
 
-        PuzzleObject_ObjectAction  ImageObject01_MoveAction = new PuzzleObject_ObjectAction(puzzleObjectIsOwner,ImageObject01.getId(),moveAction,moveActionRenderer,1L,now,now,admin_1,admin_1);
+        PuzzleObject_ObjectAction  ImageObject01_MoveAction = new PuzzleObject_ObjectAction(puzzleObjectIsOwner,puzzleGroup_puzzleObject.getId(),moveAction,moveActionRenderer,1L,now,now,admin_1,admin_1);
         puzzleObject_ObjectActionService.save(ImageObject01_MoveAction);
 
         ALCityAttribute alCityAttribute_move_action =new ALCityAttribute("actionId",ImageObject01.getId(),puzzleObjectProperty,alcity_Long,1L,now,now,admin_1,admin_1);

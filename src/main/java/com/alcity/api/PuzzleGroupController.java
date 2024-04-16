@@ -88,43 +88,20 @@ public class PuzzleGroupController {
 
         return  puzzleGroupDTO;
     }
-/*
-    @RequestMapping(value = "/id/{id}", method = RequestMethod.GET)
-    @ResponseBody
-    public Collection<PuzzleObjectDTO> getPuzzleObjectsByPuzzleGroupId(@PathVariable Long id) {
-        Collection<PuzzleObjectDTO> puzzleObjectDTOCollection = new ArrayList<>();
-        Collection<PuzzleGroup_PuzzleObject> puzzleGroup_puzzleObjectCollection = new ArrayList<>();
-        Optional<PuzzleGroup> puzzleGroup = puzzleGroupService.findById(id);
-        if(puzzleGroup.isPresent()){
-            PuzzleGroup pg = puzzleGroup.get();
-            puzzleGroup_puzzleObjectCollection = pg.getPuzzleGroup_puzzleObjectCollection();
-            Iterator<PuzzleGroup_PuzzleObject> iterator = puzzleGroup_puzzleObjectCollection.iterator();
-            while(iterator.hasNext()){
-                PuzzleGroup_PuzzleObject puzzleGroup_puzzleObject = iterator.next();
-                PuzzleObjectDTO puzzleObjectDTO = new PuzzleObjectDTO();
-                puzzleObjectDTO.setId(puzzleGroup_puzzleObject.getPuzzleObject().getId());
-                puzzleObjectDTO.setObjectCategory(puzzleGroup_puzzleObject.getPuzzleObject().getObjectCategory().getLabel());
-                puzzleObjectDTO.setTitle(puzzleGroup_puzzleObject.getTitle());
-                puzzleObjectDTO.setCode(puzzleGroup_puzzleObject.getCode());
-                puzzleObjectDTO.setVersion(puzzleGroup_puzzleObject.getVersion());
-                puzzleObjectDTO.setCreated(DateUtils.getDatatimeFromLong(puzzleGroup_puzzleObject.getCreated()));
-                puzzleObjectDTO.setUpdated(DateUtils.getDatatimeFromLong(puzzleGroup_puzzleObject.getUpdated()));
-                BinaryContent picture = puzzleGroup_puzzleObject.getPuzzleObject().getPicture();
-                BinaryContentDTO pictureDTO = new BinaryContentDTO(picture.getFileName(),picture.getSize(),picture.getContent(),picture.getId(),picture.getVersion(),
-                        DateUtils.getDatatimeFromLong(picture.getCreated()),
-                        DateUtils.getDatatimeFromLong(picture.getUpdated()));
-                puzzleObjectDTO.setPicture(pictureDTO);
 
-                BinaryContent icon = puzzleGroup_puzzleObject.getPuzzleObject().getIcon();
-                BinaryContentDTO iconDTO = new BinaryContentDTO(icon.getFileName(),icon.getSize(),icon.getContent(),icon.getId(),icon.getVersion(),
-                        DateUtils.getDatatimeFromLong(icon.getCreated()),
-                        DateUtils.getDatatimeFromLong(icon.getUpdated()));
-                puzzleObjectDTO.setIcon(iconDTO);
+//    @RequestMapping(value = "/id/{id}/po/all", method = RequestMethod.GET)
+//    @ResponseBody
+//    public Collection<PuzzleObjectDTO> getPuzzleObjectsByPuzzleGroupId(@PathVariable Long id) {
+//        Collection<PuzzleObjectDTO> puzzleObjectDTOCollection = new ArrayList<>();
+//        Collection<PuzzleGroup_PuzzleObject> puzzleGroup_puzzleObjectCollection = new ArrayList<>();
+//        Optional<PuzzleGroup> puzzleGroup = puzzleGroupService.findById(id);
+//        if(puzzleGroup.isPresent()){
+//             DTOUtil.get(puzzleGroup.get());
+//
+//        }else puzzleObjectDTOCollection=null;
+//
+//        return puzzleObjectDTOCollection;
+//    }
 
-                puzzleObjectDTOCollection.add(puzzleObjectDTO);
-            }
-        }
 
-        return puzzleObjectDTOCollection;
-    }*/
 }

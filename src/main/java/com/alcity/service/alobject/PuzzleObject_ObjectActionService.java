@@ -86,4 +86,9 @@ public class PuzzleObject_ObjectActionService implements PuzzleObject_ObjectActi
     public Collection<PuzzleObject_ObjectAction> findByPuzzleObjectActionOwnerType(Long id) {
         return null;
     }
+
+    @Override
+    public Collection<PuzzleObject_ObjectAction> findByOwnerObjectid(Long id) {
+        return puzzleObject_ObjectActionRepository.findByOwnerObjectid(id);
+    }
 }

@@ -1,6 +1,6 @@
 package com.alcity.dto.Interpreter;
 
-public class CameraSetupInterpreter {
+public class CameraSetupData {
     private Integer xPosition;
     private Integer yPosition;
     private Integer zPosition;
@@ -57,10 +57,10 @@ public class CameraSetupInterpreter {
         this.zRotation = zRotation;
     }
 
-    public CameraSetupInterpreter() {
+    public CameraSetupData() {
     }
 
-    public CameraSetupInterpreter(Integer xPosition, Integer yPosition, Integer zPosition, Integer xRotation, Integer yRotation, Integer zRotation) {
+    public CameraSetupData(Integer xPosition, Integer yPosition, Integer zPosition, Integer xRotation, Integer yRotation, Integer zRotation) {
         this.xPosition = xPosition;
         this.yPosition = yPosition;
         this.zPosition = zPosition;

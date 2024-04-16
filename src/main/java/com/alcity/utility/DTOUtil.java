@@ -1,6 +1,7 @@
 package com.alcity.utility;
 
 import com.alcity.dto.CameraSetupDTO;
+import com.alcity.dto.Interpreter.PuzzleGroupObjectData;
 import com.alcity.dto.Interpreter.PuzzleLevelObjectiveData;
 import com.alcity.dto.alobject.*;
 import com.alcity.dto.base.BinaryContentDTO;
@@ -323,7 +324,6 @@ public class DTOUtil {
 
         return puzzleGroupDTO;
     }
-
 
 
     public static Collection<PuzzleLevelObjectiveDTO> getPuzzleLevelObjectiveDTOS(PuzzleLevel puzzleLevel) {

@@ -1,22 +1,20 @@
 package com.alcity.dto.Interpreter;
 
-import com.alcity.dto.puzzle.PuzzleGroupObjectInstanceDTO;
-import com.alcity.dto.puzzle.PuzzleGroup_PuzzleObjectDTO;
-import com.alcity.dto.puzzle.PuzzleLevelObjectiveDTO;
+import com.alcity.dto.Interpreter.object.RuleData;
 
 import java.io.Serializable;
 import java.util.Collection;
 
-public class PuzzleLevelInterpreterDTO implements Serializable {
+public class PuzzleLevelData implements Serializable {
     private String code;
     private String name;
     private Integer cols;
     private Integer rows;
-    private CameraSetupInterpreter cameraSetup;
+    private CameraSetupData cameraSetup;
     private Collection<PuzzleLevelObjectiveData> objectives;
 
-    private  Collection<PuzzleGroupObjectInstanceDTO> instances;
-    private Collection<PuzzleGroup_PuzzleObjectDTO> objects;
+    private Collection<PuzzleGroupObjectData> objects;
+    private Collection<RuleData> rules;
 
 
     public Collection<PuzzleLevelObjectiveData> getObjectives() {
@@ -60,31 +58,31 @@ public class PuzzleLevelInterpreterDTO implements Serializable {
     }
 
 
-    public CameraSetupInterpreter getCameraSetup() {
+    public CameraSetupData getCameraSetup() {
         return cameraSetup;
     }
 
-    public void setCameraSetup(CameraSetupInterpreter cameraSetup) {
+    public void setCameraSetup(CameraSetupData cameraSetup) {
         this.cameraSetup = cameraSetup;
     }
 
-    public Collection<PuzzleGroupObjectInstanceDTO> getInstances() {
-        return instances;
+    public Collection<RuleData> getRules() {
+        return rules;
     }
 
-    public void setInstances(Collection<PuzzleGroupObjectInstanceDTO> instances) {
-        this.instances = instances;
+    public void setRules(Collection<RuleData> rules) {
+        this.rules = rules;
     }
 
-    public Collection<PuzzleGroup_PuzzleObjectDTO> getObjects() {
+    public Collection<PuzzleGroupObjectData> getObjects() {
         return objects;
     }
 
-    public void setObjects(Collection<PuzzleGroup_PuzzleObjectDTO> objects) {
+    public void setObjects(Collection<PuzzleGroupObjectData> objects) {
         this.objects = objects;
     }
 
-    public PuzzleLevelInterpreterDTO() {
+    public PuzzleLevelData() {
     }
 
 }
