@@ -45,7 +45,7 @@ public class PuzzleLevelService implements PuzzleLevelRepository {
 
 
     @Override
-    public Collection<PuzzleLevel> findByTitle(String title) {
+    public Collection<PuzzleLevel> findByName(String title) {
         return null;
     }
 

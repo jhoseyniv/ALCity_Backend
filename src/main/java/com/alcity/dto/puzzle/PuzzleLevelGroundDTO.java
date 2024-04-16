@@ -1,5 +1,6 @@
 package com.alcity.dto.puzzle;
 
+import com.alcity.dto.CameraSetupDTO;
 import com.alcity.dto.base.BaseTableDTO;
 import com.alcity.dto.base.BinaryContentDTO;
 import com.alcity.entity.base.BinaryContent;
@@ -9,7 +10,7 @@ public class PuzzleLevelGroundDTO extends BaseTableDTO {
 
     private Integer numRows;
     private Integer numColumns;
-    private String cameraSetup;
+    private CameraSetupDTO cameraSetup;
     private BinaryContentDTO boardGraphic;
    // private PuzzleLevelDTO puzzleLevelDTO;
 
@@ -30,11 +31,11 @@ public class PuzzleLevelGroundDTO extends BaseTableDTO {
         this.numColumns = numColumns;
     }
 
-    public String getCameraSetup() {
+    public CameraSetupDTO getCameraSetup() {
         return cameraSetup;
     }
 
-    public void setCameraSetup(String cameraSetup) {
+    public void setCameraSetup(CameraSetupDTO cameraSetup) {
         this.cameraSetup = cameraSetup;
     }
 
@@ -53,7 +54,6 @@ public class PuzzleLevelGroundDTO extends BaseTableDTO {
         super(id, version, created, updated);
         this.numRows = numRows;
         this.numColumns = numColumns;
-        this.cameraSetup = cameraSetup;
         this.boardGraphic = boardGraphic;
     }
 }

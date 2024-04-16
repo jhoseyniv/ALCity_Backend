@@ -10,7 +10,7 @@ import java.util.Optional;
 public interface PuzzleLevelRepository  extends CrudRepository<PuzzleLevel,Long> {
     Optional<PuzzleLevel> findById(Long id);
     Collection<PuzzleLevel> findAll();
-    Collection<PuzzleLevel> findByTitle(String title);
+    Collection<PuzzleLevel> findByName(String title);
     Collection<PuzzleLevel> findByCode(String code);
 
 }

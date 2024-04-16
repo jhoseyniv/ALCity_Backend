@@ -3,6 +3,7 @@ package com.alcity.entity.puzzle;
 
 import com.alcity.entity.base.BinaryContent;
 import com.alcity.entity.base.BaseTable;
+import com.alcity.entity.base.CameraSetup;
 import com.alcity.entity.users.ApplicationMember;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -17,8 +18,18 @@ public class PuzzleLevelGround extends BaseTable {
     @Column(name="numColumns")
     private Integer numColumns;
 
-    @Column(name="cameraSetup")
-    private String cameraSetup;
+    @ManyToOne(fetch = FetchType.LAZY, optional = true,cascade = CascadeType.ALL)
+    @JoinColumn(name = "camera_setup_id", nullable = true)
+    @JsonIgnore
+    private CameraSetup cameraSetup;
+
+    public CameraSetup getCameraSetup() {
+        return cameraSetup;
+    }
+
+    public void setCameraSetup(CameraSetup cameraSetup) {
+        this.cameraSetup = cameraSetup;
+    }
 
     public Integer getNumRows() {
         return numRows;
@@ -36,18 +47,19 @@ public class PuzzleLevelGround extends BaseTable {
         this.numColumns = numColumns;
     }
 
-    public String getCameraSetup() {
-        return cameraSetup;
-    }
-
-    public void setCameraSetup(String cameraSetup) {
-        this.cameraSetup = cameraSetup;
-    }
 
     @ManyToOne(fetch = FetchType.LAZY, optional = true)
     @JoinColumn(name = "puzzle_Level_id", nullable = true)
     @JsonIgnore
     private PuzzleLevel puzzleLevel;
+
+    public PuzzleLevel getPuzzleLevel() {
+        return puzzleLevel;
+    }
+
+    public void setPuzzleLevel(PuzzleLevel puzzleLevel) {
+        this.puzzleLevel = puzzleLevel;
+    }
 
     @ManyToOne(fetch = FetchType.LAZY, optional = true)
     @JoinColumn(name = "board_graphic_id", nullable = true)
@@ -65,11 +77,10 @@ public class PuzzleLevelGround extends BaseTable {
     public PuzzleLevelGround() {
     }
 
-    public PuzzleLevelGround(Integer numRows, Integer numColumns, String cameraSetup, PuzzleLevel puzzleLevel, BinaryContent boardGraphic,Long version, Long created, Long updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
+    public PuzzleLevelGround(Integer numRows, Integer numColumns, PuzzleLevel puzzleLevel, BinaryContent boardGraphic,Long version, Long created, Long updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
         super(version, created, updated, createdBy, updatedBy);
         this.numRows = numRows;
         this.numColumns = numColumns;
-        this.cameraSetup = cameraSetup;
         this.puzzleLevel = puzzleLevel;
         this.boardGraphic = boardGraphic;
     }

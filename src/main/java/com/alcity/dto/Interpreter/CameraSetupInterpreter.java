@@ -1,11 +1,6 @@
-package com.alcity.dto;
+package com.alcity.dto.Interpreter;
 
-import com.alcity.dto.base.BaseTableDTO;
-import org.json.JSONObject;
-
-public class CameraSetupDTO extends BaseTableDTO {
-
-
+public class CameraSetupInterpreter {
     private Integer xPosition;
     private Integer yPosition;
     private Integer zPosition;
@@ -13,9 +8,6 @@ public class CameraSetupDTO extends BaseTableDTO {
     private Integer xRotation;
     private Integer yRotation;
     private Integer zRotation;
-
-    public CameraSetupDTO() {
-    }
 
     public Integer getxPosition() {
         return xPosition;
@@ -65,8 +57,10 @@ public class CameraSetupDTO extends BaseTableDTO {
         this.zRotation = zRotation;
     }
 
-    public CameraSetupDTO(Long id, Long version, String created, String updated, Integer xPosition, Integer yPosition, Integer zPosition, Integer xRotation, Integer yRotation, Integer zRotation) {
-        super(id, version, created, updated);
+    public CameraSetupInterpreter() {
+    }
+
+    public CameraSetupInterpreter(Integer xPosition, Integer yPosition, Integer zPosition, Integer xRotation, Integer yRotation, Integer zRotation) {
         this.xPosition = xPosition;
         this.yPosition = yPosition;
         this.zPosition = zPosition;
@@ -74,20 +68,4 @@ public class CameraSetupDTO extends BaseTableDTO {
         this.yRotation = yRotation;
         this.zRotation = zRotation;
     }
-
-
-    public String getCameraSetupInfottttttt() {
-
-        return "position:{" +
-                "x:" + getxPosition() +
-                ",y:" + getyPosition() +
-                ",z:" + getzPosition() +
-                "}," + System.lineSeparator() +
-                "rotation:{" + System.lineSeparator() +
-                "x:" + getxRotation() +
-                ",y:" + getyRotation() +
-                ",z:" + getzRotation() +
-                "}";
-    }
-
 }

@@ -18,7 +18,6 @@ import com.alcity.entity.users.ApplicationMember;
 import com.alcity.entity.users.ApplicationMember_WalletItem;
 import com.alcity.entity.users.WalletItem;
 import com.alcity.entity.users.WalletTransaction;
-import com.alcity.repository.base.DataTypeRepository;
 import com.alcity.service.Journey.JourneyLearningSkillService;
 import com.alcity.service.Journey.JourneyService;
 import com.alcity.service.alobject.ObjectActionService;
@@ -56,6 +55,7 @@ public class ImportBaseData_1 implements CommandLineRunner {
 
     @Autowired
     private UserGenderService userGenderService;
+
 
     @Autowired
     private WalletItemTypeService walletItemTypeService;

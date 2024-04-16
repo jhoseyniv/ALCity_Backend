@@ -53,6 +53,21 @@ public class ALCityAttribute extends BaseTable implements Serializable {
     @JsonIgnore
     private DataType dataType;
 
+    public AttributeOwnerType getAttributeOwnerType() {
+        return attributeOwnerType;
+    }
+
+    public void setAttributeOwnerType(AttributeOwnerType attributeOwnerType) {
+        this.attributeOwnerType = attributeOwnerType;
+    }
+
+    public DataType getDataType() {
+        return dataType;
+    }
+
+    public void setDataType(DataType dataType) {
+        this.dataType = dataType;
+    }
 
     @OneToMany(mappedBy = "attributeId", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<ALCityAttributeValue> attributeValueSet;

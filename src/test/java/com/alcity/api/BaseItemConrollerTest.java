@@ -147,8 +147,11 @@ public class BaseItemConrollerTest {
         ResponseEntity attributeOwnerTypeById = restTemplate.getForEntity(address +"/obj/att/owner/type/id/162" , String.class);
 
         //Attribute Entity API
-        ResponseEntity attributes = restTemplate.getForEntity(address +"/obj/att/owner/type/all" , String.class);
-        ResponseEntity attributeById = restTemplate.getForEntity(address +"/obj/att/owner/type/id/162" , String.class);
+        ResponseEntity attributes = restTemplate.getForEntity(address +"/obj/att/all" , String.class);
+        ResponseEntity attributeById = restTemplate.getForEntity(address +"/obj/att/id/239" , String.class);
+
+        //Puzzle Level Objective Entity API
+        ResponseEntity objectivesByPuzzleId = restTemplate.getForEntity(address +"/pl/id/115/objectives/all" , String.class);
 
 
         ResponseEntity responsePuzzleStatus = restTemplate.getForEntity("http://127.0.0.1:8080" + "/base/pl-status/", String.class);

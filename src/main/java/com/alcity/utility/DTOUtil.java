@@ -1,11 +1,11 @@
 package com.alcity.utility;
 
-import com.alcity.dto.alobject.ActionRendererDTO;
-import com.alcity.dto.alobject.AttributeOwnerTypeDTO;
-import com.alcity.dto.alobject.ObjectActionDTO;
-import com.alcity.dto.alobject.PuzzleObjectActionOwnerTypeDTO;
+import com.alcity.dto.CameraSetupDTO;
+import com.alcity.dto.Interpreter.PuzzleLevelObjectiveData;
+import com.alcity.dto.alobject.*;
 import com.alcity.dto.base.BinaryContentDTO;
 import com.alcity.dto.base.ClientTypeDTO;
+import com.alcity.dto.base.DataTypeِDTO;
 import com.alcity.dto.journey.JourneyStepDTO;
 import com.alcity.dto.learning.LearningContentDTO;
 import com.alcity.dto.learning.LearningSkillDTO;
@@ -14,7 +14,9 @@ import com.alcity.dto.player.PermitedPlayerDTO;
 import com.alcity.dto.puzzle.*;
 import com.alcity.entity.alobject.*;
 import com.alcity.entity.base.BinaryContent;
+import com.alcity.entity.base.CameraSetup;
 import com.alcity.entity.base.ClientType;
+import com.alcity.entity.base.DataType;
 import com.alcity.entity.journey.JourneyStep;
 import com.alcity.entity.learning.LearningContent;
 import com.alcity.entity.learning.LearningSkill;
@@ -30,6 +32,96 @@ import java.util.Optional;
 public class DTOUtil {
 
 
+    public static PuzzleLevelDTO getPuzzleLevelDTO(PuzzleLevel puzzleLevel) {
+        PuzzleLevelDTO puzzleLevelDTO = new PuzzleLevelDTO();
+
+        puzzleLevelDTO.setId(puzzleLevel.getId());
+        puzzleLevelDTO.setVersion(puzzleLevel.getVersion());
+        puzzleLevelDTO.setCode(puzzleLevel.getCode());
+        puzzleLevelDTO.setApproveDate(DateUtils.getDatatimeFromLong(puzzleLevel.getApproveDate()));
+        puzzleLevelDTO.setTitle(puzzleLevel.getName());
+        puzzleLevelDTO.setToAge(puzzleLevel.getToAge());
+        puzzleLevelDTO.setFromAge(puzzleLevel.getFromAge());
+        puzzleLevelDTO.setOrdering(puzzleLevel.getOrdering());
+        puzzleLevelDTO.setMaxScore(puzzleLevel.getMaxScore());
+        puzzleLevelDTO.setUpdated(DateUtils.getDatatimeFromLong(puzzleLevel.getUpdated()));
+        puzzleLevelDTO.setCreated(DateUtils.getDatatimeFromLong(puzzleLevel.getCreated()));
+        puzzleLevelDTO.setPuzzleLevelDifficulty(puzzleLevel.getPuzzleDifficulty().getLabel());
+        puzzleLevelDTO.setPuzzleLevelPrivacy(puzzleLevel.getPuzzleLevelPrivacy().getLabel());
+        puzzleLevelDTO.setPuzzleLevelStatus(puzzleLevel.getPuzzleLevelStatus().getLabel());
+
+        return puzzleLevelDTO;
+    }
+
+    public static PuzzleLevelDTO getPuzzleLevelDTO(Optional<PuzzleLevel> puzzleLevelOptional) {
+        PuzzleLevel puzzleLevel = new PuzzleLevel();
+        PuzzleLevelDTO puzzleLevelDTO= new PuzzleLevelDTO();
+
+        if(puzzleLevelOptional.isPresent()){
+            puzzleLevel = puzzleLevelOptional.get();
+            puzzleLevelDTO = DTOUtil.getPuzzleLevelDTO(puzzleLevel);
+
+            Collection<PuzzleLevelObjectiveDTO> puzzleLevelObjectiveDTOCollection = DTOUtil.getPuzzleLevelObjectiveDTOS(puzzleLevel);
+            Collection<PuzzleLevel_LearningTopicDTO> puzzleLevel_learningTopicDTOCollection = DTOUtil.getPuzzleLevel_LearningTopicDTOS(puzzleLevel);
+            Collection<PuzzleLevelGroundDTO> puzzleLevelGroundDTOCollection = DTOUtil.getPuzzleLevelGroundDTOS(puzzleLevel);
+            Collection<PermitedPlayerDTO> permitedPlayerDTOCollection = DTOUtil.getPermitedPlayerDTOS(puzzleLevel);
+            Collection<PuzzleGroupObjectInstanceDTO> puzzleGroupObjectInstanceDTOCollection = DTOUtil.getPuzzleGroupObjectInstance(puzzleLevel);
+
+            puzzleLevelDTO.setPuzzleLevelGroundDTOCollection(puzzleLevelGroundDTOCollection);
+            puzzleLevelDTO.setPuzzleLevelObjectiveDTOCollection(puzzleLevelObjectiveDTOCollection);
+            puzzleLevelDTO.setPuzzleLevel_learningTopicDTOCollection(puzzleLevel_learningTopicDTOCollection);
+            puzzleLevelDTO.setPermitedPlayerDTOCollection(permitedPlayerDTOCollection);
+            puzzleLevelDTO.setPuzzleGroupObjectInstanceDTOCollection(puzzleGroupObjectInstanceDTOCollection);
+        } else puzzleLevelDTO = null;
+
+        return puzzleLevelDTO;
+    }
+
+        public static ALCityAttributeDTO getALCityAttributeDTO(Optional<ALCityAttribute> alCityAttributeOptional){
+        ALCityAttributeDTO alCityAttributeDTO = new ALCityAttributeDTO();
+        if (alCityAttributeOptional.isPresent()) {
+            ALCityAttribute alCityAttribute = alCityAttributeOptional.get();
+            alCityAttributeDTO.setId(alCityAttribute.getId());
+            alCityAttributeDTO.setVersion(alCityAttribute.getVersion());
+            alCityAttributeDTO.setName(alCityAttribute.getName());
+            alCityAttributeDTO.setOwnerId(alCityAttribute.getOwnerId());
+            alCityAttributeDTO.setCreated(DateUtils.getDatatimeFromLong(alCityAttribute.getCreated()));
+            alCityAttributeDTO.setUpdated(DateUtils.getDatatimeFromLong(alCityAttribute.getUpdated()));
+
+            DataTypeِDTO dataTypeِDTO =  getDataTypeDTO(alCityAttribute.getDataType());
+            alCityAttributeDTO.setDataTypeِDTO(dataTypeِDTO);
+
+            AttributeOwnerTypeDTO attributeOwnerTypeDTO= getAttributeOwnerTypeDTO(alCityAttribute.getAttributeOwnerType());
+            alCityAttributeDTO.setAttributeOwnerTypeDTO(attributeOwnerTypeDTO);
+
+        }else alCityAttributeDTO = null;
+        return alCityAttributeDTO;
+
+    }
+
+    public static Collection<ALCityAttributeDTO> getALCityAttributes(Collection<ALCityAttribute> alCityAttributeCollection) {
+        Collection<ALCityAttributeDTO> alCityAttributeDTOCollection = new ArrayList<ALCityAttributeDTO>();
+        Iterator<ALCityAttribute> itr = alCityAttributeCollection.iterator();
+        while (itr.hasNext()) {
+            ALCityAttribute alCityAttribute = itr.next();
+            ALCityAttributeDTO alCityAttributeDTO = new ALCityAttributeDTO();
+            alCityAttributeDTO.setId(alCityAttribute.getId());
+            alCityAttributeDTO.setVersion(alCityAttribute.getVersion());
+            alCityAttributeDTO.setName(alCityAttribute.getName());
+            alCityAttributeDTO.setOwnerId(alCityAttribute.getOwnerId());
+            alCityAttributeDTO.setCreated(DateUtils.getDatatimeFromLong(alCityAttribute.getCreated()));
+            alCityAttributeDTO.setUpdated(DateUtils.getDatatimeFromLong(alCityAttribute.getUpdated()));
+
+            AttributeOwnerTypeDTO attributeOwnerTypDTOe = getAttributeOwnerTypeDTO(alCityAttribute.getAttributeOwnerType());
+            alCityAttributeDTO.setAttributeOwnerTypeDTO(attributeOwnerTypDTOe);
+
+            DataTypeِDTO dataTypeِDTO = getDataTypeDTO(alCityAttribute.getDataType());
+            alCityAttributeDTO.setDataTypeِDTO(dataTypeِDTO);
+
+            alCityAttributeDTOCollection.add(alCityAttributeDTO);
+        }
+        return alCityAttributeDTOCollection;
+    }
 
 
     public static AttributeOwnerTypeDTO getAttributeOwnerType(Optional<AttributeOwnerType> attributeOwnerTypeOptional) {
@@ -44,6 +136,30 @@ public class DTOUtil {
             attributeOwnerTypeDTO.setUpdated(DateUtils.getDatatimeFromLong(attributeOwnerType.getUpdated()));
         }else attributeOwnerTypeDTO = null;
         return attributeOwnerTypeDTO;
+    }
+    public static AttributeOwnerTypeDTO getAttributeOwnerTypeDTO(AttributeOwnerType attributeOwnerType) {
+        AttributeOwnerTypeDTO attributeOwnerTypeDTO = new AttributeOwnerTypeDTO();
+        if (attributeOwnerType != null ) {
+            attributeOwnerTypeDTO.setId(attributeOwnerType.getId());
+            attributeOwnerTypeDTO.setVersion(attributeOwnerType.getVersion());
+            attributeOwnerTypeDTO.setLabel(attributeOwnerType.getLabel());
+            attributeOwnerTypeDTO.setValue(attributeOwnerType.getValue());
+            attributeOwnerTypeDTO.setCreated(DateUtils.getDatatimeFromLong(attributeOwnerType.getCreated()));
+            attributeOwnerTypeDTO.setUpdated(DateUtils.getDatatimeFromLong(attributeOwnerType.getUpdated()));
+        }else attributeOwnerTypeDTO = null;
+        return attributeOwnerTypeDTO;
+    }
+    public static DataTypeِDTO getDataTypeDTO(DataType dataType) {
+        DataTypeِDTO dataTypeِDTO = new DataTypeِDTO();
+        if (dataType != null ) {
+            dataTypeِDTO.setId(dataType.getId());
+            dataTypeِDTO.setVersion(dataType.getVersion());
+            dataTypeِDTO.setLabel(dataType.getLabel());
+            dataTypeِDTO.setValue(dataType.getValue());
+            dataTypeِDTO.setCreated(DateUtils.getDatatimeFromLong(dataType.getCreated()));
+            dataTypeِDTO.setUpdated(DateUtils.getDatatimeFromLong(dataType.getUpdated()));
+        }else dataTypeِDTO = null;
+        return dataTypeِDTO;
     }
 
 
@@ -100,7 +216,7 @@ public class DTOUtil {
             puzzleLevelDTO.setCreated(DateUtils.getDatatimeFromLong(puzzleLevel.getCreated()));
             puzzleLevelDTO.setUpdated(DateUtils.getDatatimeFromLong(puzzleLevel.getUpdated()));
             puzzleLevelDTO.setCode(puzzleLevel.getCode());
-            puzzleLevelDTO.setTitle(puzzleLevel.getTitle());
+            puzzleLevelDTO.setTitle(puzzleLevel.getName());
             puzzleLevelDTO.setFromAge(puzzleLevel.getFromAge());
             puzzleLevelDTO.setToAge(puzzleLevel.getToAge());
             puzzleLevelDTO.setMaxScore(puzzleLevel.getMaxScore());
@@ -187,6 +303,7 @@ public class DTOUtil {
 
     }
 
+
     public static PuzzleGroupDTO getPuzzleGroupDTO(PuzzleGroup puzzleGroup) {
         PuzzleGroupDTO puzzleGroupDTO = new PuzzleGroupDTO();
         puzzleGroupDTO.setId(puzzleGroup.getId());
@@ -208,25 +325,6 @@ public class DTOUtil {
     }
 
 
-    public static PuzzleLevelDTO getPuzzleLevelDTO(PuzzleLevel puzzleLevel) {
-        PuzzleLevelDTO puzzleLevelDTO = new PuzzleLevelDTO();
-
-        puzzleLevelDTO.setId(puzzleLevel.getId());
-        puzzleLevelDTO.setVersion(puzzleLevel.getVersion());
-        puzzleLevelDTO.setCode(puzzleLevel.getCode());
-        puzzleLevelDTO.setApproveDate(DateUtils.getDatatimeFromLong(puzzleLevel.getApproveDate()));
-        puzzleLevelDTO.setTitle(puzzleLevel.getTitle());
-        puzzleLevelDTO.setToAge(puzzleLevel.getToAge());
-        puzzleLevelDTO.setFromAge(puzzleLevel.getFromAge());
-        puzzleLevelDTO.setOrdering(puzzleLevel.getOrdering());
-        puzzleLevelDTO.setMaxScore(puzzleLevel.getMaxScore());
-        puzzleLevelDTO.setUpdated(DateUtils.getDatatimeFromLong(puzzleLevel.getUpdated()));
-        puzzleLevelDTO.setCreated(DateUtils.getDatatimeFromLong(puzzleLevel.getCreated()));
-        puzzleLevelDTO.setPuzzleLevelDifficulty(puzzleLevel.getPuzzleDifficulty().getLabel());
-        puzzleLevelDTO.setPuzzleLevelPrivacy(puzzleLevel.getPuzzleLevelPrivacy().getLabel());
-        puzzleLevelDTO.setPuzzleLevelStatus(puzzleLevel.getPuzzleLevelStatus().getLabel());
-        return puzzleLevelDTO;
-    }
 
     public static Collection<PuzzleLevelObjectiveDTO> getPuzzleLevelObjectiveDTOS(PuzzleLevel puzzleLevel) {
         Collection<PuzzleLevelObjectiveDTO> puzzleLevelObjectiveDTOCollection = new ArrayList<PuzzleLevelObjectiveDTO>();
@@ -249,7 +347,25 @@ public class DTOUtil {
         }
         return puzzleLevelObjectiveDTOCollection;
     }
+    public static Collection<PuzzleLevelObjectiveData> getPuzzleLevelObjectiveData(PuzzleLevel puzzleLevel) {
+        Collection<PuzzleLevelObjectiveData> puzzleLevelObjectiveDataCollection = new ArrayList<PuzzleLevelObjectiveData>();
+        Collection<PuzzleLevelObjective> puzzleLevelObjectiveCollection = puzzleLevel.getPuzzleLevelObjectiveCollection();
 
+        Iterator<PuzzleLevelObjective> itr_objectives = puzzleLevelObjectiveCollection.iterator();
+
+        while (itr_objectives.hasNext()) {
+            PuzzleLevelObjective puzzleLevelObjective = itr_objectives.next();
+            PuzzleLevelObjectiveData puzzleLevelObjectiveData = new PuzzleLevelObjectiveData();
+            puzzleLevelObjectiveData.setId(puzzleLevelObjective.getId());
+            puzzleLevelObjectiveData.setTitle(puzzleLevelObjective.getTitle());
+            puzzleLevelObjectiveData.setCondition(puzzleLevelObjective.getCondition());
+            puzzleLevelObjectiveData.setRewardAmount(puzzleLevelObjective.getRewardAmount());
+            puzzleLevelObjectiveData.setSkillAmount(puzzleLevelObjective.getSkillAmount());
+
+            puzzleLevelObjectiveDataCollection.add(puzzleLevelObjectiveData);
+        }
+        return puzzleLevelObjectiveDataCollection;
+    }
     public static Collection<PuzzleLevel_LearningTopicDTO> getPuzzleLevel_LearningTopicDTOS(PuzzleLevel puzzleLevel) {
         Collection<PuzzleLevel_LearningTopicDTO> puzzleLevel_learningTopicDTOCollection = new ArrayList<PuzzleLevel_LearningTopicDTO>();
         Collection<PuzzleLevel_LearningTopic> puzzleLevel_learningTopicCollection = puzzleLevel.getPuzzleLevel_learningTopics();
@@ -288,7 +404,20 @@ public class DTOUtil {
 
         return puzzleLevel_learningTopicDTOCollection;
     }
-
+    public static CameraSetupDTO getCameraSetupDTO(CameraSetup cameraSetup){
+        CameraSetupDTO cameraSetupDTO = new CameraSetupDTO();
+        cameraSetupDTO.setId(cameraSetup.getId());
+        cameraSetupDTO.setVersion(cameraSetup.getVersion());
+        cameraSetupDTO.setCreated(DateUtils.getDatatimeFromLong(cameraSetup.getCreated()));
+        cameraSetupDTO.setUpdated(DateUtils.getDatatimeFromLong(cameraSetup.getUpdated()));
+        cameraSetupDTO.setxPosition(cameraSetup.getxPosition());
+        cameraSetupDTO.setyPosition(cameraSetup.getyPosition());
+        cameraSetupDTO.setzPosition(cameraSetup.getzPosition());
+        cameraSetupDTO.setxRotation(cameraSetup.getyRotation());
+        cameraSetupDTO.setyRotation(cameraSetup.getyRotation());
+        cameraSetupDTO.setzRotation(cameraSetup.getzRotation());
+        return cameraSetupDTO;
+    }
     public static Collection<PuzzleLevelGroundDTO> getPuzzleLevelGroundDTOS(PuzzleLevel puzzleLevel) {
         Collection<PuzzleLevelGroundDTO> puzzleLevelGroundDTOCollection = new ArrayList<PuzzleLevelGroundDTO>();
         Collection<PuzzleLevelGround> puzzleLevelGroundCollection = puzzleLevel.getPuzzleLevelGroundCollection();
@@ -302,7 +431,8 @@ public class DTOUtil {
             puzzleLevelGroundDTO.setUpdated(DateUtils.getDatatimeFromLong(puzzleLevelGround.getUpdated()));
             puzzleLevelGroundDTO.setNumRows(puzzleLevelGround.getNumRows());
             puzzleLevelGroundDTO.setNumColumns(puzzleLevelGround.getNumColumns());
-            puzzleLevelGroundDTO.setCameraSetup(puzzleLevelGround.getCameraSetup());
+            CameraSetupDTO cameraSetupDTO = getCameraSetupDTO(puzzleLevelGround.getCameraSetup());
+            puzzleLevelGroundDTO.setCameraSetup(cameraSetupDTO);
 
             BinaryContent boardGraphic = puzzleLevelGround.getBoardGraphic();
             BinaryContentDTO backGroundDTO= new BinaryContentDTO();

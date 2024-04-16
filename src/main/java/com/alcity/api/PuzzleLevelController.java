@@ -13,6 +13,7 @@ import com.alcity.entity.play.PermitedPlayer;
 import com.alcity.entity.puzzle.*;
 import com.alcity.service.base.PuzzleCategoryService;
 import com.alcity.service.puzzle.PuzzleGroupService;
+import com.alcity.service.puzzle.PuzzleLevelObjectiveService;
 import com.alcity.service.puzzle.PuzzleLevelService;
 import com.alcity.utility.DTOUtil;
 import com.alcity.utility.DateUtils;
@@ -42,7 +43,7 @@ public class PuzzleLevelController {
             puzzleLevelDTO.setVersion(puzzleLevel.getVersion());
             puzzleLevelDTO.setCode(puzzleLevel.getCode());
             puzzleLevelDTO.setApproveDate(DateUtils.getDatatimeFromLong(puzzleLevel.getApproveDate()));
-            puzzleLevelDTO.setTitle(puzzleLevel.getTitle());
+            puzzleLevelDTO.setTitle(puzzleLevel.getName());
             puzzleLevelDTO.setToAge(puzzleLevel.getToAge());
             puzzleLevelDTO.setFromAge(puzzleLevel.getFromAge());
             puzzleLevelDTO.setOrdering(puzzleLevel.getOrdering());
@@ -61,32 +62,23 @@ public class PuzzleLevelController {
     public PuzzleLevelDTO getPuzzleLevelById(@PathVariable Long id) {
         PuzzleLevelDTO puzzleLevelDTO= new PuzzleLevelDTO();
         Optional<PuzzleLevel> puzzleLevelOptional = puzzleLevelService.findById(id);
-        PuzzleLevel puzzleLevel = new PuzzleLevel();
-
-        if(puzzleLevelOptional.isPresent()){
-            puzzleLevel = puzzleLevelOptional.get();
-            puzzleLevelDTO = DTOUtil.getPuzzleLevelDTO(puzzleLevel);
-
-            Collection<PuzzleLevelObjectiveDTO> puzzleLevelObjectiveDTOCollection = DTOUtil.getPuzzleLevelObjectiveDTOS(puzzleLevel);
-            Collection<PuzzleLevel_LearningTopicDTO> puzzleLevel_learningTopicDTOCollection = DTOUtil.getPuzzleLevel_LearningTopicDTOS(puzzleLevel);
-            Collection<PuzzleLevelGroundDTO> puzzleLevelGroundDTOCollection = DTOUtil.getPuzzleLevelGroundDTOS(puzzleLevel);
-            Collection<PermitedPlayerDTO> permitedPlayerDTOCollection = DTOUtil.getPermitedPlayerDTOS(puzzleLevel);
-            Collection<PuzzleGroupObjectInstanceDTO> puzzleGroupObjectInstanceDTOCollection = DTOUtil.getPuzzleGroupObjectInstance(puzzleLevel);
-
-            puzzleLevelDTO.setPuzzleLevelGroundDTOCollection(puzzleLevelGroundDTOCollection);
-            puzzleLevelDTO.setPuzzleLevelObjectiveDTOCollection(puzzleLevelObjectiveDTOCollection);
-            puzzleLevelDTO.setPuzzleLevel_learningTopicDTOCollection(puzzleLevel_learningTopicDTOCollection);
-            puzzleLevelDTO.setPermitedPlayerDTOCollection(permitedPlayerDTOCollection);
-            puzzleLevelDTO.setPuzzleGroupObjectInstanceDTOCollection(puzzleGroupObjectInstanceDTOCollection);
-        }
-
+        puzzleLevelDTO = DTOUtil.getPuzzleLevelDTO(puzzleLevelOptional);
         return puzzleLevelDTO;
     }
-//    @RequestMapping(value = "/id/{id}", method = RequestMethod.GET)
-//    @ResponseBody
-//    public PuzzleLevelDTO getPuzzleLevelForInterpreter(@PathVariable Long id) {
-//
-//    }
+
+    @Autowired
+    private PuzzleLevelObjectiveService puzzleLevelObjectiveService;
 
 
+    @RequestMapping(value = "/id/{id}/objectives/all", method = RequestMethod.GET)
+    @ResponseBody
+    public Collection<PuzzleLevelObjectiveDTO> getAllObjectivesForPuzzleLevelById(@PathVariable Long id) {
+        Collection<PuzzleLevelObjectiveDTO> puzzleLevelObjectiveDTOCollection= new ArrayList<PuzzleLevelObjectiveDTO>();
+        Optional<PuzzleLevel> puzzleLevelOptional = puzzleLevelService.findById(id);
+        if(puzzleLevelOptional.isPresent())
+            puzzleLevelObjectiveDTOCollection = DTOUtil.getPuzzleLevelObjectiveDTOS(puzzleLevelOptional.get());
+        return puzzleLevelObjectiveDTOCollection;
     }
+
+
+}

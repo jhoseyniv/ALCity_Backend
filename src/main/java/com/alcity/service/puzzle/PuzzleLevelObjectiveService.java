@@ -1,5 +1,6 @@
 package com.alcity.service.puzzle;
 
+import com.alcity.entity.puzzle.PuzzleLevel;
 import com.alcity.entity.puzzle.PuzzleLevelObjective;
 import com.alcity.repository.puzzle.PuzzleLevelObjectiveRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +42,13 @@ public class PuzzleLevelObjectiveService implements PuzzleLevelObjectiveReposito
     public Collection<PuzzleLevelObjective> findAll() {
         return null;
     }
+
+    @Override
+    public Collection<PuzzleLevelObjective> findPuzzleLevelObjectiveByPuzzleLevelId(Long plId) {
+        return puzzleLevelObjectiveRepository.findPuzzleLevelObjectiveByPuzzleLevelId(plId);
+    }
+
+
 
     @Override
     public Iterable<PuzzleLevelObjective> findAllById(Iterable<Long> longs) {

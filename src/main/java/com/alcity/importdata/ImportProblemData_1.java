@@ -121,6 +121,9 @@ public class ImportProblemData_1 implements CommandLineRunner {
     @Autowired
     PuzzleObjectActionOwnerTypeService puzzleObjectActionOwnerTypeService;
 
+    @Autowired
+    private CameraSetupService cameraSetupService;
+
 
     @Autowired
     PuzzleLevelRuleEventTypeService puzzleLevelRuleEventTypeService;
@@ -221,8 +224,8 @@ public class ImportProblemData_1 implements CommandLineRunner {
 
         ZonedDateTime  createdDate= ZonedDateTime.now();
         Long now = createdDate.toEpochSecond();
-        CameraSetupDTO cameraSetupDTO = new CameraSetupDTO(5,5,5,5,5,5);
 
+        //CameraSetupDTO cameraSetupDTO = new CameraSetupDTO(5,5,5,5,5,5);
 
         byte[] puzzle_Ground_Image_1 = Util.getImage("src/main/resources/images/","playGround.png");
         BinaryContent puzzle_ground_binary_content_1 = new BinaryContent("puzzle ground for hash image",puzzle_Ground_Image_1,imageType,1L,now,now,admin_1,admin_1);
@@ -257,8 +260,14 @@ public class ImportProblemData_1 implements CommandLineRunner {
         BinaryContent puzzle_group_Hash_Image_binary_content = new BinaryContent("hashImage",puzzle_group_Hash_Image,imageType,1L,now,now,admin_1,admin_1);
         binaryContentService.save(puzzle_group_Hash_Image_binary_content);
 
+        Integer xPos=3;
+        Integer xRotation=3;
+        CameraSetup cameraSetup = new CameraSetup(1L,now,now,admin_1,admin_1,xPos,xPos,xPos,xRotation,xRotation,xRotation);
+        cameraSetupService.save(cameraSetup);
 
-        PuzzleLevelGround puzzleLevel_hashImage_ground = new PuzzleLevelGround(3,3,cameraSetupDTO.getCameraSetupInfo(),puzzleLevel_hashimage,puzzle_ground_binary_content_1,1L,now,now,admin_1,admin_1);
+
+        PuzzleLevelGround puzzleLevel_hashImage_ground = new PuzzleLevelGround(3,3,puzzleLevel_hashimage,puzzle_ground_binary_content_1,1L,now,now,admin_1,admin_1);
+        puzzleLevel_hashImage_ground.setCameraSetup(cameraSetup);
         puzzleLevelGroundService.save(puzzleLevel_hashImage_ground);
 
         PermitedPlayer player_1_puzzleLevel_hashimage = new PermitedPlayer(jalalHoseyni,puzzleLevel_hashimage,1L,now,now,admin_1,admin_1);

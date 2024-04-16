@@ -33,9 +33,6 @@ import java.util.Optional;
 public class ALObjectController {
 
     @Autowired
-    private ALCityAttributeService alCityAttributeService;
-
-    @Autowired
     private ObjectCategoryService objectCategoryService;
 
     @Autowired
@@ -43,8 +40,6 @@ public class ALObjectController {
 
     @Autowired
     private ActionRendererService actionRendererService;
-    @Autowired
-    private AttributeOwnerTypeService attributeOwnerTypeService;
 
 
 
@@ -204,6 +199,9 @@ public class ALObjectController {
     return actionRendererDTO;
     }
 
+    @Autowired
+    private AttributeOwnerTypeService attributeOwnerTypeService;
+
     @GetMapping("/att/owner/type/all")
     public Collection<AttributeOwnerTypeDTO> getAttributeOwnerTypes(Model model) {
         Collection<AttributeOwnerType> attributeOwnerTypeCollection = attributeOwnerTypeService.findAll();
@@ -221,6 +219,26 @@ public class ALObjectController {
         attributeOwnerTypeDTO = DTOUtil.getAttributeOwnerType(attributeOwnerTypeOptional);
         return attributeOwnerTypeDTO;
     }
+
+    @Autowired
+    private ALCityAttributeService alCityAttributeService;
+
+    @GetMapping("/att/all")
+    public Collection<ALCityAttributeDTO> getAttributes(Model model) {
+        Collection<ALCityAttribute> alCityAttributeCollection = alCityAttributeService.findAll();
+        Collection<ALCityAttributeDTO> alCityAttributeDTOCollection = new ArrayList<ALCityAttributeDTO>();
+        alCityAttributeDTOCollection = DTOUtil.getALCityAttributes(alCityAttributeCollection);
+        return alCityAttributeDTOCollection;
+    }
+    @RequestMapping(value = "/att/id/{id}", method = RequestMethod.GET)
+    @ResponseBody
+    public ALCityAttributeDTO getALCityAttributeById(@PathVariable Long id) {
+        Optional<ALCityAttribute> alCityAttributeOptional = alCityAttributeService.findById(id);
+        ALCityAttributeDTO alCityAttributeDTO = new ALCityAttributeDTO();
+        alCityAttributeDTO = DTOUtil.getALCityAttributeDTO(alCityAttributeOptional);
+        return alCityAttributeDTO;
+    }
+
 
 
     /*

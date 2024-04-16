@@ -1,5 +1,6 @@
 package com.alcity.service.puzzle;
 
+import com.alcity.entity.puzzle.PuzzleLevel;
 import com.alcity.entity.puzzle.PuzzleLevelGround;
 import com.alcity.repository.puzzle.PuzzleLevelGroundRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,11 @@ public class PuzzleLevelGroundService implements PuzzleLevelGroundRepository {
     }
 
     @Override
+    public Optional<PuzzleLevelGround> findByPuzzleLevelId(Long id) {
+        return puzzleLevelGroundRepository.findByPuzzleLevelId(id);
+    }
+
+     @Override
     public boolean existsById(Long aLong) {
         return false;
     }
