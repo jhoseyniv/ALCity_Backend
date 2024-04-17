@@ -13,4 +13,5 @@ public interface ALCityAttributeRepository extends CrudRepository<ALCityAttribut
     Collection<ALCityAttribute> findByName(String name);
     Collection<ALCityAttribute> findByOwnerId(Long ownerId);
 
+
 }

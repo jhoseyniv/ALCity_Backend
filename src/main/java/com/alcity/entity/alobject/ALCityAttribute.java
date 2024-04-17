@@ -9,6 +9,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Set;
 
 @Entity
@@ -35,11 +36,11 @@ public class ALCityAttribute extends BaseTable implements Serializable {
         this.ownerId = ownerId;
     }
 
-    public Set<ALCityAttributeValue> getAttributeValueSet() {
+    public Collection<ALCityAttributeValue> getAttributeValueSet() {
         return attributeValueSet;
     }
 
-    public void setAttributeValueSet(Set<ALCityAttributeValue> attributeValueSet) {
+    public void setAttributeValueSet(Collection<ALCityAttributeValue> attributeValueSet) {
         this.attributeValueSet = attributeValueSet;
     }
 
@@ -70,7 +71,7 @@ public class ALCityAttribute extends BaseTable implements Serializable {
     }
 
     @OneToMany(mappedBy = "attributeId", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Set<ALCityAttributeValue> attributeValueSet;
+    private Collection<ALCityAttributeValue> attributeValueSet;
 
 
     public ALCityAttribute() {

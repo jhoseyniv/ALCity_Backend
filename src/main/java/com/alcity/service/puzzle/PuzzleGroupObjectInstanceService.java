@@ -1,6 +1,7 @@
 package com.alcity.service.puzzle;
 
 import com.alcity.entity.puzzle.PuzzleGroupObjectInstance;
+import com.alcity.entity.puzzle.PuzzleLevelObjective;
 import com.alcity.repository.puzzle.PuzzleGroupObjectInstanceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -89,5 +90,10 @@ public class PuzzleGroupObjectInstanceService implements PuzzleGroupObjectInstan
     @Override
     public Collection<PuzzleGroupObjectInstance> findByzOrder(String zOrder) {
         return null;
+    }
+
+    @Override
+    public Collection<PuzzleGroupObjectInstance> findByPuzzleLevel(PuzzleLevelObjective pl) {
+        return puzzleGroupObjectInstanceRepository.findByPuzzleLevel(pl);
     }
 }

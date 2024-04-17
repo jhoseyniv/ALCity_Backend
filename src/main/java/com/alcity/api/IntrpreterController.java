@@ -3,15 +3,13 @@ package com.alcity.api;
 
 import com.alcity.dto.Interpreter.*;
 import com.alcity.dto.Interpreter.object.ObjectActionData;
-import com.alcity.entity.alobject.ObjectAction;
-import com.alcity.entity.alobject.PuzzleObjectActionOwnerType;
-import com.alcity.entity.alobject.PuzzleObject_ObjectAction;
+import com.alcity.dto.Interpreter.object.ObjectInstanceData;
+import com.alcity.dto.Interpreter.object.ParameterData;
+import com.alcity.entity.alobject.*;
 import com.alcity.entity.base.BinaryContent;
 import com.alcity.entity.base.CameraSetup;
-import com.alcity.entity.puzzle.PuzzleGroup;
-import com.alcity.entity.puzzle.PuzzleGroup_PuzzleObject;
-import com.alcity.entity.puzzle.PuzzleLevel;
-import com.alcity.entity.puzzle.PuzzleLevelGround;
+import com.alcity.entity.puzzle.*;
+import com.alcity.service.alobject.ALCityAttributeService;
 import com.alcity.service.alobject.PuzzleObject_ObjectActionService;
 import com.alcity.service.puzzle.PuzzleLevelGroundService;
 import com.alcity.service.puzzle.PuzzleLevelService;
@@ -56,7 +54,6 @@ public class IntrpreterController {
              PuzzleGroup pg = pl.getPuzzleGroup();
              Collection<PuzzleGroupObjectData> objects = getObjectsForPuzzleGroup(pg);
 
-
              puzzleLevelInterpreterDTO.setCols(puzzleLevelGround.getNumColumns());
              puzzleLevelInterpreterDTO.setRows(puzzleLevelGround.getNumRows());
              puzzleLevelInterpreterDTO.setObjects(objects);
@@ -66,7 +63,31 @@ public class IntrpreterController {
         return puzzleLevelInterpreterDTO;
     }
 
-    public Collection<PuzzleGroupObjectData> getObjectsForPuzzleGroup(PuzzleGroup pg) {
+    public Collection<ObjectInstanceData> getInstancesForAObjectInPuzzleLevel(PuzzleGroup_PuzzleObject pgpo) {
+        Collection<ObjectInstanceData> objectInstanceDataCollection = new ArrayList<ObjectInstanceData>();
+        Collection<PuzzleGroupObjectInstance> puzzleGroupObjectInstanceCollection = pgpo.getPuzzleGroupObjectInstanceCollection();
+        Iterator<PuzzleGroupObjectInstance> iterator = puzzleGroupObjectInstanceCollection.iterator();
+
+        while(iterator.hasNext()) {
+            PuzzleGroupObjectInstance puzzleGroupObjectInstance = iterator.next();
+            System.out.println("----------------"+puzzleGroupObjectInstance.getId());
+
+            ObjectInstanceData objectInstanceData = new ObjectInstanceData();
+            objectInstanceData.setId(puzzleGroupObjectInstance.getId());
+            objectInstanceData.setName(puzzleGroupObjectInstance.getName());
+            objectInstanceData.setX(puzzleGroupObjectInstance.getCol());
+            objectInstanceData.setY(puzzleGroupObjectInstance.getRow());
+            objectInstanceData.setZ(puzzleGroupObjectInstance.getzOrder());
+            Collection<ParameterData> parameterData = getPatemetersForAobjectActionById(puzzleGroupObjectInstance.getId());
+            objectInstanceData.setProperties(parameterData);
+
+            objectInstanceDataCollection.add(objectInstanceData);
+        }
+
+        return objectInstanceDataCollection;
+     }
+
+        public Collection<PuzzleGroupObjectData> getObjectsForPuzzleGroup(PuzzleGroup pg) {
         Collection<PuzzleGroupObjectData> puzzleGroupObjectDataCollection = new ArrayList<PuzzleGroupObjectData>();
 
         Collection<PuzzleGroup_PuzzleObject> puzzleGroup_puzzleObjectCollection = new ArrayList<>();
@@ -75,6 +96,7 @@ public class IntrpreterController {
         while(iterator.hasNext()) {
             PuzzleGroup_PuzzleObject puzzleGroup_puzzleObject = iterator.next();
             PuzzleGroupObjectData puzzleGroupObjectData = new PuzzleGroupObjectData();
+
             puzzleGroupObjectData.setId(puzzleGroup_puzzleObject.getPuzzleObject().getId());
             puzzleGroupObjectData.setTitle(puzzleGroup_puzzleObject.getTitle());
             puzzleGroupObjectData.setCode(puzzleGroup_puzzleObject.getCode());
@@ -87,8 +109,10 @@ public class IntrpreterController {
             puzzleGroupObjectData.setIconGraphicId(icon.getId());
 
             Collection<ObjectActionData> objectActionDataCollection = getActionsForAPuzzleObjectById(puzzleGroup_puzzleObject.getId());
-            System.out.println("---------------"+puzzleGroup_puzzleObject.getId());
             puzzleGroupObjectData.setActions(objectActionDataCollection);
+
+            Collection<ObjectInstanceData> objectInstanceDataCollection = getInstancesForAObjectInPuzzleLevel(puzzleGroup_puzzleObject);
+            puzzleGroupObjectData.setInstances(objectInstanceDataCollection);
 
 
             puzzleGroupObjectDataCollection.add(puzzleGroupObjectData);
@@ -99,10 +123,10 @@ public class IntrpreterController {
 
     @Autowired
     PuzzleObject_ObjectActionService puzzleObject_objectActionService;
-    public Collection<ObjectActionData> getActionsForAPuzzleObjectById(Long poId){
+    public Collection<ObjectActionData> getActionsForAPuzzleObjectById(Long pgoId){
         Collection<ObjectActionData> objectActionDataCollection = new ArrayList<ObjectActionData>();
         Collection<PuzzleObject_ObjectAction> puzzleObject_objectActionCollection = new ArrayList<PuzzleObject_ObjectAction>();
-        puzzleObject_objectActionCollection = puzzleObject_objectActionService.findByOwnerObjectid(poId);
+        puzzleObject_objectActionCollection = puzzleObject_objectActionService.findByOwnerObjectid(pgoId);
 
         Iterator<PuzzleObject_ObjectAction> iterator = puzzleObject_objectActionCollection.iterator();
         while(iterator.hasNext()) {
@@ -110,9 +134,12 @@ public class IntrpreterController {
             ObjectAction objectAction = puzzleObject_objectAction.getObjectAction();
             PuzzleObjectActionOwnerType puzzleObjectActionOwnerType = puzzleObject_objectAction.getPuzzleObjectActionOwnerType();
 
+            Collection<ParameterData> parameterData = getPatemetersForAobjectActionById(pgoId);
             ObjectActionData objectActionData = new ObjectActionData();
             objectActionData.setActionName(objectAction.getValue());
             objectActionData.setId(objectAction.getId());
+            objectActionData.setHandler(puzzleObject_objectAction.getActionRenderer().getHandler());
+            objectActionData.setParameters(parameterData);
 
             objectActionDataCollection.add(objectActionData);
         }
@@ -120,6 +147,51 @@ public class IntrpreterController {
         return objectActionDataCollection;
     }
 
+    @Autowired
+    ALCityAttributeService alCityAttributeService;
 
+    public Collection<ParameterData> getPatemetersForAobjectActionById(Long pgoId){
+
+        Collection<ParameterData> objectActionParameterDataCollection = new ArrayList<ParameterData>();
+        Collection<ALCityAttribute> alCityAttributeCollection = new ArrayList<ALCityAttribute>();
+        alCityAttributeCollection = alCityAttributeService.findByOwnerId(pgoId);
+        Iterator<ALCityAttribute> iterator = alCityAttributeCollection.iterator();
+        while(iterator.hasNext()) {
+            ALCityAttribute alCityAttribute = iterator.next();
+            Collection<ALCityAttributeValue> alCityAttributeValueCollection = alCityAttribute.getAttributeValueSet();
+            Iterator<ALCityAttributeValue> alCityAttributeValueIterator = alCityAttributeValueCollection.iterator();
+            ALCityAttributeValue alCityAttributeValue = alCityAttributeValueIterator.next();
+
+            ParameterData objectActionParameterData = new ParameterData();
+            objectActionParameterData.setName(alCityAttribute.getName());
+            objectActionParameterData.setType(alCityAttribute.getDataType().getValue());
+
+            objectActionParameterData.setValue(getValue(alCityAttributeValue));
+            objectActionParameterDataCollection.add(objectActionParameterData);
+        }
+
+        return objectActionParameterDataCollection;
+    }
+    public String getValue(ALCityAttributeValue alCityAttributeValue){
+        if (alCityAttributeValue.getBooleanValue()!=null )
+            return alCityAttributeValue.getBooleanValue().toString();
+
+        if (alCityAttributeValue.getDoubleValue()!=null )
+            return alCityAttributeValue.getDoubleValue().toString();
+
+        if (alCityAttributeValue.getIntValue()!=null )
+            return alCityAttributeValue.getIntValue().toString();
+
+        if (alCityAttributeValue.getLongValue()!=null )
+            return alCityAttributeValue.getLongValue().toString();
+
+        if (alCityAttributeValue.getBinaryContent()!=null )
+            return alCityAttributeValue.getBinaryContent().toString();
+
+        if (alCityAttributeValue.getStringValue()!=null )
+            return alCityAttributeValue.getStringValue();
+
+        return "Unknown Value";
+    }
 
 }

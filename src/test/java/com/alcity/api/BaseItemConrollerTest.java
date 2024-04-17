@@ -156,6 +156,9 @@ public class BaseItemConrollerTest {
         //Puzzle Objects Entity API
         ResponseEntity getPuzzleObjectsByPuzzleGroupId = restTemplate.getForEntity(address +"/pg/id/11/po/all" , String.class);
 
+        //Interpreter Objects Entity API
+        ResponseEntity getPuzzleLevelJsonByPuzzleLevelId = restTemplate.getForEntity(address +"/puzz/id/115" , String.class);
+
 
         ResponseEntity responsePuzzleStatus = restTemplate.getForEntity("http://127.0.0.1:8080" + "/base/pl-status/", String.class);
         ResponseEntity responsePuzzleCategory = restTemplate.getForEntity("http://127.0.0.1:8080/base/pl-category/", String.class);

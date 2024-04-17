@@ -84,6 +84,6 @@ public class ALCityAttributeService implements ALCityAttributeRepository {
 
     @Override
     public Collection<ALCityAttribute> findByOwnerId(Long ownerId) {
-        return null;
+        return ALCityAttributeRepository.findByOwnerId(ownerId);
     }
 }

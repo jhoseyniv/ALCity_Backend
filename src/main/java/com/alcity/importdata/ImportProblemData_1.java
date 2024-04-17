@@ -345,15 +345,15 @@ public class ImportProblemData_1 implements CommandLineRunner {
         ALCityAttributeValue alCityAttribute_variable_Y_value= new ALCityAttributeValue(null,1,null,null,null,null,alCityAttribute_variable_Y,alCityAttribute_variable_Y,1L,now,now,admin_1,admin_1);
 
 
-        PuzzleGroupObjectInstance instance_img0 = new PuzzleGroupObjectInstance(1,1,1,puzzleGroup_puzzleObject,puzzleLevel_hashimage,1L,now,now,admin_1,admin_1);
-        PuzzleGroupObjectInstance instance_img1 = new PuzzleGroupObjectInstance(2,3,1,puzzleGroup_puzzleObject,puzzleLevel_hashimage,1L,now,now,admin_1,admin_1);
-        PuzzleGroupObjectInstance instance_img2 = new PuzzleGroupObjectInstance(1,2,1,puzzleGroup_puzzleObject,puzzleLevel_hashimage,1L,now,now,admin_1,admin_1);
-        PuzzleGroupObjectInstance instance_img3 = new PuzzleGroupObjectInstance(2,1,1,puzzleGroup_puzzleObject,puzzleLevel_hashimage,1L,now,now,admin_1,admin_1);
-        PuzzleGroupObjectInstance instance_img4 = new PuzzleGroupObjectInstance(3,2,1,puzzleGroup_puzzleObject,puzzleLevel_hashimage,1L,now,now,admin_1,admin_1);
-        PuzzleGroupObjectInstance instance_img5 = new PuzzleGroupObjectInstance(1,3,1,puzzleGroup_puzzleObject,puzzleLevel_hashimage,1L,now,now,admin_1,admin_1);
-        PuzzleGroupObjectInstance instance_img6 = new PuzzleGroupObjectInstance(2,2,1,puzzleGroup_puzzleObject,puzzleLevel_hashimage,1L,now,now,admin_1,admin_1);
-        PuzzleGroupObjectInstance instance_img7 = new PuzzleGroupObjectInstance(3,3,1,puzzleGroup_puzzleObject,puzzleLevel_hashimage,1L,now,now,admin_1,admin_1);
-        PuzzleGroupObjectInstance instance_img8 = new PuzzleGroupObjectInstance(3,1,1,puzzleGroup_puzzleObject,puzzleLevel_hashimage,1L,now,now,admin_1,admin_1);
+        PuzzleGroupObjectInstance instance_img0 = new PuzzleGroupObjectInstance("instance_img0",1,1,1,puzzleGroup_puzzleObject,puzzleLevel_hashimage,1L,now,now,admin_1,admin_1);
+        PuzzleGroupObjectInstance instance_img1 = new PuzzleGroupObjectInstance("instance_img1",2,3,1,puzzleGroup_puzzleObject,puzzleLevel_hashimage,1L,now,now,admin_1,admin_1);
+        PuzzleGroupObjectInstance instance_img2 = new PuzzleGroupObjectInstance("instance_img2",1,2,1,puzzleGroup_puzzleObject,puzzleLevel_hashimage,1L,now,now,admin_1,admin_1);
+        PuzzleGroupObjectInstance instance_img3 = new PuzzleGroupObjectInstance("instance_img3",2,1,1,puzzleGroup_puzzleObject,puzzleLevel_hashimage,1L,now,now,admin_1,admin_1);
+        PuzzleGroupObjectInstance instance_img4 = new PuzzleGroupObjectInstance("instance_img4",3,2,1,puzzleGroup_puzzleObject,puzzleLevel_hashimage,1L,now,now,admin_1,admin_1);
+        PuzzleGroupObjectInstance instance_img5 = new PuzzleGroupObjectInstance("instance_img5",1,3,1,puzzleGroup_puzzleObject,puzzleLevel_hashimage,1L,now,now,admin_1,admin_1);
+        PuzzleGroupObjectInstance instance_img6 = new PuzzleGroupObjectInstance("instance_img6",2,2,1,puzzleGroup_puzzleObject,puzzleLevel_hashimage,1L,now,now,admin_1,admin_1);
+        PuzzleGroupObjectInstance instance_img7 = new PuzzleGroupObjectInstance("instance_img7",3,3,1,puzzleGroup_puzzleObject,puzzleLevel_hashimage,1L,now,now,admin_1,admin_1);
+        PuzzleGroupObjectInstance instance_img8 = new PuzzleGroupObjectInstance("instance_img8",3,1,1,puzzleGroup_puzzleObject,puzzleLevel_hashimage,1L,now,now,admin_1,admin_1);
 
         puzzleGroupObjectInstanceService.save(instance_img0);
         puzzleGroupObjectInstanceService.save(instance_img1);
@@ -433,208 +433,210 @@ public class ImportProblemData_1 implements CommandLineRunner {
         PuzzleObject_ObjectAction  ImageObject01_MoveAction = new PuzzleObject_ObjectAction(puzzleObjectIsOwner,puzzleGroup_puzzleObject.getId(),moveAction,moveActionRenderer,1L,now,now,admin_1,admin_1);
         puzzleObject_ObjectActionService.save(ImageObject01_MoveAction);
 
-        ALCityAttribute alCityAttribute_move_action =new ALCityAttribute("actionId",ImageObject01.getId(),puzzleObjectProperty,alcity_Long,1L,now,now,admin_1,admin_1);
+        ALCityAttribute alCityAttribute_move_action =new ALCityAttribute("actionId",puzzleGroup_puzzleObject.getId(),puzzleObjectProperty,alcity_Long,1L,now,now,admin_1,admin_1);
         alCityAttributeService.save(alCityAttribute_move_action);
-        ALCityAttributeValue alCity_moveAction_parameter_action_id= new ALCityAttributeValue(null,null,moveAction.getId(),null,null,null,alCityAttribute_move_action,alCityAttribute_move_action,1L,now,now,admin_1,admin_1);
+        ALCityAttributeValue alCity_moveAction_parameter_action_id= new ALCityAttributeValue(null,null,alCityAttribute_move_action.getId(),null,null,null,alCityAttribute_move_action,alCityAttribute_move_action,1L,now,now,admin_1,admin_1);
         alCityAttributeValueService.save(alCity_moveAction_parameter_action_id);
 
-        ALCityAttribute alCityAttribute_move_aSync =new ALCityAttribute("aSync",ImageObject01.getId(),puzzleObjectProperty,alcity_Boolean,1L,now,now,admin_1,admin_1);
+        ALCityAttribute alCityAttribute_move_aSync =new ALCityAttribute("aSync",puzzleGroup_puzzleObject.getId(),puzzleObjectProperty,alcity_Boolean,1L,now,now,admin_1,admin_1);
         alCityAttributeService.save(alCityAttribute_move_aSync);
-        ALCityAttributeValue alCity_moveAction_parameter_aSync= new ALCityAttributeValue(false,null,null,null,null,null,alCityAttribute_move_action,alCityAttribute_move_action,1L,now,now,admin_1,admin_1);
+        ALCityAttributeValue alCity_moveAction_parameter_aSync= new ALCityAttributeValue(false,null,null,null,null,null,alCityAttribute_move_aSync,alCityAttribute_move_aSync,1L,now,now,admin_1,admin_1);
         alCityAttributeValueService.save(alCity_moveAction_parameter_aSync);
 
-        ALCityAttribute alCityAttribute_move_formRow =new ALCityAttribute("formRow",ImageObject01.getId(),puzzleObjectProperty,alcity_Int,1L,now,now,admin_1,admin_1);
+        ALCityAttribute alCityAttribute_move_formRow =new ALCityAttribute("formRow",puzzleGroup_puzzleObject.getId(),puzzleObjectProperty,alcity_Int,1L,now,now,admin_1,admin_1);
         alCityAttributeService.save(alCityAttribute_move_formRow);
-        ALCityAttributeValue alCity_moveAction_parameter_fromRow= new ALCityAttributeValue(null,0,null,null,null,null,alCityAttribute_move_action,alCityAttribute_move_action,1L,now,now,admin_1,admin_1);
+        ALCityAttributeValue alCity_moveAction_parameter_fromRow= new ALCityAttributeValue(null,0,null,null,null,null,alCityAttribute_move_formRow,alCityAttribute_move_formRow,1L,now,now,admin_1,admin_1);
         alCityAttributeValueService.save(alCity_moveAction_parameter_fromRow);
 
-        ALCityAttribute alCityAttribute_move_toRow =new ALCityAttribute("toRow",ImageObject01.getId(),puzzleObjectProperty,alcity_Int,1L,now,now,admin_1,admin_1);
+        ALCityAttribute alCityAttribute_move_toRow =new ALCityAttribute("toRow",puzzleGroup_puzzleObject.getId(),puzzleObjectProperty,alcity_Int,1L,now,now,admin_1,admin_1);
         alCityAttributeService.save(alCityAttribute_move_toRow);
-        ALCityAttributeValue alCity_moveAction_parameter_toRow= new ALCityAttributeValue(null,0,null,null,null,null,alCityAttribute_move_action,alCityAttribute_move_action,1L,now,now,admin_1,admin_1);
+        ALCityAttributeValue alCity_moveAction_parameter_toRow= new ALCityAttributeValue(null,0,null,null,null,null,alCityAttribute_move_toRow,alCityAttribute_move_toRow,1L,now,now,admin_1,admin_1);
         alCityAttributeValueService.save(alCity_moveAction_parameter_toRow);
 
-        ALCityAttribute alCityAttribute_move_fromCol =new ALCityAttribute("FromCol",ImageObject01.getId(),puzzleObjectProperty,alcity_Int,1L,now,now,admin_1,admin_1);
+        ALCityAttribute alCityAttribute_move_fromCol =new ALCityAttribute("FromCol",puzzleGroup_puzzleObject.getId(),puzzleObjectProperty,alcity_Int,1L,now,now,admin_1,admin_1);
         alCityAttributeService.save(alCityAttribute_move_fromCol);
-        ALCityAttributeValue alCity_moveAction_parameter_fromCol= new ALCityAttributeValue(null,0,null,null,null,null,alCityAttribute_move_action,alCityAttribute_move_action,1L,now,now,admin_1,admin_1);
+        ALCityAttributeValue alCity_moveAction_parameter_fromCol= new ALCityAttributeValue(null,0,null,null,null,null,alCityAttribute_move_fromCol,alCityAttribute_move_fromCol,1L,now,now,admin_1,admin_1);
         alCityAttributeValueService.save(alCity_moveAction_parameter_fromCol);
 
-        ALCityAttribute alCityAttribute_move_toCol =new ALCityAttribute("toCol",ImageObject01.getId(),puzzleObjectProperty,alcity_Int,1L,now,now,admin_1,admin_1);
+        ALCityAttribute alCityAttribute_move_toCol =new ALCityAttribute("toCol",puzzleGroup_puzzleObject.getId(),puzzleObjectProperty,alcity_Int,1L,now,now,admin_1,admin_1);
         alCityAttributeService.save(alCityAttribute_move_toCol);
-        ALCityAttributeValue alCity_moveAction_parameter_toCol= new ALCityAttributeValue(null,0,null,null,null,null,alCityAttribute_move_action,alCityAttribute_move_action,1L,now,now,admin_1,admin_1);
+        ALCityAttributeValue alCity_moveAction_parameter_toCol= new ALCityAttributeValue(null,0,null,null,null,null,alCityAttribute_move_toCol,alCityAttribute_move_toCol,1L,now,now,admin_1,admin_1);
         alCityAttributeValueService.save(alCity_moveAction_parameter_toCol);
 
         //this type must be clear object type
-        ALCityAttribute alCityAttribute_move_ObjectId =new ALCityAttribute("ObjectId",ImageObject01.getId(),puzzleObjectProperty,alcity_Int,1L,now,now,admin_1,admin_1);
+        ALCityAttribute alCityAttribute_move_ObjectId =new ALCityAttribute("ObjectId",puzzleGroup_puzzleObject.getId(),puzzleObjectProperty,alcity_Long,1L,now,now,admin_1,admin_1);
         alCityAttributeService.save(alCityAttribute_move_ObjectId);
-        ALCityAttributeValue alCity_moveAction_parameter_ObjectId= new ALCityAttributeValue(null,0,null,null,null,null,alCityAttribute_move_action,alCityAttribute_move_action,1L,now,now,admin_1,admin_1);
+        ALCityAttributeValue alCity_moveAction_parameter_ObjectId= new ALCityAttributeValue(null,null,null,null,null,null,alCityAttribute_move_ObjectId,alCityAttribute_move_ObjectId,1L,now,now,admin_1,admin_1);
         alCityAttributeValueService.save(alCity_moveAction_parameter_ObjectId);
 
         //this type must be clear ...enum value for move type
-        ALCityAttribute alCityAttribute_move_moveType =new ALCityAttribute("moveType",ImageObject01.getId(),puzzleObjectProperty,alcity_String,1L,now,now,admin_1,admin_1);
+        ALCityAttribute alCityAttribute_move_moveType =new ALCityAttribute("moveType",puzzleGroup_puzzleObject.getId(),puzzleObjectProperty,alcity_String,1L,now,now,admin_1,admin_1);
         alCityAttributeService.save(alCityAttribute_move_moveType);
-        ALCityAttributeValue alCity_moveAction_parameter_moveType= new ALCityAttributeValue(null,null,null,"jump",null,null,alCityAttribute_move_action,alCityAttribute_move_action,1L,now,now,admin_1,admin_1);
+        ALCityAttributeValue alCity_moveAction_parameter_moveType= new ALCityAttributeValue(null,null,null,"jump",null,null,alCityAttribute_move_moveType,alCityAttribute_move_moveType,1L,now,now,admin_1,admin_1);
         alCityAttributeValueService.save(alCity_moveAction_parameter_moveType);
+
+
 
         ALCityAttribute alCityAttribute_instance_1_targetX= new ALCityAttribute("targetX",instance_img1.getId(),puzzleGroupObjectInstanceVariable,alcity_Int,1L,now,now,admin_1,admin_1);
         alCityAttributeService.save(alCityAttribute_instance_1_targetX);
-        ALCityAttributeValue alCityAttributeValue_instance_1_targetX = new ALCityAttributeValue(null,1,null,null,null,null,alCityAttribute_move_action,alCityAttribute_move_action,1L,now,now,admin_1,admin_1);
+        ALCityAttributeValue alCityAttributeValue_instance_1_targetX = new ALCityAttributeValue(null,1,null,null,null,null,alCityAttribute_instance_1_targetX,alCityAttribute_instance_1_targetX,1L,now,now,admin_1,admin_1);
         alCityAttributeValueService.save(alCityAttributeValue_instance_1_targetX);
 
         ALCityAttribute alCityAttribute_instance_1_targetY= new ALCityAttribute("targetY",instance_img1.getId(),puzzleGroupObjectInstanceVariable,alcity_Int,1L,now,now,admin_1,admin_1);
         alCityAttributeService.save(alCityAttribute_instance_1_targetY);
-        ALCityAttributeValue alCityAttributeValue_instance_1_targetY = new ALCityAttributeValue(null,1,null,null,null,null,alCityAttribute_move_action,alCityAttribute_move_action,1L,now,now,admin_1,admin_1);
+        ALCityAttributeValue alCityAttributeValue_instance_1_targetY = new ALCityAttributeValue(null,1,null,null,null,null,alCityAttribute_instance_1_targetY,alCityAttribute_instance_1_targetY,1L,now,now,admin_1,admin_1);
         alCityAttributeValueService.save(alCityAttributeValue_instance_1_targetY);
 
         ALCityAttribute alCityAttribute_instance_1_X= new ALCityAttribute("X",instance_img1.getId(),puzzleGroupObjectInstanceVariable,alcity_Int,1L,now,now,admin_1,admin_1);
         alCityAttributeService.save(alCityAttribute_instance_1_X);
-        ALCityAttributeValue alCityAttributeValue_instance_1_X = new ALCityAttributeValue(null,2,null,null,null,null,alCityAttribute_move_action,alCityAttribute_move_action,1L,now,now,admin_1,admin_1);
+        ALCityAttributeValue alCityAttributeValue_instance_1_X = new ALCityAttributeValue(null,2,null,null,null,null,alCityAttribute_instance_1_X,alCityAttribute_instance_1_X,1L,now,now,admin_1,admin_1);
         alCityAttributeValueService.save(alCityAttributeValue_instance_1_X);
 
         ALCityAttribute alCityAttribute_instance_1_Y= new ALCityAttribute("Y",instance_img1.getId(),puzzleGroupObjectInstanceVariable,alcity_Int,1L,now,now,admin_1,admin_1);
         alCityAttributeService.save(alCityAttribute_instance_1_Y);
-        ALCityAttributeValue alCityAttributeValue_instance_1_Y = new ALCityAttributeValue(null,3,null,null,null,null,alCityAttribute_move_action,alCityAttribute_move_action,1L,now,now,admin_1,admin_1);
+        ALCityAttributeValue alCityAttributeValue_instance_1_Y = new ALCityAttributeValue(null,3,null,null,null,null,alCityAttribute_instance_1_Y,alCityAttribute_instance_1_Y,1L,now,now,admin_1,admin_1);
         alCityAttributeValueService.save(alCityAttributeValue_instance_1_Y);
 
         ALCityAttribute alCityAttribute_instance_2_targetX= new ALCityAttribute("targetX",instance_img2.getId(),puzzleGroupObjectInstanceVariable,alcity_Int,1L,now,now,admin_1,admin_1);
         alCityAttributeService.save(alCityAttribute_instance_2_targetX);
-        ALCityAttributeValue alCityAttributeValue_instance_2_targetX = new ALCityAttributeValue(null,1,null,null,null,null,alCityAttribute_move_action,alCityAttribute_move_action,1L,now,now,admin_1,admin_1);
+        ALCityAttributeValue alCityAttributeValue_instance_2_targetX = new ALCityAttributeValue(null,1,null,null,null,null,alCityAttribute_instance_2_targetX,alCityAttribute_instance_2_targetX,1L,now,now,admin_1,admin_1);
         alCityAttributeValueService.save(alCityAttributeValue_instance_2_targetX);
 
         ALCityAttribute alCityAttribute_instance_2_targetY= new ALCityAttribute("targetY",instance_img2.getId(),puzzleGroupObjectInstanceVariable,alcity_Int,1L,now,now,admin_1,admin_1);
         alCityAttributeService.save(alCityAttribute_instance_2_targetY);
-        ALCityAttributeValue alCityAttributeValue_instance_2_targetY = new ALCityAttributeValue(null,2,null,null,null,null,alCityAttribute_move_action,alCityAttribute_move_action,1L,now,now,admin_1,admin_1);
+        ALCityAttributeValue alCityAttributeValue_instance_2_targetY = new ALCityAttributeValue(null,2,null,null,null,null,alCityAttribute_instance_2_targetY,alCityAttribute_instance_2_targetY,1L,now,now,admin_1,admin_1);
         alCityAttributeValueService.save(alCityAttributeValue_instance_2_targetY);
 
         ALCityAttribute alCityAttribute_instance_2_X= new ALCityAttribute("X",instance_img2.getId(),puzzleGroupObjectInstanceVariable,alcity_Int,1L,now,now,admin_1,admin_1);
         alCityAttributeService.save(alCityAttribute_instance_2_X);
-        ALCityAttributeValue alCityAttributeValue_instance_2_X = new ALCityAttributeValue(null,1,null,null,null,null,alCityAttribute_move_action,alCityAttribute_move_action,1L,now,now,admin_1,admin_1);
+        ALCityAttributeValue alCityAttributeValue_instance_2_X = new ALCityAttributeValue(null,1,null,null,null,null,alCityAttribute_instance_2_X,alCityAttribute_instance_2_X,1L,now,now,admin_1,admin_1);
         alCityAttributeValueService.save(alCityAttributeValue_instance_2_X);
 
         ALCityAttribute alCityAttribute_instance_2_Y= new ALCityAttribute("Y",instance_img2.getId(),puzzleGroupObjectInstanceVariable,alcity_Int,1L,now,now,admin_1,admin_1);
         alCityAttributeService.save(alCityAttribute_instance_2_Y);
-        ALCityAttributeValue alCityAttributeValue_instance_2_Y = new ALCityAttributeValue(null,2,null,null,null,null,alCityAttribute_move_action,alCityAttribute_move_action,1L,now,now,admin_1,admin_1);
+        ALCityAttributeValue alCityAttributeValue_instance_2_Y = new ALCityAttributeValue(null,2,null,null,null,null,alCityAttribute_instance_2_Y,alCityAttribute_instance_2_Y,1L,now,now,admin_1,admin_1);
         alCityAttributeValueService.save(alCityAttributeValue_instance_2_Y);
 
 
         ALCityAttribute alCityAttribute_instance_3_targetX= new ALCityAttribute("targetX",instance_img3.getId(),puzzleGroupObjectInstanceVariable,alcity_Int,1L,now,now,admin_1,admin_1);
         alCityAttributeService.save(alCityAttribute_instance_3_targetX);
-        ALCityAttributeValue alCityAttributeValue_instance_3_targetX = new ALCityAttributeValue(null,1,null,null,null,null,alCityAttribute_move_action,alCityAttribute_move_action,1L,now,now,admin_1,admin_1);
+        ALCityAttributeValue alCityAttributeValue_instance_3_targetX = new ALCityAttributeValue(null,1,null,null,null,null,alCityAttribute_instance_3_targetX,alCityAttribute_instance_3_targetX,1L,now,now,admin_1,admin_1);
         alCityAttributeValueService.save(alCityAttributeValue_instance_3_targetX);
 
         ALCityAttribute alCityAttribute_instance_3_targetY= new ALCityAttribute("targetY",instance_img3.getId(),puzzleGroupObjectInstanceVariable,alcity_Int,1L,now,now,admin_1,admin_1);
         alCityAttributeService.save(alCityAttribute_instance_3_targetY);
-        ALCityAttributeValue alCityAttributeValue_instance_3_targetY = new ALCityAttributeValue(null,3,null,null,null,null,alCityAttribute_move_action,alCityAttribute_move_action,1L,now,now,admin_1,admin_1);
+        ALCityAttributeValue alCityAttributeValue_instance_3_targetY = new ALCityAttributeValue(null,3,null,null,null,null,alCityAttribute_instance_3_targetY,alCityAttribute_instance_3_targetY,1L,now,now,admin_1,admin_1);
         alCityAttributeValueService.save(alCityAttributeValue_instance_3_targetY);
 
         ALCityAttribute alCityAttribute_instance_3_X= new ALCityAttribute("X",instance_img3.getId(),puzzleGroupObjectInstanceVariable,alcity_Int,1L,now,now,admin_1,admin_1);
         alCityAttributeService.save(alCityAttribute_instance_3_X);
-        ALCityAttributeValue alCityAttributeValue_instance_3_X = new ALCityAttributeValue(null,2,null,null,null,null,alCityAttribute_move_action,alCityAttribute_move_action,1L,now,now,admin_1,admin_1);
+        ALCityAttributeValue alCityAttributeValue_instance_3_X = new ALCityAttributeValue(null,2,null,null,null,null,alCityAttribute_instance_3_X,alCityAttribute_instance_3_X,1L,now,now,admin_1,admin_1);
         alCityAttributeValueService.save(alCityAttributeValue_instance_3_X);
 
         ALCityAttribute alCityAttribute_instance_3_Y= new ALCityAttribute("Y",instance_img3.getId(),puzzleGroupObjectInstanceVariable,alcity_Int,1L,now,now,admin_1,admin_1);
         alCityAttributeService.save(alCityAttribute_instance_3_Y);
-        ALCityAttributeValue alCityAttributeValue_instance_3_Y = new ALCityAttributeValue(null,1,null,null,null,null,alCityAttribute_move_action,alCityAttribute_move_action,1L,now,now,admin_1,admin_1);
+        ALCityAttributeValue alCityAttributeValue_instance_3_Y = new ALCityAttributeValue(null,1,null,null,null,null,alCityAttribute_instance_3_Y,alCityAttribute_instance_3_Y,1L,now,now,admin_1,admin_1);
         alCityAttributeValueService.save(alCityAttributeValue_instance_3_Y);
 
 
         ALCityAttribute alCityAttribute_instance_4_targetX= new ALCityAttribute("targetX",instance_img4.getId(),puzzleGroupObjectInstanceVariable,alcity_Int,1L,now,now,admin_1,admin_1);
         alCityAttributeService.save(alCityAttribute_instance_4_targetX);
-        ALCityAttributeValue alCityAttributeValue_instance_4_targetX = new ALCityAttributeValue(null,2,null,null,null,null,alCityAttribute_move_action,alCityAttribute_move_action,1L,now,now,admin_1,admin_1);
+        ALCityAttributeValue alCityAttributeValue_instance_4_targetX = new ALCityAttributeValue(null,2,null,null,null,null,alCityAttribute_instance_4_targetX,alCityAttribute_instance_4_targetX,1L,now,now,admin_1,admin_1);
         alCityAttributeValueService.save(alCityAttributeValue_instance_4_targetX);
 
         ALCityAttribute alCityAttribute_instance_4_targetY= new ALCityAttribute("targetY",instance_img4.getId(),puzzleGroupObjectInstanceVariable,alcity_Int,1L,now,now,admin_1,admin_1);
         alCityAttributeService.save(alCityAttribute_instance_4_targetY);
-        ALCityAttributeValue alCityAttributeValue_instance_4_targetY = new ALCityAttributeValue(null,1,null,null,null,null,alCityAttribute_move_action,alCityAttribute_move_action,1L,now,now,admin_1,admin_1);
+        ALCityAttributeValue alCityAttributeValue_instance_4_targetY = new ALCityAttributeValue(null,1,null,null,null,null,alCityAttribute_instance_4_targetY,alCityAttribute_instance_4_targetY,1L,now,now,admin_1,admin_1);
         alCityAttributeValueService.save(alCityAttributeValue_instance_4_targetY);
 
         ALCityAttribute alCityAttribute_instance_4_X= new ALCityAttribute("X",instance_img4.getId(),puzzleGroupObjectInstanceVariable,alcity_Int,1L,now,now,admin_1,admin_1);
         alCityAttributeService.save(alCityAttribute_instance_4_X);
-        ALCityAttributeValue alCityAttributeValue_instance_4_X = new ALCityAttributeValue(null,3,null,null,null,null,alCityAttribute_move_action,alCityAttribute_move_action,1L,now,now,admin_1,admin_1);
+        ALCityAttributeValue alCityAttributeValue_instance_4_X = new ALCityAttributeValue(null,3,null,null,null,null,alCityAttribute_instance_4_X,alCityAttribute_instance_4_X,1L,now,now,admin_1,admin_1);
         alCityAttributeValueService.save(alCityAttributeValue_instance_4_X);
 
         ALCityAttribute alCityAttribute_instance_4_Y= new ALCityAttribute("Y",instance_img4.getId(),puzzleGroupObjectInstanceVariable,alcity_Int,1L,now,now,admin_1,admin_1);
         alCityAttributeService.save(alCityAttribute_instance_4_Y);
-        ALCityAttributeValue alCityAttributeValue_instance_4_Y = new ALCityAttributeValue(null,2,null,null,null,null,alCityAttribute_move_action,alCityAttribute_move_action,1L,now,now,admin_1,admin_1);
+        ALCityAttributeValue alCityAttributeValue_instance_4_Y = new ALCityAttributeValue(null,2,null,null,null,null,alCityAttribute_instance_4_Y,alCityAttribute_instance_4_Y,1L,now,now,admin_1,admin_1);
         alCityAttributeValueService.save(alCityAttributeValue_instance_4_Y);
 
         ALCityAttribute alCityAttribute_instance_5_targetX= new ALCityAttribute("targetX",instance_img5.getId(),puzzleGroupObjectInstanceVariable,alcity_Int,1L,now,now,admin_1,admin_1);
         alCityAttributeService.save(alCityAttribute_instance_5_targetX);
-        ALCityAttributeValue alCityAttributeValue_instance_5_targetX = new ALCityAttributeValue(null,2,null,null,null,null,alCityAttribute_move_action,alCityAttribute_move_action,1L,now,now,admin_1,admin_1);
+        ALCityAttributeValue alCityAttributeValue_instance_5_targetX = new ALCityAttributeValue(null,2,null,null,null,null,alCityAttribute_instance_5_targetX,alCityAttribute_instance_5_targetX,1L,now,now,admin_1,admin_1);
         alCityAttributeValueService.save(alCityAttributeValue_instance_5_targetX);
 
         ALCityAttribute alCityAttribute_instance_5_targetY= new ALCityAttribute("targetY",instance_img5.getId(),puzzleGroupObjectInstanceVariable,alcity_Int,1L,now,now,admin_1,admin_1);
         alCityAttributeService.save(alCityAttribute_instance_5_targetY);
-        ALCityAttributeValue alCityAttributeValue_instance_5_targetY = new ALCityAttributeValue(null,2,null,null,null,null,alCityAttribute_move_action,alCityAttribute_move_action,1L,now,now,admin_1,admin_1);
+        ALCityAttributeValue alCityAttributeValue_instance_5_targetY = new ALCityAttributeValue(null,2,null,null,null,null,alCityAttribute_instance_5_targetY,alCityAttribute_instance_5_targetY,1L,now,now,admin_1,admin_1);
         alCityAttributeValueService.save(alCityAttributeValue_instance_5_targetY);
 
         ALCityAttribute alCityAttribute_instance_5_X= new ALCityAttribute("X",instance_img5.getId(),puzzleGroupObjectInstanceVariable,alcity_Int,1L,now,now,admin_1,admin_1);
         alCityAttributeService.save(alCityAttribute_instance_5_X);
-        ALCityAttributeValue alCityAttributeValue_instance_5_X = new ALCityAttributeValue(null,1,null,null,null,null,alCityAttribute_move_action,alCityAttribute_move_action,1L,now,now,admin_1,admin_1);
+        ALCityAttributeValue alCityAttributeValue_instance_5_X = new ALCityAttributeValue(null,1,null,null,null,null,alCityAttribute_instance_5_X,alCityAttribute_instance_5_X,1L,now,now,admin_1,admin_1);
         alCityAttributeValueService.save(alCityAttributeValue_instance_5_X);
 
         ALCityAttribute alCityAttribute_instance_5_Y= new ALCityAttribute("Y",instance_img5.getId(),puzzleGroupObjectInstanceVariable,alcity_Int,1L,now,now,admin_1,admin_1);
         alCityAttributeService.save(alCityAttribute_instance_5_Y);
-        ALCityAttributeValue alCityAttributeValue_instance_5_Y = new ALCityAttributeValue(null,3,null,null,null,null,alCityAttribute_move_action,alCityAttribute_move_action,1L,now,now,admin_1,admin_1);
+        ALCityAttributeValue alCityAttributeValue_instance_5_Y = new ALCityAttributeValue(null,3,null,null,null,null,alCityAttribute_instance_5_Y,alCityAttribute_instance_5_Y,1L,now,now,admin_1,admin_1);
         alCityAttributeValueService.save(alCityAttributeValue_instance_5_Y);
 
         ALCityAttribute alCityAttribute_instance_6_targetX= new ALCityAttribute("targetX",instance_img6.getId(),puzzleGroupObjectInstanceVariable,alcity_Int,1L,now,now,admin_1,admin_1);
         alCityAttributeService.save(alCityAttribute_instance_6_targetX);
-        ALCityAttributeValue alCityAttributeValue_instance_6_targetX = new ALCityAttributeValue(null,2,null,null,null,null,alCityAttribute_move_action,alCityAttribute_move_action,1L,now,now,admin_1,admin_1);
+        ALCityAttributeValue alCityAttributeValue_instance_6_targetX = new ALCityAttributeValue(null,2,null,null,null,null,alCityAttribute_instance_6_targetX,alCityAttribute_instance_6_targetX,1L,now,now,admin_1,admin_1);
         alCityAttributeValueService.save(alCityAttributeValue_instance_6_targetX);
 
         ALCityAttribute alCityAttribute_instance_6_targetY= new ALCityAttribute("targetY",instance_img6.getId(),puzzleGroupObjectInstanceVariable,alcity_Int,1L,now,now,admin_1,admin_1);
         alCityAttributeService.save(alCityAttribute_instance_6_targetY);
-        ALCityAttributeValue alCityAttributeValue_instance_6_targetY = new ALCityAttributeValue(null,3,null,null,null,null,alCityAttribute_move_action,alCityAttribute_move_action,1L,now,now,admin_1,admin_1);
+        ALCityAttributeValue alCityAttributeValue_instance_6_targetY = new ALCityAttributeValue(null,3,null,null,null,null,alCityAttribute_instance_6_targetY,alCityAttribute_instance_6_targetY,1L,now,now,admin_1,admin_1);
         alCityAttributeValueService.save(alCityAttributeValue_instance_6_targetY);
 
         ALCityAttribute alCityAttribute_instance_6_X= new ALCityAttribute("X",instance_img6.getId(),puzzleGroupObjectInstanceVariable,alcity_Int,1L,now,now,admin_1,admin_1);
         alCityAttributeService.save(alCityAttribute_instance_6_X);
-        ALCityAttributeValue alCityAttributeValue_instance_6_X = new ALCityAttributeValue(null,2,null,null,null,null,alCityAttribute_move_action,alCityAttribute_move_action,1L,now,now,admin_1,admin_1);
+        ALCityAttributeValue alCityAttributeValue_instance_6_X = new ALCityAttributeValue(null,2,null,null,null,null,alCityAttribute_instance_6_X,alCityAttribute_instance_6_X,1L,now,now,admin_1,admin_1);
         alCityAttributeValueService.save(alCityAttributeValue_instance_6_X);
 
         ALCityAttribute alCityAttribute_instance_6_Y= new ALCityAttribute("Y",instance_img6.getId(),puzzleGroupObjectInstanceVariable,alcity_Int,1L,now,now,admin_1,admin_1);
         alCityAttributeService.save(alCityAttribute_instance_6_Y);
-        ALCityAttributeValue alCityAttributeValue_instance_6_Y = new ALCityAttributeValue(null,2,null,null,null,null,alCityAttribute_move_action,alCityAttribute_move_action,1L,now,now,admin_1,admin_1);
+        ALCityAttributeValue alCityAttributeValue_instance_6_Y = new ALCityAttributeValue(null,2,null,null,null,null,alCityAttribute_instance_6_Y,alCityAttribute_instance_6_Y,1L,now,now,admin_1,admin_1);
         alCityAttributeValueService.save(alCityAttributeValue_instance_6_Y);
 
         ALCityAttribute alCityAttribute_instance_7_targetX= new ALCityAttribute("targetX",instance_img7.getId(),puzzleGroupObjectInstanceVariable,alcity_Int,1L,now,now,admin_1,admin_1);
         alCityAttributeService.save(alCityAttribute_instance_7_targetX);
-        ALCityAttributeValue alCityAttributeValue_instance_7_targetX = new ALCityAttributeValue(null,3,null,null,null,null,alCityAttribute_move_action,alCityAttribute_move_action,1L,now,now,admin_1,admin_1);
+        ALCityAttributeValue alCityAttributeValue_instance_7_targetX = new ALCityAttributeValue(null,3,null,null,null,null,alCityAttribute_instance_7_targetX,alCityAttribute_instance_7_targetX,1L,now,now,admin_1,admin_1);
         alCityAttributeValueService.save(alCityAttributeValue_instance_7_targetX);
 
         ALCityAttribute alCityAttribute_instance_7_targetY= new ALCityAttribute("targetY",instance_img7.getId(),puzzleGroupObjectInstanceVariable,alcity_Int,1L,now,now,admin_1,admin_1);
         alCityAttributeService.save(alCityAttribute_instance_7_targetY);
-        ALCityAttributeValue alCityAttributeValue_instance_7_targetY = new ALCityAttributeValue(null,1,null,null,null,null,alCityAttribute_move_action,alCityAttribute_move_action,1L,now,now,admin_1,admin_1);
+        ALCityAttributeValue alCityAttributeValue_instance_7_targetY = new ALCityAttributeValue(null,1,null,null,null,null,alCityAttribute_instance_7_targetY,alCityAttribute_instance_7_targetY,1L,now,now,admin_1,admin_1);
         alCityAttributeValueService.save(alCityAttributeValue_instance_7_targetY);
 
         ALCityAttribute alCityAttribute_instance_7_X= new ALCityAttribute("X",instance_img7.getId(),puzzleGroupObjectInstanceVariable,alcity_Int,1L,now,now,admin_1,admin_1);
         alCityAttributeService.save(alCityAttribute_instance_7_X);
-        ALCityAttributeValue alCityAttributeValue_instance_7_X = new ALCityAttributeValue(null,3,null,null,null,null,alCityAttribute_move_action,alCityAttribute_move_action,1L,now,now,admin_1,admin_1);
+        ALCityAttributeValue alCityAttributeValue_instance_7_X = new ALCityAttributeValue(null,3,null,null,null,null,alCityAttribute_instance_7_X,alCityAttribute_instance_7_X,1L,now,now,admin_1,admin_1);
         alCityAttributeValueService.save(alCityAttributeValue_instance_7_X);
 
         ALCityAttribute alCityAttribute_instance_7_Y= new ALCityAttribute("Y",instance_img7.getId(),puzzleGroupObjectInstanceVariable,alcity_Int,1L,now,now,admin_1,admin_1);
         alCityAttributeService.save(alCityAttribute_instance_7_Y);
-        ALCityAttributeValue alCityAttributeValue_instance_7_Y = new ALCityAttributeValue(null,3,null,null,null,null,alCityAttribute_move_action,alCityAttribute_move_action,1L,now,now,admin_1,admin_1);
+        ALCityAttributeValue alCityAttributeValue_instance_7_Y = new ALCityAttributeValue(null,3,null,null,null,null,alCityAttribute_instance_7_Y,alCityAttribute_instance_7_Y,1L,now,now,admin_1,admin_1);
         alCityAttributeValueService.save(alCityAttributeValue_instance_7_Y);
 
         ALCityAttribute alCityAttribute_instance_8_targetX= new ALCityAttribute("targetX",instance_img8.getId(),puzzleGroupObjectInstanceVariable,alcity_Int,1L,now,now,admin_1,admin_1);
         alCityAttributeService.save(alCityAttribute_instance_8_targetX);
-        ALCityAttributeValue alCityAttributeValue_instance_8_targetX = new ALCityAttributeValue(null,3,null,null,null,null,alCityAttribute_move_action,alCityAttribute_move_action,1L,now,now,admin_1,admin_1);
+        ALCityAttributeValue alCityAttributeValue_instance_8_targetX = new ALCityAttributeValue(null,3,null,null,null,null,alCityAttribute_instance_8_targetX,alCityAttribute_instance_8_targetX,1L,now,now,admin_1,admin_1);
         alCityAttributeValueService.save(alCityAttributeValue_instance_8_targetX);
 
         ALCityAttribute alCityAttribute_instance_8_targetY= new ALCityAttribute("targetY",instance_img8.getId(),puzzleGroupObjectInstanceVariable,alcity_Int,1L,now,now,admin_1,admin_1);
         alCityAttributeService.save(alCityAttribute_instance_8_targetY);
-        ALCityAttributeValue alCityAttributeValue_instance_8_targetY = new ALCityAttributeValue(null,2,null,null,null,null,alCityAttribute_move_action,alCityAttribute_move_action,1L,now,now,admin_1,admin_1);
+        ALCityAttributeValue alCityAttributeValue_instance_8_targetY = new ALCityAttributeValue(null,2,null,null,null,null,alCityAttribute_instance_8_targetY,alCityAttribute_instance_8_targetY,1L,now,now,admin_1,admin_1);
         alCityAttributeValueService.save(alCityAttributeValue_instance_8_targetY);
 
         ALCityAttribute alCityAttribute_instance_8_X= new ALCityAttribute("X",instance_img8.getId(),puzzleGroupObjectInstanceVariable,alcity_Int,1L,now,now,admin_1,admin_1);
         alCityAttributeService.save(alCityAttribute_instance_8_X);
-        ALCityAttributeValue alCityAttributeValue_instance_8_X = new ALCityAttributeValue(null,3,null,null,null,null,alCityAttribute_move_action,alCityAttribute_move_action,1L,now,now,admin_1,admin_1);
+        ALCityAttributeValue alCityAttributeValue_instance_8_X = new ALCityAttributeValue(null,3,null,null,null,null,alCityAttribute_instance_8_X,alCityAttribute_instance_8_X,1L,now,now,admin_1,admin_1);
         alCityAttributeValueService.save(alCityAttributeValue_instance_8_X);
 
         ALCityAttribute alCityAttribute_instance_8_Y= new ALCityAttribute("Y",instance_img8.getId(),puzzleGroupObjectInstanceVariable,alcity_Int,1L,now,now,admin_1,admin_1);
         alCityAttributeService.save(alCityAttribute_instance_8_Y);
-        ALCityAttributeValue alCityAttributeValue_instance_8_Y = new ALCityAttributeValue(null,1,null,null,null,null,alCityAttribute_move_action,alCityAttribute_move_action,1L,now,now,admin_1,admin_1);
+        ALCityAttributeValue alCityAttributeValue_instance_8_Y = new ALCityAttributeValue(null,1,null,null,null,null,alCityAttribute_instance_8_Y,alCityAttribute_instance_8_Y,1L,now,now,admin_1,admin_1);
         alCityAttributeValueService.save(alCityAttributeValue_instance_8_Y);
 
 

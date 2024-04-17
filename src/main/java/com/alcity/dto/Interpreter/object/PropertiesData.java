@@ -1,4 +1,4 @@
 package com.alcity.dto.Interpreter.object;
 
-public class ObjectPropertiesData {
+public class PropertiesData {
 }

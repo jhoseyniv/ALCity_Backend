@@ -11,6 +11,9 @@ import java.util.Set;
 @Entity
 public class PuzzleGroupObjectInstance extends BaseTable implements Serializable {
 
+    @Column(name="name")
+    private String name;
+
     @Column(name="row")
     private Integer row;
 
@@ -62,11 +65,20 @@ public class PuzzleGroupObjectInstance extends BaseTable implements Serializable
         this.zOrder = zOrder;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public PuzzleGroupObjectInstance() {
     }
 
-    public PuzzleGroupObjectInstance( Integer row, Integer col, Integer zOrder, PuzzleGroup_PuzzleObject puzzleGroup_PuzzleObject, PuzzleLevel puzzleLevel,Long version, Long created, Long updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
+    public PuzzleGroupObjectInstance(String name, Integer row, Integer col, Integer zOrder, PuzzleGroup_PuzzleObject puzzleGroup_PuzzleObject, PuzzleLevel puzzleLevel,Long version, Long created, Long updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
         super(version, created, updated, createdBy, updatedBy);
+        this.name = name;
         this.row = row;
         this.col = col;
         this.zOrder = zOrder;
