@@ -5,6 +5,7 @@ import com.alcity.dto.Interpreter.*;
 import com.alcity.dto.Interpreter.object.ObjectActionData;
 import com.alcity.dto.Interpreter.object.ObjectInstanceData;
 import com.alcity.dto.Interpreter.object.ParameterData;
+import com.alcity.dto.Interpreter.object.Position;
 import com.alcity.entity.alobject.*;
 import com.alcity.entity.base.BinaryContent;
 import com.alcity.entity.base.CameraSetup;
@@ -41,8 +42,11 @@ public class IntrpreterController {
          if(puzzleLevelGroundOptional.isPresent()){
              puzzleLevelGround = puzzleLevelGroundOptional.get();
              CameraSetup cameraSetup =  puzzleLevelGround.getCameraSetup();
-             CameraSetupData cameraSetupInterpreter = new CameraSetupData(cameraSetup.getxPosition(),cameraSetup.getyPosition(), cameraSetup.getzPosition(),
-                     cameraSetup.getxRotation(),cameraSetup.getyRotation(),cameraSetup.getzRotation());
+             Position Position = new Position(cameraSetup.getxPosition(),cameraSetup.getyPosition(), cameraSetup.getzPosition());
+             Position Rotation = new Position(cameraSetup.getxRotation(),cameraSetup.getyRotation(),cameraSetup.getzRotation());
+
+             CameraSetupData cameraSetupInterpreter = new CameraSetupData(Position,Rotation);
+
              puzzleLevelInterpreterDTO.setCameraSetup(cameraSetupInterpreter);
 
              PuzzleLevel pl = puzzleLevelGround.getPuzzleLevel();
@@ -75,9 +79,9 @@ public class IntrpreterController {
             ObjectInstanceData objectInstanceData = new ObjectInstanceData();
             objectInstanceData.setId(puzzleGroupObjectInstance.getId());
             objectInstanceData.setName(puzzleGroupObjectInstance.getName());
-            objectInstanceData.setX(puzzleGroupObjectInstance.getCol());
-            objectInstanceData.setY(puzzleGroupObjectInstance.getRow());
-            objectInstanceData.setZ(puzzleGroupObjectInstance.getzOrder());
+            Position instancePostion = new Position(puzzleGroupObjectInstance.getRow() , puzzleGroupObjectInstance.getCol(),puzzleGroupObjectInstance.getzOrder());
+            objectInstanceData.setPosition(instancePostion);
+
             Collection<ParameterData> parameterData = getPatemetersForAobjectActionById(puzzleGroupObjectInstance.getId());
             objectInstanceData.setProperties(parameterData);
 

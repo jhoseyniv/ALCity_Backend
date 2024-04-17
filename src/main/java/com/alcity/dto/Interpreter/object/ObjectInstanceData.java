@@ -6,9 +6,8 @@ public class ObjectInstanceData {
 
     private Long id;
     private String name;
-    private Integer x;
-    private Integer y;
-    private Integer z;
+
+    private Position position;
     private Collection<ParameterData> properties;
     private Collection<ParameterData> variables;
     private Collection<ObjectActionData> actionsParameters;
@@ -29,28 +28,12 @@ public class ObjectInstanceData {
         this.name = name;
     }
 
-    public Integer getX() {
-        return x;
+    public Position getPosition() {
+        return position;
     }
 
-    public void setX(Integer x) {
-        this.x = x;
-    }
-
-    public Integer getY() {
-        return y;
-    }
-
-    public void setY(Integer y) {
-        this.y = y;
-    }
-
-    public Integer getZ() {
-        return z;
-    }
-
-    public void setZ(Integer z) {
-        this.z = z;
+    public void setPosition(Position position) {
+        this.position = position;
     }
 
     public Collection<ParameterData> getVariables() {
@@ -80,12 +63,10 @@ public class ObjectInstanceData {
     public ObjectInstanceData() {
     }
 
-    public ObjectInstanceData(Long id, String name, Integer x, Integer y, Integer z, Collection<ParameterData> properties, Collection<ObjectActionData> actionsParameters) {
+    public ObjectInstanceData(Long id, String name, Position position, Collection<ParameterData> properties, Collection<ObjectActionData> actionsParameters) {
         this.id = id;
         this.name = name;
-        this.x = x;
-        this.y = y;
-        this.z = z;
+        this.position = position;
         this.properties = properties;
         this.actionsParameters = actionsParameters;
     }
