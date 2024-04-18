@@ -1,15 +1,12 @@
 package com.alcity.api;
 
-import com.alcity.entity.base.UserGender;
-import com.alcity.service.base.UserGenderService;
-import org.assertj.core.api.UrlAssert;
+import com.alcity.entity.alenum.UserGender;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
-import java.net.URI;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;

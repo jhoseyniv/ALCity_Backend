@@ -70,9 +70,6 @@ public class ObjectManagmentApplication {
 	}
 
 
-	@Autowired
-	private UserGenderService userGenderService;
-
 
 	@Autowired
 	private ApplicationMemberService applicationMemberService;

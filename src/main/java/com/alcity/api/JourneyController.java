@@ -1,11 +1,8 @@
 package com.alcity.api;
 
 
-import com.alcity.entity.base.UserGender;
 import com.alcity.entity.journey.Journey;
-import com.alcity.entity.learning.LearningTopic;
 import com.alcity.service.Journey.JourneyService;
-import com.alcity.service.users.WalletItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;

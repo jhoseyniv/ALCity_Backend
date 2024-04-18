@@ -1,12 +1,11 @@
 package com.alcity.api;
 
 import com.alcity.dto.base.ClientTypeDTO;
-import com.alcity.entity.alobject.ActionRenderer;
+import com.alcity.entity.alenum.UserGender;
 import com.alcity.entity.base.*;
 import com.alcity.entity.learning.LearningContent;
 import com.alcity.entity.learning.LearningSkill;
 import com.alcity.entity.learning.LearningTopic;
-import com.alcity.service.alobject.ActionRendererService;
 import com.alcity.service.base.*;
 import com.alcity.service.learning.LearningContentService;
 import com.alcity.service.learning.LearningSkillService;
@@ -26,19 +25,16 @@ import java.util.Optional;
 @RequestMapping("/base")
 public class BaseItemSetConroller {
 
-    @Autowired
-    private UserGenderService userGenderService;
     @GetMapping("/gender/all")
-    public List<UserGender> getGenders(Model model) {
-        List<UserGender> genders = userGenderService.findAll();
-        return genders;
+    public UserGender[] getGenders(Model model) {
+        return UserGender.values();
     }
-    @RequestMapping(value = "/gender/id/{id}", method = RequestMethod.GET)
-    @ResponseBody
-    public Optional<UserGender> getGenderById(@PathVariable Long id) {
-        Optional<UserGender> gender = userGenderService.findById(id);
-        return gender;
-    }
+//    @RequestMapping(value = "/gender/id/{id}", method = RequestMethod.GET)
+//    @ResponseBody
+//    public Optional<UserGender> getGenderById(@PathVariable Long id) {
+//        Optional<UserGender> gender = userGenderService.findById(id);
+//        return gender;
+//    }
 
     @Autowired
     private ClientTypeService clientTypeService;

@@ -1,9 +1,9 @@
 package com.alcity.importdata;
 
 
+import com.alcity.entity.alenum.UserGender;
 import com.alcity.entity.alobject.ObjectAction;
 import com.alcity.entity.alobject.ObjectCategory;
-import com.alcity.entity.alenum.POActionOwnerType;
 import com.alcity.entity.base.*;
 import com.alcity.entity.journey.Journey;
 import com.alcity.entity.journey.JourneyLearningSkill;
@@ -50,10 +50,6 @@ import java.util.Set;
 @Order(value=1)
 @Component
 public class ImportBaseData_1 implements CommandLineRunner {
-
-    @Autowired
-    private UserGenderService userGenderService;
-
 
     @Autowired
     private WalletItemTypeService walletItemTypeService;
@@ -150,10 +146,6 @@ public class ImportBaseData_1 implements CommandLineRunner {
         ZonedDateTime  createdDate= ZonedDateTime.now();
         Long now = createdDate.toEpochSecond();
 
-        UserGender female = new UserGender("F","Female",1L,now,now,null,null);
-        UserGender male = new UserGender("M","Male",1L,now,now,null,null);
-        userGenderService.save(female);
-        userGenderService.save(male);
 
         byte[] avatar = Util.getImage("src/main/resources/images/","avatar.png");
 
@@ -176,14 +168,14 @@ public class ImportBaseData_1 implements CommandLineRunner {
         clientTypeService.save(web);
         clientTypeService.save(tablet);
 
-        ApplicationMember admin_1= new ApplicationMember(35,"admin","admin","admin0","0912350550","j_hoseyni@yahoo.com",avatar,male,administrator,1L,now,now,null,null);
+        ApplicationMember admin_1= new ApplicationMember(35,"admin","admin","admin0","0912350550","j_hoseyni@yahoo.com",avatar,UserGender.Male,administrator,1L,now,now,null,null);
         Set clientTypeSet = new HashSet<ClientType>();
         clientTypeSet.add(web);
         admin_1.setClientTypeSet(clientTypeSet);
         applicationMemberService.save(admin_1);
 
 
-        ApplicationMember jalalHoseyni= new ApplicationMember(35,"jalal","jalal","jalal","0912350550","j_hoseyni@yahoo.com",avatar,male,guest,1L,now,now,null,null);
+        ApplicationMember jalalHoseyni= new ApplicationMember(35,"jalal","jalal","jalal","0912350550","j_hoseyni@yahoo.com",avatar,UserGender.Male,guest,1L,now,now,null,null);
         Set jalalClientTypeSet = new HashSet<ClientType>();
         jalalClientTypeSet.add(mobile);
         jalalHoseyni.setClientTypeSet(jalalClientTypeSet);

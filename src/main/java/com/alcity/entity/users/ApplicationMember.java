@@ -1,6 +1,7 @@
 package com.alcity.entity.users;
 
 
+import com.alcity.entity.alenum.UserGender;
 import com.alcity.entity.base.*;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Type;
@@ -132,9 +133,7 @@ public class ApplicationMember extends BaseTable implements Serializable {
         this.walletItems = applicationMember_walletItems;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "gender_id", nullable = false)
-    @JsonIgnore
+    @Enumerated(EnumType.ORDINAL)
     private UserGender gender;
 
 
