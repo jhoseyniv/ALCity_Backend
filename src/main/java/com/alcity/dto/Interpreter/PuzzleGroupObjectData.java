@@ -1,9 +1,6 @@
 package com.alcity.dto.Interpreter;
 
-import com.alcity.dto.Interpreter.object.ObjectActionData;
-import com.alcity.dto.Interpreter.object.PropertiesData;
-import com.alcity.dto.Interpreter.object.ObjectVariableData;
-import com.alcity.dto.Interpreter.object.ObjectInstanceData;
+import com.alcity.dto.Interpreter.object.*;
 
 import java.util.Collection;
 
@@ -15,8 +12,8 @@ public class PuzzleGroupObjectData {
     private Long iconGraphicId;
     private Long imageGraphicId;
     private Collection<ObjectActionData> actions;
-    private Collection<ObjectVariableData> variables;
-    private Collection<PropertiesData> properties;
+    private Collection<RecordrData> variables;
+    private Collection<RecordrData> properties;
 
     private  Collection<ObjectInstanceData> instances;
 
@@ -77,19 +74,19 @@ public class PuzzleGroupObjectData {
         this.actions = actions;
     }
 
-    public Collection<ObjectVariableData> getVariables() {
+    public Collection<RecordrData> getVariables() {
         return variables;
     }
 
-    public void setVariables(Collection<ObjectVariableData> variables) {
+    public void setVariables(Collection<RecordrData> variables) {
         this.variables = variables;
     }
 
-    public Collection<PropertiesData> getProperties() {
+    public Collection<RecordrData> getProperties() {
         return properties;
     }
 
-    public void setProperties(Collection<PropertiesData> properties) {
+    public void setProperties(Collection<RecordrData> properties) {
         this.properties = properties;
     }
 

@@ -1,20 +1,12 @@
 package com.alcity.api;
 
 import com.alcity.dto.alobject.*;
-import com.alcity.dto.base.BinaryContentDTO;
 import com.alcity.dto.base.ClientTypeDTO;
-import com.alcity.dto.puzzle.PuzzleCategoryDTO;
-import com.alcity.dto.puzzle.PuzzleGroupDTO;
-import com.alcity.dto.puzzle.PuzzleObjectDTO;
+import com.alcity.entity.alenum.AttributeOwnerType;
+import com.alcity.entity.alenum.POActionOwnerType;
 import com.alcity.entity.alobject.*;
 import com.alcity.entity.base.ClientType;
-import com.alcity.entity.base.PuzzleCategory;
-import com.alcity.entity.base.UserGender;
-import com.alcity.entity.learning.LearningTopic;
-import com.alcity.entity.puzzle.PuzzleObject;
 import com.alcity.service.alobject.*;
-import com.alcity.service.base.AttributeOwnerTypeService;
-import com.alcity.service.base.UserGenderService;
 import com.alcity.service.puzzle.PuzzleObjectService;
 import com.alcity.utility.DTOUtil;
 import com.alcity.utility.DateUtils;
@@ -117,45 +109,29 @@ public class ALObjectController {
             objectActionDTO=null;
        return objectActionDTO;
     }
-    @Autowired
-    private PuzzleObjectActionOwnerTypeService puzzleObjectActionOwnerTypeService;
 
     @GetMapping("/action/owner/type/all")
-    public Collection<PuzzleObjectActionOwnerTypeDTO> getObjectActionOwnerTypes(Model model) {
-        Collection<PuzzleObjectActionOwnerTypeDTO> puzzleObjectActionOwnerTypeDTOCollection = new ArrayList<PuzzleObjectActionOwnerTypeDTO>();
-        Collection<PuzzleObjectActionOwnerType> puzzleObjectActionOwnerTypeCollection = puzzleObjectActionOwnerTypeService.findAll();
-        Iterator<PuzzleObjectActionOwnerType> iterator = puzzleObjectActionOwnerTypeCollection.iterator();
-        while(iterator.hasNext()){
-            PuzzleObjectActionOwnerTypeDTO puzzleObjectActionOwnerTypeDTO = new PuzzleObjectActionOwnerTypeDTO();
-            PuzzleObjectActionOwnerType puzzleObjectActionOwnerType = iterator.next();
-            puzzleObjectActionOwnerTypeDTO.setId(puzzleObjectActionOwnerType.getId());
-            puzzleObjectActionOwnerTypeDTO.setCreated(DateUtils.getDatatimeFromLong(puzzleObjectActionOwnerType.getCreated()));
-            puzzleObjectActionOwnerTypeDTO.setUpdated(DateUtils.getDatatimeFromLong(puzzleObjectActionOwnerType.getUpdated()));
-            puzzleObjectActionOwnerTypeDTO.setVersion(puzzleObjectActionOwnerType.getVersion());
-            puzzleObjectActionOwnerTypeDTO.setLabel(puzzleObjectActionOwnerType.getLabel());
-            puzzleObjectActionOwnerTypeDTO.setValue(puzzleObjectActionOwnerType.getValue());
-            puzzleObjectActionOwnerTypeDTOCollection.add(puzzleObjectActionOwnerTypeDTO);
-        }
-        return puzzleObjectActionOwnerTypeDTOCollection;
+    public POActionOwnerType[] getObjectActionOwnerTypes(Model model) {
+        return POActionOwnerType.values();
     }
-
-    @RequestMapping(value = "/action/owner/type/id/{id}", method = RequestMethod.GET)
-    @ResponseBody
-    public PuzzleObjectActionOwnerTypeDTO getObjectActionOwnerTypeById(@PathVariable Long id) {
-        PuzzleObjectActionOwnerTypeDTO puzzleObjectActionOwnerTypeDTO=new PuzzleObjectActionOwnerTypeDTO();
-        Optional<PuzzleObjectActionOwnerType> puzzleObjectActionOwnerTypeOptional = puzzleObjectActionOwnerTypeService.findById(id);
-        if(puzzleObjectActionOwnerTypeOptional.isPresent()){
-            PuzzleObjectActionOwnerType puzzleObjectActionOwnerType = puzzleObjectActionOwnerTypeOptional.get();
-            puzzleObjectActionOwnerTypeDTO.setId(puzzleObjectActionOwnerType.getId());
-            puzzleObjectActionOwnerTypeDTO.setLabel(puzzleObjectActionOwnerType.getLabel());
-            puzzleObjectActionOwnerTypeDTO.setValue(puzzleObjectActionOwnerType.getValue());
-            puzzleObjectActionOwnerTypeDTO.setVersion(puzzleObjectActionOwnerType.getVersion());
-            puzzleObjectActionOwnerTypeDTO.setCreated(DateUtils.getDatatimeFromLong(puzzleObjectActionOwnerType.getCreated()));
-            puzzleObjectActionOwnerTypeDTO.setUpdated(DateUtils.getDatatimeFromLong(puzzleObjectActionOwnerType.getUpdated()));
-        }else puzzleObjectActionOwnerTypeDTO = null;
-
-        return puzzleObjectActionOwnerTypeDTO;
-    }
+//
+//    @RequestMapping(value = "/action/owner/type/id/{id}", method = RequestMethod.GET)
+//    @ResponseBody
+//    public PuzzleObjectActionOwnerTypeDTO getObjectActionOwnerTypeById(@PathVariable Long id) {
+//        PuzzleObjectActionOwnerTypeDTO puzzleObjectActionOwnerTypeDTO=new PuzzleObjectActionOwnerTypeDTO();
+//        Optional<POActionOwnerType> puzzleObjectActionOwnerTypeOptional = puzzleObjectActionOwnerTypeService.findById(id);
+//        if(puzzleObjectActionOwnerTypeOptional.isPresent()){
+//            POActionOwnerType puzzleObjectActionOwnerType = puzzleObjectActionOwnerTypeOptional.get();
+//            puzzleObjectActionOwnerTypeDTO.setId(puzzleObjectActionOwnerType.getId());
+//            puzzleObjectActionOwnerTypeDTO.setLabel(puzzleObjectActionOwnerType.getLabel());
+//            puzzleObjectActionOwnerTypeDTO.setValue(puzzleObjectActionOwnerType.getValue());
+//            puzzleObjectActionOwnerTypeDTO.setVersion(puzzleObjectActionOwnerType.getVersion());
+//            puzzleObjectActionOwnerTypeDTO.setCreated(DateUtils.getDatatimeFromLong(puzzleObjectActionOwnerType.getCreated()));
+//            puzzleObjectActionOwnerTypeDTO.setUpdated(DateUtils.getDatatimeFromLong(puzzleObjectActionOwnerType.getUpdated()));
+//        }else puzzleObjectActionOwnerTypeDTO = null;
+//
+//        return puzzleObjectActionOwnerTypeDTO;
+//    }
 
 
     @GetMapping("/action/renderer/all")
@@ -199,26 +175,18 @@ public class ALObjectController {
     return actionRendererDTO;
     }
 
-    @Autowired
-    private AttributeOwnerTypeService attributeOwnerTypeService;
 
     @GetMapping("/att/owner/type/all")
-    public Collection<AttributeOwnerTypeDTO> getAttributeOwnerTypes(Model model) {
-        Collection<AttributeOwnerType> attributeOwnerTypeCollection = attributeOwnerTypeService.findAll();
-        Collection<AttributeOwnerTypeDTO> attributeOwnerTypeDTOCollection = new ArrayList<AttributeOwnerTypeDTO>();
-        attributeOwnerTypeDTOCollection = DTOUtil.getAttributeOwnerTypes(attributeOwnerTypeCollection);
-        return attributeOwnerTypeDTOCollection;
+    public AttributeOwnerType[] getAttributeOwnerTypes() {
+        return AttributeOwnerType.values();
     }
 
-
-    @RequestMapping(value = "/att/owner/type/id/{id}", method = RequestMethod.GET)
-    @ResponseBody
-    public AttributeOwnerTypeDTO getAttributeOwnerTypeById(@PathVariable Long id) {
-        Optional<AttributeOwnerType> attributeOwnerTypeOptional = attributeOwnerTypeService.findById(id);
-        AttributeOwnerTypeDTO attributeOwnerTypeDTO = new AttributeOwnerTypeDTO();
-        attributeOwnerTypeDTO = DTOUtil.getAttributeOwnerType(attributeOwnerTypeOptional);
-        return attributeOwnerTypeDTO;
-    }
+//
+//    @RequestMapping(value = "/att/owner/type/id/{id}", method = RequestMethod.GET)
+//    @ResponseBody
+//    public AttributeOwnerType getAttributeOwnerTypeById(@PathVariable String ownerType) {
+//        return AttributeOwnerType.;
+//    }
 
     @Autowired
     private ALCityAttributeService alCityAttributeService;

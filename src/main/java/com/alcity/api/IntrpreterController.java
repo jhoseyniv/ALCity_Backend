@@ -2,10 +2,9 @@ package com.alcity.api;
 
 
 import com.alcity.dto.Interpreter.*;
-import com.alcity.dto.Interpreter.object.ObjectActionData;
-import com.alcity.dto.Interpreter.object.ObjectInstanceData;
-import com.alcity.dto.Interpreter.object.ParameterData;
-import com.alcity.dto.Interpreter.object.Position;
+import com.alcity.dto.Interpreter.object.*;
+import com.alcity.entity.alenum.AttributeOwnerType;
+import com.alcity.entity.alenum.POActionOwnerType;
 import com.alcity.entity.alobject.*;
 import com.alcity.entity.base.BinaryContent;
 import com.alcity.entity.base.CameraSetup;
@@ -36,35 +35,38 @@ public class IntrpreterController {
     @RequestMapping(value = "/id/{id}", method = RequestMethod.GET)
     @ResponseBody
     public PuzzleLevelData getPuzzleLevelForInterpreter(@PathVariable Long id) {
-         PuzzleLevelData puzzleLevelInterpreterDTO= new PuzzleLevelData();
+         PuzzleLevelData puzzleLevelData= new PuzzleLevelData();
          Optional<PuzzleLevelGround> puzzleLevelGroundOptional = puzzleLevelGroundService.findByPuzzleLevelId(id);
         PuzzleLevelGround puzzleLevelGround = new PuzzleLevelGround();
          if(puzzleLevelGroundOptional.isPresent()){
              puzzleLevelGround = puzzleLevelGroundOptional.get();
+
+             puzzleLevelData.setBoardGraphicId(puzzleLevelGround.getBoardGraphic().getId());
              CameraSetup cameraSetup =  puzzleLevelGround.getCameraSetup();
              Position Position = new Position(cameraSetup.getxPosition(),cameraSetup.getyPosition(), cameraSetup.getzPosition());
              Position Rotation = new Position(cameraSetup.getxRotation(),cameraSetup.getyRotation(),cameraSetup.getzRotation());
-
              CameraSetupData cameraSetupInterpreter = new CameraSetupData(Position,Rotation);
-
-             puzzleLevelInterpreterDTO.setCameraSetup(cameraSetupInterpreter);
+             puzzleLevelData.setCameraSetup(cameraSetupInterpreter);
 
              PuzzleLevel pl = puzzleLevelGround.getPuzzleLevel();
-             puzzleLevelInterpreterDTO.setCode(pl.getCode());
-             puzzleLevelInterpreterDTO.setName(pl.getName());
+             puzzleLevelData.setCode(pl.getCode());
+             puzzleLevelData.setName(pl.getName());
+
+             Collection<RecordrData>  variables = getVariablesForAPuzzleLevelById(pl.getId());
 
              Collection<PuzzleLevelObjectiveData> puzzleLevelObjectiveDataCollection = DTOUtil.getPuzzleLevelObjectiveData(pl);
-             puzzleLevelInterpreterDTO.setObjectives(puzzleLevelObjectiveDataCollection);
+             puzzleLevelData.setObjectives(puzzleLevelObjectiveDataCollection);
              PuzzleGroup pg = pl.getPuzzleGroup();
              Collection<PuzzleGroupObjectData> objects = getObjectsForPuzzleGroup(pg);
 
-             puzzleLevelInterpreterDTO.setCols(puzzleLevelGround.getNumColumns());
-             puzzleLevelInterpreterDTO.setRows(puzzleLevelGround.getNumRows());
-             puzzleLevelInterpreterDTO.setObjects(objects);
+             puzzleLevelData.setCols(puzzleLevelGround.getNumColumns());
+             puzzleLevelData.setRows(puzzleLevelGround.getNumRows());
+             puzzleLevelData.setVariables(variables);
+             puzzleLevelData.setObjects(objects);
 
          }
 
-        return puzzleLevelInterpreterDTO;
+        return puzzleLevelData;
     }
 
     public Collection<ObjectInstanceData> getInstancesForAObjectInPuzzleLevel(PuzzleGroup_PuzzleObject pgpo) {
@@ -74,7 +76,6 @@ public class IntrpreterController {
 
         while(iterator.hasNext()) {
             PuzzleGroupObjectInstance puzzleGroupObjectInstance = iterator.next();
-            System.out.println("----------------"+puzzleGroupObjectInstance.getId());
 
             ObjectInstanceData objectInstanceData = new ObjectInstanceData();
             objectInstanceData.setId(puzzleGroupObjectInstance.getId());
@@ -82,14 +83,78 @@ public class IntrpreterController {
             Position instancePostion = new Position(puzzleGroupObjectInstance.getRow() , puzzleGroupObjectInstance.getCol(),puzzleGroupObjectInstance.getzOrder());
             objectInstanceData.setPosition(instancePostion);
 
-            Collection<ParameterData> parameterData = getPatemetersForAobjectActionById(puzzleGroupObjectInstance.getId());
-            objectInstanceData.setProperties(parameterData);
+            Collection<RecordrData> properties = getPropertiesForAInstanceObjectById(puzzleGroupObjectInstance.getId());
+            Collection<RecordrData>  variables = getVariablesForAInstanceObjectById(puzzleGroupObjectInstance.getId());
+            objectInstanceData.setProperties(properties);
+            objectInstanceData.setVariables(variables);
 
             objectInstanceDataCollection.add(objectInstanceData);
         }
 
         return objectInstanceDataCollection;
      }
+    public Collection<RecordrData>  getVariablesForAPuzzleLevelById(Long plId){
+        Collection<RecordrData> variables = new ArrayList<RecordrData>();
+        Collection<ALCityAttribute>  alCityAttributes =alCityAttributeService.findByOwnerIdAndAttributeOwnerType(plId,AttributeOwnerType.Puzzle_Level_Variable);
+        Iterator<ALCityAttribute> iterator = alCityAttributes.iterator();
+        while(iterator.hasNext()) {
+            ALCityAttribute attribute = iterator.next();
+
+            Collection<ALCityAttributeValue> attributeValues = attribute.getAttributeValueSet();
+            Iterator<ALCityAttributeValue> iteratorValues = attributeValues.iterator();
+            while(iteratorValues.hasNext()) {
+                ALCityAttributeValue alCityAttributeValue = iteratorValues.next();
+                String value = getValue(alCityAttributeValue);
+                String type = attribute.getDataType().getValue();
+                RecordrData variable = new RecordrData(attribute.getName(),value,type);
+                variables.add(variable);
+            }
+
+        }
+
+        return variables;
+    }
+    public Collection<RecordrData>  getPropertiesForAInstanceObjectById(Long instanceId){
+        Collection<RecordrData> properties = new ArrayList<RecordrData>();
+        Collection<ALCityAttribute>  alCityAttributes =alCityAttributeService.findByOwnerIdAndAttributeOwnerType(instanceId, AttributeOwnerType.PuzzleGroup_ObjectInstance_Property);
+        Iterator<ALCityAttribute> iterator = alCityAttributes.iterator();
+        while(iterator.hasNext()) {
+            ALCityAttribute attribute = iterator.next();
+
+            Collection<ALCityAttributeValue> attributeValues = attribute.getAttributeValueSet();
+            Iterator<ALCityAttributeValue> iteratorValues = attributeValues.iterator();
+            while(iteratorValues.hasNext()) {
+                ALCityAttributeValue alCityAttributeValue = iteratorValues.next();
+                String value = getValue(alCityAttributeValue);
+                String type = attribute.getDataType().getValue();
+                RecordrData property = new RecordrData(attribute.getName(),value,type);
+                properties.add(property);
+            }
+        }
+        return properties;
+    }
+
+    public Collection<RecordrData>  getVariablesForAInstanceObjectById(Long instanceId){
+        Collection<RecordrData> variables = new ArrayList<RecordrData>();
+        Collection<ALCityAttribute>  alCityAttributes =alCityAttributeService.findByOwnerIdAndAttributeOwnerType(instanceId,AttributeOwnerType.PuzzleGroup_ObjectInstance_Variable);
+        Iterator<ALCityAttribute> iterator = alCityAttributes.iterator();
+        while(iterator.hasNext()) {
+            ALCityAttribute attribute = iterator.next();
+
+            Collection<ALCityAttributeValue> attributeValues = attribute.getAttributeValueSet();
+            Iterator<ALCityAttributeValue> iteratorValues = attributeValues.iterator();
+            while(iteratorValues.hasNext()) {
+                ALCityAttributeValue alCityAttributeValue = iteratorValues.next();
+                String value = getValue(alCityAttributeValue);
+                String type = attribute.getDataType().getValue();
+                RecordrData variable = new RecordrData(attribute.getName(),value,type);
+                variables.add(variable);
+            }
+        }
+
+        return variables;
+    }
+
 
         public Collection<PuzzleGroupObjectData> getObjectsForPuzzleGroup(PuzzleGroup pg) {
         Collection<PuzzleGroupObjectData> puzzleGroupObjectDataCollection = new ArrayList<PuzzleGroupObjectData>();
@@ -112,17 +177,34 @@ public class IntrpreterController {
             BinaryContent icon = puzzleGroup_puzzleObject.getPuzzleObject().getIcon();
             puzzleGroupObjectData.setIconGraphicId(icon.getId());
 
-            Collection<ObjectActionData> objectActionDataCollection = getActionsForAPuzzleObjectById(puzzleGroup_puzzleObject.getId());
-            puzzleGroupObjectData.setActions(objectActionDataCollection);
+            Collection<ObjectActionData> actions = getActionsForAPuzzleObjectById(puzzleGroup_puzzleObject.getId());
+            puzzleGroupObjectData.setActions(actions);
 
-            Collection<ObjectInstanceData> objectInstanceDataCollection = getInstancesForAObjectInPuzzleLevel(puzzleGroup_puzzleObject);
-            puzzleGroupObjectData.setInstances(objectInstanceDataCollection);
+            Collection<RecordrData> variables = getVariableForAPuzzleObjectById(puzzleGroup_puzzleObject.getId());
+            puzzleGroupObjectData.setVariables(variables);
+
+            Collection<RecordrData> properties = getPropertiesForAPuzzleObjectById(puzzleGroup_puzzleObject.getId());
+            puzzleGroupObjectData.setVariables(properties);
+
+            Collection<ObjectInstanceData> instances = getInstancesForAObjectInPuzzleLevel(puzzleGroup_puzzleObject);
+            puzzleGroupObjectData.setInstances(instances);
 
 
             puzzleGroupObjectDataCollection.add(puzzleGroupObjectData);
 
         }
         return puzzleGroupObjectDataCollection;
+    }
+
+    public Collection<RecordrData>  getPropertiesForAPuzzleObjectById(Long puzzleGroup_puzzleObject_id){
+        Collection<RecordrData> properties = new ArrayList<RecordrData>();
+
+        return properties;
+    }
+    public Collection<RecordrData>  getVariableForAPuzzleObjectById(Long puzzleGroup_puzzleObject_id){
+        Collection<RecordrData> variables = new ArrayList<RecordrData>();
+
+        return variables;
     }
 
     @Autowired
@@ -136,9 +218,9 @@ public class IntrpreterController {
         while(iterator.hasNext()) {
             PuzzleObject_ObjectAction puzzleObject_objectAction = iterator.next();
             ObjectAction objectAction = puzzleObject_objectAction.getObjectAction();
-            PuzzleObjectActionOwnerType puzzleObjectActionOwnerType = puzzleObject_objectAction.getPuzzleObjectActionOwnerType();
+            POActionOwnerType puzzleObjectActionOwnerType = puzzleObject_objectAction.getPoActionOwnerType();
 
-            Collection<ParameterData> parameterData = getPatemetersForAobjectActionById(pgoId);
+            Collection<RecordrData> parameterData = getPropertiesForAOwnerObject(pgoId,puzzleObjectActionOwnerType);
             ObjectActionData objectActionData = new ObjectActionData();
             objectActionData.setActionName(objectAction.getValue());
             objectActionData.setId(objectAction.getId());
@@ -154,11 +236,11 @@ public class IntrpreterController {
     @Autowired
     ALCityAttributeService alCityAttributeService;
 
-    public Collection<ParameterData> getPatemetersForAobjectActionById(Long pgoId){
+    public Collection<RecordrData> getPropertiesForAOwnerObject(Long ownerId, POActionOwnerType ownerType){
 
-        Collection<ParameterData> objectActionParameterDataCollection = new ArrayList<ParameterData>();
+        Collection<RecordrData> objectActionParameterDataCollection = new ArrayList<RecordrData>();
         Collection<ALCityAttribute> alCityAttributeCollection = new ArrayList<ALCityAttribute>();
-        alCityAttributeCollection = alCityAttributeService.findByOwnerId(pgoId);
+        alCityAttributeCollection = alCityAttributeService.findByOwnerId(ownerId);
         Iterator<ALCityAttribute> iterator = alCityAttributeCollection.iterator();
         while(iterator.hasNext()) {
             ALCityAttribute alCityAttribute = iterator.next();
@@ -166,7 +248,7 @@ public class IntrpreterController {
             Iterator<ALCityAttributeValue> alCityAttributeValueIterator = alCityAttributeValueCollection.iterator();
             ALCityAttributeValue alCityAttributeValue = alCityAttributeValueIterator.next();
 
-            ParameterData objectActionParameterData = new ParameterData();
+            RecordrData objectActionParameterData = new RecordrData();
             objectActionParameterData.setName(alCityAttribute.getName());
             objectActionParameterData.setType(alCityAttribute.getDataType().getValue());
 

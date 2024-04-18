@@ -1,5 +1,6 @@
 package com.alcity.dto.Interpreter;
 
+import com.alcity.dto.Interpreter.object.RecordrData;
 import com.alcity.dto.Interpreter.object.RuleData;
 
 import java.io.Serializable;
@@ -8,14 +9,34 @@ import java.util.Collection;
 public class PuzzleLevelData implements Serializable {
     private String code;
     private String name;
+
+    private Long boardGraphicId;
+
     private Integer cols;
     private Integer rows;
     private CameraSetupData cameraSetup;
     private Collection<PuzzleLevelObjectiveData> objectives;
 
+    private Collection<RecordrData> variables;
+
     private Collection<PuzzleGroupObjectData> objects;
     private Collection<RuleData> rules;
 
+    public Collection<RecordrData> getVariables() {
+        return variables;
+    }
+
+    public void setVariables(Collection<RecordrData> variables) {
+        this.variables = variables;
+    }
+
+    public Long getBoardGraphicId() {
+        return boardGraphicId;
+    }
+
+    public void setBoardGraphicId(Long boardGraphicId) {
+        this.boardGraphicId = boardGraphicId;
+    }
 
     public Collection<PuzzleLevelObjectiveData> getObjectives() {
         return objectives;

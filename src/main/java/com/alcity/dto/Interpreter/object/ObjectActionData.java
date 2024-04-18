@@ -8,7 +8,7 @@ public class ObjectActionData {
 
     private String handler;
 
-    private Collection<ParameterData> parameters;
+    private Collection<RecordrData> parameters;
     public Long getId() {
         return id;
     }
@@ -25,11 +25,11 @@ public class ObjectActionData {
         return handler;
     }
 
-    public Collection<ParameterData> getParameters() {
+    public Collection<RecordrData> getParameters() {
         return parameters;
     }
 
-    public void setParameters(Collection<ParameterData> parameters) {
+    public void setParameters(Collection<RecordrData> parameters) {
         this.parameters = parameters;
     }
 
@@ -44,7 +44,7 @@ public class ObjectActionData {
     public ObjectActionData() {
     }
 
-    public ObjectActionData(Long id, String actionName,String handler,Collection<ParameterData> parameters) {
+    public ObjectActionData(Long id, String actionName,String handler,Collection<RecordrData> parameters) {
         this.id = id;
         this.actionName = actionName;
         this.handler = handler;

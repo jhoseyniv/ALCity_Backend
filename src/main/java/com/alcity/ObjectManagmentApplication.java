@@ -161,8 +161,7 @@ public class ObjectManagmentApplication {
 	@Autowired
 	ObjectActionService objectActionService;
 
-	@Autowired
-	PuzzleObjectActionOwnerTypeService puzzleObjectActionOwnerTypeService;
+
 
 	@Autowired
 	private WalletItemService walletItemService;
@@ -173,8 +172,6 @@ public class ObjectManagmentApplication {
 	@Autowired
 	SystemEventService systemEventService;
 
-	@Autowired
-	AttributeOwnerTypeService attributeOwnerTypeService;
 
 	@Autowired
 	PuzzleGroupObjectInstanceService puzzleGroupObjectInstanceService;

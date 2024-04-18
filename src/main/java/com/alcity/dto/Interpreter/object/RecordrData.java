@@ -1,6 +1,6 @@
 package com.alcity.dto.Interpreter.object;
 
-public class ParameterData {
+public class RecordrData {
     private String name;
     private String value;
     private String type;
@@ -29,10 +29,10 @@ public class ParameterData {
         this.type = type;
     }
 
-    public ParameterData() {
+    public RecordrData() {
     }
 
-    public ParameterData(String name, String value, String type) {
+    public RecordrData(String name, String value, String type) {
         this.name = name;
         this.value = value;
         this.type = type;

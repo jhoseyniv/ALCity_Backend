@@ -1,7 +1,6 @@
 package com.alcity.utility;
 
 import com.alcity.dto.CameraSetupDTO;
-import com.alcity.dto.Interpreter.PuzzleGroupObjectData;
 import com.alcity.dto.Interpreter.PuzzleLevelObjectiveData;
 import com.alcity.dto.alobject.*;
 import com.alcity.dto.base.BinaryContentDTO;
@@ -13,6 +12,7 @@ import com.alcity.dto.learning.LearningSkillDTO;
 import com.alcity.dto.learning.LearningTopicDTO;
 import com.alcity.dto.player.PermitedPlayerDTO;
 import com.alcity.dto.puzzle.*;
+import com.alcity.entity.alenum.POActionOwnerType;
 import com.alcity.entity.alobject.*;
 import com.alcity.entity.base.BinaryContent;
 import com.alcity.entity.base.CameraSetup;
@@ -23,7 +23,6 @@ import com.alcity.entity.learning.LearningContent;
 import com.alcity.entity.learning.LearningSkill;
 import com.alcity.entity.play.PermitedPlayer;
 import com.alcity.entity.puzzle.*;
-import com.alcity.utility.DateUtils;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -92,8 +91,8 @@ public class DTOUtil {
             DataTypeِDTO dataTypeِDTO =  getDataTypeDTO(alCityAttribute.getDataType());
             alCityAttributeDTO.setDataTypeِDTO(dataTypeِDTO);
 
-            AttributeOwnerTypeDTO attributeOwnerTypeDTO= getAttributeOwnerTypeDTO(alCityAttribute.getAttributeOwnerType());
-            alCityAttributeDTO.setAttributeOwnerTypeDTO(attributeOwnerTypeDTO);
+            //AttributeOwnerTypeDTO attributeOwnerTypeDTO= getAttributeOwnerTypeDTO(alCityAttribute.getAttributeOwnerType());
+          //  alCityAttributeDTO.setAttributeOwnerTypeDTO(attributeOwnerTypeDTO);
 
         }else alCityAttributeDTO = null;
         return alCityAttributeDTO;
@@ -113,8 +112,8 @@ public class DTOUtil {
             alCityAttributeDTO.setCreated(DateUtils.getDatatimeFromLong(alCityAttribute.getCreated()));
             alCityAttributeDTO.setUpdated(DateUtils.getDatatimeFromLong(alCityAttribute.getUpdated()));
 
-            AttributeOwnerTypeDTO attributeOwnerTypDTOe = getAttributeOwnerTypeDTO(alCityAttribute.getAttributeOwnerType());
-            alCityAttributeDTO.setAttributeOwnerTypeDTO(attributeOwnerTypDTOe);
+           // AttributeOwnerTypeDTO attributeOwnerTypDTOe = getAttributeOwnerTypeDTO(alCityAttribute.getAttributeOwnerType());
+           // alCityAttributeDTO.setAttributeOwnerTypeDTO(attributeOwnerTypDTOe);
 
             DataTypeِDTO dataTypeِDTO = getDataTypeDTO(alCityAttribute.getDataType());
             alCityAttributeDTO.setDataTypeِDTO(dataTypeِDTO);
@@ -125,31 +124,31 @@ public class DTOUtil {
     }
 
 
-    public static AttributeOwnerTypeDTO getAttributeOwnerType(Optional<AttributeOwnerType> attributeOwnerTypeOptional) {
-        AttributeOwnerTypeDTO attributeOwnerTypeDTO = new AttributeOwnerTypeDTO();
-        if (attributeOwnerTypeOptional.isPresent()) {
-            AttributeOwnerType attributeOwnerType = attributeOwnerTypeOptional.get();
-            attributeOwnerTypeDTO.setId(attributeOwnerType.getId());
-            attributeOwnerTypeDTO.setVersion(attributeOwnerType.getVersion());
-            attributeOwnerTypeDTO.setLabel(attributeOwnerType.getLabel());
-            attributeOwnerTypeDTO.setValue(attributeOwnerType.getValue());
-            attributeOwnerTypeDTO.setCreated(DateUtils.getDatatimeFromLong(attributeOwnerType.getCreated()));
-            attributeOwnerTypeDTO.setUpdated(DateUtils.getDatatimeFromLong(attributeOwnerType.getUpdated()));
-        }else attributeOwnerTypeDTO = null;
-        return attributeOwnerTypeDTO;
-    }
-    public static AttributeOwnerTypeDTO getAttributeOwnerTypeDTO(AttributeOwnerType attributeOwnerType) {
-        AttributeOwnerTypeDTO attributeOwnerTypeDTO = new AttributeOwnerTypeDTO();
-        if (attributeOwnerType != null ) {
-            attributeOwnerTypeDTO.setId(attributeOwnerType.getId());
-            attributeOwnerTypeDTO.setVersion(attributeOwnerType.getVersion());
-            attributeOwnerTypeDTO.setLabel(attributeOwnerType.getLabel());
-            attributeOwnerTypeDTO.setValue(attributeOwnerType.getValue());
-            attributeOwnerTypeDTO.setCreated(DateUtils.getDatatimeFromLong(attributeOwnerType.getCreated()));
-            attributeOwnerTypeDTO.setUpdated(DateUtils.getDatatimeFromLong(attributeOwnerType.getUpdated()));
-        }else attributeOwnerTypeDTO = null;
-        return attributeOwnerTypeDTO;
-    }
+//    public static AttributeOwnerTypeDTO getAttributeOwnerType(Optional<AttributeOwnerType> attributeOwnerTypeOptional) {
+//        AttributeOwnerTypeDTO attributeOwnerTypeDTO = new AttributeOwnerTypeDTO();
+//        if (attributeOwnerTypeOptional.isPresent()) {
+//            AttributeOwnerType attributeOwnerType = attributeOwnerTypeOptional.get();
+//            attributeOwnerTypeDTO.setId(attributeOwnerType.getId());
+//            attributeOwnerTypeDTO.setVersion(attributeOwnerType.getVersion());
+//            attributeOwnerTypeDTO.setLabel(attributeOwnerType.getLabel());
+//            attributeOwnerTypeDTO.setValue(attributeOwnerType.getValue());
+//            attributeOwnerTypeDTO.setCreated(DateUtils.getDatatimeFromLong(attributeOwnerType.getCreated()));
+//            attributeOwnerTypeDTO.setUpdated(DateUtils.getDatatimeFromLong(attributeOwnerType.getUpdated()));
+//        }else attributeOwnerTypeDTO = null;
+//        return attributeOwnerTypeDTO;
+//    }
+//    public static AttributeOwnerTypeDTO getAttributeOwnerTypeDTO(AttributeOwnerType attributeOwnerType) {
+//        AttributeOwnerTypeDTO attributeOwnerTypeDTO = new AttributeOwnerTypeDTO();
+//        if (attributeOwnerType != null ) {
+//            attributeOwnerTypeDTO.setId(attributeOwnerType.getId());
+//            attributeOwnerTypeDTO.setVersion(attributeOwnerType.getVersion());
+//            attributeOwnerTypeDTO.setLabel(attributeOwnerType.getLabel());
+//            attributeOwnerTypeDTO.setValue(attributeOwnerType.getValue());
+//            attributeOwnerTypeDTO.setCreated(DateUtils.getDatatimeFromLong(attributeOwnerType.getCreated()));
+//            attributeOwnerTypeDTO.setUpdated(DateUtils.getDatatimeFromLong(attributeOwnerType.getUpdated()));
+//        }else attributeOwnerTypeDTO = null;
+//        return attributeOwnerTypeDTO;
+//    }
     public static DataTypeِDTO getDataTypeDTO(DataType dataType) {
         DataTypeِDTO dataTypeِDTO = new DataTypeِDTO();
         if (dataType != null ) {
@@ -165,22 +164,22 @@ public class DTOUtil {
 
 
 
-    public static Collection<AttributeOwnerTypeDTO> getAttributeOwnerTypes(Collection<AttributeOwnerType> attributeOwnerTypeCollection) {
-        Collection<AttributeOwnerTypeDTO> attributeOwnerTypeDTOCollection = new ArrayList<AttributeOwnerTypeDTO>();
-        Iterator<AttributeOwnerType> itr = attributeOwnerTypeCollection.iterator();
-        while (itr.hasNext()) {
-            AttributeOwnerType attributeOwnerType = itr.next();
-            AttributeOwnerTypeDTO attributeOwnerTypeDTO = new AttributeOwnerTypeDTO();
-            attributeOwnerTypeDTO.setId(attributeOwnerType.getId());
-            attributeOwnerTypeDTO.setVersion(attributeOwnerType.getVersion());
-            attributeOwnerTypeDTO.setLabel(attributeOwnerType.getLabel());
-            attributeOwnerTypeDTO.setValue(attributeOwnerType.getValue());
-            attributeOwnerTypeDTO.setCreated(DateUtils.getDatatimeFromLong(attributeOwnerType.getCreated()));
-            attributeOwnerTypeDTO.setUpdated(DateUtils.getDatatimeFromLong(attributeOwnerType.getUpdated()));
-            attributeOwnerTypeDTOCollection.add(attributeOwnerTypeDTO);
-        }
-        return attributeOwnerTypeDTOCollection;
-    }
+//    public static Collection<AttributeOwnerTypeDTO> getAttributeOwnerTypes(Collection<AttributeOwnerType> attributeOwnerTypeCollection) {
+//        Collection<AttributeOwnerTypeDTO> attributeOwnerTypeDTOCollection = new ArrayList<AttributeOwnerTypeDTO>();
+//        Iterator<AttributeOwnerType> itr = attributeOwnerTypeCollection.iterator();
+//        while (itr.hasNext()) {
+//            AttributeOwnerType attributeOwnerType = itr.next();
+//            AttributeOwnerTypeDTO attributeOwnerTypeDTO = new AttributeOwnerTypeDTO();
+//            attributeOwnerTypeDTO.setId(attributeOwnerType.getId());
+//            attributeOwnerTypeDTO.setVersion(attributeOwnerType.getVersion());
+//            attributeOwnerTypeDTO.setLabel(attributeOwnerType.getLabel());
+//            attributeOwnerTypeDTO.setValue(attributeOwnerType.getValue());
+//            attributeOwnerTypeDTO.setCreated(DateUtils.getDatatimeFromLong(attributeOwnerType.getCreated()));
+//            attributeOwnerTypeDTO.setUpdated(DateUtils.getDatatimeFromLong(attributeOwnerType.getUpdated()));
+//            attributeOwnerTypeDTOCollection.add(attributeOwnerTypeDTO);
+//        }
+//        return attributeOwnerTypeDTOCollection;
+//    }
 
 
     public static Collection<JourneyStepDTO> getJorenyStepsDTOS(Collection<JourneyStep> journeyStepCollection) {
@@ -358,6 +357,7 @@ public class DTOUtil {
             PuzzleLevelObjectiveData puzzleLevelObjectiveData = new PuzzleLevelObjectiveData();
             puzzleLevelObjectiveData.setId(puzzleLevelObjective.getId());
             puzzleLevelObjectiveData.setTitle(puzzleLevelObjective.getTitle());
+            puzzleLevelObjectiveData.setDescription(puzzleLevelObjective.getDescription());
             puzzleLevelObjectiveData.setCondition(puzzleLevelObjective.getCondition());
             puzzleLevelObjectiveData.setRewardAmount(puzzleLevelObjective.getRewardAmount());
             puzzleLevelObjectiveData.setSkillAmount(puzzleLevelObjective.getSkillAmount());
@@ -574,12 +574,12 @@ public class DTOUtil {
 
             puzzleObject_objectActionDTO.setObjectActionDTO(objectActionDTO);
 
-            PuzzleObjectActionOwnerType poaot = new PuzzleObjectActionOwnerType();
-            poaot = poa.getPuzzleObjectActionOwnerType();
-            PuzzleObjectActionOwnerTypeDTO puzzleObjectActionOwnerTypeDTO = new PuzzleObjectActionOwnerTypeDTO(poaot.getId(),poaot.getLabel(),poaot.getValue(),poaot.getVersion(),
-                    DateUtils.getDatatimeFromLong(poaot.getCreated()),DateUtils.getDatatimeFromLong(poaot.getUpdated()));
+//            POActionOwnerType poaot = new POActionOwnerType();
+//            poaot = poa.getPuzzleObjectActionOwnerType();
+//            PuzzleObjectActionOwnerTypeDTO puzzleObjectActionOwnerTypeDTO = new PuzzleObjectActionOwnerTypeDTO(poaot.getId(),poaot.getLabel(),poaot.getValue(),poaot.getVersion(),
+//                    DateUtils.getDatatimeFromLong(poaot.getCreated()),DateUtils.getDatatimeFromLong(poaot.getUpdated()));
 
-            puzzleObject_objectActionDTO.setPuzzleObjectActionOwnerTypeDTO(puzzleObjectActionOwnerTypeDTO);
+//            puzzleObject_objectActionDTO.setPuzzleObjectActionOwnerTypeDTO(puzzleObjectActionOwnerTypeDTO);
 
             ActionRenderer actionRenderer = poa.getActionRenderer();
 
@@ -607,12 +607,12 @@ public class DTOUtil {
 
             puzzleObject_objectActionDTO.setObjectActionDTO(objectActionDTO);
 
-            PuzzleObjectActionOwnerType poaot = new PuzzleObjectActionOwnerType();
-            poaot = poa.getPuzzleObjectActionOwnerType();
-            PuzzleObjectActionOwnerTypeDTO puzzleObjectActionOwnerTypeDTO = new PuzzleObjectActionOwnerTypeDTO(poaot.getId(),poaot.getLabel(),poaot.getValue(),poaot.getVersion(),
-                    DateUtils.getDatatimeFromLong(poaot.getCreated()),DateUtils.getDatatimeFromLong(poaot.getUpdated()));
+//            POActionOwnerType poaot = new POActionOwnerType();
+//            poaot = poa.getPuzzleObjectActionOwnerType();
+//            PuzzleObjectActionOwnerTypeDTO puzzleObjectActionOwnerTypeDTO = new PuzzleObjectActionOwnerTypeDTO(poaot.getId(),poaot.getLabel(),poaot.getValue(),poaot.getVersion(),
+//                    DateUtils.getDatatimeFromLong(poaot.getCreated()),DateUtils.getDatatimeFromLong(poaot.getUpdated()));
 
-            puzzleObject_objectActionDTO.setPuzzleObjectActionOwnerTypeDTO(puzzleObjectActionOwnerTypeDTO);
+//            puzzleObject_objectActionDTO.setPuzzleObjectActionOwnerTypeDTO(puzzleObjectActionOwnerTypeDTO);
 
             ActionRenderer actionRenderer = poa.getActionRenderer();
 

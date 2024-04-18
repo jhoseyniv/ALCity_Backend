@@ -1,8 +1,8 @@
 package com.alcity.entity.alobject;
 
 
+import com.alcity.entity.alenum.AttributeOwnerType;
 import com.alcity.entity.base.BaseTable;
-import com.alcity.entity.base.BinaryContent;
 import com.alcity.entity.base.DataType;
 import com.alcity.entity.users.ApplicationMember;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -10,7 +10,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Collection;
-import java.util.Set;
 
 @Entity
 public class ALCityAttribute extends BaseTable implements Serializable {
@@ -44,9 +43,7 @@ public class ALCityAttribute extends BaseTable implements Serializable {
         this.attributeValueSet = attributeValueSet;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "attribute_owner_type_id", nullable = false)
-    @JsonIgnore
+    @Enumerated(EnumType.ORDINAL)
     private AttributeOwnerType attributeOwnerType;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)

@@ -10,7 +10,7 @@ public interface PuzzleObject_ObjectActionRepository extends CrudRepository<Puzz
     Optional<PuzzleObject_ObjectAction> findById(Long id);
     Collection<PuzzleObject_ObjectAction> findAll();
     Collection<PuzzleObject_ObjectAction> findByActionRendererId(Long id);
-    Collection<PuzzleObject_ObjectAction> findByPuzzleObjectActionOwnerType(Long id);
+    Collection<PuzzleObject_ObjectAction> findByPoActionOwnerType(Long id);
     Collection<PuzzleObject_ObjectAction> findByOwnerObjectid(Long id);
 
 }

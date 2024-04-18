@@ -2,8 +2,6 @@ package com.alcity.dto.alobject;
 
 import com.alcity.dto.base.BaseTableDTO;
 import com.alcity.dto.base.DataTypeِDTO;
-import com.alcity.entity.alobject.AttributeOwnerType;
-import com.alcity.entity.base.DataType;
 
 public class ALCityAttributeDTO extends BaseTableDTO {
 

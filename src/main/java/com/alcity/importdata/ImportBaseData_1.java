@@ -1,10 +1,9 @@
 package com.alcity.importdata;
 
 
-import com.alcity.entity.alobject.AttributeOwnerType;
 import com.alcity.entity.alobject.ObjectAction;
 import com.alcity.entity.alobject.ObjectCategory;
-import com.alcity.entity.alobject.PuzzleObjectActionOwnerType;
+import com.alcity.entity.alenum.POActionOwnerType;
 import com.alcity.entity.base.*;
 import com.alcity.entity.journey.Journey;
 import com.alcity.entity.journey.JourneyLearningSkill;
@@ -22,7 +21,6 @@ import com.alcity.service.Journey.JourneyLearningSkillService;
 import com.alcity.service.Journey.JourneyService;
 import com.alcity.service.alobject.ObjectActionService;
 import com.alcity.service.alobject.ObjectCategoryService;
-import com.alcity.service.alobject.PuzzleObjectActionOwnerTypeService;
 import com.alcity.service.base.*;
 import com.alcity.service.learning.LearningSkillService;
 import com.alcity.service.learning.LearningSkill_LearningTopicService;
@@ -135,13 +133,6 @@ public class ImportBaseData_1 implements CommandLineRunner {
 
     @Autowired
     PuzzleLevelRulePostActionTypeService puzzleLevelRulePostActionTypeService;
-
-    @Autowired
-    PuzzleObjectActionOwnerTypeService puzzleObjectActionOwnerTypeService;
-
-
-    @Autowired
-    AttributeOwnerTypeService attributeOwnerTypeService;
 
     protected final Log log = LogFactory.getLog(getClass());
 
@@ -430,25 +421,25 @@ public class ImportBaseData_1 implements CommandLineRunner {
         puzzleLevelRulePostActionTypeService.save(fireEvent);
         puzzleLevelRulePostActionTypeService.save(userAlert);
 
-        PuzzleObjectActionOwnerType puzzleObjectIsOwner = new PuzzleObjectActionOwnerType("Puzzle Object","Puzzle Object",1L,now,now,admin_1,admin_1);
-        PuzzleObjectActionOwnerType  puzzleGroupObjectIsOwner = new PuzzleObjectActionOwnerType("Puzzle Group Object","Puzzl Group Object",1L,now,now,admin_1,admin_1);
-        PuzzleObjectActionOwnerType  puzzleGroupObjectInstanceIsOwner = new PuzzleObjectActionOwnerType("Puzzle Group Object Instance","Puzzle Group Object Instance",1L,now,now,admin_1,admin_1);
+//        POActionOwnerType puzzleObjectIsOwner = new POActionOwnerType("Puzzle Object","Puzzle Object",1L,now,now,admin_1,admin_1);
+//        POActionOwnerType puzzleGroupObjectIsOwner = new POActionOwnerType("Puzzle Group Object","Puzzl Group Object",1L,now,now,admin_1,admin_1);
+//        POActionOwnerType puzzleGroupObjectInstanceIsOwner = new POActionOwnerType("Puzzle Group Object Instance","Puzzle Group Object Instance",1L,now,now,admin_1,admin_1);
 
-        puzzleObjectActionOwnerTypeService.save(puzzleObjectIsOwner);
-        puzzleObjectActionOwnerTypeService.save(puzzleGroupObjectIsOwner);
-        puzzleObjectActionOwnerTypeService.save(puzzleGroupObjectInstanceIsOwner);
+//        puzzleObjectActionOwnerTypeService.save(puzzleObjectIsOwner);
+//        puzzleObjectActionOwnerTypeService.save(puzzleGroupObjectIsOwner);
+//        puzzleObjectActionOwnerTypeService.save(puzzleGroupObjectInstanceIsOwner);
 
-        AttributeOwnerType puzzleObjectProperty = new AttributeOwnerType("PuzzleObjectProperty","PuzzleObjectProperty",1L,now,now,admin_1,admin_1);
-        AttributeOwnerType puzzleGroupObjectProperty = new AttributeOwnerType("PuzzleGroupObjectProperty","PuzzleGroupObjectProperty",1L,now,now,admin_1,admin_1);
-        AttributeOwnerType puzzleGroupObjectInstanceProperty = new AttributeOwnerType("PuzzleGroupObjectInstanceProperty","PuzzleGroupObjectInstanceProperty",1L,now,now,admin_1,admin_1);
-        AttributeOwnerType puzzleGroupObjectVariable = new AttributeOwnerType("PuzzleGroupObjectVariable","PuzzleGroupObjectVariable",1L,now,now,admin_1,admin_1);
-        AttributeOwnerType puzzleGroupObjectInstanceVariable = new AttributeOwnerType("PuzzleGroupObjectInstanceVariable","PuzzleGroupObjectInstanceVariable",1L,now,now,admin_1,admin_1);
-
-        attributeOwnerTypeService.save(puzzleObjectProperty);
-        attributeOwnerTypeService.save(puzzleGroupObjectProperty);
-        attributeOwnerTypeService.save(puzzleGroupObjectInstanceProperty);
-        attributeOwnerTypeService.save(puzzleGroupObjectVariable);
-        attributeOwnerTypeService.save(puzzleGroupObjectInstanceVariable);
+//        AttributeOwnerType puzzleObjectProperty = new AttributeOwnerType("PuzzleObjectProperty","PuzzleObjectProperty",1L,now,now,admin_1,admin_1);
+//        AttributeOwnerType puzzleGroupObjectProperty = new AttributeOwnerType("PuzzleGroupObjectProperty","PuzzleGroupObjectProperty",1L,now,now,admin_1,admin_1);
+//        AttributeOwnerType puzzleGroupObjectInstanceProperty = new AttributeOwnerType("PuzzleGroupObjectInstanceProperty","PuzzleGroupObjectInstanceProperty",1L,now,now,admin_1,admin_1);
+//        AttributeOwnerType puzzleGroupObjectVariable = new AttributeOwnerType("PuzzleGroupObjectVariable","PuzzleGroupObjectVariable",1L,now,now,admin_1,admin_1);
+//        AttributeOwnerType puzzleGroupObjectInstanceVariable = new AttributeOwnerType("PuzzleGroupObjectInstanceVariable","PuzzleGroupObjectInstanceVariable",1L,now,now,admin_1,admin_1);
+//
+//        attributeOwnerTypeService.save(puzzleObjectProperty);
+//        attributeOwnerTypeService.save(puzzleGroupObjectProperty);
+//        attributeOwnerTypeService.save(puzzleGroupObjectInstanceProperty);
+//        attributeOwnerTypeService.save(puzzleGroupObjectVariable);
+//        attributeOwnerTypeService.save(puzzleGroupObjectInstanceVariable);
 
 
     }

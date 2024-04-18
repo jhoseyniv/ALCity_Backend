@@ -1,13 +1,14 @@
 package com.alcity.service.alobject;
 
 import com.alcity.entity.alobject.ALCityAttribute;
+import com.alcity.entity.alenum.AttributeOwnerType;
 import com.alcity.repository.alobject.ALCityAttributeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.Collection;
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -86,4 +87,34 @@ public class ALCityAttributeService implements ALCityAttributeRepository {
     public Collection<ALCityAttribute> findByOwnerId(Long ownerId) {
         return ALCityAttributeRepository.findByOwnerId(ownerId);
     }
+
+
+    @Override
+    public Collection<ALCityAttribute> findByOwnerIdAndAttributeOwnerType(Long instanceId,AttributeOwnerType ownerType) {
+        Collection<ALCityAttribute> alCityAttributes = ALCityAttributeRepository.findByOwnerId(instanceId);
+
+        ArrayList<ALCityAttribute> outputAttributes = new ArrayList<ALCityAttribute>();
+
+        if(ownerType == AttributeOwnerType.Puzzle_Level_Variable) {
+            outputAttributes = alCityAttributes.stream().
+                    filter(attribute -> attribute.getAttributeOwnerType().equals(AttributeOwnerType.Puzzle_Level_Variable))
+                    .collect(Collectors.toCollection(ArrayList::new));
+        }
+        if(ownerType == AttributeOwnerType.PuzzleGroup_ObjectInstance_Property)
+                    outputAttributes = alCityAttributes.stream().
+                            filter(attribute -> attribute.getAttributeOwnerType().equals(AttributeOwnerType.PuzzleGroup_ObjectInstance_Property))
+                            .collect(Collectors.toCollection(ArrayList::new));
+
+        if(ownerType == AttributeOwnerType.PuzzleGroup_ObjectInstance_Variable)
+            outputAttributes = alCityAttributes.stream().
+                    filter(attribute -> attribute.getAttributeOwnerType().equals(AttributeOwnerType.PuzzleGroup_ObjectInstance_Variable))
+                    .collect(Collectors.toCollection(ArrayList::new));
+
+
+
+
+            return outputAttributes;
+    }
+
+
 }

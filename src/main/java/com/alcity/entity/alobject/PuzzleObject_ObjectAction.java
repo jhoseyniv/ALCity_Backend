@@ -1,5 +1,6 @@
 package com.alcity.entity.alobject;
 
+import com.alcity.entity.alenum.POActionOwnerType;
 import com.alcity.entity.base.BaseTable;
 import com.alcity.entity.users.ApplicationMember;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -20,17 +21,15 @@ public class PuzzleObject_ObjectAction extends BaseTable implements Serializable
         this.ownerObjectid = ownerObjectid;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "Puzzle_object_action_owner_type_id", nullable = false)
-    @JsonIgnore
-    private PuzzleObjectActionOwnerType puzzleObjectActionOwnerType;
+    @Enumerated(EnumType.ORDINAL)
+    private POActionOwnerType poActionOwnerType;
 
-    public PuzzleObjectActionOwnerType getPuzzleObjectActionOwnerType() {
-        return puzzleObjectActionOwnerType;
+    public POActionOwnerType getPoActionOwnerType() {
+        return poActionOwnerType;
     }
 
-    public void setPuzzleObjectActionOwnerType(PuzzleObjectActionOwnerType puzzleObjectActionOwnerType) {
-        this.puzzleObjectActionOwnerType = puzzleObjectActionOwnerType;
+    public void setPoActionOwnerType(POActionOwnerType poActionOwnerType) {
+        this.poActionOwnerType = poActionOwnerType;
     }
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
@@ -62,10 +61,10 @@ public class PuzzleObject_ObjectAction extends BaseTable implements Serializable
     public PuzzleObject_ObjectAction() {
     }
 
-    public PuzzleObject_ObjectAction(PuzzleObjectActionOwnerType puzzleObjectActionOwnerType,Long ownerObjectid,  ObjectAction objectAction, ActionRenderer actionRenderer,Long version, Long created, Long updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
+    public PuzzleObject_ObjectAction(POActionOwnerType poActionOwnerType, Long ownerObjectid, ObjectAction objectAction, ActionRenderer actionRenderer, Long version, Long created, Long updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
         super(version, created, updated, createdBy, updatedBy);
         this.ownerObjectid = ownerObjectid;
-        this.puzzleObjectActionOwnerType = puzzleObjectActionOwnerType;
+        this.poActionOwnerType = poActionOwnerType;
         this.objectAction = objectAction;
         this.actionRenderer = actionRenderer;
     }
