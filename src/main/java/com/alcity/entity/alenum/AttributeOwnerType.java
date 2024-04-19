@@ -20,7 +20,8 @@ public enum AttributeOwnerType {
     Puzzle_Level_Variable,
     PuzzleGroup_ObjectInstance_Property,
     PuzzleGroup_Object_Variable,
-    PuzzleGroup_ObjectInstance_Variable
+    PuzzleGroup_ObjectInstance_Variable,
+    Puzzle_Level_Rule_Post_Action
 }
 //    @OneToMany(mappedBy = "attributeOwnerType", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 //    @JsonIgnore

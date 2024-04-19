@@ -95,11 +95,15 @@ public class ALCityAttributeService implements ALCityAttributeRepository {
 
         ArrayList<ALCityAttribute> outputAttributes = new ArrayList<ALCityAttribute>();
 
-        if(ownerType == AttributeOwnerType.Puzzle_Level_Variable) {
+        if(ownerType == AttributeOwnerType.Puzzle_Level_Rule_Post_Action)
             outputAttributes = alCityAttributes.stream().
-                    filter(attribute -> attribute.getAttributeOwnerType().equals(AttributeOwnerType.Puzzle_Level_Variable))
+                    filter(attribute -> attribute.getAttributeOwnerType().equals(AttributeOwnerType.Puzzle_Level_Rule_Post_Action))
                     .collect(Collectors.toCollection(ArrayList::new));
-        }
+        if(ownerType == AttributeOwnerType.Puzzle_Level_Variable)
+                outputAttributes = alCityAttributes.stream().
+                        filter(attribute -> attribute.getAttributeOwnerType().equals(AttributeOwnerType.Puzzle_Level_Variable))
+                        .collect(Collectors.toCollection(ArrayList::new));
+
         if(ownerType == AttributeOwnerType.PuzzleGroup_ObjectInstance_Property)
                     outputAttributes = alCityAttributes.stream().
                             filter(attribute -> attribute.getAttributeOwnerType().equals(AttributeOwnerType.PuzzleGroup_ObjectInstance_Property))
@@ -109,10 +113,6 @@ public class ALCityAttributeService implements ALCityAttributeRepository {
             outputAttributes = alCityAttributes.stream().
                     filter(attribute -> attribute.getAttributeOwnerType().equals(AttributeOwnerType.PuzzleGroup_ObjectInstance_Variable))
                     .collect(Collectors.toCollection(ArrayList::new));
-
-
-
-
             return outputAttributes;
     }
 

@@ -70,16 +70,40 @@ public class IntrpreterController {
         return puzzleLevelData;
     }
 
+    Collection<RecordrData> getParametreDataForRuleAction(Long OwnerId){
+        Collection<RecordrData> parameters = new ArrayList<RecordrData>();
+        Collection<ALCityAttribute>  alCityAttributes =alCityAttributeService.findByOwnerIdAndAttributeOwnerType(OwnerId, AttributeOwnerType.Puzzle_Level_Rule_Post_Action);
+        Iterator<ALCityAttribute> iterator = alCityAttributes.iterator();
+        while(iterator.hasNext()) {
+            ALCityAttribute attribute = iterator.next();
+
+            Collection<ALCityAttributeValue> attributeValues = attribute.getAttributeValueSet();
+            Iterator<ALCityAttributeValue> iteratorValues = attributeValues.iterator();
+            while(iteratorValues.hasNext()) {
+                ALCityAttributeValue alCityAttributeValue = iteratorValues.next();
+                String value = getValue(alCityAttributeValue);
+                String type = attribute.getDataType().getValue();
+                RecordrData property = new RecordrData(attribute.getName(),value,type);
+                parameters.add(property);
+            }
+        }
+        return parameters;
+    }
     Collection<RuleActionData> getRuleActionData( PuzzleLevelRule plRule){
         Collection<RuleActionData> actions = new ArrayList<RuleActionData>();
         Collection<PLRulePostAction> plRulePostActions = plRule.getPlRulePostActions();
         Iterator<PLRulePostAction> iterator = plRulePostActions.iterator();
         while(iterator.hasNext()) {
+            Collection<RecordrData> parameters = new ArrayList<RecordrData>();
+
             PLRulePostAction plRulePostAction =iterator.next();
             RuleActionData ruleActionData = new RuleActionData();
             ruleActionData.setOrdering(plRulePostAction.getOrdering());
             ruleActionData.setActionName(plRulePostAction.getActionName());
+            ruleActionData.setObjectId(plRulePostAction.getObjectId());
             ruleActionData.setActionType(plRulePostAction.getPlRulePostActionType().toString());
+            parameters = getParametreDataForRuleAction(plRulePostAction.getId());
+            ruleActionData.setParameters(parameters);
 
             actions.add(ruleActionData);
         }
@@ -137,7 +161,6 @@ public class IntrpreterController {
         Iterator<ALCityAttribute> iterator = alCityAttributes.iterator();
         while(iterator.hasNext()) {
             ALCityAttribute attribute = iterator.next();
-
             Collection<ALCityAttributeValue> attributeValues = attribute.getAttributeValueSet();
             Iterator<ALCityAttributeValue> iteratorValues = attributeValues.iterator();
             while(iteratorValues.hasNext()) {

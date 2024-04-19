@@ -668,7 +668,6 @@ public class ImportProblemData_1 implements CommandLineRunner {
         Integer ordering =1;
         String actionName="move";
         StringBuffer moveActionExpression_1=new StringBuffer(" parameters:[" +
-                "{name:'actionId  IN UNITY' , value:'move action id'}," +
                 "{name:'aSync' , value:'false'}," +
                 "{name:'formRow' , value:'e.x'}," +
                 "{name:'fromCol' , value:'e.y'}," +
@@ -679,6 +678,59 @@ public class ImportProblemData_1 implements CommandLineRunner {
 
         PLRulePostAction rulePostAction_1_move = new PLRulePostAction(moveActionExpression_1,ordering,objectId,actionName,PLRulePostActionType.Call_Object_Action,rule_for_move_objects_in_hash_image,1L,now,now,admin_1,admin_1);
         puzzleLevelRulePostActionService.save(rulePostAction_1_move);
+
+        ALCityAttribute rulePostAction_1_move_param_1 =new ALCityAttribute("actionId",rulePostAction_1_move.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action,alcity_Long,1L,now,now,admin_1,admin_1);
+        alCityAttributeService.save(rulePostAction_1_move_param_1);
+
+        Long actionId_in_Unity=0L;
+        ALCityAttributeValue rulePostAction_1_move_param_1_value= new ALCityAttributeValue(null,null,actionId_in_Unity,null,null,null,rulePostAction_1_move_param_1,rulePostAction_1_move_param_1,1L,now,now,admin_1,admin_1);
+        alCityAttributeValueService.save(rulePostAction_1_move_param_1_value);
+
+        ALCityAttribute rulePostAction_1_move_param_2 =new ALCityAttribute("aSync",rulePostAction_1_move.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action,alcity_Boolean,1L,now,now,admin_1,admin_1);
+        alCityAttributeService.save(rulePostAction_1_move_param_2);
+
+        ALCityAttributeValue rulePostAction_1_move_param_2_value= new ALCityAttributeValue(false,null,null,null,null,null,rulePostAction_1_move_param_2,rulePostAction_1_move_param_2,1L,now,now,admin_1,admin_1);
+        alCityAttributeValueService.save(rulePostAction_1_move_param_2_value);
+
+        ALCityAttribute rulePostAction_1_move_param_3 =new ALCityAttribute("FormRow",rulePostAction_1_move.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action,alcity_String,1L,now,now,admin_1,admin_1);
+        alCityAttributeService.save(rulePostAction_1_move_param_3);
+
+        ALCityAttributeValue rulePostAction_1_move_param_3_value= new ALCityAttributeValue(null,null,null,"e.x",null,null,rulePostAction_1_move_param_3,rulePostAction_1_move_param_3,1L,now,now,admin_1,admin_1);
+        alCityAttributeValueService.save(rulePostAction_1_move_param_3_value);
+
+
+        ALCityAttribute rulePostAction_1_move_param_4 =new ALCityAttribute("FromCol",rulePostAction_1_move.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action,alcity_String,1L,now,now,admin_1,admin_1);
+        alCityAttributeService.save(rulePostAction_1_move_param_4);
+
+        ALCityAttributeValue rulePostAction_1_move_param_4_value= new ALCityAttributeValue(null,null,null,"e.y",null,null,rulePostAction_1_move_param_4,rulePostAction_1_move_param_4,1L,now,now,admin_1,admin_1);
+        alCityAttributeValueService.save(rulePostAction_1_move_param_4_value);
+
+        ALCityAttribute rulePostAction_1_move_param_5 =new ALCityAttribute("toRow",rulePostAction_1_move.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action,alcity_String,1L,now,now,admin_1,admin_1);
+        alCityAttributeService.save(rulePostAction_1_move_param_5);
+
+        ALCityAttributeValue rulePostAction_1_move_param_5_value= new ALCityAttributeValue(null,null,null,"X",null,null,rulePostAction_1_move_param_5,rulePostAction_1_move_param_5,1L,now,now,admin_1,admin_1);
+        alCityAttributeValueService.save(rulePostAction_1_move_param_5_value);
+
+        ALCityAttribute rulePostAction_1_move_param_6 =new ALCityAttribute("toCol",rulePostAction_1_move.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action,alcity_String,1L,now,now,admin_1,admin_1);
+        alCityAttributeService.save(rulePostAction_1_move_param_6);
+
+        ALCityAttributeValue rulePostAction_1_move_param_6_value= new ALCityAttributeValue(null,null,null,"Y",null,null,rulePostAction_1_move_param_6,rulePostAction_1_move_param_6,1L,now,now,admin_1,admin_1);
+        alCityAttributeValueService.save(rulePostAction_1_move_param_6_value);
+
+        ALCityAttribute rulePostAction_1_move_param_7 =new ALCityAttribute("ObjectId",rulePostAction_1_move.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action,alcity_String,1L,now,now,admin_1,admin_1);
+        alCityAttributeService.save(rulePostAction_1_move_param_7);
+
+        ALCityAttributeValue rulePostAction_1_move_param_7_value= new ALCityAttributeValue(null,null,null,"objects[e.x][e.y]",null,null,rulePostAction_1_move_param_7,rulePostAction_1_move_param_7,1L,now,now,admin_1,admin_1);
+        alCityAttributeValueService.save(rulePostAction_1_move_param_7_value);
+
+        ALCityAttribute rulePostAction_1_move_param_8 =new ALCityAttribute("moveType",rulePostAction_1_move.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action,alcity_String,1L,now,now,admin_1,admin_1);
+        alCityAttributeService.save(rulePostAction_1_move_param_8);
+
+        ALCityAttributeValue rulePostAction_1_move_param_8_value= new ALCityAttributeValue(null,null,null,"Jump",null,null,rulePostAction_1_move_param_8,rulePostAction_1_move_param_8,1L,now,now,admin_1,admin_1);
+        alCityAttributeValueService.save(rulePostAction_1_move_param_8_value);
+
+
+
 
         objectId="objects[X][Y]";
         ordering =2;
