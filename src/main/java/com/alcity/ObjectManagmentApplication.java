@@ -1,25 +1,9 @@
 package com.alcity;
 
-import com.alcity.dto.CameraSetupDTO;
-import com.alcity.entity.alobject.*;
 import com.alcity.entity.base.*;
-import com.alcity.entity.journey.Journey;
-import com.alcity.entity.journey.JourneyLearningSkill;
-import com.alcity.entity.journey.JourneyStep;
 import com.alcity.entity.learning.LearningContent;
-import com.alcity.entity.learning.LearningSkill;
-import com.alcity.entity.learning.LearningSkill_LearningTopic;
-import com.alcity.entity.learning.LearningTopic;
-import com.alcity.entity.play.PermitedPlayer;
-import com.alcity.entity.play.PlayHistory;
 import com.alcity.entity.puzzle.*;
-import com.alcity.entity.ruleengine.SystemEvent;
-import com.alcity.entity.ruleengine.UserEvent;
 import com.alcity.entity.users.ApplicationMember;
-import com.alcity.entity.users.ApplicationMember_WalletItem;
-import com.alcity.entity.users.WalletItem;
-import com.alcity.entity.users.WalletTransaction;
-import com.alcity.repository.base.DataTypeRepository;
 import com.alcity.repository.play.PermitedPlayerRepository;
 import com.alcity.service.Journey.JourneyLearningSkillService;
 import com.alcity.service.Journey.JourneyService;
@@ -32,12 +16,8 @@ import com.alcity.service.learning.LearningSkill_LearningTopicService;
 import com.alcity.service.learning.LearningTopicService;
 import com.alcity.service.play.PlayHistoryService;
 import com.alcity.service.puzzle.*;
-import com.alcity.service.ruleengine.SystemEventService;
-import com.alcity.service.ruleengine.UserEventService;
 import com.alcity.service.users.ApplicationMemberService;
-import com.alcity.service.users.ApplicationMember_WalletItemService;
 import com.alcity.service.users.WalletItemService;
-import com.alcity.service.users.WalletTransactionService;
 import com.alcity.utility.Util;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -50,15 +30,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.core.annotation.Order;
 import org.springframework.core.env.Environment;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.time.Instant;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Set;
 
 
 @Order(value=2)
@@ -82,8 +56,6 @@ public class ObjectManagmentApplication {
 	@Autowired
 	private PuzzleDifficultyService puzzleDifficultyService;
 
-	@Autowired
-	private PuzzleLevelStatusService puzzleLevelStatusService;
 
 	@Autowired
 	private PuzzleLevelPrivacyService puzzleLevelPrivacyService;
@@ -162,13 +134,6 @@ public class ObjectManagmentApplication {
 
 	@Autowired
 	private WalletItemService walletItemService;
-
-	@Autowired
-	UserEventService userEventService;
-
-	@Autowired
-	SystemEventService systemEventService;
-
 
 	@Autowired
 	PuzzleGroupObjectInstanceService puzzleGroupObjectInstanceService;

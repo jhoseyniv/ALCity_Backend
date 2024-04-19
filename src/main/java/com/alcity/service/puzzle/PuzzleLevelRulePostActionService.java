@@ -1,6 +1,6 @@
 package com.alcity.service.puzzle;
 
-import com.alcity.entity.puzzle.PuzzleLevelRulePostAction;
+import com.alcity.entity.puzzle.PLRulePostAction;
 import com.alcity.repository.puzzle.PuzzleLevelRulePostActionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,17 +17,17 @@ public class PuzzleLevelRulePostActionService implements PuzzleLevelRulePostActi
     PuzzleLevelRulePostActionRepository puzzleLevelRulePostActionRepository;
 
     @Override
-    public <S extends PuzzleLevelRulePostAction> S save(S entity) {
+    public <S extends PLRulePostAction> S save(S entity) {
         return puzzleLevelRulePostActionRepository.save(entity);
     }
 
     @Override
-    public <S extends PuzzleLevelRulePostAction> Iterable<S> saveAll(Iterable<S> entities) {
+    public <S extends PLRulePostAction> Iterable<S> saveAll(Iterable<S> entities) {
         return null;
     }
 
     @Override
-    public Optional<PuzzleLevelRulePostAction> findById(Long id) {
+    public Optional<PLRulePostAction> findById(Long id) {
         return Optional.empty();
     }
 
@@ -37,12 +37,12 @@ public class PuzzleLevelRulePostActionService implements PuzzleLevelRulePostActi
     }
 
     @Override
-    public Collection<PuzzleLevelRulePostAction> findAll() {
+    public Collection<PLRulePostAction> findAll() {
         return null;
     }
 
     @Override
-    public Iterable<PuzzleLevelRulePostAction> findAllById(Iterable<Long> longs) {
+    public Iterable<PLRulePostAction> findAllById(Iterable<Long> longs) {
         return null;
     }
 
@@ -57,7 +57,7 @@ public class PuzzleLevelRulePostActionService implements PuzzleLevelRulePostActi
     }
 
     @Override
-    public void delete(PuzzleLevelRulePostAction entity) {
+    public void delete(PLRulePostAction entity) {
 
     }
 
@@ -67,7 +67,7 @@ public class PuzzleLevelRulePostActionService implements PuzzleLevelRulePostActi
     }
 
     @Override
-    public void deleteAll(Iterable<? extends PuzzleLevelRulePostAction> entities) {
+    public void deleteAll(Iterable<? extends PLRulePostAction> entities) {
 
     }
 
@@ -77,12 +77,12 @@ public class PuzzleLevelRulePostActionService implements PuzzleLevelRulePostActi
     }
 
     @Override
-    public Collection<PuzzleLevelRulePostAction> findByOrdering(Integer ordering) {
+    public Collection<PLRulePostAction> findByOrdering(Integer ordering) {
         return null;
     }
 
     @Override
-    public Collection<PuzzleLevelRulePostAction> findByActionExpression(String experssion) {
+    public Collection<PLRulePostAction> findByActionExpression(String experssion) {
         return null;
     }
 }

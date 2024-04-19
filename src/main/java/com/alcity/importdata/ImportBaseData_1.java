@@ -10,8 +10,6 @@ import com.alcity.entity.journey.JourneyLearningSkill;
 import com.alcity.entity.learning.LearningSkill;
 import com.alcity.entity.learning.LearningSkill_LearningTopic;
 import com.alcity.entity.learning.LearningTopic;
-import com.alcity.entity.ruleengine.SystemEvent;
-import com.alcity.entity.ruleengine.UserEvent;
 import com.alcity.entity.users.ApplicationMember;
 import com.alcity.entity.users.ApplicationMember_WalletItem;
 import com.alcity.entity.users.WalletItem;
@@ -24,8 +22,6 @@ import com.alcity.service.base.*;
 import com.alcity.service.learning.LearningSkillService;
 import com.alcity.service.learning.LearningSkill_LearningTopicService;
 import com.alcity.service.learning.LearningTopicService;
-import com.alcity.service.ruleengine.SystemEventService;
-import com.alcity.service.ruleengine.UserEventService;
 import com.alcity.service.users.ApplicationMemberService;
 import com.alcity.service.users.ApplicationMember_WalletItemService;
 import com.alcity.service.users.WalletItemService;
@@ -81,9 +77,6 @@ public class ImportBaseData_1 implements CommandLineRunner {
 
 
     @Autowired
-    private PuzzleLevelStatusService puzzleLevelStatusService;
-
-    @Autowired
     private LearningSkillService learningSkillService;
 
     @Autowired
@@ -114,15 +107,7 @@ public class ImportBaseData_1 implements CommandLineRunner {
     @Autowired
     ObjectActionService objectActionService;
 
-    @Autowired
-    UserEventService userEventService;
-
-
-    @Autowired
-    SystemEventService systemEventService;
-
-
-    protected final Log log = LogFactory.getLog(getClass());
+     protected final Log log = LogFactory.getLog(getClass());
 
 
     @Override
@@ -281,12 +266,6 @@ public class ImportBaseData_1 implements CommandLineRunner {
         puzzleDifficultyService.save(medium);
         puzzleDifficultyService.save(hard);
 
-        PuzzleLevelStatus compeleted = new PuzzleLevelStatus("Completed","Completed",1L,now,now,admin_1,admin_1);
-        PuzzleLevelStatus canceled = new PuzzleLevelStatus("canceled","canceled",1L,now,now,admin_1,admin_1);
-        PuzzleLevelStatus ongoing = new PuzzleLevelStatus("ongoing","ongoing",1L,now,now,admin_1,admin_1);
-        puzzleLevelStatusService.save(compeleted);
-        puzzleLevelStatusService.save(canceled);
-        puzzleLevelStatusService.save(ongoing);
 
         PuzzleLevelPrivacy privacy_1 = new PuzzleLevelPrivacy("privacy 1","privacy1",1L,now,now,admin_1,admin_1);
         PuzzleLevelPrivacy privacy_2 = new PuzzleLevelPrivacy("privacy 2","privacy2",1L,now,now,admin_1,admin_1);
@@ -383,18 +362,18 @@ public class ImportBaseData_1 implements CommandLineRunner {
 //        puzzleLevelRuleEventTypeService.save(userEvent);
 //        puzzleLevelRuleEventTypeService.save(rulePostActionEvent);
 
-        UserEvent clickEvent = new UserEvent("Click","Click",1L,now,now,admin_1,admin_1);
-        UserEvent doubleClickEvent = new UserEvent("Double Click","Double Click",1L,now,now,admin_1,admin_1);
-        UserEvent startDragEvent = new UserEvent("Start Drag","Start Drag",1L,now,now,admin_1,admin_1);
-        UserEvent endDragEvent = new UserEvent("End Drag","End Drag",1L,now,now,admin_1,admin_1);
+//        UserEvent clickEvent = new UserEvent("Click","Click",1L,now,now,admin_1,admin_1);
+//        UserEvent doubleClickEvent = new UserEvent("Double Click","Double Click",1L,now,now,admin_1,admin_1);
+//        UserEvent startDragEvent = new UserEvent("Start Drag","Start Drag",1L,now,now,admin_1,admin_1);
+//        UserEvent endDragEvent = new UserEvent("End Drag","End Drag",1L,now,now,admin_1,admin_1);
+//
+//        userEventService.save(clickEvent);
+//        userEventService.save(doubleClickEvent);
+//        userEventService.save(startDragEvent);
+//        userEventService.save(endDragEvent);
 
-        userEventService.save(clickEvent);
-        userEventService.save(doubleClickEvent);
-        userEventService.save(startDragEvent);
-        userEventService.save(endDragEvent);
-
-        SystemEvent timerSystemEvent = new SystemEvent("Timer","Timer",1L,now,now,admin_1,admin_1);
-        systemEventService.save(timerSystemEvent);
+//        SystemEvent timerSystemEvent = new SystemEvent("Timer","Timer",1L,now,now,admin_1,admin_1);
+//        systemEventService.save(timerSystemEvent);
 
 //        PLRulePostActionType callObjectAction = new PLRulePostActionType("CallObjectAction","CallObjectAction",1L,now,now,admin_1,admin_1);
 //        PLRulePostActionType variableAssignmentAction = new PLRulePostActionType("VariableAssignmentAction","VariableAssignmentAction",1L,now,now,admin_1,admin_1);

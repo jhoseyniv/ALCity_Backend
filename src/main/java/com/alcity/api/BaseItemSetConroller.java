@@ -2,6 +2,7 @@ package com.alcity.api;
 
 import com.alcity.dto.base.ClientTypeDTO;
 import com.alcity.entity.alenum.PLRuleEventType;
+import com.alcity.entity.alenum.PLStatus;
 import com.alcity.entity.alenum.UserGender;
 import com.alcity.entity.base.*;
 import com.alcity.entity.learning.LearningContent;
@@ -127,20 +128,17 @@ public class BaseItemSetConroller {
     }
 
 
-    @Autowired
-    private PuzzleLevelStatusService puzzleLevelStatusService;
 
     @GetMapping("/pl-status/all")
-    public Collection<PuzzleLevelStatus> getPuzzleLevelStatus(Model model) {
-        Collection<PuzzleLevelStatus> puzzleLevelStatusCollection = puzzleLevelStatusService.findAll();
-        return puzzleLevelStatusCollection;
+    public PLStatus[] getPuzzleLevelStatus(Model model) {
+        return PLStatus.values();
     }
-    @RequestMapping(value = "/pl-status/id/{id}", method = RequestMethod.GET)
-    @ResponseBody
-    public Optional<PuzzleLevelStatus> getPuzzleLevelStatusById(@PathVariable Long id) {
-        Optional<PuzzleLevelStatus> puzzleLevelStatus = puzzleLevelStatusService.findById(id);
-        return puzzleLevelStatus;
-    }
+//    @RequestMapping(value = "/pl-status/id/{id}", method = RequestMethod.GET)
+//    @ResponseBody
+//    public Optional<PLStatus> getPuzzleLevelStatusById(@PathVariable Long id) {
+//        Optional<PLStatus> puzzleLevelStatus = puzzleLevelStatusService.findById(id);
+//        return puzzleLevelStatus;
+//    }
 
     @GetMapping("/pl-rule-event-type/all")
     public PLRuleEventType[] getPuzzleLevelRuleEventTypes(Model model) {

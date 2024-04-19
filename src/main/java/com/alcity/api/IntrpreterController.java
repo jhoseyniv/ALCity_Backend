@@ -58,15 +58,53 @@ public class IntrpreterController {
              puzzleLevelData.setObjectives(puzzleLevelObjectiveDataCollection);
              PuzzleGroup pg = pl.getPuzzleGroup();
              Collection<PuzzleGroupObjectData> objects = getObjectsForPuzzleGroup(pg);
+             Collection<RuleData> rules = getRulesForPuzzleLevel(pl);
 
              puzzleLevelData.setCols(puzzleLevelGround.getNumColumns());
              puzzleLevelData.setRows(puzzleLevelGround.getNumRows());
              puzzleLevelData.setVariables(variables);
              puzzleLevelData.setObjects(objects);
-
+             puzzleLevelData.setRules(rules);
          }
 
         return puzzleLevelData;
+    }
+
+    Collection<RuleActionData> getRuleActionData( PuzzleLevelRule plRule){
+        Collection<RuleActionData> actions = new ArrayList<RuleActionData>();
+        Collection<PLRulePostAction> plRulePostActions = plRule.getPlRulePostActions();
+        Iterator<PLRulePostAction> iterator = plRulePostActions.iterator();
+        while(iterator.hasNext()) {
+            PLRulePostAction plRulePostAction =iterator.next();
+            RuleActionData ruleActionData = new RuleActionData();
+            ruleActionData.setOrdering(plRulePostAction.getOrdering());
+            ruleActionData.setActionName(plRulePostAction.getActionName());
+            ruleActionData.setActionType(plRulePostAction.getPlRulePostActionType().toString());
+
+            actions.add(ruleActionData);
+        }
+
+
+            return actions;
+    }
+
+    public Collection<RuleData> getRulesForPuzzleLevel(PuzzleLevel pl){
+        Collection<RuleData> rules = new ArrayList<RuleData>();
+        Collection<PuzzleLevelRule>  puzzleLevelRules = pl.getPuzzleLevelRuleCollection();
+        Iterator<PuzzleLevelRule> iterator = puzzleLevelRules.iterator();
+        while(iterator.hasNext()) {
+            PuzzleLevelRule puzzleLevelRule = iterator.next();
+            RuleData rule = new RuleData();
+            rule.setTitle(puzzleLevelRule.getTitle());
+            rule.setOrdering(puzzleLevelRule.getOrdering());
+            rule.setConditions(puzzleLevelRule.getCondition());
+            Collection<RuleActionData> actions = getRuleActionData(puzzleLevelRule);
+            rule.setActions(actions);
+
+            rules.add(rule);
+        }
+
+      return rules;
     }
 
     public Collection<ObjectInstanceData> getInstancesForAObjectInPuzzleLevel(PuzzleGroup_PuzzleObject pgpo) {

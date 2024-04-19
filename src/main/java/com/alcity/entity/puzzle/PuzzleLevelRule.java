@@ -2,11 +2,13 @@ package com.alcity.entity.puzzle;
 
 import com.alcity.entity.base.BaseTable;
 import com.alcity.entity.journey.Journey;
+import com.alcity.entity.journey.JourneyStep;
 import com.alcity.entity.users.ApplicationMember;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Set;
 
 @Entity
@@ -18,11 +20,47 @@ public class PuzzleLevelRule extends BaseTable implements Serializable {
     private Integer ordering;
 
     @Column(name="condition")
-    private String condition;
+    private StringBuffer condition;
 
     //why this column is in puzzle level rule
 //    @Column(name="ruleEventid")
 //    private Integer ruleEventid;
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public Integer getOrdering() {
+        return ordering;
+    }
+
+    public void setOrdering(Integer ordering) {
+        this.ordering = ordering;
+    }
+
+    public StringBuffer getCondition() {
+        return condition;
+    }
+
+    public void setCondition(StringBuffer condition) {
+        this.condition = condition;
+    }
+
+    @OneToMany(mappedBy = "puzzleLevelRule", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JsonIgnore
+    private Collection<PLRulePostAction> plRulePostActions;
+
+    public Collection<PLRulePostAction> getPlRulePostActions() {
+        return plRulePostActions;
+    }
+
+    public void setPlRulePostActions(Collection<PLRulePostAction> plRulePostActions) {
+        this.plRulePostActions = plRulePostActions;
+    }
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "puzzle_level_id", nullable = false)
@@ -32,7 +70,7 @@ public class PuzzleLevelRule extends BaseTable implements Serializable {
      public PuzzleLevelRule() {
     }
 
-    public PuzzleLevelRule( String title, Integer ordering, String condition, PuzzleLevel puzzleLevel,Long version, Long created, Long updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
+    public PuzzleLevelRule( String title, Integer ordering, StringBuffer condition, PuzzleLevel puzzleLevel,Long version, Long created, Long updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
         super(version, created, updated, createdBy, updatedBy);
         this.title = title;
         this.ordering = ordering;

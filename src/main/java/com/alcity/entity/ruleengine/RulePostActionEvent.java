@@ -1,8 +1,7 @@
 package com.alcity.entity.ruleengine;
 
 import com.alcity.entity.base.BaseTable;
-import com.alcity.entity.journey.Journey;
-import com.alcity.entity.puzzle.PuzzleLevelRulePostAction;
+import com.alcity.entity.puzzle.PLRulePostAction;
 import com.alcity.entity.users.ApplicationMember;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -19,12 +18,12 @@ public class RulePostActionEvent extends BaseTable implements Serializable {
     }
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "puzzle_level_rule_post_action_id", nullable = false)
+    @JoinColumn(name = "pl_rule_post_action_id", nullable = false)
     @JsonIgnore
-    private PuzzleLevelRulePostAction puzzleLevelRulePostAction;
+    private PLRulePostAction plRulePostAction;
 
-    public RulePostActionEvent(PuzzleLevelRulePostAction puzzleLevelRulePostAction,Long version, Long created, Long updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
+    public RulePostActionEvent(PLRulePostAction plRulePostAction, Long version, Long created, Long updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
         super(version, created, updated, createdBy, updatedBy);
-        this.puzzleLevelRulePostAction = puzzleLevelRulePostAction;
+        this.plRulePostAction = plRulePostAction;
     }
 }

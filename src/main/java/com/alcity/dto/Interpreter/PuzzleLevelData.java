@@ -22,6 +22,7 @@ public class PuzzleLevelData implements Serializable {
     private Collection<PuzzleGroupObjectData> objects;
     private Collection<RuleData> rules;
 
+
     public Collection<RecordrData> getVariables() {
         return variables;
     }

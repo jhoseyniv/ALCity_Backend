@@ -1,15 +1,14 @@
 package com.alcity.repository.puzzle;
 
-import com.alcity.entity.puzzle.PuzzleLevel;
-import com.alcity.entity.puzzle.PuzzleLevelRulePostAction;
+import com.alcity.entity.puzzle.PLRulePostAction;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.Collection;
 import java.util.Optional;
 
-public interface PuzzleLevelRulePostActionRepository extends CrudRepository<PuzzleLevelRulePostAction,Long> {
-    Optional<PuzzleLevelRulePostAction> findById(Long id);
-    Collection<PuzzleLevelRulePostAction> findAll();
-    Collection<PuzzleLevelRulePostAction> findByOrdering(Integer ordering);
-    Collection<PuzzleLevelRulePostAction> findByActionExpression(String experssion);
+public interface PuzzleLevelRulePostActionRepository extends CrudRepository<PLRulePostAction,Long> {
+    Optional<PLRulePostAction> findById(Long id);
+    Collection<PLRulePostAction> findAll();
+    Collection<PLRulePostAction> findByOrdering(Integer ordering);
+    Collection<PLRulePostAction> findByActionExpression(String experssion);
 }

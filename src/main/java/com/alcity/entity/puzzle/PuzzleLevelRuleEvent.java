@@ -23,12 +23,12 @@ public class PuzzleLevelRuleEvent extends BaseTable implements Serializable {
     private PuzzleLevelRule puzzleLevelRule;
 
     @Column(name="event_Id")
-    private Long eventId;
+    private Integer eventId;
 
     public PuzzleLevelRuleEvent() {
     }
 
-    public PuzzleLevelRuleEvent(String name, PLRuleEventType plRuleEventType, Long eventId, PuzzleLevelRule puzzleLevelRule, Long version, Long created, Long updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
+    public PuzzleLevelRuleEvent(String name, PLRuleEventType plRuleEventType, Integer eventId, PuzzleLevelRule puzzleLevelRule, Long version, Long created, Long updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
         super(version, created, updated, createdBy, updatedBy);
         this.name = name;
         this.plRuleEventType = plRuleEventType;
