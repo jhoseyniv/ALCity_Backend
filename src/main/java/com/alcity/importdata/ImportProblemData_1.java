@@ -3,6 +3,8 @@ package com.alcity.importdata;
 import com.alcity.ObjectManagmentApplication;
 import com.alcity.entity.alenum.AttributeOwnerType;
 import com.alcity.entity.alenum.POActionOwnerType;
+import com.alcity.entity.alenum.PLRulePostActionType;
+import com.alcity.entity.alenum.PLRuleEventType;
 import com.alcity.entity.alobject.*;
 import com.alcity.entity.base.*;
 import com.alcity.entity.journey.Journey;
@@ -118,10 +120,6 @@ public class ImportProblemData_1 implements CommandLineRunner {
     @Autowired
     private CameraSetupService cameraSetupService;
 
-
-    @Autowired
-    PuzzleLevelRuleEventTypeService puzzleLevelRuleEventTypeService;
-
     @Autowired
     UserEventService userEventService;
 
@@ -136,8 +134,6 @@ public class ImportProblemData_1 implements CommandLineRunner {
 
     @Autowired
     PuzzleObject_ObjectActionService puzzleObject_ObjectActionService;
-    @Autowired
-    PuzzleLevelRulePostActionTypeService puzzleLevelRulePostActionTypeService;
 
     @Autowired
     PuzzleGroup_PuzzleObjectService puzzleGroup_PuzzleObjectService;
@@ -666,14 +662,14 @@ public class ImportProblemData_1 implements CommandLineRunner {
         alCityAttributeValueService.save(alCityAttributeValue_instance_8_Y);
 
 
-        PuzzleLevelRuleEventType userEvent = puzzleLevelRuleEventTypeService.findByValue("User Event");
+//        PLRuleEventType userEvent = puzzleLevelRuleEventTypeService.findByValue("User Event");
         UserEvent clickEvent = userEventService.findByValue("Click");
 
         PuzzleLevelRule rule_for_move_objects_in_hash_image = new PuzzleLevelRule("Move object by click around empty object",1
                 ,"((e.x==X)&&((e.y==Y-1)||(e.y==Y+1)))  ||  ((e.y==Y)&&((e.x==X-1)||(e.x==X+1)))",puzzleLevel_hashimage,1L,now,now,admin_1,admin_1);
         puzzleLevelRuleService.save(rule_for_move_objects_in_hash_image);
 
-        PuzzleLevelRuleEvent puzzleLevelRuleEvent_click = new PuzzleLevelRuleEvent("Click",userEvent,clickEvent.getId(),rule_for_move_objects_in_hash_image,1L,now,now,admin_1,admin_1);
+        PuzzleLevelRuleEvent puzzleLevelRuleEvent_click = new PuzzleLevelRuleEvent("Click",PLRuleEventType.User_Event,clickEvent.getId(),rule_for_move_objects_in_hash_image,1L,now,now,admin_1,admin_1);
         puzzleLevelRuleEventService.save(puzzleLevelRuleEvent_click);
         StringBuffer moveActionExpression=new StringBuffer(" objects[e.x][e.y] , move , parameters:[" +
                 "{name:'actionId  IN UNITY' , value:'move action id'}," +
@@ -685,9 +681,9 @@ public class ImportProblemData_1 implements CommandLineRunner {
                 "{name:'ObjectId' , value:'objects[e.x][e.y]'}," +
                 "{name:'moveType' , value:'jump'}] ");
 
-        PuzzleLevelRulePostActionType callObjectAction=puzzleLevelRulePostActionTypeService.findByValue("CallObjectAction");
+//        PLRulePostActionType callObjectAction=puzzleLevelRulePostActionTypeService.findByValue("CallObjectAction");
 
-        PuzzleLevelRulePostAction rulePostAction_1_move = new PuzzleLevelRulePostAction(rule_for_move_objects_in_hash_image,1,moveActionExpression,callObjectAction,1L,now,now,admin_1,admin_1);
+        PuzzleLevelRulePostAction rulePostAction_1_move = new PuzzleLevelRulePostAction(rule_for_move_objects_in_hash_image,1,moveActionExpression,PLRulePostActionType.Call_Object_Action,1L,now,now,admin_1,admin_1);
         puzzleLevelRulePostActionService.save(rulePostAction_1_move);
 
         StringBuffer moveActionExpression_2=new StringBuffer(" objects[e.x][e.y] , move , parameters:[" +
@@ -701,7 +697,7 @@ public class ImportProblemData_1 implements CommandLineRunner {
                 "{name:'moveType' , value:'jump'}] ");
 
 
-        PuzzleLevelRulePostAction rulePostAction_2_move = new PuzzleLevelRulePostAction(rule_for_move_objects_in_hash_image,2,moveActionExpression_2,callObjectAction,1L,now,now,admin_1,admin_1);
+        PuzzleLevelRulePostAction rulePostAction_2_move = new PuzzleLevelRulePostAction(rule_for_move_objects_in_hash_image,2,moveActionExpression_2,PLRulePostActionType.Call_Object_Action,1L,now,now,admin_1,admin_1);
         puzzleLevelRulePostActionService.save(rulePostAction_2_move);
 
         StringBuffer assignActionExpression_3=new StringBuffer(" parameters:[" +
@@ -709,8 +705,8 @@ public class ImportProblemData_1 implements CommandLineRunner {
                 "{valueExperssion:'x'}" +
                 "]") ;
 
-        PuzzleLevelRulePostActionType variableAssignmentAction=puzzleLevelRulePostActionTypeService.findByValue("VariableAssignmentAction");
-        PuzzleLevelRulePostAction rulePostAction_3_assignment = new PuzzleLevelRulePostAction(rule_for_move_objects_in_hash_image,3,assignActionExpression_3,variableAssignmentAction,1L,now,now,admin_1,admin_1);
+//        PLRulePostActionType variableAssignmentAction=puzzleLevelRulePostActionTypeService.findByValue("VariableAssignmentAction");
+        PuzzleLevelRulePostAction rulePostAction_3_assignment = new PuzzleLevelRulePostAction(rule_for_move_objects_in_hash_image,3,assignActionExpression_3,PLRulePostActionType.Variable_Assignment_Action,1L,now,now,admin_1,admin_1);
         puzzleLevelRulePostActionService.save(rulePostAction_3_assignment);
 
         StringBuffer assignActionExpression_4=new StringBuffer(" parameters:[" +
@@ -718,7 +714,7 @@ public class ImportProblemData_1 implements CommandLineRunner {
                 "{valueExperssion:'Y'}" +
                 "]") ;
 
-        PuzzleLevelRulePostAction rulePostAction_4_assignment = new PuzzleLevelRulePostAction(rule_for_move_objects_in_hash_image,4,assignActionExpression_4,variableAssignmentAction,1L,now,now,admin_1,admin_1);
+        PuzzleLevelRulePostAction rulePostAction_4_assignment = new PuzzleLevelRulePostAction(rule_for_move_objects_in_hash_image,4,assignActionExpression_4,PLRulePostActionType.Variable_Assignment_Action,1L,now,now,admin_1,admin_1);
         puzzleLevelRulePostActionService.save(rulePostAction_4_assignment);
 
         StringBuffer assignActionExpression_5=new StringBuffer(" parameters:[" +
@@ -726,7 +722,7 @@ public class ImportProblemData_1 implements CommandLineRunner {
                 "{valueExperssion:'e.x'}" +
                 "]") ;
 
-        PuzzleLevelRulePostAction rulePostAction_5_assignment = new PuzzleLevelRulePostAction(rule_for_move_objects_in_hash_image,5,assignActionExpression_5,variableAssignmentAction,1L,now,now,admin_1,admin_1);
+        PuzzleLevelRulePostAction rulePostAction_5_assignment = new PuzzleLevelRulePostAction(rule_for_move_objects_in_hash_image,5,assignActionExpression_5,PLRulePostActionType.Variable_Assignment_Action,1L,now,now,admin_1,admin_1);
         puzzleLevelRulePostActionService.save(rulePostAction_5_assignment);
 
         StringBuffer assignActionExpression_6=new StringBuffer(" parameters:[" +
@@ -734,7 +730,7 @@ public class ImportProblemData_1 implements CommandLineRunner {
                 "{valueExperssion:'e.y'}" +
                 "]") ;
 
-        PuzzleLevelRulePostAction rulePostAction_6_assignment = new PuzzleLevelRulePostAction(rule_for_move_objects_in_hash_image,6,assignActionExpression_6,variableAssignmentAction,1L,now,now,admin_1,admin_1);
+        PuzzleLevelRulePostAction rulePostAction_6_assignment = new PuzzleLevelRulePostAction(rule_for_move_objects_in_hash_image,6,assignActionExpression_6,PLRulePostActionType.Variable_Assignment_Action,1L,now,now,admin_1,admin_1);
         puzzleLevelRulePostActionService.save(rulePostAction_6_assignment);
 
     }

@@ -189,16 +189,11 @@ public class ObjectManagmentApplication {
 	PuzzleObject_ObjectActionService puzzleObject_ObjectActionService;
 
 	@Autowired
-	PuzzleLevelRuleEventTypeService  puzzleLevelRuleEventTypeService;
-
-	@Autowired
 	PuzzleLevelRuleService  puzzleLevelRuleService;
 
 	@Autowired
 	PuzzleLevelRuleEventService  puzzleLevelRuleEventService;
 
-	@Autowired
-	PuzzleLevelRulePostActionTypeService puzzleLevelRulePostActionTypeService;
 
 	@Autowired
 	PuzzleLevelRulePostActionService  puzzleLevelRulePostActionService;

@@ -10,7 +10,6 @@ import com.alcity.entity.journey.JourneyLearningSkill;
 import com.alcity.entity.learning.LearningSkill;
 import com.alcity.entity.learning.LearningSkill_LearningTopic;
 import com.alcity.entity.learning.LearningTopic;
-import com.alcity.entity.puzzle.PuzzleLevelRulePostActionType;
 import com.alcity.entity.ruleengine.SystemEvent;
 import com.alcity.entity.ruleengine.UserEvent;
 import com.alcity.entity.users.ApplicationMember;
@@ -25,7 +24,6 @@ import com.alcity.service.base.*;
 import com.alcity.service.learning.LearningSkillService;
 import com.alcity.service.learning.LearningSkill_LearningTopicService;
 import com.alcity.service.learning.LearningTopicService;
-import com.alcity.service.puzzle.PuzzleLevelRulePostActionTypeService;
 import com.alcity.service.ruleengine.SystemEventService;
 import com.alcity.service.ruleengine.UserEventService;
 import com.alcity.service.users.ApplicationMemberService;
@@ -116,10 +114,6 @@ public class ImportBaseData_1 implements CommandLineRunner {
     @Autowired
     ObjectActionService objectActionService;
 
-
-    @Autowired
-    PuzzleLevelRuleEventTypeService puzzleLevelRuleEventTypeService;
-
     @Autowired
     UserEventService userEventService;
 
@@ -127,8 +121,6 @@ public class ImportBaseData_1 implements CommandLineRunner {
     @Autowired
     SystemEventService systemEventService;
 
-    @Autowired
-    PuzzleLevelRulePostActionTypeService puzzleLevelRulePostActionTypeService;
 
     protected final Log log = LogFactory.getLog(getClass());
 
@@ -382,14 +374,14 @@ public class ImportBaseData_1 implements CommandLineRunner {
         objectActionService.save(showAction);
         objectActionService.save(playSoundAction);
 
-        PuzzleLevelRuleEventType systemEvent = new PuzzleLevelRuleEventType("System Event","System Event",1L,now,now,admin_1,admin_1);
-        PuzzleLevelRuleEventType objectActionEvent = new PuzzleLevelRuleEventType("Object Action Event","Object Action Event",1L,now,now,admin_1,admin_1);
-        PuzzleLevelRuleEventType userEvent = new PuzzleLevelRuleEventType("User Event","User Event",1L,now,now,admin_1,admin_1);
-        PuzzleLevelRuleEventType rulePostActionEvent = new PuzzleLevelRuleEventType("Rule Post Action Event","Rule Post Action Event",1L,now,now,admin_1,admin_1);
-        puzzleLevelRuleEventTypeService.save(systemEvent);
-        puzzleLevelRuleEventTypeService.save(objectActionEvent);
-        puzzleLevelRuleEventTypeService.save(userEvent);
-        puzzleLevelRuleEventTypeService.save(rulePostActionEvent);
+//        PLRuleEventType systemEvent = new PLRuleEventType("System Event","System Event",1L,now,now,admin_1,admin_1);
+//        PLRuleEventType objectActionEvent = new PLRuleEventType("Object Action Event","Object Action Event",1L,now,now,admin_1,admin_1);
+//        PLRuleEventType userEvent = new PLRuleEventType("User Event","User Event",1L,now,now,admin_1,admin_1);
+//        PLRuleEventType rulePostActionEvent = new PLRuleEventType("Rule Post Action Event","Rule Post Action Event",1L,now,now,admin_1,admin_1);
+//        puzzleLevelRuleEventTypeService.save(systemEvent);
+//        puzzleLevelRuleEventTypeService.save(objectActionEvent);
+//        puzzleLevelRuleEventTypeService.save(userEvent);
+//        puzzleLevelRuleEventTypeService.save(rulePostActionEvent);
 
         UserEvent clickEvent = new UserEvent("Click","Click",1L,now,now,admin_1,admin_1);
         UserEvent doubleClickEvent = new UserEvent("Double Click","Double Click",1L,now,now,admin_1,admin_1);
@@ -404,14 +396,14 @@ public class ImportBaseData_1 implements CommandLineRunner {
         SystemEvent timerSystemEvent = new SystemEvent("Timer","Timer",1L,now,now,admin_1,admin_1);
         systemEventService.save(timerSystemEvent);
 
-        PuzzleLevelRulePostActionType callObjectAction = new PuzzleLevelRulePostActionType("CallObjectAction","CallObjectAction",1L,now,now,admin_1,admin_1);
-        PuzzleLevelRulePostActionType variableAssignmentAction = new PuzzleLevelRulePostActionType("VariableAssignmentAction","VariableAssignmentAction",1L,now,now,admin_1,admin_1);
-        PuzzleLevelRulePostActionType fireEvent = new PuzzleLevelRulePostActionType("FireEvent","FireEvent",1L,now,now,admin_1,admin_1);
-        PuzzleLevelRulePostActionType userAlert = new PuzzleLevelRulePostActionType("UserAlert","UserAlert",1L,now,now,admin_1,admin_1);
-        puzzleLevelRulePostActionTypeService.save(callObjectAction);
-        puzzleLevelRulePostActionTypeService.save(variableAssignmentAction);
-        puzzleLevelRulePostActionTypeService.save(fireEvent);
-        puzzleLevelRulePostActionTypeService.save(userAlert);
+//        PLRulePostActionType callObjectAction = new PLRulePostActionType("CallObjectAction","CallObjectAction",1L,now,now,admin_1,admin_1);
+//        PLRulePostActionType variableAssignmentAction = new PLRulePostActionType("VariableAssignmentAction","VariableAssignmentAction",1L,now,now,admin_1,admin_1);
+//        PLRulePostActionType fireEvent = new PLRulePostActionType("FireEvent","FireEvent",1L,now,now,admin_1,admin_1);
+//        PLRulePostActionType userAlert = new PLRulePostActionType("UserAlert","UserAlert",1L,now,now,admin_1,admin_1);
+//        puzzleLevelRulePostActionTypeService.save(callObjectAction);
+//        puzzleLevelRulePostActionTypeService.save(variableAssignmentAction);
+//        puzzleLevelRulePostActionTypeService.save(fireEvent);
+//        puzzleLevelRulePostActionTypeService.save(userAlert);
 
 //        POActionOwnerType puzzleObjectIsOwner = new POActionOwnerType("Puzzle Object","Puzzle Object",1L,now,now,admin_1,admin_1);
 //        POActionOwnerType puzzleGroupObjectIsOwner = new POActionOwnerType("Puzzle Group Object","Puzzl Group Object",1L,now,now,admin_1,admin_1);

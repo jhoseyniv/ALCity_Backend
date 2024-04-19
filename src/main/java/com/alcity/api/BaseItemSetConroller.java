@@ -1,6 +1,7 @@
 package com.alcity.api;
 
 import com.alcity.dto.base.ClientTypeDTO;
+import com.alcity.entity.alenum.PLRuleEventType;
 import com.alcity.entity.alenum.UserGender;
 import com.alcity.entity.base.*;
 import com.alcity.entity.learning.LearningContent;
@@ -17,7 +18,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 import java.util.Optional;
 
 
@@ -142,20 +142,16 @@ public class BaseItemSetConroller {
         return puzzleLevelStatus;
     }
 
-    @Autowired
-    private PuzzleLevelRuleEventTypeService puzzleLevelRuleEventTypeService;
-
     @GetMapping("/pl-rule-event-type/all")
-    public Collection<PuzzleLevelRuleEventType> getPuzzleLevelRuleEventTypes(Model model) {
-        Collection<PuzzleLevelRuleEventType> puzzleLevelRuleEventTypeCollection = puzzleLevelRuleEventTypeService.findAll();
-        return puzzleLevelRuleEventTypeCollection;
+    public PLRuleEventType[] getPuzzleLevelRuleEventTypes(Model model) {
+        return PLRuleEventType.values();
     }
-    @RequestMapping(value = "/pl-rule-event-type/id/{id}", method = RequestMethod.GET)
-    @ResponseBody
-    public Optional<PuzzleLevelRuleEventType> getPuzzleLevelRuleEventTypesById(@PathVariable Long id) {
-        Optional<PuzzleLevelRuleEventType> puzzleLevelRuleEventType = puzzleLevelRuleEventTypeService.findById(id);
-        return puzzleLevelRuleEventType;
-    }
+//    @RequestMapping(value = "/pl-rule-event-type/id/{id}", method = RequestMethod.GET)
+//    @ResponseBody
+//    public Optional<PLRuleEventType> getPuzzleLevelRuleEventTypesById(@PathVariable Long id) {
+//        Optional<PLRuleEventType> puzzleLevelRuleEventType = puzzleLevelRuleEventTypeService.findById(id);
+//        return puzzleLevelRuleEventType;
+//    }
 
 
     @Autowired

@@ -157,7 +157,6 @@ public class ApplicationMember extends BaseTable implements Serializable {
     }
 
 
-
     public ApplicationMember() {
     }
 
