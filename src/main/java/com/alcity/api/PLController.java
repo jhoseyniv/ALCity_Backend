@@ -2,7 +2,6 @@ package com.alcity.api;
 
 import com.alcity.dto.puzzle.*;
 import com.alcity.entity.puzzle.*;
-import com.alcity.service.puzzle.PLObjectiveService;
 import com.alcity.service.puzzle.PuzzleLevelService;
 import com.alcity.utility.DTOUtil;
 import com.alcity.utility.DateUtils;
@@ -14,20 +13,20 @@ import java.util.*;
 
 @RestController
 @RequestMapping("/pl")
-public class PuzzleLevelController {
+public class PLController {
 
     @Autowired
     private PuzzleLevelService puzzleLevelService;
 
     @GetMapping("/all")
-    public Collection<PuzzleLevelDTO> getPuzzleLevels(Model model) {
-        Collection<PuzzleLevelDTO> puzzleLevelDTOCollection = new ArrayList<PuzzleLevelDTO>();
+    public Collection<PLDTO> getPuzzleLevels(Model model) {
+        Collection<PLDTO> puzzleLevelDTOCollection = new ArrayList<PLDTO>();
 
         Collection<PuzzleLevel> puzzleLevelCollection = puzzleLevelService.findAll();
         Iterator<PuzzleLevel> itr = puzzleLevelCollection.iterator();
         while(itr.hasNext()){
             PuzzleLevel puzzleLevel = itr.next();
-            PuzzleLevelDTO puzzleLevelDTO = new PuzzleLevelDTO();
+            PLDTO puzzleLevelDTO = new PLDTO();
             puzzleLevelDTO.setId(puzzleLevel.getId());
             puzzleLevelDTO.setVersion(puzzleLevel.getVersion());
             puzzleLevelDTO.setCode(puzzleLevel.getCode());
@@ -48,8 +47,8 @@ public class PuzzleLevelController {
 
     @RequestMapping(value = "/id/{id}", method = RequestMethod.GET)
     @ResponseBody
-    public PuzzleLevelDTO getPuzzleLevelById(@PathVariable Long id) {
-        PuzzleLevelDTO puzzleLevelDTO= new PuzzleLevelDTO();
+    public PLDTO getPuzzleLevelById(@PathVariable Long id) {
+        PLDTO puzzleLevelDTO= new PLDTO();
         Optional<PuzzleLevel> puzzleLevelOptional = puzzleLevelService.findById(id);
         puzzleLevelDTO = DTOUtil.getPuzzleLevelDTO(puzzleLevelOptional);
         return puzzleLevelDTO;
@@ -57,8 +56,8 @@ public class PuzzleLevelController {
 
     @RequestMapping(value = "/id/{id}/objectives/all", method = RequestMethod.GET)
     @ResponseBody
-    public Collection<PuzzleLevelObjectiveDTO> getAllObjectivesForPuzzleLevelById(@PathVariable Long id) {
-        Collection<PuzzleLevelObjectiveDTO> puzzleLevelObjectiveDTOCollection= new ArrayList<PuzzleLevelObjectiveDTO>();
+    public Collection<PLObjectiveDTO> getAllObjectivesForPuzzleLevelById(@PathVariable Long id) {
+        Collection<PLObjectiveDTO> puzzleLevelObjectiveDTOCollection= new ArrayList<PLObjectiveDTO>();
         Optional<PuzzleLevel> puzzleLevelOptional = puzzleLevelService.findById(id);
         if(puzzleLevelOptional.isPresent())
             puzzleLevelObjectiveDTOCollection = DTOUtil.getPuzzleLevelObjectiveDTOS(puzzleLevelOptional.get());

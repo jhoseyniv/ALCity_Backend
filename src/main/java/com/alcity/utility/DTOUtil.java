@@ -36,8 +36,8 @@ import java.util.Optional;
 public class DTOUtil {
 
 
-    public static PuzzleLevelDTO getPuzzleLevelDTO(PuzzleLevel puzzleLevel) {
-        PuzzleLevelDTO puzzleLevelDTO = new PuzzleLevelDTO();
+    public static PLDTO getPuzzleLevelDTO(PuzzleLevel puzzleLevel) {
+        PLDTO puzzleLevelDTO = new PLDTO();
 
         puzzleLevelDTO.setId(puzzleLevel.getId());
         puzzleLevelDTO.setVersion(puzzleLevel.getVersion());
@@ -57,17 +57,17 @@ public class DTOUtil {
         return puzzleLevelDTO;
     }
 
-    public static PuzzleLevelDTO getPuzzleLevelDTO(Optional<PuzzleLevel> puzzleLevelOptional) {
+    public static PLDTO getPuzzleLevelDTO(Optional<PuzzleLevel> puzzleLevelOptional) {
         PuzzleLevel puzzleLevel = new PuzzleLevel();
-        PuzzleLevelDTO puzzleLevelDTO= new PuzzleLevelDTO();
+        PLDTO puzzleLevelDTO= new PLDTO();
 
         if(puzzleLevelOptional.isPresent()){
             puzzleLevel = puzzleLevelOptional.get();
             puzzleLevelDTO = DTOUtil.getPuzzleLevelDTO(puzzleLevel);
 
-            Collection<PuzzleLevelObjectiveDTO> puzzleLevelObjectiveDTOCollection = DTOUtil.getPuzzleLevelObjectiveDTOS(puzzleLevel);
+            Collection<PLObjectiveDTO> puzzleLevelObjectiveDTOCollection = DTOUtil.getPuzzleLevelObjectiveDTOS(puzzleLevel);
             Collection<PuzzleLevel_LearningTopicDTO> puzzleLevel_learningTopicDTOCollection = DTOUtil.getPuzzleLevel_LearningTopicDTOS(puzzleLevel);
-            Collection<PuzzleLevelGroundDTO> puzzleLevelGroundDTOCollection = DTOUtil.getPuzzleLevelGroundDTOS(puzzleLevel);
+            Collection<PLGroundDTO> puzzleLevelGroundDTOCollection = DTOUtil.getPuzzleLevelGroundDTOS(puzzleLevel);
             Collection<PermitedPlayerDTO> permitedPlayerDTOCollection = DTOUtil.getPermitedPlayerDTOS(puzzleLevel);
             Collection<PuzzleGroupObjectInstanceDTO> puzzleGroupObjectInstanceDTOCollection = DTOUtil.getPuzzleGroupObjectInstance(puzzleLevel);
 
@@ -206,13 +206,13 @@ public class DTOUtil {
         return journeyStepDTOCollection;
     }
 
-    public static Collection<PuzzleLevelDTO> getPuzzleLevelDTOS(Collection<PuzzleLevel> puzzleLevelCollection) {
-        Collection<PuzzleLevelDTO> puzzleLevelDTOCollection = new ArrayList<PuzzleLevelDTO>();
+    public static Collection<PLDTO> getPuzzleLevelDTOS(Collection<PuzzleLevel> puzzleLevelCollection) {
+        Collection<PLDTO> puzzleLevelDTOCollection = new ArrayList<PLDTO>();
 
         Iterator<PuzzleLevel> itrPuzzleLevel = puzzleLevelCollection.iterator();
         while (itrPuzzleLevel.hasNext()) {
             PuzzleLevel puzzleLevel = itrPuzzleLevel.next();
-            PuzzleLevelDTO puzzleLevelDTO = new PuzzleLevelDTO();
+            PLDTO puzzleLevelDTO = new PLDTO();
             puzzleLevelDTO.setId(puzzleLevel.getId());
             puzzleLevelDTO.setVersion(puzzleLevel.getVersion());
             puzzleLevelDTO.setOrdering(puzzleLevel.getOrdering());
@@ -308,8 +308,8 @@ public class DTOUtil {
     }
 
 
-    public static PuzzleGroupDTO getPuzzleGroupDTO(PuzzleGroup puzzleGroup) {
-        PuzzleGroupDTO puzzleGroupDTO = new PuzzleGroupDTO();
+    public static PGDTO getPuzzleGroupDTO(PuzzleGroup puzzleGroup) {
+        PGDTO puzzleGroupDTO = new PGDTO();
         puzzleGroupDTO.setId(puzzleGroup.getId());
         puzzleGroupDTO.setVersion(puzzleGroup.getVersion());
         puzzleGroupDTO.setCreated(DateUtils.getDatatimeFromLong(puzzleGroup.getCreated()));
@@ -329,14 +329,14 @@ public class DTOUtil {
     }
 
 
-    public static Collection<PuzzleLevelObjectiveDTO> getPuzzleLevelObjectiveDTOS(PuzzleLevel puzzleLevel) {
-        Collection<PuzzleLevelObjectiveDTO> puzzleLevelObjectiveDTOCollection = new ArrayList<PuzzleLevelObjectiveDTO>();
+    public static Collection<PLObjectiveDTO> getPuzzleLevelObjectiveDTOS(PuzzleLevel puzzleLevel) {
+        Collection<PLObjectiveDTO> puzzleLevelObjectiveDTOCollection = new ArrayList<PLObjectiveDTO>();
         Collection<PLObjective> puzzleLevelObjectiveCollection = puzzleLevel.getPlObjectives();
         Iterator<PLObjective> itr_objectives = puzzleLevelObjectiveCollection.iterator();
 
         while (itr_objectives.hasNext()) {
             PLObjective puzzleLevelObjective = itr_objectives.next();
-            PuzzleLevelObjectiveDTO puzzleLevelObjectiveDTO = new PuzzleLevelObjectiveDTO();
+            PLObjectiveDTO puzzleLevelObjectiveDTO = new PLObjectiveDTO();
             puzzleLevelObjectiveDTO.setId(puzzleLevelObjective.getId());
             puzzleLevelObjectiveDTO.setVersion(puzzleLevelObjective.getVersion());
             puzzleLevelObjectiveDTO.setTitle(puzzleLevelObjective.getTitle());
@@ -422,13 +422,13 @@ public class DTOUtil {
         cameraSetupDTO.setzRotation(cameraSetup.getzRotation());
         return cameraSetupDTO;
     }
-    public static Collection<PuzzleLevelGroundDTO> getPuzzleLevelGroundDTOS(PuzzleLevel puzzleLevel) {
-        Collection<PuzzleLevelGroundDTO> puzzleLevelGroundDTOCollection = new ArrayList<PuzzleLevelGroundDTO>();
+    public static Collection<PLGroundDTO> getPuzzleLevelGroundDTOS(PuzzleLevel puzzleLevel) {
+        Collection<PLGroundDTO> puzzleLevelGroundDTOCollection = new ArrayList<PLGroundDTO>();
         Collection<PLGround> puzzleLevelGroundCollection = puzzleLevel.getPlGrounds();
         Iterator<PLGround> itr_Grounds = puzzleLevelGroundCollection.iterator();
         while(itr_Grounds.hasNext()) {
             PLGround puzzleLevelGround = itr_Grounds.next();
-            PuzzleLevelGroundDTO puzzleLevelGroundDTO = new PuzzleLevelGroundDTO();
+            PLGroundDTO puzzleLevelGroundDTO = new PLGroundDTO();
             puzzleLevelGroundDTO.setId(puzzleLevelGround.getId());
             puzzleLevelGroundDTO.setVersion(puzzleLevelGround.getVersion());
             puzzleLevelGroundDTO.setCreated(DateUtils.getDatatimeFromLong(puzzleLevelGround.getCreated()));

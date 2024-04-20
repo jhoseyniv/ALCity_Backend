@@ -3,20 +3,17 @@ package com.alcity.dto.puzzle;
 import com.alcity.dto.base.BaseTableDTO;
 import com.alcity.dto.learning.LearningContentDTO;
 import com.alcity.dto.learning.LearningTopicDTO;
-import com.alcity.entity.learning.LearningContent;
-import com.alcity.entity.learning.LearningTopic;
-import com.alcity.entity.puzzle.PuzzleLevel;
 
 public class PuzzleLevel_LearningTopicDTO extends BaseTableDTO {
-    private PuzzleLevelDTO puzzleLevelDTO;
+    private PLDTO puzzleLevelDTO;
     private LearningTopicDTO learningTopicDTO;
     private LearningContentDTO learningContentDTO;
 
-    public PuzzleLevelDTO getPuzzleLevelDTO() {
+    public PLDTO getPuzzleLevelDTO() {
         return puzzleLevelDTO;
     }
 
-    public void setPuzzleLevelDTO(PuzzleLevelDTO puzzleLevelDTO) {
+    public void setPuzzleLevelDTO(PLDTO puzzleLevelDTO) {
         this.puzzleLevelDTO = puzzleLevelDTO;
     }
 
@@ -39,7 +36,7 @@ public class PuzzleLevel_LearningTopicDTO extends BaseTableDTO {
     public PuzzleLevel_LearningTopicDTO() {
     }
 
-    public PuzzleLevel_LearningTopicDTO(Long id, Long version, String created, String updated, PuzzleLevelDTO puzzleLevelDTO, LearningTopicDTO learningTopicDTO, LearningContentDTO learningContentDTO) {
+    public PuzzleLevel_LearningTopicDTO(Long id, Long version, String created, String updated, PLDTO puzzleLevelDTO, LearningTopicDTO learningTopicDTO, LearningContentDTO learningContentDTO) {
         super(id, version, created, updated);
         this.puzzleLevelDTO = puzzleLevelDTO;
         this.learningTopicDTO = learningTopicDTO;

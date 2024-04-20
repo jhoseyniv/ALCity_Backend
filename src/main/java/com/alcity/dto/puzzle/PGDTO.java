@@ -3,19 +3,17 @@ package com.alcity.dto.puzzle;
 import com.alcity.dto.base.BaseTableDTO;
 import com.alcity.dto.base.BinaryContentDTO;
 import com.alcity.dto.journey.JourneyStepDTO;
-import com.alcity.entity.puzzle.PuzzleGroup_PuzzleObject;
 
 import java.util.Collection;
-import java.util.Set;
 
-public class PuzzleGroupDTO extends BaseTableDTO {
+public class PGDTO extends BaseTableDTO {
 
     private String title;
     private BinaryContentDTO icon;
     private BinaryContentDTO pic;
 
     private Collection<JourneyStepDTO> journeyStepDTOCollection;
-    private Collection<PuzzleLevelDTO> puzzleLevelDTOCollection;
+    private Collection<PLDTO> puzzleLevelDTOCollection;
 
     private Collection<PuzzleGroup_PuzzleObjectDTO> puzzleGroup_puzzleObjectDTOCollection;
 
@@ -53,11 +51,11 @@ public class PuzzleGroupDTO extends BaseTableDTO {
         this.journeyStepDTOCollection = journeyStepDTOCollection;
     }
 
-    public Collection<PuzzleLevelDTO> getPuzzleLevelDTOCollection() {
+    public Collection<PLDTO> getPuzzleLevelDTOCollection() {
         return puzzleLevelDTOCollection;
     }
 
-    public void setPuzzleLevelDTOCollection(Collection<PuzzleLevelDTO> puzzleLevelDTOCollection) {
+    public void setPuzzleLevelDTOCollection(Collection<PLDTO> puzzleLevelDTOCollection) {
         this.puzzleLevelDTOCollection = puzzleLevelDTOCollection;
     }
 
@@ -69,7 +67,7 @@ public class PuzzleGroupDTO extends BaseTableDTO {
         this.puzzleSkillLearningContentDTOCollection = puzzleSkillLearningContentDTOCollection;
     }
 
-    public PuzzleGroupDTO() {
+    public PGDTO() {
     }
 
     public Collection<PuzzleGroup_PuzzleObjectDTO> getPuzzleGroup_puzzleObjectDTOCollection() {
@@ -80,7 +78,7 @@ public class PuzzleGroupDTO extends BaseTableDTO {
         this.puzzleGroup_puzzleObjectDTOCollection = puzzleGroup_puzzleObjectDTOCollection;
     }
 
-    public PuzzleGroupDTO(Long id, Long version, String created, String updated, String title, BinaryContentDTO icon, BinaryContentDTO pic, Collection<JourneyStepDTO> journeyStepDTOCollection, Collection<PuzzleLevelDTO> puzzleLevelDTOCollection, Collection<PuzzleSkillLearningContentDTO> puzzleSkillLearningContentDTOCollection) {
+    public PGDTO(Long id, Long version, String created, String updated, String title, BinaryContentDTO icon, BinaryContentDTO pic, Collection<JourneyStepDTO> journeyStepDTOCollection, Collection<PLDTO> puzzleLevelDTOCollection, Collection<PuzzleSkillLearningContentDTO> puzzleSkillLearningContentDTOCollection) {
         super(id, version, created, updated);
         this.title = title;
         this.icon = icon;

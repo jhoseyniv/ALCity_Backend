@@ -1,7 +1,7 @@
 package com.alcity.api;
 
 import com.alcity.dto.puzzle.PuzzleCategoryDTO;
-import com.alcity.dto.puzzle.PuzzleGroupDTO;
+import com.alcity.dto.puzzle.PGDTO;
 import com.alcity.entity.base.PuzzleCategory;
 import com.alcity.entity.puzzle.PuzzleGroup;
 import com.alcity.service.base.PuzzleCategoryService;
@@ -27,7 +27,7 @@ public class PuzzleCategoryController {
         Collection<PuzzleCategory> puzzleCategoryCollection = puzzleCategoryService.findAll();
         Iterator<PuzzleCategory> itr = puzzleCategoryCollection.iterator();
         while(itr.hasNext()) {
-            Collection<PuzzleGroupDTO> puzzleGroupDTOCollection = new ArrayList<PuzzleGroupDTO>();
+            Collection<PGDTO> puzzleGroupDTOCollection = new ArrayList<PGDTO>();
             PuzzleCategoryDTO puzzleCategoryDTO = new PuzzleCategoryDTO();
             PuzzleCategory puzzleCategory = itr.next();
             puzzleCategoryDTO.setId(puzzleCategory.getId());
@@ -40,7 +40,7 @@ public class PuzzleCategoryController {
 
             Iterator<PuzzleGroup> itrPuzzleGroupSet = puzzleGroupSet.iterator();
             while(itrPuzzleGroupSet.hasNext()){
-                PuzzleGroupDTO puzzleGroupDTO = new PuzzleGroupDTO();
+                PGDTO puzzleGroupDTO = new PGDTO();
                 PuzzleGroup puzzleGroup = itrPuzzleGroupSet.next();
                 puzzleGroupDTO.setTitle(puzzleGroup.getTitle());
                 puzzleGroupDTO.setId(puzzleGroup.getId());
@@ -55,7 +55,7 @@ public class PuzzleCategoryController {
     @ResponseBody
     public PuzzleCategoryDTO getPuzzleCategoryById(@PathVariable Long id) {
         Optional<PuzzleCategory> puzzleCategory = puzzleCategoryService.findById(id);
-        Collection<PuzzleGroupDTO> puzzleGroupDTOCollection = new ArrayList<>();
+        Collection<PGDTO> puzzleGroupDTOCollection = new ArrayList<>();
         PuzzleCategoryDTO puzzleCategoryDTO = new PuzzleCategoryDTO();
 
         if(puzzleCategory.isPresent()) {
@@ -69,7 +69,7 @@ public class PuzzleCategoryController {
 
             Iterator<PuzzleGroup> itrPuzzleGroupSet = puzzleGroupSet.iterator();
             while (itrPuzzleGroupSet.hasNext()) {
-                PuzzleGroupDTO puzzleGroupDTO = new PuzzleGroupDTO();
+                PGDTO puzzleGroupDTO = new PGDTO();
                 PuzzleGroup puzzleGroup = itrPuzzleGroupSet.next();
                 puzzleGroupDTO.setTitle(puzzleGroup.getTitle());
                 puzzleGroupDTO.setId(puzzleGroup.getId());

@@ -5,7 +5,7 @@ import com.alcity.dto.player.PermitedPlayerDTO;
 
 import java.util.Collection;
 
-public class PuzzleLevelDTO extends BaseTableDTO {
+public class PLDTO extends BaseTableDTO {
 
     private String approveDate;
     private Long ordering;
@@ -77,10 +77,10 @@ public class PuzzleLevelDTO extends BaseTableDTO {
         this.maxScore = maxScore;
     }
 
-    private Collection<PuzzleLevelObjectiveDTO> puzzleLevelObjectiveDTOCollection;
+    private Collection<PLObjectiveDTO> puzzleLevelObjectiveDTOCollection;
     private Collection<PuzzleLevel_LearningTopicDTO> puzzleLevel_learningTopicDTOCollection;
 
-    private Collection<PuzzleLevelGroundDTO> puzzleLevelGroundDTOCollection;
+    private Collection<PLGroundDTO> puzzleLevelGroundDTOCollection;
     private Collection<PermitedPlayerDTO> permitedPlayerDTOCollection;
 
 
@@ -116,19 +116,19 @@ public class PuzzleLevelDTO extends BaseTableDTO {
         this.permitedPlayerDTOCollection = permitedPlayerDTOCollection;
     }
 
-    public Collection<PuzzleLevelGroundDTO> getPuzzleLevelGroundDTOCollection() {
+    public Collection<PLGroundDTO> getPuzzleLevelGroundDTOCollection() {
         return puzzleLevelGroundDTOCollection;
     }
 
-    public void setPuzzleLevelGroundDTOCollection(Collection<PuzzleLevelGroundDTO> puzzleLevelGroundDTOCollection) {
+    public void setPuzzleLevelGroundDTOCollection(Collection<PLGroundDTO> puzzleLevelGroundDTOCollection) {
         this.puzzleLevelGroundDTOCollection = puzzleLevelGroundDTOCollection;
     }
 
-    public Collection<PuzzleLevelObjectiveDTO> getPuzzleLevelObjectiveDTOCollection() {
+    public Collection<PLObjectiveDTO> getPuzzleLevelObjectiveDTOCollection() {
         return puzzleLevelObjectiveDTOCollection;
     }
 
-    public void setPuzzleLevelObjectiveDTOCollection(Collection<PuzzleLevelObjectiveDTO> puzzleLevelObjectiveDTOCollection) {
+    public void setPuzzleLevelObjectiveDTOCollection(Collection<PLObjectiveDTO> puzzleLevelObjectiveDTOCollection) {
         this.puzzleLevelObjectiveDTOCollection = puzzleLevelObjectiveDTOCollection;
     }
 
@@ -150,11 +150,11 @@ public class PuzzleLevelDTO extends BaseTableDTO {
         this.puzzleGroupObjectInstanceDTOCollection = puzzleGroupObjectInstanceDTOCollection;
     }
 
-    public PuzzleLevelDTO() {
+    public PLDTO() {
     }
 
 
-    public PuzzleLevelDTO(Long id, Long version, String created, String updated, String approveDate, Long ordering, String title, String code, Integer fromAge, Integer toAge, Float maxScore) {
+    public PLDTO(Long id, Long version, String created, String updated, String approveDate, Long ordering, String title, String code, Integer fromAge, Integer toAge, Float maxScore) {
         super(id, version, created, updated);
         this.approveDate = approveDate;
         this.ordering = ordering;

@@ -2,7 +2,7 @@ package com.alcity.dto.puzzle;
 
 import com.alcity.dto.base.BaseTableDTO;
 
-public class PuzzleLevelObjectiveDTO extends BaseTableDTO {
+public class PLObjectiveDTO extends BaseTableDTO {
 
     private String title;
     private String description;
@@ -50,10 +50,10 @@ public class PuzzleLevelObjectiveDTO extends BaseTableDTO {
         this.condition = condition;
     }
 
-    public PuzzleLevelObjectiveDTO() {
+    public PLObjectiveDTO() {
     }
 
-    public PuzzleLevelObjectiveDTO(Long id, Long version, String created, String updated, String title, String description, Float skillAmount, Float rewardAmount, StringBuffer condition) {
+    public PLObjectiveDTO(Long id, Long version, String created, String updated, String title, String description, Float skillAmount, Float rewardAmount, StringBuffer condition) {
         super(id, version, created, updated);
         this.title = title;
         this.description = description;

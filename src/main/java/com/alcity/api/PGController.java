@@ -22,7 +22,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/pg")
 
-public class PuzzleGroupController {
+public class PGController {
     @Autowired
     private PuzzleCategoryService puzzleCategoryService;
 
@@ -32,12 +32,12 @@ public class PuzzleGroupController {
 
 
     @GetMapping("/all")
-    public Collection<PuzzleGroupDTO> getPuzzleGroups(Model model) {
+    public Collection<PGDTO> getPuzzleGroups(Model model) {
         Collection<PuzzleGroup> puzzleGroupCollection = puzzleGroupService.findAll();
-        Collection<PuzzleGroupDTO> puzzleGroupDTOCollection = new ArrayList<PuzzleGroupDTO>();
+        Collection<PGDTO> puzzleGroupDTOCollection = new ArrayList<PGDTO>();
         Iterator<PuzzleGroup> puzzleGroupIterator = puzzleGroupCollection.iterator();
         while (puzzleGroupIterator.hasNext()) {
-            PuzzleGroupDTO puzzleGroupDTO = new PuzzleGroupDTO();
+            PGDTO puzzleGroupDTO = new PGDTO();
             PuzzleGroup puzzleGroup = puzzleGroupIterator.next();
             puzzleGroupDTO.setId(puzzleGroup.getId());
             puzzleGroupDTO.setTitle(puzzleGroup.getTitle());
@@ -57,9 +57,9 @@ public class PuzzleGroupController {
     }
     @RequestMapping(value = "/id/{id}", method = RequestMethod.GET)
     @ResponseBody
-    public PuzzleGroupDTO getPuzzleGroupById(@PathVariable Long id) {
+    public PGDTO getPuzzleGroupById(@PathVariable Long id) {
         Optional<PuzzleGroup> puzzleGroup = puzzleGroupService.findById(id);
-        PuzzleGroupDTO puzzleGroupDTO = new PuzzleGroupDTO();
+        PGDTO puzzleGroupDTO = new PGDTO();
         if(puzzleGroup.isPresent()){
 
            puzzleGroupDTO = DTOUtil.getPuzzleGroupDTO(puzzleGroup.get());
@@ -68,7 +68,7 @@ public class PuzzleGroupController {
            journeyStepDTOCollection = DTOUtil.getJorenyStepsDTOS(journeyStepCollection);
 
             Collection<PuzzleLevel> puzzleLevelCollection = puzzleGroup.get().getPuzzleLevelSet();
-            Collection<PuzzleLevelDTO> puzzleLevelDTOCollection = new ArrayList<PuzzleLevelDTO>();
+            Collection<PLDTO> puzzleLevelDTOCollection = new ArrayList<PLDTO>();
             puzzleLevelDTOCollection = DTOUtil.getPuzzleLevelDTOS(puzzleLevelCollection);
 
             Collection<PuzzleSkillLearningContent> puzzleSkillLearningContentCollection = puzzleGroup.get().getPuzzleSkillLearningContentSet();
