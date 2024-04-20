@@ -18,7 +18,7 @@ import com.alcity.service.play.PlayHistoryService;
 import com.alcity.service.puzzle.*;
 import com.alcity.service.users.ApplicationMemberService;
 import com.alcity.service.users.WalletItemService;
-import com.alcity.utility.Util;
+import com.alcity.utility.ImageUtil;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.slf4j.Logger;
@@ -51,33 +51,15 @@ public class ObjectManagmentApplication {
 
 
 	@Autowired
-	private DataTypeService dataTypeService;
-
-
-	@Autowired
-	private PuzzleLevelPrivacyService puzzleLevelPrivacyService;
-
-
-	@Autowired
 	private  BinaryContentTypeService  binaryContentTypeService;
 
 	@Autowired
 	private  BinaryContentService  binaryContentService;
 
-	@Autowired
-	private JourneyService journeyService;
-
-	@Autowired
-	private JourneyStepService journeyStepService;
 
 	@Autowired
 	private PuzzleGroupService puzzleGroupService;
 
-	@Autowired
-	private LearningSkillService learningSkillService;
-
-	@Autowired
-	private LearningTopicService learningTopicService;
 
 
 	@Autowired
@@ -129,8 +111,6 @@ public class ObjectManagmentApplication {
 
 
 
-	@Autowired
-	private WalletItemService walletItemService;
 
 	@Autowired
 	PuzzleGroupObjectInstanceService puzzleGroupObjectInstanceService;
@@ -160,9 +140,6 @@ public class ObjectManagmentApplication {
 	@Autowired
 	PuzzleLevelRulePostActionService  puzzleLevelRulePostActionService;
 
-	@Autowired
-	private ClientTypeService clientTypeService;
-
 
 	@Autowired
 	private Environment environment;
@@ -184,19 +161,19 @@ public class ObjectManagmentApplication {
 			ApplicationMember admin_1 = applicationMemberService.findByUsername("admin");
 			BinaryContentType imageType= binaryContentTypeService.findByValue("image");
 
-			byte[] puzzle_Ground_Maze_Image_1 = Util.getImage("src/main/resources/images/","playGround.png");
+			byte[] puzzle_Ground_Maze_Image_1 = ImageUtil.getImage("src/main/resources/images/","playGround.png");
 			BinaryContent puzzle_ground_Maze_image_binary_content_1 = new BinaryContent("puzzle ground for Maze image",puzzle_Ground_Maze_Image_1,imageType,1L,now,now,admin_1,admin_1);
 			binaryContentService.save(puzzle_ground_Maze_image_binary_content_1);
 
-			byte[] puzzle_group_Icon_2 = Util.getImage("src/main/resources/images/","physic.png");
+			byte[] puzzle_group_Icon_2 = ImageUtil.getImage("src/main/resources/images/","physic.png");
 			BinaryContent puzzle_group_binary_content_2 = new BinaryContent("image_puzzle_group_physic",puzzle_group_Icon_2,imageType,1L,now,now,admin_1,admin_1);
 			binaryContentService.save(puzzle_group_binary_content_2);
 
-			byte[] puzzle_group_Icon_3 = Util.getImage("src/main/resources/images/","IQ.png");
+			byte[] puzzle_group_Icon_3 = ImageUtil.getImage("src/main/resources/images/","IQ.png");
 			BinaryContent puzzle_group_binary_content_3 = new BinaryContent("image_puzzle_group_IQ",puzzle_group_Icon_3,imageType,1L,now,now,admin_1,admin_1);
 			binaryContentService.save(puzzle_group_binary_content_3);
 
-			byte[] puzzle_group_Maze_Image = Util.getImage("src/main/resources/images/","MazeImage.png");
+			byte[] puzzle_group_Maze_Image = ImageUtil.getImage("src/main/resources/images/","MazeImage.png");
 			BinaryContent puzzle_group_Maze_Image_binary_content = new BinaryContent("MazeImage",puzzle_group_Maze_Image,imageType,1L,now,now,admin_1,admin_1);
 			binaryContentService.save(puzzle_group_Maze_Image_binary_content);
 

@@ -2,13 +2,11 @@ package com.alcity.importdata;
 
 
 import com.alcity.ObjectManagmentApplication;
-import com.alcity.entity.base.BinaryContent;
 import com.alcity.entity.base.BinaryContentType;
 import com.alcity.entity.users.ApplicationMember;
 import com.alcity.service.base.BinaryContentService;
 import com.alcity.service.base.BinaryContentTypeService;
 import com.alcity.service.users.ApplicationMemberService;
-import com.alcity.utility.Util;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

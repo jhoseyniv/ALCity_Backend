@@ -26,7 +26,7 @@ import com.alcity.service.users.ApplicationMemberService;
 import com.alcity.service.users.ApplicationMember_WalletItemService;
 import com.alcity.service.users.WalletItemService;
 import com.alcity.service.users.WalletTransactionService;
-import com.alcity.utility.Util;
+import com.alcity.utility.ImageUtil;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -121,7 +121,7 @@ public class ImportBaseData_1 implements CommandLineRunner {
         Long now = createdDate.toEpochSecond();
 
 
-        byte[] avatar = Util.getImage("src/main/resources/images/","avatar.png");
+        byte[] avatar = ImageUtil.getImage("src/main/resources/images/","avatar.png");
 
         MemberType administrator = new MemberType("Administrator","Administrator",1L,now,now,null,null);
         memberTypeService.save(administrator);
@@ -167,8 +167,8 @@ public class ImportBaseData_1 implements CommandLineRunner {
         binaryContentTypeService.save(voiceType);
 
 
-        byte[] tetherIcon = Util.getImage("src/main/resources/images/","Tether.png");
-        byte[] carIcon = Util.getImage("src/main/resources/images/","car.png");
+        byte[] tetherIcon = ImageUtil.getImage("src/main/resources/images/","Tether.png");
+        byte[] carIcon = ImageUtil.getImage("src/main/resources/images/","car.png");
 
         WalletItemType fiat = new WalletItemType("fiat","fiat",Boolean.TRUE,1L,now,now,admin_1,admin_1);
         WalletItemType crypto = new WalletItemType("crypto","crypto",Boolean.TRUE,1L,now,now,admin_1,admin_1);
@@ -227,19 +227,19 @@ public class ImportBaseData_1 implements CommandLineRunner {
         objectCategoryService.save(objectCategory_Mamals);
 
 
-        byte[] goose_Image = Util.getImage("src/main/resources/images/","goose.png");
+        byte[] goose_Image = ImageUtil.getImage("src/main/resources/images/","goose.png");
         BinaryContent goose_Image_binary_content = new BinaryContent("goose image",goose_Image,imageType,1L,now,now,admin_1,admin_1);
         binaryContentService.save(goose_Image_binary_content);
 
-        byte[] eagle_Image = Util.getImage("src/main/resources/images/","eagle.png");
+        byte[] eagle_Image = ImageUtil.getImage("src/main/resources/images/","eagle.png");
         BinaryContent eagle_Image_binary_content = new BinaryContent("eagle image",eagle_Image,imageType,1L,now,now,admin_1,admin_1);
         binaryContentService.save(eagle_Image_binary_content);
 
-        byte[] fox_Image = Util.getImage("src/main/resources/images/","fox.png");
+        byte[] fox_Image = ImageUtil.getImage("src/main/resources/images/","fox.png");
         BinaryContent fox_Image_binary_content = new BinaryContent("fox image",fox_Image,imageType,1L,now,now,admin_1,admin_1);
         binaryContentService.save(fox_Image_binary_content);
 
-        byte[] wheat_Image = Util.getImage("src/main/resources/images/","wheat.png");
+        byte[] wheat_Image = ImageUtil.getImage("src/main/resources/images/","wheat.png");
         BinaryContent wheat_Image_binary_content = new BinaryContent("wheat image",wheat_Image,imageType,1L,now,now,admin_1,admin_1);
         binaryContentService.save(wheat_Image_binary_content);
 
@@ -254,14 +254,6 @@ public class ImportBaseData_1 implements CommandLineRunner {
         dataTypeService.save(alcity_Boolean);
         dataTypeService.save(alcity_String);
         dataTypeService.save(alcity_Binary);
-
-//        PLDifficulty easy= new PLDifficulty("Easy","Easy",1L,now,now,admin_1,admin_1);
-//        PLDifficulty medium= new PLDifficulty("Medium","Medium",1L,now,now,admin_1,admin_1);
-//        PLDifficulty hard= new PLDifficulty("Hard","Hard",1L,now,now,admin_1,admin_1);
-//
-//        puzzleDifficultyService.save(easy);
-//        puzzleDifficultyService.save(medium);
-//        puzzleDifficultyService.save(hard);
 
 
         PuzzleLevelPrivacy privacy_1 = new PuzzleLevelPrivacy("privacy 1","privacy1",1L,now,now,admin_1,admin_1);
@@ -299,9 +291,9 @@ public class ImportBaseData_1 implements CommandLineRunner {
         learningSkill_LearningTopicService.save(learningSkill_learningTopic_2);
 
 
-        byte[] jouerny_1_Image = Util.getImage("src/main/resources/images/","jungle.png");
-        byte[] jouerny_2_Image = Util.getImage("src/main/resources/images/","desert.png");
-        byte[] jouerny_3_Image = Util.getImage("src/main/resources/images/","city.png");
+        byte[] jouerny_1_Image = ImageUtil.getImage("src/main/resources/images/","jungle.png");
+        byte[] jouerny_2_Image = ImageUtil.getImage("src/main/resources/images/","desert.png");
+        byte[] jouerny_3_Image = ImageUtil.getImage("src/main/resources/images/","city.png");
 
         BinaryContent image_journey_1 = new BinaryContent("image_journey_1",jouerny_1_Image,imageType,1L,now,now,admin_1,admin_1);
         BinaryContent image_journey_2 = new BinaryContent("image_journey_2",jouerny_2_Image,imageType,1L,now,now,admin_1,admin_1);
@@ -349,58 +341,5 @@ public class ImportBaseData_1 implements CommandLineRunner {
         objectActionService.save(convertAction);
         objectActionService.save(showAction);
         objectActionService.save(playSoundAction);
-
-//        PLRuleEventType systemEvent = new PLRuleEventType("System Event","System Event",1L,now,now,admin_1,admin_1);
-//        PLRuleEventType objectActionEvent = new PLRuleEventType("Object Action Event","Object Action Event",1L,now,now,admin_1,admin_1);
-//        PLRuleEventType userEvent = new PLRuleEventType("User Event","User Event",1L,now,now,admin_1,admin_1);
-//        PLRuleEventType rulePostActionEvent = new PLRuleEventType("Rule Post Action Event","Rule Post Action Event",1L,now,now,admin_1,admin_1);
-//        puzzleLevelRuleEventTypeService.save(systemEvent);
-//        puzzleLevelRuleEventTypeService.save(objectActionEvent);
-//        puzzleLevelRuleEventTypeService.save(userEvent);
-//        puzzleLevelRuleEventTypeService.save(rulePostActionEvent);
-
-//        UserEvent clickEvent = new UserEvent("Click","Click",1L,now,now,admin_1,admin_1);
-//        UserEvent doubleClickEvent = new UserEvent("Double Click","Double Click",1L,now,now,admin_1,admin_1);
-//        UserEvent startDragEvent = new UserEvent("Start Drag","Start Drag",1L,now,now,admin_1,admin_1);
-//        UserEvent endDragEvent = new UserEvent("End Drag","End Drag",1L,now,now,admin_1,admin_1);
-//
-//        userEventService.save(clickEvent);
-//        userEventService.save(doubleClickEvent);
-//        userEventService.save(startDragEvent);
-//        userEventService.save(endDragEvent);
-
-//        SystemEvent timerSystemEvent = new SystemEvent("Timer","Timer",1L,now,now,admin_1,admin_1);
-//        systemEventService.save(timerSystemEvent);
-
-//        PLRulePostActionType callObjectAction = new PLRulePostActionType("CallObjectAction","CallObjectAction",1L,now,now,admin_1,admin_1);
-//        PLRulePostActionType variableAssignmentAction = new PLRulePostActionType("VariableAssignmentAction","VariableAssignmentAction",1L,now,now,admin_1,admin_1);
-//        PLRulePostActionType fireEvent = new PLRulePostActionType("FireEvent","FireEvent",1L,now,now,admin_1,admin_1);
-//        PLRulePostActionType userAlert = new PLRulePostActionType("UserAlert","UserAlert",1L,now,now,admin_1,admin_1);
-//        puzzleLevelRulePostActionTypeService.save(callObjectAction);
-//        puzzleLevelRulePostActionTypeService.save(variableAssignmentAction);
-//        puzzleLevelRulePostActionTypeService.save(fireEvent);
-//        puzzleLevelRulePostActionTypeService.save(userAlert);
-
-//        POActionOwnerType puzzleObjectIsOwner = new POActionOwnerType("Puzzle Object","Puzzle Object",1L,now,now,admin_1,admin_1);
-//        POActionOwnerType puzzleGroupObjectIsOwner = new POActionOwnerType("Puzzle Group Object","Puzzl Group Object",1L,now,now,admin_1,admin_1);
-//        POActionOwnerType puzzleGroupObjectInstanceIsOwner = new POActionOwnerType("Puzzle Group Object Instance","Puzzle Group Object Instance",1L,now,now,admin_1,admin_1);
-
-//        puzzleObjectActionOwnerTypeService.save(puzzleObjectIsOwner);
-//        puzzleObjectActionOwnerTypeService.save(puzzleGroupObjectIsOwner);
-//        puzzleObjectActionOwnerTypeService.save(puzzleGroupObjectInstanceIsOwner);
-
-//        AttributeOwnerType puzzleObjectProperty = new AttributeOwnerType("PuzzleObjectProperty","PuzzleObjectProperty",1L,now,now,admin_1,admin_1);
-//        AttributeOwnerType puzzleGroupObjectProperty = new AttributeOwnerType("PuzzleGroupObjectProperty","PuzzleGroupObjectProperty",1L,now,now,admin_1,admin_1);
-//        AttributeOwnerType puzzleGroupObjectInstanceProperty = new AttributeOwnerType("PuzzleGroupObjectInstanceProperty","PuzzleGroupObjectInstanceProperty",1L,now,now,admin_1,admin_1);
-//        AttributeOwnerType puzzleGroupObjectVariable = new AttributeOwnerType("PuzzleGroupObjectVariable","PuzzleGroupObjectVariable",1L,now,now,admin_1,admin_1);
-//        AttributeOwnerType puzzleGroupObjectInstanceVariable = new AttributeOwnerType("PuzzleGroupObjectInstanceVariable","PuzzleGroupObjectInstanceVariable",1L,now,now,admin_1,admin_1);
-//
-//        attributeOwnerTypeService.save(puzzleObjectProperty);
-//        attributeOwnerTypeService.save(puzzleGroupObjectProperty);
-//        attributeOwnerTypeService.save(puzzleGroupObjectInstanceProperty);
-//        attributeOwnerTypeService.save(puzzleGroupObjectVariable);
-//        attributeOwnerTypeService.save(puzzleGroupObjectInstanceVariable);
-
-
     }
 }

@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
-public class Util {
+public class ImageUtil {
     public static byte[] getImage(String imageDirectory, String imageName) throws IOException {
         Path imagePath = Path.of(imageDirectory, imageName);
 

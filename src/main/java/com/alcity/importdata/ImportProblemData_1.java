@@ -28,7 +28,7 @@ import com.alcity.service.puzzle.*;
 import com.alcity.service.users.ApplicationMemberService;
 import com.alcity.service.users.ApplicationMember_WalletItemService;
 import com.alcity.service.users.WalletItemService;
-import com.alcity.utility.Util;
+import com.alcity.utility.ImageUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -187,13 +187,9 @@ public class ImportProblemData_1 implements CommandLineRunner {
 
         BinaryContentType imageType= binaryContentTypeService.findByValue("image");
 
-      //  LearningSkill constraint = learningSkillService.findByValue("Constraint");
-      //  LearningSkill loop = learningSkillService.findByValue("loop");
         LearningSkill timeManagement = learningSkillService.findByValue("timeManagement");
         LearningSkill division = learningSkillService.findByValue("division");
         WalletItem alCoin10WalletItem = walletItemService.findByValue("al_coin_10");
-
-       // Optional<ApplicationMember_WalletItem> jalalHoseyni_alcoin_10 = applicationMember_walletItemService.findByApplicationMemberAndWalletItem(jalalHoseyni,alCoin10WalletItem);
 
         Journey journey_1 = journeyService.findByTitle("Journey_1");
         Journey journey_2 = journeyService.findByTitle("Journey_2");
@@ -202,13 +198,11 @@ public class ImportProblemData_1 implements CommandLineRunner {
         ZonedDateTime  createdDate= ZonedDateTime.now();
         Long now = createdDate.toEpochSecond();
 
-        //CameraSetupDTO cameraSetupDTO = new CameraSetupDTO(5,5,5,5,5,5);
-
-        byte[] puzzle_Ground_Image_1 = Util.getImage("src/main/resources/images/","playGround.png");
+        byte[] puzzle_Ground_Image_1 = ImageUtil.getImage("src/main/resources/images/","playGround.png");
         BinaryContent puzzle_ground_binary_content_1 = new BinaryContent("puzzle ground for hash image",puzzle_Ground_Image_1,imageType,1L,now,now,admin_1,admin_1);
         binaryContentService.save(puzzle_ground_binary_content_1);
 
-        byte[] puzzle_group_Icon_1 = Util.getImage("src/main/resources/images/","puzzle_group_1.png");
+        byte[] puzzle_group_Icon_1 = ImageUtil.getImage("src/main/resources/images/","puzzle_group_1.png");
         BinaryContent puzzle_group_binary_content_1 = new BinaryContent("image_puzzle_group_matematic",puzzle_group_Icon_1,imageType,1L,now,now,admin_1,admin_1);
         binaryContentService.save(puzzle_group_binary_content_1);
 
@@ -225,15 +219,13 @@ public class ImportProblemData_1 implements CommandLineRunner {
         journeyStepService.save(journey_2_Step_1);
 
 
-     //   PLDifficulty easy = puzzleDifficultyService.findByValue("Easy");
-        //PLStatus ongoing = puzzleLevelStatusService.findByValue("ongoing");
         PuzzleLevelPrivacy privacy_1 = puzzleLevelPrivacyService.findByValue("privacy1");
 
         PuzzleLevel puzzleLevel_hashimage = new PuzzleLevel(now,1L,"arrange hash image","HASH_IMAGe",10,14,5f,puzzleGroup_1,PLDifficulty.Easy,PLStatus.Ongoing,privacy_1,puzzle_group_binary_content_1,puzzle_group_binary_content_1,3L,now,now,admin_1,admin_1);
         puzzleLevelService.save(puzzleLevel_hashimage);
 
 
-        byte[] puzzle_group_Hash_Image = Util.getImage("src/main/resources/images/","hashImage.png");
+        byte[] puzzle_group_Hash_Image = ImageUtil.getImage("src/main/resources/images/","hashImage.png");
         BinaryContent puzzle_group_Hash_Image_binary_content = new BinaryContent("hashImage",puzzle_group_Hash_Image,imageType,1L,now,now,admin_1,admin_1);
         binaryContentService.save(puzzle_group_Hash_Image_binary_content);
 
@@ -339,15 +331,15 @@ public class ImportProblemData_1 implements CommandLineRunner {
         puzzleGroupObjectInstanceService.save(instance_img8);
 
 
-        byte[] image_0_hash = Util.getImage("src/main/resources/images/hashImage_Puzzle/","0.png");
-        byte[] image_1_hash = Util.getImage("src/main/resources/images/hashImage_Puzzle/","1.png");
-        byte[] image_2_hash = Util.getImage("src/main/resources/images/hashImage_Puzzle/","2.png");
-        byte[] image_3_hash = Util.getImage("src/main/resources/images/hashImage_Puzzle/","3.png");
-        byte[] image_4_hash = Util.getImage("src/main/resources/images/hashImage_Puzzle/","4.png");
-        byte[] image_5_hash = Util.getImage("src/main/resources/images/hashImage_Puzzle/","5.png");
-        byte[] image_6_hash = Util.getImage("src/main/resources/images/hashImage_Puzzle/","6.png");
-        byte[] image_7_hash = Util.getImage("src/main/resources/images/hashImage_Puzzle/","7.png");
-        byte[] image_8_hash = Util.getImage("src/main/resources/images/hashImage_Puzzle/","8.png");
+        byte[] image_0_hash = ImageUtil.getImage("src/main/resources/images/hashImage_Puzzle/","0.png");
+        byte[] image_1_hash = ImageUtil.getImage("src/main/resources/images/hashImage_Puzzle/","1.png");
+        byte[] image_2_hash = ImageUtil.getImage("src/main/resources/images/hashImage_Puzzle/","2.png");
+        byte[] image_3_hash = ImageUtil.getImage("src/main/resources/images/hashImage_Puzzle/","3.png");
+        byte[] image_4_hash = ImageUtil.getImage("src/main/resources/images/hashImage_Puzzle/","4.png");
+        byte[] image_5_hash = ImageUtil.getImage("src/main/resources/images/hashImage_Puzzle/","5.png");
+        byte[] image_6_hash = ImageUtil.getImage("src/main/resources/images/hashImage_Puzzle/","6.png");
+        byte[] image_7_hash = ImageUtil.getImage("src/main/resources/images/hashImage_Puzzle/","7.png");
+        byte[] image_8_hash = ImageUtil.getImage("src/main/resources/images/hashImage_Puzzle/","8.png");
 
 
         BinaryContent image_0_Instance_content = new BinaryContent("img0",image_0_hash,imageType,1L,now,now,admin_1,admin_1);
@@ -649,13 +641,10 @@ public class ImportProblemData_1 implements CommandLineRunner {
         alCityAttributeValueService.save(alCityAttributeValue_instance_8_Y);
 
 
-//        PLRuleEventType userEvent = puzzleLevelRuleEventTypeService.findByValue("User Event");
-        //UserEvent clickEvent = userEventService.findByValue("Click");
         StringBuffer    puzzle_Rule_Condition = new StringBuffer("((e.x==X)&&((e.y==Y-1)||(e.y==Y+1)))  ||  ((e.y==Y)&&((e.x==X-1)||(e.x==X+1)))");
         PLRule rule_for_move_objects_in_hash_image = new PLRule("Move object by click around empty object",1
                 ,puzzle_Rule_Condition,puzzleLevel_hashimage,1L,now,now,admin_1,admin_1);
         puzzleLevelRuleService.save(rule_for_move_objects_in_hash_image);
-
 
 
         PuzzleLevelRuleEvent puzzleLevelRuleEvent_click = new PuzzleLevelRuleEvent("Click",PLRuleEventType.User_Event,UserEvent.Click.ordinal(),rule_for_move_objects_in_hash_image,1L,now,now,admin_1,admin_1);
