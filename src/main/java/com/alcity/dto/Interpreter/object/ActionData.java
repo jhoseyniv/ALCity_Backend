@@ -2,7 +2,7 @@ package com.alcity.dto.Interpreter.object;
 
 import java.util.Collection;
 
-public class ObjectActionData {
+public class ActionData {
     private Long id;
     private String actionName;
 
@@ -41,10 +41,10 @@ public class ObjectActionData {
         this.actionName = actionName;
     }
 
-    public ObjectActionData() {
+    public ActionData() {
     }
 
-    public ObjectActionData(Long id, String actionName,String handler,Collection<RecordrData> parameters) {
+    public ActionData(Long id, String actionName, String handler, Collection<RecordrData> parameters) {
         this.id = id;
         this.actionName = actionName;
         this.handler = handler;

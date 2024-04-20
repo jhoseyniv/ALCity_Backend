@@ -6,7 +6,7 @@ import com.alcity.dto.Interpreter.object.RuleData;
 import java.io.Serializable;
 import java.util.Collection;
 
-public class PuzzleLevelData implements Serializable {
+public class PLData implements Serializable {
     private String code;
     private String name;
 
@@ -15,11 +15,11 @@ public class PuzzleLevelData implements Serializable {
     private Integer cols;
     private Integer rows;
     private CameraSetupData cameraSetup;
-    private Collection<PuzzleLevelObjectiveData> objectives;
+    private Collection<PLObjectiveData> objectives;
 
     private Collection<RecordrData> variables;
 
-    private Collection<PuzzleGroupObjectData> objects;
+    private Collection<PGData> objects;
     private Collection<RuleData> rules;
 
 
@@ -39,11 +39,11 @@ public class PuzzleLevelData implements Serializable {
         this.boardGraphicId = boardGraphicId;
     }
 
-    public Collection<PuzzleLevelObjectiveData> getObjectives() {
+    public Collection<PLObjectiveData> getObjectives() {
         return objectives;
     }
 
-    public void setObjectives(Collection<PuzzleLevelObjectiveData> objectives) {
+    public void setObjectives(Collection<PLObjectiveData> objectives) {
         this.objectives = objectives;
     }
 
@@ -96,15 +96,15 @@ public class PuzzleLevelData implements Serializable {
         this.rules = rules;
     }
 
-    public Collection<PuzzleGroupObjectData> getObjects() {
+    public Collection<PGData> getObjects() {
         return objects;
     }
 
-    public void setObjects(Collection<PuzzleGroupObjectData> objects) {
+    public void setObjects(Collection<PGData> objects) {
         this.objects = objects;
     }
 
-    public PuzzleLevelData() {
+    public PLData() {
     }
 
 }

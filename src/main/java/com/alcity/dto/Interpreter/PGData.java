@@ -4,18 +4,18 @@ import com.alcity.dto.Interpreter.object.*;
 
 import java.util.Collection;
 
-public class PuzzleGroupObjectData {
+public class PGData {
     private Long id;
     private Long version;
     private String title;
     private String code;
     private Long iconGraphicId;
     private Long imageGraphicId;
-    private Collection<ObjectActionData> actions;
+    private Collection<ActionData> actions;
     private Collection<RecordrData> variables;
     private Collection<RecordrData> properties;
 
-    private  Collection<ObjectInstanceData> instances;
+    private  Collection<InstanceData> instances;
 
 
     public Long getId() {
@@ -66,11 +66,11 @@ public class PuzzleGroupObjectData {
         this.imageGraphicId = imageGraphicId;
     }
 
-    public Collection<ObjectActionData> getActions() {
+    public Collection<ActionData> getActions() {
         return actions;
     }
 
-    public void setActions(Collection<ObjectActionData> actions) {
+    public void setActions(Collection<ActionData> actions) {
         this.actions = actions;
     }
 
@@ -90,18 +90,18 @@ public class PuzzleGroupObjectData {
         this.properties = properties;
     }
 
-    public Collection<ObjectInstanceData> getInstances() {
+    public Collection<InstanceData> getInstances() {
         return instances;
     }
 
-    public void setInstances(Collection<ObjectInstanceData> instances) {
+    public void setInstances(Collection<InstanceData> instances) {
         this.instances = instances;
     }
 
-    public PuzzleGroupObjectData() {
+    public PGData() {
     }
 
-    public PuzzleGroupObjectData(Long id,Long version, String title, String code, Long iconGraphicId, Long imageGraphicId, Collection<ObjectActionData> actions) {
+    public PGData(Long id, Long version, String title, String code, Long iconGraphicId, Long imageGraphicId, Collection<ActionData> actions) {
         this.id = id;
         this.version=version;
         this.title = title;

@@ -2,7 +2,7 @@ package com.alcity.dto.Interpreter.object;
 
 import java.util.Collection;
 
-public class ObjectInstanceData {
+public class InstanceData {
 
     private Long id;
     private String name;
@@ -10,7 +10,7 @@ public class ObjectInstanceData {
     private Position position;
     private Collection<RecordrData> properties;
     private Collection<RecordrData> variables;
-    private Collection<ObjectActionData> actionsParameters;
+    private Collection<ActionData> actionsParameters;
 
     public Long getId() {
         return id;
@@ -52,18 +52,18 @@ public class ObjectInstanceData {
         this.properties = properties;
     }
 
-    public Collection<ObjectActionData> getActionsParameters() {
+    public Collection<ActionData> getActionsParameters() {
         return actionsParameters;
     }
 
-    public void setActionsParameters(Collection<ObjectActionData> actionsParameters) {
+    public void setActionsParameters(Collection<ActionData> actionsParameters) {
         this.actionsParameters = actionsParameters;
     }
 
-    public ObjectInstanceData() {
+    public InstanceData() {
     }
 
-    public ObjectInstanceData(Long id, String name, Position position, Collection<RecordrData> properties, Collection<ObjectActionData> actionsParameters) {
+    public InstanceData(Long id, String name, Position position, Collection<RecordrData> properties, Collection<ActionData> actionsParameters) {
         this.id = id;
         this.name = name;
         this.position = position;

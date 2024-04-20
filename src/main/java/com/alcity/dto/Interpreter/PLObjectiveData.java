@@ -1,6 +1,6 @@
 package com.alcity.dto.Interpreter;
 
-public class PuzzleLevelObjectiveData {
+public class PLObjectiveData {
     private Long id;
     private String title;
     private String description;
@@ -56,10 +56,10 @@ public class PuzzleLevelObjectiveData {
         this.condition = condition;
     }
 
-    public PuzzleLevelObjectiveData() {
+    public PLObjectiveData() {
     }
 
-    public PuzzleLevelObjectiveData(Long  id , String title, String description, Float skillAmount, Float rewardAmount, StringBuffer condition) {
+    public PLObjectiveData(Long  id , String title, String description, Float skillAmount, Float rewardAmount, StringBuffer condition) {
         this.title = title;
         this.description = description;
         this.skillAmount = skillAmount;

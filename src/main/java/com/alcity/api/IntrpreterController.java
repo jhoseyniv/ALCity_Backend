@@ -39,8 +39,8 @@ public class IntrpreterController {
 
     @RequestMapping(value = "/id/{id}", method = RequestMethod.GET)
     @ResponseBody
-    public PuzzleLevelData getPuzzleLevelForInterpreter(@PathVariable Long id) {
-         PuzzleLevelData puzzleLevelData= new PuzzleLevelData();
+    public PLData getPuzzleLevelForInterpreter(@PathVariable Long id) {
+         PLData puzzleLevelData= new PLData();
          Optional<PLGround> puzzleLevelGroundOptional = puzzleLevelGroundService.findByPuzzleLevelId(id);
         PLGround puzzleLevelGround = new PLGround();
          if(puzzleLevelGroundOptional.isPresent()){
@@ -59,10 +59,10 @@ public class IntrpreterController {
 
              Collection<RecordrData>  variables = DTOUtil.getAttributeForOwnerById(alCityAttributeService,pl.getId(),AttributeOwnerType.Puzzle_Level_Variable);
 
-             Collection<PuzzleLevelObjectiveData> puzzleLevelObjectiveDataCollection = DTOUtil.getPuzzleLevelObjectiveData(pl);
+             Collection<PLObjectiveData> puzzleLevelObjectiveDataCollection = DTOUtil.getPuzzleLevelObjectiveData(pl);
              puzzleLevelData.setObjectives(puzzleLevelObjectiveDataCollection);
              PuzzleGroup pg = pl.getPuzzleGroup();
-             Collection<PuzzleGroupObjectData> objects = getObjectsForPuzzleGroup(pg);
+             Collection<PGData> objects = getObjectsForPuzzleGroup(pg);
              Collection<RuleData> rules = DTOUtil.getRulesForPuzzleLevel(pl,alCityAttributeService);
 
              puzzleLevelData.setCols(puzzleLevelGround.getNumColumns());
@@ -79,15 +79,15 @@ public class IntrpreterController {
 
 
 
-    public Collection<ObjectInstanceData> getInstancesForAObjectInPuzzleLevel(PuzzleGroup_PuzzleObject pgpo) {
-        Collection<ObjectInstanceData> objectInstanceDataCollection = new ArrayList<ObjectInstanceData>();
+    public Collection<InstanceData> getInstancesForAObjectInPuzzleLevel(PuzzleGroup_PuzzleObject pgpo) {
+        Collection<InstanceData> objectInstanceDataCollection = new ArrayList<InstanceData>();
         Collection<PuzzleGroupObjectInstance> puzzleGroupObjectInstanceCollection = pgpo.getPuzzleGroupObjectInstanceCollection();
         Iterator<PuzzleGroupObjectInstance> iterator = puzzleGroupObjectInstanceCollection.iterator();
 
         while(iterator.hasNext()) {
             PuzzleGroupObjectInstance puzzleGroupObjectInstance = iterator.next();
 
-            ObjectInstanceData objectInstanceData = new ObjectInstanceData();
+            InstanceData objectInstanceData = new InstanceData();
             objectInstanceData.setId(puzzleGroupObjectInstance.getId());
             objectInstanceData.setName(puzzleGroupObjectInstance.getName());
             Position instancePostion = new Position(puzzleGroupObjectInstance.getRow() , puzzleGroupObjectInstance.getCol(),puzzleGroupObjectInstance.getzOrder());
@@ -105,15 +105,15 @@ public class IntrpreterController {
      }
 
 
-        public Collection<PuzzleGroupObjectData> getObjectsForPuzzleGroup(PuzzleGroup pg) {
-        Collection<PuzzleGroupObjectData> puzzleGroupObjectDataCollection = new ArrayList<PuzzleGroupObjectData>();
+        public Collection<PGData> getObjectsForPuzzleGroup(PuzzleGroup pg) {
+        Collection<PGData> puzzleGroupObjectDataCollection = new ArrayList<PGData>();
 
         Collection<PuzzleGroup_PuzzleObject> puzzleGroup_puzzleObjectCollection = new ArrayList<>();
         puzzleGroup_puzzleObjectCollection = pg.getPuzzleGroup_puzzleObjectCollection();
         Iterator<PuzzleGroup_PuzzleObject> iterator = puzzleGroup_puzzleObjectCollection.iterator();
         while(iterator.hasNext()) {
             PuzzleGroup_PuzzleObject puzzleGroup_puzzleObject = iterator.next();
-            PuzzleGroupObjectData puzzleGroupObjectData = new PuzzleGroupObjectData();
+            PGData puzzleGroupObjectData = new PGData();
 
             puzzleGroupObjectData.setId(puzzleGroup_puzzleObject.getPuzzleObject().getId());
             puzzleGroupObjectData.setTitle(puzzleGroup_puzzleObject.getTitle());
@@ -126,7 +126,7 @@ public class IntrpreterController {
             BinaryContent icon = puzzleGroup_puzzleObject.getPuzzleObject().getIcon();
             puzzleGroupObjectData.setIconGraphicId(icon.getId());
 
-            Collection<ObjectActionData> actions = getActionsForAPuzzleObjectById(puzzleGroup_puzzleObject.getId());
+            Collection<ActionData> actions = getActionsForAPuzzleObjectById(puzzleGroup_puzzleObject.getId());
             puzzleGroupObjectData.setActions(actions);
 
             Collection<RecordrData> variables = getVariableForAPuzzleObjectById(puzzleGroup_puzzleObject.getId());
@@ -135,7 +135,7 @@ public class IntrpreterController {
             Collection<RecordrData> properties = getPropertiesForAPuzzleObjectById(puzzleGroup_puzzleObject.getId());
             puzzleGroupObjectData.setVariables(properties);
 
-            Collection<ObjectInstanceData> instances = getInstancesForAObjectInPuzzleLevel(puzzleGroup_puzzleObject);
+            Collection<InstanceData> instances = getInstancesForAObjectInPuzzleLevel(puzzleGroup_puzzleObject);
             puzzleGroupObjectData.setInstances(instances);
 
 
@@ -158,8 +158,8 @@ public class IntrpreterController {
 
     @Autowired
     PuzzleObject_ObjectActionService puzzleObject_objectActionService;
-    public Collection<ObjectActionData> getActionsForAPuzzleObjectById(Long pgoId){
-        Collection<ObjectActionData> objectActionDataCollection = new ArrayList<ObjectActionData>();
+    public Collection<ActionData> getActionsForAPuzzleObjectById(Long pgoId){
+        Collection<ActionData> objectActionDataCollection = new ArrayList<ActionData>();
         Collection<PuzzleObject_ObjectAction> puzzleObject_objectActionCollection = new ArrayList<PuzzleObject_ObjectAction>();
         puzzleObject_objectActionCollection = puzzleObject_objectActionService.findByOwnerObjectid(pgoId);
 
@@ -170,7 +170,7 @@ public class IntrpreterController {
             POActionOwnerType puzzleObjectActionOwnerType = puzzleObject_objectAction.getPoActionOwnerType();
 
             Collection<RecordrData> parameterData = getPropertiesForAOwnerObject(pgoId,puzzleObjectActionOwnerType);
-            ObjectActionData objectActionData = new ObjectActionData();
+            ActionData objectActionData = new ActionData();
             objectActionData.setActionName(objectAction.getValue());
             objectActionData.setId(objectAction.getId());
             objectActionData.setHandler(puzzleObject_objectAction.getActionRenderer().getHandler());

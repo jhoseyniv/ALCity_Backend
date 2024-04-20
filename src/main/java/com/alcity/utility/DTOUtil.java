@@ -1,7 +1,7 @@
 package com.alcity.utility;
 
 import com.alcity.dto.CameraSetupDTO;
-import com.alcity.dto.Interpreter.PuzzleLevelObjectiveData;
+import com.alcity.dto.Interpreter.PLObjectiveData;
 import com.alcity.dto.Interpreter.object.RecordrData;
 import com.alcity.dto.Interpreter.object.RuleActionData;
 import com.alcity.dto.Interpreter.object.RuleData;
@@ -350,15 +350,15 @@ public class DTOUtil {
         }
         return puzzleLevelObjectiveDTOCollection;
     }
-    public static Collection<PuzzleLevelObjectiveData> getPuzzleLevelObjectiveData(PuzzleLevel puzzleLevel) {
-        Collection<PuzzleLevelObjectiveData> puzzleLevelObjectiveDataCollection = new ArrayList<PuzzleLevelObjectiveData>();
+    public static Collection<PLObjectiveData> getPuzzleLevelObjectiveData(PuzzleLevel puzzleLevel) {
+        Collection<PLObjectiveData> puzzleLevelObjectiveDataCollection = new ArrayList<PLObjectiveData>();
         Collection<PLObjective> puzzleLevelObjectiveCollection = puzzleLevel.getPlObjectives();
 
         Iterator<PLObjective> itr_objectives = puzzleLevelObjectiveCollection.iterator();
 
         while (itr_objectives.hasNext()) {
             PLObjective puzzleLevelObjective = itr_objectives.next();
-            PuzzleLevelObjectiveData puzzleLevelObjectiveData = new PuzzleLevelObjectiveData();
+            PLObjectiveData puzzleLevelObjectiveData = new PLObjectiveData();
             puzzleLevelObjectiveData.setId(puzzleLevelObjective.getId());
             puzzleLevelObjectiveData.setTitle(puzzleLevelObjective.getTitle());
             puzzleLevelObjectiveData.setDescription(puzzleLevelObjective.getDescription());
