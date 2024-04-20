@@ -12,7 +12,6 @@ import com.alcity.dto.learning.LearningSkillDTO;
 import com.alcity.dto.learning.LearningTopicDTO;
 import com.alcity.dto.player.PermitedPlayerDTO;
 import com.alcity.dto.puzzle.*;
-import com.alcity.entity.alenum.POActionOwnerType;
 import com.alcity.entity.alobject.*;
 import com.alcity.entity.base.BinaryContent;
 import com.alcity.entity.base.CameraSetup;
@@ -46,7 +45,7 @@ public class DTOUtil {
         puzzleLevelDTO.setMaxScore(puzzleLevel.getMaxScore());
         puzzleLevelDTO.setUpdated(DateUtils.getDatatimeFromLong(puzzleLevel.getUpdated()));
         puzzleLevelDTO.setCreated(DateUtils.getDatatimeFromLong(puzzleLevel.getCreated()));
-        puzzleLevelDTO.setPuzzleLevelDifficulty(puzzleLevel.getPuzzleDifficulty().getLabel());
+        puzzleLevelDTO.setPuzzleLevelDifficulty(puzzleLevel.getPuzzleDifficulty().toString());
         puzzleLevelDTO.setPuzzleLevelPrivacy(puzzleLevel.getPuzzleLevelPrivacy().getLabel());
         puzzleLevelDTO.setPuzzleLevelStatus(puzzleLevel.getPuzzleLevelStatus().toString());
 
@@ -77,10 +76,10 @@ public class DTOUtil {
         return puzzleLevelDTO;
     }
 
-        public static ALCityAttributeDTO getALCityAttributeDTO(Optional<ALCityAttribute> alCityAttributeOptional){
+        public static ALCityAttributeDTO getALCityAttributeDTO(Optional<ALAttribute> alCityAttributeOptional){
         ALCityAttributeDTO alCityAttributeDTO = new ALCityAttributeDTO();
         if (alCityAttributeOptional.isPresent()) {
-            ALCityAttribute alCityAttribute = alCityAttributeOptional.get();
+            ALAttribute alCityAttribute = alCityAttributeOptional.get();
             alCityAttributeDTO.setId(alCityAttribute.getId());
             alCityAttributeDTO.setVersion(alCityAttribute.getVersion());
             alCityAttributeDTO.setName(alCityAttribute.getName());
@@ -99,11 +98,11 @@ public class DTOUtil {
 
     }
 
-    public static Collection<ALCityAttributeDTO> getALCityAttributes(Collection<ALCityAttribute> alCityAttributeCollection) {
+    public static Collection<ALCityAttributeDTO> getALCityAttributes(Collection<ALAttribute> alCityAttributeCollection) {
         Collection<ALCityAttributeDTO> alCityAttributeDTOCollection = new ArrayList<ALCityAttributeDTO>();
-        Iterator<ALCityAttribute> itr = alCityAttributeCollection.iterator();
+        Iterator<ALAttribute> itr = alCityAttributeCollection.iterator();
         while (itr.hasNext()) {
-            ALCityAttribute alCityAttribute = itr.next();
+            ALAttribute alCityAttribute = itr.next();
             ALCityAttributeDTO alCityAttributeDTO = new ALCityAttributeDTO();
             alCityAttributeDTO.setId(alCityAttribute.getId());
             alCityAttributeDTO.setVersion(alCityAttribute.getVersion());
@@ -327,11 +326,11 @@ public class DTOUtil {
 
     public static Collection<PuzzleLevelObjectiveDTO> getPuzzleLevelObjectiveDTOS(PuzzleLevel puzzleLevel) {
         Collection<PuzzleLevelObjectiveDTO> puzzleLevelObjectiveDTOCollection = new ArrayList<PuzzleLevelObjectiveDTO>();
-        Collection<PuzzleLevelObjective> puzzleLevelObjectiveCollection = puzzleLevel.getPuzzleLevelObjectiveCollection();
-        Iterator<PuzzleLevelObjective> itr_objectives = puzzleLevelObjectiveCollection.iterator();
+        Collection<PLObjective> puzzleLevelObjectiveCollection = puzzleLevel.getPlObjectives();
+        Iterator<PLObjective> itr_objectives = puzzleLevelObjectiveCollection.iterator();
 
         while (itr_objectives.hasNext()) {
-            PuzzleLevelObjective puzzleLevelObjective = itr_objectives.next();
+            PLObjective puzzleLevelObjective = itr_objectives.next();
             PuzzleLevelObjectiveDTO puzzleLevelObjectiveDTO = new PuzzleLevelObjectiveDTO();
             puzzleLevelObjectiveDTO.setId(puzzleLevelObjective.getId());
             puzzleLevelObjectiveDTO.setVersion(puzzleLevelObjective.getVersion());
@@ -348,12 +347,12 @@ public class DTOUtil {
     }
     public static Collection<PuzzleLevelObjectiveData> getPuzzleLevelObjectiveData(PuzzleLevel puzzleLevel) {
         Collection<PuzzleLevelObjectiveData> puzzleLevelObjectiveDataCollection = new ArrayList<PuzzleLevelObjectiveData>();
-        Collection<PuzzleLevelObjective> puzzleLevelObjectiveCollection = puzzleLevel.getPuzzleLevelObjectiveCollection();
+        Collection<PLObjective> puzzleLevelObjectiveCollection = puzzleLevel.getPlObjectives();
 
-        Iterator<PuzzleLevelObjective> itr_objectives = puzzleLevelObjectiveCollection.iterator();
+        Iterator<PLObjective> itr_objectives = puzzleLevelObjectiveCollection.iterator();
 
         while (itr_objectives.hasNext()) {
-            PuzzleLevelObjective puzzleLevelObjective = itr_objectives.next();
+            PLObjective puzzleLevelObjective = itr_objectives.next();
             PuzzleLevelObjectiveData puzzleLevelObjectiveData = new PuzzleLevelObjectiveData();
             puzzleLevelObjectiveData.setId(puzzleLevelObjective.getId());
             puzzleLevelObjectiveData.setTitle(puzzleLevelObjective.getTitle());
@@ -420,10 +419,10 @@ public class DTOUtil {
     }
     public static Collection<PuzzleLevelGroundDTO> getPuzzleLevelGroundDTOS(PuzzleLevel puzzleLevel) {
         Collection<PuzzleLevelGroundDTO> puzzleLevelGroundDTOCollection = new ArrayList<PuzzleLevelGroundDTO>();
-        Collection<PuzzleLevelGround> puzzleLevelGroundCollection = puzzleLevel.getPuzzleLevelGroundCollection();
-        Iterator<PuzzleLevelGround> itr_Grounds = puzzleLevelGroundCollection.iterator();
+        Collection<PLGround> puzzleLevelGroundCollection = puzzleLevel.getPlGrounds();
+        Iterator<PLGround> itr_Grounds = puzzleLevelGroundCollection.iterator();
         while(itr_Grounds.hasNext()) {
-            PuzzleLevelGround puzzleLevelGround = itr_Grounds.next();
+            PLGround puzzleLevelGround = itr_Grounds.next();
             PuzzleLevelGroundDTO puzzleLevelGroundDTO = new PuzzleLevelGroundDTO();
             puzzleLevelGroundDTO.setId(puzzleLevelGround.getId());
             puzzleLevelGroundDTO.setVersion(puzzleLevelGround.getVersion());

@@ -1,17 +1,17 @@
 package com.alcity.repository.alobject;
 
-import com.alcity.entity.alobject.ALCityAttribute;
+import com.alcity.entity.alobject.ALAttribute;
 import com.alcity.entity.alenum.AttributeOwnerType;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.Collection;
 import java.util.Optional;
 
-public interface ALCityAttributeRepository extends CrudRepository<ALCityAttribute,Long> {
-    Optional<ALCityAttribute> findById(Long id);
-    Collection<ALCityAttribute> findAll();
-    Collection<ALCityAttribute> findByName(String name);
-    Collection<ALCityAttribute> findByOwnerId(Long ownerId);
-    Collection<ALCityAttribute>  findByOwnerIdAndAttributeOwnerType(Long instanceId, AttributeOwnerType OwnerType);
+public interface ALCityAttributeRepository extends CrudRepository<ALAttribute,Long> {
+    Optional<ALAttribute> findById(Long id);
+    Collection<ALAttribute> findAll();
+    Collection<ALAttribute> findByName(String name);
+    Collection<ALAttribute> findByOwnerId(Long ownerId);
+    Collection<ALAttribute>  findByOwnerIdAndAttributeOwnerType(Long instanceId, AttributeOwnerType OwnerType);
 
 }

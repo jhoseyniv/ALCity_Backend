@@ -32,11 +32,11 @@ public class PLRulePostAction extends BaseTable implements Serializable {
     @JsonIgnore
     private Collection<RulePostActionEvent> rulePostActionEventCollection;
 
-    public PuzzleLevelRule getPuzzleLevelRule() {
+    public PLRule getPuzzleLevelRule() {
         return puzzleLevelRule;
     }
 
-    public void setPuzzleLevelRule(PuzzleLevelRule puzzleLevelRule) {
+    public void setPuzzleLevelRule(PLRule puzzleLevelRule) {
         this.puzzleLevelRule = puzzleLevelRule;
     }
 
@@ -91,12 +91,12 @@ public class PLRulePostAction extends BaseTable implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "puzzle_Level_rule_id", nullable = false)
     @JsonIgnore
-    private PuzzleLevelRule puzzleLevelRule;
+    private PLRule puzzleLevelRule;
 
     public PLRulePostAction() {
     }
 
-    public PLRulePostAction(StringBuffer actionExpression, Integer ordering, String objectId, String actionName, PLRulePostActionType plRulePostActionType,PuzzleLevelRule puzzleLevelRule,Long version, Long created, Long updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
+    public PLRulePostAction(StringBuffer actionExpression, Integer ordering, String objectId, String actionName, PLRulePostActionType plRulePostActionType, PLRule puzzleLevelRule, Long version, Long created, Long updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
         super(version, created, updated, createdBy, updatedBy);
         this.actionExpression = actionExpression;
         this.ordering = ordering;

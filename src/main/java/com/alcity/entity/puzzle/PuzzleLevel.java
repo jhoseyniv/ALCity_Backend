@@ -2,6 +2,7 @@ package com.alcity.entity.puzzle;
 
 
 import com.alcity.entity.alenum.PLStatus;
+import com.alcity.entity.alenum.PLDifficulty;
 import com.alcity.entity.base.*;
 import com.alcity.entity.play.PermitedPlayer;
 import com.alcity.entity.users.ApplicationMember;
@@ -97,10 +98,8 @@ public class PuzzleLevel extends BaseTable implements Serializable {
     @JsonIgnore
     private PuzzleGroup puzzleGroup;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "puzzle_difficulty_id", nullable = false)
-    @JsonIgnore
-    private PuzzleLevelDifficulty puzzleDifficulty;
+     @Enumerated(EnumType.ORDINAL)
+     private PLDifficulty puzzleDifficulty;
 
     @Enumerated(EnumType.ORDINAL)
     private PLStatus puzzleLevelStatus;
@@ -124,15 +123,15 @@ public class PuzzleLevel extends BaseTable implements Serializable {
 
     @OneToMany(mappedBy = "puzzleLevel", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JsonIgnore
-    private Collection<PuzzleLevelRule> puzzleLevelRuleCollection;
+    private Collection<PLRule> puzzleLevelRuleCollection;
 
     @OneToMany(mappedBy = "puzzleLevel", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JsonIgnore
-    private Collection<PuzzleLevelObjective> puzzleLevelObjectiveCollection;
+    private Collection<PLObjective> plObjectives;
 
     @OneToMany(mappedBy = "puzzleLevel", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JsonIgnore
-    private Collection<PuzzleLevelGround> puzzleLevelGroundCollection;
+    private Collection<PLGround> plGrounds;
 
     @OneToMany(mappedBy = "puzzleLevel", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JsonIgnore
@@ -146,20 +145,20 @@ public class PuzzleLevel extends BaseTable implements Serializable {
         this.permitedPlayerCollection = permitedPlayerCollection;
     }
 
-    public Collection<PuzzleLevelGround> getPuzzleLevelGroundCollection() {
-        return puzzleLevelGroundCollection;
+    public Collection<PLObjective> getPlObjectives() {
+        return plObjectives;
     }
 
-    public void setPuzzleLevelGroundCollection(Collection<PuzzleLevelGround> puzzleLevelGroundCollection) {
-        this.puzzleLevelGroundCollection = puzzleLevelGroundCollection;
+    public void setPlObjectives(Collection<PLObjective> plObjectives) {
+        this.plObjectives = plObjectives;
     }
 
-    public Collection<PuzzleLevelObjective> getPuzzleLevelObjectiveCollection() {
-        return puzzleLevelObjectiveCollection;
+    public Collection<PLGround> getPlGrounds() {
+        return plGrounds;
     }
 
-    public void setPuzzleLevelObjectiveCollection(Collection<PuzzleLevelObjective> puzzleLevelObjectiveCollection) {
-        this.puzzleLevelObjectiveCollection = puzzleLevelObjectiveCollection;
+    public void setPlGrounds(Collection<PLGround> plGrounds) {
+        this.plGrounds = plGrounds;
     }
 
     public PuzzleGroup getPuzzleGroup() {
@@ -170,11 +169,11 @@ public class PuzzleLevel extends BaseTable implements Serializable {
         this.puzzleGroup = puzzleGroup;
     }
 
-    public PuzzleLevelDifficulty getPuzzleDifficulty() {
+    public PLDifficulty getPuzzleDifficulty() {
         return puzzleDifficulty;
     }
 
-    public void setPuzzleDifficulty(PuzzleLevelDifficulty puzzleDifficulty) {
+    public void setPuzzleDifficulty(PLDifficulty puzzleDifficulty) {
         this.puzzleDifficulty = puzzleDifficulty;
     }
 
@@ -210,11 +209,11 @@ public class PuzzleLevel extends BaseTable implements Serializable {
         this.icon = icon;
     }
 
-    public Collection<PuzzleLevelRule> getPuzzleLevelRuleCollection() {
+    public Collection<PLRule> getPuzzleLevelRuleCollection() {
         return puzzleLevelRuleCollection;
     }
 
-    public void setPuzzleLevelRuleCollection(Collection<PuzzleLevelRule> puzzleLevelRuleCollection) {
+    public void setPuzzleLevelRuleCollection(Collection<PLRule> puzzleLevelRuleCollection) {
         this.puzzleLevelRuleCollection = puzzleLevelRuleCollection;
     }
 
@@ -245,7 +244,7 @@ public class PuzzleLevel extends BaseTable implements Serializable {
     public PuzzleLevel() {
     }
 
-    public PuzzleLevel(Long approveDate, Long ordering, String name, String code, Integer fromAge, Integer toAge, Float maxScore, PuzzleGroup puzzleGroup, PuzzleLevelDifficulty puzzleDifficulty, PLStatus puzzleLevelStatus, PuzzleLevelPrivacy puzzleLevelPrivacy, BinaryContent picture, BinaryContent icon, Long version, Long created, Long updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
+    public PuzzleLevel(Long approveDate, Long ordering, String name, String code, Integer fromAge, Integer toAge, Float maxScore, PuzzleGroup puzzleGroup, PLDifficulty puzzleDifficulty, PLStatus puzzleLevelStatus, PuzzleLevelPrivacy puzzleLevelPrivacy, BinaryContent picture, BinaryContent icon, Long version, Long created, Long updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
         super(version, created, updated, createdBy, updatedBy);
         this.approveDate = approveDate;
         this.ordering = ordering;

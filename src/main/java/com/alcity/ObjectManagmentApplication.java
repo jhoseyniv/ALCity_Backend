@@ -53,9 +53,6 @@ public class ObjectManagmentApplication {
 	@Autowired
 	private DataTypeService dataTypeService;
 
-	@Autowired
-	private PuzzleDifficultyService puzzleDifficultyService;
-
 
 	@Autowired
 	private PuzzleLevelPrivacyService puzzleLevelPrivacyService;
@@ -93,7 +90,7 @@ public class ObjectManagmentApplication {
 	PuzzleSkillLearningContentService puzzleSkillLearningContentService;
 
 	@Autowired
-	PuzzleLevelObjectiveService puzzleLevelObjectiveService;
+	PLObjectiveService puzzleLevelObjectiveService;
 
 	@Autowired
 	LearningContentService learningContentService;
@@ -114,7 +111,7 @@ public class ObjectManagmentApplication {
 	private PuzzleCategoryService puzzleCategoryService;
 
 	@Autowired
-	PuzzleLevelGroundService  puzzleLevelGroundService;
+    PLGroundService puzzleLevelGroundService;
 
 
 	@Autowired
@@ -154,7 +151,7 @@ public class ObjectManagmentApplication {
 	PuzzleObject_ObjectActionService puzzleObject_ObjectActionService;
 
 	@Autowired
-	PuzzleLevelRuleService  puzzleLevelRuleService;
+    PLRuleService puzzleLevelRuleService;
 
 	@Autowired
 	PuzzleLevelRuleEventService  puzzleLevelRuleEventService;

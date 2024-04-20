@@ -1,9 +1,10 @@
 package com.alcity.service.puzzle;
 
 
-import com.alcity.entity.puzzle.PuzzleLevelRule;
-import com.alcity.repository.puzzle.PuzzleLevelRuleRepository;
+import com.alcity.entity.puzzle.PLRule;
+import com.alcity.repository.puzzle.PLRuleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -12,23 +13,24 @@ import java.util.Optional;
 
 @Service
 @Transactional
-public class PuzzleLevelRuleService  implements PuzzleLevelRuleRepository {
+public class PLRuleService implements PLRuleRepository {
 
     @Autowired
-    PuzzleLevelRuleRepository puzzleLevelRuleRepository;
+    @Qualifier("PLRuleRepository")
+    PLRuleRepository ruleRepository;
 
     @Override
-    public <S extends PuzzleLevelRule> S save(S entity) {
-        return puzzleLevelRuleRepository.save(entity);
+    public <S extends PLRule> S save(S entity) {
+        return ruleRepository.save(entity);
     }
 
     @Override
-    public <S extends PuzzleLevelRule> Iterable<S> saveAll(Iterable<S> entities) {
+    public <S extends PLRule> Iterable<S> saveAll(Iterable<S> entities) {
         return null;
     }
 
     @Override
-    public Optional<PuzzleLevelRule> findById(Long id) {
+    public Optional<PLRule> findById(Long id) {
         return Optional.empty();
     }
 
@@ -38,12 +40,12 @@ public class PuzzleLevelRuleService  implements PuzzleLevelRuleRepository {
     }
 
     @Override
-    public Collection<PuzzleLevelRule> findAll() {
+    public Collection<PLRule> findAll() {
         return null;
     }
 
     @Override
-    public Iterable<PuzzleLevelRule> findAllById(Iterable<Long> longs) {
+    public Iterable<PLRule> findAllById(Iterable<Long> longs) {
         return null;
     }
 
@@ -58,7 +60,7 @@ public class PuzzleLevelRuleService  implements PuzzleLevelRuleRepository {
     }
 
     @Override
-    public void delete(PuzzleLevelRule entity) {
+    public void delete(PLRule entity) {
 
     }
 
@@ -68,7 +70,7 @@ public class PuzzleLevelRuleService  implements PuzzleLevelRuleRepository {
     }
 
     @Override
-    public void deleteAll(Iterable<? extends PuzzleLevelRule> entities) {
+    public void deleteAll(Iterable<? extends PLRule> entities) {
 
     }
 
@@ -78,12 +80,12 @@ public class PuzzleLevelRuleService  implements PuzzleLevelRuleRepository {
     }
 
     @Override
-    public Collection<PuzzleLevelRule> findByTitle(String title) {
+    public Collection<PLRule> findByTitle(String title) {
         return null;
     }
 
     @Override
-    public Collection<PuzzleLevelRule> findByCondition(String condition) {
+    public Collection<PLRule> findByCondition(String condition) {
         return null;
     }
 }

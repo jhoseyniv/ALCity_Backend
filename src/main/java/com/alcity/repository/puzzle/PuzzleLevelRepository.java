@@ -1,7 +1,6 @@
 package com.alcity.repository.puzzle;
 
 import com.alcity.entity.puzzle.PuzzleLevel;
-import com.alcity.entity.puzzle.PuzzleLevelObjective;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.Collection;

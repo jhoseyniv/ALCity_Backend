@@ -10,7 +10,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.*;
 
 @Entity
-public class PuzzleLevelGround extends BaseTable {
+public class PLGround extends BaseTable {
 
     @Column(name="numRows")
     private Integer numRows;
@@ -74,10 +74,10 @@ public class PuzzleLevelGround extends BaseTable {
         this.boardGraphic = boardGraphic;
     }
 
-    public PuzzleLevelGround() {
+    public PLGround() {
     }
 
-    public PuzzleLevelGround(Integer numRows, Integer numColumns, PuzzleLevel puzzleLevel, BinaryContent boardGraphic,Long version, Long created, Long updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
+    public PLGround(Integer numRows, Integer numColumns, PuzzleLevel puzzleLevel, BinaryContent boardGraphic, Long version, Long created, Long updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
         super(version, created, updated, createdBy, updatedBy);
         this.numRows = numRows;
         this.numColumns = numColumns;

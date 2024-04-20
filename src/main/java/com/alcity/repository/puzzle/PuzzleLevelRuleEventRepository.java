@@ -1,6 +1,5 @@
 package com.alcity.repository.puzzle;
 
-import com.alcity.entity.puzzle.PuzzleLevelRule;
 import com.alcity.entity.puzzle.PuzzleLevelRuleEvent;
 import org.springframework.data.repository.CrudRepository;
 

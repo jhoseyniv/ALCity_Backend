@@ -72,9 +72,6 @@ public class ImportBaseData_1 implements CommandLineRunner {
     @Autowired
     private DataTypeService dataTypeService;
 
-    @Autowired
-    private PuzzleDifficultyService puzzleDifficultyService;
-
 
     @Autowired
     private LearningSkillService learningSkillService;
@@ -258,13 +255,13 @@ public class ImportBaseData_1 implements CommandLineRunner {
         dataTypeService.save(alcity_String);
         dataTypeService.save(alcity_Binary);
 
-        PuzzleLevelDifficulty easy= new PuzzleLevelDifficulty("Easy","Easy",1L,now,now,admin_1,admin_1);
-        PuzzleLevelDifficulty medium= new PuzzleLevelDifficulty("Medium","Medium",1L,now,now,admin_1,admin_1);
-        PuzzleLevelDifficulty hard= new PuzzleLevelDifficulty("Hard","Hard",1L,now,now,admin_1,admin_1);
-
-        puzzleDifficultyService.save(easy);
-        puzzleDifficultyService.save(medium);
-        puzzleDifficultyService.save(hard);
+//        PLDifficulty easy= new PLDifficulty("Easy","Easy",1L,now,now,admin_1,admin_1);
+//        PLDifficulty medium= new PLDifficulty("Medium","Medium",1L,now,now,admin_1,admin_1);
+//        PLDifficulty hard= new PLDifficulty("Hard","Hard",1L,now,now,admin_1,admin_1);
+//
+//        puzzleDifficultyService.save(easy);
+//        puzzleDifficultyService.save(medium);
+//        puzzleDifficultyService.save(hard);
 
 
         PuzzleLevelPrivacy privacy_1 = new PuzzleLevelPrivacy("privacy 1","privacy1",1L,now,now,admin_1,admin_1);

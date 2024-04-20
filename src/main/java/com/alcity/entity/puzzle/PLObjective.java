@@ -10,7 +10,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-public class PuzzleLevelObjective extends BaseTable implements Serializable {
+public class PLObjective extends BaseTable implements Serializable {
 
     @Column(name="title")
     private String title;
@@ -82,10 +82,10 @@ public class PuzzleLevelObjective extends BaseTable implements Serializable {
         this.condition = condition;
     }
 
-    public PuzzleLevelObjective() {
+    public PLObjective() {
     }
 
-    public PuzzleLevelObjective(String title, String description, Float skillAmount, Float rewardAmount, StringBuffer condition, LearningSkill learningSkill, WalletItem walletItem, PuzzleLevel puzzleLevel,Long version, Long created, Long updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
+    public PLObjective(String title, String description, Float skillAmount, Float rewardAmount, StringBuffer condition, LearningSkill learningSkill, WalletItem walletItem, PuzzleLevel puzzleLevel, Long version, Long created, Long updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
         super(version, created, updated, createdBy, updatedBy);
         this.title = title;
         this.description = description;

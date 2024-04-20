@@ -1,6 +1,5 @@
 package com.alcity.repository.base;
 
-import com.alcity.entity.base.PuzzleLevelDifficulty;
 import com.alcity.entity.base.PuzzleLevelPrivacy;
 import org.springframework.data.repository.CrudRepository;
 

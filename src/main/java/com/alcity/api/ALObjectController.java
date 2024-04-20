@@ -193,7 +193,7 @@ public class ALObjectController {
 
     @GetMapping("/att/all")
     public Collection<ALCityAttributeDTO> getAttributes(Model model) {
-        Collection<ALCityAttribute> alCityAttributeCollection = alCityAttributeService.findAll();
+        Collection<ALAttribute> alCityAttributeCollection = alCityAttributeService.findAll();
         Collection<ALCityAttributeDTO> alCityAttributeDTOCollection = new ArrayList<ALCityAttributeDTO>();
         alCityAttributeDTOCollection = DTOUtil.getALCityAttributes(alCityAttributeCollection);
         return alCityAttributeDTOCollection;
@@ -201,7 +201,7 @@ public class ALObjectController {
     @RequestMapping(value = "/att/id/{id}", method = RequestMethod.GET)
     @ResponseBody
     public ALCityAttributeDTO getALCityAttributeById(@PathVariable Long id) {
-        Optional<ALCityAttribute> alCityAttributeOptional = alCityAttributeService.findById(id);
+        Optional<ALAttribute> alCityAttributeOptional = alCityAttributeService.findById(id);
         ALCityAttributeDTO alCityAttributeDTO = new ALCityAttributeDTO();
         alCityAttributeDTO = DTOUtil.getALCityAttributeDTO(alCityAttributeOptional);
         return alCityAttributeDTO;

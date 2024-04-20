@@ -1,7 +1,7 @@
 package com.alcity.service.alobject;
 
 
-import com.alcity.entity.alobject.ALCityAttributeValue;
+import com.alcity.entity.alobject.ALAttributeValue;
 import com.alcity.repository.alobject.ALCityAttributeValueRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,17 +17,17 @@ public class ALCityAttributeValueService implements ALCityAttributeValueReposito
     @Autowired
     ALCityAttributeValueRepository ALCityAttributeValueRepository;
     @Override
-    public <S extends ALCityAttributeValue> S save(S entity) {
+    public <S extends ALAttributeValue> S save(S entity) {
         return ALCityAttributeValueRepository.save(entity);
     }
 
     @Override
-    public <S extends ALCityAttributeValue> Iterable<S> saveAll(Iterable<S> entities) {
+    public <S extends ALAttributeValue> Iterable<S> saveAll(Iterable<S> entities) {
         return null;
     }
 
     @Override
-    public Optional<ALCityAttributeValue> findById(Long id) {
+    public Optional<ALAttributeValue> findById(Long id) {
         return Optional.empty();
     }
 
@@ -37,12 +37,12 @@ public class ALCityAttributeValueService implements ALCityAttributeValueReposito
     }
 
     @Override
-    public Collection<ALCityAttributeValue> findAll() {
+    public Collection<ALAttributeValue> findAll() {
         return null;
     }
 
     @Override
-    public Iterable<ALCityAttributeValue> findAllById(Iterable<Long> longs) {
+    public Iterable<ALAttributeValue> findAllById(Iterable<Long> longs) {
         return null;
     }
 
@@ -57,7 +57,7 @@ public class ALCityAttributeValueService implements ALCityAttributeValueReposito
     }
 
     @Override
-    public void delete(ALCityAttributeValue entity) {
+    public void delete(ALAttributeValue entity) {
 
     }
 
@@ -67,7 +67,7 @@ public class ALCityAttributeValueService implements ALCityAttributeValueReposito
     }
 
     @Override
-    public void deleteAll(Iterable<? extends ALCityAttributeValue> entities) {
+    public void deleteAll(Iterable<? extends ALAttributeValue> entities) {
 
     }
 

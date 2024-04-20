@@ -1,19 +1,8 @@
 package com.alcity.api;
 
-import com.alcity.dto.base.BinaryContentDTO;
-import com.alcity.dto.journey.JourneyStepDTO;
-import com.alcity.dto.learning.LearningContentDTO;
-import com.alcity.dto.learning.LearningTopicDTO;
-import com.alcity.dto.player.PermitedPlayerDTO;
 import com.alcity.dto.puzzle.*;
-import com.alcity.entity.base.BinaryContent;
-import com.alcity.entity.base.PuzzleCategory;
-import com.alcity.entity.journey.JourneyStep;
-import com.alcity.entity.play.PermitedPlayer;
 import com.alcity.entity.puzzle.*;
-import com.alcity.service.base.PuzzleCategoryService;
-import com.alcity.service.puzzle.PuzzleGroupService;
-import com.alcity.service.puzzle.PuzzleLevelObjectiveService;
+import com.alcity.service.puzzle.PLObjectiveService;
 import com.alcity.service.puzzle.PuzzleLevelService;
 import com.alcity.utility.DTOUtil;
 import com.alcity.utility.DateUtils;
@@ -65,10 +54,6 @@ public class PuzzleLevelController {
         puzzleLevelDTO = DTOUtil.getPuzzleLevelDTO(puzzleLevelOptional);
         return puzzleLevelDTO;
     }
-
-    @Autowired
-    private PuzzleLevelObjectiveService puzzleLevelObjectiveService;
-
 
     @RequestMapping(value = "/id/{id}/objectives/all", method = RequestMethod.GET)
     @ResponseBody

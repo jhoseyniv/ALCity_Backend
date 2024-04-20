@@ -1,17 +1,9 @@
 package com.alcity.dto.puzzle;
 
 import com.alcity.dto.base.BaseTableDTO;
-import com.alcity.dto.base.PuzzleLevelDifficultyDTO;
-import com.alcity.dto.base.PuzzleLevelPrivacyDTO;
-import com.alcity.dto.base.PuzzleLevelStatusDTO;
 import com.alcity.dto.player.PermitedPlayerDTO;
-import com.alcity.entity.base.BaseTable;
-import com.alcity.entity.puzzle.PuzzleGroupObjectInstance;
-import com.alcity.entity.puzzle.PuzzleLevelGround;
-import com.alcity.entity.puzzle.PuzzleLevelObjective;
 
 import java.util.Collection;
-import java.util.Set;
 
 public class PuzzleLevelDTO extends BaseTableDTO {
 

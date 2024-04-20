@@ -1,6 +1,6 @@
 package com.alcity.service.alobject;
 
-import com.alcity.entity.alobject.ALCityAttribute;
+import com.alcity.entity.alobject.ALAttribute;
 import com.alcity.entity.alenum.AttributeOwnerType;
 import com.alcity.repository.alobject.ALCityAttributeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,17 +18,17 @@ public class ALCityAttributeService implements ALCityAttributeRepository {
     ALCityAttributeRepository ALCityAttributeRepository;
 
     @Override
-    public <S extends ALCityAttribute> S save(S entity) {
+    public <S extends ALAttribute> S save(S entity) {
         return ALCityAttributeRepository.save(entity);
     }
 
     @Override
-    public <S extends ALCityAttribute> Iterable<S> saveAll(Iterable<S> entities) {
+    public <S extends ALAttribute> Iterable<S> saveAll(Iterable<S> entities) {
         return null;
     }
 
     @Override
-    public Optional<ALCityAttribute> findById(Long id) {
+    public Optional<ALAttribute> findById(Long id) {
 
         return ALCityAttributeRepository.findById(id);
     }
@@ -39,12 +39,12 @@ public class ALCityAttributeService implements ALCityAttributeRepository {
     }
 
     @Override
-    public Collection<ALCityAttribute> findAll() {
+    public Collection<ALAttribute> findAll() {
         return ALCityAttributeRepository.findAll();
     }
 
     @Override
-    public Iterable<ALCityAttribute> findAllById(Iterable<Long> longs) {
+    public Iterable<ALAttribute> findAllById(Iterable<Long> longs) {
         return null;
     }
 
@@ -59,7 +59,7 @@ public class ALCityAttributeService implements ALCityAttributeRepository {
     }
 
     @Override
-    public void delete(ALCityAttribute entity) {
+    public void delete(ALAttribute entity) {
 
     }
 
@@ -69,7 +69,7 @@ public class ALCityAttributeService implements ALCityAttributeRepository {
     }
 
     @Override
-    public void deleteAll(Iterable<? extends ALCityAttribute> entities) {
+    public void deleteAll(Iterable<? extends ALAttribute> entities) {
 
     }
 
@@ -79,21 +79,21 @@ public class ALCityAttributeService implements ALCityAttributeRepository {
     }
 
     @Override
-    public Collection<ALCityAttribute> findByName(String name) {
+    public Collection<ALAttribute> findByName(String name) {
         return null;
     }
 
     @Override
-    public Collection<ALCityAttribute> findByOwnerId(Long ownerId) {
+    public Collection<ALAttribute> findByOwnerId(Long ownerId) {
         return ALCityAttributeRepository.findByOwnerId(ownerId);
     }
 
 
     @Override
-    public Collection<ALCityAttribute> findByOwnerIdAndAttributeOwnerType(Long instanceId,AttributeOwnerType ownerType) {
-        Collection<ALCityAttribute> alCityAttributes = ALCityAttributeRepository.findByOwnerId(instanceId);
+    public Collection<ALAttribute> findByOwnerIdAndAttributeOwnerType(Long instanceId, AttributeOwnerType ownerType) {
+        Collection<ALAttribute> alCityAttributes = ALCityAttributeRepository.findByOwnerId(instanceId);
 
-        ArrayList<ALCityAttribute> outputAttributes = new ArrayList<ALCityAttribute>();
+        ArrayList<ALAttribute> outputAttributes = new ArrayList<ALAttribute>();
 
         if(ownerType == AttributeOwnerType.Puzzle_Level_Rule_Post_Action)
             outputAttributes = alCityAttributes.stream().

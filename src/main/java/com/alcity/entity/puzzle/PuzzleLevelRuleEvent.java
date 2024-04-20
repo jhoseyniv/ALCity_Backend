@@ -20,7 +20,7 @@ public class PuzzleLevelRuleEvent extends BaseTable implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "puzzle_level_rule_id", nullable = false)
     @JsonIgnore
-    private PuzzleLevelRule puzzleLevelRule;
+    private PLRule puzzleLevelRule;
 
     @Column(name="event_Id")
     private Integer eventId;
@@ -28,7 +28,7 @@ public class PuzzleLevelRuleEvent extends BaseTable implements Serializable {
     public PuzzleLevelRuleEvent() {
     }
 
-    public PuzzleLevelRuleEvent(String name, PLRuleEventType plRuleEventType, Integer eventId, PuzzleLevelRule puzzleLevelRule, Long version, Long created, Long updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
+    public PuzzleLevelRuleEvent(String name, PLRuleEventType plRuleEventType, Integer eventId, PLRule puzzleLevelRule, Long version, Long created, Long updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
         super(version, created, updated, createdBy, updatedBy);
         this.name = name;
         this.plRuleEventType = plRuleEventType;

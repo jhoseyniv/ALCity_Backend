@@ -3,6 +3,7 @@ package com.alcity.api;
 import com.alcity.dto.base.ClientTypeDTO;
 import com.alcity.entity.alenum.PLRuleEventType;
 import com.alcity.entity.alenum.PLStatus;
+import com.alcity.entity.alenum.PLDifficulty;
 import com.alcity.entity.alenum.UserGender;
 import com.alcity.entity.base.*;
 import com.alcity.entity.learning.LearningContent;
@@ -95,21 +96,19 @@ public class BaseItemSetConroller {
     }
 
 
-    @Autowired
-    private PuzzleDifficultyService puzzleDifficultyService;
 
     @GetMapping("/pl-difficulty/all")
-    public Collection<PuzzleLevelDifficulty> getPuzzleLevelDiffculty(Model model) {
-        Collection<PuzzleLevelDifficulty> puzzleLevelDifficultiesCollection = puzzleDifficultyService.findAll();
-        return puzzleLevelDifficultiesCollection;
+    public PLDifficulty[] getPuzzleLevelDiffculty(Model model) {
+
+        return PLDifficulty.values();
     }
 
-    @RequestMapping(value = "/pl-difficulty/id/{id}", method = RequestMethod.GET)
-    @ResponseBody
-    public Optional<PuzzleLevelDifficulty> getPuzzleLevelDifficultyById(@PathVariable Long id) {
-        Optional<PuzzleLevelDifficulty> puzzleLevelDifficulty = puzzleDifficultyService.findById(id);
-        return puzzleLevelDifficulty;
-    }
+//    @RequestMapping(value = "/pl-difficulty/id/{id}", method = RequestMethod.GET)
+//    @ResponseBody
+//    public Optional<PLDifficulty> getPuzzleLevelDifficultyById(@PathVariable Long id) {
+//        Optional<PLDifficulty> puzzleLevelDifficulty = puzzleDifficultyService.findById(id);
+//        return puzzleLevelDifficulty;
+//    }
 
 
 

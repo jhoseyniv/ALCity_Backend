@@ -1,8 +1,7 @@
 package com.alcity.entity.base;
 
 
-import com.alcity.entity.alobject.ALCityAttribute;
-import com.alcity.entity.alobject.ALCityAttributeValue;
+import com.alcity.entity.alobject.ALAttributeValue;
 import com.alcity.entity.learning.LearningContent;
 import com.alcity.entity.users.ApplicationMember;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -45,7 +44,7 @@ public class BinaryContent extends BaseTable implements Serializable {
 
     @OneToMany(mappedBy = "binaryContent", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JsonIgnore
-    private Set<ALCityAttributeValue> attributeValueSet;
+    private Set<ALAttributeValue> attributeValueSet;
 
     public String getFileName() {
         return fileName;
@@ -79,11 +78,11 @@ public class BinaryContent extends BaseTable implements Serializable {
         this.contentType = contentType;
     }
 
-    public Set<ALCityAttributeValue> getAttributeValueSet() {
+    public Set<ALAttributeValue> getAttributeValueSet() {
         return attributeValueSet;
     }
 
-    public void setAttributeValueSet(Set<ALCityAttributeValue> attributeValueSet) {
+    public void setAttributeValueSet(Set<ALAttributeValue> attributeValueSet) {
         this.attributeValueSet = attributeValueSet;
     }
 
