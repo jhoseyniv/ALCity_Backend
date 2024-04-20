@@ -795,8 +795,28 @@ public class ImportProblemData_1 implements CommandLineRunner {
                 "{valueExperssion:'x'}" +
                 "]") ;
 
+
+
+
         PLRulePostAction rulePostAction_3_assignment = new PLRulePostAction(assignActionExpression_3,ordering,objectId,actionName,PLRulePostActionType.Variable_Assignment_Action,rule_for_move_objects_in_hash_image,1L,now,now,admin_1,admin_1);
         puzzleLevelRulePostActionService.save(rulePostAction_3_assignment);
+
+        ALAttribute rulePostAction_3_assignment_param_1 =new ALAttribute("variable",rulePostAction_3_assignment.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action,alcity_String,1L,now,now,admin_1,admin_1);
+        alCityAttributeService.save(rulePostAction_3_assignment_param_1);
+
+        ALAttributeValue rulePostAction_3_assignment_param_1_value= new ALAttributeValue(null,null,null,"objects[X][Y].x",null,null,rulePostAction_3_assignment_param_1,rulePostAction_3_assignment_param_1,1L,now,now,admin_1,admin_1);
+        alCityAttributeValueService.save(rulePostAction_3_assignment_param_1_value);
+
+
+        ALAttribute rulePostAction_3_assignment_param_2 =new ALAttribute("valueExperssion",rulePostAction_3_assignment.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action,alcity_String,1L,now,now,admin_1,admin_1);
+        alCityAttributeService.save(rulePostAction_3_assignment_param_2);
+
+        ALAttributeValue rulePostAction_3_assignment_param_2_value= new ALAttributeValue(null,null,null,"X",null,null,rulePostAction_3_assignment_param_2,rulePostAction_3_assignment_param_2,1L,now,now,admin_1,admin_1);
+        alCityAttributeValueService.save(rulePostAction_3_assignment_param_2_value);
+
+
+
+
 
         objectId=null;
         ordering =4;
@@ -811,6 +831,24 @@ public class ImportProblemData_1 implements CommandLineRunner {
                 PLRulePostActionType.Variable_Assignment_Action,rule_for_move_objects_in_hash_image,1L,now,now,admin_1,admin_1);
         puzzleLevelRulePostActionService.save(rulePostAction_4_assignment);
 
+        ALAttribute rulePostAction_4_assignment_param_1 =new ALAttribute("variable",rulePostAction_4_assignment.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action,alcity_String,1L,now,now,admin_1,admin_1);
+        alCityAttributeService.save(rulePostAction_4_assignment_param_1);
+
+        ALAttributeValue rulePostAction_4_assignment_param_1_value= new ALAttributeValue(null,null,null,"objects[X][Y].x",null,null,rulePostAction_4_assignment_param_1,rulePostAction_4_assignment_param_1,1L,now,now,admin_1,admin_1);
+        alCityAttributeValueService.save(rulePostAction_4_assignment_param_1_value);
+
+
+        ALAttribute rulePostAction_4_assignment_param_2 =new ALAttribute("valueExperssion",rulePostAction_4_assignment.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action,alcity_String,1L,now,now,admin_1,admin_1);
+        alCityAttributeService.save(rulePostAction_4_assignment_param_2);
+
+        ALAttributeValue rulePostAction_4_assignment_param_2_value= new ALAttributeValue(null,null,null,"Y",null,null,rulePostAction_4_assignment_param_2,rulePostAction_4_assignment_param_2,1L,now,now,admin_1,admin_1);
+        alCityAttributeValueService.save(rulePostAction_4_assignment_param_2_value);
+
+
+
+
+
+
         objectId=null;
         ordering =5;
         actionName="assignment";
@@ -824,6 +862,25 @@ public class ImportProblemData_1 implements CommandLineRunner {
                 ,PLRulePostActionType.Variable_Assignment_Action,rule_for_move_objects_in_hash_image,1L,now,now,admin_1,admin_1);
         puzzleLevelRulePostActionService.save(rulePostAction_5_assignment);
 
+
+        ALAttribute rulePostAction_5_assignment_param_1 =new ALAttribute("variable",rulePostAction_5_assignment.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action,alcity_String,1L,now,now,admin_1,admin_1);
+        alCityAttributeService.save(rulePostAction_5_assignment_param_1);
+
+        ALAttributeValue rulePostAction_5_assignment_param_1_value= new ALAttributeValue(null,null,null,"X",null,null,rulePostAction_5_assignment_param_1,rulePostAction_5_assignment_param_1,1L,now,now,admin_1,admin_1);
+        alCityAttributeValueService.save(rulePostAction_5_assignment_param_1_value);
+
+
+        ALAttribute rulePostAction_5_assignment_param_2 =new ALAttribute("valueExperssion",rulePostAction_5_assignment.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action,alcity_String,1L,now,now,admin_1,admin_1);
+        alCityAttributeService.save(rulePostAction_5_assignment_param_2);
+
+        ALAttributeValue rulePostAction_5_assignment_param_2_value= new ALAttributeValue(null,null,null,"e.x",null,null,rulePostAction_5_assignment_param_2,rulePostAction_5_assignment_param_2,1L,now,now,admin_1,admin_1);
+        alCityAttributeValueService.save(rulePostAction_5_assignment_param_2_value);
+
+
+
+
+
+
         objectId=null;
         ordering =6;
         actionName="assignment";
@@ -835,6 +892,21 @@ public class ImportProblemData_1 implements CommandLineRunner {
         PLRulePostAction rulePostAction_6_assignment = new PLRulePostAction(assignActionExpression_6,ordering,objectId,actionName,
                 PLRulePostActionType.Variable_Assignment_Action,rule_for_move_objects_in_hash_image,1L,now,now,admin_1,admin_1);
         puzzleLevelRulePostActionService.save(rulePostAction_6_assignment);
+
+        ALAttribute rulePostAction_6_assignment_param_1 =new ALAttribute("variable",rulePostAction_6_assignment.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action,alcity_String,1L,now,now,admin_1,admin_1);
+        alCityAttributeService.save(rulePostAction_6_assignment_param_1);
+
+        ALAttributeValue rulePostAction_6_assignment_param_1_value= new ALAttributeValue(null,null,null,"Y",null,null,rulePostAction_6_assignment_param_1,rulePostAction_6_assignment_param_1,1L,now,now,admin_1,admin_1);
+        alCityAttributeValueService.save(rulePostAction_6_assignment_param_1_value);
+
+
+        ALAttribute rulePostAction_6_assignment_param_2 =new ALAttribute("valueExperssion",rulePostAction_6_assignment.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action,alcity_String,1L,now,now,admin_1,admin_1);
+        alCityAttributeService.save(rulePostAction_6_assignment_param_2);
+
+        ALAttributeValue rulePostAction_6_assignment_param_2_value= new ALAttributeValue(null,null,null,"e.y",null,null,rulePostAction_6_assignment_param_2,rulePostAction_6_assignment_param_2,1L,now,now,admin_1,admin_1);
+        alCityAttributeValueService.save(rulePostAction_6_assignment_param_2_value);
+
+
 
     }
 
