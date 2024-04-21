@@ -1,7 +1,6 @@
-package com.alcity.repository.ruleengine;
+package com.alcity.repository.alobject;
 
-import com.alcity.entity.alobject.ObjectActionEvent;
-import com.alcity.entity.ruleengine.RulePostActionEvent;
+import com.alcity.entity.alobject.RulePostActionEvent;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.Collection;

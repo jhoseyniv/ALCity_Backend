@@ -11,7 +11,6 @@ import java.util.Optional;
 
 @Service
 @Transactional
-
 public class ApplicationMemberService implements ApplicationMemberRepository {
 
     @Autowired

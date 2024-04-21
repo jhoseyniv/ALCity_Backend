@@ -1,33 +1,66 @@
 package com.alcity.api;
 
 import com.alcity.entity.alenum.UserGender;
+import com.alcity.entity.learning.LearningSkill;
+import com.alcity.entity.users.ApplicationMember;
+import com.alcity.repository.users.ApplicationMemberRepository;
+import com.alcity.service.users.ApplicationMemberService;
+import org.junit.Assert;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.core.env.Environment;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.web.client.RestTemplate;
 
+import java.net.URI;
+import java.time.Instant;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertEquals;
 
+
 @SpringBootTest
+@EnableConfigurationProperties
 
 public class BaseItemConrollerTest {
 
-    @Autowired
-    private BaseItemSetConroller userGenderConroller;
+    @MockBean   // working perfectly here but something is wrong with controller, same thing is not working in above controller.
+    private Environment environment;
 
     @Autowired
     Optional<UserGender> female;
-    @MockBean
-    private UserGenderService userGenderService;
+
+    @Autowired
+    private ApplicationMemberService applicationMemberService;
+    @Mock
+    private ApplicationMemberRepository applicationMemberRepository;
+
+
 
     public String address="http://127.0.0.1:8080";
     public String port="8080";
 
     String exampleGenderJson = "{\"id\":\"1\",\"label\":\"F\",\"value\":\"Female\",\"version\":\"1\",\"created\":\"1711360835820\",\"updated\":\"1711360835820\"}";
+    ZoneId zoneId = ZoneId.of("Europe/London").getRules().getOffset(Instant.now());
+
+    ZonedDateTime createdDate= ZonedDateTime.now();
+    Long now = createdDate.toEpochSecond();
+
+
 
     @org.junit.Test
     public void BaseItemsTestUnit() throws Exception {
@@ -66,8 +99,8 @@ public class BaseItemConrollerTest {
         ResponseEntity gameStatusById = restTemplate.getForEntity(address +"/base/game-status/id/75" , String.class);
 
         //Puzzle Privacy Entity API
-        ResponseEntity puzzlePrivacies = restTemplate.getForEntity(address +"/base/game-privacy/all" , String.class);
-        ResponseEntity puzzlePrivacyById = restTemplate.getForEntity(address +"/base/game-privacy/id/75" , String.class);
+        ResponseEntity puzzlePrivacies = restTemplate.getForEntity(address +"/base/pl-privacy/all" , String.class);
+        ResponseEntity puzzlePrivacyById = restTemplate.getForEntity(address +"/base/pl-privacy/id/75" , String.class);
 
         //Wallet Item Type Entity API
         ResponseEntity walletItemTypes = restTemplate.getForEntity(address +"/base/wallet-type/all" , String.class);
@@ -201,6 +234,27 @@ public class BaseItemConrollerTest {
 
         assertEquals(genderById.getBody(), expectedGenderJson );
         //assertEquals(resp2.getBody(), "Hello, World "+ name );
+    }
+
+    @org.junit.Test
+    public void SaveItemsTestUnit() throws Exception {
+        RestTemplate restTemplate = new RestTemplate();
+        System.out.println("Test Save Methods ...............................");
+        ApplicationMember admin_1 = applicationMemberService.findByUsername("admin");
+
+        final String baseUrl = address + port+"/base/learning-skill/save";
+        URI uri = new URI(baseUrl);
+        LearningSkill skill_1 = new LearningSkill("Skill_1","Skill_2",1L,now,now,admin_1,admin_1);
+
+        HttpHeaders headers = new HttpHeaders();
+
+        HttpEntity<LearningSkill> request = new HttpEntity<>(skill_1, headers);
+
+        ResponseEntity<String> result = restTemplate.postForEntity(uri, request, String.class);
+
+        //Verify bad request and missing header
+        Assert.assertEquals(400, result.getStatusCodeValue());
+        Assert.assertEquals(true, result.getBody().contains("Missing request header"));
     }
 
 }

@@ -29,7 +29,7 @@ public class DataTypeService implements DataTypeRepository {
 
     @Override
     public Optional<DataType> findById(Long id) {
-        return Optional.empty();
+        return dataTypeRepository.findById(id);
     }
 
     @Override

@@ -22,8 +22,19 @@ public class ObjectManagmentException extends ResponseEntityExceptionHandler {
         Map<String, Object> body = new LinkedHashMap<>();
         body.put("timestamp", LocalDateTime.now());
         body.put("message", ex.getMessage() );
-        body.put("Cart", ex.getAnimal() );
+        body.put("Cart", ex.getUsername() );
         return new ResponseEntity<>(body, HttpStatus.NOT_FOUND);
     }
+
+    @ExceptionHandler(UniqueConstraintException.class)
+    public ResponseEntity<Object> handleUniqueConstraintException(UniqueConstraintException ex, WebRequest request) {
+
+        Map<String, Object> body = new LinkedHashMap<>();
+        body.put("timestamp", LocalDateTime.now());
+        body.put("message", ex.getMessage() );
+        body.put("unique", request );
+        return new ResponseEntity<>(body, HttpStatus.NOT_FOUND);
+    }
+
 
 }

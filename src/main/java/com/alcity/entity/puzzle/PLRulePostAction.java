@@ -2,7 +2,7 @@ package com.alcity.entity.puzzle;
 
 import com.alcity.entity.alenum.PLRulePostActionType;
 import com.alcity.entity.base.BaseTable;
-import com.alcity.entity.ruleengine.RulePostActionEvent;
+import com.alcity.entity.alobject.RulePostActionEvent;
 import com.alcity.entity.users.ApplicationMember;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 

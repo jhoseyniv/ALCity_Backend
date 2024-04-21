@@ -1,8 +1,7 @@
 package com.alcity.service.puzzle;
 
 
-import com.alcity.entity.puzzle.PuzzleLevelGameInstance;
-import com.alcity.repository.base.GameStatusRepository;
+import com.alcity.entity.puzzle.PLGameInstance;
 import com.alcity.repository.puzzle.PuzzleLevelGameInstanceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,17 +19,17 @@ public class PuzzleLevelGameInstanceService implements PuzzleLevelGameInstanceRe
 
 
     @Override
-    public <S extends PuzzleLevelGameInstance> S save(S entity) {
+    public <S extends PLGameInstance> S save(S entity) {
         return puzzleLevelGameInstanceRepository.save(entity);
     }
 
     @Override
-    public <S extends PuzzleLevelGameInstance> Iterable<S> saveAll(Iterable<S> entities) {
+    public <S extends PLGameInstance> Iterable<S> saveAll(Iterable<S> entities) {
         return null;
     }
 
     @Override
-    public Optional<PuzzleLevelGameInstance> findById(Long id) {
+    public Optional<PLGameInstance> findById(Long id) {
         return Optional.empty();
     }
 
@@ -40,12 +39,12 @@ public class PuzzleLevelGameInstanceService implements PuzzleLevelGameInstanceRe
     }
 
     @Override
-    public Collection<PuzzleLevelGameInstance> findAll() {
+    public Collection<PLGameInstance> findAll() {
         return null;
     }
 
     @Override
-    public Iterable<PuzzleLevelGameInstance> findAllById(Iterable<Long> longs) {
+    public Iterable<PLGameInstance> findAllById(Iterable<Long> longs) {
         return null;
     }
 
@@ -60,7 +59,7 @@ public class PuzzleLevelGameInstanceService implements PuzzleLevelGameInstanceRe
     }
 
     @Override
-    public void delete(PuzzleLevelGameInstance entity) {
+    public void delete(PLGameInstance entity) {
 
     }
 
@@ -70,7 +69,7 @@ public class PuzzleLevelGameInstanceService implements PuzzleLevelGameInstanceRe
     }
 
     @Override
-    public void deleteAll(Iterable<? extends PuzzleLevelGameInstance> entities) {
+    public void deleteAll(Iterable<? extends PLGameInstance> entities) {
 
     }
 

@@ -43,8 +43,6 @@ public class ObjectManagmentApplication {
 		SpringApplication.run(ObjectManagmentApplication.class, args);
 	}
 
-
-
 	@Autowired
 	private ApplicationMemberService applicationMemberService;
 

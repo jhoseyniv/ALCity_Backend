@@ -1,6 +1,7 @@
 package com.alcity.importdata;
 
 
+import com.alcity.entity.alenum.GameStatus;
 import com.alcity.entity.alenum.UserGender;
 import com.alcity.entity.alobject.ObjectAction;
 import com.alcity.entity.alobject.ObjectCategory;
@@ -97,8 +98,6 @@ public class ImportBaseData_1 implements CommandLineRunner {
 
     @Autowired
     JourneyLearningSkillService journeyLearningSkillService;
-    @Autowired
-    GameStatusService gameStatusService;
 
 
     @Autowired
@@ -314,12 +313,12 @@ public class ImportBaseData_1 implements CommandLineRunner {
         journeyLearningSkillService.save(journey_1_Skill_1);
         journeyLearningSkillService.save(journey_1_Skill_2);
 
-        GameStatus gameStatus_1 = new GameStatus("gameStatus_1","gameStatus_1",1L,now,now,admin_1,admin_1);
-        GameStatus gameStatus_2 = new GameStatus("gameStatus_2","gameStatus_2",1L,now,now,admin_1,admin_1);
-        GameStatus gameStatus_3 = new GameStatus("gameStatus_3","gameStatus_3",1L,now,now,admin_1,admin_1);
-        gameStatusService.save(gameStatus_1);
-        gameStatusService.save(gameStatus_2);
-        gameStatusService.save(gameStatus_3);
+//        GameStatus gameStatus_1 = new GameStatus("gameStatus_1","gameStatus_1",1L,now,now,admin_1,admin_1);
+//        GameStatus gameStatus_2 = new GameStatus("gameStatus_2","gameStatus_2",1L,now,now,admin_1,admin_1);
+//        GameStatus gameStatus_3 = new GameStatus("gameStatus_3","gameStatus_3",1L,now,now,admin_1,admin_1);
+//        gameStatusService.save(gameStatus_1);
+//        gameStatusService.save(gameStatus_2);
+//        gameStatusService.save(gameStatus_3);
 
         ObjectAction moveAction= new ObjectAction("Move","Move",1L,now,now,admin_1,admin_1);
         ObjectAction removeAction= new ObjectAction("Remove","Remove",1L,now,now,admin_1,admin_1);

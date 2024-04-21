@@ -1,17 +1,16 @@
 package com.alcity.entity.alenum;
 
-import com.alcity.entity.base.BaseItemSet;
-import com.alcity.entity.users.ApplicationMember;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import javax.persistence.*;
-import java.io.Serializable;
-import java.util.Set;
-
-
 public enum UserGender  {
 
     Female,
-    Male
+    Male;
 
+    public static UserGender getById(long id)
+    {
+        for (UserGender e : UserGender.values())
+        {
+            if (id == e.ordinal()) return e;
+        }
+        throw new IllegalArgumentException("no");
+    }
 }

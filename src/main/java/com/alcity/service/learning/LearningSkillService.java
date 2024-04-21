@@ -13,7 +13,6 @@ import java.util.Optional;
 @Transactional
 public class LearningSkillService implements LearningSkillRepository {
 
-
     @Autowired
     LearningSkillRepository learningSkillRepository;
     @Override
@@ -28,7 +27,7 @@ public class LearningSkillService implements LearningSkillRepository {
 
     @Override
     public Optional<LearningSkill> findById(Long id) {
-        return Optional.empty();
+        return learningSkillRepository.findById(id);
     }
 
     @Override

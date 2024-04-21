@@ -2,15 +2,16 @@ package com.alcity.customexception;
 
 public class ApplicationMemberNotFoundException extends  RuntimeException {
 
-    private String animal;
+    private String username;
     private String  message;
 
-    public String getAnimal() {
-        return animal;
+
+    public String getUsername() {
+        return username;
     }
 
-    public void setCartTitle(String animal) {
-        this.animal = animal;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     @Override
@@ -22,8 +23,8 @@ public class ApplicationMemberNotFoundException extends  RuntimeException {
         this.message = message;
     }
 
-    public ApplicationMemberNotFoundException(String animal, String message) {
-        this.animal = animal;
+    public ApplicationMemberNotFoundException(String username, String message) {
+        this.username = username;
         this.message =  message;
     }
 }

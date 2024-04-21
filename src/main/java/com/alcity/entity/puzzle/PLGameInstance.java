@@ -1,19 +1,16 @@
 package com.alcity.entity.puzzle;
 
-import com.alcity.entity.base.GameStatus;
+import com.alcity.entity.alenum.GameStatus;
 import com.alcity.entity.base.BaseTable;
 import com.alcity.entity.users.ApplicationMember;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-public class PuzzleLevelGameInstance extends BaseTable implements Serializable {
+public class PLGameInstance extends BaseTable implements Serializable {
 
 
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
@@ -26,15 +23,13 @@ public class PuzzleLevelGameInstance extends BaseTable implements Serializable {
     @JsonIgnore
     private PuzzleLevel puzzleLevel;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = true)
-    @JoinColumn(name = "game_status_id", nullable = true)
-    @JsonIgnore
+    @Enumerated(EnumType.ORDINAL)
     private GameStatus gameStatus;
 
-    public PuzzleLevelGameInstance() {
+    public PLGameInstance() {
     }
 
-    public PuzzleLevelGameInstance(ApplicationMember player, PuzzleLevel puzzleLevel, GameStatus gameStatus,Long version, Long created, Long updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
+    public PLGameInstance(ApplicationMember player, PuzzleLevel puzzleLevel, GameStatus gameStatus, Long version, Long created, Long updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
         super(version, created, updated, createdBy, updatedBy);
         this.player = player;
         this.puzzleLevel = puzzleLevel;

@@ -1,10 +1,9 @@
 package com.alcity.api;
 
+import com.alcity.customexception.ObjectManagmentException;
+import com.alcity.customexception.UniqueConstraintException;
 import com.alcity.dto.base.ClientTypeDTO;
-import com.alcity.entity.alenum.PLRuleEventType;
-import com.alcity.entity.alenum.PLStatus;
-import com.alcity.entity.alenum.PLDifficulty;
-import com.alcity.entity.alenum.UserGender;
+import com.alcity.entity.alenum.*;
 import com.alcity.entity.base.*;
 import com.alcity.entity.learning.LearningContent;
 import com.alcity.entity.learning.LearningSkill;
@@ -17,7 +16,6 @@ import com.alcity.utility.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Optional;
@@ -31,12 +29,12 @@ public class BaseItemSetConroller {
     public UserGender[] getGenders(Model model) {
         return UserGender.values();
     }
-//    @RequestMapping(value = "/gender/id/{id}", method = RequestMethod.GET)
-//    @ResponseBody
-//    public Optional<UserGender> getGenderById(@PathVariable Long id) {
-//        Optional<UserGender> gender = userGenderService.findById(id);
-//        return gender;
-//    }
+
+    @RequestMapping(value = "/gender/id/{id}", method = RequestMethod.GET)
+    @ResponseBody
+    public UserGender getGenderById(@PathVariable Long id) {
+       return UserGender.getById(id);
+    }
 
     @Autowired
     private ClientTypeService clientTypeService;
@@ -80,6 +78,21 @@ public class BaseItemSetConroller {
         Optional<DataType> dataType = dataTypeService.findById(id);
         return dataType;
     }
+
+    @PostMapping("/data-type/save")
+    public Optional<DataType> saveDataType(@RequestBody DataType dataType)  {
+        DataType savedDataType = null;
+        try {
+            savedDataType = dataTypeService.save(dataType);
+        }catch (Exception e )
+        {
+            throw new UniqueConstraintException();
+        }
+        Optional<DataType> output = dataTypeService.findById(savedDataType.getId());
+        return output;
+    }
+
+
 
     @Autowired
     private MemberTypeService memberTypeService;
@@ -151,21 +164,17 @@ public class BaseItemSetConroller {
 //    }
 
 
-    @Autowired
-    private GameStatusService gameStatusService;
-
     @GetMapping("/game-status/all")
-    public Collection<GameStatus> getGameStatus(Model model) {
-        Collection<GameStatus> gameStatusCollection = gameStatusService.findAll();
-        return gameStatusCollection;
+    public GameStatus[] getGameStatus(Model model) {
+        return GameStatus.values();
     }
 
-    @RequestMapping(value = "/game-status/id/{id}", method = RequestMethod.GET)
-    @ResponseBody
-    public Optional<GameStatus> getGameStatusById(@PathVariable Long id) {
-        Optional<GameStatus> gameStatus = gameStatusService.findById(id);
-        return gameStatus;
-    }
+//    @RequestMapping(value = "/game-status/id/{id}", method = RequestMethod.GET)
+//    @ResponseBody
+//    public Optional<GameStatus> getGameStatusById(@PathVariable Long id) {
+//        Optional<GameStatus> gameStatus = gameStatusService.findById(id);
+//        return gameStatus;
+//    }
 
 
     @Autowired
@@ -177,7 +186,7 @@ public class BaseItemSetConroller {
         return puzzleLevelPrivacyCollection;
     }
 
-    @RequestMapping(value = "/game-privacy/id/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/pl-privacy/id/{id}", method = RequestMethod.GET)
     @ResponseBody
     public Optional<PuzzleLevelPrivacy> getPuzzleLevelPrivacyById(@PathVariable Long id) {
         Optional<PuzzleLevelPrivacy> puzzleLevelPrivacy = puzzleLevelPrivacyService.findById(id);
@@ -219,7 +228,12 @@ public class BaseItemSetConroller {
 
     @Autowired
     private LearningSkillService learningSkillService;
-
+    @PostMapping("/learning-skill/save")
+    public Optional<LearningSkill> saveLearningSkills(@RequestBody LearningSkill learningSkill) {
+        LearningSkill savedSkill  = learningSkillService.save(learningSkill);
+        Optional<LearningSkill> output = learningSkillService.findById(savedSkill.getId());
+        return output;
+    }
     @GetMapping("/learning-skill/all")
     public Collection<LearningSkill> getLearningSkills(Model model) {
         Collection<LearningSkill> learningSkillCollection = learningSkillService.findAll();

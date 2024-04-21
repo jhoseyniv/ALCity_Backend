@@ -1,0 +1,20 @@
+//add a learning skill
+
+{
+        "label": "Constraint_time_2",
+        "value": "Constraint_time"_2,
+        "version": 1,
+        "created": 1713681393,
+        "updated": 1713681393
+ }
+
+ //add a Data Type
+
+ {
+         "id": 40,
+         "label": "Integer",
+         "value": "Integer",
+         "version": 1,
+         "created": 1713703087,
+         "updated": 1713703087
+     }

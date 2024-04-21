@@ -67,8 +67,6 @@ public class ImportProblemData_1 implements CommandLineRunner {
 
 
     @Autowired
-    private GameStatusService gameStatusService;
-    @Autowired
     private PuzzleLevelPrivacyService puzzleLevelPrivacyService;
 
     @Autowired
@@ -176,7 +174,6 @@ public class ImportProblemData_1 implements CommandLineRunner {
 
         ApplicationMember admin_1 = applicationMemberService.findByUsername("admin");
         ApplicationMember jalalHoseyni = applicationMemberService.findByUsername("jalal");
-        GameStatus gameStatus_1 = gameStatusService.findByValue("gameStatus_1");
         LearningTopic hashImage_Topic = learningTopicService.findByTitle("Hash Image");
 
         DataType alcity_Int = dataTypeService.findByValue("Integer");
@@ -254,7 +251,7 @@ public class ImportProblemData_1 implements CommandLineRunner {
         PuzzleSkillLearningContent puzzleSkillLearningContent_1 = new PuzzleSkillLearningContent(division,puzzleGroup_1,learningContent_Division,1L,now,now,admin_1,admin_1);
         puzzleSkillLearningContentService.save(puzzleSkillLearningContent_1);
 
-        PuzzleLevelGameInstance puzzleLevelGameInstance= new PuzzleLevelGameInstance(jalalHoseyni,puzzleLevel_hashimage,gameStatus_1,1L,now,now,jalalHoseyni,jalalHoseyni);
+        PLGameInstance puzzleLevelGameInstance= new PLGameInstance(jalalHoseyni,puzzleLevel_hashimage,GameStatus.gameStatus_1,1L,now,now,jalalHoseyni,jalalHoseyni);
         puzzleLevelGameInstanceService.save(puzzleLevelGameInstance);
 
 

@@ -1,7 +1,7 @@
-package com.alcity.service.ruleengine;
+package com.alcity.service.alobject;
 
-import com.alcity.entity.ruleengine.RulePostActionEvent;
-import com.alcity.repository.ruleengine.RulePostActionEventRepository;
+import com.alcity.entity.alobject.RulePostActionEvent;
+import com.alcity.repository.alobject.RulePostActionEventRepository;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;

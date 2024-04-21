@@ -1,4 +1,4 @@
-package com.alcity.entity.ruleengine;
+package com.alcity.entity.alobject;
 
 import com.alcity.entity.base.BaseTable;
 import com.alcity.entity.puzzle.PLRulePostAction;
