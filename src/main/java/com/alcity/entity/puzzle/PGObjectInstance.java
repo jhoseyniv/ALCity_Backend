@@ -6,10 +6,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Set;
 
 @Entity
-public class PuzzleGroupObjectInstance extends BaseTable implements Serializable {
+public class PGObjectInstance extends BaseTable implements Serializable {
 
     @Column(name="name")
     private String name;
@@ -73,10 +72,10 @@ public class PuzzleGroupObjectInstance extends BaseTable implements Serializable
         this.name = name;
     }
 
-    public PuzzleGroupObjectInstance() {
+    public PGObjectInstance() {
     }
 
-    public PuzzleGroupObjectInstance(String name, Integer row, Integer col, Integer zOrder, PuzzleGroup_PuzzleObject puzzleGroup_PuzzleObject, PuzzleLevel puzzleLevel,Long version, Long created, Long updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
+    public PGObjectInstance(String name, Integer row, Integer col, Integer zOrder, PuzzleGroup_PuzzleObject puzzleGroup_PuzzleObject, PuzzleLevel puzzleLevel, Long version, Long created, Long updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
         super(version, created, updated, createdBy, updatedBy);
         this.name = name;
         this.row = row;

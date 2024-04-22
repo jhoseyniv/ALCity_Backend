@@ -478,11 +478,11 @@ public class DTOUtil {
 
     public static Collection<PuzzleGroupObjectInstanceDTO>  getPuzzleGroupObjectInstance(PuzzleLevel puzzleLevel){
         Collection<PuzzleGroupObjectInstanceDTO> puzzleGroupObjectInstanceDTOCollection = new ArrayList<PuzzleGroupObjectInstanceDTO>();
-        Collection<PuzzleGroupObjectInstance> puzzleGroupObjectInstanceCollection = puzzleLevel.getPuzzleGroupObjectInstanceCollection();
-        Iterator<PuzzleGroupObjectInstance> itr = puzzleGroupObjectInstanceCollection.iterator();
+        Collection<PGObjectInstance> puzzleGroupObjectInstanceCollection = puzzleLevel.getPuzzleGroupObjectInstanceCollection();
+        Iterator<PGObjectInstance> itr = puzzleGroupObjectInstanceCollection.iterator();
 
         while(itr.hasNext()){
-            PuzzleGroupObjectInstance puzzleGroupObjectInstance = itr.next();
+            PGObjectInstance puzzleGroupObjectInstance = itr.next();
             PuzzleGroupObjectInstanceDTO puzzleGroupObjectInstanceDTO = new PuzzleGroupObjectInstanceDTO();
             puzzleGroupObjectInstanceDTO.setId(puzzleGroupObjectInstance.getId());
             puzzleGroupObjectInstanceDTO.setVersion(puzzleGroupObjectInstance.getVersion());

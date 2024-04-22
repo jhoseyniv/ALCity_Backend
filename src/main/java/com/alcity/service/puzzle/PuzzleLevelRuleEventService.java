@@ -1,7 +1,7 @@
 package com.alcity.service.puzzle;
 
 
-import com.alcity.entity.puzzle.PuzzleLevelRuleEvent;
+import com.alcity.entity.puzzle.PLRuleEvent;
 import com.alcity.repository.puzzle.PuzzleLevelRuleEventRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,17 +17,17 @@ public class PuzzleLevelRuleEventService implements PuzzleLevelRuleEventReposito
    @Autowired
     PuzzleLevelRuleEventRepository puzzleLevelRuleEventRepository;
     @Override
-    public <S extends PuzzleLevelRuleEvent> S save(S entity) {
+    public <S extends PLRuleEvent> S save(S entity) {
         return puzzleLevelRuleEventRepository.save(entity);
     }
 
     @Override
-    public <S extends PuzzleLevelRuleEvent> Iterable<S> saveAll(Iterable<S> entities) {
+    public <S extends PLRuleEvent> Iterable<S> saveAll(Iterable<S> entities) {
         return null;
     }
 
     @Override
-    public Optional<PuzzleLevelRuleEvent> findById(Long id) {
+    public Optional<PLRuleEvent> findById(Long id) {
         return Optional.empty();
     }
 
@@ -37,12 +37,12 @@ public class PuzzleLevelRuleEventService implements PuzzleLevelRuleEventReposito
     }
 
     @Override
-    public Collection<PuzzleLevelRuleEvent> findAll() {
+    public Collection<PLRuleEvent> findAll() {
         return null;
     }
 
     @Override
-    public Iterable<PuzzleLevelRuleEvent> findAllById(Iterable<Long> longs) {
+    public Iterable<PLRuleEvent> findAllById(Iterable<Long> longs) {
         return null;
     }
 
@@ -57,7 +57,7 @@ public class PuzzleLevelRuleEventService implements PuzzleLevelRuleEventReposito
     }
 
     @Override
-    public void delete(PuzzleLevelRuleEvent entity) {
+    public void delete(PLRuleEvent entity) {
 
     }
 
@@ -67,7 +67,7 @@ public class PuzzleLevelRuleEventService implements PuzzleLevelRuleEventReposito
     }
 
     @Override
-    public void deleteAll(Iterable<? extends PuzzleLevelRuleEvent> entities) {
+    public void deleteAll(Iterable<? extends PLRuleEvent> entities) {
 
     }
 
@@ -77,7 +77,7 @@ public class PuzzleLevelRuleEventService implements PuzzleLevelRuleEventReposito
     }
 
     @Override
-    public Collection<PuzzleLevelRuleEvent> findByName(String name) {
+    public Collection<PLRuleEvent> findByName(String name) {
         return null;
     }
 }

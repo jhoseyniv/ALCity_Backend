@@ -1,6 +1,6 @@
 package com.alcity.service.puzzle;
 
-import com.alcity.entity.puzzle.PuzzleGroupObjectInstance;
+import com.alcity.entity.puzzle.PGObjectInstance;
 import com.alcity.entity.puzzle.PLObjective;
 import com.alcity.repository.puzzle.PuzzleGroupObjectInstanceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,17 +18,17 @@ public class PuzzleGroupObjectInstanceService implements PuzzleGroupObjectInstan
     PuzzleGroupObjectInstanceRepository puzzleGroupObjectInstanceRepository;
 
     @Override
-    public <S extends PuzzleGroupObjectInstance> S save(S entity) {
+    public <S extends PGObjectInstance> S save(S entity) {
         return puzzleGroupObjectInstanceRepository.save(entity);
     }
 
     @Override
-    public <S extends PuzzleGroupObjectInstance> Iterable<S> saveAll(Iterable<S> entities) {
+    public <S extends PGObjectInstance> Iterable<S> saveAll(Iterable<S> entities) {
         return null;
     }
 
     @Override
-    public Optional<PuzzleGroupObjectInstance> findById(Long id) {
+    public Optional<PGObjectInstance> findById(Long id) {
         return Optional.empty();
     }
 
@@ -38,12 +38,12 @@ public class PuzzleGroupObjectInstanceService implements PuzzleGroupObjectInstan
     }
 
     @Override
-    public Collection<PuzzleGroupObjectInstance> findAll() {
+    public Collection<PGObjectInstance> findAll() {
         return null;
     }
 
     @Override
-    public Iterable<PuzzleGroupObjectInstance> findAllById(Iterable<Long> longs) {
+    public Iterable<PGObjectInstance> findAllById(Iterable<Long> longs) {
         return null;
     }
 
@@ -58,7 +58,7 @@ public class PuzzleGroupObjectInstanceService implements PuzzleGroupObjectInstan
     }
 
     @Override
-    public void delete(PuzzleGroupObjectInstance entity) {
+    public void delete(PGObjectInstance entity) {
 
     }
 
@@ -68,7 +68,7 @@ public class PuzzleGroupObjectInstanceService implements PuzzleGroupObjectInstan
     }
 
     @Override
-    public void deleteAll(Iterable<? extends PuzzleGroupObjectInstance> entities) {
+    public void deleteAll(Iterable<? extends PGObjectInstance> entities) {
 
     }
 
@@ -78,22 +78,22 @@ public class PuzzleGroupObjectInstanceService implements PuzzleGroupObjectInstan
     }
 
     @Override
-    public Collection<PuzzleGroupObjectInstance> findByRow(Long row) {
+    public Collection<PGObjectInstance> findByRow(Long row) {
         return null;
     }
 
     @Override
-    public Collection<PuzzleGroupObjectInstance> findByCol(String col) {
+    public Collection<PGObjectInstance> findByCol(String col) {
         return null;
     }
 
     @Override
-    public Collection<PuzzleGroupObjectInstance> findByzOrder(String zOrder) {
+    public Collection<PGObjectInstance> findByzOrder(String zOrder) {
         return null;
     }
 
     @Override
-    public Collection<PuzzleGroupObjectInstance> findByPuzzleLevel(PLObjective pl) {
+    public Collection<PGObjectInstance> findByPuzzleLevel(PLObjective pl) {
         return puzzleGroupObjectInstanceRepository.findByPuzzleLevel(pl);
     }
 }

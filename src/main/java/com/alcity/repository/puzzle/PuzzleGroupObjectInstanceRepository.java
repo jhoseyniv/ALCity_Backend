@@ -1,18 +1,18 @@
 package com.alcity.repository.puzzle;
 
-import com.alcity.entity.puzzle.PuzzleGroupObjectInstance;
+import com.alcity.entity.puzzle.PGObjectInstance;
 import com.alcity.entity.puzzle.PLObjective;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.Collection;
 import java.util.Optional;
 
-public interface PuzzleGroupObjectInstanceRepository extends CrudRepository<PuzzleGroupObjectInstance,Long> {
-    Optional<PuzzleGroupObjectInstance> findById(Long id);
-    Collection<PuzzleGroupObjectInstance> findAll();
-    Collection<PuzzleGroupObjectInstance> findByRow(Long row);
-    Collection<PuzzleGroupObjectInstance> findByCol(String col);
-    Collection<PuzzleGroupObjectInstance> findByzOrder(String zOrder);
-    Collection<PuzzleGroupObjectInstance> findByPuzzleLevel(PLObjective pl);
+public interface PuzzleGroupObjectInstanceRepository extends CrudRepository<PGObjectInstance,Long> {
+    Optional<PGObjectInstance> findById(Long id);
+    Collection<PGObjectInstance> findAll();
+    Collection<PGObjectInstance> findByRow(Long row);
+    Collection<PGObjectInstance> findByCol(String col);
+    Collection<PGObjectInstance> findByzOrder(String zOrder);
+    Collection<PGObjectInstance> findByPuzzleLevel(PLObjective pl);
 
 }

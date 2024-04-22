@@ -9,7 +9,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-public class PuzzleLevelRuleEvent extends BaseTable implements Serializable {
+public class PLRuleEvent extends BaseTable implements Serializable {
 
     @Column(name="name")
     private String name;
@@ -25,10 +25,10 @@ public class PuzzleLevelRuleEvent extends BaseTable implements Serializable {
     @Column(name="event_Id")
     private Integer eventId;
 
-    public PuzzleLevelRuleEvent() {
+    public PLRuleEvent() {
     }
 
-    public PuzzleLevelRuleEvent(String name, PLRuleEventType plRuleEventType, Integer eventId, PLRule puzzleLevelRule, Long version, Long created, Long updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
+    public PLRuleEvent(String name, PLRuleEventType plRuleEventType, Integer eventId, PLRule puzzleLevelRule, Long version, Long created, Long updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
         super(version, created, updated, createdBy, updatedBy);
         this.name = name;
         this.plRuleEventType = plRuleEventType;

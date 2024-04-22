@@ -7,18 +7,25 @@ import com.alcity.entity.alenum.PLStatus;
 import com.alcity.entity.base.*;
 import com.alcity.entity.journey.Journey;
 import com.alcity.entity.journey.JourneyStep;
+import com.alcity.entity.learning.LearningContent;
 import com.alcity.entity.learning.LearningSkill;
 import com.alcity.entity.learning.LearningTopic;
+import com.alcity.entity.play.PermitedPlayer;
+import com.alcity.entity.puzzle.PLGround;
 import com.alcity.entity.puzzle.PuzzleGroup;
 import com.alcity.entity.puzzle.PuzzleLevel;
+import com.alcity.entity.puzzle.PuzzleLevel_LearningTopic;
 import com.alcity.entity.users.ApplicationMember;
 import com.alcity.entity.users.WalletItem;
+import com.alcity.repository.play.PermitedPlayerRepository;
 import com.alcity.service.Journey.JourneyService;
 import com.alcity.service.base.*;
 import com.alcity.service.learning.LearningContentService;
 import com.alcity.service.learning.LearningSkillService;
 import com.alcity.service.learning.LearningTopicService;
+import com.alcity.service.puzzle.PLGroundService;
 import com.alcity.service.puzzle.PuzzleGroupService;
+import com.alcity.service.puzzle.PuzzleLevelLearningTopicService;
 import com.alcity.service.puzzle.PuzzleLevelService;
 import com.alcity.service.users.ApplicationMemberService;
 import com.alcity.service.users.WalletItemService;
@@ -56,6 +63,9 @@ public class ImportProblemData_2 implements CommandLineRunner {
     DataTypeService dataTypeService;
 
     @Autowired
+    PuzzleLevelLearningTopicService puzzleLevelLearningTopicService;
+
+    @Autowired
     LearningSkillService learningSkillService;
     @Autowired
     WalletItemService walletItemService;
@@ -69,6 +79,12 @@ public class ImportProblemData_2 implements CommandLineRunner {
     private PuzzleLevelPrivacyService puzzleLevelPrivacyService;
     @Autowired
     PuzzleLevelService puzzleLevelService;
+    @Autowired
+    private CameraSetupService cameraSetupService;
+    @Autowired
+    PLGroundService puzzleLevelGroundService;
+    @Autowired
+    PermitedPlayerRepository permitedPlayerRepository;
 
     private static final Logger log = LoggerFactory.getLogger(ObjectManagmentApplication.class);
 
@@ -87,6 +103,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
         ApplicationMember admin_1 = applicationMemberService.findByUsername("admin");
         BinaryContentType imageType= binaryContentTypeService.findByValue("image");
         ApplicationMember jalalHoseyni = applicationMemberService.findByUsername("jalal");
+        ApplicationMember moslemBalavandi = applicationMemberService.findByUsername("moslem");
         LearningTopic routing_in_the_table = learningTopicService.findByTitle("Routing in the Table");
 
 
@@ -130,6 +147,32 @@ public class ImportProblemData_2 implements CommandLineRunner {
 
         PuzzleLevel puzzleLevel_Maze = new PuzzleLevel(now,1L,"Find shortest path from start to end in maze","4546",10,14,5f,puzzleGroup_2, PLDifficulty.Medium, PLStatus.Not_Started,privacy_1,puzzle_group_2_binary_content_pic,puzzle_group_2_binary_content_icon,3L,now,now,admin_1,admin_1);
         puzzleLevelService.save(puzzleLevel_Maze);
+
+
+        byte[] puzzle_group_Maze_pic = ImageUtil.getImage("src/main/resources/images/","MazeImage.png");
+        BinaryContent puzzle_group_Maze_binary_content = new BinaryContent("Maze Image",puzzle_group_Maze_pic,imageType,1L,now,now,admin_1,admin_1);
+        binaryContentService.save(puzzle_group_Maze_binary_content);
+
+        Integer xPos=3;
+        Integer xRotation=3;
+        CameraSetup cameraSetup = new CameraSetup(1L,now,now,admin_1,admin_1,xPos,xPos,xPos,xRotation,xRotation,xRotation);
+        cameraSetupService.save(cameraSetup);
+
+        PLGround puzzleLevel_Maze_ground = new PLGround(3,3,puzzleLevel_Maze,play_ground_binary_content_2,1L,now,now,admin_1,admin_1);
+        puzzleLevel_Maze_ground.setCameraSetup(cameraSetup);
+        puzzleLevelGroundService.save(puzzleLevel_Maze_ground);
+
+        PermitedPlayer player_1_puzzleLevel_Maze = new PermitedPlayer(jalalHoseyni,puzzleLevel_Maze,1L,now,now,admin_1,admin_1);
+        permitedPlayerRepository.save(player_1_puzzleLevel_Maze);
+
+        PermitedPlayer player_2_puzzleLevel_Maze = new PermitedPlayer(moslemBalavandi,puzzleLevel_Maze,1L,now,now,admin_1,admin_1);
+        permitedPlayerRepository.save(player_2_puzzleLevel_Maze);
+
+        LearningContent learningContent_routing=new LearningContent("help to math","this content is about Mazes",puzzle_group_2_binary_content_pic,1L,now,now,admin_1,admin_1);
+        learningContentService.save(learningContent_routing);
+
+        PuzzleLevel_LearningTopic puzzleLevelLearningTopic_1 = new PuzzleLevel_LearningTopic(puzzleLevel_Maze,routing_in_the_table,learningContent_routing,1L,now,now,admin_1,admin_1);
+        puzzleLevelLearningTopicService.save(puzzleLevelLearningTopic_1);
 
     }
 

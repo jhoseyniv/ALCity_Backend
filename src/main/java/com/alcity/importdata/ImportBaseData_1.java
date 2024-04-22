@@ -154,6 +154,23 @@ public class ImportBaseData_1 implements CommandLineRunner {
         jalalHoseyni.setClientTypeSet(jalalClientTypeSet);
         applicationMemberService.save(jalalHoseyni);
 
+        ApplicationMember Moslem_Balavandi= new ApplicationMember(35,"moslem","moslem","moslem","0912350550","balavandi@gmail.com",avatar,UserGender.Male,guest,1L,now,now,null,null);
+        Set moslem_ClientTypeSet = new HashSet<ClientType>();
+        moslem_ClientTypeSet.add(mobile);
+        moslem_ClientTypeSet.add(web);
+        Moslem_Balavandi.setClientTypeSet(moslem_ClientTypeSet);
+        applicationMemberService.save(Moslem_Balavandi);
+
+        ApplicationMember alireza_zarei= new ApplicationMember(35,"alireza","alireza","alireza","0912350550","zare@sharif.edu",avatar,UserGender.Male,guest,1L,now,now,null,null);
+        Set alireza_ClientTypeSet = new HashSet<ClientType>();
+        alireza_ClientTypeSet.add(mobile);
+        alireza_ClientTypeSet.add(web);
+        alireza_ClientTypeSet.add(tablet);
+        alireza_zarei.setClientTypeSet(alireza_ClientTypeSet);
+        applicationMemberService.save(alireza_zarei);
+
+
+
         BinaryContentType imageType= new BinaryContentType("image","image",1L,now,now,admin_1,admin_1);
         BinaryContentType fileType= new BinaryContentType("file","file",1L,now,now,admin_1,admin_1);
         BinaryContentType videoType= new BinaryContentType("video","video",1L,now,now,admin_1,admin_1);

@@ -81,11 +81,11 @@ public class IntrpreterController {
 
     public Collection<InstanceData> getInstancesForAObjectInPuzzleLevel(PuzzleGroup_PuzzleObject pgpo) {
         Collection<InstanceData> objectInstanceDataCollection = new ArrayList<InstanceData>();
-        Collection<PuzzleGroupObjectInstance> puzzleGroupObjectInstanceCollection = pgpo.getPuzzleGroupObjectInstanceCollection();
-        Iterator<PuzzleGroupObjectInstance> iterator = puzzleGroupObjectInstanceCollection.iterator();
+        Collection<PGObjectInstance> puzzleGroupObjectInstanceCollection = pgpo.getPuzzleGroupObjectInstanceCollection();
+        Iterator<PGObjectInstance> iterator = puzzleGroupObjectInstanceCollection.iterator();
 
         while(iterator.hasNext()) {
-            PuzzleGroupObjectInstance puzzleGroupObjectInstance = iterator.next();
+            PGObjectInstance puzzleGroupObjectInstance = iterator.next();
 
             InstanceData objectInstanceData = new InstanceData();
             objectInstanceData.setId(puzzleGroupObjectInstance.getId());

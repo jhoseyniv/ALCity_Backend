@@ -1,14 +1,14 @@
 package com.alcity.repository.puzzle;
 
-import com.alcity.entity.puzzle.PuzzleLevelRuleEvent;
+import com.alcity.entity.puzzle.PLRuleEvent;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.Collection;
 import java.util.Optional;
 
-public interface PuzzleLevelRuleEventRepository extends CrudRepository<PuzzleLevelRuleEvent,Long> {
-    Optional<PuzzleLevelRuleEvent> findById(Long id);
-    Collection<PuzzleLevelRuleEvent> findAll();
-    Collection<PuzzleLevelRuleEvent> findByName(String name);
+public interface PuzzleLevelRuleEventRepository extends CrudRepository<PLRuleEvent,Long> {
+    Optional<PLRuleEvent> findById(Long id);
+    Collection<PLRuleEvent> findAll();
+    Collection<PLRuleEvent> findByName(String name);
 
 }

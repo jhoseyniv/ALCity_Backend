@@ -231,13 +231,13 @@ public class PuzzleLevel extends BaseTable implements Serializable {
 
     @OneToMany(mappedBy = "puzzleLevel", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JsonIgnore
-    private Collection<PuzzleGroupObjectInstance> puzzleGroupObjectInstanceCollection;
+    private Collection<PGObjectInstance> puzzleGroupObjectInstanceCollection;
 
-    public Collection<PuzzleGroupObjectInstance> getPuzzleGroupObjectInstanceCollection() {
+    public Collection<PGObjectInstance> getPuzzleGroupObjectInstanceCollection() {
         return puzzleGroupObjectInstanceCollection;
     }
 
-    public void setPuzzleGroupObjectInstanceCollection(Collection<PuzzleGroupObjectInstance> puzzleGroupObjectInstanceCollection) {
+    public void setPuzzleGroupObjectInstanceCollection(Collection<PGObjectInstance> puzzleGroupObjectInstanceCollection) {
         this.puzzleGroupObjectInstanceCollection = puzzleGroupObjectInstanceCollection;
     }
 

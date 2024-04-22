@@ -307,15 +307,15 @@ public class ImportProblemData_1 implements CommandLineRunner {
         alCityAttributeValueService.save(alCityAttribute_variable_X_value);
         alCityAttributeValueService.save(alCityAttribute_variable_Y_value);
 
-        PuzzleGroupObjectInstance instance_img0 = new PuzzleGroupObjectInstance("instance_img0",1,1,1,puzzleGroup_puzzleObject,puzzleLevel_hashimage,1L,now,now,admin_1,admin_1);
-        PuzzleGroupObjectInstance instance_img1 = new PuzzleGroupObjectInstance("instance_img1",2,3,1,puzzleGroup_puzzleObject,puzzleLevel_hashimage,1L,now,now,admin_1,admin_1);
-        PuzzleGroupObjectInstance instance_img2 = new PuzzleGroupObjectInstance("instance_img2",1,2,1,puzzleGroup_puzzleObject,puzzleLevel_hashimage,1L,now,now,admin_1,admin_1);
-        PuzzleGroupObjectInstance instance_img3 = new PuzzleGroupObjectInstance("instance_img3",2,1,1,puzzleGroup_puzzleObject,puzzleLevel_hashimage,1L,now,now,admin_1,admin_1);
-        PuzzleGroupObjectInstance instance_img4 = new PuzzleGroupObjectInstance("instance_img4",3,2,1,puzzleGroup_puzzleObject,puzzleLevel_hashimage,1L,now,now,admin_1,admin_1);
-        PuzzleGroupObjectInstance instance_img5 = new PuzzleGroupObjectInstance("instance_img5",1,3,1,puzzleGroup_puzzleObject,puzzleLevel_hashimage,1L,now,now,admin_1,admin_1);
-        PuzzleGroupObjectInstance instance_img6 = new PuzzleGroupObjectInstance("instance_img6",2,2,1,puzzleGroup_puzzleObject,puzzleLevel_hashimage,1L,now,now,admin_1,admin_1);
-        PuzzleGroupObjectInstance instance_img7 = new PuzzleGroupObjectInstance("instance_img7",3,3,1,puzzleGroup_puzzleObject,puzzleLevel_hashimage,1L,now,now,admin_1,admin_1);
-        PuzzleGroupObjectInstance instance_img8 = new PuzzleGroupObjectInstance("instance_img8",3,1,1,puzzleGroup_puzzleObject,puzzleLevel_hashimage,1L,now,now,admin_1,admin_1);
+        PGObjectInstance instance_img0 = new PGObjectInstance("instance_img0",1,1,1,puzzleGroup_puzzleObject,puzzleLevel_hashimage,1L,now,now,admin_1,admin_1);
+        PGObjectInstance instance_img1 = new PGObjectInstance("instance_img1",2,3,1,puzzleGroup_puzzleObject,puzzleLevel_hashimage,1L,now,now,admin_1,admin_1);
+        PGObjectInstance instance_img2 = new PGObjectInstance("instance_img2",1,2,1,puzzleGroup_puzzleObject,puzzleLevel_hashimage,1L,now,now,admin_1,admin_1);
+        PGObjectInstance instance_img3 = new PGObjectInstance("instance_img3",2,1,1,puzzleGroup_puzzleObject,puzzleLevel_hashimage,1L,now,now,admin_1,admin_1);
+        PGObjectInstance instance_img4 = new PGObjectInstance("instance_img4",3,2,1,puzzleGroup_puzzleObject,puzzleLevel_hashimage,1L,now,now,admin_1,admin_1);
+        PGObjectInstance instance_img5 = new PGObjectInstance("instance_img5",1,3,1,puzzleGroup_puzzleObject,puzzleLevel_hashimage,1L,now,now,admin_1,admin_1);
+        PGObjectInstance instance_img6 = new PGObjectInstance("instance_img6",2,2,1,puzzleGroup_puzzleObject,puzzleLevel_hashimage,1L,now,now,admin_1,admin_1);
+        PGObjectInstance instance_img7 = new PGObjectInstance("instance_img7",3,3,1,puzzleGroup_puzzleObject,puzzleLevel_hashimage,1L,now,now,admin_1,admin_1);
+        PGObjectInstance instance_img8 = new PGObjectInstance("instance_img8",3,1,1,puzzleGroup_puzzleObject,puzzleLevel_hashimage,1L,now,now,admin_1,admin_1);
 
         puzzleGroupObjectInstanceService.save(instance_img0);
         puzzleGroupObjectInstanceService.save(instance_img1);
@@ -644,7 +644,7 @@ public class ImportProblemData_1 implements CommandLineRunner {
         puzzleLevelRuleService.save(rule_for_move_objects_in_hash_image);
 
 
-        PuzzleLevelRuleEvent puzzleLevelRuleEvent_click = new PuzzleLevelRuleEvent("Click",PLRuleEventType.User_Event,UserEvent.Click.ordinal(),rule_for_move_objects_in_hash_image,1L,now,now,admin_1,admin_1);
+        PLRuleEvent puzzleLevelRuleEvent_click = new PLRuleEvent("Click",PLRuleEventType.User_Event,UserEvent.Click.ordinal(),rule_for_move_objects_in_hash_image,1L,now,now,admin_1,admin_1);
         puzzleLevelRuleEventService.save(puzzleLevelRuleEvent_click);
 
 

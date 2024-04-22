@@ -7,7 +7,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Collection;
-import java.util.Set;
 
 @Entity
 public class PuzzleGroup_PuzzleObject extends BaseTable implements Serializable {
@@ -30,13 +29,13 @@ public class PuzzleGroup_PuzzleObject extends BaseTable implements Serializable 
 
     @OneToMany(mappedBy = "puzzleGroup_PuzzleObject", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JsonIgnore
-    private Collection<PuzzleGroupObjectInstance> puzzleGroupObjectInstanceCollection;
+    private Collection<PGObjectInstance> puzzleGroupObjectInstanceCollection;
 
-    public Collection<PuzzleGroupObjectInstance> getPuzzleGroupObjectInstanceCollection() {
+    public Collection<PGObjectInstance> getPuzzleGroupObjectInstanceCollection() {
         return puzzleGroupObjectInstanceCollection;
     }
 
-    public void setPuzzleGroupObjectInstanceCollection(Collection<PuzzleGroupObjectInstance> puzzleGroupObjectInstanceCollection) {
+    public void setPuzzleGroupObjectInstanceCollection(Collection<PGObjectInstance> puzzleGroupObjectInstanceCollection) {
         this.puzzleGroupObjectInstanceCollection = puzzleGroupObjectInstanceCollection;
     }
 
