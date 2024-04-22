@@ -5,6 +5,7 @@ import com.alcity.ObjectManagmentApplication;
 import com.alcity.entity.alenum.GameStatus;
 import com.alcity.entity.alenum.PLDifficulty;
 import com.alcity.entity.alenum.PLStatus;
+import com.alcity.entity.alobject.ObjectCategory;
 import com.alcity.entity.base.*;
 import com.alcity.entity.journey.Journey;
 import com.alcity.entity.journey.JourneyStep;
@@ -18,6 +19,7 @@ import com.alcity.entity.users.ApplicationMember;
 import com.alcity.entity.users.WalletItem;
 import com.alcity.repository.play.PermitedPlayerRepository;
 import com.alcity.service.Journey.JourneyService;
+import com.alcity.service.alobject.ObjectCategoryService;
 import com.alcity.service.base.*;
 import com.alcity.service.learning.LearningContentService;
 import com.alcity.service.learning.LearningSkillService;
@@ -88,6 +90,10 @@ public class ImportProblemData_2 implements CommandLineRunner {
     PermitedPlayerRepository permitedPlayerRepository;
     @Autowired
     PuzzleSkillLearningContentService puzzleSkillLearningContentService;
+    @Autowired
+    ObjectCategoryService objectCategoryService;
+    @Autowired
+    PuzzleObjectService puzzleObjectService;
 
     private static final Logger log = LoggerFactory.getLogger(ObjectManagmentApplication.class);
 
@@ -157,8 +163,8 @@ public class ImportProblemData_2 implements CommandLineRunner {
         BinaryContent puzzle_group_Maze_binary_content = new BinaryContent("Maze Image",puzzle_group_Maze_pic,imageType,1L,now,now,admin_1,admin_1);
         binaryContentService.save(puzzle_group_Maze_binary_content);
 
-        Integer xPos=3;
-        Integer xRotation=3;
+        Integer xPos=5;
+        Integer xRotation=5;
         CameraSetup cameraSetup = new CameraSetup(1L,now,now,admin_1,admin_1,xPos,xPos,xPos,xRotation,xRotation,xRotation);
         cameraSetupService.save(cameraSetup);
 
@@ -193,6 +199,10 @@ public class ImportProblemData_2 implements CommandLineRunner {
         PLGameInstance puzzleLevelGameInstance= new PLGameInstance(jalalHoseyni,puzzleLevel_Maze, GameStatus.gameStatus_1,1L,now,now,jalalHoseyni,jalalHoseyni);
         plGameInstanceService.save(puzzleLevelGameInstance);
 
+        ObjectCategory objectCategory_Image = objectCategoryService.findByValue("Image");
+
+      //  PuzzleObject ImageObject01 = new PuzzleObject("ImageObject01",objectCategory_Image,wheat_Image_binary_content,wheat_Image_binary_content,1L,now,now,jalalHoseyni,jalalHoseyni);
+        puzzleObjectService.findByTitle("ImageObject01");
 
     }
 

@@ -263,6 +263,14 @@ public class ImportBaseData_1 implements CommandLineRunner {
         BinaryContent wheat_Image_binary_content = new BinaryContent("wheat image",wheat_Image,imageType,1L,now,now,admin_1,admin_1);
         binaryContentService.save(wheat_Image_binary_content);
 
+        byte[] image_object = ImageUtil.getImage("src/main/resources/images/","image_object.png");
+        BinaryContent image_object_binary_content = new BinaryContent("image_object",image_object,imageType,1L,now,now,admin_1,admin_1);
+        binaryContentService.save(image_object_binary_content);
+
+
+
+
+
         DataType alcity_Int = new DataType("Integer","Integer",1L,now,now,admin_1,admin_1);
         DataType alcity_Long =new DataType("Long","Long",1L,now,now,admin_1,admin_1);
         DataType alcity_Boolean = new DataType("Boolean","Boolean",1L,now,now,admin_1,admin_1);
