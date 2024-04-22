@@ -6,7 +6,7 @@ import org.springframework.data.repository.CrudRepository;
 import java.util.Collection;
 import java.util.Optional;
 
-public interface PuzzleLevelLearningTopicRepository extends CrudRepository<PuzzleLevel_LearningTopic,Long> {
+public interface PLLearningTopicRepository extends CrudRepository<PuzzleLevel_LearningTopic,Long> {
 
     Optional<PuzzleLevel_LearningTopic> findById(Long id);
     Collection<PuzzleLevel_LearningTopic> findAll();

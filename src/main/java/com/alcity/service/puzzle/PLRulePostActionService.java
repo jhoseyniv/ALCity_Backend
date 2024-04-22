@@ -1,7 +1,7 @@
 package com.alcity.service.puzzle;
 
 import com.alcity.entity.puzzle.PLRulePostAction;
-import com.alcity.repository.puzzle.PuzzleLevelRulePostActionRepository;
+import com.alcity.repository.puzzle.PLRulePostActionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,10 +11,10 @@ import java.util.Optional;
 
 @Service
 @Transactional
-public class PuzzleLevelRulePostActionService implements PuzzleLevelRulePostActionRepository {
+public class PLRulePostActionService implements PLRulePostActionRepository {
 
     @Autowired
-    PuzzleLevelRulePostActionRepository puzzleLevelRulePostActionRepository;
+    PLRulePostActionRepository puzzleLevelRulePostActionRepository;
 
     @Override
     public <S extends PLRulePostAction> S save(S entity) {

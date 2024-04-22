@@ -6,7 +6,7 @@ import org.springframework.data.repository.CrudRepository;
 import java.util.Collection;
 import java.util.Optional;
 
-public interface PuzzleLevelRuleEventRepository extends CrudRepository<PLRuleEvent,Long> {
+public interface PLRuleEventRepository extends CrudRepository<PLRuleEvent,Long> {
     Optional<PLRuleEvent> findById(Long id);
     Collection<PLRuleEvent> findAll();
     Collection<PLRuleEvent> findByName(String name);

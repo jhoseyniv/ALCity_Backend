@@ -25,7 +25,7 @@ import com.alcity.service.learning.LearningSkillService;
 import com.alcity.service.learning.LearningTopicService;
 import com.alcity.service.puzzle.PLGroundService;
 import com.alcity.service.puzzle.PuzzleGroupService;
-import com.alcity.service.puzzle.PuzzleLevelLearningTopicService;
+import com.alcity.service.puzzle.PLLearningTopicService;
 import com.alcity.service.puzzle.PuzzleLevelService;
 import com.alcity.service.users.ApplicationMemberService;
 import com.alcity.service.users.WalletItemService;
@@ -63,7 +63,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
     DataTypeService dataTypeService;
 
     @Autowired
-    PuzzleLevelLearningTopicService puzzleLevelLearningTopicService;
+    PLLearningTopicService puzzleLevelLearningTopicService;
 
     @Autowired
     LearningSkillService learningSkillService;

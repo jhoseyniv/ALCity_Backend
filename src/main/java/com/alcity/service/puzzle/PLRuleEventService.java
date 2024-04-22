@@ -1,8 +1,8 @@
 package com.alcity.service.puzzle;
 
 
-import com.alcity.entity.puzzle.PLGameInstance;
-import com.alcity.repository.puzzle.PuzzleLevelGameInstanceRepository;
+import com.alcity.entity.puzzle.PLRuleEvent;
+import com.alcity.repository.puzzle.PLRuleEventRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,24 +12,22 @@ import java.util.Optional;
 
 @Service
 @Transactional
-public class PuzzleLevelGameInstanceService implements PuzzleLevelGameInstanceRepository {
+public class PLRuleEventService implements PLRuleEventRepository {
 
-    @Autowired
-    PuzzleLevelGameInstanceRepository puzzleLevelGameInstanceRepository;
-
-
+   @Autowired
+   PLRuleEventRepository puzzleLevelRuleEventRepository;
     @Override
-    public <S extends PLGameInstance> S save(S entity) {
-        return puzzleLevelGameInstanceRepository.save(entity);
+    public <S extends PLRuleEvent> S save(S entity) {
+        return puzzleLevelRuleEventRepository.save(entity);
     }
 
     @Override
-    public <S extends PLGameInstance> Iterable<S> saveAll(Iterable<S> entities) {
+    public <S extends PLRuleEvent> Iterable<S> saveAll(Iterable<S> entities) {
         return null;
     }
 
     @Override
-    public Optional<PLGameInstance> findById(Long id) {
+    public Optional<PLRuleEvent> findById(Long id) {
         return Optional.empty();
     }
 
@@ -39,12 +37,12 @@ public class PuzzleLevelGameInstanceService implements PuzzleLevelGameInstanceRe
     }
 
     @Override
-    public Collection<PLGameInstance> findAll() {
+    public Collection<PLRuleEvent> findAll() {
         return null;
     }
 
     @Override
-    public Iterable<PLGameInstance> findAllById(Iterable<Long> longs) {
+    public Iterable<PLRuleEvent> findAllById(Iterable<Long> longs) {
         return null;
     }
 
@@ -59,7 +57,7 @@ public class PuzzleLevelGameInstanceService implements PuzzleLevelGameInstanceRe
     }
 
     @Override
-    public void delete(PLGameInstance entity) {
+    public void delete(PLRuleEvent entity) {
 
     }
 
@@ -69,12 +67,17 @@ public class PuzzleLevelGameInstanceService implements PuzzleLevelGameInstanceRe
     }
 
     @Override
-    public void deleteAll(Iterable<? extends PLGameInstance> entities) {
+    public void deleteAll(Iterable<? extends PLRuleEvent> entities) {
 
     }
 
     @Override
     public void deleteAll() {
 
+    }
+
+    @Override
+    public Collection<PLRuleEvent> findByName(String name) {
+        return null;
     }
 }

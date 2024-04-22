@@ -73,7 +73,7 @@ public class ImportProblemData_1 implements CommandLineRunner {
     PermitedPlayerRepository permitedPlayerRepository;
 
     @Autowired
-    PuzzleLevelLearningTopicService puzzleLevelLearningTopicService;
+    PLLearningTopicService puzzleLevelLearningTopicService;
 
     @Autowired
     PlayHistoryService playHistoryService;
@@ -86,7 +86,7 @@ public class ImportProblemData_1 implements CommandLineRunner {
     LearningContentService learningContentService;
 
     @Autowired
-    PuzzleLevelGameInstanceService puzzleLevelGameInstanceService;
+    PLGameInstanceService puzzleLevelGameInstanceService;
 
     @Autowired
     ObjectCategoryService objectCategoryService;
@@ -95,7 +95,7 @@ public class ImportProblemData_1 implements CommandLineRunner {
     PuzzleObjectService puzzleObjectService;
 
     @Autowired
-    PuzzleGroupObjectInstanceService puzzleGroupObjectInstanceService;
+    PGObjectInstanceService puzzleGroupObjectInstanceService;
 
 
     @Autowired
@@ -128,10 +128,10 @@ public class ImportProblemData_1 implements CommandLineRunner {
 
 
     @Autowired
-    PuzzleLevelRuleEventService puzzleLevelRuleEventService;
+    PLRuleEventService puzzleLevelRuleEventService;
 
     @Autowired
-    PuzzleLevelRulePostActionService puzzleLevelRulePostActionService;
+    PLRulePostActionService puzzleLevelRulePostActionService;
 
     @Autowired
     PLObjectiveService puzzleLevelObjectiveService;

@@ -1,7 +1,8 @@
 package com.alcity.service.puzzle;
 
-import com.alcity.entity.puzzle.PuzzleLevel_LearningTopic;
-import com.alcity.repository.puzzle.PuzzleLevelLearningTopicRepository;
+
+import com.alcity.entity.puzzle.PLGameInstance;
+import com.alcity.repository.puzzle.PLGameInstanceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,22 +12,24 @@ import java.util.Optional;
 
 @Service
 @Transactional
-public class PuzzleLevelLearningTopicService implements PuzzleLevelLearningTopicRepository {
+public class PLGameInstanceService implements PLGameInstanceRepository {
 
     @Autowired
-    PuzzleLevelLearningTopicRepository puzzleLevelLearningTopicRepository;
+    PLGameInstanceRepository puzzleLevelGameInstanceRepository;
+
+
     @Override
-    public <S extends PuzzleLevel_LearningTopic> S save(S entity) {
-        return puzzleLevelLearningTopicRepository.save(entity);
+    public <S extends PLGameInstance> S save(S entity) {
+        return puzzleLevelGameInstanceRepository.save(entity);
     }
 
     @Override
-    public <S extends PuzzleLevel_LearningTopic> Iterable<S> saveAll(Iterable<S> entities) {
+    public <S extends PLGameInstance> Iterable<S> saveAll(Iterable<S> entities) {
         return null;
     }
 
     @Override
-    public Optional<PuzzleLevel_LearningTopic> findById(Long id) {
+    public Optional<PLGameInstance> findById(Long id) {
         return Optional.empty();
     }
 
@@ -36,12 +39,12 @@ public class PuzzleLevelLearningTopicService implements PuzzleLevelLearningTopic
     }
 
     @Override
-    public Collection<PuzzleLevel_LearningTopic> findAll() {
+    public Collection<PLGameInstance> findAll() {
         return null;
     }
 
     @Override
-    public Iterable<PuzzleLevel_LearningTopic> findAllById(Iterable<Long> longs) {
+    public Iterable<PLGameInstance> findAllById(Iterable<Long> longs) {
         return null;
     }
 
@@ -56,7 +59,7 @@ public class PuzzleLevelLearningTopicService implements PuzzleLevelLearningTopic
     }
 
     @Override
-    public void delete(PuzzleLevel_LearningTopic entity) {
+    public void delete(PLGameInstance entity) {
 
     }
 
@@ -66,7 +69,7 @@ public class PuzzleLevelLearningTopicService implements PuzzleLevelLearningTopic
     }
 
     @Override
-    public void deleteAll(Iterable<? extends PuzzleLevel_LearningTopic> entities) {
+    public void deleteAll(Iterable<? extends PLGameInstance> entities) {
 
     }
 

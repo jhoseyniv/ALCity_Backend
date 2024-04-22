@@ -7,7 +7,7 @@ import org.springframework.data.repository.CrudRepository;
 import java.util.Collection;
 import java.util.Optional;
 
-public interface PuzzleGroupObjectInstanceRepository extends CrudRepository<PGObjectInstance,Long> {
+public interface PGObjectInstanceRepository extends CrudRepository<PGObjectInstance,Long> {
     Optional<PGObjectInstance> findById(Long id);
     Collection<PGObjectInstance> findAll();
     Collection<PGObjectInstance> findByRow(Long row);

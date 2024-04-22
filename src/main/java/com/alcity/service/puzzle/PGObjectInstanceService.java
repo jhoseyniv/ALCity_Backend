@@ -2,7 +2,7 @@ package com.alcity.service.puzzle;
 
 import com.alcity.entity.puzzle.PGObjectInstance;
 import com.alcity.entity.puzzle.PLObjective;
-import com.alcity.repository.puzzle.PuzzleGroupObjectInstanceRepository;
+import com.alcity.repository.puzzle.PGObjectInstanceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,10 +12,10 @@ import java.util.Optional;
 
 @Service
 @Transactional
-public class PuzzleGroupObjectInstanceService implements PuzzleGroupObjectInstanceRepository {
+public class PGObjectInstanceService implements PGObjectInstanceRepository {
 
     @Autowired
-    PuzzleGroupObjectInstanceRepository puzzleGroupObjectInstanceRepository;
+    PGObjectInstanceRepository puzzleGroupObjectInstanceRepository;
 
     @Override
     public <S extends PGObjectInstance> S save(S entity) {

@@ -6,18 +6,13 @@ import com.alcity.entity.puzzle.*;
 import com.alcity.entity.users.ApplicationMember;
 import com.alcity.repository.play.PermitedPlayerRepository;
 import com.alcity.service.Journey.JourneyLearningSkillService;
-import com.alcity.service.Journey.JourneyService;
-import com.alcity.service.Journey.JourneyStepService;
 import com.alcity.service.alobject.*;
 import com.alcity.service.base.*;
 import com.alcity.service.learning.LearningContentService;
-import com.alcity.service.learning.LearningSkillService;
 import com.alcity.service.learning.LearningSkill_LearningTopicService;
-import com.alcity.service.learning.LearningTopicService;
 import com.alcity.service.play.PlayHistoryService;
 import com.alcity.service.puzzle.*;
 import com.alcity.service.users.ApplicationMemberService;
-import com.alcity.service.users.WalletItemService;
 import com.alcity.utility.ImageUtil;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -79,7 +74,7 @@ public class ObjectManagmentApplication {
 	PuzzleLevelService puzzleLevelService;
 
 	@Autowired
-	PuzzleLevelLearningTopicService puzzleLevelLearningTopicService;
+    PLLearningTopicService puzzleLevelLearningTopicService;
 
 	@Autowired
 	PermitedPlayerRepository permitedPlayerRepository;
@@ -95,7 +90,7 @@ public class ObjectManagmentApplication {
 
 
 	@Autowired
-	PuzzleLevelGameInstanceService puzzleLevelGameInstanceService;
+	PLGameInstanceService puzzleLevelGameInstanceService;
 
 
 	@Autowired
@@ -111,7 +106,7 @@ public class ObjectManagmentApplication {
 
 
 	@Autowired
-	PuzzleGroupObjectInstanceService puzzleGroupObjectInstanceService;
+	PGObjectInstanceService puzzleGroupObjectInstanceService;
 
 	@Autowired
 	ALCityAttributeService alCityAttributeService;
@@ -132,11 +127,11 @@ public class ObjectManagmentApplication {
     PLRuleService puzzleLevelRuleService;
 
 	@Autowired
-	PuzzleLevelRuleEventService  puzzleLevelRuleEventService;
+	PLRuleEventService puzzleLevelRuleEventService;
 
 
 	@Autowired
-	PuzzleLevelRulePostActionService  puzzleLevelRulePostActionService;
+	PLRulePostActionService puzzleLevelRulePostActionService;
 
 
 	@Autowired
