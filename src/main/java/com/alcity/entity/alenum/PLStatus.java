@@ -11,6 +11,7 @@ import java.io.Serializable;
 public enum PLStatus {
     Completed,
     Canceled,
-    Ongoing
+    Ongoing,
+    Not_Started
 
 }

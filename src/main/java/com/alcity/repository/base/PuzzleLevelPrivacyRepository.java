@@ -1,15 +1,15 @@
 package com.alcity.repository.base;
 
-import com.alcity.entity.base.PuzzleLevelPrivacy;
+import com.alcity.entity.base.PLPrivacy;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.Collection;
 import java.util.Optional;
 
-public interface PuzzleLevelPrivacyRepository extends CrudRepository<PuzzleLevelPrivacy,Long> {
-    Optional<PuzzleLevelPrivacy> findById(Long id);
-    Collection<PuzzleLevelPrivacy> findAll();
-    PuzzleLevelPrivacy findByLabel(String label);
-    PuzzleLevelPrivacy findByValue(String value);
+public interface PuzzleLevelPrivacyRepository extends CrudRepository<PLPrivacy,Long> {
+    Optional<PLPrivacy> findById(Long id);
+    Collection<PLPrivacy> findAll();
+    PLPrivacy findByLabel(String label);
+    PLPrivacy findByValue(String value);
 
 }

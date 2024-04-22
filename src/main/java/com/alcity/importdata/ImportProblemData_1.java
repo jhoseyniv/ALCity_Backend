@@ -208,15 +208,15 @@ public class ImportProblemData_1 implements CommandLineRunner {
         PuzzleGroup puzzleGroup_1 = new PuzzleGroup("Hash Image - Puzzle Group 1",mathematic,puzzle_group_binary_content_1,puzzle_group_binary_content_1,1L,now,now,admin_1,admin_1);
         puzzleGroupService.save(puzzleGroup_1);
 
-        JourneyStep journey_1_Step_1 = new JourneyStep("step1_journey_1",1,30,30,journey_1,puzzleGroup_1,1L,now,now,admin_1,admin_1);
-        JourneyStep journey_1_Step_2 = new JourneyStep("step2_journey_1",1,30,30,journey_1,puzzleGroup_1,1L,now,now,admin_1,admin_1);
-        JourneyStep journey_2_Step_1 = new JourneyStep("step1_journey_2",1,30,30,journey_2,puzzleGroup_1,1L,now,now,admin_1,admin_1);
-        journeyStepService.save(journey_1_Step_1);
-        journeyStepService.save(journey_1_Step_2);
-        journeyStepService.save(journey_2_Step_1);
+        JourneyStep step_1_journey_1 = new JourneyStep("step1_journey_1",1,30,30,journey_1,puzzleGroup_1,1L,now,now,admin_1,admin_1);
+        JourneyStep step_2_journey_1 = new JourneyStep("step2_journey_1",1,30,30,journey_1,puzzleGroup_1,1L,now,now,admin_1,admin_1);
+        JourneyStep step_1_journey_2 = new JourneyStep("step1_journey_2",1,30,30,journey_2,puzzleGroup_1,1L,now,now,admin_1,admin_1);
+        journeyStepService.save(step_1_journey_1);
+        journeyStepService.save(step_2_journey_1);
+        journeyStepService.save(step_1_journey_2);
 
 
-        PuzzleLevelPrivacy privacy_1 = puzzleLevelPrivacyService.findByValue("privacy1");
+        PLPrivacy privacy_1 = puzzleLevelPrivacyService.findByValue("privacy1");
 
         PuzzleLevel puzzleLevel_hashimage = new PuzzleLevel(now,1L,"arrange hash image","HASH_IMAGe",10,14,5f,puzzleGroup_1,PLDifficulty.Easy,PLStatus.Ongoing,privacy_1,puzzle_group_binary_content_1,puzzle_group_binary_content_1,3L,now,now,admin_1,admin_1);
         puzzleLevelService.save(puzzleLevel_hashimage);

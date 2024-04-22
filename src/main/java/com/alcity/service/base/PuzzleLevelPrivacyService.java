@@ -1,6 +1,6 @@
 package com.alcity.service.base;
 
-import com.alcity.entity.base.PuzzleLevelPrivacy;
+import com.alcity.entity.base.PLPrivacy;
 import com.alcity.repository.base.PuzzleLevelPrivacyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,17 +17,17 @@ public class PuzzleLevelPrivacyService implements PuzzleLevelPrivacyRepository {
    @Autowired
     PuzzleLevelPrivacyRepository puzzleLevelPrivacyRepository;
     @Override
-    public <S extends PuzzleLevelPrivacy> S save(S entity) {
+    public <S extends PLPrivacy> S save(S entity) {
         return puzzleLevelPrivacyRepository.save(entity);
     }
 
     @Override
-    public <S extends PuzzleLevelPrivacy> Iterable<S> saveAll(Iterable<S> entities) {
+    public <S extends PLPrivacy> Iterable<S> saveAll(Iterable<S> entities) {
         return null;
     }
 
     @Override
-    public Optional<PuzzleLevelPrivacy> findById(Long id) {
+    public Optional<PLPrivacy> findById(Long id) {
         return Optional.empty();
     }
 
@@ -37,12 +37,12 @@ public class PuzzleLevelPrivacyService implements PuzzleLevelPrivacyRepository {
     }
 
     @Override
-    public Collection<PuzzleLevelPrivacy> findAll() {
+    public Collection<PLPrivacy> findAll() {
         return puzzleLevelPrivacyRepository.findAll();
     }
 
     @Override
-    public Iterable<PuzzleLevelPrivacy> findAllById(Iterable<Long> longs) {
+    public Iterable<PLPrivacy> findAllById(Iterable<Long> longs) {
         return null;
     }
 
@@ -57,7 +57,7 @@ public class PuzzleLevelPrivacyService implements PuzzleLevelPrivacyRepository {
     }
 
     @Override
-    public void delete(PuzzleLevelPrivacy entity) {
+    public void delete(PLPrivacy entity) {
 
     }
 
@@ -67,7 +67,7 @@ public class PuzzleLevelPrivacyService implements PuzzleLevelPrivacyRepository {
     }
 
     @Override
-    public void deleteAll(Iterable<? extends PuzzleLevelPrivacy> entities) {
+    public void deleteAll(Iterable<? extends PLPrivacy> entities) {
 
     }
 
@@ -77,13 +77,13 @@ public class PuzzleLevelPrivacyService implements PuzzleLevelPrivacyRepository {
     }
 
     @Override
-    public PuzzleLevelPrivacy findByLabel(String label) {
+    public PLPrivacy findByLabel(String label) {
 
      return puzzleLevelPrivacyRepository.findByLabel(label);
     }
 
     @Override
-    public PuzzleLevelPrivacy findByValue(String value) {
+    public PLPrivacy findByValue(String value) {
         return puzzleLevelPrivacyRepository.findByValue(value);
     }
 }

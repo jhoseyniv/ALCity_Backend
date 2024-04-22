@@ -1,8 +1,8 @@
 package com.alcity.importdata;
 
 
-import com.alcity.entity.alenum.GameStatus;
 import com.alcity.entity.alenum.UserGender;
+import com.alcity.entity.alenum.WalletItemCategory;
 import com.alcity.entity.alobject.ObjectAction;
 import com.alcity.entity.alobject.ObjectCategory;
 import com.alcity.entity.base.*;
@@ -169,25 +169,27 @@ public class ImportBaseData_1 implements CommandLineRunner {
         byte[] tetherIcon = ImageUtil.getImage("src/main/resources/images/","Tether.png");
         byte[] carIcon = ImageUtil.getImage("src/main/resources/images/","car.png");
 
-        WalletItemType fiat = new WalletItemType("fiat","fiat",Boolean.TRUE,1L,now,now,admin_1,admin_1);
-        WalletItemType crypto = new WalletItemType("crypto","crypto",Boolean.TRUE,1L,now,now,admin_1,admin_1);
-        WalletItemType alCoin = new WalletItemType("al_coin","al_coin",Boolean.TRUE,1L,now,now,admin_1,admin_1);
-        WalletItemType cityObject = new WalletItemType("cityObject","cityObject",Boolean.FALSE,1L,now,now,admin_1,admin_1);
+        WalletItemType fiat = new WalletItemType(WalletItemCategory.CryptoCurrency,"fiat","fiat",Boolean.TRUE,1L,now,now,admin_1,admin_1);
+        WalletItemType crypto = new WalletItemType(WalletItemCategory.CryptoCurrency,"crypto","crypto",Boolean.TRUE,1L,now,now,admin_1,admin_1);
+        WalletItemType alCoin = new WalletItemType(WalletItemCategory.AL_Coin,"al_coin","al_coin",Boolean.TRUE,1L,now,now,admin_1,admin_1);
+        WalletItemType cityObject = new WalletItemType(WalletItemCategory.Object,"cityObject","cityObject",Boolean.FALSE,1L,now,now,admin_1,admin_1);
 
         walletItemTypeService.save(fiat);
         walletItemTypeService.save(crypto);
         walletItemTypeService.save(alCoin);
         walletItemTypeService.save(cityObject);
 
-
-
-        WalletItem teterWalletItem= new WalletItem(fiat,tetherIcon,"tether","tether",1L,now,now,admin_1,admin_1);
+       WalletItem teterWalletItem= new WalletItem(fiat,tetherIcon,"tether","tether",1L,now,now,admin_1,admin_1);
         WalletItem alCoin10WalletItem= new WalletItem(alCoin,tetherIcon,"al_coin_10","al_coin_10",1L,now,now,admin_1,admin_1);
+        WalletItem alCoin_100_WalletItem= new WalletItem(alCoin,tetherIcon,"al_coin_100","al_coin_100",1L,now,now,admin_1,admin_1);
         WalletItem carWalletItem= new WalletItem(cityObject,carIcon,"car object","car_object",1L,now,now,admin_1,admin_1);
+        WalletItem TVWalletItem= new WalletItem(cityObject,carIcon,"TV object","TV_object",1L,now,now,admin_1,admin_1);
 
         walletItemService.save(teterWalletItem);
         walletItemService.save(alCoin10WalletItem);
         walletItemService.save(carWalletItem);
+        walletItemService.save(alCoin_100_WalletItem);
+        walletItemService.save(TVWalletItem);
 
         ApplicationMember_WalletItem jalalHoseyni_alcoin_10= new ApplicationMember_WalletItem(jalalHoseyni,alCoin10WalletItem,10f,1L,now,now,admin_1,admin_1);
         ApplicationMember_WalletItem jalalHoseyni_carObject_20= new ApplicationMember_WalletItem(jalalHoseyni,carWalletItem,20f,1L,now,now,admin_1,admin_1);
@@ -208,10 +210,12 @@ public class ImportBaseData_1 implements CommandLineRunner {
 
         PuzzleCategory mathematic = new PuzzleCategory("mathematic","mathematic",1L,now,now,admin_1,admin_1);
         PuzzleCategory  physic = new PuzzleCategory("physic","physic",1L,now,now,admin_1,admin_1);
+        PuzzleCategory  Maze = new PuzzleCategory("Maze","Maze",1L,now,now,admin_1,admin_1);
         PuzzleCategory  IQ = new PuzzleCategory("IQ","IQ",1L,now,now,admin_1,admin_1);
         puzzleCategoryService.save(mathematic);
         puzzleCategoryService.save(physic);
         puzzleCategoryService.save(IQ);
+        puzzleCategoryService.save(Maze);
 
 
         ObjectCategory objectCategory_animal = new ObjectCategory("Animal","Animal",1L,now,now,admin_1,admin_1);
@@ -255,9 +259,9 @@ public class ImportBaseData_1 implements CommandLineRunner {
         dataTypeService.save(alcity_Binary);
 
 
-        PuzzleLevelPrivacy privacy_1 = new PuzzleLevelPrivacy("privacy 1","privacy1",1L,now,now,admin_1,admin_1);
-        PuzzleLevelPrivacy privacy_2 = new PuzzleLevelPrivacy("privacy 2","privacy2",1L,now,now,admin_1,admin_1);
-        PuzzleLevelPrivacy privacy_3 = new PuzzleLevelPrivacy("privacy 3","privacy3",1L,now,now,admin_1,admin_1);
+        PLPrivacy privacy_1 = new PLPrivacy("privacy 1","privacy1",1L,now,now,admin_1,admin_1);
+        PLPrivacy privacy_2 = new PLPrivacy("privacy 2","privacy2",1L,now,now,admin_1,admin_1);
+        PLPrivacy privacy_3 = new PLPrivacy("privacy 3","privacy3",1L,now,now,admin_1,admin_1);
         puzzleLevelPrivacyService.save(privacy_1);
         puzzleLevelPrivacyService.save(privacy_2);
         puzzleLevelPrivacyService.save(privacy_3);
@@ -266,22 +270,29 @@ public class ImportBaseData_1 implements CommandLineRunner {
         LearningSkill loop = new LearningSkill("loop","loop",1L,now,now,admin_1,admin_1);
         LearningSkill timeManagement = new LearningSkill("time Management","timeManagement",1L,now,now,admin_1,admin_1);
         LearningSkill division = new LearningSkill("division","division",1L,now,now,admin_1,admin_1);
+        LearningSkill routing = new LearningSkill("division","division",1L,now,now,admin_1,admin_1);
+        LearningSkill fast_descioin = new LearningSkill("fast decisioning","fast decisioning",1L,now,now,admin_1,admin_1);
+        LearningSkill find_paths = new LearningSkill("Find Paths","Find Paths",1L,now,now,admin_1,admin_1);
 
         learningSkillService.save(constraint);
         learningSkillService.save(loop);
         learningSkillService.save(timeManagement);
         learningSkillService.save(division);
+        learningSkillService.save(fast_descioin);
+        learningSkillService.save(find_paths);
 
         LearningTopic root_Topic = new LearningTopic("Root Topic",null,1L,now,now,admin_1,admin_1);
         LearningTopic hashImage_Topic = new LearningTopic("Hash Image",root_Topic,1L,now,now,admin_1,admin_1);
         LearningTopic magic_matrix_Topic = new LearningTopic("Magic Matrix",root_Topic,1L,now,now,admin_1,admin_1);
         LearningTopic maze_table_Topic = new LearningTopic("Maze Table",root_Topic,1L,now,now,admin_1,admin_1);
         LearningTopic algorithm_Topic = new LearningTopic("Algorithm",root_Topic,1L,now,now,admin_1,admin_1);
+        LearningTopic routing_in_the_table = new LearningTopic("Routing in the Table",root_Topic,1L,now,now,admin_1,admin_1);
         learningTopicService.save(root_Topic);
         learningTopicService.save(hashImage_Topic);
         learningTopicService.save(magic_matrix_Topic);
         learningTopicService.save(algorithm_Topic);
         learningTopicService.save(maze_table_Topic);
+        learningTopicService.save(routing_in_the_table);
 
 
         LearningSkill_LearningTopic learningSkill_learningTopic_1 = new LearningSkill_LearningTopic("title1",timeManagement,algorithm_Topic,1L,now,now,admin_1,admin_1);

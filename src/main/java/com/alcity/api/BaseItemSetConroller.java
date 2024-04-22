@@ -1,6 +1,5 @@
 package com.alcity.api;
 
-import com.alcity.customexception.ObjectManagmentException;
 import com.alcity.customexception.UniqueConstraintException;
 import com.alcity.dto.base.ClientTypeDTO;
 import com.alcity.entity.alenum.*;
@@ -181,15 +180,15 @@ public class BaseItemSetConroller {
     private PuzzleLevelPrivacyService puzzleLevelPrivacyService;
 
     @GetMapping("/pl-privacy/all")
-    public Collection<PuzzleLevelPrivacy> getPuzzleLevelPrivacy(Model model) {
-        Collection<PuzzleLevelPrivacy> puzzleLevelPrivacyCollection = puzzleLevelPrivacyService.findAll();
+    public Collection<PLPrivacy> getPuzzleLevelPrivacy(Model model) {
+        Collection<PLPrivacy> puzzleLevelPrivacyCollection = puzzleLevelPrivacyService.findAll();
         return puzzleLevelPrivacyCollection;
     }
 
     @RequestMapping(value = "/pl-privacy/id/{id}", method = RequestMethod.GET)
     @ResponseBody
-    public Optional<PuzzleLevelPrivacy> getPuzzleLevelPrivacyById(@PathVariable Long id) {
-        Optional<PuzzleLevelPrivacy> puzzleLevelPrivacy = puzzleLevelPrivacyService.findById(id);
+    public Optional<PLPrivacy> getPuzzleLevelPrivacyById(@PathVariable Long id) {
+        Optional<PLPrivacy> puzzleLevelPrivacy = puzzleLevelPrivacyService.findById(id);
         return puzzleLevelPrivacy;
     }
 
