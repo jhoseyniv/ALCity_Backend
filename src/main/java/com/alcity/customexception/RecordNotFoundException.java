@@ -1,6 +1,6 @@
 package com.alcity.customexception;
 
-public class ApplicationMemberNotFoundException extends  RuntimeException {
+public class RecordNotFoundException extends  RuntimeException {
 
     private String username;
     private String  message;
@@ -23,8 +23,9 @@ public class ApplicationMemberNotFoundException extends  RuntimeException {
         this.message = message;
     }
 
-    public ApplicationMemberNotFoundException(String username, String message) {
+    public RecordNotFoundException(String username, String message) {
         this.username = username;
         this.message =  message;
     }
+
 }

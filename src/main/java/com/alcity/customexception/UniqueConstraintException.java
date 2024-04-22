@@ -2,22 +2,37 @@ package com.alcity.customexception;
 
 public class UniqueConstraintException extends  RuntimeException{
 
-    private String record;
-    private String  className;
+    private String recordData;
+    private Long recordId;
+    private String  databaseEntity;
 
-    public String getRecord() {
-        return record;
+    public String getRecordData() {
+        return recordData;
     }
 
-    public void setRecord(String record) {
-        this.record = record;
+    public void setRecordData(String recordData) {
+        this.recordData = recordData;
     }
 
-    public String getClassName() {
-        return className;
+    public Long getRecordId() {
+        return recordId;
     }
 
-    public void setClassName(String className) {
-        this.className = className;
+    public void setRecordId(Long recordId) {
+        this.recordId = recordId;
+    }
+
+    public String getDatabaseEntity() {
+        return databaseEntity;
+    }
+
+    public void setDatabaseEntity(String databaseEntity) {
+        this.databaseEntity = databaseEntity;
+    }
+
+    public UniqueConstraintException(String recordData, Long recordId, String databaseEntity) {
+        this.recordData = recordData;
+        this.recordId = recordId;
+        this.databaseEntity = databaseEntity;
     }
 }

@@ -16,13 +16,13 @@ import java.util.Map;
 public class ObjectManagmentException extends ResponseEntityExceptionHandler {
 
 
-    @ExceptionHandler(ApplicationMemberNotFoundException.class)
-    public ResponseEntity<Object> handleAnimalNotFoundException(ApplicationMemberNotFoundException ex, WebRequest request) {
+    @ExceptionHandler(RecordNotFoundException.class)
+    public ResponseEntity<Object> handleAnimalNotFoundException(RecordNotFoundException ex, WebRequest request) {
 
         Map<String, Object> body = new LinkedHashMap<>();
         body.put("timestamp", LocalDateTime.now());
         body.put("message", ex.getMessage() );
-        body.put("Cart", ex.getUsername() );
+        body.put("Record", ex.getUsername() );
         return new ResponseEntity<>(body, HttpStatus.NOT_FOUND);
     }
 
@@ -30,9 +30,10 @@ public class ObjectManagmentException extends ResponseEntityExceptionHandler {
     public ResponseEntity<Object> handleUniqueConstraintException(UniqueConstraintException ex, WebRequest request) {
 
         Map<String, Object> body = new LinkedHashMap<>();
-        body.put("timestamp", LocalDateTime.now());
-        body.put("message", ex.getMessage() );
-        body.put("unique", request );
+        body.put("timestamp:", LocalDateTime.now());
+        body.put("message ", "This record Id and Value is Already exist, Unique constraint...." );
+        body.put("Record Value ", ex.getRecordData() );
+        body.put("Record Id ", ex.getRecordId() );
         return new ResponseEntity<>(body, HttpStatus.NOT_FOUND);
     }
 

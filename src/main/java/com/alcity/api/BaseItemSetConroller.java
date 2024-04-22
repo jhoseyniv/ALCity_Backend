@@ -1,5 +1,6 @@
 package com.alcity.api;
 
+import com.alcity.customexception.RecordNotFoundException;
 import com.alcity.customexception.UniqueConstraintException;
 import com.alcity.dto.base.ClientTypeDTO;
 import com.alcity.entity.alenum.*;
@@ -75,6 +76,9 @@ public class BaseItemSetConroller {
     @ResponseBody
     public Optional<DataType> getDataTypeById(@PathVariable Long id) {
         Optional<DataType> dataType = dataTypeService.findById(id);
+        if(!dataType.isPresent())
+                throw new RecordNotFoundException(id.toString(),"this record not found in the database...");
+
         return dataType;
     }
 
@@ -83,9 +87,9 @@ public class BaseItemSetConroller {
         DataType savedDataType = null;
         try {
             savedDataType = dataTypeService.save(dataType);
-        }catch (Exception e )
+        }catch (RuntimeException e )
         {
-            throw new UniqueConstraintException();
+            throw new UniqueConstraintException(dataType.getLabel(), dataType.getId(), DataType.class.toString());
         }
         Optional<DataType> output = dataTypeService.findById(savedDataType.getId());
         return output;
