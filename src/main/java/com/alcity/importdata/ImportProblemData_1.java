@@ -73,7 +73,7 @@ public class ImportProblemData_1 implements CommandLineRunner {
     PermitedPlayerRepository permitedPlayerRepository;
 
     @Autowired
-    PLLearningTopicService puzzleLevelLearningTopicService;
+    PLLearningTopicService plLearningTopicService;
 
     @Autowired
     PlayHistoryService playHistoryService;
@@ -86,7 +86,7 @@ public class ImportProblemData_1 implements CommandLineRunner {
     LearningContentService learningContentService;
 
     @Autowired
-    PLGameInstanceService puzzleLevelGameInstanceService;
+    PLGameInstanceService plGameInstanceService;
 
     @Autowired
     ObjectCategoryService objectCategoryService;
@@ -243,7 +243,7 @@ public class ImportProblemData_1 implements CommandLineRunner {
         learningContentService.save(learningContent_Division);
 
         PuzzleLevel_LearningTopic puzzleLevelLearningTopic_1 = new PuzzleLevel_LearningTopic(puzzleLevel_hashimage,hashImage_Topic,learningContent_Division,1L,now,now,admin_1,admin_1);
-        puzzleLevelLearningTopicService.save(puzzleLevelLearningTopic_1);
+        plLearningTopicService.save(puzzleLevelLearningTopic_1);
 
         PlayHistory playHistory_1 = new PlayHistory(jalalHoseyni,puzzleLevel_hashimage,now,100,10f,1L,now,now,jalalHoseyni,jalalHoseyni);
         playHistoryService.save(playHistory_1);
@@ -252,7 +252,7 @@ public class ImportProblemData_1 implements CommandLineRunner {
         puzzleSkillLearningContentService.save(puzzleSkillLearningContent_1);
 
         PLGameInstance puzzleLevelGameInstance= new PLGameInstance(jalalHoseyni,puzzleLevel_hashimage,GameStatus.gameStatus_1,1L,now,now,jalalHoseyni,jalalHoseyni);
-        puzzleLevelGameInstanceService.save(puzzleLevelGameInstance);
+        plGameInstanceService.save(puzzleLevelGameInstance);
 
 
         ObjectCategory objectCategory_bird = objectCategoryService.findByValue("Bird");

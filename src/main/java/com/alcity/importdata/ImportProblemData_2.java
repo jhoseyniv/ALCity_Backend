@@ -2,6 +2,7 @@ package com.alcity.importdata;
 
 
 import com.alcity.ObjectManagmentApplication;
+import com.alcity.entity.alenum.GameStatus;
 import com.alcity.entity.alenum.PLDifficulty;
 import com.alcity.entity.alenum.PLStatus;
 import com.alcity.entity.base.*;
@@ -11,10 +12,8 @@ import com.alcity.entity.learning.LearningContent;
 import com.alcity.entity.learning.LearningSkill;
 import com.alcity.entity.learning.LearningTopic;
 import com.alcity.entity.play.PermitedPlayer;
-import com.alcity.entity.puzzle.PLGround;
-import com.alcity.entity.puzzle.PuzzleGroup;
-import com.alcity.entity.puzzle.PuzzleLevel;
-import com.alcity.entity.puzzle.PuzzleLevel_LearningTopic;
+import com.alcity.entity.play.PlayHistory;
+import com.alcity.entity.puzzle.*;
 import com.alcity.entity.users.ApplicationMember;
 import com.alcity.entity.users.WalletItem;
 import com.alcity.repository.play.PermitedPlayerRepository;
@@ -23,10 +22,8 @@ import com.alcity.service.base.*;
 import com.alcity.service.learning.LearningContentService;
 import com.alcity.service.learning.LearningSkillService;
 import com.alcity.service.learning.LearningTopicService;
-import com.alcity.service.puzzle.PLGroundService;
-import com.alcity.service.puzzle.PuzzleGroupService;
-import com.alcity.service.puzzle.PLLearningTopicService;
-import com.alcity.service.puzzle.PuzzleLevelService;
+import com.alcity.service.play.PlayHistoryService;
+import com.alcity.service.puzzle.*;
 import com.alcity.service.users.ApplicationMemberService;
 import com.alcity.service.users.WalletItemService;
 import com.alcity.utility.ImageUtil;
@@ -63,7 +60,11 @@ public class ImportProblemData_2 implements CommandLineRunner {
     DataTypeService dataTypeService;
 
     @Autowired
-    PLLearningTopicService puzzleLevelLearningTopicService;
+    PLLearningTopicService plLearningTopicService;
+    @Autowired
+    PlayHistoryService playHistoryService;
+    @Autowired
+    PLGameInstanceService plGameInstanceService;
 
     @Autowired
     LearningSkillService learningSkillService;
@@ -85,6 +86,8 @@ public class ImportProblemData_2 implements CommandLineRunner {
     PLGroundService puzzleLevelGroundService;
     @Autowired
     PermitedPlayerRepository permitedPlayerRepository;
+    @Autowired
+    PuzzleSkillLearningContentService puzzleSkillLearningContentService;
 
     private static final Logger log = LoggerFactory.getLogger(ObjectManagmentApplication.class);
 
@@ -104,6 +107,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
         BinaryContentType imageType= binaryContentTypeService.findByValue("image");
         ApplicationMember jalalHoseyni = applicationMemberService.findByUsername("jalal");
         ApplicationMember moslemBalavandi = applicationMemberService.findByUsername("moslem");
+        ApplicationMember alirezaZarei = applicationMemberService.findByUsername("alireza");
         LearningTopic routing_in_the_table = learningTopicService.findByTitle("Routing in the Table");
 
 
@@ -158,7 +162,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
         CameraSetup cameraSetup = new CameraSetup(1L,now,now,admin_1,admin_1,xPos,xPos,xPos,xRotation,xRotation,xRotation);
         cameraSetupService.save(cameraSetup);
 
-        PLGround puzzleLevel_Maze_ground = new PLGround(3,3,puzzleLevel_Maze,play_ground_binary_content_2,1L,now,now,admin_1,admin_1);
+        PLGround puzzleLevel_Maze_ground = new PLGround(19,19,puzzleLevel_Maze,play_ground_binary_content_2,1L,now,now,admin_1,admin_1);
         puzzleLevel_Maze_ground.setCameraSetup(cameraSetup);
         puzzleLevelGroundService.save(puzzleLevel_Maze_ground);
 
@@ -172,7 +176,23 @@ public class ImportProblemData_2 implements CommandLineRunner {
         learningContentService.save(learningContent_routing);
 
         PuzzleLevel_LearningTopic puzzleLevelLearningTopic_1 = new PuzzleLevel_LearningTopic(puzzleLevel_Maze,routing_in_the_table,learningContent_routing,1L,now,now,admin_1,admin_1);
-        puzzleLevelLearningTopicService.save(puzzleLevelLearningTopic_1);
+        plLearningTopicService.save(puzzleLevelLearningTopic_1);
+
+        PlayHistory playHistory_1 = new PlayHistory(jalalHoseyni,puzzleLevel_Maze,now,100,10f,1L,now,now,jalalHoseyni,jalalHoseyni);
+        playHistoryService.save(playHistory_1);
+
+        PlayHistory playHistory_2 = new PlayHistory(moslemBalavandi,puzzleLevel_Maze,now,100,10f,1L,now,now,moslemBalavandi,moslemBalavandi);
+        playHistoryService.save(playHistory_2);
+
+        PlayHistory playHistory_3 = new PlayHistory(alirezaZarei,puzzleLevel_Maze,now,100,10f,1L,now,now,alirezaZarei,alirezaZarei);
+        playHistoryService.save(playHistory_3);
+
+        PuzzleSkillLearningContent puzzleSkillLearningContent_1 = new PuzzleSkillLearningContent(routing,puzzleGroup_2,learningContent_routing,1L,now,now,admin_1,admin_1);
+        puzzleSkillLearningContentService.save(puzzleSkillLearningContent_1);
+
+        PLGameInstance puzzleLevelGameInstance= new PLGameInstance(jalalHoseyni,puzzleLevel_Maze, GameStatus.gameStatus_1,1L,now,now,jalalHoseyni,jalalHoseyni);
+        plGameInstanceService.save(puzzleLevelGameInstance);
+
 
     }
 

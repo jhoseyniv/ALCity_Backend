@@ -4,6 +4,7 @@ package com.alcity.service.puzzle;
 import com.alcity.entity.puzzle.PLGameInstance;
 import com.alcity.repository.puzzle.PLGameInstanceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -15,12 +16,14 @@ import java.util.Optional;
 public class PLGameInstanceService implements PLGameInstanceRepository {
 
     @Autowired
-    PLGameInstanceRepository puzzleLevelGameInstanceRepository;
+    @Qualifier("PLGameInstanceRepository")
+
+    PLGameInstanceRepository plGameInstanceRepository;
 
 
     @Override
     public <S extends PLGameInstance> S save(S entity) {
-        return puzzleLevelGameInstanceRepository.save(entity);
+        return plGameInstanceRepository.save(entity);
     }
 
     @Override

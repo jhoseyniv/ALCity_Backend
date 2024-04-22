@@ -3,6 +3,7 @@ package com.alcity.service.puzzle;
 import com.alcity.entity.puzzle.PuzzleLevel_LearningTopic;
 import com.alcity.repository.puzzle.PLLearningTopicRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -14,10 +15,12 @@ import java.util.Optional;
 public class PLLearningTopicService implements PLLearningTopicRepository {
 
     @Autowired
-    PLLearningTopicRepository puzzleLevelLearningTopicRepository;
+    @Qualifier("PLLearningTopicRepository")
+
+    PLLearningTopicRepository plLearningTopicRepository;
     @Override
     public <S extends PuzzleLevel_LearningTopic> S save(S entity) {
-        return puzzleLevelLearningTopicRepository.save(entity);
+        return plLearningTopicRepository.save(entity);
     }
 
     @Override
