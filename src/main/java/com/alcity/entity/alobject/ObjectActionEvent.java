@@ -6,17 +6,12 @@ import com.alcity.entity.journey.Journey;
 import com.alcity.entity.users.ApplicationMember;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
 public class ObjectActionEvent extends BaseItemSet implements Serializable {
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "object_action_id", nullable = false)
-    @JsonIgnore
+    @Enumerated(EnumType.ORDINAL)
     private ObjectAction objectAction;
 
     public ObjectActionEvent() {

@@ -70,44 +70,15 @@ public class ALObjectController {
 
         return objectCategoryDTO;
     }
-    @Autowired
-    private ObjectActionService objectActionService;
-
     @GetMapping("/action/all")
-    public Collection<ObjectActionDTO> getObjectActions(Model model) {
-        Collection<ObjectActionDTO> objectActionDTOCollection = new ArrayList<ObjectActionDTO>();
-        Collection<ObjectAction> objectActions = objectActionService.findAll();
-        Iterator<ObjectAction> iterator = objectActions.iterator();
-        while(iterator.hasNext()){
-            ObjectActionDTO objectActionDTO = new ObjectActionDTO();
-            ObjectAction objectAction = iterator.next();
-            objectActionDTO.setId(objectAction.getId());
-            objectActionDTO.setCreated(DateUtils.getDatatimeFromLong(objectAction.getCreated()));
-            objectActionDTO.setUpdated(DateUtils.getDatatimeFromLong(objectAction.getUpdated()));
-            objectActionDTO.setVersion(objectAction.getVersion());
-            objectActionDTO.setLabel(objectAction.getLabel());
-            objectActionDTO.setValue(objectAction.getValue());
-            objectActionDTOCollection.add(objectActionDTO);
-        }
-        return objectActionDTOCollection;
+    public ObjectAction[] getObjectActions(Model model) {
+        return ObjectAction.values();
     }
 
     @RequestMapping(value = "/action/id/{id}", method = RequestMethod.GET)
     @ResponseBody
-    public ObjectActionDTO getObjectActionById(@PathVariable Long id) {
-        ObjectActionDTO objectActionDTO = new ObjectActionDTO();
-        Optional<ObjectAction> objectActionOptional = objectActionService.findById(id);
-        if(objectActionOptional.isPresent()) {
-            ObjectAction objectAction = objectActionOptional.get();
-            objectActionDTO.setId(objectAction.getId());
-            objectActionDTO.setLabel(objectAction.getLabel());
-            objectActionDTO.setVersion(objectAction.getVersion());
-            objectActionDTO.setValue(objectAction.getValue());
-            objectActionDTO.setCreated(DateUtils.getDatatimeFromLong(objectAction.getCreated()));
-            objectActionDTO.setUpdated(DateUtils.getDatatimeFromLong(objectAction.getUpdated()));
-        } else
-            objectActionDTO=null;
-       return objectActionDTO;
+    public ObjectAction getObjectActionById(@PathVariable Integer id) {
+       return ObjectAction.getById(id);
     }
 
     @GetMapping("/action/owner/type/all")
@@ -148,11 +119,11 @@ public class ALObjectController {
               actionRendererDTO.setVersion(actionRenderer.getVersion());
               ObjectAction objectAction = actionRenderer.getObjectAction();
 
-              ObjectActionDTO objectActionDTO = new ObjectActionDTO(objectAction.getId(),objectAction.getLabel(),objectAction.getValue(),objectAction.getVersion(),
-                      DateUtils.getDatatimeFromLong(objectAction.getCreated()),
-                      DateUtils.getDatatimeFromLong(objectAction.getUpdated()));
+//              ObjectActionDTO objectActionDTO = new ObjectActionDTO(objectAction.getId(),objectAction.getLabel(),objectAction.getValue(),objectAction.getVersion(),
+//                      DateUtils.getDatatimeFromLong(objectAction.getCreated()),
+//                      DateUtils.getDatatimeFromLong(objectAction.getUpdated()));
 
-              actionRendererDTO.setObjectActionDTO(objectActionDTO);
+           //   actionRendererDTO.setObjectActionDTO(objectActionDTO);
 
               ClientType clientType = actionRenderer.getClientType();
               ClientTypeDTO clientTypeDTO = new ClientTypeDTO(clientType.getId(),clientType.getLabel(),clientType.getValue(), clientType.getVersion(),
@@ -189,20 +160,20 @@ public class ALObjectController {
 //    }
 
     @Autowired
-    private ALCityAttributeService alCityAttributeService;
+    private AttributeService alCityAttributeService;
 
     @GetMapping("/att/all")
-    public Collection<ALCityAttributeDTO> getAttributes(Model model) {
-        Collection<ALAttribute> alCityAttributeCollection = alCityAttributeService.findAll();
-        Collection<ALCityAttributeDTO> alCityAttributeDTOCollection = new ArrayList<ALCityAttributeDTO>();
+    public Collection<AttributeDTO> getAttributes(Model model) {
+        Collection<Attribute> alCityAttributeCollection = alCityAttributeService.findAll();
+        Collection<AttributeDTO> alCityAttributeDTOCollection = new ArrayList<AttributeDTO>();
         alCityAttributeDTOCollection = DTOUtil.getALCityAttributes(alCityAttributeCollection);
         return alCityAttributeDTOCollection;
     }
     @RequestMapping(value = "/att/id/{id}", method = RequestMethod.GET)
     @ResponseBody
-    public ALCityAttributeDTO getALCityAttributeById(@PathVariable Long id) {
-        Optional<ALAttribute> alCityAttributeOptional = alCityAttributeService.findById(id);
-        ALCityAttributeDTO alCityAttributeDTO = new ALCityAttributeDTO();
+    public AttributeDTO getALCityAttributeById(@PathVariable Long id) {
+        Optional<Attribute> alCityAttributeOptional = alCityAttributeService.findById(id);
+        AttributeDTO alCityAttributeDTO = new AttributeDTO();
         alCityAttributeDTO = DTOUtil.getALCityAttributeDTO(alCityAttributeOptional);
         return alCityAttributeDTO;
     }

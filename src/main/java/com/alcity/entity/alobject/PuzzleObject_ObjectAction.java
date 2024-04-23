@@ -32,9 +32,7 @@ public class PuzzleObject_ObjectAction extends BaseTable implements Serializable
         this.poActionOwnerType = poActionOwnerType;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "object_action_id", nullable = false)
-    @JsonIgnore
+    @Enumerated(EnumType.ORDINAL)
     private ObjectAction objectAction;
 
     public ObjectAction getObjectAction() {

@@ -12,7 +12,7 @@ import java.io.Serializable;
 import java.util.Collection;
 
 @Entity
-public class ALAttribute extends BaseTable implements Serializable {
+public class Attribute extends BaseTable implements Serializable {
     @Column(name="name" )
     private String name;
 
@@ -35,11 +35,11 @@ public class ALAttribute extends BaseTable implements Serializable {
         this.ownerId = ownerId;
     }
 
-    public Collection<ALAttributeValue> getAttributeValueSet() {
+    public Collection<AttributeValue> getAttributeValueSet() {
         return attributeValueSet;
     }
 
-    public void setAttributeValueSet(Collection<ALAttributeValue> attributeValueSet) {
+    public void setAttributeValueSet(Collection<AttributeValue> attributeValueSet) {
         this.attributeValueSet = attributeValueSet;
     }
 
@@ -68,13 +68,13 @@ public class ALAttribute extends BaseTable implements Serializable {
     }
 
     @OneToMany(mappedBy = "attributeId", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Collection<ALAttributeValue> attributeValueSet;
+    private Collection<AttributeValue> attributeValueSet;
 
 
-    public ALAttribute() {
+    public Attribute() {
     }
 
-    public ALAttribute(String name, Long ownerId, AttributeOwnerType attributeOwnerType, DataType dataType, Long version, Long created, Long updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
+    public Attribute(String name, Long ownerId, AttributeOwnerType attributeOwnerType, DataType dataType, Long version, Long created, Long updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
         super(version, created, updated, createdBy, updatedBy);
         this.name = name;
         this.ownerId = ownerId;

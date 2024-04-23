@@ -45,9 +45,7 @@ public class ActionRenderer extends BaseTable implements Serializable {
         this.objectAction = objectAction;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "object_action_id", nullable = false)
-    @JsonIgnore
+    @Enumerated(EnumType.ORDINAL)
     private ObjectAction objectAction;
 
     @OneToMany(mappedBy = "actionRenderer", fetch = FetchType.LAZY, cascade = CascadeType.ALL)

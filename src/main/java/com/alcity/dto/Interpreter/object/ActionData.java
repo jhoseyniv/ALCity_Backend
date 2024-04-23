@@ -1,23 +1,25 @@
 package com.alcity.dto.Interpreter.object;
 
+import com.alcity.entity.alobject.ObjectAction;
+
 import java.util.Collection;
 
 public class ActionData {
-    private Long id;
-    private String actionName;
+    private Integer id;
+    private ObjectAction actionName;
 
     private String handler;
 
     private Collection<RecordrData> parameters;
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public String getActionName() {
+    public ObjectAction getActionName() {
         return actionName;
     }
 
@@ -37,14 +39,14 @@ public class ActionData {
         this.handler = handler;
     }
 
-    public void setActionName(String actionName) {
+    public void setActionName(ObjectAction actionName) {
         this.actionName = actionName;
     }
 
     public ActionData() {
     }
 
-    public ActionData(Long id, String actionName, String handler, Collection<RecordrData> parameters) {
+    public ActionData(Integer id, ObjectAction actionName, String handler, Collection<RecordrData> parameters) {
         this.id = id;
         this.actionName = actionName;
         this.handler = handler;

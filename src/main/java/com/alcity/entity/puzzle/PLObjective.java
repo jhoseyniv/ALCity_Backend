@@ -37,6 +37,14 @@ public class PLObjective extends BaseTable implements Serializable {
     @JsonIgnore
     private WalletItem walletItem;
 
+    public WalletItem getWalletItem() {
+        return walletItem;
+    }
+
+    public void setWalletItem(WalletItem walletItem) {
+        this.walletItem = walletItem;
+    }
+
     @ManyToOne(fetch = FetchType.LAZY, optional = true)
     @JoinColumn(name = "puzzle_Level_id", nullable = true)
     @JsonIgnore

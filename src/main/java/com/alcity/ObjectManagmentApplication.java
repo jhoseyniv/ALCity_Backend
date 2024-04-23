@@ -99,20 +99,15 @@ public class ObjectManagmentApplication {
 	@Autowired
 	PuzzleGroup_PuzzleObjectService puzzleGroup_PuzzleObjectService;
 
-	@Autowired
-	ObjectActionService objectActionService;
-
-
-
 
 	@Autowired
 	PGObjectInstanceService puzzleGroupObjectInstanceService;
 
 	@Autowired
-	ALCityAttributeService alCityAttributeService;
+    AttributeService alCityAttributeService;
 
 	@Autowired
-	ALCityAttributeValueService alCityAttributeValueService;
+	AttributeValueService alCityAttributeValueService;
 
 
 	@Autowired

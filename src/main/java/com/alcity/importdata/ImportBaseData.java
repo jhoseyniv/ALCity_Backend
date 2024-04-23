@@ -17,7 +17,6 @@ import com.alcity.entity.users.WalletItem;
 import com.alcity.entity.users.WalletTransaction;
 import com.alcity.service.Journey.JourneyLearningSkillService;
 import com.alcity.service.Journey.JourneyService;
-import com.alcity.service.alobject.ObjectActionService;
 import com.alcity.service.alobject.ObjectCategoryService;
 import com.alcity.service.base.*;
 import com.alcity.service.learning.LearningSkillService;
@@ -44,7 +43,7 @@ import java.util.Set;
 
 @Order(value=1)
 @Component
-public class ImportBaseData_1 implements CommandLineRunner {
+public class ImportBaseData implements CommandLineRunner {
 
     @Autowired
     private WalletItemTypeService walletItemTypeService;
@@ -98,10 +97,6 @@ public class ImportBaseData_1 implements CommandLineRunner {
 
     @Autowired
     JourneyLearningSkillService journeyLearningSkillService;
-
-
-    @Autowired
-    ObjectActionService objectActionService;
 
      protected final Log log = LogFactory.getLog(getClass());
 
@@ -349,32 +344,6 @@ public class ImportBaseData_1 implements CommandLineRunner {
         journeyLearningSkillService.save(journey_1_Skill_1);
         journeyLearningSkillService.save(journey_1_Skill_2);
 
-//        GameStatus gameStatus_1 = new GameStatus("gameStatus_1","gameStatus_1",1L,now,now,admin_1,admin_1);
-//        GameStatus gameStatus_2 = new GameStatus("gameStatus_2","gameStatus_2",1L,now,now,admin_1,admin_1);
-//        GameStatus gameStatus_3 = new GameStatus("gameStatus_3","gameStatus_3",1L,now,now,admin_1,admin_1);
-//        gameStatusService.save(gameStatus_1);
-//        gameStatusService.save(gameStatus_2);
-//        gameStatusService.save(gameStatus_3);
 
-        ObjectAction moveAction= new ObjectAction("Move","Move",1L,now,now,admin_1,admin_1);
-        ObjectAction removeAction= new ObjectAction("Remove","Remove",1L,now,now,admin_1,admin_1);
-        ObjectAction rotateAction= new ObjectAction("Rotate","Rotate",1L,now,now,admin_1,admin_1);
-        ObjectAction showAction= new ObjectAction("Show","Show",1L,now,now,admin_1,admin_1);
-        ObjectAction hideAction= new ObjectAction("Hide","Hide",1L,now,now,admin_1,admin_1);
-        ObjectAction enableAction= new ObjectAction("Enable","Enable",1L,now,now,admin_1,admin_1);
-        ObjectAction disableAction= new ObjectAction("Disable","Disable",1L,now,now,admin_1,admin_1);
-        ObjectAction createAction= new ObjectAction("Create","Create",1L,now,now,admin_1,admin_1);
-        ObjectAction convertAction= new ObjectAction("Convert","Convert",1L,now,now,admin_1,admin_1);
-        ObjectAction playSoundAction= new ObjectAction("PlaySound","PlaySound",1L,now,now,admin_1,admin_1);
-        objectActionService.save(moveAction);
-        objectActionService.save(removeAction);
-        objectActionService.save(rotateAction);
-        objectActionService.save(enableAction);
-        objectActionService.save(disableAction);
-        objectActionService.save(hideAction);
-        objectActionService.save(createAction);
-        objectActionService.save(convertAction);
-        objectActionService.save(showAction);
-        objectActionService.save(playSoundAction);
-    }
+       }
 }

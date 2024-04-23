@@ -2,9 +2,13 @@ package com.alcity.importdata;
 
 
 import com.alcity.ObjectManagmentApplication;
+import com.alcity.entity.alenum.AttributeOwnerType;
 import com.alcity.entity.alenum.GameStatus;
 import com.alcity.entity.alenum.PLDifficulty;
 import com.alcity.entity.alenum.PLStatus;
+import com.alcity.entity.alobject.Attribute;
+import com.alcity.entity.alobject.AttributeValue;
+import com.alcity.entity.alobject.ObjectAction;
 import com.alcity.entity.alobject.ObjectCategory;
 import com.alcity.entity.base.*;
 import com.alcity.entity.journey.Journey;
@@ -19,6 +23,8 @@ import com.alcity.entity.users.ApplicationMember;
 import com.alcity.entity.users.WalletItem;
 import com.alcity.repository.play.PermitedPlayerRepository;
 import com.alcity.service.Journey.JourneyService;
+import com.alcity.service.alobject.AttributeService;
+import com.alcity.service.alobject.AttributeValueService;
 import com.alcity.service.alobject.ObjectCategoryService;
 import com.alcity.service.base.*;
 import com.alcity.service.learning.LearningContentService;
@@ -94,6 +100,15 @@ public class ImportProblemData_2 implements CommandLineRunner {
     ObjectCategoryService objectCategoryService;
     @Autowired
     PuzzleObjectService puzzleObjectService;
+    @Autowired
+    PuzzleGroup_PuzzleObjectService puzzleGroup_PuzzleObjectService;
+
+    @Autowired
+    PLObjectiveService plObjectiveService;
+    @Autowired
+    AttributeValueService attributeValueService;
+    @Autowired
+    AttributeService attributeService;
 
     private static final Logger log = LoggerFactory.getLogger(ObjectManagmentApplication.class);
 
@@ -201,8 +216,36 @@ public class ImportProblemData_2 implements CommandLineRunner {
 
         ObjectCategory objectCategory_Image = objectCategoryService.findByValue("Image");
 
-      //  PuzzleObject ImageObject01 = new PuzzleObject("ImageObject01",objectCategory_Image,wheat_Image_binary_content,wheat_Image_binary_content,1L,now,now,jalalHoseyni,jalalHoseyni);
-        puzzleObjectService.findByTitle("ImageObject01");
+        BinaryContent img_Image_binary_content = binaryContentService.findByfileName("image_object");
+
+       PuzzleObject ImageObject02 = new PuzzleObject("ImageObject02",objectCategory_Image,img_Image_binary_content,img_Image_binary_content,1L,now,now,jalalHoseyni,jalalHoseyni);
+        puzzleObjectService.save(ImageObject02);
+
+        PuzzleGroup_PuzzleObject  puzzleGroup_puzzleObject = new PuzzleGroup_PuzzleObject ("Maze Puzzle Group with Image Object","Maze_ImageObject",puzzleGroup_2,ImageObject02,1L,now,now,admin_1,admin_1);
+        puzzleGroup_PuzzleObjectService.save(puzzleGroup_puzzleObject);
+
+        StringBuffer  condition_Objective = new StringBuffer("(LastX == 19)&&(LastY == 18)&&(PathLen=40)" );
+        WalletItem carObjectWalletItem = walletItemService.findByValue("car_object");
+
+        PLObjective puzzleLevelObjective = new PLObjective("find shortest path from start to end","find shortest path from start to end",10f,2f,condition_Objective,find_paths,carObjectWalletItem,puzzleLevel_Maze
+                ,1L,now,now,admin_1,admin_1);
+        plObjectiveService.save(puzzleLevelObjective);
+
+        Attribute attribute_variable_LastX =new Attribute("LastX",puzzleLevel_Maze.getId(), AttributeOwnerType.Puzzle_Level_Variable,alcity_Int,1L,now,now,admin_1,admin_1);
+        Attribute attribute_variable_LastY =new Attribute("LastY",puzzleLevel_Maze.getId(),AttributeOwnerType.Puzzle_Level_Variable,alcity_Int,1L,now,now,admin_1,admin_1);
+        Attribute attribute_variable_PathLen =new Attribute("PathLen",puzzleLevel_Maze.getId(),AttributeOwnerType.Puzzle_Level_Variable,alcity_Int,1L,now,now,admin_1,admin_1);
+        attributeService.save(attribute_variable_LastX);
+        attributeService.save(attribute_variable_LastY);
+        attributeService.save(attribute_variable_PathLen);
+
+        AttributeValue attribute_variable_LastX_value= new AttributeValue(null,1,null,null,null,null,attribute_variable_LastX,attribute_variable_LastX,1L,now,now,admin_1,admin_1);
+        AttributeValue attribute_variable_LastY_value= new AttributeValue(null,0,null,null,null,null,attribute_variable_LastY,attribute_variable_LastY,1L,now,now,admin_1,admin_1);
+        AttributeValue attribute_variable_PathLen_value= new AttributeValue(null,0,null,null,null,null,attribute_variable_PathLen,attribute_variable_PathLen,1L,now,now,admin_1,admin_1);
+        attributeValueService.save(attribute_variable_LastX_value);
+        attributeValueService.save(attribute_variable_LastY_value);
+        attributeValueService.save(attribute_variable_PathLen_value);
+
+
 
     }
 

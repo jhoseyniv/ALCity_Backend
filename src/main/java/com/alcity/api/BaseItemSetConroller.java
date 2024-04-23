@@ -33,17 +33,16 @@ public class BaseItemSetConroller {
     @RequestMapping(value = "/gender/id/{id}", method = RequestMethod.GET)
     @ResponseBody
     public UserGender getGenderById(@PathVariable Long id) {
-       return UserGender.getById(id);
+        return UserGender.getById(id);
     }
 
     @Autowired
     private ClientTypeService clientTypeService;
     @GetMapping("/client-type/all")
-    public Collection<ClientTypeDTO> getClientTypes(Model model) {
+    public Collection<ClientType> getClientTypes(Model model) {
         Collection<ClientTypeDTO> clientTypeDTOCollection = new ArrayList<>();
         Collection<ClientType> clientTypes = clientTypeService.findAll();
-
-        return clientTypeDTOCollection;
+        return clientTypes;
     }
 
     @RequestMapping(value = "/client-type/id/{id}", method = RequestMethod.GET)
@@ -64,6 +63,20 @@ public class BaseItemSetConroller {
 
         return clientTypeDTO;
     }
+
+    @PostMapping("/client-type/save")
+    public Optional<ClientType> saveClientType(@RequestBody ClientType clientType)  {
+        ClientType savedRecord = null;
+        try {
+            savedRecord = clientTypeService.save(clientType);
+        }catch (RuntimeException e )
+        {
+            throw new UniqueConstraintException(clientType.getLabel(), clientType.getId(), ClientType.class.toString());
+        }
+        Optional<ClientType> output = clientTypeService.findById(savedRecord.getId());
+        return output;
+    }
+
 
     @Autowired
     private DataTypeService dataTypeService;

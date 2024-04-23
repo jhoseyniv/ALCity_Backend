@@ -11,10 +11,19 @@
  //add a Data Type
 
  {
-         "id": 40,
          "label": "Integer",
          "value": "Integer",
          "version": 1,
          "created": 1713703087,
          "updated": 1713703087
      }
+
+
+//add client Type record
+     {
+             "label": "mobile",
+             "value": "mobile",
+             "version": 1,
+             "created": 1713814148,
+             "updated": 1713814148
+         }

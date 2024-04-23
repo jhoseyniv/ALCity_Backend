@@ -26,7 +26,7 @@ import com.alcity.entity.learning.LearningContent;
 import com.alcity.entity.learning.LearningSkill;
 import com.alcity.entity.play.PermitedPlayer;
 import com.alcity.entity.puzzle.*;
-import com.alcity.service.alobject.ALCityAttributeService;
+import com.alcity.service.alobject.AttributeService;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -81,10 +81,10 @@ public class DTOUtil {
         return puzzleLevelDTO;
     }
 
-        public static ALCityAttributeDTO getALCityAttributeDTO(Optional<ALAttribute> alCityAttributeOptional){
-        ALCityAttributeDTO alCityAttributeDTO = new ALCityAttributeDTO();
+        public static AttributeDTO getALCityAttributeDTO(Optional<Attribute> alCityAttributeOptional){
+        AttributeDTO alCityAttributeDTO = new AttributeDTO();
         if (alCityAttributeOptional.isPresent()) {
-            ALAttribute alCityAttribute = alCityAttributeOptional.get();
+            Attribute alCityAttribute = alCityAttributeOptional.get();
             alCityAttributeDTO.setId(alCityAttribute.getId());
             alCityAttributeDTO.setVersion(alCityAttribute.getVersion());
             alCityAttributeDTO.setName(alCityAttribute.getName());
@@ -103,12 +103,12 @@ public class DTOUtil {
 
     }
 
-    public static Collection<ALCityAttributeDTO> getALCityAttributes(Collection<ALAttribute> alCityAttributeCollection) {
-        Collection<ALCityAttributeDTO> alCityAttributeDTOCollection = new ArrayList<ALCityAttributeDTO>();
-        Iterator<ALAttribute> itr = alCityAttributeCollection.iterator();
+    public static Collection<AttributeDTO> getALCityAttributes(Collection<Attribute> alCityAttributeCollection) {
+        Collection<AttributeDTO> alCityAttributeDTOCollection = new ArrayList<AttributeDTO>();
+        Iterator<Attribute> itr = alCityAttributeCollection.iterator();
         while (itr.hasNext()) {
-            ALAttribute alCityAttribute = itr.next();
-            ALCityAttributeDTO alCityAttributeDTO = new ALCityAttributeDTO();
+            Attribute alCityAttribute = itr.next();
+            AttributeDTO alCityAttributeDTO = new AttributeDTO();
             alCityAttributeDTO.setId(alCityAttribute.getId());
             alCityAttributeDTO.setVersion(alCityAttribute.getVersion());
             alCityAttributeDTO.setName(alCityAttribute.getName());
@@ -364,6 +364,7 @@ public class DTOUtil {
             puzzleLevelObjectiveData.setDescription(puzzleLevelObjective.getDescription());
             puzzleLevelObjectiveData.setCondition(puzzleLevelObjective.getCondition());
             puzzleLevelObjectiveData.setRewardAmount(puzzleLevelObjective.getRewardAmount());
+            puzzleLevelObjectiveData.setRewardId(puzzleLevelObjective.getWalletItem().getId());
             puzzleLevelObjectiveData.setSkillAmount(puzzleLevelObjective.getSkillAmount());
 
             puzzleLevelObjectiveDataCollection.add(puzzleLevelObjectiveData);
@@ -571,19 +572,9 @@ public class DTOUtil {
             puzzleObject_objectActionDTO.setOwnerObjectid(poa.getOwnerObjectid());
             puzzleObject_objectActionDTO.setCreated(DateUtils.getDatatimeFromLong(poa.getCreated()));
             puzzleObject_objectActionDTO.setUpdated(DateUtils.getDatatimeFromLong(poa.getUpdated()));
-            ObjectAction objectAction = new ObjectAction();
-            objectAction = poa.getObjectAction();
-            ObjectActionDTO objectActionDTO = new ObjectActionDTO(objectAction.getId(), objectAction.getLabel(), objectAction.getValue(), objectAction.getVersion(),
-                    DateUtils.getDatatimeFromLong(objectAction.getCreated()),DateUtils.getDatatimeFromLong(objectAction.getUpdated()));
+            ObjectAction objectAction = poa.getObjectAction();
 
-            puzzleObject_objectActionDTO.setObjectActionDTO(objectActionDTO);
-
-//            POActionOwnerType poaot = new POActionOwnerType();
-//            poaot = poa.getPuzzleObjectActionOwnerType();
-//            PuzzleObjectActionOwnerTypeDTO puzzleObjectActionOwnerTypeDTO = new PuzzleObjectActionOwnerTypeDTO(poaot.getId(),poaot.getLabel(),poaot.getValue(),poaot.getVersion(),
-//                    DateUtils.getDatatimeFromLong(poaot.getCreated()),DateUtils.getDatatimeFromLong(poaot.getUpdated()));
-
-//            puzzleObject_objectActionDTO.setPuzzleObjectActionOwnerTypeDTO(puzzleObjectActionOwnerTypeDTO);
+            puzzleObject_objectActionDTO.setObjectAction(objectAction);
 
             ActionRenderer actionRenderer = poa.getActionRenderer();
 
@@ -604,12 +595,9 @@ public class DTOUtil {
             puzzleObject_objectActionDTO.setOwnerObjectid(poa.getOwnerObjectid());
             puzzleObject_objectActionDTO.setCreated(DateUtils.getDatatimeFromLong(poa.getCreated()));
             puzzleObject_objectActionDTO.setUpdated(DateUtils.getDatatimeFromLong(poa.getUpdated()));
-            ObjectAction objectAction = new ObjectAction();
-            objectAction = poa.getObjectAction();
-            ObjectActionDTO objectActionDTO = new ObjectActionDTO(objectAction.getId(), objectAction.getLabel(), objectAction.getValue(), objectAction.getVersion(),
-                    DateUtils.getDatatimeFromLong(objectAction.getCreated()),DateUtils.getDatatimeFromLong(objectAction.getUpdated()));
+            ObjectAction objectAction = poa.getObjectAction();
 
-            puzzleObject_objectActionDTO.setObjectActionDTO(objectActionDTO);
+            puzzleObject_objectActionDTO.setObjectAction(objectAction);
 
 //            POActionOwnerType poaot = new POActionOwnerType();
 //            poaot = poa.getPuzzleObjectActionOwnerType();
@@ -635,11 +623,8 @@ public class DTOUtil {
            actionRendererDTO.setVersion(actionRenderer.getVersion());
            ObjectAction objectAction = actionRenderer.getObjectAction();
 
-           ObjectActionDTO objectActionDTO = new ObjectActionDTO(objectAction.getId(),objectAction.getLabel(),objectAction.getValue(),objectAction.getVersion(),
-                   DateUtils.getDatatimeFromLong(objectAction.getCreated()),
-                   DateUtils.getDatatimeFromLong(objectAction.getUpdated()));
 
-           actionRendererDTO.setObjectActionDTO(objectActionDTO);
+           actionRendererDTO.setObjectAction(objectAction);
 
            ClientType clientType = actionRenderer.getClientType();
            ClientTypeDTO clientTypeDTO = new ClientTypeDTO(clientType.getId(),clientType.getLabel(),clientType.getValue(), clientType.getVersion(),
@@ -651,7 +636,7 @@ public class DTOUtil {
        return actionRendererDTO;
    }
 
-    public static Collection<RuleData> getRulesForPuzzleLevel(PuzzleLevel pl,ALCityAttributeService alCityAttributeService){
+    public static Collection<RuleData> getRulesForPuzzleLevel(PuzzleLevel pl, AttributeService alCityAttributeService){
         Collection<RuleData> rules = new ArrayList<RuleData>();
         Collection<PLRule>  puzzleLevelRules = pl.getPuzzleLevelRuleCollection();
         Iterator<PLRule> iterator = puzzleLevelRules.iterator();
@@ -670,7 +655,7 @@ public class DTOUtil {
         return rules;
     }
 
-    public static Collection<RuleActionData> getRuleActionData(ALCityAttributeService alCityAttributeService ,  PLRule plRule){
+    public static Collection<RuleActionData> getRuleActionData(AttributeService alCityAttributeService , PLRule plRule){
         Collection<RuleActionData> actions = new ArrayList<RuleActionData>();
         Collection<PLRulePostAction> plRulePostActions = plRule.getPlRulePostActions();
         Iterator<PLRulePostAction> iterator = plRulePostActions.iterator();
@@ -693,16 +678,16 @@ public class DTOUtil {
         return actions;
     }
 
-    public static Collection<RecordrData>  getAttributeForOwnerById(ALCityAttributeService alCityAttributeService , Long ownerId, AttributeOwnerType ownerType){
+    public static Collection<RecordrData>  getAttributeForOwnerById(AttributeService alCityAttributeService , Long ownerId, AttributeOwnerType ownerType){
         Collection<RecordrData> variables = new ArrayList<RecordrData>();
-        Collection<ALAttribute>  alCityAttributes =alCityAttributeService.findByOwnerIdAndAttributeOwnerType(ownerId,ownerType);
-        Iterator<ALAttribute> iterator = alCityAttributes.iterator();
+        Collection<Attribute>  alCityAttributes =alCityAttributeService.findByOwnerIdAndAttributeOwnerType(ownerId,ownerType);
+        Iterator<Attribute> iterator = alCityAttributes.iterator();
         while(iterator.hasNext()) {
-            ALAttribute attribute = iterator.next();
-            Collection<ALAttributeValue> attributeValues = attribute.getAttributeValueSet();
-            Iterator<ALAttributeValue> iteratorValues = attributeValues.iterator();
+            Attribute attribute = iterator.next();
+            Collection<AttributeValue> attributeValues = attribute.getAttributeValueSet();
+            Iterator<AttributeValue> iteratorValues = attributeValues.iterator();
             while(iteratorValues.hasNext()) {
-                ALAttributeValue alCityAttributeValue = iteratorValues.next();
+                AttributeValue alCityAttributeValue = iteratorValues.next();
                 String value = getDataValue(alCityAttributeValue);
                 String type = attribute.getDataType().getValue();
                 RecordrData variable = new RecordrData(attribute.getName(),value,type);
@@ -713,7 +698,7 @@ public class DTOUtil {
 
         return variables;
     }
-    public static String getDataValue(ALAttributeValue alCityAttributeValue){
+    public static String getDataValue(AttributeValue alCityAttributeValue){
         if (alCityAttributeValue.getBooleanValue()!=null )
             return alCityAttributeValue.getBooleanValue().toString();
 

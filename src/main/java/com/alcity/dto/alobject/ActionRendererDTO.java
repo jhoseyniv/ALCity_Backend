@@ -2,12 +2,13 @@ package com.alcity.dto.alobject;
 
 import com.alcity.dto.base.BaseTableDTO;
 import com.alcity.dto.base.ClientTypeDTO;
+import com.alcity.entity.alobject.ObjectAction;
 import com.alcity.entity.base.ClientType;
 
 public class ActionRendererDTO extends BaseTableDTO {
     private String handler;
     private ClientTypeDTO clientTypeDTO;
-    private ObjectActionDTO objectActionDTO;
+    private ObjectAction objectAction;
 
     public String getHandler() {
         return handler;
@@ -25,21 +26,21 @@ public class ActionRendererDTO extends BaseTableDTO {
         this.clientTypeDTO = clientTypeDTO;
     }
 
-    public ObjectActionDTO getObjectActionDTO() {
-        return objectActionDTO;
+    public ObjectAction getObjectAction() {
+        return objectAction;
     }
 
-    public void setObjectActionDTO(ObjectActionDTO objectActionDTO) {
-        this.objectActionDTO = objectActionDTO;
+    public void setObjectAction(ObjectAction objectAction) {
+        this.objectAction = objectAction;
     }
 
     public ActionRendererDTO() {
     }
 
-    public ActionRendererDTO(Long id, Long version, String created, String updated, String handler, ClientTypeDTO clientTypeDTO, ObjectActionDTO objectActionDTO) {
+    public ActionRendererDTO(Long id, Long version, String created, String updated, String handler, ClientTypeDTO clientTypeDTO, ObjectAction objectAction) {
         super(id, version, created, updated);
         this.handler = handler;
         this.clientTypeDTO = clientTypeDTO;
-        this.objectActionDTO = objectActionDTO;
+        this.objectAction = objectAction;
     }
 }

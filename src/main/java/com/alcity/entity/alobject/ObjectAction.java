@@ -1,5 +1,6 @@
 package com.alcity.entity.alobject;
 
+import com.alcity.entity.alenum.UserGender;
 import com.alcity.entity.base.BaseItemSet;
 import com.alcity.entity.users.ApplicationMember;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -11,18 +12,26 @@ import javax.persistence.OneToMany;
 import java.io.Serializable;
 import java.util.Set;
 
-@Entity
-public class ObjectAction extends BaseItemSet implements Serializable {
+public enum   ObjectAction  {
 
-    @OneToMany(mappedBy = "objectAction", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JsonIgnore
-    private Set<PuzzleObject_ObjectAction> puzzleObject_objectActionSet;
-
-
-    public ObjectAction() {
+    Move,
+    Remove,
+    Rotate,
+    Enable,
+    Disable,
+    Hide,
+    Create,
+    Convert,
+    Show,
+    PlaySound;
+    public static ObjectAction getById(Integer id)
+    {
+        for (ObjectAction e : ObjectAction.values())
+        {
+            if (id == e.ordinal()) return e;
+        }
+        throw new IllegalArgumentException("no id");
     }
 
-    public ObjectAction(String label, String value, Long version, Long created, Long updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
-        super(label, value, version, created, updated, createdBy, updatedBy);
+
     }
-}

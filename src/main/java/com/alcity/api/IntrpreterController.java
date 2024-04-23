@@ -9,7 +9,7 @@ import com.alcity.entity.alobject.*;
 import com.alcity.entity.base.BinaryContent;
 import com.alcity.entity.base.CameraSetup;
 import com.alcity.entity.puzzle.*;
-import com.alcity.service.alobject.ALCityAttributeService;
+import com.alcity.service.alobject.AttributeService;
 import com.alcity.service.alobject.PuzzleObject_ObjectActionService;
 import com.alcity.service.puzzle.PLGroundService;
 import com.alcity.service.puzzle.PuzzleLevelService;
@@ -30,30 +30,30 @@ public class IntrpreterController {
     private PuzzleLevelService puzzleLevelService;
 
     @Autowired
-    private PLGroundService puzzleLevelGroundService;
+    private PLGroundService plGroundService;
 
 
     @Autowired
-    ALCityAttributeService alCityAttributeService;
+    AttributeService alCityAttributeService;
 
 
     @RequestMapping(value = "/id/{id}", method = RequestMethod.GET)
     @ResponseBody
     public PLData getPuzzleLevelForInterpreter(@PathVariable Long id) {
          PLData puzzleLevelData= new PLData();
-         Optional<PLGround> puzzleLevelGroundOptional = puzzleLevelGroundService.findByPuzzleLevelId(id);
-        PLGround puzzleLevelGround = new PLGround();
+         Optional<PLGround> puzzleLevelGroundOptional = plGroundService.findByPuzzleLevelId(id);
+        PLGround plGround = new PLGround();
          if(puzzleLevelGroundOptional.isPresent()){
-             puzzleLevelGround = puzzleLevelGroundOptional.get();
+             plGround = puzzleLevelGroundOptional.get();
 
-             puzzleLevelData.setBoardGraphicId(puzzleLevelGround.getBoardGraphic().getId());
-             CameraSetup cameraSetup =  puzzleLevelGround.getCameraSetup();
+             puzzleLevelData.setBoardGraphicId(plGround.getBoardGraphic().getId());
+             CameraSetup cameraSetup =  plGround.getCameraSetup();
              Position Position = new Position(cameraSetup.getxPosition(),cameraSetup.getyPosition(), cameraSetup.getzPosition());
              Position Rotation = new Position(cameraSetup.getxRotation(),cameraSetup.getyRotation(),cameraSetup.getzRotation());
              CameraSetupData cameraSetupInterpreter = new CameraSetupData(Position,Rotation);
              puzzleLevelData.setCameraSetup(cameraSetupInterpreter);
 
-             PuzzleLevel pl = puzzleLevelGround.getPuzzleLevel();
+             PuzzleLevel pl = plGround.getPuzzleLevel();
              puzzleLevelData.setCode(pl.getCode());
              puzzleLevelData.setName(pl.getName());
 
@@ -65,8 +65,8 @@ public class IntrpreterController {
              Collection<PGData> objects = getObjectsForPuzzleGroup(pg);
              Collection<RuleData> rules = DTOUtil.getRulesForPuzzleLevel(pl,alCityAttributeService);
 
-             puzzleLevelData.setCols(puzzleLevelGround.getNumColumns());
-             puzzleLevelData.setRows(puzzleLevelGround.getNumRows());
+             puzzleLevelData.setCols(plGround.getNumColumns());
+             puzzleLevelData.setRows(plGround.getNumRows());
              puzzleLevelData.setVariables(variables);
              puzzleLevelData.setObjects(objects);
              puzzleLevelData.setRules(rules);
@@ -171,8 +171,8 @@ public class IntrpreterController {
 
             Collection<RecordrData> parameterData = getPropertiesForAOwnerObject(pgoId,puzzleObjectActionOwnerType);
             ActionData objectActionData = new ActionData();
-            objectActionData.setActionName(objectAction.getValue());
-            objectActionData.setId(objectAction.getId());
+            objectActionData.setActionName(objectAction);
+            objectActionData.setId(objectAction.ordinal());
             objectActionData.setHandler(puzzleObject_objectAction.getActionRenderer().getHandler());
             objectActionData.setParameters(parameterData);
 
@@ -186,14 +186,14 @@ public class IntrpreterController {
     public Collection<RecordrData> getPropertiesForAOwnerObject(Long ownerId, POActionOwnerType ownerType){
 
         Collection<RecordrData> objectActionParameterDataCollection = new ArrayList<RecordrData>();
-        Collection<ALAttribute> alCityAttributeCollection = new ArrayList<ALAttribute>();
+        Collection<Attribute> alCityAttributeCollection = new ArrayList<Attribute>();
         alCityAttributeCollection = alCityAttributeService.findByOwnerId(ownerId);
-        Iterator<ALAttribute> iterator = alCityAttributeCollection.iterator();
+        Iterator<Attribute> iterator = alCityAttributeCollection.iterator();
         while(iterator.hasNext()) {
-            ALAttribute alCityAttribute = iterator.next();
-            Collection<ALAttributeValue> alCityAttributeValueCollection = alCityAttribute.getAttributeValueSet();
-            Iterator<ALAttributeValue> alCityAttributeValueIterator = alCityAttributeValueCollection.iterator();
-            ALAttributeValue alCityAttributeValue = alCityAttributeValueIterator.next();
+            Attribute alCityAttribute = iterator.next();
+            Collection<AttributeValue> alCityAttributeValueCollection = alCityAttribute.getAttributeValueSet();
+            Iterator<AttributeValue> alCityAttributeValueIterator = alCityAttributeValueCollection.iterator();
+            AttributeValue alCityAttributeValue = alCityAttributeValueIterator.next();
 
             RecordrData objectActionParameterData = new RecordrData();
             objectActionParameterData.setName(alCityAttribute.getName());

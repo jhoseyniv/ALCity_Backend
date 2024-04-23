@@ -1,8 +1,8 @@
 package com.alcity.service.alobject;
 
 
-import com.alcity.entity.alobject.ALAttributeValue;
-import com.alcity.repository.alobject.ALCityAttributeValueRepository;
+import com.alcity.entity.alobject.AttributeValue;
+import com.alcity.repository.alobject.AttributeValueRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,22 +12,22 @@ import java.util.Optional;
 
 @Service
 @Transactional
-public class ALCityAttributeValueService implements ALCityAttributeValueRepository {
+public class AttributeValueService implements AttributeValueRepository {
 
     @Autowired
-    ALCityAttributeValueRepository ALCityAttributeValueRepository;
+    AttributeValueRepository ALCityAttributeValueRepository;
     @Override
-    public <S extends ALAttributeValue> S save(S entity) {
+    public <S extends AttributeValue> S save(S entity) {
         return ALCityAttributeValueRepository.save(entity);
     }
 
     @Override
-    public <S extends ALAttributeValue> Iterable<S> saveAll(Iterable<S> entities) {
+    public <S extends AttributeValue> Iterable<S> saveAll(Iterable<S> entities) {
         return null;
     }
 
     @Override
-    public Optional<ALAttributeValue> findById(Long id) {
+    public Optional<AttributeValue> findById(Long id) {
         return Optional.empty();
     }
 
@@ -37,12 +37,12 @@ public class ALCityAttributeValueService implements ALCityAttributeValueReposito
     }
 
     @Override
-    public Collection<ALAttributeValue> findAll() {
+    public Collection<AttributeValue> findAll() {
         return null;
     }
 
     @Override
-    public Iterable<ALAttributeValue> findAllById(Iterable<Long> longs) {
+    public Iterable<AttributeValue> findAllById(Iterable<Long> longs) {
         return null;
     }
 
@@ -57,7 +57,7 @@ public class ALCityAttributeValueService implements ALCityAttributeValueReposito
     }
 
     @Override
-    public void delete(ALAttributeValue entity) {
+    public void delete(AttributeValue entity) {
 
     }
 
@@ -67,7 +67,7 @@ public class ALCityAttributeValueService implements ALCityAttributeValueReposito
     }
 
     @Override
-    public void deleteAll(Iterable<? extends ALAttributeValue> entities) {
+    public void deleteAll(Iterable<? extends AttributeValue> entities) {
 
     }
 

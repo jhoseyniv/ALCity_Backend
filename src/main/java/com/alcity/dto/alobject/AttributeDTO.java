@@ -3,7 +3,7 @@ package com.alcity.dto.alobject;
 import com.alcity.dto.base.BaseTableDTO;
 import com.alcity.dto.base.DataTypeِDTO;
 
-public class ALCityAttributeDTO extends BaseTableDTO {
+public class AttributeDTO extends BaseTableDTO {
 
     private String name;
     private Long ownerId;
@@ -42,10 +42,10 @@ public class ALCityAttributeDTO extends BaseTableDTO {
         this.dataTypeِDTO = dataTypeِDTO;
     }
 
-    public ALCityAttributeDTO() {
+    public AttributeDTO() {
     }
 
-    public ALCityAttributeDTO(Long id, Long version, String created, String updated, String name, Long ownerId, AttributeOwnerTypeDTO attributeOwnerTypeDTO, DataTypeِDTO dataTypeِDTO) {
+    public AttributeDTO(Long id, Long version, String created, String updated, String name, Long ownerId, AttributeOwnerTypeDTO attributeOwnerTypeDTO, DataTypeِDTO dataTypeِDTO) {
         super(id, version, created, updated);
         this.name = name;
         this.ownerId = ownerId;

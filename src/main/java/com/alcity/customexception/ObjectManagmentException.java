@@ -17,7 +17,7 @@ public class ObjectManagmentException extends ResponseEntityExceptionHandler {
 
 
     @ExceptionHandler(RecordNotFoundException.class)
-    public ResponseEntity<Object> handleAnimalNotFoundException(RecordNotFoundException ex, WebRequest request) {
+    public ResponseEntity<Object> handleRecordNotFoundException(RecordNotFoundException ex, WebRequest request) {
 
         Map<String, Object> body = new LinkedHashMap<>();
         body.put("timestamp", LocalDateTime.now());
@@ -34,6 +34,7 @@ public class ObjectManagmentException extends ResponseEntityExceptionHandler {
         body.put("message ", "This record Id and Value is Already exist, Unique constraint...." );
         body.put("Record Value ", ex.getRecordData() );
         body.put("Record Id ", ex.getRecordId() );
+        body.put("Object Name ", ex.getDatabaseEntity() );
         return new ResponseEntity<>(body, HttpStatus.NOT_FOUND);
     }
 
