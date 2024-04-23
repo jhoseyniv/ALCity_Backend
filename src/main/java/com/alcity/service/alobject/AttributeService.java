@@ -15,11 +15,11 @@ import java.util.stream.Collectors;
 public class AttributeService implements AttributeRepository {
 
     @Autowired
-    AttributeRepository ALCityAttributeRepository;
+    AttributeRepository attributeRepository;
 
     @Override
     public <S extends Attribute> S save(S entity) {
-        return ALCityAttributeRepository.save(entity);
+        return attributeRepository.save(entity);
     }
 
     @Override
@@ -30,7 +30,7 @@ public class AttributeService implements AttributeRepository {
     @Override
     public Optional<Attribute> findById(Long id) {
 
-        return ALCityAttributeRepository.findById(id);
+        return attributeRepository.findById(id);
     }
 
     @Override
@@ -40,7 +40,7 @@ public class AttributeService implements AttributeRepository {
 
     @Override
     public Collection<Attribute> findAll() {
-        return ALCityAttributeRepository.findAll();
+        return attributeRepository.findAll();
     }
 
     @Override
@@ -85,13 +85,13 @@ public class AttributeService implements AttributeRepository {
 
     @Override
     public Collection<Attribute> findByOwnerId(Long ownerId) {
-        return ALCityAttributeRepository.findByOwnerId(ownerId);
+        return attributeRepository.findByOwnerId(ownerId);
     }
 
 
     @Override
     public Collection<Attribute> findByOwnerIdAndAttributeOwnerType(Long instanceId, AttributeOwnerType ownerType) {
-        Collection<Attribute> alCityAttributes = ALCityAttributeRepository.findByOwnerId(instanceId);
+        Collection<Attribute> alCityAttributes = attributeRepository.findByOwnerId(instanceId);
 
         ArrayList<Attribute> outputAttributes = new ArrayList<Attribute>();
 
@@ -104,16 +104,28 @@ public class AttributeService implements AttributeRepository {
                         filter(attribute -> attribute.getAttributeOwnerType().equals(AttributeOwnerType.Puzzle_Level_Variable))
                         .collect(Collectors.toCollection(ArrayList::new));
 
-        if(ownerType == AttributeOwnerType.PuzzleGroup_ObjectInstance_Property)
+        if(ownerType == AttributeOwnerType.PuzzleGroup_Object_Instance_Property)
                     outputAttributes = alCityAttributes.stream().
-                            filter(attribute -> attribute.getAttributeOwnerType().equals(AttributeOwnerType.PuzzleGroup_ObjectInstance_Property))
+                            filter(attribute -> attribute.getAttributeOwnerType().equals(AttributeOwnerType.PuzzleGroup_Object_Instance_Property))
                             .collect(Collectors.toCollection(ArrayList::new));
 
-        if(ownerType == AttributeOwnerType.PuzzleGroup_ObjectInstance_Variable)
+        if(ownerType == AttributeOwnerType.PuzzleGroup_Object_Instance_Property)
             outputAttributes = alCityAttributes.stream().
-                    filter(attribute -> attribute.getAttributeOwnerType().equals(AttributeOwnerType.PuzzleGroup_ObjectInstance_Variable))
+                    filter(attribute -> attribute.getAttributeOwnerType().equals(AttributeOwnerType.PuzzleGroup_Object_Instance_Property))
                     .collect(Collectors.toCollection(ArrayList::new));
-            return outputAttributes;
+        if(ownerType == AttributeOwnerType.Puzzle_Object_Action_Parameter)
+            outputAttributes = alCityAttributes.stream().
+                    filter(attribute -> attribute.getAttributeOwnerType().equals(AttributeOwnerType.Puzzle_Object_Action_Parameter))
+                    .collect(Collectors.toCollection(ArrayList::new));
+
+        if(ownerType == AttributeOwnerType.PuzzleGroup_Object_Instance_Variable)
+            outputAttributes = alCityAttributes.stream().
+                    filter(attribute -> attribute.getAttributeOwnerType().equals(AttributeOwnerType.PuzzleGroup_Object_Instance_Variable))
+                    .collect(Collectors.toCollection(ArrayList::new));
+
+
+
+        return outputAttributes;
     }
 
 

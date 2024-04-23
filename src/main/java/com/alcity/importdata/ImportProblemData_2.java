@@ -2,14 +2,8 @@ package com.alcity.importdata;
 
 
 import com.alcity.ObjectManagmentApplication;
-import com.alcity.entity.alenum.AttributeOwnerType;
-import com.alcity.entity.alenum.GameStatus;
-import com.alcity.entity.alenum.PLDifficulty;
-import com.alcity.entity.alenum.PLStatus;
-import com.alcity.entity.alobject.Attribute;
-import com.alcity.entity.alobject.AttributeValue;
-import com.alcity.entity.alobject.ObjectAction;
-import com.alcity.entity.alobject.ObjectCategory;
+import com.alcity.entity.alenum.*;
+import com.alcity.entity.alobject.*;
 import com.alcity.entity.base.*;
 import com.alcity.entity.journey.Journey;
 import com.alcity.entity.journey.JourneyStep;
@@ -23,9 +17,7 @@ import com.alcity.entity.users.ApplicationMember;
 import com.alcity.entity.users.WalletItem;
 import com.alcity.repository.play.PermitedPlayerRepository;
 import com.alcity.service.Journey.JourneyService;
-import com.alcity.service.alobject.AttributeService;
-import com.alcity.service.alobject.AttributeValueService;
-import com.alcity.service.alobject.ObjectCategoryService;
+import com.alcity.service.alobject.*;
 import com.alcity.service.base.*;
 import com.alcity.service.learning.LearningContentService;
 import com.alcity.service.learning.LearningSkillService;
@@ -109,6 +101,12 @@ public class ImportProblemData_2 implements CommandLineRunner {
     AttributeValueService attributeValueService;
     @Autowired
     AttributeService attributeService;
+    @Autowired
+    ActionRendererService actionRendererService;
+    @Autowired
+    ClientTypeService clientTypeService;
+    @Autowired
+    PuzzleObject_ObjectActionService puzzleObject_ObjectActionService;
 
     private static final Logger log = LoggerFactory.getLogger(ObjectManagmentApplication.class);
 
@@ -137,6 +135,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
         DataType alcity_Long = dataTypeService.findByValue("Long");
         DataType alcity_Boolean = dataTypeService.findByValue("Boolean");
         DataType alcity_String =  dataTypeService.findByValue("String");
+        DataType alcity_Object =  dataTypeService.findByValue("Object");
 
 
         LearningSkill timeManagement = learningSkillService.findByValue("timeManagement");
@@ -244,8 +243,74 @@ public class ImportProblemData_2 implements CommandLineRunner {
         attributeValueService.save(attribute_variable_LastX_value);
         attributeValueService.save(attribute_variable_LastY_value);
         attributeValueService.save(attribute_variable_PathLen_value);
+        ClientType mobile = clientTypeService.findByValue("mobile");
+
+        ActionRenderer showActionRenderer = new ActionRenderer("Show",mobile,ObjectAction.Show,1L,now,now,admin_1,admin_1);
+        actionRendererService.save(showActionRenderer);
+
+        ActionRenderer hideActionRenderer = new ActionRenderer("Hide",mobile,ObjectAction.Hide,1L,now,now,admin_1,admin_1);
+        actionRendererService.save(hideActionRenderer);
+
+        PuzzleObject_ObjectAction  imageObject01_ShowAction = new PuzzleObject_ObjectAction(POActionOwnerType.Puzzle_Object,puzzleGroup_puzzleObject.getId(),ObjectAction.Show,showActionRenderer,1L,now,now,admin_1,admin_1);
+        puzzleObject_ObjectActionService.save(imageObject01_ShowAction);
 
 
+        Attribute attribute_show_action =new Attribute("actionId",imageObject01_ShowAction.getId(),AttributeOwnerType.Puzzle_Object_Action_Parameter,alcity_Long,1L,now,now,admin_1,admin_1);
+        attributeService.save(attribute_show_action);
+
+        AttributeValue showAction_parameter_action_id= new AttributeValue(null,null,attribute_show_action.getId(),null,null,null,attribute_show_action,attribute_show_action,1L,now,now,admin_1,admin_1);
+        attributeValueService.save(showAction_parameter_action_id);
+
+        Attribute attribute_show_aSync =new Attribute("aSync",imageObject01_ShowAction.getId(),AttributeOwnerType.Puzzle_Object_Action_Parameter,alcity_Boolean,1L,now,now,admin_1,admin_1);
+        attributeService.save(attribute_show_aSync);
+        AttributeValue showAction_parameter_aSync_Value= new AttributeValue(false,null,null,null,null,null,attribute_show_aSync,attribute_show_aSync,1L,now,now,admin_1,admin_1);
+        attributeValueService.save(showAction_parameter_aSync_Value);
+
+        Attribute attribute_show_graphic =new Attribute("graphic",imageObject01_ShowAction.getId(),AttributeOwnerType.Puzzle_Object_Action_Parameter,alcity_Binary,1L,now,now,admin_1,admin_1);
+        attributeService.save(attribute_show_graphic);
+        AttributeValue showAction_parameter_graphic_value= new AttributeValue(null,null,null,null,null,null,attribute_show_graphic,attribute_show_graphic,1L,now,now,admin_1,admin_1);
+        attributeValueService.save(showAction_parameter_graphic_value);
+
+
+        Attribute alCityAttribute_show_Row =new Attribute("row",imageObject01_ShowAction.getId(),AttributeOwnerType.Puzzle_Object_Action_Parameter,alcity_Int,1L,now,now,admin_1,admin_1);
+        attributeService.save(alCityAttribute_show_Row);
+        AttributeValue alCity_moveAction_parameter_row= new AttributeValue(null,0,null,null,null,null,alCityAttribute_show_Row,alCityAttribute_show_Row,1L,now,now,admin_1,admin_1);
+        attributeValueService.save(alCity_moveAction_parameter_row);
+
+        Attribute alCityAttribute_move_Col =new Attribute("col",imageObject01_ShowAction.getId(),AttributeOwnerType.Puzzle_Object_Action_Parameter,alcity_Int,1L,now,now,admin_1,admin_1);
+        attributeService.save(alCityAttribute_move_Col);
+        AttributeValue alCity_showAction_parameter_Col= new AttributeValue(null,0,null,null,null,null,alCityAttribute_move_Col,alCityAttribute_move_Col,1L,now,now,admin_1,admin_1);
+        attributeValueService.save(alCity_showAction_parameter_Col);
+
+
+        PuzzleObject_ObjectAction  imageObject01_HideAction = new PuzzleObject_ObjectAction(POActionOwnerType.Puzzle_Object,puzzleGroup_puzzleObject.getId(),ObjectAction.Hide,hideActionRenderer,1L,now,now,admin_1,admin_1);
+        puzzleObject_ObjectActionService.save(imageObject01_HideAction);
+        Attribute attribute_hide_action_id =new Attribute("actionId",imageObject01_HideAction.getId(),AttributeOwnerType.Puzzle_Object_Action_Parameter,alcity_Long,1L,now,now,admin_1,admin_1);
+        attributeService.save(attribute_hide_action_id);
+
+        AttributeValue hideAction_parameter_action_id= new AttributeValue(null,null,imageObject01_HideAction.getId(),null,null,null,attribute_hide_action_id,attribute_hide_action_id,1L,now,now,admin_1,admin_1);
+        attributeValueService.save(hideAction_parameter_action_id);
+
+        Attribute attribute_hide_aSync =new Attribute("aSync",imageObject01_HideAction.getId(),AttributeOwnerType.Puzzle_Object_Action_Parameter,alcity_Boolean,1L,now,now,admin_1,admin_1);
+        attributeService.save(attribute_hide_aSync);
+        AttributeValue hideAction_parameter_aSync_Value= new AttributeValue(false,null,null,null,null,null,attribute_hide_aSync,attribute_hide_aSync,1L,now,now,admin_1,admin_1);
+        attributeValueService.save(hideAction_parameter_aSync_Value);
+
+        Attribute attribute_hide_graphic =new Attribute("graphic",imageObject01_HideAction.getId(),AttributeOwnerType.Puzzle_Object_Action_Parameter,alcity_Binary,1L,now,now,admin_1,admin_1);
+        attributeService.save(attribute_hide_graphic);
+        AttributeValue hideAction_parameter_graphic_value= new AttributeValue(null,null,null,null,null,null,attribute_hide_graphic,attribute_hide_graphic,1L,now,now,admin_1,admin_1);
+        attributeValueService.save(hideAction_parameter_graphic_value);
+
+
+        Attribute alCityAttribute_hide_Row =new Attribute("row",imageObject01_HideAction.getId(),AttributeOwnerType.Puzzle_Object_Action_Parameter,alcity_Int,1L,now,now,admin_1,admin_1);
+        attributeService.save(alCityAttribute_hide_Row);
+        AttributeValue alCity_hideAction_parameter_row= new AttributeValue(null,0,null,null,null,null,alCityAttribute_hide_Row,alCityAttribute_hide_Row,1L,now,now,admin_1,admin_1);
+        attributeValueService.save(alCity_hideAction_parameter_row);
+
+        Attribute alCityAttribute_hide_Col =new Attribute("col",imageObject01_HideAction.getId(),AttributeOwnerType.Puzzle_Object_Action_Parameter,alcity_Int,1L,now,now,admin_1,admin_1);
+        attributeService.save(alCityAttribute_hide_Col);
+        AttributeValue alCity_hideAction_parameter_Col= new AttributeValue(null,0,null,null,null,null,alCityAttribute_hide_Col,alCityAttribute_hide_Col,1L,now,now,admin_1,admin_1);
+        attributeValueService.save(alCity_hideAction_parameter_Col);
 
     }
 

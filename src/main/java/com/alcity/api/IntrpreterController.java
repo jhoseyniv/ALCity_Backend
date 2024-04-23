@@ -34,7 +34,7 @@ public class IntrpreterController {
 
 
     @Autowired
-    AttributeService alCityAttributeService;
+    AttributeService attributeService;
 
 
     @RequestMapping(value = "/id/{id}", method = RequestMethod.GET)
@@ -57,13 +57,13 @@ public class IntrpreterController {
              puzzleLevelData.setCode(pl.getCode());
              puzzleLevelData.setName(pl.getName());
 
-             Collection<RecordrData>  variables = DTOUtil.getAttributeForOwnerById(alCityAttributeService,pl.getId(),AttributeOwnerType.Puzzle_Level_Variable);
+             Collection<RecordrData>  variables = DTOUtil.getAttributeForOwnerById(attributeService,pl.getId(),AttributeOwnerType.Puzzle_Level_Variable);
 
              Collection<PLObjectiveData> puzzleLevelObjectiveDataCollection = DTOUtil.getPuzzleLevelObjectiveData(pl);
              puzzleLevelData.setObjectives(puzzleLevelObjectiveDataCollection);
              PuzzleGroup pg = pl.getPuzzleGroup();
              Collection<PGData> objects = getObjectsForPuzzleGroup(pg);
-             Collection<RuleData> rules = DTOUtil.getRulesForPuzzleLevel(pl,alCityAttributeService);
+             Collection<RuleData> rules = DTOUtil.getRulesForPuzzleLevel(pl,attributeService);
 
              puzzleLevelData.setCols(plGround.getNumColumns());
              puzzleLevelData.setRows(plGround.getNumRows());
@@ -93,8 +93,9 @@ public class IntrpreterController {
             Position instancePostion = new Position(puzzleGroupObjectInstance.getRow() , puzzleGroupObjectInstance.getCol(),puzzleGroupObjectInstance.getzOrder());
             objectInstanceData.setPosition(instancePostion);
 
-            Collection<RecordrData> properties = DTOUtil.getAttributeForOwnerById(alCityAttributeService,puzzleGroupObjectInstance.getId(),AttributeOwnerType.PuzzleGroup_ObjectInstance_Property);
-            Collection<RecordrData>  variables = DTOUtil.getAttributeForOwnerById(alCityAttributeService,puzzleGroupObjectInstance.getId(),AttributeOwnerType.PuzzleGroup_ObjectInstance_Variable);
+            Collection<RecordrData> properties = DTOUtil.getAttributeForOwnerById(attributeService,puzzleGroupObjectInstance.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property);
+            Collection<RecordrData>  variables = DTOUtil.getAttributeForOwnerById(attributeService,puzzleGroupObjectInstance.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Variable);
+
             objectInstanceData.setProperties(properties);
             objectInstanceData.setVariables(variables);
 
@@ -167,14 +168,16 @@ public class IntrpreterController {
         while(iterator.hasNext()) {
             PuzzleObject_ObjectAction puzzleObject_objectAction = iterator.next();
             ObjectAction objectAction = puzzleObject_objectAction.getObjectAction();
-            POActionOwnerType puzzleObjectActionOwnerType = puzzleObject_objectAction.getPoActionOwnerType();
+           // POActionOwnerType puzzleObjectActionOwnerType = puzzleObject_objectAction.getPoActionOwnerType();
 
-            Collection<RecordrData> parameterData = getPropertiesForAOwnerObject(pgoId,puzzleObjectActionOwnerType);
+            Collection<RecordrData> parametersData = DTOUtil.getAttributeForOwnerById(attributeService,puzzleObject_objectAction.getId(),AttributeOwnerType.Puzzle_Object_Action_Parameter);
+            System.out.println("------------------" + puzzleObject_objectAction.getId() +" ----------" +parametersData.size());
+
             ActionData objectActionData = new ActionData();
             objectActionData.setActionName(objectAction);
             objectActionData.setId(objectAction.ordinal());
             objectActionData.setHandler(puzzleObject_objectAction.getActionRenderer().getHandler());
-            objectActionData.setParameters(parameterData);
+            objectActionData.setParameters(parametersData);
 
             objectActionDataCollection.add(objectActionData);
         }
@@ -186,14 +189,14 @@ public class IntrpreterController {
     public Collection<RecordrData> getPropertiesForAOwnerObject(Long ownerId, POActionOwnerType ownerType){
 
         Collection<RecordrData> objectActionParameterDataCollection = new ArrayList<RecordrData>();
-        Collection<Attribute> alCityAttributeCollection = new ArrayList<Attribute>();
-        alCityAttributeCollection = alCityAttributeService.findByOwnerId(ownerId);
-        Iterator<Attribute> iterator = alCityAttributeCollection.iterator();
+        Collection<Attribute> attributeCollection = new ArrayList<Attribute>();
+        attributeCollection = attributeService.findByOwnerId(ownerId);
+        Iterator<Attribute> iterator = attributeCollection.iterator();
         while(iterator.hasNext()) {
             Attribute alCityAttribute = iterator.next();
-            Collection<AttributeValue> alCityAttributeValueCollection = alCityAttribute.getAttributeValueSet();
-            Iterator<AttributeValue> alCityAttributeValueIterator = alCityAttributeValueCollection.iterator();
-            AttributeValue alCityAttributeValue = alCityAttributeValueIterator.next();
+            Collection<AttributeValue> attributeValueCollection = alCityAttribute.getAttributeValueSet();
+            Iterator<AttributeValue> attributeValueIterator = attributeValueCollection.iterator();
+            AttributeValue alCityAttributeValue = attributeValueIterator.next();
 
             RecordrData objectActionParameterData = new RecordrData();
             objectActionParameterData.setName(alCityAttribute.getName());

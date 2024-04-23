@@ -271,12 +271,14 @@ public class ImportBaseData implements CommandLineRunner {
         DataType alcity_Boolean = new DataType("Boolean","Boolean",1L,now,now,admin_1,admin_1);
         DataType alcity_String = new DataType("String","String",1L,now,now,admin_1,admin_1);
         DataType alcity_Binary = new DataType("Binary","Binary",1L,now,now,admin_1,admin_1);
+        DataType alcity_Object = new DataType("Object","Object",1L,now,now,admin_1,admin_1);
 
         dataTypeService.save(alcity_Int);
         dataTypeService.save(alcity_Long);
         dataTypeService.save(alcity_Boolean);
         dataTypeService.save(alcity_String);
         dataTypeService.save(alcity_Binary);
+        dataTypeService.save(alcity_Object);
 
 
         PLPrivacy privacy_1 = new PLPrivacy("privacy 1","privacy1",1L,now,now,admin_1,admin_1);

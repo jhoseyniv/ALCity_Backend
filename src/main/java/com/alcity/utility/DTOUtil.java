@@ -678,10 +678,10 @@ public class DTOUtil {
         return actions;
     }
 
-    public static Collection<RecordrData>  getAttributeForOwnerById(AttributeService alCityAttributeService , Long ownerId, AttributeOwnerType ownerType){
+    public static Collection<RecordrData>  getAttributeForOwnerById(AttributeService attributeService , Long ownerId, AttributeOwnerType ownerType){
         Collection<RecordrData> variables = new ArrayList<RecordrData>();
-        Collection<Attribute>  alCityAttributes =alCityAttributeService.findByOwnerIdAndAttributeOwnerType(ownerId,ownerType);
-        Iterator<Attribute> iterator = alCityAttributes.iterator();
+        Collection<Attribute>  attributes =attributeService.findByOwnerIdAndAttributeOwnerType(ownerId,ownerType);
+        Iterator<Attribute> iterator = attributes.iterator();
         while(iterator.hasNext()) {
             Attribute attribute = iterator.next();
             Collection<AttributeValue> attributeValues = attribute.getAttributeValueSet();
