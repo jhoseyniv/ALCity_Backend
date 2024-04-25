@@ -130,11 +130,12 @@ public class IntrpreterController {
             Collection<ActionData> actions = getActionsForAPuzzleObjectById(puzzleGroup_puzzleObject.getId());
             puzzleGroupObjectData.setActions(actions);
 
-            Collection<RecordrData> variables = getVariableForAPuzzleObjectById(puzzleGroup_puzzleObject.getId());
+            Collection<RecordrData> variables = DTOUtil.getAttributeForOwnerById(attributeService,puzzleGroup_puzzleObject.getId(),AttributeOwnerType.Puzzle_Group_Object_Variable);
+
             puzzleGroupObjectData.setVariables(variables);
 
-            Collection<RecordrData> properties = getPropertiesForAPuzzleObjectById(puzzleGroup_puzzleObject.getId());
-            puzzleGroupObjectData.setVariables(properties);
+            Collection<RecordrData> properties = DTOUtil.getAttributeForOwnerById(attributeService,puzzleGroup_puzzleObject.getId(),AttributeOwnerType.Puzzle_Group_Object_Property);
+            puzzleGroupObjectData.setProperties(properties);
 
             Collection<InstanceData> instances = getInstancesForAObjectInPuzzleLevel(puzzleGroup_puzzleObject);
             puzzleGroupObjectData.setInstances(instances);

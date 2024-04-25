@@ -15,10 +15,11 @@ public enum AttributeOwnerType {
 
     PuzzleObject_Property,
     Puzzle_Object_Action_Parameter,
-    PuzzleGroup_Object_Property,
+
+    Puzzle_Group_Object_Property,
+    Puzzle_Group_Object_Variable,
     Puzzle_Level_Variable,
     PuzzleGroup_Object_Instance_Property,
-    PuzzleGroup_Object_Variable,
     PuzzleGroup_Object_Instance_Variable,
     PuzzleGroup_Object_Instance_Action_Parameter,
 
