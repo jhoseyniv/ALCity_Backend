@@ -14,7 +14,7 @@ public class PuzzleGroup_PuzzleObject extends BaseTable implements Serializable 
     @Column(name="title")
     private String title;
 
-    @Column(name="code")
+    @Column(name="code",unique = true)
     private String code;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)

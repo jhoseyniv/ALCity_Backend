@@ -50,8 +50,8 @@ public class PuzzleLevelService implements PuzzleLevelRepository {
     }
 
     @Override
-    public Collection<PuzzleLevel> findByCode(String code) {
-        return null;
+    public PuzzleLevel findByCode(String code) {
+        return puzzleLevelRepository.findByCode(code);
     }
 
     @Override

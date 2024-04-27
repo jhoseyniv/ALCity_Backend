@@ -12,7 +12,7 @@ public interface PuzzleGroup_PuzzleObjectRepository extends CrudRepository<Puzzl
     Collection<PuzzleGroup_PuzzleObject> findAll();
 
     Collection<PuzzleGroup_PuzzleObject> findByTitle(String title);
-    Collection<PuzzleGroup_PuzzleObject> findByCode(String code);
+    PuzzleGroup_PuzzleObject findByCode(String code);
 
 
 }

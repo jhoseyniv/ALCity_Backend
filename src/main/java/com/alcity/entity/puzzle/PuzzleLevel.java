@@ -24,7 +24,7 @@ public class PuzzleLevel extends BaseTable implements Serializable {
     @Column(name="name")
     private String name;
 
-    @Column(name="code")
+    @Column(name="code",unique = true)
     private String code;
 
 

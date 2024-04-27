@@ -83,7 +83,7 @@ public class PuzzleGroup_PuzzleObjectService implements PuzzleGroup_PuzzleObject
     }
 
     @Override
-    public Collection<PuzzleGroup_PuzzleObject> findByCode(String code) {
-        return null;
+    public PuzzleGroup_PuzzleObject findByCode(String code) {
+        return puzzleGroup_PuzzleObjectRepository.findByCode(code);
     }
 }
