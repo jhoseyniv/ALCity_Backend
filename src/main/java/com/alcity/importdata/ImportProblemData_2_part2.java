@@ -1763,119 +1763,321 @@ public class ImportProblemData_2_part2 implements CommandLineRunner {
 
         PGObjectInstance img_18_16_1 = new PGObjectInstance("img_18_16_1",18,16,1,puzzleGroup_puzzleObject,puzzleLevel_Maze,1L,now,now,admin_1,admin_1);
         pgObjectInstanceService.save(img_18_16_1);
+        Attribute img_18_16_1_bgImage_property =new Attribute("bgImage",img_18_16_1.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,alcity_Binary,1L,now,now,admin_1,admin_1);
+        attributeService.save(img_18_16_1_bgImage_property);
+        AttributeValue img_18_16_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,img_18_16_1_bgImage_property,img_18_16_1_bgImage_property,1L,now,now,admin_1,admin_1);
+        attributeValueService.save(img_18_16_1_bgImage_property_value);
+
 
         PGObjectInstance img_18_16_0 = new PGObjectInstance("img_18_16_0",18,16,0,puzzleGroup_puzzleObject,puzzleLevel_Maze,1L,now,now,admin_1,admin_1);
         pgObjectInstanceService.save(img_18_16_0);
+        Attribute img_18_16_0_bgImage_property =new Attribute("bgImage",img_18_16_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,alcity_Binary,1L,now,now,admin_1,admin_1);
+        attributeService.save(img_18_16_0_bgImage_property);
+        AttributeValue img_18_16_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,img_18_16_0_bgImage_property,img_18_16_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        attributeValueService.save(img_18_16_0_bgImage_property_value);
+
 
         PGObjectInstance img_19_16_0 = new PGObjectInstance("img_19_16_0",18,16,0,puzzleGroup_puzzleObject,puzzleLevel_Maze,1L,now,now,admin_1,admin_1);
         pgObjectInstanceService.save(img_19_16_0);
+        Attribute img_19_16_0_bgImage_property =new Attribute("bgImage",img_19_16_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,alcity_Binary,1L,now,now,admin_1,admin_1);
+        attributeService.save(img_19_16_0_bgImage_property);
+        AttributeValue img_19_16_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,img_19_16_0_bgImage_property,img_19_16_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        attributeValueService.save(img_19_16_0_bgImage_property_value);
+        Attribute img_19_16_0_locked_variable =new Attribute("Locked",img_19_16_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Variable,alcity_Boolean,1L,now,now,admin_1,admin_1);
+        attributeService.save(img_19_16_0_locked_variable);
+        AttributeValue img_19_16_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,img_19_16_0_locked_variable,img_19_16_0_locked_variable,1L,now,now,admin_1,admin_1);
+        attributeValueService.save(img_19_16_0_locked_variable_value);
 
 
         PGObjectInstance img_1_17_0 = new PGObjectInstance("img_1_17_0",1,17,0,puzzleGroup_puzzleObject,puzzleLevel_Maze,1L,now,now,admin_1,admin_1);
         pgObjectInstanceService.save(img_1_17_0);
+        Attribute img_1_17_0_bgImage_property =new Attribute("bgImage",img_1_17_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,alcity_Binary,1L,now,now,admin_1,admin_1);
+        attributeService.save(img_1_17_0_bgImage_property);
+        AttributeValue img_1_17_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,img_1_17_0_bgImage_property,img_1_17_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        attributeValueService.save(img_1_17_0_bgImage_property_value);
+        Attribute img_1_17_0_locked_variable =new Attribute("Locked",img_1_17_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Variable,alcity_Boolean,1L,now,now,admin_1,admin_1);
+        attributeService.save(img_1_17_0_locked_variable);
+        AttributeValue img_1_17_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,img_1_17_0_locked_variable,img_1_17_0_locked_variable,1L,now,now,admin_1,admin_1);
+        attributeValueService.save(img_1_17_0_locked_variable_value);
+
 
         PGObjectInstance img_2_17_1 = new PGObjectInstance("img_2_17_1",2,17,1,puzzleGroup_puzzleObject,puzzleLevel_Maze,1L,now,now,admin_1,admin_1);
         pgObjectInstanceService.save(img_2_17_1);
+        Attribute img_2_17_1_bgImage_property =new Attribute("bgImage",img_2_17_1.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,alcity_Binary,1L,now,now,admin_1,admin_1);
+        attributeService.save(img_2_17_1_bgImage_property);
+        AttributeValue img_2_17_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,img_2_17_1_bgImage_property,img_2_17_1_bgImage_property,1L,now,now,admin_1,admin_1);
+        attributeValueService.save(img_2_17_1_bgImage_property_value);
 
 
         PGObjectInstance img_2_17_0 = new PGObjectInstance("img_2_17_0",2,17,0,puzzleGroup_puzzleObject,puzzleLevel_Maze,1L,now,now,admin_1,admin_1);
         pgObjectInstanceService.save(img_2_17_0);
+        Attribute img_2_17_0_bgImage_property =new Attribute("bgImage",img_2_17_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,alcity_Binary,1L,now,now,admin_1,admin_1);
+        attributeService.save(img_2_17_0_bgImage_property);
+        AttributeValue img_2_17_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,img_2_17_0_bgImage_property,img_2_17_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        attributeValueService.save(img_2_17_0_bgImage_property_value);
 
 
         PGObjectInstance img_3_17_1 = new PGObjectInstance("img_3_17_1",3,17,1,puzzleGroup_puzzleObject,puzzleLevel_Maze,1L,now,now,admin_1,admin_1);
         pgObjectInstanceService.save(img_3_17_1);
+        Attribute img_3_17_1_bgImage_property =new Attribute("bgImage",img_3_17_1.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,alcity_Binary,1L,now,now,admin_1,admin_1);
+        attributeService.save(img_3_17_1_bgImage_property);
+        AttributeValue img_3_17_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,img_3_17_1_bgImage_property,img_3_17_1_bgImage_property,1L,now,now,admin_1,admin_1);
+        attributeValueService.save(img_3_17_1_bgImage_property_value);
 
 
         PGObjectInstance img_3_17_0 = new PGObjectInstance("img_3_17_0",3,17,0,puzzleGroup_puzzleObject,puzzleLevel_Maze,1L,now,now,admin_1,admin_1);
         pgObjectInstanceService.save(img_3_17_0);
+        Attribute img_3_17_0_bgImage_property =new Attribute("bgImage",img_3_17_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,alcity_Binary,1L,now,now,admin_1,admin_1);
+        attributeService.save(img_3_17_0_bgImage_property);
+        AttributeValue img_3_17_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,img_3_17_0_bgImage_property,img_3_17_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        attributeValueService.save(img_3_17_0_bgImage_property_value);
 
 
 
         PGObjectInstance img_4_17_1 = new PGObjectInstance("img_4_17_1",4,17,1,puzzleGroup_puzzleObject,puzzleLevel_Maze,1L,now,now,admin_1,admin_1);
         pgObjectInstanceService.save(img_4_17_1);
+        Attribute img_4_17_1_bgImage_property =new Attribute("bgImage",img_4_17_1.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,alcity_Binary,1L,now,now,admin_1,admin_1);
+        attributeService.save(img_4_17_1_bgImage_property);
+        AttributeValue img_4_17_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,img_4_17_1_bgImage_property,img_4_17_1_bgImage_property,1L,now,now,admin_1,admin_1);
+        attributeValueService.save(img_4_17_1_bgImage_property_value);
+
 
 
         PGObjectInstance img_4_17_0 = new PGObjectInstance("img_4_17_0",4,17,0,puzzleGroup_puzzleObject,puzzleLevel_Maze,1L,now,now,admin_1,admin_1);
         pgObjectInstanceService.save(img_4_17_0);
+        Attribute img_4_17_0_bgImage_property =new Attribute("bgImage",img_4_17_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,alcity_Binary,1L,now,now,admin_1,admin_1);
+        attributeService.save(img_4_17_0_bgImage_property);
+        AttributeValue img_4_17_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,img_4_17_0_bgImage_property,img_4_17_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        attributeValueService.save(img_4_17_0_bgImage_property_value);
 
 
         PGObjectInstance img_5_17_0 = new PGObjectInstance("img_5_17_0",5,17,0,puzzleGroup_puzzleObject,puzzleLevel_Maze,1L,now,now,admin_1,admin_1);
         pgObjectInstanceService.save(img_5_17_0);
+        Attribute img_5_17_0_bgImage_property =new Attribute("bgImage",img_5_17_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,alcity_Binary,1L,now,now,admin_1,admin_1);
+        attributeService.save(img_5_17_0_bgImage_property);
+        AttributeValue img_5_17_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,img_5_17_0_bgImage_property,img_5_17_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        attributeValueService.save(img_5_17_0_bgImage_property_value);
+        Attribute img_5_17_0_locked_variable =new Attribute("Locked",img_5_17_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Variable,alcity_Boolean,1L,now,now,admin_1,admin_1);
+        attributeService.save(img_5_17_0_locked_variable);
+        AttributeValue img_5_17_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,img_5_17_0_locked_variable,img_5_17_0_locked_variable,1L,now,now,admin_1,admin_1);
+        attributeValueService.save(img_5_17_0_locked_variable_value);
+
 
 
         PGObjectInstance img_6_17_0 = new PGObjectInstance("img_6_17_0",6,17,0,puzzleGroup_puzzleObject,puzzleLevel_Maze,1L,now,now,admin_1,admin_1);
         pgObjectInstanceService.save(img_6_17_0);
+        Attribute img_6_17_0_bgImage_property =new Attribute("bgImage",img_6_17_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,alcity_Binary,1L,now,now,admin_1,admin_1);
+        attributeService.save(img_6_17_0_bgImage_property);
+        AttributeValue img_6_17_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,img_6_17_0_bgImage_property,img_6_17_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        attributeValueService.save(img_6_17_0_bgImage_property_value);
+        Attribute img_6_17_0_locked_variable =new Attribute("Locked",img_6_17_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Variable,alcity_Boolean,1L,now,now,admin_1,admin_1);
+        attributeService.save(img_6_17_0_locked_variable);
+        AttributeValue img_6_17_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,img_6_17_0_locked_variable,img_6_17_0_locked_variable,1L,now,now,admin_1,admin_1);
+        attributeValueService.save(img_6_17_0_locked_variable_value);
+
 
 
         PGObjectInstance img_7_17_0 = new PGObjectInstance("img_7_17_0",7,17,0,puzzleGroup_puzzleObject,puzzleLevel_Maze,1L,now,now,admin_1,admin_1);
         pgObjectInstanceService.save(img_7_17_0);
+        Attribute img_7_17_0_bgImage_property =new Attribute("bgImage",img_7_17_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,alcity_Binary,1L,now,now,admin_1,admin_1);
+        attributeService.save(img_7_17_0_bgImage_property);
+        AttributeValue img_7_17_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,img_7_17_0_bgImage_property,img_7_17_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        attributeValueService.save(img_7_17_0_bgImage_property_value);
+        Attribute img_7_17_0_locked_variable =new Attribute("Locked",img_7_17_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Variable,alcity_Boolean,1L,now,now,admin_1,admin_1);
+        attributeService.save(img_7_17_0_locked_variable);
+        AttributeValue img_7_17_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,img_7_17_0_locked_variable,img_7_17_0_locked_variable,1L,now,now,admin_1,admin_1);
+        attributeValueService.save(img_7_17_0_locked_variable_value);
+
 
 
         PGObjectInstance img_8_17_1 = new PGObjectInstance("img_8_17_1",8,17,1,puzzleGroup_puzzleObject,puzzleLevel_Maze,1L,now,now,admin_1,admin_1);
         pgObjectInstanceService.save(img_8_17_1);
+        Attribute img_8_17_1_bgImage_property =new Attribute("bgImage",img_8_17_1.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,alcity_Binary,1L,now,now,admin_1,admin_1);
+        attributeService.save(img_8_17_1_bgImage_property);
+        AttributeValue img_8_17_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,img_8_17_1_bgImage_property,img_8_17_1_bgImage_property,1L,now,now,admin_1,admin_1);
+        attributeValueService.save(img_8_17_1_bgImage_property_value);
+
 
         PGObjectInstance img_8_17_0 = new PGObjectInstance("img_8_17_0",8,17,0,puzzleGroup_puzzleObject,puzzleLevel_Maze,1L,now,now,admin_1,admin_1);
         pgObjectInstanceService.save(img_8_17_0);
+        Attribute img_8_17_0_bgImage_property =new Attribute("bgImage",img_8_17_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,alcity_Binary,1L,now,now,admin_1,admin_1);
+        attributeService.save(img_8_17_0_bgImage_property);
+        AttributeValue img_8_17_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,img_8_17_0_bgImage_property,img_8_17_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        attributeValueService.save(img_8_17_0_bgImage_property_value);
+
 
 
         PGObjectInstance img_9_17_0 = new PGObjectInstance("img_9_17_0",9,17,0,puzzleGroup_puzzleObject,puzzleLevel_Maze,1L,now,now,admin_1,admin_1);
         pgObjectInstanceService.save(img_9_17_0);
+        Attribute img_9_17_0_bgImage_property =new Attribute("bgImage",img_9_17_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,alcity_Binary,1L,now,now,admin_1,admin_1);
+        attributeService.save(img_9_17_0_bgImage_property);
+        AttributeValue img_9_17_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,img_9_17_0_bgImage_property,img_9_17_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        attributeValueService.save(img_9_17_0_bgImage_property_value);
+        Attribute img_9_17_0_locked_variable =new Attribute("Locked",img_9_17_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Variable,alcity_Boolean,1L,now,now,admin_1,admin_1);
+        attributeService.save(img_9_17_0_locked_variable);
+        AttributeValue img_9_17_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,img_9_17_0_locked_variable,img_9_17_0_locked_variable,1L,now,now,admin_1,admin_1);
+        attributeValueService.save(img_9_17_0_locked_variable_value);
+
 
 
         PGObjectInstance img_10_17_0 = new PGObjectInstance("img_10_17_0",10,17,0,puzzleGroup_puzzleObject,puzzleLevel_Maze,1L,now,now,admin_1,admin_1);
         pgObjectInstanceService.save(img_10_17_0);
+        Attribute img_10_17_0_bgImage_property =new Attribute("bgImage",img_10_17_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,alcity_Binary,1L,now,now,admin_1,admin_1);
+        attributeService.save(img_10_17_0_bgImage_property);
+        AttributeValue img_10_17_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,img_10_17_0_bgImage_property,img_10_17_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        attributeValueService.save(img_10_17_0_bgImage_property_value);
+        Attribute img_10_17_0_locked_variable =new Attribute("Locked",img_10_17_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Variable,alcity_Boolean,1L,now,now,admin_1,admin_1);
+        attributeService.save(img_10_17_0_locked_variable);
+        AttributeValue img_10_17_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,img_10_17_0_locked_variable,img_10_17_0_locked_variable,1L,now,now,admin_1,admin_1);
+        attributeValueService.save(img_10_17_0_locked_variable_value);
+
 
 
         PGObjectInstance img_11_17_0 = new PGObjectInstance("img_11_17_0",11,17,0,puzzleGroup_puzzleObject,puzzleLevel_Maze,1L,now,now,admin_1,admin_1);
         pgObjectInstanceService.save(img_11_17_0);
+        Attribute img_11_17_0_bgImage_property =new Attribute("bgImage",img_11_17_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,alcity_Binary,1L,now,now,admin_1,admin_1);
+        attributeService.save(img_11_17_0_bgImage_property);
+        AttributeValue img_11_17_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,img_11_17_0_bgImage_property,img_11_17_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        attributeValueService.save(img_11_17_0_bgImage_property_value);
+        Attribute img_11_17_0_locked_variable =new Attribute("Locked",img_11_17_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Variable,alcity_Boolean,1L,now,now,admin_1,admin_1);
+        attributeService.save(img_11_17_0_locked_variable);
+        AttributeValue img_11_17_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,img_11_17_0_locked_variable,img_11_17_0_locked_variable,1L,now,now,admin_1,admin_1);
+        attributeValueService.save(img_11_17_0_locked_variable_value);
+
 
 
         PGObjectInstance img_12_17_0 = new PGObjectInstance("img_12_17_0",12,17,0,puzzleGroup_puzzleObject,puzzleLevel_Maze,1L,now,now,admin_1,admin_1);
         pgObjectInstanceService.save(img_12_17_0);
+        Attribute img_12_17_0_bgImage_property =new Attribute("bgImage",img_12_17_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,alcity_Binary,1L,now,now,admin_1,admin_1);
+        attributeService.save(img_12_17_0_bgImage_property);
+        AttributeValue img_12_17_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,img_12_17_0_bgImage_property,img_12_17_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        attributeValueService.save(img_12_17_0_bgImage_property_value);
+        Attribute img_12_17_0_locked_variable =new Attribute("Locked",img_12_17_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Variable,alcity_Boolean,1L,now,now,admin_1,admin_1);
+        attributeService.save(img_12_17_0_locked_variable);
+        AttributeValue img_12_17_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,img_12_17_0_locked_variable,img_12_17_0_locked_variable,1L,now,now,admin_1,admin_1);
+        attributeValueService.save(img_12_17_0_locked_variable_value);
+
 
 
         PGObjectInstance img_13_17_0 = new PGObjectInstance("img_13_17_0",13,17,0,puzzleGroup_puzzleObject,puzzleLevel_Maze,1L,now,now,admin_1,admin_1);
         pgObjectInstanceService.save(img_13_17_0);
+        Attribute img_13_17_0_bgImage_property =new Attribute("bgImage",img_13_17_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,alcity_Binary,1L,now,now,admin_1,admin_1);
+        attributeService.save(img_13_17_0_bgImage_property);
+        AttributeValue img_13_17_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,img_13_17_0_bgImage_property,img_13_17_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        attributeValueService.save(img_13_17_0_bgImage_property_value);
+        Attribute img_13_17_0_locked_variable =new Attribute("Locked",img_13_17_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Variable,alcity_Boolean,1L,now,now,admin_1,admin_1);
+        attributeService.save(img_13_17_0_locked_variable);
+        AttributeValue img_13_17_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,img_13_17_0_locked_variable,img_13_17_0_locked_variable,1L,now,now,admin_1,admin_1);
+        attributeValueService.save(img_13_17_0_locked_variable_value);
+
 
 
         PGObjectInstance img_14_17_1 = new PGObjectInstance("img_14_17_1",14,17,1,puzzleGroup_puzzleObject,puzzleLevel_Maze,1L,now,now,admin_1,admin_1);
         pgObjectInstanceService.save(img_14_17_1);
+        Attribute img_14_17_1_bgImage_property =new Attribute("bgImage",img_14_17_1.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,alcity_Binary,1L,now,now,admin_1,admin_1);
+        attributeService.save(img_14_17_1_bgImage_property);
+        AttributeValue img_14_17_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,img_14_17_1_bgImage_property,img_14_17_1_bgImage_property,1L,now,now,admin_1,admin_1);
+        attributeValueService.save(img_14_17_1_bgImage_property_value);
+
 
 
         PGObjectInstance img_14_17_0 = new PGObjectInstance("img_14_17_0",14,17,0,puzzleGroup_puzzleObject,puzzleLevel_Maze,1L,now,now,admin_1,admin_1);
         pgObjectInstanceService.save(img_14_17_0);
+        Attribute img_14_17_0_bgImage_property =new Attribute("bgImage",img_14_17_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,alcity_Binary,1L,now,now,admin_1,admin_1);
+        attributeService.save(img_14_17_0_bgImage_property);
+        AttributeValue img_14_17_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,img_14_17_0_bgImage_property,img_14_17_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        attributeValueService.save(img_14_17_0_bgImage_property_value);
+
 
 
         PGObjectInstance img_15_17_0 = new PGObjectInstance("img_15_17_0",15,17,0,puzzleGroup_puzzleObject,puzzleLevel_Maze,1L,now,now,admin_1,admin_1);
         pgObjectInstanceService.save(img_15_17_0);
+        Attribute img_15_17_0_bgImage_property =new Attribute("bgImage",img_15_17_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,alcity_Binary,1L,now,now,admin_1,admin_1);
+        attributeService.save(img_15_17_0_bgImage_property);
+        AttributeValue img_15_17_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,img_15_17_0_bgImage_property,img_15_17_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        attributeValueService.save(img_15_17_0_bgImage_property_value);
+        Attribute img_15_17_0_locked_variable =new Attribute("Locked",img_15_17_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Variable,alcity_Boolean,1L,now,now,admin_1,admin_1);
+        attributeService.save(img_15_17_0_locked_variable);
+        AttributeValue img_15_17_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,img_15_17_0_locked_variable,img_15_17_0_locked_variable,1L,now,now,admin_1,admin_1);
+        attributeValueService.save(img_15_17_0_locked_variable_value);
+
 
 
         PGObjectInstance img_16_17_0 = new PGObjectInstance("img_16_17_0",16,17,0,puzzleGroup_puzzleObject,puzzleLevel_Maze,1L,now,now,admin_1,admin_1);
         pgObjectInstanceService.save(img_16_17_0);
+        Attribute img_16_17_0_bgImage_property =new Attribute("bgImage",img_16_17_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,alcity_Binary,1L,now,now,admin_1,admin_1);
+        attributeService.save(img_16_17_0_bgImage_property);
+        AttributeValue img_16_17_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,img_16_17_0_bgImage_property,img_16_17_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        attributeValueService.save(img_16_17_0_bgImage_property_value);
+        Attribute img_16_17_0_locked_variable =new Attribute("Locked",img_16_17_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Variable,alcity_Boolean,1L,now,now,admin_1,admin_1);
+        attributeService.save(img_16_17_0_locked_variable);
+        AttributeValue img_16_17_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,img_16_17_0_locked_variable,img_16_17_0_locked_variable,1L,now,now,admin_1,admin_1);
+        attributeValueService.save(img_16_17_0_locked_variable_value);
 
 
         PGObjectInstance img_17_17_1 = new PGObjectInstance("img_17_17_1",17,17,1,puzzleGroup_puzzleObject,puzzleLevel_Maze,1L,now,now,admin_1,admin_1);
         pgObjectInstanceService.save(img_17_17_1);
+        Attribute img_17_17_1_bgImage_property =new Attribute("bgImage",img_17_17_1.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,alcity_Binary,1L,now,now,admin_1,admin_1);
+        attributeService.save(img_17_17_1_bgImage_property);
+        AttributeValue img_17_17_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,img_17_17_1_bgImage_property,img_17_17_1_bgImage_property,1L,now,now,admin_1,admin_1);
+        attributeValueService.save(img_17_17_1_bgImage_property_value);
+
 
 
         PGObjectInstance img_17_17_0 = new PGObjectInstance("img_17_17_0",17,17,0,puzzleGroup_puzzleObject,puzzleLevel_Maze,1L,now,now,admin_1,admin_1);
         pgObjectInstanceService.save(img_17_17_0);
+        Attribute img_17_17_0_bgImage_property =new Attribute("bgImage",img_17_17_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,alcity_Binary,1L,now,now,admin_1,admin_1);
+        attributeService.save(img_17_17_0_bgImage_property);
+        AttributeValue img_17_17_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,img_17_17_0_bgImage_property,img_17_17_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        attributeValueService.save(img_17_17_0_bgImage_property_value);
+
 
 
         PGObjectInstance img_18_17_0 = new PGObjectInstance("img_18_17_0",18,17,0,puzzleGroup_puzzleObject,puzzleLevel_Maze,1L,now,now,admin_1,admin_1);
         pgObjectInstanceService.save(img_18_17_0);
+        Attribute img_18_17_0_bgImage_property =new Attribute("bgImage",img_18_17_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,alcity_Binary,1L,now,now,admin_1,admin_1);
+        attributeService.save(img_18_17_0_bgImage_property);
+        AttributeValue img_18_17_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,img_18_17_0_bgImage_property,img_18_17_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        attributeValueService.save(img_18_17_0_bgImage_property_value);
+        Attribute img_18_17_0_locked_variable =new Attribute("Locked",img_18_17_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Variable,alcity_Boolean,1L,now,now,admin_1,admin_1);
+        attributeService.save(img_18_17_0_locked_variable);
+        AttributeValue img_18_17_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,img_18_17_0_locked_variable,img_18_17_0_locked_variable,1L,now,now,admin_1,admin_1);
+        attributeValueService.save(img_18_17_0_locked_variable_value);
+
 
 
         PGObjectInstance img_19_17_0 = new PGObjectInstance("img_19_17_0",19,17,0,puzzleGroup_puzzleObject,puzzleLevel_Maze,1L,now,now,admin_1,admin_1);
         pgObjectInstanceService.save(img_19_17_0);
+        Attribute img_19_17_0_bgImage_property =new Attribute("bgImage",img_19_17_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,alcity_Binary,1L,now,now,admin_1,admin_1);
+        attributeService.save(img_19_17_0_bgImage_property);
+        AttributeValue img_19_17_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,img_19_17_0_bgImage_property,img_19_17_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        attributeValueService.save(img_19_17_0_bgImage_property_value);
+        Attribute img_19_17_0_locked_variable =new Attribute("Locked",img_19_17_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Variable,alcity_Boolean,1L,now,now,admin_1,admin_1);
+        attributeService.save(img_19_17_0_locked_variable);
+        AttributeValue img_19_17_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,img_19_17_0_locked_variable,img_19_17_0_locked_variable,1L,now,now,admin_1,admin_1);
+        attributeValueService.save(img_19_17_0_locked_variable_value);
+
 
 
         PGObjectInstance img_1_18_0 = new PGObjectInstance("img_1_18_0",1,18,0,puzzleGroup_puzzleObject,puzzleLevel_Maze,1L,now,now,admin_1,admin_1);
         pgObjectInstanceService.save(img_1_18_0);
+        Attribute img_1_18_0_bgImage_property =new Attribute("bgImage",img_1_18_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,alcity_Binary,1L,now,now,admin_1,admin_1);
+        attributeService.save(img_1_18_0_bgImage_property);
+        AttributeValue img_1_18_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,img_1_18_0_bgImage_property,img_1_18_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        attributeValueService.save(img_1_18_0_bgImage_property_value);
+        Attribute img_1_18_0_locked_variable =new Attribute("Locked",img_1_18_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Variable,alcity_Boolean,1L,now,now,admin_1,admin_1);
+        attributeService.save(img_1_18_0_locked_variable);
+        AttributeValue img_1_18_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,img_1_18_0_locked_variable,img_1_18_0_locked_variable,1L,now,now,admin_1,admin_1);
+        attributeValueService.save(img_1_18_0_locked_variable_value);
+
 
 
         PGObjectInstance img_2_18_1 = new PGObjectInstance("img_2_18_1",2,18,1,puzzleGroup_puzzleObject,puzzleLevel_Maze,1L,now,now,admin_1,admin_1);
         pgObjectInstanceService.save(img_2_18_1);
+        Attribute img_2_18_1_bgImage_property =new Attribute("bgImage",img_2_18_1.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,alcity_Binary,1L,now,now,admin_1,admin_1);
+        attributeService.save(img_2_18_1_bgImage_property);
+        AttributeValue img_2_18_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,img_2_18_1_bgImage_property,img_2_18_1_bgImage_property,1L,now,now,admin_1,admin_1);
+        attributeValueService.save(img_2_18_1_bgImage_property_value);
 
 
         PGObjectInstance img_2_18_0 = new PGObjectInstance("img_2_18_0",2,18,0,puzzleGroup_puzzleObject,puzzleLevel_Maze,1L,now,now,admin_1,admin_1);
