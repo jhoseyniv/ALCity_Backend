@@ -2283,10 +2283,10 @@ public class ImportProblemData_2_part2 implements CommandLineRunner {
 
         PGObjectInstance img_15_18_0 = new PGObjectInstance("img_15_18_0",15,18,0,puzzleGroup_puzzleObject,puzzleLevel_Maze,1L,now,now,admin_1,admin_1);
         pgObjectInstanceService.save(img_15_18_0);
-        Attribute img_14_18_0_bgImage_property =new Attribute("bgImage",img_14_18_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,alcity_Binary,1L,now,now,admin_1,admin_1);
-        attributeService.save(img_14_18_0_bgImage_property);
-        AttributeValue img_14_18_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,img_14_18_0_bgImage_property,img_14_18_0_bgImage_property,1L,now,now,admin_1,admin_1);
-        attributeValueService.save(img_14_18_0_bgImage_property_value);
+        Attribute img_15_18_0_bgImage_property =new Attribute("bgImage",img_15_18_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,alcity_Binary,1L,now,now,admin_1,admin_1);
+        attributeService.save(img_15_18_0_bgImage_property);
+        AttributeValue img_15_18_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,img_15_18_0_bgImage_property,img_15_18_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        attributeValueService.save(img_15_18_0_bgImage_property_value);
 
 
 
