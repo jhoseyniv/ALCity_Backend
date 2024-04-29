@@ -27,3 +27,17 @@
              "created": 1713814148,
              "updated": 1713814148
          }
+
+
+// add puzzle category
+
+ {
+
+        "label": "Graph",
+        "value": "Graph",
+        "version": 1,
+        "created": 1714379790,
+        "updated": 1714379790,
+        "createdBy": 8,
+        "updatedBy": 8
+    }
