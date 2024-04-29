@@ -4,6 +4,7 @@ import com.alcity.dto.base.BinaryContentDTO;
 import com.alcity.dto.journey.JourneyStepDTO;
 import com.alcity.dto.puzzle.*;
 import com.alcity.entity.base.BinaryContent;
+import com.alcity.entity.base.PuzzleCategory;
 import com.alcity.entity.journey.JourneyStep;
 import com.alcity.entity.puzzle.*;
 import com.alcity.service.base.PuzzleCategoryService;
@@ -89,19 +90,7 @@ public class PGController {
         return  puzzleGroupDTO;
     }
 
-//    @RequestMapping(value = "/id/{id}/po/all", method = RequestMethod.GET)
-//    @ResponseBody
-//    public Collection<PuzzleObjectDTO> getPuzzleObjectsByPuzzleGroupId(@PathVariable Long id) {
-//        Collection<PuzzleObjectDTO> puzzleObjectDTOCollection = new ArrayList<>();
-//        Collection<PuzzleGroup_PuzzleObject> puzzleGroup_puzzleObjectCollection = new ArrayList<>();
-//        Optional<PuzzleGroup> puzzleGroup = puzzleGroupService.findById(id);
-//        if(puzzleGroup.isPresent()){
-//             DTOUtil.get(puzzleGroup.get());
-//
-//        }else puzzleObjectDTOCollection=null;
-//
-//        return puzzleObjectDTOCollection;
-//    }
+
 
 
 }

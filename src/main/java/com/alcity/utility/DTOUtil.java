@@ -17,10 +17,7 @@ import com.alcity.dto.player.PermitedPlayerDTO;
 import com.alcity.dto.puzzle.*;
 import com.alcity.entity.alenum.AttributeOwnerType;
 import com.alcity.entity.alobject.*;
-import com.alcity.entity.base.BinaryContent;
-import com.alcity.entity.base.CameraSetup;
-import com.alcity.entity.base.ClientType;
-import com.alcity.entity.base.DataType;
+import com.alcity.entity.base.*;
 import com.alcity.entity.journey.JourneyStep;
 import com.alcity.entity.learning.LearningContent;
 import com.alcity.entity.learning.LearningSkill;
@@ -326,6 +323,28 @@ public class DTOUtil {
         puzzleGroupDTO.setPic(binaryContentDTO_pic);
 
         return puzzleGroupDTO;
+    }
+    public static PuzzleCategoryDTO getPuzzleCategoryDTO(PuzzleCategory puzzleCategory) {
+        PuzzleCategoryDTO puzzleCategoryDTO = new PuzzleCategoryDTO();
+        Collection<PuzzleGroup> puzzleGroupCollection = puzzleCategory.getPuzzleGroupCollection();
+        puzzleCategoryDTO.setId(puzzleCategoryDTO.getId());
+        puzzleCategoryDTO.setVersion(puzzleCategory.getVersion());
+        puzzleCategoryDTO.setCreated(DateUtils.getDatatimeFromLong(puzzleCategory.getCreated()));
+        puzzleCategoryDTO.setUpdated(DateUtils.getDatatimeFromLong(puzzleCategory.getUpdated()));
+        puzzleCategoryDTO.setLabel(puzzleCategory.getLabel());
+        puzzleCategoryDTO.setValue(puzzleCategory.getValue());
+        Collection<PGDTO> puzzleGroupDTOCollection = new ArrayList<PGDTO>();
+
+        Iterator<PuzzleGroup> iterator = puzzleGroupCollection.iterator();
+        while(iterator.hasNext()){
+            PGDTO puzzleGroupDTO = new PGDTO();
+            PuzzleGroup puzzleGroup = iterator.next();
+            puzzleGroupDTO = getPuzzleGroupDTO(puzzleGroup);
+            puzzleGroupDTOCollection.add(puzzleGroupDTO);
+        }
+        puzzleCategoryDTO.setPuzzleGroupDTOCollection(puzzleGroupDTOCollection);
+
+        return puzzleCategoryDTO;
     }
 
 

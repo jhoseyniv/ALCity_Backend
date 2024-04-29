@@ -180,41 +180,6 @@ public class ALObjectController {
 
 
 
-    /*
-    @RequestMapping(value = "/cat/id/{id}", method = RequestMethod.GET)
-    @ResponseBody
-    public Collection<PuzzleObjectDTO> getPuzzleObjectsByObjectCategoryById(@PathVariable Long id) {
-        Collection<PuzzleObjectDTO> puzzleObjectDTOCollection = new ArrayList<PuzzleObjectDTO>();
-        Optional<ObjectCategory> objectCategoryOptional = objectCategoryService.findById(id);
-        if(objectCategoryOptional.isPresent()) {
-            Collection<PuzzleObject> puzzleObjectCollection = new ArrayList<PuzzleObject>();
-            ObjectCategory objectCategory =objectCategoryOptional.get();
-            puzzleObjectCollection = objectCategory.getPuzzleObjectCollection();
-            Iterator<PuzzleObject> itr = puzzleObjectCollection.iterator();
-            while(itr.hasNext()){
-                PuzzleObject puzzleObject = new PuzzleObject();
-                PuzzleObjectDTO puzzleObjectDTO = new PuzzleObjectDTO();
-                puzzleObject = itr.next();
-                puzzleObjectDTO.setId(puzzleObject.getId());
-                puzzleObjectDTO.setObjectCategory(puzzleObject.getObjectCategory().getLabel());
-                puzzleObjectDTO.setTitle(puzzleObject.getTitle());
-                puzzleObjectDTO.setVersion(puzzleObject.getVersion());
-                puzzleObjectDTO.setCreated(DateUtils.getDatatimeFromLong(objectCategory.getCreated()));
-                puzzleObjectDTO.setUpdated(DateUtils.getDatatimeFromLong(objectCategory.getUpdated()));
 
-                BinaryContentDTO iconDTO = new BinaryContentDTO(puzzleObject.getIcon().getFileName(),puzzleObject.getIcon().getSize(),
-                        puzzleObject.getIcon().getContent(),puzzleObject.getIcon().getId(),puzzleObject.getIcon().getVersion(),
-                        DateUtils.getDatatimeFromLong(puzzleObject.getIcon().getCreated())
-                        ,DateUtils.getDatatimeFromLong(puzzleObject.getIcon().getUpdated()));
-                puzzleObjectDTO.setIcon(iconDTO);
-                puzzleObjectDTOCollection.add(puzzleObjectDTO);
-            }
-
-        } else
-            puzzleObjectDTOCollection=null;
-
-      return puzzleObjectDTOCollection;
-    }
-*/
 
 }

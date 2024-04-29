@@ -1,7 +1,9 @@
 package com.alcity.api;
 
+import com.alcity.customexception.UniqueConstraintException;
 import com.alcity.dto.puzzle.PuzzleCategoryDTO;
 import com.alcity.dto.puzzle.PGDTO;
+import com.alcity.entity.base.DataType;
 import com.alcity.entity.base.PuzzleCategory;
 import com.alcity.entity.puzzle.PuzzleGroup;
 import com.alcity.service.base.PuzzleCategoryService;
@@ -36,7 +38,7 @@ public class PuzzleCategoryController {
             puzzleCategoryDTO.setVersion(puzzleCategory.getVersion());
             puzzleCategoryDTO.setCreated(DateUtils.getDatatimeFromLong(puzzleCategory.getCreated()));
             puzzleCategoryDTO.setUpdated(DateUtils.getDatatimeFromLong(puzzleCategory.getUpdated()));
-            Collection<PuzzleGroup>  puzzleGroupSet = puzzleCategory.getPuzzleGroupSet();
+            Collection<PuzzleGroup>  puzzleGroupSet = puzzleCategory.getPuzzleGroupCollection();
 
             Iterator<PuzzleGroup> itrPuzzleGroupSet = puzzleGroupSet.iterator();
             while(itrPuzzleGroupSet.hasNext()){
@@ -46,7 +48,7 @@ public class PuzzleCategoryController {
                 puzzleGroupDTO.setId(puzzleGroup.getId());
                 puzzleGroupDTOCollection.add(puzzleGroupDTO);
             }
-            puzzleCategoryDTO.setPuzzleGroupDTOSet(puzzleGroupDTOCollection);
+            puzzleCategoryDTO.setPuzzleGroupDTOCollection(puzzleGroupDTOCollection);
             puzzleCategoryDTOCollection.add(puzzleCategoryDTO);
         }
         return puzzleCategoryDTOCollection;
@@ -65,7 +67,7 @@ public class PuzzleCategoryController {
             puzzleCategoryDTO.setVersion(puzzleCategory.get().getVersion());
             puzzleCategoryDTO.setCreated(DateUtils.getDatatimeFromLong(puzzleCategory.get().getCreated()));
             puzzleCategoryDTO.setUpdated(DateUtils.getDatatimeFromLong(puzzleCategory.get().getUpdated()));
-            Collection<PuzzleGroup> puzzleGroupSet = puzzleCategory.get().getPuzzleGroupSet();
+            Collection<PuzzleGroup> puzzleGroupSet = puzzleCategory.get().getPuzzleGroupCollection();
 
             Iterator<PuzzleGroup> itrPuzzleGroupSet = puzzleGroupSet.iterator();
             while (itrPuzzleGroupSet.hasNext()) {
@@ -75,9 +77,22 @@ public class PuzzleCategoryController {
                 puzzleGroupDTO.setId(puzzleGroup.getId());
                 puzzleGroupDTOCollection.add(puzzleGroupDTO);
             }
-            puzzleCategoryDTO.setPuzzleGroupDTOSet(puzzleGroupDTOCollection);
+            puzzleCategoryDTO.setPuzzleGroupDTOCollection(puzzleGroupDTOCollection);
         }
         return puzzleCategoryDTO;
     }
+    @PostMapping("/save")
+    public Optional<PuzzleCategory> savePuzzleCategory(@RequestBody PuzzleCategory puzzleCategory)  {
+        PuzzleCategory savedPuzzleCategory = null;
+        try {
+            savedPuzzleCategory = puzzleCategoryService.save(puzzleCategory);
+        }catch (RuntimeException e )
+        {
+            throw new UniqueConstraintException(puzzleCategory.getLabel(), puzzleCategory.getId(), PuzzleCategory.class.toString());
+        }
+        Optional<PuzzleCategory> output = puzzleCategoryService.findById(savedPuzzleCategory.getId());
+        return output;
+    }
+
 
 }

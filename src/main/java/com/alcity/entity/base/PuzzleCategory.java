@@ -6,20 +6,21 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Set;
 
 @Entity
 public class PuzzleCategory extends BaseItemSet implements Serializable {
 
     @OneToMany(mappedBy = "puzzleCategory", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Set<PuzzleGroup> puzzleGroupSet;
+    private Collection<PuzzleGroup> puzzleGroupCollection;
 
-    public Set<PuzzleGroup> getPuzzleGroupSet() {
-        return puzzleGroupSet;
+    public Collection<PuzzleGroup> getPuzzleGroupCollection() {
+        return puzzleGroupCollection;
     }
 
-    public void setPuzzleGroupSet(Set<PuzzleGroup> puzzleGroupSet) {
-        this.puzzleGroupSet = puzzleGroupSet;
+    public void setPuzzleGroupCollection(Collection<PuzzleGroup> puzzleGroupCollection) {
+        this.puzzleGroupCollection = puzzleGroupCollection;
     }
 
     public PuzzleCategory() {
