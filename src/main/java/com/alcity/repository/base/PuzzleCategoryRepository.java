@@ -2,6 +2,7 @@ package com.alcity.repository.base;
 
 import com.alcity.entity.base.PuzzleCategory;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.http.ResponseEntity;
 
 import java.util.Collection;
 import java.util.Optional;
@@ -12,5 +13,6 @@ public interface PuzzleCategoryRepository  extends CrudRepository<PuzzleCategory
     PuzzleCategory findByLabel(String label);
     PuzzleCategory findByValue(String value);
     Collection<PuzzleCategory> findByValueContains(String criteria);
+    void deleteById(Long id);
 
 }

@@ -6,7 +6,7 @@ import org.springframework.data.repository.CrudRepository;
 import java.util.Collection;
 import java.util.Optional;
 
-public interface PuzzleLevelPrivacyRepository extends CrudRepository<PLPrivacy,Long> {
+public interface PLPrivacyRepository extends CrudRepository<PLPrivacy,Long> {
     Optional<PLPrivacy> findById(Long id);
     Collection<PLPrivacy> findAll();
     PLPrivacy findByLabel(String label);

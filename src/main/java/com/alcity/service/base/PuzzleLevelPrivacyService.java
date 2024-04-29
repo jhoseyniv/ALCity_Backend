@@ -1,7 +1,7 @@
 package com.alcity.service.base;
 
 import com.alcity.entity.base.PLPrivacy;
-import com.alcity.repository.base.PuzzleLevelPrivacyRepository;
+import com.alcity.repository.base.PLPrivacyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,10 +12,10 @@ import java.util.Optional;
 
 @Service
 @Transactional
-public class PuzzleLevelPrivacyService implements PuzzleLevelPrivacyRepository {
+public class PuzzleLevelPrivacyService implements PLPrivacyRepository {
 
    @Autowired
-    PuzzleLevelPrivacyRepository puzzleLevelPrivacyRepository;
+   PLPrivacyRepository puzzleLevelPrivacyRepository;
     @Override
     public <S extends PLPrivacy> S save(S entity) {
         return puzzleLevelPrivacyRepository.save(entity);

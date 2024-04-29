@@ -1,6 +1,7 @@
 package com.alcity.api;
 
 import com.alcity.customexception.UniqueConstraintException;
+import com.alcity.customexception.ViolateForeignKeyException;
 import com.alcity.dto.puzzle.PuzzleCategoryDTO;
 import com.alcity.dto.puzzle.PGDTO;
 import com.alcity.entity.base.DataType;
@@ -9,6 +10,8 @@ import com.alcity.entity.puzzle.PuzzleGroup;
 import com.alcity.service.base.PuzzleCategoryService;
 import com.alcity.utility.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
@@ -124,6 +127,20 @@ public class PuzzleCategoryController {
         Optional<PuzzleCategory> output = puzzleCategoryService.findById(savedPuzzleCategory.getId());
         return output;
     }
+    @DeleteMapping("/del/{id}")
+    public ResponseEntity<String> deletePuzzleCategoryById(@PathVariable Long id) {
+        Optional<PuzzleCategory> existingRecord = this.puzzleCategoryService.findById(id);
+        if(existingRecord.isPresent()){
+            try {
+                this.puzzleCategoryService.deleteById(existingRecord.get().getId());
 
+            }catch (Exception e )
+        {
+            throw new ViolateForeignKeyException(existingRecord.get().getLabel(), existingRecord.get().getId(), PuzzleCategory.class.toString());
+        }
+            return new ResponseEntity<>("Record deleted Successfully!", HttpStatus.OK);
+        }
+        return ResponseEntity.notFound().build();
+    }
 
 }

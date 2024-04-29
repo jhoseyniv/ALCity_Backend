@@ -55,7 +55,7 @@ public class PuzzleCategoryService implements PuzzleCategoryRepository {
 
     @Override
     public void deleteById(Long aLong) {
-
+        puzzleCategoryRepository.deleteById(aLong);
     }
 
     @Override

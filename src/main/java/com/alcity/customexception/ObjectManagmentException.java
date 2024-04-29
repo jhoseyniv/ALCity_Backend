@@ -37,6 +37,17 @@ public class ObjectManagmentException extends ResponseEntityExceptionHandler {
         body.put("Object Name ", ex.getDatabaseEntity() );
         return new ResponseEntity<>(body, HttpStatus.NOT_FOUND);
     }
+    @ExceptionHandler(ViolateForeignKeyException.class)
+    public ResponseEntity<Object> handleViolateForeignKeyException(ViolateForeignKeyException ex, WebRequest request) {
+
+        Map<String, Object> body = new LinkedHashMap<>();
+        body.put("timestamp:", LocalDateTime.now());
+        body.put("message ", "This record Id has a many related data in databes , violates foreign key constraint...." );
+        body.put("Record Value ", ex.getRecordData() );
+        body.put("Record Id ", ex.getRecordId() );
+        body.put("Object Name ", ex.getDatabaseEntity() );
+        return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
+    }
 
 
 }
