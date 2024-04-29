@@ -81,6 +81,37 @@ public class PuzzleCategoryController {
         }
         return puzzleCategoryDTO;
     }
+    @RequestMapping(value = "/cond/{criteria}", method = RequestMethod.GET)
+    @ResponseBody
+    public PuzzleCategoryDTO getPuzzleCategoryByCriteria(@PathVariable String criteria) {
+        Collection<PuzzleCategory> puzzleCategoryCollection = puzzleCategoryService.findByValueContains(criteria);
+        Collection<PGDTO> puzzleGroupDTOCollection = new ArrayList<>();
+        PuzzleCategoryDTO puzzleCategoryDTO = new PuzzleCategoryDTO();
+        Iterator<PuzzleCategory> itr = puzzleCategoryCollection.iterator();
+
+        while(itr.hasNext()){
+            PuzzleCategory puzzleCategory = itr.next();
+            puzzleCategoryDTO.setId(puzzleCategory.getId());
+            puzzleCategoryDTO.setLabel(puzzleCategory.getLabel());
+            puzzleCategoryDTO.setValue(puzzleCategory.getValue());
+            puzzleCategoryDTO.setVersion(puzzleCategory.getVersion());
+            puzzleCategoryDTO.setCreated(DateUtils.getDatatimeFromLong(puzzleCategory.getCreated()));
+            puzzleCategoryDTO.setUpdated(DateUtils.getDatatimeFromLong(puzzleCategory.getUpdated()));
+            Collection<PuzzleGroup> puzzleGroupSet = puzzleCategory.getPuzzleGroupCollection();
+
+            Iterator<PuzzleGroup> itrPuzzleGroupSet = puzzleGroupSet.iterator();
+            while (itrPuzzleGroupSet.hasNext()) {
+                PGDTO puzzleGroupDTO = new PGDTO();
+                PuzzleGroup puzzleGroup = itrPuzzleGroupSet.next();
+                puzzleGroupDTO.setTitle(puzzleGroup.getTitle());
+                puzzleGroupDTO.setId(puzzleGroup.getId());
+                puzzleGroupDTOCollection.add(puzzleGroupDTO);
+            }
+            puzzleCategoryDTO.setPuzzleGroupDTOCollection(puzzleGroupDTOCollection);
+        }
+        return puzzleCategoryDTO;
+    }
+
     @PostMapping("/save")
     public Optional<PuzzleCategory> savePuzzleCategory(@RequestBody PuzzleCategory puzzleCategory)  {
         PuzzleCategory savedPuzzleCategory = null;

@@ -11,5 +11,6 @@ public interface PuzzleCategoryRepository  extends CrudRepository<PuzzleCategory
     Collection<PuzzleCategory> findAll();
     PuzzleCategory findByLabel(String label);
     PuzzleCategory findByValue(String value);
+    Collection<PuzzleCategory> findByValueContains(String criteria);
 
 }

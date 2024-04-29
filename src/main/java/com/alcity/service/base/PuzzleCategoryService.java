@@ -87,4 +87,9 @@ public class PuzzleCategoryService implements PuzzleCategoryRepository {
     public PuzzleCategory findByValue(String value) {
         return puzzleCategoryRepository.findByValue(value);
     }
+
+    @Override
+    public Collection<PuzzleCategory> findByValueContains(String criteria) {
+        return puzzleCategoryRepository.findByValueContains(criteria);
+    }
 }
