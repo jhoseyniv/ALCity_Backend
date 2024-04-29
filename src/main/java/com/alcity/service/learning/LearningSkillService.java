@@ -41,6 +41,11 @@ public class LearningSkillService implements LearningSkillRepository {
     }
 
     @Override
+    public Collection<LearningSkill> findByValueContains(String criteria) {
+        return learningSkillRepository.findByValueContains(criteria);
+    }
+
+    @Override
     public Iterable<LearningSkill> findAllById(Iterable<Long> longs) {
         return null;
     }
