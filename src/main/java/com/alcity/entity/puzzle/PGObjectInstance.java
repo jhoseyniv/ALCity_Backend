@@ -75,7 +75,7 @@ public class PGObjectInstance extends BaseTable implements Serializable {
     public PGObjectInstance() {
     }
 
-    public PGObjectInstance(String name, Integer row, Integer col, Integer zOrder, PuzzleGroup_PuzzleObject puzzleGroup_PuzzleObject, PuzzleLevel puzzleLevel, Long version, Long created, Long updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
+    public PGObjectInstance(String name, Integer row, Integer col, Integer zOrder, PuzzleGroup_PuzzleObject puzzleGroup_PuzzleObject, PuzzleLevel puzzleLevel, Long version, String created, String updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
         super(version, created, updated, createdBy, updatedBy);
         this.name = name;
         this.row = row;

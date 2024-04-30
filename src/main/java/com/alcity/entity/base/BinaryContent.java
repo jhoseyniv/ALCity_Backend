@@ -2,6 +2,7 @@ package com.alcity.entity.base;
 
 
 import com.alcity.entity.alobject.AttributeValue;
+import com.alcity.entity.journey.Journey;
 import com.alcity.entity.learning.LearningContent;
 import com.alcity.entity.users.ApplicationMember;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -9,6 +10,7 @@ import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Set;
 
 @Entity
@@ -33,6 +35,8 @@ public class BinaryContent extends BaseTable implements Serializable {
 
     @OneToMany(mappedBy = "binaryContent", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<LearningContent> learningContentSet;
+
+
 
     public Set<LearningContent> getLearningContentSet() {
         return learningContentSet;
@@ -89,7 +93,7 @@ public class BinaryContent extends BaseTable implements Serializable {
     public BinaryContent() {
     }
 
-    public BinaryContent(String fileName, byte[] content, BinaryContentType contentType,Long version, Long created, Long updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
+    public BinaryContent(String fileName, byte[] content, BinaryContentType contentType,Long version, String created, String updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
         super(version, created, updated, createdBy, updatedBy);
         this.fileName = fileName;
         this.size = content.length;

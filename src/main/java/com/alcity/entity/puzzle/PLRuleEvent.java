@@ -28,7 +28,7 @@ public class PLRuleEvent extends BaseTable implements Serializable {
     public PLRuleEvent() {
     }
 
-    public PLRuleEvent(String name, PLRuleEventType plRuleEventType, Integer eventId, PLRule puzzleLevelRule, Long version, Long created, Long updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
+    public PLRuleEvent(String name, PLRuleEventType plRuleEventType, Integer eventId, PLRule puzzleLevelRule, Long version, String created, String updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
         super(version, created, updated, createdBy, updatedBy);
         this.name = name;
         this.plRuleEventType = plRuleEventType;

@@ -55,7 +55,7 @@ public class LearningContent  extends BaseTable implements Serializable {
     public LearningContent() {
     }
 
-    public LearningContent(String descText, String descBrief, BinaryContent binaryContent, Long version, Long created, Long updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
+    public LearningContent(String descText, String descBrief, BinaryContent binaryContent, Long version, String created, String updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
         super(version, created, updated, createdBy, updatedBy);
         this.descText = descText;
         this.descBrief = descBrief;

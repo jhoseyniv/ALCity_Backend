@@ -14,7 +14,7 @@ import java.io.Serializable;
 public class WalletTransaction extends BaseTable implements Serializable {
 
     @NotNull(message = "{transactionDate.notempty}")
-    private Long transactionDate;
+    private String transactionDate;
 
     @NotNull(message = "{amount.notempty}")
     private Float amount;
@@ -30,11 +30,11 @@ public class WalletTransaction extends BaseTable implements Serializable {
     @JsonIgnore
     private ApplicationMember_WalletItem applicationMember_WalletItem;
 
-    public Long getTransactionDate() {
+    public String getTransactionDate() {
         return transactionDate;
     }
 
-    public void setTransactionDate(Long transactionDate) {
+    public void setTransactionDate(String transactionDate) {
         this.transactionDate = transactionDate;
     }
 
@@ -65,7 +65,7 @@ public class WalletTransaction extends BaseTable implements Serializable {
     public WalletTransaction() {
     }
 
-    public WalletTransaction( Long transactionDate, Float amount, Boolean incTransaction, String description, ApplicationMember_WalletItem applicationMember_WalletItem,Long version, Long created, Long updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
+    public WalletTransaction( String transactionDate, Float amount, Boolean incTransaction, String description, ApplicationMember_WalletItem applicationMember_WalletItem,Long version, String created, String updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
         super(version, created, updated, createdBy, updatedBy);
         this.transactionDate = transactionDate;
         this.amount = amount;

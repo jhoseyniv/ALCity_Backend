@@ -29,7 +29,7 @@ public class PLGameInstance extends BaseTable implements Serializable {
     public PLGameInstance() {
     }
 
-    public PLGameInstance(ApplicationMember player, PuzzleLevel puzzleLevel, GameStatus gameStatus, Long version, Long created, Long updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
+    public PLGameInstance(ApplicationMember player, PuzzleLevel puzzleLevel, GameStatus gameStatus, Long version, String created, String updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
         super(version, created, updated, createdBy, updatedBy);
         this.player = player;
         this.puzzleLevel = puzzleLevel;

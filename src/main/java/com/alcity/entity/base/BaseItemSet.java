@@ -32,11 +32,11 @@ public abstract class BaseItemSet implements Serializable {
     private Long version;
 
     @NotNull(message = "{bLength.notempty}")
-    private Long created;
+    private String created;
 
 
     @NotNull(message = "{bHeight.notempty}")
-    private Long updated;
+    private String updated;
 
     public String getLabel() {
         return label;
@@ -50,11 +50,11 @@ public abstract class BaseItemSet implements Serializable {
         return version;
     }
 
-    public Long getCreated() {
+    public String getCreated() {
         return created;
     }
 
-    public Long getUpdated() {
+    public String getUpdated() {
         return updated;
     }
 
@@ -81,7 +81,7 @@ public abstract class BaseItemSet implements Serializable {
     public BaseItemSet() {
     }
 
-    public BaseItemSet(String label, String value, Long version, Long created, Long updated, ApplicationMember createdBy , ApplicationMember updatedBy) {
+    public BaseItemSet(String label, String value, Long version, String created, String updated, ApplicationMember createdBy , ApplicationMember updatedBy) {
         this.label = label;
         this.value = value;
         this.version = version;

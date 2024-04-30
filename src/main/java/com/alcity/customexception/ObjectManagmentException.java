@@ -22,7 +22,7 @@ public class ObjectManagmentException extends ResponseEntityExceptionHandler {
         Map<String, Object> body = new LinkedHashMap<>();
         body.put("timestamp", LocalDateTime.now());
         body.put("message", ex.getMessage() );
-        body.put("Record", ex.getUsername() );
+        body.put("Record", ex.getRecordId() );
         return new ResponseEntity<>(body, HttpStatus.NOT_FOUND);
     }
 

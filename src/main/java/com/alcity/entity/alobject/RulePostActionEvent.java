@@ -22,7 +22,7 @@ public class RulePostActionEvent extends BaseTable implements Serializable {
     @JsonIgnore
     private PLRulePostAction plRulePostAction;
 
-    public RulePostActionEvent(PLRulePostAction plRulePostAction, Long version, Long created, Long updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
+    public RulePostActionEvent(PLRulePostAction plRulePostAction, Long version, String created, String updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
         super(version, created, updated, createdBy, updatedBy);
         this.plRulePostAction = plRulePostAction;
     }

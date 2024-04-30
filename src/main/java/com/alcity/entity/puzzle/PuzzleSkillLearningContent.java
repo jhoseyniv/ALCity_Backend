@@ -49,7 +49,7 @@ public class PuzzleSkillLearningContent extends BaseTable implements Serializabl
     public PuzzleSkillLearningContent() {
     }
 
-    public PuzzleSkillLearningContent(LearningSkill learningSkill, PuzzleGroup puzzleGroup, LearningContent learningContent, Long version, Long created, Long updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
+    public PuzzleSkillLearningContent(LearningSkill learningSkill, PuzzleGroup puzzleGroup, LearningContent learningContent, Long version, String created, String updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
         super(version, created, updated, createdBy, updatedBy);
         this.learningSkill = learningSkill;
         this.puzzleGroup = puzzleGroup;

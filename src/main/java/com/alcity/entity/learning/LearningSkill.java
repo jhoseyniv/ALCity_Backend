@@ -12,7 +12,7 @@ public class LearningSkill extends BaseItemSet implements Serializable {
     public LearningSkill() {
     }
 
-    public LearningSkill(String label, String value, Long version, Long created, Long updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
+    public LearningSkill(String label, String value, Long version, String created, String updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
         super(label, value, version, created, updated, createdBy, updatedBy);
     }
 }

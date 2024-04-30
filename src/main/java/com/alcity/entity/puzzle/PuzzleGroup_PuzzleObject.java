@@ -74,7 +74,7 @@ public class PuzzleGroup_PuzzleObject extends BaseTable implements Serializable 
         this.puzzleObject = puzzleObject;
     }
 
-    public PuzzleGroup_PuzzleObject(String title, String code, PuzzleGroup puzzleGroup, PuzzleObject puzzleObject, Long version, Long created, Long updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
+    public PuzzleGroup_PuzzleObject(String title, String code, PuzzleGroup puzzleGroup, PuzzleObject puzzleObject, Long version, String created, String updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
         super(version, created, updated, createdBy, updatedBy);
         this.title = title;
         this.code = code;

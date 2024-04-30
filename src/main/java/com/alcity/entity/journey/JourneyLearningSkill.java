@@ -51,7 +51,7 @@ public class JourneyLearningSkill extends BaseTable implements Serializable {
     public JourneyLearningSkill() {
     }
 
-    public JourneyLearningSkill(Float requiredAmount, Journey journey, LearningSkill learningSkill , Long version, Long created, Long updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
+    public JourneyLearningSkill(Float requiredAmount, Journey journey, LearningSkill learningSkill , Long version, String created, String updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
         super(version, created, updated, createdBy, updatedBy);
         this.requiredAmount = requiredAmount;
         this.journey = journey;

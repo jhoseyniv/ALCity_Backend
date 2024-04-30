@@ -37,8 +37,10 @@ import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 import java.time.Instant;
+import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 
 
 @Order(value=2)
@@ -163,10 +165,9 @@ public class ImportProblemData_1 implements CommandLineRunner {
     public void run(String... args) throws Exception {
         log.info("Start Application...Import Problem 1");
         System.out.println("...Import Problem 1");
-
-        ZoneId zoneId = ZoneId.of("Europe/London").getRules().getOffset(Instant.now());
-        ZonedDateTime startDate = ZonedDateTime.now();
-        ZonedDateTime endDate = ZonedDateTime.of(2022, 3, 30, 23, 45, 59, 1234, zoneId);
+        LocalDateTime current = LocalDateTime.now();
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+        String now = current.format(format);
         // byte[] avatar = getImage("src/main/resources/images/","avatar.png");
 
         ApplicationMember admin_1 = applicationMemberService.findByUsername("admin");
@@ -189,8 +190,6 @@ public class ImportProblemData_1 implements CommandLineRunner {
         Journey journey_2 = journeyService.findByTitle("Journey_2");
 
 
-        ZonedDateTime  createdDate= ZonedDateTime.now();
-        Long now = createdDate.toEpochSecond();
 
         byte[] puzzle_Ground_Image_1 = ImageUtil.getImage("src/main/resources/images/","playGround.png");
         BinaryContent puzzle_ground_binary_content_1 = new BinaryContent("puzzle ground for hash image",puzzle_Ground_Image_1,imageType,1L,now,now,admin_1,admin_1);

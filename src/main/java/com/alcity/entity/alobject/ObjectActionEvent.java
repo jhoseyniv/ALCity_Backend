@@ -17,7 +17,7 @@ public class ObjectActionEvent extends BaseItemSet implements Serializable {
     public ObjectActionEvent() {
     }
 
-    public ObjectActionEvent(String label, String value, ObjectAction objectAction , Long version, Long created, Long updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
+    public ObjectActionEvent(String label, String value, ObjectAction objectAction , Long version, String created, String updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
         super(label, value, version, created, updated, createdBy, updatedBy);
         this.objectAction = objectAction;
     }

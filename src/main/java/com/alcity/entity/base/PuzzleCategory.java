@@ -26,7 +26,7 @@ public class PuzzleCategory extends BaseItemSet implements Serializable {
     public PuzzleCategory() {
     }
 
-    public PuzzleCategory(String label, String value, Long version, Long created, Long updated,ApplicationMember createdBy, ApplicationMember updatedBy) {
+    public PuzzleCategory(String label, String value, Long version, String created, String updated,ApplicationMember createdBy, ApplicationMember updatedBy) {
         super(label, value, version, created, updated, createdBy,updatedBy);
     }
 }

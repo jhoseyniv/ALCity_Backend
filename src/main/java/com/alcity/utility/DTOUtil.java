@@ -9,6 +9,7 @@ import com.alcity.dto.alobject.*;
 import com.alcity.dto.base.BinaryContentDTO;
 import com.alcity.dto.base.ClientTypeDTO;
 import com.alcity.dto.base.DataTypeِDTO;
+import com.alcity.dto.journey.JourneyDTO;
 import com.alcity.dto.journey.JourneyStepDTO;
 import com.alcity.dto.learning.LearningContentDTO;
 import com.alcity.dto.learning.LearningSkillDTO;
@@ -18,6 +19,7 @@ import com.alcity.dto.puzzle.*;
 import com.alcity.entity.alenum.AttributeOwnerType;
 import com.alcity.entity.alobject.*;
 import com.alcity.entity.base.*;
+import com.alcity.entity.journey.Journey;
 import com.alcity.entity.journey.JourneyStep;
 import com.alcity.entity.learning.LearningContent;
 import com.alcity.entity.learning.LearningSkill;
@@ -39,14 +41,14 @@ public class DTOUtil {
         puzzleLevelDTO.setId(puzzleLevel.getId());
         puzzleLevelDTO.setVersion(puzzleLevel.getVersion());
         puzzleLevelDTO.setCode(puzzleLevel.getCode());
-        puzzleLevelDTO.setApproveDate(DateUtils.getDatatimeFromLong(puzzleLevel.getApproveDate()));
+        puzzleLevelDTO.setApproveDate(puzzleLevel.getApproveDate());
         puzzleLevelDTO.setTitle(puzzleLevel.getName());
         puzzleLevelDTO.setToAge(puzzleLevel.getToAge());
         puzzleLevelDTO.setFromAge(puzzleLevel.getFromAge());
         puzzleLevelDTO.setOrdering(puzzleLevel.getOrdering());
         puzzleLevelDTO.setMaxScore(puzzleLevel.getMaxScore());
-        puzzleLevelDTO.setUpdated(DateUtils.getDatatimeFromLong(puzzleLevel.getUpdated()));
-        puzzleLevelDTO.setCreated(DateUtils.getDatatimeFromLong(puzzleLevel.getCreated()));
+        puzzleLevelDTO.setUpdated(puzzleLevel.getUpdated());
+        puzzleLevelDTO.setCreated(puzzleLevel.getCreated());
         puzzleLevelDTO.setPuzzleLevelDifficulty(puzzleLevel.getPuzzleDifficulty().toString());
         puzzleLevelDTO.setPuzzleLevelPrivacy(puzzleLevel.getPuzzleLevelPrivacy().getLabel());
         puzzleLevelDTO.setPuzzleLevelStatus(puzzleLevel.getPuzzleLevelStatus().toString());
@@ -86,8 +88,8 @@ public class DTOUtil {
             alCityAttributeDTO.setVersion(alCityAttribute.getVersion());
             alCityAttributeDTO.setName(alCityAttribute.getName());
             alCityAttributeDTO.setOwnerId(alCityAttribute.getOwnerId());
-            alCityAttributeDTO.setCreated(DateUtils.getDatatimeFromLong(alCityAttribute.getCreated()));
-            alCityAttributeDTO.setUpdated(DateUtils.getDatatimeFromLong(alCityAttribute.getUpdated()));
+            alCityAttributeDTO.setCreated(alCityAttribute.getCreated());
+            alCityAttributeDTO.setUpdated(alCityAttribute.getUpdated());
 
             DataTypeِDTO dataTypeِDTO =  getDataTypeDTO(alCityAttribute.getDataType());
             alCityAttributeDTO.setDataTypeِDTO(dataTypeِDTO);
@@ -110,8 +112,8 @@ public class DTOUtil {
             alCityAttributeDTO.setVersion(alCityAttribute.getVersion());
             alCityAttributeDTO.setName(alCityAttribute.getName());
             alCityAttributeDTO.setOwnerId(alCityAttribute.getOwnerId());
-            alCityAttributeDTO.setCreated(DateUtils.getDatatimeFromLong(alCityAttribute.getCreated()));
-            alCityAttributeDTO.setUpdated(DateUtils.getDatatimeFromLong(alCityAttribute.getUpdated()));
+            alCityAttributeDTO.setCreated(alCityAttribute.getCreated());
+            alCityAttributeDTO.setUpdated(alCityAttribute.getUpdated());
 
            // AttributeOwnerTypeDTO attributeOwnerTypDTOe = getAttributeOwnerTypeDTO(alCityAttribute.getAttributeOwnerType());
            // alCityAttributeDTO.setAttributeOwnerTypeDTO(attributeOwnerTypDTOe);
@@ -133,8 +135,8 @@ public class DTOUtil {
 //            attributeOwnerTypeDTO.setVersion(attributeOwnerType.getVersion());
 //            attributeOwnerTypeDTO.setLabel(attributeOwnerType.getLabel());
 //            attributeOwnerTypeDTO.setValue(attributeOwnerType.getValue());
-//            attributeOwnerTypeDTO.setCreated(DateUtils.getDatatimeFromLong(attributeOwnerType.getCreated()));
-//            attributeOwnerTypeDTO.setUpdated(DateUtils.getDatatimeFromLong(attributeOwnerType.getUpdated()));
+//            attributeOwnerTypeDTO.setCreated(attributeOwnerType.getCreated()));
+//            attributeOwnerTypeDTO.setUpdated(attributeOwnerType.getUpdated()));
 //        }else attributeOwnerTypeDTO = null;
 //        return attributeOwnerTypeDTO;
 //    }
@@ -145,8 +147,8 @@ public class DTOUtil {
 //            attributeOwnerTypeDTO.setVersion(attributeOwnerType.getVersion());
 //            attributeOwnerTypeDTO.setLabel(attributeOwnerType.getLabel());
 //            attributeOwnerTypeDTO.setValue(attributeOwnerType.getValue());
-//            attributeOwnerTypeDTO.setCreated(DateUtils.getDatatimeFromLong(attributeOwnerType.getCreated()));
-//            attributeOwnerTypeDTO.setUpdated(DateUtils.getDatatimeFromLong(attributeOwnerType.getUpdated()));
+//            attributeOwnerTypeDTO.setCreated(attributeOwnerType.getCreated()));
+//            attributeOwnerTypeDTO.setUpdated(attributeOwnerType.getUpdated()));
 //        }else attributeOwnerTypeDTO = null;
 //        return attributeOwnerTypeDTO;
 //    }
@@ -157,8 +159,8 @@ public class DTOUtil {
             dataTypeِDTO.setVersion(dataType.getVersion());
             dataTypeِDTO.setLabel(dataType.getLabel());
             dataTypeِDTO.setValue(dataType.getValue());
-            dataTypeِDTO.setCreated(DateUtils.getDatatimeFromLong(dataType.getCreated()));
-            dataTypeِDTO.setUpdated(DateUtils.getDatatimeFromLong(dataType.getUpdated()));
+            dataTypeِDTO.setCreated(dataType.getCreated());
+            dataTypeِDTO.setUpdated(dataType.getUpdated());
         }else dataTypeِDTO = null;
         return dataTypeِDTO;
     }
@@ -175,8 +177,8 @@ public class DTOUtil {
 //            attributeOwnerTypeDTO.setVersion(attributeOwnerType.getVersion());
 //            attributeOwnerTypeDTO.setLabel(attributeOwnerType.getLabel());
 //            attributeOwnerTypeDTO.setValue(attributeOwnerType.getValue());
-//            attributeOwnerTypeDTO.setCreated(DateUtils.getDatatimeFromLong(attributeOwnerType.getCreated()));
-//            attributeOwnerTypeDTO.setUpdated(DateUtils.getDatatimeFromLong(attributeOwnerType.getUpdated()));
+//            attributeOwnerTypeDTO.setCreated(attributeOwnerType.getCreated()));
+//            attributeOwnerTypeDTO.setUpdated(attributeOwnerType.getUpdated()));
 //            attributeOwnerTypeDTOCollection.add(attributeOwnerTypeDTO);
 //        }
 //        return attributeOwnerTypeDTOCollection;
@@ -195,8 +197,8 @@ public class DTOUtil {
             journeyStepDTO.setXpos(journeyStep.getXpos());
             journeyStepDTO.setYpos(journeyStep.getYpos());
             journeyStepDTO.setTitle(journeyStep.getTitle());
-            journeyStepDTO.setCreated(DateUtils.getDatatimeFromLong(journeyStep.getCreated()));
-            journeyStepDTO.setUpdated(DateUtils.getDatatimeFromLong(journeyStep.getUpdated()));
+            journeyStepDTO.setCreated(journeyStep.getCreated());
+            journeyStepDTO.setUpdated(journeyStep.getUpdated());
             //.....
             journeyStepDTOCollection.add(journeyStepDTO);
         }
@@ -213,9 +215,9 @@ public class DTOUtil {
             puzzleLevelDTO.setId(puzzleLevel.getId());
             puzzleLevelDTO.setVersion(puzzleLevel.getVersion());
             puzzleLevelDTO.setOrdering(puzzleLevel.getOrdering());
-            puzzleLevelDTO.setApproveDate(DateUtils.getDatatimeFromLong(puzzleLevel.getApproveDate()));
-            puzzleLevelDTO.setCreated(DateUtils.getDatatimeFromLong(puzzleLevel.getCreated()));
-            puzzleLevelDTO.setUpdated(DateUtils.getDatatimeFromLong(puzzleLevel.getUpdated()));
+            puzzleLevelDTO.setApproveDate(puzzleLevel.getApproveDate());
+            puzzleLevelDTO.setCreated(puzzleLevel.getCreated());
+            puzzleLevelDTO.setUpdated(puzzleLevel.getUpdated());
             puzzleLevelDTO.setCode(puzzleLevel.getCode());
             puzzleLevelDTO.setTitle(puzzleLevel.getName());
             puzzleLevelDTO.setFromAge(puzzleLevel.getFromAge());
@@ -235,24 +237,24 @@ public class DTOUtil {
 
             puzzleSkillLearningContentDTO.setId(puzzleSkillLearningContent.getId());
             puzzleSkillLearningContentDTO.setVersion(puzzleSkillLearningContent.getVersion());
-            puzzleSkillLearningContentDTO.setCreated(DateUtils.getDatatimeFromLong(puzzleSkillLearningContent.getCreated()));
-            puzzleSkillLearningContentDTO.setUpdated(DateUtils.getDatatimeFromLong(puzzleSkillLearningContent.getUpdated()));
+            puzzleSkillLearningContentDTO.setCreated(puzzleSkillLearningContent.getCreated());
+            puzzleSkillLearningContentDTO.setUpdated(puzzleSkillLearningContent.getUpdated());
 
             LearningSkill learningSkill = puzzleSkillLearningContent.getLearningSkill();
             LearningSkillDTO learningSkillDTO = new LearningSkillDTO(learningSkill.getId(), learningSkill.getLabel(), learningSkill.getValue(), learningSkill.getVersion(),
-                    DateUtils.getDatatimeFromLong(learningSkill.getCreated()), DateUtils.getDatatimeFromLong(learningSkill.getUpdated()));
+                    learningSkill.getCreated(), learningSkill.getUpdated());
             puzzleSkillLearningContentDTO.setLearningSkillDTO(learningSkillDTO);
 
             LearningContent learningContent = puzzleSkillLearningContent.getLearningContent();
             BinaryContent binaryContent = learningContent.getBinaryContent();
             BinaryContentDTO binaryContentDTO = new BinaryContentDTO(binaryContent.getFileName(), binaryContent.getSize(), binaryContent.getContent(), binaryContent.getId(), binaryContent.getVersion(),
-                    DateUtils.getDatatimeFromLong(binaryContent.getCreated()), DateUtils.getDatatimeFromLong(binaryContent.getUpdated()));
+                    binaryContent.getCreated(), binaryContent.getUpdated());
 
             LearningContentDTO learningContentDTO = new LearningContentDTO();
             learningContentDTO.setId(learningContent.getId());
             learningContentDTO.setVersion(learningContent.getVersion());
-            learningContentDTO.setCreated(DateUtils.getDatatimeFromLong(learningContent.getCreated()));
-            learningContentDTO.setUpdated(DateUtils.getDatatimeFromLong(learningContent.getUpdated()));
+            learningContentDTO.setCreated(learningContent.getCreated());
+            learningContentDTO.setUpdated(learningContent.getUpdated());
             learningContentDTO.setBinaryContentDTO(binaryContentDTO);
             learningContentDTO.setDescBrief(learningContent.getDescBrief());
             learningContentDTO.setDescText(learningContent.getDescText());
@@ -274,8 +276,8 @@ public class DTOUtil {
             puzzleGroup_puzzleObjectDTO.setCode(puzzleGroup_puzzleObject.getCode());
             puzzleGroup_puzzleObjectDTO.setTitle(puzzleGroup_puzzleObject.getTitle());
             puzzleGroup_puzzleObjectDTO.setVersion(puzzleGroup_puzzleObject.getVersion());
-            puzzleGroup_puzzleObjectDTO.setCreated(DateUtils.getDatatimeFromLong(puzzleGroup_puzzleObject.getCreated()));
-            puzzleGroup_puzzleObjectDTO.setUpdated(DateUtils.getDatatimeFromLong(puzzleGroup_puzzleObject.getUpdated()));
+            puzzleGroup_puzzleObjectDTO.setCreated(puzzleGroup_puzzleObject.getCreated());
+            puzzleGroup_puzzleObjectDTO.setUpdated(puzzleGroup_puzzleObject.getUpdated());
 
             PuzzleObject puzzleObject = puzzleGroup_puzzleObject.getPuzzleObject();
             PuzzleObjectDTO puzzleObjectDTO = new PuzzleObjectDTO();
@@ -283,16 +285,16 @@ public class DTOUtil {
             puzzleObjectDTO.setVersion(puzzleObject.getVersion());
             puzzleObjectDTO.setObjectCategory(puzzleObject.getObjectCategory().getLabel());
             puzzleObjectDTO.setTitle(puzzleObjectDTO.getTitle());
-            puzzleObjectDTO.setCreated(DateUtils.getDatatimeFromLong(puzzleObject.getCreated()));
-            puzzleObjectDTO.setUpdated(DateUtils.getDatatimeFromLong(puzzleObject.getUpdated()));
+            puzzleObjectDTO.setCreated(puzzleObject.getCreated());
+            puzzleObjectDTO.setUpdated(puzzleObject.getUpdated());
 
             BinaryContent picture = puzzleObject.getPicture();
             BinaryContent icon = puzzleObject.getPicture();
             BinaryContentDTO pictureDTO = new BinaryContentDTO(picture.getFileName(), picture.getSize(), picture.getContent(), picture.getId(), picture.getVersion(),
-                    DateUtils.getDatatimeFromLong(picture.getCreated()), DateUtils.getDatatimeFromLong(picture.getUpdated()));
+                    picture.getCreated(), picture.getUpdated());
 
             BinaryContentDTO iconDTO = new BinaryContentDTO(icon.getFileName(), icon.getSize(), icon.getContent(), icon.getId(), icon.getVersion(),
-                    DateUtils.getDatatimeFromLong(icon.getCreated()), DateUtils.getDatatimeFromLong(icon.getUpdated()));
+                    icon.getCreated(), icon.getUpdated());
 
             puzzleObjectDTO.setPicture(pictureDTO);
             puzzleObjectDTO.setIcon(iconDTO);
@@ -309,16 +311,16 @@ public class DTOUtil {
         PGDTO puzzleGroupDTO = new PGDTO();
         puzzleGroupDTO.setId(puzzleGroup.getId());
         puzzleGroupDTO.setVersion(puzzleGroup.getVersion());
-        puzzleGroupDTO.setCreated(DateUtils.getDatatimeFromLong(puzzleGroup.getCreated()));
-        puzzleGroupDTO.setUpdated(DateUtils.getDatatimeFromLong(puzzleGroup.getUpdated()));
+        puzzleGroupDTO.setCreated(puzzleGroup.getCreated());
+        puzzleGroupDTO.setUpdated(puzzleGroup.getUpdated());
         puzzleGroupDTO.setTitle(puzzleGroup.getTitle());
         BinaryContent binaryContent_icon = puzzleGroup.getIcon();
         BinaryContent binaryContent_pic = puzzleGroup.getPic();
 
         BinaryContentDTO binaryContentDTO_icon = new BinaryContentDTO(binaryContent_icon.getFileName(), binaryContent_icon.getSize(), binaryContent_icon.getContent(), binaryContent_icon.getId(), binaryContent_icon.getVersion()
-                , DateUtils.getDatatimeFromLong(binaryContent_icon.getCreated()), DateUtils.getDatatimeFromLong(binaryContent_icon.getUpdated()));
+                , binaryContent_icon.getCreated(), binaryContent_icon.getUpdated());
         BinaryContentDTO binaryContentDTO_pic = new BinaryContentDTO(binaryContent_pic.getFileName(), binaryContent_pic.getSize(), binaryContent_pic.getContent(), binaryContent_pic.getId(), binaryContent_pic.getVersion()
-                , DateUtils.getDatatimeFromLong(binaryContent_pic.getCreated()), DateUtils.getDatatimeFromLong(binaryContent_pic.getUpdated()));
+                , binaryContent_pic.getCreated(), binaryContent_pic.getUpdated());
         puzzleGroupDTO.setIcon(binaryContentDTO_icon);
         puzzleGroupDTO.setPic(binaryContentDTO_pic);
 
@@ -329,8 +331,8 @@ public class DTOUtil {
         Collection<PuzzleGroup> puzzleGroupCollection = puzzleCategory.getPuzzleGroupCollection();
         puzzleCategoryDTO.setId(puzzleCategory.getId());
         puzzleCategoryDTO.setVersion(puzzleCategory.getVersion());
-        puzzleCategoryDTO.setCreated(DateUtils.getDatatimeFromLong(puzzleCategory.getCreated()));
-        puzzleCategoryDTO.setUpdated(DateUtils.getDatatimeFromLong(puzzleCategory.getUpdated()));
+        puzzleCategoryDTO.setCreated(puzzleCategory.getCreated());
+        puzzleCategoryDTO.setUpdated(puzzleCategory.getUpdated());
         puzzleCategoryDTO.setLabel(puzzleCategory.getLabel());
         puzzleCategoryDTO.setValue(puzzleCategory.getValue());
         Collection<PGDTO> puzzleGroupDTOCollection = new ArrayList<PGDTO>();
@@ -362,8 +364,8 @@ public class DTOUtil {
             plObjectiveDTO.setCondition(puzzleLevelObjective.getCondition());
             plObjectiveDTO.setRewardAmount(puzzleLevelObjective.getRewardAmount());
             plObjectiveDTO.setSkillAmount(puzzleLevelObjective.getSkillAmount());
-            plObjectiveDTO.setUpdated(DateUtils.getDatatimeFromLong(puzzleLevelObjective.getUpdated()));
-            plObjectiveDTO.setCreated(DateUtils.getDatatimeFromLong(puzzleLevelObjective.getCreated()));
+            plObjectiveDTO.setUpdated(puzzleLevelObjective.getUpdated());
+            plObjectiveDTO.setCreated(puzzleLevelObjective.getCreated());
 
             plObjectiveDTOCollection.add(plObjectiveDTO);
         }
@@ -402,20 +404,20 @@ public class DTOUtil {
 
             puzzleLevel_learningTopicDTO.setId(puzzleLevel_learningTopic.getId());
             puzzleLevel_learningTopicDTO.setVersion(puzzleLevel_learningTopic.getVersion());
-            puzzleLevel_learningTopicDTO.setUpdated(DateUtils.getDatatimeFromLong(puzzleLevel_learningTopic.getUpdated()));
-            puzzleLevel_learningTopicDTO.setCreated(DateUtils.getDatatimeFromLong(puzzleLevel_learningTopic.getCreated()));
+            puzzleLevel_learningTopicDTO.setUpdated(puzzleLevel_learningTopic.getUpdated());
+            puzzleLevel_learningTopicDTO.setCreated(puzzleLevel_learningTopic.getCreated());
 
             learningTopicDTO.setId(puzzleLevel_learningTopic.getLearningTopic().getId());
             learningTopicDTO.setTitle(puzzleLevel_learningTopic.getLearningTopic().getTitle());
             learningTopicDTO.setVersion(puzzleLevel_learningTopic.getLearningTopic().getVersion());
-            learningTopicDTO.setCreated(DateUtils.getDatatimeFromLong(puzzleLevel_learningTopic.getLearningTopic().getCreated()));
-            learningTopicDTO.setUpdated(DateUtils.getDatatimeFromLong(puzzleLevel_learningTopic.getLearningTopic().getUpdated()));
+            learningTopicDTO.setCreated(puzzleLevel_learningTopic.getLearningTopic().getCreated());
+            learningTopicDTO.setUpdated(puzzleLevel_learningTopic.getLearningTopic().getUpdated());
             puzzleLevel_learningTopicDTO.setLearningTopicDTO(learningTopicDTO);
 
             learningContentDTO.setId(puzzleLevel_learningTopic.getLearningContent().getId());
             learningContentDTO.setVersion(puzzleLevel_learningTopic.getLearningContent().getVersion());
-            learningContentDTO.setCreated(DateUtils.getDatatimeFromLong(puzzleLevel_learningTopic.getLearningContent().getCreated()));
-            learningContentDTO.setUpdated(DateUtils.getDatatimeFromLong(puzzleLevel_learningTopic.getLearningContent().getUpdated()));
+            learningContentDTO.setCreated(puzzleLevel_learningTopic.getLearningContent().getCreated());
+            learningContentDTO.setUpdated(puzzleLevel_learningTopic.getLearningContent().getUpdated());
 
             learningContentDTO.setDescText(puzzleLevel_learningTopic.getLearningContent().getDescText());
             learningContentDTO.setDescBrief(puzzleLevel_learningTopic.getLearningContent().getDescBrief());
@@ -428,14 +430,32 @@ public class DTOUtil {
 
         return pl_ltDTOCollection;
     }
-    public static LearningSkillDTO getLearningSkillDTO(LearningSkill ls) {
+    public static BinaryContentDTO getBinaryContentDTO(BinaryContent content){
+        BinaryContentDTO binaryContentDTO = new BinaryContentDTO(content.getFileName(),content.getSize(),
+                null, content.getId(), content.getVersion(),
+                content.getCreated(),
+                content.getUpdated());
+        return binaryContentDTO;
+    }
+    public static JourneyDTO getJourneyDTO(Journey journey) {
+         JourneyDTO journeyDTO = new JourneyDTO();
+         journeyDTO.setId(journey.getId());
+         journeyDTO.setVersion(journey.getVersion());
+         journeyDTO.setCreated(journey.getCreated());
+         journeyDTO.setUpdated(journey.getUpdated());
+         journeyDTO.setTitle(journey.getTitle());
+         journeyDTO.setGraphic(getBinaryContentDTO(journey.getGraphic()));
+         return journeyDTO;
+    }
+
+        public static LearningSkillDTO getLearningSkillDTO(LearningSkill ls) {
         LearningSkillDTO lsDTO = new LearningSkillDTO();
         lsDTO.setId(ls.getId());
         lsDTO.setLabel(ls.getLabel());
         lsDTO.setValue(ls.getValue());
-        lsDTO.setCreated(DateUtils.getDatatimeFromLong(ls.getCreated()));
+        lsDTO.setCreated(ls.getCreated());
         lsDTO.setVersion(ls.getVersion());
-        lsDTO.setUpdated(DateUtils.getDatatimeFromLong(ls.getUpdated()));
+        lsDTO.setUpdated(ls.getUpdated());
         return lsDTO;
     }
 
@@ -443,8 +463,8 @@ public class DTOUtil {
         CameraSetupDTO cameraSetupDTO = new CameraSetupDTO();
         cameraSetupDTO.setId(cameraSetup.getId());
         cameraSetupDTO.setVersion(cameraSetup.getVersion());
-        cameraSetupDTO.setCreated(DateUtils.getDatatimeFromLong(cameraSetup.getCreated()));
-        cameraSetupDTO.setUpdated(DateUtils.getDatatimeFromLong(cameraSetup.getUpdated()));
+        cameraSetupDTO.setCreated(cameraSetup.getCreated());
+        cameraSetupDTO.setUpdated(cameraSetup.getUpdated());
         cameraSetupDTO.setxPosition(cameraSetup.getxPosition());
         cameraSetupDTO.setyPosition(cameraSetup.getyPosition());
         cameraSetupDTO.setzPosition(cameraSetup.getzPosition());
@@ -462,8 +482,8 @@ public class DTOUtil {
             PLGroundDTO puzzleLevelGroundDTO = new PLGroundDTO();
             puzzleLevelGroundDTO.setId(puzzleLevelGround.getId());
             puzzleLevelGroundDTO.setVersion(puzzleLevelGround.getVersion());
-            puzzleLevelGroundDTO.setCreated(DateUtils.getDatatimeFromLong(puzzleLevelGround.getCreated()));
-            puzzleLevelGroundDTO.setUpdated(DateUtils.getDatatimeFromLong(puzzleLevelGround.getUpdated()));
+            puzzleLevelGroundDTO.setCreated(puzzleLevelGround.getCreated());
+            puzzleLevelGroundDTO.setUpdated(puzzleLevelGround.getUpdated());
             puzzleLevelGroundDTO.setNumRows(puzzleLevelGround.getNumRows());
             puzzleLevelGroundDTO.setNumColumns(puzzleLevelGround.getNumColumns());
             CameraSetupDTO cameraSetupDTO = getCameraSetupDTO(puzzleLevelGround.getCameraSetup());
@@ -475,8 +495,8 @@ public class DTOUtil {
             backGroundDTO.setFileName(boardGraphic.getFileName());
             backGroundDTO.setVersion(boardGraphic.getVersion());
             backGroundDTO.setSize(boardGraphic.getSize());
-            backGroundDTO.setUpdated(DateUtils.getDatatimeFromLong(puzzleLevelGround.getUpdated()));
-            backGroundDTO.setCreated(DateUtils.getDatatimeFromLong(puzzleLevelGround.getCreated()));
+            backGroundDTO.setUpdated(puzzleLevelGround.getUpdated());
+            backGroundDTO.setCreated(puzzleLevelGround.getCreated());
 
 
             puzzleLevelGroundDTO.setBoardGraphic(backGroundDTO);
@@ -499,8 +519,8 @@ public class DTOUtil {
             permitedPlayerDTO.setVersion(permitedPlayer.getVersion());
             permitedPlayerDTO.setPlayerUsername(permitedPlayer.getPlayer().getUsername());
             permitedPlayerDTO.setEmail(permitedPlayer.getPlayer().getEmail());
-            permitedPlayerDTO.setUpdated(DateUtils.getDatatimeFromLong(permitedPlayer.getUpdated()));
-            permitedPlayerDTO.setCreated(DateUtils.getDatatimeFromLong(permitedPlayer.getCreated()));
+            permitedPlayerDTO.setUpdated(permitedPlayer.getUpdated());
+            permitedPlayerDTO.setCreated(permitedPlayer.getCreated());
             permitedPlayerDTOCollection.add(permitedPlayerDTO);
 
         }
@@ -520,8 +540,8 @@ public class DTOUtil {
             puzzleGroupObjectInstanceDTO.setCol(puzzleGroupObjectInstance.getCol());
             puzzleGroupObjectInstanceDTO.setRow(puzzleGroupObjectInstance.getRow());
             puzzleGroupObjectInstanceDTO.setzOrder(puzzleGroupObjectInstance.getzOrder());
-            puzzleGroupObjectInstanceDTO.setCreated(DateUtils.getDatatimeFromLong(puzzleGroupObjectInstance.getCreated()));
-            puzzleGroupObjectInstanceDTO.setUpdated(DateUtils.getDatatimeFromLong(puzzleGroupObjectInstance.getUpdated()));
+            puzzleGroupObjectInstanceDTO.setCreated(puzzleGroupObjectInstance.getCreated());
+            puzzleGroupObjectInstanceDTO.setUpdated(puzzleGroupObjectInstance.getUpdated());
 
             PuzzleGroup_PuzzleObject puzzleGroup_puzzleObject = puzzleGroupObjectInstance.getPuzzleGroup_PuzzleObject();
             PuzzleGroup_PuzzleObjectDTO  puzzleGroup_puzzleObjectDTO= new PuzzleGroup_PuzzleObjectDTO();
@@ -529,8 +549,8 @@ public class DTOUtil {
             puzzleGroup_puzzleObjectDTO.setVersion(puzzleGroup_puzzleObject.getVersion());
             puzzleGroup_puzzleObjectDTO.setCode(puzzleGroup_puzzleObject.getCode());
             puzzleGroup_puzzleObjectDTO.setTitle(puzzleGroup_puzzleObject.getTitle());
-            puzzleGroup_puzzleObjectDTO.setCreated(DateUtils.getDatatimeFromLong(puzzleGroup_puzzleObject.getCreated()));
-            puzzleGroup_puzzleObjectDTO.setUpdated(DateUtils.getDatatimeFromLong(puzzleGroup_puzzleObject.getUpdated()));
+            puzzleGroup_puzzleObjectDTO.setCreated(puzzleGroup_puzzleObject.getCreated());
+            puzzleGroup_puzzleObjectDTO.setUpdated(puzzleGroup_puzzleObject.getUpdated());
 
             puzzleGroupObjectInstanceDTO.setPuzzleGroup_puzzleObjectDTO(puzzleGroup_puzzleObjectDTO);
 
@@ -550,13 +570,13 @@ public class DTOUtil {
             puzzleObjectDTO.setVersion(po.getVersion());
             BinaryContent picture = po.getPicture();
             BinaryContentDTO pictureDTO = new BinaryContentDTO(picture.getFileName(),picture.getSize(),picture.getContent(),picture.getId(),picture.getVersion(),
-                    DateUtils.getDatatimeFromLong(picture.getCreated()),
-                    DateUtils.getDatatimeFromLong(picture.getUpdated()));
+                    picture.getCreated(),
+                    picture.getUpdated());
 
             BinaryContent icon = po.getIcon();
             BinaryContentDTO iconDTO = new BinaryContentDTO(icon.getFileName(),icon.getSize(),icon.getContent(),icon.getId(),icon.getVersion(),
-                    DateUtils.getDatatimeFromLong(icon.getCreated()),
-                    DateUtils.getDatatimeFromLong(icon.getUpdated()));
+                    icon.getCreated(),
+                    icon.getUpdated());
             puzzleObjectDTO.setPicture(pictureDTO);
             puzzleObjectDTO.setIcon(iconDTO);
 
@@ -576,13 +596,13 @@ public class DTOUtil {
             puzzleObjectDTO.setVersion(po.getVersion());
             BinaryContent picture = po.getPicture();
             BinaryContentDTO pictureDTO = new BinaryContentDTO(picture.getFileName(),picture.getSize(),picture.getContent(),picture.getId(),picture.getVersion(),
-                    DateUtils.getDatatimeFromLong(picture.getCreated()),
-                    DateUtils.getDatatimeFromLong(picture.getUpdated()));
+                    picture.getCreated(),
+                    picture.getUpdated());
 
             BinaryContent icon = po.getIcon();
             BinaryContentDTO iconDTO = new BinaryContentDTO(icon.getFileName(),icon.getSize(),icon.getContent(),icon.getId(),icon.getVersion(),
-                    DateUtils.getDatatimeFromLong(icon.getCreated()),
-                    DateUtils.getDatatimeFromLong(icon.getUpdated()));
+                    icon.getCreated(),
+                    icon.getUpdated());
             puzzleObjectDTO.setPicture(pictureDTO);
             puzzleObjectDTO.setIcon(iconDTO);
             puzzleObjectDTOCollection.add(puzzleObjectDTO);
@@ -600,8 +620,8 @@ public class DTOUtil {
             puzzleObject_objectActionDTO.setId(poa.getId());
             puzzleObject_objectActionDTO.setVersion(poa.getVersion());
             puzzleObject_objectActionDTO.setOwnerObjectid(poa.getOwnerObjectid());
-            puzzleObject_objectActionDTO.setCreated(DateUtils.getDatatimeFromLong(poa.getCreated()));
-            puzzleObject_objectActionDTO.setUpdated(DateUtils.getDatatimeFromLong(poa.getUpdated()));
+            puzzleObject_objectActionDTO.setCreated(poa.getCreated());
+            puzzleObject_objectActionDTO.setUpdated(poa.getUpdated());
             ObjectAction objectAction = poa.getObjectAction();
 
             puzzleObject_objectActionDTO.setObjectAction(objectAction);
@@ -623,8 +643,8 @@ public class DTOUtil {
             puzzleObject_objectActionDTO.setId(poa.getId());
             puzzleObject_objectActionDTO.setVersion(poa.getVersion());
             puzzleObject_objectActionDTO.setOwnerObjectid(poa.getOwnerObjectid());
-            puzzleObject_objectActionDTO.setCreated(DateUtils.getDatatimeFromLong(poa.getCreated()));
-            puzzleObject_objectActionDTO.setUpdated(DateUtils.getDatatimeFromLong(poa.getUpdated()));
+            puzzleObject_objectActionDTO.setCreated(poa.getCreated());
+            puzzleObject_objectActionDTO.setUpdated(poa.getUpdated());
             ObjectAction objectAction = poa.getObjectAction();
 
             puzzleObject_objectActionDTO.setObjectAction(objectAction);
@@ -632,7 +652,7 @@ public class DTOUtil {
 //            POActionOwnerType poaot = new POActionOwnerType();
 //            poaot = poa.getPuzzleObjectActionOwnerType();
 //            PuzzleObjectActionOwnerTypeDTO puzzleObjectActionOwnerTypeDTO = new PuzzleObjectActionOwnerTypeDTO(poaot.getId(),poaot.getLabel(),poaot.getValue(),poaot.getVersion(),
-//                    DateUtils.getDatatimeFromLong(poaot.getCreated()),DateUtils.getDatatimeFromLong(poaot.getUpdated()));
+//                    poaot.getCreated()),poaot.getUpdated()));
 
 //            puzzleObject_objectActionDTO.setPuzzleObjectActionOwnerTypeDTO(puzzleObjectActionOwnerTypeDTO);
 
@@ -648,8 +668,8 @@ public class DTOUtil {
     public static ActionRendererDTO getActionRenderer(ActionRenderer actionRenderer){
            ActionRendererDTO actionRendererDTO = new ActionRendererDTO();
            actionRendererDTO.setId(actionRenderer.getId());
-           actionRendererDTO.setCreated(DateUtils.getDatatimeFromLong(actionRenderer.getCreated()));
-           actionRendererDTO.setUpdated(DateUtils.getDatatimeFromLong(actionRenderer.getUpdated()));
+           actionRendererDTO.setCreated(actionRenderer.getCreated());
+           actionRendererDTO.setUpdated(actionRenderer.getUpdated());
            actionRendererDTO.setVersion(actionRenderer.getVersion());
            ObjectAction objectAction = actionRenderer.getObjectAction();
 
@@ -658,8 +678,8 @@ public class DTOUtil {
 
            ClientType clientType = actionRenderer.getClientType();
            ClientTypeDTO clientTypeDTO = new ClientTypeDTO(clientType.getId(),clientType.getLabel(),clientType.getValue(), clientType.getVersion(),
-                   DateUtils.getDatatimeFromLong(clientType.getCreated()),
-                   DateUtils.getDatatimeFromLong(clientType.getUpdated()));
+                   clientType.getCreated(),
+                   clientType.getUpdated());
            actionRendererDTO.setClientTypeDTO(clientTypeDTO);
            actionRendererDTO.setHandler(actionRenderer.getHandler());
 

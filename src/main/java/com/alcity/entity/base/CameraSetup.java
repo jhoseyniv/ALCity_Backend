@@ -78,7 +78,7 @@ public class CameraSetup  extends BaseTable implements Serializable {
         this.zRotation = zRotation;
     }
 
-    public CameraSetup(Long version, Long created, Long updated, ApplicationMember createdBy, ApplicationMember updatedBy, Integer xPosition, Integer yPosition, Integer zPosition, Integer xRotation, Integer yRotation, Integer zRotation) {
+    public CameraSetup(Long version, String created, String updated, ApplicationMember createdBy, ApplicationMember updatedBy, Integer xPosition, Integer yPosition, Integer zPosition, Integer xRotation, Integer yRotation, Integer zRotation) {
         super(version, created, updated, createdBy, updatedBy);
         this.xPosition = xPosition;
         this.yPosition = yPosition;

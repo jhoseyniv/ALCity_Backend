@@ -28,7 +28,7 @@ public class CurrencyChangeRate extends BaseTable implements Serializable {
     public CurrencyChangeRate() {
     }
 
-    public CurrencyChangeRate(Long fromDate, Float rate, WalletItem fromCurrency, WalletItem toCurrency,Long version, Long created, Long updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
+    public CurrencyChangeRate(Long fromDate, Float rate, WalletItem fromCurrency, WalletItem toCurrency,Long version, String created, String updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
         super(version, created, updated, createdBy, updatedBy);
         this.fromDate = fromDate;
         this.rate = rate;

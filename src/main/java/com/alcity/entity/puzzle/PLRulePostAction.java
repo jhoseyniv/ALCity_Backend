@@ -96,7 +96,7 @@ public class PLRulePostAction extends BaseTable implements Serializable {
     public PLRulePostAction() {
     }
 
-    public PLRulePostAction(StringBuffer actionExpression, Integer ordering, String objectId, String actionName, PLRulePostActionType plRulePostActionType, PLRule puzzleLevelRule, Long version, Long created, Long updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
+    public PLRulePostAction(StringBuffer actionExpression, Integer ordering, String objectId, String actionName, PLRulePostActionType plRulePostActionType, PLRule puzzleLevelRule, Long version, String created, String updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
         super(version, created, updated, createdBy, updatedBy);
         this.actionExpression = actionExpression;
         this.ordering = ordering;

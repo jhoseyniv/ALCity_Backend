@@ -97,7 +97,7 @@ public class AttributeValue extends BaseTable implements Serializable {
     public AttributeValue() {
     }
 
-    public AttributeValue(Boolean booleanValue, Integer intValue, Long longValue, String stringValue, Float doubleValue, BinaryContent binaryContent, Attribute bindedAttributeId, Attribute attributeId, Long version, Long created, Long updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
+    public AttributeValue(Boolean booleanValue, Integer intValue, Long longValue, String stringValue, Float doubleValue, BinaryContent binaryContent, Attribute bindedAttributeId, Attribute attributeId, Long version, String created, String updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
         super(version, created, updated, createdBy, updatedBy);
         this.booleanValue = booleanValue;
         this.intValue = intValue;

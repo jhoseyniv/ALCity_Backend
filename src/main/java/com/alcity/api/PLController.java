@@ -30,14 +30,14 @@ public class PLController {
             puzzleLevelDTO.setId(puzzleLevel.getId());
             puzzleLevelDTO.setVersion(puzzleLevel.getVersion());
             puzzleLevelDTO.setCode(puzzleLevel.getCode());
-            puzzleLevelDTO.setApproveDate(DateUtils.getDatatimeFromLong(puzzleLevel.getApproveDate()));
+            puzzleLevelDTO.setApproveDate(puzzleLevel.getApproveDate());
             puzzleLevelDTO.setTitle(puzzleLevel.getName());
             puzzleLevelDTO.setToAge(puzzleLevel.getToAge());
             puzzleLevelDTO.setFromAge(puzzleLevel.getFromAge());
             puzzleLevelDTO.setOrdering(puzzleLevel.getOrdering());
             puzzleLevelDTO.setMaxScore(puzzleLevel.getMaxScore());
-            puzzleLevelDTO.setUpdated(DateUtils.getDatatimeFromLong(puzzleLevel.getUpdated()));
-            puzzleLevelDTO.setCreated(DateUtils.getDatatimeFromLong(puzzleLevel.getCreated()));
+            puzzleLevelDTO.setUpdated(puzzleLevel.getUpdated());
+            puzzleLevelDTO.setCreated(puzzleLevel.getCreated());
 
             puzzleLevelDTOCollection.add(puzzleLevelDTO);
 

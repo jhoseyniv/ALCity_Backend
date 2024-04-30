@@ -48,7 +48,7 @@ public class LearningTopic extends BaseTable {
     public LearningTopic() {
     }
 
-    public LearningTopic(String title, LearningTopic parentTopic , Long version, Long created, Long updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
+    public LearningTopic(String title, LearningTopic parentTopic , Long version, String created, String updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
         super(version, created, updated, createdBy, updatedBy);
         this.title = title;
         this.parentTopic = parentTopic;

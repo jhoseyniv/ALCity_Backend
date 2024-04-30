@@ -1,5 +1,6 @@
 package com.alcity.service.base;
 
+import com.alcity.customexception.UniqueConstraintException;
 import com.alcity.entity.base.DataType;
 import com.alcity.repository.base.DataTypeRepository;
 import com.alcity.repository.base.PuzzleCategoryRepository;
@@ -19,7 +20,7 @@ public class DataTypeService implements DataTypeRepository {
 
     @Override
     public <S extends DataType> S save(S entity) {
-        return dataTypeRepository.save(entity);
+        return  dataTypeRepository.save(entity);
     }
 
     @Override

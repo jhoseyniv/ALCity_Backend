@@ -22,7 +22,7 @@ public class WalletItemType extends BaseItemSet implements Serializable {
     public WalletItemType() {
     }
 
-    public WalletItemType( WalletItemCategory walletItemCategory ,String label, String value,Boolean isCurrency,Long version, Long created, Long updated,  ApplicationMember createdBy, ApplicationMember updatedBy) {
+    public WalletItemType( WalletItemCategory walletItemCategory ,String label, String value,Boolean isCurrency,Long version, String created, String updated,  ApplicationMember createdBy, ApplicationMember updatedBy) {
         super(label, value, version, created, updated, createdBy,updatedBy);
         this.isCurrency = isCurrency ;
         this.walletItemCategory = walletItemCategory;

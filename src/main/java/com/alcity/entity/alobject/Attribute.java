@@ -74,7 +74,7 @@ public class Attribute extends BaseTable implements Serializable {
     public Attribute() {
     }
 
-    public Attribute(String name, Long ownerId, AttributeOwnerType attributeOwnerType, DataType dataType, Long version, Long created, Long updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
+    public Attribute(String name, Long ownerId, AttributeOwnerType attributeOwnerType, DataType dataType, Long version, String created, String updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
         super(version, created, updated, createdBy, updatedBy);
         this.name = name;
         this.ownerId = ownerId;

@@ -25,7 +25,7 @@ public class ClientType extends BaseItemSet implements Serializable {
     public ClientType() {
     }
 
-    public ClientType(String label, String value, Long version, Long created, Long updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
+    public ClientType(String label, String value, Long version, String created, String updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
         super(label, value, version, created, updated, createdBy,updatedBy);
     }
 }

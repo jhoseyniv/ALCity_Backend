@@ -49,8 +49,6 @@ public class BaseItemConrollerTest {
     @Mock
     private ApplicationMemberRepository applicationMemberRepository;
 
-
-
     public String address="http://127.0.0.1:8080";
     public String port="8080";
 

@@ -44,8 +44,8 @@ public class WalletItem extends BaseItemSet implements Serializable {
     public WalletItem() {
     }
 
-    public WalletItem(WalletItemType walletItemType, byte[] icon, String label, String value, Long version, Long creationDate, Long lastModifiedDate, ApplicationMember createdBy, ApplicationMember updatedBy) {
-        super(label, value, version, creationDate, lastModifiedDate, createdBy, updatedBy);
+    public WalletItem(WalletItemType walletItemType, byte[] icon, String label, String value, Long version, String created, String updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
+        super(label, value, version, created, updated, createdBy, updatedBy);
         this.walletItemType = walletItemType;
         this.icon = icon;
     }

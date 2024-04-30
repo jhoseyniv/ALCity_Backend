@@ -44,8 +44,8 @@ public class ALObjectController {
             ObjectCategoryDTO objectCategoryDTO = new ObjectCategoryDTO();
             ObjectCategory objectCategory = iterator.next();
             objectCategoryDTO.setId(objectCategory.getId());
-            objectCategoryDTO.setCreated(DateUtils.getDatatimeFromLong(objectCategory.getCreated()));
-            objectCategoryDTO.setUpdated(DateUtils.getDatatimeFromLong(objectCategory.getUpdated()));
+            objectCategoryDTO.setCreated(objectCategory.getCreated());
+            objectCategoryDTO.setUpdated(objectCategory.getUpdated());
             objectCategoryDTO.setVersion(objectCategory.getVersion());
             objectCategoryDTO.setLabel(objectCategory.getLabel());
             objectCategoryDTO.setValue(objectCategory.getValue());
@@ -61,8 +61,8 @@ public class ALObjectController {
         if(objectCategoryOptional.isPresent()){
             ObjectCategory objectCategory = objectCategoryOptional.get();
             objectCategoryDTO.setId(objectCategory.getId());
-            objectCategoryDTO.setCreated(DateUtils.getDatatimeFromLong(objectCategory.getCreated()));
-            objectCategoryDTO.setUpdated(DateUtils.getDatatimeFromLong(objectCategory.getUpdated()));
+            objectCategoryDTO.setCreated(objectCategory.getCreated());
+            objectCategoryDTO.setUpdated(objectCategory.getUpdated());
             objectCategoryDTO.setVersion(objectCategory.getVersion());
             objectCategoryDTO.setLabel(objectCategory.getLabel());
             objectCategoryDTO.setValue(objectCategory.getValue());
@@ -114,8 +114,8 @@ public class ALObjectController {
               ActionRendererDTO actionRendererDTO = new ActionRendererDTO();
               ActionRenderer actionRenderer = iterator.next();
               actionRendererDTO.setId(actionRenderer.getId());
-              actionRendererDTO.setCreated(DateUtils.getDatatimeFromLong(actionRenderer.getCreated()));
-              actionRendererDTO.setUpdated(DateUtils.getDatatimeFromLong(actionRenderer.getUpdated()));
+              actionRendererDTO.setCreated(actionRenderer.getCreated());
+              actionRendererDTO.setUpdated(actionRenderer.getUpdated());
               actionRendererDTO.setVersion(actionRenderer.getVersion());
               ObjectAction objectAction = actionRenderer.getObjectAction();
 
@@ -127,8 +127,8 @@ public class ALObjectController {
 
               ClientType clientType = actionRenderer.getClientType();
               ClientTypeDTO clientTypeDTO = new ClientTypeDTO(clientType.getId(),clientType.getLabel(),clientType.getValue(), clientType.getVersion(),
-                      DateUtils.getDatatimeFromLong(clientType.getCreated()),
-                      DateUtils.getDatatimeFromLong(clientType.getUpdated()));
+                      clientType.getCreated(),
+                      clientType.getUpdated());
 
               actionRendererDTO.setClientTypeDTO(clientTypeDTO);
               actionRendererDTO.setHandler(actionRenderer.getHandler());

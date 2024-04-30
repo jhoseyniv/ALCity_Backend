@@ -59,7 +59,7 @@ public class PuzzleObject_ObjectAction extends BaseTable implements Serializable
     public PuzzleObject_ObjectAction() {
     }
 
-    public PuzzleObject_ObjectAction(POActionOwnerType poActionOwnerType, Long ownerObjectid, ObjectAction objectAction, ActionRenderer actionRenderer, Long version, Long created, Long updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
+    public PuzzleObject_ObjectAction(POActionOwnerType poActionOwnerType, Long ownerObjectid, ObjectAction objectAction, ActionRenderer actionRenderer, Long version, String created, String updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
         super(version, created, updated, createdBy, updatedBy);
         this.ownerObjectid = ownerObjectid;
         this.poActionOwnerType = poActionOwnerType;

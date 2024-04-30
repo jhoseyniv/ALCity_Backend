@@ -55,7 +55,7 @@ public class ActionRenderer extends BaseTable implements Serializable {
     public ActionRenderer() {
     }
 
-    public ActionRenderer(String handler, ClientType clientType, ObjectAction objectAction,Long version, Long created, Long updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
+    public ActionRenderer(String handler, ClientType clientType, ObjectAction objectAction,Long version, String created, String updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
         super(version, created, updated, createdBy, updatedBy);
         this.handler = handler;
         this.clientType = clientType;

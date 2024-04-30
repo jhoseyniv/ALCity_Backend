@@ -160,8 +160,8 @@ public class ApplicationMember extends BaseTable implements Serializable {
     public ApplicationMember() {
     }
 
-    public ApplicationMember(Integer age, String username, String password, String nickname, String mobile, String email, byte[] avatar, UserGender gender, MemberType memberType,Long version, Long creationDate, Long lastModifiedDate, ApplicationMember createdBy, ApplicationMember updatedBy) {
-        super(version, creationDate, lastModifiedDate, createdBy, updatedBy);
+    public ApplicationMember(Integer age, String username, String password, String nickname, String mobile, String email, byte[] avatar, UserGender gender, MemberType memberType,Long version, String created, String updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
+        super(version, created, updated, createdBy, updatedBy);
         this.age = age;
         this.username = username;
         this.password = password;

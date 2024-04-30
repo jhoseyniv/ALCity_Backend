@@ -36,7 +36,7 @@ public class PermitedPlayer extends BaseTable {
         this.player = player;
     }
 
-    public PermitedPlayer(ApplicationMember player, PuzzleLevel puzzleLevel, Long version, Long created, Long updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
+    public PermitedPlayer(ApplicationMember player, PuzzleLevel puzzleLevel, Long version, String created, String updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
         super(version, created, updated, createdBy, updatedBy);
         this.player = player;
         this.puzzleLevel = puzzleLevel;

@@ -67,7 +67,7 @@ public class PLRule extends BaseTable implements Serializable {
      public PLRule() {
     }
 
-    public PLRule(String title, Integer ordering, StringBuffer condition, PuzzleLevel puzzleLevel, Long version, Long created, Long updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
+    public PLRule(String title, Integer ordering, StringBuffer condition, PuzzleLevel puzzleLevel, Long version, String created, String updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
         super(version, created, updated, createdBy, updatedBy);
         this.title = title;
         this.ordering = ordering;

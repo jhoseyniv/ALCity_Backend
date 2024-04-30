@@ -73,7 +73,7 @@ public class PuzzleObject extends BaseTable implements Serializable {
     public PuzzleObject() {
     }
 
-    public PuzzleObject(String title, ObjectCategory objectCategory, BinaryContent picture, BinaryContent icon, Long version, Long created, Long updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
+    public PuzzleObject(String title, ObjectCategory objectCategory, BinaryContent picture, BinaryContent icon, Long version, String created, String updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
         super(version, created, updated, createdBy, updatedBy);
         this.title = title;
         this.objectCategory = objectCategory;

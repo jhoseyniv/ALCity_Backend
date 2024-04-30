@@ -17,8 +17,9 @@ public class JourneyLearningSkillService implements JourneyLearningSkillReposito
 
     @Autowired
     JourneyLearningSkillRepository journeyLearningSkillRepository;
-    @Override
 
+
+    @Override
     public <S extends JourneyLearningSkill> S save(S entity) {
         return journeyLearningSkillRepository.save(entity);
     }

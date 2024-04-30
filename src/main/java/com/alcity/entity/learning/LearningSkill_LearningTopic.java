@@ -30,7 +30,7 @@ public class LearningSkill_LearningTopic extends BaseTable implements Serializab
     public LearningSkill_LearningTopic() {
     }
 
-    public LearningSkill_LearningTopic(String title, LearningSkill learningSkill, LearningTopic learningTopic,Long version, Long created, Long updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
+    public LearningSkill_LearningTopic(String title, LearningSkill learningSkill, LearningTopic learningTopic,Long version, String created, String updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
         super(version, created, updated, createdBy, updatedBy);
         this.title = title;
         this.learningSkill = learningSkill;

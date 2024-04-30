@@ -2,7 +2,7 @@ package com.alcity.dto.user;
 
 public class WalletItemTransactionDTO {
 
-    private Long transactionDate;
+    private String transactionDate;
     private Float amount;
     private Boolean incTransaction;
     private String description;
@@ -10,18 +10,18 @@ public class WalletItemTransactionDTO {
     public WalletItemTransactionDTO() {
     }
 
-    public WalletItemTransactionDTO(Long transactionDate, Float amount, Boolean incTransaction, String description) {
+    public WalletItemTransactionDTO(String transactionDate, Float amount, Boolean incTransaction, String description) {
         this.transactionDate = transactionDate;
         this.amount = amount;
         this.incTransaction = incTransaction;
         this.description = description;
     }
 
-    public Long getTransactionDate() {
+    public String getTransactionDate() {
         return transactionDate;
     }
 
-    public void setTransactionDate(Long transactionDate) {
+    public void setTransactionDate(String transactionDate) {
         this.transactionDate = transactionDate;
     }
 

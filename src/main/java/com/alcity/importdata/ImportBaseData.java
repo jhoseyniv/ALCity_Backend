@@ -35,8 +35,10 @@ import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 import java.time.Instant;
+import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -107,13 +109,15 @@ public class ImportBaseData implements CommandLineRunner {
         log.info("Start Application...Import Problem 1");
         System.out.println("...Import Problem 1");
 
-        ZoneId zoneId = ZoneId.of("Europe/London").getRules().getOffset(Instant.now());
-        ZonedDateTime startDate = ZonedDateTime.now();
-        ZonedDateTime endDate = ZonedDateTime.of(2022, 3, 30, 23, 45, 59, 1234, zoneId);
+//        ZoneId zoneId = ZoneId.of("Europe/London").getRules().getOffset(Instant.now());
+//        ZonedDateTime startDate = ZonedDateTime.now();
+//        ZonedDateTime endDate = ZonedDateTime.of(2022, 3, 30, 23, 45, 59, 1234, zoneId);
 
-        ZonedDateTime  createdDate= ZonedDateTime.now();
-        Long now = createdDate.toEpochSecond();
-
+//        ZonedDateTime  createdDate= ZonedDateTime.now();
+//        Long now = createdDate.toEpochSecond();
+        LocalDateTime current = LocalDateTime.now();
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+        String now = current.format(format);
 
         byte[] avatar = ImageUtil.getImage("src/main/resources/images/","avatar.png");
 

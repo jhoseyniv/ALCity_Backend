@@ -26,8 +26,10 @@ import org.springframework.core.annotation.Order;
 import org.springframework.core.env.Environment;
 
 import java.time.Instant;
+import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 
 
 @Order(value=2)
@@ -141,10 +143,9 @@ public class ObjectManagmentApplication {
 			log.info("Start Application...Tassk Management");
 			System.out.println("Let's inspect the beans provided by Spring Boot:");
 
-			ZoneId zoneId = ZoneId.of("Europe/London").getRules().getOffset(Instant.now());
-
-			ZonedDateTime  createdDate= ZonedDateTime.now();
-			Long now = createdDate.toEpochSecond();
+			LocalDateTime current = LocalDateTime.now();
+			DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+			String now = current.format(format);
 
 			ApplicationMember admin_1 = applicationMemberService.findByUsername("admin");
 			BinaryContentType imageType= binaryContentTypeService.findByValue("image");

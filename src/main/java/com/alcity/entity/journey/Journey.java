@@ -62,7 +62,7 @@ public class Journey  extends BaseTable implements Serializable {
     public Journey() {
     }
 
-    public Journey(String title, BinaryContent graphic,Long version, Long created, Long updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
+    public Journey(String title, BinaryContent graphic,Long version, String created, String updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
         super(version, created, updated, createdBy, updatedBy);
         this.title = title;
         this.graphic = graphic;

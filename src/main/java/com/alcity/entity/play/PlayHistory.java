@@ -22,7 +22,7 @@ public class PlayHistory extends BaseTable {
     private PuzzleLevel puzzleLevel;
 
     @Column(name="playTime")
-    private Long playTime;
+    private String playTime;
 
     @Column(name="playDuration")
     private Integer playDuration;
@@ -34,7 +34,7 @@ public class PlayHistory extends BaseTable {
     public PlayHistory() {
     }
 
-    public PlayHistory(ApplicationMember player, PuzzleLevel puzzleLevel, Long playTime, Integer playDuration, Float playScore,Long version, Long created, Long updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
+    public PlayHistory(ApplicationMember player, PuzzleLevel puzzleLevel, String playTime, Integer playDuration, Float playScore,Long version, String created, String updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
         super(version, created, updated, createdBy, updatedBy);
         this.player = player;
         this.puzzleLevel = puzzleLevel;

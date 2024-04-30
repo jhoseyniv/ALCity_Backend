@@ -85,7 +85,7 @@ public class JourneyStep extends BaseTable implements Serializable {
     public JourneyStep() {
     }
 
-    public JourneyStep(String title,Integer ordering, Integer xpos, Integer ypos, Journey journey, PuzzleGroup puzzleGroup ,Long version, Long created, Long updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
+    public JourneyStep(String title,Integer ordering, Integer xpos, Integer ypos, Journey journey, PuzzleGroup puzzleGroup ,Long version, String created, String updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
         super(version, created, updated, createdBy, updatedBy);
         this.title =title;
         this.ordering = ordering;

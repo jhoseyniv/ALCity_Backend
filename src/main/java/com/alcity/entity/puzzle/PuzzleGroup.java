@@ -111,7 +111,7 @@ public class PuzzleGroup extends BaseTable implements Serializable {
     public PuzzleGroup() {
     }
 
-    public PuzzleGroup( String title,PuzzleCategory puzzleCategory, BinaryContent icon, BinaryContent pic,Long version, Long created, Long updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
+    public PuzzleGroup( String title,PuzzleCategory puzzleCategory, BinaryContent icon, BinaryContent pic,Long version, String created, String updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
         super(version, created, updated, createdBy, updatedBy);
         this.title = title;
         this.puzzleCategory = puzzleCategory;

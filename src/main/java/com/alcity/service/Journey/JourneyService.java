@@ -1,5 +1,6 @@
 package com.alcity.service.Journey;
 
+import com.alcity.dto.journey.JourneyDTO;
 import com.alcity.entity.journey.Journey;
 import com.alcity.repository.journey.JourneyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +42,11 @@ public class JourneyService implements JourneyRepository {
     }
 
     @Override
+    public Collection<Journey> findByTitleContains(String criteria) {
+        return journeyRepository.findByTitleContains(criteria);
+    }
+
+    @Override
     public Iterable<Journey> findAllById(Iterable<Long> longs) {
         return null;
     }
@@ -79,4 +85,6 @@ public class JourneyService implements JourneyRepository {
     public Journey findByTitle(String title) {
         return journeyRepository.findByTitle(title);
     }
+
+
 }

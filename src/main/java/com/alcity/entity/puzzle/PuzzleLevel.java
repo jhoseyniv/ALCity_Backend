@@ -16,7 +16,7 @@ import java.util.Collection;
 public class PuzzleLevel extends BaseTable implements Serializable {
 
     @Column(name="approveDate")
-    private Long approveDate;
+    private String approveDate;
 
     @Column(name="ordering")
     private Long ordering;
@@ -37,11 +37,11 @@ public class PuzzleLevel extends BaseTable implements Serializable {
     @Column(name="maxScore")
     private Float maxScore;
 
-    public Long getApproveDate() {
+    public String getApproveDate() {
         return approveDate;
     }
 
-    public void setApproveDate(Long approveDate) {
+    public void setApproveDate(String approveDate) {
         this.approveDate = approveDate;
     }
 
@@ -244,7 +244,7 @@ public class PuzzleLevel extends BaseTable implements Serializable {
     public PuzzleLevel() {
     }
 
-    public PuzzleLevel(Long approveDate, Long ordering, String name, String code, Integer fromAge, Integer toAge, Float maxScore, PuzzleGroup puzzleGroup, PLDifficulty puzzleDifficulty, PLStatus puzzleLevelStatus, PLPrivacy puzzleLevelPrivacy, BinaryContent picture, BinaryContent icon, Long version, Long created, Long updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
+    public PuzzleLevel(String approveDate, Long ordering, String name, String code, Integer fromAge, Integer toAge, Float maxScore, PuzzleGroup puzzleGroup, PLDifficulty puzzleDifficulty, PLStatus puzzleLevelStatus, PLPrivacy puzzleLevelPrivacy, BinaryContent picture, BinaryContent icon, Long version, String created, String updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
         super(version, created, updated, createdBy, updatedBy);
         this.approveDate = approveDate;
         this.ordering = ordering;

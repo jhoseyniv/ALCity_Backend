@@ -63,8 +63,8 @@ public class ApplicationMember_WalletItem extends BaseTable implements Serializa
     public ApplicationMember_WalletItem() {
     }
 
-    public ApplicationMember_WalletItem(ApplicationMember applicationMember, WalletItem walletItem, Float amount,Long version, Long creationDate, Long lastModifiedDate, ApplicationMember createdBy, ApplicationMember updatedBy) {
-        super(version, creationDate, lastModifiedDate, createdBy, updatedBy);
+    public ApplicationMember_WalletItem(ApplicationMember applicationMember, WalletItem walletItem, Float amount,Long version, String created, String updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
+        super(version, created, updated, createdBy, updatedBy);
         this.applicationMember = applicationMember;
         this.walletItem = walletItem;
         this.amount = amount;

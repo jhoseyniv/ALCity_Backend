@@ -12,7 +12,7 @@ public class PLPrivacy extends BaseItemSet implements Serializable {
     public PLPrivacy() {
     }
 
-    public PLPrivacy(String label, String value, Long version, Long created, Long updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
+    public PLPrivacy(String label, String value, Long version, String created, String updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
         super(label, value, version, created, updated, createdBy,updatedBy);
     }
 }

@@ -77,7 +77,7 @@ public class PLGround extends BaseTable {
     public PLGround() {
     }
 
-    public PLGround(Integer numRows, Integer numColumns, PuzzleLevel puzzleLevel, BinaryContent boardGraphic, Long version, Long created, Long updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
+    public PLGround(Integer numRows, Integer numColumns, PuzzleLevel puzzleLevel, BinaryContent boardGraphic, Long version, String created, String updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
         super(version, created, updated, createdBy, updatedBy);
         this.numRows = numRows;
         this.numColumns = numColumns;

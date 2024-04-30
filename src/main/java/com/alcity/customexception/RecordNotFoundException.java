@@ -2,16 +2,24 @@ package com.alcity.customexception;
 
 public class RecordNotFoundException extends  RuntimeException {
 
-    private String username;
+    private Long recordId;
     private String  message;
+    private String  recordTitle;
 
-
-    public String getUsername() {
-        return username;
+    public Long getRecordId() {
+        return recordId;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setRecordId(Long recordId) {
+        this.recordId = recordId;
+    }
+
+    public String getRecordTitle() {
+        return recordTitle;
+    }
+
+    public void setRecordTitle(String recordTitle) {
+        this.recordTitle = recordTitle;
     }
 
     @Override
@@ -23,9 +31,10 @@ public class RecordNotFoundException extends  RuntimeException {
         this.message = message;
     }
 
-    public RecordNotFoundException(String username, String message) {
-        this.username = username;
-        this.message =  message;
+    public RecordNotFoundException(Long recordId,String recordTitle, String errorMessage) {
+        this.recordId = recordId;
+        this.message =  errorMessage;
+        this.recordTitle =recordTitle;
     }
 
 }

@@ -14,6 +14,7 @@ import com.alcity.service.learning.LearningSkillService;
 import com.alcity.service.learning.LearningTopicService;
 import com.alcity.utility.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
@@ -56,8 +57,8 @@ public class BaseItemSetConroller {
              clientTypeDTO.setLabel(clientType.getLabel());
              clientTypeDTO.setValue(clientType.getValue());
              clientTypeDTO.setVersion(clientType.getVersion());
-             clientTypeDTO.setCreated(DateUtils.getDatatimeFromLong(clientType.getCreated()));
-             clientTypeDTO.setUpdated(DateUtils.getDatatimeFromLong(clientType.getUpdated()));
+             clientTypeDTO.setCreated(clientType.getCreated());
+             clientTypeDTO.setUpdated(clientType.getUpdated());
 
          }else clientTypeDTO=null;
 
@@ -65,7 +66,8 @@ public class BaseItemSetConroller {
     }
 
     @PostMapping("/client-type/save")
-    public Optional<ClientType> saveClientType(@RequestBody ClientType clientType)  {
+    @ExceptionHandler(UniqueConstraintException.class)
+    public ResponseEntity<ClientType> saveClientType(@RequestBody ClientType clientType)  {
         ClientType savedRecord = null;
         try {
             savedRecord = clientTypeService.save(clientType);
@@ -74,7 +76,7 @@ public class BaseItemSetConroller {
             throw new UniqueConstraintException(clientType.getLabel(), clientType.getId(), ClientType.class.toString());
         }
         Optional<ClientType> output = clientTypeService.findById(savedRecord.getId());
-        return output;
+        return ResponseEntity.ok(clientTypeService.save(clientType));
     }
 
 
@@ -85,13 +87,13 @@ public class BaseItemSetConroller {
         Collection<DataType> dataTypes = dataTypeService.findAll();
         return dataTypes;
     }
+
     @RequestMapping(value = "/data-type/id/{id}", method = RequestMethod.GET)
     @ResponseBody
     public Optional<DataType> getDataTypeById(@PathVariable Long id) {
         Optional<DataType> dataType = dataTypeService.findById(id);
         if(!dataType.isPresent())
-                throw new RecordNotFoundException(id.toString(),"this record not found in the database...");
-
+                throw new RecordNotFoundException(id,id.toString(),"this record not found in the database...");
         return dataType;
     }
 
@@ -103,7 +105,7 @@ public class BaseItemSetConroller {
         }catch (RuntimeException e )
         {
             throw new UniqueConstraintException(dataType.getLabel(), dataType.getId(), DataType.class.toString());
-        }
+      }
         Optional<DataType> output = dataTypeService.findById(savedDataType.getId());
         return output;
     }
@@ -132,29 +134,21 @@ public class BaseItemSetConroller {
         return PLDifficulty.values();
     }
 
-//    @RequestMapping(value = "/pl-difficulty/id/{id}", method = RequestMethod.GET)
-//    @ResponseBody
-//    public Optional<PLDifficulty> getPuzzleLevelDifficultyById(@PathVariable Long id) {
-//        Optional<PLDifficulty> puzzleLevelDifficulty = puzzleDifficultyService.findById(id);
-//        return puzzleLevelDifficulty;
+
+//    @Autowired
+//    private PuzzleCategoryService puzzleCategoryService;
+//    @GetMapping("/pl-category/all")
+//    public Collection<PuzzleCategory> getPuzzleCategories(Model model) {
+//        Collection<PuzzleCategory> puzzleCategoryCollection = puzzleCategoryService.findAll();
+//        return puzzleCategoryCollection;
 //    }
-
-
-
-    @Autowired
-    private PuzzleCategoryService puzzleCategoryService;
-    @GetMapping("/pl-category/all")
-    public Collection<PuzzleCategory> getPuzzleCategories(Model model) {
-        Collection<PuzzleCategory> puzzleCategoryCollection = puzzleCategoryService.findAll();
-        return puzzleCategoryCollection;
-    }
-    @RequestMapping(value = "/pl-category/id/{id}", method = RequestMethod.GET)
-    @ResponseBody
-    public Optional<PuzzleCategory> getPuzzleCategoryById(@PathVariable Long id) {
-        Optional<PuzzleCategory> puzzleCategory = puzzleCategoryService.findById(id);
-        return puzzleCategory;
-    }
-
+//    @RequestMapping(value = "/pl-category/id/{id}", method = RequestMethod.GET)
+//    @ResponseBody
+//    public Optional<PuzzleCategory> getPuzzleCategoryById(@PathVariable Long id) {
+//        Optional<PuzzleCategory> puzzleCategory = puzzleCategoryService.findById(id);
+//        return puzzleCategory;
+//    }
+//
 
 
     @GetMapping("/pl-status/all")
@@ -240,29 +234,6 @@ public class BaseItemSetConroller {
         Optional<BinaryContentType> binaryContentType = binaryContentTypeService.findById(id);
         return binaryContentType;
     }
-
-
-    @Autowired
-    private LearningSkillService learningSkillService;
-    @PostMapping("/learning-skill/save")
-    public Optional<LearningSkill> saveLearningSkills(@RequestBody LearningSkill learningSkill) {
-        LearningSkill savedSkill  = learningSkillService.save(learningSkill);
-        Optional<LearningSkill> output = learningSkillService.findById(savedSkill.getId());
-        return output;
-    }
-    @GetMapping("/learning-skill/all")
-    public Collection<LearningSkill> getLearningSkills(Model model) {
-        Collection<LearningSkill> learningSkillCollection = learningSkillService.findAll();
-        return learningSkillCollection;
-    }
-
-    @RequestMapping(value = "/learning-skill/id/{id}", method = RequestMethod.GET)
-    @ResponseBody
-    public Optional<LearningSkill> getLearningSkillById(@PathVariable Long id) {
-        Optional<LearningSkill> learningSkill = learningSkillService.findById(id);
-        return learningSkill;
-    }
-
 
     @Autowired
     private LearningTopicService learningTopicService;
