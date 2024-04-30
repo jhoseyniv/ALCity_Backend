@@ -13,4 +13,5 @@ public interface JourneyRepository extends CrudRepository<Journey,Long> {
     Collection<Journey> findAll();
     Collection<Journey> findByTitleContains(String criteria);
     Journey findByTitle(String title);
+   // void saveDTO(JourneyDTO journeyDTO);
 }

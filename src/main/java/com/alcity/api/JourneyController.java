@@ -4,13 +4,11 @@ package com.alcity.api;
 import com.alcity.customexception.UniqueConstraintException;
 import com.alcity.dto.journey.JourneyDTO;
 import com.alcity.entity.journey.Journey;
-import com.alcity.entity.learning.LearningSkill;
 import com.alcity.service.Journey.JourneyService;
 import com.alcity.utility.DTOUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
@@ -50,13 +48,14 @@ public class JourneyController {
     }
     @ExceptionHandler(UniqueConstraintException.class)
     @PostMapping("/save")
-    public Optional<Journey> saveJourney(@RequestBody Journey journey)  {
+    public Optional<Journey> saveJourney(@RequestBody JourneyDTO journeyDTO)  {
+        System.out.println("j"+journeyDTO.getGraphic().getFileName());
         Journey savedJourney = null;
         try {
-            savedJourney = journeyService.save(journey);
+           // savedJourney = journeyService.save(journey);
         }catch (RuntimeException e )
         {
-            throw new UniqueConstraintException(journey.getTitle(), journey.getId(), Journey.class.toString());
+          //  throw new UniqueConstraintException(journey.getTitle(), journey.getId(), Journey.class.toString());
         }
         Optional<Journey> output = journeyService.findById(savedJourney.getId());
         return output;
