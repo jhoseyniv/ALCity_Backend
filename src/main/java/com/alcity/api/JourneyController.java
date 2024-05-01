@@ -48,17 +48,17 @@ public class JourneyController {
     }
     @ExceptionHandler(UniqueConstraintException.class)
     @PostMapping("/save")
-    public Optional<Journey> saveJourney(@RequestBody JourneyDTO journeyDTO)  {
+    public JourneyDTO saveJourney(@RequestBody JourneyDTO journeyDTO)  {
         System.out.println("j"+journeyDTO.getGraphic().getFileName());
-        Journey savedJourney = null;
+        JourneyDTO savedJourneyDTO = null;
         try {
-            //savedJourney = journeyService.save(journeyDTO);
+            savedJourneyDTO = journeyService.save(journeyDTO);
         }catch (RuntimeException e )
         {
           //  throw new UniqueConstraintException(journey.getTitle(), journey.getId(), Journey.class.toString());
         }
-        Optional<Journey> output = journeyService.findById(savedJourney.getId());
-        return output;
+        //Optional<Journey> output = journeyService.findById(savedJourney.getId());
+        return savedJourneyDTO;
     }
 
 

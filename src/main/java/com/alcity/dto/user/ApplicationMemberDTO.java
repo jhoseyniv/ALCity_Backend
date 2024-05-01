@@ -11,9 +11,8 @@ public class ApplicationMemberDTO  {
     private String mobile;
     private String email;
     private byte[] avatar;
-
-    private String createdBy;
-    private String updatedBy;
+    private Long createdById;
+    private Long updatedById;
 
 
     public Integer getAge() {
@@ -80,26 +79,26 @@ public class ApplicationMemberDTO  {
         this.id = id;
     }
 
-    public String getCreatedBy() {
-        return createdBy;
+    public Long getCreatedById() {
+        return createdById;
     }
 
-    public void setCreatedBy(String createdBy) {
-        this.createdBy = createdBy;
+    public void setCreatedById(Long createdById) {
+        this.createdById = createdById;
     }
 
-    public String getUpdatedBy() {
-        return updatedBy;
+    public Long getUpdatedById() {
+        return updatedById;
     }
 
-    public void setUpdatedBy(String updatedBy) {
-        this.updatedBy = updatedBy;
+    public void setUpdatedById(Long updatedById) {
+        this.updatedById = updatedById;
     }
 
     public ApplicationMemberDTO() {
     }
 
-    public ApplicationMemberDTO(Long id, Integer age, String username, String password, String nickname, String mobile, String email, byte[] avatar, String createdBy, String updatedBy) {
+    public ApplicationMemberDTO(Long id, Integer age, String username, String password, String nickname, String mobile, String email, byte[] avatar, Long createdById, Long updatedById) {
         this.id = id;
         this.age = age;
         this.username = username;
@@ -108,7 +107,7 @@ public class ApplicationMemberDTO  {
         this.mobile = mobile;
         this.email = email;
         this.avatar = avatar;
-        this.createdBy = createdBy;
-        this.updatedBy = updatedBy;
+        this.createdById = createdById;
+        this.updatedById = updatedById;
     }
 }

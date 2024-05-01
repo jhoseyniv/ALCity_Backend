@@ -102,8 +102,8 @@ public class JourneyService implements JourneyRepository {
 
     @Override
     public JourneyDTO save(JourneyDTO journeyDTO) {
-        BinaryContentDTO binaryContentDTO = journeyDTO.getGraphic();
-        Optional<BinaryContent> binaryContentIsExist = binaryContentService.findById(binaryContentDTO.getId());
+        BinaryContentDTO graphicDTO = journeyDTO.getGraphic();
+        Optional<BinaryContent> binaryContentIsExist = binaryContentService.findById(graphicDTO.getId());
         //applicationMemberService.findById()
         if(binaryContentIsExist.isPresent()) {
 //            Journey savedJourney = new Journey(journeyDTO.getTitle(),binaryContentIsExist.get(),binaryContentDTO.getVersion(),

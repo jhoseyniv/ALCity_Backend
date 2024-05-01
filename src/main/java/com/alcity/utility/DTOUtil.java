@@ -435,7 +435,7 @@ public class DTOUtil {
     public static ApplicationMemberDTO getApplicationMemberDTO(ApplicationMember member){
         ApplicationMemberDTO memberDTO = new ApplicationMemberDTO(member.getId(),member.getAge(),
                 member.getUsername(),member.getPassword(), member.getNickname(), member.getMobile(), member.getEmail(),
-                member.getAvatar(), member.getCreatedBy().getUsername(), member.getUpdatedBy().getUsername());
+                member.getAvatar(), member.getCreatedBy().getId(), member.getUpdatedBy().getId());
 
         return memberDTO;
     }
