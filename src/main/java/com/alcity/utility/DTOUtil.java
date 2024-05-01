@@ -532,17 +532,17 @@ public class DTOUtil {
         Iterator<PGObjectInstance> itr = puzzleGroupObjectInstanceCollection.iterator();
 
         while(itr.hasNext()){
-            PGObjectInstance puzzleGroupObjectInstance = itr.next();
-            PuzzleGroupObjectInstanceDTO puzzleGroupObjectInstanceDTO = new PuzzleGroupObjectInstanceDTO();
-            puzzleGroupObjectInstanceDTO.setId(puzzleGroupObjectInstance.getId());
-            puzzleGroupObjectInstanceDTO.setVersion(puzzleGroupObjectInstance.getVersion());
-            puzzleGroupObjectInstanceDTO.setCol(puzzleGroupObjectInstance.getCol());
-            puzzleGroupObjectInstanceDTO.setRow(puzzleGroupObjectInstance.getRow());
-            puzzleGroupObjectInstanceDTO.setzOrder(puzzleGroupObjectInstance.getzOrder());
-            puzzleGroupObjectInstanceDTO.setCreated(puzzleGroupObjectInstance.getCreated());
-            puzzleGroupObjectInstanceDTO.setUpdated(puzzleGroupObjectInstance.getUpdated());
+            PGObjectInstance pgObjectInstance = itr.next();
+            PuzzleGroupObjectInstanceDTO pgObjectInstanceDTO = new PuzzleGroupObjectInstanceDTO();
+            pgObjectInstanceDTO.setId(pgObjectInstance.getId());
+            pgObjectInstanceDTO.setVersion(pgObjectInstance.getVersion());
+            pgObjectInstanceDTO.setCol(pgObjectInstance.getCol());
+            pgObjectInstanceDTO.setRow(pgObjectInstance.getRow());
+            pgObjectInstanceDTO.setzOrder(pgObjectInstance.getzOrder());
+            pgObjectInstanceDTO.setCreated(pgObjectInstance.getCreated());
+            pgObjectInstanceDTO.setUpdated(pgObjectInstance.getUpdated());
 
-            PuzzleGroup_PuzzleObject puzzleGroup_puzzleObject = puzzleGroupObjectInstance.getPuzzleGroup_PuzzleObject();
+            PuzzleGroup_PuzzleObject puzzleGroup_puzzleObject = pgObjectInstance.getPuzzleGroup_PuzzleObject();
             PuzzleGroup_PuzzleObjectDTO  puzzleGroup_puzzleObjectDTO= new PuzzleGroup_PuzzleObjectDTO();
             puzzleGroup_puzzleObjectDTO.setId(puzzleGroup_puzzleObject.getId());
             puzzleGroup_puzzleObjectDTO.setVersion(puzzleGroup_puzzleObject.getVersion());
@@ -551,9 +551,9 @@ public class DTOUtil {
             puzzleGroup_puzzleObjectDTO.setCreated(puzzleGroup_puzzleObject.getCreated());
             puzzleGroup_puzzleObjectDTO.setUpdated(puzzleGroup_puzzleObject.getUpdated());
 
-            puzzleGroupObjectInstanceDTO.setPuzzleGroup_puzzleObjectDTO(puzzleGroup_puzzleObjectDTO);
+            pgObjectInstanceDTO.setPuzzleGroup_puzzleObjectDTO(puzzleGroup_puzzleObjectDTO);
 
-            puzzleGroupObjectInstanceDTOCollection.add(puzzleGroupObjectInstanceDTO);
+            puzzleGroupObjectInstanceDTOCollection.add(pgObjectInstanceDTO);
         }
         return puzzleGroupObjectInstanceDTOCollection;
     }
