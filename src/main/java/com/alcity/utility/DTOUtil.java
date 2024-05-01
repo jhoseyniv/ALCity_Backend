@@ -446,8 +446,8 @@ public class DTOUtil {
          journeyDTO.setCreated(journey.getCreated());
          journeyDTO.setUpdated(journey.getUpdated());
          journeyDTO.setTitle(journey.getTitle());
-         journeyDTO.setCreatedBy(getApplicationMemberDTO(journey.getCreatedBy()));
-         journeyDTO.setCreatedBy(getApplicationMemberDTO(journey.getUpdatedBy()));
+         journeyDTO.setCreatedBy(journey.getCreatedBy().getUsername());
+         journeyDTO.setCreatedBy(journey.getUpdatedBy().getUsername());
          journeyDTO.setGraphic(getBinaryContentDTO(journey.getGraphic()));
          return journeyDTO;
     }

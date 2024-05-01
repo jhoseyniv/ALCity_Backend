@@ -6,7 +6,15 @@ import com.alcity.entity.journey.JourneyLearningSkill;
 
 import java.util.Set;
 
-public class JourneyDTO  extends BaseTableDTO {
+public class JourneyDTO   {
+    private Long id;
+    private Long version;
+    private String created;
+    private String updated;
+    private String createdBy;
+
+    private String updatedBy;
+
     private String title;
     private BinaryContentDTO graphic;
     private Set<JourneyStepDTO> journeyStepDTOSet;
@@ -47,8 +55,62 @@ public class JourneyDTO  extends BaseTableDTO {
     public JourneyDTO() {
     }
 
-    public JourneyDTO(Long id, Long version, String created, String updated, ApplicationMemberDTO createdBy, ApplicationMemberDTO updatedBy, String title, BinaryContentDTO graphic) {
-        super(id, version, created, updated, createdBy, updatedBy);
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getVersion() {
+        return version;
+    }
+
+    public void setVersion(Long version) {
+        this.version = version;
+    }
+
+    public String getCreated() {
+        return created;
+    }
+
+    public void setCreated(String created) {
+        this.created = created;
+    }
+
+    public String getUpdated() {
+        return updated;
+    }
+
+    public void setUpdated(String updated) {
+        this.updated = updated;
+    }
+
+    public String getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    public String getUpdatedBy() {
+        return updatedBy;
+    }
+
+    public void setUpdatedBy(String updatedBy) {
+        this.updatedBy = updatedBy;
+    }
+
+    public JourneyDTO(Long id, Long version, String created, String updated, String createdBy, String updatedBy,
+                      String title, BinaryContentDTO graphic) {
+        this.id = id;
+        this.version = version;
+        this.created = created;
+        this.updated = updated;
+        this.createdBy = createdBy;
+        this.updatedBy = updatedBy;
         this.title = title;
         this.graphic = graphic;
     }

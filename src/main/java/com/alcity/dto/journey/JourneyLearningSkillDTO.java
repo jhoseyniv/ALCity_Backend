@@ -10,9 +10,7 @@ public class JourneyLearningSkillDTO   {
 
     private String updatedBy;
 
-
     private Float requiredAmount;
-
 
     public Float getRequiredAmount() {
         return requiredAmount;
