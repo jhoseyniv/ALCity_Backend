@@ -52,7 +52,7 @@ public class JourneyController {
         System.out.println("j"+journeyDTO.getGraphic().getFileName());
         Journey savedJourney = null;
         try {
-           // savedJourney = journeyService.save(journey);
+            //savedJourney = journeyService.save(journeyDTO);
         }catch (RuntimeException e )
         {
           //  throw new UniqueConstraintException(journey.getTitle(), journey.getId(), Journey.class.toString());

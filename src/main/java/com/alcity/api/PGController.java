@@ -42,15 +42,14 @@ public class PGController {
             PuzzleGroup puzzleGroup = puzzleGroupIterator.next();
             puzzleGroupDTO.setId(puzzleGroup.getId());
             puzzleGroupDTO.setTitle(puzzleGroup.getTitle());
-            BinaryContent binaryContent_icon = puzzleGroup.getIcon();
-            BinaryContent binaryContent_pic = puzzleGroup.getPic();
+            BinaryContent icon = puzzleGroup.getIcon();
+            BinaryContent pic = puzzleGroup.getPic();
 
-            BinaryContentDTO binaryContentDTO_icon = new BinaryContentDTO(binaryContent_icon.getFileName(),binaryContent_icon.getSize(),binaryContent_icon.getContent(),binaryContent_icon.getId(),binaryContent_icon.getVersion()
-                    ,binaryContent_icon.getCreated(),binaryContent_icon.getUpdated());
-            BinaryContentDTO binaryContentDTO_pic = new BinaryContentDTO(binaryContent_pic.getFileName(),binaryContent_pic.getSize(),binaryContent_pic.getContent(),binaryContent_pic.getId(),binaryContent_pic.getVersion()
-                    ,binaryContent_pic.getCreated(),binaryContent_pic.getUpdated());
-            puzzleGroupDTO.setIcon(binaryContentDTO_icon);
-            puzzleGroupDTO.setPic(binaryContentDTO_pic);
+            BinaryContentDTO iconDTO =DTOUtil.getBinaryContentDTO(icon);
+            BinaryContentDTO picDTO =DTOUtil.getBinaryContentDTO(pic);
+
+            puzzleGroupDTO.setIcon(iconDTO);
+            puzzleGroupDTO.setPic(picDTO);
             puzzleGroupDTOCollection.add(puzzleGroupDTO);
         }
 

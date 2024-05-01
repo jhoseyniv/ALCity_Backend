@@ -1,7 +1,6 @@
 package com.alcity.dto.puzzle;
 
 import com.alcity.dto.CameraSetupDTO;
-import com.alcity.dto.base.BaseTableDTO;
 import com.alcity.dto.base.BinaryContentDTO;
 
 public class PLGroundDTO extends BaseTableDTO {

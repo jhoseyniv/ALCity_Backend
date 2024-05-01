@@ -18,7 +18,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/po")
-public class PuzzleObjectController {
+public class POController {
 
     @Autowired
     private PuzzleObjectService puzzleObjectService;

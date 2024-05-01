@@ -16,6 +16,7 @@ import com.alcity.dto.learning.LearningSkillDTO;
 import com.alcity.dto.learning.LearningTopicDTO;
 import com.alcity.dto.player.PermitedPlayerDTO;
 import com.alcity.dto.puzzle.*;
+import com.alcity.dto.user.ApplicationMemberDTO;
 import com.alcity.entity.alenum.AttributeOwnerType;
 import com.alcity.entity.alobject.*;
 import com.alcity.entity.base.*;
@@ -25,6 +26,7 @@ import com.alcity.entity.learning.LearningContent;
 import com.alcity.entity.learning.LearningSkill;
 import com.alcity.entity.play.PermitedPlayer;
 import com.alcity.entity.puzzle.*;
+import com.alcity.entity.users.ApplicationMember;
 import com.alcity.service.alobject.AttributeService;
 
 import java.util.ArrayList;
@@ -247,8 +249,7 @@ public class DTOUtil {
 
             LearningContent learningContent = puzzleSkillLearningContent.getLearningContent();
             BinaryContent binaryContent = learningContent.getBinaryContent();
-            BinaryContentDTO binaryContentDTO = new BinaryContentDTO(binaryContent.getFileName(), binaryContent.getSize(), binaryContent.getContent(), binaryContent.getId(), binaryContent.getVersion(),
-                    binaryContent.getCreated(), binaryContent.getUpdated());
+            BinaryContentDTO binaryContentDTO = getBinaryContentDTO(binaryContent);
 
             LearningContentDTO learningContentDTO = new LearningContentDTO();
             learningContentDTO.setId(learningContent.getId());
@@ -288,13 +289,10 @@ public class DTOUtil {
             puzzleObjectDTO.setCreated(puzzleObject.getCreated());
             puzzleObjectDTO.setUpdated(puzzleObject.getUpdated());
 
-            BinaryContent picture = puzzleObject.getPicture();
+            BinaryContent pic = puzzleObject.getPicture();
             BinaryContent icon = puzzleObject.getPicture();
-            BinaryContentDTO pictureDTO = new BinaryContentDTO(picture.getFileName(), picture.getSize(), picture.getContent(), picture.getId(), picture.getVersion(),
-                    picture.getCreated(), picture.getUpdated());
-
-            BinaryContentDTO iconDTO = new BinaryContentDTO(icon.getFileName(), icon.getSize(), icon.getContent(), icon.getId(), icon.getVersion(),
-                    icon.getCreated(), icon.getUpdated());
+            BinaryContentDTO pictureDTO = getBinaryContentDTO(pic);
+            BinaryContentDTO iconDTO = getBinaryContentDTO(icon);
 
             puzzleObjectDTO.setPicture(pictureDTO);
             puzzleObjectDTO.setIcon(iconDTO);
@@ -314,27 +312,25 @@ public class DTOUtil {
         puzzleGroupDTO.setCreated(puzzleGroup.getCreated());
         puzzleGroupDTO.setUpdated(puzzleGroup.getUpdated());
         puzzleGroupDTO.setTitle(puzzleGroup.getTitle());
-        BinaryContent binaryContent_icon = puzzleGroup.getIcon();
-        BinaryContent binaryContent_pic = puzzleGroup.getPic();
+        BinaryContent icon = puzzleGroup.getIcon();
+        BinaryContent pic = puzzleGroup.getPic();
 
-        BinaryContentDTO binaryContentDTO_icon = new BinaryContentDTO(binaryContent_icon.getFileName(), binaryContent_icon.getSize(), binaryContent_icon.getContent(), binaryContent_icon.getId(), binaryContent_icon.getVersion()
-                , binaryContent_icon.getCreated(), binaryContent_icon.getUpdated());
-        BinaryContentDTO binaryContentDTO_pic = new BinaryContentDTO(binaryContent_pic.getFileName(), binaryContent_pic.getSize(), binaryContent_pic.getContent(), binaryContent_pic.getId(), binaryContent_pic.getVersion()
-                , binaryContent_pic.getCreated(), binaryContent_pic.getUpdated());
+        BinaryContentDTO binaryContentDTO_icon = getBinaryContentDTO(icon);
+        BinaryContentDTO binaryContentDTO_pic = getBinaryContentDTO(pic);
         puzzleGroupDTO.setIcon(binaryContentDTO_icon);
         puzzleGroupDTO.setPic(binaryContentDTO_pic);
 
         return puzzleGroupDTO;
     }
-    public static PuzzleCategoryDTO getPuzzleCategoryDTO(PuzzleCategory puzzleCategory) {
-        PuzzleCategoryDTO puzzleCategoryDTO = new PuzzleCategoryDTO();
-        Collection<PuzzleGroup> puzzleGroupCollection = puzzleCategory.getPuzzleGroupCollection();
-        puzzleCategoryDTO.setId(puzzleCategory.getId());
-        puzzleCategoryDTO.setVersion(puzzleCategory.getVersion());
-        puzzleCategoryDTO.setCreated(puzzleCategory.getCreated());
-        puzzleCategoryDTO.setUpdated(puzzleCategory.getUpdated());
-        puzzleCategoryDTO.setLabel(puzzleCategory.getLabel());
-        puzzleCategoryDTO.setValue(puzzleCategory.getValue());
+    public static PuzzleCategoryDTO getPuzzleCategoryDTO(PuzzleCategory pc) {
+        PuzzleCategoryDTO pcDTO = new PuzzleCategoryDTO();
+        Collection<PuzzleGroup> puzzleGroupCollection = pc.getPuzzleGroupCollection();
+        pcDTO.setId(pc.getId());
+        pcDTO.setVersion(pc.getVersion());
+        pcDTO.setCreated(pc.getCreated());
+        pcDTO.setUpdated(pc.getUpdated());
+        pcDTO.setLabel(pc.getLabel());
+        pcDTO.setValue(pc.getValue());
         Collection<PGDTO> puzzleGroupDTOCollection = new ArrayList<PGDTO>();
 
         Iterator<PuzzleGroup> iterator = puzzleGroupCollection.iterator();
@@ -344,9 +340,9 @@ public class DTOUtil {
             puzzleGroupDTO = getPuzzleGroupDTO(puzzleGroup);
             puzzleGroupDTOCollection.add(puzzleGroupDTO);
         }
-        puzzleCategoryDTO.setPuzzleGroupDTOCollection(puzzleGroupDTOCollection);
+        pcDTO.setPuzzleGroupDTOCollection(puzzleGroupDTOCollection);
 
-        return puzzleCategoryDTO;
+        return pcDTO;
     }
 
 
@@ -431,11 +427,17 @@ public class DTOUtil {
         return pl_ltDTOCollection;
     }
     public static BinaryContentDTO getBinaryContentDTO(BinaryContent content){
-        BinaryContentDTO binaryContentDTO = new BinaryContentDTO(content.getFileName(),content.getSize(),
-                null, content.getId(), content.getVersion(),
-                content.getCreated(),
-                content.getUpdated());
+        BinaryContentDTO binaryContentDTO = new BinaryContentDTO(content.getId(), content.getVersion(), content.getCreated(), content.getUpdated(),
+                content.getCreatedBy().getUsername(),content.getUpdatedBy().getUsername(),content.getFileName(), content.getSize(), content.getContent());
         return binaryContentDTO;
+    }
+
+    public static ApplicationMemberDTO getApplicationMemberDTO(ApplicationMember member){
+        ApplicationMemberDTO memberDTO = new ApplicationMemberDTO(member.getId(),member.getAge(),
+                member.getUsername(),member.getPassword(), member.getNickname(), member.getMobile(), member.getEmail(),
+                member.getAvatar(), member.getCreatedBy().getUsername(), member.getUpdatedBy().getUsername());
+
+        return memberDTO;
     }
     public static JourneyDTO getJourneyDTO(Journey journey) {
          JourneyDTO journeyDTO = new JourneyDTO();
@@ -444,18 +446,15 @@ public class DTOUtil {
          journeyDTO.setCreated(journey.getCreated());
          journeyDTO.setUpdated(journey.getUpdated());
          journeyDTO.setTitle(journey.getTitle());
+         journeyDTO.setCreatedBy(getApplicationMemberDTO(journey.getCreatedBy()));
+         journeyDTO.setCreatedBy(getApplicationMemberDTO(journey.getUpdatedBy()));
          journeyDTO.setGraphic(getBinaryContentDTO(journey.getGraphic()));
          return journeyDTO;
     }
 
         public static LearningSkillDTO getLearningSkillDTO(LearningSkill ls) {
-        LearningSkillDTO lsDTO = new LearningSkillDTO();
-        lsDTO.setId(ls.getId());
-        lsDTO.setLabel(ls.getLabel());
-        lsDTO.setValue(ls.getValue());
-        lsDTO.setCreated(ls.getCreated());
-        lsDTO.setVersion(ls.getVersion());
-        lsDTO.setUpdated(ls.getUpdated());
+        LearningSkillDTO lsDTO = new LearningSkillDTO(ls.getId(), ls.getLabel(), ls.getValue(),
+                ls.getVersion(), ls.getCreated(), ls.getUpdated());
         return lsDTO;
     }
 
@@ -474,20 +473,20 @@ public class DTOUtil {
         return cameraSetupDTO;
     }
     public static Collection<PLGroundDTO> getPuzzleLevelGroundDTOS(PuzzleLevel puzzleLevel) {
-        Collection<PLGroundDTO> puzzleLevelGroundDTOCollection = new ArrayList<PLGroundDTO>();
-        Collection<PLGround> puzzleLevelGroundCollection = puzzleLevel.getPlGrounds();
-        Iterator<PLGround> itr_Grounds = puzzleLevelGroundCollection.iterator();
+        Collection<PLGroundDTO> plGroundDTOCollection = new ArrayList<PLGroundDTO>();
+        Collection<PLGround> plGroundCollection = puzzleLevel.getPlGrounds();
+        Iterator<PLGround> itr_Grounds = plGroundCollection.iterator();
         while(itr_Grounds.hasNext()) {
             PLGround puzzleLevelGround = itr_Grounds.next();
-            PLGroundDTO puzzleLevelGroundDTO = new PLGroundDTO();
-            puzzleLevelGroundDTO.setId(puzzleLevelGround.getId());
-            puzzleLevelGroundDTO.setVersion(puzzleLevelGround.getVersion());
-            puzzleLevelGroundDTO.setCreated(puzzleLevelGround.getCreated());
-            puzzleLevelGroundDTO.setUpdated(puzzleLevelGround.getUpdated());
-            puzzleLevelGroundDTO.setNumRows(puzzleLevelGround.getNumRows());
-            puzzleLevelGroundDTO.setNumColumns(puzzleLevelGround.getNumColumns());
+            PLGroundDTO plGroundDTO = new PLGroundDTO();
+            plGroundDTO.setId(puzzleLevelGround.getId());
+            plGroundDTO.setVersion(puzzleLevelGround.getVersion());
+            plGroundDTO.setCreated(puzzleLevelGround.getCreated());
+            plGroundDTO.setUpdated(puzzleLevelGround.getUpdated());
+            plGroundDTO.setNumRows(puzzleLevelGround.getNumRows());
+            plGroundDTO.setNumColumns(puzzleLevelGround.getNumColumns());
             CameraSetupDTO cameraSetupDTO = getCameraSetupDTO(puzzleLevelGround.getCameraSetup());
-            puzzleLevelGroundDTO.setCameraSetup(cameraSetupDTO);
+            plGroundDTO.setCameraSetup(cameraSetupDTO);
 
             BinaryContent boardGraphic = puzzleLevelGround.getBoardGraphic();
             BinaryContentDTO backGroundDTO= new BinaryContentDTO();
@@ -499,12 +498,12 @@ public class DTOUtil {
             backGroundDTO.setCreated(puzzleLevelGround.getCreated());
 
 
-            puzzleLevelGroundDTO.setBoardGraphic(backGroundDTO);
-            puzzleLevelGroundDTOCollection.add(puzzleLevelGroundDTO);
+            plGroundDTO.setBoardGraphic(backGroundDTO);
+            plGroundDTOCollection.add(plGroundDTO);
         }
 
 
-        return puzzleLevelGroundDTOCollection;
+        return plGroundDTOCollection;
     }
 
     public static Collection<PermitedPlayerDTO> getPermitedPlayerDTOS(PuzzleLevel puzzleLevel) {
@@ -568,15 +567,10 @@ public class DTOUtil {
             puzzleObjectDTO.setObjectCategory(po.getObjectCategory().getLabel());
             puzzleObjectDTO.setTitle(po.getTitle());
             puzzleObjectDTO.setVersion(po.getVersion());
-            BinaryContent picture = po.getPicture();
-            BinaryContentDTO pictureDTO = new BinaryContentDTO(picture.getFileName(),picture.getSize(),picture.getContent(),picture.getId(),picture.getVersion(),
-                    picture.getCreated(),
-                    picture.getUpdated());
-
+            BinaryContent pic = po.getPicture();
+            BinaryContentDTO pictureDTO = getBinaryContentDTO(pic);
             BinaryContent icon = po.getIcon();
-            BinaryContentDTO iconDTO = new BinaryContentDTO(icon.getFileName(),icon.getSize(),icon.getContent(),icon.getId(),icon.getVersion(),
-                    icon.getCreated(),
-                    icon.getUpdated());
+            BinaryContentDTO iconDTO = getBinaryContentDTO(icon);
             puzzleObjectDTO.setPicture(pictureDTO);
             puzzleObjectDTO.setIcon(iconDTO);
 
@@ -594,15 +588,11 @@ public class DTOUtil {
             puzzleObjectDTO.setObjectCategory(po.getObjectCategory().getLabel());
             puzzleObjectDTO.setTitle(po.getTitle());
             puzzleObjectDTO.setVersion(po.getVersion());
-            BinaryContent picture = po.getPicture();
-            BinaryContentDTO pictureDTO = new BinaryContentDTO(picture.getFileName(),picture.getSize(),picture.getContent(),picture.getId(),picture.getVersion(),
-                    picture.getCreated(),
-                    picture.getUpdated());
+            BinaryContent pic = po.getPicture();
+            BinaryContentDTO pictureDTO = getBinaryContentDTO(pic);
 
             BinaryContent icon = po.getIcon();
-            BinaryContentDTO iconDTO = new BinaryContentDTO(icon.getFileName(),icon.getSize(),icon.getContent(),icon.getId(),icon.getVersion(),
-                    icon.getCreated(),
-                    icon.getUpdated());
+            BinaryContentDTO iconDTO =getBinaryContentDTO(icon);
             puzzleObjectDTO.setPicture(pictureDTO);
             puzzleObjectDTO.setIcon(iconDTO);
             puzzleObjectDTOCollection.add(puzzleObjectDTO);

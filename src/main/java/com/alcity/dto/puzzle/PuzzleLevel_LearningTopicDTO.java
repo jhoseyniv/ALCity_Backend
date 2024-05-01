@@ -1,6 +1,5 @@
 package com.alcity.dto.puzzle;
 
-import com.alcity.dto.base.BaseTableDTO;
 import com.alcity.dto.learning.LearningContentDTO;
 import com.alcity.dto.learning.LearningTopicDTO;
 

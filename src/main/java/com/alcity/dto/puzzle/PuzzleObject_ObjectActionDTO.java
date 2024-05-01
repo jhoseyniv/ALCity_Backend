@@ -2,7 +2,6 @@ package com.alcity.dto.puzzle;
 
 import com.alcity.dto.alobject.ActionRendererDTO;
 import com.alcity.dto.alobject.PuzzleObjectActionOwnerTypeDTO;
-import com.alcity.dto.base.BaseTableDTO;
 import com.alcity.entity.alobject.ObjectAction;
 
 public class PuzzleObject_ObjectActionDTO extends BaseTableDTO {

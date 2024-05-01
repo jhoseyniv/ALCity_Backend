@@ -1,12 +1,17 @@
 package com.alcity.dto.puzzle;
 
-import com.alcity.dto.base.BaseTableDTO;
 import com.alcity.dto.player.PermitedPlayerDTO;
 
 import java.util.Collection;
 
-public class PLDTO extends BaseTableDTO {
+public class PLDTO  {
+    private Long id;
+    private Long version;
+    private String created;
+    private String updated;
+    private String createdBy;
 
+    private String updatedBy;
     private String approveDate;
     private Long ordering;
     private String title;
@@ -153,9 +158,61 @@ public class PLDTO extends BaseTableDTO {
     public PLDTO() {
     }
 
+    public Long getId() {
+        return id;
+    }
 
-    public PLDTO(Long id, Long version, String created, String updated, String approveDate, Long ordering, String title, String code, Integer fromAge, Integer toAge, Float maxScore) {
-        super(id, version, created, updated);
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getVersion() {
+        return version;
+    }
+
+    public void setVersion(Long version) {
+        this.version = version;
+    }
+
+    public String getCreated() {
+        return created;
+    }
+
+    public void setCreated(String created) {
+        this.created = created;
+    }
+
+    public String getUpdated() {
+        return updated;
+    }
+
+    public void setUpdated(String updated) {
+        this.updated = updated;
+    }
+
+    public String getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    public String getUpdatedBy() {
+        return updatedBy;
+    }
+
+    public void setUpdatedBy(String updatedBy) {
+        this.updatedBy = updatedBy;
+    }
+
+    public PLDTO(Long id, Long version, String created, String updated, String createdBy, String updatedBy, String approveDate, Long ordering, String title, String code, Integer fromAge, Integer toAge, Float maxScore, String puzzleLevelStatus, String puzzleLevelPrivacy, String puzzleLevelDifficulty) {
+        this.id = id;
+        this.version = version;
+        this.created = created;
+        this.updated = updated;
+        this.createdBy = createdBy;
+        this.updatedBy = updatedBy;
         this.approveDate = approveDate;
         this.ordering = ordering;
         this.title = title;
@@ -163,5 +220,8 @@ public class PLDTO extends BaseTableDTO {
         this.fromAge = fromAge;
         this.toAge = toAge;
         this.maxScore = maxScore;
+        this.puzzleLevelStatus = puzzleLevelStatus;
+        this.puzzleLevelPrivacy = puzzleLevelPrivacy;
+        this.puzzleLevelDifficulty = puzzleLevelDifficulty;
     }
 }

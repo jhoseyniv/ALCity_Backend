@@ -1,7 +1,5 @@
 package com.alcity.dto.puzzle;
 
-import com.alcity.dto.base.BaseTableDTO;
-
 public class PLObjectiveDTO extends BaseTableDTO {
 
     private String title;

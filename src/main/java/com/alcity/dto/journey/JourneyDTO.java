@@ -1,10 +1,8 @@
 package com.alcity.dto.journey;
 
-import com.alcity.dto.base.BaseTableDTO;
 import com.alcity.dto.base.BinaryContentDTO;
-import com.alcity.entity.base.BinaryContent;
+import com.alcity.dto.user.ApplicationMemberDTO;
 import com.alcity.entity.journey.JourneyLearningSkill;
-import com.alcity.entity.journey.JourneyStep;
 
 import java.util.Set;
 
@@ -49,11 +47,9 @@ public class JourneyDTO  extends BaseTableDTO {
     public JourneyDTO() {
     }
 
-    public JourneyDTO(String title, BinaryContentDTO graphic, Set<JourneyStepDTO> journeyStepDTOSet, Set<JourneyLearningSkill> journeyLearningSkillSet ,Long id, Long version, String created, String updated) {
-        super(id, version, created, updated);
+    public JourneyDTO(Long id, Long version, String created, String updated, ApplicationMemberDTO createdBy, ApplicationMemberDTO updatedBy, String title, BinaryContentDTO graphic) {
+        super(id, version, created, updated, createdBy, updatedBy);
         this.title = title;
         this.graphic = graphic;
-        this.journeyStepDTOSet = journeyStepDTOSet;
-        this.journeyLearningSkillSet = journeyLearningSkillSet;
     }
 }

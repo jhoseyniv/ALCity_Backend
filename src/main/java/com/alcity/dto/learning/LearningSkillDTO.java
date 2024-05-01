@@ -1,7 +1,6 @@
 package com.alcity.dto.learning;
 
 import com.alcity.dto.base.BaseItemSetDTO;
-import com.alcity.dto.base.BaseTableDTO;
 
 public class LearningSkillDTO extends BaseItemSetDTO {
 

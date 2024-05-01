@@ -1,9 +1,5 @@
 package com.alcity.dto.player;
 
-import com.alcity.dto.base.BaseTableDTO;
-import com.alcity.dto.user.ApplicationMemberDTO;
-import com.alcity.entity.users.ApplicationMember;
-
 public class PermitedPlayerDTO  extends BaseTableDTO {
     private String playerUsername;
     private String email;

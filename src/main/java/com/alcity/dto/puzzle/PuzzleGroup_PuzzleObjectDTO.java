@@ -1,8 +1,5 @@
 package com.alcity.dto.puzzle;
 
-import com.alcity.dto.base.BaseTableDTO;
-import com.alcity.entity.puzzle.PuzzleObject;
-
 public class PuzzleGroup_PuzzleObjectDTO extends BaseTableDTO {
     private String title;
     private String code;

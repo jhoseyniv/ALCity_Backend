@@ -1,7 +1,6 @@
 package com.alcity.dto.alobject;
 
 import com.alcity.dto.base.BaseItemSetDTO;
-import com.alcity.dto.base.BaseTableDTO;
 import com.alcity.entity.puzzle.PuzzleObject;
 
 import java.util.Collection;

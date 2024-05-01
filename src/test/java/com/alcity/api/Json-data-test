@@ -1,3 +1,25 @@
+//save Journey
+
+
+{
+    "version": 1,
+    "created": "01-05-2024 13:00:38",
+    "updated": "01-05-2024 13:00:38",
+    "title": "Journey_3",
+    "graphic": {
+        "id": 66,
+        "version": 1,
+        "created": "01-05-2024 13:00:38",
+        "updated": "01-05-2024 13:00:38",
+        "fileName": "image_journey_3",
+        "size": 114853,
+        "content": null
+    },
+    "journeyStepDTOSet": null,
+    "journeyLearningSkillSet": null
+}
+
+
 //add a learning skill
 
 {

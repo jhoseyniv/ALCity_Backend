@@ -1,10 +1,17 @@
 package com.alcity.dto.learning;
 
-import com.alcity.dto.base.BaseTableDTO;
 import com.alcity.dto.base.BinaryContentDTO;
-import com.alcity.entity.base.BinaryContent;
 
-public class LearningContentDTO extends BaseTableDTO {
+public class LearningContentDTO  {
+    private Long id;
+    private Long version;
+    private String created;
+    private String updated;
+    private String createdBy;
+
+    private String updatedBy;
+
+
     private String descText;
     private String descBrief;
     private BinaryContentDTO binaryContentDTO;
@@ -12,11 +19,52 @@ public class LearningContentDTO extends BaseTableDTO {
     public LearningContentDTO() {
     }
 
-    public LearningContentDTO(Long id, Long version, String created, String updated, String descText, String descBrief, BinaryContentDTO binaryContentDTO) {
-        super(id, version, created, updated);
-        this.descText = descText;
-        this.descBrief = descBrief;
-        this.binaryContentDTO = binaryContentDTO;
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getVersion() {
+        return version;
+    }
+
+    public void setVersion(Long version) {
+        this.version = version;
+    }
+
+    public String getCreated() {
+        return created;
+    }
+
+    public void setCreated(String created) {
+        this.created = created;
+    }
+
+    public String getUpdated() {
+        return updated;
+    }
+
+    public void setUpdated(String updated) {
+        this.updated = updated;
+    }
+
+    public String getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    public String getUpdatedBy() {
+        return updatedBy;
+    }
+
+    public void setUpdatedBy(String updatedBy) {
+        this.updatedBy = updatedBy;
     }
 
     public String getDescText() {
@@ -40,6 +88,18 @@ public class LearningContentDTO extends BaseTableDTO {
     }
 
     public void setBinaryContentDTO(BinaryContentDTO binaryContentDTO) {
+        this.binaryContentDTO = binaryContentDTO;
+    }
+
+    public LearningContentDTO(Long id, Long version, String created, String updated, String createdBy, String updatedBy, String descText, String descBrief, BinaryContentDTO binaryContentDTO) {
+        this.id = id;
+        this.version = version;
+        this.created = created;
+        this.updated = updated;
+        this.createdBy = createdBy;
+        this.updatedBy = updatedBy;
+        this.descText = descText;
+        this.descBrief = descBrief;
         this.binaryContentDTO = binaryContentDTO;
     }
 }

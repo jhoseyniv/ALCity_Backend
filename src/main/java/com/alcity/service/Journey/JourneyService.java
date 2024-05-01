@@ -1,10 +1,13 @@
 package com.alcity.service.Journey;
 
+import com.alcity.dto.base.BinaryContentDTO;
 import com.alcity.dto.journey.JourneyDTO;
 import com.alcity.entity.base.BinaryContent;
 import com.alcity.entity.journey.Journey;
+import com.alcity.entity.users.ApplicationMember;
 import com.alcity.repository.journey.JourneyRepository;
 import com.alcity.service.base.BinaryContentService;
+import com.alcity.service.users.ApplicationMemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +24,8 @@ public class JourneyService implements JourneyRepository {
 
     @Autowired
     BinaryContentService binaryContentService;
+    @Autowired
+    ApplicationMemberService applicationMemberService;
     @Override
     public <S extends Journey> S save(S entity) {
         Optional<BinaryContent> graphic =binaryContentService.findById(entity.getGraphic().getId());
@@ -29,14 +34,6 @@ public class JourneyService implements JourneyRepository {
         }
         return journeyRepository.save(entity);
     }
-//    public void saveDTO(JourneyDTO journeyDTO) {
-//
-//        Optional<BinaryContent> graphic =binaryContentService.findById(journeyDTO.getGraphic().getId());
-//        if(graphic.isPresent()) {
-//            System.out.println(journeyDTO.getGraphic().getFileName());
-//        }
-//       // return journeyRepository.save(entity);
-//    }
 
     @Override
     public <S extends Journey> Iterable<S> saveAll(Iterable<S> entities) {
@@ -101,6 +98,24 @@ public class JourneyService implements JourneyRepository {
     @Override
     public Journey findByTitle(String title) {
         return journeyRepository.findByTitle(title);
+    }
+
+    @Override
+    public JourneyDTO save(JourneyDTO journeyDTO) {
+        BinaryContentDTO binaryContentDTO = journeyDTO.getGraphic();
+        Optional<BinaryContent> binaryContentIsExist = binaryContentService.findById(binaryContentDTO.getId());
+        //applicationMemberService.findById()
+        if(binaryContentIsExist.isPresent()) {
+//            Journey savedJourney = new Journey(journeyDTO.getTitle(),binaryContentIsExist.get(),binaryContentDTO.getVersion(),
+//                    binaryContentDTO.getCreated(), binaryContentDTO.getUpdated(),);
+        }
+        else{
+
+        }
+
+        JourneyDTO savedJourneyDTO = null;
+
+        return savedJourneyDTO;
     }
 
 

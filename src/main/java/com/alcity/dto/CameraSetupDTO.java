@@ -1,9 +1,13 @@
 package com.alcity.dto;
 
-import com.alcity.dto.base.BaseTableDTO;
-import org.json.JSONObject;
+public class CameraSetupDTO  {
+    private Long id;
+    private Long version;
+    private String created;
+    private String updated;
+    private String createdBy;
 
-public class CameraSetupDTO extends BaseTableDTO {
+    private String updatedBy;
 
 
     private Integer xPosition;
@@ -65,8 +69,61 @@ public class CameraSetupDTO extends BaseTableDTO {
         this.zRotation = zRotation;
     }
 
-    public CameraSetupDTO(Long id, Long version, String created, String updated, Integer xPosition, Integer yPosition, Integer zPosition, Integer xRotation, Integer yRotation, Integer zRotation) {
-        super(id, version, created, updated);
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getVersion() {
+        return version;
+    }
+
+    public void setVersion(Long version) {
+        this.version = version;
+    }
+
+    public String getCreated() {
+        return created;
+    }
+
+    public void setCreated(String created) {
+        this.created = created;
+    }
+
+    public String getUpdated() {
+        return updated;
+    }
+
+    public void setUpdated(String updated) {
+        this.updated = updated;
+    }
+
+    public String getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    public String getUpdatedBy() {
+        return updatedBy;
+    }
+
+    public void setUpdatedBy(String updatedBy) {
+        this.updatedBy = updatedBy;
+    }
+
+    public CameraSetupDTO(Long id, Long version, String created, String updated, String createdBy, String updatedBy, Integer xPosition, Integer yPosition, Integer zPosition, Integer xRotation, Integer yRotation, Integer zRotation) {
+        this.id = id;
+        this.version = version;
+        this.created = created;
+        this.updated = updated;
+        this.createdBy = createdBy;
+        this.updatedBy = updatedBy;
         this.xPosition = xPosition;
         this.yPosition = yPosition;
         this.zPosition = zPosition;
@@ -74,7 +131,6 @@ public class CameraSetupDTO extends BaseTableDTO {
         this.yRotation = yRotation;
         this.zRotation = zRotation;
     }
-
 
     public String getCameraSetupInfottttttt() {
 
