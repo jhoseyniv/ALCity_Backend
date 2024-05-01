@@ -1,5 +1,6 @@
 package com.alcity;
 
+import com.alcity.entity.alenum.BinaryContentType;
 import com.alcity.entity.base.*;
 import com.alcity.entity.learning.LearningContent;
 import com.alcity.entity.puzzle.*;
@@ -25,10 +26,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.core.annotation.Order;
 import org.springframework.core.env.Environment;
 
-import java.time.Instant;
 import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 
 
@@ -44,9 +42,6 @@ public class ObjectManagmentApplication {
 	private ApplicationMemberService applicationMemberService;
 
 
-
-	@Autowired
-	private  BinaryContentTypeService  binaryContentTypeService;
 
 	@Autowired
 	private  BinaryContentService  binaryContentService;
@@ -148,22 +143,21 @@ public class ObjectManagmentApplication {
 			String now = current.format(format);
 
 			ApplicationMember admin_1 = applicationMemberService.findByUsername("admin");
-			BinaryContentType imageType= binaryContentTypeService.findByValue("image");
 
 			byte[] puzzle_Ground_Maze_Image_1 = ImageUtil.getImage("src/main/resources/images/","playGround.png");
-			BinaryContent puzzle_ground_Maze_image_binary_content_1 = new BinaryContent("puzzle ground for Maze image",puzzle_Ground_Maze_Image_1,imageType,1L,now,now,admin_1,admin_1);
+			BinaryContent puzzle_ground_Maze_image_binary_content_1 = new BinaryContent("puzzle ground for Maze image",puzzle_Ground_Maze_Image_1,BinaryContentType.Image,1L,now,now,admin_1,admin_1);
 			binaryContentService.save(puzzle_ground_Maze_image_binary_content_1);
 
 			byte[] puzzle_group_Icon_2 = ImageUtil.getImage("src/main/resources/images/","physic.png");
-			BinaryContent puzzle_group_binary_content_2 = new BinaryContent("image_puzzle_group_physic",puzzle_group_Icon_2,imageType,1L,now,now,admin_1,admin_1);
+			BinaryContent puzzle_group_binary_content_2 = new BinaryContent("image_puzzle_group_physic",puzzle_group_Icon_2,BinaryContentType.Image,1L,now,now,admin_1,admin_1);
 			binaryContentService.save(puzzle_group_binary_content_2);
 
 			byte[] puzzle_group_Icon_3 = ImageUtil.getImage("src/main/resources/images/","IQ.png");
-			BinaryContent puzzle_group_binary_content_3 = new BinaryContent("image_puzzle_group_IQ",puzzle_group_Icon_3,imageType,1L,now,now,admin_1,admin_1);
+			BinaryContent puzzle_group_binary_content_3 = new BinaryContent("image_puzzle_group_IQ",puzzle_group_Icon_3,BinaryContentType.Image,1L,now,now,admin_1,admin_1);
 			binaryContentService.save(puzzle_group_binary_content_3);
 
 			byte[] puzzle_group_Maze_Image = ImageUtil.getImage("src/main/resources/images/","MazeImage.png");
-			BinaryContent puzzle_group_Maze_Image_binary_content = new BinaryContent("MazeImage",puzzle_group_Maze_Image,imageType,1L,now,now,admin_1,admin_1);
+			BinaryContent puzzle_group_Maze_Image_binary_content = new BinaryContent("MazeImage",puzzle_group_Maze_Image,BinaryContentType.Image,1L,now,now,admin_1,admin_1);
 			binaryContentService.save(puzzle_group_Maze_Image_binary_content);
 
 			LearningContent learningContent_Maze=new LearningContent("help to maze","this content is about maze tables",puzzle_group_Maze_Image_binary_content,1L,now,now,admin_1,admin_1);

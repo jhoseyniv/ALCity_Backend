@@ -36,10 +36,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
-import java.time.Instant;
 import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 
 
@@ -53,8 +50,6 @@ public class ImportProblemData_1 implements CommandLineRunner {
     @Autowired
     private BinaryContentService binaryContentService;
 
-    @Autowired
-    private BinaryContentTypeService binaryContentTypeService;
 
     @Autowired
     PLGroundService puzzleLevelGroundService;
@@ -180,7 +175,6 @@ public class ImportProblemData_1 implements CommandLineRunner {
         DataType alcity_Boolean = dataTypeService.findByValue("Boolean");
         DataType alcity_String =  dataTypeService.findByValue("String");
 
-        BinaryContentType imageType= binaryContentTypeService.findByValue("image");
 
         LearningSkill timeManagement = learningSkillService.findByValue("timeManagement");
         LearningSkill division = learningSkillService.findByValue("division");
@@ -192,11 +186,11 @@ public class ImportProblemData_1 implements CommandLineRunner {
 
 
         byte[] puzzle_Ground_Image_1 = ImageUtil.getImage("src/main/resources/images/","playGround.png");
-        BinaryContent puzzle_ground_binary_content_1 = new BinaryContent("puzzle ground for hash image",puzzle_Ground_Image_1,imageType,1L,now,now,admin_1,admin_1);
+        BinaryContent puzzle_ground_binary_content_1 = new BinaryContent("puzzle ground for hash image",puzzle_Ground_Image_1,BinaryContentType.Image,1L,now,now,admin_1,admin_1);
         binaryContentService.save(puzzle_ground_binary_content_1);
 
         byte[] puzzle_group_Icon_1 = ImageUtil.getImage("src/main/resources/images/","puzzle_group_1.png");
-        BinaryContent puzzle_group_binary_content_1 = new BinaryContent("image_puzzle_group_matematic",puzzle_group_Icon_1,imageType,1L,now,now,admin_1,admin_1);
+        BinaryContent puzzle_group_binary_content_1 = new BinaryContent("image_puzzle_group_matematic",puzzle_group_Icon_1,BinaryContentType.Image,1L,now,now,admin_1,admin_1);
         binaryContentService.save(puzzle_group_binary_content_1);
 
         PuzzleCategory mathematic = puzzleCategoryService.findByValue("mathematic");
@@ -219,7 +213,7 @@ public class ImportProblemData_1 implements CommandLineRunner {
 
 
         byte[] puzzle_group_Hash_Image = ImageUtil.getImage("src/main/resources/images/","hashImage.png");
-        BinaryContent puzzle_group_Hash_Image_binary_content = new BinaryContent("hashImage",puzzle_group_Hash_Image,imageType,1L,now,now,admin_1,admin_1);
+        BinaryContent puzzle_group_Hash_Image_binary_content = new BinaryContent("hashImage",puzzle_group_Hash_Image,BinaryContentType.Image,1L,now,now,admin_1,admin_1);
         binaryContentService.save(puzzle_group_Hash_Image_binary_content);
 
         Integer xPos=3;
@@ -335,15 +329,15 @@ public class ImportProblemData_1 implements CommandLineRunner {
         byte[] image_8_hash = ImageUtil.getImage("src/main/resources/images/hashImage_Puzzle/","8.png");
 
 
-        BinaryContent image_0_Instance_content = new BinaryContent("img0",image_0_hash,imageType,1L,now,now,admin_1,admin_1);
-        BinaryContent image_1_Instance_content = new BinaryContent("img1",image_1_hash,imageType,1L,now,now,admin_1,admin_1);
-        BinaryContent image_2_Instance_content = new BinaryContent("img2",image_2_hash,imageType,1L,now,now,admin_1,admin_1);
-        BinaryContent image_3_Instance_content = new BinaryContent("img3",image_3_hash,imageType,1L,now,now,admin_1,admin_1);
-        BinaryContent image_4_Instance_content = new BinaryContent("img4",image_4_hash,imageType,1L,now,now,admin_1,admin_1);
-        BinaryContent image_5_Instance_content = new BinaryContent("img5",image_5_hash,imageType,1L,now,now,admin_1,admin_1);
-        BinaryContent image_6_Instance_content = new BinaryContent("img6",image_6_hash,imageType,1L,now,now,admin_1,admin_1);
-        BinaryContent image_7_Instance_content = new BinaryContent("img7",image_7_hash,imageType,1L,now,now,admin_1,admin_1);
-        BinaryContent image_8_Instance_content = new BinaryContent("img8",image_8_hash,imageType,1L,now,now,admin_1,admin_1);
+        BinaryContent image_0_Instance_content = new BinaryContent("img0",image_0_hash,BinaryContentType.Image,1L,now,now,admin_1,admin_1);
+        BinaryContent image_1_Instance_content = new BinaryContent("img1",image_1_hash,BinaryContentType.Image,1L,now,now,admin_1,admin_1);
+        BinaryContent image_2_Instance_content = new BinaryContent("img2",image_2_hash,BinaryContentType.Image,1L,now,now,admin_1,admin_1);
+        BinaryContent image_3_Instance_content = new BinaryContent("img3",image_3_hash,BinaryContentType.Image,1L,now,now,admin_1,admin_1);
+        BinaryContent image_4_Instance_content = new BinaryContent("img4",image_4_hash,BinaryContentType.Image,1L,now,now,admin_1,admin_1);
+        BinaryContent image_5_Instance_content = new BinaryContent("img5",image_5_hash,BinaryContentType.Image,1L,now,now,admin_1,admin_1);
+        BinaryContent image_6_Instance_content = new BinaryContent("img6",image_6_hash,BinaryContentType.Image,1L,now,now,admin_1,admin_1);
+        BinaryContent image_7_Instance_content = new BinaryContent("img7",image_7_hash,BinaryContentType.Image,1L,now,now,admin_1,admin_1);
+        BinaryContent image_8_Instance_content = new BinaryContent("img8",image_8_hash,BinaryContentType.Image,1L,now,now,admin_1,admin_1);
 
         binaryContentService.save(image_0_Instance_content);
         binaryContentService.save(image_1_Instance_content);

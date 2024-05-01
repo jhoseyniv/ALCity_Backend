@@ -6,12 +6,8 @@ import com.alcity.entity.alenum.*;
 import com.alcity.entity.alobject.*;
 import com.alcity.entity.base.*;
 import com.alcity.entity.journey.Journey;
-import com.alcity.entity.journey.JourneyStep;
-import com.alcity.entity.learning.LearningContent;
 import com.alcity.entity.learning.LearningSkill;
 import com.alcity.entity.learning.LearningTopic;
-import com.alcity.entity.play.PermitedPlayer;
-import com.alcity.entity.play.PlayHistory;
 import com.alcity.entity.puzzle.*;
 import com.alcity.entity.users.ApplicationMember;
 import com.alcity.entity.users.WalletItem;
@@ -26,7 +22,6 @@ import com.alcity.service.play.PlayHistoryService;
 import com.alcity.service.puzzle.*;
 import com.alcity.service.users.ApplicationMemberService;
 import com.alcity.service.users.WalletItemService;
-import com.alcity.utility.ImageUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,13 +29,8 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
-import java.time.Instant;
 import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Collection;
-import java.util.Iterator;
 
 
 @Order(value=4)
@@ -53,9 +43,7 @@ public class ImportProblemData_2_part2 implements CommandLineRunner {
     @Autowired
     private BinaryContentService binaryContentService;
 
-    @Autowired
-    private BinaryContentTypeService binaryContentTypeService;
-    @Autowired
+     @Autowired
     LearningTopicService learningTopicService;
 
     @Autowired
@@ -129,7 +117,6 @@ public class ImportProblemData_2_part2 implements CommandLineRunner {
 
 
         ApplicationMember admin_1 = applicationMemberService.findByUsername("admin");
-        BinaryContentType imageType= binaryContentTypeService.findByValue("image");
         ApplicationMember jalalHoseyni = applicationMemberService.findByUsername("jalal");
         ApplicationMember moslemBalavandi = applicationMemberService.findByUsername("moslem");
         ApplicationMember alirezaZarei = applicationMemberService.findByUsername("alireza");

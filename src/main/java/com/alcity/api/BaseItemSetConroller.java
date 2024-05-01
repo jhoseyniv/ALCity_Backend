@@ -6,13 +6,10 @@ import com.alcity.dto.base.ClientTypeDTO;
 import com.alcity.entity.alenum.*;
 import com.alcity.entity.base.*;
 import com.alcity.entity.learning.LearningContent;
-import com.alcity.entity.learning.LearningSkill;
 import com.alcity.entity.learning.LearningTopic;
 import com.alcity.service.base.*;
 import com.alcity.service.learning.LearningContentService;
-import com.alcity.service.learning.LearningSkillService;
 import com.alcity.service.learning.LearningTopicService;
-import com.alcity.utility.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
@@ -129,49 +126,18 @@ public class BaseItemSetConroller {
 
 
     @GetMapping("/pl-difficulty/all")
-    public PLDifficulty[] getPuzzleLevelDiffculty(Model model) {
-
-        return PLDifficulty.values();
-    }
-
-
-//    @Autowired
-//    private PuzzleCategoryService puzzleCategoryService;
-//    @GetMapping("/pl-category/all")
-//    public Collection<PuzzleCategory> getPuzzleCategories(Model model) {
-//        Collection<PuzzleCategory> puzzleCategoryCollection = puzzleCategoryService.findAll();
-//        return puzzleCategoryCollection;
-//    }
-//    @RequestMapping(value = "/pl-category/id/{id}", method = RequestMethod.GET)
-//    @ResponseBody
-//    public Optional<PuzzleCategory> getPuzzleCategoryById(@PathVariable Long id) {
-//        Optional<PuzzleCategory> puzzleCategory = puzzleCategoryService.findById(id);
-//        return puzzleCategory;
-//    }
-//
+    public PLDifficulty[] getPuzzleLevelDiffculty(Model model) {  return PLDifficulty.values();   }
 
 
     @GetMapping("/pl-status/all")
     public PLStatus[] getPuzzleLevelStatus(Model model) {
         return PLStatus.values();
     }
-//    @RequestMapping(value = "/pl-status/id/{id}", method = RequestMethod.GET)
-//    @ResponseBody
-//    public Optional<PLStatus> getPuzzleLevelStatusById(@PathVariable Long id) {
-//        Optional<PLStatus> puzzleLevelStatus = puzzleLevelStatusService.findById(id);
-//        return puzzleLevelStatus;
-//    }
 
     @GetMapping("/pl-rule-event-type/all")
     public PLRuleEventType[] getPuzzleLevelRuleEventTypes(Model model) {
         return PLRuleEventType.values();
     }
-//    @RequestMapping(value = "/pl-rule-event-type/id/{id}", method = RequestMethod.GET)
-//    @ResponseBody
-//    public Optional<PLRuleEventType> getPuzzleLevelRuleEventTypesById(@PathVariable Long id) {
-//        Optional<PLRuleEventType> puzzleLevelRuleEventType = puzzleLevelRuleEventTypeService.findById(id);
-//        return puzzleLevelRuleEventType;
-//    }
 
 
     @GetMapping("/game-status/all")
@@ -179,12 +145,7 @@ public class BaseItemSetConroller {
         return GameStatus.values();
     }
 
-//    @RequestMapping(value = "/game-status/id/{id}", method = RequestMethod.GET)
-//    @ResponseBody
-//    public Optional<GameStatus> getGameStatusById(@PathVariable Long id) {
-//        Optional<GameStatus> gameStatus = gameStatusService.findById(id);
-//        return gameStatus;
-//    }
+
 
 
     @Autowired
@@ -220,20 +181,12 @@ public class BaseItemSetConroller {
     }
 
 
-    @Autowired
-    private BinaryContentTypeService binaryContentTypeService;
 
     @GetMapping("/binary-type/all")
-    public Collection<BinaryContentType> getBinaryTypes(Model model) {
-        Collection<BinaryContentType> binaryContentTypeCollection = binaryContentTypeService.findAll();
-        return binaryContentTypeCollection;
-    }
+    public BinaryContentType[] getBinaryTypes(Model model) {  return BinaryContentType.values();   }
     @RequestMapping(value = "/binary-type/id/{id}", method = RequestMethod.GET)
     @ResponseBody
-    public Optional<BinaryContentType> getBinaryTypeById(@PathVariable Long id) {
-        Optional<BinaryContentType> binaryContentType = binaryContentTypeService.findById(id);
-        return binaryContentType;
-    }
+    public BinaryContentType getBinaryTypeById(@PathVariable Long id) {   return BinaryContentType.getById(id);   }
 
     @Autowired
     private LearningTopicService learningTopicService;

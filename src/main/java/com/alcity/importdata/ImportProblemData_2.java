@@ -34,10 +34,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
-import java.time.Instant;
 import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 
 
@@ -51,9 +48,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
     @Autowired
     private BinaryContentService binaryContentService;
 
-    @Autowired
-    private BinaryContentTypeService binaryContentTypeService;
-    @Autowired
+     @Autowired
     LearningTopicService learningTopicService;
 
     @Autowired
@@ -125,9 +120,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
         DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
         String now = current.format(format);
 
-
         ApplicationMember admin_1 = applicationMemberService.findByUsername("admin");
-        BinaryContentType imageType= binaryContentTypeService.findByValue("image");
         ApplicationMember jalalHoseyni = applicationMemberService.findByUsername("jalal");
         ApplicationMember moslemBalavandi = applicationMemberService.findByUsername("moslem");
         ApplicationMember alirezaZarei = applicationMemberService.findByUsername("alireza");
@@ -150,16 +143,16 @@ public class ImportProblemData_2 implements CommandLineRunner {
         Journey journey_1 = journeyService.findByTitle("Journey_1");
 
         byte[] playGround_image_problem_2 = ImageUtil.getImage("src/main/resources/images/","playGround_2.png");
-        BinaryContent play_ground_binary_content_2 = new BinaryContent("puzzle ground for Maze Problem",playGround_image_problem_2,imageType,1L,now,now,admin_1,admin_1);
+        BinaryContent play_ground_binary_content_2 = new BinaryContent("puzzle ground for Maze Problem",playGround_image_problem_2,BinaryContentType.Image,1L,now,now,admin_1,admin_1);
         binaryContentService.save(play_ground_binary_content_2);
 
         byte[] puzzle_group_Pic_2 = ImageUtil.getImage("src/main/resources/images/","puzzle_group_2.png");
-        BinaryContent puzzle_group_2_binary_content_pic = new BinaryContent("image_puzzle_group_Mazes",puzzle_group_Pic_2,imageType,1L,now,now,admin_1,admin_1);
+        BinaryContent puzzle_group_2_binary_content_pic = new BinaryContent("image_puzzle_group_Mazes",puzzle_group_Pic_2,BinaryContentType.Image,1L,now,now,admin_1,admin_1);
         binaryContentService.save(puzzle_group_2_binary_content_pic);
 
 
         byte[] puzzle_group_Icon_2 = ImageUtil.getImage("src/main/resources/images/","puzzle_group2_icon.png");
-        BinaryContent puzzle_group_2_binary_content_icon = new BinaryContent("image_puzzle_group_Mazes",puzzle_group_Icon_2,imageType,1L,now,now,admin_1,admin_1);
+        BinaryContent puzzle_group_2_binary_content_icon = new BinaryContent("image_puzzle_group_Mazes",puzzle_group_Icon_2,BinaryContentType.Image,1L,now,now,admin_1,admin_1);
         binaryContentService.save(puzzle_group_2_binary_content_icon);
 
 
@@ -178,7 +171,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
 
 
         byte[] puzzle_group_Maze_pic = ImageUtil.getImage("src/main/resources/images/","MazeImage.png");
-        BinaryContent puzzle_group_Maze_binary_content = new BinaryContent("Maze Image",puzzle_group_Maze_pic,imageType,1L,now,now,admin_1,admin_1);
+        BinaryContent puzzle_group_Maze_binary_content = new BinaryContent("Maze Image",puzzle_group_Maze_pic,BinaryContentType.Image,1L,now,now,admin_1,admin_1);
         binaryContentService.save(puzzle_group_Maze_binary_content);
 
         Integer xPos=5;
@@ -340,9 +333,9 @@ public class ImportProblemData_2 implements CommandLineRunner {
         byte[] image_0_maze_2 = ImageUtil.getImage("src/main/resources/images/Maze_problem/","black_space_image.png");
         byte[] image_0_maze_3 = ImageUtil.getImage("src/main/resources/images/Maze_problem/","yellow_space_image.png");
 
-        BinaryContent white_space_image = new BinaryContent("white_space_image",image_0_maze_1,imageType,1L,now,now,admin_1,admin_1);
-        BinaryContent black_space_image = new BinaryContent("black_space_image",image_0_maze_2,imageType,1L,now,now,admin_1,admin_1);
-        BinaryContent yellow_space_image = new BinaryContent("yellow_space_image",image_0_maze_3,imageType,1L,now,now,admin_1,admin_1);
+        BinaryContent white_space_image = new BinaryContent("white_space_image",image_0_maze_1,BinaryContentType.Image,1L,now,now,admin_1,admin_1);
+        BinaryContent black_space_image = new BinaryContent("black_space_image",image_0_maze_2,BinaryContentType.Image,1L,now,now,admin_1,admin_1);
+        BinaryContent yellow_space_image = new BinaryContent("yellow_space_image",image_0_maze_3,BinaryContentType.Image,1L,now,now,admin_1,admin_1);
 
         binaryContentService.save(white_space_image);
         binaryContentService.save(black_space_image);

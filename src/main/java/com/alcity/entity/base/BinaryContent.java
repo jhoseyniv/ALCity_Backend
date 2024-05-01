@@ -1,8 +1,8 @@
 package com.alcity.entity.base;
 
 
+import com.alcity.entity.alenum.BinaryContentType;
 import com.alcity.entity.alobject.AttributeValue;
-import com.alcity.entity.journey.Journey;
 import com.alcity.entity.learning.LearningContent;
 import com.alcity.entity.users.ApplicationMember;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -10,7 +10,6 @@ import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.Set;
 
 @Entity
@@ -28,9 +27,7 @@ public class BinaryContent extends BaseTable implements Serializable {
     @Type(type = "org.hibernate.type.ImageType")
     private byte[] content;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "binary_content_type_id", nullable = false)
-    @JsonIgnore
+    @Enumerated(EnumType.ORDINAL)
     private BinaryContentType contentType;
 
     @OneToMany(mappedBy = "binaryContent", fetch = FetchType.LAZY, cascade = CascadeType.ALL)

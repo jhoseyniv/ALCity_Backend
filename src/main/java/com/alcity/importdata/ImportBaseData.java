@@ -1,9 +1,9 @@
 package com.alcity.importdata;
 
 
+import com.alcity.entity.alenum.BinaryContentType;
 import com.alcity.entity.alenum.UserGender;
 import com.alcity.entity.alenum.WalletItemCategory;
-import com.alcity.entity.alobject.ObjectAction;
 import com.alcity.entity.alobject.ObjectCategory;
 import com.alcity.entity.base.*;
 import com.alcity.entity.journey.Journey;
@@ -34,10 +34,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
-import java.time.Instant;
 import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
 import java.util.Set;
@@ -88,8 +85,6 @@ public class ImportBaseData implements CommandLineRunner {
     private PuzzleLevelPrivacyService puzzleLevelPrivacyService;
 
 
-    @Autowired
-    BinaryContentTypeService binaryContentTypeService;
 
     @Autowired
     BinaryContentService binaryContentService;
@@ -170,16 +165,16 @@ public class ImportBaseData implements CommandLineRunner {
 
 
 
-        BinaryContentType imageType= new BinaryContentType("image","image",1L,now,now,admin_1,admin_1);
-        BinaryContentType fileType= new BinaryContentType("file","file",1L,now,now,admin_1,admin_1);
-        BinaryContentType videoType= new BinaryContentType("video","video",1L,now,now,admin_1,admin_1);
-        BinaryContentType iconType= new BinaryContentType("icon","icon",1L,now,now,admin_1,admin_1);
-        BinaryContentType voiceType= new BinaryContentType("voice","voice",1L,now,now,admin_1,admin_1);
-        binaryContentTypeService.save(imageType);
-        binaryContentTypeService.save(fileType);
-        binaryContentTypeService.save(videoType);
-        binaryContentTypeService.save(iconType);
-        binaryContentTypeService.save(voiceType);
+//        BinaryContentType imageType= new BinaryContentType("image","image",1L,now,now,admin_1,admin_1);
+//        BinaryContentType fileType= new BinaryContentType("file","file",1L,now,now,admin_1,admin_1);
+//        BinaryContentType videoType= new BinaryContentType("video","video",1L,now,now,admin_1,admin_1);
+//        BinaryContentType iconType= new BinaryContentType("icon","icon",1L,now,now,admin_1,admin_1);
+//        BinaryContentType voiceType= new BinaryContentType("voice","voice",1L,now,now,admin_1,admin_1);
+//        binaryContentTypeService.save(imageType);
+//        binaryContentTypeService.save(fileType);
+//        binaryContentTypeService.save(videoType);
+//        binaryContentTypeService.save(iconType);
+//        binaryContentTypeService.save(voiceType);
 
 
         byte[] tetherIcon = ImageUtil.getImage("src/main/resources/images/","Tether.png");
@@ -247,23 +242,23 @@ public class ImportBaseData implements CommandLineRunner {
 
 
         byte[] goose_Image = ImageUtil.getImage("src/main/resources/images/","goose.png");
-        BinaryContent goose_Image_binary_content = new BinaryContent("goose image",goose_Image,imageType,1L,now,now,admin_1,admin_1);
+        BinaryContent goose_Image_binary_content = new BinaryContent("goose image",goose_Image, BinaryContentType.Image,1L,now,now,admin_1,admin_1);
         binaryContentService.save(goose_Image_binary_content);
 
         byte[] eagle_Image = ImageUtil.getImage("src/main/resources/images/","eagle.png");
-        BinaryContent eagle_Image_binary_content = new BinaryContent("eagle image",eagle_Image,imageType,1L,now,now,admin_1,admin_1);
+        BinaryContent eagle_Image_binary_content = new BinaryContent("eagle image",eagle_Image,BinaryContentType.Image,1L,now,now,admin_1,admin_1);
         binaryContentService.save(eagle_Image_binary_content);
 
         byte[] fox_Image = ImageUtil.getImage("src/main/resources/images/","fox.png");
-        BinaryContent fox_Image_binary_content = new BinaryContent("fox image",fox_Image,imageType,1L,now,now,admin_1,admin_1);
+        BinaryContent fox_Image_binary_content = new BinaryContent("fox image",fox_Image,BinaryContentType.Image,1L,now,now,admin_1,admin_1);
         binaryContentService.save(fox_Image_binary_content);
 
         byte[] wheat_Image = ImageUtil.getImage("src/main/resources/images/","wheat.png");
-        BinaryContent wheat_Image_binary_content = new BinaryContent("wheat image",wheat_Image,imageType,1L,now,now,admin_1,admin_1);
+        BinaryContent wheat_Image_binary_content = new BinaryContent("wheat image",wheat_Image,BinaryContentType.Image,1L,now,now,admin_1,admin_1);
         binaryContentService.save(wheat_Image_binary_content);
 
         byte[] image_object = ImageUtil.getImage("src/main/resources/images/","image_object.png");
-        BinaryContent image_object_binary_content = new BinaryContent("image_object",image_object,imageType,1L,now,now,admin_1,admin_1);
+        BinaryContent image_object_binary_content = new BinaryContent("image_object",image_object,BinaryContentType.Image,1L,now,now,admin_1,admin_1);
         binaryContentService.save(image_object_binary_content);
 
 
@@ -331,9 +326,9 @@ public class ImportBaseData implements CommandLineRunner {
         byte[] jouerny_2_Image = ImageUtil.getImage("src/main/resources/images/","desert.png");
         byte[] jouerny_3_Image = ImageUtil.getImage("src/main/resources/images/","city.png");
 
-        BinaryContent image_journey_1 = new BinaryContent("image_journey_1",jouerny_1_Image,imageType,1L,now,now,admin_1,admin_1);
-        BinaryContent image_journey_2 = new BinaryContent("image_journey_2",jouerny_2_Image,imageType,1L,now,now,admin_1,admin_1);
-        BinaryContent image_journey_3 = new BinaryContent("image_journey_3",jouerny_3_Image,imageType,1L,now,now,admin_1,admin_1);
+        BinaryContent image_journey_1 = new BinaryContent("image_journey_1",jouerny_1_Image,BinaryContentType.Image,1L,now,now,admin_1,admin_1);
+        BinaryContent image_journey_2 = new BinaryContent("image_journey_2",jouerny_2_Image,BinaryContentType.Image,1L,now,now,admin_1,admin_1);
+        BinaryContent image_journey_3 = new BinaryContent("image_journey_3",jouerny_3_Image,BinaryContentType.Image,1L,now,now,admin_1,admin_1);
         binaryContentService.save(image_journey_1);
         binaryContentService.save(image_journey_2);
         binaryContentService.save(image_journey_3);

@@ -77,6 +77,7 @@ public class PuzzleCategoryController {
         Optional<PuzzleCategory> output = puzzleCategoryService.findById(savedPuzzleCategory.getId());
         return output;
     }
+
     @DeleteMapping("/del/{id}")
     public ResponseEntity<String> deletePuzzleCategoryById(@PathVariable Long id) {
         Optional<PuzzleCategory> existingRecord = this.puzzleCategoryService.findById(id);
