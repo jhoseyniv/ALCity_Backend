@@ -14,6 +14,9 @@ public class JourneyDTO   {
     private String createdBy;
 
     private String updatedBy;
+    private Long createdById;
+
+    private Long updatedById;
 
     private String title;
     private BinaryContentDTO graphic;
@@ -103,14 +106,32 @@ public class JourneyDTO   {
         this.updatedBy = updatedBy;
     }
 
-    public JourneyDTO(Long id, Long version, String created, String updated, String createdBy, String updatedBy,
+    public Long getCreatedById() {
+        return createdById;
+    }
+
+    public void setCreatedById(Long createdById) {
+        this.createdById = createdById;
+    }
+
+    public Long getUpdatedById() {
+        return updatedById;
+    }
+
+    public void setUpdatedById(Long updatedById) {
+        this.updatedById = updatedById;
+    }
+
+    public JourneyDTO(Long id, Long version, String created, String updated, String createdBy, String updatedBy,Long createdById,Long updatedById,
                       String title, BinaryContentDTO graphic) {
         this.id = id;
         this.version = version;
         this.created = created;
         this.updated = updated;
         this.createdBy = createdBy;
+        this.createdById = createdById;
         this.updatedBy = updatedBy;
+        this.updatedById = updatedById;
         this.title = title;
         this.graphic = graphic;
     }

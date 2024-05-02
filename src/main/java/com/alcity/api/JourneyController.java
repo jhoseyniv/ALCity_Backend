@@ -1,6 +1,7 @@
 package com.alcity.api;
 
 
+import com.alcity.customexception.NotNullConstraintException;
 import com.alcity.customexception.UniqueConstraintException;
 import com.alcity.dto.journey.JourneyDTO;
 import com.alcity.entity.journey.Journey;
@@ -46,19 +47,20 @@ public class JourneyController {
         }
         return journeyDTOCollection;
     }
-    @ExceptionHandler(UniqueConstraintException.class)
+
     @PostMapping("/save")
-    public JourneyDTO saveJourney(@RequestBody JourneyDTO journeyDTO)  {
-        System.out.println("j"+journeyDTO.getGraphic().getFileName());
-        JourneyDTO savedJourneyDTO = null;
+    public Journey saveJourney(@RequestBody JourneyDTO journeyDTO)  {
+        Journey savedJourney = null;
+        if(journeyDTO.getGraphic().getId()==null)
+            throw new NotNullConstraintException("Graphic Field Must not be Null",journeyDTO.getTitle(), Journey.class.toString());
         try {
-            savedJourneyDTO = journeyService.save(journeyDTO);
+            savedJourney = journeyService.save(journeyDTO);
         }catch (RuntimeException e )
         {
-          //  throw new UniqueConstraintException(journey.getTitle(), journey.getId(), Journey.class.toString());
+            throw new UniqueConstraintException(journeyDTO.getTitle(), journeyDTO.getId(), Journey.class.toString());
         }
-        //Optional<Journey> output = journeyService.findById(savedJourney.getId());
-        return savedJourneyDTO;
+        Optional<Journey> output = journeyService.findById(savedJourney.getId());
+        return output.get();
     }
 
 

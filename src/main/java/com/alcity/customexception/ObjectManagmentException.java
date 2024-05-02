@@ -48,6 +48,15 @@ public class ObjectManagmentException extends ResponseEntityExceptionHandler {
         body.put("Object Name ", ex.getDatabaseEntity() );
         return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
     }
+    @ExceptionHandler(NotNullConstraintException.class)
+    public ResponseEntity<Object> handleNotNullConstraintExceptionn(NotNullConstraintException ex, WebRequest request) {
+
+        Map<String, Object> body = new LinkedHashMap<>();
+        body.put("timestamp", LocalDateTime.now());
+        body.put("message", ex.getMessage() );
+        body.put("Record", ex.getRecordId() );
+        return new ResponseEntity<>(body, HttpStatus.NOT_FOUND);
+    }
 
 
 }

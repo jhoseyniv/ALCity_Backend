@@ -1,5 +1,6 @@
 package com.alcity.service.Journey;
 
+import com.alcity.customexception.UniqueConstraintException;
 import com.alcity.dto.base.BinaryContentDTO;
 import com.alcity.dto.journey.JourneyDTO;
 import com.alcity.entity.base.BinaryContent;
@@ -101,21 +102,23 @@ public class JourneyService implements JourneyRepository {
     }
 
     @Override
-    public JourneyDTO save(JourneyDTO journeyDTO) {
+    public Journey save(JourneyDTO journeyDTO) throws UniqueConstraintException {
         BinaryContentDTO graphicDTO = journeyDTO.getGraphic();
-        Optional<BinaryContent> binaryContentIsExist = binaryContentService.findById(graphicDTO.getId());
-        //applicationMemberService.findById()
-        if(binaryContentIsExist.isPresent()) {
-//            Journey savedJourney = new Journey(journeyDTO.getTitle(),binaryContentIsExist.get(),binaryContentDTO.getVersion(),
-//                    binaryContentDTO.getCreated(), binaryContentDTO.getUpdated(),);
+        Optional<BinaryContent> binaryContentIsExist;
+        Journey journey = null;
+        Optional<ApplicationMember> createdBy = applicationMemberService.findById(journeyDTO.getCreatedById());
+        Optional<ApplicationMember> updatedBy = applicationMemberService.findById(journeyDTO.getUpdatedById());
+
+        if(graphicDTO.getId() != null ) {
+            binaryContentIsExist = binaryContentService.findById(graphicDTO.getId());
+            if (binaryContentIsExist.isPresent()) {
+                journey = new Journey(journeyDTO.getTitle(), binaryContentIsExist.get(), journeyDTO.getVersion(),
+                        journeyDTO.getCreated(), journeyDTO.getUpdated(), createdBy.get(), updatedBy.get());
+                journeyRepository.save(journey);
+            }
         }
-        else{
 
-        }
-
-        JourneyDTO savedJourneyDTO = null;
-
-        return savedJourneyDTO;
+        return journey;
     }
 
 

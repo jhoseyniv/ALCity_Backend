@@ -58,6 +58,30 @@ public class BaseTable implements Serializable {
         return updatedBy;
     }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setVersion(Long version) {
+        this.version = version;
+    }
+
+    public void setCreated(String created) {
+        this.created = created;
+    }
+
+    public void setUpdated(String updated) {
+        this.updated = updated;
+    }
+
+    public void setCreatedBy(ApplicationMember createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    public void setUpdatedBy(ApplicationMember updatedBy) {
+        this.updatedBy = updatedBy;
+    }
+
     public BaseTable() {
     }
 

@@ -426,6 +426,12 @@ public class DTOUtil {
 
         return pl_ltDTOCollection;
     }
+    public static BinaryContentDTO getBinaryContentDTOWithoutContent(BinaryContent content){
+        BinaryContentDTO binaryContentDTO = new BinaryContentDTO(content.getId(), content.getVersion(), content.getCreated(), content.getUpdated(),
+                content.getCreatedBy().getUsername(),content.getUpdatedBy().getUsername(),
+                 content.getFileName(), content.getSize(), null);
+        return binaryContentDTO;
+    }
     public static BinaryContentDTO getBinaryContentDTO(BinaryContent content){
         BinaryContentDTO binaryContentDTO = new BinaryContentDTO(content.getId(), content.getVersion(), content.getCreated(), content.getUpdated(),
                 content.getCreatedBy().getUsername(),content.getUpdatedBy().getUsername(),content.getFileName(), content.getSize(), content.getContent());
@@ -447,8 +453,10 @@ public class DTOUtil {
          journeyDTO.setUpdated(journey.getUpdated());
          journeyDTO.setTitle(journey.getTitle());
          journeyDTO.setCreatedBy(journey.getCreatedBy().getUsername());
-         journeyDTO.setCreatedBy(journey.getUpdatedBy().getUsername());
-         journeyDTO.setGraphic(getBinaryContentDTO(journey.getGraphic()));
+         journeyDTO.setUpdatedBy(journey.getUpdatedBy().getUsername());
+         journeyDTO.setCreatedById(journey.getCreatedBy().getId());
+         journeyDTO.setUpdatedById(journey.getUpdatedBy().getId());
+         journeyDTO.setGraphic(getBinaryContentDTOWithoutContent(journey.getGraphic()));
          return journeyDTO;
     }
 
