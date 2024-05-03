@@ -86,7 +86,7 @@ public class LearningController {
 
             }catch (Exception e )
             {
-                throw new ViolateForeignKeyException(existingRecord.get().getLabel(), existingRecord.get().getId(), PuzzleCategory.class.toString());
+                throw new ViolateForeignKeyException(existingRecord.get().getLabel(), existingRecord.get().getId(), LearningSkill.class.toString());
             }
             return new ResponseEntity<>("Record deleted Successfully!", HttpStatus.OK);
         }

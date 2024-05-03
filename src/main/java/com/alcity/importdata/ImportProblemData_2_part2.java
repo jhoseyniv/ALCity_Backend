@@ -103,8 +103,15 @@ public class ImportProblemData_2_part2 implements CommandLineRunner {
     ClientTypeService clientTypeService;
     @Autowired
     PuzzleObject_ObjectActionService puzzleObject_ObjectActionService;
+   @Autowired
+   PLRuleService plRuleService;
 
-    private static final Logger log = LoggerFactory.getLogger(ObjectManagmentApplication.class);
+   @Autowired
+   PLRuleEventService plRuleEventService;
+ @Autowired
+ PLRulePostActionService plRulePostActionService;
+
+ private static final Logger log = LoggerFactory.getLogger(ObjectManagmentApplication.class);
 
     @Override
     public void run(String... args) throws Exception {
@@ -2558,6 +2565,40 @@ public class ImportProblemData_2_part2 implements CommandLineRunner {
         attributeService.save(img_19_19_0_locked_variable);
         AttributeValue img_19_19_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,img_19_19_0_locked_variable,img_19_19_0_locked_variable,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_19_19_0_locked_variable_value);
+
+
+
+     StringBuffer    pr_select_object_Condition = new StringBuffer("(Object[e.x, e.y].Locked == false)&&(Object[e.x, e.y].Selected == false)&&(((e.x==LastX)&&(e.y==LastY+1))||((e.x==LastX)&&(e.y==LastY-1))||((e.x==LastX+1)&&(e.y==LastY))||((e.x==LastX-1)&&(e.y==LastY)))");
+     PLRule rule_Select_object   = new PLRule("Select object",1
+             ,pr_select_object_Condition,puzzleLevel_Maze,1L,now,now,admin_1,admin_1);
+     plRuleService.save(rule_Select_object);
+
+     StringBuffer    pr_DeSelect_object_Condition = new StringBuffer("(Object[e.x, e.y].Locked == false)&&(Object[e.x, e.y].Selected == false)&&(((e.x==LastX)&&(e.y==LastY+1))||((e.x==LastX)&&(e.y==LastY-1))||((e.x==LastX+1)&&(e.y==LastY))||((e.x==LastX-1)&&(e.y==LastY)))");
+     PLRule rule_DeSelect_object   = new PLRule("De Select object",2
+             ,pr_DeSelect_object_Condition,puzzleLevel_Maze,1L,now,now,admin_1,admin_1);
+     plRuleService.save(rule_DeSelect_object);
+
+     StringBuffer    win_rule_object_Condition = new StringBuffer("(Object[e.x, e.y].Selected == true)&&(e.x==LastX)&&(e.y==LastY)");
+     PLRule rule_win_object   = new PLRule("Win Rule",3
+             ,win_rule_object_Condition,puzzleLevel_Maze,1L,now,now,admin_1,admin_1);
+     plRuleService.save(rule_win_object);
+     StringBuffer assignmentActionExpression=new StringBuffer(" " );
+
+     PLRulePostAction rulePostAction_1_assignment = new PLRulePostAction(assignmentActionExpression,1,"","",PLRulePostActionType.Variable_Assignment_Action,rule_Select_object,1L,now,now,admin_1,admin_1);
+     plRulePostActionService.save(rulePostAction_1_assignment);
+
+     Attribute rulePostAction_1_assignment_param_1 =new Attribute("variable",rulePostAction_1_assignment.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action,alcity_String,1L,now,now,admin_1,admin_1);
+     attributeService.save(rulePostAction_1_assignment_param_1);
+
+     AttributeValue rulePostAction_1_assignment_param_1_value= new AttributeValue(null,null,null,"Object[e.x, e.y].PreX",null,null,rulePostAction_1_assignment_param_1,rulePostAction_1_assignment_param_1,1L,now,now,admin_1,admin_1);
+     attributeValueService.save(rulePostAction_1_assignment_param_1_value);
+
+     Attribute rulePostAction_1_assignment_param_2 =new Attribute("valueExperssion",rulePostAction_1_assignment.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action,alcity_String,1L,now,now,admin_1,admin_1);
+     attributeService.save(rulePostAction_1_assignment_param_2);
+
+     AttributeValue rulePostAction_1_assignment_param_2_value= new AttributeValue(null,null,null,"LastX",null,null,rulePostAction_1_assignment_param_2,rulePostAction_1_assignment_param_2,1L,now,now,admin_1,admin_1);
+     attributeValueService.save(rulePostAction_1_assignment_param_2_value);
+
 
     }
 

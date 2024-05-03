@@ -10,6 +10,7 @@ import java.io.Serializable;
 public enum PLRulePostActionType  {
     Call_Object_Action,
     Variable_Assignment_Action,
+    Show_Message,
     Fire_Event,
     User_Alert
 }

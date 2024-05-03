@@ -25,8 +25,10 @@ import org.springframework.web.client.RestTemplate;
 
 import java.net.URI;
 import java.time.Instant;
+import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -53,10 +55,9 @@ public class BaseItemConrollerTest {
     public String port="8080";
 
     String exampleGenderJson = "{\"id\":\"1\",\"label\":\"F\",\"value\":\"Female\",\"version\":\"1\",\"created\":\"1711360835820\",\"updated\":\"1711360835820\"}";
-    ZoneId zoneId = ZoneId.of("Europe/London").getRules().getOffset(Instant.now());
-
-    ZonedDateTime createdDate= ZonedDateTime.now();
-    Long now = createdDate.toEpochSecond();
+    LocalDateTime current = LocalDateTime.now();
+    DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+    String now = current.format(format);
 
 
 

@@ -28,6 +28,7 @@ public class BaseItemSetConroller {
         return UserGender.values();
     }
 
+
     @RequestMapping(value = "/gender/id/{id}", method = RequestMethod.GET)
     @ResponseBody
     public UserGender getGenderById(@PathVariable Long id) {

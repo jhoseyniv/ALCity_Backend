@@ -3,11 +3,16 @@ package com.alcity.api;
 
 import com.alcity.customexception.NotNullConstraintException;
 import com.alcity.customexception.UniqueConstraintException;
+import com.alcity.customexception.ViolateForeignKeyException;
 import com.alcity.dto.journey.JourneyDTO;
+import com.alcity.entity.base.PuzzleCategory;
 import com.alcity.entity.journey.Journey;
+import com.alcity.entity.learning.LearningSkill;
 import com.alcity.service.Journey.JourneyService;
 import com.alcity.utility.DTOUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
@@ -61,6 +66,21 @@ public class JourneyController {
         }
         Optional<Journey> output = journeyService.findById(savedJourney.getId());
         return output.get();
+    }
+    @DeleteMapping("/del/{id}")
+    public ResponseEntity<String> deleteJourneyById(@PathVariable Long id) {
+        Optional<Journey> existingRecord = journeyService.findById(id);
+        if(existingRecord.isPresent()){
+            try {
+                journeyService.deleteById(existingRecord.get().getId());
+
+            }catch (Exception e )
+            {
+                throw new ViolateForeignKeyException(existingRecord.get().getTitle(), existingRecord.get().getId(), Journey.class.toString());
+            }
+            return new ResponseEntity<>("Record deleted Successfully!", HttpStatus.OK);
+        }
+        return ResponseEntity.notFound().build();
     }
 
 
