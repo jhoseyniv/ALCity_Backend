@@ -2,12 +2,10 @@ package com.alcity.entity.alobject;
 
 import com.alcity.entity.base.BaseTable;
 import com.alcity.entity.base.ClientType;
-import com.alcity.entity.journey.Journey;
-import com.alcity.entity.journey.JourneyStep;
 import com.alcity.entity.users.ApplicationMember;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.io.Serializable;
 import java.util.Set;
 

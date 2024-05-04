@@ -4,7 +4,7 @@ import com.alcity.entity.base.BaseTable;
 import com.alcity.entity.users.ApplicationMember;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.io.Serializable;
 import java.util.Collection;
 
@@ -17,17 +17,17 @@ public class PuzzleGroup_PuzzleObject extends BaseTable implements Serializable 
     @Column(name="code",unique = true)
     private String code;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "puzzle_group_id", nullable = false)
     @JsonIgnore
     private PuzzleGroup puzzleGroup;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "puzzle_object_id", nullable = false)
     @JsonIgnore
     private PuzzleObject puzzleObject;
 
-    @OneToMany(mappedBy = "puzzleGroup_PuzzleObject", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "puzzleGroup_PuzzleObject", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JsonIgnore
     private Collection<PGObjectInstance> puzzleGroupObjectInstanceCollection;
 

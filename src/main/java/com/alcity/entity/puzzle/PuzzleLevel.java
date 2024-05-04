@@ -7,8 +7,7 @@ import com.alcity.entity.base.*;
 import com.alcity.entity.play.PermitedPlayer;
 import com.alcity.entity.users.ApplicationMember;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.io.Serializable;
 import java.util.Collection;
 
@@ -93,7 +92,7 @@ public class PuzzleLevel extends BaseTable implements Serializable {
         this.maxScore = maxScore;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "puzzle_group_id", nullable = false)
     @JsonIgnore
     private PuzzleGroup puzzleGroup;
@@ -121,19 +120,19 @@ public class PuzzleLevel extends BaseTable implements Serializable {
 
 
 
-    @OneToMany(mappedBy = "puzzleLevel", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "puzzleLevel", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JsonIgnore
     private Collection<PLRule> puzzleLevelRuleCollection;
 
-    @OneToMany(mappedBy = "puzzleLevel", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "puzzleLevel", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JsonIgnore
     private Collection<PLObjective> plObjectives;
 
-    @OneToMany(mappedBy = "puzzleLevel", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "puzzleLevel", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JsonIgnore
     private Collection<PLGround> plGrounds;
 
-    @OneToMany(mappedBy = "puzzleLevel", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "puzzleLevel", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JsonIgnore
     private Collection<PermitedPlayer> permitedPlayerCollection;
 
@@ -229,7 +228,7 @@ public class PuzzleLevel extends BaseTable implements Serializable {
         this.puzzleLevel_learningTopics = puzzleLevel_learningTopics;
     }
 
-    @OneToMany(mappedBy = "puzzleLevel", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "puzzleLevel", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JsonIgnore
     private Collection<PGObjectInstance> puzzleGroupObjectInstanceCollection;
 

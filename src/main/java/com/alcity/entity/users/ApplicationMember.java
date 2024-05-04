@@ -4,9 +4,9 @@ package com.alcity.entity.users;
 import com.alcity.entity.alenum.UserGender;
 import com.alcity.entity.base.*;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
 import org.hibernate.annotations.Type;
 
-import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Set;
 
@@ -38,7 +38,6 @@ public class ApplicationMember extends BaseTable implements Serializable {
 
     @Lob
     @Basic(fetch = FetchType.LAZY)
-    @Type(type = "org.hibernate.type.ImageType")
     private byte[] avatar;
 
     @Override

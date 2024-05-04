@@ -3,7 +3,7 @@ package com.alcity.entity.users;
 import com.alcity.entity.base.BaseTable;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.io.Serializable;
 
 @Entity

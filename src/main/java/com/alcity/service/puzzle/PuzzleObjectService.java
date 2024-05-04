@@ -5,8 +5,8 @@ import com.alcity.repository.base.PuzzleCategoryRepository;
 import com.alcity.repository.puzzle.PuzzleObjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
 import java.util.Collection;
 import java.util.Optional;
 

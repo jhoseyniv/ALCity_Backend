@@ -1,11 +1,9 @@
 package com.alcity.entity.users;
 
 import com.alcity.entity.base.BaseTable;
-import com.alcity.entity.journey.Journey;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import javax.persistence.*;
-import javax.validation.constraints.NotNull;
+import jakarta.persistence.*;
 import java.io.Serializable;
 
 @Entity

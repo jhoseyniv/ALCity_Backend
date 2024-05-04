@@ -11,6 +11,6 @@ public interface PLObjectiveRepository extends CrudRepository<PLObjective,Long> 
     Collection<PLObjective> findAll();
     Collection<PLObjective> findPuzzleLevelObjectiveByPuzzleLevelId(Long plId);
     Collection<PLObjective> findByTitle(String title);
-    Collection<PLObjective> findByCondition(String condition);
+    Collection<PLObjective> findByCondition(StringBuffer condition);
 
 }

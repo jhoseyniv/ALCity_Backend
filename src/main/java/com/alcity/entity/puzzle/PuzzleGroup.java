@@ -8,7 +8,7 @@ import com.alcity.entity.journey.JourneyStep;
 import com.alcity.entity.users.ApplicationMember;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Set;
@@ -24,7 +24,7 @@ public class PuzzleGroup extends BaseTable implements Serializable {
     @JsonIgnore
     private Set<JourneyStep> journeyStepSet;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "puzzle_category_id", nullable = false)
     @JsonIgnore
     private PuzzleCategory puzzleCategory;
@@ -40,7 +40,7 @@ public class PuzzleGroup extends BaseTable implements Serializable {
     private BinaryContent pic;
 
 
-    @OneToMany(mappedBy = "puzzleGroup", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "puzzleGroup", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JsonIgnore
     private Collection<PuzzleGroup_PuzzleObject> puzzleGroup_puzzleObjectCollection;
 
@@ -52,7 +52,7 @@ public class PuzzleGroup extends BaseTable implements Serializable {
         this.puzzleGroup_puzzleObjectCollection = puzzleGroup_puzzleObjectCollection;
     }
 
-    @OneToMany(mappedBy = "puzzleGroup", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "puzzleGroup", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JsonIgnore
     private Set<PuzzleSkillLearningContent> puzzleSkillLearningContentSet;
 
@@ -64,7 +64,7 @@ public class PuzzleGroup extends BaseTable implements Serializable {
         this.puzzleSkillLearningContentSet = puzzleSkillLearningContentSet;
     }
 
-    @OneToMany(mappedBy = "puzzleGroup", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "puzzleGroup", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JsonIgnore
     private Set<PuzzleLevel> puzzleLevelSet;
 

@@ -14,6 +14,6 @@ public interface ApplicationMember_WalletItemRepository extends CrudRepository<A
     Optional<ApplicationMember_WalletItem> findById(Long id);
     Optional<ApplicationMember_WalletItem> findByApplicationMemberAndWalletItem(ApplicationMember applicationMember, WalletItem walletItem);
     Collection<ApplicationMember_WalletItem> findAll();
-    Collection<ApplicationMember_WalletItem> findByAmount(String amount);
+    Collection<ApplicationMember_WalletItem> findByAmount(Float amount);
 
 }

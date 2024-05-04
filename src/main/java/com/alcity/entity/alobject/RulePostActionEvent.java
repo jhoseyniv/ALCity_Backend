@@ -5,10 +5,7 @@ import com.alcity.entity.puzzle.PLRulePostAction;
 import com.alcity.entity.users.ApplicationMember;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import jakarta.persistence.*;
 import java.io.Serializable;
 
 @Entity

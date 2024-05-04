@@ -8,7 +8,7 @@ import com.alcity.repository.users.WalletTransactionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;;
 import java.util.Collection;
 import java.util.Optional;
 
@@ -85,7 +85,7 @@ public class WalletTransactionService implements WalletTransactionRepository {
   }
 
   @Override
-  public Collection<WalletTransaction> findByAmount(String amount) {
+  public Collection<WalletTransaction> findByAmount(Float amount) {
     return null;
   }
 }

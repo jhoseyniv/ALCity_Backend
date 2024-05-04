@@ -7,7 +7,7 @@ import com.alcity.entity.alobject.ObjectCategory;
 import com.alcity.entity.users.ApplicationMember;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.io.Serializable;
 import java.util.Set;
 
@@ -17,24 +17,24 @@ public class PuzzleObject extends BaseTable implements Serializable {
     @Column(name="title")
     private String title;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "category_id", nullable = false)
     @JsonIgnore
     private ObjectCategory objectCategory;
 
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "picture_id", nullable = false)
     @JsonIgnore
     private BinaryContent picture;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "icon_id", nullable = false)
     @JsonIgnore
     private BinaryContent icon;
 
 
-    @OneToMany(mappedBy = "puzzleObject", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "puzzleObject", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JsonIgnore
     private Set<PuzzleGroup_PuzzleObject> puzzleGroup_puzzleObjectSet;
 

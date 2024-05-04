@@ -1,10 +1,8 @@
 package com.alcity.repository.journey;
 
-import com.alcity.entity.journey.Journey;
 import com.alcity.entity.journey.JourneyStep;
 import org.springframework.data.repository.CrudRepository;
 
-import javax.persistence.criteria.CriteriaBuilder;
 import java.util.Collection;
 import java.util.Optional;
 

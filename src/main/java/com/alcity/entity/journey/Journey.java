@@ -6,8 +6,9 @@ import com.alcity.entity.base.BaseTable;
 import com.alcity.entity.users.ApplicationMember;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Set;
 
 @Entity
@@ -21,11 +22,11 @@ public class Journey  extends BaseTable implements Serializable {
     @JsonIgnore
     private BinaryContent graphic;
 
-    @OneToMany(mappedBy = "journey", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Set<JourneyStep> journeyStepSet;
+    @OneToMany(mappedBy = "journey", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private Collection<JourneyStep> journeyStepCollection;
 
-    @OneToMany(mappedBy = "journey", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Set<JourneyLearningSkill> journeyLearningSkillSet;
+    @OneToMany(mappedBy = "journey", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private Collection<JourneyLearningSkill> journeyLearningSkillCollection;
 
     public String getTitle() {
         return title;
@@ -43,20 +44,20 @@ public class Journey  extends BaseTable implements Serializable {
         this.graphic = graphic;
     }
 
-    public Set<JourneyStep> getJourneyStepSet() {
-        return journeyStepSet;
+    public Collection<JourneyStep> getJourneyStepCollection() {
+        return journeyStepCollection;
     }
 
-    public void setJourneyStepSet(Set<JourneyStep> journeyStepSet) {
-        this.journeyStepSet = journeyStepSet;
+    public void setJourneyStepCollection(Collection<JourneyStep> journeyStepCollection) {
+        this.journeyStepCollection = journeyStepCollection;
     }
 
-    public Set<JourneyLearningSkill> getJourneyLearningSkillSet() {
-        return journeyLearningSkillSet;
+    public Collection<JourneyLearningSkill> getJourneyLearningSkillCollection() {
+        return journeyLearningSkillCollection;
     }
 
-    public void setJourneyLearningSkillSet(Set<JourneyLearningSkill> journeyLearningSkillSet) {
-        this.journeyLearningSkillSet = journeyLearningSkillSet;
+    public void setJourneyLearningSkillCollection(Collection<JourneyLearningSkill> journeyLearningSkillCollection) {
+        this.journeyLearningSkillCollection = journeyLearningSkillCollection;
     }
 
     public Journey() {

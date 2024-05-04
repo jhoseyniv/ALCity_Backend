@@ -2,17 +2,15 @@ package com.alcity.entity.base;
 
 import com.alcity.entity.puzzle.PuzzleGroup;
 import com.alcity.entity.users.ApplicationMember;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.io.Serializable;
 import java.util.Collection;
-import java.util.Set;
 
 @Entity
 public class PuzzleCategory extends BaseItemSet implements Serializable {
 
-    @OneToMany(mappedBy = "puzzleCategory", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "puzzleCategory", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Collection<PuzzleGroup> puzzleGroupCollection;
 
     public Collection<PuzzleGroup> getPuzzleGroupCollection() {

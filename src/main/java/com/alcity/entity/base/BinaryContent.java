@@ -8,7 +8,7 @@ import com.alcity.entity.users.ApplicationMember;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Type;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.io.Serializable;
 import java.util.Set;
 
@@ -24,7 +24,6 @@ public class BinaryContent extends BaseTable implements Serializable {
 
     @Lob
     @Basic(fetch = FetchType.LAZY)
-    @Type(type = "org.hibernate.type.ImageType")
     private byte[] content;
 
     @Enumerated(EnumType.ORDINAL)

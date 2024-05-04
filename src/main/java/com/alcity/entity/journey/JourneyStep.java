@@ -5,12 +5,11 @@ import com.alcity.entity.base.BaseTable;
 import com.alcity.entity.users.ApplicationMember;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.io.Serializable;
 
 @Entity
 public class JourneyStep extends BaseTable implements Serializable {
-
 
     @Column(name="title")
     private String title;
@@ -29,7 +28,7 @@ public class JourneyStep extends BaseTable implements Serializable {
     @JsonIgnore
     private Journey journey;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "puzzle_group_id", nullable = false)
     @JsonIgnore
     private PuzzleGroup puzzleGroup;

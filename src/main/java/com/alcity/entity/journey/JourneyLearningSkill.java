@@ -5,7 +5,7 @@ import com.alcity.entity.base.BaseTable;
 import com.alcity.entity.users.ApplicationMember;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.io.Serializable;
 
 @Entity
@@ -14,7 +14,7 @@ public class JourneyLearningSkill extends BaseTable implements Serializable {
     @Column(name="requiredAmount")
     private Float requiredAmount;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "journey_id", nullable = false)
     @JsonIgnore
     private Journey journey;

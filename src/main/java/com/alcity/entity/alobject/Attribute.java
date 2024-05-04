@@ -7,7 +7,7 @@ import com.alcity.entity.base.DataType;
 import com.alcity.entity.users.ApplicationMember;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.io.Serializable;
 import java.util.Collection;
 
@@ -46,7 +46,7 @@ public class Attribute extends BaseTable implements Serializable {
     @Enumerated(EnumType.ORDINAL)
     private AttributeOwnerType attributeOwnerType;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "data_type_id", nullable = false)
     @JsonIgnore
     private DataType dataType;

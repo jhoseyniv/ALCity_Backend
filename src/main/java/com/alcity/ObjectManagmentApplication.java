@@ -15,6 +15,7 @@ import com.alcity.service.play.PlayHistoryService;
 import com.alcity.service.puzzle.*;
 import com.alcity.service.users.ApplicationMemberService;
 import com.alcity.utility.ImageUtil;
+import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.slf4j.Logger;

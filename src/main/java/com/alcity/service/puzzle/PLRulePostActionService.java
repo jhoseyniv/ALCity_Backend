@@ -3,9 +3,10 @@ package com.alcity.service.puzzle;
 import com.alcity.entity.puzzle.PLRulePostAction;
 import com.alcity.repository.puzzle.PLRulePostActionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;;
 import java.util.Collection;
 import java.util.Optional;
 
@@ -14,11 +15,13 @@ import java.util.Optional;
 public class PLRulePostActionService implements PLRulePostActionRepository {
 
     @Autowired
-    PLRulePostActionRepository puzzleLevelRulePostActionRepository;
+    @Qualifier("PLRulePostActionRepository")
+
+    PLRulePostActionRepository plRulePostActionRepository;
 
     @Override
     public <S extends PLRulePostAction> S save(S entity) {
-        return puzzleLevelRulePostActionRepository.save(entity);
+        return plRulePostActionRepository.save(entity);
     }
 
     @Override
@@ -82,7 +85,7 @@ public class PLRulePostActionService implements PLRulePostActionRepository {
     }
 
     @Override
-    public Collection<PLRulePostAction> findByActionExpression(String experssion) {
+    public Collection<PLRulePostAction> findByActionExpression(StringBuffer experssion) {
         return null;
     }
 }

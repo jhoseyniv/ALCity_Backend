@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;;
 import java.util.Collection;
 import java.util.Optional;
 
@@ -92,7 +92,7 @@ public class PLObjectiveService implements PLObjectiveRepository {
     }
 
     @Override
-    public Collection<PLObjective> findByCondition(String condition) {
+    public Collection<PLObjective> findByCondition(StringBuffer condition) {
         return null;
     }
 }

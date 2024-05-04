@@ -3,7 +3,7 @@ package com.alcity.entity.learning;
 import com.alcity.entity.base.BaseItemSet;
 import com.alcity.entity.users.ApplicationMember;
 
-import javax.persistence.Entity;
+import jakarta.persistence.*;
 import java.io.Serializable;
 
 

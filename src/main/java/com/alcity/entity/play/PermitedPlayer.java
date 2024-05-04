@@ -6,10 +6,7 @@ import com.alcity.entity.users.ApplicationMember;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import jakarta.persistence.*;
 
 
 @Entity
@@ -20,7 +17,7 @@ public class PermitedPlayer extends BaseTable {
     @JsonProperty("playerId")
     private ApplicationMember player;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = true)
+    @ManyToOne(fetch = FetchType.EAGER, optional = true)
     @JoinColumn(name = "puzzle_Level_id", nullable = true)
     @JsonIgnore
     private PuzzleLevel puzzleLevel;

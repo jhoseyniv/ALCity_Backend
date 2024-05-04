@@ -6,7 +6,7 @@ import com.alcity.entity.users.ApplicationMember;
 import com.alcity.entity.users.WalletItem;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.io.Serializable;
 
 @Entity
@@ -27,12 +27,12 @@ public class PLObjective extends BaseTable implements Serializable {
     @Column(name="condition" )
     private StringBuffer condition;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = true)
+    @ManyToOne(fetch = FetchType.EAGER, optional = true)
     @JoinColumn(name = "learning_skill_id", nullable = true)
     @JsonIgnore
     private LearningSkill learningSkill;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = true)
+    @ManyToOne(fetch = FetchType.EAGER, optional = true)
     @JoinColumn(name = "wallet_item_id", nullable = true)
     @JsonIgnore
     private WalletItem walletItem;
@@ -45,7 +45,7 @@ public class PLObjective extends BaseTable implements Serializable {
         this.walletItem = walletItem;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = true)
+    @ManyToOne(fetch = FetchType.EAGER, optional = true)
     @JoinColumn(name = "puzzle_Level_id", nullable = true)
     @JsonIgnore
     private PuzzleLevel puzzleLevel;

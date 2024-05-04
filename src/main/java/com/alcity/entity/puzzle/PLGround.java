@@ -7,7 +7,7 @@ import com.alcity.entity.base.CameraSetup;
 import com.alcity.entity.users.ApplicationMember;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 @Entity
 public class PLGround extends BaseTable {
@@ -48,7 +48,7 @@ public class PLGround extends BaseTable {
     }
 
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = true)
+    @ManyToOne(fetch = FetchType.EAGER, optional = true)
     @JoinColumn(name = "puzzle_Level_id", nullable = true)
     @JsonIgnore
     private PuzzleLevel puzzleLevel;

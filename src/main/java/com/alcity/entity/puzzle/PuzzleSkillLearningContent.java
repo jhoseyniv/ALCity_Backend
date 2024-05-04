@@ -6,26 +6,23 @@ import com.alcity.entity.learning.LearningSkill;
 import com.alcity.entity.users.ApplicationMember;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import jakarta.persistence.*;
 import java.io.Serializable;
 
 @Entity
 public class PuzzleSkillLearningContent extends BaseTable implements Serializable {
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = true)
+    @ManyToOne(fetch = FetchType.EAGER, optional = true)
     @JoinColumn(name = "learning_skill_id", nullable = true)
     @JsonIgnore
     private LearningSkill learningSkill;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = true)
+    @ManyToOne(fetch = FetchType.EAGER, optional = true)
     @JoinColumn(name = "puzzle_group_id", nullable = true)
     @JsonIgnore
     private PuzzleGroup puzzleGroup;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = true)
+    @ManyToOne(fetch = FetchType.EAGER, optional = true)
     @JoinColumn(name = "learning_content_id", nullable = true)
     @JsonIgnore
     private LearningContent learningContent;

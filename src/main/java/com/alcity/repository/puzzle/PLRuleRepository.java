@@ -10,6 +10,6 @@ public interface PLRuleRepository extends CrudRepository<PLRule,Long> {
     Optional<PLRule> findById(Long id);
     Collection<PLRule> findAll();
     Collection<PLRule> findByTitle(String title);
-    Collection<PLRule> findByCondition(String condition);
+    Collection<PLRule> findByCondition(StringBuffer condition);
 
 }

@@ -12,7 +12,7 @@ import com.alcity.service.users.ApplicationMemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;;
 import java.util.Collection;
 import java.util.Optional;
 

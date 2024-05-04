@@ -1,9 +1,7 @@
 package com.alcity.entity.base;
 
 import com.alcity.entity.users.ApplicationMember;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
+import jakarta.persistence.*;
 import java.io.Serializable;
 
 @Entity

@@ -6,7 +6,7 @@ import com.alcity.entity.alobject.RulePostActionEvent;
 import com.alcity.entity.users.ApplicationMember;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.io.Serializable;
 import java.util.Collection;
 
@@ -28,7 +28,7 @@ public class PLRulePostAction extends BaseTable implements Serializable {
     @Enumerated(EnumType.ORDINAL)
     private PLRulePostActionType plRulePostActionType;
 
-    @OneToMany(mappedBy = "plRulePostAction", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "plRulePostAction", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JsonIgnore
     private Collection<RulePostActionEvent> rulePostActionEventCollection;
 
@@ -88,7 +88,7 @@ public class PLRulePostAction extends BaseTable implements Serializable {
         this.plRulePostActionType = plRulePostActionType;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "puzzle_Level_rule_id", nullable = false)
     @JsonIgnore
     private PLRule puzzleLevelRule;

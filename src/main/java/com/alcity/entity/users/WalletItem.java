@@ -3,9 +3,10 @@ package com.alcity.entity.users;
 import com.alcity.entity.base.BaseItemSet;
 import com.alcity.entity.base.WalletItemType;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
 import org.hibernate.annotations.Type;
 
-import javax.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Set;
 
@@ -19,7 +20,6 @@ public class WalletItem extends BaseItemSet implements Serializable {
 
     @Lob
     @Basic(fetch = FetchType.LAZY)
-    @Type(type = "org.hibernate.type.ImageType")
     private byte[] icon;
 
     public byte[] getIcon() {

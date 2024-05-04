@@ -8,7 +8,7 @@ import com.alcity.repository.users.ApplicationMember_WalletItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -89,7 +89,7 @@ public class ApplicationMember_WalletItemService implements ApplicationMember_Wa
     }
 
     @Override
-    public Collection<ApplicationMember_WalletItem> findByAmount(String amount) {
+    public Collection<ApplicationMember_WalletItem> findByAmount(Float amount) {
         return null;
     }
 }

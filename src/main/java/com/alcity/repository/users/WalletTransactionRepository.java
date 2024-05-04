@@ -12,6 +12,6 @@ public interface WalletTransactionRepository extends CrudRepository<WalletTransa
     Optional<WalletTransaction> findById(Long id);
     Collection<WalletTransaction> findAll();
     WalletItem findByTransactionDate(String label);
-    Collection<WalletTransaction> findByAmount(String amount);
+    Collection<WalletTransaction> findByAmount(Float amount);
 
 }

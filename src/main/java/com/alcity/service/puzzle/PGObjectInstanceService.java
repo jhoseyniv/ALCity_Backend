@@ -4,9 +4,10 @@ import com.alcity.entity.puzzle.PGObjectInstance;
 import com.alcity.entity.puzzle.PLObjective;
 import com.alcity.repository.puzzle.PGObjectInstanceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;;
 import java.util.Collection;
 import java.util.Optional;
 
@@ -15,11 +16,12 @@ import java.util.Optional;
 public class PGObjectInstanceService implements PGObjectInstanceRepository {
 
     @Autowired
-    PGObjectInstanceRepository puzzleGroupObjectInstanceRepository;
+    @Qualifier("PGObjectInstanceRepository")
+    PGObjectInstanceRepository  pgOjectInstanceRepository;
 
     @Override
     public <S extends PGObjectInstance> S save(S entity) {
-        return puzzleGroupObjectInstanceRepository.save(entity);
+        return pgOjectInstanceRepository.save(entity);
     }
 
     @Override
@@ -78,22 +80,22 @@ public class PGObjectInstanceService implements PGObjectInstanceRepository {
     }
 
     @Override
-    public Collection<PGObjectInstance> findByRow(Long row) {
+    public Collection<PGObjectInstance> findByRow(Integer row) {
         return null;
     }
 
     @Override
-    public Collection<PGObjectInstance> findByCol(String col) {
+    public Collection<PGObjectInstance> findByCol(Integer col) {
         return null;
     }
 
     @Override
-    public Collection<PGObjectInstance> findByzOrder(String zOrder) {
+    public Collection<PGObjectInstance> findByzOrder(Integer zOrder) {
         return null;
     }
 
     @Override
     public Collection<PGObjectInstance> findByPuzzleLevel(PLObjective pl) {
-        return puzzleGroupObjectInstanceRepository.findByPuzzleLevel(pl);
+        return pgOjectInstanceRepository.findByPuzzleLevel(pl);
     }
 }
