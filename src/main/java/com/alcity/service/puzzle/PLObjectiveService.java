@@ -1,5 +1,6 @@
 package com.alcity.service.puzzle;
 
+import com.alcity.dto.puzzle.PLObjectiveDTO;
 import com.alcity.entity.puzzle.PLObjective;
 import com.alcity.repository.puzzle.PLObjectiveRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -95,4 +96,10 @@ public class PLObjectiveService implements PLObjectiveRepository {
     public Collection<PLObjective> findByCondition(StringBuffer condition) {
         return null;
     }
+
+    @Override
+    public PLObjective save(PLObjectiveDTO plObjectiveDTO) {
+        return null;
+    }
+
 }

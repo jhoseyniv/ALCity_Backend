@@ -10,6 +10,8 @@ import com.alcity.entity.journey.Journey;
 import com.alcity.entity.learning.LearningSkill;
 import com.alcity.service.Journey.JourneyService;
 import com.alcity.utility.DTOUtil;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +21,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.Optional;
+
+@Tag(name = "Journey APIS ", description = "Get Journey data for ....")
 
 @RestController
 @RequestMapping("/journey")
@@ -53,6 +57,7 @@ public class JourneyController {
         return journeyDTOCollection;
     }
 
+    @Operation( summary = "Save a  Journey ",  description = "save a Journey entity and their data to data base")
     @PostMapping("/save")
     public Journey saveJourney(@RequestBody JourneyDTO journeyDTO)  {
         Journey savedJourney = null;

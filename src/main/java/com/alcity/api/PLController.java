@@ -1,7 +1,13 @@
 package com.alcity.api;
 
+import com.alcity.customexception.NotNullConstraintException;
+import com.alcity.customexception.UniqueConstraintException;
+import com.alcity.dto.journey.JourneyDTO;
 import com.alcity.dto.puzzle.*;
+import com.alcity.entity.journey.Journey;
 import com.alcity.entity.puzzle.*;
+import com.alcity.entity.puzzle.PLObjective;
+import com.alcity.service.puzzle.PLObjectiveService;
 import com.alcity.service.puzzle.PuzzleLevelService;
 import com.alcity.utility.DTOUtil;
 import io.swagger.v3.oas.annotations.Operation;
@@ -13,13 +19,15 @@ import org.springframework.web.bind.annotation.*;
 import java.util.*;
 
 
-@Tag(name = "Puzzle Level and related Entities ", description = "Get Puzzle Levels data Format for Other Database")
+@Tag(name = "Puzzle Level and related Entities ", description = "Get Puzzle Levels data Format for other systems...")
 @RestController
 @RequestMapping("/pl")
 public class PLController {
 
     @Autowired
     private PuzzleLevelService puzzleLevelService;
+    @Autowired
+    private PLObjectiveService plObjectiveService;
 
     @Operation( summary = "Fetch all puzzle level data ",  description = "fetches all data for all puzzle level structure ")
     @GetMapping("/all")
@@ -53,15 +61,20 @@ public class PLController {
                 plObjectiveDTOCollection = DTOUtil.getPuzzleLevelObjectiveDTOS(puzzleLevelOptional.get());
         return plObjectiveDTOCollection;
     }
-//    @RequestMapping(value = "/objectives/id/{id}", method = RequestMethod.GET)
-//    @ResponseBody
-//    public Collection<PLObjectiveDTO> getObjectivesByPuzzleLevelId(@PathVariable Long id) {
-//        Collection<PLObjectiveDTO> puzzleLevelObjectiveDTOCollection= new ArrayList<PLObjectiveDTO>();
-//        Optional<PuzzleLevel> puzzleLevelOptional = puzzleLevelService.findById(id);
-//        if(puzzleLevelOptional.isPresent())
-//            puzzleLevelObjectiveDTOCollection = DTOUtil.getPuzzleLevelObjectiveDTOS(puzzleLevelOptional.get());
-//        return puzzleLevelObjectiveDTOCollection;
-//    }
+    @Operation( summary = "Save a puzzle level  Objective  ",  description = "save a puzzle level  objective entity and their data to data base")
+    @PostMapping("/id/{id}/save")
+    public PLObjective savePLObjective(@RequestBody PLObjectiveDTO plObjectiveDTO,Long id)  {
+        PLObjective savedObjective = null;
+
+        try {
+            savedObjective = plObjectiveService.save(plObjectiveDTO);
+        }catch (RuntimeException e )
+        {
+            throw new UniqueConstraintException(plObjectiveDTO.getTitle(), plObjectiveDTO.getId(), PLObjectiveDTO.class.toString());
+        }
+        Optional<PLObjective> output = plObjectiveService.findById(savedObjective.getId());
+        return output.get();
+    }
 
 
 
