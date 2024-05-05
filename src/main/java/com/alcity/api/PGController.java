@@ -4,13 +4,11 @@ import com.alcity.dto.base.BinaryContentDTO;
 import com.alcity.dto.journey.JourneyStepDTO;
 import com.alcity.dto.puzzle.*;
 import com.alcity.entity.base.BinaryContent;
-import com.alcity.entity.base.PuzzleCategory;
 import com.alcity.entity.journey.JourneyStep;
 import com.alcity.entity.puzzle.*;
 import com.alcity.service.base.PuzzleCategoryService;
 import com.alcity.service.puzzle.PuzzleGroupService;
 import com.alcity.utility.DTOUtil;
-import com.alcity.utility.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -68,7 +66,7 @@ public class PGController {
            journeyStepDTOCollection = DTOUtil.getJorenyStepsDTOS(journeyStepCollection);
 
             Collection<PuzzleLevel> puzzleLevelCollection = puzzleGroup.get().getPuzzleLevelSet();
-            Collection<PLDTO> puzzleLevelDTOCollection = new ArrayList<PLDTO>();
+            Collection<PuzzleLevelLDTO> puzzleLevelDTOCollection = new ArrayList<PuzzleLevelLDTO>();
             puzzleLevelDTOCollection = DTOUtil.getPuzzleLevelDTOS(puzzleLevelCollection);
 
             Collection<PuzzleSkillLearningContent> puzzleSkillLearningContentCollection = puzzleGroup.get().getPuzzleSkillLearningContentSet();

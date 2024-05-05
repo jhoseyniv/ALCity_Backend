@@ -10,6 +10,9 @@ public class PLObjectiveDTO {
     private String createdBy;
 
     private String updatedBy;
+    private Long createdById;
+
+    private Long updatedById;
     private String title;
     private String description;
     private Float skillAmount;
@@ -54,6 +57,22 @@ public class PLObjectiveDTO {
 
     public void setCondition(StringBuffer condition) {
         this.condition = condition;
+    }
+
+    public Long getCreatedById() {
+        return createdById;
+    }
+
+    public void setCreatedById(Long createdById) {
+        this.createdById = createdById;
+    }
+
+    public Long getUpdatedById() {
+        return updatedById;
+    }
+
+    public void setUpdatedById(Long updatedById) {
+        this.updatedById = updatedById;
     }
 
     public PLObjectiveDTO() {
@@ -107,7 +126,7 @@ public class PLObjectiveDTO {
         this.updatedBy = updatedBy;
     }
 
-    public PLObjectiveDTO(Long id, Long version, String created, String updated, String createdBy, String updatedBy,
+    public PLObjectiveDTO(Long id, Long version, String created, String updated, String createdBy, String updatedBy,Long createdById,Long updatedById,
                           String title, String description, Float skillAmount, Float rewardAmount, StringBuffer condition) {
         this.id = id;
         this.version = version;
@@ -115,6 +134,8 @@ public class PLObjectiveDTO {
         this.updated = updated;
         this.createdBy = createdBy;
         this.updatedBy = updatedBy;
+        this.createdById = createdById;
+        this.updatedById = updatedById;
         this.title = title;
         this.description = description;
         this.skillAmount = skillAmount;

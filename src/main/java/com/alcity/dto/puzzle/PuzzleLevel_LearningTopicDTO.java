@@ -12,15 +12,15 @@ public class PuzzleLevel_LearningTopicDTO {
 
     private String updatedBy;
 
-    private PLDTO puzzleLevelDTO;
+    private PuzzleLevelLDTO puzzleLevelDTO;
     private LearningTopicDTO learningTopicDTO;
     private LearningContentDTO learningContentDTO;
 
-    public PLDTO getPuzzleLevelDTO() {
+    public PuzzleLevelLDTO getPuzzleLevelDTO() {
         return puzzleLevelDTO;
     }
 
-    public void setPuzzleLevelDTO(PLDTO puzzleLevelDTO) {
+    public void setPuzzleLevelDTO(PuzzleLevelLDTO puzzleLevelDTO) {
         this.puzzleLevelDTO = puzzleLevelDTO;
     }
 

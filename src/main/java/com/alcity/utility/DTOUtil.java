@@ -8,7 +8,6 @@ import com.alcity.dto.Interpreter.object.RuleData;
 import com.alcity.dto.alobject.*;
 import com.alcity.dto.base.BinaryContentDTO;
 import com.alcity.dto.base.ClientTypeDTO;
-import com.alcity.dto.base.DataTypeِDTO;
 import com.alcity.dto.journey.JourneyDTO;
 import com.alcity.dto.journey.JourneyStepDTO;
 import com.alcity.dto.learning.LearningContentDTO;
@@ -19,7 +18,6 @@ import com.alcity.dto.puzzle.*;
 import com.alcity.dto.user.ApplicationMemberDTO;
 import com.alcity.dto.user.MemberTypeDTO;
 import com.alcity.entity.alenum.AttributeOwnerType;
-import com.alcity.entity.alenum.DataType;
 import com.alcity.entity.alobject.*;
 import com.alcity.entity.base.*;
 import com.alcity.entity.journey.Journey;
@@ -44,30 +42,35 @@ public class DTOUtil {
             return objectCategoryDTO;
     }
 
-    public static PLDTO getPuzzleLevelDTO(PuzzleLevel puzzleLevel) {
-        PLDTO puzzleLevelDTO = new PLDTO();
+    public static PuzzleLevelLDTO getPuzzleLevelDTO(PuzzleLevel pl) {
+        PuzzleLevelLDTO plDTO = new PuzzleLevelLDTO();
 
-        puzzleLevelDTO.setId(puzzleLevel.getId());
-        puzzleLevelDTO.setVersion(puzzleLevel.getVersion());
-        puzzleLevelDTO.setCode(puzzleLevel.getCode());
-        puzzleLevelDTO.setApproveDate(puzzleLevel.getApproveDate());
-        puzzleLevelDTO.setTitle(puzzleLevel.getName());
-        puzzleLevelDTO.setToAge(puzzleLevel.getToAge());
-        puzzleLevelDTO.setFromAge(puzzleLevel.getFromAge());
-        puzzleLevelDTO.setOrdering(puzzleLevel.getOrdering());
-        puzzleLevelDTO.setMaxScore(puzzleLevel.getMaxScore());
-        puzzleLevelDTO.setUpdated(puzzleLevel.getUpdated());
-        puzzleLevelDTO.setCreated(puzzleLevel.getCreated());
-        puzzleLevelDTO.setPuzzleLevelDifficulty(puzzleLevel.getPuzzleDifficulty().toString());
-        puzzleLevelDTO.setPuzzleLevelPrivacy(puzzleLevel.getPuzzleLevelPrivacy().getLabel());
-        puzzleLevelDTO.setPuzzleLevelStatus(puzzleLevel.getPuzzleLevelStatus().toString());
+        plDTO.setId(pl.getId());
+        plDTO.setVersion(pl.getVersion());
+        plDTO.setCode(pl.getCode());
+        plDTO.setApproveDate(pl.getApproveDate());
+        plDTO.setTitle(pl.getName());
+        plDTO.setToAge(pl.getToAge());
+        plDTO.setFromAge(pl.getFromAge());
+        plDTO.setOrdering(pl.getOrdering());
+        plDTO.setMaxScore(pl.getMaxScore());
+        plDTO.setUpdated(pl.getUpdated());
+        plDTO.setCreated(pl.getCreated());
+        plDTO.setCreatedBy(pl.getCreatedBy().getUsername());
+        plDTO.setUpdatedBy(pl.getUpdatedBy().getUsername());
+        plDTO.setCreatedById(pl.getCreatedBy().getId());
+        plDTO.setUpdatedById(pl.getUpdatedBy().getId());
 
-        return puzzleLevelDTO;
+        plDTO.setPuzzleLevelDifficulty(pl.getPuzzleDifficulty().toString());
+        plDTO.setPuzzleLevelPrivacy(pl.getPuzzleLevelPrivacy().getLabel());
+        plDTO.setPuzzleLevelStatus(pl.getPuzzleLevelStatus().toString());
+
+        return plDTO;
     }
 
-    public static PLDTO getPuzzleLevelDTO(Optional<PuzzleLevel> puzzleLevelOptional) {
+    public static PuzzleLevelLDTO getPuzzleLevelDTO(Optional<PuzzleLevel> puzzleLevelOptional) {
         PuzzleLevel puzzleLevel = new PuzzleLevel();
-        PLDTO puzzleLevelDTO= new PLDTO();
+        PuzzleLevelLDTO puzzleLevelDTO= new PuzzleLevelLDTO();
 
         if(puzzleLevelOptional.isPresent()){
             puzzleLevel = puzzleLevelOptional.get();
@@ -128,13 +131,13 @@ public class DTOUtil {
         return journeyStepDTOCollection;
     }
 
-    public static Collection<PLDTO> getPuzzleLevelDTOS(Collection<PuzzleLevel> puzzleLevelCollection) {
-        Collection<PLDTO> puzzleLevelDTOCollection = new ArrayList<PLDTO>();
+    public static Collection<PuzzleLevelLDTO> getPuzzleLevelDTOS(Collection<PuzzleLevel> puzzleLevelCollection) {
+        Collection<PuzzleLevelLDTO> puzzleLevelDTOCollection = new ArrayList<PuzzleLevelLDTO>();
 
         Iterator<PuzzleLevel> itrPuzzleLevel = puzzleLevelCollection.iterator();
         while (itrPuzzleLevel.hasNext()) {
             PuzzleLevel puzzleLevel = itrPuzzleLevel.next();
-            PLDTO puzzleLevelDTO = new PLDTO();
+            PuzzleLevelLDTO puzzleLevelDTO = new PuzzleLevelLDTO();
             puzzleLevelDTO.setId(puzzleLevel.getId());
             puzzleLevelDTO.setVersion(puzzleLevel.getVersion());
             puzzleLevelDTO.setOrdering(puzzleLevel.getOrdering());
@@ -266,6 +269,23 @@ public class DTOUtil {
         return pcDTO;
     }
 
+    public static PLObjectiveDTO getPuzzleLevelObjectiveDTO(PLObjective plObjective){
+        PLObjectiveDTO plObjectiveDTO = new PLObjectiveDTO();
+        plObjectiveDTO.setId(plObjective.getId());
+        plObjectiveDTO.setVersion(plObjective.getVersion());
+        plObjectiveDTO.setTitle(plObjective.getTitle());
+        plObjectiveDTO.setCondition(plObjective.getCondition());
+        plObjectiveDTO.setDescription(plObjective.getDescription());
+        plObjectiveDTO.setRewardAmount(plObjective.getRewardAmount());
+        plObjectiveDTO.setSkillAmount(plObjective.getSkillAmount());
+        plObjectiveDTO.setUpdated(plObjective.getUpdated());
+        plObjectiveDTO.setCreated(plObjective.getCreated());
+        plObjectiveDTO.setCreatedBy(plObjective.getCreatedBy().getUsername());
+        plObjectiveDTO.setUpdatedBy(plObjective.getUpdatedBy().getUsername());
+        plObjectiveDTO.setUpdatedById(plObjective.getUpdatedBy().getId());
+        plObjectiveDTO.setCreatedById(plObjective.getCreatedBy().getId());
+        return  plObjectiveDTO;
+    }
 
     public static Collection<PLObjectiveDTO> getPuzzleLevelObjectiveDTOS(PuzzleLevel puzzleLevel) {
         Collection<PLObjectiveDTO> plObjectiveDTOCollection = new ArrayList<PLObjectiveDTO>();
@@ -273,21 +293,14 @@ public class DTOUtil {
         Iterator<PLObjective> itr_objectives = plObjectiveCollection.iterator();
 
         while (itr_objectives.hasNext()) {
-            PLObjective puzzleLevelObjective = itr_objectives.next();
-            PLObjectiveDTO plObjectiveDTO = new PLObjectiveDTO();
-            plObjectiveDTO.setId(puzzleLevelObjective.getId());
-            plObjectiveDTO.setVersion(puzzleLevelObjective.getVersion());
-            plObjectiveDTO.setTitle(puzzleLevelObjective.getTitle());
-            plObjectiveDTO.setCondition(puzzleLevelObjective.getCondition());
-            plObjectiveDTO.setRewardAmount(puzzleLevelObjective.getRewardAmount());
-            plObjectiveDTO.setSkillAmount(puzzleLevelObjective.getSkillAmount());
-            plObjectiveDTO.setUpdated(puzzleLevelObjective.getUpdated());
-            plObjectiveDTO.setCreated(puzzleLevelObjective.getCreated());
-
+            PLObjectiveDTO plObjectiveDTO = getPuzzleLevelObjectiveDTO(itr_objectives.next());
             plObjectiveDTOCollection.add(plObjectiveDTO);
         }
         return plObjectiveDTOCollection;
     }
+
+
+    //this method used for create Interpreter json
     public static Collection<PLObjectiveData> getPuzzleLevelObjectiveData(PuzzleLevel puzzleLevel) {
         Collection<PLObjectiveData> puzzleLevelObjectiveDataCollection = new ArrayList<PLObjectiveData>();
         Collection<PLObjective> puzzleLevelObjectiveCollection = puzzleLevel.getPlObjectives();
@@ -309,6 +322,8 @@ public class DTOUtil {
         }
         return puzzleLevelObjectiveDataCollection;
     }
+
+
     public static Collection<PuzzleLevel_LearningTopicDTO> getPuzzleLevel_LearningTopicDTOS(PuzzleLevel puzzleLevel) {
         Collection<PuzzleLevel_LearningTopicDTO> pl_ltDTOCollection = new ArrayList<PuzzleLevel_LearningTopicDTO>();
         Collection<PuzzleLevel_LearningTopic> puzzleLevel_learningTopicCollection = puzzleLevel.getPuzzleLevel_learningTopics();

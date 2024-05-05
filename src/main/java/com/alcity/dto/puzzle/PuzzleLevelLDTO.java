@@ -4,14 +4,17 @@ import com.alcity.dto.player.PermitedPlayerDTO;
 
 import java.util.Collection;
 
-public class PLDTO  {
+public class PuzzleLevelLDTO {
     private Long id;
     private Long version;
     private String created;
     private String updated;
     private String createdBy;
-
     private String updatedBy;
+
+    private Long createdById;
+    private Long updatedById;
+
     private String approveDate;
     private Long ordering;
     private String title;
@@ -25,6 +28,22 @@ public class PLDTO  {
     private String puzzleLevelPrivacy;
 
     private String puzzleLevelDifficulty;
+
+    public Long getCreatedById() {
+        return createdById;
+    }
+
+    public void setCreatedById(Long createdById) {
+        this.createdById = createdById;
+    }
+
+    public Long getUpdatedById() {
+        return updatedById;
+    }
+
+    public void setUpdatedById(Long updatedById) {
+        this.updatedById = updatedById;
+    }
 
     public String getApproveDate() {
         return approveDate;
@@ -155,7 +174,7 @@ public class PLDTO  {
         this.puzzleGroupObjectInstanceDTOCollection = puzzleGroupObjectInstanceDTOCollection;
     }
 
-    public PLDTO() {
+    public PuzzleLevelLDTO() {
     }
 
     public Long getId() {
@@ -206,13 +225,16 @@ public class PLDTO  {
         this.updatedBy = updatedBy;
     }
 
-    public PLDTO(Long id, Long version, String created, String updated, String createdBy, String updatedBy, String approveDate, Long ordering, String title, String code, Integer fromAge, Integer toAge, Float maxScore, String puzzleLevelStatus, String puzzleLevelPrivacy, String puzzleLevelDifficulty) {
+    public PuzzleLevelLDTO(Long id, Long version, String created, String updated, String createdBy, String updatedBy, Long createdById, Long updatedById,
+                           String approveDate, Long ordering, String title, String code, Integer fromAge, Integer toAge, Float maxScore, String puzzleLevelStatus, String puzzleLevelPrivacy, String puzzleLevelDifficulty) {
         this.id = id;
         this.version = version;
         this.created = created;
         this.updated = updated;
         this.createdBy = createdBy;
         this.updatedBy = updatedBy;
+        this.createdById = createdById;
+        this.updatedById = updatedById;
         this.approveDate = approveDate;
         this.ordering = ordering;
         this.title = title;

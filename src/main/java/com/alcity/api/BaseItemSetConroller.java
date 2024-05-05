@@ -113,7 +113,6 @@ public class BaseItemSetConroller {
     }
 
     @Operation( summary = "Fetch all puzzle level  difficulty  ",  description = "fetches all puzzle level  difficulty entities and their data from data base")
-
     @GetMapping("/pl-difficulty/all")
     public PLDifficulty[] getPuzzleLevelDiffculty(Model model) {  return PLDifficulty.values();   }
 
@@ -150,8 +149,6 @@ public class BaseItemSetConroller {
         return puzzleLevelPrivacy;
     }
 
-
-
     @Autowired
     private WalletItemTypeService walletItemTypeService;
     @GetMapping("/wallet-type/all")
@@ -159,6 +156,7 @@ public class BaseItemSetConroller {
         Collection<WalletItemType> walletItemTypeCollection = walletItemTypeService.findAll();
         return walletItemTypeCollection;
     }
+
     @RequestMapping(value = "/wallet-type/id/{id}", method = RequestMethod.GET)
     @ResponseBody
     public Optional<WalletItemType> getWalletItemTypeById(@PathVariable Long id) {
@@ -170,6 +168,7 @@ public class BaseItemSetConroller {
 
     @GetMapping("/binary-type/all")
     public BinaryContentType[] getBinaryTypes(Model model) {  return BinaryContentType.values();   }
+
     @RequestMapping(value = "/binary-type/id/{id}", method = RequestMethod.GET)
     @ResponseBody
     public BinaryContentType getBinaryTypeById(@PathVariable Long id) {   return BinaryContentType.getById(id);   }
