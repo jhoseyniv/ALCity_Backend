@@ -77,6 +77,13 @@ public abstract class BaseItemSet implements Serializable {
     @JsonIgnore
     private ApplicationMember updatedBy;
 
+    public void setCreatedBy(ApplicationMember createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    public void setUpdatedBy(ApplicationMember updatedBy) {
+        this.updatedBy = updatedBy;
+    }
 
     public BaseItemSet() {
     }

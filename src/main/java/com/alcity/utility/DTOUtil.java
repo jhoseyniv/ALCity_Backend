@@ -17,6 +17,7 @@ import com.alcity.dto.learning.LearningTopicDTO;
 import com.alcity.dto.player.PermitedPlayerDTO;
 import com.alcity.dto.puzzle.*;
 import com.alcity.dto.user.ApplicationMemberDTO;
+import com.alcity.dto.user.MemberTypeDTO;
 import com.alcity.entity.alenum.AttributeOwnerType;
 import com.alcity.entity.alenum.DataType;
 import com.alcity.entity.alobject.*;
@@ -582,7 +583,26 @@ public class DTOUtil {
 
         return puzzleObject_objectActionDTO;
     }
+  public static ClientTypeDTO getClientTypeDTO(ClientType ctype){
+      ClientTypeDTO clientTypeDTO = new ClientTypeDTO(ctype.getId(), ctype.getLabel(), ctype.getValue(), ctype.getVersion(),
+              ctype.getCreated(),ctype.getUpdated());
+        return  clientTypeDTO;
+   }
+   public static MemberTypeDTO getMemberTypeDTO(MemberType mt){
+        MemberTypeDTO memberTypeDTO = new MemberTypeDTO(mt.getId(), mt.getVersion(), mt.getLabel(), mt.getValue(),
+                mt.getCreated(), mt.getUpdated(), mt.getCreatedBy().getUsername(),mt.getUpdatedBy().getUsername(),mt.getCreatedBy().getId(),mt.getUpdatedBy().getId());
+        return memberTypeDTO;
+    }
+   public static Collection<MemberTypeDTO> getMemberTypeDTOS(Collection<MemberType> memberTypes){
+       Iterator<MemberType> iterator = memberTypes.iterator();
+       Collection<MemberTypeDTO> memberTypeDTOCollection = new ArrayList<MemberTypeDTO>();
+       while(iterator.hasNext()) {
+           MemberTypeDTO memberTypeDTO = getMemberTypeDTO(iterator.next());
+           memberTypeDTOCollection.add(memberTypeDTO);
+       }
 
+       return memberTypeDTOCollection;
+    }
     public static ActionRendererDTO getActionRendererDTO(ActionRenderer actionRenderer){
            ActionRendererDTO aRendererDTO = new ActionRendererDTO();
             aRendererDTO.setId(actionRenderer.getId());

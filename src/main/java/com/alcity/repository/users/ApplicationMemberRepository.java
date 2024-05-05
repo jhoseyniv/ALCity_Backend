@@ -10,7 +10,7 @@ public interface ApplicationMemberRepository extends CrudRepository<ApplicationM
     Optional<ApplicationMember> findById(Long id);
     Collection<ApplicationMember> findAll();
     ApplicationMember findByUsername(String username);
-    ApplicationMember findByMobile(String mobile);
+    Collection<ApplicationMember> findByMobile(String mobile);
     ApplicationMember findByEmail(String email);
 
 }

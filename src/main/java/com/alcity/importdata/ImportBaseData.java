@@ -141,6 +141,7 @@ public class ImportBaseData implements CommandLineRunner {
         applicationMemberService.save(admin_1);
 
 
+
         ApplicationMember jalalHoseyni= new ApplicationMember(35,"jalal","jalal","jalal","0912350550","j_hoseyni@yahoo.com",avatar,UserGender.Male,guest,1L,now,now,null,null);
         Set jalalClientTypeSet = new HashSet<ClientType>();
         jalalClientTypeSet.add(mobile);
@@ -162,18 +163,22 @@ public class ImportBaseData implements CommandLineRunner {
         alireza_zarei.setClientTypeSet(alireza_ClientTypeSet);
         applicationMemberService.save(alireza_zarei);
 
+        //update some fileds
+        administrator.setCreatedBy(admin_1);
+        administrator.setUpdatedBy(admin_1);
 
+        memberTypeService.save(administrator);
+        guest.setUpdatedBy(admin_1);
+        guest.setCreatedBy(admin_1);
+        memberTypeService.save(guest);
 
-//        BinaryContentType imageType= new BinaryContentType("image","image",1L,now,now,admin_1,admin_1);
-//        BinaryContentType fileType= new BinaryContentType("file","file",1L,now,now,admin_1,admin_1);
-//        BinaryContentType videoType= new BinaryContentType("video","video",1L,now,now,admin_1,admin_1);
-//        BinaryContentType iconType= new BinaryContentType("icon","icon",1L,now,now,admin_1,admin_1);
-//        BinaryContentType voiceType= new BinaryContentType("voice","voice",1L,now,now,admin_1,admin_1);
-//        binaryContentTypeService.save(imageType);
-//        binaryContentTypeService.save(fileType);
-//        binaryContentTypeService.save(videoType);
-//        binaryContentTypeService.save(iconType);
-//        binaryContentTypeService.save(voiceType);
+        puzzleCreator.setCreatedBy(admin_1);
+        puzzleCreator.setUpdatedBy(admin_1);
+        memberTypeService.save(puzzleCreator);
+
+        puzzlePlayer.setCreatedBy(admin_1);
+        puzzlePlayer.setUpdatedBy(admin_1);
+        memberTypeService.save(puzzlePlayer);
 
 
         byte[] tetherIcon = ImageUtil.getImage("src/main/resources/images/","Tether.png");

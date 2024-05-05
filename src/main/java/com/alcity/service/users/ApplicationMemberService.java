@@ -82,7 +82,7 @@ public class ApplicationMemberService implements ApplicationMemberRepository {
     }
 
     @Override
-    public ApplicationMember findByMobile(String mobile) {
+    public Collection<ApplicationMember> findByMobile(String mobile) {
         return null;
     }
 

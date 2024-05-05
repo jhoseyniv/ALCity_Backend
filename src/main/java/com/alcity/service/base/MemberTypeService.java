@@ -1,8 +1,12 @@
 package com.alcity.service.base;
 
 
+import com.alcity.dto.user.MemberTypeDTO;
 import com.alcity.entity.base.MemberType;
+import com.alcity.entity.journey.Journey;
+import com.alcity.entity.users.ApplicationMember;
 import com.alcity.repository.base.MemberTypeRepository;
+import com.alcity.service.users.ApplicationMemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +22,9 @@ public class MemberTypeService implements MemberTypeRepository {
     @Autowired
     private MemberTypeRepository memberTypeRepository;
 
+    @Autowired
+    ApplicationMemberService applicationMemberService;
+
     @Override
     public <S extends MemberType> S save(S entity) {
         return memberTypeRepository.save(entity);
@@ -30,7 +37,7 @@ public class MemberTypeService implements MemberTypeRepository {
 
     @Override
     public Optional<MemberType> findById(Long id) {
-        return Optional.empty();
+        return memberTypeRepository.findById(id);
     }
 
     @Override
@@ -86,5 +93,17 @@ public class MemberTypeService implements MemberTypeRepository {
     @Override
     public MemberType findByValue(String value) {
         return null;
+    }
+
+    @Override
+    public MemberType save(MemberTypeDTO memberTypeDTO) {
+        Optional<ApplicationMember> createdBy = applicationMemberService.findById(memberTypeDTO.getCreatedById());
+        Optional<ApplicationMember> updatedBy = applicationMemberService.findById(memberTypeDTO.getUpdatedById());
+
+        MemberType memberType = new MemberType(memberTypeDTO.getLabel(), memberTypeDTO.getValue(), memberTypeDTO.getVersion(),
+                memberTypeDTO.getCreated(), memberTypeDTO.getUpdated(), createdBy.get(), updatedBy.get());
+        memberTypeRepository.save(memberType);
+
+        return memberType;
     }
 }

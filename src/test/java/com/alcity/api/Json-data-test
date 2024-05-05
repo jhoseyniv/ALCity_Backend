@@ -1,3 +1,18 @@
+
+
+//save Member Type
+
+ {
+        "id": 0,
+        "version": 1,
+        "label": "Puzzle Player_2",
+        "value": "Puzzle_Player_2",
+        "created": "05-05-2024 15:24:18",
+        "updated": "05-05-2024 15:24:18",
+        "createdBy": "admin",
+        "updatedBy": "admin"
+    }
+
 //save Journey
 
 {

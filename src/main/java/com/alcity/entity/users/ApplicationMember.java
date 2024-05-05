@@ -20,7 +20,7 @@ public class ApplicationMember extends BaseTable implements Serializable {
     @Column(name="age")
     private Integer age;
 
-    @Column(name="userame")
+    @Column(name="userame" , unique = true)
     private String username;
 
     @Column(name="password")
