@@ -13,7 +13,7 @@ public class AttributeDTO  {
 
     private String name;
     private Long ownerId;
-    private AttributeOwnerTypeDTO attributeOwnerTypeDTO;
+    private String attributeOwnerType;
     private String dataType;
 
     public String getDataType() {
@@ -88,19 +88,18 @@ public class AttributeDTO  {
         this.ownerId = ownerId;
     }
 
-    public AttributeOwnerTypeDTO getAttributeOwnerTypeDTO() {
-        return attributeOwnerTypeDTO;
+    public String getAttributeOwnerType() {
+        return attributeOwnerType;
     }
 
-    public void setAttributeOwnerTypeDTO(AttributeOwnerTypeDTO attributeOwnerTypeDTO) {
-        this.attributeOwnerTypeDTO = attributeOwnerTypeDTO;
+    public void setAttributeOwnerType(String attributeOwnerType) {
+        this.attributeOwnerType = attributeOwnerType;
     }
-
 
     public AttributeDTO() {
     }
 
-    public AttributeDTO(Long id, Long version, String created, String updated, String createdBy, String updatedBy, String name, Long ownerId, AttributeOwnerTypeDTO attributeOwnerTypeDTO, String dataType) {
+    public AttributeDTO(Long id, Long version, String created, String updated, String createdBy, String updatedBy, String name, Long ownerId, String attributeOwnerType, String dataType) {
         this.id = id;
         this.version = version;
         this.created = created;
@@ -109,7 +108,7 @@ public class AttributeDTO  {
         this.updatedBy = updatedBy;
         this.name = name;
         this.ownerId = ownerId;
-        this.attributeOwnerTypeDTO = attributeOwnerTypeDTO;
+        this.attributeOwnerType = attributeOwnerType;
         this.dataType = dataType;
     }
 }

@@ -19,5 +19,21 @@ public enum AttributeOwnerType {
     PuzzleGroup_Object_Instance_Variable,
     PuzzleGroup_Object_Instance_Action_Parameter,
 
-    Puzzle_Level_Rule_Post_Action
+    Puzzle_Level_Rule_Post_Action;
+    public static AttributeOwnerType getById(long id)
+    {
+        for (AttributeOwnerType e : AttributeOwnerType.values())
+        {
+            if (id == e.ordinal()) return e;
+        }
+        throw new IllegalArgumentException("no");
+    }
+    public static AttributeOwnerType getByTitle(String title)
+    {
+        for (AttributeOwnerType e : AttributeOwnerType.values())
+        {
+            if (title.equalsIgnoreCase(e.name())) return e;
+        }
+        throw new IllegalArgumentException("no");
+    }
 }

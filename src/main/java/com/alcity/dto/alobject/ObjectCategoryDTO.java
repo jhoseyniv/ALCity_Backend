@@ -19,5 +19,8 @@ public class ObjectCategoryDTO extends BaseItemSetDTO {
     public ObjectCategoryDTO() {
     }
 
-
+    public ObjectCategoryDTO(Long id, String label, String value, Long version, String created, String updated, Collection<PuzzleObject> puzzleObjectCollection) {
+        super(id, label, value, version, created, updated);
+        this.puzzleObjectCollection = puzzleObjectCollection;
+    }
 }

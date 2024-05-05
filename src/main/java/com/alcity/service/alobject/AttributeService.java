@@ -90,8 +90,8 @@ public class AttributeService implements AttributeRepository {
 
 
     @Override
-    public Collection<Attribute> findByOwnerIdAndAttributeOwnerType(Long instanceId, AttributeOwnerType ownerType) {
-        Collection<Attribute> alCityAttributes = attributeRepository.findByOwnerId(instanceId);
+    public Collection<Attribute> findByOwnerIdAndAttributeOwnerType(Long ownerId, AttributeOwnerType ownerType) {
+        Collection<Attribute> alCityAttributes = attributeRepository.findByOwnerId(ownerId);
 
         ArrayList<Attribute> outputAttributes = new ArrayList<Attribute>();
 
@@ -132,8 +132,6 @@ public class AttributeService implements AttributeRepository {
             outputAttributes = alCityAttributes.stream().
                     filter(attribute -> attribute.getAttributeOwnerType().equals(AttributeOwnerType.Puzzle_Group_Object_Property))
                     .collect(Collectors.toCollection(ArrayList::new));
-
-
 
         return outputAttributes;
     }
