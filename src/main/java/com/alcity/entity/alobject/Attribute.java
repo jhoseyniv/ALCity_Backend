@@ -3,7 +3,7 @@ package com.alcity.entity.alobject;
 
 import com.alcity.entity.alenum.AttributeOwnerType;
 import com.alcity.entity.base.BaseTable;
-import com.alcity.entity.base.DataType;
+import com.alcity.entity.alenum.DataType;
 import com.alcity.entity.users.ApplicationMember;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -46,9 +46,7 @@ public class Attribute extends BaseTable implements Serializable {
     @Enumerated(EnumType.ORDINAL)
     private AttributeOwnerType attributeOwnerType;
 
-    @ManyToOne(fetch = FetchType.EAGER, optional = false)
-    @JoinColumn(name = "data_type_id", nullable = false)
-    @JsonIgnore
+    @Enumerated(EnumType.ORDINAL)
     private DataType dataType;
 
     public AttributeOwnerType getAttributeOwnerType() {

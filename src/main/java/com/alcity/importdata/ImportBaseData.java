@@ -2,6 +2,7 @@ package com.alcity.importdata;
 
 
 import com.alcity.entity.alenum.BinaryContentType;
+import com.alcity.entity.alenum.DataType;
 import com.alcity.entity.alenum.UserGender;
 import com.alcity.entity.alenum.WalletItemCategory;
 import com.alcity.entity.alobject.ObjectCategory;
@@ -68,8 +69,6 @@ public class ImportBaseData implements CommandLineRunner {
     @Autowired
     private WalletTransactionService walletTransactionService;
 
-    @Autowired
-    private DataTypeService dataTypeService;
 
 
     @Autowired
@@ -265,19 +264,6 @@ public class ImportBaseData implements CommandLineRunner {
 
 
 
-        DataType alcity_Int = new DataType("Integer","Integer",1L,now,now,admin_1,admin_1);
-        DataType alcity_Long =new DataType("Long","Long",1L,now,now,admin_1,admin_1);
-        DataType alcity_Boolean = new DataType("Boolean","Boolean",1L,now,now,admin_1,admin_1);
-        DataType alcity_String = new DataType("String","String",1L,now,now,admin_1,admin_1);
-        DataType alcity_Binary = new DataType("Binary","Binary",1L,now,now,admin_1,admin_1);
-        DataType alcity_Object = new DataType("Object","Object",1L,now,now,admin_1,admin_1);
-
-        dataTypeService.save(alcity_Int);
-        dataTypeService.save(alcity_Long);
-        dataTypeService.save(alcity_Boolean);
-        dataTypeService.save(alcity_String);
-        dataTypeService.save(alcity_Binary);
-        dataTypeService.save(alcity_Object);
 
 
         PLPrivacy privacy_1 = new PLPrivacy("privacy 1","privacy1",1L,now,now,admin_1,admin_1);

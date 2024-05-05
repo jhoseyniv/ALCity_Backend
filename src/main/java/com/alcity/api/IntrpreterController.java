@@ -201,7 +201,7 @@ public class IntrpreterController {
 
             RecordrData objectActionParameterData = new RecordrData();
             objectActionParameterData.setName(alCityAttribute.getName());
-            objectActionParameterData.setType(alCityAttribute.getDataType().getValue());
+            objectActionParameterData.setType(alCityAttribute.getDataType().toString());
 
             objectActionParameterData.setValue(DTOUtil.getDataValue(alCityAttributeValue));
             objectActionParameterDataCollection.add(objectActionParameterData);

@@ -86,8 +86,4 @@ public class DataTypeOperatorService implements DataTypeOperatorRepository {
         return null;
     }
 
-    @Override
-    public DataTypeOperator findByDataTypeId(Long id) {
-        return null;
-    }
 }

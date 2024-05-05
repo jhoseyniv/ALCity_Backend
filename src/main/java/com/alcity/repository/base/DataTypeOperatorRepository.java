@@ -1,6 +1,5 @@
 package com.alcity.repository.base;
 
-import com.alcity.entity.base.DataType;
 import com.alcity.entity.base.DataTypeOperator;
 import org.springframework.data.repository.CrudRepository;
 
@@ -12,6 +11,5 @@ public interface DataTypeOperatorRepository extends CrudRepository<DataTypeOpera
     Collection<DataTypeOperator> findAll();
     DataTypeOperator findByLabel(String label);
     DataTypeOperator findByValue(String value);
-    DataTypeOperator findByDataTypeId(Long id);
 
 }

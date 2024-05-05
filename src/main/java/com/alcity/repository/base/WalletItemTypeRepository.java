@@ -1,6 +1,5 @@
 package com.alcity.repository.base;
 
-import com.alcity.entity.base.DataType;
 import com.alcity.entity.base.WalletItemType;
 import org.springframework.data.repository.CrudRepository;
 

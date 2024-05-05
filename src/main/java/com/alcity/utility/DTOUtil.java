@@ -18,6 +18,7 @@ import com.alcity.dto.player.PermitedPlayerDTO;
 import com.alcity.dto.puzzle.*;
 import com.alcity.dto.user.ApplicationMemberDTO;
 import com.alcity.entity.alenum.AttributeOwnerType;
+import com.alcity.entity.alenum.DataType;
 import com.alcity.entity.alobject.*;
 import com.alcity.entity.base.*;
 import com.alcity.entity.journey.Journey;
@@ -93,8 +94,8 @@ public class DTOUtil {
             alCityAttributeDTO.setCreated(alCityAttribute.getCreated());
             alCityAttributeDTO.setUpdated(alCityAttribute.getUpdated());
 
-            DataTypeِDTO dataTypeِDTO =  getDataTypeDTO(alCityAttribute.getDataType());
-            alCityAttributeDTO.setDataTypeِDTO(dataTypeِDTO);
+            //DataTypeِDTO dataTypeِDTO =  getDataTypeDTO(alCityAttribute.getDataType());
+            alCityAttributeDTO.setDataType(alCityAttribute.getDataType().toString());
 
             //AttributeOwnerTypeDTO attributeOwnerTypeDTO= getAttributeOwnerTypeDTO(alCityAttribute.getAttributeOwnerType());
           //  alCityAttributeDTO.setAttributeOwnerTypeDTO(attributeOwnerTypeDTO);
@@ -120,8 +121,8 @@ public class DTOUtil {
            // AttributeOwnerTypeDTO attributeOwnerTypDTOe = getAttributeOwnerTypeDTO(alCityAttribute.getAttributeOwnerType());
            // alCityAttributeDTO.setAttributeOwnerTypeDTO(attributeOwnerTypDTOe);
 
-            DataTypeِDTO dataTypeِDTO = getDataTypeDTO(alCityAttribute.getDataType());
-            alCityAttributeDTO.setDataTypeِDTO(dataTypeِDTO);
+           // DataTypeِDTO dataTypeِDTO = getDataTypeDTO(alCityAttribute.getDataType().);
+            alCityAttributeDTO.setDataType(alCityAttribute.getDataType().toString());
 
             alCityAttributeDTOCollection.add(alCityAttributeDTO);
         }
@@ -154,18 +155,18 @@ public class DTOUtil {
 //        }else attributeOwnerTypeDTO = null;
 //        return attributeOwnerTypeDTO;
 //    }
-    public static DataTypeِDTO getDataTypeDTO(DataType dataType) {
-        DataTypeِDTO dataTypeِDTO = new DataTypeِDTO();
-        if (dataType != null ) {
-            dataTypeِDTO.setId(dataType.getId());
-            dataTypeِDTO.setVersion(dataType.getVersion());
-            dataTypeِDTO.setLabel(dataType.getLabel());
-            dataTypeِDTO.setValue(dataType.getValue());
-            dataTypeِDTO.setCreated(dataType.getCreated());
-            dataTypeِDTO.setUpdated(dataType.getUpdated());
-        }else dataTypeِDTO = null;
-        return dataTypeِDTO;
-    }
+//    public static DataTypeِDTO getDataTypeDTO(DataType dataType) {
+//        DataTypeِDTO dataTypeِDTO = new DataTypeِDTO();
+//        if (dataType != null ) {
+//            dataTypeِDTO.setId(dataType.getId());
+//            dataTypeِDTO.setVersion(dataType.getVersion());
+//            dataTypeِDTO.setLabel(dataType.getLabel());
+//            dataTypeِDTO.setValue(dataType.getValue());
+//            dataTypeِDTO.setCreated(dataType.getCreated());
+//            dataTypeِDTO.setUpdated(dataType.getUpdated());
+//        }else dataTypeِDTO = null;
+//        return dataTypeِDTO;
+//    }
 
 
 
@@ -737,7 +738,7 @@ public class DTOUtil {
             while(iteratorValues.hasNext()) {
                 AttributeValue alCityAttributeValue = iteratorValues.next();
                 String value = getDataValue(alCityAttributeValue);
-                String type = attribute.getDataType().getValue();
+                String type = attribute.getDataType().toString();
                 RecordrData variable = new RecordrData(attribute.getName(),value,type);
                 variables.add(variable);
             }

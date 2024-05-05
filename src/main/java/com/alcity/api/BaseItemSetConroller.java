@@ -78,41 +78,20 @@ public class BaseItemSetConroller {
     }
 
 
-    @Autowired
-    private DataTypeService dataTypeService;
     @GetMapping("/data-type/all")
-    public Collection<DataType> getDataTypes(Model model) {
-        Collection<DataType> dataTypes = dataTypeService.findAll();
-        return dataTypes;
+    public DataType[] getDataTypes(Model model) {
+        return DataType.values();
     }
 
     @RequestMapping(value = "/data-type/id/{id}", method = RequestMethod.GET)
     @ResponseBody
-    public Optional<DataType> getDataTypeById(@PathVariable Long id) {
-        Optional<DataType> dataType = dataTypeService.findById(id);
-        if(!dataType.isPresent())
-                throw new RecordNotFoundException(id,id.toString(),"this record not found in the database...");
-        return dataType;
+    public DataType getDataTypeById(@PathVariable Long id) {
+        return DataType.getById(id);
     }
-
-    @PostMapping("/data-type/save")
-    public Optional<DataType> saveDataType(@RequestBody DataType dataType)  {
-        DataType savedDataType = null;
-        try {
-            savedDataType = dataTypeService.save(dataType);
-        }catch (RuntimeException e )
-        {
-            throw new UniqueConstraintException(dataType.getLabel(), dataType.getId(), DataType.class.toString());
-      }
-        Optional<DataType> output = dataTypeService.findById(savedDataType.getId());
-        return output;
-    }
-
-
 
     @Autowired
     private MemberTypeService memberTypeService;
-    @GetMapping("/member-types")
+    @GetMapping("/member-type/all")
     public Collection<MemberType> getMemberType(Model model) {
         Collection<MemberType> memberTypes = memberTypeService.findAll();
         return memberTypes;
