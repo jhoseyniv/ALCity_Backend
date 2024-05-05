@@ -72,7 +72,7 @@ public class ImportProblemData_2_part_3 implements CommandLineRunner {
     @Autowired
     private PuzzleGroupService puzzleGroupService;
     @Autowired
-    private PuzzleLevelPrivacyService puzzleLevelPrivacyService;
+    private PLPrivacyService puzzleLevelPrivacyService;
     @Autowired
     PuzzleLevelService puzzleLevelService;
     @Autowired

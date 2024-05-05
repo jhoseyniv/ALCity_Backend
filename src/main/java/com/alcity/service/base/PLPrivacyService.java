@@ -3,6 +3,7 @@ package com.alcity.service.base;
 import com.alcity.entity.base.PLPrivacy;
 import com.alcity.repository.base.PLPrivacyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import org.springframework.transaction.annotation.Transactional;;
@@ -12,13 +13,15 @@ import java.util.Optional;
 
 @Service
 @Transactional
-public class PuzzleLevelPrivacyService implements PLPrivacyRepository {
+public class PLPrivacyService implements PLPrivacyRepository {
 
    @Autowired
-   PLPrivacyRepository puzzleLevelPrivacyRepository;
+   @Qualifier("PLPrivacyRepository")
+
+   PLPrivacyRepository plPrivacyRepository;
     @Override
     public <S extends PLPrivacy> S save(S entity) {
-        return puzzleLevelPrivacyRepository.save(entity);
+        return plPrivacyRepository.save(entity);
     }
 
     @Override
@@ -38,7 +41,7 @@ public class PuzzleLevelPrivacyService implements PLPrivacyRepository {
 
     @Override
     public Collection<PLPrivacy> findAll() {
-        return puzzleLevelPrivacyRepository.findAll();
+        return plPrivacyRepository.findAll();
     }
 
     @Override
@@ -79,11 +82,11 @@ public class PuzzleLevelPrivacyService implements PLPrivacyRepository {
     @Override
     public PLPrivacy findByLabel(String label) {
 
-     return puzzleLevelPrivacyRepository.findByLabel(label);
+     return plPrivacyRepository.findByLabel(label);
     }
 
     @Override
     public PLPrivacy findByValue(String value) {
-        return puzzleLevelPrivacyRepository.findByValue(value);
+        return plPrivacyRepository.findByValue(value);
     }
 }

@@ -2,7 +2,6 @@ package com.alcity.importdata;
 
 
 import com.alcity.entity.alenum.BinaryContentType;
-import com.alcity.entity.alenum.DataType;
 import com.alcity.entity.alenum.UserGender;
 import com.alcity.entity.alenum.WalletItemCategory;
 import com.alcity.entity.alobject.ObjectCategory;
@@ -81,7 +80,7 @@ public class ImportBaseData implements CommandLineRunner {
     LearningSkill_LearningTopicService learningSkill_LearningTopicService;
 
     @Autowired
-    private PuzzleLevelPrivacyService puzzleLevelPrivacyService;
+    private PLPrivacyService puzzleLevelPrivacyService;
 
 
 

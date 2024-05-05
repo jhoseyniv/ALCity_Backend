@@ -64,7 +64,7 @@ public class ImportProblemData_1 implements CommandLineRunner {
 
 
     @Autowired
-    private PuzzleLevelPrivacyService puzzleLevelPrivacyService;
+    private PLPrivacyService puzzleLevelPrivacyService;
 
     @Autowired
     PermitedPlayerRepository permitedPlayerRepository;

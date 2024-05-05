@@ -1,6 +1,5 @@
 package com.alcity.api;
 
-import com.alcity.customexception.RecordNotFoundException;
 import com.alcity.customexception.UniqueConstraintException;
 import com.alcity.dto.base.ClientTypeDTO;
 import com.alcity.dto.user.MemberTypeDTO;
@@ -83,6 +82,7 @@ public class BaseItemSetConroller {
 
     @Autowired
     private MemberTypeService memberTypeService;
+    @Operation( summary = "Fetch all member Types ",  description = "fetches all member Types entities and their data from data base")
     @GetMapping("/member-type/all")
     public Collection<MemberTypeDTO> getMemberType(Model model) {
         Collection<MemberType> memberTypes = memberTypeService.findAll();
@@ -112,6 +112,7 @@ public class BaseItemSetConroller {
         return output.get();
     }
 
+    @Operation( summary = "Fetch all puzzle level  difficulty  ",  description = "fetches all puzzle level  difficulty entities and their data from data base")
 
     @GetMapping("/pl-difficulty/all")
     public PLDifficulty[] getPuzzleLevelDiffculty(Model model) {  return PLDifficulty.values();   }
@@ -133,22 +134,19 @@ public class BaseItemSetConroller {
         return GameStatus.values();
     }
 
-
-
-
     @Autowired
-    private PuzzleLevelPrivacyService puzzleLevelPrivacyService;
+    private PLPrivacyService plPrivacyService;
 
     @GetMapping("/pl-privacy/all")
     public Collection<PLPrivacy> getPuzzleLevelPrivacy(Model model) {
-        Collection<PLPrivacy> puzzleLevelPrivacyCollection = puzzleLevelPrivacyService.findAll();
-        return puzzleLevelPrivacyCollection;
+        Collection<PLPrivacy> plPrivacyCollection = plPrivacyService.findAll();
+        return plPrivacyCollection;
     }
 
     @RequestMapping(value = "/pl-privacy/id/{id}", method = RequestMethod.GET)
     @ResponseBody
     public Optional<PLPrivacy> getPuzzleLevelPrivacyById(@PathVariable Long id) {
-        Optional<PLPrivacy> puzzleLevelPrivacy = puzzleLevelPrivacyService.findById(id);
+        Optional<PLPrivacy> puzzleLevelPrivacy = plPrivacyService.findById(id);
         return puzzleLevelPrivacy;
     }
 
