@@ -1,8 +1,6 @@
 package com.alcity.dto.base;
 
-import java.time.ZonedDateTime;
-
-public class BaseItemSetDTO {
+public class LearningSkillDTO {
     private Long id;
     private String label;
     private String value;
@@ -76,16 +74,17 @@ public class BaseItemSetDTO {
         this.updated = updated;
     }
 
-    public BaseItemSetDTO() {
+    public LearningSkillDTO() {
     }
 
-    public BaseItemSetDTO(Long id, String label, String value, Long version, String created, String updated) {
+    public LearningSkillDTO(Long id, String label, String value, Long version, String created, String updated, String createdBY, String updatedBy) {
         this.id = id;
         this.label = label;
         this.value = value;
         this.version = version;
         this.created = created;
         this.updated = updated;
+        this.createdBY = createdBY;
+        this.updatedBy = updatedBy;
     }
 }
-

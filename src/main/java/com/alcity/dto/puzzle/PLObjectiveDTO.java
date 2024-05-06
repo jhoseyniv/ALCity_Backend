@@ -1,5 +1,10 @@
 package com.alcity.dto.puzzle;
 
+import com.alcity.dto.base.LearningSkillDTO;
+import com.alcity.dto.base.WalletItemTypeDTO;
+import com.alcity.dto.user.WalletItemDTO;
+import com.alcity.entity.base.WalletItemType;
+
 public class PLObjectiveDTO {
 
 
@@ -18,6 +23,26 @@ public class PLObjectiveDTO {
     private Float skillAmount;
     private Float rewardAmount;
     private StringBuffer condition;
+
+    private WalletItemDTO walletItemDTO;
+
+    private LearningSkillDTO learningSkillDTO;
+
+    public LearningSkillDTO getLearningSkillDTO() {
+        return learningSkillDTO;
+    }
+
+    public void setLearningSkillDTO(LearningSkillDTO learningSkillDTO) {
+        this.learningSkillDTO = learningSkillDTO;
+    }
+
+    public WalletItemDTO getWalletItemDTO() {
+        return walletItemDTO;
+    }
+
+    public void setWalletItemDTO(WalletItemDTO walletItemDTO) {
+        this.walletItemDTO = walletItemDTO;
+    }
 
     public String getTitle() {
         return title;

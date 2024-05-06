@@ -1,7 +1,7 @@
 package com.alcity.dto.puzzle;
 
+import com.alcity.dto.base.LearningSkillDTO;
 import com.alcity.dto.learning.LearningContentDTO;
-import com.alcity.dto.learning.LearningSkillDTO;
 
 public class PuzzleSkillLearningContentDTO  {
     private Long id;

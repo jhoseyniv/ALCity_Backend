@@ -2,8 +2,7 @@ package com.alcity.api;
 
 import com.alcity.customexception.UniqueConstraintException;
 import com.alcity.customexception.ViolateForeignKeyException;
-import com.alcity.dto.learning.LearningSkillDTO;
-import com.alcity.entity.base.PuzzleCategory;
+import com.alcity.dto.base.LearningSkillDTO;
 import com.alcity.entity.learning.LearningSkill;
 import com.alcity.service.learning.LearningSkillService;
 import com.alcity.utility.DTOUtil;

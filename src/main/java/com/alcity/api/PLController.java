@@ -61,13 +61,25 @@ public class PLController {
                 plObjectiveDTOCollection = DTOUtil.getPuzzleLevelObjectiveDTOS(puzzleLevelOptional.get());
         return plObjectiveDTOCollection;
     }
+    @Operation( summary = "Fetch a objective by a Id ",  description = "fetches all data for a objectives")
+    @RequestMapping(value = "/objective/id/{id}", method = RequestMethod.GET)
+    @ResponseBody
+    public PLObjectiveDTO getObjectivesById(@PathVariable Long id) {
+        PLObjectiveDTO plObjectiveDT= new PLObjectiveDTO();
+        Optional<PLObjective> plObjectiveOptional = plObjectiveService.findById(id);
+        if(plObjectiveOptional.isPresent())
+            plObjectiveDT = DTOUtil.getPuzzleLevelObjectiveDTO(plObjectiveOptional.get());
+        return plObjectiveDT;
+    }
+
+
     @Operation( summary = "Save a puzzle level  Objective  ",  description = "save a puzzle level  objective entity and their data to data base")
     @PostMapping("/id/{id}/save")
     public PLObjective savePLObjective(@RequestBody PLObjectiveDTO plObjectiveDTO,Long id)  {
         PLObjective savedObjective = null;
 
         try {
-            savedObjective = plObjectiveService.save(plObjectiveDTO);
+            savedObjective = plObjectiveService.saveDTO(plObjectiveDTO,id);
         }catch (RuntimeException e )
         {
             throw new UniqueConstraintException(plObjectiveDTO.getTitle(), plObjectiveDTO.getId(), PLObjectiveDTO.class.toString());

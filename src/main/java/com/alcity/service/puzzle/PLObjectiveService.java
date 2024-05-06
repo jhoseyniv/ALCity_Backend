@@ -1,8 +1,12 @@
 package com.alcity.service.puzzle;
 
+import com.alcity.customexception.RecordNotFoundException;
 import com.alcity.dto.puzzle.PLObjectiveDTO;
 import com.alcity.entity.puzzle.PLObjective;
+import com.alcity.entity.puzzle.PuzzleLevel;
+import com.alcity.entity.users.ApplicationMember;
 import com.alcity.repository.puzzle.PLObjectiveRepository;
+import com.alcity.service.users.ApplicationMemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -19,6 +23,10 @@ public class PLObjectiveService implements PLObjectiveRepository {
     @Autowired
     @Qualifier("PLObjectiveRepository")
     PLObjectiveRepository objectiveRepository;
+    @Autowired
+    PuzzleLevelService puzzleLevelService;
+    @Autowired
+    ApplicationMemberService applicationMemberService;
 
     @Override
     public <S extends PLObjective> S save(S entity) {
@@ -32,7 +40,7 @@ public class PLObjectiveService implements PLObjectiveRepository {
 
     @Override
     public Optional<PLObjective> findById(Long id) {
-        return Optional.empty();
+        return objectiveRepository.findById(id);
     }
 
     @Override
@@ -97,8 +105,19 @@ public class PLObjectiveService implements PLObjectiveRepository {
         return null;
     }
 
-    @Override
-    public PLObjective save(PLObjectiveDTO plObjectiveDTO) {
+
+
+    public PLObjective saveDTO(PLObjectiveDTO ploDTO,Long plId) {
+        Optional<PuzzleLevel> puzzleLeveL = puzzleLevelService.findById(plId);
+
+        Optional<ApplicationMember> createdBy = applicationMemberService.findById(ploDTO.getCreatedById());
+        Optional<ApplicationMember> updatedBy = applicationMemberService.findById(ploDTO.getUpdatedById());
+
+        if(!puzzleLeveL.isPresent() || !createdBy.isPresent() || !updatedBy.isPresent())
+            throw new RecordNotFoundException(plId,"record not found","exception");
+        PLObjective plObjective = new PLObjective(ploDTO.getTitle(),ploDTO.getDescription(), ploDTO.getSkillAmount(),ploDTO.getRewardAmount(),
+                ploDTO.getCondition(),null,null,puzzleLeveL.get(),ploDTO.getVersion(),ploDTO.getCreated(),ploDTO.getUpdated(),createdBy.get(),updatedBy.get());
+
         return null;
     }
 

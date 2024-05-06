@@ -8,15 +8,17 @@ import com.alcity.dto.Interpreter.object.RuleData;
 import com.alcity.dto.alobject.*;
 import com.alcity.dto.base.BinaryContentDTO;
 import com.alcity.dto.base.ClientTypeDTO;
+import com.alcity.dto.base.LearningSkillDTO;
+import com.alcity.dto.base.WalletItemTypeDTO;
 import com.alcity.dto.journey.JourneyDTO;
 import com.alcity.dto.journey.JourneyStepDTO;
 import com.alcity.dto.learning.LearningContentDTO;
-import com.alcity.dto.learning.LearningSkillDTO;
 import com.alcity.dto.learning.LearningTopicDTO;
 import com.alcity.dto.player.PermitedPlayerDTO;
 import com.alcity.dto.puzzle.*;
 import com.alcity.dto.user.ApplicationMemberDTO;
 import com.alcity.dto.user.MemberTypeDTO;
+import com.alcity.dto.user.WalletItemDTO;
 import com.alcity.entity.alenum.AttributeOwnerType;
 import com.alcity.entity.alobject.*;
 import com.alcity.entity.base.*;
@@ -27,6 +29,7 @@ import com.alcity.entity.learning.LearningSkill;
 import com.alcity.entity.play.PermitedPlayer;
 import com.alcity.entity.puzzle.*;
 import com.alcity.entity.users.ApplicationMember;
+import com.alcity.entity.users.WalletItem;
 import com.alcity.service.alobject.AttributeService;
 
 import java.util.ArrayList;
@@ -168,7 +171,8 @@ public class DTOUtil {
 
             LearningSkill learningSkill = puzzleSkillLearningContent.getLearningSkill();
             LearningSkillDTO learningSkillDTO = new LearningSkillDTO(learningSkill.getId(), learningSkill.getLabel(), learningSkill.getValue(), learningSkill.getVersion(),
-                    learningSkill.getCreated(), learningSkill.getUpdated());
+                    learningSkill.getCreated(), learningSkill.getUpdated(),learningSkill.getCreatedBy().getUsername(),
+                    learningSkill.getUpdatedBy().getUsername());
             puzzleSkillLearningContentDTO.setLearningSkillDTO(learningSkillDTO);
 
             LearningContent learningContent = puzzleSkillLearningContent.getLearningContent();
@@ -284,6 +288,8 @@ public class DTOUtil {
         plObjectiveDTO.setUpdatedBy(plObjective.getUpdatedBy().getUsername());
         plObjectiveDTO.setUpdatedById(plObjective.getUpdatedBy().getId());
         plObjectiveDTO.setCreatedById(plObjective.getCreatedBy().getId());
+        plObjectiveDTO.setLearningSkillDTO(getLearningSkillDTO(plObjective.getLearningSkill()));
+        plObjectiveDTO.setWalletItemDTO(getWalletItemDTO(plObjective.getWalletItem()));
         return  plObjectiveDTO;
     }
 
@@ -397,25 +403,28 @@ public class DTOUtil {
     }
 
         public static LearningSkillDTO getLearningSkillDTO(LearningSkill ls) {
-        LearningSkillDTO lsDTO = new LearningSkillDTO(ls.getId(), ls.getLabel(), ls.getValue(),
-                ls.getVersion(), ls.getCreated(), ls.getUpdated());
-        return lsDTO;
+                LearningSkillDTO lsDTO = new LearningSkillDTO(ls.getId(), ls.getLabel(), ls.getValue(),
+                    ls.getVersion(), ls.getCreated(), ls.getUpdated(),ls.getCreatedBy().getUsername(),ls.getUpdatedBy().getUsername());
+         return lsDTO;
+       }
+    public static WalletItemTypeDTO getWalletItemTypeDTO(WalletItemType wit) {
+        WalletItemTypeDTO walletItemTypeDTO = new WalletItemTypeDTO(wit.getId(), wit.getLabel(), wit.getValue(), wit.getVersion(),
+                wit.getCreated(), wit.getUpdated(),wit.getCurrency(),wit.getWalletItemCategory().toString() );
+        return walletItemTypeDTO;
     }
-
-        public static CameraSetupDTO getCameraSetupDTO(CameraSetup cameraSetup){
-        CameraSetupDTO cameraSetupDTO = new CameraSetupDTO();
-        cameraSetupDTO.setId(cameraSetup.getId());
-        cameraSetupDTO.setVersion(cameraSetup.getVersion());
-        cameraSetupDTO.setCreated(cameraSetup.getCreated());
-        cameraSetupDTO.setUpdated(cameraSetup.getUpdated());
-        cameraSetupDTO.setxPosition(cameraSetup.getxPosition());
-        cameraSetupDTO.setyPosition(cameraSetup.getyPosition());
-        cameraSetupDTO.setzPosition(cameraSetup.getzPosition());
-        cameraSetupDTO.setxRotation(cameraSetup.getyRotation());
-        cameraSetupDTO.setyRotation(cameraSetup.getyRotation());
-        cameraSetupDTO.setzRotation(cameraSetup.getzRotation());
-        return cameraSetupDTO;
+    public static WalletItemDTO getWalletItemDTO(WalletItem wi) {
+        WalletItemTypeDTO walletItemTypeDTO = getWalletItemTypeDTO(wi.getWalletItemType());
+        WalletItemDTO walletItemDTO = new WalletItemDTO(wi.getId(), wi.getLabel(), wi.getValue(), wi.getVersion(),
+                wi.getCreated(), wi.getUpdated(),wi.getCreatedBy().getUsername(),wi.getUpdatedBy().getUsername(),wi.getCreatedBy().getId(),
+                wi.getUpdatedBy().getId(), walletItemTypeDTO);
+        return walletItemDTO;
     }
+        public static CameraSetupDTO getCameraSetupDTO(CameraSetup cs){
+        CameraSetupDTO cameraSetupDTO = new CameraSetupDTO(cs.getId(), cs.getVersion(), cs.getCreated(), cs.getUpdated(),
+                cs.getCreatedBy().getUsername(),cs.getUpdatedBy().getUsername(),
+                cs.getxPosition(),cs.getyPosition(),cs.getzPosition(),cs.getxRotation(),cs.getyRotation(),cs.getzRotation());
+            return cameraSetupDTO;
+        }
     public static Collection<PLGroundDTO> getPuzzleLevelGroundDTOS(PuzzleLevel puzzleLevel) {
         Collection<PLGroundDTO> plGroundDTOCollection = new ArrayList<PLGroundDTO>();
         Collection<PLGround> plGroundCollection = puzzleLevel.getPlGrounds();

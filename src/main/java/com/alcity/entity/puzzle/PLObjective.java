@@ -32,6 +32,14 @@ public class PLObjective extends BaseTable implements Serializable {
     @JsonIgnore
     private LearningSkill learningSkill;
 
+    public LearningSkill getLearningSkill() {
+        return learningSkill;
+    }
+
+    public void setLearningSkill(LearningSkill learningSkill) {
+        this.learningSkill = learningSkill;
+    }
+
     @ManyToOne(fetch = FetchType.EAGER, optional = true)
     @JoinColumn(name = "wallet_item_id", nullable = true)
     @JsonIgnore
@@ -93,7 +101,8 @@ public class PLObjective extends BaseTable implements Serializable {
     public PLObjective() {
     }
 
-    public PLObjective(String title, String description, Float skillAmount, Float rewardAmount, StringBuffer condition, LearningSkill learningSkill, WalletItem walletItem, PuzzleLevel puzzleLevel, Long version, String created, String updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
+    public PLObjective(String title, String description, Float skillAmount, Float rewardAmount, StringBuffer condition, LearningSkill learningSkill, WalletItem walletItem, PuzzleLevel puzzleLevel,
+                       Long version, String created, String updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
         super(version, created, updated, createdBy, updatedBy);
         this.title = title;
         this.description = description;

@@ -18,6 +18,14 @@ public class WalletItem extends BaseItemSet implements Serializable {
     @JsonIgnore
     private WalletItemType walletItemType;
 
+    public WalletItemType getWalletItemType() {
+        return walletItemType;
+    }
+
+    public void setWalletItemType(WalletItemType walletItemType) {
+        this.walletItemType = walletItemType;
+    }
+
     @Lob
     @Basic(fetch = FetchType.LAZY)
     private byte[] icon;

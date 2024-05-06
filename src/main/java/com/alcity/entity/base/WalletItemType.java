@@ -17,6 +17,22 @@ public class WalletItemType extends BaseItemSet implements Serializable {
     @Enumerated(EnumType.ORDINAL)
     private WalletItemCategory walletItemCategory;
 
+    public Boolean getCurrency() {
+        return isCurrency;
+    }
+
+    public void setCurrency(Boolean currency) {
+        isCurrency = currency;
+    }
+
+    public WalletItemCategory getWalletItemCategory() {
+        return walletItemCategory;
+    }
+
+    public void setWalletItemCategory(WalletItemCategory walletItemCategory) {
+        this.walletItemCategory = walletItemCategory;
+    }
+
     public WalletItemType() {
     }
 
