@@ -1,10 +1,8 @@
 package com.alcity.api;
 
-import com.alcity.customexception.NotNullConstraintException;
+import com.alcity.customexception.ALCityReturnObject;
 import com.alcity.customexception.UniqueConstraintException;
-import com.alcity.dto.journey.JourneyDTO;
 import com.alcity.dto.puzzle.*;
-import com.alcity.entity.journey.Journey;
 import com.alcity.entity.puzzle.*;
 import com.alcity.entity.puzzle.PLObjective;
 import com.alcity.service.puzzle.PLObjectiveService;
@@ -19,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.*;
 
 
-@Tag(name = "Puzzle Level and related Entities ", description = "Get Puzzle Levels data Format for other systems...")
+@Tag(name = "Puzzle Level API's ", description = "Get Puzzle Levels data Format for other systems...")
 @RestController
 @RequestMapping("/pl")
 public class PLController {
@@ -74,18 +72,22 @@ public class PLController {
 
 
     @Operation( summary = "Save a puzzle level  Objective  ",  description = "save a puzzle level  objective entity and their data to data base")
-    @PostMapping("/id/{id}/save")
-    public PLObjective savePLObjective(@RequestBody PLObjectiveDTO plObjectiveDTO,Long id)  {
-        PLObjective savedObjective = null;
-
+    @PostMapping("/objective/id/{id}/save")
+    public ALCityReturnObject savePLObjective(@RequestBody PLObjectiveDTO plObjectiveDTO, @PathVariable Long id)  {
+        ALCityReturnObject savedObjective = null;
         try {
             savedObjective = plObjectiveService.saveDTO(plObjectiveDTO,id);
         }catch (RuntimeException e )
         {
             throw new UniqueConstraintException(plObjectiveDTO.getTitle(), plObjectiveDTO.getId(), PLObjectiveDTO.class.toString());
         }
-        Optional<PLObjective> output = plObjectiveService.findById(savedObjective.getId());
-        return output.get();
+        if(savedObjective.getStatus()==0L) {
+            Optional<PLObjective> output = plObjectiveService.findById(savedObjective.getRecordId());
+            savedObjective.setRecordId(output.get().getId());
+        }
+        else return savedObjective;
+
+        return savedObjective;
     }
 
 

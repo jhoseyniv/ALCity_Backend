@@ -332,38 +332,38 @@ public class DTOUtil {
 
     public static Collection<PuzzleLevel_LearningTopicDTO> getPuzzleLevel_LearningTopicDTOS(PuzzleLevel puzzleLevel) {
         Collection<PuzzleLevel_LearningTopicDTO> pl_ltDTOCollection = new ArrayList<PuzzleLevel_LearningTopicDTO>();
-        Collection<PuzzleLevel_LearningTopic> puzzleLevel_learningTopicCollection = puzzleLevel.getPuzzleLevel_learningTopics();
-        Iterator<PuzzleLevel_LearningTopic> itr_learningTopics = puzzleLevel_learningTopicCollection.iterator();
+        Collection<PuzzleLevel_LearningTopic> pl_learningTopicCollection = puzzleLevel.getPuzzleLevel_learningTopics();
+        Iterator<PuzzleLevel_LearningTopic> itr_learningTopics = pl_learningTopicCollection.iterator();
         while(itr_learningTopics.hasNext()) {
-            PuzzleLevel_LearningTopic puzzleLevel_learningTopic = itr_learningTopics.next();
-            PuzzleLevel_LearningTopicDTO puzzleLevel_learningTopicDTO = new PuzzleLevel_LearningTopicDTO();
+            PuzzleLevel_LearningTopic pl_learningTopic = itr_learningTopics.next();
+            PuzzleLevel_LearningTopicDTO pl_learningTopicDTO = new PuzzleLevel_LearningTopicDTO();
             LearningTopicDTO learningTopicDTO = new LearningTopicDTO();
             LearningContentDTO learningContentDTO = new LearningContentDTO();
 
-            puzzleLevel_learningTopicDTO.setId(puzzleLevel_learningTopic.getId());
-            puzzleLevel_learningTopicDTO.setVersion(puzzleLevel_learningTopic.getVersion());
-            puzzleLevel_learningTopicDTO.setUpdated(puzzleLevel_learningTopic.getUpdated());
-            puzzleLevel_learningTopicDTO.setCreated(puzzleLevel_learningTopic.getCreated());
+            pl_learningTopicDTO.setId(pl_learningTopic.getId());
+            pl_learningTopicDTO.setVersion(pl_learningTopic.getVersion());
+            pl_learningTopicDTO.setUpdated(pl_learningTopic.getUpdated());
+            pl_learningTopicDTO.setCreated(pl_learningTopic.getCreated());
 
-            learningTopicDTO.setId(puzzleLevel_learningTopic.getLearningTopic().getId());
-            learningTopicDTO.setTitle(puzzleLevel_learningTopic.getLearningTopic().getTitle());
-            learningTopicDTO.setVersion(puzzleLevel_learningTopic.getLearningTopic().getVersion());
-            learningTopicDTO.setCreated(puzzleLevel_learningTopic.getLearningTopic().getCreated());
-            learningTopicDTO.setUpdated(puzzleLevel_learningTopic.getLearningTopic().getUpdated());
-            puzzleLevel_learningTopicDTO.setLearningTopicDTO(learningTopicDTO);
+            learningTopicDTO.setId(pl_learningTopic.getLearningTopic().getId());
+            learningTopicDTO.setTitle(pl_learningTopic.getLearningTopic().getTitle());
+            learningTopicDTO.setVersion(pl_learningTopic.getLearningTopic().getVersion());
+            learningTopicDTO.setCreated(pl_learningTopic.getLearningTopic().getCreated());
+            learningTopicDTO.setUpdated(pl_learningTopic.getLearningTopic().getUpdated());
+            pl_learningTopicDTO.setLearningTopicDTO(learningTopicDTO);
 
-            learningContentDTO.setId(puzzleLevel_learningTopic.getLearningContent().getId());
-            learningContentDTO.setVersion(puzzleLevel_learningTopic.getLearningContent().getVersion());
-            learningContentDTO.setCreated(puzzleLevel_learningTopic.getLearningContent().getCreated());
-            learningContentDTO.setUpdated(puzzleLevel_learningTopic.getLearningContent().getUpdated());
+            learningContentDTO.setId(pl_learningTopic.getLearningContent().getId());
+            learningContentDTO.setVersion(pl_learningTopic.getLearningContent().getVersion());
+            learningContentDTO.setCreated(pl_learningTopic.getLearningContent().getCreated());
+            learningContentDTO.setUpdated(pl_learningTopic.getLearningContent().getUpdated());
 
-            learningContentDTO.setDescText(puzzleLevel_learningTopic.getLearningContent().getDescText());
-            learningContentDTO.setDescBrief(puzzleLevel_learningTopic.getLearningContent().getDescBrief());
+            learningContentDTO.setDescText(pl_learningTopic.getLearningContent().getDescText());
+            learningContentDTO.setDescBrief(pl_learningTopic.getLearningContent().getDescBrief());
 
-            puzzleLevel_learningTopicDTO.setLearningContentDTO(learningContentDTO);
+            pl_learningTopicDTO.setLearningContentDTO(learningContentDTO);
 
 
-            pl_ltDTOCollection.add(puzzleLevel_learningTopicDTO);
+            pl_ltDTOCollection.add(pl_learningTopicDTO);
         }
 
         return pl_ltDTOCollection;
@@ -419,12 +419,12 @@ public class DTOUtil {
                 wi.getUpdatedBy().getId(), walletItemTypeDTO);
         return walletItemDTO;
     }
-        public static CameraSetupDTO getCameraSetupDTO(CameraSetup cs){
+    public static CameraSetupDTO getCameraSetupDTO(CameraSetup cs){
         CameraSetupDTO cameraSetupDTO = new CameraSetupDTO(cs.getId(), cs.getVersion(), cs.getCreated(), cs.getUpdated(),
                 cs.getCreatedBy().getUsername(),cs.getUpdatedBy().getUsername(),
                 cs.getxPosition(),cs.getyPosition(),cs.getzPosition(),cs.getxRotation(),cs.getyRotation(),cs.getzRotation());
             return cameraSetupDTO;
-        }
+    }
     public static Collection<PLGroundDTO> getPuzzleLevelGroundDTOS(PuzzleLevel puzzleLevel) {
         Collection<PLGroundDTO> plGroundDTOCollection = new ArrayList<PLGroundDTO>();
         Collection<PLGround> plGroundCollection = puzzleLevel.getPlGrounds();

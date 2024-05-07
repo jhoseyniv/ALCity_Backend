@@ -7,7 +7,7 @@ import com.alcity.entity.base.BinaryContent;
 import com.alcity.entity.journey.JourneyStep;
 import com.alcity.entity.puzzle.*;
 import com.alcity.service.base.PuzzleCategoryService;
-import com.alcity.service.puzzle.PuzzleGroupService;
+import com.alcity.service.puzzle.PGService;
 import com.alcity.utility.DTOUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
@@ -26,7 +26,7 @@ public class PGController {
     private PuzzleCategoryService puzzleCategoryService;
 
     @Autowired
-    private PuzzleGroupService puzzleGroupService;
+    private PGService puzzleGroupService;
 
 
 
@@ -61,7 +61,7 @@ public class PGController {
         if(puzzleGroup.isPresent()){
 
            puzzleGroupDTO = DTOUtil.getPuzzleGroupDTO(puzzleGroup.get());
-           Collection<JourneyStep> journeyStepCollection = puzzleGroup.get().getJourneyStepSet();
+           Collection<JourneyStep> journeyStepCollection = puzzleGroup.get().getJourneyStepCollection();
            Collection<JourneyStepDTO> journeyStepDTOCollection = new ArrayList<JourneyStepDTO>();
            journeyStepDTOCollection = DTOUtil.getJorenyStepsDTOS(journeyStepCollection);
 

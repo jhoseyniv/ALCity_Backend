@@ -6,9 +6,9 @@ import org.springframework.data.repository.CrudRepository;
 import java.util.Collection;
 import java.util.Optional;
 
-public interface PuzzleGroupRepository extends CrudRepository<PuzzleGroup,Long> {
+public interface PGRepository extends CrudRepository<PuzzleGroup,Long> {
     Optional<PuzzleGroup> findById(Long id);
     Collection<PuzzleGroup> findAll();
-    Collection<PuzzleGroup> findByTitle(String title);
+    Optional<PuzzleGroup> findByTitle(String title);
 
 }

@@ -21,8 +21,8 @@ public class ObjectManagmentException extends ResponseEntityExceptionHandler {
 
         Map<String, Object> body = new LinkedHashMap<>();
         body.put("timestamp", LocalDateTime.now());
-        body.put("message", ex.getMessage() );
-        body.put("Record", ex.getRecordId() );
+        body.put("message ", "This record Id has  not found in the database ...." );
+        body.put("Record Id", ex.getRecordId() );
         return new ResponseEntity<>(body, HttpStatus.NOT_FOUND);
     }
 

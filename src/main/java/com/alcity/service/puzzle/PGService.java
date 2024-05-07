@@ -1,8 +1,9 @@
 package com.alcity.service.puzzle;
 
 import com.alcity.entity.puzzle.PuzzleGroup;
-import com.alcity.repository.puzzle.PuzzleGroupRepository;
+import com.alcity.repository.puzzle.PGRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import org.springframework.transaction.annotation.Transactional;;
@@ -11,13 +12,14 @@ import java.util.Optional;
 
 @Service
 @Transactional
-public class PuzzleGroupService  implements PuzzleGroupRepository {
+public class PGService implements PGRepository {
 
+    @Qualifier("PGRepository")
     @Autowired
-    PuzzleGroupRepository puzzleGroupRepository;
+    PGRepository pgRepository;
     @Override
     public <S extends PuzzleGroup> S save(S entity) {
-        return puzzleGroupRepository.save(entity);
+        return pgRepository.save(entity);
     }
 
     @Override
@@ -27,7 +29,7 @@ public class PuzzleGroupService  implements PuzzleGroupRepository {
 
     @Override
     public Optional<PuzzleGroup> findById(Long id) {
-        return puzzleGroupRepository.findById(id);
+        return pgRepository.findById(id);
     }
 
     @Override
@@ -37,7 +39,7 @@ public class PuzzleGroupService  implements PuzzleGroupRepository {
 
     @Override
     public Collection<PuzzleGroup> findAll() {
-        return puzzleGroupRepository.findAll();
+        return pgRepository.findAll();
     }
 
     @Override
@@ -76,7 +78,7 @@ public class PuzzleGroupService  implements PuzzleGroupRepository {
     }
 
     @Override
-    public  Collection<PuzzleGroup> findByTitle(String title) {
-        return null;
+    public  Optional<PuzzleGroup> findByTitle(String title) {
+        return pgRepository.findByTitle(title);
     }
 }

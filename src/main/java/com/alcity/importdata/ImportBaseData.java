@@ -224,12 +224,14 @@ public class ImportBaseData implements CommandLineRunner {
 
         PuzzleCategory mathematic = new PuzzleCategory("mathematic","mathematic",1L,now,now,admin_1,admin_1);
         PuzzleCategory  physic = new PuzzleCategory("physic","physic",1L,now,now,admin_1,admin_1);
-        PuzzleCategory  Maze = new PuzzleCategory("Maze","Maze",1L,now,now,admin_1,admin_1);
-        PuzzleCategory  IQ = new PuzzleCategory("IQ","IQ",1L,now,now,admin_1,admin_1);
+        PuzzleCategory  maze = new PuzzleCategory("Maze","Maze",1L,now,now,admin_1,admin_1);
+        PuzzleCategory  iq = new PuzzleCategory("IQ","IQ",1L,now,now,admin_1,admin_1);
+        PuzzleCategory  fun = new PuzzleCategory("Fun","Fun",1L,now,now,admin_1,admin_1);
         puzzleCategoryService.save(mathematic);
         puzzleCategoryService.save(physic);
-        puzzleCategoryService.save(IQ);
-        puzzleCategoryService.save(Maze);
+        puzzleCategoryService.save(iq);
+        puzzleCategoryService.save(maze);
+        puzzleCategoryService.save(fun);
 
 
         ObjectCategory objectCategory_animal = new ObjectCategory("Animal","Animal",1L,now,now,admin_1,admin_1);
@@ -284,6 +286,7 @@ public class ImportBaseData implements CommandLineRunner {
         LearningSkill routing = new LearningSkill("division","division",1L,now,now,admin_1,admin_1);
         LearningSkill fast_descioin = new LearningSkill("fast decisioning","fast decisioning",1L,now,now,admin_1,admin_1);
         LearningSkill find_paths = new LearningSkill("Find Paths","Find Paths",1L,now,now,admin_1,admin_1);
+        LearningSkill matching = new LearningSkill("matching","matching",1L,now,now,admin_1,admin_1);
 
         learningSkillService.save(constraint);
         learningSkillService.save(loop);
@@ -291,15 +294,18 @@ public class ImportBaseData implements CommandLineRunner {
         learningSkillService.save(division);
         learningSkillService.save(fast_descioin);
         learningSkillService.save(find_paths);
+        learningSkillService.save(matching);
 
         LearningTopic root_Topic = new LearningTopic("Root Topic",null,1L,now,now,admin_1,admin_1);
         LearningTopic hashImage_Topic = new LearningTopic("Hash Image",root_Topic,1L,now,now,admin_1,admin_1);
+        LearningTopic X_O_Topic = new LearningTopic("X-O Game",root_Topic,1L,now,now,admin_1,admin_1);
         LearningTopic magic_matrix_Topic = new LearningTopic("Magic Matrix",root_Topic,1L,now,now,admin_1,admin_1);
         LearningTopic maze_table_Topic = new LearningTopic("Maze Table",root_Topic,1L,now,now,admin_1,admin_1);
         LearningTopic algorithm_Topic = new LearningTopic("Algorithm",root_Topic,1L,now,now,admin_1,admin_1);
         LearningTopic routing_in_the_table = new LearningTopic("Routing in the Table",root_Topic,1L,now,now,admin_1,admin_1);
         learningTopicService.save(root_Topic);
         learningTopicService.save(hashImage_Topic);
+        learningTopicService.save(X_O_Topic);
         learningTopicService.save(magic_matrix_Topic);
         learningTopicService.save(algorithm_Topic);
         learningTopicService.save(maze_table_Topic);

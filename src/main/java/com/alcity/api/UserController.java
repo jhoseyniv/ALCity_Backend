@@ -8,12 +8,14 @@ import com.alcity.entity.users.WalletItem;
 import com.alcity.entity.users.WalletTransaction;
 import com.alcity.service.users.ApplicationMemberService;
 import com.alcity.service.users.WalletItemService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
 
+@Tag(name = "Application User APIs", description = "Get Application Member and related entities as rest api")
 @RestController
 @RequestMapping("/user")
 public class UserController {

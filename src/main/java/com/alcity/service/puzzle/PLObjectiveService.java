@@ -1,12 +1,18 @@
 package com.alcity.service.puzzle;
 
-import com.alcity.customexception.RecordNotFoundException;
+import com.alcity.customexception.ALCityReturnObject;
+import com.alcity.dto.base.LearningSkillDTO;
 import com.alcity.dto.puzzle.PLObjectiveDTO;
+import com.alcity.dto.user.WalletItemDTO;
+import com.alcity.entity.learning.LearningSkill;
 import com.alcity.entity.puzzle.PLObjective;
 import com.alcity.entity.puzzle.PuzzleLevel;
 import com.alcity.entity.users.ApplicationMember;
+import com.alcity.entity.users.WalletItem;
 import com.alcity.repository.puzzle.PLObjectiveRepository;
+import com.alcity.service.learning.LearningSkillService;
 import com.alcity.service.users.ApplicationMemberService;
+import com.alcity.service.users.WalletItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -25,6 +31,12 @@ public class PLObjectiveService implements PLObjectiveRepository {
     PLObjectiveRepository objectiveRepository;
     @Autowired
     PuzzleLevelService puzzleLevelService;
+    @Autowired
+    WalletItemService walletItemService;
+
+    @Autowired
+    LearningSkillService  learningSkillService;
+
     @Autowired
     ApplicationMemberService applicationMemberService;
 
@@ -107,18 +119,27 @@ public class PLObjectiveService implements PLObjectiveRepository {
 
 
 
-    public PLObjective saveDTO(PLObjectiveDTO ploDTO,Long plId) {
+    public ALCityReturnObject saveDTO(PLObjectiveDTO ploDTO, Long plId) {
         Optional<PuzzleLevel> puzzleLeveL = puzzleLevelService.findById(plId);
 
         Optional<ApplicationMember> createdBy = applicationMemberService.findById(ploDTO.getCreatedById());
         Optional<ApplicationMember> updatedBy = applicationMemberService.findById(ploDTO.getUpdatedById());
+        WalletItemDTO walletItemDTO = ploDTO.getWalletItemDTO();
+        LearningSkillDTO learningSkillDTO = ploDTO.getLearningSkillDTO();
+        Optional<WalletItem> walletItem = walletItemService.findById(walletItemDTO.getId());
+        Optional<LearningSkill> learningSkill = learningSkillService.findById(learningSkillDTO.getId());
 
         if(!puzzleLeveL.isPresent() || !createdBy.isPresent() || !updatedBy.isPresent())
-            throw new RecordNotFoundException(plId,"record not found","exception");
-        PLObjective plObjective = new PLObjective(ploDTO.getTitle(),ploDTO.getDescription(), ploDTO.getSkillAmount(),ploDTO.getRewardAmount(),
-                ploDTO.getCondition(),null,null,puzzleLeveL.get(),ploDTO.getVersion(),ploDTO.getCreated(),ploDTO.getUpdated(),createdBy.get(),updatedBy.get());
+            return new ALCityReturnObject(1L,plId,"record not found","exception");
 
-        return null;
+        if(!walletItem.isPresent() || !learningSkill.isPresent() )
+            return new ALCityReturnObject(2L,plId,"Learning Skill or Wallet Item not found","exception");
+
+        PLObjective plObjective = new PLObjective(ploDTO.getTitle(),ploDTO.getDescription(), ploDTO.getSkillAmount(),ploDTO.getRewardAmount(),
+                ploDTO.getCondition(),learningSkill.get(),walletItem.get(),puzzleLeveL.get(),ploDTO.getVersion(),
+                ploDTO.getCreated(),ploDTO.getUpdated(),createdBy.get(),updatedBy.get());
+        objectiveRepository.save(plObjective);
+        return  new ALCityReturnObject(0L,plObjective.getId(),"All things is Ok","An Objective Added to Puzzle Level");
     }
 
 }

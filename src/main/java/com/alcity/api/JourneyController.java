@@ -22,8 +22,7 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.Optional;
 
-@Tag(name = "Journey APIS ", description = "Get Journey data for ....")
-
+@Tag(name = "Journey APIs ", description = "Get Journey data for ....")
 @RestController
 @RequestMapping("/journey")
 public class JourneyController {

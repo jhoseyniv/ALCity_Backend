@@ -16,13 +16,13 @@ import java.util.Set;
 @Entity
 public class PuzzleGroup extends BaseTable implements Serializable {
 
-    @Column(name="title")
+    @Column(name="title" ,unique = true)
     private String title;
 
 
-    @OneToMany(mappedBy = "puzzleGroup", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "puzzleGroup", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JsonIgnore
-    private Set<JourneyStep> journeyStepSet;
+    private Collection<JourneyStep> journeyStepCollection;
 
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "puzzle_category_id", nullable = false)
@@ -76,12 +76,12 @@ public class PuzzleGroup extends BaseTable implements Serializable {
         this.title = title;
     }
 
-    public Set<JourneyStep> getJourneyStepSet() {
-        return journeyStepSet;
+    public Collection<JourneyStep> getJourneyStepCollection() {
+        return journeyStepCollection;
     }
 
-    public void setJourneyStepSet(Set<JourneyStep> journeyStepSet) {
-        this.journeyStepSet = journeyStepSet;
+    public void setJourneyStepCollection(Collection<JourneyStep> journeyStepCollection) {
+        this.journeyStepCollection = journeyStepCollection;
     }
 
     public BinaryContent getIcon() {

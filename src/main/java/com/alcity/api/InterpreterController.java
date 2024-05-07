@@ -23,7 +23,7 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.Optional;
 
-@Tag(name = "Generate Json for Interpreter", description = "Get Puzzle Level in the Json Format for Other Systems")
+@Tag(name = "Interpreter APIs", description = "Get Puzzle Level in the Json Format for Other Systems")
 @RestController
 @RequestMapping("/puzz")
 public class InterpreterController {

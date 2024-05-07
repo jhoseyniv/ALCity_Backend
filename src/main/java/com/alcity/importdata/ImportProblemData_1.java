@@ -60,7 +60,7 @@ public class ImportProblemData_1 implements CommandLineRunner {
     private PuzzleCategoryService puzzleCategoryService;
 
     @Autowired
-    private PuzzleGroupService puzzleGroupService;
+    private PGService puzzleGroupService;
 
 
     @Autowired

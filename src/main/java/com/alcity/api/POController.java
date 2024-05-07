@@ -8,6 +8,7 @@ import com.alcity.entity.puzzle.PuzzleObject;
 import com.alcity.service.alobject.PuzzleObject_ObjectActionService;
 import com.alcity.service.puzzle.PuzzleObjectService;
 import com.alcity.utility.DTOUtil;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +17,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Optional;
 
+@Tag(name = "Puzzle Object APIs", description = "Get Puzzle Object and related entities as rest api")
 @RestController
 @RequestMapping("/po")
 public class POController {

@@ -21,7 +21,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Optional;
 
-@Tag(name = "Basic Data Type", description = "Aall APIS for basic data types... ")
+@Tag(name = "Basic Data Type APIs", description = "All APIs for basic data types... ")
 @RestController
 @RequestMapping("/base")
 public class BaseItemSetConroller {

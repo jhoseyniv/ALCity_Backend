@@ -1,9 +1,7 @@
 package com.alcity.dto.puzzle;
 
 import com.alcity.dto.base.LearningSkillDTO;
-import com.alcity.dto.base.WalletItemTypeDTO;
 import com.alcity.dto.user.WalletItemDTO;
-import com.alcity.entity.base.WalletItemType;
 
 public class PLObjectiveDTO {
 
