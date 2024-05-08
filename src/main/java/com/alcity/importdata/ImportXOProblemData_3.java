@@ -225,7 +225,7 @@ public class ImportXOProblemData_3 implements CommandLineRunner {
         LearningContent learningContent_Mathcing=new LearningContent("help to IQ","this content is about X-O Games",puzzle_group_X_O_binary_content,1L,now,now,admin_1,admin_1);
         learningContentService.save(learningContent_Mathcing);
 
-        PuzzleLevel_LearningTopic puzzleLevelLearningTopic_1 = new PuzzleLevel_LearningTopic(puzzleLevel_x_o,X_O_Topic,learningContent_Mathcing,1L,now,now,admin_1,admin_1);
+        LearningSubjectInPL puzzleLevelLearningTopic_1 = new LearningSubjectInPL(puzzleLevel_x_o,X_O_Topic,learningContent_Mathcing,1L,now,now,admin_1,admin_1);
         plLearningTopicService.save(puzzleLevelLearningTopic_1);
 
         PlayHistory playHistory_1 = new PlayHistory(Alireza_Zare,puzzleLevel_x_o,now,100,10f,1L,now,now,Alireza_Zare,Alireza_Zare);

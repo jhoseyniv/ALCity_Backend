@@ -1,6 +1,6 @@
 package com.alcity.service.puzzle;
 
-import com.alcity.entity.puzzle.PuzzleLevel_LearningTopic;
+import com.alcity.entity.puzzle.LearningSubjectInPL;
 import com.alcity.repository.puzzle.PLLearningTopicRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -19,17 +19,17 @@ public class PLLearningTopicService implements PLLearningTopicRepository {
 
     PLLearningTopicRepository plLearningTopicRepository;
     @Override
-    public <S extends PuzzleLevel_LearningTopic> S save(S entity) {
+    public <S extends LearningSubjectInPL> S save(S entity) {
         return plLearningTopicRepository.save(entity);
     }
 
     @Override
-    public <S extends PuzzleLevel_LearningTopic> Iterable<S> saveAll(Iterable<S> entities) {
+    public <S extends LearningSubjectInPL> Iterable<S> saveAll(Iterable<S> entities) {
         return null;
     }
 
     @Override
-    public Optional<PuzzleLevel_LearningTopic> findById(Long id) {
+    public Optional<LearningSubjectInPL> findById(Long id) {
         return Optional.empty();
     }
 
@@ -39,12 +39,12 @@ public class PLLearningTopicService implements PLLearningTopicRepository {
     }
 
     @Override
-    public Collection<PuzzleLevel_LearningTopic> findAll() {
+    public Collection<LearningSubjectInPL> findAll() {
         return null;
     }
 
     @Override
-    public Iterable<PuzzleLevel_LearningTopic> findAllById(Iterable<Long> longs) {
+    public Iterable<LearningSubjectInPL> findAllById(Iterable<Long> longs) {
         return null;
     }
 
@@ -59,7 +59,7 @@ public class PLLearningTopicService implements PLLearningTopicRepository {
     }
 
     @Override
-    public void delete(PuzzleLevel_LearningTopic entity) {
+    public void delete(LearningSubjectInPL entity) {
 
     }
 
@@ -69,7 +69,7 @@ public class PLLearningTopicService implements PLLearningTopicRepository {
     }
 
     @Override
-    public void deleteAll(Iterable<? extends PuzzleLevel_LearningTopic> entities) {
+    public void deleteAll(Iterable<? extends LearningSubjectInPL> entities) {
 
     }
 

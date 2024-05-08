@@ -1,6 +1,6 @@
 package com.alcity.service.learning;
 
-import com.alcity.entity.learning.LearningSkill_LearningTopic;
+import com.alcity.entity.learning.LearningSkillTopic;
 import com.alcity.repository.learning.LearningSkill_LearningTopicRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,17 +17,17 @@ public class LearningSkill_LearningTopicService implements LearningSkill_Learnin
     LearningSkill_LearningTopicRepository learningSkill_LearningTopicRepository;
 
     @Override
-    public <S extends LearningSkill_LearningTopic> S save(S entity) {
+    public <S extends LearningSkillTopic> S save(S entity) {
         return learningSkill_LearningTopicRepository.save(entity);
     }
 
     @Override
-    public <S extends LearningSkill_LearningTopic> Iterable<S> saveAll(Iterable<S> entities) {
+    public <S extends LearningSkillTopic> Iterable<S> saveAll(Iterable<S> entities) {
         return null;
     }
 
     @Override
-    public Optional<LearningSkill_LearningTopic> findById(Long id) {
+    public Optional<LearningSkillTopic> findById(Long id) {
         return Optional.empty();
     }
 
@@ -37,12 +37,12 @@ public class LearningSkill_LearningTopicService implements LearningSkill_Learnin
     }
 
     @Override
-    public Collection<LearningSkill_LearningTopic> findAll() {
+    public Collection<LearningSkillTopic> findAll() {
         return null;
     }
 
     @Override
-    public Iterable<LearningSkill_LearningTopic> findAllById(Iterable<Long> longs) {
+    public Iterable<LearningSkillTopic> findAllById(Iterable<Long> longs) {
         return null;
     }
 
@@ -57,7 +57,7 @@ public class LearningSkill_LearningTopicService implements LearningSkill_Learnin
     }
 
     @Override
-    public void delete(LearningSkill_LearningTopic entity) {
+    public void delete(LearningSkillTopic entity) {
 
     }
 
@@ -67,7 +67,7 @@ public class LearningSkill_LearningTopicService implements LearningSkill_Learnin
     }
 
     @Override
-    public void deleteAll(Iterable<? extends LearningSkill_LearningTopic> entities) {
+    public void deleteAll(Iterable<? extends LearningSkillTopic> entities) {
 
     }
 
@@ -77,7 +77,7 @@ public class LearningSkill_LearningTopicService implements LearningSkill_Learnin
     }
 
     @Override
-    public LearningSkill_LearningTopic findByTitle(String title) {
+    public LearningSkillTopic findByTitle(String title) {
         return learningSkill_LearningTopicRepository.findByTitle(title);
     }
 }

@@ -182,7 +182,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
         LearningContent learningContent_routing=new LearningContent("help to math","this content is about Mazes",puzzle_group_2_binary_content_pic,1L,now,now,admin_1,admin_1);
         learningContentService.save(learningContent_routing);
 
-        PuzzleLevel_LearningTopic puzzleLevelLearningTopic_1 = new PuzzleLevel_LearningTopic(puzzleLevel_Maze,routing_in_the_table,learningContent_routing,1L,now,now,admin_1,admin_1);
+        LearningSubjectInPL puzzleLevelLearningTopic_1 = new LearningSubjectInPL(puzzleLevel_Maze,routing_in_the_table,learningContent_routing,1L,now,now,admin_1,admin_1);
         plLearningTopicService.save(puzzleLevelLearningTopic_1);
 
         PlayHistory playHistory_1 = new PlayHistory(jalalHoseyni,puzzleLevel_Maze,now,100,10f,1L,now,now,jalalHoseyni,jalalHoseyni);

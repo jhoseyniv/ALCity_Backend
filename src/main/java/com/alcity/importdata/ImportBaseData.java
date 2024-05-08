@@ -11,7 +11,7 @@ import com.alcity.entity.base.*;
 import com.alcity.entity.journey.Journey;
 import com.alcity.entity.journey.JourneyLearningSkill;
 import com.alcity.entity.learning.LearningSkill;
-import com.alcity.entity.learning.LearningSkill_LearningTopic;
+import com.alcity.entity.learning.LearningSkillTopic;
 import com.alcity.entity.learning.LearningTopic;
 import com.alcity.entity.users.ApplicationMember;
 import com.alcity.entity.users.ApplicationMember_WalletItem;
@@ -321,8 +321,8 @@ public class ImportBaseData implements CommandLineRunner {
         learningTopicService.save(routing_in_the_table);
 
 
-        LearningSkill_LearningTopic learningSkill_learningTopic_1 = new LearningSkill_LearningTopic("title1",timeManagement,algorithm_Topic,1L,now,now,admin_1,admin_1);
-        LearningSkill_LearningTopic learningSkill_learningTopic_2 = new LearningSkill_LearningTopic("title2",division,algorithm_Topic,1L,now,now,admin_1,admin_1);
+        LearningSkillTopic learningSkill_learningTopic_1 = new LearningSkillTopic("title1",timeManagement,algorithm_Topic,1L,now,now,admin_1,admin_1);
+        LearningSkillTopic learningSkill_learningTopic_2 = new LearningSkillTopic("title2",division,algorithm_Topic,1L,now,now,admin_1,admin_1);
         learningSkill_LearningTopicService.save(learningSkill_learningTopic_1);
         learningSkill_LearningTopicService.save(learningSkill_learningTopic_2);
 

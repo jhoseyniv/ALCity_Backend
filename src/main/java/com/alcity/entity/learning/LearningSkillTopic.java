@@ -9,7 +9,7 @@ import jakarta.persistence.*;
 import java.io.Serializable;
 
 @Entity
-public class LearningSkill_LearningTopic extends BaseTable implements Serializable {
+public class LearningSkillTopic extends BaseTable implements Serializable {
 
 
     @Column(name="title",unique = true)
@@ -27,10 +27,10 @@ public class LearningSkill_LearningTopic extends BaseTable implements Serializab
     private LearningTopic learningTopic;
 
 
-    public LearningSkill_LearningTopic() {
+    public LearningSkillTopic() {
     }
 
-    public LearningSkill_LearningTopic(String title, LearningSkill learningSkill, LearningTopic learningTopic,Long version, String created, String updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
+    public LearningSkillTopic(String title, LearningSkill learningSkill, LearningTopic learningTopic, Long version, String created, String updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
         super(version, created, updated, createdBy, updatedBy);
         this.title = title;
         this.learningSkill = learningSkill;

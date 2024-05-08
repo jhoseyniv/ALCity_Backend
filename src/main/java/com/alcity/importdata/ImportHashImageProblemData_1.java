@@ -223,7 +223,7 @@ public class ImportHashImageProblemData_1 implements CommandLineRunner {
         LearningContent learningContent_Division=new LearningContent("help to math","this content is about hash images",puzzle_group_Hash_Image_binary_content,1L,now,now,admin_1,admin_1);
         learningContentService.save(learningContent_Division);
 
-        PuzzleLevel_LearningTopic puzzleLevelLearningTopic_1 = new PuzzleLevel_LearningTopic(puzzleLevel_hashimage,hashImage_Topic,learningContent_Division,1L,now,now,admin_1,admin_1);
+        LearningSubjectInPL puzzleLevelLearningTopic_1 = new LearningSubjectInPL(puzzleLevel_hashimage,hashImage_Topic,learningContent_Division,1L,now,now,admin_1,admin_1);
         plLearningTopicService.save(puzzleLevelLearningTopic_1);
 
         PlayHistory playHistory_1 = new PlayHistory(jalalHoseyni,puzzleLevel_hashimage,now,100,10f,1L,now,now,jalalHoseyni,jalalHoseyni);

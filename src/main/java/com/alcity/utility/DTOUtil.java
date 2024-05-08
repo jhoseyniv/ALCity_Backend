@@ -332,10 +332,10 @@ public class DTOUtil {
 
     public static Collection<PuzzleLevel_LearningTopicDTO> getPuzzleLevel_LearningTopicDTOS(PuzzleLevel puzzleLevel) {
         Collection<PuzzleLevel_LearningTopicDTO> pl_ltDTOCollection = new ArrayList<PuzzleLevel_LearningTopicDTO>();
-        Collection<PuzzleLevel_LearningTopic> pl_learningTopicCollection = puzzleLevel.getPuzzleLevel_learningTopics();
-        Iterator<PuzzleLevel_LearningTopic> itr_learningTopics = pl_learningTopicCollection.iterator();
+        Collection<LearningSubjectInPL> pl_learningTopicCollection = puzzleLevel.getLearningSubjectInPLCollection();
+        Iterator<LearningSubjectInPL> itr_learningTopics = pl_learningTopicCollection.iterator();
         while(itr_learningTopics.hasNext()) {
-            PuzzleLevel_LearningTopic pl_learningTopic = itr_learningTopics.next();
+            LearningSubjectInPL pl_learningTopic = itr_learningTopics.next();
             PuzzleLevel_LearningTopicDTO pl_learningTopicDTO = new PuzzleLevel_LearningTopicDTO();
             LearningTopicDTO learningTopicDTO = new LearningTopicDTO();
             LearningContentDTO learningContentDTO = new LearningContentDTO();
