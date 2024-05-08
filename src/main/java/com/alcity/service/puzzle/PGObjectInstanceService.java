@@ -2,6 +2,7 @@ package com.alcity.service.puzzle;
 
 import com.alcity.entity.puzzle.PGObjectInstance;
 import com.alcity.entity.puzzle.PLObjective;
+import com.alcity.entity.puzzle.PuzzleLevel;
 import com.alcity.repository.puzzle.PGObjectInstanceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -95,7 +96,7 @@ public class PGObjectInstanceService implements PGObjectInstanceRepository {
     }
 
     @Override
-    public Collection<PGObjectInstance> findByPuzzleLevel(PLObjective pl) {
+    public Collection<PGObjectInstance> findByPuzzleLevel(PuzzleLevel pl) {
         return pgOjectInstanceRepository.findByPuzzleLevel(pl);
     }
 }

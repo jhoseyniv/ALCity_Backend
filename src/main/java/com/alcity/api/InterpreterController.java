@@ -10,7 +10,9 @@ import com.alcity.entity.base.CameraSetup;
 import com.alcity.entity.puzzle.*;
 import com.alcity.service.alobject.AttributeService;
 import com.alcity.service.alobject.PuzzleObject_ObjectActionService;
+import com.alcity.service.puzzle.PGObjectInstanceService;
 import com.alcity.service.puzzle.PLGroundService;
+import com.alcity.service.puzzle.PuzzleGroup_PuzzleObjectService;
 import com.alcity.service.puzzle.PuzzleLevelService;
 import com.alcity.utility.DTOUtil;
 import io.swagger.v3.oas.annotations.Operation;
@@ -33,6 +35,9 @@ public class InterpreterController {
 
     @Autowired
     AttributeService attributeService;
+
+    @Autowired
+    PGObjectInstanceService pgObjectInstanceService;
 
     @Operation( summary = "Fetch a json ",  description = "fetches all data that need to Interpret a puzzle level structure and rules")
     @RequestMapping(value = "/id/{id}", method = RequestMethod.GET)
@@ -60,7 +65,7 @@ public class InterpreterController {
              Collection<PLObjectiveData> plObjectiveDataCollection = DTOUtil.getPuzzleLevelObjectiveData(pl);
              puzzleLevelData.setObjectives(plObjectiveDataCollection);
              PuzzleGroup pg = pl.getPuzzleGroup();
-             Collection<PGData> objects = getObjectsForPuzzleGroup(pg);
+             Collection<PGData> objects = getObjectsForPuzzleGroup(pg,pl);
              Collection<RuleData> rules = DTOUtil.getRulesForPuzzleLevel(pl,attributeService);
 
              puzzleLevelData.setCols(plGround.getNumColumns());
@@ -73,9 +78,9 @@ public class InterpreterController {
     }
 
 
-    public Collection<InstanceData> getInstancesForAObjectInPuzzleLevel(PuzzleGroup_PuzzleObject pgpo) {
+    public Collection<InstanceData> getInstancesForAObjectInPuzzleLevel(PuzzleGroup_PuzzleObject pgpo,PuzzleLevel  pl) {
         Collection<InstanceData> objectInstanceDataCollection = new ArrayList<InstanceData>();
-        Collection<PGObjectInstance> puzzleGroupObjectInstanceCollection = pgpo.getPuzzleGroupObjectInstanceCollection();
+        Collection<PGObjectInstance> puzzleGroupObjectInstanceCollection = pgObjectInstanceService.findByPuzzleLevel(pl);
         Iterator<PGObjectInstance> iterator = puzzleGroupObjectInstanceCollection.iterator();
 
         while(iterator.hasNext()) {
@@ -100,7 +105,7 @@ public class InterpreterController {
      }
 
 
-        public Collection<PGData> getObjectsForPuzzleGroup(PuzzleGroup pg) {
+        public Collection<PGData> getObjectsForPuzzleGroup(PuzzleGroup pg,PuzzleLevel pl) {
         Collection<PGData> puzzleGroupObjectDataCollection = new ArrayList<PGData>();
 
         Collection<PuzzleGroup_PuzzleObject> puzzleGroup_puzzleObjectCollection = new ArrayList<>();
@@ -131,7 +136,7 @@ public class InterpreterController {
             Collection<RecordrData> properties = DTOUtil.getAttributeForOwnerById(attributeService,puzzleGroup_puzzleObject.getId(),AttributeOwnerType.Puzzle_Group_Object_Property);
             puzzleGroupObjectData.setProperties(properties);
 
-            Collection<InstanceData> instances = getInstancesForAObjectInPuzzleLevel(puzzleGroup_puzzleObject);
+            Collection<InstanceData> instances = getInstancesForAObjectInPuzzleLevel(puzzleGroup_puzzleObject,pl);
             puzzleGroupObjectData.setInstances(instances);
             puzzleGroupObjectDataCollection.add(puzzleGroupObjectData);
 

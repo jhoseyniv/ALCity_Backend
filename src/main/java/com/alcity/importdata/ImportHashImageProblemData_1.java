@@ -42,7 +42,7 @@ import java.time.format.DateTimeFormatter;
 
 @Order(value=2)
 @Component
-public class ImportProblemData_1 implements CommandLineRunner {
+public class ImportHashImageProblemData_1 implements CommandLineRunner {
 
     @Autowired
     private ApplicationMemberService applicationMemberService;

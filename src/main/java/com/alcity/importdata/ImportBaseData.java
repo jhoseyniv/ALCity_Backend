@@ -239,11 +239,13 @@ public class ImportBaseData implements CommandLineRunner {
         ObjectCategory objectCategory_cereal = new ObjectCategory("cereal","cereal",1L,now,now,admin_1,admin_1);
         ObjectCategory objectCategory_Image = new ObjectCategory("Image","Image",1L,now,now,admin_1,admin_1);
         ObjectCategory objectCategory_Mamals = new ObjectCategory("Mamals","Mamals",1L,now,now,admin_1,admin_1);
+        ObjectCategory objectCategory_TextObject = new ObjectCategory("TextObject","TextObject",1L,now,now,admin_1,admin_1);
         objectCategoryService.save(objectCategory_animal);
         objectCategoryService.save(objectCategory_bird);
         objectCategoryService.save(objectCategory_cereal);
         objectCategoryService.save(objectCategory_Image);
         objectCategoryService.save(objectCategory_Mamals);
+        objectCategoryService.save(objectCategory_TextObject);
 
 
         byte[] goose_Image = ImageUtil.getImage("src/main/resources/images/","goose.png");

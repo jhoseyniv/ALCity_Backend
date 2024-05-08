@@ -5,7 +5,6 @@ import com.alcity.entity.alenum.*;
 import com.alcity.entity.alobject.*;
 import com.alcity.entity.base.*;
 import com.alcity.entity.journey.Journey;
-import com.alcity.entity.journey.JourneyStep;
 import com.alcity.entity.learning.LearningContent;
 import com.alcity.entity.learning.LearningSkill;
 import com.alcity.entity.learning.LearningTopic;
@@ -42,7 +41,7 @@ import java.util.Optional;
 
 @Order(value=6)
 @Component
-public class ImportProblemData_3 implements CommandLineRunner {
+public class ImportXOProblemData_3 implements CommandLineRunner {
 
     @Autowired
     private ApplicationMemberService applicationMemberService;
@@ -165,7 +164,6 @@ public class ImportProblemData_3 implements CommandLineRunner {
         ApplicationMember jalalHoseyni = applicationMemberService.findByUsername("jalal");
         ApplicationMember Alireza_Zare = applicationMemberService.findByUsername("alireza");
 
-       // LearningTopic hashImage_Topic = learningTopicService.findByTitle("Hash Image");
         LearningTopic X_O_Topic = learningTopicService.findByTitle("X-O Game");
 
          LearningSkill timeManagement = learningSkillService.findByValue("timeManagement");
@@ -186,15 +184,19 @@ public class ImportProblemData_3 implements CommandLineRunner {
         BinaryContent puzzle_group_binary_content_1 = new BinaryContent("image_puzzle_group_x-o",puzzle_group_Icon_1,BinaryContentType.Image,1L,now,now,admin_1,admin_1);
         binaryContentService.save(puzzle_group_binary_content_1);
 
+        byte[] text_object_content = ImageUtil.getImage("src/main/resources/images/X-O Problem/","TextObject.png");
+        BinaryContent textObject_binary_content = new BinaryContent("text_object_x-o",text_object_content,BinaryContentType.Image,1L,now,now,admin_1,admin_1);
+        binaryContentService.save(textObject_binary_content);
+
+        ObjectCategory objectCategory_TextObject = objectCategoryService.findByValue("TextObject");
 
         Optional<PuzzleGroup>  IQ_Puzzle_Group =puzzleGroupService.findByTitle("Hash Image - Puzzle Group 1");
 
-//        JourneyStep step_1_journey_1 = new JourneyStep("step1_journey_1",1,30,30,journey_1,puzzleGroup_1,1L,now,now,admin_1,admin_1);
-//        JourneyStep step_2_journey_1 = new JourneyStep("step2_journey_1",2,30,30,journey_1,puzzleGroup_1,1L,now,now,admin_1,admin_1);
-//        JourneyStep step_1_journey_2 = new JourneyStep("step1_journey_2",3,30,30,journey_2,puzzleGroup_1,1L,now,now,admin_1,admin_1);
-//        journeyStepService.save(step_1_journey_1);
-//        journeyStepService.save(step_2_journey_1);
-//        journeyStepService.save(step_1_journey_2);
+        PuzzleObject textObject = new PuzzleObject("TextObject",objectCategory_TextObject,textObject_binary_content,textObject_binary_content,1L,now,now,jalalHoseyni,jalalHoseyni);
+        puzzleObjectService.save(textObject);
+
+        PuzzleGroup_PuzzleObject  puzzleGroup_puzzleObject = new PuzzleGroup_PuzzleObject ("Image Hash Puzzle Group with Text Object","X_O_textObject",IQ_Puzzle_Group.get(),textObject,1L,now,now,admin_1,admin_1);
+        puzzleGroup_PuzzleObjectService.save(puzzleGroup_puzzleObject);
 
 
         PLPrivacy privacy_1 = puzzleLevelPrivacyService.findByValue("privacy1");
@@ -278,7 +280,6 @@ public class ImportProblemData_3 implements CommandLineRunner {
         attributeValueService.save(attribute_variable_Finished_value);
 
 
-//        ObjectCategory objectCategory_Image = objectCategoryService.findByValue("Image");
 
 //        BinaryContent img_Image_binary_content = binaryContentService.findByfileName("image_object");
 
