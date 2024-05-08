@@ -43,7 +43,7 @@ public class PuzzleObject_ObjectAction extends BaseTable implements Serializable
         this.objectAction = objectAction;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "action_renderer_id", nullable = false)
     @JsonIgnore
     private ActionRenderer actionRenderer;

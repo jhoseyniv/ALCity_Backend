@@ -10,7 +10,7 @@ import java.util.Optional;
 public interface ActionRendererRepository extends CrudRepository<ActionRenderer,Long> {
     Optional<ActionRenderer> findById(Long id);
     Collection<ActionRenderer> findAll();
-    Collection<ActionRenderer> findByHandler(String handler);
+    Optional<ActionRenderer> findByHandler(String handler);
     Collection<ActionRenderer> findByClientTypeId(Long id);
 
 }

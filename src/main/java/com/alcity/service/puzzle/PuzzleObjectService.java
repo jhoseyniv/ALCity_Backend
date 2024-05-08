@@ -1,7 +1,6 @@
 package com.alcity.service.puzzle;
 
-import com.alcity.entity.puzzle.PuzzleObject;
-import com.alcity.repository.base.PuzzleCategoryRepository;
+import com.alcity.entity.puzzle.ALCityObject;
 import com.alcity.repository.puzzle.PuzzleObjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,18 +18,18 @@ public class PuzzleObjectService implements PuzzleObjectRepository {
     PuzzleObjectRepository puzzleObjectRepository;
 
     @Override
-    public <S extends PuzzleObject> S save(S entity) {
+    public <S extends ALCityObject> S save(S entity) {
 
         return puzzleObjectRepository.save(entity);
     }
 
     @Override
-    public <S extends PuzzleObject> Iterable<S> saveAll(Iterable<S> entities) {
+    public <S extends ALCityObject> Iterable<S> saveAll(Iterable<S> entities) {
         return null;
     }
 
     @Override
-    public Optional<PuzzleObject> findById(Long id) {
+    public Optional<ALCityObject> findById(Long id) {
         return puzzleObjectRepository.findById(id);
     }
 
@@ -40,12 +39,12 @@ public class PuzzleObjectService implements PuzzleObjectRepository {
     }
 
     @Override
-    public Collection<PuzzleObject> findAll() {
+    public Collection<ALCityObject> findAll() {
         return null;
     }
 
     @Override
-    public Iterable<PuzzleObject> findAllById(Iterable<Long> longs) {
+    public Iterable<ALCityObject> findAllById(Iterable<Long> longs) {
         return null;
     }
 
@@ -60,7 +59,7 @@ public class PuzzleObjectService implements PuzzleObjectRepository {
     }
 
     @Override
-    public void delete(PuzzleObject entity) {
+    public void delete(ALCityObject entity) {
 
     }
 
@@ -70,7 +69,7 @@ public class PuzzleObjectService implements PuzzleObjectRepository {
     }
 
     @Override
-    public void deleteAll(Iterable<? extends PuzzleObject> entities) {
+    public void deleteAll(Iterable<? extends ALCityObject> entities) {
 
     }
 
@@ -80,7 +79,7 @@ public class PuzzleObjectService implements PuzzleObjectRepository {
     }
 
     @Override
-    public Collection<PuzzleObject> findByTitle(String title) {
+    public Collection<ALCityObject> findByTitle(String title) {
         return null;
     }
 

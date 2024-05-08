@@ -4,7 +4,7 @@ package com.alcity.api;
 import com.alcity.dto.puzzle.PuzzleObject_ObjectActionDTO;
 import com.alcity.dto.puzzle.PuzzleObjectDTO;
 import com.alcity.entity.alobject.PuzzleObject_ObjectAction;
-import com.alcity.entity.puzzle.PuzzleObject;
+import com.alcity.entity.puzzle.ALCityObject;
 import com.alcity.service.alobject.PuzzleObject_ObjectActionService;
 import com.alcity.service.puzzle.PuzzleObjectService;
 import com.alcity.utility.DTOUtil;
@@ -29,14 +29,14 @@ public class POController {
     @ResponseBody
     public PuzzleObjectDTO getPuzzleObjectById(@PathVariable Long id) {
         PuzzleObjectDTO puzzleObjectDTO= new PuzzleObjectDTO();
-        Optional<PuzzleObject> puzzleObject = puzzleObjectService.findById(id);
+        Optional<ALCityObject> puzzleObject = puzzleObjectService.findById(id);
         puzzleObjectDTO = DTOUtil.getPuzzleObjectById(puzzleObject);
         return  puzzleObjectDTO;
     }
 
     @GetMapping("/all")
     public Collection<PuzzleObjectDTO> getPuzzleObject(Model model) {
-        Collection<PuzzleObject> puzzleObjectCollection = puzzleObjectService.findAll();
+        Collection<ALCityObject> puzzleObjectCollection = puzzleObjectService.findAll();
         Collection<PuzzleObjectDTO> puzzleObjectDTOCollection = new ArrayList<PuzzleObjectDTO>();
         puzzleObjectDTOCollection =DTOUtil.getPuzzleObjects(puzzleObjectCollection);
 

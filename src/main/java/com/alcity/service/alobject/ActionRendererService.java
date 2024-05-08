@@ -79,8 +79,8 @@ public class ActionRendererService implements ActionRendererRepository {
     }
 
     @Override
-    public Collection<ActionRenderer> findByHandler(String handler) {
-        return null;
+    public Optional<ActionRenderer> findByHandler(String handler) {
+        return actionRendererRepository.findByHandler(handler);
     }
 
     @Override

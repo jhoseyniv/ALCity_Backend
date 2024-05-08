@@ -8,7 +8,7 @@ import jakarta.persistence.*;
 import java.io.Serializable;
 
 @Entity
-public class PGObjectInstance extends BaseTable implements Serializable {
+public class ALCityInstanceInPL extends BaseTable implements Serializable {
 
     @Column(name="name")
     private String name;
@@ -22,23 +22,31 @@ public class PGObjectInstance extends BaseTable implements Serializable {
     @Column(name="zOrder")
     private Integer zOrder;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "puzzle_group_puzzle_object_id", nullable = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @JoinColumn(name = "alcity_Object_In_PG_id", nullable = false)
     @JsonIgnore
-    private PuzzleGroup_PuzzleObject puzzleGroup_PuzzleObject;
+    private ALCityObjectInPG alCityObjectInPG;
 
-    public PuzzleGroup_PuzzleObject getPuzzleGroup_PuzzleObject() {
-        return puzzleGroup_PuzzleObject;
+    public ALCityObjectInPG getAlCityObjectInPG() {
+        return alCityObjectInPG;
     }
 
-    public void setPuzzleGroup_PuzzleObject(PuzzleGroup_PuzzleObject puzzleGroup_PuzzleObject) {
-        this.puzzleGroup_PuzzleObject = puzzleGroup_PuzzleObject;
+    public void setAlCityObjectInPG(ALCityObjectInPG alCityObjectInPG) {
+        this.alCityObjectInPG = alCityObjectInPG;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "puzzle_Level_id", nullable = false)
     @JsonIgnore
     private PuzzleLevel puzzleLevel;
+
+    public PuzzleLevel getPuzzleLevel() {
+        return puzzleLevel;
+    }
+
+    public void setPuzzleLevel(PuzzleLevel puzzleLevel) {
+        this.puzzleLevel = puzzleLevel;
+    }
 
     public Integer getRow() {
         return row;
@@ -72,16 +80,16 @@ public class PGObjectInstance extends BaseTable implements Serializable {
         this.name = name;
     }
 
-    public PGObjectInstance() {
+    public ALCityInstanceInPL() {
     }
 
-    public PGObjectInstance(String name, Integer row, Integer col, Integer zOrder, PuzzleGroup_PuzzleObject puzzleGroup_PuzzleObject, PuzzleLevel puzzleLevel, Long version, String created, String updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
+    public ALCityInstanceInPL(String name, Integer row, Integer col, Integer zOrder, ALCityObjectInPG alCityObjectInPG, PuzzleLevel puzzleLevel, Long version, String created, String updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
         super(version, created, updated, createdBy, updatedBy);
         this.name = name;
         this.row = row;
         this.col = col;
         this.zOrder = zOrder;
-        this.puzzleGroup_PuzzleObject = puzzleGroup_PuzzleObject;
+        this.alCityObjectInPG = alCityObjectInPG;
         this.puzzleLevel = puzzleLevel;
     }
 }

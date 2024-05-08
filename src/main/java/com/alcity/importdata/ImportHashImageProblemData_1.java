@@ -38,6 +38,7 @@ import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Optional;
 
 
 @Order(value=2)
@@ -92,7 +93,7 @@ public class ImportHashImageProblemData_1 implements CommandLineRunner {
     PuzzleObjectService puzzleObjectService;
 
     @Autowired
-    PGObjectInstanceService pgObjectInstanceService;
+    ALCityInstanceInPLService pgObjectInstanceService;
 
 
     @Autowired
@@ -115,7 +116,7 @@ public class ImportHashImageProblemData_1 implements CommandLineRunner {
     PuzzleObject_ObjectActionService puzzleObject_ObjectActionService;
 
     @Autowired
-    PuzzleGroup_PuzzleObjectService puzzleGroup_PuzzleObjectService;
+    ALCityObjectInPGService puzzleGroup_PuzzleObjectService;
 
     @Autowired
     PLRuleService puzzleLevelRuleService;
@@ -245,22 +246,22 @@ public class ImportHashImageProblemData_1 implements CommandLineRunner {
         BinaryContent fox_Image_binary_content = binaryContentService.findByfileName("fox image");
         BinaryContent wheat_Image_binary_content = binaryContentService.findByfileName("wheat image");
 
-        PuzzleObject eagle = new PuzzleObject("eagle",objectCategory_bird,eagle_Image_binary_content,eagle_Image_binary_content,1L,now,now,jalalHoseyni,jalalHoseyni);
+        ALCityObject eagle = new ALCityObject("eagle",objectCategory_bird,eagle_Image_binary_content,eagle_Image_binary_content,1L,now,now,jalalHoseyni,jalalHoseyni);
         puzzleObjectService.save(eagle);
 
-        PuzzleObject goose = new PuzzleObject("Goose",objectCategory_bird,goose_Image_binary_content,goose_Image_binary_content,1L,now,now,jalalHoseyni,jalalHoseyni);
+        ALCityObject goose = new ALCityObject("Goose",objectCategory_bird,goose_Image_binary_content,goose_Image_binary_content,1L,now,now,jalalHoseyni,jalalHoseyni);
         puzzleObjectService.save(goose);
 
-        PuzzleObject fox = new PuzzleObject("Fox",objectCategory_Mamals,fox_Image_binary_content,fox_Image_binary_content,1L,now,now,jalalHoseyni,jalalHoseyni);
+        ALCityObject fox = new ALCityObject("Fox",objectCategory_Mamals,fox_Image_binary_content,fox_Image_binary_content,1L,now,now,jalalHoseyni,jalalHoseyni);
         puzzleObjectService.save(fox);
 
-        PuzzleObject wheat = new PuzzleObject("Wheat",objectCategory_cereal,wheat_Image_binary_content,wheat_Image_binary_content,1L,now,now,jalalHoseyni,jalalHoseyni);
+        ALCityObject wheat = new ALCityObject("Wheat",objectCategory_cereal,wheat_Image_binary_content,wheat_Image_binary_content,1L,now,now,jalalHoseyni,jalalHoseyni);
         puzzleObjectService.save(wheat);
 
-        PuzzleObject ImageObject01 = new PuzzleObject("ImageObject01",objectCategory_Image,wheat_Image_binary_content,wheat_Image_binary_content,1L,now,now,jalalHoseyni,jalalHoseyni);
+        ALCityObject ImageObject01 = new ALCityObject("ImageObject01",objectCategory_Image,wheat_Image_binary_content,wheat_Image_binary_content,1L,now,now,jalalHoseyni,jalalHoseyni);
         puzzleObjectService.save(ImageObject01);
 
-        PuzzleGroup_PuzzleObject  puzzleGroup_puzzleObject = new PuzzleGroup_PuzzleObject ("Image Hash Puzzle Group with Image Object","Hash_ImageObject",puzzleGroup_1,ImageObject01,1L,now,now,admin_1,admin_1);
+        ALCityObjectInPG puzzleGroup_puzzleObject = new ALCityObjectInPG("Image Hash Puzzle Group with Image Object","Hash_ImageObject",puzzleGroup_1,ImageObject01,1L,now,now,admin_1,admin_1);
         puzzleGroup_PuzzleObjectService.save(puzzleGroup_puzzleObject);
 
 
@@ -287,15 +288,15 @@ public class ImportHashImageProblemData_1 implements CommandLineRunner {
         attributeValueService.save(alCityAttribute_variable_X_value);
         attributeValueService.save(alCityAttribute_variable_Y_value);
 
-        PGObjectInstance instance_img0 = new PGObjectInstance("instance_img0",1,1,1,puzzleGroup_puzzleObject,puzzleLevel_hashimage,1L,now,now,admin_1,admin_1);
-        PGObjectInstance instance_img1 = new PGObjectInstance("instance_img1",2,3,1,puzzleGroup_puzzleObject,puzzleLevel_hashimage,1L,now,now,admin_1,admin_1);
-        PGObjectInstance instance_img2 = new PGObjectInstance("instance_img2",1,2,1,puzzleGroup_puzzleObject,puzzleLevel_hashimage,1L,now,now,admin_1,admin_1);
-        PGObjectInstance instance_img3 = new PGObjectInstance("instance_img3",2,1,1,puzzleGroup_puzzleObject,puzzleLevel_hashimage,1L,now,now,admin_1,admin_1);
-        PGObjectInstance instance_img4 = new PGObjectInstance("instance_img4",3,2,1,puzzleGroup_puzzleObject,puzzleLevel_hashimage,1L,now,now,admin_1,admin_1);
-        PGObjectInstance instance_img5 = new PGObjectInstance("instance_img5",1,3,1,puzzleGroup_puzzleObject,puzzleLevel_hashimage,1L,now,now,admin_1,admin_1);
-        PGObjectInstance instance_img6 = new PGObjectInstance("instance_img6",2,2,1,puzzleGroup_puzzleObject,puzzleLevel_hashimage,1L,now,now,admin_1,admin_1);
-        PGObjectInstance instance_img7 = new PGObjectInstance("instance_img7",3,3,1,puzzleGroup_puzzleObject,puzzleLevel_hashimage,1L,now,now,admin_1,admin_1);
-        PGObjectInstance instance_img8 = new PGObjectInstance("instance_img8",3,1,1,puzzleGroup_puzzleObject,puzzleLevel_hashimage,1L,now,now,admin_1,admin_1);
+        ALCityInstanceInPL instance_img0 = new ALCityInstanceInPL("instance_img0",1,1,1,puzzleGroup_puzzleObject,puzzleLevel_hashimage,1L,now,now,admin_1,admin_1);
+        ALCityInstanceInPL instance_img1 = new ALCityInstanceInPL("instance_img1",2,3,1,puzzleGroup_puzzleObject,puzzleLevel_hashimage,1L,now,now,admin_1,admin_1);
+        ALCityInstanceInPL instance_img2 = new ALCityInstanceInPL("instance_img2",1,2,1,puzzleGroup_puzzleObject,puzzleLevel_hashimage,1L,now,now,admin_1,admin_1);
+        ALCityInstanceInPL instance_img3 = new ALCityInstanceInPL("instance_img3",2,1,1,puzzleGroup_puzzleObject,puzzleLevel_hashimage,1L,now,now,admin_1,admin_1);
+        ALCityInstanceInPL instance_img4 = new ALCityInstanceInPL("instance_img4",3,2,1,puzzleGroup_puzzleObject,puzzleLevel_hashimage,1L,now,now,admin_1,admin_1);
+        ALCityInstanceInPL instance_img5 = new ALCityInstanceInPL("instance_img5",1,3,1,puzzleGroup_puzzleObject,puzzleLevel_hashimage,1L,now,now,admin_1,admin_1);
+        ALCityInstanceInPL instance_img6 = new ALCityInstanceInPL("instance_img6",2,2,1,puzzleGroup_puzzleObject,puzzleLevel_hashimage,1L,now,now,admin_1,admin_1);
+        ALCityInstanceInPL instance_img7 = new ALCityInstanceInPL("instance_img7",3,3,1,puzzleGroup_puzzleObject,puzzleLevel_hashimage,1L,now,now,admin_1,admin_1);
+        ALCityInstanceInPL instance_img8 = new ALCityInstanceInPL("instance_img8",3,1,1,puzzleGroup_puzzleObject,puzzleLevel_hashimage,1L,now,now,admin_1,admin_1);
 
         pgObjectInstanceService.save(instance_img0);
         pgObjectInstanceService.save(instance_img1);
@@ -403,10 +404,8 @@ public class ImportHashImageProblemData_1 implements CommandLineRunner {
         ClientType mobile = clientTypeService.findByValue("mobile");
 
 
-        ActionRenderer moveActionRenderer = new ActionRenderer("Move",mobile,ObjectAction.Move,1L,now,now,admin_1,admin_1);
-        actionRendererService.save(moveActionRenderer);
-
-        PuzzleObject_ObjectAction  imageObject01_MoveAction = new PuzzleObject_ObjectAction(POActionOwnerType.Puzzle_Object,puzzleGroup_puzzleObject.getId(),ObjectAction.Move,moveActionRenderer,1L,now,now,admin_1,admin_1);
+        Optional<ActionRenderer> move = actionRendererService.findByHandler("Move");
+        PuzzleObject_ObjectAction  imageObject01_MoveAction = new PuzzleObject_ObjectAction(POActionOwnerType.Puzzle_Object,puzzleGroup_puzzleObject.getId(),ObjectAction.Move,move.get(),1L,now,now,admin_1,admin_1);
         puzzleObject_ObjectActionService.save(imageObject01_MoveAction);
 
         Attribute alCityAttribute_move_action =new Attribute("actionId",imageObject01_MoveAction.getId(),AttributeOwnerType.Puzzle_Object_Action_Parameter,DataType.Long,1L,now,now,admin_1,admin_1);

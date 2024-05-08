@@ -1,7 +1,7 @@
 package com.alcity.entity.alobject;
 
 import com.alcity.entity.base.BaseItemSet;
-import com.alcity.entity.puzzle.PuzzleObject;
+import com.alcity.entity.puzzle.ALCityObject;
 import com.alcity.entity.users.ApplicationMember;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
@@ -16,13 +16,13 @@ public class ObjectCategory extends BaseItemSet implements Serializable {
 
     @OneToMany(mappedBy = "objectCategory", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JsonIgnore
-    private Collection<PuzzleObject> puzzleObjectCollection;
+    private Collection<ALCityObject> puzzleObjectCollection;
 
-    public Collection<PuzzleObject> getPuzzleObjectCollection() {
+    public Collection<ALCityObject> getPuzzleObjectCollection() {
         return puzzleObjectCollection;
     }
 
-    public void setPuzzleObjectCollection(Collection<PuzzleObject> puzzleObjectCollection) {
+    public void setPuzzleObjectCollection(Collection<ALCityObject> puzzleObjectCollection) {
         this.puzzleObjectCollection = puzzleObjectCollection;
     }
 

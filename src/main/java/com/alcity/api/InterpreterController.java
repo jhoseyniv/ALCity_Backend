@@ -10,10 +10,8 @@ import com.alcity.entity.base.CameraSetup;
 import com.alcity.entity.puzzle.*;
 import com.alcity.service.alobject.AttributeService;
 import com.alcity.service.alobject.PuzzleObject_ObjectActionService;
-import com.alcity.service.puzzle.PGObjectInstanceService;
+import com.alcity.service.puzzle.ALCityInstanceInPLService;
 import com.alcity.service.puzzle.PLGroundService;
-import com.alcity.service.puzzle.PuzzleGroup_PuzzleObjectService;
-import com.alcity.service.puzzle.PuzzleLevelService;
 import com.alcity.utility.DTOUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -37,7 +35,7 @@ public class InterpreterController {
     AttributeService attributeService;
 
     @Autowired
-    PGObjectInstanceService pgObjectInstanceService;
+    ALCityInstanceInPLService pgObjectInstanceService;
 
     @Operation( summary = "Fetch a json ",  description = "fetches all data that need to Interpret a puzzle level structure and rules")
     @RequestMapping(value = "/id/{id}", method = RequestMethod.GET)
@@ -78,13 +76,14 @@ public class InterpreterController {
     }
 
 
-    public Collection<InstanceData> getInstancesForAObjectInPuzzleLevel(PuzzleGroup_PuzzleObject pgpo,PuzzleLevel  pl) {
+    public Collection<InstanceData> getInstancesForAObjectInPuzzleLevel(ALCityObjectInPG pgpo, PuzzleLevel  pl) {
         Collection<InstanceData> objectInstanceDataCollection = new ArrayList<InstanceData>();
-        Collection<PGObjectInstance> puzzleGroupObjectInstanceCollection = pgObjectInstanceService.findByPuzzleLevel(pl);
-        Iterator<PGObjectInstance> iterator = puzzleGroupObjectInstanceCollection.iterator();
+        Collection<ALCityInstanceInPL> InstanceCollection = pgObjectInstanceService.findByAlCityObjectInPGAndPuzzleLevel(pgpo,pl);
+        //Collection<ALCityInstanceInPL> puzzleGroupObjectInstanceCollection = pgpo.getAlCityInstanceInPLCollection();
+        Iterator<ALCityInstanceInPL> iterator = InstanceCollection.iterator();
 
         while(iterator.hasNext()) {
-            PGObjectInstance puzzleGroupObjectInstance = iterator.next();
+            ALCityInstanceInPL puzzleGroupObjectInstance = iterator.next();
 
             InstanceData objectInstanceData = new InstanceData();
             objectInstanceData.setId(puzzleGroupObjectInstance.getId());
@@ -108,22 +107,22 @@ public class InterpreterController {
         public Collection<PGData> getObjectsForPuzzleGroup(PuzzleGroup pg,PuzzleLevel pl) {
         Collection<PGData> puzzleGroupObjectDataCollection = new ArrayList<PGData>();
 
-        Collection<PuzzleGroup_PuzzleObject> puzzleGroup_puzzleObjectCollection = new ArrayList<>();
+        Collection<ALCityObjectInPG> puzzleGroup_puzzleObjectCollection = new ArrayList<>();
         puzzleGroup_puzzleObjectCollection = pg.getPuzzleGroup_puzzleObjectCollection();
-        Iterator<PuzzleGroup_PuzzleObject> iterator = puzzleGroup_puzzleObjectCollection.iterator();
+        Iterator<ALCityObjectInPG> iterator = puzzleGroup_puzzleObjectCollection.iterator();
         while(iterator.hasNext()) {
-            PuzzleGroup_PuzzleObject puzzleGroup_puzzleObject = iterator.next();
+            ALCityObjectInPG puzzleGroup_puzzleObject = iterator.next();
             PGData puzzleGroupObjectData = new PGData();
 
-            puzzleGroupObjectData.setId(puzzleGroup_puzzleObject.getPuzzleObject().getId());
+            puzzleGroupObjectData.setId(puzzleGroup_puzzleObject.getAlCityObject().getId());
             puzzleGroupObjectData.setTitle(puzzleGroup_puzzleObject.getTitle());
             puzzleGroupObjectData.setCode(puzzleGroup_puzzleObject.getCode());
             puzzleGroupObjectData.setVersion(puzzleGroup_puzzleObject.getVersion());
 
-            BinaryContent picture = puzzleGroup_puzzleObject.getPuzzleObject().getPicture();
+            BinaryContent picture = puzzleGroup_puzzleObject.getAlCityObject().getPicture();
             puzzleGroupObjectData.setImageGraphicId(picture.getId());
 
-            BinaryContent icon = puzzleGroup_puzzleObject.getPuzzleObject().getIcon();
+            BinaryContent icon = puzzleGroup_puzzleObject.getAlCityObject().getIcon();
             puzzleGroupObjectData.setIconGraphicId(icon.getId());
 
             Collection<ActionData> actions = getActionsForAPuzzleObjectById(puzzleGroup_puzzleObject.getId());

@@ -9,7 +9,7 @@ import java.io.Serializable;
 import java.util.Collection;
 
 @Entity
-public class PuzzleGroup_PuzzleObject extends BaseTable implements Serializable {
+public class ALCityObjectInPG extends BaseTable implements Serializable {
 
     @Column(name="title")
     private String title;
@@ -22,24 +22,24 @@ public class PuzzleGroup_PuzzleObject extends BaseTable implements Serializable 
     @JsonIgnore
     private PuzzleGroup puzzleGroup;
 
-    @ManyToOne(fetch = FetchType.EAGER, optional = false)
-    @JoinColumn(name = "puzzle_object_id", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "alcity_object_id", nullable = false)
     @JsonIgnore
-    private PuzzleObject puzzleObject;
+    private ALCityObject alCityObject;
 
-    @OneToMany(mappedBy = "puzzleGroup_PuzzleObject", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "alCityObjectInPG", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JsonIgnore
-    private Collection<PGObjectInstance> puzzleGroupObjectInstanceCollection;
+    private Collection<ALCityInstanceInPL> alCityInstanceInPLCollection;
 
-    public Collection<PGObjectInstance> getPuzzleGroupObjectInstanceCollection() {
-        return puzzleGroupObjectInstanceCollection;
+    public Collection<ALCityInstanceInPL> getAlCityInstanceInPLCollection() {
+        return alCityInstanceInPLCollection;
     }
 
-    public void setPuzzleGroupObjectInstanceCollection(Collection<PGObjectInstance> puzzleGroupObjectInstanceCollection) {
-        this.puzzleGroupObjectInstanceCollection = puzzleGroupObjectInstanceCollection;
+    public void setAlCityInstanceInPLCollection(Collection<ALCityInstanceInPL> alCityInstanceInPLCollection) {
+        this.alCityInstanceInPLCollection = alCityInstanceInPLCollection;
     }
 
-    public PuzzleGroup_PuzzleObject() {
+    public ALCityObjectInPG() {
     }
 
     public String getTitle() {
@@ -66,19 +66,19 @@ public class PuzzleGroup_PuzzleObject extends BaseTable implements Serializable 
         this.puzzleGroup = puzzleGroup;
     }
 
-    public PuzzleObject getPuzzleObject() {
-        return puzzleObject;
+    public ALCityObject getAlCityObject() {
+        return alCityObject;
     }
 
-    public void setPuzzleObject(PuzzleObject puzzleObject) {
-        this.puzzleObject = puzzleObject;
+    public void setAlCityObject(ALCityObject alCityObject) {
+        this.alCityObject = alCityObject;
     }
 
-    public PuzzleGroup_PuzzleObject(String title, String code, PuzzleGroup puzzleGroup, PuzzleObject puzzleObject, Long version, String created, String updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
+    public ALCityObjectInPG(String title, String code, PuzzleGroup puzzleGroup, ALCityObject alCityObject, Long version, String created, String updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
         super(version, created, updated, createdBy, updatedBy);
         this.title = title;
         this.code = code;
         this.puzzleGroup = puzzleGroup;
-        this.puzzleObject = puzzleObject;
+        this.alCityObject = alCityObject;
     }
 }

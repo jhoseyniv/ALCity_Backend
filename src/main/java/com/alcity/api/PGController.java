@@ -73,7 +73,7 @@ public class PGController {
             Collection<PuzzleSkillLearningContentDTO> puzzleSkillLearningContentDTOCollection = new ArrayList<PuzzleSkillLearningContentDTO>();
             puzzleSkillLearningContentDTOCollection = DTOUtil.getPuzzleSkillLearningContentDTOS(puzzleSkillLearningContentCollection);
 
-            Collection<PuzzleGroup_PuzzleObject>  puzzleGroup_puzzleObjectCollection = puzzleGroup.get().getPuzzleGroup_puzzleObjectCollection();
+            Collection<ALCityObjectInPG>  puzzleGroup_puzzleObjectCollection = puzzleGroup.get().getPuzzleGroup_puzzleObjectCollection();
             Collection<PuzzleGroup_PuzzleObjectDTO> puzzleGroup_puzzleObjectDTOCollection = new ArrayList<PuzzleGroup_PuzzleObjectDTO>();
             puzzleGroup_puzzleObjectDTOCollection = DTOUtil.getPuzzleGroup_PuzzleObjectDTOS(puzzleGroup_puzzleObjectCollection);
 

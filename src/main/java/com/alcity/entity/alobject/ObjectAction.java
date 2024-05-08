@@ -2,6 +2,7 @@ package com.alcity.entity.alobject;
 
 public enum   ObjectAction  {
 
+    create,
     Move,
     Remove,
     Rotate,

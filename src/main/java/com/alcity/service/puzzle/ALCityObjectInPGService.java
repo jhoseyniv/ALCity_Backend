@@ -1,7 +1,7 @@
 package com.alcity.service.puzzle;
 
-import com.alcity.entity.puzzle.PuzzleGroup_PuzzleObject;
-import com.alcity.repository.puzzle.PuzzleGroup_PuzzleObjectRepository;
+import com.alcity.entity.puzzle.ALCityObjectInPG;
+import com.alcity.repository.puzzle.ALCityObjectInPGRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,23 +12,23 @@ import java.util.Optional;
 
 @Service
 @Transactional
-public class PuzzleGroup_PuzzleObjectService implements PuzzleGroup_PuzzleObjectRepository {
+public class ALCityObjectInPGService implements ALCityObjectInPGRepository {
 
     @Autowired
-    PuzzleGroup_PuzzleObjectRepository puzzleGroup_PuzzleObjectRepository;
+    ALCityObjectInPGRepository puzzleGroup_PuzzleObjectRepository;
 
     @Override
-    public <S extends PuzzleGroup_PuzzleObject> S save(S entity) {
+    public <S extends ALCityObjectInPG> S save(S entity) {
         return puzzleGroup_PuzzleObjectRepository.save(entity);
     }
 
     @Override
-    public <S extends PuzzleGroup_PuzzleObject> Iterable<S> saveAll(Iterable<S> entities) {
+    public <S extends ALCityObjectInPG> Iterable<S> saveAll(Iterable<S> entities) {
         return null;
     }
 
     @Override
-    public Optional<PuzzleGroup_PuzzleObject> findById(Long id) {
+    public Optional<ALCityObjectInPG> findById(Long id) {
         return Optional.empty();
     }
 
@@ -38,12 +38,12 @@ public class PuzzleGroup_PuzzleObjectService implements PuzzleGroup_PuzzleObject
     }
 
     @Override
-    public Collection<PuzzleGroup_PuzzleObject> findAll() {
+    public Collection<ALCityObjectInPG> findAll() {
         return null;
     }
 
     @Override
-    public Iterable<PuzzleGroup_PuzzleObject> findAllById(Iterable<Long> longs) {
+    public Iterable<ALCityObjectInPG> findAllById(Iterable<Long> longs) {
         return null;
     }
 
@@ -58,7 +58,7 @@ public class PuzzleGroup_PuzzleObjectService implements PuzzleGroup_PuzzleObject
     }
 
     @Override
-    public void delete(PuzzleGroup_PuzzleObject entity) {
+    public void delete(ALCityObjectInPG entity) {
 
     }
 
@@ -68,7 +68,7 @@ public class PuzzleGroup_PuzzleObjectService implements PuzzleGroup_PuzzleObject
     }
 
     @Override
-    public void deleteAll(Iterable<? extends PuzzleGroup_PuzzleObject> entities) {
+    public void deleteAll(Iterable<? extends ALCityObjectInPG> entities) {
 
     }
 
@@ -78,12 +78,12 @@ public class PuzzleGroup_PuzzleObjectService implements PuzzleGroup_PuzzleObject
     }
 
     @Override
-    public Collection<PuzzleGroup_PuzzleObject> findByTitle(String title) {
+    public Collection<ALCityObjectInPG> findByTitle(String title) {
         return null;
     }
 
     @Override
-    public PuzzleGroup_PuzzleObject findByCode(String code) {
+    public ALCityObjectInPG findByCode(String code) {
         return puzzleGroup_PuzzleObjectRepository.findByCode(code);
     }
 }

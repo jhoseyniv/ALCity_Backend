@@ -94,11 +94,11 @@ public class ObjectManagmentApplication {
 	PuzzleObjectService puzzleObjectService;
 
 	@Autowired
-	PuzzleGroup_PuzzleObjectService puzzleGroup_PuzzleObjectService;
+    ALCityObjectInPGService puzzleGroup_PuzzleObjectService;
 
 
 	@Autowired
-	PGObjectInstanceService puzzleGroupObjectInstanceService;
+    ALCityInstanceInPLService alCityInstanceService;
 
 	@Autowired
     AttributeService alCityAttributeService;

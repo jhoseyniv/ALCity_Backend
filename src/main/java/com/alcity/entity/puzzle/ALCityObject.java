@@ -9,10 +9,10 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.*;
 import java.io.Serializable;
-import java.util.Set;
+import java.util.Collection;
 
 @Entity
-public class PuzzleObject extends BaseTable implements Serializable {
+public class ALCityObject extends BaseTable implements Serializable {
 
     @Column(name="title")
     private String title;
@@ -34,9 +34,17 @@ public class PuzzleObject extends BaseTable implements Serializable {
     private BinaryContent icon;
 
 
-    @OneToMany(mappedBy = "puzzleObject", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "alCityObject", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JsonIgnore
-    private Set<PuzzleGroup_PuzzleObject> puzzleGroup_puzzleObjectSet;
+    private Collection<ALCityObjectInPG> alCityObject_puzzleGroups;
+
+    public Collection<ALCityObjectInPG> getAlCityObject_puzzleGroups() {
+        return alCityObject_puzzleGroups;
+    }
+
+    public void setAlCityObject_puzzleGroups(Collection<ALCityObjectInPG> alCityObject_puzzleGroups) {
+        this.alCityObject_puzzleGroups = alCityObject_puzzleGroups;
+    }
 
     public ObjectCategory getObjectCategory() {
         return objectCategory;
@@ -70,10 +78,10 @@ public class PuzzleObject extends BaseTable implements Serializable {
         this.icon = icon;
     }
 
-    public PuzzleObject() {
+    public ALCityObject() {
     }
 
-    public PuzzleObject(String title, ObjectCategory objectCategory, BinaryContent picture, BinaryContent icon, Long version, String created, String updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
+    public ALCityObject(String title, ObjectCategory objectCategory, BinaryContent picture, BinaryContent icon, Long version, String created, String updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
         super(version, created, updated, createdBy, updatedBy);
         this.title = title;
         this.objectCategory = objectCategory;

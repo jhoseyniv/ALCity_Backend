@@ -46,9 +46,17 @@ public class ActionRenderer extends BaseTable implements Serializable {
     @Enumerated(EnumType.ORDINAL)
     private ObjectAction objectAction;
 
-    @OneToMany(mappedBy = "actionRenderer", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "actionRenderer", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JsonIgnore
     private Set<PuzzleObject_ObjectAction> puzzleObject_ObjectAction;
+
+    public Set<PuzzleObject_ObjectAction> getPuzzleObject_ObjectAction() {
+        return puzzleObject_ObjectAction;
+    }
+
+    public void setPuzzleObject_ObjectAction(Set<PuzzleObject_ObjectAction> puzzleObject_ObjectAction) {
+        this.puzzleObject_ObjectAction = puzzleObject_ObjectAction;
+    }
 
     public ActionRenderer() {
     }

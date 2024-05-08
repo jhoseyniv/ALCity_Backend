@@ -4,6 +4,8 @@ package com.alcity.importdata;
 import com.alcity.entity.alenum.BinaryContentType;
 import com.alcity.entity.alenum.UserGender;
 import com.alcity.entity.alenum.WalletItemCategory;
+import com.alcity.entity.alobject.ActionRenderer;
+import com.alcity.entity.alobject.ObjectAction;
 import com.alcity.entity.alobject.ObjectCategory;
 import com.alcity.entity.base.*;
 import com.alcity.entity.journey.Journey;
@@ -17,6 +19,7 @@ import com.alcity.entity.users.WalletItem;
 import com.alcity.entity.users.WalletTransaction;
 import com.alcity.service.Journey.JourneyLearningSkillService;
 import com.alcity.service.Journey.JourneyService;
+import com.alcity.service.alobject.ActionRendererService;
 import com.alcity.service.alobject.ObjectCategoryService;
 import com.alcity.service.base.*;
 import com.alcity.service.learning.LearningSkillService;
@@ -93,7 +96,11 @@ public class ImportBaseData implements CommandLineRunner {
     @Autowired
     JourneyLearningSkillService journeyLearningSkillService;
 
-     protected final Log log = LogFactory.getLog(getClass());
+    @Autowired
+    ActionRendererService actionRendererService;
+
+
+    protected final Log log = LogFactory.getLog(getClass());
 
 
     @Override
@@ -342,6 +349,9 @@ public class ImportBaseData implements CommandLineRunner {
         JourneyLearningSkill journey_1_Skill_2 = new JourneyLearningSkill(0.5f,journey_1,division,1L,now,now,admin_1,admin_1);
         journeyLearningSkillService.save(journey_1_Skill_1);
         journeyLearningSkillService.save(journey_1_Skill_2);
+
+        ActionRenderer moveActionRenderer = new ActionRenderer("Move",mobile, ObjectAction.Move,1L,now,now,admin_1,admin_1);
+        actionRendererService.save(moveActionRenderer);
 
 
        }
