@@ -9,6 +9,6 @@ import java.util.Optional;
 public interface PLRuleEventRepository extends CrudRepository<PLRuleEvent,Long> {
     Optional<PLRuleEvent> findById(Long id);
     Collection<PLRuleEvent> findAll();
-    Collection<PLRuleEvent> findByName(String name);
+    Optional<PLRuleEvent> findByName(String name);
 
 }

@@ -17,24 +17,24 @@ public class ALCityObject extends BaseTable implements Serializable {
     @Column(name="title")
     private String title;
 
-    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "category_id", nullable = false)
     @JsonIgnore
     private ObjectCategory objectCategory;
 
 
-    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "picture_id", nullable = false)
     @JsonIgnore
     private BinaryContent picture;
 
-    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "icon_id", nullable = false)
     @JsonIgnore
     private BinaryContent icon;
 
 
-    @OneToMany(mappedBy = "alCityObject", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "alCityObject", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JsonIgnore
     private Collection<ALCityObjectInPG> alCityObject_puzzleGroups;
 

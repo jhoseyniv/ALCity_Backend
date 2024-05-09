@@ -3,7 +3,7 @@ package com.alcity.importdata;
 
 import com.alcity.ObjectManagmentApplication;
 import com.alcity.entity.alenum.AttributeOwnerType;
-import com.alcity.entity.alenum.PLRulePostActionType;
+import com.alcity.entity.base.PLRulePostActionType;
 import com.alcity.entity.alobject.Attribute;
 import com.alcity.entity.alobject.AttributeValue;
 import com.alcity.entity.alobject.ObjectCategory;
@@ -36,6 +36,7 @@ import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Optional;
 
 
 @Order(value=5)
@@ -155,11 +156,11 @@ public class ImportProblemData_2_part_3 implements CommandLineRunner {
 
         PuzzleLevel   puzzleLevel_Maze = puzzleLevelService.findByCode("4546");
 
+        Optional<PLRuleEvent> click_event = plRuleEventService.findByName("Click");
 
 
      StringBuffer    pr_select_object_Condition = new StringBuffer("(Object[e.x, e.y].Locked == false)&&(Object[e.x, e.y].Selected == false)&&(((e.x==LastX)&&(e.y==LastY+1))||((e.x==LastX)&&(e.y==LastY-1))||((e.x==LastX+1)&&(e.y==LastY))||((e.x==LastX-1)&&(e.y==LastY)))");
-     PLRule rule_Select_object   = new PLRule("Select object",1
-             ,pr_select_object_Condition,puzzleLevel_Maze,1L,now,now,admin_1,admin_1);
+     PLRule rule_Select_object   = new PLRule("Select object",1 ,pr_select_object_Condition,puzzleLevel_Maze,click_event.get(),1L,now,now,admin_1,admin_1);
      plRuleService.save(rule_Select_object);
 
      StringBuffer assignmentActionExpression=new StringBuffer(" " );
@@ -333,8 +334,7 @@ public class ImportProblemData_2_part_3 implements CommandLineRunner {
         attributeValueService.save(rulePostAction_8_show_param_6_value);
 
         StringBuffer    pr_DeSelect_object_Condition = new StringBuffer("(Object[e.x, e.y].Locked == false)&&(Object[e.x, e.y].Selected == false)&&(((e.x==LastX)&&(e.y==LastY+1))||((e.x==LastX)&&(e.y==LastY-1))||((e.x==LastX+1)&&(e.y==LastY))||((e.x==LastX-1)&&(e.y==LastY)))");
-        PLRule rule_DeSelect_object   = new PLRule("De Select object",2
-                ,pr_DeSelect_object_Condition,puzzleLevel_Maze,1L,now,now,admin_1,admin_1);
+        PLRule rule_DeSelect_object   = new PLRule("De Select object",2 ,pr_DeSelect_object_Condition,puzzleLevel_Maze,click_event.get(),1L,now,now,admin_1,admin_1);
         plRuleService.save(rule_DeSelect_object);
 
         PLRulePostAction deSelect_PostAction_1_assignment = new PLRulePostAction(assignmentActionExpression,1,"","",PLRulePostActionType.Variable_Assignment_Action,rule_DeSelect_object,1L,now,now,admin_1,admin_1);
@@ -441,8 +441,7 @@ public class ImportProblemData_2_part_3 implements CommandLineRunner {
 
 
         StringBuffer    win_rule_object_Condition = new StringBuffer("(Object[e.x, e.y].Selected == true)&&(e.x==LastX)&&(e.y==LastY)");
-        PLRule rule_win_object   = new PLRule("Win Rule",3
-                ,win_rule_object_Condition,puzzleLevel_Maze,1L,now,now,admin_1,admin_1);
+        PLRule rule_win_object   = new PLRule("Win Rule",3,win_rule_object_Condition,puzzleLevel_Maze,click_event.get(),1L,now,now,admin_1,admin_1);
         plRuleService.save(rule_win_object);
 
         PLRulePostAction win_rule_PostAction_1_showMessage = new PLRulePostAction(assignmentActionExpression,1,"","",PLRulePostActionType.Show_Message,rule_win_object,1L,now,now,admin_1,admin_1);

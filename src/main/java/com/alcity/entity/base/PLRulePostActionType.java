@@ -1,4 +1,4 @@
-package com.alcity.entity.alenum;
+package com.alcity.entity.base;
 
 
 public enum PLRulePostActionType  {

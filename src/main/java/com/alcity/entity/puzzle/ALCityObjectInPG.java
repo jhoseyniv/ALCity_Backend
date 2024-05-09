@@ -17,7 +17,7 @@ public class ALCityObjectInPG extends BaseTable implements Serializable {
     @Column(name="code",unique = true)
     private String code;
 
-    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "puzzle_group_id", nullable = false)
     @JsonIgnore
     private PuzzleGroup puzzleGroup;
@@ -27,7 +27,7 @@ public class ALCityObjectInPG extends BaseTable implements Serializable {
     @JsonIgnore
     private ALCityObject alCityObject;
 
-    @OneToMany(mappedBy = "alCityObjectInPG", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "alCityObjectInPG", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JsonIgnore
     private Collection<ALCityInstanceInPL> alCityInstanceInPLCollection;
 

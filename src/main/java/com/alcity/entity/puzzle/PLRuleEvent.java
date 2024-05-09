@@ -11,28 +11,47 @@ import java.io.Serializable;
 @Entity
 public class PLRuleEvent extends BaseTable implements Serializable {
 
-    @Column(name="name")
+
+    @Column(name="name",unique = true)
     private String name;
 
     @Enumerated(EnumType.ORDINAL)
     private PLRuleEventType plRuleEventType;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "puzzle_level_rule_id", nullable = false)
-    @JsonIgnore
-    private PLRule puzzleLevelRule;
-
     @Column(name="event_Id")
     private Integer eventId;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public PLRuleEventType getPlRuleEventType() {
+        return plRuleEventType;
+    }
+
+    public void setPlRuleEventType(PLRuleEventType plRuleEventType) {
+        this.plRuleEventType = plRuleEventType;
+    }
+
+    public Integer getEventId() {
+        return eventId;
+    }
+
+    public void setEventId(Integer eventId) {
+        this.eventId = eventId;
+    }
 
     public PLRuleEvent() {
     }
 
-    public PLRuleEvent(String name, PLRuleEventType plRuleEventType, Integer eventId, PLRule puzzleLevelRule, Long version, String created, String updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
+    public PLRuleEvent(String name, PLRuleEventType plRuleEventType, Integer eventId,Long version, String created, String updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
         super(version, created, updated, createdBy, updatedBy);
         this.name = name;
         this.plRuleEventType = plRuleEventType;
-        this.puzzleLevelRule = puzzleLevelRule;
         this.eventId = eventId;
     }
 

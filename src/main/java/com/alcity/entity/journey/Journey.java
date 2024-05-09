@@ -22,10 +22,10 @@ public class Journey  extends BaseTable implements Serializable {
     @JsonIgnore
     private BinaryContent graphic;
 
-    @OneToMany(mappedBy = "journey", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "journey", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Collection<JourneyStep> journeyStepCollection;
 
-    @OneToMany(mappedBy = "journey", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "journey", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Collection<JourneyLearningSkill> journeyLearningSkillCollection;
 
     public String getTitle() {

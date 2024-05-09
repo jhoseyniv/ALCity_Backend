@@ -1,6 +1,6 @@
 package com.alcity.entity.puzzle;
 
-import com.alcity.entity.alenum.PLRulePostActionType;
+import com.alcity.entity.base.PLRulePostActionType;
 import com.alcity.entity.base.BaseTable;
 import com.alcity.entity.alobject.RulePostActionEvent;
 import com.alcity.entity.users.ApplicationMember;
@@ -28,7 +28,7 @@ public class PLRulePostAction extends BaseTable implements Serializable {
     @Enumerated(EnumType.ORDINAL)
     private PLRulePostActionType plRulePostActionType;
 
-    @OneToMany(mappedBy = "plRulePostAction", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "plRulePostAction", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JsonIgnore
     private Collection<RulePostActionEvent> rulePostActionEventCollection;
 
@@ -88,7 +88,7 @@ public class PLRulePostAction extends BaseTable implements Serializable {
         this.plRulePostActionType = plRulePostActionType;
     }
 
-    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "puzzle_Level_rule_id", nullable = false)
     @JsonIgnore
     private PLRule puzzleLevelRule;

@@ -27,7 +27,7 @@ public class PLObjective extends BaseTable implements Serializable {
     @Column(name="condition" )
     private StringBuffer condition;
 
-    @ManyToOne(fetch = FetchType.EAGER, optional = true)
+    @ManyToOne(fetch = FetchType.LAZY, optional = true)
     @JoinColumn(name = "learning_skill_id", nullable = true)
     @JsonIgnore
     private LearningSkill learningSkill;
@@ -40,7 +40,7 @@ public class PLObjective extends BaseTable implements Serializable {
         this.learningSkill = learningSkill;
     }
 
-    @ManyToOne(fetch = FetchType.EAGER, optional = true)
+    @ManyToOne(fetch = FetchType.LAZY, optional = true)
     @JoinColumn(name = "wallet_item_id", nullable = true)
     @JsonIgnore
     private WalletItem walletItem;
@@ -53,7 +53,7 @@ public class PLObjective extends BaseTable implements Serializable {
         this.walletItem = walletItem;
     }
 
-    @ManyToOne(fetch = FetchType.EAGER, optional = true)
+    @ManyToOne(fetch = FetchType.LAZY, optional = true)
     @JoinColumn(name = "puzzle_Level_id", nullable = true)
     @JsonIgnore
     private PuzzleLevel puzzleLevel;

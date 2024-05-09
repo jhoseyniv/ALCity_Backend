@@ -22,7 +22,7 @@ public class ALCityInstanceInPL extends BaseTable implements Serializable {
     @Column(name="zOrder")
     private Integer zOrder;
 
-    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "alcity_Object_In_PG_id", nullable = false)
     @JsonIgnore
     private ALCityObjectInPG alCityObjectInPG;
@@ -35,7 +35,7 @@ public class ALCityInstanceInPL extends BaseTable implements Serializable {
         this.alCityObjectInPG = alCityObjectInPG;
     }
 
-    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "puzzle_Level_id", nullable = false)
     @JsonIgnore
     private PuzzleLevel puzzleLevel;

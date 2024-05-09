@@ -28,7 +28,7 @@ public class JourneyStep extends BaseTable implements Serializable {
     @JsonIgnore
     private Journey journey;
 
-    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "puzzle_group_id", nullable = false)
     @JsonIgnore
     private PuzzleGroup puzzleGroup;

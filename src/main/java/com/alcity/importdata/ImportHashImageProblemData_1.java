@@ -12,7 +12,6 @@ import com.alcity.entity.learning.LearningTopic;
 import com.alcity.entity.play.PermitedPlayer;
 import com.alcity.entity.play.PlayHistory;
 import com.alcity.entity.puzzle.*;
-import com.alcity.entity.alenum.UserEvent;
 import com.alcity.entity.users.ApplicationMember;
 import com.alcity.entity.users.WalletItem;
 import com.alcity.repository.play.PermitedPlayerRepository;
@@ -123,7 +122,7 @@ public class ImportHashImageProblemData_1 implements CommandLineRunner {
 
 
     @Autowired
-    PLRuleEventService puzzleLevelRuleEventService;
+    PLRuleEventService plRuleEventService;
 
     @Autowired
     PLRulePostActionService puzzleLevelRulePostActionService;
@@ -614,15 +613,15 @@ public class ImportHashImageProblemData_1 implements CommandLineRunner {
         AttributeValue alCityAttributeValue_instance_8_Y = new AttributeValue(null,1,null,null,null,null,alCityAttribute_instance_8_Y,alCityAttribute_instance_8_Y,1L,now,now,admin_1,admin_1);
         attributeValueService.save(alCityAttributeValue_instance_8_Y);
 
+        Optional<PLRuleEvent> click_event = plRuleEventService.findByName("Click");
+
 
         StringBuffer    puzzle_Rule_Condition = new StringBuffer("((e.x==X)&&((e.y==Y-1)||(e.y==Y+1)))  ||  ((e.y==Y)&&((e.x==X-1)||(e.x==X+1)))");
         PLRule rule_for_move_objects_in_hash_image = new PLRule("Move object by click around empty object",1
-                ,puzzle_Rule_Condition,puzzleLevel_hashimage,1L,now,now,admin_1,admin_1);
+                ,puzzle_Rule_Condition,puzzleLevel_hashimage,click_event.get(),1L,now,now,admin_1,admin_1);
         puzzleLevelRuleService.save(rule_for_move_objects_in_hash_image);
 
 
-        PLRuleEvent puzzleLevelRuleEvent_click = new PLRuleEvent("Click",PLRuleEventType.User_Event,UserEvent.Click.ordinal(),rule_for_move_objects_in_hash_image,1L,now,now,admin_1,admin_1);
-        puzzleLevelRuleEventService.save(puzzleLevelRuleEvent_click);
 
 
         String objectId="objects[e.x][e.y]";

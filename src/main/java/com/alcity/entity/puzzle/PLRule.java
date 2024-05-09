@@ -47,7 +47,7 @@ public class PLRule extends BaseTable implements Serializable {
         this.condition = condition;
     }
 
-    @OneToMany(mappedBy = "puzzleLevelRule", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "puzzleLevelRule", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JsonIgnore
     private Collection<PLRulePostAction> plRulePostActions;
 
@@ -59,20 +59,33 @@ public class PLRule extends BaseTable implements Serializable {
         this.plRulePostActions = plRulePostActions;
     }
 
-    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "puzzle_level_id", nullable = false)
     @JsonIgnore
     private PuzzleLevel puzzleLevel;
 
-     public PLRule() {
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "PL_rule_event_id", nullable = false)
+    @JsonIgnore
+    private PLRuleEvent plRuleEvent;
+
+    public PLRuleEvent getPlRuleEvent() {
+        return plRuleEvent;
     }
 
-    public PLRule(String title, Integer ordering, StringBuffer condition, PuzzleLevel puzzleLevel, Long version, String created, String updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
+    public void setPlRuleEvent(PLRuleEvent plRuleEvent) {
+        this.plRuleEvent = plRuleEvent;
+    }
+
+    public PLRule() {
+    }
+
+    public PLRule(String title, Integer ordering, StringBuffer condition, PuzzleLevel puzzleLevel,PLRuleEvent plRuleEvent ,Long version, String created, String updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
         super(version, created, updated, createdBy, updatedBy);
         this.title = title;
         this.ordering = ordering;
         this.condition = condition;
-       // this.ruleEventid = ruleEventid;
+        this.plRuleEvent = plRuleEvent;
         this.puzzleLevel = puzzleLevel;
     }
 }

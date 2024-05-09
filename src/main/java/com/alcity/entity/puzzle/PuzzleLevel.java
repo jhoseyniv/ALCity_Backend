@@ -92,7 +92,7 @@ public class PuzzleLevel extends BaseTable implements Serializable {
         this.maxScore = maxScore;
     }
 
-    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "puzzle_group_id", nullable = false)
     @JsonIgnore
     private PuzzleGroup puzzleGroup;
@@ -120,19 +120,19 @@ public class PuzzleLevel extends BaseTable implements Serializable {
 
 
 
-    @OneToMany(mappedBy = "puzzleLevel", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "puzzleLevel", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JsonIgnore
     private Collection<PLRule> puzzleLevelRuleCollection;
 
-    @OneToMany(mappedBy = "puzzleLevel", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "puzzleLevel", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JsonIgnore
     private Collection<PLObjective> plObjectives;
 
-    @OneToMany(mappedBy = "puzzleLevel", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "puzzleLevel", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JsonIgnore
     private Collection<PLGround> plGrounds;
 
-    @OneToMany(mappedBy = "puzzleLevel", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "puzzleLevel", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JsonIgnore
     private Collection<PermitedPlayer> permitedPlayerCollection;
 
@@ -228,7 +228,7 @@ public class PuzzleLevel extends BaseTable implements Serializable {
         this.learningSubjectInPLCollection = learningSubjectInPLCollection;
     }
 
-    @OneToMany(mappedBy = "puzzleLevel", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "puzzleLevel", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JsonIgnore
     private Collection<ALCityInstanceInPL> puzzleGroupObjectInstanceCollection;
 

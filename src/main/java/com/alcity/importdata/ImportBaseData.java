@@ -1,9 +1,7 @@
 package com.alcity.importdata;
 
 
-import com.alcity.entity.alenum.BinaryContentType;
-import com.alcity.entity.alenum.UserGender;
-import com.alcity.entity.alenum.WalletItemCategory;
+import com.alcity.entity.alenum.*;
 import com.alcity.entity.alobject.ActionRenderer;
 import com.alcity.entity.alobject.ObjectAction;
 import com.alcity.entity.alobject.ObjectCategory;
@@ -13,6 +11,7 @@ import com.alcity.entity.journey.JourneyLearningSkill;
 import com.alcity.entity.learning.LearningSkill;
 import com.alcity.entity.learning.LearningSkillTopic;
 import com.alcity.entity.learning.LearningTopic;
+import com.alcity.entity.puzzle.PLRuleEvent;
 import com.alcity.entity.users.ApplicationMember;
 import com.alcity.entity.users.ApplicationMember_WalletItem;
 import com.alcity.entity.users.WalletItem;
@@ -25,6 +24,7 @@ import com.alcity.service.base.*;
 import com.alcity.service.learning.LearningSkillService;
 import com.alcity.service.learning.LearningSkill_LearningTopicService;
 import com.alcity.service.learning.LearningTopicService;
+import com.alcity.service.puzzle.PLRuleEventService;
 import com.alcity.service.users.ApplicationMemberService;
 import com.alcity.service.users.ApplicationMember_WalletItemService;
 import com.alcity.service.users.WalletItemService;
@@ -99,6 +99,8 @@ public class ImportBaseData implements CommandLineRunner {
     @Autowired
     ActionRendererService actionRendererService;
 
+    @Autowired
+    PLRuleEventService plRuleEventService;
 
     protected final Log log = LogFactory.getLog(getClass());
 
@@ -168,6 +170,11 @@ public class ImportBaseData implements CommandLineRunner {
         alireza_ClientTypeSet.add(tablet);
         alireza_zarei.setClientTypeSet(alireza_ClientTypeSet);
         applicationMemberService.save(alireza_zarei);
+
+        PLRuleEvent click_ruleEvent = new PLRuleEvent("Click", PLRuleEventType.User_Event, UserEvent.Click.ordinal(),1L,now,now,admin_1,admin_1);
+        plRuleEventService.save(click_ruleEvent);
+
+
 
         //update some fileds
         administrator.setCreatedBy(admin_1);

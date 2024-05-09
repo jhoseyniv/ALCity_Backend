@@ -14,7 +14,7 @@ public class JourneyLearningSkill extends BaseTable implements Serializable {
     @Column(name="requiredAmount")
     private Float requiredAmount;
 
-    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "journey_id", nullable = false)
     @JsonIgnore
     private Journey journey;

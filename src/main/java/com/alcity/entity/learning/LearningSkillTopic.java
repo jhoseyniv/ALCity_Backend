@@ -16,12 +16,12 @@ public class LearningSkillTopic extends BaseTable implements Serializable {
     private String title;
 
 
-    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "learning_skill_id", referencedColumnName = "id")
     @JsonProperty("learningSkill")
     private LearningSkill learningSkill;
 
-    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "learning_topic_id", referencedColumnName = "id")
     @JsonIgnore
     private LearningTopic learningTopic;

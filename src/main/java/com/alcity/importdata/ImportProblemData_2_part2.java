@@ -31,6 +31,7 @@ import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Optional;
 
 
 @Order(value=4)
@@ -2556,21 +2557,18 @@ public class ImportProblemData_2_part2 implements CommandLineRunner {
         AttributeValue img_19_19_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,img_19_19_0_locked_variable,img_19_19_0_locked_variable,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_19_19_0_locked_variable_value);
 
-
+     Optional<PLRuleEvent> click_event = plRuleEventService.findByName("Click");
 
      StringBuffer    pr_select_object_Condition = new StringBuffer("(Object[e.x, e.y].Locked == false)&&(Object[e.x, e.y].Selected == false)&&(((e.x==LastX)&&(e.y==LastY+1))||((e.x==LastX)&&(e.y==LastY-1))||((e.x==LastX+1)&&(e.y==LastY))||((e.x==LastX-1)&&(e.y==LastY)))");
-     PLRule rule_Select_object   = new PLRule("Select object",1
-             ,pr_select_object_Condition,puzzleLevel_Maze,1L,now,now,admin_1,admin_1);
+     PLRule rule_Select_object   = new PLRule("Select object",1 ,pr_select_object_Condition,puzzleLevel_Maze,click_event.get(),1L,now,now,admin_1,admin_1);
      plRuleService.save(rule_Select_object);
 
      StringBuffer    pr_DeSelect_object_Condition = new StringBuffer("(Object[e.x, e.y].Locked == false)&&(Object[e.x, e.y].Selected == false)&&(((e.x==LastX)&&(e.y==LastY+1))||((e.x==LastX)&&(e.y==LastY-1))||((e.x==LastX+1)&&(e.y==LastY))||((e.x==LastX-1)&&(e.y==LastY)))");
-     PLRule rule_DeSelect_object   = new PLRule("De Select object",2
-             ,pr_DeSelect_object_Condition,puzzleLevel_Maze,1L,now,now,admin_1,admin_1);
+     PLRule rule_DeSelect_object   = new PLRule("De Select object",2,pr_DeSelect_object_Condition,puzzleLevel_Maze,click_event.get(),1L,now,now,admin_1,admin_1);
      plRuleService.save(rule_DeSelect_object);
 
      StringBuffer    win_rule_object_Condition = new StringBuffer("(Object[e.x, e.y].Selected == true)&&(e.x==LastX)&&(e.y==LastY)");
-     PLRule rule_win_object   = new PLRule("Win Rule",3
-             ,win_rule_object_Condition,puzzleLevel_Maze,1L,now,now,admin_1,admin_1);
+     PLRule rule_win_object   = new PLRule("Win Rule",3 ,win_rule_object_Condition,puzzleLevel_Maze,click_event.get(),1L,now,now,admin_1,admin_1);
      plRuleService.save(rule_win_object);
      StringBuffer assignmentActionExpression=new StringBuffer(" " );
 

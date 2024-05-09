@@ -20,11 +20,11 @@ public class PuzzleGroup extends BaseTable implements Serializable {
     private String title;
 
 
-    @OneToMany(mappedBy = "puzzleGroup", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "puzzleGroup", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JsonIgnore
     private Collection<JourneyStep> journeyStepCollection;
 
-    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "puzzle_category_id", nullable = false)
     @JsonIgnore
     private PuzzleCategory puzzleCategory;
@@ -40,7 +40,7 @@ public class PuzzleGroup extends BaseTable implements Serializable {
     private BinaryContent pic;
 
 
-    @OneToMany(mappedBy = "puzzleGroup", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "puzzleGroup", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JsonIgnore
     private Collection<ALCityObjectInPG> puzzleGroup_puzzleObjectCollection;
 
@@ -52,7 +52,7 @@ public class PuzzleGroup extends BaseTable implements Serializable {
         this.puzzleGroup_puzzleObjectCollection = puzzleGroup_puzzleObjectCollection;
     }
 
-    @OneToMany(mappedBy = "puzzleGroup", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "puzzleGroup", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JsonIgnore
     private Set<PuzzleSkillLearningContent> puzzleSkillLearningContentSet;
 
@@ -64,7 +64,7 @@ public class PuzzleGroup extends BaseTable implements Serializable {
         this.puzzleSkillLearningContentSet = puzzleSkillLearningContentSet;
     }
 
-    @OneToMany(mappedBy = "puzzleGroup", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "puzzleGroup", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JsonIgnore
     private Set<PuzzleLevel> puzzleLevelSet;
 

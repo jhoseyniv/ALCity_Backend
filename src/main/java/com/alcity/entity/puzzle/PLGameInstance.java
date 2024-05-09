@@ -13,7 +13,7 @@ import java.io.Serializable;
 public class PLGameInstance extends BaseTable implements Serializable {
 
 
-    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "player_id", referencedColumnName = "id")
     @JsonProperty("playerId")
     private ApplicationMember player;

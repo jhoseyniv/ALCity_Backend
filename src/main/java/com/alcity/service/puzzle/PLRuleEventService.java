@@ -4,6 +4,7 @@ package com.alcity.service.puzzle;
 import com.alcity.entity.puzzle.PLRuleEvent;
 import com.alcity.repository.puzzle.PLRuleEventRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import org.springframework.transaction.annotation.Transactional;;
@@ -15,10 +16,11 @@ import java.util.Optional;
 public class PLRuleEventService implements PLRuleEventRepository {
 
    @Autowired
-   PLRuleEventRepository puzzleLevelRuleEventRepository;
+   @Qualifier("PLRuleEventRepository")
+   PLRuleEventRepository plRuleEventRepository ;
     @Override
     public <S extends PLRuleEvent> S save(S entity) {
-        return puzzleLevelRuleEventRepository.save(entity);
+        return plRuleEventRepository.save(entity);
     }
 
     @Override
@@ -77,7 +79,7 @@ public class PLRuleEventService implements PLRuleEventRepository {
     }
 
     @Override
-    public Collection<PLRuleEvent> findByName(String name) {
-        return null;
+    public Optional<PLRuleEvent> findByName(String name) {
+        return plRuleEventRepository.findByName(name);
     }
 }

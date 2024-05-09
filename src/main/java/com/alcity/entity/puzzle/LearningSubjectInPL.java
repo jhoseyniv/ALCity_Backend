@@ -12,17 +12,17 @@ import jakarta.persistence.*;
 public class LearningSubjectInPL extends BaseTable {
 
 
-    @ManyToOne(fetch = FetchType.EAGER, optional = true)
+    @ManyToOne(fetch = FetchType.LAZY, optional = true)
     @JoinColumn(name = "puzzle_Level_id", nullable = true)
     @JsonIgnore
     private PuzzleLevel puzzleLevel;
 
-    @ManyToOne(fetch = FetchType.EAGER, optional = true)
+    @ManyToOne(fetch = FetchType.LAZY, optional = true)
     @JoinColumn(name = "learning_topic_id", nullable = true)
     @JsonIgnore
     private LearningTopic learningTopic;
 
-    @ManyToOne(fetch = FetchType.EAGER, optional = true)
+    @ManyToOne(fetch = FetchType.LAZY, optional = true)
     @JoinColumn(name = "learning_content_id", nullable = true)
     @JsonIgnore
     private LearningContent learningContent;

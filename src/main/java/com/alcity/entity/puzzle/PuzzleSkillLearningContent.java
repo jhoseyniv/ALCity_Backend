@@ -12,17 +12,17 @@ import java.io.Serializable;
 @Entity
 public class PuzzleSkillLearningContent extends BaseTable implements Serializable {
 
-    @ManyToOne(fetch = FetchType.EAGER, optional = true)
+    @ManyToOne(fetch = FetchType.LAZY, optional = true)
     @JoinColumn(name = "learning_skill_id", nullable = true)
     @JsonIgnore
     private LearningSkill learningSkill;
 
-    @ManyToOne(fetch = FetchType.EAGER, optional = true)
+    @ManyToOne(fetch = FetchType.LAZY, optional = true)
     @JoinColumn(name = "puzzle_group_id", nullable = true)
     @JsonIgnore
     private PuzzleGroup puzzleGroup;
 
-    @ManyToOne(fetch = FetchType.EAGER, optional = true)
+    @ManyToOne(fetch = FetchType.LAZY, optional = true)
     @JoinColumn(name = "learning_content_id", nullable = true)
     @JsonIgnore
     private LearningContent learningContent;

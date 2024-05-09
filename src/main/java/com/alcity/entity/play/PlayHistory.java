@@ -11,7 +11,7 @@ import jakarta.persistence.*;
 @Entity
 public class PlayHistory extends BaseTable {
 
-    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "player_id", referencedColumnName = "id")
     @JsonProperty("playerId")
     private ApplicationMember player;

@@ -658,6 +658,7 @@ public class DTOUtil {
             rule.setTitle(puzzleLevelRule.getTitle());
             rule.setOrdering(puzzleLevelRule.getOrdering());
             rule.setConditions(puzzleLevelRule.getCondition());
+            rule.setEvent(puzzleLevelRule.getPlRuleEvent().getName());
             Collection<RuleActionData> actions = getRuleActionData(alCityAttributeService, puzzleLevelRule);
             rule.setActions(actions);
 

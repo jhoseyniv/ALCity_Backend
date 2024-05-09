@@ -10,7 +10,7 @@ import java.util.Collection;
 @Entity
 public class PuzzleCategory extends BaseItemSet implements Serializable {
 
-    @OneToMany(mappedBy = "puzzleCategory", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "puzzleCategory", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Collection<PuzzleGroup> puzzleGroupCollection;
 
     public Collection<PuzzleGroup> getPuzzleGroupCollection() {
