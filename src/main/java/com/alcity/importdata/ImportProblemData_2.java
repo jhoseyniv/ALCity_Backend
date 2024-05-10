@@ -86,7 +86,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
     @Autowired
     ObjectCategoryService objectCategoryService;
     @Autowired
-    PuzzleObjectService puzzleObjectService;
+    ALCityObjectService puzzleObjectService;
     @Autowired
     ALCityObjectInPGService puzzleGroup_PuzzleObjectService;
 

@@ -4,7 +4,6 @@ import com.alcity.ObjectManagmentApplication;
 import com.alcity.entity.alenum.*;
 import com.alcity.entity.alobject.*;
 import com.alcity.entity.base.*;
-import com.alcity.entity.journey.Journey;
 import com.alcity.entity.learning.LearningContent;
 import com.alcity.entity.learning.LearningSkill;
 import com.alcity.entity.learning.LearningTopic;
@@ -88,7 +87,7 @@ public class ImportXOProblemData_3 implements CommandLineRunner {
     ObjectCategoryService objectCategoryService;
 
     @Autowired
-    PuzzleObjectService puzzleObjectService;
+    ALCityObjectService puzzleObjectService;
 
     @Autowired
     ALCityInstanceInPLService pgObjectInstanceService;
@@ -176,8 +175,8 @@ public class ImportXOProblemData_3 implements CommandLineRunner {
         WalletItem alCoin100WalletItem = walletItemService.findByValue("al_coin_100");
         WalletItem alCoin10WalletItem = walletItemService.findByValue("al_coin_10");
 
-        Journey journey_1 = journeyService.findByTitle("Journey_1");
-        Journey journey_2 = journeyService.findByTitle("Journey_2");
+//        Journey journey_1 = journeyService.findByTitle("Journey_1");
+//        Journey journey_2 = journeyService.findByTitle("Journey_2");
 
 
 
@@ -210,9 +209,7 @@ public class ImportXOProblemData_3 implements CommandLineRunner {
         puzzleLevelService.save(puzzleLevel_x_o);
 
 
-        byte[] puzzle_group_X_O_Image = ImageUtil.getImage("src/main/resources/images/X-O Problem/","puzzle_group_X_O_Image.png");
-        BinaryContent puzzle_group_X_O_binary_content = new BinaryContent("X-O",puzzle_group_X_O_Image,BinaryContentType.Image,1L,now,now,admin_1,admin_1);
-        binaryContentService.save(puzzle_group_X_O_binary_content);
+        BinaryContent puzzle_group_1_binary_content = binaryContentService.findByfileName("image_puzzle_group_matematic");
 
         Integer xPos=1;
         Integer xRotation=0;
@@ -227,7 +224,7 @@ public class ImportXOProblemData_3 implements CommandLineRunner {
         PermitedPlayer player_1_puzzleLevel_X_O = new PermitedPlayer(Alireza_Zare,puzzleLevel_x_o,1L,now,now,admin_1,admin_1);
         permitedPlayerRepository.save(player_1_puzzleLevel_X_O);
 
-        LearningContent learningContent_Mathcing=new LearningContent("help to IQ","this content is about X-O Games",puzzle_group_X_O_binary_content,1L,now,now,admin_1,admin_1);
+        LearningContent learningContent_Mathcing=new LearningContent("help to IQ","this content is about X-O Games",puzzle_group_1_binary_content,1L,now,now,admin_1,admin_1);
         learningContentService.save(learningContent_Mathcing);
 
         LearningSubjectInPL puzzleLevelLearningTopic_1 = new LearningSubjectInPL(puzzleLevel_x_o,X_O_Topic,learningContent_Mathcing,1L,now,now,admin_1,admin_1);

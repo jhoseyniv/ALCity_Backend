@@ -6,7 +6,7 @@ import com.alcity.dto.puzzle.PuzzleObjectDTO;
 import com.alcity.entity.alobject.PuzzleObject_ObjectAction;
 import com.alcity.entity.puzzle.ALCityObject;
 import com.alcity.service.alobject.PuzzleObject_ObjectActionService;
-import com.alcity.service.puzzle.PuzzleObjectService;
+import com.alcity.service.puzzle.ALCityObjectService;
 import com.alcity.utility.DTOUtil;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +23,7 @@ import java.util.Optional;
 public class POController {
 
     @Autowired
-    private PuzzleObjectService puzzleObjectService;
+    private ALCityObjectService puzzleObjectService;
 
     @RequestMapping(value = "/id/{id}", method = RequestMethod.GET)
     @ResponseBody

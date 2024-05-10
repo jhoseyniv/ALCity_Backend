@@ -8,13 +8,16 @@ import jakarta.persistence.*;
 import java.io.Serializable;
 import java.util.Collection;
 
+@Table(uniqueConstraints={
+        @UniqueConstraint(columnNames = {"title", "code"})
+})
 @Entity
 public class ALCityObjectInPG extends BaseTable implements Serializable {
 
     @Column(name="title")
     private String title;
 
-    @Column(name="code",unique = true)
+    @Column(name="code")
     private String code;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)

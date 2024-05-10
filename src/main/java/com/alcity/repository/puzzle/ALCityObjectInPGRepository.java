@@ -11,7 +11,7 @@ public interface ALCityObjectInPGRepository extends CrudRepository<ALCityObjectI
     Collection<ALCityObjectInPG> findAll();
 
     Collection<ALCityObjectInPG> findByTitle(String title);
-    ALCityObjectInPG findByCode(String code);
-
+    Collection<ALCityObjectInPG> findByCode(String code);
+    Optional<ALCityObjectInPG> findByCodeAndTitle(String code,String title);
 
 }

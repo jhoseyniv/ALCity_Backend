@@ -303,6 +303,7 @@ public class ImportBaseData implements CommandLineRunner {
         LearningSkill fast_descioin = new LearningSkill("fast decisioning","fast decisioning",1L,now,now,admin_1,admin_1);
         LearningSkill find_paths = new LearningSkill("Find Paths","Find Paths",1L,now,now,admin_1,admin_1);
         LearningSkill matching = new LearningSkill("matching","matching",1L,now,now,admin_1,admin_1);
+        LearningSkill memory_booster = new LearningSkill("memory_booster","memory_booster",1L,now,now,admin_1,admin_1);
 
         learningSkillService.save(constraint);
         learningSkillService.save(loop);
@@ -311,10 +312,12 @@ public class ImportBaseData implements CommandLineRunner {
         learningSkillService.save(fast_descioin);
         learningSkillService.save(find_paths);
         learningSkillService.save(matching);
+        learningSkillService.save(memory_booster);
 
         LearningTopic root_Topic = new LearningTopic("Root Topic",null,1L,now,now,admin_1,admin_1);
         LearningTopic hashImage_Topic = new LearningTopic("Hash Image",root_Topic,1L,now,now,admin_1,admin_1);
         LearningTopic X_O_Topic = new LearningTopic("X-O Game",root_Topic,1L,now,now,admin_1,admin_1);
+        LearningTopic Memory_Game_Topic = new LearningTopic("Memory_Game",root_Topic,1L,now,now,admin_1,admin_1);
         LearningTopic magic_matrix_Topic = new LearningTopic("Magic Matrix",root_Topic,1L,now,now,admin_1,admin_1);
         LearningTopic maze_table_Topic = new LearningTopic("Maze Table",root_Topic,1L,now,now,admin_1,admin_1);
         LearningTopic algorithm_Topic = new LearningTopic("Algorithm",root_Topic,1L,now,now,admin_1,admin_1);
@@ -326,6 +329,7 @@ public class ImportBaseData implements CommandLineRunner {
         learningTopicService.save(algorithm_Topic);
         learningTopicService.save(maze_table_Topic);
         learningTopicService.save(routing_in_the_table);
+        learningTopicService.save(Memory_Game_Topic);
 
 
         LearningSkillTopic learningSkill_learningTopic_1 = new LearningSkillTopic("title1",timeManagement,algorithm_Topic,1L,now,now,admin_1,admin_1);

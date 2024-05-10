@@ -3,6 +3,7 @@ package com.alcity.service.puzzle;
 import com.alcity.entity.puzzle.ALCityObjectInPG;
 import com.alcity.repository.puzzle.ALCityObjectInPGRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import org.springframework.transaction.annotation.Transactional;;
@@ -15,11 +16,12 @@ import java.util.Optional;
 public class ALCityObjectInPGService implements ALCityObjectInPGRepository {
 
     @Autowired
-    ALCityObjectInPGRepository puzzleGroup_PuzzleObjectRepository;
+    @Qualifier("ALCityObjectInPGRepository")
+    ALCityObjectInPGRepository alCityObjectInPGRepository;
 
     @Override
     public <S extends ALCityObjectInPG> S save(S entity) {
-        return puzzleGroup_PuzzleObjectRepository.save(entity);
+        return alCityObjectInPGRepository.save(entity);
     }
 
     @Override
@@ -83,7 +85,12 @@ public class ALCityObjectInPGService implements ALCityObjectInPGRepository {
     }
 
     @Override
-    public ALCityObjectInPG findByCode(String code) {
-        return puzzleGroup_PuzzleObjectRepository.findByCode(code);
+    public Collection<ALCityObjectInPG> findByCode(String code) {
+        return alCityObjectInPGRepository.findByCode(code);
+    }
+
+    @Override
+    public Optional<ALCityObjectInPG> findByCodeAndTitle(String code, String title) {
+        return alCityObjectInPGRepository.findByCodeAndTitle(code,title);
     }
 }

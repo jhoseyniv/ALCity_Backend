@@ -87,7 +87,7 @@ public class ImportProblemData_2_part_3 implements CommandLineRunner {
     @Autowired
     ObjectCategoryService objectCategoryService;
     @Autowired
-    PuzzleObjectService puzzleObjectService;
+    ALCityObjectService puzzleObjectService;
     @Autowired
     ALCityObjectInPGService puzzleGroup_PuzzleObjectService;
 
@@ -152,7 +152,7 @@ public class ImportProblemData_2_part_3 implements CommandLineRunner {
         BinaryContent yellow_space_image  = binaryContentService.findByfileName("yellow_space_image");
         BinaryContent black_space_image  = binaryContentService.findByfileName("black_space_image");
         BinaryContent white_space_image  = binaryContentService.findByfileName("white_space_image");
-       ALCityObjectInPG puzzleGroup_puzzleObject =  puzzleGroup_PuzzleObjectService.findByCode("Maze_ImageObject");
+      // ALCityObjectInPG puzzleGroup_puzzleObject =  puzzleGroup_PuzzleObjectService.findByCode("Maze_ImageObject");
 
         PuzzleLevel   puzzleLevel_Maze = puzzleLevelService.findByCode("4546");
 

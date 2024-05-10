@@ -64,7 +64,7 @@ public class ImportHashImageProblemData_1 implements CommandLineRunner {
 
 
     @Autowired
-    private PLPrivacyService puzzleLevelPrivacyService;
+    private PLPrivacyService plPrivacyService;
 
     @Autowired
     PermitedPlayerRepository permitedPlayerRepository;
@@ -89,7 +89,7 @@ public class ImportHashImageProblemData_1 implements CommandLineRunner {
     ObjectCategoryService objectCategoryService;
 
     @Autowired
-    PuzzleObjectService puzzleObjectService;
+    ALCityObjectService puzzleObjectService;
 
     @Autowired
     ALCityInstanceInPLService pgObjectInstanceService;
@@ -196,7 +196,7 @@ public class ImportHashImageProblemData_1 implements CommandLineRunner {
         journeyStepService.save(step_1_journey_2);
 
 
-        PLPrivacy privacy_1 = puzzleLevelPrivacyService.findByValue("privacy1");
+        PLPrivacy privacy_1 = plPrivacyService.findByValue("privacy1");
 
         PuzzleLevel puzzleLevel_hashimage = new PuzzleLevel(now,1L,"arrange hash image","HASH_IMAGe",10,14,5f,puzzleGroup_1,PLDifficulty.Easy,PLStatus.Ongoing,privacy_1,puzzle_group_binary_content_1,puzzle_group_binary_content_1,3L,now,now,admin_1,admin_1);
         puzzleLevelService.save(puzzleLevel_hashimage);

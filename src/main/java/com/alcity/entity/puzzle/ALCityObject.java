@@ -14,7 +14,7 @@ import java.util.Collection;
 @Entity
 public class ALCityObject extends BaseTable implements Serializable {
 
-    @Column(name="title")
+    @Column(name="title",unique = true)
     private String title;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)

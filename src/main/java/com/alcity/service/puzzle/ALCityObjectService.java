@@ -1,8 +1,9 @@
 package com.alcity.service.puzzle;
 
 import com.alcity.entity.puzzle.ALCityObject;
-import com.alcity.repository.puzzle.PuzzleObjectRepository;
+import com.alcity.repository.puzzle.ALCityObjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -12,15 +13,16 @@ import java.util.Optional;
 
 @Service
 @Transactional
-public class PuzzleObjectService implements PuzzleObjectRepository {
+public class ALCityObjectService implements ALCityObjectRepository {
 
     @Autowired
-    PuzzleObjectRepository puzzleObjectRepository;
+    @Qualifier("ALCityObjectRepository")
+    ALCityObjectRepository alCityObjectRepository ;
 
     @Override
     public <S extends ALCityObject> S save(S entity) {
 
-        return puzzleObjectRepository.save(entity);
+        return alCityObjectRepository.save(entity);
     }
 
     @Override
@@ -30,7 +32,7 @@ public class PuzzleObjectService implements PuzzleObjectRepository {
 
     @Override
     public Optional<ALCityObject> findById(Long id) {
-        return puzzleObjectRepository.findById(id);
+        return alCityObjectRepository.findById(id);
     }
 
     @Override
@@ -79,8 +81,8 @@ public class PuzzleObjectService implements PuzzleObjectRepository {
     }
 
     @Override
-    public Collection<ALCityObject> findByTitle(String title) {
-        return null;
+    public Optional<ALCityObject> findByTitle(String title) {
+        return alCityObjectRepository.findByTitle(title);
     }
 
 
