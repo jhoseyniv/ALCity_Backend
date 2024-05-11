@@ -10,5 +10,4 @@ public interface PLRulePostActionRepository extends CrudRepository<PLRulePostAct
     Optional<PLRulePostAction> findById(Long id);
     Collection<PLRulePostAction> findAll();
     Collection<PLRulePostAction> findByOrdering(Integer ordering);
-    Collection<PLRulePostAction> findByActionExpression(StringBuffer experssion);
 }

@@ -680,7 +680,12 @@ public class DTOUtil {
             ruleActionData.setOrdering(plRulePostAction.getOrdering());
             ruleActionData.setActionName(plRulePostAction.getActionName());
             ruleActionData.setObjectId(plRulePostAction.getObjectId());
+            ruleActionData.setVariable(plRulePostAction.getVariable());
+            ruleActionData.setValueExperssion(plRulePostAction.getValueExperssion());
             ruleActionData.setActionType(plRulePostAction.getPlRulePostActionType().toString());
+            ruleActionData.setAlertMessage(plRulePostAction.getAlertMessage());
+            ruleActionData.setAlertType(plRulePostAction.getAlertType());
+
             parameters = getAttributeForOwnerById(alCityAttributeService , plRulePostAction.getId(), AttributeOwnerType.Puzzle_Level_Rule_Post_Action);
             ruleActionData.setParameters(parameters);
 
@@ -724,10 +729,12 @@ public class DTOUtil {
         if (alCityAttributeValue.getLongValue()!=null )
             return alCityAttributeValue.getLongValue().toString();
 
-        if (alCityAttributeValue.getBinaryContent()!=null )
-            return alCityAttributeValue.getBinaryContent().toString();
+        if (alCityAttributeValue.getBinaryContentId()!=null )
+            return alCityAttributeValue.getBinaryContentId().toString();
 
         if (alCityAttributeValue.getStringValue()!=null )
+            return alCityAttributeValue.getStringValue();
+        if (alCityAttributeValue.getObjectValue()!=null )
             return alCityAttributeValue.getStringValue();
 
         return "Unknown Value";

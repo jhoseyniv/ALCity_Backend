@@ -13,8 +13,11 @@ import java.util.Collection;
 @Entity
 public class PLRulePostAction extends BaseTable implements Serializable {
 
-    @Column(name="actionExpression")
-    private StringBuffer actionExpression;
+    @Column(name="valueExperssion")
+    private StringBuffer valueExperssion;
+
+    @Column(name="variable")
+    private String variable;
 
     @Column(name="ordering")
     private Integer ordering;
@@ -24,6 +27,44 @@ public class PLRulePostAction extends BaseTable implements Serializable {
 
     @Column(name="actionName")
     private String actionName;
+
+    @Column(name="alertType")
+    private String alertType;
+
+    @Column(name="alertMessage")
+    private String alertMessage;
+
+    public StringBuffer getValueExperssion() {
+        return valueExperssion;
+    }
+
+    public void setValueExperssion(StringBuffer valueExperssion) {
+        this.valueExperssion = valueExperssion;
+    }
+
+    public String getVariable() {
+        return variable;
+    }
+
+    public void setVariable(String variable) {
+        this.variable = variable;
+    }
+
+    public String getAlertType() {
+        return alertType;
+    }
+
+    public void setAlertType(String alertType) {
+        this.alertType = alertType;
+    }
+
+    public String getAlertMessage() {
+        return alertMessage;
+    }
+
+    public void setAlertMessage(String alertMessage) {
+        this.alertMessage = alertMessage;
+    }
 
     @Enumerated(EnumType.ORDINAL)
     private PLRulePostActionType plRulePostActionType;
@@ -64,13 +105,6 @@ public class PLRulePostAction extends BaseTable implements Serializable {
         this.rulePostActionEventCollection = rulePostActionEventCollection;
     }
 
-    public StringBuffer getActionExpression() {
-        return actionExpression;
-    }
-
-    public void setActionExpression(StringBuffer actionExpression) {
-        this.actionExpression = actionExpression;
-    }
 
     public Integer getOrdering() {
         return ordering;
@@ -96,12 +130,17 @@ public class PLRulePostAction extends BaseTable implements Serializable {
     public PLRulePostAction() {
     }
 
-    public PLRulePostAction(StringBuffer actionExpression, Integer ordering, String objectId, String actionName, PLRulePostActionType plRulePostActionType, PLRule puzzleLevelRule, Long version, String created, String updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
+    public PLRulePostAction( PLRule puzzleLevelRule , PLRulePostActionType plRulePostActionType, Integer ordering, String actionName,  String objectId,
+                             String variable,StringBuffer valueExperssion,String alertType, String alertMessage ,
+                             Long version, String created, String updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
         super(version, created, updated, createdBy, updatedBy);
-        this.actionExpression = actionExpression;
+        this.valueExperssion = valueExperssion;
+        this.variable = variable;
         this.ordering = ordering;
         this.objectId = objectId;
         this.actionName = actionName;
+        this.alertType = alertType;
+        this.alertMessage = alertMessage;
         this.plRulePostActionType = plRulePostActionType;
         this.puzzleLevelRule = puzzleLevelRule;
     }

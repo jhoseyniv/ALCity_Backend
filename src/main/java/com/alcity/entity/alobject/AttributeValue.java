@@ -24,10 +24,21 @@ public class AttributeValue extends BaseTable implements Serializable {
     @Column(name="stringValue")
     private String stringValue;
 
+    @Column(name="objectValue")
+    private String objectValue;
+
     @Column(name="doubleValue")
     private Float doubleValue;
 
-//    @Column(name="binaryValueId")
+    public String getObjectValue() {
+        return objectValue;
+    }
+
+    public void setObjectValue(String objectValue) {
+        this.objectValue = objectValue;
+    }
+
+    //    @Column(name="binaryValueId")
 //    private Long binaryValueId;
 
     public Boolean getBooleanValue() {
@@ -70,18 +81,16 @@ public class AttributeValue extends BaseTable implements Serializable {
         this.doubleValue = doubleValue;
     }
 
-    public BinaryContent getBinaryContent() {
-        return binaryContent;
+
+    private Long binaryContentId;
+
+    public Long getBinaryContentId() {
+        return binaryContentId;
     }
 
-    public void setBinaryContent(BinaryContent binaryContent) {
-        this.binaryContent = binaryContent;
+    public void setBinaryContentId(Long binaryContentId) {
+        this.binaryContentId = binaryContentId;
     }
-
-    @ManyToOne(fetch = FetchType.LAZY, optional = true)
-    @JoinColumn(name = "binary_content_id", nullable = true)
-    @JsonIgnore
-    private BinaryContent binaryContent;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "binded_attribute_id", nullable = false)
@@ -97,14 +106,15 @@ public class AttributeValue extends BaseTable implements Serializable {
     public AttributeValue() {
     }
 
-    public AttributeValue(Boolean booleanValue, Integer intValue, Long longValue, String stringValue, Float doubleValue, BinaryContent binaryContent, Attribute bindedAttributeId, Attribute attributeId, Long version, String created, String updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
+    public AttributeValue(Boolean booleanValue, Integer intValue, Long longValue, String stringValue,String objectValue, Float doubleValue, Long binaryContentId, Attribute bindedAttributeId, Attribute attributeId, Long version, String created, String updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
         super(version, created, updated, createdBy, updatedBy);
         this.booleanValue = booleanValue;
         this.intValue = intValue;
         this.longValue = longValue;
         this.stringValue = stringValue;
+        this.objectValue = objectValue;
         this.doubleValue = doubleValue;
-        this.binaryContent = binaryContent;
+        this.binaryContentId = binaryContentId;
         this.bindedAttributeId = bindedAttributeId;
         this.attributeId = attributeId;
     }

@@ -10,6 +10,7 @@ import org.hibernate.annotations.Type;
 
 import jakarta.persistence.*;
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Set;
 
 @Entity
@@ -42,9 +43,9 @@ public class BinaryContent extends BaseTable implements Serializable {
         this.learningContentSet = learningContentSet;
     }
 
-    @OneToMany(mappedBy = "binaryContent", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "binaryContentId", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JsonIgnore
-    private Set<AttributeValue> attributeValueSet;
+    private Collection<AttributeValue> attributeValueCollection;
 
     public String getFileName() {
         return fileName;
@@ -78,12 +79,12 @@ public class BinaryContent extends BaseTable implements Serializable {
         this.contentType = contentType;
     }
 
-    public Set<AttributeValue> getAttributeValueSet() {
-        return attributeValueSet;
+    public Collection<AttributeValue> getAttributeValueCollection() {
+        return attributeValueCollection;
     }
 
-    public void setAttributeValueSet(Set<AttributeValue> attributeValueSet) {
-        this.attributeValueSet = attributeValueSet;
+    public void setAttributeValueCollection(Collection<AttributeValue> attributeValueCollection) {
+        this.attributeValueCollection = attributeValueCollection;
     }
 
     public BinaryContent() {

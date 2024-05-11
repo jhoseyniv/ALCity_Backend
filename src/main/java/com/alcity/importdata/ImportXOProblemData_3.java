@@ -272,13 +272,13 @@ public class ImportXOProblemData_3 implements CommandLineRunner {
 
         Attribute attribute_variable_Turn =new Attribute("Turn",puzzleLevel_x_o.getId(), AttributeOwnerType.Puzzle_Level_Variable,DataType.String,1L,now,now,admin_1,admin_1);
         attributeService.save(attribute_variable_Turn);
-        AttributeValue attribute_variable_Turn_value= new AttributeValue(null,null,null,"X",null,null,attribute_variable_Turn,attribute_variable_Turn,1L,now,now,admin_1,admin_1);
+        AttributeValue attribute_variable_Turn_value= new AttributeValue(null,null,null,"X",null,null,null,attribute_variable_Turn,attribute_variable_Turn,1L,now,now,admin_1,admin_1);
         attributeValueService.save(attribute_variable_Turn_value);
 
         Attribute attribute_variable_Finished =new Attribute("Finished",puzzleLevel_x_o.getId(),AttributeOwnerType.Puzzle_Level_Variable,DataType.Boolean,1L,now,now,admin_1,admin_1);
         attributeService.save(attribute_variable_Finished);
 
-        AttributeValue attribute_variable_Finished_value= new AttributeValue(false,null,null,null,null,null,attribute_variable_Finished,attribute_variable_Finished,1L,now,now,admin_1,admin_1);
+        AttributeValue attribute_variable_Finished_value= new AttributeValue(false,null,null,null,null,null,null,attribute_variable_Finished,attribute_variable_Finished,1L,now,now,admin_1,admin_1);
         attributeValueService.save(attribute_variable_Finished_value);
 
         ALCityInstanceInPL obj_1_1 = new ALCityInstanceInPL("obj_1_1",1,1,0,puzzleGroup_puzzleObject,puzzleLevel_x_o,1L,now,now,admin_1,admin_1);
@@ -307,105 +307,163 @@ public class ImportXOProblemData_3 implements CommandLineRunner {
 
         Attribute create_action_param_1 =new Attribute("text",textObject_Create.getId(),AttributeOwnerType.Puzzle_Object_Action_Parameter,DataType.String,1L,now,now,admin_1,admin_1);
         attributeService.save(create_action_param_1);
-        AttributeValue  create_action_param_1_value= new AttributeValue(null,null,null,"InstProp(CurrentInst(), text)",null,null,create_action_param_1,create_action_param_1,1L,now,now,admin_1,admin_1);
+        AttributeValue  create_action_param_1_value= new AttributeValue(null,null,null,"InstProp(CurrentInst(), text)",null,null,null,create_action_param_1,create_action_param_1,1L,now,now,admin_1,admin_1);
         attributeValueService.save(create_action_param_1_value);
 
         Attribute create_action_param_2 =new Attribute("ObjectType",textObject_Create.getId(),AttributeOwnerType.Puzzle_Object_Action_Parameter,DataType.String,1L,now,now,admin_1,admin_1);
         attributeService.save(create_action_param_2);
-        AttributeValue create_action_param_2_value= new AttributeValue(null,null,null,"TextObject",null,null,create_action_param_2,create_action_param_2,1L,now,now,admin_1,admin_1);
+        AttributeValue create_action_param_2_value= new AttributeValue(null,null,null,"TextObject",null,null,null,create_action_param_2,create_action_param_2,1L,now,now,admin_1,admin_1);
         attributeValueService.save(create_action_param_2_value);
 
         PuzzleObject_ObjectAction  textObject_Show = new PuzzleObject_ObjectAction(POActionOwnerType.Puzzle_Object,puzzleGroup_puzzleObject.getId(),ObjectAction.Show,show.get(),1L,now,now,admin_1,admin_1);
         puzzleObject_ObjectActionService.save(textObject_Show);
         Attribute show_action_param_1 =new Attribute("text",textObject_Show.getId(),AttributeOwnerType.Puzzle_Object_Action_Parameter,DataType.String,1L,now,now,admin_1,admin_1);
         attributeService.save(show_action_param_1);
-        AttributeValue  show_action_param_1_value= new AttributeValue(null,null,null,"InstProp(CurrentInst(), text)",null,null,show_action_param_1,show_action_param_1,1L,now,now,admin_1,admin_1);
+        AttributeValue  show_action_param_1_value= new AttributeValue(null,null,null,"InstProp(CurrentInst(), text)",null,null,null,show_action_param_1,show_action_param_1,1L,now,now,admin_1,admin_1);
         attributeValueService.save(show_action_param_1_value);
 
         Attribute object_property_1 =new Attribute("text",puzzleGroup_puzzleObject.getId(),AttributeOwnerType.Puzzle_Group_Object_Property,DataType.String,1L,now,now,admin_1,admin_1);
         attributeService.save(object_property_1);
-        AttributeValue  object_property_1_value= new AttributeValue(null,null,null,"",null,null,object_property_1,object_property_1,1L,now,now,admin_1,admin_1);
+        AttributeValue  object_property_1_value= new AttributeValue(null,null,null,"",null,null,null,object_property_1,object_property_1,1L,now,now,admin_1,admin_1);
         attributeValueService.save(object_property_1_value);
 
 
         Attribute obj_1_1_property_1 =new Attribute("text",obj_1_1.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.String,1L,now,now,admin_1,admin_1);
         attributeService.save(obj_1_1_property_1);
-        AttributeValue  obj_1_1_property_1_value= new AttributeValue(null,null,null,"",null,null,obj_1_1_property_1,obj_1_1_property_1,1L,now,now,admin_1,admin_1);
+        AttributeValue  obj_1_1_property_1_value= new AttributeValue(null,null,null,"",null,null,null,obj_1_1_property_1,obj_1_1_property_1,1L,now,now,admin_1,admin_1);
         attributeValueService.save(obj_1_1_property_1_value);
 
         Attribute obj_1_2_property_1 =new Attribute("text",obj_1_2.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.String,1L,now,now,admin_1,admin_1);
         attributeService.save(obj_1_2_property_1);
-        AttributeValue  obj_1_2_property_1_value= new AttributeValue(null,null,null,"",null,null,obj_1_2_property_1,obj_1_2_property_1,1L,now,now,admin_1,admin_1);
+        AttributeValue  obj_1_2_property_1_value= new AttributeValue(null,null,null,"",null,null,null,obj_1_2_property_1,obj_1_2_property_1,1L,now,now,admin_1,admin_1);
         attributeValueService.save(obj_1_2_property_1_value);
 
         Attribute obj_1_3_property_1 =new Attribute("text",obj_1_3.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.String,1L,now,now,admin_1,admin_1);
         attributeService.save(obj_1_3_property_1);
-        AttributeValue  obj_1_3_property_1_value= new AttributeValue(null,null,null,"",null,null,obj_1_3_property_1,obj_1_3_property_1,1L,now,now,admin_1,admin_1);
+        AttributeValue  obj_1_3_property_1_value= new AttributeValue(null,null,null,"",null,null,null,obj_1_3_property_1,obj_1_3_property_1,1L,now,now,admin_1,admin_1);
         attributeValueService.save(obj_1_3_property_1_value);
 
         Attribute obj_2_1_property_1 =new Attribute("text",obj_2_1.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.String,1L,now,now,admin_1,admin_1);
         attributeService.save(obj_2_1_property_1);
-        AttributeValue  obj_2_1_property_1_value= new AttributeValue(null,null,null,"",null,null,obj_2_1_property_1,obj_2_1_property_1,1L,now,now,admin_1,admin_1);
+        AttributeValue  obj_2_1_property_1_value= new AttributeValue(null,null,null,"",null,null,null,obj_2_1_property_1,obj_2_1_property_1,1L,now,now,admin_1,admin_1);
         attributeValueService.save(obj_2_1_property_1_value);
 
         Attribute obj_2_2_property_1 =new Attribute("text",obj_2_2.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.String,1L,now,now,admin_1,admin_1);
         attributeService.save(obj_2_2_property_1);
-        AttributeValue  obj_2_2_property_1_value= new AttributeValue(null,null,null,"",null,null,obj_2_2_property_1,obj_2_2_property_1,1L,now,now,admin_1,admin_1);
+        AttributeValue  obj_2_2_property_1_value= new AttributeValue(null,null,null,"",null,null,null,obj_2_2_property_1,obj_2_2_property_1,1L,now,now,admin_1,admin_1);
         attributeValueService.save(obj_2_2_property_1_value);
 
         Attribute obj_2_3_property_1 =new Attribute("text",obj_2_3.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.String,1L,now,now,admin_1,admin_1);
         attributeService.save(obj_2_3_property_1);
-        AttributeValue  obj_2_3_property_1_value= new AttributeValue(null,null,null,"",null,null,obj_2_3_property_1,obj_2_3_property_1,1L,now,now,admin_1,admin_1);
+        AttributeValue  obj_2_3_property_1_value= new AttributeValue(null,null,null,"",null,null,null,obj_2_3_property_1,obj_2_3_property_1,1L,now,now,admin_1,admin_1);
         attributeValueService.save(obj_2_3_property_1_value);
 
         Attribute obj_3_1_property_1 =new Attribute("text",obj_3_1.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.String,1L,now,now,admin_1,admin_1);
         attributeService.save(obj_3_1_property_1);
-        AttributeValue  obj_3_1_property_1_value= new AttributeValue(null,null,null,"",null,null,obj_3_1_property_1,obj_3_1_property_1,1L,now,now,admin_1,admin_1);
+        AttributeValue  obj_3_1_property_1_value= new AttributeValue(null,null,null,"",null,null,null,obj_3_1_property_1,obj_3_1_property_1,1L,now,now,admin_1,admin_1);
         attributeValueService.save(obj_3_1_property_1_value);
 
         Attribute obj_3_2_property_1 =new Attribute("text",obj_3_2.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.String,1L,now,now,admin_1,admin_1);
         attributeService.save(obj_3_2_property_1);
-        AttributeValue  obj_3_2_property_1_value= new AttributeValue(null,null,null,"",null,null,obj_3_2_property_1,obj_3_2_property_1,1L,now,now,admin_1,admin_1);
+        AttributeValue  obj_3_2_property_1_value= new AttributeValue(null,null,null,"",null,null,null,obj_3_2_property_1,obj_3_2_property_1,1L,now,now,admin_1,admin_1);
         attributeValueService.save(obj_3_2_property_1_value);
 
         Attribute obj_3_3_property_1 =new Attribute("text",obj_3_3.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.String,1L,now,now,admin_1,admin_1);
         attributeService.save(obj_3_3_property_1);
-        AttributeValue  obj_3_3_property_1_value= new AttributeValue(null,null,null,"",null,null,obj_3_3_property_1,obj_3_3_property_1,1L,now,now,admin_1,admin_1);
+        AttributeValue  obj_3_3_property_1_value= new AttributeValue(null,null,null,"",null,null,null,obj_3_3_property_1,obj_3_3_property_1,1L,now,now,admin_1,admin_1);
         attributeValueService.save(obj_3_3_property_1_value);
 
         Optional<PLRuleEvent> click_event = plRuleEventService.findByName("Click");
+        Optional<PLRuleEvent> Internal_Event = plRuleEventService.findByName("Internal_Event");
 
 
         StringBuffer    Click_NON_EMPTY_Cell_condition = new StringBuffer("unequal(InstProp(InstByPos(EventParam(row), EventParam(col)), text),null)");
         PLRule Click_NON_EMPTY_Cell_rule = new PLRule("Click NON_EMPTY Cell",1 ,Click_NON_EMPTY_Cell_condition,puzzleLevel_x_o,click_event.get(),1L,now,now,admin_1,admin_1);
         puzzleLevelRuleService.save(Click_NON_EMPTY_Cell_rule);
 
-        PLRulePostAction Click_NON_EMPTY_Cell_rule_showMessage = new PLRulePostAction(new StringBuffer("Show Message"),1,"","",PLRulePostActionType.User_Alert,Click_NON_EMPTY_Cell_rule,1L,now,now,admin_1,admin_1);
+        PLRulePostAction Click_NON_EMPTY_Cell_rule_showMessage = new PLRulePostAction(Click_NON_EMPTY_Cell_rule,PLRulePostActionType.User_Alert,0,"","",
+                "",new StringBuffer(""),"error","Cell is not empty!",1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(Click_NON_EMPTY_Cell_rule_showMessage);
-
-//        Attribute win_rule_PostAction_1_param_1 =new Attribute("actionId",win_rule_PostAction_1_showMessage.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action,DataType.String,1L,now,now,admin_1,admin_1);
-//        attributeService.save(win_rule_PostAction_1_param_1);
-//
-//        AttributeValue win_rule_PostAction_1_param_1_value= new AttributeValue(null,null,null,"show message action id",null,null,win_rule_PostAction_1_param_1,win_rule_PostAction_1_param_1,1L,now,now,admin_1,admin_1);
-//        attributeValueService.save(win_rule_PostAction_1_param_1_value);
-
-
 
         StringBuffer    X_Turn_condition = new StringBuffer("unequal(BoardVar(finished),true) & equal(BoardVar(turn),X)&equal(InstProp(InstByPos(EventParam(row), EventParam(col)), text),null)");
         PLRule X_Turn_rule = new PLRule("X Turn",1 ,X_Turn_condition,puzzleLevel_x_o,click_event.get(),1L,now,now,admin_1,admin_1);
         puzzleLevelRuleService.save(X_Turn_rule);
 
+        PLRulePostAction  X_Turn_post_Action_1 = new PLRulePostAction(X_Turn_rule,PLRulePostActionType.Variable_Assignment_Action,0,"","",
+                "InstProp(InstByPos(EventParam(row), EventParam(col)), text)",new StringBuffer("X"),"","",1L ,now,now,admin_1,admin_1);
+        plRulePostActionService.save(X_Turn_post_Action_1);
+
+        PLRulePostAction X_Turn_post_Action_2 = new PLRulePostAction(X_Turn_rule,PLRulePostActionType.Call_Object_Action,0,"show","InstByPos(EventParam(row), EventParam(col))",
+                "",new StringBuffer(""),"","",1L ,now,now,admin_1,admin_1);
+        plRulePostActionService.save(X_Turn_post_Action_2);
+
+        PLRulePostAction X_Turn_post_Action_3 = new PLRulePostAction(X_Turn_rule,PLRulePostActionType.Fire_Event,0,"","",
+                "",new StringBuffer(""),"","",1L ,now,now,admin_1,admin_1);
+        plRulePostActionService.save(X_Turn_post_Action_3);
+
+        PLRulePostAction X_Turn_post_Action_4 = new PLRulePostAction(X_Turn_rule,PLRulePostActionType.Variable_Assignment_Action,0,"","",
+                "BoardVar(turn)",new StringBuffer("O"),"","",1L ,now,now,admin_1,admin_1);
+        plRulePostActionService.save(X_Turn_post_Action_4);
+
+
+
         StringBuffer    O_Turn_condition = new StringBuffer("unequal(BoardVar(finished),true) & equal(BoardVar(turn),O)&equal(InstProp(InstByPos(EventParam(row), EventParam(col)), text),null)");
         PLRule O_Turn_rule = new PLRule("O Turn",1 ,O_Turn_condition,puzzleLevel_x_o,click_event.get(),1L,now,now,admin_1,admin_1);
         puzzleLevelRuleService.save(O_Turn_rule);
+
+        PLRulePostAction  O_Turn_post_Action_1 = new PLRulePostAction(O_Turn_rule,PLRulePostActionType.Variable_Assignment_Action,0,"","",
+                "InstProp(InstByPos(EventParam(row), EventParam(col)), text)",new StringBuffer("O"),"","",1L ,now,now,admin_1,admin_1);
+        plRulePostActionService.save(O_Turn_post_Action_1);
+
+        PLRulePostAction O_Turn_post_Action_2 = new PLRulePostAction(O_Turn_rule,PLRulePostActionType.Call_Object_Action,0,"show","InstByPos(EventParam(row), EventParam(col))",
+                "",new StringBuffer(""),"","",1L ,now,now,admin_1,admin_1);
+        plRulePostActionService.save(O_Turn_post_Action_2);
+
+        PLRulePostAction O_Turn_post_Action_3 = new PLRulePostAction(O_Turn_rule,PLRulePostActionType.Fire_Event,0,"","",
+                "",new StringBuffer(""),"","",1L ,now,now,admin_1,admin_1);
+        plRulePostActionService.save(O_Turn_post_Action_3);
+
+        PLRulePostAction O_Turn_post_Action_4 = new PLRulePostAction(O_Turn_rule,PLRulePostActionType.Variable_Assignment_Action,0,"","",
+                "BoardVar(turn)",new StringBuffer("X"),"","",1L ,now,now,admin_1,admin_1);
+        plRulePostActionService.save(O_Turn_post_Action_4);
+
 
         StringBuffer    Game_Finished_Error_condition = new StringBuffer("equal(BoardVar(finished),true)");
         PLRule Game_Finished_Error_rule = new PLRule("Game Finished Error",1 ,Game_Finished_Error_condition,puzzleLevel_x_o,click_event.get(),1L,now,now,admin_1,admin_1);
         puzzleLevelRuleService.save(Game_Finished_Error_rule);
 
+        PLRulePostAction Game_Finished_Post_Action_1 = new PLRulePostAction(Game_Finished_Error_rule,PLRulePostActionType.User_Alert,0,"","",
+                "",new StringBuffer(""),"info","Game has finished!",1L ,now,now,admin_1,admin_1);
+        plRulePostActionService.save(Game_Finished_Post_Action_1);
+
+
         StringBuffer    X_Win_Rule_condition = new StringBuffer("equal(BoardVar(finished),true)");
         PLRule X_Win_Rule_rule = new PLRule("X Win Rule",1 ,X_Win_Rule_condition,puzzleLevel_x_o,click_event.get(),1L,now,now,admin_1,admin_1);
         puzzleLevelRuleService.save(X_Win_Rule_rule);
+
+        PLRulePostAction X_Win_Rule_rule_post_Action_1 = new PLRulePostAction(X_Win_Rule_rule,PLRulePostActionType.Variable_Assignment_Action,0,"","",
+                "BoardVar(finished)",new StringBuffer("true"),"","",1L ,now,now,admin_1,admin_1);
+        plRulePostActionService.save(X_Win_Rule_rule_post_Action_1);
+
+
+        PLRulePostAction X_Win_Rule_rule_post_Action_2 = new PLRulePostAction(X_Win_Rule_rule,PLRulePostActionType.User_Alert,0,"","",
+                "",new StringBuffer(""),"info","X won!",1L ,now,now,admin_1,admin_1);
+        plRulePostActionService.save(X_Win_Rule_rule_post_Action_2);
+
+
+        StringBuffer    O_Win_Rule_condition = new StringBuffer("equal(BoardVar(finished),true)");
+        PLRule O_Win_Rule_rule = new PLRule("O Win Rule",1 ,O_Win_Rule_condition,puzzleLevel_x_o,Internal_Event.get(),1L,now,now,admin_1,admin_1);
+        puzzleLevelRuleService.save(O_Win_Rule_rule);
+
+        PLRulePostAction O_Win_Rule_rule_post_Action_1 = new PLRulePostAction(O_Win_Rule_rule,PLRulePostActionType.Variable_Assignment_Action,0,"","",
+                "BoardVar(finished)",new StringBuffer("true"),"","",1L ,now,now,admin_1,admin_1);
+        plRulePostActionService.save(O_Win_Rule_rule_post_Action_1);
+
+
+        PLRulePostAction O_Win_Rule_rule_post_Action_2 = new PLRulePostAction(O_Win_Rule_rule,PLRulePostActionType.User_Alert,0,"","",
+                "",new StringBuffer(""),"info","O Won!",1L ,now,now,admin_1,admin_1);
+        plRulePostActionService.save(O_Win_Rule_rule_post_Action_2);
+
 
 
     }

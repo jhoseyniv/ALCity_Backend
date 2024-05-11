@@ -2,17 +2,20 @@ package com.alcity.importdata;
 
 import com.alcity.ObjectManagmentApplication;
 import com.alcity.entity.alenum.BinaryContentType;
+import com.alcity.entity.alenum.GameStatus;
 import com.alcity.entity.alenum.PLDifficulty;
 import com.alcity.entity.alenum.PLStatus;
 import com.alcity.entity.alobject.ObjectCategory;
 import com.alcity.entity.base.BinaryContent;
+import com.alcity.entity.base.CameraSetup;
 import com.alcity.entity.base.PLPrivacy;
 import com.alcity.entity.journey.Journey;
+import com.alcity.entity.learning.LearningContent;
 import com.alcity.entity.learning.LearningSkill;
 import com.alcity.entity.learning.LearningTopic;
-import com.alcity.entity.puzzle.ALCityObject;
-import com.alcity.entity.puzzle.PuzzleGroup;
-import com.alcity.entity.puzzle.PuzzleLevel;
+import com.alcity.entity.play.PermitedPlayer;
+import com.alcity.entity.play.PlayHistory;
+import com.alcity.entity.puzzle.*;
 import com.alcity.entity.users.ApplicationMember;
 import com.alcity.entity.users.WalletItem;
 import com.alcity.repository.play.PermitedPlayerRepository;
@@ -183,15 +186,15 @@ public class Import_F_G_BProblemData_5 implements CommandLineRunner {
 
 
 
-        byte[]  planyGround_F_G_B_bytes = ImageUtil.getImage("src/main/resources/images/Memory-Game/","MemGame.png");
+        byte[]  planyGround_F_G_B_bytes = ImageUtil.getImage("src/main/resources/images/Fox-Goose-Bean/","playGround.png");
         BinaryContent playGround_F_G_B_content = new BinaryContent("puzzle ground for Memory Game",planyGround_F_G_B_bytes,BinaryContentType.Image,1L,now,now,admin_1,admin_1);
         binaryContentService.save(playGround_F_G_B_content);
 
-        byte[] pl_Icon__F_G_B_bytes = ImageUtil.getImage("src/main/resources/images/Memory-Game/","MemGame_icon.png");
+        byte[] pl_Icon__F_G_B_bytes = ImageUtil.getImage("src/main/resources/images/Fox-Goose-Bean/","F_G_B_Icon.png");
         BinaryContent pl_Icon_F_G_B_content = new BinaryContent("Memory_Game_Icon",pl_Icon__F_G_B_bytes,BinaryContentType.Image,1L,now,now,admin_1,admin_1);
         binaryContentService.save(pl_Icon_F_G_B_content);
 
-        byte[] pl_pic_F_G_B_bytes = ImageUtil.getImage("src/main/resources/images/Memory-Game/","MemGame.png");
+        byte[] pl_pic_F_G_B_bytes = ImageUtil.getImage("src/main/resources/images/Fox-Goose-Bean/","F_G_B.png");
         BinaryContent pl_pic_F_G_B_content = new BinaryContent("Memory_Game_Picture",pl_pic_F_G_B_bytes,BinaryContentType.Image,1L,now,now,admin_1,admin_1);
         binaryContentService.save(pl_pic_F_G_B_content);
 
@@ -201,11 +204,11 @@ public class Import_F_G_BProblemData_5 implements CommandLineRunner {
         BinaryContent textObject_binary_content = new BinaryContent("text_object_x-o",text_object_content,BinaryContentType.Image,1L,now,now,admin_1,admin_1);
         binaryContentService.save(textObject_binary_content);
 
-        ObjectCategory objectCategory_TextObject = objectCategoryService.findByValue("TextObject");
-
-        Optional<PuzzleGroup>  IQ_Puzzle_Group =puzzleGroupService.findByTitle("Maze Image - Puzzle Group 2");
-
-        Optional<ALCityObject> textObject = puzzleObjectService.findByTitle("TextObject");
+//        ObjectCategory objectCategory_TextObject = objectCategoryService.findByValue("TextObject");
+//
+       Optional<PuzzleGroup>  IQ_Puzzle_Group = puzzleGroupService.findByTitle("Maze Image - Puzzle Group 2");
+//
+//        Optional<ALCityObject> textObject = puzzleObjectService.findByTitle("TextObject");
 
 //        ALCityObjectInPG puzzleGroup_puzzleObject = new ALCityObjectInPG("Image Hash Puzzle Group with Text Object","X_O_textObject",IQ_Puzzle_Group.get(),textObject,1L,now,now,admin_1,admin_1);
 //        puzzleGroup_PuzzleObjectService.save(puzzleGroup_puzzleObject);
@@ -213,73 +216,48 @@ public class Import_F_G_BProblemData_5 implements CommandLineRunner {
 
         PLPrivacy privacy_1 = plPrivacyService.findByValue("privacy1");
 
-        PuzzleLevel puzzleLevel_x_o = new PuzzleLevel(now,1L,"Fox-Goose-Bean","4502",10,14,5f,IQ_Puzzle_Group.get(),PLDifficulty.Easy,PLStatus.Ongoing,privacy_1,pl_pic_F_G_B_content,pl_Icon_F_G_B_content,3L,now,now,admin_1,admin_1);
-        puzzleLevelService.save(puzzleLevel_x_o);
+        PuzzleLevel pl_F_G_B = new PuzzleLevel(now,1L,"Fox-Goose-Bean","4502",10,14,5f,IQ_Puzzle_Group.get(),PLDifficulty.Easy,PLStatus.Ongoing,privacy_1,pl_pic_F_G_B_content,pl_Icon_F_G_B_content,3L,now,now,admin_1,admin_1);
+        puzzleLevelService.save(pl_F_G_B);
 
 
-//        byte[] puzzle_group_X_O_Image = ImageUtil.getImage("src/main/resources/images/X-O Problem/","puzzle_group_X_O_Image.png");
-//        BinaryContent puzzle_group_X_O_learning_content = new BinaryContent("X-O",puzzle_group_X_O_Image,BinaryContentType.Image,1L,now,now,admin_1,admin_1);
-//        binaryContentService.save(puzzle_group_X_O_learning_content);
-//
-//        Integer xPos=1;
-//        Integer xRotation=0;
-//        CameraSetup cameraSetup = new CameraSetup(1L,now,now,admin_1,admin_1,xPos,xPos,xPos,xRotation,xRotation,xRotation);
-//        cameraSetupService.save(cameraSetup);
-//
-//
-//        PLGround puzzleLevel_X_O_ground = new PLGround(3,3,puzzleLevel_x_o,playGround_Memory_Game_content,1L,now,now,admin_1,admin_1);
-//        puzzleLevel_X_O_ground.setCameraSetup(cameraSetup);
-//        puzzleLevelGroundService.save(puzzleLevel_X_O_ground);
-//
-//        PermitedPlayer player_1_puzzleLevel_X_O = new PermitedPlayer(Alireza_Zare,puzzleLevel_x_o,1L,now,now,admin_1,admin_1);
-//        permitedPlayerRepository.save(player_1_puzzleLevel_X_O);
-//
-//        LearningContent learningContent_Mathcing=new LearningContent("help to IQ","this content is about X-O Games",puzzle_group_X_O_learning_content,1L,now,now,admin_1,admin_1);
-//        learningContentService.save(learningContent_Mathcing);
-//
-//        LearningSubjectInPL puzzleLevelLearningTopic_1 = new LearningSubjectInPL(puzzleLevel_x_o,X_O_Topic,learningContent_Mathcing,1L,now,now,admin_1,admin_1);
-//        plLearningTopicService.save(puzzleLevelLearningTopic_1);
-//
-//        PlayHistory playHistory_1 = new PlayHistory(Alireza_Zare,puzzleLevel_x_o,now,100,10f,1L,now,now,Alireza_Zare,Alireza_Zare);
-//        playHistoryService.save(playHistory_1);
-//
-//        PuzzleSkillLearningContent puzzleSkillLearningContent_1 = new PuzzleSkillLearningContent(matching,IQ_Puzzle_Group.get(),learningContent_Mathcing,1L,now,now,admin_1,admin_1);
-//        puzzleSkillLearningContentService.save(puzzleSkillLearningContent_1);
-//
-//        PLGameInstance puzzleLevelGameInstance= new PLGameInstance(jalalHoseyni,puzzleLevel_x_o,GameStatus.gameStatus_1,1L,now,now,Alireza_Zare,Alireza_Zare);
-//        plGameInstanceService.save(puzzleLevelGameInstance);
-//
-//        StringBuffer  condition_Objective_1 = new StringBuffer("(equal(InstProp(InstByPos(2, 2),text),X) & " +
-//                "( (equal(InstProp(InstByPos(2, 1),text),X)&equal(InstProp(InstByPos(2, 3),text),X)) |"+
-//                        "(equal(InstProp(InstByPos(1, 2),text),X)&equal(InstProp(InstByPos(3, 2),text),X)) |   " +
-//                        " (equal(InstProp(InstByPos(1, 1),text),X)&equal(InstProp(InstByPos(3, 3),text),X)) | " +
-//                        "(equal(InstProp(InstByPos(1, 3),text),X)&equal(InstProp(InstByPos(3, 1),text),X))))| "+
-//                        "(equal(InstProp(InstByPos(1, 1),text),X) & ((equal(InstProp(InstByPos(1, 2),text),X)&equal(InstProp(InstByPos(1, 3),text),X)) | " +
-//                        "(equal(InstProp(InstByPos(2, 1),text),X)&equal(InstProp(InstByPos(3, 1),text),X))))|(equal(InstProp(InstByPos(3, 3),text),X) & " +
-//                "((equal(InstProp(InstByPos(2, 3),text),X)&equal(InstProp(InstByPos(1, 3),text),X)) | " +
-//                        "(equal(InstProp(InstByPos(3, 1),text),X)&equal(InstProp(InstByPos(3, 2),text),X))))");
-//
-//        PLObjective puzzleLevelObjective_1 = new PLObjective("X won","X won the game",1.5f,2f,condition_Objective_1,matching,
-//                                                                 alCoin10WalletItem,puzzleLevel_x_o ,1L,now,now,admin_1,admin_1);
-//        plObjectiveService.save(puzzleLevelObjective_1);
-//
-//        StringBuffer  condition_Objective_2 = new StringBuffer("(equal(InstProp(InstByPos(2, 2),text),O) & " +
-//                "( (equal(InstProp(InstByPos(2, 1),text),O)& equal(InstProp(InstByPos(2, 3),text),O)) | " +
-//                " (equal(InstProp(InstByPos(1, 2),text),O)& equal(InstProp(InstByPos(3, 2),text),O)) " +
-//                "| (equal(InstProp(InstByPos(1, 1),text),O)& equal(InstProp(InstByPos(3, 3),text),O))" +
-//                " |(equal(InstProp(InstByPos(1, 3),text),O)& equal(InstProp(InstByPos(3, 1),text),O))))|" +
-//                " (equal(InstProp(InstByPos(1, 1),text),O) & ((equal(InstProp(InstByPos(1, 2),text),O) &" +
-//                " equal(InstProp(InstByPos(1, 3),text),O))" +
-//                " |(equal(InstProp(InstByPos(2, 1),text),O)& equal(InstProp(InstByPos(3, 1),text),O))))|" +
-//                "(equal(InstProp(InstByPos(3, 3),text),O) & ((equal(InstProp(InstByPos(2, 3),text),O) & " +
-//                "equal(InstProp(InstByPos(1, 3),text),O)) " +
-//                "|(equal(InstProp(InstByPos(3, 1),text),O)& equal(InstProp(InstByPos(3, 2),text),O))))");
-//
-//        PLObjective puzzleLevelObjective_2 = new PLObjective("O won","O won the game",5.5f,5f,condition_Objective_2,timeManagement,
-//                alCoin10WalletItem,puzzleLevel_x_o ,1L,now,now,admin_1,admin_1);
-//        plObjectiveService.save(puzzleLevelObjective_2);
-//
-//
+        byte[]  F_G_B_Learning_Bytes = ImageUtil.getImage("src/main/resources/images/Fox-Goose-Bean/","F_G_B_Iearning_content.png");
+        BinaryContent F_G_B_learning_content = new BinaryContent("Fox-Goose-Bean",F_G_B_Learning_Bytes,BinaryContentType.Image,1L,now,now,admin_1,admin_1);
+        binaryContentService.save(F_G_B_learning_content);
+
+        Integer xPos=1;
+        Integer xRotation=0;
+        CameraSetup cameraSetup = new CameraSetup(1L,now,now,admin_1,admin_1,xPos,xPos,xPos,xRotation,xRotation,xRotation);
+        cameraSetupService.save(cameraSetup);
+
+
+        PLGround pl_F_G_B_ground = new PLGround(3,4,pl_F_G_B,playGround_F_G_B_content,1L,now,now,admin_1,admin_1);
+        pl_F_G_B_ground.setCameraSetup(cameraSetup);
+        puzzleLevelGroundService.save(pl_F_G_B_ground);
+
+        PermitedPlayer player_1_puzzleLevel_X_O = new PermitedPlayer(Alireza_Zare,pl_F_G_B,1L,now,now,admin_1,admin_1);
+        permitedPlayerRepository.save(player_1_puzzleLevel_X_O);
+
+        LearningContent learningContent_Mathcing=new LearningContent("help to IQ","this content is about F_G_B Games",F_G_B_learning_content,1L,now,now,admin_1,admin_1);
+        learningContentService.save(learningContent_Mathcing);
+
+        LearningSubjectInPL puzzleLevelLearningTopic_1 = new LearningSubjectInPL(pl_F_G_B,X_O_Topic,learningContent_Mathcing,1L,now,now,admin_1,admin_1);
+        plLearningTopicService.save(puzzleLevelLearningTopic_1);
+
+        PlayHistory playHistory_1 = new PlayHistory(Alireza_Zare,pl_F_G_B,now,100,10f,1L,now,now,Alireza_Zare,Alireza_Zare);
+        playHistoryService.save(playHistory_1);
+
+        PuzzleSkillLearningContent puzzleSkillLearningContent_1 = new PuzzleSkillLearningContent(matching,IQ_Puzzle_Group.get(),learningContent_Mathcing,1L,now,now,admin_1,admin_1);
+        puzzleSkillLearningContentService.save(puzzleSkillLearningContent_1);
+
+        PLGameInstance puzzleLevelGameInstance= new PLGameInstance(jalalHoseyni,pl_F_G_B, GameStatus.gameStatus_1,1L,now,now,Alireza_Zare,Alireza_Zare);
+        plGameInstanceService.save(puzzleLevelGameInstance);
+
+        StringBuffer  condition_Objective_1 = new StringBuffer("unequal(InstByPos(1, 4),null) & unequal(InstByPos(2, 4),null) & unequal(InstByPos(3, 4),null)");
+
+        PLObjective puzzleLevelObjective_1 = new PLObjective("finished","mission completed",1.5f,2f,condition_Objective_1,matching, alCoin10WalletItem,pl_F_G_B ,1L,now,now,admin_1,admin_1);
+        plObjectiveService.save(puzzleLevelObjective_1);
+
+
 //        Attribute attribute_variable_Turn =new Attribute("Turn",puzzleLevel_x_o.getId(), AttributeOwnerType.Puzzle_Level_Variable,DataType.String,1L,now,now,admin_1,admin_1);
 //        attributeService.save(attribute_variable_Turn);
 //        AttributeValue attribute_variable_Turn_value= new AttributeValue(null,null,null,"X",null,null,attribute_variable_Turn,attribute_variable_Turn,1L,now,now,admin_1,admin_1);

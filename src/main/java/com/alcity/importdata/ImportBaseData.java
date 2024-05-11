@@ -172,7 +172,9 @@ public class ImportBaseData implements CommandLineRunner {
         applicationMemberService.save(alireza_zarei);
 
         PLRuleEvent click_ruleEvent = new PLRuleEvent("Click", PLRuleEventType.User_Event, UserEvent.Click.ordinal(),1L,now,now,admin_1,admin_1);
+        PLRuleEvent Internal_Event = new PLRuleEvent("Internal_Event", PLRuleEventType.System_Event, SystemEvent.Internal_Event.ordinal(),1L,now,now,admin_1,admin_1);
         plRuleEventService.save(click_ruleEvent);
+        plRuleEventService.save(Internal_Event);
 
 
 

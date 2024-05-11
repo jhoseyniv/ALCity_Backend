@@ -84,8 +84,4 @@ public class PLRulePostActionService implements PLRulePostActionRepository {
         return null;
     }
 
-    @Override
-    public Collection<PLRulePostAction> findByActionExpression(StringBuffer experssion) {
-        return null;
-    }
-}
+ }

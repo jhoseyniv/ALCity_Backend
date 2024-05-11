@@ -7,6 +7,12 @@ public class RuleActionData {
     private Integer ordering;
     private String objectId;
     private String actionName;
+
+    private String variable;
+    private StringBuffer valueExperssion;
+    private String alertType;
+    private String alertMessage;
+
     private Collection<RecordrData> parameters;
 
     public String getActionType() {
@@ -52,11 +58,47 @@ public class RuleActionData {
     public RuleActionData() {
     }
 
-    public RuleActionData(String actionType, Integer ordering, String objectId, String actionName, Collection<RecordrData> parameters) {
+    public String getVariable() {
+        return variable;
+    }
+
+    public void setVariable(String variable) {
+        this.variable = variable;
+    }
+
+    public StringBuffer getValueExperssion() {
+        return valueExperssion;
+    }
+
+    public void setValueExperssion(StringBuffer valueExperssion) {
+        this.valueExperssion = valueExperssion;
+    }
+
+    public String getAlertType() {
+        return alertType;
+    }
+
+    public void setAlertType(String alertType) {
+        this.alertType = alertType;
+    }
+
+    public String getAlertMessage() {
+        return alertMessage;
+    }
+
+    public void setAlertMessage(String alertMessage) {
+        this.alertMessage = alertMessage;
+    }
+
+    public RuleActionData(String actionType, Integer ordering, String objectId, String actionName, String variable, StringBuffer valueExperssion, String alertType, String alertMessage, Collection<RecordrData> parameters) {
         this.actionType = actionType;
         this.ordering = ordering;
         this.objectId = objectId;
         this.actionName = actionName;
+        this.variable = variable;
+        this.valueExperssion = valueExperssion;
+        this.alertType = alertType;
+        this.alertMessage = alertMessage;
         this.parameters = parameters;
     }
 }

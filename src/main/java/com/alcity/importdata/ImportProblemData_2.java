@@ -224,12 +224,13 @@ public class ImportProblemData_2 implements CommandLineRunner {
         attributeService.save(attribute_variable_LastY);
         attributeService.save(attribute_variable_PathLen);
 
-        AttributeValue attribute_variable_LastX_value= new AttributeValue(null,1,null,null,null,null,attribute_variable_LastX,attribute_variable_LastX,1L,now,now,admin_1,admin_1);
-        AttributeValue attribute_variable_LastY_value= new AttributeValue(null,0,null,null,null,null,attribute_variable_LastY,attribute_variable_LastY,1L,now,now,admin_1,admin_1);
-        AttributeValue attribute_variable_PathLen_value= new AttributeValue(null,0,null,null,null,null,attribute_variable_PathLen,attribute_variable_PathLen,1L,now,now,admin_1,admin_1);
+        AttributeValue attribute_variable_LastX_value= new AttributeValue(null,1,null,null,null,null,null,attribute_variable_LastX,attribute_variable_LastX,1L,now,now,admin_1,admin_1);
+        AttributeValue attribute_variable_LastY_value= new AttributeValue(null,0,null,null,null,null,null,attribute_variable_LastY,attribute_variable_LastY,1L,now,now,admin_1,admin_1);
+        AttributeValue attribute_variable_PathLen_value= new AttributeValue(null,0,null,null,null,null,null,attribute_variable_PathLen,attribute_variable_PathLen,1L,now,now,admin_1,admin_1);
         attributeValueService.save(attribute_variable_LastX_value);
         attributeValueService.save(attribute_variable_LastY_value);
         attributeValueService.save(attribute_variable_PathLen_value);
+
         ClientType mobile = clientTypeService.findByValue("mobile");
 
         ActionRenderer showActionRenderer = new ActionRenderer("Show",mobile,ObjectAction.Show,1L,now,now,admin_1,admin_1);
@@ -245,28 +246,34 @@ public class ImportProblemData_2 implements CommandLineRunner {
         Attribute attribute_show_action =new Attribute("actionId",imageObject01_ShowAction.getId(),AttributeOwnerType.Puzzle_Object_Action_Parameter,DataType.Long,1L,now,now,admin_1,admin_1);
         attributeService.save(attribute_show_action);
 
-        AttributeValue showAction_parameter_action_id= new AttributeValue(null,null,attribute_show_action.getId(),null,null,null,attribute_show_action,attribute_show_action,1L,now,now,admin_1,admin_1);
+        AttributeValue showAction_parameter_action_id= new AttributeValue(null,null,attribute_show_action.getId(),null,null,null,null,attribute_show_action,attribute_show_action,1L,now,now,admin_1,admin_1);
         attributeValueService.save(showAction_parameter_action_id);
 
         Attribute attribute_show_aSync =new Attribute("aSync",imageObject01_ShowAction.getId(),AttributeOwnerType.Puzzle_Object_Action_Parameter,DataType.Boolean,1L,now,now,admin_1,admin_1);
         attributeService.save(attribute_show_aSync);
-        AttributeValue showAction_parameter_aSync_Value= new AttributeValue(false,null,null,null,null,null,attribute_show_aSync,attribute_show_aSync,1L,now,now,admin_1,admin_1);
+        AttributeValue showAction_parameter_aSync_Value= new AttributeValue(false,null,null,null,null,null,null,attribute_show_aSync,attribute_show_aSync,1L,now,now,admin_1,admin_1);
         attributeValueService.save(showAction_parameter_aSync_Value);
 
         Attribute attribute_show_graphic =new Attribute("graphic",imageObject01_ShowAction.getId(),AttributeOwnerType.Puzzle_Object_Action_Parameter,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(attribute_show_graphic);
-        AttributeValue showAction_parameter_graphic_value= new AttributeValue(null,null,null,null,null,null,attribute_show_graphic,attribute_show_graphic,1L,now,now,admin_1,admin_1);
+
+        AttributeValue showAction_parameter_graphic_value= new AttributeValue(null,null,null,null,null,null,-1L,attribute_show_graphic,attribute_show_graphic,1L,now,now,admin_1,admin_1);
         attributeValueService.save(showAction_parameter_graphic_value);
+
+        Attribute attribute_show_ObjectId =new Attribute("ObjectId",imageObject01_ShowAction.getId(),AttributeOwnerType.Puzzle_Object_Action_Parameter,DataType.Object,1L,now,now,admin_1,admin_1);
+        attributeService.save(attribute_show_ObjectId);
+        AttributeValue showAction_parameter_ObjectId_value= new AttributeValue(null,null,null,null,"object",null,null,attribute_show_ObjectId,attribute_show_ObjectId,1L,now,now,admin_1,admin_1);
+        attributeValueService.save(showAction_parameter_ObjectId_value);
 
 
         Attribute alCityAttribute_show_Row =new Attribute("row",imageObject01_ShowAction.getId(),AttributeOwnerType.Puzzle_Object_Action_Parameter,DataType.Integer,1L,now,now,admin_1,admin_1);
         attributeService.save(alCityAttribute_show_Row);
-        AttributeValue alCity_moveAction_parameter_row= new AttributeValue(null,0,null,null,null,null,alCityAttribute_show_Row,alCityAttribute_show_Row,1L,now,now,admin_1,admin_1);
+        AttributeValue alCity_moveAction_parameter_row= new AttributeValue(null,0,null,null,null,null,null,alCityAttribute_show_Row,alCityAttribute_show_Row,1L,now,now,admin_1,admin_1);
         attributeValueService.save(alCity_moveAction_parameter_row);
 
         Attribute alCityAttribute_move_Col =new Attribute("col",imageObject01_ShowAction.getId(),AttributeOwnerType.Puzzle_Object_Action_Parameter,DataType.Integer,1L,now,now,admin_1,admin_1);
         attributeService.save(alCityAttribute_move_Col);
-        AttributeValue alCity_showAction_parameter_Col= new AttributeValue(null,0,null,null,null,null,alCityAttribute_move_Col,alCityAttribute_move_Col,1L,now,now,admin_1,admin_1);
+        AttributeValue alCity_showAction_parameter_Col= new AttributeValue(null,0,null,null,null,null,null,alCityAttribute_move_Col,alCityAttribute_move_Col,1L,now,now,admin_1,admin_1);
         attributeValueService.save(alCity_showAction_parameter_Col);
 
 
@@ -275,48 +282,53 @@ public class ImportProblemData_2 implements CommandLineRunner {
         Attribute attribute_hide_action_id =new Attribute("actionId",imageObject01_HideAction.getId(),AttributeOwnerType.Puzzle_Object_Action_Parameter,DataType.Long,1L,now,now,admin_1,admin_1);
         attributeService.save(attribute_hide_action_id);
 
-        AttributeValue hideAction_parameter_action_id= new AttributeValue(null,null,imageObject01_HideAction.getId(),null,null,null,attribute_hide_action_id,attribute_hide_action_id,1L,now,now,admin_1,admin_1);
+        AttributeValue hideAction_parameter_action_id= new AttributeValue(null,null,imageObject01_HideAction.getId(),null,null,null,null,attribute_hide_action_id,attribute_hide_action_id,1L,now,now,admin_1,admin_1);
         attributeValueService.save(hideAction_parameter_action_id);
 
         Attribute attribute_hide_aSync =new Attribute("aSync",imageObject01_HideAction.getId(),AttributeOwnerType.Puzzle_Object_Action_Parameter,DataType.Boolean,1L,now,now,admin_1,admin_1);
         attributeService.save(attribute_hide_aSync);
-        AttributeValue hideAction_parameter_aSync_Value= new AttributeValue(false,null,null,null,null,null,attribute_hide_aSync,attribute_hide_aSync,1L,now,now,admin_1,admin_1);
+        AttributeValue hideAction_parameter_aSync_Value= new AttributeValue(false,null,null,null,null,null,null,attribute_hide_aSync,attribute_hide_aSync,1L,now,now,admin_1,admin_1);
         attributeValueService.save(hideAction_parameter_aSync_Value);
 
         Attribute attribute_hide_graphic =new Attribute("graphic",imageObject01_HideAction.getId(),AttributeOwnerType.Puzzle_Object_Action_Parameter,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(attribute_hide_graphic);
-        AttributeValue hideAction_parameter_graphic_value= new AttributeValue(null,null,null,null,null,null,attribute_hide_graphic,attribute_hide_graphic,1L,now,now,admin_1,admin_1);
+        AttributeValue hideAction_parameter_graphic_value= new AttributeValue(null,null,null,null,null,null,-1L,attribute_hide_graphic,attribute_hide_graphic,1L,now,now,admin_1,admin_1);
         attributeValueService.save(hideAction_parameter_graphic_value);
+
+        Attribute attribute_hide_ObjectId =new Attribute("ObjectId",imageObject01_HideAction.getId(),AttributeOwnerType.Puzzle_Object_Action_Parameter,DataType.Object,1L,now,now,admin_1,admin_1);
+        attributeService.save(attribute_hide_ObjectId);
+        AttributeValue hideAction_parameter_ObjectId_value= new AttributeValue(null,null,null,null,"object",null,null,attribute_hide_ObjectId,attribute_hide_ObjectId,1L,now,now,admin_1,admin_1);
+        attributeValueService.save(hideAction_parameter_ObjectId_value);
 
 
         Attribute alCityAttribute_hide_Row =new Attribute("row",imageObject01_HideAction.getId(),AttributeOwnerType.Puzzle_Object_Action_Parameter,DataType.Integer,1L,now,now,admin_1,admin_1);
         attributeService.save(alCityAttribute_hide_Row);
-        AttributeValue alCity_hideAction_parameter_row= new AttributeValue(null,0,null,null,null,null,alCityAttribute_hide_Row,alCityAttribute_hide_Row,1L,now,now,admin_1,admin_1);
+        AttributeValue alCity_hideAction_parameter_row= new AttributeValue(null,0,null,null,null,null,null,alCityAttribute_hide_Row,alCityAttribute_hide_Row,1L,now,now,admin_1,admin_1);
         attributeValueService.save(alCity_hideAction_parameter_row);
 
         Attribute alCityAttribute_hide_Col =new Attribute("col",imageObject01_HideAction.getId(),AttributeOwnerType.Puzzle_Object_Action_Parameter,DataType.Integer,1L,now,now,admin_1,admin_1);
         attributeService.save(alCityAttribute_hide_Col);
-        AttributeValue alCity_hideAction_parameter_Col= new AttributeValue(null,0,null,null,null,null,alCityAttribute_hide_Col,alCityAttribute_hide_Col,1L,now,now,admin_1,admin_1);
+        AttributeValue alCity_hideAction_parameter_Col= new AttributeValue(null,0,null,null,null,null,null,alCityAttribute_hide_Col,alCityAttribute_hide_Col,1L,now,now,admin_1,admin_1);
         attributeValueService.save(alCity_hideAction_parameter_Col);
 
         Attribute attribute_object_variable_Prex =new Attribute("PreX",puzzleGroup_puzzleObject.getId(),AttributeOwnerType.Puzzle_Group_Object_Variable,DataType.Integer,1L,now,now,admin_1,admin_1);
         attributeService.save(attribute_object_variable_Prex);
-        AttributeValue attribute_object_variable_Prex_value= new AttributeValue(null,0,null,null,null,null,attribute_object_variable_Prex,attribute_object_variable_Prex,1L,now,now,admin_1,admin_1);
+        AttributeValue attribute_object_variable_Prex_value= new AttributeValue(null,0,null,null,null,null,null,attribute_object_variable_Prex,attribute_object_variable_Prex,1L,now,now,admin_1,admin_1);
         attributeValueService.save(attribute_object_variable_Prex_value);
 
         Attribute attribute_object_variable_PreY =new Attribute("PreY",puzzleGroup_puzzleObject.getId(),AttributeOwnerType.Puzzle_Group_Object_Variable,DataType.Integer,1L,now,now,admin_1,admin_1);
         attributeService.save(attribute_object_variable_PreY);
-        AttributeValue attribute_object_variable_PreY_value= new AttributeValue(null,0,null,null,null,null,attribute_object_variable_PreY,attribute_object_variable_PreY,1L,now,now,admin_1,admin_1);
+        AttributeValue attribute_object_variable_PreY_value= new AttributeValue(null,0,null,null,null,null,null,attribute_object_variable_PreY,attribute_object_variable_PreY,1L,now,now,admin_1,admin_1);
         attributeValueService.save(attribute_object_variable_PreY_value);
 
         Attribute attribute_object_variable_Selected =new Attribute("Selected",puzzleGroup_puzzleObject.getId(),AttributeOwnerType.Puzzle_Group_Object_Variable,DataType.Integer,1L,now,now,admin_1,admin_1);
         attributeService.save(attribute_object_variable_Selected);
-        AttributeValue attribute_object_variable_Selected_value= new AttributeValue(null,0,null,null,null,null,attribute_object_variable_Selected,attribute_object_variable_Selected,1L,now,now,admin_1,admin_1);
+        AttributeValue attribute_object_variable_Selected_value= new AttributeValue(null,0,null,null,null,null,null,attribute_object_variable_Selected,attribute_object_variable_Selected,1L,now,now,admin_1,admin_1);
         attributeValueService.save(attribute_object_variable_Selected_value);
 
         Attribute attribute_object_variable_Locked =new Attribute("Locked",puzzleGroup_puzzleObject.getId(),AttributeOwnerType.Puzzle_Group_Object_Variable,DataType.Integer,1L,now,now,admin_1,admin_1);
         attributeService.save(attribute_object_variable_Locked);
-        AttributeValue attribute_object_variable_Locked_value= new AttributeValue(null,0,null,null,null,null,attribute_object_variable_Locked,attribute_object_variable_Locked,1L,now,now,admin_1,admin_1);
+        AttributeValue attribute_object_variable_Locked_value= new AttributeValue(null,0,null,null,null,null,null,attribute_object_variable_Locked,attribute_object_variable_Locked,1L,now,now,admin_1,admin_1);
         attributeValueService.save(attribute_object_variable_Locked_value);
 
         byte[] image_0_maze_1 = ImageUtil.getImage("src/main/resources/images/Maze_problem/","white_space_image.png");
@@ -337,12 +349,12 @@ public class ImportProblemData_2 implements CommandLineRunner {
 
         Attribute instance_img_1_1_0_bgImage_property =new Attribute("bgImage",instance_img_1_1_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(instance_img_1_1_0_bgImage_property);
-        AttributeValue instance_img_1_1_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,instance_img_1_1_0_bgImage_property,instance_img_1_1_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue instance_img_1_1_0_bgImage_property_value= new AttributeValue(null,null,null,null,null,null,black_space_image.getId(),instance_img_1_1_0_bgImage_property,instance_img_1_1_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(instance_img_1_1_0_bgImage_property_value);
 
         Attribute instance_img_1_1_0_locked_variable =new Attribute("Locked",instance_img_1_1_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Variable,DataType.Boolean,1L,now,now,admin_1,admin_1);
         attributeService.save(instance_img_1_1_0_locked_variable);
-        AttributeValue instance_img_1_1_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,instance_img_1_1_0_locked_variable,instance_img_1_1_0_locked_variable,1L,now,now,admin_1,admin_1);
+        AttributeValue instance_img_1_1_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,null,instance_img_1_1_0_locked_variable,instance_img_1_1_0_locked_variable,1L,now,now,admin_1,admin_1);
         attributeValueService.save(instance_img_1_1_0_locked_variable_value);
 
 
@@ -351,12 +363,12 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(instance_img_2_1_0);
         Attribute instance_img_2_1_0_bgImage_property =new Attribute("bgImage",instance_img_2_1_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(instance_img_2_1_0_bgImage_property);
-        AttributeValue instance_img_2_1_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,instance_img_2_1_0_bgImage_property,instance_img_2_1_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue instance_img_2_1_0_bgImage_property_value= new AttributeValue(null,null,null,null,null,null,black_space_image.getId(),instance_img_2_1_0_bgImage_property,instance_img_2_1_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(instance_img_2_1_0_bgImage_property_value);
 
         Attribute instance_img_2_1_0_locked_variable =new Attribute("Locked",instance_img_2_1_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Variable,DataType.Boolean,1L,now,now,admin_1,admin_1);
         attributeService.save(instance_img_2_1_0_locked_variable);
-        AttributeValue instance_img_2_1_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,instance_img_2_1_0_locked_variable,instance_img_2_1_0_locked_variable,1L,now,now,admin_1,admin_1);
+        AttributeValue instance_img_2_1_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,null,instance_img_2_1_0_locked_variable,instance_img_2_1_0_locked_variable,1L,now,now,admin_1,admin_1);
         attributeValueService.save(instance_img_2_1_0_locked_variable_value);
 
 
@@ -365,11 +377,11 @@ public class ImportProblemData_2 implements CommandLineRunner {
 
         Attribute instance_img_3_1_0_bgImage_property =new Attribute("bgImage",instance_img_3_1_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(instance_img_3_1_0_bgImage_property);
-        AttributeValue instance_img_3_1_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,instance_img_3_1_0_bgImage_property,instance_img_3_1_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue instance_img_3_1_0_bgImage_property_value= new AttributeValue(null,null,null,null,null,null,black_space_image.getId(),instance_img_3_1_0_bgImage_property,instance_img_3_1_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(instance_img_3_1_0_bgImage_property_value);
         Attribute instance_img_3_1_0_locked_variable =new Attribute("Locked",instance_img_3_1_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Variable,DataType.Boolean,1L,now,now,admin_1,admin_1);
         attributeService.save(instance_img_3_1_0_locked_variable);
-        AttributeValue instance_img_3_1_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,instance_img_3_1_0_locked_variable,instance_img_3_1_0_locked_variable,1L,now,now,admin_1,admin_1);
+        AttributeValue instance_img_3_1_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,null,instance_img_3_1_0_locked_variable,instance_img_3_1_0_locked_variable,1L,now,now,admin_1,admin_1);
         attributeValueService.save(instance_img_3_1_0_locked_variable_value);
 
 
@@ -380,12 +392,12 @@ public class ImportProblemData_2 implements CommandLineRunner {
 
         Attribute instance_img_4_1_0_bgImage_property =new Attribute("bgImage",instance_img_4_1_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(instance_img_4_1_0_bgImage_property);
-        AttributeValue instance_img_4_1_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,instance_img_4_1_0_bgImage_property,instance_img_4_1_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue instance_img_4_1_0_bgImage_property_value= new AttributeValue(null,null,null,null,null,null,black_space_image.getId(),instance_img_4_1_0_bgImage_property,instance_img_4_1_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(instance_img_4_1_0_bgImage_property_value);
 
         Attribute instance_img_4_1_0_locked_variable =new Attribute("Locked",instance_img_4_1_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Variable,DataType.Boolean,1L,now,now,admin_1,admin_1);
         attributeService.save(instance_img_4_1_0_locked_variable);
-        AttributeValue instance_img_4_1_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,instance_img_4_1_0_locked_variable,instance_img_4_1_0_locked_variable,1L,now,now,admin_1,admin_1);
+        AttributeValue instance_img_4_1_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,null,instance_img_4_1_0_locked_variable,instance_img_4_1_0_locked_variable,1L,now,now,admin_1,admin_1);
         attributeValueService.save(instance_img_4_1_0_locked_variable_value);
 
 
@@ -394,11 +406,11 @@ public class ImportProblemData_2 implements CommandLineRunner {
 
         Attribute instance_img_5_1_0_bgImage_property =new Attribute("bgImage",instance_img_5_1_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(instance_img_5_1_0_bgImage_property);
-        AttributeValue instance_img_5_1_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,instance_img_5_1_0_bgImage_property,instance_img_5_1_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue instance_img_5_1_0_bgImage_property_value= new AttributeValue(null,null,null,null,null,null,black_space_image.getId(),instance_img_5_1_0_bgImage_property,instance_img_5_1_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(instance_img_5_1_0_bgImage_property_value);
         Attribute instance_img_5_1_0_locked_variable =new Attribute("Locked",instance_img_5_1_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Variable,DataType.Boolean,1L,now,now,admin_1,admin_1);
         attributeService.save(instance_img_5_1_0_locked_variable);
-        AttributeValue instance_img_5_1_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,instance_img_5_1_0_locked_variable,instance_img_5_1_0_locked_variable,1L,now,now,admin_1,admin_1);
+        AttributeValue instance_img_5_1_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,null,instance_img_5_1_0_locked_variable,instance_img_5_1_0_locked_variable,1L,now,now,admin_1,admin_1);
         attributeValueService.save(instance_img_5_1_0_locked_variable_value);
 
 
@@ -407,11 +419,11 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(instance_img_6_1_0);
         Attribute instance_img_6_1_0_bgImage_property =new Attribute("bgImage",instance_img_6_1_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(instance_img_6_1_0_bgImage_property);
-        AttributeValue instance_img_6_1_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,instance_img_6_1_0_bgImage_property,instance_img_6_1_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue instance_img_6_1_0_bgImage_property_value= new AttributeValue(null,null,null,null,null,null,black_space_image.getId(),instance_img_6_1_0_bgImage_property,instance_img_6_1_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(instance_img_6_1_0_bgImage_property_value);
         Attribute instance_img_6_1_0_locked_variable =new Attribute("Locked",instance_img_6_1_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Variable,DataType.Boolean,1L,now,now,admin_1,admin_1);
         attributeService.save(instance_img_6_1_0_locked_variable);
-        AttributeValue instance_img_6_1_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,instance_img_6_1_0_locked_variable,instance_img_6_1_0_locked_variable,1L,now,now,admin_1,admin_1);
+        AttributeValue instance_img_6_1_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,null,instance_img_6_1_0_locked_variable,instance_img_6_1_0_locked_variable,1L,now,now,admin_1,admin_1);
         attributeValueService.save(instance_img_6_1_0_locked_variable_value);
 
 
@@ -419,11 +431,11 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(instance_img_7_1_0);
         Attribute instance_img_7_1_0_bgImage_property =new Attribute("bgImage",instance_img_7_1_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(instance_img_7_1_0_bgImage_property);
-        AttributeValue instance_img_7_1_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,instance_img_7_1_0_bgImage_property,instance_img_7_1_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue instance_img_7_1_0_bgImage_property_value= new AttributeValue(null,null,null,null,null,null,black_space_image.getId(),instance_img_7_1_0_bgImage_property,instance_img_7_1_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(instance_img_7_1_0_bgImage_property_value);
         Attribute instance_img_7_1_0_locked_variable =new Attribute("Locked",instance_img_7_1_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Variable,DataType.Boolean,1L,now,now,admin_1,admin_1);
         attributeService.save(instance_img_7_1_0_locked_variable);
-        AttributeValue instance_img_7_1_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,instance_img_7_1_0_locked_variable,instance_img_7_1_0_locked_variable,1L,now,now,admin_1,admin_1);
+        AttributeValue instance_img_7_1_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,null,instance_img_7_1_0_locked_variable,instance_img_7_1_0_locked_variable,1L,now,now,admin_1,admin_1);
         attributeValueService.save(instance_img_7_1_0_locked_variable_value);
 
 
@@ -431,11 +443,11 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(instance_img_8_1_0);
         Attribute instance_img_8_1_0_bgImage_property =new Attribute("bgImage",instance_img_8_1_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(instance_img_8_1_0_bgImage_property);
-        AttributeValue instance_img_8_1_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,instance_img_8_1_0_bgImage_property,instance_img_8_1_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue instance_img_8_1_0_bgImage_property_value= new AttributeValue(null,null,null,null,null,null,black_space_image.getId(),instance_img_8_1_0_bgImage_property,instance_img_8_1_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(instance_img_8_1_0_bgImage_property_value);
         Attribute instance_img_8_1_0_locked_variable =new Attribute("Locked",instance_img_8_1_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Variable,DataType.Boolean,1L,now,now,admin_1,admin_1);
         attributeService.save(instance_img_8_1_0_locked_variable);
-        AttributeValue instance_img_8_1_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,instance_img_8_1_0_locked_variable,instance_img_8_1_0_locked_variable,1L,now,now,admin_1,admin_1);
+        AttributeValue instance_img_8_1_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,null,instance_img_8_1_0_locked_variable,instance_img_8_1_0_locked_variable,1L,now,now,admin_1,admin_1);
         attributeValueService.save(instance_img_8_1_0_locked_variable_value);
 
 
@@ -443,11 +455,11 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(instance_img_9_1_0);
         Attribute instance_img_9_1_0_bgImage_property =new Attribute("bgImage",instance_img_9_1_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(instance_img_9_1_0_bgImage_property);
-        AttributeValue instance_img_9_1_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,instance_img_9_1_0_bgImage_property,instance_img_9_1_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue instance_img_9_1_0_bgImage_property_value= new AttributeValue(null,null,null,null,null,null,black_space_image.getId(),instance_img_9_1_0_bgImage_property,instance_img_9_1_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(instance_img_9_1_0_bgImage_property_value);
         Attribute instance_img_9_1_0_locked_variable =new Attribute("Locked",instance_img_9_1_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Variable,DataType.Boolean,1L,now,now,admin_1,admin_1);
         attributeService.save(instance_img_9_1_0_locked_variable);
-        AttributeValue instance_img_9_1_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,instance_img_9_1_0_locked_variable,instance_img_9_1_0_locked_variable,1L,now,now,admin_1,admin_1);
+        AttributeValue instance_img_9_1_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,null,instance_img_9_1_0_locked_variable,instance_img_9_1_0_locked_variable,1L,now,now,admin_1,admin_1);
         attributeValueService.save(instance_img_9_1_0_locked_variable_value);
 
 
@@ -455,11 +467,11 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(instance_img_10_1_0);
         Attribute instance_img_10_1_0_bgImage_property =new Attribute("bgImage",instance_img_10_1_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(instance_img_10_1_0_bgImage_property);
-        AttributeValue instance_img_10_1_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,instance_img_10_1_0_bgImage_property,instance_img_10_1_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue instance_img_10_1_0_bgImage_property_value= new AttributeValue(null,null,null,null,null,null,black_space_image.getId(),instance_img_10_1_0_bgImage_property,instance_img_10_1_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(instance_img_10_1_0_bgImage_property_value);
         Attribute instance_img_10_1_0_locked_variable =new Attribute("Locked",instance_img_10_1_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Variable,DataType.Boolean,1L,now,now,admin_1,admin_1);
         attributeService.save(instance_img_10_1_0_locked_variable);
-        AttributeValue instance_img_10_1_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,instance_img_10_1_0_locked_variable,instance_img_10_1_0_locked_variable,1L,now,now,admin_1,admin_1);
+        AttributeValue instance_img_10_1_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,null,instance_img_10_1_0_locked_variable,instance_img_10_1_0_locked_variable,1L,now,now,admin_1,admin_1);
         attributeValueService.save(instance_img_10_1_0_locked_variable_value);
 
 
@@ -467,11 +479,11 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(instance_img_11_1_0);
         Attribute instance_img_11_1_0_bgImage_property =new Attribute("bgImage",instance_img_11_1_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(instance_img_11_1_0_bgImage_property);
-        AttributeValue instance_img_11_1_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,instance_img_11_1_0_bgImage_property,instance_img_11_1_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue instance_img_11_1_0_bgImage_property_value= new AttributeValue(null,null,null,null,null,null,black_space_image.getId(),instance_img_11_1_0_bgImage_property,instance_img_11_1_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(instance_img_11_1_0_bgImage_property_value);
         Attribute instance_img_11_1_0_locked_variable =new Attribute("Locked",instance_img_11_1_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Variable,DataType.Boolean,1L,now,now,admin_1,admin_1);
         attributeService.save(instance_img_11_1_0_locked_variable);
-        AttributeValue instance_img_11_1_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,instance_img_11_1_0_locked_variable,instance_img_11_1_0_locked_variable,1L,now,now,admin_1,admin_1);
+        AttributeValue instance_img_11_1_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,null,instance_img_11_1_0_locked_variable,instance_img_11_1_0_locked_variable,1L,now,now,admin_1,admin_1);
         attributeValueService.save(instance_img_11_1_0_locked_variable_value);
 
 
@@ -479,11 +491,11 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(instance_img_12_1_0);
         Attribute instance_img_12_1_0_bgImage_property =new Attribute("bgImage",instance_img_12_1_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(instance_img_12_1_0_bgImage_property);
-        AttributeValue instance_img_12_1_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,instance_img_12_1_0_bgImage_property,instance_img_12_1_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue instance_img_12_1_0_bgImage_property_value= new AttributeValue(null,null,null,null,null,null,black_space_image.getId(),instance_img_12_1_0_bgImage_property,instance_img_12_1_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(instance_img_12_1_0_bgImage_property_value);
         Attribute instance_img_12_1_0_locked_variable =new Attribute("Locked",instance_img_12_1_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Variable,DataType.Boolean,1L,now,now,admin_1,admin_1);
         attributeService.save(instance_img_12_1_0_locked_variable);
-        AttributeValue instance_img_12_1_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,instance_img_12_1_0_locked_variable,instance_img_12_1_0_locked_variable,1L,now,now,admin_1,admin_1);
+        AttributeValue instance_img_12_1_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,null,instance_img_12_1_0_locked_variable,instance_img_12_1_0_locked_variable,1L,now,now,admin_1,admin_1);
         attributeValueService.save(instance_img_12_1_0_locked_variable_value);
 
 
@@ -491,11 +503,11 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(instance_img_13_1_0);
         Attribute instance_img_13_1_0_bgImage_property =new Attribute("bgImage",instance_img_13_1_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(instance_img_13_1_0_bgImage_property);
-        AttributeValue instance_img_13_1_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,instance_img_13_1_0_bgImage_property,instance_img_13_1_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue instance_img_13_1_0_bgImage_property_value= new AttributeValue(null,null,null,null,null,null,black_space_image.getId(),instance_img_13_1_0_bgImage_property,instance_img_13_1_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(instance_img_13_1_0_bgImage_property_value);
         Attribute instance_img_13_1_0_locked_variable =new Attribute("Locked",instance_img_13_1_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Variable,DataType.Boolean,1L,now,now,admin_1,admin_1);
         attributeService.save(instance_img_13_1_0_locked_variable);
-        AttributeValue instance_img_13_1_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,instance_img_13_1_0_locked_variable,instance_img_13_1_0_locked_variable,1L,now,now,admin_1,admin_1);
+        AttributeValue instance_img_13_1_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,null,instance_img_13_1_0_locked_variable,instance_img_13_1_0_locked_variable,1L,now,now,admin_1,admin_1);
         attributeValueService.save(instance_img_13_1_0_locked_variable_value);
 
 
@@ -503,11 +515,11 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(instance_img_14_1_0);
         Attribute instance_img_14_1_0_bgImage_property =new Attribute("bgImage",instance_img_14_1_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(instance_img_14_1_0_bgImage_property);
-        AttributeValue instance_img_14_1_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,instance_img_14_1_0_bgImage_property,instance_img_14_1_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue instance_img_14_1_0_bgImage_property_value= new AttributeValue(null,null,null,null,null,null,black_space_image.getId(),instance_img_14_1_0_bgImage_property,instance_img_14_1_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(instance_img_14_1_0_bgImage_property_value);
         Attribute instance_img_14_1_0_locked_variable =new Attribute("Locked",instance_img_14_1_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Variable,DataType.Boolean,1L,now,now,admin_1,admin_1);
         attributeService.save(instance_img_14_1_0_locked_variable);
-        AttributeValue instance_img_14_1_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,instance_img_14_1_0_locked_variable,instance_img_14_1_0_locked_variable,1L,now,now,admin_1,admin_1);
+        AttributeValue instance_img_14_1_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,null,instance_img_14_1_0_locked_variable,instance_img_14_1_0_locked_variable,1L,now,now,admin_1,admin_1);
         attributeValueService.save(instance_img_14_1_0_locked_variable_value);
 
 
@@ -515,11 +527,11 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(instance_img_15_1_0);
         Attribute instance_img_15_1_0_bgImage_property =new Attribute("bgImage",instance_img_15_1_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(instance_img_15_1_0_bgImage_property);
-        AttributeValue instance_img_15_1_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,instance_img_15_1_0_bgImage_property,instance_img_15_1_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue instance_img_15_1_0_bgImage_property_value= new AttributeValue(null,null,null,null,null,null,black_space_image.getId(),instance_img_15_1_0_bgImage_property,instance_img_15_1_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(instance_img_15_1_0_bgImage_property_value);
         Attribute instance_img_15_1_0_locked_variable =new Attribute("Locked",instance_img_15_1_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Variable,DataType.Boolean,1L,now,now,admin_1,admin_1);
         attributeService.save(instance_img_15_1_0_locked_variable);
-        AttributeValue instance_img_15_1_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,instance_img_15_1_0_locked_variable,instance_img_15_1_0_locked_variable,1L,now,now,admin_1,admin_1);
+        AttributeValue instance_img_15_1_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,null,instance_img_15_1_0_locked_variable,instance_img_15_1_0_locked_variable,1L,now,now,admin_1,admin_1);
         attributeValueService.save(instance_img_15_1_0_locked_variable_value);
 
 
@@ -527,11 +539,11 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(instance_img_16_1_0);
         Attribute instance_img_16_1_0_bgImage_property =new Attribute("bgImage",instance_img_16_1_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(instance_img_16_1_0_bgImage_property);
-        AttributeValue instance_img_16_1_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,instance_img_16_1_0_bgImage_property,instance_img_16_1_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue instance_img_16_1_0_bgImage_property_value= new AttributeValue(null,null,null,null,null,null,black_space_image.getId(),instance_img_16_1_0_bgImage_property,instance_img_16_1_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(instance_img_16_1_0_bgImage_property_value);
         Attribute instance_img_16_1_0_locked_variable =new Attribute("Locked",instance_img_16_1_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Variable,DataType.Boolean,1L,now,now,admin_1,admin_1);
         attributeService.save(instance_img_16_1_0_locked_variable);
-        AttributeValue instance_img_16_1_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,instance_img_16_1_0_locked_variable,instance_img_16_1_0_locked_variable,1L,now,now,admin_1,admin_1);
+        AttributeValue instance_img_16_1_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,null,instance_img_16_1_0_locked_variable,instance_img_16_1_0_locked_variable,1L,now,now,admin_1,admin_1);
         attributeValueService.save(instance_img_16_1_0_locked_variable_value);
 
 
@@ -539,11 +551,11 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(instance_img_17_1_0);
         Attribute instance_img_17_1_0_bgImage_property =new Attribute("bgImage",instance_img_17_1_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(instance_img_17_1_0_bgImage_property);
-        AttributeValue instance_img_17_1_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,instance_img_17_1_0_bgImage_property,instance_img_17_1_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue instance_img_17_1_0_bgImage_property_value= new AttributeValue(null,null,null,null,null,null,black_space_image.getId(),instance_img_17_1_0_bgImage_property,instance_img_17_1_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(instance_img_17_1_0_bgImage_property_value);
         Attribute instance_img_17_1_0_locked_variable =new Attribute("Locked",instance_img_17_1_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Variable,DataType.Boolean,1L,now,now,admin_1,admin_1);
         attributeService.save(instance_img_17_1_0_locked_variable);
-        AttributeValue instance_img_17_1_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,instance_img_17_1_0_locked_variable,instance_img_17_1_0_locked_variable,1L,now,now,admin_1,admin_1);
+        AttributeValue instance_img_17_1_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,null,instance_img_17_1_0_locked_variable,instance_img_17_1_0_locked_variable,1L,now,now,admin_1,admin_1);
         attributeValueService.save(instance_img_17_1_0_locked_variable_value);
 
 
@@ -552,11 +564,11 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(instance_img_18_1_0);
         Attribute instance_img_18_1_0_bgImage_property =new Attribute("bgImage",instance_img_18_1_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(instance_img_18_1_0_bgImage_property);
-        AttributeValue instance_img_18_1_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,instance_img_18_1_0_bgImage_property,instance_img_18_1_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue instance_img_18_1_0_bgImage_property_value= new AttributeValue(null,null,null,null,null,null,black_space_image.getId(),instance_img_18_1_0_bgImage_property,instance_img_18_1_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(instance_img_18_1_0_bgImage_property_value);
         Attribute instance_img_18_1_0_locked_variable =new Attribute("Locked",instance_img_18_1_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Variable,DataType.Boolean,1L,now,now,admin_1,admin_1);
         attributeService.save(instance_img_18_1_0_locked_variable);
-        AttributeValue instance_img_18_1_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,instance_img_18_1_0_locked_variable,instance_img_18_1_0_locked_variable,1L,now,now,admin_1,admin_1);
+        AttributeValue instance_img_18_1_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,null,instance_img_18_1_0_locked_variable,instance_img_18_1_0_locked_variable,1L,now,now,admin_1,admin_1);
         attributeValueService.save(instance_img_18_1_0_locked_variable_value);
 
 
@@ -564,11 +576,11 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(instance_img_19_1_0);
         Attribute instance_img_19_1_0_bgImage_property =new Attribute("bgImage",instance_img_19_1_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(instance_img_19_1_0_bgImage_property);
-        AttributeValue instance_img_19_1_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,instance_img_19_1_0_bgImage_property,instance_img_19_1_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue instance_img_19_1_0_bgImage_property_value= new AttributeValue(null,null,null,null,null,null,black_space_image.getId(),instance_img_19_1_0_bgImage_property,instance_img_19_1_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(instance_img_19_1_0_bgImage_property_value);
         Attribute instance_img_19_1_0_locked_variable =new Attribute("Locked",instance_img_19_1_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Variable,DataType.Boolean,1L,now,now,admin_1,admin_1);
         attributeService.save(instance_img_19_1_0_locked_variable);
-        AttributeValue instance_img_19_1_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,instance_img_19_1_0_locked_variable,instance_img_19_1_0_locked_variable,1L,now,now,admin_1,admin_1);
+        AttributeValue instance_img_19_1_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,null,instance_img_19_1_0_locked_variable,instance_img_19_1_0_locked_variable,1L,now,now,admin_1,admin_1);
         attributeValueService.save(instance_img_19_1_0_locked_variable_value);
 
 
@@ -576,7 +588,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(instance_img_1_2_1);
         Attribute instance_img_1_2_1_bgImage_property =new Attribute("bgImage",instance_img_1_2_1.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(instance_img_1_2_1_bgImage_property);
-        AttributeValue instance_img_1_2_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,instance_img_1_2_1_bgImage_property,instance_img_1_2_1_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue instance_img_1_2_1_bgImage_property_value= new AttributeValue(null,null,null,null,null,null,white_space_image.getId(),instance_img_1_2_1_bgImage_property,instance_img_1_2_1_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(instance_img_1_2_1_bgImage_property_value);
 
 
@@ -584,7 +596,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(instance_img_1_2_0);
         Attribute instance_img_1_2_0_bgImage_property =new Attribute("bgImage",instance_img_1_2_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(instance_img_1_2_0_bgImage_property);
-        AttributeValue instance_img_1_2_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,instance_img_1_2_0_bgImage_property,instance_img_1_2_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue instance_img_1_2_0_bgImage_property_value= new AttributeValue(null,null,null,null,null,null,yellow_space_image.getId(),instance_img_1_2_0_bgImage_property,instance_img_1_2_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(instance_img_1_2_0_bgImage_property_value);
 
 
@@ -592,7 +604,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_2_2_1);
         Attribute img_2_2_1_bgImage_property =new Attribute("bgImage",img_2_2_1.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_2_2_1_bgImage_property);
-        AttributeValue img_2_2_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,img_2_2_1_bgImage_property,img_2_2_1_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_2_2_1_bgImage_property_value= new AttributeValue(null,null,null,null,null,null,white_space_image.getId(),img_2_2_1_bgImage_property,img_2_2_1_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_2_2_1_bgImage_property_value);
 
 
@@ -600,7 +612,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_2_2_0);
         Attribute img_2_2_0_bgImage_property =new Attribute("bgImage",img_2_2_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_2_2_0_bgImage_property);
-        AttributeValue img_2_2_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,img_2_2_0_bgImage_property,img_2_2_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_2_2_0_bgImage_property_value= new AttributeValue(null,null,null,null,null,null,yellow_space_image.getId(),img_2_2_0_bgImage_property,img_2_2_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_2_2_0_bgImage_property_value);
 
 
@@ -608,7 +620,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_3_2_1);
         Attribute img_3_2_1_bgImage_property =new Attribute("bgImage",img_3_2_1.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_3_2_1_bgImage_property);
-        AttributeValue img_3_2_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,img_3_2_1_bgImage_property,img_3_2_1_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_3_2_1_bgImage_property_value= new AttributeValue(null,null,null,null,null,null,white_space_image.getId(),img_3_2_1_bgImage_property,img_3_2_1_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_3_2_1_bgImage_property_value);
 
 
@@ -616,7 +628,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_3_2_0);
         Attribute img_3_2_0_bgImage_property =new Attribute("bgImage",img_3_2_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_3_2_0_bgImage_property);
-        AttributeValue img_3_2_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,img_3_2_0_bgImage_property,img_3_2_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_3_2_0_bgImage_property_value= new AttributeValue(null,null,null,null,null,null,yellow_space_image.getId(),img_3_2_0_bgImage_property,img_3_2_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_3_2_0_bgImage_property_value);
 
 
@@ -624,7 +636,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_4_2_1);
         Attribute img_4_2_1_bgImage_property =new Attribute("bgImage",img_4_2_1.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_4_2_1_bgImage_property);
-        AttributeValue img_4_2_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,img_4_2_1_bgImage_property,img_4_2_1_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_4_2_1_bgImage_property_value= new AttributeValue(null,null,null,null,null,null,white_space_image.getId(),img_4_2_1_bgImage_property,img_4_2_1_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_4_2_1_bgImage_property_value);
 
 
@@ -632,21 +644,21 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_4_2_0);
         Attribute img_4_2_0_bgImage_property =new Attribute("bgImage",img_4_2_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_4_2_0_bgImage_property);
-        AttributeValue img_4_2_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,img_4_2_0_bgImage_property,img_4_2_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_4_2_0_bgImage_property_value= new AttributeValue(null,null,null,null,null,null,yellow_space_image.getId(),img_4_2_0_bgImage_property,img_4_2_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_4_2_0_bgImage_property_value);
 
         ALCityInstanceInPL img_5_2_1 = new ALCityInstanceInPL("img_5_2_1",5,2,1,puzzleGroup_puzzleObject,puzzleLevel_Maze,1L,now,now,admin_1,admin_1);
         pgObjectInstanceService.save(img_5_2_1);
         Attribute img_5_2_1_bgImage_property =new Attribute("bgImage",img_5_2_1.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_5_2_1_bgImage_property);
-        AttributeValue img_5_2_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,img_5_2_1_bgImage_property,img_5_2_1_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_5_2_1_bgImage_property_value= new AttributeValue(null,null,null,null,null,null,white_space_image.getId(),img_5_2_1_bgImage_property,img_5_2_1_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_5_2_1_bgImage_property_value);
 
         ALCityInstanceInPL img_5_2_0 = new ALCityInstanceInPL("img_5_2_0",5,2,0,puzzleGroup_puzzleObject,puzzleLevel_Maze,1L,now,now,admin_1,admin_1);
         pgObjectInstanceService.save(img_5_2_0);
         Attribute img_5_2_0_bgImage_property =new Attribute("bgImage",img_5_2_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_5_2_0_bgImage_property);
-        AttributeValue img_5_2_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,img_5_2_0_bgImage_property,img_5_2_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_5_2_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,null,img_5_2_0_bgImage_property,img_5_2_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_5_2_0_bgImage_property_value);
 
 
@@ -654,7 +666,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_6_2_1);
         Attribute img_6_2_1_bgImage_property =new Attribute("bgImage",img_6_2_1.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_6_2_1_bgImage_property);
-        AttributeValue img_6_2_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,img_6_2_1_bgImage_property,img_6_2_1_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_6_2_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,null,img_6_2_1_bgImage_property,img_6_2_1_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_6_2_1_bgImage_property_value);
 
 
@@ -662,7 +674,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_6_2_0);
         Attribute img_6_2_0_bgImage_property =new Attribute("bgImage",img_6_2_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_6_2_0_bgImage_property);
-        AttributeValue img_6_2_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,img_6_2_0_bgImage_property,img_6_2_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_6_2_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,null,img_6_2_0_bgImage_property,img_6_2_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_6_2_0_bgImage_property_value);
 
 
@@ -671,7 +683,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_7_2_1);
         Attribute img_7_2_1_bgImage_property =new Attribute("bgImage",img_7_2_1.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_7_2_1_bgImage_property);
-        AttributeValue img_7_2_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,img_7_2_1_bgImage_property,img_7_2_1_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_7_2_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,null,img_7_2_1_bgImage_property,img_7_2_1_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_7_2_1_bgImage_property_value);
 
 
@@ -679,7 +691,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_7_2_0);
         Attribute img_7_2_0_bgImage_property =new Attribute("bgImage",img_7_2_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_7_2_0_bgImage_property);
-        AttributeValue img_7_2_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,img_7_2_0_bgImage_property,img_7_2_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_7_2_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,null,img_7_2_0_bgImage_property,img_7_2_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_7_2_0_bgImage_property_value);
 
 
@@ -687,7 +699,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_8_2_1);
         Attribute img_8_2_1_bgImage_property =new Attribute("bgImage",img_8_2_1.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_8_2_1_bgImage_property);
-        AttributeValue img_8_2_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,img_8_2_1_bgImage_property,img_8_2_1_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_8_2_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,null,img_8_2_1_bgImage_property,img_8_2_1_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_8_2_1_bgImage_property_value);
 
 
@@ -695,7 +707,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_8_2_0);
         Attribute img_8_2_0_bgImage_property =new Attribute("bgImage",img_8_2_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_8_2_0_bgImage_property);
-        AttributeValue img_8_2_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,img_8_2_0_bgImage_property,img_8_2_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_8_2_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,null,img_8_2_0_bgImage_property,img_8_2_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_8_2_0_bgImage_property_value);
 
 
@@ -703,7 +715,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_9_2_0);
         Attribute img_9_2_0_bgImage_property =new Attribute("bgImage",img_8_2_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_9_2_0_bgImage_property);
-        AttributeValue img_9_2_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,img_9_2_0_bgImage_property,img_9_2_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_9_2_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,null,img_9_2_0_bgImage_property,img_9_2_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_9_2_0_bgImage_property_value);
 
 
@@ -711,7 +723,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_10_2_1);
         Attribute img_10_2_1_bgImage_property =new Attribute("bgImage",img_10_2_1.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_10_2_1_bgImage_property);
-        AttributeValue img_10_2_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,img_10_2_1_bgImage_property,img_10_2_1_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_10_2_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,null,img_10_2_1_bgImage_property,img_10_2_1_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_10_2_1_bgImage_property_value);
 
 
@@ -720,7 +732,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_10_2_0);
         Attribute img_10_2_0_bgImage_property =new Attribute("bgImage",img_10_2_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_10_2_0_bgImage_property);
-        AttributeValue img_10_2_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,img_10_2_0_bgImage_property,img_10_2_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_10_2_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,null,img_10_2_0_bgImage_property,img_10_2_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_10_2_0_bgImage_property_value);
 
 
@@ -728,11 +740,11 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_11_2_0);
         Attribute img_11_2_0_bgImage_property =new Attribute("bgImage",img_11_2_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_11_2_0_bgImage_property);
-        AttributeValue img_11_2_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,img_11_2_0_bgImage_property,img_11_2_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_11_2_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,null,img_11_2_0_bgImage_property,img_11_2_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_11_2_0_bgImage_property_value);
         Attribute img_11_2_0_locked_variable =new Attribute("Locked",img_11_2_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Variable,DataType.Boolean,1L,now,now,admin_1,admin_1);
         attributeService.save(img_11_2_0_locked_variable);
-        AttributeValue img_11_2_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,img_11_2_0_locked_variable,img_11_2_0_locked_variable,1L,now,now,admin_1,admin_1);
+        AttributeValue img_11_2_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,null,img_11_2_0_locked_variable,img_11_2_0_locked_variable,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_11_2_0_locked_variable_value);
 
 
@@ -741,7 +753,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_12_2_1);
         Attribute img_12_2_1_bgImage_property =new Attribute("bgImage",img_12_2_1.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_12_2_1_bgImage_property);
-        AttributeValue img_12_2_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,img_12_2_1_bgImage_property,img_12_2_1_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_12_2_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,null,img_12_2_1_bgImage_property,img_12_2_1_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_12_2_1_bgImage_property_value);
 
 
@@ -749,7 +761,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_12_2_0);
         Attribute img_12_2_0_bgImage_property =new Attribute("bgImage",img_12_2_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_12_2_0_bgImage_property);
-        AttributeValue img_12_2_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,img_12_2_0_bgImage_property,img_12_2_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_12_2_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,null,img_12_2_0_bgImage_property,img_12_2_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_12_2_0_bgImage_property_value);
 
 
@@ -757,7 +769,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_13_2_1);
         Attribute img_13_2_1_bgImage_property =new Attribute("bgImage",img_13_2_1.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_13_2_1_bgImage_property);
-        AttributeValue img_13_2_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,img_13_2_1_bgImage_property,img_13_2_1_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_13_2_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,null,img_13_2_1_bgImage_property,img_13_2_1_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_13_2_1_bgImage_property_value);
 
 
@@ -765,7 +777,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_13_2_0);
         Attribute img_13_2_0_bgImage_property =new Attribute("bgImage",img_13_2_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_13_2_0_bgImage_property);
-        AttributeValue img_13_2_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,img_13_2_0_bgImage_property,img_13_2_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_13_2_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,null,img_13_2_0_bgImage_property,img_13_2_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_13_2_0_bgImage_property_value);
 
 
@@ -773,7 +785,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_14_2_1);
         Attribute img_14_2_1_bgImage_property =new Attribute("bgImage",img_14_2_1.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_14_2_1_bgImage_property);
-        AttributeValue img_14_2_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,img_14_2_1_bgImage_property,img_14_2_1_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_14_2_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,null,img_14_2_1_bgImage_property,img_14_2_1_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_14_2_1_bgImage_property_value);
 
 
@@ -781,7 +793,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_14_2_0);
         Attribute img_14_2_0_bgImage_property =new Attribute("bgImage",img_14_2_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_14_2_0_bgImage_property);
-        AttributeValue img_14_2_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,img_14_2_0_bgImage_property,img_14_2_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_14_2_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,null,img_14_2_0_bgImage_property,img_14_2_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_14_2_0_bgImage_property_value);
 
 
@@ -789,11 +801,11 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_15_2_0);
         Attribute img_15_2_0_bgImage_property =new Attribute("bgImage",img_15_2_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_15_2_0_bgImage_property);
-        AttributeValue img_15_2_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,img_15_2_0_bgImage_property,img_15_2_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_15_2_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,null,img_15_2_0_bgImage_property,img_15_2_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_15_2_0_bgImage_property_value);
         Attribute img_15_2_0_locked_variable =new Attribute("Locked",img_15_2_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Variable,DataType.Boolean,1L,now,now,admin_1,admin_1);
         attributeService.save(img_15_2_0_locked_variable);
-        AttributeValue img_15_2_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,img_15_2_0_locked_variable,img_15_2_0_locked_variable,1L,now,now,admin_1,admin_1);
+        AttributeValue img_15_2_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,null,img_15_2_0_locked_variable,img_15_2_0_locked_variable,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_15_2_0_locked_variable_value);
 
 
@@ -803,7 +815,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_16_2_1);
         Attribute img_16_2_1_bgImage_property =new Attribute("bgImage",img_16_2_1.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_16_2_1_bgImage_property);
-        AttributeValue img_16_2_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,img_16_2_1_bgImage_property,img_16_2_1_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_16_2_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,null,img_16_2_1_bgImage_property,img_16_2_1_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_16_2_1_bgImage_property_value);
 
 
@@ -811,7 +823,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_16_2_0);
         Attribute img_16_2_0_bgImage_property =new Attribute("bgImage",img_16_2_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_16_2_0_bgImage_property);
-        AttributeValue img_16_2_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,img_16_2_0_bgImage_property,img_16_2_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_16_2_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,null,img_16_2_0_bgImage_property,img_16_2_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_16_2_0_bgImage_property_value);
 
 
@@ -819,7 +831,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_17_2_1);
         Attribute img_17_2_1_bgImage_property =new Attribute("bgImage",img_17_2_1.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_17_2_1_bgImage_property);
-        AttributeValue img_17_2_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,img_17_2_1_bgImage_property,img_17_2_1_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_17_2_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,null,img_17_2_1_bgImage_property,img_17_2_1_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_17_2_1_bgImage_property_value);
 
 
@@ -828,7 +840,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_17_2_0);
         Attribute img_17_2_0_bgImage_property =new Attribute("bgImage",img_17_2_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_17_2_0_bgImage_property);
-        AttributeValue img_17_2_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,img_17_2_0_bgImage_property,img_17_2_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_17_2_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,null,img_17_2_0_bgImage_property,img_17_2_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_17_2_0_bgImage_property_value);
 
 
@@ -836,7 +848,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_18_2_1);
         Attribute img_18_2_1_bgImage_property =new Attribute("bgImage",img_18_2_1.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_18_2_1_bgImage_property);
-        AttributeValue img_18_2_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,img_18_2_1_bgImage_property,img_18_2_1_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_18_2_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,null,img_18_2_1_bgImage_property,img_18_2_1_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_18_2_1_bgImage_property_value);
 
 
@@ -845,7 +857,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_18_2_0);
         Attribute img_18_2_0_bgImage_property =new Attribute("bgImage",img_18_2_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_18_2_0_bgImage_property);
-        AttributeValue img_18_2_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,img_18_2_0_bgImage_property,img_18_2_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_18_2_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,null,img_18_2_0_bgImage_property,img_18_2_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_18_2_0_bgImage_property_value);
 
 
@@ -853,11 +865,11 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_19_2_0);
         Attribute img_19_2_0_bgImage_property =new Attribute("bgImage",img_19_2_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_19_2_0_bgImage_property);
-        AttributeValue img_19_2_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,img_19_2_0_bgImage_property,img_19_2_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_19_2_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,null,img_19_2_0_bgImage_property,img_19_2_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_19_2_0_bgImage_property_value);
         Attribute img_19_2_0_locked_variable =new Attribute("Locked",img_19_2_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Variable,DataType.Boolean,1L,now,now,admin_1,admin_1);
         attributeService.save(img_19_2_0_locked_variable);
-        AttributeValue img_19_2_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,img_19_2_0_locked_variable,img_19_2_0_locked_variable,1L,now,now,admin_1,admin_1);
+        AttributeValue img_19_2_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,null,img_19_2_0_locked_variable,img_19_2_0_locked_variable,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_19_2_0_locked_variable_value);
 
 
@@ -865,11 +877,11 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_1_3_0);
         Attribute img_1_3_0_bgImage_property =new Attribute("bgImage",img_1_3_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_1_3_0_bgImage_property);
-        AttributeValue img_1_3_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,img_1_3_0_bgImage_property,img_1_3_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_1_3_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,null,img_1_3_0_bgImage_property,img_1_3_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_1_3_0_bgImage_property_value);
         Attribute img_1_3_0_locked_variable =new Attribute("Locked",img_19_2_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Variable,DataType.Boolean,1L,now,now,admin_1,admin_1);
         attributeService.save(img_1_3_0_locked_variable);
-        AttributeValue img_1_3_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,img_1_3_0_locked_variable,img_1_3_0_locked_variable,1L,now,now,admin_1,admin_1);
+        AttributeValue img_1_3_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,null,img_1_3_0_locked_variable,img_1_3_0_locked_variable,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_1_3_0_locked_variable_value);
 
 
@@ -877,11 +889,11 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_2_3_0);
         Attribute img_2_3_0_bgImage_property =new Attribute("bgImage",img_2_3_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_2_3_0_bgImage_property);
-        AttributeValue img_2_3_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,img_2_3_0_bgImage_property,img_2_3_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_2_3_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,null,img_2_3_0_bgImage_property,img_2_3_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_2_3_0_bgImage_property_value);
         Attribute img_2_3_0_locked_variable =new Attribute("Locked",img_2_3_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Variable,DataType.Boolean,1L,now,now,admin_1,admin_1);
         attributeService.save(img_2_3_0_locked_variable);
-        AttributeValue img_2_3_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,img_2_3_0_locked_variable,img_2_3_0_locked_variable,1L,now,now,admin_1,admin_1);
+        AttributeValue img_2_3_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,null,img_2_3_0_locked_variable,img_2_3_0_locked_variable,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_2_3_0_locked_variable_value);
 
 
@@ -890,11 +902,11 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_3_3_0);
         Attribute img_3_3_0_bgImage_property =new Attribute("bgImage",img_3_3_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_3_3_0_bgImage_property);
-        AttributeValue img_3_3_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,img_3_3_0_bgImage_property,img_3_3_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_3_3_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,null,img_3_3_0_bgImage_property,img_3_3_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_3_3_0_bgImage_property_value);
         Attribute img_3_3_0_locked_variable =new Attribute("Locked",img_19_2_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Variable,DataType.Boolean,1L,now,now,admin_1,admin_1);
         attributeService.save(img_3_3_0_locked_variable);
-        AttributeValue img_3_3_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,img_3_3_0_locked_variable,img_3_3_0_locked_variable,1L,now,now,admin_1,admin_1);
+        AttributeValue img_3_3_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,null,img_3_3_0_locked_variable,img_3_3_0_locked_variable,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_3_3_0_locked_variable_value);
 
 
@@ -902,7 +914,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_4_3_1);
         Attribute img_4_3_1_bgImage_property =new Attribute("bgImage",img_4_3_1.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_4_3_1_bgImage_property);
-        AttributeValue img_4_3_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,img_4_3_1_bgImage_property,img_4_3_1_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_4_3_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,null,img_4_3_1_bgImage_property,img_4_3_1_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_4_3_1_bgImage_property_value);
 
 
@@ -910,7 +922,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_4_3_0);
         Attribute img_4_3_0_bgImage_property =new Attribute("bgImage",img_4_3_1.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_4_3_0_bgImage_property);
-        AttributeValue img_4_3_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,img_4_3_0_bgImage_property,img_4_3_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_4_3_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,null,img_4_3_0_bgImage_property,img_4_3_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_4_3_0_bgImage_property_value);
 
 
@@ -918,11 +930,11 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_5_3_0);
         Attribute img_5_3_0_bgImage_property =new Attribute("bgImage",img_5_3_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_5_3_0_bgImage_property);
-        AttributeValue img_5_3_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,img_5_3_0_bgImage_property,img_5_3_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_5_3_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,null,img_5_3_0_bgImage_property,img_5_3_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_5_3_0_bgImage_property_value);
         Attribute img_5_3_0_locked_variable =new Attribute("Locked",img_5_3_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Variable,DataType.Boolean,1L,now,now,admin_1,admin_1);
         attributeService.save(img_5_3_0_locked_variable);
-        AttributeValue img_5_3_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,img_5_3_0_locked_variable,img_5_3_0_locked_variable,1L,now,now,admin_1,admin_1);
+        AttributeValue img_5_3_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,null,img_5_3_0_locked_variable,img_5_3_0_locked_variable,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_5_3_0_locked_variable_value);
 
 
@@ -930,11 +942,11 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_6_3_0);
         Attribute img_6_3_0_bgImage_property =new Attribute("bgImage",img_6_3_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_6_3_0_bgImage_property);
-        AttributeValue img_6_3_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,img_6_3_0_bgImage_property,img_6_3_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_6_3_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,null,img_6_3_0_bgImage_property,img_6_3_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_6_3_0_bgImage_property_value);
         Attribute img_6_3_0_locked_variable =new Attribute("Locked",img_6_3_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Variable,DataType.Boolean,1L,now,now,admin_1,admin_1);
         attributeService.save(img_6_3_0_locked_variable);
-        AttributeValue img_6_3_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,img_6_3_0_locked_variable,img_6_3_0_locked_variable,1L,now,now,admin_1,admin_1);
+        AttributeValue img_6_3_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,null,img_6_3_0_locked_variable,img_6_3_0_locked_variable,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_6_3_0_locked_variable_value);
 
 
@@ -942,11 +954,11 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_7_3_0);
         Attribute img_7_3_0_bgImage_property =new Attribute("bgImage",img_7_3_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_7_3_0_bgImage_property);
-        AttributeValue img_7_3_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,img_7_3_0_bgImage_property,img_7_3_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_7_3_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,null,img_7_3_0_bgImage_property,img_7_3_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_7_3_0_bgImage_property_value);
         Attribute img_7_3_0_locked_variable =new Attribute("Locked",img_7_3_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Variable,DataType.Boolean,1L,now,now,admin_1,admin_1);
         attributeService.save(img_7_3_0_locked_variable);
-        AttributeValue img_7_3_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,img_7_3_0_locked_variable,img_7_3_0_locked_variable,1L,now,now,admin_1,admin_1);
+        AttributeValue img_7_3_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,null,img_7_3_0_locked_variable,img_7_3_0_locked_variable,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_7_3_0_locked_variable_value);
 
 
@@ -954,7 +966,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_8_3_1);
         Attribute img_8_3_1_bgImage_property =new Attribute("bgImage",img_8_3_1.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_8_3_1_bgImage_property);
-        AttributeValue img_8_3_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,img_8_3_1_bgImage_property,img_8_3_1_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_8_3_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,null,img_8_3_1_bgImage_property,img_8_3_1_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_8_3_1_bgImage_property_value);
 
 
@@ -962,7 +974,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_8_3_0);
         Attribute img_8_3_0_bgImage_property =new Attribute("bgImage",img_8_3_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_8_3_0_bgImage_property);
-        AttributeValue img_8_3_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,img_8_3_0_bgImage_property,img_8_3_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_8_3_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,null,img_8_3_0_bgImage_property,img_8_3_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_8_3_0_bgImage_property_value);
 
 
@@ -970,11 +982,11 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_9_3_0);
         Attribute img_9_3_0_bgImage_property =new Attribute("bgImage",img_9_3_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_9_3_0_bgImage_property);
-        AttributeValue img_9_3_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,img_9_3_0_bgImage_property,img_9_3_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_9_3_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,null,img_9_3_0_bgImage_property,img_9_3_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_9_3_0_bgImage_property_value);
         Attribute img_9_3_0_locked_variable =new Attribute("Locked",img_9_3_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Variable,DataType.Boolean,1L,now,now,admin_1,admin_1);
         attributeService.save(img_9_3_0_locked_variable);
-        AttributeValue img_9_3_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,img_9_3_0_locked_variable,img_9_3_0_locked_variable,1L,now,now,admin_1,admin_1);
+        AttributeValue img_9_3_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,null,img_9_3_0_locked_variable,img_9_3_0_locked_variable,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_9_3_0_locked_variable_value);
 
 
@@ -982,7 +994,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_10_3_1);
         Attribute img_10_3_1_bgImage_property =new Attribute("bgImage",img_10_3_1.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_10_3_1_bgImage_property);
-        AttributeValue img_10_3_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,img_10_3_1_bgImage_property,img_10_3_1_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_10_3_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,null,img_10_3_1_bgImage_property,img_10_3_1_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_10_3_1_bgImage_property_value);
 
 
@@ -990,7 +1002,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_10_3_0);
         Attribute img_10_3_0_bgImage_property =new Attribute("bgImage",img_10_3_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_10_3_0_bgImage_property);
-        AttributeValue img_10_3_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,img_10_3_0_bgImage_property,img_10_3_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_10_3_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,null,img_10_3_0_bgImage_property,img_10_3_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_10_3_0_bgImage_property_value);
 
 
@@ -998,11 +1010,11 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_11_3_0);
         Attribute img_11_3_0_bgImage_property =new Attribute("bgImage",img_11_3_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_11_3_0_bgImage_property);
-        AttributeValue img_11_3_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,img_11_3_0_bgImage_property,img_11_3_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_11_3_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,null,img_11_3_0_bgImage_property,img_11_3_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_11_3_0_bgImage_property_value);
         Attribute img_11_3_0_locked_variable =new Attribute("Locked",img_11_3_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Variable,DataType.Boolean,1L,now,now,admin_1,admin_1);
         attributeService.save(img_11_3_0_locked_variable);
-        AttributeValue img_11_3_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,img_11_3_0_locked_variable,img_11_3_0_locked_variable,1L,now,now,admin_1,admin_1);
+        AttributeValue img_11_3_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,null,img_11_3_0_locked_variable,img_11_3_0_locked_variable,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_11_3_0_locked_variable_value);
 
 
@@ -1011,7 +1023,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_12_3_1);
         Attribute img_12_3_1_bgImage_property =new Attribute("bgImage",img_12_3_1.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_12_3_1_bgImage_property);
-        AttributeValue img_12_3_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,img_12_3_1_bgImage_property,img_12_3_1_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_12_3_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,null,img_12_3_1_bgImage_property,img_12_3_1_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_12_3_1_bgImage_property_value);
 
 
@@ -1019,7 +1031,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_12_3_0);
         Attribute img_12_3_0_bgImage_property =new Attribute("bgImage",img_12_3_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_12_3_0_bgImage_property);
-        AttributeValue img_12_3_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,img_12_3_0_bgImage_property,img_12_3_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_12_3_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,null,img_12_3_0_bgImage_property,img_12_3_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_12_3_0_bgImage_property_value);
 
 
@@ -1027,11 +1039,11 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_13_3_0);
         Attribute img_13_3_0_bgImage_property =new Attribute("bgImage",img_13_3_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_13_3_0_bgImage_property);
-        AttributeValue img_13_3_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,img_13_3_0_bgImage_property,img_13_3_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_13_3_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,null,img_13_3_0_bgImage_property,img_13_3_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_13_3_0_bgImage_property_value);
         Attribute img_13_3_0_locked_variable =new Attribute("Locked",img_13_3_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Variable,DataType.Boolean,1L,now,now,admin_1,admin_1);
         attributeService.save(img_13_3_0_locked_variable);
-        AttributeValue img_13_3_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,img_13_3_0_locked_variable,img_13_3_0_locked_variable,1L,now,now,admin_1,admin_1);
+        AttributeValue img_13_3_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,null,img_13_3_0_locked_variable,img_13_3_0_locked_variable,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_13_3_0_locked_variable_value);
 
 
@@ -1039,7 +1051,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_14_3_1);
         Attribute img_14_3_1_bgImage_property =new Attribute("bgImage",img_14_3_1.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_14_3_1_bgImage_property);
-        AttributeValue img_14_3_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,img_14_3_1_bgImage_property,img_14_3_1_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_14_3_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,null,img_14_3_1_bgImage_property,img_14_3_1_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_14_3_1_bgImage_property_value);
 
 
@@ -1047,7 +1059,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_14_3_0);
         Attribute img_14_3_0_bgImage_property =new Attribute("bgImage",img_14_3_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_14_3_0_bgImage_property);
-        AttributeValue img_14_3_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,img_14_3_0_bgImage_property,img_14_3_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_14_3_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,null,img_14_3_0_bgImage_property,img_14_3_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_14_3_0_bgImage_property_value);
 
 
@@ -1055,11 +1067,11 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_15_3_0);
         Attribute img_15_3_0_bgImage_property =new Attribute("bgImage",img_15_3_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_15_3_0_bgImage_property);
-        AttributeValue img_15_3_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,img_15_3_0_bgImage_property,img_15_3_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_15_3_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,null,img_15_3_0_bgImage_property,img_15_3_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_15_3_0_bgImage_property_value);
         Attribute img_15_3_0_locked_variable =new Attribute("Locked",img_15_3_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Variable,DataType.Boolean,1L,now,now,admin_1,admin_1);
         attributeService.save(img_15_3_0_locked_variable);
-        AttributeValue img_15_3_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,img_15_3_0_locked_variable,img_15_3_0_locked_variable,1L,now,now,admin_1,admin_1);
+        AttributeValue img_15_3_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,null,img_15_3_0_locked_variable,img_15_3_0_locked_variable,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_15_3_0_locked_variable_value);
 
 
@@ -1067,7 +1079,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_16_3_1);
         Attribute img_16_3_1_bgImage_property =new Attribute("bgImage",img_16_3_1.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_16_3_1_bgImage_property);
-        AttributeValue img_16_3_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,img_16_3_1_bgImage_property,img_16_3_1_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_16_3_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,null,img_16_3_1_bgImage_property,img_16_3_1_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_16_3_1_bgImage_property_value);
 
 
@@ -1075,7 +1087,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_16_3_0);
         Attribute img_16_3_0_bgImage_property =new Attribute("bgImage",img_16_3_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_16_3_0_bgImage_property);
-        AttributeValue img_16_3_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,img_16_3_0_bgImage_property,img_16_3_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_16_3_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,null,img_16_3_0_bgImage_property,img_16_3_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_16_3_0_bgImage_property_value);
 
 
@@ -1083,11 +1095,11 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_17_3_0);
         Attribute img_17_3_0_bgImage_property =new Attribute("bgImage",img_17_3_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_17_3_0_bgImage_property);
-        AttributeValue img_17_3_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,img_17_3_0_bgImage_property,img_17_3_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_17_3_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,null,img_17_3_0_bgImage_property,img_17_3_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_17_3_0_bgImage_property_value);
         Attribute img_17_3_0_locked_variable =new Attribute("Locked",img_17_3_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Variable,DataType.Boolean,1L,now,now,admin_1,admin_1);
         attributeService.save(img_17_3_0_locked_variable);
-        AttributeValue img_17_3_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,img_17_3_0_locked_variable,img_17_3_0_locked_variable,1L,now,now,admin_1,admin_1);
+        AttributeValue img_17_3_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,null,img_17_3_0_locked_variable,img_17_3_0_locked_variable,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_17_3_0_locked_variable_value);
 
 
@@ -1095,7 +1107,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_18_3_1);
         Attribute img_18_3_1_bgImage_property =new Attribute("bgImage",img_18_3_1.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_18_3_1_bgImage_property);
-        AttributeValue img_18_3_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,img_18_3_1_bgImage_property,img_18_3_1_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_18_3_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,null,img_18_3_1_bgImage_property,img_18_3_1_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_18_3_1_bgImage_property_value);
 
 
@@ -1103,18 +1115,18 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_18_3_0);
         Attribute img_18_3_0_bgImage_property =new Attribute("bgImage",img_18_3_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_18_3_0_bgImage_property);
-        AttributeValue img_18_3_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,img_18_3_0_bgImage_property,img_18_3_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_18_3_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,null,img_18_3_0_bgImage_property,img_18_3_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_18_3_0_bgImage_property_value);
 
         ALCityInstanceInPL img_19_3_0 = new ALCityInstanceInPL("img_19_3_0",19,3,0,puzzleGroup_puzzleObject,puzzleLevel_Maze,1L,now,now,admin_1,admin_1);
         pgObjectInstanceService.save(img_19_3_0);
         Attribute img_19_3_0_bgImage_property =new Attribute("bgImage",img_19_3_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_19_3_0_bgImage_property);
-        AttributeValue img_19_3_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,img_19_3_0_bgImage_property,img_19_3_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_19_3_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,null,img_19_3_0_bgImage_property,img_19_3_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_19_3_0_bgImage_property_value);
         Attribute img_19_3_0_locked_variable =new Attribute("Locked",img_19_3_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Variable,DataType.Boolean,1L,now,now,admin_1,admin_1);
         attributeService.save(img_19_3_0_locked_variable);
-        AttributeValue img_19_3_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,img_19_3_0_locked_variable,img_19_3_0_locked_variable,1L,now,now,admin_1,admin_1);
+        AttributeValue img_19_3_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,null,img_19_3_0_locked_variable,img_19_3_0_locked_variable,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_19_3_0_locked_variable_value);
 
 
@@ -1123,11 +1135,11 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_1_4_0);
         Attribute img_1_4_0_bgImage_property =new Attribute("bgImage",img_1_4_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_1_4_0_bgImage_property);
-        AttributeValue img_1_4_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,img_1_4_0_bgImage_property,img_1_4_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_1_4_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,null,img_1_4_0_bgImage_property,img_1_4_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_1_4_0_bgImage_property_value);
         Attribute img_1_4_0_locked_variable =new Attribute("Locked",img_1_4_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Variable,DataType.Boolean,1L,now,now,admin_1,admin_1);
         attributeService.save(img_1_4_0_locked_variable);
-        AttributeValue img_1_4_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,img_1_4_0_locked_variable,img_1_4_0_locked_variable,1L,now,now,admin_1,admin_1);
+        AttributeValue img_1_4_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,null,img_1_4_0_locked_variable,img_1_4_0_locked_variable,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_1_4_0_locked_variable_value);
 
 
@@ -1136,7 +1148,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_2_4_1);
         Attribute img_2_4_1_bgImage_property =new Attribute("img_2_4_1",img_2_4_1.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_2_4_1_bgImage_property);
-        AttributeValue img_2_4_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,img_2_4_1_bgImage_property,img_2_4_1_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_2_4_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,null,img_2_4_1_bgImage_property,img_2_4_1_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_2_4_1_bgImage_property_value);
 
 
@@ -1145,7 +1157,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_2_4_0);
         Attribute img_2_4_0_bgImage_property =new Attribute("img_2_4_0",img_2_4_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_2_4_0_bgImage_property);
-        AttributeValue img_2_4_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,img_2_4_0_bgImage_property,img_2_4_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_2_4_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,null,img_2_4_0_bgImage_property,img_2_4_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_2_4_0_bgImage_property_value);
 
 
@@ -1153,7 +1165,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_3_4_1);
         Attribute img_3_4_1_bgImage_property =new Attribute("img_3_4_1",img_3_4_1.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_3_4_1_bgImage_property);
-        AttributeValue img_3_4_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,img_3_4_1_bgImage_property,img_3_4_1_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_3_4_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,null,img_3_4_1_bgImage_property,img_3_4_1_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_3_4_1_bgImage_property_value);
 
 
@@ -1161,14 +1173,14 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_3_4_0);
         Attribute img_3_4_0_bgImage_property =new Attribute("img_3_4_0",img_3_4_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_3_4_0_bgImage_property);
-        AttributeValue img_3_4_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,img_3_4_0_bgImage_property,img_3_4_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_3_4_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,null,img_3_4_0_bgImage_property,img_3_4_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_3_4_0_bgImage_property_value);
 
         ALCityInstanceInPL img_4_4_1 = new ALCityInstanceInPL("img_4_4_1",4,4,1,puzzleGroup_puzzleObject,puzzleLevel_Maze,1L,now,now,admin_1,admin_1);
         pgObjectInstanceService.save(img_4_4_1);
         Attribute img_4_4_1_bgImage_property =new Attribute("img_4_4_1",img_4_4_1.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_4_4_1_bgImage_property);
-        AttributeValue img_4_4_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,img_4_4_1_bgImage_property,img_4_4_1_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_4_4_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,null,img_4_4_1_bgImage_property,img_4_4_1_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_4_4_1_bgImage_property_value);
 
 
@@ -1176,7 +1188,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_4_4_0);
         Attribute img_4_4_0_bgImage_property =new Attribute("img_4_4_0",img_4_4_1.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_4_4_0_bgImage_property);
-        AttributeValue img_4_4_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,img_4_4_0_bgImage_property,img_4_4_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_4_4_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,null,img_4_4_0_bgImage_property,img_4_4_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_4_4_0_bgImage_property_value);
 
 
@@ -1184,11 +1196,11 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_5_4_0);
         Attribute img_5_4_0_bgImage_property =new Attribute("bgImage",img_5_4_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_5_4_0_bgImage_property);
-        AttributeValue img_5_4_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,img_5_4_0_bgImage_property,img_5_4_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_5_4_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,null,img_5_4_0_bgImage_property,img_5_4_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_5_4_0_bgImage_property_value);
         Attribute img_5_4_0_locked_variable =new Attribute("Locked",img_5_4_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Variable,DataType.Boolean,1L,now,now,admin_1,admin_1);
         attributeService.save(img_5_4_0_locked_variable);
-        AttributeValue img_5_4_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,img_5_4_0_locked_variable,img_5_4_0_locked_variable,1L,now,now,admin_1,admin_1);
+        AttributeValue img_5_4_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,null,img_5_4_0_locked_variable,img_5_4_0_locked_variable,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_5_4_0_locked_variable_value);
 
 
@@ -1196,7 +1208,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_6_4_1);
         Attribute img_6_4_1_bgImage_property =new Attribute("bgImage",img_6_4_1.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_6_4_1_bgImage_property);
-        AttributeValue img_6_4_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,img_6_4_1_bgImage_property,img_6_4_1_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_6_4_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,null,img_6_4_1_bgImage_property,img_6_4_1_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_6_4_1_bgImage_property_value);
 
 
@@ -1205,7 +1217,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_6_4_0);
         Attribute img_6_4_0_bgImage_property =new Attribute("bgImage",img_6_4_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_6_4_0_bgImage_property);
-        AttributeValue img_6_4_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,img_6_4_0_bgImage_property,img_6_4_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_6_4_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,null,img_6_4_0_bgImage_property,img_6_4_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_6_4_0_bgImage_property_value);
 
 
@@ -1213,11 +1225,11 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_7_4_0);
         Attribute img_7_4_0_bgImage_property =new Attribute("bgImage",img_7_4_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_7_4_0_bgImage_property);
-        AttributeValue img_7_4_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,img_7_4_0_bgImage_property,img_7_4_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_7_4_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,null,img_7_4_0_bgImage_property,img_7_4_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_7_4_0_bgImage_property_value);
         Attribute img_7_4_0_locked_variable =new Attribute("Locked",img_7_4_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Variable,DataType.Boolean,1L,now,now,admin_1,admin_1);
         attributeService.save(img_7_4_0_locked_variable);
-        AttributeValue img_7_4_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,img_7_4_0_locked_variable,img_7_4_0_locked_variable,1L,now,now,admin_1,admin_1);
+        AttributeValue img_7_4_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,null,img_7_4_0_locked_variable,img_7_4_0_locked_variable,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_7_4_0_locked_variable_value);
 
 
@@ -1225,7 +1237,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_8_4_1);
         Attribute img_8_4_1_bgImage_property =new Attribute("bgImage",img_8_4_1.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_8_4_1_bgImage_property);
-        AttributeValue img_8_4_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,img_8_4_1_bgImage_property,img_8_4_1_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_8_4_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,null,img_8_4_1_bgImage_property,img_8_4_1_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_8_4_1_bgImage_property_value);
 
 
@@ -1233,7 +1245,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_8_4_0);
         Attribute img_8_4_0_bgImage_property =new Attribute("bgImage",img_8_4_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_8_4_0_bgImage_property);
-        AttributeValue img_8_4_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,img_8_4_0_bgImage_property,img_8_4_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_8_4_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,null,img_8_4_0_bgImage_property,img_8_4_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_8_4_0_bgImage_property_value);
 
 
@@ -1241,7 +1253,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_9_4_1);
         Attribute img_9_4_1_bgImage_property =new Attribute("bgImage",img_9_4_1.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_9_4_1_bgImage_property);
-        AttributeValue img_9_4_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,img_9_4_1_bgImage_property,img_9_4_1_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_9_4_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,null,img_9_4_1_bgImage_property,img_9_4_1_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_9_4_1_bgImage_property_value);
 
 
@@ -1249,14 +1261,14 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_9_4_0);
         Attribute img_9_4_0_bgImage_property =new Attribute("bgImage",img_9_4_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_9_4_0_bgImage_property);
-        AttributeValue img_9_4_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,img_9_4_0_bgImage_property,img_9_4_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_9_4_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,null,img_9_4_0_bgImage_property,img_9_4_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_9_4_0_bgImage_property_value);
 
         ALCityInstanceInPL img_10_4_1 = new ALCityInstanceInPL("img_10_4_1",10,4,1,puzzleGroup_puzzleObject,puzzleLevel_Maze,1L,now,now,admin_1,admin_1);
         pgObjectInstanceService.save(img_10_4_1);
         Attribute img_10_4_1_bgImage_property =new Attribute("bgImage",img_10_4_1.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_10_4_1_bgImage_property);
-        AttributeValue img_10_4_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,img_10_4_1_bgImage_property,img_10_4_1_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_10_4_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,null,img_10_4_1_bgImage_property,img_10_4_1_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_10_4_1_bgImage_property_value);
 
 
@@ -1264,7 +1276,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_10_4_0);
         Attribute img_10_4_0_bgImage_property =new Attribute("bgImage",img_10_4_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_10_4_0_bgImage_property);
-        AttributeValue img_10_4_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,img_10_4_0_bgImage_property,img_10_4_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_10_4_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,null,img_10_4_0_bgImage_property,img_10_4_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_10_4_0_bgImage_property_value);
 
 
@@ -1272,7 +1284,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_11_4_1);
         Attribute img_11_4_1_bgImage_property =new Attribute("bgImage",img_11_4_1.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_11_4_1_bgImage_property);
-        AttributeValue img_11_4_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,img_11_4_1_bgImage_property,img_11_4_1_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_11_4_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,null,img_11_4_1_bgImage_property,img_11_4_1_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_11_4_1_bgImage_property_value);
 
 
@@ -1280,7 +1292,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_11_4_0);
         Attribute img_11_4_0_bgImage_property =new Attribute("bgImage",img_11_4_1.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_11_4_0_bgImage_property);
-        AttributeValue img_11_4_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,img_11_4_0_bgImage_property,img_11_4_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_11_4_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,null,img_11_4_0_bgImage_property,img_11_4_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_11_4_0_bgImage_property_value);
 
 
@@ -1288,7 +1300,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_12_4_1);
         Attribute img_12_4_1_bgImage_property =new Attribute("bgImage",img_11_4_1.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_12_4_1_bgImage_property);
-        AttributeValue img_12_4_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,img_12_4_1_bgImage_property,img_12_4_1_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_12_4_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,null,img_12_4_1_bgImage_property,img_12_4_1_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_12_4_1_bgImage_property_value);
 
 
@@ -1296,7 +1308,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_12_4_0);
         Attribute img_12_4_0_bgImage_property =new Attribute("bgImage",img_12_4_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_12_4_0_bgImage_property);
-        AttributeValue img_12_4_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,img_12_4_0_bgImage_property,img_12_4_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_12_4_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,null,img_12_4_0_bgImage_property,img_12_4_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_12_4_0_bgImage_property_value);
 
 
@@ -1304,11 +1316,11 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_13_4_0);
         Attribute img_13_4_0_bgImage_property =new Attribute("bgImage",img_13_4_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_13_4_0_bgImage_property);
-        AttributeValue img_13_4_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,img_13_4_0_bgImage_property,img_13_4_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_13_4_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,null,img_13_4_0_bgImage_property,img_13_4_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_13_4_0_bgImage_property_value);
         Attribute img_13_4_0_locked_variable =new Attribute("Locked",img_13_4_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Variable,DataType.Boolean,1L,now,now,admin_1,admin_1);
         attributeService.save(img_13_4_0_locked_variable);
-        AttributeValue img_13_4_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,img_13_4_0_locked_variable,img_13_4_0_locked_variable,1L,now,now,admin_1,admin_1);
+        AttributeValue img_13_4_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,null,img_13_4_0_locked_variable,img_13_4_0_locked_variable,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_13_4_0_locked_variable_value);
 
 
@@ -1317,7 +1329,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_14_4_1);
         Attribute img_14_4_1_bgImage_property =new Attribute("bgImage",img_14_4_1.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_14_4_1_bgImage_property);
-        AttributeValue img_14_4_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,img_14_4_1_bgImage_property,img_14_4_1_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_14_4_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,null,img_14_4_1_bgImage_property,img_14_4_1_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_14_4_1_bgImage_property_value);
 
 
@@ -1325,7 +1337,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
 //        pgObjectInstanceService.save(img_13_4_1);
 //        Attribute img_13_4_1_bgImage_property =new Attribute("bgImage",img_13_4_1.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
 //        attributeService.save(img_13_4_1_bgImage_property);
-//        AttributeValue img_13_4_1_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,img_13_4_1_bgImage_property,img_13_4_1_bgImage_property,1L,now,now,admin_1,admin_1);
+//        AttributeValue img_13_4_1_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,null,img_13_4_1_bgImage_property,img_13_4_1_bgImage_property,1L,now,now,admin_1,admin_1);
 //        attributeValueService.save(img_13_4_1_bgImage_property_value);
 
 
@@ -1333,7 +1345,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_14_4_0);
         Attribute img_14_4_0_bgImage_property =new Attribute("bgImage",img_14_4_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_14_4_0_bgImage_property);
-        AttributeValue img_14_4_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,img_14_4_0_bgImage_property,img_14_4_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_14_4_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,null,img_14_4_0_bgImage_property,img_14_4_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_14_4_0_bgImage_property_value);
 
 
@@ -1341,11 +1353,11 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_15_4_0);
         Attribute img_15_4_0_bgImage_property =new Attribute("bgImage",img_15_4_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_15_4_0_bgImage_property);
-        AttributeValue img_15_4_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,img_15_4_0_bgImage_property,img_15_4_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_15_4_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,null,img_15_4_0_bgImage_property,img_15_4_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_15_4_0_bgImage_property_value);
         Attribute img_15_4_0_locked_variable =new Attribute("Locked",img_15_4_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Variable,DataType.Boolean,1L,now,now,admin_1,admin_1);
         attributeService.save(img_15_4_0_locked_variable);
-        AttributeValue img_15_4_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,img_15_4_0_locked_variable,img_15_4_0_locked_variable,1L,now,now,admin_1,admin_1);
+        AttributeValue img_15_4_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,null,img_15_4_0_locked_variable,img_15_4_0_locked_variable,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_15_4_0_locked_variable_value);
 
 
@@ -1353,7 +1365,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_16_4_1);
         Attribute img_16_4_1_bgImage_property =new Attribute("bgImage",img_16_4_1.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_16_4_1_bgImage_property);
-        AttributeValue img_16_4_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,img_16_4_1_bgImage_property,img_16_4_1_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_16_4_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,null,img_16_4_1_bgImage_property,img_16_4_1_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_16_4_1_bgImage_property_value);
 
 
@@ -1362,7 +1374,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_16_4_0);
         Attribute img_16_4_0_bgImage_property =new Attribute("bgImage",img_16_4_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_16_4_0_bgImage_property);
-        AttributeValue img_16_4_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,img_16_4_0_bgImage_property,img_16_4_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_16_4_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,null,img_16_4_0_bgImage_property,img_16_4_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_16_4_0_bgImage_property_value);
 
 
@@ -1370,11 +1382,11 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_17_4_0);
         Attribute img_17_4_0_bgImage_property =new Attribute("bgImage",img_17_4_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_17_4_0_bgImage_property);
-        AttributeValue img_17_4_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,img_17_4_0_bgImage_property,img_17_4_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_17_4_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,null,img_17_4_0_bgImage_property,img_17_4_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_17_4_0_bgImage_property_value);
         Attribute img_17_4_0_locked_variable =new Attribute("Locked",img_17_4_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Variable,DataType.Boolean,1L,now,now,admin_1,admin_1);
         attributeService.save(img_17_4_0_locked_variable);
-        AttributeValue img_17_4_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,img_17_4_0_locked_variable,img_17_4_0_locked_variable,1L,now,now,admin_1,admin_1);
+        AttributeValue img_17_4_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,null,img_17_4_0_locked_variable,img_17_4_0_locked_variable,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_17_4_0_locked_variable_value);
 
 
@@ -1383,7 +1395,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_18_4_1);
         Attribute img_18_4_1_bgImage_property =new Attribute("bgImage",img_18_4_1.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_18_4_1_bgImage_property);
-        AttributeValue img_18_4_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,img_18_4_1_bgImage_property,img_18_4_1_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_18_4_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,null,img_18_4_1_bgImage_property,img_18_4_1_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_18_4_1_bgImage_property_value);
 
 
@@ -1391,18 +1403,18 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_18_4_0);
         Attribute img_18_4_0_bgImage_property =new Attribute("bgImage",img_18_4_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_18_4_0_bgImage_property);
-        AttributeValue img_18_4_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,img_18_4_0_bgImage_property,img_18_4_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_18_4_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,null,img_18_4_0_bgImage_property,img_18_4_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_18_4_0_bgImage_property_value);
 
         ALCityInstanceInPL img_19_4_0 = new ALCityInstanceInPL("img_19_4_0",19,4,0,puzzleGroup_puzzleObject,puzzleLevel_Maze,1L,now,now,admin_1,admin_1);
         pgObjectInstanceService.save(img_19_4_0);
         Attribute img_19_4_0_bgImage_property =new Attribute("bgImage",img_19_4_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_19_4_0_bgImage_property);
-        AttributeValue img_19_4_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,img_19_4_0_bgImage_property,img_19_4_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_19_4_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,null,img_19_4_0_bgImage_property,img_19_4_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_19_4_0_bgImage_property_value);
         Attribute img_19_4_0_locked_variable =new Attribute("Locked",img_19_4_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Variable,DataType.Boolean,1L,now,now,admin_1,admin_1);
         attributeService.save(img_19_4_0_locked_variable);
-        AttributeValue img_19_4_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,img_19_4_0_locked_variable,img_19_4_0_locked_variable,1L,now,now,admin_1,admin_1);
+        AttributeValue img_19_4_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,null,img_19_4_0_locked_variable,img_19_4_0_locked_variable,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_19_4_0_locked_variable_value);
 
 
@@ -1411,11 +1423,11 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_1_5_0);
         Attribute img_1_5_0_bgImage_property =new Attribute("bgImage",img_1_5_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_1_5_0_bgImage_property);
-        AttributeValue img_1_5_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,img_1_5_0_bgImage_property,img_1_5_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_1_5_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,null,img_1_5_0_bgImage_property,img_1_5_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_1_5_0_bgImage_property_value);
         Attribute img_1_5_0_locked_variable =new Attribute("Locked",img_1_5_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Variable,DataType.Boolean,1L,now,now,admin_1,admin_1);
         attributeService.save(img_1_5_0_locked_variable);
-        AttributeValue img_1_5_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,img_1_5_0_locked_variable,img_1_5_0_locked_variable,1L,now,now,admin_1,admin_1);
+        AttributeValue img_1_5_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,null,img_1_5_0_locked_variable,img_1_5_0_locked_variable,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_1_5_0_locked_variable_value);
 
 
@@ -1423,7 +1435,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_2_5_1);
         Attribute img_2_5_1_bgImage_property =new Attribute("bgImage",img_2_5_1.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_2_5_1_bgImage_property);
-        AttributeValue img_2_5_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,img_2_5_1_bgImage_property,img_2_5_1_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_2_5_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,null,img_2_5_1_bgImage_property,img_2_5_1_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_2_5_1_bgImage_property_value);
 
 
@@ -1431,7 +1443,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_2_5_0);
         Attribute img_2_5_0_bgImage_property =new Attribute("bgImage",img_2_5_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_2_5_0_bgImage_property);
-        AttributeValue img_2_5_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,img_2_5_0_bgImage_property,img_2_5_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_2_5_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,null,img_2_5_0_bgImage_property,img_2_5_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_2_5_0_bgImage_property_value);
 
 
@@ -1439,11 +1451,11 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_3_5_0);
         Attribute img_3_5_0_bgImage_property =new Attribute("bgImage",img_3_5_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_3_5_0_bgImage_property);
-        AttributeValue img_3_5_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,img_3_5_0_bgImage_property,img_3_5_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_3_5_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,null,img_3_5_0_bgImage_property,img_3_5_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_3_5_0_bgImage_property_value);
         Attribute img_3_5_0_locked_variable =new Attribute("Locked",img_3_5_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Variable,DataType.Boolean,1L,now,now,admin_1,admin_1);
         attributeService.save(img_3_5_0_locked_variable);
-        AttributeValue img_3_5_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,img_3_5_0_locked_variable,img_3_5_0_locked_variable,1L,now,now,admin_1,admin_1);
+        AttributeValue img_3_5_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,null,img_3_5_0_locked_variable,img_3_5_0_locked_variable,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_3_5_0_locked_variable_value);
 
 
@@ -1451,11 +1463,11 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_4_5_0);
         Attribute img_4_5_0_bgImage_property =new Attribute("bgImage",img_4_5_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_4_5_0_bgImage_property);
-        AttributeValue img_4_5_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,img_4_5_0_bgImage_property,img_4_5_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_4_5_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,null,img_4_5_0_bgImage_property,img_4_5_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_4_5_0_bgImage_property_value);
         Attribute img_4_5_0_locked_variable =new Attribute("Locked",img_4_5_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Variable,DataType.Boolean,1L,now,now,admin_1,admin_1);
         attributeService.save(img_4_5_0_locked_variable);
-        AttributeValue img_4_5_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,img_4_5_0_locked_variable,img_4_5_0_locked_variable,1L,now,now,admin_1,admin_1);
+        AttributeValue img_4_5_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,null,img_4_5_0_locked_variable,img_4_5_0_locked_variable,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_4_5_0_locked_variable_value);
 
 
@@ -1463,11 +1475,11 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_5_5_0);
         Attribute img_5_5_0_bgImage_property =new Attribute("bgImage",img_5_5_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_5_5_0_bgImage_property);
-        AttributeValue img_5_5_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,img_5_5_0_bgImage_property,img_5_5_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_5_5_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,null,img_5_5_0_bgImage_property,img_5_5_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_5_5_0_bgImage_property_value);
         Attribute img_5_5_0_locked_variable =new Attribute("Locked",img_5_5_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Variable,DataType.Boolean,1L,now,now,admin_1,admin_1);
         attributeService.save(img_5_5_0_locked_variable);
-        AttributeValue img_5_5_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,img_5_5_0_locked_variable,img_5_5_0_locked_variable,1L,now,now,admin_1,admin_1);
+        AttributeValue img_5_5_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,null,img_5_5_0_locked_variable,img_5_5_0_locked_variable,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_5_5_0_locked_variable_value);
 
 
@@ -1476,7 +1488,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_6_5_1);
         Attribute img_6_5_1_bgImage_property =new Attribute("bgImage",img_6_5_1.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_6_5_1_bgImage_property);
-        AttributeValue img_6_5_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,img_6_5_1_bgImage_property,img_6_5_1_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_6_5_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,null,img_6_5_1_bgImage_property,img_6_5_1_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_6_5_1_bgImage_property_value);
 
 
@@ -1484,7 +1496,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_6_5_0);
         Attribute img_6_5_0_bgImage_property =new Attribute("bgImage",img_6_5_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_6_5_0_bgImage_property);
-        AttributeValue img_6_5_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,img_6_5_0_bgImage_property,img_6_5_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_6_5_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,null,img_6_5_0_bgImage_property,img_6_5_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_6_5_0_bgImage_property_value);
 
 
@@ -1492,11 +1504,11 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_7_5_0);
         Attribute img_7_5_0_bgImage_property =new Attribute("bgImage",img_7_5_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_7_5_0_bgImage_property);
-        AttributeValue img_7_5_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,img_7_5_0_bgImage_property,img_7_5_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_7_5_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,null,img_7_5_0_bgImage_property,img_7_5_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_7_5_0_bgImage_property_value);
         Attribute img_7_5_0_locked_variable =new Attribute("Locked",img_7_5_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Variable,DataType.Boolean,1L,now,now,admin_1,admin_1);
         attributeService.save(img_7_5_0_locked_variable);
-        AttributeValue img_7_5_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,img_7_5_0_locked_variable,img_7_5_0_locked_variable,1L,now,now,admin_1,admin_1);
+        AttributeValue img_7_5_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,null,img_7_5_0_locked_variable,img_7_5_0_locked_variable,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_7_5_0_locked_variable_value);
 
 
@@ -1504,11 +1516,11 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_8_5_0);
         Attribute img_8_5_0_bgImage_property =new Attribute("bgImage",img_8_5_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_8_5_0_bgImage_property);
-        AttributeValue img_8_5_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,img_8_5_0_bgImage_property,img_8_5_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_8_5_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,null,img_8_5_0_bgImage_property,img_8_5_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_8_5_0_bgImage_property_value);
         Attribute img_8_5_0_locked_variable =new Attribute("Locked",img_8_5_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Variable,DataType.Boolean,1L,now,now,admin_1,admin_1);
         attributeService.save(img_8_5_0_locked_variable);
-        AttributeValue img_8_5_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,img_8_5_0_locked_variable,img_8_5_0_locked_variable,1L,now,now,admin_1,admin_1);
+        AttributeValue img_8_5_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,null,img_8_5_0_locked_variable,img_8_5_0_locked_variable,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_8_5_0_locked_variable_value);
 
 
@@ -1516,11 +1528,11 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_9_5_0);
         Attribute img_9_5_0_bgImage_property =new Attribute("bgImage",img_9_5_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_9_5_0_bgImage_property);
-        AttributeValue img_9_5_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,img_9_5_0_bgImage_property,img_9_5_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_9_5_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,null,img_9_5_0_bgImage_property,img_9_5_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_9_5_0_bgImage_property_value);
         Attribute img_9_5_0_locked_variable =new Attribute("Locked",img_9_5_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Variable,DataType.Boolean,1L,now,now,admin_1,admin_1);
         attributeService.save(img_9_5_0_locked_variable);
-        AttributeValue img_9_5_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,img_9_5_0_locked_variable,img_9_5_0_locked_variable,1L,now,now,admin_1,admin_1);
+        AttributeValue img_9_5_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,null,img_9_5_0_locked_variable,img_9_5_0_locked_variable,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_9_5_0_locked_variable_value);
 
 
@@ -1528,25 +1540,25 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_10_5_1);
         Attribute img_10_5_1_bgImage_property =new Attribute("bgImage",img_10_5_1.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_10_5_1_bgImage_property);
-        AttributeValue img_10_5_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,img_10_5_1_bgImage_property,img_10_5_1_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_10_5_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,null,img_10_5_1_bgImage_property,img_10_5_1_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_10_5_1_bgImage_property_value);
 
         ALCityInstanceInPL img_10_5_0 = new ALCityInstanceInPL("img_10_5_0",10,5,0,puzzleGroup_puzzleObject,puzzleLevel_Maze,1L,now,now,admin_1,admin_1);
         pgObjectInstanceService.save(img_10_5_0);
         Attribute img_10_5_0_bgImage_property =new Attribute("bgImage",img_10_5_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_10_5_0_bgImage_property);
-        AttributeValue img_10_5_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,img_10_5_0_bgImage_property,img_10_5_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_10_5_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,null,img_10_5_0_bgImage_property,img_10_5_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_10_5_0_bgImage_property_value);
 
         ALCityInstanceInPL img_11_5_0 = new ALCityInstanceInPL("img_11_5_0",11,5,0,puzzleGroup_puzzleObject,puzzleLevel_Maze,1L,now,now,admin_1,admin_1);
         pgObjectInstanceService.save(img_11_5_0);
         Attribute img_11_5_0_bgImage_property =new Attribute("bgImage",img_11_5_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_11_5_0_bgImage_property);
-        AttributeValue img_11_5_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,img_11_5_0_bgImage_property,img_11_5_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_11_5_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,null,img_11_5_0_bgImage_property,img_11_5_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_11_5_0_bgImage_property_value);
         Attribute img_11_5_0_locked_variable =new Attribute("Locked",img_11_5_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Variable,DataType.Boolean,1L,now,now,admin_1,admin_1);
         attributeService.save(img_11_5_0_locked_variable);
-        AttributeValue img_11_5_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,img_11_5_0_locked_variable,img_11_5_0_locked_variable,1L,now,now,admin_1,admin_1);
+        AttributeValue img_11_5_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,null,img_11_5_0_locked_variable,img_11_5_0_locked_variable,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_11_5_0_locked_variable_value);
 
 
@@ -1554,11 +1566,11 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_12_5_0);
         Attribute img_12_5_0_bgImage_property =new Attribute("bgImage",img_12_5_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_12_5_0_bgImage_property);
-        AttributeValue img_12_5_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,img_12_5_0_bgImage_property,img_12_5_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_12_5_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,null,img_12_5_0_bgImage_property,img_12_5_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_12_5_0_bgImage_property_value);
         Attribute img_12_5_0_locked_variable =new Attribute("Locked",img_12_5_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Variable,DataType.Boolean,1L,now,now,admin_1,admin_1);
         attributeService.save(img_12_5_0_locked_variable);
-        AttributeValue img_12_5_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,img_12_5_0_locked_variable,img_12_5_0_locked_variable,1L,now,now,admin_1,admin_1);
+        AttributeValue img_12_5_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,null,img_12_5_0_locked_variable,img_12_5_0_locked_variable,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_12_5_0_locked_variable_value);
 
 
@@ -1566,11 +1578,11 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_13_5_0);
         Attribute img_13_5_0_bgImage_property =new Attribute("bgImage",img_13_5_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_13_5_0_bgImage_property);
-        AttributeValue img_13_5_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,img_13_5_0_bgImage_property,img_13_5_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_13_5_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,null,img_13_5_0_bgImage_property,img_13_5_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_13_5_0_bgImage_property_value);
         Attribute img_13_5_0_locked_variable =new Attribute("Locked",img_13_5_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Variable,DataType.Boolean,1L,now,now,admin_1,admin_1);
         attributeService.save(img_13_5_0_locked_variable);
-        AttributeValue img_13_5_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,img_13_5_0_locked_variable,img_13_5_0_locked_variable,1L,now,now,admin_1,admin_1);
+        AttributeValue img_13_5_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,null,img_13_5_0_locked_variable,img_13_5_0_locked_variable,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_13_5_0_locked_variable_value);
 
 
@@ -1578,7 +1590,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_14_5_1);
         Attribute img_14_5_1_bgImage_property =new Attribute("bgImage",img_14_5_1.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_14_5_1_bgImage_property);
-        AttributeValue img_14_5_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,img_14_5_1_bgImage_property,img_14_5_1_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_14_5_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,null,img_14_5_1_bgImage_property,img_14_5_1_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_14_5_1_bgImage_property_value);
 
 
@@ -1586,7 +1598,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_14_5_0);
         Attribute img_14_5_0_bgImage_property =new Attribute("bgImage",img_14_5_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_14_5_0_bgImage_property);
-        AttributeValue img_14_5_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,img_14_5_0_bgImage_property,img_14_5_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_14_5_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,null,img_14_5_0_bgImage_property,img_14_5_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_14_5_0_bgImage_property_value);
 
 
@@ -1594,11 +1606,11 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_15_5_0);
         Attribute img_15_5_0_bgImage_property =new Attribute("bgImage",img_15_5_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_15_5_0_bgImage_property);
-        AttributeValue img_15_5_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,img_15_5_0_bgImage_property,img_15_5_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_15_5_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,null,img_15_5_0_bgImage_property,img_15_5_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_15_5_0_bgImage_property_value);
         Attribute img_15_5_0_locked_variable =new Attribute("Locked",img_15_5_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Variable,DataType.Boolean,1L,now,now,admin_1,admin_1);
         attributeService.save(img_15_5_0_locked_variable);
-        AttributeValue img_15_5_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,img_15_5_0_locked_variable,img_15_5_0_locked_variable,1L,now,now,admin_1,admin_1);
+        AttributeValue img_15_5_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,null,img_15_5_0_locked_variable,img_15_5_0_locked_variable,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_15_5_0_locked_variable_value);
 
 
@@ -1606,11 +1618,11 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_16_5_0);
         Attribute img_16_5_0_bgImage_property =new Attribute("bgImage",img_16_5_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_16_5_0_bgImage_property);
-        AttributeValue img_16_5_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,img_16_5_0_bgImage_property,img_16_5_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_16_5_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,null,img_16_5_0_bgImage_property,img_16_5_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_16_5_0_bgImage_property_value);
         Attribute img_16_5_0_locked_variable =new Attribute("Locked",img_16_5_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Variable,DataType.Boolean,1L,now,now,admin_1,admin_1);
         attributeService.save(img_16_5_0_locked_variable);
-        AttributeValue img_16_5_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,img_16_5_0_locked_variable,img_16_5_0_locked_variable,1L,now,now,admin_1,admin_1);
+        AttributeValue img_16_5_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,null,img_16_5_0_locked_variable,img_16_5_0_locked_variable,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_16_5_0_locked_variable_value);
 
 
@@ -1618,18 +1630,18 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_17_5_0);
         Attribute img_17_5_0_bgImage_property =new Attribute("bgImage",img_17_5_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_17_5_0_bgImage_property);
-        AttributeValue img_17_5_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,img_17_5_0_bgImage_property,img_17_5_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_17_5_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,null,img_17_5_0_bgImage_property,img_17_5_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_17_5_0_bgImage_property_value);
         Attribute img_17_5_0_locked_variable =new Attribute("Locked",img_17_5_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Variable,DataType.Boolean,1L,now,now,admin_1,admin_1);
         attributeService.save(img_17_5_0_locked_variable);
-        AttributeValue img_17_5_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,img_17_5_0_locked_variable,img_17_5_0_locked_variable,1L,now,now,admin_1,admin_1);
+        AttributeValue img_17_5_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,null,img_17_5_0_locked_variable,img_17_5_0_locked_variable,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_17_5_0_locked_variable_value);
 
         ALCityInstanceInPL img_18_5_1 = new ALCityInstanceInPL("img_18_5_1",18,5,1,puzzleGroup_puzzleObject,puzzleLevel_Maze,1L,now,now,admin_1,admin_1);
         pgObjectInstanceService.save(img_18_5_1);
         Attribute img_18_5_1_bgImage_property =new Attribute("bgImage",img_18_5_1.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_18_5_1_bgImage_property);
-        AttributeValue img_18_5_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,img_18_5_1_bgImage_property,img_18_5_1_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_18_5_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,null,img_18_5_1_bgImage_property,img_18_5_1_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_18_5_1_bgImage_property_value);
 
 
@@ -1637,7 +1649,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_18_5_0);
         Attribute img_18_5_0_bgImage_property =new Attribute("bgImage",img_18_5_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_18_5_0_bgImage_property);
-        AttributeValue img_18_5_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,img_18_5_0_bgImage_property,img_18_5_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_18_5_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,null,img_18_5_0_bgImage_property,img_18_5_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_18_5_0_bgImage_property_value);
 
 
@@ -1645,11 +1657,11 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_19_5_0);
         Attribute img_19_5_0_bgImage_property =new Attribute("bgImage",img_19_5_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_19_5_0_bgImage_property);
-        AttributeValue img_19_5_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,img_19_5_0_bgImage_property,img_19_5_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_19_5_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,null,img_19_5_0_bgImage_property,img_19_5_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_19_5_0_bgImage_property_value);
         Attribute img_19_5_0_locked_variable =new Attribute("Locked",img_19_5_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Variable,DataType.Boolean,1L,now,now,admin_1,admin_1);
         attributeService.save(img_19_5_0_locked_variable);
-        AttributeValue img_19_5_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,img_19_5_0_locked_variable,img_19_5_0_locked_variable,1L,now,now,admin_1,admin_1);
+        AttributeValue img_19_5_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,null,img_19_5_0_locked_variable,img_19_5_0_locked_variable,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_19_5_0_locked_variable_value);
 
 
@@ -1657,11 +1669,11 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_1_6_0);
         Attribute img_1_6_0_bgImage_property =new Attribute("bgImage",img_1_6_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_1_6_0_bgImage_property);
-        AttributeValue img_1_6_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,img_1_6_0_bgImage_property,img_1_6_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_1_6_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,null,img_1_6_0_bgImage_property,img_1_6_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_1_6_0_bgImage_property_value);
         Attribute img_1_6_0_locked_variable =new Attribute("Locked",img_1_6_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Variable,DataType.Boolean,1L,now,now,admin_1,admin_1);
         attributeService.save(img_1_6_0_locked_variable);
-        AttributeValue img_1_6_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,img_1_6_0_locked_variable,img_1_6_0_locked_variable,1L,now,now,admin_1,admin_1);
+        AttributeValue img_1_6_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,null,img_1_6_0_locked_variable,img_1_6_0_locked_variable,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_1_6_0_locked_variable_value);
 
 
@@ -1669,7 +1681,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_2_6_1);
         Attribute img_2_6_1_bgImage_property =new Attribute("bgImage",img_2_6_1.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_2_6_1_bgImage_property);
-        AttributeValue img_2_6_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,img_2_6_1_bgImage_property,img_2_6_1_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_2_6_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,null,img_2_6_1_bgImage_property,img_2_6_1_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_2_6_1_bgImage_property_value);
 
 
@@ -1677,7 +1689,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_2_6_0);
         Attribute img_2_6_0_bgImage_property =new Attribute("bgImage",img_2_6_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_2_6_0_bgImage_property);
-        AttributeValue img_2_6_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,img_2_6_0_bgImage_property,img_2_6_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_2_6_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,null,img_2_6_0_bgImage_property,img_2_6_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_2_6_0_bgImage_property_value);
 
 
@@ -1685,11 +1697,11 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_3_6_0);
         Attribute img_3_6_0_bgImage_property =new Attribute("bgImage",img_3_6_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_3_6_0_bgImage_property);
-        AttributeValue img_3_6_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,img_3_6_0_bgImage_property,img_3_6_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_3_6_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,null,img_3_6_0_bgImage_property,img_3_6_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_3_6_0_bgImage_property_value);
         Attribute img_3_6_0_locked_variable =new Attribute("Locked",img_3_6_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Variable,DataType.Boolean,1L,now,now,admin_1,admin_1);
         attributeService.save(img_3_6_0_locked_variable);
-        AttributeValue img_3_6_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,img_3_6_0_locked_variable,img_3_6_0_locked_variable,1L,now,now,admin_1,admin_1);
+        AttributeValue img_3_6_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,null,img_3_6_0_locked_variable,img_3_6_0_locked_variable,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_3_6_0_locked_variable_value);
 
 
@@ -1697,7 +1709,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_4_6_1);
         Attribute img_4_6_1_bgImage_property =new Attribute("bgImage",img_4_6_1.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_4_6_1_bgImage_property);
-        AttributeValue img_4_6_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,img_4_6_1_bgImage_property,img_4_6_1_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_4_6_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,null,img_4_6_1_bgImage_property,img_4_6_1_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_4_6_1_bgImage_property_value);
 
 
@@ -1705,7 +1717,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_4_6_0);
         Attribute img_4_6_0_bgImage_property =new Attribute("bgImage",img_4_6_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_4_6_0_bgImage_property);
-        AttributeValue img_4_6_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,img_4_6_0_bgImage_property,img_4_6_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_4_6_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,null,img_4_6_0_bgImage_property,img_4_6_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_4_6_0_bgImage_property_value);
 
 
@@ -1714,7 +1726,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_5_6_1);
         Attribute img_5_6_1_bgImage_property =new Attribute("bgImage",img_5_6_1.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_5_6_1_bgImage_property);
-        AttributeValue img_5_6_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,img_5_6_1_bgImage_property,img_5_6_1_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_5_6_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,null,img_5_6_1_bgImage_property,img_5_6_1_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_5_6_1_bgImage_property_value);
 
 
@@ -1722,7 +1734,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_5_6_0);
         Attribute img_5_6_0_bgImage_property =new Attribute("bgImage",img_5_6_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_5_6_0_bgImage_property);
-        AttributeValue img_5_6_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,img_5_6_0_bgImage_property,img_5_6_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_5_6_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,null,img_5_6_0_bgImage_property,img_5_6_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_5_6_0_bgImage_property_value);
 
 
@@ -1730,7 +1742,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_6_6_1);
         Attribute img_6_6_1_bgImage_property =new Attribute("bgImage",img_6_6_1.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_6_6_1_bgImage_property);
-        AttributeValue img_6_6_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,img_6_6_1_bgImage_property,img_6_6_1_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_6_6_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,null,img_6_6_1_bgImage_property,img_6_6_1_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_6_6_1_bgImage_property_value);
 
 
@@ -1738,7 +1750,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_6_6_0);
         Attribute img_6_6_0_bgImage_property =new Attribute("bgImage",img_6_6_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_6_6_0_bgImage_property);
-        AttributeValue img_6_6_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,img_6_6_0_bgImage_property,img_6_6_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_6_6_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,null,img_6_6_0_bgImage_property,img_6_6_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_6_6_0_bgImage_property_value);
 
 
@@ -1747,11 +1759,11 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_7_6_0);
         Attribute img_7_6_0_bgImage_property =new Attribute("bgImage",img_7_6_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_7_6_0_bgImage_property);
-        AttributeValue img_7_6_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,img_7_6_0_bgImage_property,img_7_6_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_7_6_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,null,img_7_6_0_bgImage_property,img_7_6_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_7_6_0_bgImage_property_value);
         Attribute img_7_6_0_locked_variable =new Attribute("Locked",img_7_6_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Variable,DataType.Boolean,1L,now,now,admin_1,admin_1);
         attributeService.save(img_7_6_0_locked_variable);
-        AttributeValue img_7_6_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,img_7_6_0_locked_variable,img_7_6_0_locked_variable,1L,now,now,admin_1,admin_1);
+        AttributeValue img_7_6_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,null,img_7_6_0_locked_variable,img_7_6_0_locked_variable,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_7_6_0_locked_variable_value);
 
 
@@ -1759,7 +1771,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_8_6_1);
         Attribute img_8_6_1_bgImage_property =new Attribute("bgImage",img_8_6_1.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_8_6_1_bgImage_property);
-        AttributeValue img_8_6_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,img_8_6_1_bgImage_property,img_8_6_1_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_8_6_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,null,img_8_6_1_bgImage_property,img_8_6_1_bgImage_property,1L,now,now,admin_1,admin_1);
 
         attributeValueService.save(img_8_6_1_bgImage_property_value);
 
@@ -1769,7 +1781,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_8_6_0);
         Attribute img_8_6_0_bgImage_property =new Attribute("bgImage",img_8_6_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_8_6_0_bgImage_property);
-        AttributeValue img_8_6_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,img_8_6_0_bgImage_property,img_8_6_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_8_6_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,null,img_8_6_0_bgImage_property,img_8_6_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_8_6_0_bgImage_property_value);
 
 
@@ -1777,28 +1789,28 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_9_6_1);
         Attribute img_9_6_1_bgImage_property =new Attribute("bgImage",img_9_6_1.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_9_6_1_bgImage_property);
-        AttributeValue img_9_6_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,img_9_6_1_bgImage_property,img_9_6_1_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_9_6_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,null,img_9_6_1_bgImage_property,img_9_6_1_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_9_6_1_bgImage_property_value);
 
         ALCityInstanceInPL img_9_6_0 = new ALCityInstanceInPL("img_9_6_0",9,6,0,puzzleGroup_puzzleObject,puzzleLevel_Maze,1L,now,now,admin_1,admin_1);
         pgObjectInstanceService.save(img_9_6_0);
         Attribute img_9_6_0_bgImage_property =new Attribute("bgImage",img_9_6_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_9_6_0_bgImage_property);
-        AttributeValue img_9_6_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,img_9_6_0_bgImage_property,img_9_6_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_9_6_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,null,img_9_6_0_bgImage_property,img_9_6_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_9_6_0_bgImage_property_value);
 
         ALCityInstanceInPL img_10_6_1 = new ALCityInstanceInPL("img_10_6_1",10,6,1,puzzleGroup_puzzleObject,puzzleLevel_Maze,1L,now,now,admin_1,admin_1);
         pgObjectInstanceService.save(img_10_6_1);
         Attribute img_10_6_1_bgImage_property =new Attribute("bgImage",img_10_6_1.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_10_6_1_bgImage_property);
-        AttributeValue img_10_6_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,img_10_6_1_bgImage_property,img_10_6_1_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_10_6_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,null,img_10_6_1_bgImage_property,img_10_6_1_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_10_6_1_bgImage_property_value);
 
         ALCityInstanceInPL img_10_6_0 = new ALCityInstanceInPL("img_10_6_0",10,6,0,puzzleGroup_puzzleObject,puzzleLevel_Maze,1L,now,now,admin_1,admin_1);
         pgObjectInstanceService.save(img_10_6_0);
         Attribute img_10_6_0_bgImage_property =new Attribute("bgImage",img_10_6_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_10_6_0_bgImage_property);
-        AttributeValue img_10_6_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,img_10_6_0_bgImage_property,img_10_6_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_10_6_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,null,img_10_6_0_bgImage_property,img_10_6_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_10_6_0_bgImage_property_value);
 
 
@@ -1806,7 +1818,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_11_6_1);
         Attribute img_11_6_1_bgImage_property =new Attribute("bgImage",img_11_6_1.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_11_6_1_bgImage_property);
-        AttributeValue img_11_6_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,img_11_6_1_bgImage_property,img_11_6_1_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_11_6_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,null,img_11_6_1_bgImage_property,img_11_6_1_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_11_6_1_bgImage_property_value);
 
 
@@ -1814,7 +1826,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_11_6_0);
         Attribute img_11_6_0_bgImage_property =new Attribute("bgImage",img_11_6_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_11_6_0_bgImage_property);
-        AttributeValue img_11_6_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,img_11_6_0_bgImage_property,img_11_6_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_11_6_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,null,img_11_6_0_bgImage_property,img_11_6_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_11_6_0_bgImage_property_value);
 
 
@@ -1822,7 +1834,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_12_6_1);
         Attribute img_12_6_1_bgImage_property =new Attribute("bgImage",img_12_6_1.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_12_6_1_bgImage_property);
-        AttributeValue img_12_6_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,img_12_6_1_bgImage_property,img_12_6_1_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_12_6_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,null,img_12_6_1_bgImage_property,img_12_6_1_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_12_6_1_bgImage_property_value);
 
 
@@ -1830,7 +1842,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_12_6_0);
         Attribute img_12_6_0_bgImage_property =new Attribute("bgImage",img_12_6_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_12_6_0_bgImage_property);
-        AttributeValue img_12_6_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,img_12_6_0_bgImage_property,img_12_6_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_12_6_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,null,img_12_6_0_bgImage_property,img_12_6_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_12_6_0_bgImage_property_value);
 
 
@@ -1838,32 +1850,32 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_13_6_0);
         Attribute img_13_6_0_bgImage_property =new Attribute("bgImage",img_13_6_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_13_6_0_bgImage_property);
-        AttributeValue img_13_6_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,img_13_6_0_bgImage_property,img_13_6_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_13_6_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,null,img_13_6_0_bgImage_property,img_13_6_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_13_6_0_bgImage_property_value);
         Attribute img_13_6_0_locked_variable =new Attribute("Locked",img_13_6_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Variable,DataType.Boolean,1L,now,now,admin_1,admin_1);
         attributeService.save(img_13_6_0_locked_variable);
-        AttributeValue img_13_6_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,img_13_6_0_locked_variable,img_13_6_0_locked_variable,1L,now,now,admin_1,admin_1);
+        AttributeValue img_13_6_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,null,img_13_6_0_locked_variable,img_13_6_0_locked_variable,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_13_6_0_locked_variable_value);
 
         ALCityInstanceInPL img_14_6_1 = new ALCityInstanceInPL("img_14_6_1",14,6,1,puzzleGroup_puzzleObject,puzzleLevel_Maze,1L,now,now,admin_1,admin_1);
         pgObjectInstanceService.save(img_14_6_1);
         Attribute img_14_6_1_bgImage_property =new Attribute("bgImage",img_14_6_1.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_14_6_1_bgImage_property);
-        AttributeValue img_14_6_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,img_14_6_1_bgImage_property,img_14_6_1_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_14_6_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,null,img_14_6_1_bgImage_property,img_14_6_1_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_14_6_1_bgImage_property_value);
 
         ALCityInstanceInPL img_14_6_0 = new ALCityInstanceInPL("img_14_6_0",14,6,0,puzzleGroup_puzzleObject,puzzleLevel_Maze,1L,now,now,admin_1,admin_1);
         pgObjectInstanceService.save(img_14_6_0);
         Attribute img_14_6_0_bgImage_property =new Attribute("bgImage",img_14_6_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_14_6_0_bgImage_property);
-        AttributeValue img_14_6_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,img_14_6_0_bgImage_property,img_14_6_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_14_6_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,null,img_14_6_0_bgImage_property,img_14_6_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_14_6_0_bgImage_property_value);
 
         ALCityInstanceInPL img_15_6_1 = new ALCityInstanceInPL("img_15_6_1",15,6,1,puzzleGroup_puzzleObject,puzzleLevel_Maze,1L,now,now,admin_1,admin_1);
         pgObjectInstanceService.save(img_15_6_1);
         Attribute img_15_6_1_bgImage_property =new Attribute("bgImage",img_15_6_1.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_15_6_1_bgImage_property);
-        AttributeValue img_15_6_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,img_15_6_1_bgImage_property,img_15_6_1_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_15_6_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,null,img_15_6_1_bgImage_property,img_15_6_1_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_15_6_1_bgImage_property_value);
 
 
@@ -1871,7 +1883,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_15_6_0);
         Attribute img_15_6_0_bgImage_property =new Attribute("bgImage",img_15_6_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_15_6_0_bgImage_property);
-        AttributeValue img_15_6_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,img_15_6_0_bgImage_property,img_15_6_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_15_6_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,null,img_15_6_0_bgImage_property,img_15_6_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_15_6_0_bgImage_property_value);
 
 
@@ -1879,7 +1891,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_16_6_1);
         Attribute img_16_6_1_bgImage_property =new Attribute("bgImage",img_16_6_1.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_16_6_1_bgImage_property);
-        AttributeValue img_16_6_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,img_16_6_1_bgImage_property,img_16_6_1_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_16_6_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,null,img_16_6_1_bgImage_property,img_16_6_1_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_16_6_1_bgImage_property_value);
 
 
@@ -1887,7 +1899,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_16_6_0);
         Attribute img_16_6_0_bgImage_property =new Attribute("bgImage",img_16_6_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_16_6_0_bgImage_property);
-        AttributeValue img_16_6_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,img_16_6_0_bgImage_property,img_16_6_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_16_6_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,null,img_16_6_0_bgImage_property,img_16_6_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_16_6_0_bgImage_property_value);
 
 
@@ -1895,7 +1907,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_17_6_1);
         Attribute img_17_6_1_bgImage_property =new Attribute("bgImage",img_17_6_1.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_17_6_1_bgImage_property);
-        AttributeValue img_17_6_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,img_17_6_1_bgImage_property,img_17_6_1_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_17_6_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,null,img_17_6_1_bgImage_property,img_17_6_1_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_17_6_1_bgImage_property_value);
 
 
@@ -1903,7 +1915,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_17_6_0);
         Attribute img_17_6_0_bgImage_property =new Attribute("bgImage",img_17_6_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_17_6_0_bgImage_property);
-        AttributeValue img_17_6_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,img_17_6_0_bgImage_property,img_17_6_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_17_6_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,null,img_17_6_0_bgImage_property,img_17_6_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_17_6_0_bgImage_property_value);
 
 
@@ -1911,14 +1923,14 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_18_6_1);
         Attribute img_18_6_1_bgImage_property =new Attribute("bgImage",img_18_6_1.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_18_6_1_bgImage_property);
-        AttributeValue img_18_6_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,img_18_6_1_bgImage_property,img_18_6_1_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_18_6_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,null,img_18_6_1_bgImage_property,img_18_6_1_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_18_6_1_bgImage_property_value);
 
         ALCityInstanceInPL img_18_6_0 = new ALCityInstanceInPL("img_18_6_0",18,6,0,puzzleGroup_puzzleObject,puzzleLevel_Maze,1L,now,now,admin_1,admin_1);
         pgObjectInstanceService.save(img_18_6_0);
         Attribute img_18_6_0_bgImage_property =new Attribute("bgImage",img_18_6_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_18_6_0_bgImage_property);
-        AttributeValue img_18_6_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,img_18_6_0_bgImage_property,img_18_6_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_18_6_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,null,img_18_6_0_bgImage_property,img_18_6_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_18_6_0_bgImage_property_value);
 
 
@@ -1926,11 +1938,11 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_19_6_0);
         Attribute img_19_6_0_bgImage_property =new Attribute("bgImage",img_19_6_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_19_6_0_bgImage_property);
-        AttributeValue img_19_6_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,img_19_6_0_bgImage_property,img_19_6_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_19_6_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,null,img_19_6_0_bgImage_property,img_19_6_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_19_6_0_bgImage_property_value);
         Attribute img_19_6_0_locked_variable =new Attribute("Locked",img_19_6_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Variable,DataType.Boolean,1L,now,now,admin_1,admin_1);
         attributeService.save(img_19_6_0_locked_variable);
-        AttributeValue img_19_6_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,img_19_6_0_locked_variable,img_19_6_0_locked_variable,1L,now,now,admin_1,admin_1);
+        AttributeValue img_19_6_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,null,img_19_6_0_locked_variable,img_19_6_0_locked_variable,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_19_6_0_locked_variable_value);
 
 
@@ -1938,18 +1950,18 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_1_7_0);
         Attribute img_1_7_0_bgImage_property =new Attribute("bgImage",img_1_7_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_1_7_0_bgImage_property);
-        AttributeValue img_1_7_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,img_1_7_0_bgImage_property,img_1_7_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_1_7_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,null,img_1_7_0_bgImage_property,img_1_7_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_1_7_0_bgImage_property_value);
         Attribute img_1_7_0_locked_variable =new Attribute("Locked",img_1_7_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Variable,DataType.Boolean,1L,now,now,admin_1,admin_1);
         attributeService.save(img_1_7_0_locked_variable);
-        AttributeValue img_1_7_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,img_1_7_0_locked_variable,img_1_7_0_locked_variable,1L,now,now,admin_1,admin_1);
+        AttributeValue img_1_7_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,null,img_1_7_0_locked_variable,img_1_7_0_locked_variable,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_1_7_0_locked_variable_value);
 
         ALCityInstanceInPL img_2_7_1 = new ALCityInstanceInPL("img_2_7_1",2,7,1,puzzleGroup_puzzleObject,puzzleLevel_Maze,1L,now,now,admin_1,admin_1);
         pgObjectInstanceService.save(img_2_7_1);
         Attribute img_2_7_1_bgImage_property =new Attribute("bgImage",img_2_7_1.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_2_7_1_bgImage_property);
-        AttributeValue img_2_7_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,img_2_7_1_bgImage_property,img_2_7_1_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_2_7_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,null,img_2_7_1_bgImage_property,img_2_7_1_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_2_7_1_bgImage_property_value);
 
 
@@ -1958,7 +1970,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_2_7_0);
         Attribute img_2_7_0_bgImage_property =new Attribute("bgImage",img_2_7_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_2_7_0_bgImage_property);
-        AttributeValue img_2_7_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,img_2_7_0_bgImage_property,img_2_7_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_2_7_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,null,img_2_7_0_bgImage_property,img_2_7_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_2_7_0_bgImage_property_value);
 
 
@@ -1966,11 +1978,11 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_3_7_0);
         Attribute img_3_7_0_bgImage_property =new Attribute("bgImage",img_3_7_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_3_7_0_bgImage_property);
-        AttributeValue img_3_7_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,img_3_7_0_bgImage_property,img_3_7_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_3_7_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,null,img_3_7_0_bgImage_property,img_3_7_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_3_7_0_bgImage_property_value);
         Attribute img_3_7_0_locked_variable =new Attribute("Locked",img_3_7_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Variable,DataType.Boolean,1L,now,now,admin_1,admin_1);
         attributeService.save(img_3_7_0_locked_variable);
-        AttributeValue img_3_7_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,img_3_7_0_locked_variable,img_3_7_0_locked_variable,1L,now,now,admin_1,admin_1);
+        AttributeValue img_3_7_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,null,img_3_7_0_locked_variable,img_3_7_0_locked_variable,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_3_7_0_locked_variable_value);
 
 
@@ -1978,7 +1990,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_4_7_1);
         Attribute img_4_7_1_bgImage_property =new Attribute("bgImage",img_4_7_1.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_4_7_1_bgImage_property);
-        AttributeValue img_4_7_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,img_4_7_1_bgImage_property,img_4_7_1_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_4_7_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,null,img_4_7_1_bgImage_property,img_4_7_1_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_4_7_1_bgImage_property_value);
 
 
@@ -1986,7 +1998,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_4_7_0);
         Attribute img_4_7_0_bgImage_property =new Attribute("bgImage",img_4_7_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_4_7_0_bgImage_property);
-        AttributeValue img_4_7_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,img_4_7_0_bgImage_property,img_4_7_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_4_7_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,null,img_4_7_0_bgImage_property,img_4_7_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_4_7_0_bgImage_property_value);
 
 
@@ -1994,11 +2006,11 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_5_7_0);
         Attribute img_5_7_0_bgImage_property =new Attribute("bgImage",img_5_7_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_5_7_0_bgImage_property);
-        AttributeValue img_5_7_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,img_5_7_0_bgImage_property,img_5_7_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_5_7_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,null,img_5_7_0_bgImage_property,img_5_7_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_5_7_0_bgImage_property_value);
         Attribute img_5_7_0_locked_variable =new Attribute("Locked",img_5_7_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Variable,DataType.Boolean,1L,now,now,admin_1,admin_1);
         attributeService.save(img_5_7_0_locked_variable);
-        AttributeValue img_5_7_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,img_5_7_0_locked_variable,img_5_7_0_locked_variable,1L,now,now,admin_1,admin_1);
+        AttributeValue img_5_7_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,null,img_5_7_0_locked_variable,img_5_7_0_locked_variable,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_5_7_0_locked_variable_value);
 
 
@@ -2006,36 +2018,36 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_6_7_0);
         Attribute img_6_7_0_bgImage_property =new Attribute("bgImage",img_6_7_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_6_7_0_bgImage_property);
-        AttributeValue img_6_7_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,img_6_7_0_bgImage_property,img_6_7_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_6_7_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,null,img_6_7_0_bgImage_property,img_6_7_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_6_7_0_bgImage_property_value);
         Attribute img_6_7_0_locked_variable =new Attribute("Locked",img_6_7_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Variable,DataType.Boolean,1L,now,now,admin_1,admin_1);
         attributeService.save(img_6_7_0_locked_variable);
-        AttributeValue img_6_7_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,img_6_7_0_locked_variable,img_6_7_0_locked_variable,1L,now,now,admin_1,admin_1);
+        AttributeValue img_6_7_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,null,img_6_7_0_locked_variable,img_6_7_0_locked_variable,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_6_7_0_locked_variable_value);
 
         ALCityInstanceInPL img_7_7_0 = new ALCityInstanceInPL("img_7_7_0",7,7,0,puzzleGroup_puzzleObject,puzzleLevel_Maze,1L,now,now,admin_1,admin_1);
         pgObjectInstanceService.save(img_7_7_0);
         Attribute img_7_7_0_bgImage_property =new Attribute("bgImage",img_7_7_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_7_7_0_bgImage_property);
-        AttributeValue img_7_7_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,img_7_7_0_bgImage_property,img_7_7_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_7_7_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,null,img_7_7_0_bgImage_property,img_7_7_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_7_7_0_bgImage_property_value);
         Attribute img_7_7_0_locked_variable =new Attribute("Locked",img_7_7_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Variable,DataType.Boolean,1L,now,now,admin_1,admin_1);
         attributeService.save(img_7_7_0_locked_variable);
-        AttributeValue img_7_7_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,img_7_7_0_locked_variable,img_7_7_0_locked_variable,1L,now,now,admin_1,admin_1);
+        AttributeValue img_7_7_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,null,img_7_7_0_locked_variable,img_7_7_0_locked_variable,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_7_7_0_locked_variable_value);
 
         ALCityInstanceInPL img_8_7_1 = new ALCityInstanceInPL("img_8_7_1",8,7,1,puzzleGroup_puzzleObject,puzzleLevel_Maze,1L,now,now,admin_1,admin_1);
         pgObjectInstanceService.save(img_8_7_1);
         Attribute img_8_7_1_bgImage_property =new Attribute("bgImage",img_8_7_1.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_8_7_1_bgImage_property);
-        AttributeValue img_8_7_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,img_8_7_1_bgImage_property,img_8_7_1_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_8_7_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,null,img_8_7_1_bgImage_property,img_8_7_1_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_8_7_1_bgImage_property_value);
 
         ALCityInstanceInPL img_8_7_0 = new ALCityInstanceInPL("img_8_7_0",8,7,0,puzzleGroup_puzzleObject,puzzleLevel_Maze,1L,now,now,admin_1,admin_1);
         pgObjectInstanceService.save(img_8_7_0);
         Attribute img_8_7_0_bgImage_property =new Attribute("bgImage",img_8_7_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_8_7_0_bgImage_property);
-        AttributeValue img_8_7_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,img_8_7_0_bgImage_property,img_8_7_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_8_7_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,null,img_8_7_0_bgImage_property,img_8_7_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_8_7_0_bgImage_property_value);
 
 
@@ -2043,11 +2055,11 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_9_7_0);
         Attribute img_9_7_0_bgImage_property =new Attribute("bgImage",img_9_7_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_9_7_0_bgImage_property);
-        AttributeValue img_9_7_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,img_9_7_0_bgImage_property,img_9_7_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_9_7_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,null,img_9_7_0_bgImage_property,img_9_7_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_9_7_0_bgImage_property_value);
         Attribute img_9_7_0_locked_variable =new Attribute("Locked",img_9_7_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Variable,DataType.Boolean,1L,now,now,admin_1,admin_1);
         attributeService.save(img_9_7_0_locked_variable);
-        AttributeValue img_9_7_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,img_9_7_0_locked_variable,img_9_7_0_locked_variable,1L,now,now,admin_1,admin_1);
+        AttributeValue img_9_7_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,null,img_9_7_0_locked_variable,img_9_7_0_locked_variable,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_9_7_0_locked_variable_value);
 
 
@@ -2055,11 +2067,11 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_10_7_0);
         Attribute img_10_7_0_bgImage_property =new Attribute("bgImage",img_10_7_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_10_7_0_bgImage_property);
-        AttributeValue img_10_7_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,img_10_7_0_bgImage_property,img_10_7_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_10_7_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,null,img_10_7_0_bgImage_property,img_10_7_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_10_7_0_bgImage_property_value);
         Attribute img_10_7_0_locked_variable =new Attribute("Locked",img_10_7_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Variable,DataType.Boolean,1L,now,now,admin_1,admin_1);
         attributeService.save(img_10_7_0_locked_variable);
-        AttributeValue img_10_7_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,img_10_7_0_locked_variable,img_10_7_0_locked_variable,1L,now,now,admin_1,admin_1);
+        AttributeValue img_10_7_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,null,img_10_7_0_locked_variable,img_10_7_0_locked_variable,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_10_7_0_locked_variable_value);
 
 
@@ -2067,11 +2079,11 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_11_7_0);
         Attribute img_11_7_0_bgImage_property =new Attribute("bgImage",img_11_7_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_11_7_0_bgImage_property);
-        AttributeValue img_11_7_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,img_11_7_0_bgImage_property,img_11_7_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_11_7_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,null,img_11_7_0_bgImage_property,img_11_7_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_11_7_0_bgImage_property_value);
         Attribute img_11_7_0_locked_variable =new Attribute("Locked",img_11_7_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Variable,DataType.Boolean,1L,now,now,admin_1,admin_1);
         attributeService.save(img_11_7_0_locked_variable);
-        AttributeValue img_11_7_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,img_11_7_0_locked_variable,img_11_7_0_locked_variable,1L,now,now,admin_1,admin_1);
+        AttributeValue img_11_7_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,null,img_11_7_0_locked_variable,img_11_7_0_locked_variable,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_11_7_0_locked_variable_value);
 
 
@@ -2079,7 +2091,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_12_7_1);
         Attribute img_12_7_1_bgImage_property =new Attribute("bgImage",img_12_7_1.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_12_7_1_bgImage_property);
-        AttributeValue img_12_7_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,img_12_7_1_bgImage_property,img_12_7_1_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_12_7_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,null,img_12_7_1_bgImage_property,img_12_7_1_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_12_7_1_bgImage_property_value);
 
 
@@ -2087,7 +2099,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_12_7_0);
         Attribute img_12_7_0_bgImage_property =new Attribute("bgImage",img_12_7_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_12_7_0_bgImage_property);
-        AttributeValue img_12_7_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,img_12_7_0_bgImage_property,img_12_7_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_12_7_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,null,img_12_7_0_bgImage_property,img_12_7_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_12_7_0_bgImage_property_value);
 
 
@@ -2095,11 +2107,11 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_13_7_0);
         Attribute img_13_7_0_bgImage_property =new Attribute("bgImage",img_13_7_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_13_7_0_bgImage_property);
-        AttributeValue img_13_7_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,img_13_7_0_bgImage_property,img_13_7_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_13_7_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,null,img_13_7_0_bgImage_property,img_13_7_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_13_7_0_bgImage_property_value);
         Attribute img_13_7_0_locked_variable =new Attribute("Locked",img_13_7_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Variable,DataType.Boolean,1L,now,now,admin_1,admin_1);
         attributeService.save(img_13_7_0_locked_variable);
-        AttributeValue img_13_7_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,img_13_7_0_locked_variable,img_13_7_0_locked_variable,1L,now,now,admin_1,admin_1);
+        AttributeValue img_13_7_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,null,img_13_7_0_locked_variable,img_13_7_0_locked_variable,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_13_7_0_locked_variable_value);
 
 
@@ -2107,7 +2119,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_14_7_1);
         Attribute img_14_7_1_bgImage_property =new Attribute("bgImage",img_14_7_1.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_14_7_1_bgImage_property);
-        AttributeValue img_14_7_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,img_14_7_1_bgImage_property,img_14_7_1_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_14_7_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,null,img_14_7_1_bgImage_property,img_14_7_1_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_14_7_1_bgImage_property_value);
 
 
@@ -2115,7 +2127,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_14_7_0);
         Attribute img_14_7_0_bgImage_property =new Attribute("bgImage",img_14_7_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_14_7_0_bgImage_property);
-        AttributeValue img_14_7_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,img_14_7_0_bgImage_property,img_14_7_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_14_7_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,null,img_14_7_0_bgImage_property,img_14_7_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_14_7_0_bgImage_property_value);
 
 
@@ -2123,11 +2135,11 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_15_7_0);
         Attribute img_15_7_0_bgImage_property =new Attribute("bgImage",img_15_7_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_15_7_0_bgImage_property);
-        AttributeValue img_15_7_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,img_15_7_0_bgImage_property,img_15_7_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_15_7_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,null,img_15_7_0_bgImage_property,img_15_7_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_15_7_0_bgImage_property_value);
         Attribute img_15_7_0_locked_variable =new Attribute("Locked",img_15_7_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Variable,DataType.Boolean,1L,now,now,admin_1,admin_1);
         attributeService.save(img_15_7_0_locked_variable);
-        AttributeValue img_15_7_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,img_15_7_0_locked_variable,img_15_7_0_locked_variable,1L,now,now,admin_1,admin_1);
+        AttributeValue img_15_7_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,null,img_15_7_0_locked_variable,img_15_7_0_locked_variable,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_15_7_0_locked_variable_value);
 
 
@@ -2135,11 +2147,11 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_16_7_0);
         Attribute img_16_7_0_bgImage_property =new Attribute("bgImage",img_16_7_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_16_7_0_bgImage_property);
-        AttributeValue img_16_7_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,img_16_7_0_bgImage_property,img_16_7_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_16_7_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,null,img_16_7_0_bgImage_property,img_16_7_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_16_7_0_bgImage_property_value);
         Attribute img_16_7_0_locked_variable =new Attribute("Locked",img_16_7_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Variable,DataType.Boolean,1L,now,now,admin_1,admin_1);
         attributeService.save(img_16_7_0_locked_variable);
-        AttributeValue img_16_7_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,img_16_7_0_locked_variable,img_16_7_0_locked_variable,1L,now,now,admin_1,admin_1);
+        AttributeValue img_16_7_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,null,img_16_7_0_locked_variable,img_16_7_0_locked_variable,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_16_7_0_locked_variable_value);
 
 
@@ -2147,11 +2159,11 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_17_7_0);
         Attribute img_17_7_0_bgImage_property =new Attribute("bgImage",img_17_7_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_17_7_0_bgImage_property);
-        AttributeValue img_17_7_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,img_17_7_0_bgImage_property,img_17_7_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_17_7_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,null,img_17_7_0_bgImage_property,img_17_7_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_17_7_0_bgImage_property_value);
         Attribute img_17_7_0_locked_variable =new Attribute("Locked",img_17_7_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Variable,DataType.Boolean,1L,now,now,admin_1,admin_1);
         attributeService.save(img_17_7_0_locked_variable);
-        AttributeValue img_17_7_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,img_17_7_0_locked_variable,img_17_7_0_locked_variable,1L,now,now,admin_1,admin_1);
+        AttributeValue img_17_7_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,null,img_17_7_0_locked_variable,img_17_7_0_locked_variable,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_17_7_0_locked_variable_value);
 
 
@@ -2159,11 +2171,11 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_18_7_0);
         Attribute img_18_7_0_bgImage_property =new Attribute("bgImage",img_18_7_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_18_7_0_bgImage_property);
-        AttributeValue img_18_7_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,img_18_7_0_bgImage_property,img_18_7_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_18_7_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,null,img_18_7_0_bgImage_property,img_18_7_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_18_7_0_bgImage_property_value);
         Attribute img_18_7_0_locked_variable =new Attribute("Locked",img_18_7_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Variable,DataType.Boolean,1L,now,now,admin_1,admin_1);
         attributeService.save(img_18_7_0_locked_variable);
-        AttributeValue img_18_7_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,img_18_7_0_locked_variable,img_18_7_0_locked_variable,1L,now,now,admin_1,admin_1);
+        AttributeValue img_18_7_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,null,img_18_7_0_locked_variable,img_18_7_0_locked_variable,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_18_7_0_locked_variable_value);
 
 
@@ -2171,11 +2183,11 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_19_7_0);
         Attribute img_19_7_0_bgImage_property =new Attribute("bgImage",img_19_7_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_19_7_0_bgImage_property);
-        AttributeValue img_19_7_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,img_19_7_0_bgImage_property,img_19_7_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_19_7_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,null,img_19_7_0_bgImage_property,img_19_7_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_19_7_0_bgImage_property_value);
         Attribute img_19_7_0_locked_variable =new Attribute("Locked",img_19_7_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Variable,DataType.Boolean,1L,now,now,admin_1,admin_1);
         attributeService.save(img_19_7_0_locked_variable);
-        AttributeValue img_19_7_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,img_19_7_0_locked_variable,img_19_7_0_locked_variable,1L,now,now,admin_1,admin_1);
+        AttributeValue img_19_7_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,null,img_19_7_0_locked_variable,img_19_7_0_locked_variable,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_19_7_0_locked_variable_value);
 
 
@@ -2183,11 +2195,11 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_1_8_0);
         Attribute img_1_8_0_bgImage_property =new Attribute("bgImage",img_1_8_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_1_8_0_bgImage_property);
-        AttributeValue img_1_8_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,img_1_8_0_bgImage_property,img_1_8_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_1_8_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,null,img_1_8_0_bgImage_property,img_1_8_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_1_8_0_bgImage_property_value);
         Attribute img_1_8_0_locked_variable =new Attribute("Locked",img_1_8_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Variable,DataType.Boolean,1L,now,now,admin_1,admin_1);
         attributeService.save(img_1_8_0_locked_variable);
-        AttributeValue img_1_8_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,img_1_8_0_locked_variable,img_1_8_0_locked_variable,1L,now,now,admin_1,admin_1);
+        AttributeValue img_1_8_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,null,img_1_8_0_locked_variable,img_1_8_0_locked_variable,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_1_8_0_locked_variable_value);
 
 
@@ -2195,7 +2207,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_2_8_1);
         Attribute img_2_8_1_bgImage_property =new Attribute("bgImage",img_2_8_1.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_2_8_1_bgImage_property);
-        AttributeValue img_2_8_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,img_2_8_1_bgImage_property,img_2_8_1_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_2_8_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,null,img_2_8_1_bgImage_property,img_2_8_1_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_2_8_1_bgImage_property_value);
 
 
@@ -2203,7 +2215,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_2_8_0);
         Attribute img_2_8_0_bgImage_property =new Attribute("bgImage",img_2_8_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_2_8_0_bgImage_property);
-        AttributeValue img_2_8_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,img_2_8_0_bgImage_property,img_2_8_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_2_8_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,null,img_2_8_0_bgImage_property,img_2_8_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_2_8_0_bgImage_property_value);
 
 
@@ -2211,7 +2223,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_3_8_1);
         Attribute img_3_8_1_bgImage_property =new Attribute("bgImage",img_3_8_1.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_3_8_1_bgImage_property);
-        AttributeValue img_3_8_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,img_3_8_1_bgImage_property,img_3_8_1_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_3_8_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,null,img_3_8_1_bgImage_property,img_3_8_1_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_3_8_1_bgImage_property_value);
 
 
@@ -2219,7 +2231,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_3_8_0);
         Attribute img_3_8_0_bgImage_property =new Attribute("bgImage",img_3_8_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_3_8_0_bgImage_property);
-        AttributeValue img_3_8_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,img_3_8_0_bgImage_property,img_3_8_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_3_8_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,null,img_3_8_0_bgImage_property,img_3_8_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_3_8_0_bgImage_property_value);
 
 
@@ -2227,7 +2239,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_4_8_1);
         Attribute img_4_8_1_bgImage_property =new Attribute("bgImage",img_4_8_1.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_4_8_1_bgImage_property);
-        AttributeValue img_4_8_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,img_4_8_1_bgImage_property,img_4_8_1_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_4_8_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,null,img_4_8_1_bgImage_property,img_4_8_1_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_4_8_1_bgImage_property_value);
 
 
@@ -2235,7 +2247,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_4_8_0);
         Attribute img_4_8_0_bgImage_property =new Attribute("bgImage",img_4_8_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_4_8_0_bgImage_property);
-        AttributeValue img_4_8_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,img_4_8_0_bgImage_property,img_4_8_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_4_8_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,null,img_4_8_0_bgImage_property,img_4_8_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_4_8_0_bgImage_property_value);
 
 
@@ -2243,11 +2255,11 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_5_8_0);
         Attribute img_5_8_0_bgImage_property =new Attribute("bgImage",img_5_8_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_5_8_0_bgImage_property);
-        AttributeValue img_5_8_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,img_5_8_0_bgImage_property,img_5_8_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_5_8_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,null,img_5_8_0_bgImage_property,img_5_8_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_5_8_0_bgImage_property_value);
         Attribute img_5_8_0_locked_variable =new Attribute("Locked",img_5_8_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Variable,DataType.Boolean,1L,now,now,admin_1,admin_1);
         attributeService.save(img_5_8_0_locked_variable);
-        AttributeValue img_5_8_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,img_5_8_0_locked_variable,img_5_8_0_locked_variable,1L,now,now,admin_1,admin_1);
+        AttributeValue img_5_8_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,null,img_5_8_0_locked_variable,img_5_8_0_locked_variable,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_5_8_0_locked_variable_value);
 
 
@@ -2255,7 +2267,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_6_8_1);
         Attribute img_6_8_1_bgImage_property =new Attribute("bgImage",img_6_8_1.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_6_8_1_bgImage_property);
-        AttributeValue img_6_8_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,img_6_8_1_bgImage_property,img_6_8_1_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_6_8_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,null,img_6_8_1_bgImage_property,img_6_8_1_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_6_8_1_bgImage_property_value);
 
 
@@ -2263,7 +2275,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_6_8_0);
         Attribute img_6_8_0_bgImage_property =new Attribute("bgImage",img_6_8_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_6_8_0_bgImage_property);
-        AttributeValue img_6_8_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,img_6_8_0_bgImage_property,img_6_8_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_6_8_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,null,img_6_8_0_bgImage_property,img_6_8_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_6_8_0_bgImage_property_value);
 
 
@@ -2271,7 +2283,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_7_8_1);
         Attribute img_7_8_1_bgImage_property =new Attribute("bgImage",img_7_8_1.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_7_8_1_bgImage_property);
-        AttributeValue img_7_8_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,img_7_8_1_bgImage_property,img_7_8_1_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_7_8_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,null,img_7_8_1_bgImage_property,img_7_8_1_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_7_8_1_bgImage_property_value);
 
 
@@ -2280,14 +2292,14 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_7_8_0);
         Attribute img_7_8_0_bgImage_property =new Attribute("bgImage",img_7_8_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_7_8_0_bgImage_property);
-        AttributeValue img_7_8_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,img_7_8_0_bgImage_property,img_7_8_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_7_8_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,null,img_7_8_0_bgImage_property,img_7_8_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_7_8_0_bgImage_property_value);
 
         ALCityInstanceInPL img_8_8_1 = new ALCityInstanceInPL("img_8_8_1",8,8,1,puzzleGroup_puzzleObject,puzzleLevel_Maze,1L,now,now,admin_1,admin_1);
         pgObjectInstanceService.save(img_8_8_1);
         Attribute img_8_8_1_bgImage_property =new Attribute("bgImage",img_8_8_1.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_8_8_1_bgImage_property);
-        AttributeValue img_8_8_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,img_8_8_1_bgImage_property,img_8_8_1_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_8_8_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,null,img_8_8_1_bgImage_property,img_8_8_1_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_8_8_1_bgImage_property_value);
 
 
@@ -2295,7 +2307,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_8_8_0);
         Attribute img_8_8_0_bgImage_property =new Attribute("bgImage",img_8_8_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_8_8_0_bgImage_property);
-        AttributeValue img_8_8_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,img_8_8_0_bgImage_property,img_8_8_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_8_8_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,null,img_8_8_0_bgImage_property,img_8_8_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_8_8_0_bgImage_property_value);
 
 
@@ -2303,11 +2315,11 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_9_8_0);
         Attribute img_9_8_0_bgImage_property =new Attribute("bgImage",img_9_8_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_9_8_0_bgImage_property);
-        AttributeValue img_9_8_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,img_9_8_0_bgImage_property,img_9_8_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_9_8_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,null,img_9_8_0_bgImage_property,img_9_8_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_9_8_0_bgImage_property_value);
         Attribute img_9_8_0_locked_variable =new Attribute("Locked",img_9_8_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Variable,DataType.Boolean,1L,now,now,admin_1,admin_1);
         attributeService.save(img_9_8_0_locked_variable);
-        AttributeValue img_9_8_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,img_9_8_0_locked_variable,img_9_8_0_locked_variable,1L,now,now,admin_1,admin_1);
+        AttributeValue img_9_8_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,null,img_9_8_0_locked_variable,img_9_8_0_locked_variable,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_9_8_0_locked_variable_value);
 
 
@@ -2315,7 +2327,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_10_8_1);
         Attribute img_10_8_1_bgImage_property =new Attribute("bgImage",img_10_8_1.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_10_8_1_bgImage_property);
-        AttributeValue img_10_8_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,img_10_8_1_bgImage_property,img_10_8_1_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_10_8_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,null,img_10_8_1_bgImage_property,img_10_8_1_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_10_8_1_bgImage_property_value);
 
 
@@ -2323,7 +2335,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_10_8_0);
         Attribute img_10_8_0_bgImage_property =new Attribute("bgImage",img_10_8_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_10_8_0_bgImage_property);
-        AttributeValue img_10_8_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,img_10_8_0_bgImage_property,img_10_8_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_10_8_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,null,img_10_8_0_bgImage_property,img_10_8_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_10_8_0_bgImage_property_value);
 
 
@@ -2331,7 +2343,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_11_8_1);
         Attribute img_11_8_1_bgImage_property =new Attribute("bgImage",img_11_8_1.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_11_8_1_bgImage_property);
-        AttributeValue img_11_8_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,img_11_8_1_bgImage_property,img_11_8_1_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_11_8_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,null,img_11_8_1_bgImage_property,img_11_8_1_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_11_8_1_bgImage_property_value);
 
 
@@ -2339,7 +2351,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_11_8_0);
         Attribute img_11_8_0_bgImage_property =new Attribute("bgImage",img_11_8_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_11_8_0_bgImage_property);
-        AttributeValue img_11_8_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,img_11_8_0_bgImage_property,img_11_8_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_11_8_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,null,img_11_8_0_bgImage_property,img_11_8_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_11_8_0_bgImage_property_value);
 
 
@@ -2347,7 +2359,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_12_8_1);
         Attribute img_12_8_1_bgImage_property =new Attribute("bgImage",img_12_8_1.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_12_8_1_bgImage_property);
-        AttributeValue img_12_8_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,img_12_8_1_bgImage_property,img_12_8_1_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_12_8_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,null,img_12_8_1_bgImage_property,img_12_8_1_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_12_8_1_bgImage_property_value);
 
 
@@ -2355,7 +2367,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_12_8_0);
         Attribute img_12_8_0_bgImage_property =new Attribute("bgImage",img_12_8_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_12_8_0_bgImage_property);
-        AttributeValue img_12_8_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,img_12_8_0_bgImage_property,img_12_8_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_12_8_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,null,img_12_8_0_bgImage_property,img_12_8_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_12_8_0_bgImage_property_value);
 
 
@@ -2363,11 +2375,11 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_13_8_0);
         Attribute img_13_8_0_bgImage_property =new Attribute("bgImage",img_13_8_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_13_8_0_bgImage_property);
-        AttributeValue img_13_8_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,img_13_8_0_bgImage_property,img_13_8_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_13_8_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,null,img_13_8_0_bgImage_property,img_13_8_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_13_8_0_bgImage_property_value);
         Attribute img_13_8_0_locked_variable =new Attribute("Locked",img_13_8_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Variable,DataType.Boolean,1L,now,now,admin_1,admin_1);
         attributeService.save(img_13_8_0_locked_variable);
-        AttributeValue img_13_8_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,img_13_8_0_locked_variable,img_13_8_0_locked_variable,1L,now,now,admin_1,admin_1);
+        AttributeValue img_13_8_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,null,img_13_8_0_locked_variable,img_13_8_0_locked_variable,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_13_8_0_locked_variable_value);
 
 
@@ -2375,7 +2387,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_14_8_1);
         Attribute img_14_8_1_bgImage_property =new Attribute("bgImage",img_14_8_1.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_14_8_1_bgImage_property);
-        AttributeValue img_14_8_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,img_14_8_1_bgImage_property,img_14_8_1_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_14_8_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,null,img_14_8_1_bgImage_property,img_14_8_1_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_14_8_1_bgImage_property_value);
 
 
@@ -2383,7 +2395,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_14_8_0);
         Attribute img_14_8_0_bgImage_property =new Attribute("bgImage",img_14_8_1.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_14_8_0_bgImage_property);
-        AttributeValue img_14_8_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,img_14_8_0_bgImage_property,img_14_8_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_14_8_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,null,img_14_8_0_bgImage_property,img_14_8_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_14_8_0_bgImage_property_value);
 
 
@@ -2392,7 +2404,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_15_8_1);
         Attribute img_15_8_1_bgImage_property =new Attribute("bgImage",img_15_8_1.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_15_8_1_bgImage_property);
-        AttributeValue img_15_8_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,img_15_8_1_bgImage_property,img_15_8_1_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_15_8_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,null,img_15_8_1_bgImage_property,img_15_8_1_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_15_8_1_bgImage_property_value);
 
 
@@ -2400,7 +2412,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_15_8_0);
         Attribute img_15_8_0_bgImage_property =new Attribute("bgImage",img_15_8_1.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_15_8_0_bgImage_property);
-        AttributeValue img_15_8_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,img_15_8_0_bgImage_property,img_15_8_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_15_8_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,null,img_15_8_0_bgImage_property,img_15_8_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_15_8_0_bgImage_property_value);
 
 
@@ -2408,7 +2420,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_16_8_1);
         Attribute img_16_8_1_bgImage_property =new Attribute("bgImage",img_16_8_1.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_16_8_1_bgImage_property);
-        AttributeValue img_16_8_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,img_16_8_1_bgImage_property,img_16_8_1_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_16_8_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,null,img_16_8_1_bgImage_property,img_16_8_1_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_16_8_1_bgImage_property_value);
 
 
@@ -2416,7 +2428,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_16_8_0);
         Attribute img_16_8_0_bgImage_property =new Attribute("bgImage",img_16_8_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_16_8_0_bgImage_property);
-        AttributeValue img_16_8_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,img_16_8_0_bgImage_property,img_16_8_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_16_8_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,null,img_16_8_0_bgImage_property,img_16_8_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_16_8_0_bgImage_property_value);
 
 
@@ -2424,7 +2436,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_17_8_1);
         Attribute img_17_8_1_bgImage_property =new Attribute("bgImage",img_17_8_1.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_17_8_1_bgImage_property);
-        AttributeValue img_17_8_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,img_17_8_1_bgImage_property,img_17_8_1_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_17_8_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,null,img_17_8_1_bgImage_property,img_17_8_1_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_17_8_1_bgImage_property_value);
 
 
@@ -2432,7 +2444,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_17_8_0);
         Attribute img_17_8_0_bgImage_property =new Attribute("bgImage",img_17_8_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_17_8_0_bgImage_property);
-        AttributeValue img_17_8_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,img_17_8_0_bgImage_property,img_17_8_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_17_8_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,null,img_17_8_0_bgImage_property,img_17_8_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_17_8_0_bgImage_property_value);
 
 
@@ -2441,7 +2453,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_18_8_1);
         Attribute img_18_8_1_bgImage_property =new Attribute("bgImage",img_18_8_1.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_18_8_1_bgImage_property);
-        AttributeValue img_18_8_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,img_18_8_1_bgImage_property,img_18_8_1_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_18_8_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,null,img_18_8_1_bgImage_property,img_18_8_1_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_18_8_1_bgImage_property_value);
 
 
@@ -2449,7 +2461,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_18_8_0);
         Attribute img_18_8_0_bgImage_property =new Attribute("bgImage",img_18_8_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_18_8_0_bgImage_property);
-        AttributeValue img_18_8_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,img_18_8_0_bgImage_property,img_18_8_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_18_8_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,null,img_18_8_0_bgImage_property,img_18_8_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_18_8_0_bgImage_property_value);
 
 
@@ -2458,11 +2470,11 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_19_8_0);
         Attribute img_19_8_0_bgImage_property =new Attribute("bgImage",img_19_8_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_19_8_0_bgImage_property);
-        AttributeValue img_19_8_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,img_19_8_0_bgImage_property,img_19_8_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_19_8_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,null,img_19_8_0_bgImage_property,img_19_8_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_19_8_0_bgImage_property_value);
         Attribute img_19_8_0_locked_variable =new Attribute("Locked",img_19_8_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Variable,DataType.Boolean,1L,now,now,admin_1,admin_1);
         attributeService.save(img_19_8_0_locked_variable);
-        AttributeValue img_19_8_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,img_19_8_0_locked_variable,img_19_8_0_locked_variable,1L,now,now,admin_1,admin_1);
+        AttributeValue img_19_8_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,null,img_19_8_0_locked_variable,img_19_8_0_locked_variable,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_19_8_0_locked_variable_value);
 
 
@@ -2470,11 +2482,11 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_1_9_0);
         Attribute img_1_9_0_bgImage_property =new Attribute("bgImage",img_1_9_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_1_9_0_bgImage_property);
-        AttributeValue img_1_9_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,img_1_9_0_bgImage_property,img_1_9_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_1_9_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,null,img_1_9_0_bgImage_property,img_1_9_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_1_9_0_bgImage_property_value);
         Attribute img_1_9_0_locked_variable =new Attribute("Locked",img_1_9_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Variable,DataType.Boolean,1L,now,now,admin_1,admin_1);
         attributeService.save(img_1_9_0_locked_variable);
-        AttributeValue img_1_9_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,img_1_9_0_locked_variable,img_1_9_0_locked_variable,1L,now,now,admin_1,admin_1);
+        AttributeValue img_1_9_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,null,img_1_9_0_locked_variable,img_1_9_0_locked_variable,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_1_9_0_locked_variable_value);
 
 
@@ -2482,7 +2494,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_2_9_1);
         Attribute img_2_9_1_bgImage_property =new Attribute("bgImage",img_2_9_1.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_2_9_1_bgImage_property);
-        AttributeValue img_2_9_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,img_2_9_1_bgImage_property,img_2_9_1_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_2_9_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,null,img_2_9_1_bgImage_property,img_2_9_1_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_2_9_1_bgImage_property_value);
 
 
@@ -2490,7 +2502,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_2_9_0);
         Attribute img_2_9_0_bgImage_property =new Attribute("bgImage",img_2_9_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_2_9_0_bgImage_property);
-        AttributeValue img_2_9_0_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,img_2_9_0_bgImage_property,img_2_9_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_2_9_0_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,null,img_2_9_0_bgImage_property,img_2_9_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_2_9_0_bgImage_property_value);
 
 
@@ -2498,11 +2510,11 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_3_9_0);
         Attribute img_3_9_0_bgImage_property =new Attribute("bgImage",img_3_9_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_3_9_0_bgImage_property);
-        AttributeValue img_3_9_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,img_3_9_0_bgImage_property,img_3_9_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_3_9_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,null,img_3_9_0_bgImage_property,img_3_9_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_3_9_0_bgImage_property_value);
         Attribute img_3_9_0_locked_variable =new Attribute("Locked",img_3_9_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Variable,DataType.Boolean,1L,now,now,admin_1,admin_1);
         attributeService.save(img_3_9_0_locked_variable);
-        AttributeValue img_3_9_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,img_3_9_0_locked_variable,img_3_9_0_locked_variable,1L,now,now,admin_1,admin_1);
+        AttributeValue img_3_9_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,null,img_3_9_0_locked_variable,img_3_9_0_locked_variable,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_3_9_0_locked_variable_value);
 
 
@@ -2511,22 +2523,22 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_4_9_0);
         Attribute img_4_9_0_bgImage_property =new Attribute("bgImage",img_4_9_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_4_9_0_bgImage_property);
-        AttributeValue img_4_9_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,img_4_9_0_bgImage_property,img_4_9_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_4_9_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,null,img_4_9_0_bgImage_property,img_4_9_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_4_9_0_bgImage_property_value);
         Attribute img_4_9_0_locked_variable =new Attribute("Locked",img_4_9_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Variable,DataType.Boolean,1L,now,now,admin_1,admin_1);
         attributeService.save(img_4_9_0_locked_variable);
-        AttributeValue img_4_9_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,img_4_9_0_locked_variable,img_4_9_0_locked_variable,1L,now,now,admin_1,admin_1);
+        AttributeValue img_4_9_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,null,img_4_9_0_locked_variable,img_4_9_0_locked_variable,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_4_9_0_locked_variable_value);
 
         ALCityInstanceInPL img_5_9_0 = new ALCityInstanceInPL("img_5_9_0",5,9,0,puzzleGroup_puzzleObject,puzzleLevel_Maze,1L,now,now,admin_1,admin_1);
         pgObjectInstanceService.save(img_5_9_0);
         Attribute img_5_9_0_bgImage_property =new Attribute("bgImage",img_5_9_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_5_9_0_bgImage_property);
-        AttributeValue img_5_9_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,img_5_9_0_bgImage_property,img_5_9_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_5_9_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,null,img_5_9_0_bgImage_property,img_5_9_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_5_9_0_bgImage_property_value);
         Attribute img_5_9_0_locked_variable =new Attribute("Locked",img_5_9_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Variable,DataType.Boolean,1L,now,now,admin_1,admin_1);
         attributeService.save(img_5_9_0_locked_variable);
-        AttributeValue img_5_9_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,img_5_9_0_locked_variable,img_5_9_0_locked_variable,1L,now,now,admin_1,admin_1);
+        AttributeValue img_5_9_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,null,img_5_9_0_locked_variable,img_5_9_0_locked_variable,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_5_9_0_locked_variable_value);
 
 
@@ -2535,7 +2547,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_6_9_1);
         Attribute img_6_9_1_bgImage_property =new Attribute("bgImage",img_6_9_1.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_6_9_1_bgImage_property);
-        AttributeValue img_6_9_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,img_6_9_1_bgImage_property,img_6_9_1_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_6_9_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,null,img_6_9_1_bgImage_property,img_6_9_1_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_6_9_1_bgImage_property_value);
 
 
@@ -2544,7 +2556,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_6_9_0);
         Attribute img_6_9_0_bgImage_property =new Attribute("bgImage",img_6_9_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_6_9_0_bgImage_property);
-        AttributeValue img_6_9_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,img_6_9_0_bgImage_property,img_6_9_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_6_9_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,null,img_6_9_0_bgImage_property,img_6_9_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_6_9_0_bgImage_property_value);
 
 
@@ -2553,11 +2565,11 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_7_9_0);
         Attribute img_7_9_0_bgImage_property =new Attribute("bgImage",img_7_9_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_7_9_0_bgImage_property);
-        AttributeValue img_7_9_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,img_7_9_0_bgImage_property,img_7_9_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_7_9_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,null,img_7_9_0_bgImage_property,img_7_9_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_7_9_0_bgImage_property_value);
         Attribute img_7_9_0_locked_variable =new Attribute("Locked",img_7_9_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Variable,DataType.Boolean,1L,now,now,admin_1,admin_1);
         attributeService.save(img_7_9_0_locked_variable);
-        AttributeValue img_7_9_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,img_7_9_0_locked_variable,img_7_9_0_locked_variable,1L,now,now,admin_1,admin_1);
+        AttributeValue img_7_9_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,null,img_7_9_0_locked_variable,img_7_9_0_locked_variable,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_7_9_0_locked_variable_value);
 
 
@@ -2566,7 +2578,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_8_9_1);
         Attribute img_8_9_1_bgImage_property =new Attribute("bgImage",img_8_9_1.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_8_9_1_bgImage_property);
-        AttributeValue img_8_9_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,img_6_9_1_bgImage_property,img_6_9_1_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_8_9_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,null,img_6_9_1_bgImage_property,img_6_9_1_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_8_9_1_bgImage_property_value);
 
 
@@ -2574,7 +2586,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_8_9_0);
         Attribute img_8_9_0_bgImage_property =new Attribute("bgImage",img_8_9_1.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_6_9_0_bgImage_property);
-        AttributeValue img_8_9_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,img_6_9_0_bgImage_property,img_6_9_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_8_9_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,null,img_6_9_0_bgImage_property,img_6_9_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_8_9_0_bgImage_property_value);
 
 
@@ -2583,11 +2595,11 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_9_9_0);
         Attribute img_9_9_0_bgImage_property =new Attribute("bgImage",img_9_9_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_9_9_0_bgImage_property);
-        AttributeValue img_9_9_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,img_9_9_0_bgImage_property,img_9_9_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_9_9_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,null,img_9_9_0_bgImage_property,img_9_9_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_9_9_0_bgImage_property_value);
         Attribute img_9_9_0_locked_variable =new Attribute("Locked",img_9_9_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Variable,DataType.Boolean,1L,now,now,admin_1,admin_1);
         attributeService.save(img_9_9_0_locked_variable);
-        AttributeValue img_9_9_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,img_9_9_0_locked_variable,img_9_9_0_locked_variable,1L,now,now,admin_1,admin_1);
+        AttributeValue img_9_9_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,null,img_9_9_0_locked_variable,img_9_9_0_locked_variable,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_9_9_0_locked_variable_value);
 
 
@@ -2596,7 +2608,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_10_9_1);
         Attribute img_10_9_1_bgImage_property =new Attribute("bgImage",img_10_9_1.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_10_9_1_bgImage_property);
-        AttributeValue img_10_9_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,img_10_9_1_bgImage_property,img_10_9_1_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_10_9_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,null,img_10_9_1_bgImage_property,img_10_9_1_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_10_9_1_bgImage_property_value);
 
 
@@ -2606,7 +2618,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_10_9_0);
         Attribute img_10_9_0_bgImage_property =new Attribute("bgImage",img_10_9_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_10_9_0_bgImage_property);
-        AttributeValue img_10_9_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,img_10_9_0_bgImage_property,img_10_9_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_10_9_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,null,img_10_9_0_bgImage_property,img_10_9_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_10_9_0_bgImage_property_value);
 
 
@@ -2614,11 +2626,11 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_11_9_0);
         Attribute img_11_9_0_bgImage_property =new Attribute("bgImage",img_11_9_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_11_9_0_bgImage_property);
-        AttributeValue img_11_9_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,img_11_9_0_bgImage_property,img_11_9_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_11_9_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,null,img_11_9_0_bgImage_property,img_11_9_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_11_9_0_bgImage_property_value);
         Attribute img_11_9_0_locked_variable =new Attribute("Locked",img_11_9_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Variable,DataType.Boolean,1L,now,now,admin_1,admin_1);
         attributeService.save(img_11_9_0_locked_variable);
-        AttributeValue img_11_9_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,img_11_9_0_locked_variable,img_11_9_0_locked_variable,1L,now,now,admin_1,admin_1);
+        AttributeValue img_11_9_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,null,img_11_9_0_locked_variable,img_11_9_0_locked_variable,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_11_9_0_locked_variable_value);
 
 
@@ -2626,22 +2638,22 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_12_9_0);
         Attribute img_12_9_0_bgImage_property =new Attribute("bgImage",img_12_9_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_12_9_0_bgImage_property);
-        AttributeValue img_12_9_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,img_12_9_0_bgImage_property,img_12_9_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_12_9_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,null,img_12_9_0_bgImage_property,img_12_9_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_12_9_0_bgImage_property_value);
         Attribute img_12_9_0_locked_variable =new Attribute("Locked",img_12_9_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Variable,DataType.Boolean,1L,now,now,admin_1,admin_1);
         attributeService.save(img_12_9_0_locked_variable);
-        AttributeValue img_12_9_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,img_12_9_0_locked_variable,img_12_9_0_locked_variable,1L,now,now,admin_1,admin_1);
+        AttributeValue img_12_9_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,null,img_12_9_0_locked_variable,img_12_9_0_locked_variable,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_12_9_0_locked_variable_value);
 
         ALCityInstanceInPL img_13_9_0 = new ALCityInstanceInPL("img_13_9_0",13,9,0,puzzleGroup_puzzleObject,puzzleLevel_Maze,1L,now,now,admin_1,admin_1);
         pgObjectInstanceService.save(img_13_9_0);
         Attribute img_13_9_0_bgImage_property =new Attribute("bgImage",img_13_9_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_13_9_0_bgImage_property);
-        AttributeValue img_13_9_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,img_13_9_0_bgImage_property,img_13_9_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_13_9_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,null,img_13_9_0_bgImage_property,img_13_9_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_13_9_0_bgImage_property_value);
         Attribute img_13_9_0_locked_variable =new Attribute("Locked",img_13_9_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Variable,DataType.Boolean,1L,now,now,admin_1,admin_1);
         attributeService.save(img_13_9_0_locked_variable);
-        AttributeValue img_13_9_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,img_13_9_0_locked_variable,img_13_9_0_locked_variable,1L,now,now,admin_1,admin_1);
+        AttributeValue img_13_9_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,null,img_13_9_0_locked_variable,img_13_9_0_locked_variable,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_13_9_0_locked_variable_value);
 
 
@@ -2650,7 +2662,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_14_9_1);
         Attribute img_14_9_1_bgImage_property =new Attribute("bgImage",img_14_9_1.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_14_9_1_bgImage_property);
-        AttributeValue img_14_9_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,img_14_9_1_bgImage_property,img_14_9_1_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_14_9_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,null,img_14_9_1_bgImage_property,img_14_9_1_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_14_9_1_bgImage_property_value);
 
 
@@ -2658,7 +2670,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
          pgObjectInstanceService.save(img_14_9_0);
         Attribute img_14_9_0_bgImage_property =new Attribute("bgImage",img_14_9_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_14_9_0_bgImage_property);
-        AttributeValue img_14_9_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,img_14_9_0_bgImage_property,img_14_9_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_14_9_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,null,img_14_9_0_bgImage_property,img_14_9_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_14_9_0_bgImage_property_value);
 
 
@@ -2667,11 +2679,11 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_15_9_0);
         Attribute img_15_9_0_bgImage_property =new Attribute("bgImage",img_15_9_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_15_9_0_bgImage_property);
-        AttributeValue img_15_9_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,img_15_9_0_bgImage_property,img_15_9_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_15_9_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,null,img_15_9_0_bgImage_property,img_15_9_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_15_9_0_bgImage_property_value);
         Attribute img_15_9_0_locked_variable =new Attribute("Locked",img_15_9_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Variable,DataType.Boolean,1L,now,now,admin_1,admin_1);
         attributeService.save(img_15_9_0_locked_variable);
-        AttributeValue img_15_9_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,img_15_9_0_locked_variable,img_15_9_0_locked_variable,1L,now,now,admin_1,admin_1);
+        AttributeValue img_15_9_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,null,img_15_9_0_locked_variable,img_15_9_0_locked_variable,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_15_9_0_locked_variable_value);
 
 
@@ -2681,11 +2693,11 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_16_9_0);
         Attribute img_16_9_0_bgImage_property =new Attribute("bgImage",img_16_9_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_16_9_0_bgImage_property);
-        AttributeValue img_16_9_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,img_16_9_0_bgImage_property,img_16_9_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_16_9_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,null,img_16_9_0_bgImage_property,img_16_9_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_16_9_0_bgImage_property_value);
         Attribute img_16_9_0_locked_variable =new Attribute("Locked",img_16_9_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Variable,DataType.Boolean,1L,now,now,admin_1,admin_1);
         attributeService.save(img_16_9_0_locked_variable);
-        AttributeValue img_16_9_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,img_16_9_0_locked_variable,img_16_9_0_locked_variable,1L,now,now,admin_1,admin_1);
+        AttributeValue img_16_9_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,null,img_16_9_0_locked_variable,img_16_9_0_locked_variable,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_16_9_0_locked_variable_value);
 
 
@@ -2694,11 +2706,11 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_17_9_0);
         Attribute img_17_9_0_bgImage_property =new Attribute("bgImage",img_17_9_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_17_9_0_bgImage_property);
-        AttributeValue img_17_9_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,img_17_9_0_bgImage_property,img_17_9_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_17_9_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,null,img_17_9_0_bgImage_property,img_17_9_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_17_9_0_bgImage_property_value);
         Attribute img_17_9_0_locked_variable =new Attribute("Locked",img_17_9_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Variable,DataType.Boolean,1L,now,now,admin_1,admin_1);
         attributeService.save(img_17_9_0_locked_variable);
-        AttributeValue img_17_9_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,img_17_9_0_locked_variable,img_17_9_0_locked_variable,1L,now,now,admin_1,admin_1);
+        AttributeValue img_17_9_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,null,img_17_9_0_locked_variable,img_17_9_0_locked_variable,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_17_9_0_locked_variable_value);
 
 
@@ -2707,7 +2719,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_18_9_1);
         Attribute img_18_9_1_bgImage_property =new Attribute("bgImage",img_18_9_1.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_18_9_1_bgImage_property);
-        AttributeValue img_18_9_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,img_18_9_1_bgImage_property,img_18_9_1_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_18_9_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,null,img_18_9_1_bgImage_property,img_18_9_1_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_18_9_1_bgImage_property_value);
 
 
@@ -2715,7 +2727,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_18_9_0);
         Attribute img_18_9_0_bgImage_property =new Attribute("bgImage",img_18_9_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_18_9_0_bgImage_property);
-        AttributeValue img_18_9_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,img_18_9_0_bgImage_property,img_18_9_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_18_9_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,null,img_18_9_0_bgImage_property,img_18_9_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_18_9_0_bgImage_property_value);
 
 
@@ -2724,11 +2736,11 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_19_9_0);
         Attribute img_19_9_0_bgImage_property =new Attribute("bgImage",img_19_9_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_19_9_0_bgImage_property);
-        AttributeValue img_19_9_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,img_19_9_0_bgImage_property,img_19_9_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_19_9_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,null,img_19_9_0_bgImage_property,img_19_9_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_19_9_0_bgImage_property_value);
         Attribute img_19_9_0_locked_variable =new Attribute("Locked",img_19_9_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Variable,DataType.Boolean,1L,now,now,admin_1,admin_1);
         attributeService.save(img_19_9_0_locked_variable);
-        AttributeValue img_19_9_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,img_19_9_0_locked_variable,img_19_9_0_locked_variable,1L,now,now,admin_1,admin_1);
+        AttributeValue img_19_9_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,null,img_19_9_0_locked_variable,img_19_9_0_locked_variable,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_19_9_0_locked_variable_value);
 
 
@@ -2738,11 +2750,11 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_1_10_0);
         Attribute img_1_10_0_bgImage_property =new Attribute("bgImage",img_1_10_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_1_10_0_bgImage_property);
-        AttributeValue img_1_10_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,img_1_10_0_bgImage_property,img_1_10_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_1_10_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,null,img_1_10_0_bgImage_property,img_1_10_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_1_10_0_bgImage_property_value);
         Attribute img_1_10_0_locked_variable =new Attribute("Locked",img_1_10_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Variable,DataType.Boolean,1L,now,now,admin_1,admin_1);
         attributeService.save(img_1_10_0_locked_variable);
-        AttributeValue img_1_10_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,img_1_10_0_locked_variable,img_1_10_0_locked_variable,1L,now,now,admin_1,admin_1);
+        AttributeValue img_1_10_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,null,img_1_10_0_locked_variable,img_1_10_0_locked_variable,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_1_10_0_locked_variable_value);
 
 
@@ -2751,7 +2763,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_2_10_1);
         Attribute img_2_10_1_bgImage_property =new Attribute("bgImage",img_2_10_1.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_2_10_1_bgImage_property);
-        AttributeValue img_2_10_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,img_2_10_1_bgImage_property,img_2_10_1_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_2_10_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,null,img_2_10_1_bgImage_property,img_2_10_1_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_2_10_1_bgImage_property_value);
 
 
@@ -2759,7 +2771,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_2_10_0);
         Attribute img_2_10_0_bgImage_property =new Attribute("bgImage",img_2_10_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_2_10_0_bgImage_property);
-        AttributeValue img_2_10_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,img_2_10_0_bgImage_property,img_2_10_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_2_10_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,null,img_2_10_0_bgImage_property,img_2_10_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_2_10_0_bgImage_property_value);
 
 
@@ -2767,7 +2779,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_3_10_1);
         Attribute img_3_10_1_bgImage_property =new Attribute("bgImage",img_3_10_1.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_3_10_1_bgImage_property);
-        AttributeValue img_3_10_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,img_3_10_1_bgImage_property,img_3_10_1_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_3_10_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,null,img_3_10_1_bgImage_property,img_3_10_1_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_3_10_1_bgImage_property_value);
 
 
@@ -2775,7 +2787,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_3_10_0);
         Attribute img_3_10_0_bgImage_property =new Attribute("bgImage",img_3_10_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_3_10_0_bgImage_property);
-        AttributeValue img_3_10_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,img_3_10_0_bgImage_property,img_3_10_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_3_10_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,null,img_3_10_0_bgImage_property,img_3_10_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_3_10_0_bgImage_property_value);
 
 
@@ -2784,7 +2796,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_4_10_1);
         Attribute img_4_10_1_bgImage_property =new Attribute("bgImage",img_4_10_1.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_4_10_1_bgImage_property);
-        AttributeValue img_4_10_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,img_4_10_1_bgImage_property,img_4_10_1_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_4_10_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,null,img_4_10_1_bgImage_property,img_4_10_1_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_4_10_1_bgImage_property_value);
 
 
@@ -2793,7 +2805,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_4_10_0);
         Attribute img_4_10_0_bgImage_property =new Attribute("bgImage",img_4_10_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_4_10_0_bgImage_property);
-        AttributeValue img_4_10_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,img_4_10_0_bgImage_property,img_4_10_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_4_10_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,null,img_4_10_0_bgImage_property,img_4_10_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_4_10_0_bgImage_property_value);
 
 
@@ -2802,11 +2814,11 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_5_10_0);
         Attribute img_5_10_0_bgImage_property =new Attribute("bgImage",img_5_10_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_5_10_0_bgImage_property);
-        AttributeValue img_5_10_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,img_5_10_0_bgImage_property,img_5_10_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_5_10_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,null,img_5_10_0_bgImage_property,img_5_10_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_5_10_0_bgImage_property_value);
         Attribute img_5_10_0_locked_variable =new Attribute("Locked",img_5_10_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Variable,DataType.Boolean,1L,now,now,admin_1,admin_1);
         attributeService.save(img_5_10_0_locked_variable);
-        AttributeValue img_5_10_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,img_5_10_0_locked_variable,img_5_10_0_locked_variable,1L,now,now,admin_1,admin_1);
+        AttributeValue img_5_10_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,null,img_5_10_0_locked_variable,img_5_10_0_locked_variable,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_5_10_0_locked_variable_value);
 
 
@@ -2815,7 +2827,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_6_10_1);
         Attribute img_6_10_1_bgImage_property =new Attribute("bgImage",img_6_10_1.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_6_10_1_bgImage_property);
-        AttributeValue img_6_10_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,img_6_10_1_bgImage_property,img_6_10_1_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_6_10_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,null,img_6_10_1_bgImage_property,img_6_10_1_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_6_10_1_bgImage_property_value);
 
 
@@ -2823,7 +2835,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_6_10_0);
         Attribute img_6_10_0_bgImage_property =new Attribute("bgImage",img_6_10_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_6_10_0_bgImage_property);
-        AttributeValue img_6_10_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,img_6_10_0_bgImage_property,img_6_10_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_6_10_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,null,img_6_10_0_bgImage_property,img_6_10_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_6_10_0_bgImage_property_value);
 
 
@@ -2832,11 +2844,11 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_7_10_0);
         Attribute img_7_10_0_bgImage_property =new Attribute("bgImage",img_7_10_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_7_10_0_bgImage_property);
-        AttributeValue img_7_10_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,img_7_10_0_bgImage_property,img_7_10_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_7_10_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,null,img_7_10_0_bgImage_property,img_7_10_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_7_10_0_bgImage_property_value);
         Attribute img_7_10_0_locked_variable =new Attribute("Locked",img_7_10_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Variable,DataType.Boolean,1L,now,now,admin_1,admin_1);
         attributeService.save(img_7_10_0_locked_variable);
-        AttributeValue img_7_10_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,img_7_10_0_locked_variable,img_7_10_0_locked_variable,1L,now,now,admin_1,admin_1);
+        AttributeValue img_7_10_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,null,img_7_10_0_locked_variable,img_7_10_0_locked_variable,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_7_10_0_locked_variable_value);
 
 
@@ -2845,7 +2857,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_8_10_1);
         Attribute img_8_10_1_bgImage_property =new Attribute("bgImage",img_8_10_1.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_8_10_1_bgImage_property);
-        AttributeValue img_8_10_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,img_8_10_1_bgImage_property,img_8_10_1_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_8_10_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,null,img_8_10_1_bgImage_property,img_8_10_1_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_8_10_1_bgImage_property_value);
 
 
@@ -2853,7 +2865,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_8_10_0);
         Attribute img_8_10_0_bgImage_property =new Attribute("bgImage",img_8_10_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_8_10_0_bgImage_property);
-        AttributeValue img_8_10_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,img_8_10_0_bgImage_property,img_8_10_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_8_10_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,null,img_8_10_0_bgImage_property,img_8_10_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_8_10_0_bgImage_property_value);
 
 
@@ -2861,11 +2873,11 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_9_10_0);
         Attribute img_9_10_0_bgImage_property =new Attribute("bgImage",img_9_10_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_9_10_0_bgImage_property);
-        AttributeValue img_9_10_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,img_9_10_0_bgImage_property,img_9_10_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_9_10_0_bgImage_property_value= new AttributeValue(null,null,black_space_image.getId(),null,null,null,null,img_9_10_0_bgImage_property,img_9_10_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_9_10_0_bgImage_property_value);
         Attribute img_9_10_0_locked_variable =new Attribute("Locked",img_9_10_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Variable,DataType.Boolean,1L,now,now,admin_1,admin_1);
         attributeService.save(img_9_10_0_locked_variable);
-        AttributeValue img_9_10_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,img_9_10_0_locked_variable,img_9_10_0_locked_variable,1L,now,now,admin_1,admin_1);
+        AttributeValue img_9_10_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,null,img_9_10_0_locked_variable,img_9_10_0_locked_variable,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_9_10_0_locked_variable_value);
 
 
@@ -2874,14 +2886,14 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_10_10_1);
         Attribute img_10_10_1_bgImage_property =new Attribute("bgImage",img_10_10_1.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_10_10_1_bgImage_property);
-        AttributeValue img_10_10_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,img_10_10_1_bgImage_property,img_10_10_1_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_10_10_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,null,img_10_10_1_bgImage_property,img_10_10_1_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_10_10_1_bgImage_property_value);
 
         ALCityInstanceInPL img_10_10_0 = new ALCityInstanceInPL("img_10_10_0",10,10,0,puzzleGroup_puzzleObject,puzzleLevel_Maze,1L,now,now,admin_1,admin_1);
         pgObjectInstanceService.save(img_10_10_0);
         Attribute img_10_10_0_bgImage_property =new Attribute("bgImage",img_10_10_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_10_10_0_bgImage_property);
-        AttributeValue img_10_10_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,img_10_10_0_bgImage_property,img_10_10_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_10_10_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,null,img_10_10_0_bgImage_property,img_10_10_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_10_10_0_bgImage_property_value);
 
 
@@ -2890,7 +2902,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
 
         Attribute img_11_10_1_bgImage_property =new Attribute("bgImage",img_11_10_1.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_11_10_1_bgImage_property);
-        AttributeValue img_11_10_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,img_11_10_1_bgImage_property,img_11_10_1_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_11_10_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,null,img_11_10_1_bgImage_property,img_11_10_1_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_11_10_1_bgImage_property_value);
 
 
@@ -2898,7 +2910,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_11_10_0);
         Attribute img_11_10_0_bgImage_property =new Attribute("bgImage",img_11_10_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_11_10_0_bgImage_property);
-        AttributeValue img_11_10_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,img_11_10_0_bgImage_property,img_11_10_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_11_10_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,null,img_11_10_0_bgImage_property,img_11_10_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_11_10_0_bgImage_property_value);
 
 
@@ -2907,7 +2919,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_12_10_1);
         Attribute img_12_10_1_bgImage_property =new Attribute("bgImage",img_12_10_1.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_12_10_1_bgImage_property);
-        AttributeValue img_12_10_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,img_12_10_1_bgImage_property,img_12_10_1_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_12_10_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,null,img_12_10_1_bgImage_property,img_12_10_1_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_12_10_1_bgImage_property_value);
 
 
@@ -2915,7 +2927,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_12_10_0);
         Attribute img_12_10_0_bgImage_property =new Attribute("bgImage",img_12_10_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_12_10_0_bgImage_property);
-        AttributeValue img_12_10_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,img_12_10_0_bgImage_property,img_12_10_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_12_10_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,null,img_12_10_0_bgImage_property,img_12_10_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_12_10_0_bgImage_property_value);
 
 
@@ -2923,7 +2935,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_13_10_1);
         Attribute img_13_10_1_bgImage_property =new Attribute("bgImage",img_13_10_1.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_13_10_1_bgImage_property);
-        AttributeValue img_13_10_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,img_13_10_1_bgImage_property,img_13_10_1_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_13_10_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,null,img_13_10_1_bgImage_property,img_13_10_1_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_13_10_1_bgImage_property_value);
 
 
@@ -2932,7 +2944,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_13_10_0);
         Attribute img_13_10_0_bgImage_property =new Attribute("bgImage",img_13_10_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_13_10_0_bgImage_property);
-        AttributeValue img_13_10_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,img_13_10_0_bgImage_property,img_13_10_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_13_10_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,null,img_13_10_0_bgImage_property,img_13_10_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_13_10_0_bgImage_property_value);
 
 
@@ -2940,7 +2952,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_14_10_1);
         Attribute img_14_10_1_bgImage_property =new Attribute("bgImage",img_14_10_1.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_14_10_1_bgImage_property);
-        AttributeValue img_14_10_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,img_14_10_1_bgImage_property,img_14_10_1_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_14_10_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,null,img_14_10_1_bgImage_property,img_14_10_1_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_14_10_1_bgImage_property_value);
 
 
@@ -2949,7 +2961,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_14_10_0);
         Attribute img_14_10_0_bgImage_property =new Attribute("bgImage",img_14_10_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_14_10_0_bgImage_property);
-        AttributeValue img_14_10_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,img_14_10_0_bgImage_property,img_14_10_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_14_10_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,null,img_14_10_0_bgImage_property,img_14_10_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_14_10_0_bgImage_property_value);
 
 
@@ -2957,7 +2969,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_15_10_1);
         Attribute img_15_10_1_bgImage_property =new Attribute("bgImage",img_15_10_1.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_15_10_1_bgImage_property);
-        AttributeValue img_15_10_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,img_15_10_1_bgImage_property,img_15_10_1_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_15_10_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,null,img_15_10_1_bgImage_property,img_15_10_1_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_15_10_1_bgImage_property_value);
 
 
@@ -2966,7 +2978,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_15_10_0);
         Attribute img_15_10_0_bgImage_property =new Attribute("bgImage",img_15_10_0.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_15_10_0_bgImage_property);
-        AttributeValue img_15_10_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,img_15_10_0_bgImage_property,img_15_10_0_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_15_10_0_bgImage_property_value= new AttributeValue(null,null,yellow_space_image.getId(),null,null,null,null,img_15_10_0_bgImage_property,img_15_10_0_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_15_10_0_bgImage_property_value);
 
 
@@ -2975,7 +2987,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
         pgObjectInstanceService.save(img_16_10_1);
         Attribute img_16_10_1_bgImage_property =new Attribute("bgImage",img_16_10_1.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(img_16_10_1_bgImage_property);
-        AttributeValue img_16_10_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,img_16_10_1_bgImage_property,img_16_10_1_bgImage_property,1L,now,now,admin_1,admin_1);
+        AttributeValue img_16_10_1_bgImage_property_value= new AttributeValue(null,null,white_space_image.getId(),null,null,null,null,img_16_10_1_bgImage_property,img_16_10_1_bgImage_property,1L,now,now,admin_1,admin_1);
         attributeValueService.save(img_16_10_1_bgImage_property_value);
 
 
