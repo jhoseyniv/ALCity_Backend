@@ -1,8 +1,7 @@
 package com.alcity.service.alobject;
 
-import com.alcity.entity.alobject.ActionRenderer;
-import com.alcity.entity.alobject.PuzzleObject_ObjectAction;
-import com.alcity.repository.alobject.PuzzleObject_ObjectActionRepository;
+import com.alcity.entity.alobject.PuzzleObjectAction;
+import com.alcity.repository.alobject.PuzzleObjectActionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,23 +11,23 @@ import java.util.Optional;
 
 @Service
 @Transactional
-public class PuzzleObject_ObjectActionService implements PuzzleObject_ObjectActionRepository {
+public class PuzzleObjectActionService implements PuzzleObjectActionRepository {
 
     @Autowired
-    PuzzleObject_ObjectActionRepository puzzleObject_ObjectActionRepository;
+    PuzzleObjectActionRepository puzzleObject_ObjectActionRepository;
 
     @Override
-    public <S extends PuzzleObject_ObjectAction> S save(S entity) {
+    public <S extends PuzzleObjectAction> S save(S entity) {
         return puzzleObject_ObjectActionRepository.save(entity);
     }
 
     @Override
-    public <S extends PuzzleObject_ObjectAction> Iterable<S> saveAll(Iterable<S> entities) {
+    public <S extends PuzzleObjectAction> Iterable<S> saveAll(Iterable<S> entities) {
         return null;
     }
 
     @Override
-    public Optional<PuzzleObject_ObjectAction> findById(Long id) {
+    public Optional<PuzzleObjectAction> findById(Long id) {
         return puzzleObject_ObjectActionRepository.findById(id);
     }
 
@@ -38,12 +37,12 @@ public class PuzzleObject_ObjectActionService implements PuzzleObject_ObjectActi
     }
 
     @Override
-    public Collection<PuzzleObject_ObjectAction> findAll() {
+    public Collection<PuzzleObjectAction> findAll() {
         return puzzleObject_ObjectActionRepository.findAll();
     }
 
     @Override
-    public Iterable<PuzzleObject_ObjectAction> findAllById(Iterable<Long> longs) {
+    public Iterable<PuzzleObjectAction> findAllById(Iterable<Long> longs) {
         return null;
     }
 
@@ -58,7 +57,7 @@ public class PuzzleObject_ObjectActionService implements PuzzleObject_ObjectActi
     }
 
     @Override
-    public void delete(PuzzleObject_ObjectAction entity) {
+    public void delete(PuzzleObjectAction entity) {
 
     }
 
@@ -68,7 +67,7 @@ public class PuzzleObject_ObjectActionService implements PuzzleObject_ObjectActi
     }
 
     @Override
-    public void deleteAll(Iterable<? extends PuzzleObject_ObjectAction> entities) {
+    public void deleteAll(Iterable<? extends PuzzleObjectAction> entities) {
 
     }
 
@@ -78,17 +77,17 @@ public class PuzzleObject_ObjectActionService implements PuzzleObject_ObjectActi
     }
 
     @Override
-    public Collection<PuzzleObject_ObjectAction> findByActionRendererId(Long id) {
+    public Collection<PuzzleObjectAction> findByActionRendererId(Long id) {
         return null;
     }
 
     @Override
-    public Collection<PuzzleObject_ObjectAction> findByPoActionOwnerType(Long id) {
+    public Collection<PuzzleObjectAction> findByPoActionOwnerType(Long id) {
         return null;
     }
 
     @Override
-    public Collection<PuzzleObject_ObjectAction> findByOwnerObjectid(Long id) {
+    public Collection<PuzzleObjectAction> findByOwnerObjectid(Long id) {
         return puzzleObject_ObjectActionRepository.findByOwnerObjectid(id);
     }
 }

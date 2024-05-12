@@ -5,7 +5,6 @@ import com.alcity.entity.alenum.BinaryContentType;
 import com.alcity.entity.alenum.GameStatus;
 import com.alcity.entity.alenum.PLDifficulty;
 import com.alcity.entity.alenum.PLStatus;
-import com.alcity.entity.alobject.ObjectCategory;
 import com.alcity.entity.base.BinaryContent;
 import com.alcity.entity.base.CameraSetup;
 import com.alcity.entity.base.PLPrivacy;
@@ -118,7 +117,7 @@ public class Import_F_G_BProblemData_5 implements CommandLineRunner {
 
 
     @Autowired
-    PuzzleObject_ObjectActionService puzzleObject_ObjectActionService;
+    PuzzleObjectActionService puzzleObject_ObjectActionService;
 
     @Autowired
     ALCityObjectInPGService puzzleGroup_PuzzleObjectService;

@@ -4,12 +4,13 @@ package com.alcity.api;
 import com.alcity.dto.Interpreter.*;
 import com.alcity.dto.Interpreter.object.*;
 import com.alcity.entity.alenum.AttributeOwnerType;
+import com.alcity.entity.alenum.ObjectAction;
 import com.alcity.entity.alobject.*;
 import com.alcity.entity.base.BinaryContent;
 import com.alcity.entity.base.CameraSetup;
 import com.alcity.entity.puzzle.*;
 import com.alcity.service.alobject.AttributeService;
-import com.alcity.service.alobject.PuzzleObject_ObjectActionService;
+import com.alcity.service.alobject.PuzzleObjectActionService;
 import com.alcity.service.puzzle.ALCityInstanceInPLService;
 import com.alcity.service.puzzle.PLGroundService;
 import com.alcity.utility.DTOUtil;
@@ -111,31 +112,31 @@ public class InterpreterController {
         puzzleGroup_puzzleObjectCollection = pg.getPuzzleGroup_puzzleObjectCollection();
         Iterator<ALCityObjectInPG> iterator = puzzleGroup_puzzleObjectCollection.iterator();
         while(iterator.hasNext()) {
-            ALCityObjectInPG puzzleGroup_puzzleObject = iterator.next();
+            ALCityObjectInPG alCityObjectInPG = iterator.next();
             PGData puzzleGroupObjectData = new PGData();
 
-            puzzleGroupObjectData.setId(puzzleGroup_puzzleObject.getAlCityObject().getId());
-            puzzleGroupObjectData.setTitle(puzzleGroup_puzzleObject.getTitle());
-            puzzleGroupObjectData.setCode(puzzleGroup_puzzleObject.getCode());
-            puzzleGroupObjectData.setVersion(puzzleGroup_puzzleObject.getVersion());
+            puzzleGroupObjectData.setId(alCityObjectInPG.getAlCityObject().getId());
+            puzzleGroupObjectData.setTitle(alCityObjectInPG.getTitle());
+            puzzleGroupObjectData.setCode(alCityObjectInPG.getCode());
+            puzzleGroupObjectData.setVersion(alCityObjectInPG.getVersion());
 
-            BinaryContent picture = puzzleGroup_puzzleObject.getAlCityObject().getPicture();
+            BinaryContent picture = alCityObjectInPG.getAlCityObject().getPicture();
             puzzleGroupObjectData.setImageGraphicId(picture.getId());
 
-            BinaryContent icon = puzzleGroup_puzzleObject.getAlCityObject().getIcon();
+            BinaryContent icon = alCityObjectInPG.getAlCityObject().getIcon();
             puzzleGroupObjectData.setIconGraphicId(icon.getId());
 
-            Collection<ActionData> actions = getActionsForAPuzzleObjectById(puzzleGroup_puzzleObject.getId());
+            Collection<ActionData> actions = getActionsForAPuzzleObjectById(alCityObjectInPG.getId());
             puzzleGroupObjectData.setActions(actions);
 
-            Collection<RecordrData> variables = DTOUtil.getAttributeForOwnerById(attributeService,puzzleGroup_puzzleObject.getId(),AttributeOwnerType.Puzzle_Group_Object_Variable);
+            Collection<RecordrData> variables = DTOUtil.getAttributeForOwnerById(attributeService,alCityObjectInPG.getId(),AttributeOwnerType.Puzzle_Group_Object_Variable);
 
             puzzleGroupObjectData.setVariables(variables);
 
-            Collection<RecordrData> properties = DTOUtil.getAttributeForOwnerById(attributeService,puzzleGroup_puzzleObject.getId(),AttributeOwnerType.Puzzle_Group_Object_Property);
+            Collection<RecordrData> properties = DTOUtil.getAttributeForOwnerById(attributeService,alCityObjectInPG.getId(),AttributeOwnerType.Puzzle_Group_Object_Property);
             puzzleGroupObjectData.setProperties(properties);
 
-            Collection<InstanceData> instances = getInstancesForAObjectInPuzzleLevel(puzzleGroup_puzzleObject,pl);
+            Collection<InstanceData> instances = getInstancesForAObjectInPuzzleLevel(alCityObjectInPG,pl);
             puzzleGroupObjectData.setInstances(instances);
             puzzleGroupObjectDataCollection.add(puzzleGroupObjectData);
 
@@ -144,15 +145,15 @@ public class InterpreterController {
     }
 
     @Autowired
-    PuzzleObject_ObjectActionService puzzleObject_objectActionService;
+    PuzzleObjectActionService puzzleObject_objectActionService;
     public Collection<ActionData> getActionsForAPuzzleObjectById(Long pgoId){
         Collection<ActionData> objectActionDataCollection = new ArrayList<ActionData>();
-        Collection<PuzzleObject_ObjectAction> puzzleObject_objectActionCollection = new ArrayList<PuzzleObject_ObjectAction>();
+        Collection<PuzzleObjectAction> puzzleObject_objectActionCollection = new ArrayList<PuzzleObjectAction>();
         puzzleObject_objectActionCollection = puzzleObject_objectActionService.findByOwnerObjectid(pgoId);
 
-        Iterator<PuzzleObject_ObjectAction> iterator = puzzleObject_objectActionCollection.iterator();
+        Iterator<PuzzleObjectAction> iterator = puzzleObject_objectActionCollection.iterator();
         while(iterator.hasNext()) {
-            PuzzleObject_ObjectAction puzzleObject_objectAction = iterator.next();
+            PuzzleObjectAction puzzleObject_objectAction = iterator.next();
             ObjectAction objectAction = puzzleObject_objectAction.getObjectAction();
 
             Collection<RecordrData> parametersData = DTOUtil.getAttributeForOwnerById(attributeService,puzzleObject_objectAction.getId(),AttributeOwnerType.Puzzle_Object_Action_Parameter);

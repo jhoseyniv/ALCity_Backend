@@ -115,7 +115,7 @@ public class ImportMemoryGameProblemData_4 implements CommandLineRunner {
 
 
     @Autowired
-    PuzzleObject_ObjectActionService puzzleObject_ObjectActionService;
+    PuzzleObjectActionService puzzleObject_ObjectActionService;
 
     @Autowired
     ALCityObjectInPGService alCityObjectInPGService;
@@ -293,7 +293,12 @@ public class ImportMemoryGameProblemData_4 implements CommandLineRunner {
         AttributeValue pl_variable_finished_value= new AttributeValue(false,null,null,null,null,null,null,pl_variable_finished,pl_variable_finished,1L,now,now,admin_1,admin_1);
         attributeValueService.save(pl_variable_finished_value);
 
-        Optional<ALCityObjectInPG> textObject_in_PG = alCityObjectInPGService.findByCodeAndTitle("X_O_textObject","Image Hash Puzzle Group with Text Object");
+
+
+
+
+
+        Optional<ALCityObjectInPG> textObject_in_PG = alCityObjectInPGService.findByCodeAndTitle("textObject"," Text Image in hash puzzle group");
 
 
         ALCityInstanceInPL obj_1_1 = new ALCityInstanceInPL("obj_1_1",1,1,0,textObject_in_PG.get(),pl_Memory_Game,1L,now,now,admin_1,admin_1);

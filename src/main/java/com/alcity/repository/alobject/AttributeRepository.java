@@ -13,5 +13,6 @@ public interface AttributeRepository extends CrudRepository<Attribute,Long> {
     Collection<Attribute> findByName(String name);
     Collection<Attribute> findByOwnerId(Long ownerId);
     Collection<Attribute>  findByOwnerIdAndAttributeOwnerType(Long instanceId, AttributeOwnerType OwnerType);
+    Optional<Attribute> findByOwnerIdAndName(Long ownerId,String name);
 
 }

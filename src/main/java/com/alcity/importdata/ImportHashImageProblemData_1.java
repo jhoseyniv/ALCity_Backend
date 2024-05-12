@@ -112,7 +112,7 @@ public class ImportHashImageProblemData_1 implements CommandLineRunner {
 
 
     @Autowired
-    PuzzleObject_ObjectActionService puzzleObject_ObjectActionService;
+    PuzzleObjectActionService puzzleObject_ObjectActionService;
 
     @Autowired
     ALCityObjectInPGService puzzleGroup_PuzzleObjectService;
@@ -401,8 +401,8 @@ public class ImportHashImageProblemData_1 implements CommandLineRunner {
 
         ClientType mobile = clientTypeService.findByValue("mobile");
 
-        Optional<ActionRenderer> move = actionRendererService.findByHandler("Move");
-        PuzzleObject_ObjectAction  imageObject01_MoveAction = new PuzzleObject_ObjectAction(POActionOwnerType.Puzzle_Object,puzzleGroup_puzzleObject.getId(),ObjectAction.Move,move.get(),1L,now,now,admin_1,admin_1);
+        Optional<ActionRenderer> move = actionRendererService.findByHandlerAndObjectAction("Move",ObjectAction.Move);
+        PuzzleObjectAction imageObject01_MoveAction = new PuzzleObjectAction(POActionOwnerType.ALCity_Object,puzzleGroup_puzzleObject.getId(),ObjectAction.Move,move.get(),1L,now,now,admin_1,admin_1);
         puzzleObject_ObjectActionService.save(imageObject01_MoveAction);
 
         Attribute alCityAttribute_move_action =new Attribute("actionId",imageObject01_MoveAction.getId(),AttributeOwnerType.Puzzle_Object_Action_Parameter,DataType.Long,1L,now,now,admin_1,admin_1);

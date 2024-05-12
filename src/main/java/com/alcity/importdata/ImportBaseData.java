@@ -3,14 +3,17 @@ package com.alcity.importdata;
 
 import com.alcity.entity.alenum.*;
 import com.alcity.entity.alobject.ActionRenderer;
-import com.alcity.entity.alobject.ObjectAction;
+import com.alcity.entity.alenum.ObjectAction;
+import com.alcity.entity.alobject.Attribute;
 import com.alcity.entity.alobject.ObjectCategory;
+import com.alcity.entity.alobject.PuzzleObjectAction;
 import com.alcity.entity.base.*;
 import com.alcity.entity.journey.Journey;
 import com.alcity.entity.journey.JourneyLearningSkill;
 import com.alcity.entity.learning.LearningSkill;
 import com.alcity.entity.learning.LearningSkillTopic;
 import com.alcity.entity.learning.LearningTopic;
+import com.alcity.entity.puzzle.ALCityObject;
 import com.alcity.entity.puzzle.PLRuleEvent;
 import com.alcity.entity.users.ApplicationMember;
 import com.alcity.entity.users.ApplicationMember_WalletItem;
@@ -19,11 +22,14 @@ import com.alcity.entity.users.WalletTransaction;
 import com.alcity.service.Journey.JourneyLearningSkillService;
 import com.alcity.service.Journey.JourneyService;
 import com.alcity.service.alobject.ActionRendererService;
+import com.alcity.service.alobject.AttributeService;
 import com.alcity.service.alobject.ObjectCategoryService;
+import com.alcity.service.alobject.PuzzleObjectActionService;
 import com.alcity.service.base.*;
 import com.alcity.service.learning.LearningSkillService;
 import com.alcity.service.learning.LearningSkill_LearningTopicService;
 import com.alcity.service.learning.LearningTopicService;
+import com.alcity.service.puzzle.ALCityObjectService;
 import com.alcity.service.puzzle.PLRuleEventService;
 import com.alcity.service.users.ApplicationMemberService;
 import com.alcity.service.users.ApplicationMember_WalletItemService;
@@ -85,7 +91,11 @@ public class ImportBaseData implements CommandLineRunner {
     @Autowired
     private PLPrivacyService puzzleLevelPrivacyService;
 
+    @Autowired
+    ALCityObjectService alCityObjectService;
 
+    @Autowired
+    PuzzleObjectActionService puzzleObjectActionService;
 
     @Autowired
     BinaryContentService binaryContentService;
@@ -101,6 +111,9 @@ public class ImportBaseData implements CommandLineRunner {
 
     @Autowired
     PLRuleEventService plRuleEventService;
+
+    @Autowired
+    AttributeService attributeService;
 
     protected final Log log = LogFactory.getLog(getClass());
 
@@ -285,11 +298,6 @@ public class ImportBaseData implements CommandLineRunner {
         binaryContentService.save(image_object_binary_content);
 
 
-
-
-
-
-
         PLPrivacy privacy_1 = new PLPrivacy("privacy 1","privacy1",1L,now,now,admin_1,admin_1);
         PLPrivacy privacy_2 = new PLPrivacy("privacy 2","privacy2",1L,now,now,admin_1,admin_1);
         PLPrivacy privacy_3 = new PLPrivacy("privacy 3","privacy3",1L,now,now,admin_1,admin_1);
@@ -363,9 +371,42 @@ public class ImportBaseData implements CommandLineRunner {
         journeyLearningSkillService.save(journey_1_Skill_1);
         journeyLearningSkillService.save(journey_1_Skill_2);
 
-        ActionRenderer moveActionRenderer = new ActionRenderer("Move",mobile, ObjectAction.Move,1L,now,now,admin_1,admin_1);
-        actionRendererService.save(moveActionRenderer);
+        ActionRenderer move_ActionRenderer = new ActionRenderer("Move",mobile, ObjectAction.Move,1L,now,now,admin_1,admin_1);
+        actionRendererService.save(move_ActionRenderer);
+
+        ActionRenderer create_ActionRenderer = new ActionRenderer("Show",mobile, ObjectAction.Create,1L,now,now,admin_1,admin_1);
+        actionRendererService.save(create_ActionRenderer);
+
+        Attribute create_ActionRenderer_param_text =new Attribute("text",create_ActionRenderer.getId(),AttributeOwnerType.Action_Renderer_Parameter,DataType.String,1L,now,now,admin_1,admin_1);
+        attributeService.save(create_ActionRenderer_param_text);
+
+        Attribute create_ActionRenderer_param_2 =new Attribute("CODE",create_ActionRenderer.getId(),AttributeOwnerType.Action_Renderer_Parameter,DataType.String,1L,now,now,admin_1,admin_1);
+        attributeService.save(create_ActionRenderer_param_2);
+
+        ActionRenderer show_ActionRenderer = new ActionRenderer("Show",mobile, ObjectAction.Show,1L,now,now,admin_1,admin_1);
+        actionRendererService.save(show_ActionRenderer);
+
+        Attribute show_ActionRenderer_param_1 =new Attribute("text",show_ActionRenderer.getId(),AttributeOwnerType.Action_Renderer_Parameter,DataType.String,1L,now,now,admin_1,admin_1);
+        attributeService.save(show_ActionRenderer_param_1);
+
+        byte[] text_object_content_pic_byte = ImageUtil.getImage("src/main/resources/images/X-O Problem/","TextObject.png");
+        BinaryContent textObject_pic = new BinaryContent("text_object_x-o",text_object_content_pic_byte,BinaryContentType.Image,1L,now,now,admin_1,admin_1);
+        binaryContentService.save(textObject_pic);
+
+        byte[] text_object_content_icon_byte = ImageUtil.getImage("src/main/resources/images/X-O Problem/","TextObject.png");
+        BinaryContent textObject_icon = new BinaryContent("text_object_x-o",text_object_content_icon_byte,BinaryContentType.Image,1L,now,now,admin_1,admin_1);
+        binaryContentService.save(textObject_icon);
 
 
-       }
+        ALCityObject textObject = new ALCityObject("TextObject",objectCategory_TextObject,textObject_pic,textObject_icon,1L,now,now,jalalHoseyni,jalalHoseyni);
+        alCityObjectService.save(textObject);
+
+        PuzzleObjectAction textObject_Create_Action = new PuzzleObjectAction(POActionOwnerType.ALCity_Object,textObject.getId(),ObjectAction.Create,create_ActionRenderer,1L,now,now,admin_1,admin_1);
+        puzzleObjectActionService.save(textObject_Create_Action);
+
+        PuzzleObjectAction textObject_Show_Action = new PuzzleObjectAction(POActionOwnerType.ALCity_Object,textObject.getId(),ObjectAction.Show,show_ActionRenderer,1L,now,now,admin_1,admin_1);
+        puzzleObjectActionService.save(textObject_Show_Action);
+
+
+    }
 }

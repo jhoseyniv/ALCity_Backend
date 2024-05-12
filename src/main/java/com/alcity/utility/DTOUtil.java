@@ -20,6 +20,7 @@ import com.alcity.dto.user.ApplicationMemberDTO;
 import com.alcity.dto.user.MemberTypeDTO;
 import com.alcity.dto.user.WalletItemDTO;
 import com.alcity.entity.alenum.AttributeOwnerType;
+import com.alcity.entity.alenum.ObjectAction;
 import com.alcity.entity.alobject.*;
 import com.alcity.entity.base.*;
 import com.alcity.entity.journey.Journey;
@@ -553,12 +554,12 @@ public class DTOUtil {
 
         return puzzleObjectDTOCollection;
     }
-    public static  Collection<PuzzleObject_ObjectActionDTO> getPuzzleObjectActions(Collection<PuzzleObject_ObjectAction> puzzleObject_objectActionCollection) {
+    public static  Collection<PuzzleObject_ObjectActionDTO> getPuzzleObjectActions(Collection<PuzzleObjectAction> puzzleObject_objectActionCollection) {
         Collection<PuzzleObject_ObjectActionDTO> puzzleObject_objectActionDTOCollection = new ArrayList<PuzzleObject_ObjectActionDTO>();
-        Iterator<PuzzleObject_ObjectAction> iterator = puzzleObject_objectActionCollection.iterator();
+        Iterator<PuzzleObjectAction> iterator = puzzleObject_objectActionCollection.iterator();
         while (iterator.hasNext()) {
             PuzzleObject_ObjectActionDTO puzzleObject_objectActionDTO = new PuzzleObject_ObjectActionDTO();
-            PuzzleObject_ObjectAction poa = iterator.next();
+            PuzzleObjectAction poa = iterator.next();
 
             puzzleObject_objectActionDTO.setId(poa.getId());
             puzzleObject_objectActionDTO.setVersion(poa.getVersion());
@@ -579,10 +580,10 @@ public class DTOUtil {
         return puzzleObject_objectActionDTOCollection;
     }
 
-    public static  PuzzleObject_ObjectActionDTO getPuzzleObjectAction(Optional<PuzzleObject_ObjectAction> puzzleObject_objectActionOptional) {
+    public static  PuzzleObject_ObjectActionDTO getPuzzleObjectAction(Optional<PuzzleObjectAction> puzzleObject_objectActionOptional) {
         PuzzleObject_ObjectActionDTO puzzleObject_objectActionDTO = new PuzzleObject_ObjectActionDTO();
           if(puzzleObject_objectActionOptional.isPresent()) {
-            PuzzleObject_ObjectAction poa= puzzleObject_objectActionOptional.get();
+            PuzzleObjectAction poa= puzzleObject_objectActionOptional.get();
             puzzleObject_objectActionDTO.setId(poa.getId());
             puzzleObject_objectActionDTO.setVersion(poa.getVersion());
             puzzleObject_objectActionDTO.setOwnerObjectid(poa.getOwnerObjectid());

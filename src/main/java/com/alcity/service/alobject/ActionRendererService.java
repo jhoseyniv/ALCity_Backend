@@ -1,5 +1,6 @@
 package com.alcity.service.alobject;
 
+import com.alcity.entity.alenum.ObjectAction;
 import com.alcity.entity.alobject.ActionRenderer;
 import com.alcity.entity.alobject.ObjectCategory;
 import com.alcity.repository.alobject.ActionRendererRepository;
@@ -44,6 +45,11 @@ public class ActionRendererService implements ActionRendererRepository {
     }
 
     @Override
+    public Optional<ActionRenderer> findByHandlerAndObjectAction(String handler, ObjectAction action) {
+        return actionRendererRepository.findByHandlerAndObjectAction(handler,action);
+    }
+
+    @Override
     public Iterable<ActionRenderer> findAllById(Iterable<Long> longs) {
         return null;
     }
@@ -78,10 +84,6 @@ public class ActionRendererService implements ActionRendererRepository {
 
     }
 
-    @Override
-    public Optional<ActionRenderer> findByHandler(String handler) {
-        return actionRendererRepository.findByHandler(handler);
-    }
 
     @Override
     public Collection<ActionRenderer> findByClientTypeId(Long id) {

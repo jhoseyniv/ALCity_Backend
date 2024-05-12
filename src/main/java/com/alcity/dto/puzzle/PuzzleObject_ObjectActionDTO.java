@@ -2,7 +2,7 @@ package com.alcity.dto.puzzle;
 
 import com.alcity.dto.alobject.ActionRendererDTO;
 import com.alcity.dto.alobject.PuzzleObjectActionOwnerTypeDTO;
-import com.alcity.entity.alobject.ObjectAction;
+import com.alcity.entity.alenum.ObjectAction;
 
 public class PuzzleObject_ObjectActionDTO {
     private Long id;

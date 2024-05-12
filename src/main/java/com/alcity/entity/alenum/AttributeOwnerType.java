@@ -9,6 +9,7 @@ import jakarta.persistence.*;
 
 public enum AttributeOwnerType {
 
+    Action_Renderer_Parameter,
     PuzzleObject_Property,
     Puzzle_Object_Action_Parameter,
 

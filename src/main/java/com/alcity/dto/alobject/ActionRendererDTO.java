@@ -1,7 +1,7 @@
 package com.alcity.dto.alobject;
 
 import com.alcity.dto.base.ClientTypeDTO;
-import com.alcity.entity.alobject.ObjectAction;
+import com.alcity.entity.alenum.ObjectAction;
 
 public class ActionRendererDTO {
 

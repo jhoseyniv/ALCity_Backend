@@ -1,5 +1,6 @@
 package com.alcity.entity.alobject;
 
+import com.alcity.entity.alenum.ObjectAction;
 import com.alcity.entity.alenum.POActionOwnerType;
 import com.alcity.entity.base.BaseTable;
 import com.alcity.entity.users.ApplicationMember;
@@ -9,7 +10,7 @@ import jakarta.persistence.*;
 import java.io.Serializable;
 
 @Entity
-public class PuzzleObject_ObjectAction extends BaseTable implements Serializable {
+public class PuzzleObjectAction extends BaseTable implements Serializable {
     @Column(name="ownerObjectid")
     private Long ownerObjectid;
 
@@ -56,10 +57,10 @@ public class PuzzleObject_ObjectAction extends BaseTable implements Serializable
         this.actionRenderer = actionRenderer;
     }
 
-    public PuzzleObject_ObjectAction() {
+    public PuzzleObjectAction() {
     }
 
-    public PuzzleObject_ObjectAction(POActionOwnerType poActionOwnerType, Long ownerObjectid, ObjectAction objectAction, ActionRenderer actionRenderer, Long version, String created, String updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
+    public PuzzleObjectAction(POActionOwnerType poActionOwnerType, Long ownerObjectid, ObjectAction objectAction, ActionRenderer actionRenderer, Long version, String created, String updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
         super(version, created, updated, createdBy, updatedBy);
         this.ownerObjectid = ownerObjectid;
         this.poActionOwnerType = poActionOwnerType;

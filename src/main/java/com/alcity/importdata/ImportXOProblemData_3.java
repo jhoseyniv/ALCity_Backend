@@ -86,8 +86,6 @@ public class ImportXOProblemData_3 implements CommandLineRunner {
     @Autowired
     ObjectCategoryService objectCategoryService;
 
-    @Autowired
-    ALCityObjectService puzzleObjectService;
 
     @Autowired
     ALCityInstanceInPLService pgObjectInstanceService;
@@ -112,10 +110,13 @@ public class ImportXOProblemData_3 implements CommandLineRunner {
 
 
     @Autowired
-    PuzzleObject_ObjectActionService puzzleObject_ObjectActionService;
+    PuzzleObjectActionService puzzleObjectActionService;
 
     @Autowired
-    ALCityObjectInPGService puzzleGroup_PuzzleObjectService;
+    ALCityObjectInPGService alCityObjectInPGService;
+
+    @Autowired
+    ALCityObjectService alCityObjectService;
 
     @Autowired
     PLRuleService puzzleLevelRuleService;
@@ -188,34 +189,25 @@ public class ImportXOProblemData_3 implements CommandLineRunner {
         BinaryContent puzzle_group_binary_content_1 = new BinaryContent("image_puzzle_group_x-o",puzzle_group_Icon_1,BinaryContentType.Image,1L,now,now,admin_1,admin_1);
         binaryContentService.save(puzzle_group_binary_content_1);
 
-        byte[] text_object_content = ImageUtil.getImage("src/main/resources/images/X-O Problem/","TextObject.png");
-        BinaryContent textObject_binary_content = new BinaryContent("text_object_x-o",text_object_content,BinaryContentType.Image,1L,now,now,admin_1,admin_1);
-        binaryContentService.save(textObject_binary_content);
-
-        ObjectCategory objectCategory_TextObject = objectCategoryService.findByValue("TextObject");
-
         Optional<PuzzleGroup>  IQ_Puzzle_Group =puzzleGroupService.findByTitle("Hash Image - Puzzle Group 1");
 
-        ALCityObject textObject = new ALCityObject("TextObject",objectCategory_TextObject,textObject_binary_content,textObject_binary_content,1L,now,now,jalalHoseyni,jalalHoseyni);
-        puzzleObjectService.save(textObject);
+        Optional<ALCityObject>  textObject = alCityObjectService.findByTitle("TextObject");
 
-        ALCityObjectInPG puzzleGroup_puzzleObject = new ALCityObjectInPG("Image Hash Puzzle Group with Text Object","X_O_textObject",IQ_Puzzle_Group.get(),textObject,1L,now,now,admin_1,admin_1);
-        puzzleGroup_PuzzleObjectService.save(puzzleGroup_puzzleObject);
-
+        ALCityObjectInPG textObject_in_Puzzle_Group_1 = new ALCityObjectInPG(" Text Image in hash puzzle group","textObject",IQ_Puzzle_Group.get(),textObject.get(),1L,now,now,admin_1,admin_1);
+        alCityObjectInPGService.save(textObject_in_Puzzle_Group_1);
 
         PLPrivacy privacy_1 = puzzleLevelPrivacyService.findByValue("privacy1");
 
         PuzzleLevel puzzleLevel_x_o = new PuzzleLevel(now,1L,"X-O","4500",10,14,5f,IQ_Puzzle_Group.get(),PLDifficulty.Easy,PLStatus.Ongoing,privacy_1,puzzle_group_binary_content_1,puzzle_group_binary_content_1,3L,now,now,admin_1,admin_1);
         puzzleLevelService.save(puzzleLevel_x_o);
 
-
         BinaryContent puzzle_group_1_binary_content = binaryContentService.findByfileName("image_puzzle_group_matematic");
+
 
         Integer xPos=1;
         Integer xRotation=0;
         CameraSetup cameraSetup = new CameraSetup(1L,now,now,admin_1,admin_1,xPos,xPos,xPos,xRotation,xRotation,xRotation);
         cameraSetupService.save(cameraSetup);
-
 
         PLGround puzzleLevel_X_O_ground = new PLGround(3,3,puzzleLevel_x_o,puzzle_ground_binary_content_1,1L,now,now,admin_1,admin_1);
         puzzleLevel_X_O_ground.setCameraSetup(cameraSetup);
@@ -281,15 +273,15 @@ public class ImportXOProblemData_3 implements CommandLineRunner {
         AttributeValue attribute_variable_Finished_value= new AttributeValue(false,null,null,null,null,null,null,attribute_variable_Finished,attribute_variable_Finished,1L,now,now,admin_1,admin_1);
         attributeValueService.save(attribute_variable_Finished_value);
 
-        ALCityInstanceInPL obj_1_1 = new ALCityInstanceInPL("obj_1_1",1,1,0,puzzleGroup_puzzleObject,puzzleLevel_x_o,1L,now,now,admin_1,admin_1);
-        ALCityInstanceInPL obj_1_2 = new ALCityInstanceInPL("obj_1_2",1,2,0,puzzleGroup_puzzleObject,puzzleLevel_x_o,1L,now,now,admin_1,admin_1);
-        ALCityInstanceInPL obj_1_3 = new ALCityInstanceInPL("obj_1_3",1,3,0,puzzleGroup_puzzleObject,puzzleLevel_x_o,1L,now,now,admin_1,admin_1);
-        ALCityInstanceInPL obj_2_1 = new ALCityInstanceInPL("obj_2_1",2,1,0,puzzleGroup_puzzleObject,puzzleLevel_x_o,1L,now,now,admin_1,admin_1);
-        ALCityInstanceInPL obj_2_2 = new ALCityInstanceInPL("obj_2_2",2,2,0,puzzleGroup_puzzleObject,puzzleLevel_x_o,1L,now,now,admin_1,admin_1);
-        ALCityInstanceInPL obj_2_3 = new ALCityInstanceInPL("obj_2_3",2,3,0,puzzleGroup_puzzleObject,puzzleLevel_x_o,1L,now,now,admin_1,admin_1);
-        ALCityInstanceInPL obj_3_1 = new ALCityInstanceInPL("obj_3_1",3,1,0,puzzleGroup_puzzleObject,puzzleLevel_x_o,1L,now,now,admin_1,admin_1);
-        ALCityInstanceInPL obj_3_2 = new ALCityInstanceInPL("obj_3_2",3,2,0,puzzleGroup_puzzleObject,puzzleLevel_x_o,1L,now,now,admin_1,admin_1);
-        ALCityInstanceInPL obj_3_3 = new ALCityInstanceInPL("obj_3_3",3,3,0,puzzleGroup_puzzleObject,puzzleLevel_x_o,1L,now,now,admin_1,admin_1);
+        ALCityInstanceInPL obj_1_1 = new ALCityInstanceInPL("obj_1_1",1,1,0,textObject_in_Puzzle_Group_1,puzzleLevel_x_o,1L,now,now,admin_1,admin_1);
+        ALCityInstanceInPL obj_1_2 = new ALCityInstanceInPL("obj_1_2",1,2,0,textObject_in_Puzzle_Group_1,puzzleLevel_x_o,1L,now,now,admin_1,admin_1);
+        ALCityInstanceInPL obj_1_3 = new ALCityInstanceInPL("obj_1_3",1,3,0,textObject_in_Puzzle_Group_1,puzzleLevel_x_o,1L,now,now,admin_1,admin_1);
+        ALCityInstanceInPL obj_2_1 = new ALCityInstanceInPL("obj_2_1",2,1,0,textObject_in_Puzzle_Group_1,puzzleLevel_x_o,1L,now,now,admin_1,admin_1);
+        ALCityInstanceInPL obj_2_2 = new ALCityInstanceInPL("obj_2_2",2,2,0,textObject_in_Puzzle_Group_1,puzzleLevel_x_o,1L,now,now,admin_1,admin_1);
+        ALCityInstanceInPL obj_2_3 = new ALCityInstanceInPL("obj_2_3",2,3,0,textObject_in_Puzzle_Group_1,puzzleLevel_x_o,1L,now,now,admin_1,admin_1);
+        ALCityInstanceInPL obj_3_1 = new ALCityInstanceInPL("obj_3_1",3,1,0,textObject_in_Puzzle_Group_1,puzzleLevel_x_o,1L,now,now,admin_1,admin_1);
+        ALCityInstanceInPL obj_3_2 = new ALCityInstanceInPL("obj_3_2",3,2,0,textObject_in_Puzzle_Group_1,puzzleLevel_x_o,1L,now,now,admin_1,admin_1);
+        ALCityInstanceInPL obj_3_3 = new ALCityInstanceInPL("obj_3_3",3,3,0,textObject_in_Puzzle_Group_1,puzzleLevel_x_o,1L,now,now,admin_1,admin_1);
 
         pgObjectInstanceService.save(obj_1_1);
         pgObjectInstanceService.save(obj_1_2);
@@ -301,37 +293,37 @@ public class ImportXOProblemData_3 implements CommandLineRunner {
         pgObjectInstanceService.save(obj_3_2);
         pgObjectInstanceService.save(obj_3_3);
 
-        Optional<ActionRenderer> show = actionRendererService.findByHandler("Show");
-        PuzzleObject_ObjectAction  textObject_Create = new PuzzleObject_ObjectAction(POActionOwnerType.Puzzle_Object,puzzleGroup_puzzleObject.getId(),ObjectAction.Create,show.get(),1L,now,now,admin_1,admin_1);
-        puzzleObject_ObjectActionService.save(textObject_Create);
 
-        Attribute create_action_param_1 =new Attribute("text",textObject_Create.getId(),AttributeOwnerType.Puzzle_Object_Action_Parameter,DataType.String,1L,now,now,admin_1,admin_1);
-        attributeService.save(create_action_param_1);
-        AttributeValue  create_action_param_1_value= new AttributeValue(null,null,null,"InstProp(CurrentInst(), text)",null,null,null,create_action_param_1,create_action_param_1,1L,now,now,admin_1,admin_1);
-        attributeValueService.save(create_action_param_1_value);
-
-        Attribute create_action_param_2 =new Attribute("CODE",textObject_Create.getId(),AttributeOwnerType.Puzzle_Object_Action_Parameter,DataType.String,1L,now,now,admin_1,admin_1);
-        attributeService.save(create_action_param_2);
-        AttributeValue create_action_param_2_value= new AttributeValue(null,null,null,puzzleGroup_puzzleObject.getCode(),null,null,null,create_action_param_2,create_action_param_2,1L,now,now,admin_1,admin_1);
-        attributeValueService.save(create_action_param_2_value);
-
-        PuzzleObject_ObjectAction  textObject_Show = new PuzzleObject_ObjectAction(POActionOwnerType.Puzzle_Object,puzzleGroup_puzzleObject.getId(),ObjectAction.Show,show.get(),1L,now,now,admin_1,admin_1);
-        puzzleObject_ObjectActionService.save(textObject_Show);
-        Attribute show_action_param_1 =new Attribute("text",textObject_Show.getId(),AttributeOwnerType.Puzzle_Object_Action_Parameter,DataType.String,1L,now,now,admin_1,admin_1);
-        attributeService.save(show_action_param_1);
-        AttributeValue  show_action_param_1_value= new AttributeValue(null,null,null,"InstProp(CurrentInst(), text)",null,null,null,show_action_param_1,show_action_param_1,1L,now,now,admin_1,admin_1);
-        attributeValueService.save(show_action_param_1_value);
-
-        Attribute show_action_param_2 =new Attribute("CODE",textObject_Create.getId(),AttributeOwnerType.Puzzle_Object_Action_Parameter,DataType.String,1L,now,now,admin_1,admin_1);
-        attributeService.save(show_action_param_2);
-        AttributeValue show_action_param_2_value= new AttributeValue(null,null,null,puzzleGroup_puzzleObject.getCode(),null,null,null,show_action_param_2,show_action_param_2,1L,now,now,admin_1,admin_1);
-        attributeValueService.save(show_action_param_2_value);
+        Optional<ActionRenderer> create_ActionRenderes = actionRendererService.findByHandlerAndObjectAction("Show",ObjectAction.Create);
+        Optional<Attribute> create_ActionRenderer_param_text = attributeService.findByOwnerIdAndName(create_ActionRenderes.get().getId(),"text");
+        Optional<Attribute> create_ActionRenderer_param_code = attributeService.findByOwnerIdAndName(create_ActionRenderes.get().getId(),"CODE");
 
 
-        Attribute object_property_1 =new Attribute("text",puzzleGroup_puzzleObject.getId(),AttributeOwnerType.Puzzle_Group_Object_Property,DataType.String,1L,now,now,admin_1,admin_1);
-        attributeService.save(object_property_1);
-        AttributeValue  object_property_1_value= new AttributeValue(null,null,null,"",null,null,null,object_property_1,object_property_1,1L,now,now,admin_1,admin_1);
-        attributeValueService.save(object_property_1_value);
+        AttributeValue  create_ActionRenderer_param_text_value= new AttributeValue(null,null,null,"InstProp(CurrentInst(), text)",null,null,null,create_ActionRenderer_param_text.get(),create_ActionRenderer_param_text.get(),1L,now,now,admin_1,admin_1);
+        attributeValueService.save(create_ActionRenderer_param_text_value);
+
+        AttributeValue create_ActionRenderer_param_code_value= new AttributeValue(null,null,null,textObject_in_Puzzle_Group_1.getCode(),null,null,null,create_ActionRenderer_param_code.get(),create_ActionRenderer_param_code.get(),1L,now,now,admin_1,admin_1);
+        attributeValueService.save(create_ActionRenderer_param_code_value);
+
+//        PuzzleObjectAction textObject_Show = new PuzzleObjectAction(POActionOwnerType.Puzzle_Object,puzzleGroup_puzzleObject.getId(),ObjectAction.Show,show.get(),1L,now,now,admin_1,admin_1);
+//        puzzleObject_ObjectActionService.save(textObject_Show);
+//
+//        Attribute show_action_param_1 =new Attribute("text",textObject_Show.getId(),AttributeOwnerType.Puzzle_Object_Action_Parameter,DataType.String,1L,now,now,admin_1,admin_1);
+//        attributeService.save(show_action_param_1);
+//
+//        AttributeValue  show_action_param_1_value= new AttributeValue(null,null,null,"InstProp(CurrentInst(), text)",null,null,null,show_action_param_1,show_action_param_1,1L,now,now,admin_1,admin_1);
+//        attributeValueService.save(show_action_param_1_value);
+//
+//        Attribute show_action_param_2 =new Attribute("CODE",textObject_Show.getId(),AttributeOwnerType.Puzzle_Object_Action_Parameter,DataType.String,1L,now,now,admin_1,admin_1);
+//        attributeService.save(show_action_param_2);
+//        AttributeValue show_action_param_2_value= new AttributeValue(null,null,null,puzzleGroup_puzzleObject.getCode(),null,null,null,show_action_param_2,show_action_param_2,1L,now,now,admin_1,admin_1);
+//        attributeValueService.save(show_action_param_2_value);
+//
+//
+//        Attribute object_property_1 =new Attribute("text",puzzleGroup_puzzleObject.getId(),AttributeOwnerType.Puzzle_Group_Object_Property,DataType.String,1L,now,now,admin_1,admin_1);
+//        attributeService.save(object_property_1);
+//        AttributeValue  object_property_1_value= new AttributeValue(null,null,null,"",null,null,null,object_property_1,object_property_1,1L,now,now,admin_1,admin_1);
+//        attributeValueService.save(object_property_1_value);
 
         Attribute obj_1_1_property_1 =new Attribute("text",obj_1_1.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.String,1L,now,now,admin_1,admin_1);
         attributeService.save(obj_1_1_property_1);

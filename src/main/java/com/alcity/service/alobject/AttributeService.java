@@ -136,5 +136,10 @@ public class AttributeService implements AttributeRepository {
         return outputAttributes;
     }
 
+    @Override
+    public Optional<Attribute> findByOwnerIdAndName(Long ownerId, String name) {
+        return attributeRepository.findByOwnerIdAndName(ownerId,name);
+    }
+
 
 }

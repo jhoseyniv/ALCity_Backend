@@ -106,7 +106,7 @@ public class ImportProblemData_2_part_3 implements CommandLineRunner {
     @Autowired
     ClientTypeService clientTypeService;
     @Autowired
-    PuzzleObject_ObjectActionService puzzleObject_ObjectActionService;
+    PuzzleObjectActionService puzzleObject_ObjectActionService;
    @Autowired
    PLRuleService plRuleService;
 

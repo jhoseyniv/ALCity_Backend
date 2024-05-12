@@ -1,6 +1,6 @@
 package com.alcity.dto.Interpreter.object;
 
-import com.alcity.entity.alobject.ObjectAction;
+import com.alcity.entity.alenum.ObjectAction;
 
 import java.util.Collection;
 

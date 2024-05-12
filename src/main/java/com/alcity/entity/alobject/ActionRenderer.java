@@ -1,5 +1,6 @@
 package com.alcity.entity.alobject;
 
+import com.alcity.entity.alenum.ObjectAction;
 import com.alcity.entity.base.BaseTable;
 import com.alcity.entity.base.ClientType;
 import com.alcity.entity.users.ApplicationMember;
@@ -9,9 +10,11 @@ import jakarta.persistence.*;
 import java.io.Serializable;
 import java.util.Set;
 
+@Table(uniqueConstraints=
+@UniqueConstraint(columnNames = {"handler", "objectAction"}))
 @Entity
 public class ActionRenderer extends BaseTable implements Serializable {
-    @Column(name="handler")
+    @Column(name="handler" )
     private String handler;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
@@ -48,13 +51,13 @@ public class ActionRenderer extends BaseTable implements Serializable {
 
     @OneToMany(mappedBy = "actionRenderer", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JsonIgnore
-    private Set<PuzzleObject_ObjectAction> puzzleObject_ObjectAction;
+    private Set<PuzzleObjectAction> puzzleObject_ObjectAction;
 
-    public Set<PuzzleObject_ObjectAction> getPuzzleObject_ObjectAction() {
+    public Set<PuzzleObjectAction> getPuzzleObject_ObjectAction() {
         return puzzleObject_ObjectAction;
     }
 
-    public void setPuzzleObject_ObjectAction(Set<PuzzleObject_ObjectAction> puzzleObject_ObjectAction) {
+    public void setPuzzleObject_ObjectAction(Set<PuzzleObjectAction> puzzleObject_ObjectAction) {
         this.puzzleObject_ObjectAction = puzzleObject_ObjectAction;
     }
 

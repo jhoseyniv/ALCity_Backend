@@ -36,6 +36,7 @@ import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Optional;
 
 
 @Order(value=3)
@@ -105,7 +106,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
     @Autowired
     ClientTypeService clientTypeService;
     @Autowired
-    PuzzleObject_ObjectActionService puzzleObject_ObjectActionService;
+    PuzzleObjectActionService puzzleObject_ObjectActionService;
 
     private static final Logger log = LoggerFactory.getLogger(ObjectManagmentApplication.class);
 
@@ -233,13 +234,13 @@ public class ImportProblemData_2 implements CommandLineRunner {
 
         ClientType mobile = clientTypeService.findByValue("mobile");
 
-        ActionRenderer showActionRenderer = new ActionRenderer("Show",mobile,ObjectAction.Show,1L,now,now,admin_1,admin_1);
-        actionRendererService.save(showActionRenderer);
+        Optional<ActionRenderer> showActionRenderer = actionRendererService.findByHandlerAndObjectAction("Show",ObjectAction.Show);;
+
 
         ActionRenderer hideActionRenderer = new ActionRenderer("Hide",mobile,ObjectAction.Hide,1L,now,now,admin_1,admin_1);
         actionRendererService.save(hideActionRenderer);
 
-        PuzzleObject_ObjectAction  imageObject01_ShowAction = new PuzzleObject_ObjectAction(POActionOwnerType.Puzzle_Object,puzzleGroup_puzzleObject.getId(),ObjectAction.Show,showActionRenderer,1L,now,now,admin_1,admin_1);
+        PuzzleObjectAction imageObject01_ShowAction = new PuzzleObjectAction(POActionOwnerType.ALCity_Object,puzzleGroup_puzzleObject.getId(),ObjectAction.Show,showActionRenderer.get(),1L,now,now,admin_1,admin_1);
         puzzleObject_ObjectActionService.save(imageObject01_ShowAction);
 
 
@@ -277,7 +278,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
         attributeValueService.save(alCity_showAction_parameter_Col);
 
 
-        PuzzleObject_ObjectAction  imageObject01_HideAction = new PuzzleObject_ObjectAction(POActionOwnerType.Puzzle_Object,puzzleGroup_puzzleObject.getId(),ObjectAction.Hide,hideActionRenderer,1L,now,now,admin_1,admin_1);
+        PuzzleObjectAction imageObject01_HideAction = new PuzzleObjectAction(POActionOwnerType.ALCity_Object,puzzleGroup_puzzleObject.getId(),ObjectAction.Hide,hideActionRenderer,1L,now,now,admin_1,admin_1);
         puzzleObject_ObjectActionService.save(imageObject01_HideAction);
         Attribute attribute_hide_action_id =new Attribute("actionId",imageObject01_HideAction.getId(),AttributeOwnerType.Puzzle_Object_Action_Parameter,DataType.Long,1L,now,now,admin_1,admin_1);
         attributeService.save(attribute_hide_action_id);

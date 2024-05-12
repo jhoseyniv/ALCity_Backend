@@ -1,4 +1,4 @@
-package com.alcity.entity.alobject;
+package com.alcity.entity.alenum;
 
 public enum   ObjectAction  {
 

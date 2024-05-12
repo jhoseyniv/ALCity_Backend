@@ -2,6 +2,7 @@ package com.alcity.api;
 
 import com.alcity.dto.alobject.*;
 import com.alcity.entity.alenum.AttributeOwnerType;
+import com.alcity.entity.alenum.ObjectAction;
 import com.alcity.entity.alenum.POActionOwnerType;
 import com.alcity.entity.alobject.*;
 import com.alcity.service.alobject.*;

@@ -3,9 +3,9 @@ package com.alcity.api;
 
 import com.alcity.dto.puzzle.PuzzleObject_ObjectActionDTO;
 import com.alcity.dto.puzzle.PuzzleObjectDTO;
-import com.alcity.entity.alobject.PuzzleObject_ObjectAction;
+import com.alcity.entity.alobject.PuzzleObjectAction;
 import com.alcity.entity.puzzle.ALCityObject;
-import com.alcity.service.alobject.PuzzleObject_ObjectActionService;
+import com.alcity.service.alobject.PuzzleObjectActionService;
 import com.alcity.service.puzzle.ALCityObjectService;
 import com.alcity.utility.DTOUtil;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -44,11 +44,11 @@ public class POController {
     }
 
     @Autowired
-    private PuzzleObject_ObjectActionService puzzleObject_objectActionService;
+    private PuzzleObjectActionService puzzleObject_objectActionService;
 
     @GetMapping("/action/all")
     public Collection<PuzzleObject_ObjectActionDTO> getPuzzleObjectActions(Model model) {
-        Collection<PuzzleObject_ObjectAction> puzzleObject_objectActionCollection = puzzleObject_objectActionService.findAll();
+        Collection<PuzzleObjectAction> puzzleObject_objectActionCollection = puzzleObject_objectActionService.findAll();
         Collection<PuzzleObject_ObjectActionDTO> puzzleObject_objectActionDTOCollection = new ArrayList<PuzzleObject_ObjectActionDTO>();
         puzzleObject_objectActionDTOCollection =DTOUtil.getPuzzleObjectActions(puzzleObject_objectActionCollection);
 
@@ -59,7 +59,7 @@ public class POController {
     @ResponseBody
     public PuzzleObject_ObjectActionDTO getPuzzleObjectActionById(@PathVariable Long id) {
         PuzzleObject_ObjectActionDTO puzzleObject_objectActionDTO= new PuzzleObject_ObjectActionDTO();
-        Optional<PuzzleObject_ObjectAction> puzzleObject_objectActionOptional = puzzleObject_objectActionService.findById(id);
+        Optional<PuzzleObjectAction> puzzleObject_objectActionOptional = puzzleObject_objectActionService.findById(id);
         puzzleObject_objectActionDTO = DTOUtil.getPuzzleObjectAction(puzzleObject_objectActionOptional);
         return  puzzleObject_objectActionDTO;
     }
