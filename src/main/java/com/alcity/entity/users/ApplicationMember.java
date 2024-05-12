@@ -5,7 +5,6 @@ import com.alcity.entity.alenum.UserGender;
 import com.alcity.entity.base.*;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import org.hibernate.annotations.Type;
 
 import java.io.Serializable;
 import java.util.Set;

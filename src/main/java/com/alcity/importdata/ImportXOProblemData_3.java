@@ -310,9 +310,9 @@ public class ImportXOProblemData_3 implements CommandLineRunner {
         AttributeValue  create_action_param_1_value= new AttributeValue(null,null,null,"InstProp(CurrentInst(), text)",null,null,null,create_action_param_1,create_action_param_1,1L,now,now,admin_1,admin_1);
         attributeValueService.save(create_action_param_1_value);
 
-        Attribute create_action_param_2 =new Attribute("ObjectType",textObject_Create.getId(),AttributeOwnerType.Puzzle_Object_Action_Parameter,DataType.String,1L,now,now,admin_1,admin_1);
+        Attribute create_action_param_2 =new Attribute("CODE",textObject_Create.getId(),AttributeOwnerType.Puzzle_Object_Action_Parameter,DataType.String,1L,now,now,admin_1,admin_1);
         attributeService.save(create_action_param_2);
-        AttributeValue create_action_param_2_value= new AttributeValue(null,null,null,"TextObject",null,null,null,create_action_param_2,create_action_param_2,1L,now,now,admin_1,admin_1);
+        AttributeValue create_action_param_2_value= new AttributeValue(null,null,null,puzzleGroup_puzzleObject.getCode(),null,null,null,create_action_param_2,create_action_param_2,1L,now,now,admin_1,admin_1);
         attributeValueService.save(create_action_param_2_value);
 
         PuzzleObject_ObjectAction  textObject_Show = new PuzzleObject_ObjectAction(POActionOwnerType.Puzzle_Object,puzzleGroup_puzzleObject.getId(),ObjectAction.Show,show.get(),1L,now,now,admin_1,admin_1);
@@ -326,7 +326,6 @@ public class ImportXOProblemData_3 implements CommandLineRunner {
         attributeService.save(object_property_1);
         AttributeValue  object_property_1_value= new AttributeValue(null,null,null,"",null,null,null,object_property_1,object_property_1,1L,now,now,admin_1,admin_1);
         attributeValueService.save(object_property_1_value);
-
 
         Attribute obj_1_1_property_1 =new Attribute("text",obj_1_1.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.String,1L,now,now,admin_1,admin_1);
         attributeService.save(obj_1_1_property_1);
