@@ -1,5 +1,6 @@
 package com.alcity.service.alobject;
 
+import com.alcity.entity.alenum.POActionOwnerType;
 import com.alcity.entity.alobject.PuzzleObjectAction;
 import com.alcity.repository.alobject.PuzzleObjectActionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,11 +15,11 @@ import java.util.Optional;
 public class PuzzleObjectActionService implements PuzzleObjectActionRepository {
 
     @Autowired
-    PuzzleObjectActionRepository puzzleObject_ObjectActionRepository;
+    PuzzleObjectActionRepository puzzleObjectActionRepository;
 
     @Override
     public <S extends PuzzleObjectAction> S save(S entity) {
-        return puzzleObject_ObjectActionRepository.save(entity);
+        return puzzleObjectActionRepository.save(entity);
     }
 
     @Override
@@ -28,7 +29,7 @@ public class PuzzleObjectActionService implements PuzzleObjectActionRepository {
 
     @Override
     public Optional<PuzzleObjectAction> findById(Long id) {
-        return puzzleObject_ObjectActionRepository.findById(id);
+        return puzzleObjectActionRepository.findById(id);
     }
 
     @Override
@@ -38,7 +39,7 @@ public class PuzzleObjectActionService implements PuzzleObjectActionRepository {
 
     @Override
     public Collection<PuzzleObjectAction> findAll() {
-        return puzzleObject_ObjectActionRepository.findAll();
+        return puzzleObjectActionRepository.findAll();
     }
 
     @Override
@@ -87,7 +88,7 @@ public class PuzzleObjectActionService implements PuzzleObjectActionRepository {
     }
 
     @Override
-    public Collection<PuzzleObjectAction> findByOwnerObjectid(Long id) {
-        return puzzleObject_ObjectActionRepository.findByOwnerObjectid(id);
+    public Collection<PuzzleObjectAction> findByOwnerObjectidAndPoActionOwnerType(Long id, POActionOwnerType ownerType) {
+        return puzzleObjectActionRepository.findByOwnerObjectidAndPoActionOwnerType(id,ownerType);
     }
 }

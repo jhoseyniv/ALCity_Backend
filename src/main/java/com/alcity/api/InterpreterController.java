@@ -108,9 +108,9 @@ public class InterpreterController {
         public Collection<PGData> getObjectsForPuzzleGroup(PuzzleGroup pg,PuzzleLevel pl) {
         Collection<PGData> puzzleGroupObjectDataCollection = new ArrayList<PGData>();
 
-        Collection<ALCityObjectInPG> puzzleGroup_puzzleObjectCollection = new ArrayList<>();
-        puzzleGroup_puzzleObjectCollection = pg.getPuzzleGroup_puzzleObjectCollection();
-        Iterator<ALCityObjectInPG> iterator = puzzleGroup_puzzleObjectCollection.iterator();
+        Collection<ALCityObjectInPG> alCityObjectInPGCollection = new ArrayList<>();
+            alCityObjectInPGCollection = pg.getPuzzleGroup_puzzleObjectCollection();
+        Iterator<ALCityObjectInPG> iterator = alCityObjectInPGCollection.iterator();
         while(iterator.hasNext()) {
             ALCityObjectInPG alCityObjectInPG = iterator.next();
             PGData puzzleGroupObjectData = new PGData();
@@ -145,13 +145,13 @@ public class InterpreterController {
     }
 
     @Autowired
-    PuzzleObjectActionService puzzleObject_objectActionService;
+    PuzzleObjectActionService puzzleObjectActionService;
     public Collection<ActionData> getActionsForAPuzzleObjectById(Long pgoId){
         Collection<ActionData> objectActionDataCollection = new ArrayList<ActionData>();
-        Collection<PuzzleObjectAction> puzzleObject_objectActionCollection = new ArrayList<PuzzleObjectAction>();
-        puzzleObject_objectActionCollection = puzzleObject_objectActionService.findByOwnerObjectid(pgoId);
+        Collection<PuzzleObjectAction> puzzleObjectActionCollection = new ArrayList<PuzzleObjectAction>();
+        puzzleObjectActionCollection = puzzleObjectActionService.findByOwnerObjectidAndPoActionOwnerType(pgoId,);
 
-        Iterator<PuzzleObjectAction> iterator = puzzleObject_objectActionCollection.iterator();
+        Iterator<PuzzleObjectAction> iterator = puzzleObjectActionCollection.iterator();
         while(iterator.hasNext()) {
             PuzzleObjectAction puzzleObject_objectAction = iterator.next();
             ObjectAction objectAction = puzzleObject_objectAction.getObjectAction();
