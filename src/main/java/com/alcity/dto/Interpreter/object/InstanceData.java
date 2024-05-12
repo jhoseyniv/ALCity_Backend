@@ -10,7 +10,7 @@ public class InstanceData {
     private Position position;
     private Collection<RecordrData> properties;
     private Collection<RecordrData> variables;
-    private Collection<ActionData> actionsParameters;
+   // private Collection<ActionData> actionsParameters;
 
     public Long getId() {
         return id;
@@ -52,23 +52,23 @@ public class InstanceData {
         this.properties = properties;
     }
 
-    public Collection<ActionData> getActionsParameters() {
-        return actionsParameters;
-    }
+   // public Collection<ActionData> getActionsParameters() {
+   //     return actionsParameters;
+  //  }
 
-    public void setActionsParameters(Collection<ActionData> actionsParameters) {
-        this.actionsParameters = actionsParameters;
-    }
+  //  public void setActionsParameters(Collection<ActionData> actionsParameters) {
+   //     this.actionsParameters = actionsParameters;
+  //  }
 
     public InstanceData() {
     }
 
-    public InstanceData(Long id, String name, Position position, Collection<RecordrData> properties, Collection<ActionData> actionsParameters) {
+    public InstanceData(Long id, String name, Position position, Collection<RecordrData> properties) {
         this.id = id;
         this.name = name;
         this.position = position;
         this.properties = properties;
-        this.actionsParameters = actionsParameters;
+     //   this.actionsParameters = actionsParameters;
     }
 
 }
