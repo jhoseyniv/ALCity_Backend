@@ -322,6 +322,12 @@ public class ImportXOProblemData_3 implements CommandLineRunner {
         AttributeValue  show_action_param_1_value= new AttributeValue(null,null,null,"InstProp(CurrentInst(), text)",null,null,null,show_action_param_1,show_action_param_1,1L,now,now,admin_1,admin_1);
         attributeValueService.save(show_action_param_1_value);
 
+        Attribute show_action_param_2 =new Attribute("CODE",textObject_Create.getId(),AttributeOwnerType.Puzzle_Object_Action_Parameter,DataType.String,1L,now,now,admin_1,admin_1);
+        attributeService.save(show_action_param_2);
+        AttributeValue show_action_param_2_value= new AttributeValue(null,null,null,puzzleGroup_puzzleObject.getCode(),null,null,null,show_action_param_2,show_action_param_2,1L,now,now,admin_1,admin_1);
+        attributeValueService.save(show_action_param_2_value);
+
+
         Attribute object_property_1 =new Attribute("text",puzzleGroup_puzzleObject.getId(),AttributeOwnerType.Puzzle_Group_Object_Property,DataType.String,1L,now,now,admin_1,admin_1);
         attributeService.save(object_property_1);
         AttributeValue  object_property_1_value= new AttributeValue(null,null,null,"",null,null,null,object_property_1,object_property_1,1L,now,now,admin_1,admin_1);
