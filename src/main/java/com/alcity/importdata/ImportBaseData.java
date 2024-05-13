@@ -390,9 +390,6 @@ public class ImportBaseData implements CommandLineRunner {
         binaryContentService.save(image_Object_icon);
 
 
-        ActionRenderer move_ActionRenderer = new ActionRenderer("Move",mobile, ObjectAction.Move,1L,now,now,admin_1,admin_1);
-        actionRendererService.save(move_ActionRenderer);
-
 
         ActionRenderer create_ActionRenderer = new ActionRenderer("Show",mobile, ObjectAction.Create,1L,now,now,admin_1,admin_1);
         actionRendererService.save(create_ActionRenderer);
@@ -408,6 +405,11 @@ public class ImportBaseData implements CommandLineRunner {
 
         Attribute show_ActionRenderer_param_1 =new Attribute("text",show_ActionRenderer.getId(),AttributeOwnerType.Action_Renderer_Parameter,DataType.String,1L,now,now,admin_1,admin_1);
         attributeService.save(show_ActionRenderer_param_1);
+
+
+
+        ActionRenderer move_ActionRenderer = new ActionRenderer("Move",mobile, ObjectAction.Move,1L,now,now,admin_1,admin_1);
+        actionRendererService.save(move_ActionRenderer);
 
         Attribute move_ActionRenderer_param_1 =new Attribute("actionId",move_ActionRenderer.getId(),AttributeOwnerType.Action_Renderer_Parameter,DataType.Long,1L,now,now,admin_1,admin_1);
         attributeService.save(move_ActionRenderer_param_1);
@@ -447,7 +449,6 @@ public class ImportBaseData implements CommandLineRunner {
 
         PuzzleObjectAction textObject_Show_Action = new PuzzleObjectAction(POActionOwnerType.ALCity_Object,textObject.getId(),ObjectAction.Show,show_ActionRenderer,1L,now,now,admin_1,admin_1);
         puzzleObjectActionService.save(textObject_Show_Action);
-
 
 
         ALCityObject ImageObject01 = new ALCityObject("ImageObject01",objectCategory_Image,image_Object_pic,image_Object_pic,1L,now,now,jalalHoseyni,jalalHoseyni);

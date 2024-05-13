@@ -156,7 +156,7 @@ public class InterpreterController {
             PuzzleObjectAction puzzleObject_objectAction = iterator.next();
             ObjectAction objectAction = puzzleObject_objectAction.getObjectAction();
 
-            Collection<RecordrData> parametersData = DTOUtil.getAttributeForOwnerById(attributeService,puzzleObject_objectAction.getId(),AttributeOwnerType.Puzzle_Object_Action_Parameter);
+            Collection<RecordrData> parametersData = DTOUtil.getAttributeForOwnerById(attributeService,puzzleObject_objectAction.getActionRenderer().getId(),AttributeOwnerType.Action_Renderer_Parameter);
 
             ActionData objectActionData = new ActionData();
             objectActionData.setActionName(objectAction);
