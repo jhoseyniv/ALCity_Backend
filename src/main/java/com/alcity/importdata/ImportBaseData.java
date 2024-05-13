@@ -111,6 +111,8 @@ public class ImportBaseData implements CommandLineRunner {
 
     @Autowired
     PLRuleEventService plRuleEventService;
+    @Autowired
+    ALCityObjectService puzzleObjectService;
 
     @Autowired
     AttributeService attributeService;
@@ -371,14 +373,32 @@ public class ImportBaseData implements CommandLineRunner {
         journeyLearningSkillService.save(journey_1_Skill_1);
         journeyLearningSkillService.save(journey_1_Skill_2);
 
+        byte[] text_object_content_pic_byte = ImageUtil.getImage("src/main/resources/images/X-O Problem/","TextObject.png");
+        BinaryContent textObject_pic = new BinaryContent("text_object_x-o",text_object_content_pic_byte,BinaryContentType.Image,1L,now,now,admin_1,admin_1);
+        binaryContentService.save(textObject_pic);
+
+        byte[] text_object_content_icon_byte = ImageUtil.getImage("src/main/resources/images/X-O Problem/","TextObject.png");
+        BinaryContent textObject_icon = new BinaryContent("text_object_x-o",text_object_content_icon_byte,BinaryContentType.Image,1L,now,now,admin_1,admin_1);
+        binaryContentService.save(textObject_icon);
+
+        byte[] image_object_content_pic_byte = ImageUtil.getImage("src/main/resources/images/","image_object.png");
+        BinaryContent image_Object_pic = new BinaryContent("text_object_x-o",image_object_content_pic_byte,BinaryContentType.Image,1L,now,now,admin_1,admin_1);
+        binaryContentService.save(image_Object_pic);
+
+        byte[] image_object_content_icon_byte = ImageUtil.getImage("src/main/resources/images/","image_object_icon.png");
+        BinaryContent image_Object_icon = new BinaryContent("text_object_x-o",image_object_content_icon_byte,BinaryContentType.Image,1L,now,now,admin_1,admin_1);
+        binaryContentService.save(image_Object_icon);
+
+
         ActionRenderer move_ActionRenderer = new ActionRenderer("Move",mobile, ObjectAction.Move,1L,now,now,admin_1,admin_1);
         actionRendererService.save(move_ActionRenderer);
+
 
         ActionRenderer create_ActionRenderer = new ActionRenderer("Show",mobile, ObjectAction.Create,1L,now,now,admin_1,admin_1);
         actionRendererService.save(create_ActionRenderer);
 
-        Attribute create_ActionRenderer_param_text =new Attribute("text",create_ActionRenderer.getId(),AttributeOwnerType.Action_Renderer_Parameter,DataType.String,1L,now,now,admin_1,admin_1);
-        attributeService.save(create_ActionRenderer_param_text);
+        Attribute create_ActionRenderer_param_1 =new Attribute("text",create_ActionRenderer.getId(),AttributeOwnerType.Action_Renderer_Parameter,DataType.String,1L,now,now,admin_1,admin_1);
+        attributeService.save(create_ActionRenderer_param_1);
 
         Attribute create_ActionRenderer_param_2 =new Attribute("CODE",create_ActionRenderer.getId(),AttributeOwnerType.Action_Renderer_Parameter,DataType.String,1L,now,now,admin_1,admin_1);
         attributeService.save(create_ActionRenderer_param_2);
@@ -389,17 +409,38 @@ public class ImportBaseData implements CommandLineRunner {
         Attribute show_ActionRenderer_param_1 =new Attribute("text",show_ActionRenderer.getId(),AttributeOwnerType.Action_Renderer_Parameter,DataType.String,1L,now,now,admin_1,admin_1);
         attributeService.save(show_ActionRenderer_param_1);
 
-        byte[] text_object_content_pic_byte = ImageUtil.getImage("src/main/resources/images/X-O Problem/","TextObject.png");
-        BinaryContent textObject_pic = new BinaryContent("text_object_x-o",text_object_content_pic_byte,BinaryContentType.Image,1L,now,now,admin_1,admin_1);
-        binaryContentService.save(textObject_pic);
+        Attribute move_ActionRenderer_param_1 =new Attribute("actionId",move_ActionRenderer.getId(),AttributeOwnerType.Action_Renderer_Parameter,DataType.Long,1L,now,now,admin_1,admin_1);
+        attributeService.save(move_ActionRenderer_param_1);
 
-        byte[] text_object_content_icon_byte = ImageUtil.getImage("src/main/resources/images/X-O Problem/","TextObject.png");
-        BinaryContent textObject_icon = new BinaryContent("text_object_x-o",text_object_content_icon_byte,BinaryContentType.Image,1L,now,now,admin_1,admin_1);
-        binaryContentService.save(textObject_icon);
+        Attribute move_ActionRenderer_param_2 =new Attribute("aSync",move_ActionRenderer.getId(),AttributeOwnerType.Action_Renderer_Parameter,DataType.Boolean,1L,now,now,admin_1,admin_1);
+        attributeService.save(move_ActionRenderer_param_2);
+
+        Attribute move_ActionRenderer_param_3 =new Attribute("formRow",move_ActionRenderer.getId(),AttributeOwnerType.Action_Renderer_Parameter,DataType.Integer,1L,now,now,admin_1,admin_1);
+        attributeService.save(move_ActionRenderer_param_3);
+
+        Attribute move_ActionRenderer_param_4 =new Attribute("toRow",move_ActionRenderer.getId(),AttributeOwnerType.Action_Renderer_Parameter,DataType.Integer,1L,now,now,admin_1,admin_1);
+        attributeService.save(move_ActionRenderer_param_4);
+
+        Attribute move_ActionRenderer_param_5 =new Attribute("FromCol",move_ActionRenderer.getId(),AttributeOwnerType.Action_Renderer_Parameter,DataType.Integer,1L,now,now,admin_1,admin_1);
+        attributeService.save(move_ActionRenderer_param_5);
+
+        Attribute move_ActionRenderer_param_6 =new Attribute("toCol",move_ActionRenderer.getId(),AttributeOwnerType.Action_Renderer_Parameter,DataType.Integer,1L,now,now,admin_1,admin_1);
+        attributeService.save(move_ActionRenderer_param_6);
+
+        Attribute move_ActionRenderer_param_7 =new Attribute("ObjectId",move_ActionRenderer.getId(),AttributeOwnerType.Action_Renderer_Parameter,DataType.Long,1L,now,now,admin_1,admin_1);
+        attributeService.save(move_ActionRenderer_param_7);
+
+        Attribute move_ActionRenderer_param_8 =new Attribute("moveType",move_ActionRenderer.getId(),AttributeOwnerType.Action_Renderer_Parameter,DataType.String,1L,now,now,admin_1,admin_1);
+        attributeService.save(move_ActionRenderer_param_8);
+
+
+
+
 
 
         ALCityObject textObject = new ALCityObject("TextObject",objectCategory_TextObject,textObject_pic,textObject_icon,1L,now,now,jalalHoseyni,jalalHoseyni);
         alCityObjectService.save(textObject);
+
 
         PuzzleObjectAction textObject_Create_Action = new PuzzleObjectAction(POActionOwnerType.ALCity_Object,textObject.getId(),ObjectAction.Create,create_ActionRenderer,1L,now,now,admin_1,admin_1);
         puzzleObjectActionService.save(textObject_Create_Action);
@@ -407,6 +448,29 @@ public class ImportBaseData implements CommandLineRunner {
         PuzzleObjectAction textObject_Show_Action = new PuzzleObjectAction(POActionOwnerType.ALCity_Object,textObject.getId(),ObjectAction.Show,show_ActionRenderer,1L,now,now,admin_1,admin_1);
         puzzleObjectActionService.save(textObject_Show_Action);
 
+
+
+        ALCityObject ImageObject01 = new ALCityObject("ImageObject01",objectCategory_Image,image_Object_pic,image_Object_pic,1L,now,now,jalalHoseyni,jalalHoseyni);
+        puzzleObjectService.save(ImageObject01);
+
+
+        PuzzleObjectAction ImageObject01_Move_Action = new PuzzleObjectAction(POActionOwnerType.ALCity_Object,ImageObject01.getId(),ObjectAction.Move,move_ActionRenderer,1L,now,now,admin_1,admin_1);
+        puzzleObjectActionService.save(ImageObject01_Move_Action);
+
+        ALCityObject ImageObject02 = new ALCityObject("ImageObject02",objectCategory_Image,image_Object_pic,image_Object_icon,1L,now,now,jalalHoseyni,jalalHoseyni);
+        puzzleObjectService.save(ImageObject02);
+
+        ALCityObject eagle = new ALCityObject("eagle",objectCategory_bird,eagle_Image_binary_content,eagle_Image_binary_content,1L,now,now,jalalHoseyni,jalalHoseyni);
+        puzzleObjectService.save(eagle);
+
+        ALCityObject goose = new ALCityObject("Goose",objectCategory_bird,goose_Image_binary_content,goose_Image_binary_content,1L,now,now,jalalHoseyni,jalalHoseyni);
+        puzzleObjectService.save(goose);
+
+        ALCityObject fox = new ALCityObject("Fox",objectCategory_Mamals,fox_Image_binary_content,fox_Image_binary_content,1L,now,now,jalalHoseyni,jalalHoseyni);
+        puzzleObjectService.save(fox);
+
+        ALCityObject wheat = new ALCityObject("Wheat",objectCategory_cereal,wheat_Image_binary_content,wheat_Image_binary_content,1L,now,now,jalalHoseyni,jalalHoseyni);
+        puzzleObjectService.save(wheat);
 
     }
 }

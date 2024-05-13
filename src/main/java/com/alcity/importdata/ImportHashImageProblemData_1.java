@@ -50,6 +50,8 @@ public class ImportHashImageProblemData_1 implements CommandLineRunner {
     @Autowired
     private BinaryContentService binaryContentService;
 
+    @Autowired
+    ALCityObjectService puzzleObjectService;
 
     @Autowired
     PLGroundService puzzleLevelGroundService;
@@ -88,8 +90,6 @@ public class ImportHashImageProblemData_1 implements CommandLineRunner {
     @Autowired
     ObjectCategoryService objectCategoryService;
 
-    @Autowired
-    ALCityObjectService puzzleObjectService;
 
     @Autowired
     ALCityInstanceInPLService pgObjectInstanceService;
@@ -237,32 +237,20 @@ public class ImportHashImageProblemData_1 implements CommandLineRunner {
         plGameInstanceService.save(puzzleLevelGameInstance);
 
 
-        ObjectCategory objectCategory_bird = objectCategoryService.findByValue("Bird");
-        ObjectCategory objectCategory_Mamals = objectCategoryService.findByValue("Mamals");
-        ObjectCategory objectCategory_cereal = objectCategoryService.findByValue("cereal");
+//        ObjectCategory objectCategory_bird = objectCategoryService.findByValue("Bird");
+//        ObjectCategory objectCategory_Mamals = objectCategoryService.findByValue("Mamals");
+//        ObjectCategory objectCategory_cereal = objectCategoryService.findByValue("cereal");
         ObjectCategory objectCategory_Image = objectCategoryService.findByValue("Image");
+//
+//        BinaryContent eagle_Image_binary_content = binaryContentService.findByfileName("eagle image");
+//        BinaryContent goose_Image_binary_content = binaryContentService.findByfileName("goose image");
+//        BinaryContent fox_Image_binary_content = binaryContentService.findByfileName("fox image");
+          BinaryContent wheat_Image_binary_content = binaryContentService.findByfileName("wheat image");
 
-        BinaryContent eagle_Image_binary_content = binaryContentService.findByfileName("eagle image");
-        BinaryContent goose_Image_binary_content = binaryContentService.findByfileName("goose image");
-        BinaryContent fox_Image_binary_content = binaryContentService.findByfileName("fox image");
-        BinaryContent wheat_Image_binary_content = binaryContentService.findByfileName("wheat image");
 
-        ALCityObject eagle = new ALCityObject("eagle",objectCategory_bird,eagle_Image_binary_content,eagle_Image_binary_content,1L,now,now,jalalHoseyni,jalalHoseyni);
-        puzzleObjectService.save(eagle);
+        Optional<ALCityObject> ImageObject01 =puzzleObjectService.findByTitle("ImageObject01");
 
-        ALCityObject goose = new ALCityObject("Goose",objectCategory_bird,goose_Image_binary_content,goose_Image_binary_content,1L,now,now,jalalHoseyni,jalalHoseyni);
-        puzzleObjectService.save(goose);
-
-        ALCityObject fox = new ALCityObject("Fox",objectCategory_Mamals,fox_Image_binary_content,fox_Image_binary_content,1L,now,now,jalalHoseyni,jalalHoseyni);
-        puzzleObjectService.save(fox);
-
-        ALCityObject wheat = new ALCityObject("Wheat",objectCategory_cereal,wheat_Image_binary_content,wheat_Image_binary_content,1L,now,now,jalalHoseyni,jalalHoseyni);
-        puzzleObjectService.save(wheat);
-
-        ALCityObject ImageObject01 = new ALCityObject("ImageObject01",objectCategory_Image,wheat_Image_binary_content,wheat_Image_binary_content,1L,now,now,jalalHoseyni,jalalHoseyni);
-        puzzleObjectService.save(ImageObject01);
-
-        ALCityObjectInPG puzzleGroup_puzzleObject = new ALCityObjectInPG("Image Hash Puzzle Group with Image Object","Hash_ImageObject",puzzleGroup_1,ImageObject01,1L,now,now,admin_1,admin_1);
+        ALCityObjectInPG puzzleGroup_puzzleObject = new ALCityObjectInPG("Image Hash Puzzle Group with Image Object","Hash_ImageObject",puzzleGroup_1,ImageObject01.get(),1L,now,now,admin_1,admin_1);
         puzzleGroup_PuzzleObjectService.save(puzzleGroup_puzzleObject);
 
 
@@ -401,51 +389,42 @@ public class ImportHashImageProblemData_1 implements CommandLineRunner {
 
         ClientType mobile = clientTypeService.findByValue("mobile");
 
-        Optional<ActionRenderer> move = actionRendererService.findByHandlerAndObjectAction("Move",ObjectAction.Move);
-        PuzzleObjectAction imageObject01_MoveAction = new PuzzleObjectAction(POActionOwnerType.ALCity_Object,puzzleGroup_puzzleObject.getId(),ObjectAction.Move,move.get(),1L,now,now,admin_1,admin_1);
-        puzzleObject_ObjectActionService.save(imageObject01_MoveAction);
+        Optional<ActionRenderer> move_ActionRenderes = actionRendererService.findByHandlerAndObjectAction("Move",ObjectAction.Move);
+        Optional<Attribute> move_ActionRenderer_param_actionId = attributeService.findByOwnerIdAndName(move_ActionRenderes.get().getId(),"actionId");
+        Optional<Attribute> move_ActionRenderer_param_aSync = attributeService.findByOwnerIdAndName(move_ActionRenderes.get().getId(),"aSync");
+        Optional<Attribute> move_ActionRenderer_param_formRow = attributeService.findByOwnerIdAndName(move_ActionRenderes.get().getId(),"formRow");
+        Optional<Attribute> move_ActionRenderer_param_toRow = attributeService.findByOwnerIdAndName(move_ActionRenderes.get().getId(),"toRow");
+        Optional<Attribute> move_ActionRenderer_param_FromCol = attributeService.findByOwnerIdAndName(move_ActionRenderes.get().getId(),"FromCol");
+        Optional<Attribute> move_ActionRenderer_param_toCol = attributeService.findByOwnerIdAndName(move_ActionRenderes.get().getId(),"toCol");
+        Optional<Attribute> move_ActionRenderer_param_ObjectId = attributeService.findByOwnerIdAndName(move_ActionRenderes.get().getId(),"ObjectId");
+        Optional<Attribute> move_ActionRenderer_param_moveType = attributeService.findByOwnerIdAndName(move_ActionRenderes.get().getId(),"moveType");
 
-        Attribute alCityAttribute_move_action =new Attribute("actionId",imageObject01_MoveAction.getId(),AttributeOwnerType.Puzzle_Object_Action_Parameter,DataType.Long,1L,now,now,admin_1,admin_1);
-        attributeService.save(alCityAttribute_move_action);
-        AttributeValue alCity_moveAction_parameter_action_id= new AttributeValue(null,null,alCityAttribute_move_action.getId(),null,null,null,null,alCityAttribute_move_action,alCityAttribute_move_action,1L,now,now,admin_1,admin_1);
-        attributeValueService.save(alCity_moveAction_parameter_action_id);
 
-        Attribute alCityAttribute_move_aSync =new Attribute("aSync",imageObject01_MoveAction.getId(),AttributeOwnerType.Puzzle_Object_Action_Parameter,DataType.Boolean,1L,now,now,admin_1,admin_1);
-        attributeService.save(alCityAttribute_move_aSync);
-        AttributeValue alCity_moveAction_parameter_aSync= new AttributeValue(false,null,null,null,null,null,null,alCityAttribute_move_aSync,alCityAttribute_move_aSync,1L,now,now,admin_1,admin_1);
-        attributeValueService.save(alCity_moveAction_parameter_aSync);
+        AttributeValue  move_ActionRenderer_param_actionId_value= new AttributeValue(null,null,ObjectAction.getOrdinalId("Move"),null,null,null,null,move_ActionRenderer_param_actionId.get(),move_ActionRenderer_param_actionId.get(),1L,now,now,admin_1,admin_1);
+        attributeValueService.save(move_ActionRenderer_param_actionId_value);
 
-        Attribute alCityAttribute_move_formRow =new Attribute("formRow",imageObject01_MoveAction.getId(),AttributeOwnerType.Puzzle_Object_Action_Parameter,DataType.Integer,1L,now,now,admin_1,admin_1);
-        attributeService.save(alCityAttribute_move_formRow);
-        AttributeValue alCity_moveAction_parameter_fromRow= new AttributeValue(null,0,null,null,null,null,null,alCityAttribute_move_formRow,alCityAttribute_move_formRow,1L,now,now,admin_1,admin_1);
-        attributeValueService.save(alCity_moveAction_parameter_fromRow);
+        AttributeValue  move_ActionRenderer_param_aSync_value= new AttributeValue(false,null,null,null,null,null,null,move_ActionRenderer_param_aSync.get(),move_ActionRenderer_param_aSync.get(),1L,now,now,admin_1,admin_1);
+        attributeValueService.save(move_ActionRenderer_param_aSync_value);
 
-        Attribute alCityAttribute_move_toRow =new Attribute("toRow",imageObject01_MoveAction.getId(),AttributeOwnerType.Puzzle_Object_Action_Parameter,DataType.Integer,1L,now,now,admin_1,admin_1);
-        attributeService.save(alCityAttribute_move_toRow);
-        AttributeValue alCity_moveAction_parameter_toRow= new AttributeValue(null,0,null,null,null,null,null,alCityAttribute_move_toRow,alCityAttribute_move_toRow,1L,now,now,admin_1,admin_1);
-        attributeValueService.save(alCity_moveAction_parameter_toRow);
+        AttributeValue  move_ActionRenderer_param_formRow_value= new AttributeValue(null,0,null,null,null,null,null,move_ActionRenderer_param_formRow.get(),move_ActionRenderer_param_formRow.get(),1L,now,now,admin_1,admin_1);
+        attributeValueService.save(move_ActionRenderer_param_formRow_value);
 
-        Attribute alCityAttribute_move_fromCol =new Attribute("FromCol",imageObject01_MoveAction.getId(),AttributeOwnerType.Puzzle_Object_Action_Parameter,DataType.Integer,1L,now,now,admin_1,admin_1);
-        attributeService.save(alCityAttribute_move_fromCol);
-        AttributeValue alCity_moveAction_parameter_fromCol= new AttributeValue(null,0,null,null,null,null,null,alCityAttribute_move_fromCol,alCityAttribute_move_fromCol,1L,now,now,admin_1,admin_1);
-        attributeValueService.save(alCity_moveAction_parameter_fromCol);
+        AttributeValue  move_ActionRenderer_param_toRow_value= new AttributeValue(null,0,null,null,null,null,null,move_ActionRenderer_param_toRow.get(),move_ActionRenderer_param_toRow.get(),1L,now,now,admin_1,admin_1);
+        attributeValueService.save(move_ActionRenderer_param_toRow_value);
 
-        Attribute alCityAttribute_move_toCol =new Attribute("toCol",imageObject01_MoveAction.getId(),AttributeOwnerType.Puzzle_Object_Action_Parameter,DataType.Integer,1L,now,now,admin_1,admin_1);
-        attributeService.save(alCityAttribute_move_toCol);
-        AttributeValue alCity_moveAction_parameter_toCol= new AttributeValue(null,0,null,null,null,null,null,alCityAttribute_move_toCol,alCityAttribute_move_toCol,1L,now,now,admin_1,admin_1);
-        attributeValueService.save(alCity_moveAction_parameter_toCol);
+        AttributeValue  move_ActionRenderer_param_FromCol_value= new AttributeValue(null,0,null,null,null,null,null,move_ActionRenderer_param_FromCol.get(),move_ActionRenderer_param_FromCol.get(),1L,now,now,admin_1,admin_1);
+        attributeValueService.save(move_ActionRenderer_param_FromCol_value);
 
-        //this type must be clear object type
-        Attribute alCityAttribute_move_ObjectId =new Attribute("ObjectId",imageObject01_MoveAction.getId(),AttributeOwnerType.Puzzle_Object_Action_Parameter,DataType.Long,1L,now,now,admin_1,admin_1);
-        attributeService.save(alCityAttribute_move_ObjectId);
-        AttributeValue alCity_moveAction_parameter_ObjectId= new AttributeValue(null,null,null,null,null,null,null,alCityAttribute_move_ObjectId,alCityAttribute_move_ObjectId,1L,now,now,admin_1,admin_1);
-        attributeValueService.save(alCity_moveAction_parameter_ObjectId);
+        AttributeValue  move_ActionRenderer_param_toCol_value= new AttributeValue(null,0,null,null,null,null,null,move_ActionRenderer_param_toCol.get(),move_ActionRenderer_param_toCol.get(),1L,now,now,admin_1,admin_1);
+        attributeValueService.save(move_ActionRenderer_param_toCol_value);
 
-        //this type must be clear ...enum value for move type
-        Attribute alCityAttribute_move_moveType =new Attribute("moveType",imageObject01_MoveAction.getId(),AttributeOwnerType.Puzzle_Object_Action_Parameter,DataType.String,1L,now,now,admin_1,admin_1);
-        attributeService.save(alCityAttribute_move_moveType);
-        AttributeValue alCity_moveAction_parameter_moveType= new AttributeValue(null,null,null,"jump",null,null,null,alCityAttribute_move_moveType,alCityAttribute_move_moveType,1L,now,now,admin_1,admin_1);
-        attributeValueService.save(alCity_moveAction_parameter_moveType);
+        AttributeValue  move_ActionRenderer_param_ObjectId_value= new AttributeValue(null,null,0L,null,null,null,null,move_ActionRenderer_param_ObjectId.get(),move_ActionRenderer_param_ObjectId.get(),1L,now,now,admin_1,admin_1);
+        attributeValueService.save(move_ActionRenderer_param_ObjectId_value);
+
+        AttributeValue  move_ActionRenderer_param_moveType_value= new AttributeValue(null,null,0L,null,null,null,null,move_ActionRenderer_param_moveType.get(),move_ActionRenderer_param_moveType.get(),1L,now,now,admin_1,admin_1);
+        attributeValueService.save(move_ActionRenderer_param_moveType_value);
+
+
 
         Attribute alCityAttribute_instance_1_targetX= new Attribute("targetX",instance_img1.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Variable,DataType.Integer,1L,now,now,admin_1,admin_1);
         attributeService.save(alCityAttribute_instance_1_targetX);

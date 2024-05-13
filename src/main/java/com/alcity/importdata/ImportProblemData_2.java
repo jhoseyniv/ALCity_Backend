@@ -204,11 +204,10 @@ public class ImportProblemData_2 implements CommandLineRunner {
         ObjectCategory objectCategory_Image = objectCategoryService.findByValue("Image");
 
         BinaryContent img_Image_binary_content = binaryContentService.findByfileName("image_object");
+        Optional<ALCityObject> ImageObject02 =puzzleObjectService.findByTitle("ImageObject02");
 
-       ALCityObject ImageObject02 = new ALCityObject("ImageObject02",objectCategory_Image,img_Image_binary_content,img_Image_binary_content,1L,now,now,jalalHoseyni,jalalHoseyni);
-        puzzleObjectService.save(ImageObject02);
 
-        ALCityObjectInPG puzzleGroup_puzzleObject = new ALCityObjectInPG("Maze Puzzle Group with Image Object","Maze_ImageObject",puzzleGroup_2,ImageObject02,1L,now,now,admin_1,admin_1);
+        ALCityObjectInPG puzzleGroup_puzzleObject = new ALCityObjectInPG("Maze Puzzle Group with Image Object","Maze_ImageObject",puzzleGroup_2,ImageObject02.get(),1L,now,now,admin_1,admin_1);
         puzzleGroup_PuzzleObjectService.save(puzzleGroup_puzzleObject);
 
         StringBuffer  condition_Objective = new StringBuffer("(LastX == 19)&&(LastY == 18)&&(PathLen=40)" );

@@ -21,6 +21,13 @@ public enum   ObjectAction  {
         }
         throw new IllegalArgumentException("no id");
     }
-
+    public static Long getOrdinalId(String name)
+    {
+        for (ObjectAction e : ObjectAction.values())
+        {
+            if (name.equalsIgnoreCase(e.toString())) return Long.valueOf(e.ordinal());
+        }
+        throw new IllegalArgumentException("no id");
+    }
 
     }
