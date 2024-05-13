@@ -2,11 +2,13 @@ package com.alcity.service.alobject;
 
 import com.alcity.entity.alenum.POActionOwnerType;
 import com.alcity.entity.alobject.PuzzleObjectAction;
+import com.alcity.entity.puzzle.ALCityObjectInPG;
 import com.alcity.repository.alobject.PuzzleObjectActionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Optional;
 
@@ -88,7 +90,17 @@ public class PuzzleObjectActionService implements PuzzleObjectActionRepository {
     }
 
     @Override
-    public Collection<PuzzleObjectAction> findByOwnerObjectidAndPoActionOwnerType(Long id, POActionOwnerType ownerType) {
-        return puzzleObjectActionRepository.findByOwnerObjectidAndPoActionOwnerType(id,ownerType);
+    public Collection<PuzzleObjectAction> findByOwnerObjectid(Long ownerId) {
+        return null;
+    }
+
+    public Collection<PuzzleObjectAction> findActions(ALCityObjectInPG alCityObjectInPG) {
+        Collection<PuzzleObjectAction> actionsForAlCityObject = new ArrayList<PuzzleObjectAction>();
+        Collection<PuzzleObjectAction> actionsForPuzzleGroupObject = new ArrayList<PuzzleObjectAction>();
+        actionsForPuzzleGroupObject = puzzleObjectActionRepository.findByOwnerObjectid(alCityObjectInPG.getId());
+        actionsForAlCityObject = puzzleObjectActionRepository.findByOwnerObjectid(alCityObjectInPG.getAlCityObject().getId());
+        actionsForPuzzleGroupObject.addAll(actionsForAlCityObject);
+
+        return actionsForPuzzleGroupObject;
     }
 }
