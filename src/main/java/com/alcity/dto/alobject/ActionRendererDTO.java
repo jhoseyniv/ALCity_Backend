@@ -5,6 +5,10 @@ import com.alcity.entity.alenum.ObjectAction;
 
 public class ActionRendererDTO {
 
+    private ObjectAction objectAction;
+    private String handler;
+    private ClientTypeDTO clientTypeDTO;
+
     private Long id;
     private Long version;
     private String created;
@@ -13,9 +17,6 @@ public class ActionRendererDTO {
 
     private String updatedBy;
 
-    private String handler;
-    private ClientTypeDTO clientTypeDTO;
-    private ObjectAction objectAction;
 
     public String getHandler() {
         return handler;

@@ -109,12 +109,12 @@ public class PuzzleObjectActionService implements PuzzleObjectActionRepository {
         return puzzleObjectActionRepository.findByOwnerObjectidAndPoActionOwnerType(ownerId,ownerType);
     }
 
-    public Collection<PuzzleObjectAction> findActions(ALCityObjectInPG alCityObjectInPG) {
-        Collection<PuzzleObjectAction> actionsForAlCityObject = new ArrayList<PuzzleObjectAction>();
+    public Collection<PuzzleObjectAction> findActionsForALCityObjectInPG(ALCityObjectInPG alCityObjectInPG) {
+       // Collection<PuzzleObjectAction> actionsForAlCityObject = new ArrayList<PuzzleObjectAction>();
         Collection<PuzzleObjectAction> actionsForPuzzleGroupObject = new ArrayList<PuzzleObjectAction>();
         actionsForPuzzleGroupObject = puzzleObjectActionRepository.findByOwnerObjectid(alCityObjectInPG.getId());
-        actionsForAlCityObject = puzzleObjectActionRepository.findByOwnerObjectid(alCityObjectInPG.getAlCityObject().getId());
-        actionsForPuzzleGroupObject.addAll(actionsForAlCityObject);
+       // actionsForAlCityObject = puzzleObjectActionRepository.findByOwnerObjectid(alCityObjectInPG.getAlCityObject().getId());
+      //  actionsForPuzzleGroupObject.addAll(actionsForAlCityObject);
 
         return actionsForPuzzleGroupObject;
     }
@@ -138,9 +138,11 @@ public class PuzzleObjectActionService implements PuzzleObjectActionRepository {
                 AttributeValue newAttributeValue = new AttributeValue(attValue.getBooleanValue(),attValue.getIntValue(),attValue.getLongValue(),attValue.getStringValue(),
                         attValue.getObjectValue(),attValue.getDoubleValue(),attValue.getBinaryContentId(),newRecord,newRecord,
                         attValue.getVersion(),attValue.getCreated(),attValue.getUpdated(),attValue.getCreatedBy(),attValue.getUpdatedBy());
-                if(att.getName().equalsIgnoreCase("CODE")){
-                    newAttributeValue.setStringValue("NEW CODE FOR ALCITY Object");
-                }
+
+                //for log info
+                if(att.getName().equalsIgnoreCase("CODE"))   newAttributeValue.setStringValue("NEW CODE FOR ALCITY Object");
+                if(att.getName().equalsIgnoreCase("aSync"))     newAttributeValue.setStringValue("True");
+
                 attributeValueService.save(newAttributeValue);
             }
 

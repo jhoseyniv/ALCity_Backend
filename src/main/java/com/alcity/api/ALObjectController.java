@@ -74,28 +74,6 @@ public class ALObjectController {
         return POActionOwnerType.values();
     }
 
-    @Operation( summary = "Fetch all action renders types ",  description = "fetches all renderers types for all actions")
-    @GetMapping("/action/renderer/all")
-    public Collection<ActionRendererDTO> getActionRenderers(Model model) {
-          Collection<ActionRendererDTO> actionRendererDTOCollection = new ArrayList<ActionRendererDTO>();
-          Collection<ActionRenderer> actionRendererCollection = actionRendererService.findAll();
-          Iterator<ActionRenderer> iterator = actionRendererCollection.iterator();
-          while(iterator.hasNext()){
-              ActionRendererDTO actionRendererDTO =DTOUtil.getActionRendererDTO(iterator.next());
-              actionRendererDTOCollection.add(actionRendererDTO);
-          }
-          return actionRendererDTOCollection;
-      }
-    @RequestMapping(value = "/action/renderer/id/{id}", method = RequestMethod.GET)
-    @ResponseBody
-    public ActionRendererDTO getObjectActionRendererById(@PathVariable Long id) {
-        Optional<ActionRenderer> actionRendererOptional = actionRendererService.findById(id);
-        if(actionRendererOptional.isPresent())
-            return  DTOUtil.getActionRendererDTO(actionRendererOptional.get());
-         return null;
-    }
-
-
     @Operation( summary = "Fetch attribute owner types ",  description = "fetches all attribute owner types")
     @GetMapping("/att/owner/type/all")
     public AttributeOwnerType[] getAttributeOwnerTypes() {

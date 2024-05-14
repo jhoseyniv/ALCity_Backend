@@ -126,7 +126,7 @@ public class InterpreterController {
             BinaryContent icon = alCityObjectInPG.getAlCityObject().getIcon();
             puzzleGroupObjectData.setIconGraphicId(icon.getId());
 
-            Collection<ActionData> actions = getActionsForAPuzzleObjectById(alCityObjectInPG);
+            Collection<ActionData> actions = getActionsDTOForALCityObjectInPG(alCityObjectInPG);
             puzzleGroupObjectData.setActions(actions);
 
             Collection<RecordrData> variables = DTOUtil.getAttributeForOwnerById(attributeService,alCityObjectInPG.getId(),AttributeOwnerType.Puzzle_Group_Object_Variable);
@@ -146,10 +146,10 @@ public class InterpreterController {
 
     @Autowired
     PuzzleObjectActionService puzzleObjectActionService;
-    public Collection<ActionData> getActionsForAPuzzleObjectById(ALCityObjectInPG alCityObjectInPG){
+    public Collection<ActionData> getActionsDTOForALCityObjectInPG(ALCityObjectInPG alCityObjectInPG){
         Collection<ActionData> objectActionDataCollection = new ArrayList<ActionData>();
         Collection<PuzzleObjectAction> puzzleObjectActionCollection = new ArrayList<PuzzleObjectAction>();
-        puzzleObjectActionCollection = puzzleObjectActionService.findActions(alCityObjectInPG);
+        puzzleObjectActionCollection = puzzleObjectActionService.findActionsForALCityObjectInPG(alCityObjectInPG);
 
         Iterator<PuzzleObjectAction> iterator = puzzleObjectActionCollection.iterator();
         while(iterator.hasNext()) {
