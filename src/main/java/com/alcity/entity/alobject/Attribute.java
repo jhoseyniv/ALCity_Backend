@@ -35,12 +35,12 @@ public class Attribute extends BaseTable implements Serializable {
         this.ownerId = ownerId;
     }
 
-    public Collection<AttributeValue> getAttributeValueSet() {
-        return attributeValueSet;
+    public Collection<AttributeValue> getAttributeValues() {
+        return attributeValues;
     }
 
-    public void setAttributeValueSet(Collection<AttributeValue> attributeValueSet) {
-        this.attributeValueSet = attributeValueSet;
+    public void setAttributeValues(Collection<AttributeValue> attributeValues) {
+        this.attributeValues = attributeValues;
     }
 
     @Enumerated(EnumType.ORDINAL)
@@ -66,7 +66,7 @@ public class Attribute extends BaseTable implements Serializable {
     }
 
     @OneToMany(mappedBy = "attributeId", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Collection<AttributeValue> attributeValueSet;
+    private Collection<AttributeValue> attributeValues;
 
 
     public Attribute() {

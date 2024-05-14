@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.*;
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Set;
 
 @Table(uniqueConstraints=
@@ -51,14 +52,14 @@ public class ActionRenderer extends BaseTable implements Serializable {
 
     @OneToMany(mappedBy = "actionRenderer", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JsonIgnore
-    private Set<PuzzleObjectAction> puzzleObject_ObjectAction;
+    private Collection<PuzzleObjectAction> puzzleObjectActions;
 
-    public Set<PuzzleObjectAction> getPuzzleObject_ObjectAction() {
-        return puzzleObject_ObjectAction;
+    public Collection<PuzzleObjectAction> getPuzzleObjectActions() {
+        return puzzleObjectActions;
     }
 
-    public void setPuzzleObject_ObjectAction(Set<PuzzleObjectAction> puzzleObject_ObjectAction) {
-        this.puzzleObject_ObjectAction = puzzleObject_ObjectAction;
+    public void setPuzzleObjectActions(Collection<PuzzleObjectAction> puzzleObjectActions) {
+        this.puzzleObjectActions = puzzleObjectActions;
     }
 
     public ActionRenderer() {

@@ -13,5 +13,6 @@ public interface PuzzleObjectActionRepository extends CrudRepository<PuzzleObjec
     Collection<PuzzleObjectAction> findByActionRendererId(Long id);
     Collection<PuzzleObjectAction> findByPoActionOwnerType(Long id);
     Collection<PuzzleObjectAction> findByOwnerObjectid(Long ownerId);
+    Collection<PuzzleObjectAction> findByOwnerObjectidAndPoActionOwnerType(Long ownerId,POActionOwnerType ownerType);
 
 }

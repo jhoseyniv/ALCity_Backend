@@ -51,7 +51,7 @@ public class ImportHashImageProblemData_1 implements CommandLineRunner {
     private BinaryContentService binaryContentService;
 
     @Autowired
-    ALCityObjectService puzzleObjectService;
+    ALCityObjectService alCityObjectService;
 
     @Autowired
     PLGroundService puzzleLevelGroundService;
@@ -115,7 +115,7 @@ public class ImportHashImageProblemData_1 implements CommandLineRunner {
     PuzzleObjectActionService puzzleObject_ObjectActionService;
 
     @Autowired
-    ALCityObjectInPGService puzzleGroup_PuzzleObjectService;
+    ALCityObjectInPGService alCityObjectInPGService;
 
     @Autowired
     PLRuleService puzzleLevelRuleService;
@@ -181,18 +181,20 @@ public class ImportHashImageProblemData_1 implements CommandLineRunner {
         BinaryContent puzzle_ground_binary_content_1 = new BinaryContent("puzzle ground for hash image",puzzle_Ground_Image_1,BinaryContentType.Image,1L,now,now,admin_1,admin_1);
         binaryContentService.save(puzzle_ground_binary_content_1);
 
-        byte[] puzzle_group_Icon_1 = ImageUtil.getImage("src/main/resources/images/","puzzle_group_1.png");
-        BinaryContent puzzle_group_binary_content_1 = new BinaryContent("image_puzzle_group_matematic",puzzle_group_Icon_1,BinaryContentType.Image,1L,now,now,admin_1,admin_1);
-        binaryContentService.save(puzzle_group_binary_content_1);
+        byte[] hashImage_icon_byte = ImageUtil.getImage("src/main/resources/images/hashImage_Puzzle/","hashImage_icon.png");
+        BinaryContent hashImage_icon = new BinaryContent("hash image icon",puzzle_Ground_Image_1,BinaryContentType.Image,1L,now,now,admin_1,admin_1);
+        binaryContentService.save(hashImage_icon);
+
+        byte[] hashImage_pic_byte = ImageUtil.getImage("src/main/resources/images/hashImage_Puzzle/","hashImage_pic.png");
+        BinaryContent hashImage_pic = new BinaryContent("hash image picture",puzzle_Ground_Image_1,BinaryContentType.Image,1L,now,now,admin_1,admin_1);
+        binaryContentService.save(hashImage_pic);
 
         PuzzleCategory mathematic = puzzleCategoryService.findByValue("mathematic");
 
-        PuzzleGroup puzzleGroup_1 = new PuzzleGroup("Hash Image - Puzzle Group 1",mathematic,puzzle_group_binary_content_1,puzzle_group_binary_content_1,1L,now,now,admin_1,admin_1);
-        puzzleGroupService.save(puzzleGroup_1);
-
-        JourneyStep step_1_journey_1 = new JourneyStep("step1_journey_1",1,30,30,journey_1,puzzleGroup_1,1L,now,now,admin_1,admin_1);
-        JourneyStep step_2_journey_1 = new JourneyStep("step2_journey_1",1,30,30,journey_1,puzzleGroup_1,1L,now,now,admin_1,admin_1);
-        JourneyStep step_1_journey_2 = new JourneyStep("step1_journey_2",1,30,30,journey_2,puzzleGroup_1,1L,now,now,admin_1,admin_1);
+        Optional<PuzzleGroup> puzzleGroup_HashImage = puzzleGroupService.findByTitle("Hash Image - Puzzle Group 1");
+        JourneyStep step_1_journey_1 = new JourneyStep("step1_journey_1",1,30,30,journey_1,puzzleGroup_HashImage.get(),1L,now,now,admin_1,admin_1);
+        JourneyStep step_2_journey_1 = new JourneyStep("step2_journey_1",1,30,30,journey_1,puzzleGroup_HashImage.get(),1L,now,now,admin_1,admin_1);
+        JourneyStep step_1_journey_2 = new JourneyStep("step1_journey_2",1,30,30,journey_2,puzzleGroup_HashImage.get(),1L,now,now,admin_1,admin_1);
         journeyStepService.save(step_1_journey_1);
         journeyStepService.save(step_2_journey_1);
         journeyStepService.save(step_1_journey_2);
@@ -200,11 +202,11 @@ public class ImportHashImageProblemData_1 implements CommandLineRunner {
 
         PLPrivacy privacy_1 = plPrivacyService.findByValue("privacy1");
 
-        PuzzleLevel puzzleLevel_hashimage = new PuzzleLevel(now,1L,"hashed image with a empty cell","4545",10,14,5f,puzzleGroup_1,PLDifficulty.Easy,PLStatus.Ongoing,privacy_1,puzzle_group_binary_content_1,puzzle_group_binary_content_1,3L,now,now,admin_1,admin_1);
+        PuzzleLevel puzzleLevel_hashimage = new PuzzleLevel(now,1L,"hashed image with a empty cell","4545",10,14,5f,puzzleGroup_HashImage.get(),PLDifficulty.Easy,PLStatus.Ongoing,privacy_1,hashImage_pic,hashImage_icon,3L,now,now,admin_1,admin_1);
         puzzleLevelService.save(puzzleLevel_hashimage);
 
 
-        byte[] puzzle_group_Hash_Image = ImageUtil.getImage("src/main/resources/images/","hashImage.png");
+        byte[] puzzle_group_Hash_Image = ImageUtil.getImage("src/main/resources/images/hashImage_Puzzle","hashImage_pic.png");
         BinaryContent puzzle_group_Hash_Image_binary_content = new BinaryContent("hashImage",puzzle_group_Hash_Image,BinaryContentType.Image,1L,now,now,admin_1,admin_1);
         binaryContentService.save(puzzle_group_Hash_Image_binary_content);
 
@@ -230,29 +232,19 @@ public class ImportHashImageProblemData_1 implements CommandLineRunner {
         PlayHistory playHistory_1 = new PlayHistory(jalalHoseyni,puzzleLevel_hashimage,now,100,10f,1L,now,now,jalalHoseyni,jalalHoseyni);
         playHistoryService.save(playHistory_1);
 
-        PuzzleSkillLearningContent puzzleSkillLearningContent_1 = new PuzzleSkillLearningContent(division,puzzleGroup_1,learningContent_Division,1L,now,now,admin_1,admin_1);
+        PuzzleSkillLearningContent puzzleSkillLearningContent_1 = new PuzzleSkillLearningContent(division,puzzleGroup_HashImage.get(),learningContent_Division,1L,now,now,admin_1,admin_1);
         puzzleSkillLearningContentService.save(puzzleSkillLearningContent_1);
 
         PLGameInstance puzzleLevelGameInstance= new PLGameInstance(jalalHoseyni,puzzleLevel_hashimage,GameStatus.gameStatus_1,1L,now,now,jalalHoseyni,jalalHoseyni);
         plGameInstanceService.save(puzzleLevelGameInstance);
 
+        Optional<ALCityObject> ImageObject01 =alCityObjectService.findByTitle("ImageObject01");
 
-//        ObjectCategory objectCategory_bird = objectCategoryService.findByValue("Bird");
-//        ObjectCategory objectCategory_Mamals = objectCategoryService.findByValue("Mamals");
-//        ObjectCategory objectCategory_cereal = objectCategoryService.findByValue("cereal");
-        ObjectCategory objectCategory_Image = objectCategoryService.findByValue("Image");
-//
-//        BinaryContent eagle_Image_binary_content = binaryContentService.findByfileName("eagle image");
-//        BinaryContent goose_Image_binary_content = binaryContentService.findByfileName("goose image");
-//        BinaryContent fox_Image_binary_content = binaryContentService.findByfileName("fox image");
-          BinaryContent wheat_Image_binary_content = binaryContentService.findByfileName("wheat image");
+        ALCityObjectInPG ImageObject01_in_haseImage_puzzleGroup = new ALCityObjectInPG("Image Hash Puzzle Group with Image Object","Hash_ImageObject",puzzleGroup_HashImage.get(),ImageObject01.get(),1L,now,now,admin_1,admin_1);
+        alCityObjectInPGService.save(ImageObject01_in_haseImage_puzzleGroup);
 
-
-        Optional<ALCityObject> ImageObject01 =puzzleObjectService.findByTitle("ImageObject01");
-
-        ALCityObjectInPG puzzleGroup_puzzleObject = new ALCityObjectInPG("Image Hash Puzzle Group with Image Object","Hash_ImageObject",puzzleGroup_1,ImageObject01.get(),1L,now,now,admin_1,admin_1);
-        puzzleGroup_PuzzleObjectService.save(puzzleGroup_puzzleObject);
-
+        //change actions for ImageObject01_in_haseImage_puzzleGroup
+        alCityObjectInPGService.copyActionTo(ImageObject01_in_haseImage_puzzleGroup);
 
         StringBuffer  condition_Objective = new StringBuffer("(img1.x == img1.targetX)&&(img1.y == img1.targetY)" +","
                 + "(img2.x == img2.targetX)&&(img2.y == img2.targetY)" + ","
@@ -277,15 +269,15 @@ public class ImportHashImageProblemData_1 implements CommandLineRunner {
         attributeValueService.save(alCityAttribute_variable_X_value);
         attributeValueService.save(alCityAttribute_variable_Y_value);
 
-        ALCityInstanceInPL instance_img0 = new ALCityInstanceInPL("instance_img0",1,1,1,puzzleGroup_puzzleObject,puzzleLevel_hashimage,1L,now,now,admin_1,admin_1);
-        ALCityInstanceInPL instance_img1 = new ALCityInstanceInPL("instance_img1",2,3,1,puzzleGroup_puzzleObject,puzzleLevel_hashimage,1L,now,now,admin_1,admin_1);
-        ALCityInstanceInPL instance_img2 = new ALCityInstanceInPL("instance_img2",1,2,1,puzzleGroup_puzzleObject,puzzleLevel_hashimage,1L,now,now,admin_1,admin_1);
-        ALCityInstanceInPL instance_img3 = new ALCityInstanceInPL("instance_img3",2,1,1,puzzleGroup_puzzleObject,puzzleLevel_hashimage,1L,now,now,admin_1,admin_1);
-        ALCityInstanceInPL instance_img4 = new ALCityInstanceInPL("instance_img4",3,2,1,puzzleGroup_puzzleObject,puzzleLevel_hashimage,1L,now,now,admin_1,admin_1);
-        ALCityInstanceInPL instance_img5 = new ALCityInstanceInPL("instance_img5",1,3,1,puzzleGroup_puzzleObject,puzzleLevel_hashimage,1L,now,now,admin_1,admin_1);
-        ALCityInstanceInPL instance_img6 = new ALCityInstanceInPL("instance_img6",2,2,1,puzzleGroup_puzzleObject,puzzleLevel_hashimage,1L,now,now,admin_1,admin_1);
-        ALCityInstanceInPL instance_img7 = new ALCityInstanceInPL("instance_img7",3,3,1,puzzleGroup_puzzleObject,puzzleLevel_hashimage,1L,now,now,admin_1,admin_1);
-        ALCityInstanceInPL instance_img8 = new ALCityInstanceInPL("instance_img8",3,1,1,puzzleGroup_puzzleObject,puzzleLevel_hashimage,1L,now,now,admin_1,admin_1);
+        ALCityInstanceInPL instance_img0 = new ALCityInstanceInPL("instance_img0",1,1,1,ImageObject01_in_haseImage_puzzleGroup,puzzleLevel_hashimage,1L,now,now,admin_1,admin_1);
+        ALCityInstanceInPL instance_img1 = new ALCityInstanceInPL("instance_img1",2,3,1,ImageObject01_in_haseImage_puzzleGroup,puzzleLevel_hashimage,1L,now,now,admin_1,admin_1);
+        ALCityInstanceInPL instance_img2 = new ALCityInstanceInPL("instance_img2",1,2,1,ImageObject01_in_haseImage_puzzleGroup,puzzleLevel_hashimage,1L,now,now,admin_1,admin_1);
+        ALCityInstanceInPL instance_img3 = new ALCityInstanceInPL("instance_img3",2,1,1,ImageObject01_in_haseImage_puzzleGroup,puzzleLevel_hashimage,1L,now,now,admin_1,admin_1);
+        ALCityInstanceInPL instance_img4 = new ALCityInstanceInPL("instance_img4",3,2,1,ImageObject01_in_haseImage_puzzleGroup,puzzleLevel_hashimage,1L,now,now,admin_1,admin_1);
+        ALCityInstanceInPL instance_img5 = new ALCityInstanceInPL("instance_img5",1,3,1,ImageObject01_in_haseImage_puzzleGroup,puzzleLevel_hashimage,1L,now,now,admin_1,admin_1);
+        ALCityInstanceInPL instance_img6 = new ALCityInstanceInPL("instance_img6",2,2,1,ImageObject01_in_haseImage_puzzleGroup,puzzleLevel_hashimage,1L,now,now,admin_1,admin_1);
+        ALCityInstanceInPL instance_img7 = new ALCityInstanceInPL("instance_img7",3,3,1,ImageObject01_in_haseImage_puzzleGroup,puzzleLevel_hashimage,1L,now,now,admin_1,admin_1);
+        ALCityInstanceInPL instance_img8 = new ALCityInstanceInPL("instance_img8",3,1,1,ImageObject01_in_haseImage_puzzleGroup,puzzleLevel_hashimage,1L,now,now,admin_1,admin_1);
 
         pgObjectInstanceService.save(instance_img0);
         pgObjectInstanceService.save(instance_img1);
@@ -387,42 +379,14 @@ public class ImportHashImageProblemData_1 implements CommandLineRunner {
         attributeValueService.save(alCityAttributeValue_binary_7);
         attributeValueService.save(alCityAttributeValue_binary_8);
 
-        ClientType mobile = clientTypeService.findByValue("mobile");
-
-        Optional<ActionRenderer> move_ActionRenderes = actionRendererService.findByHandlerAndObjectAction("Move",ObjectAction.Move);
-        Optional<Attribute> move_ActionRenderer_param_actionId = attributeService.findByOwnerIdAndName(move_ActionRenderes.get().getId(),"actionId");
-        Optional<Attribute> move_ActionRenderer_param_aSync = attributeService.findByOwnerIdAndName(move_ActionRenderes.get().getId(),"aSync");
-        Optional<Attribute> move_ActionRenderer_param_formRow = attributeService.findByOwnerIdAndName(move_ActionRenderes.get().getId(),"formRow");
-        Optional<Attribute> move_ActionRenderer_param_toRow = attributeService.findByOwnerIdAndName(move_ActionRenderes.get().getId(),"toRow");
-        Optional<Attribute> move_ActionRenderer_param_FromCol = attributeService.findByOwnerIdAndName(move_ActionRenderes.get().getId(),"FromCol");
-        Optional<Attribute> move_ActionRenderer_param_toCol = attributeService.findByOwnerIdAndName(move_ActionRenderes.get().getId(),"toCol");
-        Optional<Attribute> move_ActionRenderer_param_ObjectId = attributeService.findByOwnerIdAndName(move_ActionRenderes.get().getId(),"ObjectId");
-        Optional<Attribute> move_ActionRenderer_param_moveType = attributeService.findByOwnerIdAndName(move_ActionRenderes.get().getId(),"moveType");
 
 
-        AttributeValue  move_ActionRenderer_param_actionId_value= new AttributeValue(null,null,ObjectAction.getOrdinalId("Move"),null,null,null,null,move_ActionRenderer_param_actionId.get(),move_ActionRenderer_param_actionId.get(),1L,now,now,admin_1,admin_1);
-        attributeValueService.save(move_ActionRenderer_param_actionId_value);
 
-        AttributeValue  move_ActionRenderer_param_aSync_value= new AttributeValue(false,null,null,null,null,null,null,move_ActionRenderer_param_aSync.get(),move_ActionRenderer_param_aSync.get(),1L,now,now,admin_1,admin_1);
-        attributeValueService.save(move_ActionRenderer_param_aSync_value);
 
-        AttributeValue  move_ActionRenderer_param_formRow_value= new AttributeValue(null,0,null,null,null,null,null,move_ActionRenderer_param_formRow.get(),move_ActionRenderer_param_formRow.get(),1L,now,now,admin_1,admin_1);
-        attributeValueService.save(move_ActionRenderer_param_formRow_value);
 
-        AttributeValue  move_ActionRenderer_param_toRow_value= new AttributeValue(null,0,null,null,null,null,null,move_ActionRenderer_param_toRow.get(),move_ActionRenderer_param_toRow.get(),1L,now,now,admin_1,admin_1);
-        attributeValueService.save(move_ActionRenderer_param_toRow_value);
 
-        AttributeValue  move_ActionRenderer_param_FromCol_value= new AttributeValue(null,0,null,null,null,null,null,move_ActionRenderer_param_FromCol.get(),move_ActionRenderer_param_FromCol.get(),1L,now,now,admin_1,admin_1);
-        attributeValueService.save(move_ActionRenderer_param_FromCol_value);
 
-        AttributeValue  move_ActionRenderer_param_toCol_value= new AttributeValue(null,0,null,null,null,null,null,move_ActionRenderer_param_toCol.get(),move_ActionRenderer_param_toCol.get(),1L,now,now,admin_1,admin_1);
-        attributeValueService.save(move_ActionRenderer_param_toCol_value);
 
-        AttributeValue  move_ActionRenderer_param_ObjectId_value= new AttributeValue(null,null,0L,null,null,null,null,move_ActionRenderer_param_ObjectId.get(),move_ActionRenderer_param_ObjectId.get(),1L,now,now,admin_1,admin_1);
-        attributeValueService.save(move_ActionRenderer_param_ObjectId_value);
-
-        AttributeValue  move_ActionRenderer_param_moveType_value= new AttributeValue(null,null,0L,null,null,null,null,move_ActionRenderer_param_moveType.get(),move_ActionRenderer_param_moveType.get(),1L,now,now,admin_1,admin_1);
-        attributeValueService.save(move_ActionRenderer_param_moveType_value);
 
 
 

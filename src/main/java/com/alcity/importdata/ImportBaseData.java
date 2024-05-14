@@ -2,35 +2,34 @@ package com.alcity.importdata;
 
 
 import com.alcity.entity.alenum.*;
-import com.alcity.entity.alobject.ActionRenderer;
+import com.alcity.entity.alobject.*;
 import com.alcity.entity.alenum.ObjectAction;
-import com.alcity.entity.alobject.Attribute;
-import com.alcity.entity.alobject.ObjectCategory;
-import com.alcity.entity.alobject.PuzzleObjectAction;
 import com.alcity.entity.base.*;
 import com.alcity.entity.journey.Journey;
 import com.alcity.entity.journey.JourneyLearningSkill;
+import com.alcity.entity.learning.LearningContent;
 import com.alcity.entity.learning.LearningSkill;
 import com.alcity.entity.learning.LearningSkillTopic;
 import com.alcity.entity.learning.LearningTopic;
 import com.alcity.entity.puzzle.ALCityObject;
 import com.alcity.entity.puzzle.PLRuleEvent;
+import com.alcity.entity.puzzle.PuzzleGroup;
 import com.alcity.entity.users.ApplicationMember;
 import com.alcity.entity.users.ApplicationMember_WalletItem;
 import com.alcity.entity.users.WalletItem;
 import com.alcity.entity.users.WalletTransaction;
 import com.alcity.service.Journey.JourneyLearningSkillService;
 import com.alcity.service.Journey.JourneyService;
-import com.alcity.service.alobject.ActionRendererService;
-import com.alcity.service.alobject.AttributeService;
-import com.alcity.service.alobject.ObjectCategoryService;
-import com.alcity.service.alobject.PuzzleObjectActionService;
+import com.alcity.service.alobject.*;
 import com.alcity.service.base.*;
+import com.alcity.service.learning.LearningContentService;
 import com.alcity.service.learning.LearningSkillService;
 import com.alcity.service.learning.LearningSkill_LearningTopicService;
 import com.alcity.service.learning.LearningTopicService;
 import com.alcity.service.puzzle.ALCityObjectService;
+import com.alcity.service.puzzle.PGService;
 import com.alcity.service.puzzle.PLRuleEventService;
+import com.alcity.service.puzzle.PuzzleSkillLearningContentService;
 import com.alcity.service.users.ApplicationMemberService;
 import com.alcity.service.users.ApplicationMember_WalletItemService;
 import com.alcity.service.users.WalletItemService;
@@ -96,9 +95,15 @@ public class ImportBaseData implements CommandLineRunner {
 
     @Autowired
     PuzzleObjectActionService puzzleObjectActionService;
+    @Autowired
+    PuzzleSkillLearningContentService puzzleSkillLearningContentService;
+    @Autowired
+    LearningContentService learningContentService;
 
     @Autowired
     BinaryContentService binaryContentService;
+    @Autowired
+    private PGService puzzleGroupService;
 
     @Autowired
     JourneyService journeyService;
@@ -111,8 +116,8 @@ public class ImportBaseData implements CommandLineRunner {
 
     @Autowired
     PLRuleEventService plRuleEventService;
-    @Autowired
-    ALCityObjectService puzzleObjectService;
+     @Autowired
+    AttributeValueService attributeValueService;
 
     @Autowired
     AttributeService attributeService;
@@ -210,6 +215,46 @@ public class ImportBaseData implements CommandLineRunner {
         puzzlePlayer.setUpdatedBy(admin_1);
         memberTypeService.save(puzzlePlayer);
 
+        PuzzleCategory mathematic = new PuzzleCategory("mathematic","mathematic",1L,now,now,admin_1,admin_1);
+        PuzzleCategory  physic = new PuzzleCategory("physic","physic",1L,now,now,admin_1,admin_1);
+        PuzzleCategory  maze = new PuzzleCategory("Maze","Maze",1L,now,now,admin_1,admin_1);
+        PuzzleCategory  iq = new PuzzleCategory("IQ","IQ",1L,now,now,admin_1,admin_1);
+        PuzzleCategory  fun = new PuzzleCategory("Fun","Fun",1L,now,now,admin_1,admin_1);
+        puzzleCategoryService.save(mathematic);
+        puzzleCategoryService.save(physic);
+        puzzleCategoryService.save(iq);
+        puzzleCategoryService.save(maze);
+        puzzleCategoryService.save(fun);
+
+        byte[] puzzle_Ground_Maze_Image_1 = ImageUtil.getImage("src/main/resources/images/","playGround.png");
+        BinaryContent puzzle_ground_Maze_image_binary_content_1 = new BinaryContent("puzzle ground for Maze image",puzzle_Ground_Maze_Image_1,BinaryContentType.Image,1L,now,now,admin_1,admin_1);
+        binaryContentService.save(puzzle_ground_Maze_image_binary_content_1);
+
+        byte[] puzzle_group_Icon_2 = ImageUtil.getImage("src/main/resources/images/","physic.png");
+        BinaryContent puzzle_group_binary_content_2 = new BinaryContent("image_puzzle_group_physic",puzzle_group_Icon_2,BinaryContentType.Image,1L,now,now,admin_1,admin_1);
+        binaryContentService.save(puzzle_group_binary_content_2);
+
+        byte[] puzzle_group_Icon_3 = ImageUtil.getImage("src/main/resources/images/","IQ.png");
+        BinaryContent puzzle_group_binary_content_3 = new BinaryContent("image_puzzle_group_IQ",puzzle_group_Icon_3,BinaryContentType.Image,1L,now,now,admin_1,admin_1);
+        binaryContentService.save(puzzle_group_binary_content_3);
+
+        byte[] puzzle_group_Maze_Image = ImageUtil.getImage("src/main/resources/images/","MazeImage.png");
+        BinaryContent puzzle_group_Maze_Image_binary_content = new BinaryContent("MazeImage",puzzle_group_Maze_Image,BinaryContentType.Image,1L,now,now,admin_1,admin_1);
+        binaryContentService.save(puzzle_group_Maze_Image_binary_content);
+
+        byte[] puzzle_group_Icon_1 = ImageUtil.getImage("src/main/resources/images/","puzzle_group_1.png");
+        BinaryContent puzzle_group_binary_content_1 = new BinaryContent("image_puzzle_group_matematic",puzzle_group_Icon_1,BinaryContentType.Image,1L,now,now,admin_1,admin_1);
+        binaryContentService.save(puzzle_group_binary_content_1);
+
+        LearningContent learningContent_Maze=new LearningContent("help to maze","this content is about maze tables",puzzle_group_Maze_Image_binary_content,1L,now,now,admin_1,admin_1);
+        learningContentService.save(learningContent_Maze);
+
+       // PuzzleCategory mathematic = puzzleCategoryService.findByValue("mathematic");
+
+        PuzzleGroup puzzleGroup_HashImage = new PuzzleGroup("Hash Image - Puzzle Group 1",mathematic,puzzle_group_binary_content_1,puzzle_group_binary_content_1,1L,now,now,admin_1,admin_1);
+        PuzzleGroup puzzleGroup_IQ = new PuzzleGroup("IQ Puzzle Group",mathematic,puzzle_group_binary_content_2,puzzle_group_binary_content_3,1L,now,now,admin_1,admin_1);
+        puzzleGroupService.save(puzzleGroup_HashImage);
+        puzzleGroupService.save(puzzleGroup_IQ);
 
         byte[] tetherIcon = ImageUtil.getImage("src/main/resources/images/","Tether.png");
         byte[] carIcon = ImageUtil.getImage("src/main/resources/images/","car.png");
@@ -253,16 +298,6 @@ public class ImportBaseData implements CommandLineRunner {
 
 
 
-        PuzzleCategory mathematic = new PuzzleCategory("mathematic","mathematic",1L,now,now,admin_1,admin_1);
-        PuzzleCategory  physic = new PuzzleCategory("physic","physic",1L,now,now,admin_1,admin_1);
-        PuzzleCategory  maze = new PuzzleCategory("Maze","Maze",1L,now,now,admin_1,admin_1);
-        PuzzleCategory  iq = new PuzzleCategory("IQ","IQ",1L,now,now,admin_1,admin_1);
-        PuzzleCategory  fun = new PuzzleCategory("Fun","Fun",1L,now,now,admin_1,admin_1);
-        puzzleCategoryService.save(mathematic);
-        puzzleCategoryService.save(physic);
-        puzzleCategoryService.save(iq);
-        puzzleCategoryService.save(maze);
-        puzzleCategoryService.save(fun);
 
 
         ObjectCategory objectCategory_animal = new ObjectCategory("Animal","Animal",1L,now,now,admin_1,admin_1);
@@ -390,53 +425,73 @@ public class ImportBaseData implements CommandLineRunner {
         binaryContentService.save(image_Object_icon);
 
 
-
         ActionRenderer create_ActionRenderer = new ActionRenderer("Show",mobile, ObjectAction.Create,1L,now,now,admin_1,admin_1);
         actionRendererService.save(create_ActionRenderer);
 
+        //add parameters and default values
         Attribute create_ActionRenderer_param_1 =new Attribute("text",create_ActionRenderer.getId(),AttributeOwnerType.Action_Renderer_Parameter,DataType.String,1L,now,now,admin_1,admin_1);
         attributeService.save(create_ActionRenderer_param_1);
+        AttributeValue create_ActionRenderer_param_1_value= new AttributeValue(null,null,null,"InstProp(CurrentInst(), text)",null,null,null,create_ActionRenderer_param_1,create_ActionRenderer_param_1,1L,now,now,admin_1,admin_1);
+        attributeValueService.save(create_ActionRenderer_param_1_value);
 
         Attribute create_ActionRenderer_param_2 =new Attribute("CODE",create_ActionRenderer.getId(),AttributeOwnerType.Action_Renderer_Parameter,DataType.String,1L,now,now,admin_1,admin_1);
         attributeService.save(create_ActionRenderer_param_2);
+        AttributeValue create_ActionRenderer_param_2_value= new AttributeValue(null,null,null,"CODE",null,null,null,create_ActionRenderer_param_2,create_ActionRenderer_param_2,1L,now,now,admin_1,admin_1);
+        attributeValueService.save(create_ActionRenderer_param_2_value);
+
 
         ActionRenderer show_ActionRenderer = new ActionRenderer("Show",mobile, ObjectAction.Show,1L,now,now,admin_1,admin_1);
         actionRendererService.save(show_ActionRenderer);
 
         Attribute show_ActionRenderer_param_1 =new Attribute("text",show_ActionRenderer.getId(),AttributeOwnerType.Action_Renderer_Parameter,DataType.String,1L,now,now,admin_1,admin_1);
         attributeService.save(show_ActionRenderer_param_1);
-
+        AttributeValue show_ActionRenderer_param_1_value= new AttributeValue(null,null,null,"InstProp(CurrentInst(), text)",null,null,null,show_ActionRenderer_param_1,show_ActionRenderer_param_1,1L,now,now,admin_1,admin_1);
+        attributeValueService.save(show_ActionRenderer_param_1_value);
 
 
         ActionRenderer move_ActionRenderer = new ActionRenderer("Move",mobile, ObjectAction.Move,1L,now,now,admin_1,admin_1);
         actionRendererService.save(move_ActionRenderer);
 
+        //add parameters and default values
         Attribute move_ActionRenderer_param_1 =new Attribute("actionId",move_ActionRenderer.getId(),AttributeOwnerType.Action_Renderer_Parameter,DataType.Long,1L,now,now,admin_1,admin_1);
         attributeService.save(move_ActionRenderer_param_1);
+        AttributeValue  move_ActionRenderer_param_actionId_value= new AttributeValue(null,null,ObjectAction.getOrdinalId("Move"),null,null,null,null,move_ActionRenderer_param_1,move_ActionRenderer_param_1,1L,now,now,admin_1,admin_1);
+        attributeValueService.save(move_ActionRenderer_param_actionId_value);
 
         Attribute move_ActionRenderer_param_2 =new Attribute("aSync",move_ActionRenderer.getId(),AttributeOwnerType.Action_Renderer_Parameter,DataType.Boolean,1L,now,now,admin_1,admin_1);
         attributeService.save(move_ActionRenderer_param_2);
+        AttributeValue  move_ActionRenderer_param_aSync_value= new AttributeValue(false,null,null,null,null,null,null,move_ActionRenderer_param_2,move_ActionRenderer_param_2,1L,now,now,admin_1,admin_1);
+        attributeValueService.save(move_ActionRenderer_param_aSync_value);
 
         Attribute move_ActionRenderer_param_3 =new Attribute("formRow",move_ActionRenderer.getId(),AttributeOwnerType.Action_Renderer_Parameter,DataType.Integer,1L,now,now,admin_1,admin_1);
         attributeService.save(move_ActionRenderer_param_3);
+        AttributeValue  move_ActionRenderer_param_formRow_value= new AttributeValue(null,0,null,null,null,null,null,move_ActionRenderer_param_3,move_ActionRenderer_param_3,1L,now,now,admin_1,admin_1);
+        attributeValueService.save(move_ActionRenderer_param_formRow_value);
 
         Attribute move_ActionRenderer_param_4 =new Attribute("toRow",move_ActionRenderer.getId(),AttributeOwnerType.Action_Renderer_Parameter,DataType.Integer,1L,now,now,admin_1,admin_1);
         attributeService.save(move_ActionRenderer_param_4);
+        AttributeValue  move_ActionRenderer_param_toRow_value= new AttributeValue(null,0,null,null,null,null,null,move_ActionRenderer_param_4,move_ActionRenderer_param_4,1L,now,now,admin_1,admin_1);
+        attributeValueService.save(move_ActionRenderer_param_toRow_value);
 
         Attribute move_ActionRenderer_param_5 =new Attribute("FromCol",move_ActionRenderer.getId(),AttributeOwnerType.Action_Renderer_Parameter,DataType.Integer,1L,now,now,admin_1,admin_1);
         attributeService.save(move_ActionRenderer_param_5);
+        AttributeValue  move_ActionRenderer_param_FromCol_value= new AttributeValue(null,0,null,null,null,null,null,move_ActionRenderer_param_5,move_ActionRenderer_param_5,1L,now,now,admin_1,admin_1);
+        attributeValueService.save(move_ActionRenderer_param_FromCol_value);
 
         Attribute move_ActionRenderer_param_6 =new Attribute("toCol",move_ActionRenderer.getId(),AttributeOwnerType.Action_Renderer_Parameter,DataType.Integer,1L,now,now,admin_1,admin_1);
         attributeService.save(move_ActionRenderer_param_6);
+        AttributeValue  move_ActionRenderer_param_toCol_value= new AttributeValue(null,0,null,null,null,null,null,move_ActionRenderer_param_6,move_ActionRenderer_param_6,1L,now,now,admin_1,admin_1);
+        attributeValueService.save(move_ActionRenderer_param_toCol_value);
 
         Attribute move_ActionRenderer_param_7 =new Attribute("ObjectId",move_ActionRenderer.getId(),AttributeOwnerType.Action_Renderer_Parameter,DataType.Long,1L,now,now,admin_1,admin_1);
         attributeService.save(move_ActionRenderer_param_7);
+        AttributeValue  move_ActionRenderer_param_ObjectId_value= new AttributeValue(null,null,0L,null,null,null,null,move_ActionRenderer_param_7,move_ActionRenderer_param_7,1L,now,now,admin_1,admin_1);
+        attributeValueService.save(move_ActionRenderer_param_ObjectId_value);
 
         Attribute move_ActionRenderer_param_8 =new Attribute("moveType",move_ActionRenderer.getId(),AttributeOwnerType.Action_Renderer_Parameter,DataType.String,1L,now,now,admin_1,admin_1);
         attributeService.save(move_ActionRenderer_param_8);
-
-
-
+        AttributeValue  move_ActionRenderer_param_moveType_value= new AttributeValue(null,null,null,"jump",null,null,null,move_ActionRenderer_param_8,move_ActionRenderer_param_8,1L,now,now,admin_1,admin_1);
+        attributeValueService.save(move_ActionRenderer_param_moveType_value);
 
 
 
@@ -446,32 +501,33 @@ public class ImportBaseData implements CommandLineRunner {
 
         PuzzleObjectAction textObject_Create_Action = new PuzzleObjectAction(POActionOwnerType.ALCity_Object,textObject.getId(),ObjectAction.Create,create_ActionRenderer,1L,now,now,admin_1,admin_1);
         puzzleObjectActionService.save(textObject_Create_Action);
+        puzzleObjectActionService.copyRendersToAlcityObject(textObject_Create_Action);
 
         PuzzleObjectAction textObject_Show_Action = new PuzzleObjectAction(POActionOwnerType.ALCity_Object,textObject.getId(),ObjectAction.Show,show_ActionRenderer,1L,now,now,admin_1,admin_1);
         puzzleObjectActionService.save(textObject_Show_Action);
-
+        puzzleObjectActionService.copyRendersToAlcityObject(textObject_Show_Action);
 
         ALCityObject ImageObject01 = new ALCityObject("ImageObject01",objectCategory_Image,image_Object_pic,image_Object_pic,1L,now,now,jalalHoseyni,jalalHoseyni);
-        puzzleObjectService.save(ImageObject01);
-
+        alCityObjectService.save(ImageObject01);
 
         PuzzleObjectAction ImageObject01_Move_Action = new PuzzleObjectAction(POActionOwnerType.ALCity_Object,ImageObject01.getId(),ObjectAction.Move,move_ActionRenderer,1L,now,now,admin_1,admin_1);
         puzzleObjectActionService.save(ImageObject01_Move_Action);
+        puzzleObjectActionService.copyRendersToAlcityObject(ImageObject01_Move_Action);
 
         ALCityObject ImageObject02 = new ALCityObject("ImageObject02",objectCategory_Image,image_Object_pic,image_Object_icon,1L,now,now,jalalHoseyni,jalalHoseyni);
-        puzzleObjectService.save(ImageObject02);
+        alCityObjectService.save(ImageObject02);
 
         ALCityObject eagle = new ALCityObject("eagle",objectCategory_bird,eagle_Image_binary_content,eagle_Image_binary_content,1L,now,now,jalalHoseyni,jalalHoseyni);
-        puzzleObjectService.save(eagle);
+        alCityObjectService.save(eagle);
 
         ALCityObject goose = new ALCityObject("Goose",objectCategory_bird,goose_Image_binary_content,goose_Image_binary_content,1L,now,now,jalalHoseyni,jalalHoseyni);
-        puzzleObjectService.save(goose);
+        alCityObjectService.save(goose);
 
         ALCityObject fox = new ALCityObject("Fox",objectCategory_Mamals,fox_Image_binary_content,fox_Image_binary_content,1L,now,now,jalalHoseyni,jalalHoseyni);
-        puzzleObjectService.save(fox);
+        alCityObjectService.save(fox);
 
         ALCityObject wheat = new ALCityObject("Wheat",objectCategory_cereal,wheat_Image_binary_content,wheat_Image_binary_content,1L,now,now,jalalHoseyni,jalalHoseyni);
-        puzzleObjectService.save(wheat);
+        alCityObjectService.save(wheat);
 
     }
 }

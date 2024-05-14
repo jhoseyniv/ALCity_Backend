@@ -1,7 +1,12 @@
 package com.alcity.service.alobject;
 
+import com.alcity.entity.alenum.AttributeOwnerType;
 import com.alcity.entity.alenum.POActionOwnerType;
+import com.alcity.entity.alobject.ActionRenderer;
+import com.alcity.entity.alobject.Attribute;
+import com.alcity.entity.alobject.AttributeValue;
 import com.alcity.entity.alobject.PuzzleObjectAction;
+import com.alcity.entity.puzzle.ALCityObject;
 import com.alcity.entity.puzzle.ALCityObjectInPG;
 import com.alcity.repository.alobject.PuzzleObjectActionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.Optional;
 
 @Service
@@ -18,6 +24,10 @@ public class PuzzleObjectActionService implements PuzzleObjectActionRepository {
 
     @Autowired
     PuzzleObjectActionRepository puzzleObjectActionRepository;
+    @Autowired
+    AttributeService  attributeService;
+    @Autowired
+    AttributeValueService  attributeValueService;
 
     @Override
     public <S extends PuzzleObjectAction> S save(S entity) {
@@ -94,6 +104,11 @@ public class PuzzleObjectActionService implements PuzzleObjectActionRepository {
         return null;
     }
 
+    @Override
+    public Collection<PuzzleObjectAction> findByOwnerObjectidAndPoActionOwnerType(Long ownerId, POActionOwnerType ownerType) {
+        return puzzleObjectActionRepository.findByOwnerObjectidAndPoActionOwnerType(ownerId,ownerType);
+    }
+
     public Collection<PuzzleObjectAction> findActions(ALCityObjectInPG alCityObjectInPG) {
         Collection<PuzzleObjectAction> actionsForAlCityObject = new ArrayList<PuzzleObjectAction>();
         Collection<PuzzleObjectAction> actionsForPuzzleGroupObject = new ArrayList<PuzzleObjectAction>();
@@ -103,4 +118,36 @@ public class PuzzleObjectActionService implements PuzzleObjectActionRepository {
 
         return actionsForPuzzleGroupObject;
     }
+    public void copyRendersToAlcityObject(PuzzleObjectAction action){
+        ActionRenderer actionRenderer = action.getActionRenderer();
+        Collection<AttributeValue> attributeValues = new ArrayList<AttributeValue>();
+        Collection<Attribute> parameters = attributeService.findByOwnerIdAndAttributeOwnerType(actionRenderer.getId(), AttributeOwnerType.Action_Renderer_Parameter);
+        Iterator<Attribute> itr = parameters.iterator();
+        while(itr.hasNext()){
+            Attribute att = new Attribute();
+            att = itr.next();
+            Attribute newRecord = new Attribute(att.getName(),action.getOwnerObjectid(),AttributeOwnerType.AlCity_Object,att.getDataType(),
+                    att.getVersion(),att.getCreated(),att.getUpdated(),att.getCreatedBy(),att.getUpdatedBy());
+            attributeService.save(newRecord);
+
+            attributeValues = att.getAttributeValues();
+            Iterator<AttributeValue> itrAttributeValuesIterator = attributeValues.iterator();
+            while(itrAttributeValuesIterator.hasNext()) {
+                    AttributeValue attValue = new AttributeValue();
+                attValue = itrAttributeValuesIterator.next();
+                AttributeValue newAttributeValue = new AttributeValue(attValue.getBooleanValue(),attValue.getIntValue(),attValue.getLongValue(),attValue.getStringValue(),
+                        attValue.getObjectValue(),attValue.getDoubleValue(),attValue.getBinaryContentId(),newRecord,newRecord,
+                        attValue.getVersion(),attValue.getCreated(),attValue.getUpdated(),attValue.getCreatedBy(),attValue.getUpdatedBy());
+                if(att.getName().equalsIgnoreCase("CODE")){
+                    newAttributeValue.setStringValue("NEW CODE FOR ALCITY Object");
+                }
+                attributeValueService.save(newAttributeValue);
+            }
+
+
+        }
+
+    }
+
+
 }

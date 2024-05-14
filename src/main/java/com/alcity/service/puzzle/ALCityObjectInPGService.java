@@ -1,13 +1,20 @@
 package com.alcity.service.puzzle;
 
+import com.alcity.entity.alenum.POActionOwnerType;
+import com.alcity.entity.alobject.Attribute;
+import com.alcity.entity.alobject.PuzzleObjectAction;
+import com.alcity.entity.puzzle.ALCityObject;
 import com.alcity.entity.puzzle.ALCityObjectInPG;
 import com.alcity.repository.puzzle.ALCityObjectInPGRepository;
+import com.alcity.service.alobject.ActionRendererService;
+import com.alcity.service.alobject.PuzzleObjectActionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import org.springframework.transaction.annotation.Transactional;;
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.Optional;
 
 
@@ -18,6 +25,11 @@ public class ALCityObjectInPGService implements ALCityObjectInPGRepository {
     @Autowired
     @Qualifier("ALCityObjectInPGRepository")
     ALCityObjectInPGRepository alCityObjectInPGRepository;
+    @Autowired
+    PuzzleObjectActionService puzzleObjectActionService;
+
+    @Autowired
+    ActionRendererService actionRendererService;
 
     @Override
     public <S extends ALCityObjectInPG> S save(S entity) {
@@ -93,4 +105,16 @@ public class ALCityObjectInPGService implements ALCityObjectInPGRepository {
     public Optional<ALCityObjectInPG> findByCodeAndTitle(String code, String title) {
         return alCityObjectInPGRepository.findByCodeAndTitle(code,title);
     }
+    public void copyActionTo(ALCityObjectInPG alCityObjectInPG){
+        ALCityObject alCityObject = alCityObjectInPG.getAlCityObject();
+        Collection<PuzzleObjectAction> actions = puzzleObjectActionService.findByOwnerObjectidAndPoActionOwnerType(alCityObject.getId(), POActionOwnerType.ALCity_Object);
+        Iterator<PuzzleObjectAction> itr = actions.iterator();
+        while(itr.hasNext()){
+            PuzzleObjectAction puzzleObjectAction = new PuzzleObjectAction();
+            puzzleObjectAction = itr.next();
+
+        }
+
+    }
+
 }

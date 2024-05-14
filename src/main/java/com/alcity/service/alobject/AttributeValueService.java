@@ -15,10 +15,10 @@ import java.util.Optional;
 public class AttributeValueService implements AttributeValueRepository {
 
     @Autowired
-    AttributeValueRepository ALCityAttributeValueRepository;
+    AttributeValueRepository attributeValueRepository;
     @Override
     public <S extends AttributeValue> S save(S entity) {
-        return ALCityAttributeValueRepository.save(entity);
+        return attributeValueRepository.save(entity);
     }
 
     @Override
@@ -40,6 +40,12 @@ public class AttributeValueService implements AttributeValueRepository {
     public Collection<AttributeValue> findAll() {
         return null;
     }
+
+//    @Override
+//    public AttributeValue findByAttributeId(Long id) {
+//        AttributeValue attributeValue = attributeValueRepository.findByAttributeId(id);
+//        return attributeValue;
+//    }
 
     @Override
     public Iterable<AttributeValue> findAllById(Iterable<Long> longs) {

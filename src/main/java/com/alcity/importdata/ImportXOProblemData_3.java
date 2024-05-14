@@ -50,19 +50,19 @@ public class ImportXOProblemData_3 implements CommandLineRunner {
 
 
     @Autowired
-    PLGroundService puzzleLevelGroundService;
+    PLGroundService plGroundService;
     @Autowired
     PuzzleLevelService puzzleLevelService;
 
-    @Autowired
-    private PuzzleCategoryService puzzleCategoryService;
+//    @Autowired
+//    private PuzzleCategoryService puzzleCategoryService;
 
     @Autowired
-    private PGService puzzleGroupService;
+    private PGService pgService;
 
 
     @Autowired
-    private PLPrivacyService puzzleLevelPrivacyService;
+    private PLPrivacyService plPrivacyService;
 
     @Autowired
     PermitedPlayerRepository permitedPlayerRepository;
@@ -125,13 +125,7 @@ public class ImportXOProblemData_3 implements CommandLineRunner {
     PLRulePostActionService plRulePostActionService;
 
 
-    @Autowired
-    PLRuleEventService puzzleLevelRuleEventService;
-
-    @Autowired
-    PLRulePostActionService puzzleLevelRulePostActionService;
-
-    @Autowired
+      @Autowired
     PLObjectiveService plObjectiveService;
 
     @Autowired
@@ -176,11 +170,6 @@ public class ImportXOProblemData_3 implements CommandLineRunner {
         WalletItem alCoin100WalletItem = walletItemService.findByValue("al_coin_100");
         WalletItem alCoin10WalletItem = walletItemService.findByValue("al_coin_10");
 
-//        Journey journey_1 = journeyService.findByTitle("Journey_1");
-//        Journey journey_2 = journeyService.findByTitle("Journey_2");
-
-
-
         byte[] puzzle_Ground_Image_X_O = ImageUtil.getImage("src/main/resources/images/X-O Problem/","x-o-ground.png");
         BinaryContent puzzle_ground_binary_content_1 = new BinaryContent("puzzle ground for X-O Game",puzzle_Ground_Image_X_O,BinaryContentType.Image,1L,now,now,admin_1,admin_1);
         binaryContentService.save(puzzle_ground_binary_content_1);
@@ -189,20 +178,19 @@ public class ImportXOProblemData_3 implements CommandLineRunner {
         BinaryContent puzzle_group_binary_content_1 = new BinaryContent("image_puzzle_group_x-o",puzzle_group_Icon_1,BinaryContentType.Image,1L,now,now,admin_1,admin_1);
         binaryContentService.save(puzzle_group_binary_content_1);
 
-        Optional<PuzzleGroup>  IQ_Puzzle_Group =puzzleGroupService.findByTitle("Hash Image - Puzzle Group 1");
+        Optional<PuzzleGroup>  IQ_Puzzle_Group =pgService.findByTitle("Hash Image - Puzzle Group 1");
 
         Optional<ALCityObject>  textObject = alCityObjectService.findByTitle("TextObject");
 
         ALCityObjectInPG textObject_in_Puzzle_Group_1 = new ALCityObjectInPG(" Text Image in hash puzzle group","textObject",IQ_Puzzle_Group.get(),textObject.get(),1L,now,now,admin_1,admin_1);
         alCityObjectInPGService.save(textObject_in_Puzzle_Group_1);
 
-        PLPrivacy privacy_1 = puzzleLevelPrivacyService.findByValue("privacy1");
+        PLPrivacy privacy_1 = plPrivacyService.findByValue("privacy1");
 
         PuzzleLevel puzzleLevel_x_o = new PuzzleLevel(now,1L,"X-O","4500",10,14,5f,IQ_Puzzle_Group.get(),PLDifficulty.Easy,PLStatus.Ongoing,privacy_1,puzzle_group_binary_content_1,puzzle_group_binary_content_1,3L,now,now,admin_1,admin_1);
         puzzleLevelService.save(puzzleLevel_x_o);
 
         BinaryContent puzzle_group_1_binary_content = binaryContentService.findByfileName("image_puzzle_group_matematic");
-
 
         Integer xPos=1;
         Integer xRotation=0;
@@ -211,7 +199,7 @@ public class ImportXOProblemData_3 implements CommandLineRunner {
 
         PLGround puzzleLevel_X_O_ground = new PLGround(3,3,puzzleLevel_x_o,puzzle_ground_binary_content_1,1L,now,now,admin_1,admin_1);
         puzzleLevel_X_O_ground.setCameraSetup(cameraSetup);
-        puzzleLevelGroundService.save(puzzleLevel_X_O_ground);
+        plGroundService.save(puzzleLevel_X_O_ground);
 
         PermitedPlayer player_1_puzzleLevel_X_O = new PermitedPlayer(Alireza_Zare,puzzleLevel_x_o,1L,now,now,admin_1,admin_1);
         permitedPlayerRepository.save(player_1_puzzleLevel_X_O);
@@ -261,7 +249,6 @@ public class ImportXOProblemData_3 implements CommandLineRunner {
                 alCoin10WalletItem,puzzleLevel_x_o ,1L,now,now,admin_1,admin_1);
         plObjectiveService.save(puzzleLevelObjective_2);
 
-
         Attribute attribute_variable_Turn =new Attribute("Turn",puzzleLevel_x_o.getId(), AttributeOwnerType.Puzzle_Level_Variable,DataType.String,1L,now,now,admin_1,admin_1);
         attributeService.save(attribute_variable_Turn);
         AttributeValue attribute_variable_Turn_value= new AttributeValue(null,null,null,"X",null,null,null,attribute_variable_Turn,attribute_variable_Turn,1L,now,now,admin_1,admin_1);
@@ -294,16 +281,6 @@ public class ImportXOProblemData_3 implements CommandLineRunner {
         pgObjectInstanceService.save(obj_3_3);
 
 
-        Optional<ActionRenderer> create_ActionRenderes = actionRendererService.findByHandlerAndObjectAction("Show",ObjectAction.Create);
-        Optional<Attribute> create_ActionRenderer_param_text = attributeService.findByOwnerIdAndName(create_ActionRenderes.get().getId(),"text");
-        Optional<Attribute> create_ActionRenderer_param_code = attributeService.findByOwnerIdAndName(create_ActionRenderes.get().getId(),"CODE");
-
-
-        AttributeValue  create_ActionRenderer_param_text_value= new AttributeValue(null,null,null,"InstProp(CurrentInst(), text)",null,null,null,create_ActionRenderer_param_text.get(),create_ActionRenderer_param_text.get(),1L,now,now,admin_1,admin_1);
-        attributeValueService.save(create_ActionRenderer_param_text_value);
-
-        AttributeValue create_ActionRenderer_param_code_value= new AttributeValue(null,null,null,textObject_in_Puzzle_Group_1.getCode(),null,null,null,create_ActionRenderer_param_code.get(),create_ActionRenderer_param_code.get(),1L,now,now,admin_1,admin_1);
-        attributeValueService.save(create_ActionRenderer_param_code_value);
 
 //        PuzzleObjectAction textObject_Show = new PuzzleObjectAction(POActionOwnerType.Puzzle_Object,puzzleGroup_puzzleObject.getId(),ObjectAction.Show,show.get(),1L,now,now,admin_1,admin_1);
 //        puzzleObject_ObjectActionService.save(textObject_Show);
@@ -401,7 +378,6 @@ public class ImportXOProblemData_3 implements CommandLineRunner {
         PLRulePostAction X_Turn_post_Action_4 = new PLRulePostAction(X_Turn_rule,PLRulePostActionType.Variable_Assignment_Action,0,"","",
                 "BoardVar(turn)",new StringBuffer("O"),"","",1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(X_Turn_post_Action_4);
-
 
 
         StringBuffer    O_Turn_condition = new StringBuffer("unequal(BoardVar(finished),true) & equal(BoardVar(turn),O)&equal(InstProp(InstByPos(EventParam(row), EventParam(col)), text),null)");

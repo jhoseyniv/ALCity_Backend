@@ -105,7 +105,7 @@ public class InterpreterController {
      }
 
 
-        public Collection<PGData> getObjectsForPuzzleGroup(PuzzleGroup pg,PuzzleLevel pl) {
+    public Collection<PGData> getObjectsForPuzzleGroup(PuzzleGroup pg,PuzzleLevel pl) {
         Collection<PGData> puzzleGroupObjectDataCollection = new ArrayList<PGData>();
 
         Collection<ALCityObjectInPG> alCityObjectInPGCollection = new ArrayList<>();
@@ -153,15 +153,15 @@ public class InterpreterController {
 
         Iterator<PuzzleObjectAction> iterator = puzzleObjectActionCollection.iterator();
         while(iterator.hasNext()) {
-            PuzzleObjectAction puzzleObject_objectAction = iterator.next();
-            ObjectAction objectAction = puzzleObject_objectAction.getObjectAction();
+            PuzzleObjectAction puzzleObjectAction = iterator.next();
+            ObjectAction objectAction = puzzleObjectAction.getObjectAction();
 
-            Collection<RecordrData> parametersData = DTOUtil.getAttributeForOwnerById(attributeService,puzzleObject_objectAction.getActionRenderer().getId(),AttributeOwnerType.Action_Renderer_Parameter);
+            Collection<RecordrData> parametersData = DTOUtil.getAttributeForOwnerById(attributeService,puzzleObjectAction.getOwnerObjectid(),AttributeOwnerType.AlCity_Object);
 
             ActionData objectActionData = new ActionData();
             objectActionData.setActionName(objectAction);
             objectActionData.setId(objectAction.ordinal());
-            objectActionData.setHandler(puzzleObject_objectAction.getActionRenderer().getHandler());
+            objectActionData.setHandler(puzzleObjectAction.getActionRenderer().getHandler());
             objectActionData.setParameters(parametersData);
 
             objectActionDataCollection.add(objectActionData);

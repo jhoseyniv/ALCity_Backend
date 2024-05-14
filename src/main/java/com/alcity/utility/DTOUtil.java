@@ -703,7 +703,7 @@ public class DTOUtil {
         Iterator<Attribute> iterator = attributes.iterator();
         while(iterator.hasNext()) {
             Attribute attribute = iterator.next();
-            Collection<AttributeValue> attributeValues = attribute.getAttributeValueSet();
+            Collection<AttributeValue> attributeValues = attribute.getAttributeValues();
             Iterator<AttributeValue> iteratorValues = attributeValues.iterator();
             while(iteratorValues.hasNext()) {
                 AttributeValue alCityAttributeValue = iteratorValues.next();
