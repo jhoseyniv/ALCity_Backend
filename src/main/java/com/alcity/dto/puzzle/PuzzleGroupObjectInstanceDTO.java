@@ -13,7 +13,7 @@ public class PuzzleGroupObjectInstanceDTO {
     private Integer row;
     private Integer col;
     private Integer zOrder;
-    private PuzzleGroup_PuzzleObjectDTO puzzleGroup_puzzleObjectDTO;
+    private ALCityObjectInPuzzleGroupDTO puzzleGroup_puzzleObjectDTO;
 
     public PuzzleGroupObjectInstanceDTO() {
     }
@@ -42,11 +42,11 @@ public class PuzzleGroupObjectInstanceDTO {
         this.zOrder = zOrder;
     }
 
-    public PuzzleGroup_PuzzleObjectDTO getPuzzleGroup_puzzleObjectDTO() {
+    public ALCityObjectInPuzzleGroupDTO getPuzzleGroup_puzzleObjectDTO() {
         return puzzleGroup_puzzleObjectDTO;
     }
 
-    public void setPuzzleGroup_puzzleObjectDTO(PuzzleGroup_PuzzleObjectDTO puzzleGroup_puzzleObjectDTO) {
+    public void setPuzzleGroup_puzzleObjectDTO(ALCityObjectInPuzzleGroupDTO puzzleGroup_puzzleObjectDTO) {
         this.puzzleGroup_puzzleObjectDTO = puzzleGroup_puzzleObjectDTO;
     }
 

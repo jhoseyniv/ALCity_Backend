@@ -2,7 +2,7 @@ package com.alcity.api;
 
 
 import com.alcity.dto.puzzle.PuzzleObject_ObjectActionDTO;
-import com.alcity.dto.puzzle.PuzzleObjectDTO;
+import com.alcity.dto.puzzle.ALCityObjectDTO;
 import com.alcity.entity.alobject.PuzzleObjectAction;
 import com.alcity.entity.puzzle.ALCityObject;
 import com.alcity.service.alobject.PuzzleObjectActionService;
@@ -23,22 +23,22 @@ import java.util.Optional;
 public class POController {
 
     @Autowired
-    private ALCityObjectService puzzleObjectService;
+    private ALCityObjectService alCityObjectService;
 
     @RequestMapping(value = "/id/{id}", method = RequestMethod.GET)
     @ResponseBody
-    public PuzzleObjectDTO getPuzzleObjectById(@PathVariable Long id) {
-        PuzzleObjectDTO puzzleObjectDTO= new PuzzleObjectDTO();
-        Optional<ALCityObject> puzzleObject = puzzleObjectService.findById(id);
+    public ALCityObjectDTO getPuzzleObjectById(@PathVariable Long id) {
+        ALCityObjectDTO puzzleObjectDTO= new ALCityObjectDTO();
+        Optional<ALCityObject> puzzleObject = alCityObjectService.findById(id);
         puzzleObjectDTO = DTOUtil.getPuzzleObjectById(puzzleObject);
         return  puzzleObjectDTO;
     }
 
     @GetMapping("/all")
-    public Collection<PuzzleObjectDTO> getPuzzleObject(Model model) {
-        Collection<ALCityObject> puzzleObjectCollection = puzzleObjectService.findAll();
-        Collection<PuzzleObjectDTO> puzzleObjectDTOCollection = new ArrayList<PuzzleObjectDTO>();
-        puzzleObjectDTOCollection =DTOUtil.getPuzzleObjects(puzzleObjectCollection);
+    public Collection<ALCityObjectDTO> getPuzzleObject(Model model) {
+        Collection<ALCityObject> alCityObjects = alCityObjectService.findAll();
+        Collection<ALCityObjectDTO> puzzleObjectDTOCollection = new ArrayList<ALCityObjectDTO>();
+        puzzleObjectDTOCollection =DTOUtil.getPuzzleObjects(alCityObjects);
 
         return puzzleObjectDTOCollection;
     }

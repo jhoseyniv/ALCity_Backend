@@ -21,7 +21,7 @@ public class PGDTO  {
     private Collection<JourneyStepDTO> journeyStepDTOCollection;
     private Collection<PuzzleLevelLDTO> puzzleLevelDTOCollection;
 
-    private Collection<PuzzleGroup_PuzzleObjectDTO> puzzleGroup_puzzleObjectDTOCollection;
+    private Collection<ALCityObjectInPuzzleGroupDTO> puzzleGroup_puzzleObjectDTOCollection;
 
     private Collection<PuzzleSkillLearningContentDTO> puzzleSkillLearningContentDTOCollection;
 
@@ -124,11 +124,11 @@ public class PGDTO  {
     public PGDTO() {
     }
 
-    public Collection<PuzzleGroup_PuzzleObjectDTO> getPuzzleGroup_puzzleObjectDTOCollection() {
+    public Collection<ALCityObjectInPuzzleGroupDTO> getPuzzleGroup_puzzleObjectDTOCollection() {
         return puzzleGroup_puzzleObjectDTOCollection;
     }
 
-    public void setPuzzleGroup_puzzleObjectDTOCollection(Collection<PuzzleGroup_PuzzleObjectDTO> puzzleGroup_puzzleObjectDTOCollection) {
+    public void setPuzzleGroup_puzzleObjectDTOCollection(Collection<ALCityObjectInPuzzleGroupDTO> puzzleGroup_puzzleObjectDTOCollection) {
         this.puzzleGroup_puzzleObjectDTOCollection = puzzleGroup_puzzleObjectDTOCollection;
     }
 

@@ -2,7 +2,7 @@ package com.alcity.dto.puzzle;
 
 import com.alcity.dto.base.BinaryContentDTO;
 
-public class PuzzleObjectDTO {
+public class ALCityObjectDTO {
 
     private Long id;
     private Long version;
@@ -17,10 +17,10 @@ public class PuzzleObjectDTO {
 
     private String code;
 
-    private BinaryContentDTO picture;
-    private BinaryContentDTO icon;
+    private Long pictureId;
+    private Long iconId;
 
-    public PuzzleObjectDTO() {
+    public ALCityObjectDTO() {
     }
 
     public String getTitle() {
@@ -39,20 +39,20 @@ public class PuzzleObjectDTO {
         this.objectCategory = objectCategory;
     }
 
-    public BinaryContentDTO getPicture() {
-        return picture;
+    public Long getPictureId() {
+        return pictureId;
     }
 
-    public void setPicture(BinaryContentDTO picture) {
-        this.picture = picture;
+    public void setPictureId(Long pictureId) {
+        this.pictureId = pictureId;
     }
 
-    public BinaryContentDTO getIcon() {
-        return icon;
+    public Long getIconId() {
+        return iconId;
     }
 
-    public void setIcon(BinaryContentDTO icon) {
-        this.icon = icon;
+    public void setIconId(Long iconId) {
+        this.iconId = iconId;
     }
 
     public String getCode() {
@@ -111,7 +111,7 @@ public class PuzzleObjectDTO {
         this.updatedBy = updatedBy;
     }
 
-    public PuzzleObjectDTO(Long id, Long version, String created, String updated, String createdBy, String updatedBy, String title, String objectCategory, String code, BinaryContentDTO picture, BinaryContentDTO icon) {
+    public ALCityObjectDTO(Long id, Long version, String created, String updated, String createdBy, String updatedBy, String title, String objectCategory, String code, Long pictureId, Long iconId) {
         this.id = id;
         this.version = version;
         this.created = created;
@@ -121,7 +121,7 @@ public class PuzzleObjectDTO {
         this.title = title;
         this.objectCategory = objectCategory;
         this.code = code;
-        this.picture = picture;
-        this.icon = icon;
+        this.pictureId = pictureId;
+        this.iconId = iconId;
     }
 }

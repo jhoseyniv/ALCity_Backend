@@ -42,7 +42,7 @@ public class ALCityObjectService implements ALCityObjectRepository {
 
     @Override
     public Collection<ALCityObject> findAll() {
-        return null;
+        return alCityObjectRepository.findAll();
     }
 
     @Override

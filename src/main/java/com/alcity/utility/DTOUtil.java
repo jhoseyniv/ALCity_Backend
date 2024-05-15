@@ -196,40 +196,34 @@ public class DTOUtil {
         return puzzleSkillLearningContentDTOCollection;
     }
 
-    public static Collection<PuzzleGroup_PuzzleObjectDTO> getPuzzleGroup_PuzzleObjectDTOS(Collection<ALCityObjectInPG> puzzleGroup_puzzleObjectCollection) {
-        Collection<PuzzleGroup_PuzzleObjectDTO> puzzleGroup_puzzleObjectDTOCollection = new ArrayList<PuzzleGroup_PuzzleObjectDTO>();
+    public static Collection<ALCityObjectInPuzzleGroupDTO> getPuzzleGroup_PuzzleObjectDTOS(Collection<ALCityObjectInPG> puzzleGroup_puzzleObjectCollection) {
+        Collection<ALCityObjectInPuzzleGroupDTO> alCityObjectInPuzzleGroupDTOS = new ArrayList<ALCityObjectInPuzzleGroupDTO>();
         Iterator<ALCityObjectInPG> itrPuzzleGroup_puzzleObject = puzzleGroup_puzzleObjectCollection.iterator();
         while (itrPuzzleGroup_puzzleObject.hasNext()) {
-            PuzzleGroup_PuzzleObjectDTO puzzleGroup_puzzleObjectDTO = new PuzzleGroup_PuzzleObjectDTO();
+            ALCityObjectInPuzzleGroupDTO alCityObjectInPuzzleGroupDTO = new ALCityObjectInPuzzleGroupDTO();
             ALCityObjectInPG puzzleGroup_puzzleObject = itrPuzzleGroup_puzzleObject.next();
-            puzzleGroup_puzzleObjectDTO.setId(puzzleGroup_puzzleObject.getId());
-            puzzleGroup_puzzleObjectDTO.setCode(puzzleGroup_puzzleObject.getCode());
-            puzzleGroup_puzzleObjectDTO.setTitle(puzzleGroup_puzzleObject.getTitle());
-            puzzleGroup_puzzleObjectDTO.setVersion(puzzleGroup_puzzleObject.getVersion());
-            puzzleGroup_puzzleObjectDTO.setCreated(puzzleGroup_puzzleObject.getCreated());
-            puzzleGroup_puzzleObjectDTO.setUpdated(puzzleGroup_puzzleObject.getUpdated());
+            alCityObjectInPuzzleGroupDTO.setId(puzzleGroup_puzzleObject.getId());
+            alCityObjectInPuzzleGroupDTO.setCode(puzzleGroup_puzzleObject.getCode());
+            alCityObjectInPuzzleGroupDTO.setTitle(puzzleGroup_puzzleObject.getTitle());
+            alCityObjectInPuzzleGroupDTO.setVersion(puzzleGroup_puzzleObject.getVersion());
+            alCityObjectInPuzzleGroupDTO.setCreated(puzzleGroup_puzzleObject.getCreated());
+            alCityObjectInPuzzleGroupDTO.setUpdated(puzzleGroup_puzzleObject.getUpdated());
 
             ALCityObject puzzleObject = puzzleGroup_puzzleObject.getAlCityObject();
-            PuzzleObjectDTO puzzleObjectDTO = new PuzzleObjectDTO();
+            ALCityObjectDTO puzzleObjectDTO = new ALCityObjectDTO();
             puzzleObjectDTO.setId(puzzleObject.getId());
             puzzleObjectDTO.setVersion(puzzleObject.getVersion());
             puzzleObjectDTO.setObjectCategory(puzzleObject.getObjectCategory().getLabel());
             puzzleObjectDTO.setTitle(puzzleObjectDTO.getTitle());
             puzzleObjectDTO.setCreated(puzzleObject.getCreated());
             puzzleObjectDTO.setUpdated(puzzleObject.getUpdated());
+          puzzleObjectDTO.setPictureId(puzzleObject.getPicture().getId());
+            puzzleObjectDTO.setIconId(puzzleObject.getIcon().getId());
 
-            BinaryContent pic = puzzleObject.getPicture();
-            BinaryContent icon = puzzleObject.getPicture();
-            BinaryContentDTO pictureDTO = getBinaryContentDTO(pic);
-            BinaryContentDTO iconDTO = getBinaryContentDTO(icon);
-
-            puzzleObjectDTO.setPicture(pictureDTO);
-            puzzleObjectDTO.setIcon(iconDTO);
-
-            puzzleGroup_puzzleObjectDTO.setPuzzleObjectDTO(puzzleObjectDTO);
-            puzzleGroup_puzzleObjectDTOCollection.add(puzzleGroup_puzzleObjectDTO);
+            alCityObjectInPuzzleGroupDTO.setPuzzleObjectDTO(puzzleObjectDTO);
+            alCityObjectInPuzzleGroupDTOS.add(alCityObjectInPuzzleGroupDTO);
         }
-        return puzzleGroup_puzzleObjectDTOCollection;
+        return alCityObjectInPuzzleGroupDTOS;
 
     }
 
@@ -497,7 +491,7 @@ public class DTOUtil {
             pgObjectInstanceDTO.setUpdated(pgObjectInstance.getUpdated());
 
             ALCityObjectInPG alCityObject_puzzleGroup = pgObjectInstance.getAlCityObjectInPG();
-            PuzzleGroup_PuzzleObjectDTO  puzzleGroup_puzzleObjectDTO= new PuzzleGroup_PuzzleObjectDTO();
+            ALCityObjectInPuzzleGroupDTO puzzleGroup_puzzleObjectDTO= new ALCityObjectInPuzzleGroupDTO();
             puzzleGroup_puzzleObjectDTO.setId(alCityObject_puzzleGroup.getId());
             puzzleGroup_puzzleObjectDTO.setVersion(alCityObject_puzzleGroup.getVersion());
             puzzleGroup_puzzleObjectDTO.setCode(alCityObject_puzzleGroup.getCode());
@@ -512,8 +506,8 @@ public class DTOUtil {
         return puzzleGroupObjectInstanceDTOCollection;
     }
 
-    public static PuzzleObjectDTO getPuzzleObjectById(Optional<ALCityObject> puzzleObject){
-        PuzzleObjectDTO puzzleObjectDTO= new PuzzleObjectDTO();
+    public static ALCityObjectDTO getPuzzleObjectById(Optional<ALCityObject> puzzleObject){
+        ALCityObjectDTO puzzleObjectDTO= new ALCityObjectDTO();
         ALCityObject po = new ALCityObject();
         if(puzzleObject.isPresent()) {
             po= puzzleObject.get();
@@ -521,38 +515,29 @@ public class DTOUtil {
             puzzleObjectDTO.setObjectCategory(po.getObjectCategory().getLabel());
             puzzleObjectDTO.setTitle(po.getTitle());
             puzzleObjectDTO.setVersion(po.getVersion());
-            BinaryContent pic = po.getPicture();
-            BinaryContentDTO pictureDTO = getBinaryContentDTO(pic);
-            BinaryContent icon = po.getIcon();
-            BinaryContentDTO iconDTO = getBinaryContentDTO(icon);
-            puzzleObjectDTO.setPicture(pictureDTO);
-            puzzleObjectDTO.setIcon(iconDTO);
+            puzzleObjectDTO.setPictureId(po.getPicture().getId());
+            puzzleObjectDTO.setIconId(po.getIcon().getId());
 
         } else puzzleObjectDTO=null;
 
         return puzzleObjectDTO;
     }
-    public static  Collection<PuzzleObjectDTO> getPuzzleObjects(Collection<ALCityObject> puzzleObjectCollection){
-        Collection<PuzzleObjectDTO> puzzleObjectDTOCollection = new ArrayList<PuzzleObjectDTO>();
+    public static  Collection<ALCityObjectDTO> getPuzzleObjects(Collection<ALCityObject> puzzleObjectCollection){
+        Collection<ALCityObjectDTO> alCityObjectDTOSl = new ArrayList<ALCityObjectDTO>();
         Iterator<ALCityObject> iterator = puzzleObjectCollection.iterator();
         while (iterator.hasNext()) {
-            PuzzleObjectDTO puzzleObjectDTO = new PuzzleObjectDTO();
+            ALCityObjectDTO alCityObjectDTO = new ALCityObjectDTO();
             ALCityObject po = iterator.next();
-            puzzleObjectDTO.setId(po.getId());
-            puzzleObjectDTO.setObjectCategory(po.getObjectCategory().getLabel());
-            puzzleObjectDTO.setTitle(po.getTitle());
-            puzzleObjectDTO.setVersion(po.getVersion());
-            BinaryContent pic = po.getPicture();
-            BinaryContentDTO pictureDTO = getBinaryContentDTO(pic);
-
-            BinaryContent icon = po.getIcon();
-            BinaryContentDTO iconDTO =getBinaryContentDTO(icon);
-            puzzleObjectDTO.setPicture(pictureDTO);
-            puzzleObjectDTO.setIcon(iconDTO);
-            puzzleObjectDTOCollection.add(puzzleObjectDTO);
+            alCityObjectDTO.setId(po.getId());
+            alCityObjectDTO.setObjectCategory(po.getObjectCategory().getLabel());
+            alCityObjectDTO.setTitle(po.getTitle());
+            alCityObjectDTO.setVersion(po.getVersion());
+            alCityObjectDTO.setPictureId(po.getPicture().getId());
+            alCityObjectDTO.setIconId(po.getIcon().getId());
+            alCityObjectDTOSl.add(alCityObjectDTO);
         }
 
-        return puzzleObjectDTOCollection;
+        return alCityObjectDTOSl;
     }
     public static  Collection<PuzzleObject_ObjectActionDTO> getPuzzleObjectActions(Collection<PuzzleObjectAction> puzzleObject_objectActionCollection) {
         Collection<PuzzleObject_ObjectActionDTO> puzzleObject_objectActionDTOCollection = new ArrayList<PuzzleObject_ObjectActionDTO>();

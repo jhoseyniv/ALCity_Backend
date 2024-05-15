@@ -1,6 +1,6 @@
 package com.alcity.dto.puzzle;
 
-public class PuzzleGroup_PuzzleObjectDTO  {
+public class ALCityObjectInPuzzleGroupDTO {
 
     private Long id;
     private Long version;
@@ -12,7 +12,7 @@ public class PuzzleGroup_PuzzleObjectDTO  {
 
     private String title;
     private String code;
-    private PuzzleObjectDTO puzzleObjectDTO;
+    private ALCityObjectDTO puzzleObjectDTO;
 
     public String getTitle() {
         return title;
@@ -30,11 +30,11 @@ public class PuzzleGroup_PuzzleObjectDTO  {
         this.code = code;
     }
 
-    public PuzzleObjectDTO getPuzzleObjectDTO() {
+    public ALCityObjectDTO getPuzzleObjectDTO() {
         return puzzleObjectDTO;
     }
 
-    public void setPuzzleObjectDTO(PuzzleObjectDTO puzzleObjectDTO) {
+    public void setPuzzleObjectDTO(ALCityObjectDTO puzzleObjectDTO) {
         this.puzzleObjectDTO = puzzleObjectDTO;
     }
 
@@ -86,11 +86,11 @@ public class PuzzleGroup_PuzzleObjectDTO  {
         this.updatedBy = updatedBy;
     }
 
-    public PuzzleGroup_PuzzleObjectDTO() {
+    public ALCityObjectInPuzzleGroupDTO() {
     }
 
-    public PuzzleGroup_PuzzleObjectDTO(Long id, Long version, String created, String updated, String createdBy, String updatedBy,
-                                       String title, String code, PuzzleObjectDTO puzzleObjectDTO) {
+    public ALCityObjectInPuzzleGroupDTO(Long id, Long version, String created, String updated, String createdBy, String updatedBy,
+                                        String title, String code, ALCityObjectDTO puzzleObjectDTO) {
         this.id = id;
         this.version = version;
         this.created = created;
