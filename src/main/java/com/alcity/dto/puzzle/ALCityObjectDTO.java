@@ -15,8 +15,6 @@ public class ALCityObjectDTO {
     private String title;
     private String objectCategory;
 
-    private String code;
-
     private Long pictureId;
     private Long iconId;
 
@@ -55,13 +53,6 @@ public class ALCityObjectDTO {
         this.iconId = iconId;
     }
 
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
-    }
 
     public Long getId() {
         return id;
@@ -111,7 +102,7 @@ public class ALCityObjectDTO {
         this.updatedBy = updatedBy;
     }
 
-    public ALCityObjectDTO(Long id, Long version, String created, String updated, String createdBy, String updatedBy, String title, String objectCategory, String code, Long pictureId, Long iconId) {
+    public ALCityObjectDTO(Long id, Long version, String created, String updated, String createdBy, String updatedBy, String title, String objectCategory,  Long pictureId, Long iconId) {
         this.id = id;
         this.version = version;
         this.created = created;
@@ -120,7 +111,6 @@ public class ALCityObjectDTO {
         this.updatedBy = updatedBy;
         this.title = title;
         this.objectCategory = objectCategory;
-        this.code = code;
         this.pictureId = pictureId;
         this.iconId = iconId;
     }

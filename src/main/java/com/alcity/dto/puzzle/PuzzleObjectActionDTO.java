@@ -4,7 +4,7 @@ import com.alcity.dto.alobject.ActionRendererDTO;
 import com.alcity.dto.alobject.PuzzleObjectActionOwnerTypeDTO;
 import com.alcity.entity.alenum.ObjectAction;
 
-public class PuzzleObject_ObjectActionDTO {
+public class PuzzleObjectActionDTO {
     private Long id;
     private Long version;
     private String created;
@@ -51,7 +51,7 @@ public class PuzzleObject_ObjectActionDTO {
     private PuzzleObjectActionOwnerTypeDTO puzzleObjectActionOwnerTypeDTO;
     private ActionRendererDTO actionRendererDTO;
 
-    public PuzzleObject_ObjectActionDTO() {
+    public PuzzleObjectActionDTO() {
     }
 
     public Long getId() {
@@ -102,8 +102,8 @@ public class PuzzleObject_ObjectActionDTO {
         this.updatedBy = updatedBy;
     }
 
-    public PuzzleObject_ObjectActionDTO(Long id, Long version, String created, String updated, String createdBy, String updatedBy,
-                                        Long ownerObjectid, ObjectAction objectAction) {
+    public PuzzleObjectActionDTO(Long id, Long version, String created, String updated, String createdBy, String updatedBy,
+                                 Long ownerObjectid, ObjectAction objectAction) {
         this.id = id;
         this.version = version;
         this.created = created;
