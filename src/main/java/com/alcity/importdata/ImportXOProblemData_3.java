@@ -186,7 +186,7 @@ public class ImportXOProblemData_3 implements CommandLineRunner {
 
         ALCityObjectInPG textObject_in_Puzzle_Group_1 = new ALCityObjectInPG(" Text Image in hash puzzle group","textObject",IQ_Puzzle_Group.get(),textObject.get(),1L,now,now,admin_1,admin_1);
         alCityObjectInPGService.save(textObject_in_Puzzle_Group_1);
-        alCityObjectInPGService.copyActionToFromALCityObjectToPuzzleGroupObject(textObject_in_Puzzle_Group_1);
+        alCityObjectInPGService.copyActionFromALCityObjectToPuzzleGroupObject(textObject_in_Puzzle_Group_1);
 
         PLPrivacy privacy_1 = plPrivacyService.findByValue("privacy1");
 

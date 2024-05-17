@@ -126,7 +126,7 @@ public class ALCityObjectInPGService implements ALCityObjectInPGRepository {
         return alCityObjectInPGRepository.findByalCityObject(cityObject);
     }
 
-    public void copyActionToFromALCityObjectToPuzzleGroupObject(ALCityObjectInPG alCityObjectInPG){
+    public void copyActionFromALCityObjectToPuzzleGroupObject(ALCityObjectInPG alCityObjectInPG){
         ALCityObject alCityObject = alCityObjectInPG.getAlCityObject();
         Collection<PuzzleObjectAction> actions = alCityObjectService.findAllActions(alCityObject);
 
