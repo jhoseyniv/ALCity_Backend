@@ -29,7 +29,7 @@ public class PGController {
     private PGService pgService;
 
     @Operation( summary = "Fetch all AL City Object for that define in a puzzle group ",  description = "Fetch all Al city object for an puzzle group")
-    @RequestMapping(value = "/id/{id}/obj/all", method = RequestMethod.GET)
+    @RequestMapping(value = "/id/{id}/objects", method = RequestMethod.GET)
     @ResponseBody
     public Collection<ALCityObjectInPGDTO> getObjectsForAPG(@PathVariable Long id) {
         Collection<ALCityObjectInPGDTO> alCityObjectInPGDTOS = new ArrayList<ALCityObjectInPGDTO>();
@@ -40,6 +40,20 @@ public class PGController {
             alCityObjectInPGDTOS = DTOUtil.getALCityObjectInPGDTOS(alCityObjectInPGS);
         }
         return  alCityObjectInPGDTOS;
+    }
+
+    @Operation( summary = "Fetch all Puzzle Levels that define in a puzzle group ",  description = "Fetch all puzzle level for a puzzle group")
+    @RequestMapping(value = "/id/{id}/pl", method = RequestMethod.GET)
+    @ResponseBody
+    public Collection<PuzzleLevelLDTO> getPuzzleLevelForAPG(@PathVariable Long id) {
+        Collection<PuzzleLevelLDTO> puzzleLevelLDTOS = new ArrayList<PuzzleLevelLDTO>();
+        Collection<PuzzleLevel> puzzleLevels = new ArrayList<PuzzleLevel>();
+        Optional<PuzzleGroup> puzzleGroup = pgService.findById(id);
+        if(puzzleGroup.isPresent()) {
+            puzzleLevels = puzzleGroup.get().getPuzzleLevels();
+            puzzleLevelLDTOS = DTOUtil.getPuzzleLevelDTOS(puzzleLevels);
+        }
+        return  puzzleLevelLDTOS;
     }
 
 
@@ -63,7 +77,7 @@ public class PGController {
            Collection<JourneyStepDTO> journeyStepDTOCollection = new ArrayList<JourneyStepDTO>();
            journeyStepDTOCollection = DTOUtil.getJorenyStepsDTOS(journeyStepCollection);
 
-            Collection<PuzzleLevel> puzzleLevelCollection = puzzleGroup.get().getPuzzleLevelSet();
+            Collection<PuzzleLevel> puzzleLevelCollection = puzzleGroup.get().getPuzzleLevels();
             Collection<PuzzleLevelLDTO> puzzleLevelDTOCollection = new ArrayList<PuzzleLevelLDTO>();
             puzzleLevelDTOCollection = DTOUtil.getPuzzleLevelDTOS(puzzleLevelCollection);
 

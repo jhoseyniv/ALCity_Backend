@@ -499,12 +499,12 @@ public class ImportBaseData implements CommandLineRunner {
 
         PuzzleObjectAction textObject_Create_Action = new PuzzleObjectAction(POActionOwnerType.ALCity_Object,textObject.getId(),ObjectAction.Create,create_ActionRenderer,1L,now,now,admin_1,admin_1);
         puzzleObjectActionService.save(textObject_Create_Action);
-        DTOUtil.copyAttributesActionFromTo(textObject_Create_Action,AttributeOwnerType.Action_Renderer_Parameter,AttributeOwnerType.AlCity_Object,
+        DTOUtil.copyAttributesActionFromTo(create_ActionRenderer.getId(),textObject_Create_Action.getId(),AttributeOwnerType.Action_Renderer_Parameter,AttributeOwnerType.AlCity_Object,
                                  attributeService,attributeValueService);
 
         PuzzleObjectAction textObject_Show_Action = new PuzzleObjectAction(POActionOwnerType.ALCity_Object,textObject.getId(),ObjectAction.Show,show_ActionRenderer,1L,now,now,admin_1,admin_1);
         puzzleObjectActionService.save(textObject_Show_Action);
-        DTOUtil.copyAttributesActionFromTo(textObject_Show_Action,AttributeOwnerType.Action_Renderer_Parameter,AttributeOwnerType.AlCity_Object,
+        DTOUtil.copyAttributesActionFromTo(show_ActionRenderer.getId(),textObject_Create_Action.getId(),AttributeOwnerType.Action_Renderer_Parameter,AttributeOwnerType.AlCity_Object,
                 attributeService,attributeValueService);
 
         ALCityObject ImageObject01 = new ALCityObject("ImageObject01",objectCategory_Image,image_Object_pic,image_Object_pic,1L,now,now,jalalHoseyni,jalalHoseyni);
@@ -512,7 +512,7 @@ public class ImportBaseData implements CommandLineRunner {
 
         PuzzleObjectAction ImageObject01_Move_Action = new PuzzleObjectAction(POActionOwnerType.ALCity_Object,ImageObject01.getId(),ObjectAction.Move,move_ActionRenderer,1L,now,now,admin_1,admin_1);
         puzzleObjectActionService.save(ImageObject01_Move_Action);
-        DTOUtil.copyAttributesActionFromTo(ImageObject01_Move_Action,AttributeOwnerType.Action_Renderer_Parameter,AttributeOwnerType.AlCity_Object,
+        DTOUtil.copyAttributesActionFromTo(move_ActionRenderer.getId(),ImageObject01_Move_Action.getId(),AttributeOwnerType.Action_Renderer_Parameter,AttributeOwnerType.AlCity_Object,
                 attributeService,attributeValueService);
 
         ALCityObject ImageObject02 = new ALCityObject("ImageObject02",objectCategory_Image,image_Object_pic,image_Object_icon,1L,now,now,jalalHoseyni,jalalHoseyni);

@@ -66,7 +66,7 @@ public class PuzzleGroup extends BaseTable implements Serializable {
 
     @OneToMany(mappedBy = "puzzleGroup", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JsonIgnore
-    private Set<PuzzleLevel> puzzleLevelSet;
+    private Collection<PuzzleLevel> puzzleLevels;
 
     public String getTitle() {
         return title;
@@ -100,12 +100,12 @@ public class PuzzleGroup extends BaseTable implements Serializable {
         this.pic = pic;
     }
 
-    public Set<PuzzleLevel> getPuzzleLevelSet() {
-        return puzzleLevelSet;
+    public Collection<PuzzleLevel> getPuzzleLevels() {
+        return puzzleLevels;
     }
 
-    public void setPuzzleLevelSet(Set<PuzzleLevel> puzzleLevelSet) {
-        this.puzzleLevelSet = puzzleLevelSet;
+    public void setPuzzleLevels(Collection<PuzzleLevel> puzzleLevels) {
+        this.puzzleLevels = puzzleLevels;
     }
 
     public PuzzleGroup() {

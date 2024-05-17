@@ -134,16 +134,16 @@ public class DTOUtil {
         }
         return journeyStepDTOCollection;
     }
-    public static void copyAttributesActionFromTo(PuzzleObjectAction action, AttributeOwnerType from , AttributeOwnerType to,
+    public static void copyAttributesActionFromTo(Long fromOwnerId,Long toOwnerId, AttributeOwnerType from , AttributeOwnerType to,
                                  AttributeService attributeService, AttributeValueService attributeValueService){
-        ActionRenderer actionRenderer = action.getActionRenderer();
+        //ActionRenderer actionRenderer = action.getActionRenderer();
         Collection<AttributeValue> attributeValues = new ArrayList<AttributeValue>();
-        Collection<Attribute> parameters = attributeService.findByOwnerIdAndAttributeOwnerType(action.getOwnerObjectid(), from);
+        Collection<Attribute> parameters = attributeService.findByOwnerIdAndAttributeOwnerType(fromOwnerId, from);
         Iterator<Attribute> itr = parameters.iterator();
         while(itr.hasNext()){
             Attribute att = new Attribute();
             att = itr.next();
-            Attribute newRecord = new Attribute(att.getName(),action.getOwnerObjectid(),to,att.getDataType(),
+            Attribute newRecord = new Attribute(att.getName(),toOwnerId,to,att.getDataType(),
                     att.getVersion(),att.getCreated(),att.getUpdated(),att.getCreatedBy(),att.getUpdatedBy());
             attributeService.save(newRecord);
 
