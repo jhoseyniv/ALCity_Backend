@@ -42,14 +42,14 @@ public class PuzzleGroup extends BaseTable implements Serializable {
 
     @OneToMany(mappedBy = "puzzleGroup", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JsonIgnore
-    private Collection<ALCityObjectInPG> puzzleGroup_puzzleObjectCollection;
+    private Collection<ALCityObjectInPG> alCityObjectInPGS;
 
-    public Collection<ALCityObjectInPG> getPuzzleGroup_puzzleObjectCollection() {
-        return puzzleGroup_puzzleObjectCollection;
+    public Collection<ALCityObjectInPG> getAlCityObjectInPGS() {
+        return alCityObjectInPGS;
     }
 
-    public void setPuzzleGroup_puzzleObjectCollection(Collection<ALCityObjectInPG> puzzleGroup_puzzleObjectCollection) {
-        this.puzzleGroup_puzzleObjectCollection = puzzleGroup_puzzleObjectCollection;
+    public void setAlCityObjectInPGS(Collection<ALCityObjectInPG> alCityObjectInPGS) {
+        this.alCityObjectInPGS = alCityObjectInPGS;
     }
 
     @OneToMany(mappedBy = "puzzleGroup", fetch = FetchType.LAZY, cascade = CascadeType.ALL)

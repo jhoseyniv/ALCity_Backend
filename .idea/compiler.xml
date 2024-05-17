@@ -7,16 +7,13 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="ALCity_BackEnd" />
+        <module name="alcity_service" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="ALCity_BackEnd" target="18" />
-    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="ALCity_BackEnd" options="-parameters" />
+      <module name="alcity_service" options="-parameters" />
     </option>
   </component>
 </project>

@@ -1,5 +1,7 @@
 package com.alcity.service.puzzle;
 
+import com.alcity.entity.alenum.AttributeOwnerType;
+import com.alcity.entity.alenum.ObjectAction;
 import com.alcity.entity.alenum.POActionOwnerType;
 import com.alcity.entity.alobject.Attribute;
 import com.alcity.entity.alobject.PuzzleObjectAction;
@@ -7,7 +9,10 @@ import com.alcity.entity.puzzle.ALCityObject;
 import com.alcity.entity.puzzle.ALCityObjectInPG;
 import com.alcity.repository.puzzle.ALCityObjectInPGRepository;
 import com.alcity.service.alobject.ActionRendererService;
+import com.alcity.service.alobject.AttributeService;
+import com.alcity.service.alobject.AttributeValueService;
 import com.alcity.service.alobject.PuzzleObjectActionService;
+import com.alcity.utility.DTOUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -25,11 +30,21 @@ public class ALCityObjectInPGService implements ALCityObjectInPGRepository {
     @Autowired
     @Qualifier("ALCityObjectInPGRepository")
     ALCityObjectInPGRepository alCityObjectInPGRepository;
+
     @Autowired
     PuzzleObjectActionService puzzleObjectActionService;
 
     @Autowired
+    ALCityObjectService alCityObjectService;
+
+    @Autowired
     ActionRendererService actionRendererService;
+
+    @Autowired
+    AttributeService attributeService;
+
+    @Autowired
+    AttributeValueService attributeValueService;
 
     @Override
     public <S extends ALCityObjectInPG> S save(S entity) {
@@ -105,14 +120,26 @@ public class ALCityObjectInPGService implements ALCityObjectInPGRepository {
     public Optional<ALCityObjectInPG> findByCodeAndTitle(String code, String title) {
         return alCityObjectInPGRepository.findByCodeAndTitle(code,title);
     }
-    public void copyActionTo(ALCityObjectInPG alCityObjectInPG){
+
+    @Override
+    public Collection<ALCityObjectInPG> findByalCityObject(ALCityObject cityObject) {
+        return alCityObjectInPGRepository.findByalCityObject(cityObject);
+    }
+
+    public void copyActionToFromALCityObjectToPuzzleGroupObject(ALCityObjectInPG alCityObjectInPG){
         ALCityObject alCityObject = alCityObjectInPG.getAlCityObject();
-        Collection<PuzzleObjectAction> actions = puzzleObjectActionService.findByOwnerObjectidAndPoActionOwnerType(alCityObject.getId(), POActionOwnerType.ALCity_Object);
+        Collection<PuzzleObjectAction> actions = alCityObjectService.findAllActions(alCityObject);
+
         Iterator<PuzzleObjectAction> itr = actions.iterator();
         while(itr.hasNext()){
-            PuzzleObjectAction puzzleObjectAction = new PuzzleObjectAction();
-            puzzleObjectAction = itr.next();
+            PuzzleObjectAction action = new PuzzleObjectAction();
+            action = itr.next();
+            PuzzleObjectAction newAction = new PuzzleObjectAction(POActionOwnerType.Puzzle_Group_Object,alCityObjectInPG.getId(), action.getObjectAction(),action.getActionRenderer(),1L,action.getCreated(),
+                    action.getUpdated(),action.getCreatedBy(),action.getUpdatedBy());
+            puzzleObjectActionService.save(newAction);
 
+            DTOUtil.copyAttributesActionFromTo(action, AttributeOwnerType.AlCity_Object,AttributeOwnerType.ALCity_Object_In_Puzzle_Group,
+                    attributeService,attributeValueService);
         }
 
     }

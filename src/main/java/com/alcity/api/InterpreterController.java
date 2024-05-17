@@ -109,7 +109,7 @@ public class InterpreterController {
         Collection<PGData> puzzleGroupObjectDataCollection = new ArrayList<PGData>();
 
         Collection<ALCityObjectInPG> alCityObjectInPGCollection = new ArrayList<>();
-            alCityObjectInPGCollection = pg.getPuzzleGroup_puzzleObjectCollection();
+            alCityObjectInPGCollection = pg.getAlCityObjectInPGS();
         Iterator<ALCityObjectInPG> iterator = alCityObjectInPGCollection.iterator();
         while(iterator.hasNext()) {
             ALCityObjectInPG alCityObjectInPG = iterator.next();

@@ -6,6 +6,15 @@ import com.alcity.entity.alenum.ObjectAction;
 
 public class PuzzleObjectActionDTO {
     private Long id;
+    private Long ownerObjectid;
+
+    private String objectAction;
+    private Long   objectActionId;
+
+    private String actionRender;
+    private Long actionRenderId;
+    private String ownerType;
+    private Long ownerTypeId;
     private Long version;
     private String created;
     private String updated;
@@ -21,35 +30,7 @@ public class PuzzleObjectActionDTO {
         this.ownerObjectid = ownerObjectid;
     }
 
-    public ObjectAction getObjectAction() {
-        return objectAction;
-    }
 
-    public void setObjectAction(ObjectAction objectAction) {
-        this.objectAction = objectAction;
-    }
-
-    public PuzzleObjectActionOwnerTypeDTO getPuzzleObjectActionOwnerTypeDTO() {
-        return puzzleObjectActionOwnerTypeDTO;
-    }
-
-    public void setPuzzleObjectActionOwnerTypeDTO(PuzzleObjectActionOwnerTypeDTO puzzleObjectActionOwnerTypeDTO) {
-        this.puzzleObjectActionOwnerTypeDTO = puzzleObjectActionOwnerTypeDTO;
-    }
-
-    public ActionRendererDTO getActionRendererDTO() {
-        return actionRendererDTO;
-    }
-
-    public void setActionRendererDTO(ActionRendererDTO actionRendererDTO) {
-        this.actionRendererDTO = actionRendererDTO;
-    }
-
-    private Long ownerObjectid;
-
-    private ObjectAction objectAction;
-    private PuzzleObjectActionOwnerTypeDTO puzzleObjectActionOwnerTypeDTO;
-    private ActionRendererDTO actionRendererDTO;
 
     public PuzzleObjectActionDTO() {
     }
@@ -102,15 +83,51 @@ public class PuzzleObjectActionDTO {
         this.updatedBy = updatedBy;
     }
 
-    public PuzzleObjectActionDTO(Long id, Long version, String created, String updated, String createdBy, String updatedBy,
-                                 Long ownerObjectid, ObjectAction objectAction) {
-        this.id = id;
-        this.version = version;
-        this.created = created;
-        this.updated = updated;
-        this.createdBy = createdBy;
-        this.updatedBy = updatedBy;
-        this.ownerObjectid = ownerObjectid;
+    public String getObjectAction() {
+        return objectAction;
+    }
+
+    public void setObjectAction(String objectAction) {
         this.objectAction = objectAction;
+    }
+
+    public Long getObjectActionId() {
+        return objectActionId;
+    }
+
+    public void setObjectActionId(Long objectActionId) {
+        this.objectActionId = objectActionId;
+    }
+
+    public String getActionRender() {
+        return actionRender;
+    }
+
+    public void setActionRender(String actionRender) {
+        this.actionRender = actionRender;
+    }
+
+    public Long getActionRenderId() {
+        return actionRenderId;
+    }
+
+    public void setActionRenderId(Long actionRenderId) {
+        this.actionRenderId = actionRenderId;
+    }
+
+    public String getOwnerType() {
+        return ownerType;
+    }
+
+    public void setOwnerType(String ownerType) {
+        this.ownerType = ownerType;
+    }
+
+    public Long getOwnerTypeId() {
+        return ownerTypeId;
+    }
+
+    public void setOwnerTypeId(Long ownerTypeId) {
+        this.ownerTypeId = ownerTypeId;
     }
 }

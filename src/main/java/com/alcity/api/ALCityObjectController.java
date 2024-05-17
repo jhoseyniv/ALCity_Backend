@@ -1,13 +1,19 @@
 package com.alcity.api;
 
 
+import com.alcity.customexception.RecordNotFoundException;
+import com.alcity.dto.puzzle.ALCityObjectInPGDTO;
 import com.alcity.dto.puzzle.PuzzleObjectActionDTO;
 import com.alcity.dto.puzzle.ALCityObjectDTO;
+import com.alcity.entity.alenum.POActionOwnerType;
 import com.alcity.entity.alobject.PuzzleObjectAction;
 import com.alcity.entity.puzzle.ALCityObject;
+import com.alcity.entity.puzzle.ALCityObjectInPG;
 import com.alcity.service.alobject.PuzzleObjectActionService;
+import com.alcity.service.puzzle.ALCityObjectInPGService;
 import com.alcity.service.puzzle.ALCityObjectService;
 import com.alcity.utility.DTOUtil;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
@@ -19,15 +25,21 @@ import java.util.Optional;
 
 @Tag(name = "Puzzle Object APIs", description = "Get Puzzle   Object and related entities as rest api")
 @RestController
-@RequestMapping("/po")
+@RequestMapping("/co")
 public class ALCityObjectController {
 
     @Autowired
     private ALCityObjectService alCityObjectService;
+    @Autowired
+    private PuzzleObjectActionService puzzleObjectActionService;
 
+    @Autowired
+    private ALCityObjectInPGService alCityObjectInPGService;
+
+    @Operation( summary = "Fetch an ALCity Object  by id ",  description = "Fetch an ALCity Object  by id  ")
     @RequestMapping(value = "/id/{id}", method = RequestMethod.GET)
     @ResponseBody
-    public ALCityObjectDTO getALCityObjectSTO(@PathVariable Long id) {
+    public ALCityObjectDTO getALCityObject(@PathVariable Long id) {
         ALCityObjectDTO puzzleObjectDTO= new ALCityObjectDTO();
         Optional<ALCityObject> alCityObject = alCityObjectService.findById(id);
         if(alCityObject.isPresent())
@@ -35,9 +47,9 @@ public class ALCityObjectController {
         else puzzleObjectDTO=null;
         return  puzzleObjectDTO;
     }
-
+    @Operation( summary = "Fetch all ALCity Objects ",  description = "Fetch all ALCity Objects ")
     @GetMapping("/all")
-    public Collection<ALCityObjectDTO> getALLALCityObjectDTOS(Model model) {
+    public Collection<ALCityObjectDTO> getALCityObjects(Model model) {
         Collection<ALCityObject> alCityObjects = alCityObjectService.findAll();
         Collection<ALCityObjectDTO> alCityObjectDTOS = new ArrayList<ALCityObjectDTO>();
         alCityObjectDTOS =DTOUtil.getALCityObjectsDTOS(alCityObjects);
@@ -45,27 +57,28 @@ public class ALCityObjectController {
         return alCityObjectDTOS;
     }
 
-    @Autowired
-    private PuzzleObjectActionService puzzleObject_objectActionService;
+    @Operation( summary = "Fetch all Puzzle Groups that this Object are in them ",  description = "Fetch all Puzzle Groups that this Object are in them ")
+    @RequestMapping(value = "/id/{id}/pg", method = RequestMethod.GET)
+    public Collection<ALCityObjectInPGDTO> getPuzzleGroupsForALCityObject(@PathVariable Long id) {
+        Collection<ALCityObjectInPGDTO> alCityObjectInPGDTOS = new ArrayList<ALCityObjectInPGDTO>();
+        Optional<ALCityObject> alCityObjectOptional = alCityObjectService.findById(id);
+        if(alCityObjectOptional.isPresent()) {
+            Collection<ALCityObjectInPG> alCityObjects = alCityObjectInPGService.findByalCityObject(alCityObjectOptional.get());
+            alCityObjectInPGDTOS = DTOUtil.getALCityObjectInPGDTOS(alCityObjects);
+        }
+        else throw new RecordNotFoundException(id,"alicty object","not found");
 
-    @GetMapping("/action/all")
-    public Collection<PuzzleObjectActionDTO> getPuzzleObjectActionDTOS(Model model) {
-        Collection<PuzzleObjectAction> puzzleObjectActions = puzzleObject_objectActionService.findAll();
-        Collection<PuzzleObjectActionDTO> puzzleObjectActionDTOS = new ArrayList<PuzzleObjectActionDTO>();
-        puzzleObjectActionDTOS =DTOUtil.getPuzzleObjectActionDTOS(puzzleObjectActions);
-
-        return puzzleObjectActionDTOS;
+        return alCityObjectInPGDTOS;
     }
 
-    @RequestMapping(value = "/action/id/{id}", method = RequestMethod.GET)
+    @Operation( summary = "Fetch all actions for an al city object ",  description = "Fetch all actions for an al city object")
+    @RequestMapping(value = "/id/{id}/actions", method = RequestMethod.GET)
     @ResponseBody
-    public PuzzleObjectActionDTO getPuzzleObjectActionDTO(@PathVariable Long id) {
-        PuzzleObjectActionDTO puzzleObjectActionDTO= new PuzzleObjectActionDTO();
-        Optional<PuzzleObjectAction> puzzleObjectActionOptional = puzzleObject_objectActionService.findById(id);
-        if(puzzleObjectActionOptional.isPresent())
-                    puzzleObjectActionDTO = DTOUtil.getPuzzleObjectActionDTO(puzzleObjectActionOptional.get());
-        else puzzleObjectActionDTO=null;
-        return  puzzleObjectActionDTO;
+    public Collection<PuzzleObjectActionDTO> getALCityObjectActions(@PathVariable Long id) {
+        Collection<PuzzleObjectActionDTO> puzzleObjectActionDTOS = new ArrayList<PuzzleObjectActionDTO>();
+        Collection<PuzzleObjectAction> puzzleObjectActions = puzzleObjectActionService.findByOwnerObjectidAndPoActionOwnerType(id, POActionOwnerType.ALCity_Object);
+        puzzleObjectActionDTOS = DTOUtil.getPuzzleObjectActionDTOS(puzzleObjectActions);
+        return  puzzleObjectActionDTOS;
     }
 
 

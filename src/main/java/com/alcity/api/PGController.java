@@ -1,23 +1,23 @@
 package com.alcity.api;
 
-import com.alcity.dto.base.BinaryContentDTO;
 import com.alcity.dto.journey.JourneyStepDTO;
 import com.alcity.dto.puzzle.*;
-import com.alcity.entity.base.BinaryContent;
 import com.alcity.entity.journey.JourneyStep;
 import com.alcity.entity.puzzle.*;
 import com.alcity.service.base.PuzzleCategoryService;
 import com.alcity.service.puzzle.PGService;
 import com.alcity.utility.DTOUtil;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.Optional;
 
+@Tag(name = "Al City Object used in different puzzle groups", description = "this part get actions and objects in a puzzle groups api")
 @RestController
 @RequestMapping("/pg")
 
@@ -26,37 +26,35 @@ public class PGController {
     private PuzzleCategoryService puzzleCategoryService;
 
     @Autowired
-    private PGService puzzleGroupService;
+    private PGService pgService;
 
+    @Operation( summary = "Fetch all AL City Object for that define in a puzzle group ",  description = "Fetch all Al city object for an puzzle group")
+    @RequestMapping(value = "/id/{id}/obj/all", method = RequestMethod.GET)
+    @ResponseBody
+    public Collection<ALCityObjectInPGDTO> getObjectsForAPG(@PathVariable Long id) {
+        Collection<ALCityObjectInPGDTO> alCityObjectInPGDTOS = new ArrayList<ALCityObjectInPGDTO>();
+        Collection<ALCityObjectInPG> alCityObjectInPGS = new ArrayList<ALCityObjectInPG>();
+        Optional<PuzzleGroup> puzzleGroup = pgService.findById(id);
+        if(puzzleGroup.isPresent()) {
+            alCityObjectInPGS = puzzleGroup.get().getAlCityObjectInPGS();
+            alCityObjectInPGDTOS = DTOUtil.getALCityObjectInPGDTOS(alCityObjectInPGS);
+        }
+        return  alCityObjectInPGDTOS;
+    }
 
 
     @GetMapping("/all")
     public Collection<PGDTO> getPuzzleGroups(Model model) {
-        Collection<PuzzleGroup> puzzleGroupCollection = puzzleGroupService.findAll();
+        Collection<PuzzleGroup> puzzleGroupCollection = pgService.findAll();
         Collection<PGDTO> puzzleGroupDTOCollection = new ArrayList<PGDTO>();
-        Iterator<PuzzleGroup> puzzleGroupIterator = puzzleGroupCollection.iterator();
-        while (puzzleGroupIterator.hasNext()) {
-            PGDTO puzzleGroupDTO = new PGDTO();
-            PuzzleGroup puzzleGroup = puzzleGroupIterator.next();
-            puzzleGroupDTO.setId(puzzleGroup.getId());
-            puzzleGroupDTO.setTitle(puzzleGroup.getTitle());
-            BinaryContent icon = puzzleGroup.getIcon();
-            BinaryContent pic = puzzleGroup.getPic();
-
-            BinaryContentDTO iconDTO =DTOUtil.getBinaryContentDTO(icon);
-            BinaryContentDTO picDTO =DTOUtil.getBinaryContentDTO(pic);
-
-            puzzleGroupDTO.setIcon(iconDTO);
-            puzzleGroupDTO.setPic(picDTO);
-            puzzleGroupDTOCollection.add(puzzleGroupDTO);
-        }
-
+        puzzleGroupDTOCollection = DTOUtil.getPuzzleGroupDTOS(puzzleGroupCollection);
         return puzzleGroupDTOCollection;
     }
+
     @RequestMapping(value = "/id/{id}", method = RequestMethod.GET)
     @ResponseBody
     public PGDTO getPuzzleGroupById(@PathVariable Long id) {
-        Optional<PuzzleGroup> puzzleGroup = puzzleGroupService.findById(id);
+        Optional<PuzzleGroup> puzzleGroup = pgService.findById(id);
         PGDTO puzzleGroupDTO = new PGDTO();
         if(puzzleGroup.isPresent()){
 
@@ -73,9 +71,9 @@ public class PGController {
             Collection<PuzzleSkillLearningContentDTO> puzzleSkillLearningContentDTOCollection = new ArrayList<PuzzleSkillLearningContentDTO>();
             puzzleSkillLearningContentDTOCollection = DTOUtil.getPuzzleSkillLearningContentDTOS(puzzleSkillLearningContentCollection);
 
-            Collection<ALCityObjectInPG>  puzzleGroup_puzzleObjectCollection = puzzleGroup.get().getPuzzleGroup_puzzleObjectCollection();
-            Collection<ALCityObjectInPuzzleGroupDTO> puzzleGroup_puzzleObjectDTOCollection = new ArrayList<ALCityObjectInPuzzleGroupDTO>();
-            puzzleGroup_puzzleObjectDTOCollection = DTOUtil.getPuzzleGroup_PuzzleObjectDTOS(puzzleGroup_puzzleObjectCollection);
+            Collection<ALCityObjectInPG>  puzzleGroup_puzzleObjectCollection = puzzleGroup.get().getAlCityObjectInPGS();
+            Collection<ALCityObjectInPGDTO> puzzleGroup_puzzleObjectDTOCollection = new ArrayList<ALCityObjectInPGDTO>();
+            puzzleGroup_puzzleObjectDTOCollection = DTOUtil.getALCityObjectInPGDTOS(puzzleGroup_puzzleObjectCollection);
 
 
             puzzleGroupDTO.setJourneyStepDTOCollection(journeyStepDTOCollection);

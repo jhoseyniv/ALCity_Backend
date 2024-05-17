@@ -244,7 +244,7 @@ public class ImportHashImageProblemData_1 implements CommandLineRunner {
         alCityObjectInPGService.save(ImageObject01_in_haseImage_puzzleGroup);
 
         //change actions for ImageObject01_in_haseImage_puzzleGroup
-        alCityObjectInPGService.copyActionTo(ImageObject01_in_haseImage_puzzleGroup);
+       // alCityObjectInPGService.copyActionTo(ImageObject01_in_haseImage_puzzleGroup);
 
         StringBuffer  condition_Objective = new StringBuffer("(img1.x == img1.targetX)&&(img1.y == img1.targetY)" +","
                 + "(img2.x == img2.targetX)&&(img2.y == img2.targetY)" + ","

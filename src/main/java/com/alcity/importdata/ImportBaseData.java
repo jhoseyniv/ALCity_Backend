@@ -34,6 +34,7 @@ import com.alcity.service.users.ApplicationMemberService;
 import com.alcity.service.users.ApplicationMember_WalletItemService;
 import com.alcity.service.users.WalletItemService;
 import com.alcity.service.users.WalletTransactionService;
+import com.alcity.utility.DTOUtil;
 import com.alcity.utility.ImageUtil;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -116,11 +117,11 @@ public class ImportBaseData implements CommandLineRunner {
 
     @Autowired
     PLRuleEventService plRuleEventService;
-     @Autowired
-    AttributeValueService attributeValueService;
 
     @Autowired
     AttributeService attributeService;
+    @Autowired
+    AttributeValueService attributeValueService;
 
     protected final Log log = LogFactory.getLog(getClass());
 
@@ -493,26 +494,26 @@ public class ImportBaseData implements CommandLineRunner {
         AttributeValue  move_ActionRenderer_param_moveType_value= new AttributeValue(null,null,null,"jump",null,null,null,move_ActionRenderer_param_8,move_ActionRenderer_param_8,1L,now,now,admin_1,admin_1);
         attributeValueService.save(move_ActionRenderer_param_moveType_value);
 
-
-
         ALCityObject textObject = new ALCityObject("TextObject",objectCategory_TextObject,textObject_pic,textObject_icon,1L,now,now,jalalHoseyni,jalalHoseyni);
         alCityObjectService.save(textObject);
 
-
         PuzzleObjectAction textObject_Create_Action = new PuzzleObjectAction(POActionOwnerType.ALCity_Object,textObject.getId(),ObjectAction.Create,create_ActionRenderer,1L,now,now,admin_1,admin_1);
         puzzleObjectActionService.save(textObject_Create_Action);
-        puzzleObjectActionService.copyRendersToAlcityObject(textObject_Create_Action);
+        DTOUtil.copyAttributesActionFromTo(textObject_Create_Action,AttributeOwnerType.Action_Renderer_Parameter,AttributeOwnerType.AlCity_Object,
+                                 attributeService,attributeValueService);
 
         PuzzleObjectAction textObject_Show_Action = new PuzzleObjectAction(POActionOwnerType.ALCity_Object,textObject.getId(),ObjectAction.Show,show_ActionRenderer,1L,now,now,admin_1,admin_1);
         puzzleObjectActionService.save(textObject_Show_Action);
-        puzzleObjectActionService.copyRendersToAlcityObject(textObject_Show_Action);
+        DTOUtil.copyAttributesActionFromTo(textObject_Show_Action,AttributeOwnerType.Action_Renderer_Parameter,AttributeOwnerType.AlCity_Object,
+                attributeService,attributeValueService);
 
         ALCityObject ImageObject01 = new ALCityObject("ImageObject01",objectCategory_Image,image_Object_pic,image_Object_pic,1L,now,now,jalalHoseyni,jalalHoseyni);
         alCityObjectService.save(ImageObject01);
 
         PuzzleObjectAction ImageObject01_Move_Action = new PuzzleObjectAction(POActionOwnerType.ALCity_Object,ImageObject01.getId(),ObjectAction.Move,move_ActionRenderer,1L,now,now,admin_1,admin_1);
         puzzleObjectActionService.save(ImageObject01_Move_Action);
-        puzzleObjectActionService.copyRendersToAlcityObject(ImageObject01_Move_Action);
+        DTOUtil.copyAttributesActionFromTo(ImageObject01_Move_Action,AttributeOwnerType.Action_Renderer_Parameter,AttributeOwnerType.AlCity_Object,
+                attributeService,attributeValueService);
 
         ALCityObject ImageObject02 = new ALCityObject("ImageObject02",objectCategory_Image,image_Object_pic,image_Object_icon,1L,now,now,jalalHoseyni,jalalHoseyni);
         alCityObjectService.save(ImageObject02);

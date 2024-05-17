@@ -1,12 +1,16 @@
 package com.alcity.service.puzzle;
 
+import com.alcity.entity.alenum.POActionOwnerType;
+import com.alcity.entity.alobject.PuzzleObjectAction;
 import com.alcity.entity.puzzle.ALCityObject;
 import com.alcity.repository.puzzle.ALCityObjectRepository;
+import com.alcity.service.alobject.PuzzleObjectActionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Optional;
 
@@ -19,9 +23,11 @@ public class ALCityObjectService implements ALCityObjectRepository {
     @Qualifier("ALCityObjectRepository")
     ALCityObjectRepository alCityObjectRepository ;
 
+    @Autowired
+    PuzzleObjectActionService puzzleObjectActionService ;
+
     @Override
     public <S extends ALCityObject> S save(S entity) {
-
         return alCityObjectRepository.save(entity);
     }
 
@@ -85,5 +91,11 @@ public class ALCityObjectService implements ALCityObjectRepository {
         return alCityObjectRepository.findByTitle(title);
     }
 
+    public  Collection<PuzzleObjectAction> findAllActions(ALCityObject cityObject){
+        Collection<PuzzleObjectAction> actions = new ArrayList<PuzzleObjectAction>();
+        actions = puzzleObjectActionService.findByOwnerObjectidAndPoActionOwnerType(cityObject.getId(), POActionOwnerType.ALCity_Object);
+
+        return actions;
+    }
 
 }

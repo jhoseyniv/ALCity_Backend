@@ -118,38 +118,8 @@ public class PuzzleObjectActionService implements PuzzleObjectActionRepository {
 
         return actionsForPuzzleGroupObject;
     }
-    public void copyRendersToAlcityObject(PuzzleObjectAction action){
-        ActionRenderer actionRenderer = action.getActionRenderer();
-        Collection<AttributeValue> attributeValues = new ArrayList<AttributeValue>();
-        Collection<Attribute> parameters = attributeService.findByOwnerIdAndAttributeOwnerType(actionRenderer.getId(), AttributeOwnerType.Action_Renderer_Parameter);
-        Iterator<Attribute> itr = parameters.iterator();
-        while(itr.hasNext()){
-            Attribute att = new Attribute();
-            att = itr.next();
-            Attribute newRecord = new Attribute(att.getName(),action.getOwnerObjectid(),AttributeOwnerType.AlCity_Object,att.getDataType(),
-                    att.getVersion(),att.getCreated(),att.getUpdated(),att.getCreatedBy(),att.getUpdatedBy());
-            attributeService.save(newRecord);
-
-            attributeValues = att.getAttributeValues();
-            Iterator<AttributeValue> itrAttributeValuesIterator = attributeValues.iterator();
-            while(itrAttributeValuesIterator.hasNext()) {
-                    AttributeValue attValue = new AttributeValue();
-                attValue = itrAttributeValuesIterator.next();
-                AttributeValue newAttributeValue = new AttributeValue(attValue.getBooleanValue(),attValue.getIntValue(),attValue.getLongValue(),attValue.getStringValue(),
-                        attValue.getObjectValue(),attValue.getDoubleValue(),attValue.getBinaryContentId(),newRecord,newRecord,
-                        attValue.getVersion(),attValue.getCreated(),attValue.getUpdated(),attValue.getCreatedBy(),attValue.getUpdatedBy());
-
-                //for log info
-                if(att.getName().equalsIgnoreCase("CODE"))   newAttributeValue.setStringValue("NEW CODE FOR ALCITY Object");
-                if(att.getName().equalsIgnoreCase("aSync"))     newAttributeValue.setStringValue("True");
-
-                attributeValueService.save(newAttributeValue);
-            }
 
 
-        }
-
-    }
 
 
 }

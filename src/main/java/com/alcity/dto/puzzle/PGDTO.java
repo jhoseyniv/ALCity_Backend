@@ -1,6 +1,5 @@
 package com.alcity.dto.puzzle;
 
-import com.alcity.dto.base.BinaryContentDTO;
 import com.alcity.dto.journey.JourneyStepDTO;
 
 import java.util.Collection;
@@ -15,13 +14,13 @@ public class PGDTO  {
     private String updatedBy;
 
     private String title;
-    private BinaryContentDTO icon;
-    private BinaryContentDTO pic;
+    private Long iconId;
+    private Long picId;
 
     private Collection<JourneyStepDTO> journeyStepDTOCollection;
     private Collection<PuzzleLevelLDTO> puzzleLevelDTOCollection;
 
-    private Collection<ALCityObjectInPuzzleGroupDTO> puzzleGroup_puzzleObjectDTOCollection;
+    private Collection<ALCityObjectInPGDTO> puzzleGroup_puzzleObjectDTOCollection;
 
     private Collection<PuzzleSkillLearningContentDTO> puzzleSkillLearningContentDTOCollection;
 
@@ -33,20 +32,20 @@ public class PGDTO  {
         this.title = title;
     }
 
-    public BinaryContentDTO getIcon() {
-        return icon;
+    public Long getIconId() {
+        return iconId;
     }
 
-    public void setIcon(BinaryContentDTO icon) {
-        this.icon = icon;
+    public void setIconId(Long iconId) {
+        this.iconId = iconId;
     }
 
-    public BinaryContentDTO getPic() {
-        return pic;
+    public Long getPicId() {
+        return picId;
     }
 
-    public void setPic(BinaryContentDTO pic) {
-        this.pic = pic;
+    public void setPicId(Long picId) {
+        this.picId = picId;
     }
 
     public Collection<JourneyStepDTO> getJourneyStepDTOCollection() {
@@ -124,15 +123,15 @@ public class PGDTO  {
     public PGDTO() {
     }
 
-    public Collection<ALCityObjectInPuzzleGroupDTO> getPuzzleGroup_puzzleObjectDTOCollection() {
+    public Collection<ALCityObjectInPGDTO> getPuzzleGroup_puzzleObjectDTOCollection() {
         return puzzleGroup_puzzleObjectDTOCollection;
     }
 
-    public void setPuzzleGroup_puzzleObjectDTOCollection(Collection<ALCityObjectInPuzzleGroupDTO> puzzleGroup_puzzleObjectDTOCollection) {
+    public void setPuzzleGroup_puzzleObjectDTOCollection(Collection<ALCityObjectInPGDTO> puzzleGroup_puzzleObjectDTOCollection) {
         this.puzzleGroup_puzzleObjectDTOCollection = puzzleGroup_puzzleObjectDTOCollection;
     }
 
-    public PGDTO(Long id, Long version, String created, String updated, String createdBy, String updatedBy, String title, BinaryContentDTO icon, BinaryContentDTO pic) {
+    public PGDTO(Long id, Long version, String created, String updated, String createdBy, String updatedBy, String title, Long iconId, Long picId) {
         this.id = id;
         this.version = version;
         this.created = created;
@@ -140,7 +139,7 @@ public class PGDTO  {
         this.createdBy = createdBy;
         this.updatedBy = updatedBy;
         this.title = title;
-        this.icon = icon;
-        this.pic = pic;
+        this.iconId = iconId;
+        this.picId = picId;
     }
 }
