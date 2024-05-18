@@ -1,8 +1,7 @@
 package com.alcity.service.alobject;
 
 import com.alcity.entity.alenum.ObjectAction;
-import com.alcity.entity.alobject.ActionRenderer;
-import com.alcity.entity.alobject.ObjectCategory;
+import com.alcity.entity.alobject.Renderer;
 import com.alcity.repository.alobject.ActionRendererRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,17 +18,17 @@ public class ActionRendererService implements ActionRendererRepository {
     ActionRendererRepository actionRendererRepository;
 
     @Override
-    public <S extends ActionRenderer> S save(S entity) {
+    public <S extends Renderer> S save(S entity) {
         return actionRendererRepository.save(entity);
     }
 
     @Override
-    public <S extends ActionRenderer> Iterable<S> saveAll(Iterable<S> entities) {
+    public <S extends Renderer> Iterable<S> saveAll(Iterable<S> entities) {
         return null;
     }
 
     @Override
-    public Optional<ActionRenderer> findById(Long id) {
+    public Optional<Renderer> findById(Long id) {
         return
                 actionRendererRepository.findById(id);
     }
@@ -40,17 +39,17 @@ public class ActionRendererService implements ActionRendererRepository {
     }
 
     @Override
-    public Collection<ActionRenderer> findAll() {
+    public Collection<Renderer> findAll() {
         return actionRendererRepository.findAll();
     }
 
     @Override
-    public Optional<ActionRenderer> findByHandlerAndObjectAction(String handler, ObjectAction action) {
+    public Optional<Renderer> findByHandlerAndObjectAction(String handler, ObjectAction action) {
         return actionRendererRepository.findByHandlerAndObjectAction(handler,action);
     }
 
     @Override
-    public Iterable<ActionRenderer> findAllById(Iterable<Long> longs) {
+    public Iterable<Renderer> findAllById(Iterable<Long> longs) {
         return null;
     }
 
@@ -65,7 +64,7 @@ public class ActionRendererService implements ActionRendererRepository {
     }
 
     @Override
-    public void delete(ActionRenderer entity) {
+    public void delete(Renderer entity) {
 
     }
 
@@ -75,7 +74,7 @@ public class ActionRendererService implements ActionRendererRepository {
     }
 
     @Override
-    public void deleteAll(Iterable<? extends ActionRenderer> entities) {
+    public void deleteAll(Iterable<? extends Renderer> entities) {
 
     }
 
@@ -86,7 +85,7 @@ public class ActionRendererService implements ActionRendererRepository {
 
 
     @Override
-    public Collection<ActionRenderer> findByClientTypeId(Long id) {
+    public Collection<Renderer> findByClientTypeId(Long id) {
         return null;
     }
 }

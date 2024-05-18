@@ -233,10 +233,10 @@ public class ImportProblemData_2 implements CommandLineRunner {
 
         ClientType mobile = clientTypeService.findByValue("mobile");
 
-        Optional<ActionRenderer> showActionRenderer = actionRendererService.findByHandlerAndObjectAction("Show",ObjectAction.Show);;
+        Optional<Renderer> showActionRenderer = actionRendererService.findByHandlerAndObjectAction("Show",ObjectAction.Show);;
 
 
-        ActionRenderer hideActionRenderer = new ActionRenderer("Hide",mobile,ObjectAction.Hide,1L,now,now,admin_1,admin_1);
+        Renderer hideActionRenderer = new Renderer("Hide",mobile,ObjectAction.Hide,1L,now,now,admin_1,admin_1);
         actionRendererService.save(hideActionRenderer);
 
         PuzzleObjectAction imageObject01_ShowAction = new PuzzleObjectAction(POActionOwnerType.ALCity_Object,puzzleGroup_puzzleObject.getId(),ObjectAction.Show,showActionRenderer.get(),1L,now,now,admin_1,admin_1);

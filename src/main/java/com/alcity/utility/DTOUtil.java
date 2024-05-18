@@ -167,7 +167,39 @@ public class DTOUtil {
         }
 
     }
+    public static void copyPropertiesFromTo(Long fromOwnerId,Long toOwnerId, AttributeOwnerType from , AttributeOwnerType to,
+                                                  AttributeService attributeService, AttributeValueService attributeValueService){
+        //ActionRenderer actionRenderer = action.getActionRenderer();
+        Collection<AttributeValue> attributeValues = new ArrayList<AttributeValue>();
+        Collection<Attribute> parameters = attributeService.findByOwnerIdAndAttributeOwnerType(fromOwnerId, from);
+        Iterator<Attribute> itr = parameters.iterator();
+        while(itr.hasNext()){
+            Attribute att = new Attribute();
+            att = itr.next();
+            Attribute newRecord = new Attribute(att.getName(),toOwnerId,to,att.getDataType(),
+                    att.getVersion(),att.getCreated(),att.getUpdated(),att.getCreatedBy(),att.getUpdatedBy());
+            attributeService.save(newRecord);
 
+            attributeValues = att.getAttributeValues();
+            Iterator<AttributeValue> itrAttributeValuesIterator = attributeValues.iterator();
+            while(itrAttributeValuesIterator.hasNext()) {
+                AttributeValue attValue = new AttributeValue();
+                attValue = itrAttributeValuesIterator.next();
+                AttributeValue newAttributeValue = new AttributeValue(attValue.getBooleanValue(),attValue.getIntValue(),attValue.getLongValue(),attValue.getStringValue(),
+                        attValue.getObjectValue(),attValue.getDoubleValue(),attValue.getBinaryContentId(),newRecord,newRecord,
+                        attValue.getVersion(),attValue.getCreated(),attValue.getUpdated(),attValue.getCreatedBy(),attValue.getUpdatedBy());
+
+                //for log info
+                if(att.getName().equalsIgnoreCase("CODE"))   newAttributeValue.setStringValue("NEW CODE FOR ALCITY Object");
+                if(att.getName().equalsIgnoreCase("aSync"))     newAttributeValue.setStringValue("True");
+
+                attributeValueService.save(newAttributeValue);
+            }
+
+
+        }
+
+    }
     public static Collection<PuzzleLevelLDTO> getPuzzleLevelDTOS(Collection<PuzzleLevel> puzzleLevelCollection) {
         Collection<PuzzleLevelLDTO> puzzleLevelDTOCollection = new ArrayList<PuzzleLevelLDTO>();
 
@@ -628,7 +660,7 @@ public class DTOUtil {
 
        return memberTypeDTOCollection;
     }
-    public static ActionRendererDTO getActionRendererDTO(ActionRenderer actionRenderer){
+    public static ActionRendererDTO getActionRendererDTO(Renderer actionRenderer){
            ActionRendererDTO aRendererDTO = new ActionRendererDTO();
             aRendererDTO.setId(actionRenderer.getId());
             aRendererDTO.setCreated(actionRenderer.getCreated());

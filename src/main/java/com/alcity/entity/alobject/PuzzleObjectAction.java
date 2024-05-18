@@ -47,20 +47,20 @@ public class PuzzleObjectAction extends BaseTable implements Serializable {
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "action_renderer_id", nullable = false)
     @JsonIgnore
-    private ActionRenderer actionRenderer;
+    private Renderer actionRenderer;
 
-    public ActionRenderer getActionRenderer() {
+    public Renderer getActionRenderer() {
         return actionRenderer;
     }
 
-    public void setActionRenderer(ActionRenderer actionRenderer) {
+    public void setActionRenderer(Renderer actionRenderer) {
         this.actionRenderer = actionRenderer;
     }
 
     public PuzzleObjectAction() {
     }
 
-    public PuzzleObjectAction(POActionOwnerType poActionOwnerType, Long ownerObjectid, ObjectAction objectAction, ActionRenderer actionRenderer, Long version, String created, String updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
+    public PuzzleObjectAction(POActionOwnerType poActionOwnerType, Long ownerObjectid, ObjectAction objectAction, Renderer actionRenderer, Long version, String created, String updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
         super(version, created, updated, createdBy, updatedBy);
         this.ownerObjectid = ownerObjectid;
         this.poActionOwnerType = poActionOwnerType;

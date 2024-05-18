@@ -264,7 +264,6 @@ public class ImportXOProblemData_3 implements CommandLineRunner {
         attributeValueService.save(attribute_variable_Finished_value);
 
 
-
         ALCityInstanceInPL obj_1_1 = new ALCityInstanceInPL("obj_1_1",1,1,0,textObject_in_Puzzle_Group_1,puzzleLevel,1L,now,now,admin_1,admin_1);
         ALCityInstanceInPL obj_1_2 = new ALCityInstanceInPL("obj_1_2",1,2,0,textObject_in_Puzzle_Group_1,puzzleLevel,1L,now,now,admin_1,admin_1);
         ALCityInstanceInPL obj_1_3 = new ALCityInstanceInPL("obj_1_3",1,3,0,textObject_in_Puzzle_Group_1,puzzleLevel,1L,now,now,admin_1,admin_1);
@@ -300,12 +299,15 @@ public class ImportXOProblemData_3 implements CommandLineRunner {
 //        attributeService.save(show_action_param_2);
 //        AttributeValue show_action_param_2_value= new AttributeValue(null,null,null,puzzleGroup_puzzleObject.getCode(),null,null,null,show_action_param_2,show_action_param_2,1L,now,now,admin_1,admin_1);
 //        attributeValueService.save(show_action_param_2_value);
-//
-//
-//        Attribute object_property_1 =new Attribute("text",puzzleGroup_puzzleObject.getId(),AttributeOwnerType.Puzzle_Group_Object_Property,DataType.String,1L,now,now,admin_1,admin_1);
-//        attributeService.save(object_property_1);
-//        AttributeValue  object_property_1_value= new AttributeValue(null,null,null,"",null,null,null,object_property_1,object_property_1,1L,now,now,admin_1,admin_1);
-//        attributeValueService.save(object_property_1_value);
+
+        DTOUtil.copyPropertiesFromTo(textObject.get().getId(),textObject_in_Puzzle_Group_1.getId(),AttributeOwnerType.AlCity_Object_Property,AttributeOwnerType.Puzzle_Group_Object_Property,
+                attributeService,attributeValueService);
+
+
+        Attribute alCity_object_property_1 =new Attribute("text",textObject_in_Puzzle_Group_1.getId(),AttributeOwnerType.Puzzle_Group_Object_Property,DataType.String,1L,now,now,admin_1,admin_1);
+        attributeService.save(alCity_object_property_1);
+        AttributeValue  object_property_1_value= new AttributeValue(null,null,null,"",null,null,null,alCity_object_property_1,alCity_object_property_1,1L,now,now,admin_1,admin_1);
+        attributeValueService.save(object_property_1_value);
 
         Attribute obj_1_1_property_1 =new Attribute("text",obj_1_1.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property,DataType.String,1L,now,now,admin_1,admin_1);
         attributeService.save(obj_1_1_property_1);

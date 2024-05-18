@@ -64,7 +64,7 @@ public class InterpreterController {
              Collection<PLObjectiveData> plObjectiveDataCollection = DTOUtil.getPuzzleLevelObjectiveData(pl);
              puzzleLevelData.setObjectives(plObjectiveDataCollection);
              PuzzleGroup pg = pl.getPuzzleGroup();
-             Collection<PGData> objects = getObjectsForPuzzleGroup(pg,pl);
+             Collection<POData> objects = getObjectsForPuzzleGroup(pg,pl);
              Collection<RuleData> rules = DTOUtil.getRulesForPuzzleLevel(pl,attributeService);
 
              puzzleLevelData.setCols(plGround.getNumColumns());
@@ -104,70 +104,75 @@ public class InterpreterController {
         return objectInstanceDataCollection;
      }
 
+   public  POData getObjectData(ALCityObjectInPG alCityObjectInPG, PuzzleLevel pl){
+       POData poData = new POData();
 
-    public Collection<PGData> getObjectsForPuzzleGroup(PuzzleGroup pg,PuzzleLevel pl) {
-        Collection<PGData> puzzleGroupObjectDataCollection = new ArrayList<PGData>();
+       poData.setId(alCityObjectInPG.getId());
+       poData.setTitle(alCityObjectInPG.getTitle());
+       poData.setCode(alCityObjectInPG.getCode());
+
+       BinaryContent picture = alCityObjectInPG.getAlCityObject().getPicture();
+       poData.setImageGraphicId(picture.getId());
+
+       BinaryContent icon = alCityObjectInPG.getAlCityObject().getIcon();
+       poData.setIconGraphicId(icon.getId());
+
+       Collection<ActionData> actions = getActionsDTOForALCityObjectInPG(alCityObjectInPG);
+       poData.setActions(actions);
+
+       Collection<RecordrData> variables = DTOUtil.getAttributeForOwnerById(attributeService,alCityObjectInPG.getId(),AttributeOwnerType.Puzzle_Group_Object_Variable);
+
+       poData.setVariables(variables);
+
+       Collection<RecordrData> properties = DTOUtil.getAttributeForOwnerById(attributeService,alCityObjectInPG.getId(),AttributeOwnerType.Puzzle_Group_Object_Property);
+       poData.setProperties(properties);
+
+       Collection<InstanceData> instances = getInstancesForAObjectInPuzzleLevel(alCityObjectInPG,pl);
+       poData.setInstances(instances);
+
+       poData.setVersion(alCityObjectInPG.getVersion());
+
+       return  poData;
+   }
+
+    public Collection<POData> getObjectsForPuzzleGroup(PuzzleGroup pg, PuzzleLevel pl) {
+        Collection<POData> pObjectsData = new ArrayList<POData>();
 
         Collection<ALCityObjectInPG> alCityObjectInPGCollection = new ArrayList<>();
             alCityObjectInPGCollection = pg.getAlCityObjectInPGS();
         Iterator<ALCityObjectInPG> iterator = alCityObjectInPGCollection.iterator();
         while(iterator.hasNext()) {
             ALCityObjectInPG alCityObjectInPG = iterator.next();
-            PGData puzzleGroupObjectData = new PGData();
-
-            puzzleGroupObjectData.setId(alCityObjectInPG.getAlCityObject().getId());
-            puzzleGroupObjectData.setTitle(alCityObjectInPG.getTitle());
-            puzzleGroupObjectData.setCode(alCityObjectInPG.getCode());
-            puzzleGroupObjectData.setVersion(alCityObjectInPG.getVersion());
-
-            BinaryContent picture = alCityObjectInPG.getAlCityObject().getPicture();
-            puzzleGroupObjectData.setImageGraphicId(picture.getId());
-
-            BinaryContent icon = alCityObjectInPG.getAlCityObject().getIcon();
-            puzzleGroupObjectData.setIconGraphicId(icon.getId());
-
-            Collection<ActionData> actions = getActionsDTOForALCityObjectInPG(alCityObjectInPG);
-            puzzleGroupObjectData.setActions(actions);
-
-            Collection<RecordrData> variables = DTOUtil.getAttributeForOwnerById(attributeService,alCityObjectInPG.getId(),AttributeOwnerType.Puzzle_Group_Object_Variable);
-
-            puzzleGroupObjectData.setVariables(variables);
-
-            Collection<RecordrData> properties = DTOUtil.getAttributeForOwnerById(attributeService,alCityObjectInPG.getId(),AttributeOwnerType.Puzzle_Group_Object_Property);
-            puzzleGroupObjectData.setProperties(properties);
-
-            Collection<InstanceData> instances = getInstancesForAObjectInPuzzleLevel(alCityObjectInPG,pl);
-            puzzleGroupObjectData.setInstances(instances);
-            puzzleGroupObjectDataCollection.add(puzzleGroupObjectData);
-
+            POData poData =getObjectData(alCityObjectInPG,pl);
+            pObjectsData.add(poData);
         }
-        return puzzleGroupObjectDataCollection;
+        return pObjectsData;
     }
 
     @Autowired
     PuzzleObjectActionService puzzleObjectActionService;
     public Collection<ActionData> getActionsDTOForALCityObjectInPG(ALCityObjectInPG alCityObjectInPG){
-        Collection<ActionData> objectActionDataCollection = new ArrayList<ActionData>();
-        Collection<PuzzleObjectAction> puzzleObjectActionCollection = new ArrayList<PuzzleObjectAction>();
-        puzzleObjectActionCollection = puzzleObjectActionService.findActionsForALCityObjectInPG(alCityObjectInPG);
+        Collection<ActionData> actionDataCollection = new ArrayList<ActionData>();
+        Collection<PuzzleObjectAction> actionsCollection = new ArrayList<PuzzleObjectAction>();
+        actionsCollection = puzzleObjectActionService.findActionsForALCityObjectInPG(alCityObjectInPG);
 
-        Iterator<PuzzleObjectAction> iterator = puzzleObjectActionCollection.iterator();
+        Iterator<PuzzleObjectAction> iterator = actionsCollection.iterator();
         while(iterator.hasNext()) {
             PuzzleObjectAction puzzleObjectAction = iterator.next();
             ObjectAction objectAction = puzzleObjectAction.getObjectAction();
 
-            Collection<RecordrData> parametersData = DTOUtil.getAttributeForOwnerById(attributeService,puzzleObjectAction.getOwnerObjectid(),AttributeOwnerType.AlCity_Object);
+            Collection<RecordrData> parametersData = DTOUtil.getAttributeForOwnerById(attributeService,puzzleObjectAction.getId(),AttributeOwnerType.ALCity_Object_In_Puzzle_Group);
 
             ActionData objectActionData = new ActionData();
             objectActionData.setActionName(objectAction);
-            objectActionData.setId(objectAction.ordinal());
+            objectActionData.setId(puzzleObjectAction.getId());
             objectActionData.setHandler(puzzleObjectAction.getActionRenderer().getHandler());
             objectActionData.setParameters(parametersData);
 
-            objectActionDataCollection.add(objectActionData);
+            actionDataCollection.add(objectActionData);
         }
 
-        return objectActionDataCollection;
+        return actionDataCollection;
     }
 
 }

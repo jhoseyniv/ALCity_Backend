@@ -5,17 +5,17 @@ import com.alcity.entity.alenum.ObjectAction;
 import java.util.Collection;
 
 public class ActionData {
-    private Integer id;
+    private Long id;
     private ObjectAction actionName;
 
     private String handler;
 
     private Collection<RecordrData> parameters;
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -46,7 +46,7 @@ public class ActionData {
     public ActionData() {
     }
 
-    public ActionData(Integer id, ObjectAction actionName, String handler, Collection<RecordrData> parameters) {
+    public ActionData(Long id, ObjectAction actionName, String handler, Collection<RecordrData> parameters) {
         this.id = id;
         this.actionName = actionName;
         this.handler = handler;

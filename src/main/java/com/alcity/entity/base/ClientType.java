@@ -1,6 +1,6 @@
 package com.alcity.entity.base;
 
-import com.alcity.entity.alobject.ActionRenderer;
+import com.alcity.entity.alobject.Renderer;
 import com.alcity.entity.users.ApplicationMember;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -19,7 +19,7 @@ public class ClientType extends BaseItemSet implements Serializable {
 
     @OneToMany(mappedBy = "clientType", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JsonIgnore
-    private Collection<ActionRenderer> actionRendererCollection;
+    private Collection<Renderer> actionRendererCollection;
 
 
     public ClientType() {

@@ -1,12 +1,7 @@
 package com.alcity.service.alobject;
 
-import com.alcity.entity.alenum.AttributeOwnerType;
 import com.alcity.entity.alenum.POActionOwnerType;
-import com.alcity.entity.alobject.ActionRenderer;
-import com.alcity.entity.alobject.Attribute;
-import com.alcity.entity.alobject.AttributeValue;
 import com.alcity.entity.alobject.PuzzleObjectAction;
-import com.alcity.entity.puzzle.ALCityObject;
 import com.alcity.entity.puzzle.ALCityObjectInPG;
 import com.alcity.repository.alobject.PuzzleObjectActionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.Optional;
 
 @Service

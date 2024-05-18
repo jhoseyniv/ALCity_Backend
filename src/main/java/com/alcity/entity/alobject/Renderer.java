@@ -9,12 +9,11 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import java.io.Serializable;
 import java.util.Collection;
-import java.util.Set;
 
 @Table(uniqueConstraints=
 @UniqueConstraint(columnNames = {"handler", "objectAction"}))
 @Entity
-public class ActionRenderer extends BaseTable implements Serializable {
+public class Renderer extends BaseTable implements Serializable {
     @Column(name="handler" )
     private String handler;
 
@@ -62,10 +61,10 @@ public class ActionRenderer extends BaseTable implements Serializable {
         this.puzzleObjectActions = puzzleObjectActions;
     }
 
-    public ActionRenderer() {
+    public Renderer() {
     }
 
-    public ActionRenderer(String handler, ClientType clientType, ObjectAction objectAction,Long version, String created, String updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
+    public Renderer(String handler, ClientType clientType, ObjectAction objectAction, Long version, String created, String updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
         super(version, created, updated, createdBy, updatedBy);
         this.handler = handler;
         this.clientType = clientType;

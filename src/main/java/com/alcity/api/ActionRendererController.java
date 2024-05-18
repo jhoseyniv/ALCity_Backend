@@ -3,7 +3,7 @@ package com.alcity.api;
 import com.alcity.dto.Interpreter.object.RecordrData;
 import com.alcity.dto.alobject.ActionRendererDTO;
 import com.alcity.entity.alenum.AttributeOwnerType;
-import com.alcity.entity.alobject.ActionRenderer;
+import com.alcity.entity.alobject.Renderer;
 import com.alcity.service.alobject.ActionRendererService;
 import com.alcity.service.alobject.AttributeService;
 import com.alcity.utility.DTOUtil;
@@ -32,8 +32,8 @@ public class ActionRendererController {
     @GetMapping("/all")
     public Collection<ActionRendererDTO> getActionRenderers(Model model) {
         Collection<ActionRendererDTO> actionRendererDTOCollection = new ArrayList<ActionRendererDTO>();
-        Collection<ActionRenderer> actionRendererCollection = actionRendererService.findAll();
-        Iterator<ActionRenderer> iterator = actionRendererCollection.iterator();
+        Collection<Renderer> actionRendererCollection = actionRendererService.findAll();
+        Iterator<Renderer> iterator = actionRendererCollection.iterator();
         while(iterator.hasNext()){
             ActionRendererDTO actionRendererDTO = DTOUtil.getActionRendererDTO(iterator.next());
             actionRendererDTOCollection.add(actionRendererDTO);
@@ -45,7 +45,7 @@ public class ActionRendererController {
     @RequestMapping(value = "/id/{id}", method = RequestMethod.GET)
     @ResponseBody
     public ActionRendererDTO getObjectActionRendererById(@PathVariable Long id) {
-        Optional<ActionRenderer> actionRendererOptional = actionRendererService.findById(id);
+        Optional<Renderer> actionRendererOptional = actionRendererService.findById(id);
         if(actionRendererOptional.isPresent())
             return  DTOUtil.getActionRendererDTO(actionRendererOptional.get());
         return null;
@@ -55,7 +55,7 @@ public class ActionRendererController {
     @RequestMapping(value = "/id/{id}/params", method = RequestMethod.GET)
     @ResponseBody
     public  Collection<RecordrData> getObjectActionRendererParameters(@PathVariable Long id) {
-        Optional<ActionRenderer> actionRendererOptional = actionRendererService.findById(id);
+        Optional<Renderer> actionRendererOptional = actionRendererService.findById(id);
         if(actionRendererOptional.isPresent())
             return  DTOUtil.getAttributeForOwnerById(attributeService,actionRendererOptional.get().getId(), AttributeOwnerType.Action_Renderer_Parameter);;
         return null;

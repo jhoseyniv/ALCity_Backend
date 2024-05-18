@@ -141,6 +141,10 @@ public class AttributeService implements AttributeRepository {
             outputAttributes = alCityAttributes.stream().
                     filter(attribute -> attribute.getAttributeOwnerType().equals(AttributeOwnerType.AlCity_Object))
                     .collect(Collectors.toCollection(ArrayList::new));
+        if(ownerType == AttributeOwnerType.ALCity_Object_In_Puzzle_Group)
+            outputAttributes = alCityAttributes.stream().
+                    filter(attribute -> attribute.getAttributeOwnerType().equals(AttributeOwnerType.ALCity_Object_In_Puzzle_Group))
+                    .collect(Collectors.toCollection(ArrayList::new));
 
         return outputAttributes;
     }

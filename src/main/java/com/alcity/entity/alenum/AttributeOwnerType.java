@@ -11,8 +11,8 @@ public enum AttributeOwnerType {
 
     Action_Renderer_Parameter,
     AlCity_Object,
+    AlCity_Object_Property,
     ALCity_Object_In_Puzzle_Group,
-    PuzzleObject_Property,
     Puzzle_Object_Action_Parameter,
 
     Puzzle_Group_Object_Property,

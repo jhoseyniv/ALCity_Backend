@@ -4,7 +4,7 @@ import com.alcity.dto.Interpreter.object.*;
 
 import java.util.Collection;
 
-public class PGData {
+public class POData {
     private Long id;
     private Long version;
     private String title;
@@ -98,10 +98,10 @@ public class PGData {
         this.instances = instances;
     }
 
-    public PGData() {
+    public POData() {
     }
 
-    public PGData(Long id, Long version, String title, String code, Long iconGraphicId, Long imageGraphicId, Collection<ActionData> actions) {
+    public POData(Long id, Long version, String title, String code, Long iconGraphicId, Long imageGraphicId, Collection<ActionData> actions) {
         this.id = id;
         this.version=version;
         this.title = title;

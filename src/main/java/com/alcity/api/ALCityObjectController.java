@@ -23,7 +23,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Optional;
 
-@Tag(name = "Puzzle Object APIs", description = "Get Puzzle   Object and related entities as rest api")
+@Tag(name = "AL City Object APIs", description = "Get ALCity Objects and related entities as rest api")
 @RestController
 @RequestMapping("/co")
 public class ALCityObjectController {

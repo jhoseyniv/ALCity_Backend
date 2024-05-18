@@ -1,13 +1,10 @@
 package com.alcity.api;
 
 
-import com.alcity.dto.Interpreter.object.ActionData;
 import com.alcity.dto.Interpreter.object.RecordrData;
 import com.alcity.entity.alenum.AttributeOwnerType;
-import com.alcity.entity.alobject.ActionRenderer;
-import com.alcity.entity.alobject.Attribute;
+import com.alcity.entity.alobject.Renderer;
 import com.alcity.entity.alobject.PuzzleObjectAction;
-import com.alcity.service.alobject.ActionRendererService;
 import com.alcity.service.alobject.AttributeService;
 import com.alcity.service.alobject.PuzzleObjectActionService;
 import com.alcity.utility.DTOUtil;
@@ -39,7 +36,7 @@ public class PuzzleObjectActionController {
         PuzzleObjectAction puzzleObjectAction = new PuzzleObjectAction();
         if(puzzleObjectActionOptional.isPresent()) {
             puzzleObjectAction = puzzleObjectActionOptional.get();
-            ActionRenderer actionRenderer = puzzleObjectAction.getActionRenderer();
+            Renderer actionRenderer = puzzleObjectAction.getActionRenderer();
             if(actionRenderer != null)
                     return  DTOUtil.getAttributeForOwnerById(attributeService,actionRenderer.getId(), AttributeOwnerType.Action_Renderer_Parameter);
             else

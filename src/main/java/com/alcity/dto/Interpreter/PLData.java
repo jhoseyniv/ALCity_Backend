@@ -19,7 +19,7 @@ public class PLData implements Serializable {
 
     private Collection<RecordrData> variables;
 
-    private Collection<PGData> objects;
+    private Collection<POData> objects;
     private Collection<RuleData> rules;
 
 
@@ -96,11 +96,11 @@ public class PLData implements Serializable {
         this.rules = rules;
     }
 
-    public Collection<PGData> getObjects() {
+    public Collection<POData> getObjects() {
         return objects;
     }
 
-    public void setObjects(Collection<PGData> objects) {
+    public void setObjects(Collection<POData> objects) {
         this.objects = objects;
     }
 
