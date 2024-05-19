@@ -119,27 +119,27 @@ public class PLObjectiveService implements PLObjectiveRepository {
 
 
 
-    public ALCityReturnObject saveDTO(PLObjectiveDTO ploDTO, Long plId) {
-        Optional<PuzzleLevel> puzzleLeveL = puzzleLevelService.findById(plId);
+//    public ALCityReturnObject saveDTO(PLObjectiveDTO ploDTO, Long plId) {
+//        Optional<PuzzleLevel> puzzleLeveL = puzzleLevelService.findById(plId);
+//
+//        Optional<ApplicationMember> createdBy = applicationMemberService.findById(ploDTO.getCreatedById());
+//        Optional<ApplicationMember> updatedBy = applicationMemberService.findById(ploDTO.getUpdatedById());
+       // WalletItemDTO walletItemDTO = ploDTO.getWalletItemDTO();
+       // LearningSkillDTO learningSkillDTO = ploDTO.getLearningSkillDTO();
+       // Optional<WalletItem> walletItem = walletItemService.findById(walletItemDTO.getId());
+       // Optional<LearningSkill> learningSkill = learningSkillService.findById(learningSkillDTO.getId());
 
-        Optional<ApplicationMember> createdBy = applicationMemberService.findById(ploDTO.getCreatedById());
-        Optional<ApplicationMember> updatedBy = applicationMemberService.findById(ploDTO.getUpdatedById());
-        WalletItemDTO walletItemDTO = ploDTO.getWalletItemDTO();
-        LearningSkillDTO learningSkillDTO = ploDTO.getLearningSkillDTO();
-        Optional<WalletItem> walletItem = walletItemService.findById(walletItemDTO.getId());
-        Optional<LearningSkill> learningSkill = learningSkillService.findById(learningSkillDTO.getId());
-
-        if(!puzzleLeveL.isPresent() || !createdBy.isPresent() || !updatedBy.isPresent())
-            return new ALCityReturnObject(1L,plId,"record not found","exception");
-
-        if(!walletItem.isPresent() || !learningSkill.isPresent() )
-            return new ALCityReturnObject(2L,plId,"Learning Skill or Wallet Item not found","exception");
-
-        PLObjective plObjective = new PLObjective(ploDTO.getTitle(),ploDTO.getDescription(), ploDTO.getSkillAmount(),ploDTO.getRewardAmount(),
-                ploDTO.getCondition(),learningSkill.get(),walletItem.get(),puzzleLeveL.get(),ploDTO.getVersion(),
-                ploDTO.getCreated(),ploDTO.getUpdated(),createdBy.get(),updatedBy.get());
-        objectiveRepository.save(plObjective);
-        return  new ALCityReturnObject(0L,plObjective.getId(),"All things is Ok","An Objective Added to Puzzle Level");
-    }
+//        if(!puzzleLeveL.isPresent() || !createdBy.isPresent() || !updatedBy.isPresent())
+//            return new ALCityReturnObject(1L,plId,"record not found","exception");
+//
+//        if(!walletItem.isPresent() || !learningSkill.isPresent() )
+//            return new ALCityReturnObject(2L,plId,"Learning Skill or Wallet Item not found","exception");
+//
+//        PLObjective plObjective = new PLObjective(ploDTO.getTitle(),ploDTO.getDescription(), ploDTO.getSkillAmount(),ploDTO.getRewardAmount(),
+//                ploDTO.getCondition(),learningSkill.get(),walletItem.get(),puzzleLeveL.get(),ploDTO.getVersion(),
+//                ploDTO.getCreated(),ploDTO.getUpdated(),createdBy.get(),updatedBy.get());
+//        objectiveRepository.save(plObjective);
+//        return  new ALCityReturnObject(0L,plObjective.getId(),"All things is Ok","An Objective Added to Puzzle Level");
+ //   }
 
 }

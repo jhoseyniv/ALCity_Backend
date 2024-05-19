@@ -10,7 +10,7 @@ import jakarta.persistence.*;
 import java.io.Serializable;
 
 @Entity
-public class PuzzleSkillLearningContent extends BaseTable implements Serializable {
+public class LearningSkillContent extends BaseTable implements Serializable {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = true)
     @JoinColumn(name = "learning_skill_id", nullable = true)
@@ -21,6 +21,14 @@ public class PuzzleSkillLearningContent extends BaseTable implements Serializabl
     @JoinColumn(name = "puzzle_group_id", nullable = true)
     @JsonIgnore
     private PuzzleGroup puzzleGroup;
+
+    public PuzzleGroup getPuzzleGroup() {
+        return puzzleGroup;
+    }
+
+    public void setPuzzleGroup(PuzzleGroup puzzleGroup) {
+        this.puzzleGroup = puzzleGroup;
+    }
 
     @ManyToOne(fetch = FetchType.LAZY, optional = true)
     @JoinColumn(name = "learning_content_id", nullable = true)
@@ -43,10 +51,10 @@ public class PuzzleSkillLearningContent extends BaseTable implements Serializabl
         this.learningContent = learningContent;
     }
 
-    public PuzzleSkillLearningContent() {
+    public LearningSkillContent() {
     }
 
-    public PuzzleSkillLearningContent(LearningSkill learningSkill, PuzzleGroup puzzleGroup, LearningContent learningContent, Long version, String created, String updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
+    public LearningSkillContent(LearningSkill learningSkill, PuzzleGroup puzzleGroup, LearningContent learningContent, Long version, String created, String updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
         super(version, created, updated, createdBy, updatedBy);
         this.learningSkill = learningSkill;
         this.puzzleGroup = puzzleGroup;

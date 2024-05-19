@@ -195,7 +195,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
         PlayHistory playHistory_3 = new PlayHistory(alirezaZarei,puzzleLevel_Maze,now,100,10f,1L,now,now,alirezaZarei,alirezaZarei);
         playHistoryService.save(playHistory_3);
 
-        PuzzleSkillLearningContent puzzleSkillLearningContent_1 = new PuzzleSkillLearningContent(routing,puzzleGroup_2,learningContent_routing,1L,now,now,admin_1,admin_1);
+        LearningSkillContent puzzleSkillLearningContent_1 = new LearningSkillContent(routing,puzzleGroup_2,learningContent_routing,1L,now,now,admin_1,admin_1);
         puzzleSkillLearningContentService.save(puzzleSkillLearningContent_1);
 
         PLGameInstance puzzleLevelGameInstance= new PLGameInstance(jalalHoseyni,puzzleLevel_Maze, GameStatus.gameStatus_1,1L,now,now,jalalHoseyni,jalalHoseyni);

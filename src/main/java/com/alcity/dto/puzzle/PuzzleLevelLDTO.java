@@ -164,14 +164,14 @@ public class PuzzleLevelLDTO {
         this.puzzleLevel_learningTopicDTOCollection = puzzleLevel_learningTopicDTOCollection;
     }
 
-    private Collection<PuzzleGroupObjectInstanceDTO> puzzleGroupObjectInstanceDTOCollection;
+    private Collection<PLInstanceDTO> plInstanceDTOS;
 
-    public Collection<PuzzleGroupObjectInstanceDTO> getPuzzleGroupObjectInstanceDTOCollection() {
-        return puzzleGroupObjectInstanceDTOCollection;
+    public Collection<PLInstanceDTO> getPlInstanceDTOS() {
+        return plInstanceDTOS;
     }
 
-    public void setPuzzleGroupObjectInstanceDTOCollection(Collection<PuzzleGroupObjectInstanceDTO> puzzleGroupObjectInstanceDTOCollection) {
-        this.puzzleGroupObjectInstanceDTOCollection = puzzleGroupObjectInstanceDTOCollection;
+    public void setPlInstanceDTOS(Collection<PLInstanceDTO> plInstanceDTOS) {
+        this.plInstanceDTOS = plInstanceDTOS;
     }
 
     public PuzzleLevelLDTO() {

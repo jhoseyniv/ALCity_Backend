@@ -1,13 +1,9 @@
 package com.alcity.api;
 
-import com.alcity.dto.puzzle.ALCityObjectInPGDTO;
 import com.alcity.dto.puzzle.PuzzleObjectActionDTO;
 import com.alcity.entity.alenum.POActionOwnerType;
 import com.alcity.entity.alobject.PuzzleObjectAction;
-import com.alcity.entity.puzzle.ALCityObjectInPG;
 import com.alcity.service.alobject.PuzzleObjectActionService;
-import com.alcity.service.puzzle.ALCityObjectInPGService;
-import com.alcity.service.puzzle.ALCityObjectService;
 import com.alcity.utility.DTOUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -26,9 +22,6 @@ public class ALCityObjectInPGController {
 
     @Autowired
     private PuzzleObjectActionService puzzleObjectActionService;
-
-
-
 
 
     @Operation( summary = "Fetch all actions for an al city object that define in a puzzle group ",  description = "Fetch all actions for an al city object")

@@ -19,27 +19,44 @@ public class PLObjectiveDTO {
     private String title;
     private String description;
     private Float skillAmount;
+
+    private String skillTitle;
+    private Long skillId;
     private Float rewardAmount;
+    private Long walletItemId;
+    private String walletItemTitle;
     private StringBuffer condition;
 
-    private WalletItemDTO walletItemDTO;
-
-    private LearningSkillDTO learningSkillDTO;
-
-    public LearningSkillDTO getLearningSkillDTO() {
-        return learningSkillDTO;
+    public String getSkillTitle() {
+        return skillTitle;
     }
 
-    public void setLearningSkillDTO(LearningSkillDTO learningSkillDTO) {
-        this.learningSkillDTO = learningSkillDTO;
+    public void setSkillTitle(String skillTitle) {
+        this.skillTitle = skillTitle;
     }
 
-    public WalletItemDTO getWalletItemDTO() {
-        return walletItemDTO;
+    public Long getSkillId() {
+        return skillId;
     }
 
-    public void setWalletItemDTO(WalletItemDTO walletItemDTO) {
-        this.walletItemDTO = walletItemDTO;
+    public void setSkillId(Long skillId) {
+        this.skillId = skillId;
+    }
+
+    public Long getWalletItemId() {
+        return walletItemId;
+    }
+
+    public void setWalletItemId(Long walletItemId) {
+        this.walletItemId = walletItemId;
+    }
+
+    public String getWalletItemTitle() {
+        return walletItemTitle;
+    }
+
+    public void setWalletItemTitle(String walletItemTitle) {
+        this.walletItemTitle = walletItemTitle;
     }
 
     public String getTitle() {
@@ -149,8 +166,9 @@ public class PLObjectiveDTO {
         this.updatedBy = updatedBy;
     }
 
-    public PLObjectiveDTO(Long id, Long version, String created, String updated, String createdBy, String updatedBy,Long createdById,Long updatedById,
-                          String title, String description, Float skillAmount, Float rewardAmount, StringBuffer condition) {
+    public PLObjectiveDTO(Long id, Long version, String created, String updated, String createdBy, String updatedBy, Long createdById, Long updatedById,
+                          String title, String description, Float skillAmount, String skillTitle, Long skillId, Float rewardAmount,
+                          Long walletItemId, String walletItemTitle, StringBuffer condition) {
         this.id = id;
         this.version = version;
         this.created = created;
@@ -162,7 +180,11 @@ public class PLObjectiveDTO {
         this.title = title;
         this.description = description;
         this.skillAmount = skillAmount;
+        this.skillTitle = skillTitle;
+        this.skillId = skillId;
         this.rewardAmount = rewardAmount;
+        this.walletItemId = walletItemId;
+        this.walletItemTitle = walletItemTitle;
         this.condition = condition;
     }
 }

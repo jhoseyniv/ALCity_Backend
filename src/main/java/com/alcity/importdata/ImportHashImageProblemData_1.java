@@ -232,7 +232,7 @@ public class ImportHashImageProblemData_1 implements CommandLineRunner {
         PlayHistory playHistory_1 = new PlayHistory(jalalHoseyni,puzzleLevel_hashimage,now,100,10f,1L,now,now,jalalHoseyni,jalalHoseyni);
         playHistoryService.save(playHistory_1);
 
-        PuzzleSkillLearningContent puzzleSkillLearningContent_1 = new PuzzleSkillLearningContent(division,puzzleGroup_HashImage.get(),learningContent_Division,1L,now,now,admin_1,admin_1);
+        LearningSkillContent puzzleSkillLearningContent_1 = new LearningSkillContent(division,puzzleGroup_HashImage.get(),learningContent_Division,1L,now,now,admin_1,admin_1);
         puzzleSkillLearningContentService.save(puzzleSkillLearningContent_1);
 
         PLGameInstance puzzleLevelGameInstance= new PLGameInstance(jalalHoseyni,puzzleLevel_hashimage,GameStatus.gameStatus_1,1L,now,now,jalalHoseyni,jalalHoseyni);

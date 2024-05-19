@@ -1,6 +1,6 @@
 package com.alcity.service.puzzle;
 
-import com.alcity.entity.puzzle.PuzzleSkillLearningContent;
+import com.alcity.entity.puzzle.LearningSkillContent;
 import com.alcity.repository.puzzle.PuzzleSkillLearningContentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,17 +18,17 @@ public class PuzzleSkillLearningContentService implements PuzzleSkillLearningCon
     PuzzleSkillLearningContentRepository puzzleSkillLearningContentRepository;
 
     @Override
-    public <S extends PuzzleSkillLearningContent> S save(S entity) {
+    public <S extends LearningSkillContent> S save(S entity) {
         return puzzleSkillLearningContentRepository.save(entity);
     }
 
     @Override
-    public <S extends PuzzleSkillLearningContent> Iterable<S> saveAll(Iterable<S> entities) {
+    public <S extends LearningSkillContent> Iterable<S> saveAll(Iterable<S> entities) {
         return null;
     }
 
     @Override
-    public Optional<PuzzleSkillLearningContent> findById(Long id) {
+    public Optional<LearningSkillContent> findById(Long id) {
         return Optional.empty();
     }
 
@@ -38,12 +38,12 @@ public class PuzzleSkillLearningContentService implements PuzzleSkillLearningCon
     }
 
     @Override
-    public Collection<PuzzleSkillLearningContent> findAll() {
+    public Collection<LearningSkillContent> findAll() {
         return null;
     }
 
     @Override
-    public Iterable<PuzzleSkillLearningContent> findAllById(Iterable<Long> longs) {
+    public Iterable<LearningSkillContent> findAllById(Iterable<Long> longs) {
         return null;
     }
 
@@ -58,7 +58,7 @@ public class PuzzleSkillLearningContentService implements PuzzleSkillLearningCon
     }
 
     @Override
-    public void delete(PuzzleSkillLearningContent entity) {
+    public void delete(LearningSkillContent entity) {
 
     }
 
@@ -68,7 +68,7 @@ public class PuzzleSkillLearningContentService implements PuzzleSkillLearningCon
     }
 
     @Override
-    public void deleteAll(Iterable<? extends PuzzleSkillLearningContent> entities) {
+    public void deleteAll(Iterable<? extends LearningSkillContent> entities) {
 
     }
 

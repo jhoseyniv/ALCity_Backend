@@ -245,7 +245,7 @@ public class Import_F_G_BProblemData_5 implements CommandLineRunner {
         PlayHistory playHistory_1 = new PlayHistory(Alireza_Zare,pl_F_G_B,now,100,10f,1L,now,now,Alireza_Zare,Alireza_Zare);
         playHistoryService.save(playHistory_1);
 
-        PuzzleSkillLearningContent puzzleSkillLearningContent_1 = new PuzzleSkillLearningContent(matching,IQ_Puzzle_Group.get(),learningContent_Mathcing,1L,now,now,admin_1,admin_1);
+        LearningSkillContent puzzleSkillLearningContent_1 = new LearningSkillContent(matching,IQ_Puzzle_Group.get(),learningContent_Mathcing,1L,now,now,admin_1,admin_1);
         puzzleSkillLearningContentService.save(puzzleSkillLearningContent_1);
 
         PLGameInstance puzzleLevelGameInstance= new PLGameInstance(jalalHoseyni,pl_F_G_B, GameStatus.gameStatus_1,1L,now,now,Alireza_Zare,Alireza_Zare);

@@ -1,6 +1,6 @@
 package com.alcity.dto.puzzle;
 
-public class PuzzleGroupObjectInstanceDTO {
+public class PLInstanceDTO {
 
     private Long id;
     private Long version;
@@ -9,13 +9,39 @@ public class PuzzleGroupObjectInstanceDTO {
     private String createdBy;
 
     private String updatedBy;
+    private Long createdById;
+
+    private Long updatedByID;
 
     private Integer row;
     private Integer col;
     private Integer zOrder;
-    private ALCityObjectInPGDTO puzzleGroup_puzzleObjectDTO;
+    private Long alCityObjectinPGId;
+    private String alCityObjectinPGTitle;
+    private String alCityObjectinPGCode ;
 
-    public PuzzleGroupObjectInstanceDTO() {
+    public Long getAlCityObjectinPGId() {
+        return alCityObjectinPGId;
+    }
+
+    public void setAlCityObjectinPGId(Long alCityObjectinPGId) {
+        this.alCityObjectinPGId = alCityObjectinPGId;
+    }
+
+    public String getAlCityObjectinPGTitle() {
+        return alCityObjectinPGTitle;
+    }
+
+    public void setAlCityObjectinPGTitle(String alCityObjectinPGTitle) {
+        this.alCityObjectinPGTitle = alCityObjectinPGTitle;
+    }
+
+    public String getAlCityObjectinPGCode() {
+        return alCityObjectinPGCode;
+    }
+
+    public void setAlCityObjectinPGCode(String alCityObjectinPGCode) {
+        this.alCityObjectinPGCode = alCityObjectinPGCode;
     }
 
     public Integer getRow() {
@@ -42,13 +68,6 @@ public class PuzzleGroupObjectInstanceDTO {
         this.zOrder = zOrder;
     }
 
-    public ALCityObjectInPGDTO getPuzzleGroup_puzzleObjectDTO() {
-        return puzzleGroup_puzzleObjectDTO;
-    }
-
-    public void setPuzzleGroup_puzzleObjectDTO(ALCityObjectInPGDTO puzzleGroup_puzzleObjectDTO) {
-        this.puzzleGroup_puzzleObjectDTO = puzzleGroup_puzzleObjectDTO;
-    }
 
     public Long getId() {
         return id;
@@ -98,17 +117,40 @@ public class PuzzleGroupObjectInstanceDTO {
         this.updatedBy = updatedBy;
     }
 
-    public PuzzleGroupObjectInstanceDTO(Long id, Long version, String created, String updated, String createdBy, String updatedBy,
-                                        Integer row, Integer col, Integer zOrder) {
+    public PLInstanceDTO() {
+    }
+
+    public Long getCreatedById() {
+        return createdById;
+    }
+
+    public void setCreatedById(Long createdById) {
+        this.createdById = createdById;
+    }
+
+    public Long getUpdatedByID() {
+        return updatedByID;
+    }
+
+    public void setUpdatedByID(Long updatedByID) {
+        this.updatedByID = updatedByID;
+    }
+
+    public PLInstanceDTO(Long id, Long version, String created, String updated, String createdBy, String updatedBy, Long createdById, Long updatedByID,
+                         Integer row, Integer col, Integer zOrder, Long alCityObjectinPGId, String alCityObjectinPGTitle, String alCityObjectinPGCode) {
         this.id = id;
         this.version = version;
         this.created = created;
         this.updated = updated;
         this.createdBy = createdBy;
         this.updatedBy = updatedBy;
+        this.createdById = createdById;
+        this.updatedByID = updatedByID;
         this.row = row;
         this.col = col;
         this.zOrder = zOrder;
+        this.alCityObjectinPGId = alCityObjectinPGId;
+        this.alCityObjectinPGTitle = alCityObjectinPGTitle;
+        this.alCityObjectinPGCode = alCityObjectinPGCode;
     }
-
 }
