@@ -29,7 +29,7 @@ public class PGController {
     private PGService pgService;
 
     @Operation( summary = "Fetch all AL City Object for that define in a puzzle group ",  description = "Fetch all Al city object for an puzzle group")
-    @RequestMapping(value = "/id/{id}/objects", method = RequestMethod.GET)
+    @RequestMapping(value = "/id/{id}/objects/all", method = RequestMethod.GET)
     @ResponseBody
     public Collection<ALCityObjectInPGDTO> getObjectsForAPG(@PathVariable Long id) {
         Collection<ALCityObjectInPGDTO> alCityObjectInPGDTOS = new ArrayList<ALCityObjectInPGDTO>();

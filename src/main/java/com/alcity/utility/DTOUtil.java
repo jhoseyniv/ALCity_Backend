@@ -665,7 +665,20 @@ public class DTOUtil {
 
        return aRendererDTO;
    }
-
+    public static Collection<PLRuleDTO> getRulesForPuzzleLevel(PuzzleLevel pl){
+        Collection<PLRuleDTO> rules = new ArrayList<PLRuleDTO>();
+        Collection<PLRule>  puzzleLevelRules = pl.getPuzzleLevelRuleCollection();
+        Iterator<PLRule> iterator = puzzleLevelRules.iterator();
+        while(iterator.hasNext()) {
+            PLRule puzzleLevelRule = iterator.next();
+            PLRuleDTO rule = new PLRuleDTO();
+            rule.setTitle(puzzleLevelRule.getTitle());
+            rule.setOrdering(puzzleLevelRule.getOrdering());
+            rule.setConditions(puzzleLevelRule.getCondition());
+            rules.add(rule);
+        }
+        return rules;
+    }
     public static Collection<RuleData> getRulesForPuzzleLevel(PuzzleLevel pl, AttributeService alCityAttributeService){
         Collection<RuleData> rules = new ArrayList<RuleData>();
         Collection<PLRule>  puzzleLevelRules = pl.getPuzzleLevelRuleCollection();

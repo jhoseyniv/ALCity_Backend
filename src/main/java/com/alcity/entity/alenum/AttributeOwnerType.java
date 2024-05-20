@@ -18,9 +18,9 @@ public enum AttributeOwnerType {
     Puzzle_Group_Object_Property,
     Puzzle_Group_Object_Variable,
     Puzzle_Level_Variable,
-    PuzzleGroup_Object_Instance_Property,
-    PuzzleGroup_Object_Instance_Variable,
-    PuzzleGroup_Object_Instance_Action_Parameter,
+    Puzzle_Level_Instance_Property,
+    Puzzle_Level_Instance_Variable,
+    Puzzle_Level_Instance_Action_Parameter,
 
     Puzzle_Level_Rule_Post_Action;
     public static AttributeOwnerType getById(long id)

@@ -65,6 +65,16 @@ public class PLController {
             plInstancesDTOS = DTOUtil.getPuzzleLevelInstance(puzzleLevelOptional.get());
         return plInstancesDTOS;
     }
+    @Operation( summary = "Fetch all Rules by a puzzle level Id ",  description = "fetches all Rules for a puzzle level ")
+    @RequestMapping(value = "/id/{id}/rules/all", method = RequestMethod.GET)
+    @ResponseBody
+    public Collection<PLRuleDTO> getAllRulesForPuzzleLevelById(@PathVariable Long id) {
+        Collection<PLRuleDTO> plRuleDTOS= new ArrayList<PLRuleDTO>();
+        Optional<PuzzleLevel> puzzleLevelOptional = puzzleLevelService.findById(id);
+        if(puzzleLevelOptional.isPresent())
+            plRuleDTOS = DTOUtil.getRulesForPuzzleLevel(puzzleLevelOptional.get());
+        return plRuleDTOS;
+    }
 
 
 //    @Operation( summary = "Save a puzzle level  Objective  ",  description = "save a puzzle level  objective entity and their data to data base")

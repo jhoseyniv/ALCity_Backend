@@ -92,8 +92,8 @@ public class InterpreterController {
             Position instancePostion = new Position(puzzleGroupObjectInstance.getRow() , puzzleGroupObjectInstance.getCol(),puzzleGroupObjectInstance.getzOrder());
             objectInstanceData.setPosition(instancePostion);
 
-            Collection<RecordrData> properties = DTOUtil.getAttributeForOwnerById(attributeService,puzzleGroupObjectInstance.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Property);
-            Collection<RecordrData>  variables = DTOUtil.getAttributeForOwnerById(attributeService,puzzleGroupObjectInstance.getId(),AttributeOwnerType.PuzzleGroup_Object_Instance_Variable);
+            Collection<RecordrData> properties = DTOUtil.getAttributeForOwnerById(attributeService,puzzleGroupObjectInstance.getId(),AttributeOwnerType.Puzzle_Level_Instance_Property);
+            Collection<RecordrData>  variables = DTOUtil.getAttributeForOwnerById(attributeService,puzzleGroupObjectInstance.getId(),AttributeOwnerType.Puzzle_Level_Instance_Variable);
 
             objectInstanceData.setProperties(properties);
             objectInstanceData.setVariables(variables);
