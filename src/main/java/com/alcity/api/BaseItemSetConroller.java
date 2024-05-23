@@ -1,6 +1,7 @@
 package com.alcity.api;
 
 import com.alcity.customexception.UniqueConstraintException;
+import com.alcity.dto.alenum.EnumDTO;
 import com.alcity.dto.base.ClientTypeDTO;
 import com.alcity.dto.user.MemberTypeDTO;
 import com.alcity.entity.alenum.*;
@@ -28,10 +29,10 @@ public class BaseItemSetConroller {
 
     @Operation( summary = "Fetch all Genders ",  description = "fetches all Gender entities and their data from data source")
     @GetMapping("/gender/all")
-    public UserGender[] getGenders(Model model) {
-        return UserGender.values();
-    }
+    public Collection<EnumDTO> getGenders(Model model) {
 
+        return DTOUtil.getEnumByClass(UserGender.class);
+    }
 
     @RequestMapping(value = "/gender/id/{id}", method = RequestMethod.GET)
     @ResponseBody
@@ -74,11 +75,14 @@ public class BaseItemSetConroller {
 
     @Operation( summary = "Fetch all data Types ",  description = "fetches all data Types entities and their data from data base")
     @GetMapping("/data-type/all")
-    public DataType[] getDataTypes(Model model) { return DataType.values();   }
+    public Collection<EnumDTO> getDataTypes(Model model) {
+        return DTOUtil.getEnumByClass(DataType.class);
+    }
 
     @RequestMapping(value = "/data-type/id/{id}", method = RequestMethod.GET)
     @ResponseBody
-    public DataType getDataTypeById(@PathVariable Long id) { return DataType.getById(id); }
+    public DataType getDataTypeById(@PathVariable Long id) {
+        return DataType.getById(id); }
 
     @Autowired
     private MemberTypeService memberTypeService;
@@ -114,23 +118,25 @@ public class BaseItemSetConroller {
 
     @Operation( summary = "Fetch all puzzle level  difficulty  ",  description = "fetches all puzzle level  difficulty entities and their data from data base")
     @GetMapping("/pl-difficulty/all")
-    public PLDifficulty[] getPuzzleLevelDiffculty(Model model) {  return PLDifficulty.values();   }
+    public Collection<EnumDTO> getPuzzleLevelDiffculty(Model model) {
+        return DTOUtil.getEnumByClass(PLDifficulty.class);
+    }
 
 
     @GetMapping("/pl-status/all")
-    public PLStatus[] getPuzzleLevelStatus(Model model) {
-        return PLStatus.values();
+    public Collection<EnumDTO> getPuzzleLevelStatus(Model model) {
+        return DTOUtil.getEnumByClass(PLStatus.class);
     }
 
     @GetMapping("/pl-rule-event-type/all")
-    public PLRuleEventType[] getPuzzleLevelRuleEventTypes(Model model) {
-        return PLRuleEventType.values();
+    public Collection<EnumDTO> getPuzzleLevelRuleEventTypes(Model model) {
+        return DTOUtil.getEnumByClass(PLRuleEventType.class);
     }
 
 
     @GetMapping("/game-status/all")
-    public GameStatus[] getGameStatus(Model model) {
-        return GameStatus.values();
+    public Collection<EnumDTO> getGameStatus(Model model) {
+        return DTOUtil.getEnumByClass(GameStatus.class);
     }
 
     @Autowired

@@ -25,16 +25,10 @@ public class PuzzleCategoryController {
     private PuzzleCategoryService puzzleCategoryService;
     @GetMapping("/all")
     public Collection<PuzzleCategoryDTO> getPuzzleCategories(Model model) {
-        Collection<PuzzleCategoryDTO> puzzleCategoryDTOCollection = new ArrayList<PuzzleCategoryDTO>();
+        Collection<PuzzleCategoryDTO> puzzleCategoryDTOS = new ArrayList<PuzzleCategoryDTO>();
         Collection<PuzzleCategory> puzzleCategoryCollection = puzzleCategoryService.findAll();
-        PuzzleCategoryDTO puzzleCategoryDTO = new PuzzleCategoryDTO();
-        Iterator<PuzzleCategory> itr = puzzleCategoryCollection.iterator();
-        while(itr.hasNext()) {
-            PuzzleCategory puzzleCategory = itr.next();
-            puzzleCategoryDTO = DTOUtil.getPuzzleCategoryDTO(puzzleCategory);
-            puzzleCategoryDTOCollection.add(puzzleCategoryDTO);
-        }
-        return puzzleCategoryDTOCollection;
+        puzzleCategoryDTOS = DTOUtil.getPuzzleCategoryDTOS(puzzleCategoryCollection);
+        return puzzleCategoryDTOS;
     }
     @RequestMapping(value = "/id/{id}", method = RequestMethod.GET)
     @ResponseBody

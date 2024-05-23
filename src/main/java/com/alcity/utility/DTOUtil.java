@@ -5,6 +5,7 @@ import com.alcity.dto.Interpreter.PLObjectiveData;
 import com.alcity.dto.Interpreter.object.RecordrData;
 import com.alcity.dto.Interpreter.object.RuleActionData;
 import com.alcity.dto.Interpreter.object.RuleData;
+import com.alcity.dto.alenum.EnumDTO;
 import com.alcity.dto.alobject.*;
 import com.alcity.dto.base.BinaryContentDTO;
 import com.alcity.dto.base.ClientTypeDTO;
@@ -222,6 +223,15 @@ public class DTOUtil {
         }
         return puzzleLevelDTOCollection;
     }
+    public static <E extends Enum<?>> Collection<EnumDTO> getEnumByClass(Class<E> c)
+    {
+        Collection<EnumDTO> enumDTOS = new ArrayList<EnumDTO>();
+        for (E o: c.getEnumConstants()) {
+            EnumDTO enumDTO = new EnumDTO(o.ordinal(),o.name(), o.name());
+            enumDTOS.add(enumDTO);
+        }
+        return enumDTOS;
+    }
 
     public static Collection<LearningSkillLContentDTO> getLearningSkillContentDTOS(Collection<LearningSkillContent> learningSkillContents) {
         Collection<LearningSkillLContentDTO> learningSkillLContentDTOS = new ArrayList<LearningSkillLContentDTO>();
@@ -305,26 +315,32 @@ public class DTOUtil {
 
         return puzzleGroupDTO;
     }
+
+    public static Collection<PuzzleCategoryDTO> getPuzzleCategoryDTOS(Collection<PuzzleCategory> puzzleCategories) {
+        Collection<PuzzleCategoryDTO> puzzleCategoryDTOCollection = new ArrayList<PuzzleCategoryDTO>();
+        PuzzleCategoryDTO puzzleCategoryDTO = new PuzzleCategoryDTO();
+        Iterator<PuzzleCategory> itr = puzzleCategories.iterator();
+        while(itr.hasNext()) {
+            PuzzleCategory puzzleCategory = itr.next();
+            puzzleCategoryDTO = DTOUtil.getPuzzleCategoryDTO(puzzleCategory);
+            puzzleCategoryDTOCollection.add(puzzleCategoryDTO);
+        }
+        return puzzleCategoryDTOCollection;
+    }
     public static PuzzleCategoryDTO getPuzzleCategoryDTO(PuzzleCategory pc) {
         PuzzleCategoryDTO pcDTO = new PuzzleCategoryDTO();
         Collection<PuzzleGroup> puzzleGroupCollection = pc.getPuzzleGroupCollection();
         pcDTO.setId(pc.getId());
-        pcDTO.setVersion(pc.getVersion());
-        pcDTO.setCreated(pc.getCreated());
-        pcDTO.setUpdated(pc.getUpdated());
         pcDTO.setLabel(pc.getLabel());
         pcDTO.setValue(pc.getValue());
-        Collection<PGDTO> puzzleGroupDTOCollection = new ArrayList<PGDTO>();
+        pcDTO.setVersion(pc.getVersion());
+        pcDTO.setCreated(pc.getCreated());
+        pcDTO.setCreatedBy(pc.getCreatedBy().getUsername());
+        pcDTO.setCreatedById(pc.getCreatedBy().getId());
 
-        Iterator<PuzzleGroup> iterator = puzzleGroupCollection.iterator();
-        while(iterator.hasNext()){
-            PGDTO puzzleGroupDTO = new PGDTO();
-            PuzzleGroup puzzleGroup = iterator.next();
-            puzzleGroupDTO = getPuzzleGroupDTO(puzzleGroup);
-            puzzleGroupDTOCollection.add(puzzleGroupDTO);
-        }
-        pcDTO.setPuzzleGroupDTOCollection(puzzleGroupDTOCollection);
-
+        pcDTO.setUpdated(pc.getUpdated());
+        pcDTO.setUpdatedBy(pc.getUpdatedBy().getUsername());
+        pcDTO.setUpdatedById(pc.getUpdatedBy().getId());
         return pcDTO;
     }
 
