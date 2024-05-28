@@ -58,6 +58,7 @@ public class PGController {
 
 
     @GetMapping("/all")
+    @CrossOrigin
     public Collection<PGDTO> getPuzzleGroups(Model model) {
         Collection<PuzzleGroup> puzzleGroupCollection = pgService.findAll();
         Collection<PGDTO> puzzleGroupDTOCollection = new ArrayList<PGDTO>();

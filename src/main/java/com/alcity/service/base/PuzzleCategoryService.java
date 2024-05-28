@@ -92,4 +92,6 @@ public class PuzzleCategoryService implements PuzzleCategoryRepository {
     public Collection<PuzzleCategory> findByValueContains(String criteria) {
         return puzzleCategoryRepository.findByValueContains(criteria);
     }
+
+
 }

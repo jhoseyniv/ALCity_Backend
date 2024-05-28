@@ -44,6 +44,7 @@ public class BaseItemSetConroller {
     private ClientTypeService clientTypeService;
     @Operation( summary = "Fetch all client Types ",  description = "fetches all Client Types entities and their data from data source")
     @GetMapping("/client-type/all")
+    @CrossOrigin
     public Collection<ClientType> getClientTypes(Model model) {
         Collection<ClientTypeDTO> clientTypeDTOCollection = new ArrayList<>();
         Collection<ClientType> clientTypes = clientTypeService.findAll();
