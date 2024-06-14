@@ -1,17 +1,34 @@
 package com.alcity.customexception;
 
 public class ALCityReturnObject {
-    private Long status;
-    private Long recordId;
-    private String  message;
-    private String  recordTitle;
+    private Integer code;
 
-    public Long getRecordId() {
-        return recordId;
+    private String status; //ok or error
+    private Long newReocrdId;
+    private String  message;
+
+    public Integer getCode() {
+        return code;
     }
 
-    public void setRecordId(Long recordId) {
-        this.recordId = recordId;
+    public void setCode(Integer code) {
+        this.code = code;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public Long getNewReocrdId() {
+        return newReocrdId;
+    }
+
+    public void setNewReocrdId(Long newReocrdId) {
+        this.newReocrdId = newReocrdId;
     }
 
     public String getMessage() {
@@ -22,30 +39,15 @@ public class ALCityReturnObject {
         this.message = message;
     }
 
-    public String getRecordTitle() {
-        return recordTitle;
-    }
 
-    public void setRecordTitle(String recordTitle) {
-        this.recordTitle = recordTitle;
-    }
-
-    public Long getStatus() {
-        return status;
-    }
-
-    public void setStatus(Long status) {
-        this.status = status;
-    }
 
     public ALCityReturnObject() {
     }
 
-
-    public ALCityReturnObject(Long status , Long recordId, String message, String recordTitle) {
-        this.recordId = recordId;
-        this.message = message;
-        this.recordTitle = recordTitle;
+    public ALCityReturnObject(Integer code, String status, Long newReocrdId, String message) {
+        this.code = code;
         this.status = status;
+        this.newReocrdId = newReocrdId;
+        this.message = message;
     }
 }

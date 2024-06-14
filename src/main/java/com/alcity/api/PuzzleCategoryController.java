@@ -25,6 +25,7 @@ import java.util.Optional;
 
 @Tag(name = "Puzzle Category APIs ", description = "Get Puzzle Category data for ....")
 
+@CrossOrigin(origins = "http://localhost:8080" ,maxAge = 3600)
 @RestController
 @RequestMapping("/pc")
 //pc =puzzle category
@@ -33,7 +34,6 @@ public class PuzzleCategoryController {
     private PuzzleCategoryService puzzleCategoryService;
     @Operation( summary = "get all Puzzle Category ",  description = "get all Puzzle Category")
     @GetMapping("/all")
-    @CrossOrigin
     public Collection<PuzzleCategoryDTO> getPuzzleCategories(Model model) {
         Collection<PuzzleCategoryDTO> puzzleCategoryDTOS = new ArrayList<PuzzleCategoryDTO>();
         Collection<PuzzleCategory> puzzleCategoryCollection = puzzleCategoryService.findAll();
