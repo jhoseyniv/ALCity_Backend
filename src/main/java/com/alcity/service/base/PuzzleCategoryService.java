@@ -1,8 +1,11 @@
 package com.alcity.service.base;
 
 
+import com.alcity.dto.puzzle.PuzzleCategoryDTO;
 import com.alcity.entity.base.PuzzleCategory;
+import com.alcity.entity.users.ApplicationMember;
 import com.alcity.repository.base.PuzzleCategoryRepository;
+import com.alcity.repository.users.ApplicationMemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +19,15 @@ public class PuzzleCategoryService implements PuzzleCategoryRepository {
 
     @Autowired
     private PuzzleCategoryRepository puzzleCategoryRepository;
+    @Autowired
+    private ApplicationMemberRepository applicationMemberRepository;
+
+    public PuzzleCategory save(PuzzleCategoryDTO pcDTO) {
+
+        ApplicationMember createdBy= applicationMemberRepository.findByUsername("admin");
+        PuzzleCategory puzzleCategory = new PuzzleCategory(pcDTO.getLabel(),pcDTO.getValue(),1L,"1714379790","1714379790",createdBy,createdBy);
+        return puzzleCategoryRepository.save(puzzleCategory);
+    }
 
     @Override
     public <S extends PuzzleCategory> S save(S entity) {

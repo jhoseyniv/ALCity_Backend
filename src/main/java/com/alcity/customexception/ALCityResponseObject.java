@@ -1,10 +1,10 @@
 package com.alcity.customexception;
 
-public class ALCityReturnObject {
+public class ALCityResponseObject {
     private Integer code;
 
     private String status; //ok or error
-    private Long newReocrdId;
+    private Long reocrdId;
     private String  message;
 
     public Integer getCode() {
@@ -23,12 +23,12 @@ public class ALCityReturnObject {
         this.status = status;
     }
 
-    public Long getNewReocrdId() {
-        return newReocrdId;
+    public Long getReocrdId() {
+        return reocrdId;
     }
 
-    public void setNewReocrdId(Long newReocrdId) {
-        this.newReocrdId = newReocrdId;
+    public void setReocrdId(Long reocrdId) {
+        this.reocrdId = reocrdId;
     }
 
     public String getMessage() {
@@ -41,13 +41,13 @@ public class ALCityReturnObject {
 
 
 
-    public ALCityReturnObject() {
+    public ALCityResponseObject() {
     }
 
-    public ALCityReturnObject(Integer code, String status, Long newReocrdId, String message) {
+    public ALCityResponseObject(Integer code, String status, Long reocrdId, String message) {
         this.code = code;
         this.status = status;
-        this.newReocrdId = newReocrdId;
+        this.reocrdId = reocrdId;
         this.message = message;
     }
 }

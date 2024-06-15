@@ -1,5 +1,6 @@
 package com.alcity.api;
 
+import com.alcity.customexception.ALCityResponseObject;
 import com.alcity.customexception.UniqueConstraintException;
 import com.alcity.customexception.ViolateForeignKeyException;
 import com.alcity.dto.puzzle.PGDTO;
@@ -25,7 +26,7 @@ import java.util.Optional;
 
 @Tag(name = "Puzzle Category APIs ", description = "Get Puzzle Category data for ....")
 
-@CrossOrigin(origins = "http://localhost:8080" ,maxAge = 3600)
+@CrossOrigin(origins = "*" ,maxAge = 3600)
 @RestController
 @RequestMapping("/pc")
 //pc =puzzle category
@@ -74,15 +75,15 @@ public class PuzzleCategoryController {
         return puzzleCategoryDTOS;
     }
 
-    @Operation( summary = "Save a  Puzzle Category ",  description = "save a Puzzle Category entity and their data to data base")
+    @Operation( summary = "Save a  Puzzle Category ",  description = "save a Puzzle Category entity to database")
     @PostMapping("/save")
-    public Optional<PuzzleCategory> savePuzzleCategory(@RequestBody PuzzleCategory puzzleCategory)  {
+    public Optional<PuzzleCategory> savePuzzleCategory(@RequestBody PuzzleCategoryDTO pcDTO)  {
         PuzzleCategory savedPuzzleCategory = null;
         try {
-            savedPuzzleCategory = puzzleCategoryService.save(puzzleCategory);
+            savedPuzzleCategory = puzzleCategoryService.save(pcDTO);
         }catch (RuntimeException e )
         {
-            throw new UniqueConstraintException(puzzleCategory.getLabel(), puzzleCategory.getId(), PuzzleCategory.class.toString());
+            throw new UniqueConstraintException(pcDTO.getLabel(), pcDTO.getId(), PuzzleCategory.class.toString());
         }
         Optional<PuzzleCategory> output = puzzleCategoryService.findById(savedPuzzleCategory.getId());
         return output;
@@ -90,19 +91,19 @@ public class PuzzleCategoryController {
 
     @Operation( summary = "delete a  Puzzle Category ",  description = "delete a Puzzle Category entity and their data to data base")
     @DeleteMapping("/del/{id}")
-    public ResponseEntity<String> deletePuzzleCategoryById(@PathVariable Long id) {
+    public ALCityResponseObject deletePuzzleCategoryById(@PathVariable Long id) {
         Optional<PuzzleCategory> existingRecord = this.puzzleCategoryService.findById(id);
         if(existingRecord.isPresent()){
             try {
-                this.puzzleCategoryService.deleteById(existingRecord.get().getId());
+                puzzleCategoryService.deleteById(existingRecord.get().getId());
 
             }catch (Exception e )
         {
             throw new ViolateForeignKeyException(existingRecord.get().getLabel(), existingRecord.get().getId(), PuzzleCategory.class.toString());
         }
-            return new ResponseEntity<>("Record deleted Successfully!", HttpStatus.OK);
+            return new ALCityResponseObject(HttpStatus.OK.value(), "ok", id,"Record deleted Successfully!");
         }
-        return ResponseEntity.notFound().build();
+        return  new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", id,"Record not found!");
     }
 
 }

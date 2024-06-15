@@ -1,14 +1,6 @@
 package com.alcity.service.puzzle;
 
-import com.alcity.customexception.ALCityReturnObject;
-import com.alcity.dto.base.LearningSkillDTO;
-import com.alcity.dto.puzzle.PLObjectiveDTO;
-import com.alcity.dto.user.WalletItemDTO;
-import com.alcity.entity.learning.LearningSkill;
 import com.alcity.entity.puzzle.PLObjective;
-import com.alcity.entity.puzzle.PuzzleLevel;
-import com.alcity.entity.users.ApplicationMember;
-import com.alcity.entity.users.WalletItem;
 import com.alcity.repository.puzzle.PLObjectiveRepository;
 import com.alcity.service.learning.LearningSkillService;
 import com.alcity.service.users.ApplicationMemberService;
