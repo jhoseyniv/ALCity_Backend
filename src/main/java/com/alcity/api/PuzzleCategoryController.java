@@ -77,7 +77,7 @@ public class PuzzleCategoryController {
 
     @Operation( summary = "Save a  Puzzle Category ",  description = "save a Puzzle Category entity to database")
     @PostMapping("/save")
-    public Optional<PuzzleCategory> savePuzzleCategory(@RequestBody PuzzleCategoryDTO pcDTO)  {
+    public ALCityResponseObject savePuzzleCategory(@RequestBody PuzzleCategoryDTO pcDTO)  {
         PuzzleCategory savedPuzzleCategory = null;
         try {
             savedPuzzleCategory = puzzleCategoryService.save(pcDTO);
@@ -85,8 +85,8 @@ public class PuzzleCategoryController {
         {
             throw new UniqueConstraintException(pcDTO.getLabel(), pcDTO.getId(), PuzzleCategory.class.toString());
         }
-        Optional<PuzzleCategory> output = puzzleCategoryService.findById(savedPuzzleCategory.getId());
-        return output;
+
+        return new ALCityResponseObject(HttpStatus.OK.value(), "ok", savedPuzzleCategory.getId(),"Record Saved Successfully!");
     }
 
     @Operation( summary = "delete a  Puzzle Category ",  description = "delete a Puzzle Category entity and their data to data base")
