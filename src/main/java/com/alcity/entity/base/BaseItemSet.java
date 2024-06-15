@@ -71,6 +71,29 @@ public abstract class BaseItemSet implements Serializable {
     @JsonIgnore
     private ApplicationMember createdBy;
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setLabel(String label) {
+        this.label = label;
+    }
+
+    public void setValue(String value) {
+        this.value = value;
+    }
+
+    public void setVersion(Long version) {
+        this.version = version;
+    }
+
+    public void setCreated(String created) {
+        this.created = created;
+    }
+
+    public void setUpdated(String updated) {
+        this.updated = updated;
+    }
 
     @ManyToOne(fetch = FetchType.LAZY, optional = true)
     @JoinColumn( name ="updatedBy",  nullable = true)

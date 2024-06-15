@@ -1,6 +1,7 @@
 package com.alcity.api;
 
 import com.alcity.customexception.ALCityResponseObject;
+import com.alcity.customexception.RecordNotFoundException;
 import com.alcity.customexception.UniqueConstraintException;
 import com.alcity.customexception.ViolateForeignKeyException;
 import com.alcity.dto.puzzle.PGDTO;
@@ -77,16 +78,26 @@ public class PuzzleCategoryController {
 
     @Operation( summary = "Save a  Puzzle Category ",  description = "save a Puzzle Category entity to database")
     @PostMapping("/save")
-    public ALCityResponseObject savePuzzleCategory(@RequestBody PuzzleCategoryDTO pcDTO)  {
+    public ALCityResponseObject savePuzzleCategory(@RequestBody PuzzleCategoryDTO dto) {
         PuzzleCategory savedPuzzleCategory = null;
-        try {
-            savedPuzzleCategory = puzzleCategoryService.save(pcDTO);
-        }catch (RuntimeException e )
-        {
-            throw new UniqueConstraintException(pcDTO.getLabel(), pcDTO.getId(), PuzzleCategory.class.toString());
-        }
+        ALCityResponseObject responseObject = new ALCityResponseObject();
 
-        return new ALCityResponseObject(HttpStatus.OK.value(), "ok", savedPuzzleCategory.getId(),"Record Saved Successfully!");
+        if (dto.getId() == null || dto.getId() <= 0L) { //save
+            try {
+                savedPuzzleCategory = puzzleCategoryService.save(dto,"Save");
+            } catch (RuntimeException e) {
+                throw new UniqueConstraintException(dto.getLabel(), dto.getId(), PuzzleCategory.class.toString());
+            }
+            responseObject = new ALCityResponseObject(HttpStatus.OK.value(), "ok", savedPuzzleCategory.getId(), "Record Saved Successfully!");
+        } else if (dto.getId() > 0L ) {//edit
+                Optional<PuzzleCategory>  puzzleCategoryOptional = puzzleCategoryService.findById(dto.getId());
+                savedPuzzleCategory = puzzleCategoryService.save(dto, "Edit");
+                responseObject = new ALCityResponseObject(HttpStatus.OK.value(), "ok", savedPuzzleCategory.getId(), "Record Updated Successfully!");
+        }
+            else
+                responseObject = new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", savedPuzzleCategory.getId(), "Record Not Found!");
+
+        return responseObject;
     }
 
     @Operation( summary = "delete a  Puzzle Category ",  description = "delete a Puzzle Category entity and their data to data base")
