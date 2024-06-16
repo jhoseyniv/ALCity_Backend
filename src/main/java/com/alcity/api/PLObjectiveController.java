@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 
 @Tag(name = "Puzzle Level Objective API's ", description = "Get Puzzle Levels Objectives for other systems...")
+@CrossOrigin(origins = "*" ,maxAge = 3600)
 @RestController
 @RequestMapping("/plo")
 public class PLObjectiveController {

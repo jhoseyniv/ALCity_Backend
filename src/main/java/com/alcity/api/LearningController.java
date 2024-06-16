@@ -17,6 +17,7 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.Optional;
 
+@CrossOrigin(origins = "*" ,maxAge = 3600)
 @RestController
 @RequestMapping("/learn")
 public class LearningController {

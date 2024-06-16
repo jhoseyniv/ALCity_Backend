@@ -18,6 +18,7 @@ import java.util.Collection;
 import java.util.Optional;
 
 @Tag(name = "Al City Object used in different puzzle groups", description = "this part get actions and objects in a puzzle groups api")
+@CrossOrigin(origins = "*" ,maxAge = 3600)
 @RestController
 @RequestMapping("/pg")
 

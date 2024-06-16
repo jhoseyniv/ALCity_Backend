@@ -14,6 +14,7 @@ import java.util.*;
 
 
 @Tag(name = "Puzzle Level API's ", description = "Get Puzzle Levels data Format for other systems...")
+@CrossOrigin(origins = "*" ,maxAge = 3600)
 @RestController
 @RequestMapping("/pl")
 public class PLController {

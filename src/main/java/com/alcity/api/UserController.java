@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.*;
 
 @Tag(name = "Application User APIs", description = "Get Application Member and related entities as rest api")
+@CrossOrigin(origins = "*" ,maxAge = 3600)
 @RestController
 @RequestMapping("/user")
 public class UserController {

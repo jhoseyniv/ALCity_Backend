@@ -23,6 +23,8 @@ import java.util.Iterator;
 import java.util.Optional;
 
 @Tag(name = "Journey APIs ", description = "Get Journey data for ....")
+@CrossOrigin(origins = "*" ,maxAge = 3600)
+
 @RestController
 @RequestMapping("/journey")
 public class JourneyController {

@@ -20,6 +20,8 @@ import java.util.Optional;
 
 
 @Tag(name = "Object", description = "the Al City Object Api ")
+@CrossOrigin(origins = "*" ,maxAge = 3600)
+
 @RestController
 @RequestMapping("/obj")
 

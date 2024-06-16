@@ -18,6 +18,8 @@ import java.util.Iterator;
 import java.util.Optional;
 
 @Tag(name = "Action Renderer", description = "the Al City Action Renders Api ")
+@CrossOrigin(origins = "*" ,maxAge = 3600)
+
 @RestController
 @RequestMapping("/ar")
 public class ActionRendererController {

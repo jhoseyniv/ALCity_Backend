@@ -25,6 +25,8 @@ import java.util.Iterator;
 import java.util.Optional;
 
 @Tag(name = "Interpreter APIs", description = "Get Puzzle Level in the Json Format for Other Systems")
+@CrossOrigin(origins = "*" ,maxAge = 3600)
+
 @RestController
 @RequestMapping("/puzz")
 public class InterpreterController {

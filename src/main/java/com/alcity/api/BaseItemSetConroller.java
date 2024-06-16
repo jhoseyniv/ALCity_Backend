@@ -23,11 +23,14 @@ import java.util.Collection;
 import java.util.Optional;
 
 @Tag(name = "Basic Data Type APIs", description = "All APIs for basic data types... ")
+@CrossOrigin(origins = "*" ,maxAge = 3600)
+
 @RestController
 @RequestMapping("/base")
 public class BaseItemSetConroller {
 
     @Operation( summary = "Fetch all Genders ",  description = "fetches all Gender entities and their data from data source")
+
     @GetMapping("/gender/all")
     public Collection<EnumDTO> getGenders(Model model) {
 
