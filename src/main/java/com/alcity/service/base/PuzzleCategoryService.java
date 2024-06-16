@@ -6,7 +6,10 @@ import com.alcity.entity.base.PuzzleCategory;
 import com.alcity.entity.users.ApplicationMember;
 import com.alcity.repository.base.PuzzleCategoryRepository;
 import com.alcity.repository.users.ApplicationMemberRepository;
+import com.alcity.utility.SearchCriteria;
+import com.alcity.utility.SearchSpecification;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import org.springframework.transaction.annotation.Transactional;;
@@ -54,6 +57,11 @@ public class PuzzleCategoryService implements PuzzleCategoryRepository {
     @Override
     public Optional<PuzzleCategory> findById(Long id) {
         return puzzleCategoryRepository.findById(id);
+    }
+
+    @Override
+    public Collection<PuzzleCategory> findAll(Specification specification) {
+        return puzzleCategoryRepository.findAll(specification);
     }
 
     @Override

@@ -10,9 +10,12 @@ import com.alcity.entity.base.PuzzleCategory;
 import com.alcity.entity.puzzle.PuzzleGroup;
 import com.alcity.service.base.PuzzleCategoryService;
 import com.alcity.utility.DTOUtil;
+import com.alcity.utility.SearchCriteria;
+import com.alcity.utility.SearchSpecification;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
@@ -36,6 +39,7 @@ public class PuzzleCategoryController {
     private PuzzleCategoryService puzzleCategoryService;
     @Operation( summary = "get all Puzzle Category ",  description = "get all Puzzle Category")
     @GetMapping("/all")
+    @CrossOrigin
     public Collection<PuzzleCategoryDTO> getPuzzleCategories(Model model) {
         Collection<PuzzleCategoryDTO> puzzleCategoryDTOS = new ArrayList<PuzzleCategoryDTO>();
         Collection<PuzzleCategory> puzzleCategoryCollection = puzzleCategoryService.findAll();
@@ -71,13 +75,21 @@ public class PuzzleCategoryController {
     @ResponseBody
     public Collection<PuzzleCategoryDTO> getPuzzleCategoryByCriteria(@PathVariable String criteria) {
         Collection<PuzzleCategoryDTO> puzzleCategoryDTOS = new ArrayList<PuzzleCategoryDTO>();
-        Collection<PuzzleCategory> puzzleCategoryCollection = puzzleCategoryService.findByValueContains(criteria);
+        SearchSpecification spec1 =
+                new SearchSpecification(new SearchCriteria("value", ":", criteria));
+
+        SearchSpecification spec2 =
+                new SearchSpecification(new SearchCriteria("label", ":", criteria));
+
+        Collection<PuzzleCategory> puzzleCategoryCollection = puzzleCategoryService.findAll(Specification.where(spec1).or(spec2));
         puzzleCategoryDTOS = DTOUtil.getPuzzleCategoryDTOS(puzzleCategoryCollection);
         return puzzleCategoryDTOS;
     }
 
     @Operation( summary = "Save a  Puzzle Category ",  description = "save a Puzzle Category entity to database")
     @PostMapping("/save")
+    @CrossOrigin(origins = "*")
+
     public ALCityResponseObject savePuzzleCategory(@RequestBody PuzzleCategoryDTO dto) {
         PuzzleCategory savedPuzzleCategory = null;
         ALCityResponseObject responseObject = new ALCityResponseObject();

@@ -221,6 +221,9 @@ public class ImportBaseData implements CommandLineRunner {
         PuzzleCategory  maze = new PuzzleCategory("Maze","Maze",1L,now,now,admin_1,admin_1);
         PuzzleCategory  iq = new PuzzleCategory("IQ","IQ",1L,now,now,admin_1,admin_1);
         PuzzleCategory  fun = new PuzzleCategory("Fun","Fun",1L,now,now,admin_1,admin_1);
+        PuzzleCategory  maze2 = new PuzzleCategory("Maze 2","Maze 2",1L,now,now,admin_1,admin_1);
+        PuzzleCategory  maze3 = new PuzzleCategory("Maze 3","Maze 3",1L,now,now,admin_1,admin_1);
+        PuzzleCategory  maze4 = new PuzzleCategory("Maze Maz","Maze Maze",1L,now,now,admin_1,admin_1);
         puzzleCategoryService.save(mathematic);
         puzzleCategoryService.save(physic);
         puzzleCategoryService.save(iq);
