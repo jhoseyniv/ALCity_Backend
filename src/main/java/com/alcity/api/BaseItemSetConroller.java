@@ -1,5 +1,6 @@
 package com.alcity.api;
 
+import com.alcity.customexception.ALCityResponseObject;
 import com.alcity.customexception.UniqueConstraintException;
 import com.alcity.dto.alenum.EnumDTO;
 import com.alcity.dto.base.ClientTypeDTO;
@@ -15,9 +16,13 @@ import com.alcity.utility.DTOUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Optional;
@@ -219,10 +224,28 @@ public class BaseItemSetConroller {
 
     @RequestMapping(value="/binary-content/id/{id}", method = RequestMethod.GET)
     @ResponseBody
-    public Optional<BinaryContent> getBinaryContentById(@PathVariable Long id) {
-        Optional<BinaryContent> binaryContentCollection = binaryContentService.findById(id);
-        return binaryContentCollection;
+    public BinaryContent getBinaryContentById(@PathVariable Long id) {
+        Optional<BinaryContent> binaryContentOptional = binaryContentService.findById(id);
+        if(binaryContentOptional.isPresent())
+            return binaryContentOptional.get();
+        return null;
     }
+    @Operation( summary = "Save a Binary Content to database ",  description = "save a  Binary Content entity and their data to data base")
+    @PostMapping( value = "/upload" , consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ALCityResponseObject saveBinaryContent(@RequestParam("file") MultipartFile file )  {
+        ALCityResponseObject responseObject = null;
+        try {
+
+            BinaryContent binaryContent = binaryContentService.save(file.getOriginalFilename(),file);
+            responseObject = new ALCityResponseObject(200,"ok",binaryContent.getId(), file.getOriginalFilename() + "binary content Saved Successfully..");
+
+        }catch (RuntimeException | IOException e ) {
+            //  throw new UniqueConstraintException(clientType.getLabel(), clientType.getId(), ClientType.class.toString());
+            // Optional<ClientType> output = clientTypeService.findById(savedRecord.getId());
+        }
+        return responseObject;
+    }
+
 
 
 

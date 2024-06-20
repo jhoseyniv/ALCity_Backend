@@ -104,6 +104,14 @@ public class PuzzleGroup extends BaseTable implements Serializable {
         return puzzleLevels;
     }
 
+    public PuzzleCategory getPuzzleCategory() {
+        return puzzleCategory;
+    }
+
+    public void setPuzzleCategory(PuzzleCategory puzzleCategory) {
+        this.puzzleCategory = puzzleCategory;
+    }
+
     public void setPuzzleLevels(Collection<PuzzleLevel> puzzleLevels) {
         this.puzzleLevels = puzzleLevels;
     }

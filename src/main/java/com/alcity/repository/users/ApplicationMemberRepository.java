@@ -1,5 +1,6 @@
 package com.alcity.repository.users;
 
+import com.alcity.customexception.ALCityResponseObject;
 import com.alcity.entity.users.ApplicationMember;
 import org.springframework.data.repository.CrudRepository;
 

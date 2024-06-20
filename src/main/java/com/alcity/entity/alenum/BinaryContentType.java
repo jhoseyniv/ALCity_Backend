@@ -7,7 +7,8 @@ public enum BinaryContentType {
     File,
     Video,
     Icon,
-    Voice;
+    Voice,
+    Other;
 
     public static BinaryContentType getById(long id)
     {

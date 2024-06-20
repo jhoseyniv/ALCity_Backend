@@ -14,6 +14,7 @@ public class PGDTO  {
     private String updatedBy;
 
     private String title;
+    private Long puzzleCategoryId;
     private Long iconId;
     private Long picId;
 
@@ -131,7 +132,15 @@ public class PGDTO  {
         this.puzzleGroup_puzzleObjectDTOCollection = puzzleGroup_puzzleObjectDTOCollection;
     }
 
-    public PGDTO(Long id, Long version, String created, String updated, String createdBy, String updatedBy, String title, Long iconId, Long picId) {
+    public Long getPuzzleCategoryId() {
+        return puzzleCategoryId;
+    }
+
+    public void setPuzzleCategoryId(Long puzzleCategoryId) {
+        this.puzzleCategoryId = puzzleCategoryId;
+    }
+
+    public PGDTO(Long id, Long version, String created, String updated, String createdBy, String updatedBy, String title, Long puzzleCategoryId, Long iconId, Long picId) {
         this.id = id;
         this.version = version;
         this.created = created;
@@ -141,5 +150,6 @@ public class PGDTO  {
         this.title = title;
         this.iconId = iconId;
         this.picId = picId;
+        this.puzzleCategoryId= puzzleCategoryId;
     }
 }

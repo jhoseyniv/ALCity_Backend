@@ -1,7 +1,9 @@
 package com.alcity.service.users;
 
+import com.alcity.customexception.ALCityResponseObject;
 import com.alcity.entity.users.ApplicationMember;
 import com.alcity.repository.users.ApplicationMemberRepository;
+import com.alcity.repository.users.CustomizedUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,7 +13,7 @@ import java.util.Optional;
 
 @Service
 @Transactional
-public class ApplicationMemberService implements ApplicationMemberRepository {
+public class ApplicationMemberService implements ApplicationMemberRepository, CustomizedUserRepository {
 
     @Autowired
     private ApplicationMemberRepository applicationMemberRepository;
@@ -88,6 +90,10 @@ public class ApplicationMemberService implements ApplicationMemberRepository {
 
     @Override
     public ApplicationMember findByEmail(String email) {
+        return null;
+    }
+
+    public ALCityResponseObject login(String username, String password) {
         return null;
     }
 }

@@ -1,7 +1,16 @@
 package com.alcity.service.puzzle;
 
+import com.alcity.dto.puzzle.PGDTO;
+import com.alcity.dto.puzzle.PuzzleCategoryDTO;
+import com.alcity.entity.base.BinaryContent;
+import com.alcity.entity.base.PuzzleCategory;
 import com.alcity.entity.puzzle.PuzzleGroup;
+import com.alcity.entity.users.ApplicationMember;
+import com.alcity.repository.base.BinaryContentRepository;
+import com.alcity.repository.base.PuzzleCategoryRepository;
 import com.alcity.repository.puzzle.PGRepository;
+import com.alcity.repository.users.ApplicationMemberRepository;
+import com.alcity.service.base.BinaryContentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -55,6 +64,37 @@ public class PGService implements PGRepository {
     @Override
     public void deleteById(Long aLong) {
 
+    }
+    @Autowired
+    private ApplicationMemberRepository applicationMemberRepository;
+
+    @Autowired
+    private BinaryContentRepository binaryContentRepository;
+    @Autowired
+    private PuzzleCategoryRepository puzzleCategoryRepository;
+
+    public PuzzleGroup save(PGDTO dto, String code) {
+        ApplicationMember createdBy = applicationMemberRepository.findByUsername("admin");
+        PuzzleGroup puzzleGroup=null;
+        Optional<BinaryContent> icon = binaryContentRepository.findById(dto.getIconId());
+        Optional<BinaryContent> pic = binaryContentRepository.findById(dto.getPicId());
+        Optional<PuzzleCategory>  puzzleCategory = puzzleCategoryRepository.findById(dto.getPuzzleCategoryId());
+        if (code.equalsIgnoreCase("Save")) { // save
+            puzzleGroup = new PuzzleGroup(dto.getTitle(),puzzleCategory.get(),icon.get(),pic.get(), 1L, "1714379790", "1714379790", createdBy, createdBy);
+            pgRepository.save(puzzleGroup);
+        }else{//edit
+            Optional<PuzzleGroup> puzzleGroupOptional= pgRepository.findById(dto.getId());
+            if(puzzleGroupOptional.isPresent()) {
+                puzzleGroup = puzzleGroupOptional.get();
+                puzzleGroup.setTitle(dto.getTitle());
+                puzzleGroup.setIcon(icon.get());
+                puzzleGroup.setPic(pic.get());
+                puzzleGroup.setPuzzleCategory(puzzleCategory.get());
+                puzzleGroup.setVersion(puzzleGroup.getVersion()+1);
+                pgRepository.save(puzzleGroup);
+            }
+        }
+        return puzzleGroup;
     }
 
     @Override

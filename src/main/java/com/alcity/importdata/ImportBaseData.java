@@ -247,15 +247,15 @@ public class ImportBaseData implements CommandLineRunner {
         binaryContentService.save(puzzle_group_Maze_Image_binary_content);
 
         byte[] puzzle_group_Icon_1 = ImageUtil.getImage("src/main/resources/images/","puzzle_group_1.png");
-        BinaryContent puzzle_group_binary_content_1 = new BinaryContent("image_puzzle_group_matematic",puzzle_group_Icon_1,BinaryContentType.Image,1L,now,now,admin_1,admin_1);
-        binaryContentService.save(puzzle_group_binary_content_1);
+        BinaryContent puzzle_group_binary_content_Icon = new BinaryContent("image_puzzle_group_matematic",puzzle_group_Icon_1,BinaryContentType.Image,1L,now,now,admin_1,admin_1);
+        binaryContentService.save(puzzle_group_binary_content_Icon);
 
         LearningContent learningContent_Maze=new LearningContent("help to maze","this content is about maze tables",puzzle_group_Maze_Image_binary_content,1L,now,now,admin_1,admin_1);
         learningContentService.save(learningContent_Maze);
 
        // PuzzleCategory mathematic = puzzleCategoryService.findByValue("mathematic");
 
-        PuzzleGroup puzzleGroup_HashImage = new PuzzleGroup("Hash Image - Puzzle Group 1",mathematic,puzzle_group_binary_content_1,puzzle_group_binary_content_1,1L,now,now,admin_1,admin_1);
+        PuzzleGroup puzzleGroup_HashImage = new PuzzleGroup("Hash Image - Puzzle Group 1",mathematic,puzzle_group_binary_content_Icon,puzzle_group_binary_content_Icon,1L,now,now,admin_1,admin_1);
         PuzzleGroup puzzleGroup_IQ = new PuzzleGroup("IQ Puzzle Group",mathematic,puzzle_group_binary_content_2,puzzle_group_binary_content_3,1L,now,now,admin_1,admin_1);
         puzzleGroupService.save(puzzleGroup_HashImage);
         puzzleGroupService.save(puzzleGroup_IQ);

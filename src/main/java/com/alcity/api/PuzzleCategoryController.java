@@ -47,7 +47,7 @@ public class PuzzleCategoryController {
         return puzzleCategoryDTOS;
     }
 
-    @Operation( summary = "Get all Puzzle Category ",  description = "Get all Puzzle Category")
+    @Operation( summary = "Get all Puzzle Group for a puzzle Category ",  description = "Get all Puzzle Category")
     @GetMapping("/id/{id}/pg/all")
     @CrossOrigin
     public Collection<PGDTO> getRelatedPuzzleGroupsWithACategory(@PathVariable Long id) {

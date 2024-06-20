@@ -306,6 +306,7 @@ public class DTOUtil {
         puzzleGroupDTO.setCreated(puzzleGroup.getCreated());
         puzzleGroupDTO.setUpdated(puzzleGroup.getUpdated());
         puzzleGroupDTO.setTitle(puzzleGroup.getTitle());
+        puzzleGroupDTO.setPuzzleCategoryId(puzzleGroup.getPuzzleCategory().getId());
         puzzleGroupDTO.setIconId(puzzleGroup.getIcon().getId());
         puzzleGroupDTO.setPicId(puzzleGroup.getPic().getId());
         puzzleGroupDTO.setCreated(puzzleGroup.getCreated());
