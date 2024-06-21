@@ -90,7 +90,6 @@ public class PuzzleCategoryController {
     @Operation( summary = "Save a  Puzzle Category ",  description = "save a Puzzle Category entity to database")
     @PostMapping("/save")
     @CrossOrigin(origins = "*")
-
     public ALCityResponseObject savePuzzleCategory(@RequestBody PuzzleCategoryDTO dto) {
         PuzzleCategory savedPuzzleCategory = null;
         ALCityResponseObject responseObject = new ALCityResponseObject();

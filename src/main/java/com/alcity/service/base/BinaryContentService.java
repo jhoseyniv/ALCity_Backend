@@ -1,8 +1,11 @@
 package com.alcity.service.base;
 
 import com.alcity.customexception.ALCityResponseObject;
+import com.alcity.dto.base.BinaryContentDTO;
+import com.alcity.dto.puzzle.PuzzleCategoryDTO;
 import com.alcity.entity.alenum.BinaryContentType;
 import com.alcity.entity.base.BinaryContent;
+import com.alcity.entity.base.PuzzleCategory;
 import com.alcity.entity.users.ApplicationMember;
 import com.alcity.repository.base.BinaryContentCustom;
 import com.alcity.repository.base.BinaryContentRepository;
@@ -63,7 +66,7 @@ public class BinaryContentService implements BinaryContentRepository , BinaryCon
 
     @Override
     public void deleteById(Long aLong) {
-
+        binaryContentRepository.deleteById(aLong);
     }
 
     @Override
@@ -111,4 +114,25 @@ public class BinaryContentService implements BinaryContentRepository , BinaryCon
 
         return binaryContent;
     }
+    public BinaryContent save(BinaryContentDTO dto, String code) {
+        ApplicationMember createdBy = applicationMemberRepository.findByUsername("admin");
+        BinaryContent binaryContent=null;
+        if (code.equalsIgnoreCase("Save")) { // save
+            binaryContent = new BinaryContent(dto.getFileName(), dto.getContent(),
+                    BinaryContentType.getByTitle(dto.getContentType()) ,
+                    1L, "1714379790", "1714379790",createdBy, createdBy);
+            binaryContentRepository.save(binaryContent);
+        }else{//edit
+            Optional<BinaryContent> binaryContentOptional= binaryContentRepository.findById(dto.getId());
+            if(binaryContentOptional.isPresent()) {
+                binaryContent = binaryContentOptional.get();
+                binaryContent.setContentType(BinaryContentType.getByTitle(dto.getContentType()));
+                binaryContent.setFileName(dto.getFileName());
+                binaryContent.setVersion(binaryContent.getVersion()+1);
+                binaryContentRepository.save(binaryContent);
+            }
+        }
+        return binaryContent;
+    }
+
 }

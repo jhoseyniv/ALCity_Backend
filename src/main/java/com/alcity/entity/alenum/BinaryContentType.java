@@ -18,5 +18,13 @@ public enum BinaryContentType {
         }
         throw new IllegalArgumentException("no");
     }
-
+    public static BinaryContentType getByTitle(String title)
+    {
+        for (BinaryContentType e : BinaryContentType.values())
+        {
+            if (title.equalsIgnoreCase(e.name())) return e;
+        }
+        throw new IllegalArgumentException("no");
     }
+
+}

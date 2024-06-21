@@ -19,6 +19,8 @@ public class BinaryContentDTO {
     private Integer size;
     private byte[] content;
 
+    private String contentType;
+
     public Long getId() {
         return id;
     }
@@ -91,10 +93,18 @@ public class BinaryContentDTO {
         this.updatedBy = updatedBy;
     }
 
+    public String getContentType() {
+        return contentType;
+    }
+
+    public void setContentType(String contentType) {
+        this.contentType = contentType;
+    }
+
     public BinaryContentDTO() {
     }
 
-    public BinaryContentDTO(Long id,Long version, String created, String updated, String createdBy, String updatedBy, String fileName, Integer size, byte[] content) {
+    public BinaryContentDTO(Long id,Long version, String created, String updated, String createdBy, String updatedBy, String fileName, Integer size, byte[] content,String contentType) {
         this.id = id;
         this.created = created;
         this.version = version;
@@ -104,5 +114,6 @@ public class BinaryContentDTO {
         this.fileName = fileName;
         this.size = size;
         this.content = content;
+        this.contentType = contentType;
     }
 }

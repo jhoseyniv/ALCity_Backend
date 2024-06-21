@@ -445,12 +445,12 @@ public class DTOUtil {
     public static BinaryContentDTO getBinaryContentDTOWithoutContent(BinaryContent content){
         BinaryContentDTO binaryContentDTO = new BinaryContentDTO(content.getId(), content.getVersion(), content.getCreated(), content.getUpdated(),
                 content.getCreatedBy().getUsername(),content.getUpdatedBy().getUsername(),
-                 content.getFileName(), content.getSize(), null);
+                 content.getFileName(), content.getSize(), null,content.getContentType().name());
         return binaryContentDTO;
     }
     public static BinaryContentDTO getBinaryContentDTO(BinaryContent content){
         BinaryContentDTO binaryContentDTO = new BinaryContentDTO(content.getId(), content.getVersion(), content.getCreated(), content.getUpdated(),
-                content.getCreatedBy().getUsername(),content.getUpdatedBy().getUsername(),content.getFileName(), content.getSize(), content.getContent());
+                content.getCreatedBy().getUsername(),content.getUpdatedBy().getUsername(),content.getFileName(), content.getSize(), content.getContent(),content.getContentType().name());
         return binaryContentDTO;
     }
 

@@ -2,7 +2,9 @@ package com.alcity.api;
 
 import com.alcity.customexception.ALCityResponseObject;
 import com.alcity.customexception.UniqueConstraintException;
+import com.alcity.customexception.ViolateForeignKeyException;
 import com.alcity.dto.alenum.EnumDTO;
+import com.alcity.dto.base.BinaryContentDTO;
 import com.alcity.dto.base.ClientTypeDTO;
 import com.alcity.dto.user.MemberTypeDTO;
 import com.alcity.entity.alenum.*;
@@ -16,6 +18,7 @@ import com.alcity.utility.DTOUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
@@ -225,33 +228,6 @@ public class BaseItemSetConroller {
         return learningContentOptional;
     }
 
-    @Autowired
-    private BinaryContentService binaryContentService;
-
-    @RequestMapping(value="/binary-content/id/{id}", method = RequestMethod.GET)
-    @ResponseBody
-    public BinaryContent getBinaryContentById(@PathVariable Long id) {
-        Optional<BinaryContent> binaryContentOptional = binaryContentService.findById(id);
-        if(binaryContentOptional.isPresent())
-            return binaryContentOptional.get();
-        return null;
-    }
-    @Operation( summary = "Save a Binary Content to database ",  description = "save a  Binary Content entity and their data to data base")
-    @PostMapping( value = "/upload" , consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    @CrossOrigin(origins = "*")
-    public ALCityResponseObject saveBinaryContent(@RequestParam("file") MultipartFile file )  {
-        ALCityResponseObject responseObject = null;
-        try {
-
-            BinaryContent binaryContent = binaryContentService.save(file.getOriginalFilename(),file);
-            responseObject = new ALCityResponseObject(200,"ok",binaryContent.getId(), file.getOriginalFilename() + "binary content Saved Successfully..");
-
-        }catch (RuntimeException | IOException e ) {
-            //  throw new UniqueConstraintException(clientType.getLabel(), clientType.getId(), ClientType.class.toString());
-            // Optional<ClientType> output = clientTypeService.findById(savedRecord.getId());
-        }
-        return responseObject;
-    }
 
 
 
