@@ -80,6 +80,7 @@ public class BinaryContentController {
     }
     @Operation( summary = "delete a  Binary Content ",  description = "delete a Binary Content")
     @DeleteMapping("/del/{id}")
+    @CrossOrigin(origins = "*")
     public ALCityResponseObject deleteById(@PathVariable Long id) {
         Optional<BinaryContent> existingRecord = this.binaryContentService.findById(id);
         if(existingRecord.isPresent()){
