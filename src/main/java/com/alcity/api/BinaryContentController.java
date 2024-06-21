@@ -56,7 +56,7 @@ public class BinaryContentController {
     }
 
     @Operation( summary = "Save a Binary Content to database by DTO ",  description = "Save a  Binary Content entity and their data to data base")
-    @PostMapping("/save/dto")
+    @PostMapping("/save")
     @CrossOrigin(origins = "*")
     public ALCityResponseObject saveBinaryContentByDTO(@RequestBody BinaryContentDTO dto )  {
         BinaryContent savedBinaryContent = null;

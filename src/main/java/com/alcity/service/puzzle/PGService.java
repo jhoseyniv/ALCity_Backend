@@ -63,7 +63,7 @@ public class PGService implements PGRepository {
 
     @Override
     public void deleteById(Long aLong) {
-
+        pgRepository.deleteById(aLong);
     }
     @Autowired
     private ApplicationMemberRepository applicationMemberRepository;

@@ -2,6 +2,7 @@ package com.alcity.api;
 
 import com.alcity.customexception.ALCityResponseObject;
 import com.alcity.customexception.UniqueConstraintException;
+import com.alcity.customexception.ViolateForeignKeyException;
 import com.alcity.dto.journey.JourneyStepDTO;
 import com.alcity.dto.puzzle.*;
 import com.alcity.entity.base.PuzzleCategory;
@@ -27,8 +28,6 @@ import java.util.Optional;
 @RequestMapping("/pg")
 
 public class PGController {
-    @Autowired
-    private PuzzleCategoryService puzzleCategoryService;
 
     @Autowired
     private PGService pgService;
@@ -123,6 +122,22 @@ public class PGController {
         return responseObject;
     }
 
+    @Operation( summary = "delete a  Puzzle Group ",  description = "delete a Puzzle group entity and their data to data base")
+    @DeleteMapping("/del/{id}")
+    public ALCityResponseObject deletePuzzleGroupById(@PathVariable Long id) {
+        Optional<PuzzleGroup> existingRecord = this.pgService.findById(id);
+        if(existingRecord.isPresent()){
+            try {
+                pgService.deleteById(existingRecord.get().getId());
+
+            }catch (Exception e )
+            {
+                throw new ViolateForeignKeyException(existingRecord.get().getTitle(), existingRecord.get().getId(), PuzzleGroup.class.toString());
+            }
+            return new ALCityResponseObject(HttpStatus.OK.value(), "ok", id,"Record deleted Successfully!");
+        }
+        return  new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", id,"Record not found!");
+    }
 
 
 }
