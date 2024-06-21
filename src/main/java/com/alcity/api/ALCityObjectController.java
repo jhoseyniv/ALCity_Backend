@@ -23,11 +23,11 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Optional;
 
-@Tag(name = "AL City Object APIs", description = "Get ALCity Objects and related entities as rest api")
+@Tag(name = "AL City Objects APIs", description = "Get ALCity Objects and related entities as rest api")
 @CrossOrigin(origins = "*" ,maxAge = 3600)
 
 @RestController
-@RequestMapping("/co")
+@RequestMapping("/co")  // city object=co
 public class ALCityObjectController {
 
     @Autowired

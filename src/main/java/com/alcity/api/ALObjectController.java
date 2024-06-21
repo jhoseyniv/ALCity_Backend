@@ -19,7 +19,7 @@ import java.util.Iterator;
 import java.util.Optional;
 
 
-@Tag(name = "Object", description = "the Al City Object Api ")
+@Tag(name = "ALCity Object Details", description = "get deatils for an Al City Object Api ")
 @CrossOrigin(origins = "*" ,maxAge = 3600)
 
 @RestController
@@ -30,8 +30,8 @@ public class ALObjectController {
     @Autowired
     private ObjectCategoryService objectCategoryService;
 
-    @Autowired
-    private ActionRendererService actionRendererService;
+//    @Autowired
+//    private ActionRendererService actionRendererService;
 
 
 
@@ -57,7 +57,7 @@ public class ALObjectController {
         return null;
     }
 
-    @Operation( summary = "Fetch All Object actions ",  description = "fetches All actions that ab Object can have in the al city ")
+    @Operation( summary = "Fetch All Object actions ",  description = "fetches All actions that an Object can have in the al city ")
     @GetMapping("/action/all")
     public ObjectAction[] getObjectActions(Model model) {
         return ObjectAction.values();

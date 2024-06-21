@@ -70,6 +70,7 @@ public class BaseItemSetConroller {
     }
     @Operation( summary = "Save a Client Type ",  description = "save a  Client Types entity and their data to data base")
     @PostMapping("/client-type/save")
+    @CrossOrigin(origins = "*")
     public ResponseEntity<ClientType> saveClientType(@RequestBody ClientType clientType)  {
         ClientType savedRecord = null;
         try {
@@ -84,17 +85,20 @@ public class BaseItemSetConroller {
 
     @Operation( summary = "Fetch all data Types ",  description = "fetches all data Types entities and their data from data base")
     @GetMapping("/data-type/all")
+    @CrossOrigin(origins = "*")
     public Collection<EnumDTO> getDataTypes(Model model) {
         return DTOUtil.getEnumByClass(DataType.class);
     }
 
     @RequestMapping(value = "/data-type/id/{id}", method = RequestMethod.GET)
     @ResponseBody
+    @CrossOrigin(origins = "*")
     public DataType getDataTypeById(@PathVariable Long id) {
         return DataType.getById(id); }
 
     @Autowired
     private MemberTypeService memberTypeService;
+    @CrossOrigin(origins = "*")
     @Operation( summary = "Fetch all member Types ",  description = "fetches all member Types entities and their data from data base")
     @GetMapping("/member-type/all")
     public Collection<MemberTypeDTO> getMemberType(Model model) {
@@ -104,6 +108,7 @@ public class BaseItemSetConroller {
     }
     @RequestMapping(value = "/member-type/id/{id}", method = RequestMethod.GET)
     @ResponseBody
+    @CrossOrigin(origins = "*")
     public MemberTypeDTO getMemberTypeById(@PathVariable Long id) {
         Optional<MemberType> memberTypeOptional = memberTypeService.findById(id);
         if(memberTypeOptional.isPresent())
@@ -113,6 +118,7 @@ public class BaseItemSetConroller {
 
     @Operation( summary = "Save a Member Type ",  description = "Save a  Member Types entity and their data to data base")
     @PostMapping("/member-type/save")
+    @CrossOrigin(origins = "*")
     public MemberType saveMemberType(@RequestBody MemberTypeDTO memberTypeDTO)  {
         MemberType savedRecord = null;
         try {
@@ -232,6 +238,7 @@ public class BaseItemSetConroller {
     }
     @Operation( summary = "Save a Binary Content to database ",  description = "save a  Binary Content entity and their data to data base")
     @PostMapping( value = "/upload" , consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @CrossOrigin(origins = "*")
     public ALCityResponseObject saveBinaryContent(@RequestParam("file") MultipartFile file )  {
         ALCityResponseObject responseObject = null;
         try {

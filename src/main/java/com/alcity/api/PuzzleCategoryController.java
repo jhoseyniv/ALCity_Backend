@@ -39,7 +39,7 @@ public class PuzzleCategoryController {
     private PuzzleCategoryService puzzleCategoryService;
     @Operation( summary = "get all Puzzle Category ",  description = "get all Puzzle Category")
     @GetMapping("/all")
-    @CrossOrigin
+    @CrossOrigin(origins = "*")
     public Collection<PuzzleCategoryDTO> getPuzzleCategories(Model model) {
         Collection<PuzzleCategoryDTO> puzzleCategoryDTOS = new ArrayList<PuzzleCategoryDTO>();
         Collection<PuzzleCategory> puzzleCategoryCollection = puzzleCategoryService.findAll();
@@ -49,7 +49,7 @@ public class PuzzleCategoryController {
 
     @Operation( summary = "Get all Puzzle Group for a puzzle Category ",  description = "Get all Puzzle Category")
     @GetMapping("/id/{id}/pg/all")
-    @CrossOrigin
+    @CrossOrigin(origins = "*")
     public Collection<PGDTO> getRelatedPuzzleGroupsWithACategory(@PathVariable Long id) {
         Collection<PGDTO> pgdtos = new ArrayList<PGDTO>();
         Optional<PuzzleCategory> puzzleCategoryOptional = puzzleCategoryService.findById(id);
@@ -73,6 +73,7 @@ public class PuzzleCategoryController {
     @Operation( summary = "Get a few Puzzle Category by criteria ",  description = "Get a few Puzzle Category by criteria")
     @RequestMapping(value = "/cond/{criteria}", method = RequestMethod.GET)
     @ResponseBody
+    @CrossOrigin(origins = "*")
     public Collection<PuzzleCategoryDTO> getPuzzleCategoryByCriteria(@PathVariable String criteria) {
         Collection<PuzzleCategoryDTO> puzzleCategoryDTOS = new ArrayList<PuzzleCategoryDTO>();
         SearchSpecification spec1 =
