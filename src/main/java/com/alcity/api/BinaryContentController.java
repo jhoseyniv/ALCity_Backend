@@ -8,6 +8,7 @@ import com.alcity.dto.base.BinaryContentDTO;
 import com.alcity.entity.base.BinaryContent;
 import com.alcity.entity.base.PuzzleCategory;
 import com.alcity.service.base.BinaryContentService;
+import com.alcity.service.puzzle.PGService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,8 @@ public class BinaryContentController {
 
     @Autowired
     private BinaryContentService binaryContentService;
+    @Autowired
+    private PGService pgService;
 
     @RequestMapping(value="/id/{id}", method = RequestMethod.GET)
     @ResponseBody
@@ -78,13 +81,14 @@ public class BinaryContentController {
 
         return responseObject;
     }
-    @Operation( summary = "delete a  Binary Content ",  description = "delete a Binary Content")
+    @Operation( summary = "Delete a  Binary Content ",  description = "Delete a Binary Content")
     @DeleteMapping("/del/{id}")
     @CrossOrigin(origins = "*")
     public ALCityResponseObject deleteById(@PathVariable Long id) {
         Optional<BinaryContent> existingRecord = this.binaryContentService.findById(id);
         if(existingRecord.isPresent()){
             try {
+                binaryContentService.removeForeignKeys(id);
                 binaryContentService.deleteById(existingRecord.get().getId());
             }catch (Exception e )
             {

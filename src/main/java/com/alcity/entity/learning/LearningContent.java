@@ -21,8 +21,8 @@ public class LearningContent  extends BaseTable implements Serializable {
     @NotNull(message = "{bHeight.notempty}")
     private String descBrief;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = true)
-    @JoinColumn(name = "binary_content_id", nullable = true)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "binary_content_id")
     @JsonIgnore
     private BinaryContent binaryContent;
 

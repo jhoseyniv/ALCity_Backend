@@ -1,5 +1,6 @@
 package com.alcity.service.learning;
 
+import com.alcity.entity.base.BinaryContent;
 import com.alcity.entity.learning.LearningContent;
 import com.alcity.repository.learning.LearningContentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,11 @@ public class LearningContentService implements LearningContentRepository {
     @Override
     public Optional<LearningContent> findById(Long id) {
         return learningContentRepository.findById(id);
+    }
+
+    @Override
+    public Optional<LearningContent> findByBinaryContent(BinaryContent binaryContent) {
+        return learningContentRepository.findByBinaryContent(binaryContent);
     }
 
     @Override

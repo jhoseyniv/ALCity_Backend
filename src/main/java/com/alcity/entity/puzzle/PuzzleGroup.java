@@ -29,13 +29,13 @@ public class PuzzleGroup extends BaseTable implements Serializable {
     @JsonIgnore
     private PuzzleCategory puzzleCategory;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "icon_content_id", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "icon_content_id" )
     @JsonIgnore
     private BinaryContent icon;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "pic_content_id", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "pic_content_id")
     @JsonIgnore
     private BinaryContent pic;
 

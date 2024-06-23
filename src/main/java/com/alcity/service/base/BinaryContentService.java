@@ -6,11 +6,16 @@ import com.alcity.dto.puzzle.PuzzleCategoryDTO;
 import com.alcity.entity.alenum.BinaryContentType;
 import com.alcity.entity.base.BinaryContent;
 import com.alcity.entity.base.PuzzleCategory;
+import com.alcity.entity.learning.LearningContent;
+import com.alcity.entity.puzzle.PuzzleGroup;
 import com.alcity.entity.users.ApplicationMember;
 import com.alcity.repository.base.BinaryContentCustom;
 import com.alcity.repository.base.BinaryContentRepository;
+import com.alcity.repository.puzzle.PGRepository;
 import com.alcity.repository.users.ApplicationMemberRepository;
 import com.alcity.repository.users.CustomizedUserRepository;
+import com.alcity.service.learning.LearningContentService;
+import com.alcity.service.puzzle.PGService;
 import com.alcity.utility.ImageUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,6 +34,11 @@ public class BinaryContentService implements BinaryContentRepository , BinaryCon
 
     @Autowired
     BinaryContentRepository binaryContentRepository;
+    @Autowired
+    private PGService pgServie;
+    @Autowired
+    private LearningContentService learningContentService;
+
     @Override
     public <S extends BinaryContent> S save(S entity) {
         return binaryContentRepository.save(entity);
@@ -102,6 +112,7 @@ public class BinaryContentService implements BinaryContentRepository , BinaryCon
     @Autowired
     private ApplicationMemberRepository applicationMemberRepository;
 
+
     @Override
     public BinaryContent save(String fileName, MultipartFile file) throws IOException {
         LocalDateTime current = LocalDateTime.now();
@@ -114,6 +125,34 @@ public class BinaryContentService implements BinaryContentRepository , BinaryCon
 
         return binaryContent;
     }
+
+    @Override
+    public void removeForeignKeys(Long id) throws IOException {
+        Optional<BinaryContent> binaryContentOptional = binaryContentRepository.findById(id);
+        if(binaryContentOptional.isEmpty()) return;
+
+        Optional<PuzzleGroup> puzzleGroupOptional = pgServie.findByIcon(binaryContentOptional.get());
+        if(puzzleGroupOptional.isPresent()){
+            PuzzleGroup puzzleGroup = puzzleGroupOptional.get();
+            puzzleGroup.setIcon(null);
+            pgServie.save(puzzleGroup);
+        }
+         puzzleGroupOptional = pgServie.findByPic(binaryContentOptional.get());
+        if(puzzleGroupOptional.isPresent()){
+            PuzzleGroup puzzleGroup = puzzleGroupOptional.get();
+            puzzleGroup.setPic(null);
+            pgServie.save(puzzleGroup);
+        }
+        Optional<LearningContent> learningContentOptional = learningContentService.findByBinaryContent(binaryContentOptional.get());
+        if(learningContentOptional.isPresent()){
+            LearningContent learningContent = learningContentOptional.get();
+            learningContent.setBinaryContent(null);
+            learningContentService.save(learningContent);
+        }
+
+
+    }
+
     public BinaryContent save(BinaryContentDTO dto, String code) {
         ApplicationMember createdBy = applicationMemberRepository.findByUsername("admin");
         BinaryContent binaryContent=null;

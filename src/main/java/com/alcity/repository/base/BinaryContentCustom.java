@@ -7,5 +7,6 @@ import java.io.IOException;
 
 public interface BinaryContentCustom {
     BinaryContent save(String fileName, MultipartFile file) throws IOException;
+    void removeForeignKeys(Long id) throws IOException;
 
 }

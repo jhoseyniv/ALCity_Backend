@@ -121,4 +121,16 @@ public class PGService implements PGRepository {
     public  Optional<PuzzleGroup> findByTitle(String title) {
         return pgRepository.findByTitle(title);
     }
+
+    @Override
+    public Optional<PuzzleGroup> findByIcon(BinaryContent icon) {
+        return pgRepository.findByIcon(icon);
+    }
+
+    @Override
+    public Optional<PuzzleGroup> findByPic(BinaryContent pic) {
+        return pgRepository.findByPic(pic);
+    }
+
+
 }
