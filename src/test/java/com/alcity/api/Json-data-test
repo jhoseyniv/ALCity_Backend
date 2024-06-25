@@ -1,3 +1,21 @@
+//save Puzzle Level
+
+{
+    "id": -1,
+    "approveDate": "25-06-2024 07:59:06",
+    "ordering": 1,
+    "title": "hashed image with a empty cell 2222",
+    "code": "4545",
+    "fromAge": 10,
+    "toAge": 14,
+    "maxScore": 5,
+    "puzzleGroupId":64,
+    "puzzleLevelStatus": "Ongoing",
+    "puzzleLevelPrivacy": "privacy 1",
+    "puzzleLevelDifficulty": "Easy"
+  }
+
+
 
 //Save Puzzle Level Objective
 

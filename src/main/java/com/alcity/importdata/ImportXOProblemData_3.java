@@ -190,7 +190,9 @@ public class ImportXOProblemData_3 implements CommandLineRunner {
 
         PLPrivacy privacy_1 = plPrivacyService.findByValue("privacy1");
 
-        PuzzleLevel puzzleLevel = new PuzzleLevel(now,1L,"X-O","4500",10,14,5f,IQ_Puzzle_Group.get(),PLDifficulty.Easy,PLStatus.Ongoing,privacy_1,pgIcon_bc,pgIcon_bc,3L,now,now,admin_1,admin_1);
+        PuzzleLevel puzzleLevel = new PuzzleLevel(now,1L,"X-O","4500",10,14,5f,IQ_Puzzle_Group.get(),PLDifficulty.Easy,PLStatus.Ongoing,privacy_1,3L,now,now,admin_1,admin_1);
+        puzzleLevel.setIcon(pgIcon_bc);
+        puzzleLevel.setPicture(pgIcon_bc);
         puzzleLevelService.save(puzzleLevel);
 
         BinaryContent puzzle_group_1_binary_content = binaryContentService.findByfileName("image_puzzle_group_matematic");

@@ -8,14 +8,17 @@ import com.alcity.entity.base.BinaryContent;
 import com.alcity.entity.base.PuzzleCategory;
 import com.alcity.entity.learning.LearningContent;
 import com.alcity.entity.puzzle.PuzzleGroup;
+import com.alcity.entity.puzzle.PuzzleLevel;
 import com.alcity.entity.users.ApplicationMember;
 import com.alcity.repository.base.BinaryContentCustom;
 import com.alcity.repository.base.BinaryContentRepository;
 import com.alcity.repository.puzzle.PGRepository;
+import com.alcity.repository.puzzle.PuzzleLevelRepository;
 import com.alcity.repository.users.ApplicationMemberRepository;
 import com.alcity.repository.users.CustomizedUserRepository;
 import com.alcity.service.learning.LearningContentService;
 import com.alcity.service.puzzle.PGService;
+import com.alcity.service.puzzle.PuzzleLevelService;
 import com.alcity.utility.ImageUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -38,6 +41,8 @@ public class BinaryContentService implements BinaryContentRepository , BinaryCon
     private PGService pgServie;
     @Autowired
     private LearningContentService learningContentService;
+    @Autowired
+    private PuzzleLevelRepository puzzleLevelRepository;
 
     @Override
     public <S extends BinaryContent> S save(S entity) {
@@ -137,7 +142,7 @@ public class BinaryContentService implements BinaryContentRepository , BinaryCon
             puzzleGroup.setIcon(null);
             pgServie.save(puzzleGroup);
         }
-         puzzleGroupOptional = pgServie.findByPic(binaryContentOptional.get());
+        puzzleGroupOptional = pgServie.findByPic(binaryContentOptional.get());
         if(puzzleGroupOptional.isPresent()){
             PuzzleGroup puzzleGroup = puzzleGroupOptional.get();
             puzzleGroup.setPic(null);
@@ -149,7 +154,18 @@ public class BinaryContentService implements BinaryContentRepository , BinaryCon
             learningContent.setBinaryContent(null);
             learningContentService.save(learningContent);
         }
-
+        Optional<PuzzleLevel> puzzleLevelOptional = puzzleLevelRepository.findByIcon(binaryContentOptional.get());
+        if(puzzleLevelOptional.isPresent()){
+            PuzzleLevel puzzleLevel = puzzleLevelOptional.get();
+            puzzleLevel.setIcon(null);
+            puzzleLevelRepository.save(puzzleLevel);
+        }
+        puzzleLevelOptional = puzzleLevelRepository.findByPicture(binaryContentOptional.get());
+        if(puzzleLevelOptional.isPresent()){
+            PuzzleLevel puzzleLevel = puzzleLevelOptional.get();
+            puzzleLevel.setPicture(null);
+            puzzleLevelRepository.save(puzzleLevel);
+        }
 
     }
 

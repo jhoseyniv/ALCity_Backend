@@ -59,7 +59,7 @@ public class InterpreterController {
 
              PuzzleLevel pl = plGround.getPuzzleLevel();
              puzzleLevelData.setCode(pl.getCode());
-             puzzleLevelData.setName(pl.getName());
+             puzzleLevelData.setName(pl.getTitle());
 
              Collection<RecordrData>  variables = DTOUtil.getAttributeForOwnerById(attributeService,pl.getId(),AttributeOwnerType.Puzzle_Level_Variable);
 

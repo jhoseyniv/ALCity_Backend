@@ -20,8 +20,8 @@ public class PuzzleLevel extends BaseTable implements Serializable {
     @Column(name="ordering")
     private Long ordering;
 
-    @Column(name="name")
-    private String name;
+    @Column(name="title")
+    private String title;
 
     @Column(name="code",unique = true)
     private String code;
@@ -52,12 +52,12 @@ public class PuzzleLevel extends BaseTable implements Serializable {
         this.ordering = ordering;
     }
 
-    public String getName() {
-        return name;
+    public String getTitle() {
+        return title;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getCode() {
@@ -108,13 +108,13 @@ public class PuzzleLevel extends BaseTable implements Serializable {
     @JsonIgnore
     private PLPrivacy puzzleLevelPrivacy;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = true)
-    @JoinColumn(name = "picture_id", nullable = true)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "picture_id")
     @JsonIgnore
     private BinaryContent picture;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = true)
-    @JoinColumn(name = "icon_id", nullable = true)
+    @ManyToOne(fetch = FetchType.LAZY )
+    @JoinColumn(name = "icon_id")
     @JsonIgnore
     private BinaryContent icon;
 
@@ -243,11 +243,12 @@ public class PuzzleLevel extends BaseTable implements Serializable {
     public PuzzleLevel() {
     }
 
-    public PuzzleLevel(String approveDate, Long ordering, String name, String code, Integer fromAge, Integer toAge, Float maxScore, PuzzleGroup puzzleGroup, PLDifficulty puzzleDifficulty, PLStatus puzzleLevelStatus, PLPrivacy puzzleLevelPrivacy, BinaryContent picture, BinaryContent icon, Long version, String created, String updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
+    public PuzzleLevel(String approveDate, Long ordering, String title, String code, Integer fromAge, Integer toAge, Float maxScore, PuzzleGroup puzzleGroup, PLDifficulty puzzleDifficulty, PLStatus puzzleLevelStatus, PLPrivacy puzzleLevelPrivacy,
+                       Long version, String created, String updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
         super(version, created, updated, createdBy, updatedBy);
         this.approveDate = approveDate;
         this.ordering = ordering;
-        this.name = name;
+        this.title = title;
         this.code = code;
         this.fromAge = fromAge;
         this.toAge = toAge;
@@ -256,7 +257,5 @@ public class PuzzleLevel extends BaseTable implements Serializable {
         this.puzzleDifficulty = puzzleDifficulty;
         this.puzzleLevelStatus = puzzleLevelStatus;
         this.puzzleLevelPrivacy = puzzleLevelPrivacy;
-        this.picture = picture;
-        this.icon = icon;
     }
 }

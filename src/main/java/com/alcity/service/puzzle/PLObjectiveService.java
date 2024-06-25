@@ -1,6 +1,9 @@
 package com.alcity.service.puzzle;
 
+import com.alcity.dto.puzzle.PLObjectiveDTO;
+import com.alcity.dto.puzzle.PuzzleLevelLDTO;
 import com.alcity.entity.puzzle.PLObjective;
+import com.alcity.entity.puzzle.PuzzleLevel;
 import com.alcity.repository.puzzle.PLObjectiveRepository;
 import com.alcity.service.learning.LearningSkillService;
 import com.alcity.service.users.ApplicationMemberService;
@@ -109,6 +112,9 @@ public class PLObjectiveService implements PLObjectiveRepository {
         return null;
     }
 
+    public PLObjective save(PLObjectiveDTO dto, String code) {
+        return null;
+    }
 
 
 //    public ALCityReturnObject saveDTO(PLObjectiveDTO ploDTO, Long plId) {

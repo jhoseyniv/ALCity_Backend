@@ -23,11 +23,21 @@ public class PuzzleLevelLDTO {
     private Integer toAge;
     private Float maxScore;
 
+    private Long puzzleGroupId;
+
     private String puzzleLevelStatus;
 
     private String puzzleLevelPrivacy;
 
     private String puzzleLevelDifficulty;
+
+    public Long getPuzzleGroupId() {
+        return puzzleGroupId;
+    }
+
+    public void setPuzzleGroupId(Long puzzleGroupId) {
+        this.puzzleGroupId = puzzleGroupId;
+    }
 
     public Long getCreatedById() {
         return createdById;

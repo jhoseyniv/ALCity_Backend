@@ -55,7 +55,7 @@ public class DTOUtil {
         plDTO.setVersion(pl.getVersion());
         plDTO.setCode(pl.getCode());
         plDTO.setApproveDate(pl.getApproveDate());
-        plDTO.setTitle(pl.getName());
+        plDTO.setTitle(pl.getTitle());
         plDTO.setToAge(pl.getToAge());
         plDTO.setFromAge(pl.getFromAge());
         plDTO.setOrdering(pl.getOrdering());
@@ -215,7 +215,7 @@ public class DTOUtil {
             dtoObject.setCreated(puzzleLevel.getCreated());
             dtoObject.setUpdated(puzzleLevel.getUpdated());
             dtoObject.setCode(puzzleLevel.getCode());
-            dtoObject.setTitle(puzzleLevel.getName());
+            dtoObject.setTitle(puzzleLevel.getTitle());
             dtoObject.setFromAge(puzzleLevel.getFromAge());
             dtoObject.setToAge(puzzleLevel.getToAge());
             dtoObject.setMaxScore(puzzleLevel.getMaxScore());
