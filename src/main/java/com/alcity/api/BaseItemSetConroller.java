@@ -140,7 +140,6 @@ public class BaseItemSetConroller {
         return DTOUtil.getEnumByClass(PLDifficulty.class);
     }
 
-
     @GetMapping("/pl-status/all")
     public Collection<EnumDTO> getPuzzleLevelStatus(Model model) {
         return DTOUtil.getEnumByClass(PLStatus.class);

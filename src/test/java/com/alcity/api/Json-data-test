@@ -1,3 +1,27 @@
+//save puzzle level objective
+
+{
+        "id": 175,
+        "title": "arrange image pieces",
+        "description": "arrange image pieces as correct image",
+        "skillAmount": 10.0,
+        "skillTitle": "timeManagement",
+        "skillId": 33,
+        "puzzleLevelId": 164,
+        "rewardAmount": 2.0,
+        "walletItemId": 18,
+        "walletItemTitle": "al_coin_10",
+        "condition": "(img1.x == img1.targetX)&&(img1.y == img1.targetY),(img2.x == img2.targetX)&&(img2.y == img2.targetY),(img3.x == img3.targetX)&&(img3.y == img3.targetY),(img4.x == img4.targetX)&&(img4.y == img4.targetY),(img5.x == img5.targetX)&&(img5.y == img5.targetY),(img6.x == img6.targetX)&&(img6.y == img6.targetY),(img7.x == img7.targetX)&&(img7.y == img7.targetY),(img8.x == img8.targetX)&&(img8.y == img8.targetY)"
+    }
+
+//save ALCity Object
+
+{
+    "id": 124,
+    "title": "TextObject",
+    "objectCategory": "TextObject",
+  }
+
 //save Puzzle Level
 
 {

@@ -7,20 +7,24 @@ import com.alcity.entity.alenum.BinaryContentType;
 import com.alcity.entity.base.BinaryContent;
 import com.alcity.entity.base.PuzzleCategory;
 import com.alcity.entity.learning.LearningContent;
+import com.alcity.entity.puzzle.ALCityObject;
 import com.alcity.entity.puzzle.PuzzleGroup;
 import com.alcity.entity.puzzle.PuzzleLevel;
 import com.alcity.entity.users.ApplicationMember;
 import com.alcity.repository.base.BinaryContentCustom;
 import com.alcity.repository.base.BinaryContentRepository;
+import com.alcity.repository.puzzle.ALCityObjectRepository;
 import com.alcity.repository.puzzle.PGRepository;
 import com.alcity.repository.puzzle.PuzzleLevelRepository;
 import com.alcity.repository.users.ApplicationMemberRepository;
 import com.alcity.repository.users.CustomizedUserRepository;
 import com.alcity.service.learning.LearningContentService;
+import com.alcity.service.puzzle.ALCityObjectService;
 import com.alcity.service.puzzle.PGService;
 import com.alcity.service.puzzle.PuzzleLevelService;
 import com.alcity.utility.ImageUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import org.springframework.transaction.annotation.Transactional;
@@ -43,6 +47,10 @@ public class BinaryContentService implements BinaryContentRepository , BinaryCon
     private LearningContentService learningContentService;
     @Autowired
     private PuzzleLevelRepository puzzleLevelRepository;
+
+    @Autowired
+    @Qualifier("ALCityObjectRepository")
+    private ALCityObjectRepository alCityObjectRepository;
 
     @Override
     public <S extends BinaryContent> S save(S entity) {
@@ -165,6 +173,18 @@ public class BinaryContentService implements BinaryContentRepository , BinaryCon
             PuzzleLevel puzzleLevel = puzzleLevelOptional.get();
             puzzleLevel.setPicture(null);
             puzzleLevelRepository.save(puzzleLevel);
+        }
+        Optional<ALCityObject> alCityObjectOptional = alCityObjectRepository.findByIcon(binaryContentOptional.get());
+        if(alCityObjectOptional.isPresent()){
+            ALCityObject alCityObject = alCityObjectOptional.get();
+            alCityObject.setIcon(null);
+            alCityObjectRepository.save(alCityObject);
+        }
+        alCityObjectOptional = alCityObjectRepository.findByPicture(binaryContentOptional.get());
+        if(alCityObjectOptional.isPresent()){
+            ALCityObject alCityObject = alCityObjectOptional.get();
+            alCityObject.setPicture(null);
+            alCityObjectRepository.save(alCityObject);
         }
 
     }

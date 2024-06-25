@@ -1,10 +1,23 @@
 package com.alcity.service.puzzle;
 
+import com.alcity.dto.puzzle.ALCityObjectDTO;
+import com.alcity.entity.alenum.PLDifficulty;
+import com.alcity.entity.alenum.PLStatus;
 import com.alcity.entity.alenum.POActionOwnerType;
+import com.alcity.entity.alobject.ObjectCategory;
 import com.alcity.entity.alobject.PuzzleObjectAction;
+import com.alcity.entity.base.BinaryContent;
+import com.alcity.entity.base.PLPrivacy;
 import com.alcity.entity.puzzle.ALCityObject;
+import com.alcity.entity.puzzle.PuzzleGroup;
+import com.alcity.entity.puzzle.PuzzleLevel;
+import com.alcity.entity.users.ApplicationMember;
+import com.alcity.repository.alobject.ObjectCategoryRepository;
+import com.alcity.repository.base.PLPrivacyRepository;
 import com.alcity.repository.puzzle.ALCityObjectRepository;
+import com.alcity.repository.users.ApplicationMemberRepository;
 import com.alcity.service.alobject.PuzzleObjectActionService;
+import com.alcity.utility.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -52,6 +65,16 @@ public class ALCityObjectService implements ALCityObjectRepository {
     }
 
     @Override
+    public Optional<ALCityObject> findByIcon(BinaryContent icon) {
+        return alCityObjectRepository.findByIcon(icon);
+    }
+
+    @Override
+    public Optional<ALCityObject> findByPicture(BinaryContent pic) {
+        return alCityObjectRepository.findByPicture(pic);
+    }
+
+    @Override
     public Iterable<ALCityObject> findAllById(Iterable<Long> longs) {
         return null;
     }
@@ -63,7 +86,7 @@ public class ALCityObjectService implements ALCityObjectRepository {
 
     @Override
     public void deleteById(Long aLong) {
-
+        alCityObjectRepository.deleteById(aLong);
     }
 
     @Override
@@ -96,6 +119,36 @@ public class ALCityObjectService implements ALCityObjectRepository {
         actions = puzzleObjectActionService.findByOwnerObjectidAndPoActionOwnerType(cityObject.getId(), POActionOwnerType.ALCity_Object);
 
         return actions;
+    }
+    @Autowired
+    private ApplicationMemberRepository applicationMemberRepository;
+
+
+    @Autowired
+    private ObjectCategoryRepository objectCategoryRepository;
+
+    public ALCityObject save(ALCityObjectDTO dto, String code) {
+        ApplicationMember createdBy = applicationMemberRepository.findByUsername("admin");
+        ObjectCategory objectCategory =  objectCategoryRepository.findByValue(dto.getObjectCategory());
+        ALCityObject alCityObject=null;
+        if (code.equalsIgnoreCase("Save")) { //Save
+            alCityObject = new ALCityObject(dto.getTitle(), objectCategory, 1L, DateUtils.getNow(), DateUtils.getNow(), createdBy, createdBy);
+            alCityObjectRepository.save(alCityObject);
+        }else{//edit
+            Optional<ALCityObject> alCityObjectOptional= alCityObjectRepository.findById(dto.getId());
+            if(alCityObjectOptional.isPresent()) {
+                alCityObject = alCityObjectOptional.get();
+                alCityObject.setObjectCategory(objectCategory);
+                alCityObject.setTitle(dto.getTitle());
+                alCityObject.setVersion(alCityObject.getVersion()+1);
+                alCityObject.setCreated(DateUtils.getNow());
+                alCityObject.setUpdated(DateUtils.getNow());
+                alCityObject.setCreatedBy(createdBy);
+                alCityObject.setUpdatedBy(createdBy);
+                alCityObjectRepository.save(alCityObject);
+            }
+        }
+        return alCityObject;
     }
 
 }

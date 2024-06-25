@@ -60,6 +60,7 @@ public class DTOUtil {
         plDTO.setFromAge(pl.getFromAge());
         plDTO.setOrdering(pl.getOrdering());
         plDTO.setMaxScore(pl.getMaxScore());
+        plDTO.setPuzzleGroupId(pl.getPuzzleGroup().getId());
         plDTO.setUpdated(pl.getUpdated());
         plDTO.setCreated(pl.getCreated());
         plDTO.setCreatedBy(pl.getCreatedBy().getUsername());
@@ -70,7 +71,6 @@ public class DTOUtil {
         plDTO.setPuzzleLevelDifficulty(pl.getPuzzleDifficulty().toString());
         plDTO.setPuzzleLevelPrivacy(pl.getPuzzleLevelPrivacy().getLabel());
         plDTO.setPuzzleLevelStatus(pl.getPuzzleLevelStatus().toString());
-
         return plDTO;
     }
 
@@ -354,6 +354,7 @@ public class DTOUtil {
         plObjectiveDTO.setDescription(plObjective.getDescription());
         plObjectiveDTO.setRewardAmount(plObjective.getRewardAmount());
         plObjectiveDTO.setSkillAmount(plObjective.getSkillAmount());
+        plObjectiveDTO.setPuzzleLevelId(plObjective.getPuzzleLevel().getId());
         plObjectiveDTO.setUpdated(plObjective.getUpdated());
         plObjectiveDTO.setCreated(plObjective.getCreated());
         plObjectiveDTO.setCreatedBy(plObjective.getCreatedBy().getUsername());

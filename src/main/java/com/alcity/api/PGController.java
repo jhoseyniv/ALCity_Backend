@@ -122,11 +122,11 @@ public class PGController {
         return responseObject;
     }
 
-    @Operation( summary = "delete a  Puzzle Group ",  description = "delete a Puzzle group entity and their data to data base")
+    @Operation( summary = "Delete a  Puzzle Group ",  description = "Delete a Puzzle group entity and their data to data base")
     @DeleteMapping("/del/{id}")
     @CrossOrigin(origins = "*")
     public ALCityResponseObject deletePuzzleGroupById(@PathVariable Long id) {
-        Optional<PuzzleGroup> existingRecord = this.pgService.findById(id);
+        Optional<PuzzleGroup> existingRecord = pgService.findById(id);
         if(existingRecord.isPresent()){
             try {
                 pgService.deleteById(existingRecord.get().getId());

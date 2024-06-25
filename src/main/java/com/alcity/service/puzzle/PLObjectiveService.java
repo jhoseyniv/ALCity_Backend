@@ -69,7 +69,7 @@ public class PLObjectiveService implements PLObjectiveRepository {
 
     @Override
     public Collection<PLObjective> findAll() {
-        return null;
+        return objectiveRepository.findAll();
     }
 
     @Override
