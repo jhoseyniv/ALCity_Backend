@@ -47,7 +47,7 @@ public class PGController {
     }
 
     @Operation( summary = "Fetch all Puzzle Levels that define in a puzzle group ",  description = "Fetch all puzzle level for a puzzle group")
-    @RequestMapping(value = "/id/{id}/pl", method = RequestMethod.GET)
+    @RequestMapping(value = "/id/{id}/pl/all", method = RequestMethod.GET)
     @ResponseBody
     public Collection<PuzzleLevelLDTO> getPuzzleLevelForAPG(@PathVariable Long id) {
         Collection<PuzzleLevelLDTO> puzzleLevelLDTOS = new ArrayList<PuzzleLevelLDTO>();

@@ -300,10 +300,6 @@ public class ImportBaseData implements CommandLineRunner {
         walletTransactionService.save(transaction1);
         walletTransactionService.save(transaction2);
 
-
-
-
-
         ObjectCategory objectCategory_animal = new ObjectCategory("Animal","Animal",1L,now,now,admin_1,admin_1);
         ObjectCategory objectCategory_bird = new ObjectCategory("Bird","Bird",1L,now,now,admin_1,admin_1);
         ObjectCategory objectCategory_cereal = new ObjectCategory("cereal","cereal",1L,now,now,admin_1,admin_1);

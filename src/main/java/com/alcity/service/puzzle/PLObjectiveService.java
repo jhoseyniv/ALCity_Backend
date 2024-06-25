@@ -2,12 +2,24 @@ package com.alcity.service.puzzle;
 
 import com.alcity.dto.puzzle.PLObjectiveDTO;
 import com.alcity.dto.puzzle.PuzzleLevelLDTO;
+import com.alcity.entity.alenum.PLDifficulty;
+import com.alcity.entity.alenum.PLStatus;
+import com.alcity.entity.base.PLPrivacy;
+import com.alcity.entity.learning.LearningSkill;
 import com.alcity.entity.puzzle.PLObjective;
+import com.alcity.entity.puzzle.PuzzleGroup;
 import com.alcity.entity.puzzle.PuzzleLevel;
+import com.alcity.entity.users.ApplicationMember;
+import com.alcity.entity.users.WalletItem;
+import com.alcity.repository.learning.LearningSkillRepository;
 import com.alcity.repository.puzzle.PLObjectiveRepository;
+import com.alcity.repository.puzzle.PuzzleLevelRepository;
+import com.alcity.repository.users.ApplicationMemberRepository;
+import com.alcity.repository.users.WalletItemRespository;
 import com.alcity.service.learning.LearningSkillService;
 import com.alcity.service.users.ApplicationMemberService;
 import com.alcity.service.users.WalletItemService;
+import com.alcity.utility.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -25,12 +37,12 @@ public class PLObjectiveService implements PLObjectiveRepository {
     @Qualifier("PLObjectiveRepository")
     PLObjectiveRepository objectiveRepository;
     @Autowired
-    PuzzleLevelService puzzleLevelService;
+    PuzzleLevelRepository puzzleLevelRepository;
     @Autowired
-    WalletItemService walletItemService;
+    WalletItemRespository walletItemRespository;
 
     @Autowired
-    LearningSkillService  learningSkillService;
+    LearningSkillRepository learningSkillRepository;
 
     @Autowired
     ApplicationMemberService applicationMemberService;
@@ -111,33 +123,45 @@ public class PLObjectiveService implements PLObjectiveRepository {
     public Collection<PLObjective> findByCondition(StringBuffer condition) {
         return null;
     }
+    @Autowired
+    private ApplicationMemberRepository applicationMemberRepository;
 
     public PLObjective save(PLObjectiveDTO dto, String code) {
-        return null;
+        ApplicationMember createdBy = applicationMemberRepository.findByUsername("admin");
+        PLObjective plObjective=null;
+        Optional<LearningSkill> learningSkillOptional =  learningSkillRepository.findById(dto.getSkillId());
+        Optional<WalletItem> walletItemOptional =  walletItemRespository.findById(dto.getWalletItemId());
+        PuzzleLevel puzzleLevel = null;
+        Optional<PuzzleLevel>  puzzleLevelOptional = puzzleLevelRepository.findById(dto.getPuzzleLevelId());
+        if(puzzleLevelOptional.isPresent())
+              puzzleLevel = puzzleLevelOptional.get();
+
+        if (code.equalsIgnoreCase("Save")) { //Save
+            plObjective = new PLObjective(dto.getTitle(), dto.getDescription(), dto.getSkillAmount(),dto.getRewardAmount(),
+                    dto.getCondition(),learningSkillOptional.get(),walletItemOptional.get(),
+                    puzzleLevel,1L, DateUtils.getNow(), DateUtils.getNow(), createdBy, createdBy);
+            objectiveRepository.save(plObjective);
+        }else{//edit
+            Optional<PLObjective> plObjectiveOptional= objectiveRepository.findById(dto.getId());
+            if(plObjectiveOptional.isPresent()) {
+                plObjective = plObjectiveOptional.get();
+                plObjective.setCondition(dto.getCondition());
+                plObjective.setDescription(dto.getDescription());
+                plObjective.setSkillAmount(dto.getSkillAmount());
+                plObjective.setLearningSkill(learningSkillOptional.get());
+                plObjective.setWalletItem(walletItemOptional.get());
+                plObjective.setPuzzleLevel(puzzleLevel);
+                plObjective.setCreated(DateUtils.getNow());
+                plObjective.setUpdated(DateUtils.getNow());
+                plObjective.setCreatedBy(createdBy);
+                plObjective.setUpdatedBy(createdBy);
+                plObjective.setVersion(puzzleLevel.getVersion()+1);
+                objectiveRepository.save(plObjective);
+            }
+        }
+        return plObjective;
     }
 
 
-//    public ALCityReturnObject saveDTO(PLObjectiveDTO ploDTO, Long plId) {
-//        Optional<PuzzleLevel> puzzleLeveL = puzzleLevelService.findById(plId);
-//
-//        Optional<ApplicationMember> createdBy = applicationMemberService.findById(ploDTO.getCreatedById());
-//        Optional<ApplicationMember> updatedBy = applicationMemberService.findById(ploDTO.getUpdatedById());
-       // WalletItemDTO walletItemDTO = ploDTO.getWalletItemDTO();
-       // LearningSkillDTO learningSkillDTO = ploDTO.getLearningSkillDTO();
-       // Optional<WalletItem> walletItem = walletItemService.findById(walletItemDTO.getId());
-       // Optional<LearningSkill> learningSkill = learningSkillService.findById(learningSkillDTO.getId());
-
-//        if(!puzzleLeveL.isPresent() || !createdBy.isPresent() || !updatedBy.isPresent())
-//            return new ALCityReturnObject(1L,plId,"record not found","exception");
-//
-//        if(!walletItem.isPresent() || !learningSkill.isPresent() )
-//            return new ALCityReturnObject(2L,plId,"Learning Skill or Wallet Item not found","exception");
-//
-//        PLObjective plObjective = new PLObjective(ploDTO.getTitle(),ploDTO.getDescription(), ploDTO.getSkillAmount(),ploDTO.getRewardAmount(),
-//                ploDTO.getCondition(),learningSkill.get(),walletItem.get(),puzzleLeveL.get(),ploDTO.getVersion(),
-//                ploDTO.getCreated(),ploDTO.getUpdated(),createdBy.get(),updatedBy.get());
-//        objectiveRepository.save(plObjective);
-//        return  new ALCityReturnObject(0L,plObjective.getId(),"All things is Ok","An Objective Added to Puzzle Level");
- //   }
 
 }

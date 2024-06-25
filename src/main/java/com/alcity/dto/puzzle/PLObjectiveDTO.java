@@ -22,10 +22,20 @@ public class PLObjectiveDTO {
 
     private String skillTitle;
     private Long skillId;
+
+    private Long puzzleLevelId;
     private Float rewardAmount;
     private Long walletItemId;
     private String walletItemTitle;
     private StringBuffer condition;
+
+    public Long getPuzzleLevelId() {
+        return puzzleLevelId;
+    }
+
+    public void setPuzzleLevelId(Long puzzleLevelId) {
+        this.puzzleLevelId = puzzleLevelId;
+    }
 
     public String getSkillTitle() {
         return skillTitle;

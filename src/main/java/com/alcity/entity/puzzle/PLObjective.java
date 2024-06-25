@@ -58,6 +58,14 @@ public class PLObjective extends BaseTable implements Serializable {
     @JsonIgnore
     private PuzzleLevel puzzleLevel;
 
+    public PuzzleLevel getPuzzleLevel() {
+        return puzzleLevel;
+    }
+
+    public void setPuzzleLevel(PuzzleLevel puzzleLevel) {
+        this.puzzleLevel = puzzleLevel;
+    }
+
     public String getTitle() {
         return title;
     }

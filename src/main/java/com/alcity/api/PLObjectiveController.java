@@ -37,8 +37,9 @@ public class PLObjectiveController {
             plObjectiveDT = DTOUtil.getPuzzleLevelObjectiveDTO(plObjectiveOptional.get());
         return plObjectiveDT;
     }
+
     @Operation( summary = "Save a puzzle level  Objective  ",  description = "Save a puzzle level  objective entity and their data to data base")
-    @PostMapping("/objective/id/{id}/save")
+    @PostMapping("/save")
     @CrossOrigin(origins = "*")
     public ALCityResponseObject savePLObjective(@RequestBody PLObjectiveDTO dto)  {
         PLObjective savedRecord = null;
@@ -48,7 +49,7 @@ public class PLObjectiveController {
             try {
                 savedRecord = plObjectiveService.save(dto,"Save");
             } catch (RuntimeException e) {
-                throw new UniqueConstraintException(dto.getTitle(), dto.getId(), PuzzleLevel.class.toString());
+                throw new UniqueConstraintException(dto.getTitle(), dto.getId(), PLObjective.class.toString());
             }
             responseObject = new ALCityResponseObject(HttpStatus.OK.value(), "ok", savedRecord.getId(), "Record Saved Successfully!");
         } else if (dto.getId() > 0L ) {//edit
