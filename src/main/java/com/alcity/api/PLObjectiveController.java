@@ -2,9 +2,12 @@ package com.alcity.api;
 
 import com.alcity.customexception.ALCityResponseObject;
 import com.alcity.customexception.UniqueConstraintException;
+import com.alcity.customexception.ViolateForeignKeyException;
 import com.alcity.dto.puzzle.PLObjectiveDTO;
 import com.alcity.dto.puzzle.PuzzleLevelLDTO;
+import com.alcity.entity.puzzle.ALCityObject;
 import com.alcity.entity.puzzle.PLObjective;
+import com.alcity.entity.puzzle.PuzzleGroup;
 import com.alcity.entity.puzzle.PuzzleLevel;
 import com.alcity.service.puzzle.PLObjectiveService;
 import com.alcity.utility.DTOUtil;
@@ -41,6 +44,22 @@ public class PLObjectiveController {
             plObjectiveDTOCollection.add(plObjectiveDTO);
         }
         return plObjectiveDTOCollection;
+    }
+    @Operation( summary = "delete a  Puzzle Level Objective",  description = "delete a Puzzle Level Objective")
+    @DeleteMapping("/del/{id}")
+    @CrossOrigin(origins = "*")
+    public ALCityResponseObject deletePuzzleLevelObjectiveById(@PathVariable Long id) {
+        Optional<PLObjective> existingRecord = plObjectiveService.findById(id);
+        if(existingRecord.isPresent()){
+            try {
+                plObjectiveService.deleteById(existingRecord.get().getId());
+            }catch (Exception e )
+            {
+                throw new ViolateForeignKeyException(existingRecord.get().getTitle(), existingRecord.get().getId(), PLObjective.class.toString());
+            }
+            return new ALCityResponseObject(HttpStatus.OK.value(), "ok", id,"Record deleted Successfully!");
+        }
+        return  new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", id,"Record not found!");
     }
 
     @Operation( summary = "Fetch a objective by a Id ",  description = "fetches all data for a objectives")

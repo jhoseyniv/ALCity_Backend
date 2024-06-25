@@ -2,6 +2,7 @@ package com.alcity.api;
 
 import com.alcity.customexception.ALCityResponseObject;
 import com.alcity.customexception.UniqueConstraintException;
+import com.alcity.customexception.ViolateForeignKeyException;
 import com.alcity.dto.puzzle.*;
 import com.alcity.entity.base.PuzzleCategory;
 import com.alcity.entity.puzzle.*;
@@ -113,6 +114,22 @@ public class PLController {
             responseObject = new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", -1L, "Record Not Found!");
 
         return responseObject;
+    }
+    @Operation( summary = "delete a  Puzzle Level ",  description = "delete a Puzzle Level ")
+    @DeleteMapping("/del/{id}")
+    @CrossOrigin(origins = "*")
+    public ALCityResponseObject deletePuzzleLevelById(@PathVariable Long id) {
+        Optional<PuzzleLevel> existingRecord = puzzleLevelService.findById(id);
+        if(existingRecord.isPresent()){
+            try {
+                puzzleLevelService.deleteById(existingRecord.get().getId());
+            }catch (Exception e )
+            {
+                throw new ViolateForeignKeyException(existingRecord.get().getTitle(), existingRecord.get().getId(), PuzzleLevel.class.toString());
+            }
+            return new ALCityResponseObject(HttpStatus.OK.value(), "ok", id,"Record deleted Successfully!");
+        }
+        return  new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", id,"Record not found!");
     }
 
 

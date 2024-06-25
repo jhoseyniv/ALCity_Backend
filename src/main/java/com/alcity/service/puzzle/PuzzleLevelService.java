@@ -90,7 +90,7 @@ public class PuzzleLevelService implements PuzzleLevelRepository {
 
     @Override
     public void deleteById(Long aLong) {
-
+        puzzleLevelRepository.deleteById(aLong);
     }
 
     @Override

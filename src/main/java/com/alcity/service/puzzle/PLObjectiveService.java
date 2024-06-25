@@ -91,7 +91,7 @@ public class PLObjectiveService implements PLObjectiveRepository {
 
     @Override
     public void deleteById(Long aLong) {
-
+        objectiveRepository.deleteById(aLong);
     }
 
     @Override
