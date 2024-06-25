@@ -18,14 +18,10 @@ import com.alcity.utility.DTOUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Optional;
@@ -172,20 +168,6 @@ public class BaseItemSetConroller {
         return puzzleLevelPrivacy;
     }
 
-    @Autowired
-    private WalletItemTypeService walletItemTypeService;
-    @GetMapping("/wallet-type/all")
-    public Collection<WalletItemType> getWalletItemTypes(Model model) {
-        Collection<WalletItemType> walletItemTypeCollection = walletItemTypeService.findAll();
-        return walletItemTypeCollection;
-    }
-
-    @RequestMapping(value = "/wallet-type/id/{id}", method = RequestMethod.GET)
-    @ResponseBody
-    public Optional<WalletItemType> getWalletItemTypeById(@PathVariable Long id) {
-        Optional<WalletItemType> walletItemType = walletItemTypeService.findById(id);
-        return walletItemType;
-    }
 
 
 

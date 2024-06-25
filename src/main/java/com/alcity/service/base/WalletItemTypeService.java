@@ -53,7 +53,7 @@ public class WalletItemTypeService implements WalletItemTypeRepository {
 
     @Override
     public void deleteById(Long aLong) {
-
+        walletItemTypeRepository.deleteById(aLong);
     }
 
     @Override
