@@ -152,7 +152,7 @@ public class BaseItemSetConroller {
     }
 
 
-    @GetMapping("/pl-status/all")
+    @GetMapping("/game-status/all")
     public Collection<EnumDTO> getGameStatus(Model model) {
         return DTOUtil.getEnumByClass(GameStatus.class);
     }
