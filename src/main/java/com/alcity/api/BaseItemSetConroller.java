@@ -38,8 +38,8 @@ import java.util.Optional;
 public class BaseItemSetConroller {
 
     @Operation( summary = "Fetch all Genders ",  description = "fetches all Gender entities and their data from data source")
-
     @GetMapping("/gender/all")
+    @CrossOrigin(origins = "*")
     public Collection<EnumDTO> getGenders(Model model) {
 
         return DTOUtil.getEnumByClass(UserGender.class);
@@ -47,6 +47,7 @@ public class BaseItemSetConroller {
 
     @RequestMapping(value = "/gender/id/{id}", method = RequestMethod.GET)
     @ResponseBody
+    @CrossOrigin(origins = "*")
     public UserGender getGenderById(@PathVariable Long id) {
         return UserGender.getById(id);
     }
@@ -55,7 +56,7 @@ public class BaseItemSetConroller {
     private ClientTypeService clientTypeService;
     @Operation( summary = "Fetch all client Types ",  description = "fetches all Client Types entities and their data from data source")
     @GetMapping("/client-type/all")
-    @CrossOrigin
+    @CrossOrigin(origins = "*")
     public Collection<ClientType> getClientTypes(Model model) {
         Collection<ClientTypeDTO> clientTypeDTOCollection = new ArrayList<>();
         Collection<ClientType> clientTypes = clientTypeService.findAll();
@@ -64,6 +65,7 @@ public class BaseItemSetConroller {
     @Operation( summary = "Fetch a client Type by id ",  description = "fetch a  Client Types entity and their data from data source")
     @RequestMapping(value = "/client-type/id/{id}", method = RequestMethod.GET)
     @ResponseBody
+    @CrossOrigin(origins = "*")
     public ClientTypeDTO getClientTypeById(@PathVariable Long id) {
         Optional<ClientType> clientTypeOptional = clientTypeService.findById(id);
          if(clientTypeOptional.isPresent())
@@ -130,9 +132,9 @@ public class BaseItemSetConroller {
 
     @Autowired
     private MemberTypeService memberTypeService;
-    @CrossOrigin(origins = "*")
     @Operation( summary = "Fetch all member Types ",  description = "fetches all member Types entities and their data from data base")
     @GetMapping("/member-type/all")
+    @CrossOrigin(origins = "*")
     public Collection<MemberTypeDTO> getMemberType(Model model) {
         Collection<MemberType> memberTypes = memberTypeService.findAll();
         Collection<MemberTypeDTO> memberTypeDTOCollection = DTOUtil.getMemberTypeDTOS(memberTypes);
@@ -165,22 +167,26 @@ public class BaseItemSetConroller {
 
     @Operation( summary = "Fetch all puzzle level  difficulty  ",  description = "fetches all puzzle level  difficulty entities and their data from data base")
     @GetMapping("/pl-difficulty/all")
+    @CrossOrigin(origins = "*")
     public Collection<EnumDTO> getPuzzleLevelDiffculty(Model model) {
         return DTOUtil.getEnumByClass(PLDifficulty.class);
     }
 
     @GetMapping("/pl-status/all")
+    @CrossOrigin(origins = "*")
     public Collection<EnumDTO> getPuzzleLevelStatus(Model model) {
         return DTOUtil.getEnumByClass(PLStatus.class);
     }
 
     @GetMapping("/pl-rule-event-type/all")
+    @CrossOrigin(origins = "*")
     public Collection<EnumDTO> getPuzzleLevelRuleEventTypes(Model model) {
         return DTOUtil.getEnumByClass(PLRuleEventType.class);
     }
 
 
     @GetMapping("/game-status/all")
+    @CrossOrigin(origins = "*")
     public Collection<EnumDTO> getGameStatus(Model model) {
         return DTOUtil.getEnumByClass(GameStatus.class);
     }
@@ -189,6 +195,7 @@ public class BaseItemSetConroller {
     private PLPrivacyService plPrivacyService;
 
     @GetMapping("/pl-privacy/all")
+    @CrossOrigin(origins = "*")
     public Collection<PLPrivacy> getPuzzleLevelPrivacy(Model model) {
         Collection<PLPrivacy> plPrivacyCollection = plPrivacyService.findAll();
         return plPrivacyCollection;
@@ -196,6 +203,7 @@ public class BaseItemSetConroller {
 
     @RequestMapping(value = "/pl-privacy/id/{id}", method = RequestMethod.GET)
     @ResponseBody
+    @CrossOrigin(origins = "*")
     public Optional<PLPrivacy> getPuzzleLevelPrivacyById(@PathVariable Long id) {
         Optional<PLPrivacy> puzzleLevelPrivacy = plPrivacyService.findById(id);
         return puzzleLevelPrivacy;
@@ -205,22 +213,26 @@ public class BaseItemSetConroller {
 
 
     @GetMapping("/binary-type/all")
+    @CrossOrigin(origins = "*")
     public BinaryContentType[] getBinaryTypes(Model model) {  return BinaryContentType.values();   }
 
     @RequestMapping(value = "/binary-type/id/{id}", method = RequestMethod.GET)
     @ResponseBody
+    @CrossOrigin(origins = "*")
     public BinaryContentType getBinaryTypeById(@PathVariable Long id) {   return BinaryContentType.getById(id);   }
 
     @Autowired
     private LearningTopicService learningTopicService;
 
     @GetMapping("/learning-topic/all")
+    @CrossOrigin(origins = "*")
     public Collection<LearningTopic> getLearningTopics(Model model) {
         Collection<LearningTopic> learningTopicCollection = learningTopicService.findAll();
         return learningTopicCollection;
     }
     @RequestMapping(value = "/learning-topic/id/{id}", method = RequestMethod.GET)
     @ResponseBody
+    @CrossOrigin(origins = "*")
     public Optional<LearningTopic> getLearningTopicById(@PathVariable Long id) {
         Optional<LearningTopic> learningTopic = learningTopicService.findById(id);
         return learningTopic;
@@ -230,6 +242,7 @@ public class BaseItemSetConroller {
     @Autowired
     private LearningContentService learningContentService;
     @GetMapping("/learning-content/all")
+    @CrossOrigin(origins = "*")
     public Collection<LearningContent> getLearningContents(Model model) {
         Collection<LearningContent> learningTopicCollection = learningContentService.findAll();
         return learningTopicCollection;
@@ -237,6 +250,7 @@ public class BaseItemSetConroller {
 
     @RequestMapping(value="/learning-content/id/{id}", method = RequestMethod.GET)
     @ResponseBody
+    @CrossOrigin(origins = "*")
     public Optional<LearningContent> getLearningContentById(@PathVariable Long id) {
         Optional<LearningContent> learningContentOptional = learningContentService.findById(id);
         return learningContentOptional;
