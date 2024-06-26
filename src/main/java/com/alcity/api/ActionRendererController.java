@@ -2,10 +2,12 @@ package com.alcity.api;
 
 import com.alcity.customexception.ALCityResponseObject;
 import com.alcity.customexception.UniqueConstraintException;
+import com.alcity.customexception.ViolateForeignKeyException;
 import com.alcity.dto.Interpreter.object.RecordrData;
 import com.alcity.dto.alobject.RendererDTO;
 import com.alcity.entity.alenum.AttributeOwnerType;
 import com.alcity.entity.alobject.Renderer;
+import com.alcity.entity.puzzle.PuzzleLevel;
 import com.alcity.service.alobject.RendererService;
 import com.alcity.service.alobject.AttributeService;
 import com.alcity.utility.DTOUtil;
@@ -83,6 +85,23 @@ public class ActionRendererController {
         if(actionRendererOptional.isPresent())
             return  DTOUtil.getActionRendererDTO(actionRendererOptional.get());
         return null;
+    }
+
+    @Operation( summary = "delete a  Action renders ",  description = "delete a Action Render")
+    @DeleteMapping("/del/{id}")
+    @CrossOrigin(origins = "*")
+    public ALCityResponseObject deleteActionRendersById(@PathVariable Long id) {
+        Optional<Renderer> existingRecord = rendererService.findById(id);
+        if(existingRecord.isPresent()){
+            try {
+                rendererService.deleteById(existingRecord.get().getId());
+            }catch (Exception e )
+            {
+                throw new ViolateForeignKeyException(existingRecord.get().getHandler(), existingRecord.get().getId(), Renderer.class.toString());
+            }
+            return new ALCityResponseObject(HttpStatus.OK.value(), "ok", id,"Record deleted Successfully!");
+        }
+        return  new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", id,"Record not found!");
     }
 
     @Operation( summary = "Fetch all parameters fo a render by  rendere-id  ",  description = "Fetch all parameters fo a render by  rendere-id ")
