@@ -71,6 +71,9 @@ public class DTOUtil {
         plDTO.setPuzzleLevelDifficulty(pl.getPuzzleDifficulty().toString());
         plDTO.setPuzzleLevelPrivacy(pl.getPuzzleLevelPrivacy().getLabel());
         plDTO.setPuzzleLevelStatus(pl.getPuzzleLevelStatus().toString());
+        plDTO.setIconId(pl.getIcon().getId());
+        plDTO.setPicId(pl.getPicture().getId());
+
         return plDTO;
     }
 

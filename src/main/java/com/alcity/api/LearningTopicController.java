@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Collection;
 import java.util.Optional;
 
-@Tag(name = "Learning topic Data Type APIs", description = "All APIs for basic data types... ")
+@Tag(name = "Learning Topic APIs", description = "Learning Topic ... ")
 @CrossOrigin(origins = "*" ,maxAge = 3600)
 
 @RestController

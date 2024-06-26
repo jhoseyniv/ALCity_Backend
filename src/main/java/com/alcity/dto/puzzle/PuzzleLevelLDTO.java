@@ -31,6 +31,25 @@ public class PuzzleLevelLDTO {
 
     private String puzzleLevelDifficulty;
 
+    private Long iconId;
+    private Long picId;
+
+    public Long getIconId() {
+        return iconId;
+    }
+
+    public void setIconId(Long iconId) {
+        this.iconId = iconId;
+    }
+
+    public Long getPicId() {
+        return picId;
+    }
+
+    public void setPicId(Long picId) {
+        this.picId = picId;
+    }
+
     public Long getPuzzleGroupId() {
         return puzzleGroupId;
     }
