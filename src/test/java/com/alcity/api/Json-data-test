@@ -1,5 +1,15 @@
 //save PL Privacy
 
+//Save Action Renders
+
+{
+        "id": 99,
+        "objectAction": "Create",
+        "handler": "Show",
+        "clientType": "mobile"
+    }
+
+//Save Puzzle Level Privacy
  {
     "id": 28,
     "label": "privacy 1",

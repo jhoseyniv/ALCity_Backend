@@ -111,7 +111,7 @@ public class ImportMemoryGameProblemData_4 implements CommandLineRunner {
     ClientTypeService clientTypeService;
 
     @Autowired
-    ActionRendererService actionRendererService;
+    RendererService actionRendererService;
 
 
     @Autowired

@@ -113,7 +113,7 @@ public class Import_F_G_BProblemData_5 implements CommandLineRunner {
     ClientTypeService clientTypeService;
 
     @Autowired
-    ActionRendererService actionRendererService;
+    RendererService actionRendererService;
 
 
     @Autowired

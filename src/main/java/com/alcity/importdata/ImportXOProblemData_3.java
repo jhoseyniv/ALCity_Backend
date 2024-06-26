@@ -105,7 +105,7 @@ public class ImportXOProblemData_3 implements CommandLineRunner {
     ClientTypeService clientTypeService;
 
     @Autowired
-    ActionRendererService actionRendererService;
+    RendererService actionRendererService;
 
 
     @Autowired

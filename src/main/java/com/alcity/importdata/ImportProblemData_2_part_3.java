@@ -102,7 +102,7 @@ public class ImportProblemData_2_part_3 implements CommandLineRunner {
     @Autowired
     AttributeService attributeService;
     @Autowired
-    ActionRendererService actionRendererService;
+    RendererService actionRendererService;
     @Autowired
     ClientTypeService clientTypeService;
     @Autowired

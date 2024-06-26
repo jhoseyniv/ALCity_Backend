@@ -113,7 +113,7 @@ public class ImportBaseData implements CommandLineRunner {
     JourneyLearningSkillService journeyLearningSkillService;
 
     @Autowired
-    ActionRendererService actionRendererService;
+    RendererService actionRendererService;
 
     @Autowired
     PLRuleEventService plRuleEventService;

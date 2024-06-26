@@ -26,7 +26,6 @@ import com.alcity.entity.alobject.*;
 import com.alcity.entity.base.*;
 import com.alcity.entity.journey.Journey;
 import com.alcity.entity.journey.JourneyStep;
-import com.alcity.entity.learning.LearningContent;
 import com.alcity.entity.learning.LearningSkill;
 import com.alcity.entity.play.PermitedPlayer;
 import com.alcity.entity.puzzle.*;
@@ -671,25 +670,20 @@ public class DTOUtil {
 
        return memberTypeDTOCollection;
     }
-    public static ActionRendererDTO getActionRendererDTO(Renderer actionRenderer){
-           ActionRendererDTO aRendererDTO = new ActionRendererDTO();
-            aRendererDTO.setId(actionRenderer.getId());
-            aRendererDTO.setCreated(actionRenderer.getCreated());
-            aRendererDTO.setUpdated(actionRenderer.getUpdated());
-            aRendererDTO.setVersion(actionRenderer.getVersion());
-            aRendererDTO.setUpdatedBy(actionRenderer.getUpdatedBy().getUsername());
-            aRendererDTO.setCreatedBy(actionRenderer.getCreatedBy().getUsername());
+    public static RendererDTO getActionRendererDTO(Renderer actionRenderer){
+           RendererDTO rendererDTO = new RendererDTO();
+             rendererDTO.setId(actionRenderer.getId());
+             rendererDTO.setCreated(actionRenderer.getCreated());
+             rendererDTO.setUpdated(actionRenderer.getUpdated());
+             rendererDTO.setVersion(actionRenderer.getVersion());
+             rendererDTO.setUpdatedBy(actionRenderer.getUpdatedBy().getUsername());
+             rendererDTO.setCreatedBy(actionRenderer.getCreatedBy().getUsername());
             ObjectAction objectAction = actionRenderer.getObjectAction();
-            aRendererDTO.setObjectAction(objectAction);
-
-             ClientType clientType = actionRenderer.getClientType();
-             ClientTypeDTO clientTypeDTO = new ClientTypeDTO(clientType.getId(),clientType.getLabel(),
-                     clientType.getValue(), clientType.getVersion(),
-                   clientType.getCreated(), clientType.getUpdated());
-            aRendererDTO.setClientTypeDTO(clientTypeDTO);
-            aRendererDTO.setHandler(actionRenderer.getHandler());
-
-       return aRendererDTO;
+            rendererDTO.setObjectAction(objectAction.name());
+            ClientType clientType = actionRenderer.getClientType();
+            rendererDTO.setClientType(clientType.getValue());
+            rendererDTO.setHandler(actionRenderer.getHandler());
+           return rendererDTO;
    }
     public static Collection<PLRuleDTO> getRulesForPuzzleLevel(PuzzleLevel pl){
         Collection<PLRuleDTO> rules = new ArrayList<PLRuleDTO>();

@@ -28,5 +28,13 @@ public enum   ObjectAction  {
         }
         throw new IllegalArgumentException("no id");
     }
-
+    public static ObjectAction getByTitle(String title)
+    {
+        for (ObjectAction e : ObjectAction.values())
+        {
+            if (title.equalsIgnoreCase(e.name())) return e;
+        }
+        throw new IllegalArgumentException("no");
     }
+
+}

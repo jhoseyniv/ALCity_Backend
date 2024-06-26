@@ -1,14 +1,12 @@
 package com.alcity.service.puzzle;
 
 import com.alcity.entity.alenum.AttributeOwnerType;
-import com.alcity.entity.alenum.ObjectAction;
 import com.alcity.entity.alenum.POActionOwnerType;
-import com.alcity.entity.alobject.Attribute;
 import com.alcity.entity.alobject.PuzzleObjectAction;
 import com.alcity.entity.puzzle.ALCityObject;
 import com.alcity.entity.puzzle.ALCityObjectInPG;
 import com.alcity.repository.puzzle.ALCityObjectInPGRepository;
-import com.alcity.service.alobject.ActionRendererService;
+import com.alcity.service.alobject.RendererService;
 import com.alcity.service.alobject.AttributeService;
 import com.alcity.service.alobject.AttributeValueService;
 import com.alcity.service.alobject.PuzzleObjectActionService;
@@ -38,7 +36,7 @@ public class ALCityObjectInPGService implements ALCityObjectInPGRepository {
     ALCityObjectService alCityObjectService;
 
     @Autowired
-    ActionRendererService actionRendererService;
+    RendererService actionRendererService;
 
     @Autowired
     AttributeService attributeService;

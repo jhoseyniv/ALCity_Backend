@@ -99,7 +99,7 @@ public class ObjectManagmentApplication {
 	ObjectCategoryService objectCategoryService;
 
 	@Autowired
-	ActionRendererService actionRendererService;
+    RendererService actionRendererService;
 	@Autowired
 	PuzzleObjectActionService puzzleObject_ObjectActionService;
 

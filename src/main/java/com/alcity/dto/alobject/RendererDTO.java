@@ -1,15 +1,12 @@
 package com.alcity.dto.alobject;
 
-import com.alcity.dto.base.ClientTypeDTO;
-import com.alcity.entity.alenum.ObjectAction;
-
-public class ActionRendererDTO {
-
-    private ObjectAction objectAction;
-    private String handler;
-    private ClientTypeDTO clientTypeDTO;
+public class RendererDTO {
 
     private Long id;
+    private String objectAction;
+    private String handler;
+    private String clientType;
+
     private Long version;
     private String created;
     private String updated;
@@ -26,21 +23,6 @@ public class ActionRendererDTO {
         this.handler = handler;
     }
 
-    public ClientTypeDTO getClientTypeDTO() {
-        return clientTypeDTO;
-    }
-
-    public void setClientTypeDTO(ClientTypeDTO clientTypeDTO) {
-        this.clientTypeDTO = clientTypeDTO;
-    }
-
-    public ObjectAction getObjectAction() {
-        return objectAction;
-    }
-
-    public void setObjectAction(ObjectAction objectAction) {
-        this.objectAction = objectAction;
-    }
 
     public Long getId() {
         return id;
@@ -90,19 +72,34 @@ public class ActionRendererDTO {
         this.updatedBy = updatedBy;
     }
 
-    public ActionRendererDTO() {
+    public RendererDTO() {
     }
 
-    public ActionRendererDTO(Long id, Long version, String created, String updated, String createdBy, String updatedBy,
-                             String handler, ClientTypeDTO clientTypeDTO, ObjectAction objectAction) {
+    public String getObjectAction() {
+        return objectAction;
+    }
+
+    public void setObjectAction(String objectAction) {
+        this.objectAction = objectAction;
+    }
+
+    public String getClientType() {
+        return clientType;
+    }
+
+    public void setClientType(String clientType) {
+        this.clientType = clientType;
+    }
+
+    public RendererDTO(String objectAction, String handler, String clientType, Long id, Long version, String created, String updated, String createdBy, String updatedBy) {
+        this.objectAction = objectAction;
+        this.handler = handler;
+        this.clientType = clientType;
         this.id = id;
         this.version = version;
         this.created = created;
         this.updated = updated;
         this.createdBy = createdBy;
         this.updatedBy = updatedBy;
-        this.handler = handler;
-        this.clientTypeDTO = clientTypeDTO;
-        this.objectAction = objectAction;
     }
 }
