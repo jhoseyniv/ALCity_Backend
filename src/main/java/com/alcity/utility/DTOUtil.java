@@ -219,6 +219,11 @@ public class DTOUtil {
             dtoObject.setFromAge(puzzleLevel.getFromAge());
             dtoObject.setToAge(puzzleLevel.getToAge());
             dtoObject.setMaxScore(puzzleLevel.getMaxScore());
+            dtoObject.setPuzzleGroupId(puzzleLevel.getPuzzleGroup().getId());
+            dtoObject.setPuzzleLevelStatus(puzzleLevel.getPuzzleLevelStatus().name());
+            dtoObject.setPuzzleLevelDifficulty(puzzleLevel.getPuzzleDifficulty().name());
+            dtoObject.setPuzzleLevelPrivacy(puzzleLevel.getPuzzleLevelPrivacy().getValue());
+
             puzzleLevelDTOCollection.add(dtoObject);
         }
         return puzzleLevelDTOCollection;

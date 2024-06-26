@@ -221,22 +221,6 @@ public class BaseItemSetConroller {
     @CrossOrigin(origins = "*")
     public BinaryContentType getBinaryTypeById(@PathVariable Long id) {   return BinaryContentType.getById(id);   }
 
-    @Autowired
-    private LearningTopicService learningTopicService;
-
-    @GetMapping("/learning-topic/all")
-    @CrossOrigin(origins = "*")
-    public Collection<LearningTopic> getLearningTopics(Model model) {
-        Collection<LearningTopic> learningTopicCollection = learningTopicService.findAll();
-        return learningTopicCollection;
-    }
-    @RequestMapping(value = "/learning-topic/id/{id}", method = RequestMethod.GET)
-    @ResponseBody
-    @CrossOrigin(origins = "*")
-    public Optional<LearningTopic> getLearningTopicById(@PathVariable Long id) {
-        Optional<LearningTopic> learningTopic = learningTopicService.findById(id);
-        return learningTopic;
-    }
 
 
     @Autowired
