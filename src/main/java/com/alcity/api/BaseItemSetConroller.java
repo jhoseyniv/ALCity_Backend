@@ -6,11 +6,14 @@ import com.alcity.customexception.ViolateForeignKeyException;
 import com.alcity.dto.alenum.EnumDTO;
 import com.alcity.dto.base.BinaryContentDTO;
 import com.alcity.dto.base.ClientTypeDTO;
+import com.alcity.dto.base.PLPrivacyDTO;
+import com.alcity.dto.puzzle.PuzzleLevelLDTO;
 import com.alcity.dto.user.MemberTypeDTO;
 import com.alcity.entity.alenum.*;
 import com.alcity.entity.base.*;
 import com.alcity.entity.learning.LearningContent;
 import com.alcity.entity.learning.LearningTopic;
+import com.alcity.entity.puzzle.PuzzleLevel;
 import com.alcity.service.base.*;
 import com.alcity.service.learning.LearningContentService;
 import com.alcity.service.learning.LearningTopicService;
@@ -18,6 +21,7 @@ import com.alcity.utility.DTOUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -80,6 +84,35 @@ public class BaseItemSetConroller {
         }
         Optional<ClientType> output = clientTypeService.findById(savedRecord.getId());
         return ResponseEntity.ok(clientTypeService.save(clientType));
+    }
+    @Operation( summary = "Save a puzzle level privacy ",  description = "Save a puzzle level privacy entity and their data to data base")
+    @PostMapping("/pl-privacy/save")
+    @CrossOrigin(origins = "*")
+    public ALCityResponseObject savePuzzleLevelPrivacy(@RequestBody PLPrivacyDTO dto)  {
+        PLPrivacy savedRecord = null;
+        ALCityResponseObject responseObject = new ALCityResponseObject();
+
+        if (dto.getId() == null || dto.getId() <= 0L) { //save
+            try {
+                savedRecord = plPrivacyService.save(dto,"Save");
+            } catch (RuntimeException e) {
+                throw new UniqueConstraintException(dto.getValue(), dto.getId(), "Value and Label Must be Unique");
+            }
+            responseObject = new ALCityResponseObject(HttpStatus.OK.value(), "ok", savedRecord.getId(), "Record Saved Successfully!");
+        } else if (dto.getId() > 0L ) {//edit
+            //Optional<PuzzleGroup>  puzzleGroupOptional = pgService.findById(dto.getId());
+            savedRecord = plPrivacyService.save(dto, "Edit");
+            if(savedRecord !=null)
+                responseObject = new ALCityResponseObject(HttpStatus.OK.value(), "ok", savedRecord.getId(), "Record Updated Successfully!");
+            else
+                responseObject = new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", dto.getId(), "Record Not Found!");
+        }
+        else if (savedRecord==null)
+            responseObject = new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", -1L, "Record Not Found!");
+        else
+            responseObject = new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", -1L, "Record Not Found!");
+
+        return responseObject;
     }
 
     @Operation( summary = "Fetch all data Types ",  description = "fetches all data Types entities and their data from data base")

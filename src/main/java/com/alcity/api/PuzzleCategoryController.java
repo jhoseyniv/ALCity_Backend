@@ -29,7 +29,6 @@ import java.util.Optional;
 
 
 @Tag(name = "Puzzle Category APIs ", description = "Get Puzzle Category data for ....")
-
 @CrossOrigin(origins = "*" ,maxAge = 3600)
 @RestController
 @RequestMapping("/pc")

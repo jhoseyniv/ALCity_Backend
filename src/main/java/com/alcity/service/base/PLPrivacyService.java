@@ -1,7 +1,16 @@
 package com.alcity.service.base;
 
+import com.alcity.dto.base.PLPrivacyDTO;
+import com.alcity.dto.puzzle.PuzzleLevelLDTO;
+import com.alcity.entity.alenum.PLDifficulty;
+import com.alcity.entity.alenum.PLStatus;
 import com.alcity.entity.base.PLPrivacy;
+import com.alcity.entity.puzzle.PuzzleGroup;
+import com.alcity.entity.puzzle.PuzzleLevel;
+import com.alcity.entity.users.ApplicationMember;
 import com.alcity.repository.base.PLPrivacyRepository;
+import com.alcity.repository.users.ApplicationMemberRepository;
+import com.alcity.utility.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -89,4 +98,30 @@ public class PLPrivacyService implements PLPrivacyRepository {
     public PLPrivacy findByValue(String value) {
         return plPrivacyRepository.findByValue(value);
     }
+    @Autowired
+    private ApplicationMemberRepository applicationMemberRepository;
+
+    public PLPrivacy save(PLPrivacyDTO dto, String code) {
+        ApplicationMember createdBy = applicationMemberRepository.findByUsername("admin");
+        PLPrivacy plPrivacy=null;
+
+        if (code.equalsIgnoreCase("Save")) { //Save
+            plPrivacy = new PLPrivacy(dto.getLabel(), dto.getValue(), 1L, DateUtils.getNow(), DateUtils.getNow(), createdBy, createdBy);
+            plPrivacyRepository.save(plPrivacy);
+        }else{//edit
+            Optional<PLPrivacy> plPrivacyOptional= plPrivacyRepository.findById(dto.getId());
+            if(plPrivacyOptional.isPresent()) {
+                plPrivacy = plPrivacyOptional.get();
+                plPrivacy.setLabel(dto.getLabel());
+                plPrivacy.setValue(dto.getValue());
+                plPrivacy.setVersion(plPrivacy.getVersion()+1);
+                plPrivacy.setUpdated(DateUtils.getNow());
+                plPrivacyRepository.save(plPrivacy);
+            }
+        }
+
+
+        return plPrivacy;
+    }
+
 }
