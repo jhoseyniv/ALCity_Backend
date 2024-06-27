@@ -1,7 +1,13 @@
 package com.alcity.service.alobject;
 
+import com.alcity.dto.alobject.ObjectCategoryDTO;
+import com.alcity.dto.puzzle.ALCityObjectDTO;
 import com.alcity.entity.alobject.ObjectCategory;
+import com.alcity.entity.puzzle.ALCityObject;
+import com.alcity.entity.users.ApplicationMember;
 import com.alcity.repository.alobject.ObjectCategoryRepository;
+import com.alcity.repository.users.ApplicationMemberRepository;
+import com.alcity.utility.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +26,30 @@ public class ObjectCategoryService implements ObjectCategoryRepository {
     @Override
     public <S extends ObjectCategory> S save(S entity) {
         return objectCategoryRepository.save(entity);
+    }
+    @Autowired
+    private ApplicationMemberRepository applicationMemberRepository;
+
+    public ObjectCategory save(ObjectCategoryDTO dto, String code) {
+        ApplicationMember createdBy = applicationMemberRepository.findByUsername("admin");
+        ObjectCategory objectCategory=null;
+        if (code.equalsIgnoreCase("Save")) { //Save
+            objectCategory = new ObjectCategory(dto.getLabel(), dto.getValue(), 1L,
+                    DateUtils.getNow(), DateUtils.getNow(), createdBy, createdBy);
+            objectCategoryRepository.save(objectCategory);
+        }else{//edit
+            Optional<ObjectCategory> objectCategoryOptional= objectCategoryRepository.findById(dto.getId());
+            if(objectCategoryOptional.isPresent()) {
+                objectCategory = objectCategoryOptional.get();
+                objectCategory.setLabel(dto.getLabel());
+                objectCategory.setValue(dto.getValue());
+                objectCategory.setVersion(objectCategory.getVersion()+1);
+                objectCategory.setUpdated(DateUtils.getNow());
+                objectCategory.setUpdatedBy(createdBy);
+                objectCategoryRepository.save(objectCategory);
+            }
+        }
+        return objectCategory;
     }
 
     @Override
@@ -54,7 +84,7 @@ public class ObjectCategoryService implements ObjectCategoryRepository {
 
     @Override
     public void deleteById(Long aLong) {
-
+        objectCategoryRepository.deleteById(aLong);
     }
 
     @Override

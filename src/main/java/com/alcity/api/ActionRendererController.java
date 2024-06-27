@@ -87,7 +87,7 @@ public class ActionRendererController {
         return null;
     }
 
-    @Operation( summary = "delete a  Action renders ",  description = "delete a Action Render")
+    @Operation( summary = "Delete a  Action renders ",  description = "delete a Action Render")
     @DeleteMapping("/del/{id}")
     @CrossOrigin(origins = "*")
     public ALCityResponseObject deleteActionRendersById(@PathVariable Long id) {

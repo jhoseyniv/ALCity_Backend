@@ -1,3 +1,10 @@
+//save Object Category
+{
+    "id": 22,
+    "label": "Animal",
+    "value": "Animal"
+  }
+
 
 //Save Action Renders
 
