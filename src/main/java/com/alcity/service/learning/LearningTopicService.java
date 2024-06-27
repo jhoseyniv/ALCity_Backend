@@ -1,9 +1,15 @@
 package com.alcity.service.learning;
 
+import com.alcity.dto.alobject.ObjectCategoryDTO;
+import com.alcity.dto.learning.LearningTopicDTO;
+import com.alcity.entity.alobject.ObjectCategory;
 import com.alcity.entity.learning.LearningSkill;
 import com.alcity.entity.learning.LearningTopic;
+import com.alcity.entity.users.ApplicationMember;
 import com.alcity.repository.learning.LearningSkillRepository;
 import com.alcity.repository.learning.LearningTopicRepository;
+import com.alcity.repository.users.ApplicationMemberRepository;
+import com.alcity.utility.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,7 +36,7 @@ public class LearningTopicService implements LearningTopicRepository {
 
     @Override
     public Optional<LearningTopic> findById(Long id) {
-        return Optional.empty();
+        return learningTopicRepository.findById(id);
     }
 
     @Override
@@ -55,8 +61,33 @@ public class LearningTopicService implements LearningTopicRepository {
 
     @Override
     public void deleteById(Long aLong) {
-
+      learningTopicRepository.deleteById(aLong);
     }
+ @Autowired
+ private ApplicationMemberRepository applicationMemberRepository;
+
+ public LearningTopic save(LearningTopicDTO dto, String code) {
+  ApplicationMember createdBy = applicationMemberRepository.findByUsername("admin");
+  LearningTopic learningTopic=null;
+  Optional<LearningTopic> learningTopicParent= learningTopicRepository.findByTitle(dto.getParentTitle());
+  if (code.equalsIgnoreCase("Save")) { //Save
+   learningTopic = new LearningTopic(dto.getTitle(), learningTopicParent.get(), 1L,
+           DateUtils.getNow(), DateUtils.getNow(), createdBy, createdBy);
+   learningTopicRepository.save(learningTopic);
+  }else{//edit
+   Optional<LearningTopic> learningTopicOptional= learningTopicRepository.findById(dto.getId());
+   if(learningTopicOptional.isPresent()) {
+    learningTopic = learningTopicOptional.get();
+    learningTopic.setTitle(dto.getTitle());
+    learningTopic.setParentTopic(learningTopicParent.get());
+    learningTopic.setVersion(learningTopic.getVersion()+1);
+    learningTopic.setUpdated(DateUtils.getNow());
+    learningTopic.setUpdatedBy(createdBy);
+    learningTopicRepository.save(learningTopic);
+   }
+  }
+  return learningTopic;
+ }
 
     @Override
     public void delete(LearningTopic entity) {
@@ -79,7 +110,7 @@ public class LearningTopicService implements LearningTopicRepository {
     }
 
     @Override
-    public LearningTopic findByTitle(String title) {
+    public Optional<LearningTopic> findByTitle(String title) {
         return learningTopicRepository.findByTitle(title);
     }
 }

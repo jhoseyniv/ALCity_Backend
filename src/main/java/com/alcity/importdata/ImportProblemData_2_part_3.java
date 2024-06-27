@@ -131,7 +131,7 @@ public class ImportProblemData_2_part_3 implements CommandLineRunner {
         ApplicationMember jalalHoseyni = applicationMemberService.findByUsername("jalal");
         ApplicationMember moslemBalavandi = applicationMemberService.findByUsername("moslem");
         ApplicationMember alirezaZarei = applicationMemberService.findByUsername("alireza");
-        LearningTopic routing_in_the_table = learningTopicService.findByTitle("Routing in the Table");
+        Optional<LearningTopic> routing_in_the_table = learningTopicService.findByTitle("Routing in the Table");
 
 
          LearningSkill timeManagement = learningSkillService.findByValue("timeManagement");

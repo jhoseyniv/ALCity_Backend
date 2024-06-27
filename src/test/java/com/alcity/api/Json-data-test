@@ -1,3 +1,12 @@
+//Save Learning Topic
+{
+    "id": 78,
+    "title": "Hash Image",
+     "parentTitle": "Root Topic",
+     "parentId": 77
+}
+
+
 //save Object Category
 {
     "id": 22,

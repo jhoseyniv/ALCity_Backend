@@ -165,7 +165,7 @@ public class ImportXOProblemData_3 implements CommandLineRunner {
         ApplicationMember jalalHoseyni = applicationMemberService.findByUsername("jalal");
         ApplicationMember Alireza_Zare = applicationMemberService.findByUsername("alireza");
 
-        LearningTopic X_O_Topic = learningTopicService.findByTitle("X-O Game");
+        Optional<LearningTopic> X_O_Topic = learningTopicService.findByTitle("X-O Game");
 
          LearningSkill timeManagement = learningSkillService.findByValue("timeManagement");
         LearningSkill matching = learningSkillService.findByValue("matching");
@@ -212,7 +212,7 @@ public class ImportXOProblemData_3 implements CommandLineRunner {
         LearningContent learningContent_Mathcing=new LearningContent("help to IQ","this content is about X-O Games",puzzle_group_1_binary_content,1L,now,now,admin_1,admin_1);
         learningContentService.save(learningContent_Mathcing);
 
-        LearningSubjectInPL puzzleLevelLearningTopic_1 = new LearningSubjectInPL(puzzleLevel,X_O_Topic,learningContent_Mathcing,1L,now,now,admin_1,admin_1);
+        LearningSubjectInPL puzzleLevelLearningTopic_1 = new LearningSubjectInPL(puzzleLevel,X_O_Topic.get(),learningContent_Mathcing,1L,now,now,admin_1,admin_1);
         plLearningTopicService.save(puzzleLevelLearningTopic_1);
 
         PlayHistory playHistory_1 = new PlayHistory(Alireza_Zare,puzzleLevel,now,100,10f,1L,now,now,Alireza_Zare,Alireza_Zare);

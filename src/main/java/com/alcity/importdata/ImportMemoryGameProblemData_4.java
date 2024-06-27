@@ -171,7 +171,7 @@ public class ImportMemoryGameProblemData_4 implements CommandLineRunner {
         ApplicationMember jalalHoseyni = applicationMemberService.findByUsername("jalal");
         ApplicationMember Alireza_Zare = applicationMemberService.findByUsername("alireza");
 
-        LearningTopic Memory_Game_Topic = learningTopicService.findByTitle("Memory_Game");
+        Optional<LearningTopic> Memory_Game_Topic = learningTopicService.findByTitle("Memory_Game");
 
         LearningSkill timeManagement = learningSkillService.findByValue("timeManagement");
         LearningSkill memory_booster = learningSkillService.findByValue("memory_booster");
@@ -235,7 +235,7 @@ public class ImportMemoryGameProblemData_4 implements CommandLineRunner {
         LearningContent learningContent_memory=new LearningContent("help to Memory","this content is about Memory Games",pg_Memory_Game_learning_content,1L,now,now,admin_1,admin_1);
         learningContentService.save(learningContent_memory);
 
-        LearningSubjectInPL pllLearningTopic_1 = new LearningSubjectInPL(pl_Memory_Game,Memory_Game_Topic,learningContent_memory,1L,now,now,admin_1,admin_1);
+        LearningSubjectInPL pllLearningTopic_1 = new LearningSubjectInPL(pl_Memory_Game,Memory_Game_Topic.get(),learningContent_memory,1L,now,now,admin_1,admin_1);
         plLearningTopicService.save(pllLearningTopic_1);
 
         PlayHistory playHistory_1 = new PlayHistory(Alireza_Zare,pl_Memory_Game,now,100,10f,1L,now,now,Alireza_Zare,Alireza_Zare);

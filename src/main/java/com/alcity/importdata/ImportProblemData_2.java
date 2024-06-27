@@ -123,7 +123,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
         ApplicationMember jalalHoseyni = applicationMemberService.findByUsername("jalal");
         ApplicationMember moslemBalavandi = applicationMemberService.findByUsername("moslem");
         ApplicationMember alirezaZarei = applicationMemberService.findByUsername("alireza");
-        LearningTopic routing_in_the_table = learningTopicService.findByTitle("Routing in the Table");
+        Optional<LearningTopic> routing_in_the_table = learningTopicService.findByTitle("Routing in the Table");
 
 
          LearningSkill timeManagement = learningSkillService.findByValue("timeManagement");
@@ -185,7 +185,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
         LearningContent learningContent_routing=new LearningContent("help to math","this content is about Mazes",puzzle_group_2_binary_content_pic,1L,now,now,admin_1,admin_1);
         learningContentService.save(learningContent_routing);
 
-        LearningSubjectInPL puzzleLevelLearningTopic_1 = new LearningSubjectInPL(puzzleLevel_Maze,routing_in_the_table,learningContent_routing,1L,now,now,admin_1,admin_1);
+        LearningSubjectInPL puzzleLevelLearningTopic_1 = new LearningSubjectInPL(puzzleLevel_Maze,routing_in_the_table.get(),learningContent_routing,1L,now,now,admin_1,admin_1);
         plLearningTopicService.save(puzzleLevelLearningTopic_1);
 
         PlayHistory playHistory_1 = new PlayHistory(jalalHoseyni,puzzleLevel_Maze,now,100,10f,1L,now,now,jalalHoseyni,jalalHoseyni);
