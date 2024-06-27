@@ -12,6 +12,26 @@ public class LearningTopicDTO  {
 
     private String title;
 
+    private String parentTitle;
+
+    private Long parentId;
+
+    public String getParentTitle() {
+        return parentTitle;
+    }
+
+    public void setParentTitle(String parentTitle) {
+        this.parentTitle = parentTitle;
+    }
+
+    public Long getParentId() {
+        return parentId;
+    }
+
+    public void setParentId(Long parentId) {
+        this.parentId = parentId;
+    }
+
     public String getTitle() {
         return title;
     }
@@ -71,7 +91,7 @@ public class LearningTopicDTO  {
         this.updatedBy = updatedBy;
     }
 
-    public LearningTopicDTO(Long id, Long version, String created, String updated, String createdBy, String updatedBy, String title) {
+    public LearningTopicDTO(Long id,String title, String parentTitle, Long parentId, Long version, String created, String updated, String createdBy, String updatedBy) {
         this.id = id;
         this.version = version;
         this.created = created;
@@ -79,5 +99,7 @@ public class LearningTopicDTO  {
         this.createdBy = createdBy;
         this.updatedBy = updatedBy;
         this.title = title;
+        this.parentTitle = parentTitle;
+        this.parentId = parentId;
     }
 }

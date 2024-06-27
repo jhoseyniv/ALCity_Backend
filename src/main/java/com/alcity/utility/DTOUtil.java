@@ -27,6 +27,7 @@ import com.alcity.entity.base.*;
 import com.alcity.entity.journey.Journey;
 import com.alcity.entity.journey.JourneyStep;
 import com.alcity.entity.learning.LearningSkill;
+import com.alcity.entity.learning.LearningTopic;
 import com.alcity.entity.play.PermitedPlayer;
 import com.alcity.entity.puzzle.*;
 import com.alcity.entity.users.ApplicationMember;
@@ -484,11 +485,35 @@ public class DTOUtil {
          return journeyDTO;
     }
 
-        public static LearningSkillDTO getLearningSkillDTO(LearningSkill ls) {
-                LearningSkillDTO lsDTO = new LearningSkillDTO(ls.getId(), ls.getLabel(), ls.getValue(),
-                    ls.getVersion(), ls.getCreated(), ls.getUpdated(),ls.getCreatedBy().getUsername(),ls.getUpdatedBy().getUsername());
-         return lsDTO;
-       }
+    public static LearningSkillDTO getLearningSkillDTO(LearningSkill ls) {
+        LearningSkillDTO lsDTO = new LearningSkillDTO(ls.getId(), ls.getLabel(), ls.getValue(),
+                ls.getVersion(), ls.getCreated(), ls.getUpdated(),ls.getCreatedBy().getUsername(),ls.getUpdatedBy().getUsername());
+        return lsDTO;
+    }
+    public static LearningTopicDTO getLearningTopicDTO(LearningTopic lt) {
+
+        LearningTopicDTO lsDTO =null;
+        if(lt.getParentTopic()==null)
+            lsDTO = new LearningTopicDTO(lt.getId(), lt.getTitle(), "ROOT",0L,
+                    lt.getVersion(), lt.getCreated(), lt.getUpdated(),lt.getCreatedBy().getUsername(),lt.getUpdatedBy().getUsername());
+        else
+            lsDTO = new LearningTopicDTO(lt.getId(), lt.getTitle(), lt.getParentTopic().getTitle(),lt.getParentTopic().getId(),
+                lt.getVersion(), lt.getCreated(), lt.getUpdated(),lt.getCreatedBy().getUsername(),lt.getUpdatedBy().getUsername());
+
+        return lsDTO;
+    }
+    public static Collection<PLObjectiveDTO> getLearningTopicDTOS(PuzzleLevel puzzleLevel) {
+        Collection<PLObjectiveDTO> plObjectiveDTOCollection = new ArrayList<PLObjectiveDTO>();
+        Collection<PLObjective> plObjectiveCollection = puzzleLevel.getPlObjectives();
+        Iterator<PLObjective> itr_objectives = plObjectiveCollection.iterator();
+
+        while (itr_objectives.hasNext()) {
+            PLObjectiveDTO plObjectiveDTO = getPuzzleLevelObjectiveDTO(itr_objectives.next());
+            plObjectiveDTOCollection.add(plObjectiveDTO);
+        }
+        return plObjectiveDTOCollection;
+    }
+
     public static WalletItemTypeDTO getWalletItemTypeDTO(WalletItemType wit) {
         WalletItemTypeDTO walletItemTypeDTO = new WalletItemTypeDTO(wit.getId(), wit.getLabel(), wit.getValue(), wit.getVersion(),
                 wit.getCreated(), wit.getUpdated(),wit.getCurrency(),wit.getWalletItemCategory().toString() );
