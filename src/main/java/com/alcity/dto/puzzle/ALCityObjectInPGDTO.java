@@ -5,15 +5,14 @@ public class ALCityObjectInPGDTO {
     private Long id;
     private String title;
     private String code;
-    private String objectCategory;
-    private Long objectCategoryId;
 
     private String puzzleGroup;
 
     private Long puzzleGroupId;
+    private String alCityObject;
 
-    private Long pictureId;
-    private Long iconId;
+    private Long alCityObjectId;
+
     private Long version;
     private String created;
     private String updated;
@@ -85,13 +84,6 @@ public class ALCityObjectInPGDTO {
         this.updatedBy = updatedBy;
     }
 
-    public Long getObjectCategoryId() {
-        return objectCategoryId;
-    }
-
-    public void setObjectCategoryId(Long objectCategoryId) {
-        this.objectCategoryId = objectCategoryId;
-    }
 
     public String getPuzzleGroup() {
         return puzzleGroup;
@@ -112,41 +104,31 @@ public class ALCityObjectInPGDTO {
     public ALCityObjectInPGDTO() {
     }
 
-    public String getObjectCategory() {
-        return objectCategory;
+    public String getAlCityObject() {
+        return alCityObject;
     }
 
-    public void setObjectCategory(String objectCategory) {
-        this.objectCategory = objectCategory;
+    public void setAlCityObject(String alCityObject) {
+        this.alCityObject = alCityObject;
     }
 
-    public Long getPictureId() {
-        return pictureId;
+    public Long getAlCityObjectId() {
+        return alCityObjectId;
     }
 
-    public void setPictureId(Long pictureId) {
-        this.pictureId = pictureId;
+    public void setAlCityObjectId(Long alCityObjectId) {
+        this.alCityObjectId = alCityObjectId;
     }
 
-    public Long getIconId() {
-        return iconId;
-    }
-
-    public void setIconId(Long iconId) {
-        this.iconId = iconId;
-    }
-
-    public ALCityObjectInPGDTO(Long id, String title, String code, String objectCategory, Long objectCategoryId, String puzzleGroup, Long puzzleGroupId, Long pictureId, Long iconId,
+    public ALCityObjectInPGDTO(Long id, String title, String code, String puzzleGroup, Long puzzleGroupId, String alCityObject, Long alCityObjectId,
                                Long version, String created, String updated, String createdBy, String updatedBy) {
         this.id = id;
         this.title = title;
         this.code = code;
-        this.objectCategory = objectCategory;
-        this.objectCategoryId = objectCategoryId;
         this.puzzleGroup = puzzleGroup;
         this.puzzleGroupId = puzzleGroupId;
-        this.pictureId = pictureId;
-        this.iconId = iconId;
+        this.alCityObject = alCityObject;
+        this.alCityObjectId = alCityObjectId;
         this.version = version;
         this.created = created;
         this.updated = updated;

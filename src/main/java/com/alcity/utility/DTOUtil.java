@@ -270,11 +270,7 @@ public class DTOUtil {
         dtoObject.setId(alCityObjectInPG.getId());
         dtoObject.setCode(alCityObjectInPG.getCode());
         dtoObject.setTitle(alCityObjectInPG.getTitle());
-        dtoObject.setObjectCategory(alCityObjectInPG.getAlCityObject().getObjectCategory().getValue());
-        dtoObject.setObjectCategoryId(alCityObjectInPG.getAlCityObject().getObjectCategory().getId());
 
-        dtoObject.setPictureId(alCityObjectInPG.getAlCityObject().getPicture().getId());
-        dtoObject.setIconId(alCityObjectInPG.getAlCityObject().getIcon().getId());
         dtoObject.setPuzzleGroup(alCityObjectInPG.getPuzzleGroup().getTitle());
         dtoObject.setPuzzleGroupId(alCityObjectInPG.getPuzzleGroup().getId());
         dtoObject.setVersion(alCityObjectInPG.getVersion());

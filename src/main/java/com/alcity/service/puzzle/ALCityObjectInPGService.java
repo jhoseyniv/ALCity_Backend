@@ -1,16 +1,25 @@
 package com.alcity.service.puzzle;
 
+import com.alcity.dto.puzzle.ALCityObjectDTO;
+import com.alcity.dto.puzzle.ALCityObjectInPGDTO;
 import com.alcity.entity.alenum.AttributeOwnerType;
 import com.alcity.entity.alenum.POActionOwnerType;
+import com.alcity.entity.alobject.ObjectCategory;
 import com.alcity.entity.alobject.PuzzleObjectAction;
 import com.alcity.entity.puzzle.ALCityObject;
 import com.alcity.entity.puzzle.ALCityObjectInPG;
+import com.alcity.entity.puzzle.PuzzleGroup;
+import com.alcity.entity.users.ApplicationMember;
 import com.alcity.repository.puzzle.ALCityObjectInPGRepository;
+import com.alcity.repository.puzzle.ALCityObjectRepository;
+import com.alcity.repository.puzzle.PGRepository;
+import com.alcity.repository.users.ApplicationMemberRepository;
 import com.alcity.service.alobject.RendererService;
 import com.alcity.service.alobject.AttributeService;
 import com.alcity.service.alobject.AttributeValueService;
 import com.alcity.service.alobject.PuzzleObjectActionService;
 import com.alcity.utility.DTOUtil;
+import com.alcity.utility.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -31,6 +40,10 @@ public class ALCityObjectInPGService implements ALCityObjectInPGRepository {
 
     @Autowired
     PuzzleObjectActionService puzzleObjectActionService;
+
+    @Autowired
+    @Qualifier("PGRepository")
+    PGRepository pgRepository;
 
     @Autowired
     ALCityObjectService alCityObjectService;
@@ -81,7 +94,7 @@ public class ALCityObjectInPGService implements ALCityObjectInPGRepository {
 
     @Override
     public void deleteById(Long aLong) {
-
+        alCityObjectInPGRepository.deleteById(aLong);
     }
 
     @Override
@@ -122,6 +135,32 @@ public class ALCityObjectInPGService implements ALCityObjectInPGRepository {
     @Override
     public Collection<ALCityObjectInPG> findByalCityObject(ALCityObject cityObject) {
         return alCityObjectInPGRepository.findByalCityObject(cityObject);
+    }
+    @Autowired
+    private ApplicationMemberRepository applicationMemberRepository;
+    public ALCityObjectInPG save(ALCityObjectInPGDTO dto, String code) {
+        ApplicationMember createdBy = applicationMemberRepository.findByUsername("admin");
+        Optional<PuzzleGroup> puzzleGroupOptional =  pgRepository.findByTitle(dto.getPuzzleGroup());
+        Optional<ALCityObject> alCityObjectOptional =  alCityObjectService.findByTitle(dto.getAlCityObject());
+        ALCityObjectInPG alCityObjectInPG=null;
+        if(puzzleGroupOptional.isPresent())
+        if (code.equalsIgnoreCase("Save")) { //Save
+            alCityObjectInPG = new ALCityObjectInPG(dto.getTitle(), dto.getCode(),puzzleGroupOptional.get(),alCityObjectOptional.get(),
+                    1L, DateUtils.getNow(), DateUtils.getNow(), createdBy, createdBy);
+            alCityObjectInPGRepository.save(alCityObjectInPG);
+        }else{//edit
+            Optional<ALCityObjectInPG> alCityObjectInPGOptional= alCityObjectInPGRepository.findById(dto.getId());
+            if(alCityObjectInPGOptional.isPresent()) {
+                alCityObjectInPG = alCityObjectInPGOptional.get();
+                alCityObjectInPG.setCode(dto.getCode());
+                alCityObjectInPG.setTitle(dto.getTitle());
+                alCityObjectInPG.setVersion(alCityObjectInPG.getVersion()+1);
+                alCityObjectInPG.setUpdated(DateUtils.getNow());
+                alCityObjectInPG.setUpdatedBy(createdBy);
+                alCityObjectInPGRepository.save(alCityObjectInPG);
+            }
+        }
+        return alCityObjectInPG;
     }
 
     public void copyActionFromALCityObjectToPuzzleGroupObject(ALCityObjectInPG alCityObjectInPG){
