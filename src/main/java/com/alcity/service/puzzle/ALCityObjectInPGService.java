@@ -69,7 +69,7 @@ public class ALCityObjectInPGService implements ALCityObjectInPGRepository {
 
     @Override
     public Optional<ALCityObjectInPG> findById(Long id) {
-        return Optional.empty();
+        return alCityObjectInPGRepository.findById(id);
     }
 
     @Override

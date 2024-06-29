@@ -49,6 +49,16 @@ public class ALCityObjectInPGController {
         return  puzzleObjectActionDTOS;
     }
 
+    @Operation( summary = "Fetch an al city object that define in a puzzle group ",  description = "Fetch an al city object that defined in a puzzle group")
+    @RequestMapping(value = "/id/{id}", method = RequestMethod.GET)
+    @ResponseBody
+    @CrossOrigin(origins = "*")
+    public ALCityObjectInPGDTO getAnAObjectInPGDTO(@PathVariable Long id) {
+        Optional<ALCityObjectInPG> alCityObjectInPGOptional = alCityObjectInPGService.findById(id);
+        ALCityObjectInPGDTO alCityObjectInPGDTO = DTOUtil.getALCityObjectInPGDTO(alCityObjectInPGOptional.get());
+        return  alCityObjectInPGDTO;
+    }
+
     @Operation( summary = "Add an AL City Object to a Puzzle Group ",  description = "Add an AL City Object to a Puzzle Group ")
     @PostMapping("/save")
     @CrossOrigin(origins = "*")
@@ -78,7 +88,7 @@ public class ALCityObjectInPGController {
         return responseObject;
     }
     @Operation( summary = "Remove an  AL City Object From a Puzzle Group",  description = "Remove an  AL City Object From a Puzzle Group")
-    @DeleteMapping("/del/{id}")
+    @DeleteMapping("/del/id/{id}")
     @CrossOrigin(origins = "*")
     public ALCityResponseObject deleteALCityObjectInPGById(@PathVariable Long id) {
         Optional<ALCityObjectInPG> existingRecord = alCityObjectInPGService.findById(id);

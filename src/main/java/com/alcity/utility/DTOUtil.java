@@ -266,20 +266,22 @@ public class DTOUtil {
         return learningSkillLContentDTOS;
     }
     public static ALCityObjectInPGDTO getALCityObjectInPGDTO(ALCityObjectInPG alCityObjectInPG) {
-        ALCityObjectInPGDTO dtoObject = new ALCityObjectInPGDTO();
-        dtoObject.setId(alCityObjectInPG.getId());
-        dtoObject.setCode(alCityObjectInPG.getCode());
-        dtoObject.setTitle(alCityObjectInPG.getTitle());
+        ALCityObjectInPGDTO dto = new ALCityObjectInPGDTO();
+        dto.setId(alCityObjectInPG.getId());
+        dto.setCode(alCityObjectInPG.getCode());
+        dto.setTitle(alCityObjectInPG.getTitle());
 
-        dtoObject.setPuzzleGroup(alCityObjectInPG.getPuzzleGroup().getTitle());
-        dtoObject.setPuzzleGroupId(alCityObjectInPG.getPuzzleGroup().getId());
-        dtoObject.setVersion(alCityObjectInPG.getVersion());
-        dtoObject.setCreated(alCityObjectInPG.getCreated());
-        dtoObject.setUpdated(alCityObjectInPG.getUpdated());
-        dtoObject.setCreatedBy(alCityObjectInPG.getCreatedBy().getUsername());
-        dtoObject.setUpdatedBy(alCityObjectInPG.getUpdatedBy().getUsername());
+        dto.setPuzzleGroup(alCityObjectInPG.getPuzzleGroup().getTitle());
+        dto.setPuzzleGroupId(alCityObjectInPG.getPuzzleGroup().getId());
+        dto.setAlCityObject(alCityObjectInPG.getAlCityObject().getTitle());
+        dto.setAlCityObjectId(alCityObjectInPG.getAlCityObject().getId());
+        dto.setVersion(alCityObjectInPG.getVersion());
+        dto.setCreated(alCityObjectInPG.getCreated());
+        dto.setUpdated(alCityObjectInPG.getUpdated());
+        dto.setCreatedBy(alCityObjectInPG.getCreatedBy().getUsername());
+        dto.setUpdatedBy(alCityObjectInPG.getUpdatedBy().getUsername());
 
-        return  dtoObject;
+        return  dto;
     }
     public static Collection<ALCityObjectInPGDTO> getALCityObjectInPGDTOS(Collection<ALCityObjectInPG> alCityObjectInPGCollection) {
         Collection<ALCityObjectInPGDTO> dtoObjects = new ArrayList<ALCityObjectInPGDTO>();
