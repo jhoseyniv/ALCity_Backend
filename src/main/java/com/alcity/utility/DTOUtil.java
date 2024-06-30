@@ -100,11 +100,24 @@ public class DTOUtil {
 
         return puzzleLevelDTO;
     }
-
-        public static AttributeDTO getAttributeDTO(Attribute attribute){
-            AttributeDTO attributeDTO = new AttributeDTO(attribute.getId(), attribute.getVersion(), attribute.getCreated(),
-                    attribute.getUpdated(),attribute.getCreatedBy().getUsername(),attribute.getUpdatedBy().getUsername(),
-                    attribute.getName(),attribute.getOwnerId(),attribute.getAttributeOwnerType().toString(),attribute.getDataType().toString());
+    public static AttributeValueDTO getAttributeValueDTO(AttributeValue value){
+        AttributeValueDTO valueDTO= new AttributeValueDTO(value.getId(), value.getLongValue(), value.getDoubleValue(),
+                        value.getIntValue(), value.getBinaryContentId() ,value.getStringValue(),value.getObjectValue() );
+        return valueDTO;
+    }
+    public static Collection<AttributeValueDTO> getAttributesValueDTOS(Collection<AttributeValue> values) {
+        Collection<AttributeValueDTO> dtos = new ArrayList<AttributeValueDTO>();
+        Iterator<AttributeValue> itr = values.iterator();
+        while (itr.hasNext()) {
+            AttributeValueDTO valueDTO = getAttributeValueDTO(itr.next());
+            dtos.add(valueDTO);
+        }
+        return  dtos;
+    }
+        public static AttributeDTO getAttributeDTO(Attribute att){
+            Collection<AttributeValueDTO> valueDTOS = getAttributesValueDTOS(att.getAttributeValues()) ;
+            AttributeDTO attributeDTO = new AttributeDTO(att.getId(), att.getName(), att.getOwnerId(), att.getAttributeOwnerType().name(), att.getDataType().name(),valueDTOS ,
+                    att.getVersion(), att.getCreated(), att.getCreated(), att.getCreatedBy().getUsername(), att.getUpdatedBy().getUsername());
            return attributeDTO;
         }
 

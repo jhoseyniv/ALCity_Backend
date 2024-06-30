@@ -75,6 +75,7 @@ public class PLController {
             plInstancesDTOS = DTOUtil.getPuzzleLevelInstance(puzzleLevelOptional.get());
         return plInstancesDTOS;
     }
+
     @Operation( summary = "Fetch all Rules by a puzzle level Id ",  description = "fetches all Rules for a puzzle level ")
     @RequestMapping(value = "/id/{id}/rules/all", method = RequestMethod.GET)
     @ResponseBody
@@ -86,6 +87,7 @@ public class PLController {
             plRuleDTOS = DTOUtil.getRulesForPuzzleLevel(puzzleLevelOptional.get());
         return plRuleDTOS;
     }
+
     @Operation( summary = "Save a puzzle level  ",  description = "Save a puzzle level  entity and their data to data base")
     @PostMapping("/save")
     @CrossOrigin(origins = "*")
