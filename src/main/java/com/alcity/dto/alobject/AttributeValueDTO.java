@@ -11,6 +11,18 @@ public class AttributeValueDTO {
     private String stringValue;
     private String objectValue;
 
+    private Boolean booleanValue;
+
+    private Long attributeId;
+
+    public Long getAttributeId() {
+        return attributeId;
+    }
+
+    public void setAttributeId(Long attributeId) {
+        this.attributeId = attributeId;
+    }
+
     public Long getId() {
         return id;
     }
@@ -67,13 +79,26 @@ public class AttributeValueDTO {
         this.objectValue = objectValue;
     }
 
-    public AttributeValueDTO(Long id, Long longValue, Float doubleValue, Integer intValue, Long binaryContentId, String stringValue, String objectValue) {
+    public AttributeValueDTO() {
+    }
+
+    public Boolean getBooleanValue() {
+        return booleanValue;
+    }
+
+    public void setBooleanValue(Boolean booleanValue) {
+        this.booleanValue = booleanValue;
+    }
+
+    public AttributeValueDTO(Long id,Boolean booleanValue ,Long longValue, Float doubleValue, Integer intValue, Long binaryContentId, String stringValue, String objectValue,Long attributeId) {
         this.id = id;
+        this.booleanValue = booleanValue;
         this.longValue = longValue;
         this.doubleValue = doubleValue;
         this.intValue = intValue;
         this.binaryContentId = binaryContentId;
         this.stringValue = stringValue;
         this.objectValue = objectValue;
+        this.attributeId = attributeId;
     }
 }

@@ -102,6 +102,21 @@ public class AttributeValue extends BaseTable implements Serializable {
     @JsonIgnore
     private Attribute attributeId;
 
+    public Attribute getBindedAttributeId() {
+        return bindedAttributeId;
+    }
+
+    public void setBindedAttributeId(Attribute bindedAttributeId) {
+        this.bindedAttributeId = bindedAttributeId;
+    }
+
+    public Attribute getAttributeId() {
+        return attributeId;
+    }
+
+    public void setAttributeId(Attribute attributeId) {
+        this.attributeId = attributeId;
+    }
 
     public AttributeValue() {
     }

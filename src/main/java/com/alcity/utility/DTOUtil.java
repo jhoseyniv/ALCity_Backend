@@ -101,8 +101,8 @@ public class DTOUtil {
         return puzzleLevelDTO;
     }
     public static AttributeValueDTO getAttributeValueDTO(AttributeValue value){
-        AttributeValueDTO valueDTO= new AttributeValueDTO(value.getId(), value.getLongValue(), value.getDoubleValue(),
-                        value.getIntValue(), value.getBinaryContentId() ,value.getStringValue(),value.getObjectValue() );
+        AttributeValueDTO valueDTO= new AttributeValueDTO(value.getId(),value.getBooleanValue(), value.getLongValue(), value.getDoubleValue(),
+                        value.getIntValue(), value.getBinaryContentId() ,value.getStringValue(),value.getObjectValue(),value.getAttributeId().getId() );
         return valueDTO;
     }
     public static Collection<AttributeValueDTO> getAttributesValueDTOS(Collection<AttributeValue> values) {

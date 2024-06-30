@@ -1,8 +1,19 @@
 package com.alcity.service.alobject;
 
+import com.alcity.dto.alobject.AttributeDTO;
+import com.alcity.dto.alobject.AttributeValueDTO;
+import com.alcity.dto.puzzle.ALCityObjectDTO;
+import com.alcity.entity.alenum.DataType;
 import com.alcity.entity.alobject.Attribute;
 import com.alcity.entity.alenum.AttributeOwnerType;
+import com.alcity.entity.alobject.AttributeValue;
+import com.alcity.entity.alobject.ObjectCategory;
+import com.alcity.entity.puzzle.ALCityObject;
+import com.alcity.entity.users.ApplicationMember;
 import com.alcity.repository.alobject.AttributeRepository;
+import com.alcity.repository.alobject.AttributeValueRepository;
+import com.alcity.repository.users.ApplicationMemberRepository;
+import com.alcity.utility.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,6 +28,9 @@ public class AttributeService implements AttributeRepository {
     @Autowired
     AttributeRepository attributeRepository;
 
+    @Autowired
+    AttributeValueRepository attributeValueRepository;
+
     @Override
     public <S extends Attribute> S save(S entity) {
         return attributeRepository.save(entity);
@@ -29,7 +43,6 @@ public class AttributeService implements AttributeRepository {
 
     @Override
     public Optional<Attribute> findById(Long id) {
-
         return attributeRepository.findById(id);
     }
 
@@ -152,6 +165,51 @@ public class AttributeService implements AttributeRepository {
     @Override
     public Optional<Attribute> findByOwnerIdAndName(Long ownerId, String name) {
         return attributeRepository.findByOwnerIdAndName(ownerId,name);
+    }
+    @Autowired
+    private ApplicationMemberRepository applicationMemberRepository;
+    public Attribute save(AttributeDTO dto, String code) {
+        ApplicationMember createdBy = applicationMemberRepository.findByUsername("admin");
+        Optional<Attribute> attributeOptional =  attributeRepository.findById(dto.getId());
+        AttributeOwnerType attributeOwnerType =  AttributeOwnerType.getByTitle(dto.getAttributeOwnerType());
+        Collection<AttributeValueDTO> valueDTOS = dto.getAttributeValueDTOS();
+        AttributeValueDTO valueDTO = new AttributeValueDTO();
+        DataType dataType =  DataType.getByTitle(dto.getDataType());
+        Attribute attribute=null;
+        AttributeValue attributeValue=null;
+        if (code.equalsIgnoreCase("Save")) { //Save
+            attribute = new Attribute(dto.getName(), dto.getOwnerId(),attributeOwnerType,dataType ,
+                    1L, DateUtils.getNow(), DateUtils.getNow(), createdBy, createdBy);
+
+            attributeRepository.save(attribute);
+
+            //save attribute value
+            Iterator<AttributeValueDTO> itr = valueDTOS.iterator();
+            if(itr.hasNext())   valueDTO = itr.next();
+            attributeValue = new AttributeValue(valueDTO.getBooleanValue(),valueDTO.getIntValue(),valueDTO.getLongValue(),valueDTO.getStringValue(),
+                    valueDTO.getObjectValue(),valueDTO.getDoubleValue(),valueDTO.getBinaryContentId(),attribute,attribute,
+                    1L,DateUtils.getNow(),DateUtils.getNow(),createdBy,createdBy);
+            attributeValueRepository.save(attributeValue);
+        }else{//edit
+            if(attributeOptional.isPresent()) {
+                attribute = attributeOptional.get();
+                attribute.setAttributeOwnerType(attributeOwnerType);
+                attribute.setDataType(dataType);
+                attribute.setName(dto.getName());
+                attribute.setVersion(attribute.getVersion()+1);
+                attribute.setCreated(DateUtils.getNow());
+                attribute.setUpdated(DateUtils.getNow());
+                attribute.setUpdatedBy(createdBy);
+                attributeRepository.save(attribute);
+                Iterator<AttributeValueDTO> itr = valueDTOS.iterator();
+                if(itr.hasNext())   valueDTO = itr.next();
+                attributeValue = new AttributeValue(valueDTO.getBooleanValue(),valueDTO.getIntValue(),valueDTO.getLongValue(),valueDTO.getStringValue(),
+                        valueDTO.getObjectValue(),valueDTO.getDoubleValue(),valueDTO.getBinaryContentId(),attribute,attribute,
+                        1L,DateUtils.getNow(),DateUtils.getNow(),createdBy,createdBy);
+                attributeValueRepository.save(attributeValue);
+            }
+        }
+        return attribute;
     }
 
 

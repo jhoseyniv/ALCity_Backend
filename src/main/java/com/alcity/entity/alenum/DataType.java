@@ -25,5 +25,16 @@ public enum DataType  {
         }
         throw new IllegalArgumentException("no");
     }
-
+    public static DataType getByTitle(String title)
+    {
+        for (DataType e : DataType.values())
+        {
+            if (title.equalsIgnoreCase(e.name())) return e;
+        }
+        throw new IllegalArgumentException("no");
     }
+
+
+
+
+}
