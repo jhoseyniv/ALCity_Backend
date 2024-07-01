@@ -26,6 +26,7 @@ import com.alcity.entity.alobject.*;
 import com.alcity.entity.base.*;
 import com.alcity.entity.journey.Journey;
 import com.alcity.entity.journey.JourneyStep;
+import com.alcity.entity.learning.LearningContent;
 import com.alcity.entity.learning.LearningSkill;
 import com.alcity.entity.learning.LearningTopic;
 import com.alcity.entity.play.PermitedPlayer;
@@ -509,9 +510,33 @@ public class DTOUtil {
                     lt.getVersion(), lt.getCreated(), lt.getUpdated(),lt.getCreatedBy().getUsername(),lt.getUpdatedBy().getUsername());
         else
             lsDTO = new LearningTopicDTO(lt.getId(), lt.getTitle(), lt.getParentTopic().getTitle(),lt.getParentTopic().getId(),
-                lt.getVersion(), lt.getCreated(), lt.getUpdated(),lt.getCreatedBy().getUsername(),lt.getUpdatedBy().getUsername());
+                    lt.getVersion(), lt.getCreated(), lt.getUpdated(),lt.getCreatedBy().getUsername(),lt.getUpdatedBy().getUsername());
 
         return lsDTO;
+    }
+
+    public static LearningContentDTO getLearningContentDTO(LearningContent lc) {
+        LearningContentDTO dto =null;
+//            dto = new LearningContentDTO(lc.getId() ,lc.getVersion(), lc.getCreated(), lc.getUpdated(),lc.getCreatedBy().getUsername(),lc.getUpdatedBy().getUsername(),
+//            lc.getDescText() ,lc.getDescBrief(),lc.getBinaryContent().getFileName(),lc.getBinaryContent().getSize(),lc.getBinaryContent().getSize(),
+//                    lc.getBinaryContent().getContentType(),lc.getBinaryContent().getId());
+
+        dto =  new LearningContentDTO(lc.getId() ,lc.getVersion(), lc.getCreated(), lc.getUpdated(),lc.getCreatedBy().getUsername(), lc.getUpdatedBy().getUsername(),
+                lc.getDescText(), lc.getDescBrief(), lc.getBinaryContent().getFileName(),lc.getBinaryContent().getSize(),lc.getBinaryContent().getContentType().name(), lc.getBinaryContent().getId());
+        return dto;
+    // LearningContentDTO(Long id, Long version, String created, String updated, String createdBy, String updatedBy, String descText, String descBrief, String fileName, Integer size, String contentType,Long binaryContentId) {
+    }
+
+
+    public static Collection<LearningContentDTO> getLearningContentDTOS(Collection<LearningContent> learningContents) {
+        Collection<LearningContentDTO> learningContentDTOCollection = new ArrayList<LearningContentDTO>();
+        Iterator<LearningContent> iterator = learningContents.iterator();
+
+        while (iterator.hasNext()) {
+            LearningContentDTO learningContentDTO = getLearningContentDTO(iterator.next());
+            learningContentDTOCollection.add(learningContentDTO);
+        }
+        return learningContentDTOCollection;
     }
     public static Collection<PLObjectiveDTO> getLearningTopicDTOS(PuzzleLevel puzzleLevel) {
         Collection<PLObjectiveDTO> plObjectiveDTOCollection = new ArrayList<PLObjectiveDTO>();

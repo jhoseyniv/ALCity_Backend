@@ -1,7 +1,5 @@
 package com.alcity.dto.learning;
 
-import com.alcity.dto.base.BinaryContentDTO;
-
 public class LearningContentDTO  {
     private Long id;
     private Long version;
@@ -14,10 +12,15 @@ public class LearningContentDTO  {
 
     private String descText;
     private String descBrief;
-    private BinaryContentDTO binaryContentDTO;
+    private String fileName;
+    private Integer size;
+    private byte[] content;
 
-    public LearningContentDTO() {
-    }
+    private String contentType;
+
+    private Long binaryContentId;
+
+
 
     public Long getId() {
         return id;
@@ -83,15 +86,50 @@ public class LearningContentDTO  {
         this.descBrief = descBrief;
     }
 
-    public BinaryContentDTO getBinaryContentDTO() {
-        return binaryContentDTO;
+    public String getFileName() {
+        return fileName;
     }
 
-    public void setBinaryContentDTO(BinaryContentDTO binaryContentDTO) {
-        this.binaryContentDTO = binaryContentDTO;
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
     }
 
-    public LearningContentDTO(Long id, Long version, String created, String updated, String createdBy, String updatedBy, String descText, String descBrief, BinaryContentDTO binaryContentDTO) {
+    public Integer getSize() {
+        return size;
+    }
+
+    public void setSize(Integer size) {
+        this.size = size;
+    }
+
+    public byte[] getContent() {
+        return content;
+    }
+
+    public void setContent(byte[] content) {
+        this.content = content;
+    }
+
+    public String getContentType() {
+        return contentType;
+    }
+
+    public void setContentType(String contentType) {
+        this.contentType = contentType;
+    }
+
+    public Long getBinaryContentId() {
+        return binaryContentId;
+    }
+
+    public void setBinaryContentId(Long binaryContentId) {
+        this.binaryContentId = binaryContentId;
+    }
+
+    public LearningContentDTO() {
+    }
+
+    public LearningContentDTO(Long id, Long version, String created, String updated, String createdBy, String updatedBy, String descText, String descBrief, String fileName, Integer size, String contentType, Long binaryContentId) {
         this.id = id;
         this.version = version;
         this.created = created;
@@ -100,6 +138,9 @@ public class LearningContentDTO  {
         this.updatedBy = updatedBy;
         this.descText = descText;
         this.descBrief = descBrief;
-        this.binaryContentDTO = binaryContentDTO;
+        this.fileName = fileName;
+        this.size = size;
+        this.contentType = contentType;
+        this.binaryContentId = binaryContentId;
     }
 }

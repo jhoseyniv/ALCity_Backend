@@ -44,7 +44,7 @@ public class LearningContentService implements LearningContentRepository {
 
     @Override
     public Collection<LearningContent> findAll() {
-        return null;
+        return learningContentRepository.findAll();
     }
 
     @Override

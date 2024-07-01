@@ -223,22 +223,7 @@ public class BaseItemSetConroller {
 
 
 
-    @Autowired
-    private LearningContentService learningContentService;
-    @GetMapping("/learning-content/all")
-    @CrossOrigin(origins = "*")
-    public Collection<LearningContent> getLearningContents(Model model) {
-        Collection<LearningContent> learningTopicCollection = learningContentService.findAll();
-        return learningTopicCollection;
-    }
 
-    @RequestMapping(value="/learning-content/id/{id}", method = RequestMethod.GET)
-    @ResponseBody
-    @CrossOrigin(origins = "*")
-    public Optional<LearningContent> getLearningContentById(@PathVariable Long id) {
-        Optional<LearningContent> learningContentOptional = learningContentService.findById(id);
-        return learningContentOptional;
-    }
 
 
 
