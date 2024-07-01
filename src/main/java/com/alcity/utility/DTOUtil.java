@@ -80,26 +80,26 @@ public class DTOUtil {
 
     public static PuzzleLevelLDTO getPuzzleLevelDTO(Optional<PuzzleLevel> puzzleLevelOptional) {
         PuzzleLevel puzzleLevel = new PuzzleLevel();
-        PuzzleLevelLDTO puzzleLevelDTO= new PuzzleLevelLDTO();
+        PuzzleLevelLDTO dto= new PuzzleLevelLDTO();
 
         if(puzzleLevelOptional.isPresent()){
             puzzleLevel = puzzleLevelOptional.get();
-            puzzleLevelDTO = DTOUtil.getPuzzleLevelDTO(puzzleLevel);
+            dto = DTOUtil.getPuzzleLevelDTO(puzzleLevel);
 
-            Collection<PLObjectiveDTO> puzzleLevelObjectiveDTOCollection = DTOUtil.getPuzzleLevelObjectiveDTOS(puzzleLevel);
+            Collection<PLObjectiveDTO> plObjectiveDTOCollection = DTOUtil.getPuzzleLevelObjectiveDTOS(puzzleLevel);
             Collection<PuzzleLevel_LearningTopicDTO> puzzleLevel_learningTopicDTOCollection = DTOUtil.getPuzzleLevel_LearningTopicDTOS(puzzleLevel);
             Collection<PLGroundDTO> puzzleLevelGroundDTOCollection = DTOUtil.getPuzzleLevelGroundDTOS(puzzleLevel);
             Collection<PermitedPlayerDTO> permitedPlayerDTOCollection = DTOUtil.getPermitedPlayerDTOS(puzzleLevel);
             Collection<PLInstanceDTO> plInstanceDTOS = DTOUtil.getPuzzleLevelInstance(puzzleLevel);
 
-            puzzleLevelDTO.setPuzzleLevelGroundDTOCollection(puzzleLevelGroundDTOCollection);
-            puzzleLevelDTO.setPuzzleLevelObjectiveDTOCollection(puzzleLevelObjectiveDTOCollection);
-            puzzleLevelDTO.setPuzzleLevel_learningTopicDTOCollection(puzzleLevel_learningTopicDTOCollection);
-            puzzleLevelDTO.setPermitedPlayerDTOCollection(permitedPlayerDTOCollection);
-            puzzleLevelDTO.setPlInstanceDTOS(plInstanceDTOS);
-        } else puzzleLevelDTO = null;
+            dto.setPuzzleLevelGroundDTOCollection(puzzleLevelGroundDTOCollection);
+            dto.setPuzzleLevelObjectiveDTOCollection(plObjectiveDTOCollection);
+            dto.setPuzzleLevel_learningTopicDTOCollection(puzzleLevel_learningTopicDTOCollection);
+            dto.setPermitedPlayerDTOCollection(permitedPlayerDTOCollection);
+            dto.setPlInstanceDTOS(plInstanceDTOS);
+        } else dto = null;
 
-        return puzzleLevelDTO;
+        return dto;
     }
     public static AttributeValueDTO getAttributeValueDTO(AttributeValue value){
         AttributeValueDTO valueDTO= new AttributeValueDTO(value.getId(),value.getBooleanValue(), value.getLongValue(), value.getDoubleValue(),
@@ -517,9 +517,6 @@ public class DTOUtil {
 
     public static LearningContentDTO getLearningContentDTO(LearningContent lc) {
         LearningContentDTO dto =null;
-//            dto = new LearningContentDTO(lc.getId() ,lc.getVersion(), lc.getCreated(), lc.getUpdated(),lc.getCreatedBy().getUsername(),lc.getUpdatedBy().getUsername(),
-//            lc.getDescText() ,lc.getDescBrief(),lc.getBinaryContent().getFileName(),lc.getBinaryContent().getSize(),lc.getBinaryContent().getSize(),
-//                    lc.getBinaryContent().getContentType(),lc.getBinaryContent().getId());
 
         dto =  new LearningContentDTO(lc.getId() ,lc.getVersion(), lc.getCreated(), lc.getUpdated(),lc.getCreatedBy().getUsername(), lc.getUpdatedBy().getUsername(),
                 lc.getDescText(), lc.getDescBrief(), lc.getBinaryContent().getFileName(),lc.getBinaryContent().getSize(),lc.getBinaryContent().getContentType().name(), lc.getBinaryContent().getId());

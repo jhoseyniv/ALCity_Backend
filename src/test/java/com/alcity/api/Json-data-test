@@ -1,4 +1,19 @@
 
+
+
+//Save Learning Content in Database...
+
+{
+    "id": 63,
+    "descText": "help to maze",
+    "descBrief": "this content is about maze tables",
+    "fileName": "MazeImage",
+    "size": 90465,
+    "contentType": "Image",
+    "binaryContentId": 61
+  }
+
+
 //Save AL City Object in a Puzzle Group Entity
 
 {

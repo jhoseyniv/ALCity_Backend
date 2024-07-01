@@ -14,7 +14,6 @@ public class LearningContentDTO  {
     private String descBrief;
     private String fileName;
     private Integer size;
-    private byte[] content;
 
     private String contentType;
 
@@ -100,14 +99,6 @@ public class LearningContentDTO  {
 
     public void setSize(Integer size) {
         this.size = size;
-    }
-
-    public byte[] getContent() {
-        return content;
-    }
-
-    public void setContent(byte[] content) {
-        this.content = content;
     }
 
     public String getContentType() {

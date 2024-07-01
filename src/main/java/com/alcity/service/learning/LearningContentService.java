@@ -1,8 +1,16 @@
 package com.alcity.service.learning;
 
+import com.alcity.dto.learning.LearningContentDTO;
+import com.alcity.dto.puzzle.ALCityObjectDTO;
+import com.alcity.entity.alobject.ObjectCategory;
 import com.alcity.entity.base.BinaryContent;
 import com.alcity.entity.learning.LearningContent;
+import com.alcity.entity.puzzle.ALCityObject;
+import com.alcity.entity.users.ApplicationMember;
 import com.alcity.repository.learning.LearningContentRepository;
+import com.alcity.repository.users.ApplicationMemberRepository;
+import com.alcity.service.base.BinaryContentService;
+import com.alcity.utility.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,10 +24,38 @@ public class LearningContentService implements LearningContentRepository {
 
     @Autowired
     LearningContentRepository learningContentRepository;
+    @Autowired
+    BinaryContentService binaryContentService;
+
+    @Autowired
+    private ApplicationMemberRepository applicationMemberRepository;
 
     @Override
     public <S extends LearningContent> S save(S entity) {
         return learningContentRepository.save(entity);
+    }
+    public LearningContent save(LearningContentDTO dto, String code) {
+        ApplicationMember createdBy = applicationMemberRepository.findByUsername("admin");
+        Optional<BinaryContent> binaryContentOptional =  binaryContentService.findById(dto.getBinaryContentId());
+        LearningContent learningContent=null;
+        if (code.equalsIgnoreCase("Save")) { //Save
+            learningContent = new LearningContent(dto.getDescText(), dto.getDescBrief(),binaryContentOptional.get(),
+                    1L, DateUtils.getNow(), DateUtils.getNow(), createdBy, createdBy);
+            learningContentRepository.save(learningContent);
+        }else{//edit
+            Optional<LearningContent> learningContentOptional= learningContentRepository.findById(dto.getId());
+            if(learningContentOptional.isPresent()) {
+                learningContent = learningContentOptional.get();
+                learningContent.setBinaryContent(binaryContentOptional.get());
+                learningContent.setDescText(dto.getDescText());
+                learningContent.setDescBrief(dto.getDescBrief());
+                learningContent.setVersion(learningContent.getVersion()+1);
+                learningContent.setUpdated(DateUtils.getNow());
+                learningContent.setUpdatedBy(createdBy);
+                learningContentRepository.save(learningContent);
+            }
+        }
+        return learningContent;
     }
 
     @Override
@@ -59,7 +95,7 @@ public class LearningContentService implements LearningContentRepository {
 
     @Override
     public void deleteById(Long aLong) {
-
+        learningContentRepository.deleteById(aLong);
     }
 
     @Override
