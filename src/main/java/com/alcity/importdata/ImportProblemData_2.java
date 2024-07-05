@@ -130,7 +130,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
         LearningSkill routing = learningSkillService.findByValue("routing");
         LearningSkill find_paths = learningSkillService.findByValue("Find Paths");
 
-        WalletItem alCoin_100_WalletItem = walletItemService.findByValue("al_coin_100");
+        Optional<WalletItem> alCoin_100_WalletItem = walletItemService.findByValue("al_coin_100");
         Journey journey_1 = journeyService.findByTitle("Journey_1");
 
         byte[] playGround_image_problem_2 = ImageUtil.getImage("src/main/resources/images/","playGround_2.png");
@@ -213,9 +213,9 @@ public class ImportProblemData_2 implements CommandLineRunner {
         puzzleGroup_PuzzleObjectService.save(puzzleGroup_puzzleObject);
 
         StringBuffer  condition_Objective = new StringBuffer("(LastX == 19)&&(LastY == 18)&&(PathLen=40)" );
-        WalletItem carObjectWalletItem = walletItemService.findByValue("car_object");
+        Optional<WalletItem> carObjectWalletItem = walletItemService.findByValue("car_object");
 
-        PLObjective puzzleLevelObjective = new PLObjective("find shortest path from start to end","find shortest path from start to end",10f,2f,condition_Objective,find_paths,carObjectWalletItem,puzzleLevel_Maze
+        PLObjective puzzleLevelObjective = new PLObjective("find shortest path from start to end","find shortest path from start to end",10f,2f,condition_Objective,find_paths,carObjectWalletItem.get(),puzzleLevel_Maze
                 ,1L,now,now,admin_1,admin_1);
         plObjectiveService.save(puzzleLevelObjective);
 

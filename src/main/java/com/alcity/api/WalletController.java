@@ -91,6 +91,35 @@ public class WalletController {
         return responseObject;
     }
 
+    @Operation( summary = "Save a Wallet Item ",  description = "Save a Wallet Item entity and their data to data base")
+    @PostMapping("/item/save")
+    @CrossOrigin(origins = "*")
+    public ALCityResponseObject saveOrEditWalletItem(@RequestBody WalletItemDTO dto)  {
+        WalletItem savedRecord = null;
+        ALCityResponseObject responseObject = new ALCityResponseObject();
+
+        if (dto.getId() == null || dto.getId() <= 0L) { //save
+            try {
+                savedRecord = walletItemService.save(dto,"Save");
+            } catch (RuntimeException e) {
+                throw new UniqueConstraintException(dto.getValue(), dto.getId(), "Value and Lable Must be Unique");
+            }
+            responseObject = new ALCityResponseObject(HttpStatus.OK.value(), "ok", savedRecord.getId(), "Record Saved Successfully!");
+        } else if (dto.getId() > 0L ) {//edit
+            savedRecord = walletItemService.save(dto, "Edit");
+            if(savedRecord !=null)
+                responseObject = new ALCityResponseObject(HttpStatus.OK.value(), "ok", savedRecord.getId(), "Record Updated Successfully!");
+            else
+                responseObject = new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", dto.getId(), "Record Not Found!");
+        }
+        else if (savedRecord==null)
+            responseObject = new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", -1L, "Record Not Found!");
+        else
+            responseObject = new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", -1L, "Record Not Found!");
+
+        return responseObject;
+    }
+
     @Operation( summary = "delete a  Wallet Item Type  ",  description = "delete a Wallet Item type ")
     @DeleteMapping("/type/del/id/{id}")
     @CrossOrigin(origins = "*")
@@ -99,6 +128,23 @@ public class WalletController {
         if(existingRecord.isPresent()){
             try {
                 walletItemTypeService.deleteById(existingRecord.get().getId());
+            }catch (Exception e )
+            {
+                throw new ViolateForeignKeyException(existingRecord.get().getValue(), existingRecord.get().getId(), WalletItemType.class.toString());
+            }
+            return new ALCityResponseObject(HttpStatus.OK.value(), "ok", id,"Record deleted Successfully!");
+        }
+        return  new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", id,"Record not found!");
+    }
+
+    @Operation( summary = "delete a  Wallet Item ",  description = "delete a Wallet Item .....")
+    @DeleteMapping("/item/del/id/{id}")
+    @CrossOrigin(origins = "*")
+    public ALCityResponseObject deleteWalletItemById(@PathVariable Long id) {
+        Optional<WalletItem> existingRecord = walletItemService.findById(id);
+        if(existingRecord.isPresent()){
+            try {
+                walletItemService.deleteById(existingRecord.get().getId());
             }catch (Exception e )
             {
                 throw new ViolateForeignKeyException(existingRecord.get().getValue(), existingRecord.get().getId(), WalletItemType.class.toString());

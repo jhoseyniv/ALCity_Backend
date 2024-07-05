@@ -169,8 +169,8 @@ public class ImportXOProblemData_3 implements CommandLineRunner {
 
          LearningSkill timeManagement = learningSkillService.findByValue("timeManagement");
         LearningSkill matching = learningSkillService.findByValue("matching");
-        WalletItem alCoin100WalletItem = walletItemService.findByValue("al_coin_100");
-        WalletItem alCoin10WalletItem = walletItemService.findByValue("al_coin_10");
+        Optional<WalletItem> alCoin100WalletItem = walletItemService.findByValue("al_coin_100");
+        Optional<WalletItem> alCoin10WalletItem = walletItemService.findByValue("al_coin_10");
 
         byte[] plGroundImage = ImageUtil.getImage("src/main/resources/images/X-O Problem/","x-o-ground.png");
         BinaryContent puzzle_ground_binary_content_1 = new BinaryContent("puzzle ground for X-O Game",plGroundImage,BinaryContentType.Image,1L,now,now,admin_1,admin_1);
@@ -235,7 +235,7 @@ public class ImportXOProblemData_3 implements CommandLineRunner {
                         "(equal(InstProp(InstByPos(3, 1),text),X)&equal(InstProp(InstByPos(3, 2),text),X))))");
 
         PLObjective puzzleLevelObjective_1 = new PLObjective("X won","X won the game",1.5f,2f,condition_Objective_1,matching,
-                                                                 alCoin10WalletItem,puzzleLevel ,1L,now,now,admin_1,admin_1);
+                                                                 alCoin10WalletItem.get(),puzzleLevel ,1L,now,now,admin_1,admin_1);
         plObjectiveService.save(puzzleLevelObjective_1);
 
         StringBuffer  condition_Objective_2 = new StringBuffer("(equal(InstProp(InstByPos(2, 2),text),O) & " +
@@ -251,7 +251,7 @@ public class ImportXOProblemData_3 implements CommandLineRunner {
                 "|(equal(InstProp(InstByPos(3, 1),text),O)& equal(InstProp(InstByPos(3, 2),text),O))))");
 
         PLObjective puzzleLevelObjective_2 = new PLObjective("O won","O won the game",5.5f,5f,condition_Objective_2,timeManagement,
-                alCoin10WalletItem,puzzleLevel ,1L,now,now,admin_1,admin_1);
+                alCoin10WalletItem.get(),puzzleLevel ,1L,now,now,admin_1,admin_1);
         plObjectiveService.save(puzzleLevelObjective_2);
 
         Attribute attribute_variable_Turn =new Attribute("Turn",puzzleLevel.getId(), AttributeOwnerType.Puzzle_Level_Variable,DataType.String,1L,now,now,admin_1,admin_1);

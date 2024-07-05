@@ -138,7 +138,7 @@ public class ImportProblemData_2_part_3 implements CommandLineRunner {
         LearningSkill routing = learningSkillService.findByValue("routing");
         LearningSkill find_paths = learningSkillService.findByValue("Find Paths");
 
-        WalletItem alCoin_100_WalletItem = walletItemService.findByValue("al_coin_100");
+        Optional<WalletItem> alCoin_100_WalletItem = walletItemService.findByValue("al_coin_100");
         Journey journey_1 = journeyService.findByTitle("Journey_1");
 
 

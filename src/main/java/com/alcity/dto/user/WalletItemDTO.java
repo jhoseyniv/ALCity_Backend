@@ -7,40 +7,21 @@ public class WalletItemDTO {
     private Long id;
     private String label;
     private String value;
+    private Long  iconId;
     private String walletItemType;
-    private Boolean isCurrency;
-    private String walletItemCategory;
+
     private Long version;
     private String created;
     private String updated;
     private String createdBY;
     private String updatedBy;
 
-    //  private Long createdBYId;
-    //  private Long updatedById;
-
-    public String getWalletItemType() {
+     public String getWalletItemType() {
         return walletItemType;
     }
 
     public void setWalletItemType(String walletItemType) {
         this.walletItemType = walletItemType;
-    }
-
-    public Boolean getCurrency() {
-        return isCurrency;
-    }
-
-    public void setCurrency(Boolean currency) {
-        isCurrency = currency;
-    }
-
-    public String getWalletItemCategory() {
-        return walletItemCategory;
-    }
-
-    public void setWalletItemCategory(String walletItemCategory) {
-        this.walletItemCategory = walletItemCategory;
     }
 
     public Long getId() {
@@ -107,20 +88,25 @@ public class WalletItemDTO {
         this.updatedBy = updatedBy;
     }
 
+    public Long getIconId() {
+        return iconId;
+    }
 
+    public void setIconId(Long iconId) {
+        this.iconId = iconId;
+    }
 
     public WalletItemDTO() {
 
     }
 
-    public WalletItemDTO(Long id, String label, String value, String walletItemType, Boolean isCurrency, String walletItemCategory,
+    public WalletItemDTO(Long id, String label, String value, Long iconId, String walletItemType,
                          Long version, String created, String updated, String createdBY, String updatedBy) {
         this.id = id;
         this.label = label;
         this.value = value;
+        this.iconId = iconId;
         this.walletItemType = walletItemType;
-        this.isCurrency = isCurrency;
-        this.walletItemCategory = walletItemCategory;
         this.version = version;
         this.created = created;
         this.updated = updated;

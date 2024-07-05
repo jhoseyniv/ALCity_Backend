@@ -1,7 +1,17 @@
 package com.alcity.service.users;
 
+import com.alcity.dto.base.WalletItemTypeDTO;
+import com.alcity.dto.user.WalletItemDTO;
+import com.alcity.entity.alenum.WalletItemCategory;
+import com.alcity.entity.base.BinaryContent;
+import com.alcity.entity.base.WalletItemType;
+import com.alcity.entity.users.AppMember;
 import com.alcity.entity.users.WalletItem;
+import com.alcity.repository.base.BinaryContentRepository;
+import com.alcity.repository.base.WalletItemTypeRepository;
+import com.alcity.repository.users.ApplicationMemberRepository;
 import com.alcity.repository.users.WalletItemRespository;
+import com.alcity.utility.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +26,42 @@ public class WalletItemService implements WalletItemRespository {
     @Autowired
     WalletItemRespository walletItemRespository;
 
+    @Autowired
+    private ApplicationMemberRepository applicationMemberRepository;
+    @Autowired
+    WalletItemTypeRepository walletItemTypeRepository;
+    @Autowired
+    BinaryContentRepository binaryContentRepository;
+
+    public WalletItem save(WalletItemDTO dto, String code) {
+        AppMember createdBy = applicationMemberRepository.findByUsername("admin");
+        Optional<WalletItemType> walletItemType = walletItemTypeRepository.findByValue(dto.getWalletItemType());
+        Optional<BinaryContent> icon = binaryContentRepository.findById(dto.getIconId());
+        if(icon.isEmpty()) {
+            //save defualt binary content....
+        }
+        WalletItem walletItem=null;
+        Optional<WalletItem> walletItemOptional= walletItemRespository.findByValue(dto.getValue());
+
+        if (code.equalsIgnoreCase("Save")) { //Save
+            walletItem = new WalletItem(walletItemType.get() ,icon.get(),dto.getLabel(),dto.getValue() , 1L,
+                    DateUtils.getNow(), DateUtils.getNow(), createdBy, createdBy);
+            walletItemRespository.save(walletItem);
+        }else{//edit
+            walletItemOptional= walletItemRespository.findById(dto.getId());
+            if(walletItemOptional.isPresent()) {
+                walletItem = walletItemOptional.get();
+                walletItem.setWalletItemType(walletItemType.get());
+                walletItem.setLabel(dto.getLabel());
+                walletItem.setValue(dto.getValue());
+                walletItem.setVersion(walletItem.getVersion()+1);
+                walletItem.setUpdated(DateUtils.getNow());
+                walletItem.setUpdatedBy(createdBy);
+                walletItemRespository.save(walletItem);
+            }
+        }
+        return walletItem;
+    }
 
     @Override
     public <S extends WalletItem> S save(S entity) {
@@ -54,7 +100,7 @@ public class WalletItemService implements WalletItemRespository {
 
     @Override
     public void deleteById(Long aLong) {
-
+        walletItemRespository.deleteById(aLong);
     }
 
     @Override
@@ -83,7 +129,9 @@ public class WalletItemService implements WalletItemRespository {
     }
 
     @Override
-    public WalletItem findByValue(String value) {
+    public Optional<WalletItem> findByValue(String value) {
         return walletItemRespository.findByValue(value);
     }
+
+
 }

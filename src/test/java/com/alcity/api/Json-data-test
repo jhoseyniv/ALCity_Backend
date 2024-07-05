@@ -1,3 +1,12 @@
+//save item type in database .....
+ {
+    "id": 17,
+    "label": "tether",
+    "value": "tether",
+    "iconId": 66,
+    "walletItemType": "fiat"
+  }
+
 
 //Save Wallet Item Type  in Database...
 

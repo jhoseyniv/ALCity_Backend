@@ -170,7 +170,7 @@ public class ImportHashImageProblemData_1 implements CommandLineRunner {
 
          LearningSkill timeManagement = learningSkillService.findByValue("timeManagement");
         LearningSkill division = learningSkillService.findByValue("division");
-        WalletItem alCoin10WalletItem = walletItemService.findByValue("al_coin_10");
+        Optional<WalletItem> alCoin10WalletItem = walletItemService.findByValue("al_coin_10");
 
         Journey journey_1 = journeyService.findByTitle("Journey_1");
         Journey journey_2 = journeyService.findByTitle("Journey_2");
@@ -257,7 +257,7 @@ public class ImportHashImageProblemData_1 implements CommandLineRunner {
                 + "(img7.x == img7.targetX)&&(img7.y == img7.targetY)"+","
                 + "(img8.x == img8.targetX)&&(img8.y == img8.targetY)");
 
-        PLObjective puzzleLevelObjective = new PLObjective("arrange image pieces","arrange image pieces as correct image",10f,2f,condition_Objective,timeManagement,alCoin10WalletItem,puzzleLevel_hashimage
+        PLObjective puzzleLevelObjective = new PLObjective("arrange image pieces","arrange image pieces as correct image",10f,2f,condition_Objective,timeManagement,alCoin10WalletItem.get(),puzzleLevel_hashimage
                 ,1L,now,now,admin_1,admin_1);
         plObjectiveService.save(puzzleLevelObjective);
 

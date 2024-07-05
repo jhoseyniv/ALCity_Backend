@@ -175,8 +175,8 @@ public class ImportMemoryGameProblemData_4 implements CommandLineRunner {
 
         LearningSkill timeManagement = learningSkillService.findByValue("timeManagement");
         LearningSkill memory_booster = learningSkillService.findByValue("memory_booster");
-        WalletItem alCoin100WalletItem = walletItemService.findByValue("al_coin_100");
-        WalletItem alCoin10WalletItem = walletItemService.findByValue("al_coin_10");
+        Optional<WalletItem> alCoin100WalletItem = walletItemService.findByValue("al_coin_100");
+        Optional<WalletItem> alCoin10WalletItem = walletItemService.findByValue("al_coin_10");
 
         Journey journey_1 = journeyService.findByTitle("Journey_1");
         Journey journey_2 = journeyService.findByTitle("Journey_2");
@@ -250,7 +250,7 @@ public class ImportMemoryGameProblemData_4 implements CommandLineRunner {
         StringBuffer  condition_Objective_1 = new StringBuffer("BoardVar(matched)=6");
 
         PLObjective pl_objective_1 = new PLObjective("finished","mission completed",1.5f,2f,condition_Objective_1,memory_booster,
-                                                                 alCoin10WalletItem,pl_Memory_Game ,1L,now,now,admin_1,admin_1);
+                                                                 alCoin10WalletItem.get(),pl_Memory_Game ,1L,now,now,admin_1,admin_1);
         plObjectiveService.save(pl_objective_1);
 
 

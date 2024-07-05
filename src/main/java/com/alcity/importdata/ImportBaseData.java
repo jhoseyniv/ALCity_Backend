@@ -263,6 +263,13 @@ public class ImportBaseData implements CommandLineRunner {
         byte[] tetherIcon = ImageUtil.getImage("src/main/resources/images/","Tether.png");
         byte[] carIcon = ImageUtil.getImage("src/main/resources/images/","car.png");
 
+        BinaryContent teterIcon_Content = new BinaryContent("Tether Icon",tetherIcon,BinaryContentType.Image,1L,now,now,admin_1,admin_1);
+        binaryContentService.save(teterIcon_Content);
+
+        BinaryContent carIcon_Content = new BinaryContent("Car Icon",carIcon,BinaryContentType.Image,1L,now,now,admin_1,admin_1);
+        binaryContentService.save(carIcon_Content);
+
+
         WalletItemType fiat = new WalletItemType(WalletItemCategory.CryptoCurrency,"fiat","fiat",Boolean.TRUE,1L,now,now,admin_1,admin_1);
         WalletItemType crypto = new WalletItemType(WalletItemCategory.CryptoCurrency,"crypto","crypto",Boolean.TRUE,1L,now,now,admin_1,admin_1);
         WalletItemType alCoin = new WalletItemType(WalletItemCategory.AL_Coin,"al_coin","al_coin",Boolean.TRUE,1L,now,now,admin_1,admin_1);
@@ -273,11 +280,11 @@ public class ImportBaseData implements CommandLineRunner {
         walletItemTypeService.save(alCoin);
         walletItemTypeService.save(cityObject);
 
-       WalletItem teterWalletItem= new WalletItem(fiat,tetherIcon,"tether","tether",1L,now,now,admin_1,admin_1);
-        WalletItem alCoin10WalletItem= new WalletItem(alCoin,tetherIcon,"al_coin_10","al_coin_10",1L,now,now,admin_1,admin_1);
-        WalletItem alCoin_100_WalletItem= new WalletItem(alCoin,tetherIcon,"al_coin_100","al_coin_100",1L,now,now,admin_1,admin_1);
-        WalletItem carWalletItem= new WalletItem(cityObject,carIcon,"car object","car_object",1L,now,now,admin_1,admin_1);
-        WalletItem TVWalletItem= new WalletItem(cityObject,carIcon,"TV object","TV_object",1L,now,now,admin_1,admin_1);
+         WalletItem teterWalletItem= new WalletItem(fiat,teterIcon_Content,"tether","tether",1L,now,now,admin_1,admin_1);
+        WalletItem alCoin10WalletItem= new WalletItem(alCoin,teterIcon_Content,"al_coin_10","al_coin_10",1L,now,now,admin_1,admin_1);
+        WalletItem alCoin_100_WalletItem= new WalletItem(alCoin,teterIcon_Content,"al_coin_100","al_coin_100",1L,now,now,admin_1,admin_1);
+        WalletItem carWalletItem= new WalletItem(cityObject,carIcon_Content,"car object","car_object",1L,now,now,admin_1,admin_1);
+        WalletItem TVWalletItem= new WalletItem(cityObject,carIcon_Content,"TV object","TV_object",1L,now,now,admin_1,admin_1);
 
         walletItemService.save(teterWalletItem);
         walletItemService.save(alCoin10WalletItem);

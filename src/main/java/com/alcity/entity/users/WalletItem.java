@@ -1,6 +1,7 @@
 package com.alcity.entity.users;
 
 import com.alcity.entity.base.BaseItemSet;
+import com.alcity.entity.base.BinaryContent;
 import com.alcity.entity.base.WalletItemType;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
@@ -24,15 +25,16 @@ public class WalletItem extends BaseItemSet implements Serializable {
         this.walletItemType = walletItemType;
     }
 
-    @Lob
-    @Basic(fetch = FetchType.LAZY)
-    private byte[] icon;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "icon_id")
+    @JsonIgnore
+    private BinaryContent icon;
 
-    public byte[] getIcon() {
+    public BinaryContent getIcon() {
         return icon;
     }
 
-    public void setIcon(byte[] icon) {
+    public void setIcon(BinaryContent icon) {
         this.icon = icon;
     }
 
@@ -50,7 +52,7 @@ public class WalletItem extends BaseItemSet implements Serializable {
     public WalletItem() {
     }
 
-    public WalletItem(WalletItemType walletItemType, byte[] icon, String label, String value, Long version, String created, String updated, AppMember createdBy, AppMember updatedBy) {
+    public WalletItem(WalletItemType walletItemType, BinaryContent icon, String label, String value, Long version, String created, String updated, AppMember createdBy, AppMember updatedBy) {
         super(label, value, version, created, updated, createdBy, updatedBy);
         this.walletItemType = walletItemType;
         this.icon = icon;
