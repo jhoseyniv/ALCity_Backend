@@ -1,6 +1,6 @@
 package com.alcity.entity.base;
 
-import com.alcity.entity.users.ApplicationMember;
+import com.alcity.entity.users.AppMember;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.*;
@@ -29,14 +29,14 @@ public abstract class BaseTable implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY, optional = true)
     @JoinColumn(name ="createdBy",nullable = true)
     @JsonIgnore
-    private ApplicationMember createdBy;
+    private AppMember createdBy;
 
 
 
     @ManyToOne(fetch = FetchType.LAZY, optional = true)
     @JoinColumn( name ="updatedBy",  nullable = true)
     @JsonIgnore
-    private ApplicationMember updatedBy;
+    private AppMember updatedBy;
 
     public Long getVersion() {
         return version;
@@ -50,11 +50,11 @@ public abstract class BaseTable implements Serializable {
         return updated;
     }
 
-    public ApplicationMember getCreatedBy() {
+    public AppMember getCreatedBy() {
         return createdBy;
     }
 
-    public ApplicationMember getUpdatedBy() {
+    public AppMember getUpdatedBy() {
         return updatedBy;
     }
 
@@ -74,18 +74,18 @@ public abstract class BaseTable implements Serializable {
         this.updated = updated;
     }
 
-    public void setCreatedBy(ApplicationMember createdBy) {
+    public void setCreatedBy(AppMember createdBy) {
         this.createdBy = createdBy;
     }
 
-    public void setUpdatedBy(ApplicationMember updatedBy) {
+    public void setUpdatedBy(AppMember updatedBy) {
         this.updatedBy = updatedBy;
     }
 
     public BaseTable() {
     }
 
-    public BaseTable(Long version, String created, String updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
+    public BaseTable(Long version, String created, String updated, AppMember createdBy, AppMember updatedBy) {
         this.version = version;
         this.created = created;
         this.updated = updated;

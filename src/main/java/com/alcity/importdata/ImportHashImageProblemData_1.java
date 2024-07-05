@@ -12,7 +12,7 @@ import com.alcity.entity.learning.LearningTopic;
 import com.alcity.entity.play.PermitedPlayer;
 import com.alcity.entity.play.PlayHistory;
 import com.alcity.entity.puzzle.*;
-import com.alcity.entity.users.ApplicationMember;
+import com.alcity.entity.users.AppMember;
 import com.alcity.entity.users.WalletItem;
 import com.alcity.repository.play.PermitedPlayerRepository;
 import com.alcity.service.Journey.JourneyService;
@@ -164,8 +164,8 @@ public class ImportHashImageProblemData_1 implements CommandLineRunner {
         String now = current.format(format);
         // byte[] avatar = getImage("src/main/resources/images/","avatar.png");
 
-        ApplicationMember admin_1 = applicationMemberService.findByUsername("admin");
-        ApplicationMember jalalHoseyni = applicationMemberService.findByUsername("jalal");
+        AppMember admin_1 = applicationMemberService.findByUsername("admin");
+        AppMember jalalHoseyni = applicationMemberService.findByUsername("jalal");
         Optional<LearningTopic> hashImage_Topic = learningTopicService.findByTitle("Hash Image");
 
          LearningSkill timeManagement = learningSkillService.findByValue("timeManagement");

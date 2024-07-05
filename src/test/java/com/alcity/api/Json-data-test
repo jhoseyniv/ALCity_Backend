@@ -1,4 +1,13 @@
 
+//Save Wallet Item Type  in Database...
+
+{
+    "id": 13,
+    "label": "fiat",
+    "value": "fiat",
+    "walletItemCategory": "CryptoCurrency",
+     "currency": true
+  }
 
 
 //Save Learning Content in Database...

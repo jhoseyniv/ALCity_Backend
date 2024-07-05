@@ -1,11 +1,5 @@
 package com.alcity.entity.alenum;
 
-import com.alcity.entity.base.BaseItemSet;
-import com.alcity.entity.users.ApplicationMember;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import jakarta.persistence.*;
-
 
 public enum AttributeOwnerType {
 

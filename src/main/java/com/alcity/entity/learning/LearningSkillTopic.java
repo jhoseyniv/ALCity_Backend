@@ -1,7 +1,7 @@
 package com.alcity.entity.learning;
 
 import com.alcity.entity.base.BaseTable;
-import com.alcity.entity.users.ApplicationMember;
+import com.alcity.entity.users.AppMember;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -30,7 +30,7 @@ public class LearningSkillTopic extends BaseTable implements Serializable {
     public LearningSkillTopic() {
     }
 
-    public LearningSkillTopic(String title, LearningSkill learningSkill, LearningTopic learningTopic, Long version, String created, String updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
+    public LearningSkillTopic(String title, LearningSkill learningSkill, LearningTopic learningTopic, Long version, String created, String updated, AppMember createdBy, AppMember updatedBy) {
         super(version, created, updated, createdBy, updatedBy);
         this.title = title;
         this.learningSkill = learningSkill;

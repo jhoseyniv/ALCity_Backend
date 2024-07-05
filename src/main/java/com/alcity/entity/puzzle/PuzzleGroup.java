@@ -5,13 +5,12 @@ import com.alcity.entity.base.BinaryContent;
 import com.alcity.entity.base.PuzzleCategory;
 import com.alcity.entity.base.BaseTable;
 import com.alcity.entity.journey.JourneyStep;
-import com.alcity.entity.users.ApplicationMember;
+import com.alcity.entity.users.AppMember;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.*;
 import java.io.Serializable;
 import java.util.Collection;
-import java.util.Set;
 
 @Entity
 public class PuzzleGroup extends BaseTable implements Serializable {
@@ -119,7 +118,7 @@ public class PuzzleGroup extends BaseTable implements Serializable {
     public PuzzleGroup() {
     }
 
-    public PuzzleGroup( String title,PuzzleCategory puzzleCategory, BinaryContent icon, BinaryContent pic,Long version, String created, String updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
+    public PuzzleGroup(String title, PuzzleCategory puzzleCategory, BinaryContent icon, BinaryContent pic, Long version, String created, String updated, AppMember createdBy, AppMember updatedBy) {
         super(version, created, updated, createdBy, updatedBy);
         this.title = title;
         this.puzzleCategory = puzzleCategory;

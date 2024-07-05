@@ -1,24 +1,17 @@
 package com.alcity.service.puzzle;
 
 import com.alcity.dto.puzzle.PLObjectiveDTO;
-import com.alcity.dto.puzzle.PuzzleLevelLDTO;
-import com.alcity.entity.alenum.PLDifficulty;
-import com.alcity.entity.alenum.PLStatus;
-import com.alcity.entity.base.PLPrivacy;
 import com.alcity.entity.learning.LearningSkill;
 import com.alcity.entity.puzzle.PLObjective;
-import com.alcity.entity.puzzle.PuzzleGroup;
 import com.alcity.entity.puzzle.PuzzleLevel;
-import com.alcity.entity.users.ApplicationMember;
+import com.alcity.entity.users.AppMember;
 import com.alcity.entity.users.WalletItem;
 import com.alcity.repository.learning.LearningSkillRepository;
 import com.alcity.repository.puzzle.PLObjectiveRepository;
 import com.alcity.repository.puzzle.PuzzleLevelRepository;
 import com.alcity.repository.users.ApplicationMemberRepository;
 import com.alcity.repository.users.WalletItemRespository;
-import com.alcity.service.learning.LearningSkillService;
 import com.alcity.service.users.ApplicationMemberService;
-import com.alcity.service.users.WalletItemService;
 import com.alcity.utility.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -127,7 +120,7 @@ public class PLObjectiveService implements PLObjectiveRepository {
     private ApplicationMemberRepository applicationMemberRepository;
 
     public PLObjective save(PLObjectiveDTO dto, String code) {
-        ApplicationMember createdBy = applicationMemberRepository.findByUsername("admin");
+        AppMember createdBy = applicationMemberRepository.findByUsername("admin");
         PLObjective plObjective=null;
         Optional<LearningSkill> learningSkillOptional =  learningSkillRepository.findById(dto.getSkillId());
         Optional<WalletItem> walletItemOptional =  walletItemRespository.findById(dto.getWalletItemId());

@@ -1,12 +1,9 @@
 package com.alcity.service.learning;
 
 import com.alcity.dto.learning.LearningContentDTO;
-import com.alcity.dto.puzzle.ALCityObjectDTO;
-import com.alcity.entity.alobject.ObjectCategory;
 import com.alcity.entity.base.BinaryContent;
 import com.alcity.entity.learning.LearningContent;
-import com.alcity.entity.puzzle.ALCityObject;
-import com.alcity.entity.users.ApplicationMember;
+import com.alcity.entity.users.AppMember;
 import com.alcity.repository.learning.LearningContentRepository;
 import com.alcity.repository.users.ApplicationMemberRepository;
 import com.alcity.service.base.BinaryContentService;
@@ -35,7 +32,7 @@ public class LearningContentService implements LearningContentRepository {
         return learningContentRepository.save(entity);
     }
     public LearningContent save(LearningContentDTO dto, String code) {
-        ApplicationMember createdBy = applicationMemberRepository.findByUsername("admin");
+        AppMember createdBy = applicationMemberRepository.findByUsername("admin");
         Optional<BinaryContent> binaryContentOptional =  binaryContentService.findById(dto.getBinaryContentId());
         LearningContent learningContent=null;
         if (code.equalsIgnoreCase("Save")) { //Save

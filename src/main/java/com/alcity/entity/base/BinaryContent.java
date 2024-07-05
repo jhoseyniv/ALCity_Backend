@@ -4,9 +4,8 @@ package com.alcity.entity.base;
 import com.alcity.entity.alenum.BinaryContentType;
 import com.alcity.entity.alobject.AttributeValue;
 import com.alcity.entity.learning.LearningContent;
-import com.alcity.entity.users.ApplicationMember;
+import com.alcity.entity.users.AppMember;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.hibernate.annotations.Type;
 
 import jakarta.persistence.*;
 import java.io.Serializable;
@@ -90,7 +89,7 @@ public class BinaryContent extends BaseTable implements Serializable {
     public BinaryContent() {
     }
 
-    public BinaryContent(String fileName, byte[] content, BinaryContentType contentType,Long version, String created, String updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
+    public BinaryContent(String fileName, byte[] content, BinaryContentType contentType, Long version, String created, String updated, AppMember createdBy, AppMember updatedBy) {
         super(version, created, updated, createdBy, updatedBy);
         this.fileName = fileName;
         this.size = content.length;

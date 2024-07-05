@@ -2,7 +2,7 @@ package com.alcity.entity.base;
 
 
 
-import com.alcity.entity.users.ApplicationMember;
+import com.alcity.entity.users.AppMember;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.io.Serializable;
@@ -58,18 +58,18 @@ public abstract class BaseItemSet implements Serializable {
         return updated;
     }
 
-    public ApplicationMember getCreatedBy() {
+    public AppMember getCreatedBy() {
         return createdBy;
     }
 
-    public ApplicationMember getUpdatedBy() {
+    public AppMember getUpdatedBy() {
         return updatedBy;
     }
 
     @ManyToOne(fetch = FetchType.LAZY, optional = true)
     @JoinColumn(name ="createdBy",nullable = true)
     @JsonIgnore
-    private ApplicationMember createdBy;
+    private AppMember createdBy;
 
     public void setId(Long id) {
         this.id = id;
@@ -98,20 +98,20 @@ public abstract class BaseItemSet implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY, optional = true)
     @JoinColumn( name ="updatedBy",  nullable = true)
     @JsonIgnore
-    private ApplicationMember updatedBy;
+    private AppMember updatedBy;
 
-    public void setCreatedBy(ApplicationMember createdBy) {
+    public void setCreatedBy(AppMember createdBy) {
         this.createdBy = createdBy;
     }
 
-    public void setUpdatedBy(ApplicationMember updatedBy) {
+    public void setUpdatedBy(AppMember updatedBy) {
         this.updatedBy = updatedBy;
     }
 
     public BaseItemSet() {
     }
 
-    public BaseItemSet(String label, String value, Long version, String created, String updated, ApplicationMember createdBy , ApplicationMember updatedBy) {
+    public BaseItemSet(String label, String value, Long version, String created, String updated, AppMember createdBy , AppMember updatedBy) {
         this.label = label;
         this.value = value;
         this.version = version;

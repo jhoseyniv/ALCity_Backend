@@ -2,7 +2,7 @@ package com.alcity.entity.journey;
 
 import com.alcity.entity.puzzle.PuzzleGroup;
 import com.alcity.entity.base.BaseTable;
-import com.alcity.entity.users.ApplicationMember;
+import com.alcity.entity.users.AppMember;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.*;
@@ -84,7 +84,7 @@ public class JourneyStep extends BaseTable implements Serializable {
     public JourneyStep() {
     }
 
-    public JourneyStep(String title,Integer ordering, Integer xpos, Integer ypos, Journey journey, PuzzleGroup puzzleGroup ,Long version, String created, String updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
+    public JourneyStep(String title, Integer ordering, Integer xpos, Integer ypos, Journey journey, PuzzleGroup puzzleGroup , Long version, String created, String updated, AppMember createdBy, AppMember updatedBy) {
         super(version, created, updated, createdBy, updatedBy);
         this.title =title;
         this.ordering = ordering;

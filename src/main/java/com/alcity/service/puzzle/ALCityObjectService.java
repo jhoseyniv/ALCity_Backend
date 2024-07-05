@@ -1,19 +1,13 @@
 package com.alcity.service.puzzle;
 
 import com.alcity.dto.puzzle.ALCityObjectDTO;
-import com.alcity.entity.alenum.PLDifficulty;
-import com.alcity.entity.alenum.PLStatus;
 import com.alcity.entity.alenum.POActionOwnerType;
 import com.alcity.entity.alobject.ObjectCategory;
 import com.alcity.entity.alobject.PuzzleObjectAction;
 import com.alcity.entity.base.BinaryContent;
-import com.alcity.entity.base.PLPrivacy;
 import com.alcity.entity.puzzle.ALCityObject;
-import com.alcity.entity.puzzle.PuzzleGroup;
-import com.alcity.entity.puzzle.PuzzleLevel;
-import com.alcity.entity.users.ApplicationMember;
+import com.alcity.entity.users.AppMember;
 import com.alcity.repository.alobject.ObjectCategoryRepository;
-import com.alcity.repository.base.PLPrivacyRepository;
 import com.alcity.repository.puzzle.ALCityObjectRepository;
 import com.alcity.repository.users.ApplicationMemberRepository;
 import com.alcity.service.alobject.PuzzleObjectActionService;
@@ -128,7 +122,7 @@ public class ALCityObjectService implements ALCityObjectRepository {
     private ObjectCategoryRepository objectCategoryRepository;
 
     public ALCityObject save(ALCityObjectDTO dto, String code) {
-        ApplicationMember createdBy = applicationMemberRepository.findByUsername("admin");
+        AppMember createdBy = applicationMemberRepository.findByUsername("admin");
         ObjectCategory objectCategory =  objectCategoryRepository.findByValue(dto.getObjectCategory());
         ALCityObject alCityObject=null;
         if (code.equalsIgnoreCase("Save")) { //Save

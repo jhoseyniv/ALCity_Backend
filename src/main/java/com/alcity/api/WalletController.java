@@ -5,10 +5,12 @@ import com.alcity.customexception.ALCityResponseObject;
 import com.alcity.customexception.UniqueConstraintException;
 import com.alcity.customexception.ViolateForeignKeyException;
 import com.alcity.dto.base.WalletItemTypeDTO;
-import com.alcity.dto.puzzle.PuzzleLevelLDTO;
+import com.alcity.dto.user.WalletItemDTO;
 import com.alcity.entity.base.WalletItemType;
-import com.alcity.entity.puzzle.PuzzleLevel;
+import com.alcity.entity.users.WalletItem;
 import com.alcity.service.base.WalletItemTypeService;
+import com.alcity.service.users.WalletItemService;
+import com.alcity.utility.DTOUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,22 +26,40 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/wallet")
 
-public class WalletItemController {
+public class WalletController {
     @Autowired
     private WalletItemTypeService walletItemTypeService;
+    @Autowired
+    private WalletItemService walletItemService;
     @GetMapping("/type/all")
     @CrossOrigin(origins = "*")
-    public Collection<WalletItemType> getWalletItemTypes(Model model) {
-        Collection<WalletItemType> walletItemTypeCollection = walletItemTypeService.findAll();
-        return walletItemTypeCollection;
+    public Collection<WalletItemTypeDTO> getWalletItemTypes(Model model) {
+        Collection<WalletItemType> walletItemTypes = walletItemTypeService.findAll();
+        return DTOUtil.getWalletItemTypeDTOS(walletItemTypes);
     }
 
+    @GetMapping("/item/all")
+    @CrossOrigin(origins = "*")
+    public Collection<WalletItemDTO> getWalletItems(Model model) {
+        Collection<WalletItem> walletItems = walletItemService.findAll();
+        Collection<WalletItemDTO> dtos = DTOUtil.getWalletItemDTOS(walletItems);
+        return dtos;
+    }
     @RequestMapping(value = "/type/id/{id}", method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin(origins = "*")
     public Optional<WalletItemType> getWalletItemTypeById(@PathVariable Long id) {
         Optional<WalletItemType> walletItemType = walletItemTypeService.findById(id);
         return walletItemType;
+    }
+
+    @RequestMapping(value = "/item/id/{id}", method = RequestMethod.GET)
+    @ResponseBody
+    @CrossOrigin(origins = "*")
+    public WalletItemDTO getWalletItemById(@PathVariable Long id) {
+        Optional<WalletItem> walletItemOptional = walletItemService.findById(id);
+        if(walletItemOptional.isPresent()) return  DTOUtil.getWalletItemDTO(walletItemOptional.get());
+        return null;
     }
 
     @Operation( summary = "Save a Wallet Item Type  ",  description = "Save a Wallet Item Type  entity and their data to data base")
@@ -51,13 +71,13 @@ public class WalletItemController {
 
         if (dto.getId() == null || dto.getId() <= 0L) { //save
             try {
-                //savedRecord = walletItemTypeService.save(dto,"Save");
+                savedRecord = walletItemTypeService.save(dto,"Save");
             } catch (RuntimeException e) {
                 throw new UniqueConstraintException(dto.getValue(), dto.getId(), "Value and Lable Must be Unique");
             }
             responseObject = new ALCityResponseObject(HttpStatus.OK.value(), "ok", savedRecord.getId(), "Record Saved Successfully!");
         } else if (dto.getId() > 0L ) {//edit
-           // savedRecord = walletItemTypeService.save(dto, "Edit");
+            savedRecord = walletItemTypeService.save(dto, "Edit");
             if(savedRecord !=null)
                 responseObject = new ALCityResponseObject(HttpStatus.OK.value(), "ok", savedRecord.getId(), "Record Updated Successfully!");
             else
@@ -72,7 +92,7 @@ public class WalletItemController {
     }
 
     @Operation( summary = "delete a  Wallet Item Type  ",  description = "delete a Wallet Item type ")
-    @DeleteMapping("/type/del/{id}")
+    @DeleteMapping("/type/del/id/{id}")
     @CrossOrigin(origins = "*")
     public ALCityResponseObject deleteWalletItemTypeById(@PathVariable Long id) {
         Optional<WalletItemType> existingRecord = walletItemTypeService.findById(id);

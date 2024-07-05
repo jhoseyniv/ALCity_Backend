@@ -29,7 +29,7 @@ public class WalletTransaction extends BaseTable implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "applicationMember_WalletItem", nullable = false)
     @JsonIgnore
-    private ApplicationMember_WalletItem applicationMember_WalletItem;
+    private AppMember_WalletItem applicationMember_WalletItem;
 
     public String getTransactionDate() {
         return transactionDate;
@@ -66,7 +66,7 @@ public class WalletTransaction extends BaseTable implements Serializable {
     public WalletTransaction() {
     }
 
-    public WalletTransaction( String transactionDate, Float amount, Boolean incTransaction, String description, ApplicationMember_WalletItem applicationMember_WalletItem,Long version, String created, String updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
+    public WalletTransaction(String transactionDate, Float amount, Boolean incTransaction, String description, AppMember_WalletItem applicationMember_WalletItem, Long version, String created, String updated, AppMember createdBy, AppMember updatedBy) {
         super(version, created, updated, createdBy, updatedBy);
         this.transactionDate = transactionDate;
         this.amount = amount;

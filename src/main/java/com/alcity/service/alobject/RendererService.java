@@ -1,17 +1,10 @@
 package com.alcity.service.alobject;
 
 import com.alcity.dto.alobject.RendererDTO;
-import com.alcity.dto.puzzle.PuzzleLevelLDTO;
 import com.alcity.entity.alenum.ObjectAction;
-import com.alcity.entity.alenum.PLDifficulty;
-import com.alcity.entity.alenum.PLStatus;
 import com.alcity.entity.alobject.Renderer;
 import com.alcity.entity.base.ClientType;
-import com.alcity.entity.base.PLPrivacy;
-import com.alcity.entity.puzzle.PuzzleGroup;
-import com.alcity.entity.puzzle.PuzzleLevel;
-import com.alcity.entity.users.ApplicationMember;
-import com.alcity.repository.alobject.ObjectCategoryRepository;
+import com.alcity.entity.users.AppMember;
 import com.alcity.repository.alobject.RendererRepository;
 import com.alcity.repository.base.ClientTypeRepository;
 import com.alcity.repository.users.ApplicationMemberRepository;
@@ -40,7 +33,7 @@ public class RendererService implements RendererRepository {
     private ClientTypeRepository clientTypeRepository;
 
     public Renderer save(RendererDTO dto, String code) {
-        ApplicationMember createdBy = applicationMemberRepository.findByUsername("admin");
+        AppMember createdBy = applicationMemberRepository.findByUsername("admin");
         Renderer renderer=null;
         Optional<Renderer>  rendererOptional = rendererRepository.findById(dto.getId());
         ClientType clientType =  clientTypeRepository.findByValue(dto.getClientType());

@@ -4,9 +4,7 @@ import com.alcity.entity.base.BaseItemSet;
 import com.alcity.entity.base.WalletItemType;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import org.hibernate.annotations.Type;
 
-import jakarta.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Set;
 
@@ -39,20 +37,20 @@ public class WalletItem extends BaseItemSet implements Serializable {
     }
 
     @OneToMany(mappedBy = "walletItem", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private Set<ApplicationMember_WalletItem> applicationMember_walletItems;
+    private Set<AppMember_WalletItem> applicationMember_walletItems;
 
-    public Set<ApplicationMember_WalletItem> getApplicationMember_walletItems() {
+    public Set<AppMember_WalletItem> getApplicationMember_walletItems() {
         return applicationMember_walletItems;
     }
 
-    public void setApplicationMember_walletItems(Set<ApplicationMember_WalletItem> applicationMember_walletItems) {
+    public void setApplicationMember_walletItems(Set<AppMember_WalletItem> applicationMember_walletItems) {
         this.applicationMember_walletItems = applicationMember_walletItems;
     }
 
     public WalletItem() {
     }
 
-    public WalletItem(WalletItemType walletItemType, byte[] icon, String label, String value, Long version, String created, String updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
+    public WalletItem(WalletItemType walletItemType, byte[] icon, String label, String value, Long version, String created, String updated, AppMember createdBy, AppMember updatedBy) {
         super(label, value, version, created, updated, createdBy, updatedBy);
         this.walletItemType = walletItemType;
         this.icon = icon;

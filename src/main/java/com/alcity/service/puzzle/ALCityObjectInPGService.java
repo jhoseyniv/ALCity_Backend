@@ -1,17 +1,14 @@
 package com.alcity.service.puzzle;
 
-import com.alcity.dto.puzzle.ALCityObjectDTO;
 import com.alcity.dto.puzzle.ALCityObjectInPGDTO;
 import com.alcity.entity.alenum.AttributeOwnerType;
 import com.alcity.entity.alenum.POActionOwnerType;
-import com.alcity.entity.alobject.ObjectCategory;
 import com.alcity.entity.alobject.PuzzleObjectAction;
 import com.alcity.entity.puzzle.ALCityObject;
 import com.alcity.entity.puzzle.ALCityObjectInPG;
 import com.alcity.entity.puzzle.PuzzleGroup;
-import com.alcity.entity.users.ApplicationMember;
+import com.alcity.entity.users.AppMember;
 import com.alcity.repository.puzzle.ALCityObjectInPGRepository;
-import com.alcity.repository.puzzle.ALCityObjectRepository;
 import com.alcity.repository.puzzle.PGRepository;
 import com.alcity.repository.users.ApplicationMemberRepository;
 import com.alcity.service.alobject.RendererService;
@@ -139,7 +136,7 @@ public class ALCityObjectInPGService implements ALCityObjectInPGRepository {
     @Autowired
     private ApplicationMemberRepository applicationMemberRepository;
     public ALCityObjectInPG save(ALCityObjectInPGDTO dto, String code) {
-        ApplicationMember createdBy = applicationMemberRepository.findByUsername("admin");
+        AppMember createdBy = applicationMemberRepository.findByUsername("admin");
         Optional<PuzzleGroup> puzzleGroupOptional =  pgRepository.findByTitle(dto.getPuzzleGroup());
         Optional<ALCityObject> alCityObjectOptional =  alCityObjectService.findByTitle(dto.getAlCityObject());
         ALCityObjectInPG alCityObjectInPG=null;

@@ -13,7 +13,7 @@ import com.alcity.entity.learning.LearningTopic;
 import com.alcity.entity.play.PermitedPlayer;
 import com.alcity.entity.play.PlayHistory;
 import com.alcity.entity.puzzle.*;
-import com.alcity.entity.users.ApplicationMember;
+import com.alcity.entity.users.AppMember;
 import com.alcity.entity.users.WalletItem;
 import com.alcity.repository.play.PermitedPlayerRepository;
 import com.alcity.service.Journey.JourneyService;
@@ -167,9 +167,9 @@ public class ImportMemoryGameProblemData_4 implements CommandLineRunner {
         DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
         String now = current.format(format);
 
-        ApplicationMember admin_1 = applicationMemberService.findByUsername("admin");
-        ApplicationMember jalalHoseyni = applicationMemberService.findByUsername("jalal");
-        ApplicationMember Alireza_Zare = applicationMemberService.findByUsername("alireza");
+        AppMember admin_1 = applicationMemberService.findByUsername("admin");
+        AppMember jalalHoseyni = applicationMemberService.findByUsername("jalal");
+        AppMember Alireza_Zare = applicationMemberService.findByUsername("alireza");
 
         Optional<LearningTopic> Memory_Game_Topic = learningTopicService.findByTitle("Memory_Game");
 

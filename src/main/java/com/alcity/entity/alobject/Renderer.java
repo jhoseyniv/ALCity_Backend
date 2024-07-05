@@ -3,7 +3,7 @@ package com.alcity.entity.alobject;
 import com.alcity.entity.alenum.ObjectAction;
 import com.alcity.entity.base.BaseTable;
 import com.alcity.entity.base.ClientType;
-import com.alcity.entity.users.ApplicationMember;
+import com.alcity.entity.users.AppMember;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.*;
@@ -64,7 +64,7 @@ public class Renderer extends BaseTable implements Serializable {
     public Renderer() {
     }
 
-    public Renderer(String handler, ClientType clientType, ObjectAction objectAction, Long version, String created, String updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
+    public Renderer(String handler, ClientType clientType, ObjectAction objectAction, Long version, String created, String updated, AppMember createdBy, AppMember updatedBy) {
         super(version, created, updated, createdBy, updatedBy);
         this.handler = handler;
         this.clientType = clientType;

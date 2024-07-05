@@ -4,8 +4,7 @@ package com.alcity.entity.alobject;
 import com.alcity.entity.alenum.AttributeOwnerType;
 import com.alcity.entity.base.BaseTable;
 import com.alcity.entity.alenum.DataType;
-import com.alcity.entity.users.ApplicationMember;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.alcity.entity.users.AppMember;
 
 import jakarta.persistence.*;
 import java.io.Serializable;
@@ -72,7 +71,7 @@ public class Attribute extends BaseTable implements Serializable {
     public Attribute() {
     }
 
-    public Attribute(String name, Long ownerId, AttributeOwnerType attributeOwnerType, DataType dataType, Long version, String created, String updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
+    public Attribute(String name, Long ownerId, AttributeOwnerType attributeOwnerType, DataType dataType, Long version, String created, String updated, AppMember createdBy, AppMember updatedBy) {
         super(version, created, updated, createdBy, updatedBy);
         this.name = name;
         this.ownerId = ownerId;

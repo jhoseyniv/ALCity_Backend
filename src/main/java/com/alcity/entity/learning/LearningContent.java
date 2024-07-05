@@ -2,7 +2,7 @@ package com.alcity.entity.learning;
 
 import com.alcity.entity.base.BinaryContent;
 import com.alcity.entity.base.BaseTable;
-import com.alcity.entity.users.ApplicationMember;
+import com.alcity.entity.users.AppMember;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.*;
@@ -53,7 +53,7 @@ public class LearningContent  extends BaseTable implements Serializable {
     public LearningContent() {
     }
 
-    public LearningContent(String descText, String descBrief, BinaryContent binaryContent, Long version, String created, String updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
+    public LearningContent(String descText, String descBrief, BinaryContent binaryContent, Long version, String created, String updated, AppMember createdBy, AppMember updatedBy) {
         super(version, created, updated, createdBy, updatedBy);
         this.descText = descText;
         this.descBrief = descBrief;

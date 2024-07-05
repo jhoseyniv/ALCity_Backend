@@ -1,7 +1,7 @@
 package com.alcity.service.users;
 
 import com.alcity.customexception.ALCityResponseObject;
-import com.alcity.entity.users.ApplicationMember;
+import com.alcity.entity.users.AppMember;
 import com.alcity.repository.users.ApplicationMemberRepository;
 import com.alcity.repository.users.CustomizedUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,17 +19,17 @@ public class ApplicationMemberService implements ApplicationMemberRepository, Cu
     private ApplicationMemberRepository applicationMemberRepository;
 
     @Override
-    public <S extends ApplicationMember> S save(S entity) {
+    public <S extends AppMember> S save(S entity) {
         return applicationMemberRepository.save(entity);
     }
 
     @Override
-    public <S extends ApplicationMember> Iterable<S> saveAll(Iterable<S> entities) {
+    public <S extends AppMember> Iterable<S> saveAll(Iterable<S> entities) {
         return null;
     }
 
     @Override
-    public Optional<ApplicationMember> findById(Long id) {
+    public Optional<AppMember> findById(Long id) {
         return applicationMemberRepository.findById(id);
     }
 
@@ -39,12 +39,12 @@ public class ApplicationMemberService implements ApplicationMemberRepository, Cu
     }
 
     @Override
-    public Collection<ApplicationMember> findAll() {
+    public Collection<AppMember> findAll() {
         return applicationMemberRepository.findAll();
     }
 
     @Override
-    public Iterable<ApplicationMember> findAllById(Iterable<Long> longs) {
+    public Iterable<AppMember> findAllById(Iterable<Long> longs) {
         return null;
     }
 
@@ -59,7 +59,7 @@ public class ApplicationMemberService implements ApplicationMemberRepository, Cu
     }
 
     @Override
-    public void delete(ApplicationMember entity) {
+    public void delete(AppMember entity) {
 
     }
 
@@ -69,7 +69,7 @@ public class ApplicationMemberService implements ApplicationMemberRepository, Cu
     }
 
     @Override
-    public void deleteAll(Iterable<? extends ApplicationMember> entities) {
+    public void deleteAll(Iterable<? extends AppMember> entities) {
 
     }
 
@@ -79,17 +79,17 @@ public class ApplicationMemberService implements ApplicationMemberRepository, Cu
     }
 
     @Override
-    public ApplicationMember findByUsername(String username) {
+    public AppMember findByUsername(String username) {
         return applicationMemberRepository.findByUsername(username);
     }
 
     @Override
-    public Collection<ApplicationMember> findByMobile(String mobile) {
+    public Collection<AppMember> findByMobile(String mobile) {
         return null;
     }
 
     @Override
-    public ApplicationMember findByEmail(String email) {
+    public AppMember findByEmail(String email) {
         return null;
     }
 

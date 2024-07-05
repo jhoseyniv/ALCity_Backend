@@ -3,7 +3,7 @@ package com.alcity.entity.puzzle;
 import com.alcity.entity.base.PLRulePostActionType;
 import com.alcity.entity.base.BaseTable;
 import com.alcity.entity.alobject.RulePostActionEvent;
-import com.alcity.entity.users.ApplicationMember;
+import com.alcity.entity.users.AppMember;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.*;
@@ -130,9 +130,9 @@ public class PLRulePostAction extends BaseTable implements Serializable {
     public PLRulePostAction() {
     }
 
-    public PLRulePostAction( PLRule puzzleLevelRule , PLRulePostActionType plRulePostActionType, Integer ordering, String actionName,  String objectId,
-                             String variable,StringBuffer valueExperssion,String alertType, String alertMessage ,
-                             Long version, String created, String updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
+    public PLRulePostAction(PLRule puzzleLevelRule , PLRulePostActionType plRulePostActionType, Integer ordering, String actionName, String objectId,
+                            String variable, StringBuffer valueExperssion, String alertType, String alertMessage ,
+                            Long version, String created, String updated, AppMember createdBy, AppMember updatedBy) {
         super(version, created, updated, createdBy, updatedBy);
         this.valueExperssion = valueExperssion;
         this.variable = variable;

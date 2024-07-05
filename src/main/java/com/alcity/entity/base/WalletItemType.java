@@ -1,8 +1,7 @@
 package com.alcity.entity.base;
 
-import com.alcity.entity.alenum.PLStatus;
 import com.alcity.entity.alenum.WalletItemCategory;
-import com.alcity.entity.users.ApplicationMember;
+import com.alcity.entity.users.AppMember;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -36,7 +35,7 @@ public class WalletItemType extends BaseItemSet implements Serializable {
     public WalletItemType() {
     }
 
-    public WalletItemType( WalletItemCategory walletItemCategory ,String label, String value,Boolean isCurrency,Long version, String created, String updated,  ApplicationMember createdBy, ApplicationMember updatedBy) {
+    public WalletItemType(WalletItemCategory walletItemCategory , String label, String value, Boolean isCurrency, Long version, String created, String updated, AppMember createdBy, AppMember updatedBy) {
         super(label, value, version, created, updated, createdBy,updatedBy);
         this.isCurrency = isCurrency ;
         this.walletItemCategory = walletItemCategory;

@@ -1,16 +1,14 @@
 package com.alcity.service.puzzle;
 
 import com.alcity.dto.puzzle.PGDTO;
-import com.alcity.dto.puzzle.PuzzleCategoryDTO;
 import com.alcity.entity.base.BinaryContent;
 import com.alcity.entity.base.PuzzleCategory;
 import com.alcity.entity.puzzle.PuzzleGroup;
-import com.alcity.entity.users.ApplicationMember;
+import com.alcity.entity.users.AppMember;
 import com.alcity.repository.base.BinaryContentRepository;
 import com.alcity.repository.base.PuzzleCategoryRepository;
 import com.alcity.repository.puzzle.PGRepository;
 import com.alcity.repository.users.ApplicationMemberRepository;
-import com.alcity.service.base.BinaryContentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -74,7 +72,7 @@ public class PGService implements PGRepository {
     private PuzzleCategoryRepository puzzleCategoryRepository;
 
     public PuzzleGroup save(PGDTO dto, String code) {
-        ApplicationMember createdBy = applicationMemberRepository.findByUsername("admin");
+        AppMember createdBy = applicationMemberRepository.findByUsername("admin");
         PuzzleGroup puzzleGroup=null;
         Optional<BinaryContent> icon = binaryContentRepository.findById(dto.getIconId());
         Optional<BinaryContent> pic = binaryContentRepository.findById(dto.getPicId());

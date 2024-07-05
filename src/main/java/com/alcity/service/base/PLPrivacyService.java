@@ -1,13 +1,8 @@
 package com.alcity.service.base;
 
 import com.alcity.dto.base.PLPrivacyDTO;
-import com.alcity.dto.puzzle.PuzzleLevelLDTO;
-import com.alcity.entity.alenum.PLDifficulty;
-import com.alcity.entity.alenum.PLStatus;
 import com.alcity.entity.base.PLPrivacy;
-import com.alcity.entity.puzzle.PuzzleGroup;
-import com.alcity.entity.puzzle.PuzzleLevel;
-import com.alcity.entity.users.ApplicationMember;
+import com.alcity.entity.users.AppMember;
 import com.alcity.repository.base.PLPrivacyRepository;
 import com.alcity.repository.users.ApplicationMemberRepository;
 import com.alcity.utility.DateUtils;
@@ -102,7 +97,7 @@ public class PLPrivacyService implements PLPrivacyRepository {
     private ApplicationMemberRepository applicationMemberRepository;
 
     public PLPrivacy save(PLPrivacyDTO dto, String code) {
-        ApplicationMember createdBy = applicationMemberRepository.findByUsername("admin");
+        AppMember createdBy = applicationMemberRepository.findByUsername("admin");
         PLPrivacy plPrivacy=null;
 
         if (code.equalsIgnoreCase("Save")) { //Save

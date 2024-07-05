@@ -7,15 +7,41 @@ public class WalletItemDTO {
     private Long id;
     private String label;
     private String value;
+    private String walletItemType;
+    private Boolean isCurrency;
+    private String walletItemCategory;
     private Long version;
     private String created;
     private String updated;
     private String createdBY;
     private String updatedBy;
-    private Long createdBYId;
-    private Long updatedById;
-    private WalletItemTypeDTO walletItemTypeDTO;
 
+    //  private Long createdBYId;
+    //  private Long updatedById;
+
+    public String getWalletItemType() {
+        return walletItemType;
+    }
+
+    public void setWalletItemType(String walletItemType) {
+        this.walletItemType = walletItemType;
+    }
+
+    public Boolean getCurrency() {
+        return isCurrency;
+    }
+
+    public void setCurrency(Boolean currency) {
+        isCurrency = currency;
+    }
+
+    public String getWalletItemCategory() {
+        return walletItemCategory;
+    }
+
+    public void setWalletItemCategory(String walletItemCategory) {
+        this.walletItemCategory = walletItemCategory;
+    }
 
     public Long getId() {
         return id;
@@ -81,45 +107,24 @@ public class WalletItemDTO {
         this.updatedBy = updatedBy;
     }
 
-    public Long getCreatedBYId() {
-        return createdBYId;
-    }
 
-    public void setCreatedBYId(Long createdBYId) {
-        this.createdBYId = createdBYId;
-    }
-
-    public Long getUpdatedById() {
-        return updatedById;
-    }
-
-    public void setUpdatedById(Long updatedById) {
-        this.updatedById = updatedById;
-    }
-
-    public WalletItemTypeDTO getWalletItemTypeDTO() {
-        return walletItemTypeDTO;
-    }
-
-    public void setWalletItemTypeDTO(WalletItemTypeDTO walletItemTypeDTO) {
-        this.walletItemTypeDTO = walletItemTypeDTO;
-    }
 
     public WalletItemDTO() {
 
     }
 
-    public WalletItemDTO(Long id, String label, String value, Long version, String created, String updated, String createdBY, String updatedBy, Long createdBYId, Long updatedById, WalletItemTypeDTO walletItemTypeDTO) {
+    public WalletItemDTO(Long id, String label, String value, String walletItemType, Boolean isCurrency, String walletItemCategory,
+                         Long version, String created, String updated, String createdBY, String updatedBy) {
         this.id = id;
         this.label = label;
         this.value = value;
+        this.walletItemType = walletItemType;
+        this.isCurrency = isCurrency;
+        this.walletItemCategory = walletItemCategory;
         this.version = version;
         this.created = created;
         this.updated = updated;
         this.createdBY = createdBY;
         this.updatedBy = updatedBy;
-        this.createdBYId = createdBYId;
-        this.updatedById = updatedById;
-        this.walletItemTypeDTO = walletItemTypeDTO;
     }
 }

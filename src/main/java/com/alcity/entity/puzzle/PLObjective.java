@@ -2,7 +2,7 @@ package com.alcity.entity.puzzle;
 
 import com.alcity.entity.base.BaseTable;
 import com.alcity.entity.learning.LearningSkill;
-import com.alcity.entity.users.ApplicationMember;
+import com.alcity.entity.users.AppMember;
 import com.alcity.entity.users.WalletItem;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -110,7 +110,7 @@ public class PLObjective extends BaseTable implements Serializable {
     }
 
     public PLObjective(String title, String description, Float skillAmount, Float rewardAmount, StringBuffer condition, LearningSkill learningSkill, WalletItem walletItem, PuzzleLevel puzzleLevel,
-                       Long version, String created, String updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
+                       Long version, String created, String updated, AppMember createdBy, AppMember updatedBy) {
         super(version, created, updated, createdBy, updatedBy);
         this.title = title;
         this.description = description;

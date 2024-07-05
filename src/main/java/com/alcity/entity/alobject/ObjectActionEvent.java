@@ -2,7 +2,7 @@ package com.alcity.entity.alobject;
 
 import com.alcity.entity.alenum.ObjectAction;
 import com.alcity.entity.base.BaseItemSet;
-import com.alcity.entity.users.ApplicationMember;
+import com.alcity.entity.users.AppMember;
 
 import jakarta.persistence.*;
 import java.io.Serializable;
@@ -15,7 +15,7 @@ public class ObjectActionEvent extends BaseItemSet implements Serializable {
     public ObjectActionEvent() {
     }
 
-    public ObjectActionEvent(String label, String value, ObjectAction objectAction , Long version, String created, String updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
+    public ObjectActionEvent(String label, String value, ObjectAction objectAction , Long version, String created, String updated, AppMember createdBy, AppMember updatedBy) {
         super(label, value, version, created, updated, createdBy, updatedBy);
         this.objectAction = objectAction;
     }

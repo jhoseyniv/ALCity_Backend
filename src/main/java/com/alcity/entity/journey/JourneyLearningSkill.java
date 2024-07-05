@@ -2,7 +2,7 @@ package com.alcity.entity.journey;
 
 import com.alcity.entity.learning.LearningSkill;
 import com.alcity.entity.base.BaseTable;
-import com.alcity.entity.users.ApplicationMember;
+import com.alcity.entity.users.AppMember;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.*;
@@ -51,7 +51,7 @@ public class JourneyLearningSkill extends BaseTable implements Serializable {
     public JourneyLearningSkill() {
     }
 
-    public JourneyLearningSkill(Float requiredAmount, Journey journey, LearningSkill learningSkill , Long version, String created, String updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
+    public JourneyLearningSkill(Float requiredAmount, Journey journey, LearningSkill learningSkill , Long version, String created, String updated, AppMember createdBy, AppMember updatedBy) {
         super(version, created, updated, createdBy, updatedBy);
         this.requiredAmount = requiredAmount;
         this.journey = journey;

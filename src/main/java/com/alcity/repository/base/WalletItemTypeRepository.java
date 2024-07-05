@@ -10,6 +10,6 @@ public interface WalletItemTypeRepository  extends CrudRepository<WalletItemType
     Optional<WalletItemType> findById(Long id);
     Collection<WalletItemType> findAll();
     WalletItemType findByLabel(String label);
-    WalletItemType findByValue(String value);
+    Optional<WalletItemType> findByValue(String value);
 
 }

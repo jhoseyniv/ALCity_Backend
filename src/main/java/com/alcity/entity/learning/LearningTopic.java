@@ -1,8 +1,7 @@
 package com.alcity.entity.learning;
 
 import com.alcity.entity.base.BaseTable;
-import com.alcity.entity.users.ApplicationMember;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.alcity.entity.users.AppMember;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -48,7 +47,7 @@ public class LearningTopic extends BaseTable {
     public LearningTopic() {
     }
 
-    public LearningTopic(String title, LearningTopic parentTopic , Long version, String created, String updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
+    public LearningTopic(String title, LearningTopic parentTopic , Long version, String created, String updated, AppMember createdBy, AppMember updatedBy) {
         super(version, created, updated, createdBy, updatedBy);
         this.title = title;
         this.parentTopic = parentTopic;

@@ -2,7 +2,7 @@ package com.alcity.entity.alobject;
 
 import com.alcity.entity.base.BaseItemSet;
 import com.alcity.entity.puzzle.ALCityObject;
-import com.alcity.entity.users.ApplicationMember;
+import com.alcity.entity.users.AppMember;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
@@ -29,7 +29,7 @@ public class ObjectCategory extends BaseItemSet implements Serializable {
     public ObjectCategory() {
     }
 
-    public ObjectCategory(String label, String value, Long version, String created, String updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
+    public ObjectCategory(String label, String value, Long version, String created, String updated, AppMember createdBy, AppMember updatedBy) {
         super(label, value, version, created, updated, createdBy, updatedBy);
     }
 }

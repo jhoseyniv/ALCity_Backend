@@ -28,7 +28,7 @@ public class GemPrice extends BaseTable implements Serializable {
     public GemPrice() {
     }
 
-    public GemPrice(String fromDate, Float amount, WalletItem gem, WalletItem currency , Long version, String created, String updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
+    public GemPrice(String fromDate, Float amount, WalletItem gem, WalletItem currency , Long version, String created, String updated, AppMember createdBy, AppMember updatedBy) {
         super(version, created, updated, createdBy, updatedBy);
         this.fromDate = fromDate;
         this.amount = amount;

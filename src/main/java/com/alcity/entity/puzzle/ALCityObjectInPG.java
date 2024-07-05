@@ -1,7 +1,7 @@
 package com.alcity.entity.puzzle;
 
 import com.alcity.entity.base.BaseTable;
-import com.alcity.entity.users.ApplicationMember;
+import com.alcity.entity.users.AppMember;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.*;
@@ -77,7 +77,7 @@ public class ALCityObjectInPG extends BaseTable implements Serializable {
         this.alCityObject = alCityObject;
     }
 
-    public ALCityObjectInPG(String title, String code, PuzzleGroup puzzleGroup, ALCityObject alCityObject, Long version, String created, String updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
+    public ALCityObjectInPG(String title, String code, PuzzleGroup puzzleGroup, ALCityObject alCityObject, Long version, String created, String updated, AppMember createdBy, AppMember updatedBy) {
         super(version, created, updated, createdBy, updatedBy);
         this.title = title;
         this.code = code;

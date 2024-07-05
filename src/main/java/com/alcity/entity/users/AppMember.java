@@ -7,11 +7,12 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Set;
 
 @Entity
 @Table(name="ApplicationMember")
-public class ApplicationMember extends BaseTable implements Serializable {
+public class AppMember extends BaseTable implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
     private Long id;
@@ -121,14 +122,22 @@ public class ApplicationMember extends BaseTable implements Serializable {
     }
 
     @OneToMany(mappedBy = "applicationMember", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Set<ApplicationMember_WalletItem> walletItems;
+    private Collection<AppMember_WalletItem> walletItems;
 
-    public Set<ApplicationMember_WalletItem> getApplicationMember_walletItems() {
+    public Collection<AppMember_WalletItem> getApplicationMember_walletItems() {
         return walletItems;
     }
 
-    public void setApplicationMember_walletItems(Set<ApplicationMember_WalletItem> applicationMember_walletItems) {
+    public void setApplicationMember_walletItems(Collection<AppMember_WalletItem> applicationMember_walletItems) {
         this.walletItems = applicationMember_walletItems;
+    }
+
+    public Collection<AppMember_WalletItem> getWalletItems() {
+        return walletItems;
+    }
+
+    public void setWalletItems(Collection<AppMember_WalletItem> walletItems) {
+        this.walletItems = walletItems;
     }
 
     @Enumerated(EnumType.ORDINAL)
@@ -155,10 +164,10 @@ public class ApplicationMember extends BaseTable implements Serializable {
     }
 
 
-    public ApplicationMember() {
+    public AppMember() {
     }
 
-    public ApplicationMember(Integer age, String username, String password, String nickname, String mobile, String email, byte[] avatar, UserGender gender, MemberType memberType,Long version, String created, String updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
+    public AppMember(Integer age, String username, String password, String nickname, String mobile, String email, byte[] avatar, UserGender gender, MemberType memberType, Long version, String created, String updated, AppMember createdBy, AppMember updatedBy) {
         super(version, created, updated, createdBy, updatedBy);
         this.age = age;
         this.username = username;

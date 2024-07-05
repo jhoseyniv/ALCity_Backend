@@ -1,6 +1,6 @@
 package com.alcity.entity.base;
 
-import com.alcity.entity.users.ApplicationMember;
+import com.alcity.entity.users.AppMember;
 import jakarta.persistence.*;
 import java.io.Serializable;
 
@@ -76,7 +76,7 @@ public class CameraSetup  extends BaseTable implements Serializable {
         this.zRotation = zRotation;
     }
 
-    public CameraSetup(Long version, String created, String updated, ApplicationMember createdBy, ApplicationMember updatedBy, Integer xPosition, Integer yPosition, Integer zPosition, Integer xRotation, Integer yRotation, Integer zRotation) {
+    public CameraSetup(Long version, String created, String updated, AppMember createdBy, AppMember updatedBy, Integer xPosition, Integer yPosition, Integer zPosition, Integer xRotation, Integer yRotation, Integer zRotation) {
         super(version, created, updated, createdBy, updatedBy);
         this.xPosition = xPosition;
         this.yPosition = yPosition;

@@ -9,7 +9,7 @@ import com.alcity.entity.journey.Journey;
 import com.alcity.entity.learning.LearningSkill;
 import com.alcity.entity.learning.LearningTopic;
 import com.alcity.entity.puzzle.*;
-import com.alcity.entity.users.ApplicationMember;
+import com.alcity.entity.users.AppMember;
 import com.alcity.entity.users.WalletItem;
 import com.alcity.repository.play.PermitedPlayerRepository;
 import com.alcity.service.Journey.JourneyService;
@@ -122,10 +122,10 @@ public class ImportProblemData_2_part2 implements CommandLineRunner {
         String now = current.format(format);
 
 
-        ApplicationMember admin_1 = applicationMemberService.findByUsername("admin");
-        ApplicationMember jalalHoseyni = applicationMemberService.findByUsername("jalal");
-        ApplicationMember moslemBalavandi = applicationMemberService.findByUsername("moslem");
-        ApplicationMember alirezaZarei = applicationMemberService.findByUsername("alireza");
+        AppMember admin_1 = applicationMemberService.findByUsername("admin");
+        AppMember jalalHoseyni = applicationMemberService.findByUsername("jalal");
+        AppMember moslemBalavandi = applicationMemberService.findByUsername("moslem");
+        AppMember alirezaZarei = applicationMemberService.findByUsername("alireza");
         Optional<LearningTopic> routing_in_the_table = learningTopicService.findByTitle("Routing in the Table");
 
 

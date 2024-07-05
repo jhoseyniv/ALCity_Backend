@@ -2,14 +2,11 @@ package com.alcity.service.alobject;
 
 import com.alcity.dto.alobject.AttributeDTO;
 import com.alcity.dto.alobject.AttributeValueDTO;
-import com.alcity.dto.puzzle.ALCityObjectDTO;
 import com.alcity.entity.alenum.DataType;
 import com.alcity.entity.alobject.Attribute;
 import com.alcity.entity.alenum.AttributeOwnerType;
 import com.alcity.entity.alobject.AttributeValue;
-import com.alcity.entity.alobject.ObjectCategory;
-import com.alcity.entity.puzzle.ALCityObject;
-import com.alcity.entity.users.ApplicationMember;
+import com.alcity.entity.users.AppMember;
 import com.alcity.repository.alobject.AttributeRepository;
 import com.alcity.repository.alobject.AttributeValueRepository;
 import com.alcity.repository.users.ApplicationMemberRepository;
@@ -169,7 +166,7 @@ public class AttributeService implements AttributeRepository {
     @Autowired
     private ApplicationMemberRepository applicationMemberRepository;
     public Attribute save(AttributeDTO dto, String code) {
-        ApplicationMember createdBy = applicationMemberRepository.findByUsername("admin");
+        AppMember createdBy = applicationMemberRepository.findByUsername("admin");
         Optional<Attribute> attributeOptional =  attributeRepository.findById(dto.getId());
         AttributeOwnerType attributeOwnerType =  AttributeOwnerType.getByTitle(dto.getAttributeOwnerType());
         Collection<AttributeValueDTO> valueDTOS = dto.getAttributeValueDTOS();

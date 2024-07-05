@@ -3,13 +3,12 @@ package com.alcity.entity.journey;
 
 import com.alcity.entity.base.BinaryContent;
 import com.alcity.entity.base.BaseTable;
-import com.alcity.entity.users.ApplicationMember;
+import com.alcity.entity.users.AppMember;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.*;
 import java.io.Serializable;
 import java.util.Collection;
-import java.util.Set;
 
 @Entity
 @Table(name="Journey")
@@ -63,7 +62,7 @@ public class Journey  extends BaseTable implements Serializable {
     public Journey() {
     }
 
-    public Journey(String title, BinaryContent graphic,Long version, String created, String updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
+    public Journey(String title, BinaryContent graphic, Long version, String created, String updated, AppMember createdBy, AppMember updatedBy) {
         super(version, created, updated, createdBy, updatedBy);
         this.title = title;
         this.graphic = graphic;

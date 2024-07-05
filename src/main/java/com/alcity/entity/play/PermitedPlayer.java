@@ -2,7 +2,7 @@ package com.alcity.entity.play;
 
 import com.alcity.entity.base.BaseTable;
 import com.alcity.entity.puzzle.PuzzleLevel;
-import com.alcity.entity.users.ApplicationMember;
+import com.alcity.entity.users.AppMember;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -15,7 +15,7 @@ public class PermitedPlayer extends BaseTable {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "player_id", referencedColumnName = "id")
     @JsonProperty("playerId")
-    private ApplicationMember player;
+    private AppMember player;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = true)
     @JoinColumn(name = "puzzle_Level_id", nullable = true)
@@ -25,15 +25,15 @@ public class PermitedPlayer extends BaseTable {
     public PermitedPlayer() {
     }
 
-    public ApplicationMember getPlayer() {
+    public AppMember getPlayer() {
         return player;
     }
 
-    public void setPlayer(ApplicationMember player) {
+    public void setPlayer(AppMember player) {
         this.player = player;
     }
 
-    public PermitedPlayer(ApplicationMember player, PuzzleLevel puzzleLevel, Long version, String created, String updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
+    public PermitedPlayer(AppMember player, PuzzleLevel puzzleLevel, Long version, String created, String updated, AppMember createdBy, AppMember updatedBy) {
         super(version, created, updated, createdBy, updatedBy);
         this.player = player;
         this.puzzleLevel = puzzleLevel;

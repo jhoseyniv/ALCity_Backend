@@ -3,7 +3,7 @@ package com.alcity.entity.puzzle;
 import com.alcity.entity.base.BaseTable;
 import com.alcity.entity.learning.LearningContent;
 import com.alcity.entity.learning.LearningTopic;
-import com.alcity.entity.users.ApplicationMember;
+import com.alcity.entity.users.AppMember;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.*;
@@ -46,7 +46,7 @@ public class LearningSubjectInPL extends BaseTable {
     public LearningSubjectInPL() {
     }
 
-    public LearningSubjectInPL(PuzzleLevel puzzleLevel, LearningTopic learningTopic, LearningContent learningContent, Long version, String created, String updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
+    public LearningSubjectInPL(PuzzleLevel puzzleLevel, LearningTopic learningTopic, LearningContent learningContent, Long version, String created, String updated, AppMember createdBy, AppMember updatedBy) {
         super(version, created, updated, createdBy, updatedBy);
         this.puzzleLevel = puzzleLevel;
         this.learningTopic = learningTopic;

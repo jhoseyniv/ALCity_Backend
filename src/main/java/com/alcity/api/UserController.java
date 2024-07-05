@@ -1,28 +1,27 @@
 package com.alcity.api;
 
 import com.alcity.customexception.ALCityResponseObject;
-import com.alcity.customexception.UniqueConstraintException;
 import com.alcity.dto.user.ApplicationMemberDTO;
 import com.alcity.dto.user.ApplicationMemberWalletDTO;
+import com.alcity.dto.user.WalletItemDTO;
 import com.alcity.dto.user.WalletItemTransactionDTO;
-import com.alcity.entity.base.ClientType;
-import com.alcity.entity.users.ApplicationMember;
-import com.alcity.entity.users.ApplicationMember_WalletItem;
+import com.alcity.entity.users.AppMember;
+import com.alcity.entity.users.AppMember_WalletItem;
 import com.alcity.entity.users.WalletItem;
 import com.alcity.entity.users.WalletTransaction;
 import com.alcity.service.users.ApplicationMemberService;
 import com.alcity.service.users.WalletItemService;
+import com.alcity.utility.DTOUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
 
-@Tag(name = "Application User APIs", description = "Get Application Member and related entities as rest api")
+@Tag(name = "Application Member APIs", description = "Get Application Member and related entities as rest api")
 @CrossOrigin(origins = "*" ,maxAge = 3600)
 @RestController
 @RequestMapping("/user")
@@ -33,29 +32,30 @@ public class UserController {
     private ApplicationMemberService applicationMemberService;
 
 
-    @GetMapping("/members")
-    public Collection<ApplicationMember> getApplicationMembers(Model model) {
-        Collection<ApplicationMember> applicationMemberCollection = applicationMemberService.findAll();
+    @GetMapping("/members/all")
+    public Collection<AppMember> getApplicationMembers(Model model) {
+        Collection<AppMember> applicationMemberCollection = applicationMemberService.findAll();
         return applicationMemberCollection;
     }
 
     @RequestMapping(value = "/member/{id}", method = RequestMethod.GET)
     @ResponseBody
-    public Optional<ApplicationMember> getApplicationMemberById(@PathVariable Long id) {
-        Optional<ApplicationMember> member = applicationMemberService.findById(id);
+    public Optional<AppMember> getApplicationMemberById(@PathVariable Long id) {
+        Optional<AppMember> member = applicationMemberService.findById(id);
         return member;
     }
+
     @RequestMapping(value = "/member/{id}/wallet/", method = RequestMethod.GET)
     @ResponseBody
     public Collection<ApplicationMemberWalletDTO> getApplicationMemberWalletDataById(@PathVariable Long id) {
         Collection<ApplicationMemberWalletDTO> applicationMemberWalletDTOS = new ArrayList<>();
-        Optional<ApplicationMember> member = applicationMemberService.findById(id);
-        Collection<ApplicationMember_WalletItem> applicationMember_walletItems = member.get().getApplicationMember_walletItems();
+        Optional<AppMember> member = applicationMemberService.findById(id);
+        Collection<AppMember_WalletItem> applicationMember_walletItems = member.get().getApplicationMember_walletItems();
         Collection<WalletItemTransactionDTO> transactionDTOS = new ArrayList<>();
 
-        Iterator<ApplicationMember_WalletItem> itr = applicationMember_walletItems.iterator();
+        Iterator<AppMember_WalletItem> itr = applicationMember_walletItems.iterator();
         while(itr.hasNext()) {
-            ApplicationMember_WalletItem applicationMember_walletItem = itr.next();
+            AppMember_WalletItem applicationMember_walletItem = itr.next();
             ApplicationMemberWalletDTO applicationMemberWalletDTO = new ApplicationMemberWalletDTO();
             WalletItem walletItem = applicationMember_walletItem.getWalletItem();
             applicationMemberWalletDTO.setWalletItemTitle(walletItem.getLabel());
@@ -82,16 +82,21 @@ public class UserController {
 
     @Autowired
     private WalletItemService walletItemService;
-    @GetMapping("/wallet-items")
-    public Collection<WalletItem> getWalletItems(Model model) {
-        Collection<WalletItem> walletItemCollection = walletItemService.findAll();
-        return walletItemCollection;
-    }
-    @RequestMapping(value = "/wallet-items/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/id/{id}/wallet-item/all", method = RequestMethod.GET)
     @ResponseBody
-    public Optional<WalletItem> getWalletItemById(@PathVariable Long id) {
-        Optional<WalletItem> walletItem = walletItemService.findById(id);
-        return walletItem;
+    public Collection<WalletItemDTO> getWalletItemsByUserId(@PathVariable Long id) {
+        Collection<WalletItem> walletItemCollection = walletItemService.findAll();
+        Collection<WalletItemDTO> dtos = new ArrayList<WalletItemDTO>();
+        dtos = DTOUtil.getWalletItemDTOS(walletItemCollection);
+        return dtos;
+    }
+
+    @RequestMapping(value = "/wallet-item/id/{id}", method = RequestMethod.GET)
+    @ResponseBody
+    public WalletItemDTO getWalletItemById(@PathVariable Long id) {
+        Optional<WalletItem> walletItemOptional = walletItemService.findById(id);
+        if(walletItemOptional.isEmpty()) return null;
+        return DTOUtil.getWalletItemDTO(walletItemOptional.get());
     }
 
     @Operation( summary = "Login to System ",  description = "Login Action")
@@ -99,7 +104,7 @@ public class UserController {
     public ALCityResponseObject login(@RequestBody ApplicationMemberDTO memberDTO)  {
         ALCityResponseObject responseObject = new ALCityResponseObject();
 
-        ApplicationMember member = applicationMemberService.findByUsername(memberDTO.getUsername());
+        AppMember member = applicationMemberService.findByUsername(memberDTO.getUsername());
         if(member==null)
             return  new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", -1L, "data Not Found!");
 

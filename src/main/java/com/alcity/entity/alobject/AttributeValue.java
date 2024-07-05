@@ -1,8 +1,7 @@
 package com.alcity.entity.alobject;
 
 import com.alcity.entity.base.BaseTable;
-import com.alcity.entity.base.BinaryContent;
-import com.alcity.entity.users.ApplicationMember;
+import com.alcity.entity.users.AppMember;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.*;
@@ -121,7 +120,7 @@ public class AttributeValue extends BaseTable implements Serializable {
     public AttributeValue() {
     }
 
-    public AttributeValue(Boolean booleanValue, Integer intValue, Long longValue, String stringValue,String objectValue, Float doubleValue, Long binaryContentId, Attribute bindedAttributeId, Attribute attributeId, Long version, String created, String updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
+    public AttributeValue(Boolean booleanValue, Integer intValue, Long longValue, String stringValue, String objectValue, Float doubleValue, Long binaryContentId, Attribute bindedAttributeId, Attribute attributeId, Long version, String created, String updated, AppMember createdBy, AppMember updatedBy) {
         super(version, created, updated, createdBy, updatedBy);
         this.booleanValue = booleanValue;
         this.intValue = intValue;

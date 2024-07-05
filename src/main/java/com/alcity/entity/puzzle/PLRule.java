@@ -1,7 +1,7 @@
 package com.alcity.entity.puzzle;
 
 import com.alcity.entity.base.BaseTable;
-import com.alcity.entity.users.ApplicationMember;
+import com.alcity.entity.users.AppMember;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.*;
@@ -80,7 +80,7 @@ public class PLRule extends BaseTable implements Serializable {
     public PLRule() {
     }
 
-    public PLRule(String title, Integer ordering, StringBuffer condition, PuzzleLevel puzzleLevel,PLRuleEvent plRuleEvent ,Long version, String created, String updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
+    public PLRule(String title, Integer ordering, StringBuffer condition, PuzzleLevel puzzleLevel, PLRuleEvent plRuleEvent , Long version, String created, String updated, AppMember createdBy, AppMember updatedBy) {
         super(version, created, updated, createdBy, updatedBy);
         this.title = title;
         this.ordering = ordering;

@@ -1,14 +1,5 @@
 package com.alcity.entity.alenum;
 
-import com.alcity.entity.alobject.Attribute;
-import com.alcity.entity.base.BaseItemSet;
-import com.alcity.entity.users.ApplicationMember;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import jakarta.persistence.*;
-import java.io.Serializable;
-import java.util.Set;
-
 public enum DataType  {
 
     Integer,

@@ -11,12 +11,12 @@ import java.io.Serializable;
 import java.util.Set;
 
 @Entity
-public class ApplicationMember_WalletItem extends BaseTable implements Serializable {
+public class AppMember_WalletItem extends BaseTable implements Serializable {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "application_member_id", referencedColumnName = "id")
     @JsonIgnore
-    private ApplicationMember applicationMember;
+    private AppMember applicationMember;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "wallet_item_id", referencedColumnName = "id")
@@ -34,11 +34,11 @@ public class ApplicationMember_WalletItem extends BaseTable implements Serializa
         this.amount = amount;
     }
 
-    public ApplicationMember getApplicationMember() {
+    public AppMember getApplicationMember() {
         return applicationMember;
     }
 
-    public void setApplicationMember(ApplicationMember applicationMember) {
+    public void setApplicationMember(AppMember applicationMember) {
         this.applicationMember = applicationMember;
     }
 
@@ -61,10 +61,10 @@ public class ApplicationMember_WalletItem extends BaseTable implements Serializa
         this.walletTransactionSet = walletTransactionSet;
     }
 
-    public ApplicationMember_WalletItem() {
+    public AppMember_WalletItem() {
     }
 
-    public ApplicationMember_WalletItem(ApplicationMember applicationMember, WalletItem walletItem, Float amount,Long version, String created, String updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
+    public AppMember_WalletItem(AppMember applicationMember, WalletItem walletItem, Float amount, Long version, String created, String updated, AppMember createdBy, AppMember updatedBy) {
         super(version, created, updated, createdBy, updatedBy);
         this.applicationMember = applicationMember;
         this.walletItem = walletItem;

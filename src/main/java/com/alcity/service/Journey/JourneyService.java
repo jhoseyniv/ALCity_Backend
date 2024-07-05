@@ -5,7 +5,7 @@ import com.alcity.dto.base.BinaryContentDTO;
 import com.alcity.dto.journey.JourneyDTO;
 import com.alcity.entity.base.BinaryContent;
 import com.alcity.entity.journey.Journey;
-import com.alcity.entity.users.ApplicationMember;
+import com.alcity.entity.users.AppMember;
 import com.alcity.repository.journey.JourneyRepository;
 import com.alcity.service.base.BinaryContentService;
 import com.alcity.service.users.ApplicationMemberService;
@@ -106,8 +106,8 @@ public class JourneyService implements JourneyRepository {
         BinaryContentDTO graphicDTO = journeyDTO.getGraphic();
         Optional<BinaryContent> binaryContentIsExist;
         Journey journey = null;
-        Optional<ApplicationMember> createdBy = applicationMemberService.findById(journeyDTO.getCreatedById());
-        Optional<ApplicationMember> updatedBy = applicationMemberService.findById(journeyDTO.getUpdatedById());
+        Optional<AppMember> createdBy = applicationMemberService.findById(journeyDTO.getCreatedById());
+        Optional<AppMember> updatedBy = applicationMemberService.findById(journeyDTO.getUpdatedById());
 
         if(graphicDTO.getId() != null ) {
             binaryContentIsExist = binaryContentService.findById(graphicDTO.getId());

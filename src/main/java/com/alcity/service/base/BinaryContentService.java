@@ -1,27 +1,20 @@
 package com.alcity.service.base;
 
-import com.alcity.customexception.ALCityResponseObject;
 import com.alcity.dto.base.BinaryContentDTO;
-import com.alcity.dto.puzzle.PuzzleCategoryDTO;
 import com.alcity.entity.alenum.BinaryContentType;
 import com.alcity.entity.base.BinaryContent;
-import com.alcity.entity.base.PuzzleCategory;
 import com.alcity.entity.learning.LearningContent;
 import com.alcity.entity.puzzle.ALCityObject;
 import com.alcity.entity.puzzle.PuzzleGroup;
 import com.alcity.entity.puzzle.PuzzleLevel;
-import com.alcity.entity.users.ApplicationMember;
+import com.alcity.entity.users.AppMember;
 import com.alcity.repository.base.BinaryContentCustom;
 import com.alcity.repository.base.BinaryContentRepository;
 import com.alcity.repository.puzzle.ALCityObjectRepository;
-import com.alcity.repository.puzzle.PGRepository;
 import com.alcity.repository.puzzle.PuzzleLevelRepository;
 import com.alcity.repository.users.ApplicationMemberRepository;
-import com.alcity.repository.users.CustomizedUserRepository;
 import com.alcity.service.learning.LearningContentService;
-import com.alcity.service.puzzle.ALCityObjectService;
 import com.alcity.service.puzzle.PGService;
-import com.alcity.service.puzzle.PuzzleLevelService;
 import com.alcity.utility.ImageUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -131,7 +124,7 @@ public class BinaryContentService implements BinaryContentRepository , BinaryCon
         LocalDateTime current = LocalDateTime.now();
         DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
         String now = current.format(format);
-        ApplicationMember createdBy = applicationMemberRepository.findByUsername("admin");
+        AppMember createdBy = applicationMemberRepository.findByUsername("admin");
         BinaryContentType binaryContentType = ImageUtil.getBinaryContentType(file.getContentType());
         BinaryContent binaryContent = new BinaryContent(fileName,file.getBytes(), binaryContentType,1L,now,now,createdBy,createdBy);
         binaryContentRepository.save(binaryContent);
@@ -190,7 +183,7 @@ public class BinaryContentService implements BinaryContentRepository , BinaryCon
     }
 
     public BinaryContent save(BinaryContentDTO dto, String code) {
-        ApplicationMember createdBy = applicationMemberRepository.findByUsername("admin");
+        AppMember createdBy = applicationMemberRepository.findByUsername("admin");
         BinaryContent binaryContent=null;
         if (code.equalsIgnoreCase("Save")) { // save
             binaryContent = new BinaryContent(dto.getFileName(), dto.getContent(),

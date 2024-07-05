@@ -5,7 +5,7 @@ import com.alcity.entity.alenum.PLStatus;
 import com.alcity.entity.alenum.PLDifficulty;
 import com.alcity.entity.base.*;
 import com.alcity.entity.play.PermitedPlayer;
-import com.alcity.entity.users.ApplicationMember;
+import com.alcity.entity.users.AppMember;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import java.io.Serializable;
@@ -244,7 +244,7 @@ public class PuzzleLevel extends BaseTable implements Serializable {
     }
 
     public PuzzleLevel(String approveDate, Long ordering, String title, String code, Integer fromAge, Integer toAge, Float maxScore, PuzzleGroup puzzleGroup, PLDifficulty puzzleDifficulty, PLStatus puzzleLevelStatus, PLPrivacy puzzleLevelPrivacy,
-                       Long version, String created, String updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
+                       Long version, String created, String updated, AppMember createdBy, AppMember updatedBy) {
         super(version, created, updated, createdBy, updatedBy);
         this.approveDate = approveDate;
         this.ordering = ordering;

@@ -2,15 +2,11 @@ package com.alcity.api;
 
 import com.alcity.entity.alenum.UserGender;
 import com.alcity.entity.learning.LearningSkill;
-import com.alcity.entity.users.ApplicationMember;
+import com.alcity.entity.users.AppMember;
 import com.alcity.repository.users.ApplicationMemberRepository;
 import com.alcity.service.users.ApplicationMemberService;
 import org.junit.Assert;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -19,15 +15,10 @@ import org.springframework.core.env.Environment;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.web.client.RestTemplate;
 
 import java.net.URI;
-import java.time.Instant;
 import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 
@@ -239,7 +230,7 @@ public class BaseItemConrollerTest {
     public void SaveItemsTestUnit() throws Exception {
         RestTemplate restTemplate = new RestTemplate();
         System.out.println("Test Save Methods ...............................");
-        ApplicationMember admin_1 = applicationMemberService.findByUsername("admin");
+        AppMember admin_1 = applicationMemberService.findByUsername("admin");
 
         final String baseUrl = address + port+"/base/learning-skill/save";
         URI uri = new URI(baseUrl);

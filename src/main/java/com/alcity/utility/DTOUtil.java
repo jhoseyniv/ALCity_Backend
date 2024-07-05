@@ -31,7 +31,7 @@ import com.alcity.entity.learning.LearningSkill;
 import com.alcity.entity.learning.LearningTopic;
 import com.alcity.entity.play.PermitedPlayer;
 import com.alcity.entity.puzzle.*;
-import com.alcity.entity.users.ApplicationMember;
+import com.alcity.entity.users.AppMember;
 import com.alcity.entity.users.WalletItem;
 import com.alcity.service.alobject.AttributeService;
 import com.alcity.service.alobject.AttributeValueService;
@@ -475,7 +475,7 @@ public class DTOUtil {
         return binaryContentDTO;
     }
 
-    public static ApplicationMemberDTO getApplicationMemberDTO(ApplicationMember member){
+    public static ApplicationMemberDTO getApplicationMemberDTO(AppMember member){
         ApplicationMemberDTO memberDTO = new ApplicationMemberDTO(member.getId(),member.getAge(),
                 member.getUsername(),member.getPassword(), member.getNickname(), member.getMobile(), member.getEmail(),
                 member.getAvatar(), member.getCreatedBy().getId(), member.getUpdatedBy().getId());
@@ -548,17 +548,35 @@ public class DTOUtil {
     }
 
     public static WalletItemTypeDTO getWalletItemTypeDTO(WalletItemType wit) {
-        WalletItemTypeDTO walletItemTypeDTO = new WalletItemTypeDTO(wit.getId(), wit.getLabel(), wit.getValue(), wit.getVersion(),
-                wit.getCreated(), wit.getUpdated(),wit.getCurrency(),wit.getWalletItemCategory().toString() );
+        WalletItemTypeDTO walletItemTypeDTO = new WalletItemTypeDTO(wit.getId(),wit.getValue(),wit.getLabel(),wit.getCurrency(),wit.getWalletItemCategory().name(),
+                wit.getVersion(),wit.getCreated(),wit.getUpdated(),wit.getCreatedBy().getUsername(),wit.getUpdatedBy().getUsername() );
         return walletItemTypeDTO;
+    }
+    public static Collection<WalletItemTypeDTO> getWalletItemTypeDTOS(Collection<WalletItemType> walletItemTypes) {
+        Collection<WalletItemTypeDTO> dtos = new ArrayList<WalletItemTypeDTO>();
+        Iterator<WalletItemType> iterator = walletItemTypes.iterator();
+        while (iterator.hasNext()) {
+            WalletItemTypeDTO walletItemTypeDTO = getWalletItemTypeDTO(iterator.next());
+            dtos.add(walletItemTypeDTO);
+        }
+        return dtos;
     }
     public static WalletItemDTO getWalletItemDTO(WalletItem wi) {
         WalletItemTypeDTO walletItemTypeDTO = getWalletItemTypeDTO(wi.getWalletItemType());
-        WalletItemDTO walletItemDTO = new WalletItemDTO(wi.getId(), wi.getLabel(), wi.getValue(), wi.getVersion(),
-                wi.getCreated(), wi.getUpdated(),wi.getCreatedBy().getUsername(),wi.getUpdatedBy().getUsername(),wi.getCreatedBy().getId(),
-                wi.getUpdatedBy().getId(), walletItemTypeDTO);
+        WalletItemDTO walletItemDTO = new WalletItemDTO(wi.getId(), wi.getLabel(), wi.getValue(),wi.getWalletItemType().getValue(),wi.getWalletItemType().getCurrency(),
+                wi.getWalletItemType().getWalletItemCategory().name(),wi.getVersion(),wi.getCreated(), wi.getUpdated(),wi.getCreatedBy().getUsername(),wi.getUpdatedBy().getUsername());
         return walletItemDTO;
     }
+    public static Collection<WalletItemDTO> getWalletItemDTOS(Collection<WalletItem> walletItems){
+        Collection<WalletItemDTO> dtos = new ArrayList<WalletItemDTO>();
+        Iterator<WalletItem> iterator = walletItems.iterator();
+        while (iterator.hasNext()) {
+            WalletItemDTO walletItemDTO = getWalletItemDTO(iterator.next());
+            dtos.add(walletItemDTO);
+        }
+        return dtos;
+    }
+
     public static CameraSetupDTO getCameraSetupDTO(CameraSetup cs){
         CameraSetupDTO cameraSetupDTO = new CameraSetupDTO(cs.getId(), cs.getVersion(), cs.getCreated(), cs.getUpdated(),
                 cs.getCreatedBy().getUsername(),cs.getUpdatedBy().getUsername(),

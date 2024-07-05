@@ -1,15 +1,13 @@
 package com.alcity.service.puzzle;
 
-import com.alcity.dto.puzzle.PuzzleCategoryDTO;
 import com.alcity.dto.puzzle.PuzzleLevelLDTO;
 import com.alcity.entity.alenum.PLDifficulty;
 import com.alcity.entity.alenum.PLStatus;
 import com.alcity.entity.base.BinaryContent;
 import com.alcity.entity.base.PLPrivacy;
-import com.alcity.entity.base.PuzzleCategory;
 import com.alcity.entity.puzzle.PuzzleGroup;
 import com.alcity.entity.puzzle.PuzzleLevel;
-import com.alcity.entity.users.ApplicationMember;
+import com.alcity.entity.users.AppMember;
 import com.alcity.repository.base.PLPrivacyRepository;
 import com.alcity.repository.puzzle.PGRepository;
 import com.alcity.repository.puzzle.PuzzleLevelRepository;
@@ -123,7 +121,7 @@ public class PuzzleLevelService implements PuzzleLevelRepository {
     private PGRepository pgRepository;
 
     public PuzzleLevel save(PuzzleLevelLDTO dto, String code) {
-        ApplicationMember createdBy = applicationMemberRepository.findByUsername("admin");
+        AppMember createdBy = applicationMemberRepository.findByUsername("admin");
         PuzzleLevel puzzleLevel=null;
         PLDifficulty plDifficulty =  PLDifficulty.getByTitle(dto.getPuzzleLevelDifficulty());
         PLStatus  plStatus =  PLStatus.getByTitle(dto.getPuzzleLevelStatus());

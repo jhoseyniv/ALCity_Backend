@@ -4,7 +4,7 @@ package com.alcity.entity.puzzle;
 import com.alcity.entity.base.BinaryContent;
 import com.alcity.entity.base.BaseTable;
 import com.alcity.entity.base.CameraSetup;
-import com.alcity.entity.users.ApplicationMember;
+import com.alcity.entity.users.AppMember;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.*;
@@ -77,7 +77,7 @@ public class PLGround extends BaseTable {
     public PLGround() {
     }
 
-    public PLGround(Integer numRows, Integer numColumns, PuzzleLevel puzzleLevel, BinaryContent boardGraphic, Long version, String created, String updated, ApplicationMember createdBy, ApplicationMember updatedBy) {
+    public PLGround(Integer numRows, Integer numColumns, PuzzleLevel puzzleLevel, BinaryContent boardGraphic, Long version, String created, String updated, AppMember createdBy, AppMember updatedBy) {
         super(version, created, updated, createdBy, updatedBy);
         this.numRows = numRows;
         this.numColumns = numColumns;

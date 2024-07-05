@@ -14,8 +14,8 @@ import com.alcity.entity.learning.LearningTopic;
 import com.alcity.entity.puzzle.ALCityObject;
 import com.alcity.entity.puzzle.PLRuleEvent;
 import com.alcity.entity.puzzle.PuzzleGroup;
-import com.alcity.entity.users.ApplicationMember;
-import com.alcity.entity.users.ApplicationMember_WalletItem;
+import com.alcity.entity.users.AppMember;
+import com.alcity.entity.users.AppMember_WalletItem;
 import com.alcity.entity.users.WalletItem;
 import com.alcity.entity.users.WalletTransaction;
 import com.alcity.service.Journey.JourneyLearningSkillService;
@@ -163,7 +163,7 @@ public class ImportBaseData implements CommandLineRunner {
         clientTypeService.save(web);
         clientTypeService.save(tablet);
 
-        ApplicationMember admin_1= new ApplicationMember(35,"admin","admin","admin0","0912350550","j_hoseyni@yahoo.com",avatar,UserGender.Male,administrator,1L,now,now,null,null);
+        AppMember admin_1= new AppMember(35,"admin","admin","admin0","0912350550","j_hoseyni@yahoo.com",avatar,UserGender.Male,administrator,1L,now,now,null,null);
         Set clientTypeSet = new HashSet<ClientType>();
         clientTypeSet.add(web);
         admin_1.setClientTypeSet(clientTypeSet);
@@ -171,20 +171,20 @@ public class ImportBaseData implements CommandLineRunner {
 
 
 
-        ApplicationMember jalalHoseyni= new ApplicationMember(35,"jalal","jalal","jalal","0912350550","j_hoseyni@yahoo.com",avatar,UserGender.Male,guest,1L,now,now,null,null);
+        AppMember jalalHoseyni= new AppMember(35,"jalal","jalal","jalal","0912350550","j_hoseyni@yahoo.com",avatar,UserGender.Male,guest,1L,now,now,null,null);
         Set jalalClientTypeSet = new HashSet<ClientType>();
         jalalClientTypeSet.add(mobile);
         jalalHoseyni.setClientTypeSet(jalalClientTypeSet);
         applicationMemberService.save(jalalHoseyni);
 
-        ApplicationMember Moslem_Balavandi= new ApplicationMember(35,"moslem","moslem","moslem","0912350550","balavandi@gmail.com",avatar,UserGender.Male,guest,1L,now,now,null,null);
+        AppMember Moslem_Balavandi= new AppMember(35,"moslem","moslem","moslem","0912350550","balavandi@gmail.com",avatar,UserGender.Male,guest,1L,now,now,null,null);
         Set moslem_ClientTypeSet = new HashSet<ClientType>();
         moslem_ClientTypeSet.add(mobile);
         moslem_ClientTypeSet.add(web);
         Moslem_Balavandi.setClientTypeSet(moslem_ClientTypeSet);
         applicationMemberService.save(Moslem_Balavandi);
 
-        ApplicationMember alireza_zarei= new ApplicationMember(35,"alireza","alireza","alireza","0912350550","zare@sharif.edu",avatar,UserGender.Male,guest,1L,now,now,null,null);
+        AppMember alireza_zarei= new AppMember(35,"alireza","alireza","alireza","0912350550","zare@sharif.edu",avatar,UserGender.Male,guest,1L,now,now,null,null);
         Set alireza_ClientTypeSet = new HashSet<ClientType>();
         alireza_ClientTypeSet.add(mobile);
         alireza_ClientTypeSet.add(web);
@@ -285,13 +285,13 @@ public class ImportBaseData implements CommandLineRunner {
         walletItemService.save(alCoin_100_WalletItem);
         walletItemService.save(TVWalletItem);
 
-        ApplicationMember_WalletItem jalalHoseyni_alcoin_10= new ApplicationMember_WalletItem(jalalHoseyni,alCoin10WalletItem,10f,1L,now,now,admin_1,admin_1);
-        ApplicationMember_WalletItem jalalHoseyni_carObject_20= new ApplicationMember_WalletItem(jalalHoseyni,carWalletItem,20f,1L,now,now,admin_1,admin_1);
+        AppMember_WalletItem jalalHoseyni_alcoin_10= new AppMember_WalletItem(jalalHoseyni,alCoin10WalletItem,10f,1L,now,now,admin_1,admin_1);
+        AppMember_WalletItem jalalHoseyni_carObject_20= new AppMember_WalletItem(jalalHoseyni,carWalletItem,20f,1L,now,now,admin_1,admin_1);
         applicationMember_walletItemService.save(jalalHoseyni_alcoin_10);
         applicationMember_walletItemService.save(jalalHoseyni_carObject_20);
 
-        ApplicationMember_WalletItem admin_1_alcoin_10= new ApplicationMember_WalletItem(admin_1,alCoin10WalletItem,10f,1L,now,now,admin_1,admin_1);
-        ApplicationMember_WalletItem admin_1_carObject_10= new ApplicationMember_WalletItem(admin_1,carWalletItem,20f,1L,now,now,admin_1,admin_1);
+        AppMember_WalletItem admin_1_alcoin_10= new AppMember_WalletItem(admin_1,alCoin10WalletItem,10f,1L,now,now,admin_1,admin_1);
+        AppMember_WalletItem admin_1_carObject_10= new AppMember_WalletItem(admin_1,carWalletItem,20f,1L,now,now,admin_1,admin_1);
         applicationMember_walletItemService.save(admin_1_alcoin_10);
         applicationMember_walletItemService.save(admin_1_carObject_10);
 

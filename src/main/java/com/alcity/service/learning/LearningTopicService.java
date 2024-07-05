@@ -1,12 +1,8 @@
 package com.alcity.service.learning;
 
-import com.alcity.dto.alobject.ObjectCategoryDTO;
 import com.alcity.dto.learning.LearningTopicDTO;
-import com.alcity.entity.alobject.ObjectCategory;
-import com.alcity.entity.learning.LearningSkill;
 import com.alcity.entity.learning.LearningTopic;
-import com.alcity.entity.users.ApplicationMember;
-import com.alcity.repository.learning.LearningSkillRepository;
+import com.alcity.entity.users.AppMember;
 import com.alcity.repository.learning.LearningTopicRepository;
 import com.alcity.repository.users.ApplicationMemberRepository;
 import com.alcity.utility.DateUtils;
@@ -67,7 +63,7 @@ public class LearningTopicService implements LearningTopicRepository {
  private ApplicationMemberRepository applicationMemberRepository;
 
  public LearningTopic save(LearningTopicDTO dto, String code) {
-  ApplicationMember createdBy = applicationMemberRepository.findByUsername("admin");
+  AppMember createdBy = applicationMemberRepository.findByUsername("admin");
   LearningTopic learningTopic=null;
   Optional<LearningTopic> learningTopicParent= learningTopicRepository.findByTitle(dto.getParentTitle());
   if (code.equalsIgnoreCase("Save")) { //Save
