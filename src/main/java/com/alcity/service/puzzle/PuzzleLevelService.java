@@ -111,7 +111,7 @@ public class PuzzleLevelService implements PuzzleLevelRepository {
 
     }
     @Autowired
-    private AppMemberRepository applicationMemberRepository;
+    private AppMemberRepository appMemberRepository;
 
     @Qualifier("PLPrivacyRepository")
     @Autowired
@@ -121,7 +121,7 @@ public class PuzzleLevelService implements PuzzleLevelRepository {
     private PGRepository pgRepository;
 
     public PuzzleLevel save(PuzzleLevelLDTO dto, String code) {
-        AppMember createdBy = applicationMemberRepository.findByUsername("admin");
+        AppMember createdBy = appMemberRepository.findByUsername("admin");
         PuzzleLevel puzzleLevel=null;
         PLDifficulty plDifficulty =  PLDifficulty.getByTitle(dto.getPuzzleLevelDifficulty());
         PLStatus  plStatus =  PLStatus.getByTitle(dto.getPuzzleLevelStatus());

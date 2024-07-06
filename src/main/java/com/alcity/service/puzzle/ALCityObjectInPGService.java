@@ -134,9 +134,9 @@ public class ALCityObjectInPGService implements ALCityObjectInPGRepository {
         return alCityObjectInPGRepository.findByalCityObject(cityObject);
     }
     @Autowired
-    private AppMemberRepository applicationMemberRepository;
+    private AppMemberRepository appMemberRepository;
     public ALCityObjectInPG save(ALCityObjectInPGDTO dto, String code) {
-        AppMember createdBy = applicationMemberRepository.findByUsername("admin");
+        AppMember createdBy = appMemberRepository.findByUsername("admin");
         Optional<PuzzleGroup> puzzleGroupOptional =  pgRepository.findByTitle(dto.getPuzzleGroup());
         Optional<ALCityObject> alCityObjectOptional =  alCityObjectService.findByTitle(dto.getAlCityObject());
         ALCityObjectInPG alCityObjectInPG=null;

@@ -115,14 +115,14 @@ public class ALCityObjectService implements ALCityObjectRepository {
         return actions;
     }
     @Autowired
-    private AppMemberRepository applicationMemberRepository;
+    private AppMemberRepository appMemberRepository;
 
 
     @Autowired
     private ObjectCategoryRepository objectCategoryRepository;
 
     public ALCityObject save(ALCityObjectDTO dto, String code) {
-        AppMember createdBy = applicationMemberRepository.findByUsername("admin");
+        AppMember createdBy = appMemberRepository.findByUsername("admin");
         ObjectCategory objectCategory =  objectCategoryRepository.findByValue(dto.getObjectCategory());
         ALCityObject alCityObject=null;
         if (code.equalsIgnoreCase("Save")) { //Save

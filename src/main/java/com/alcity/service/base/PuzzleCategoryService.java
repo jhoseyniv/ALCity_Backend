@@ -21,10 +21,10 @@ public class PuzzleCategoryService implements PuzzleCategoryRepository {
     @Autowired
     private PuzzleCategoryRepository puzzleCategoryRepository;
     @Autowired
-    private AppMemberRepository applicationMemberRepository;
+    private AppMemberRepository appMemberRepository;
 
     public PuzzleCategory save(PuzzleCategoryDTO dto,String code) {
-        AppMember createdBy = applicationMemberRepository.findByUsername("admin");
+        AppMember createdBy = appMemberRepository.findByUsername("admin");
         PuzzleCategory puzzleCategory=null;
         if (code.equalsIgnoreCase("Save")) { // save
             puzzleCategory = new PuzzleCategory(dto.getLabel(), dto.getValue(), 1L, "1714379790", "1714379790", createdBy, createdBy);

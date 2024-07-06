@@ -28,12 +28,12 @@ public class RendererService implements RendererRepository {
         return rendererRepository.save(entity);
     }
     @Autowired
-    private AppMemberRepository applicationMemberRepository;
+    private AppMemberRepository appMemberRepository;
     @Autowired
     private ClientTypeRepository clientTypeRepository;
 
     public Renderer save(RendererDTO dto, String code) {
-        AppMember createdBy = applicationMemberRepository.findByUsername("admin");
+        AppMember createdBy = appMemberRepository.findByUsername("admin");
         Renderer renderer=null;
         Optional<Renderer>  rendererOptional = rendererRepository.findById(dto.getId());
         ClientType clientType =  clientTypeRepository.findByValue(dto.getClientType());

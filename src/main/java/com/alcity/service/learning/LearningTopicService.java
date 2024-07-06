@@ -60,10 +60,10 @@ public class LearningTopicService implements LearningTopicRepository {
       learningTopicRepository.deleteById(aLong);
     }
  @Autowired
- private AppMemberRepository applicationMemberRepository;
+ private AppMemberRepository appMemberRepository;
 
  public LearningTopic save(LearningTopicDTO dto, String code) {
-  AppMember createdBy = applicationMemberRepository.findByUsername("admin");
+  AppMember createdBy = appMemberRepository.findByUsername("admin");
   LearningTopic learningTopic=null;
   Optional<LearningTopic> learningTopicParent= learningTopicRepository.findByTitle(dto.getParentTitle());
   if (code.equalsIgnoreCase("Save")) { //Save

@@ -25,14 +25,14 @@ public class WalletItemService implements WalletItemRespository {
     WalletItemRespository walletItemRespository;
 
     @Autowired
-    private AppMemberRepository applicationMemberRepository;
+    private AppMemberRepository appMemberRepository;
     @Autowired
     WalletItemTypeRepository walletItemTypeRepository;
     @Autowired
     BinaryContentRepository binaryContentRepository;
 
     public WalletItem save(WalletItemDTO dto, String code) {
-        AppMember createdBy = applicationMemberRepository.findByUsername("admin");
+        AppMember createdBy = appMemberRepository.findByUsername("admin");
         Optional<WalletItemType> walletItemType = walletItemTypeRepository.findByValue(dto.getWalletItemType());
         Optional<BinaryContent> icon = binaryContentRepository.findById(dto.getIconId());
         if(icon.isEmpty()) {

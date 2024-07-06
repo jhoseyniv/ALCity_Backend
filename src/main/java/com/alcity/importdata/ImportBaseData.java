@@ -56,7 +56,7 @@ public class ImportBaseData implements CommandLineRunner {
     @Autowired
     private WalletItemTypeService walletItemTypeService;
     @Autowired
-    private AppMemberService applicationMemberService;
+    private AppMemberService appMemberService;
     @Autowired
     private ClientTypeService clientTypeService;
 
@@ -142,7 +142,6 @@ public class ImportBaseData implements CommandLineRunner {
         DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
         String now = current.format(format);
 
-        byte[] avatar = ImageUtil.getImage("src/main/resources/images/","avatar.png");
 
         MemberType administrator = new MemberType("Administrator","Administrator",1L,now,now,null,null);
         memberTypeService.save(administrator);
@@ -162,34 +161,37 @@ public class ImportBaseData implements CommandLineRunner {
         clientTypeService.save(mobile);
         clientTypeService.save(web);
         clientTypeService.save(tablet);
+        byte[] avatar = ImageUtil.getImage("src/main/resources/images/","avatar.png");
+        BinaryContent avatar_content_1 = new BinaryContent("avatar",avatar,BinaryContentType.Image,1L,now,now,null,null);
+        binaryContentService.save(avatar_content_1);
 
-        AppMember admin_1= new AppMember(35,"admin","admin","admin0","0912350550","j_hoseyni@yahoo.com",avatar,UserGender.Male,administrator,1L,now,now,null,null);
+        AppMember admin_1= new AppMember(35,"admin","admin","admin0","0912350550","j_hoseyni@yahoo.com",avatar_content_1,UserGender.Male,administrator,1L,now,now,null,null);
         Set clientTypeSet = new HashSet<ClientType>();
         clientTypeSet.add(web);
         admin_1.setClientTypeSet(clientTypeSet);
-        applicationMemberService.save(admin_1);
+        appMemberService.save(admin_1);
 
 
-        AppMember jalalHoseyni= new AppMember(35,"jalal","jalal","jalal","0912350550","j_hoseyni@yahoo.com",avatar,UserGender.Male,guest,1L,now,now,null,null);
+        AppMember jalalHoseyni= new AppMember(35,"jalal","jalal","jalal","0912350550","j_hoseyni@yahoo.com",avatar_content_1,UserGender.Male,guest,1L,now,now,null,null);
         Set jalalClientTypeSet = new HashSet<ClientType>();
         jalalClientTypeSet.add(mobile);
         jalalHoseyni.setClientTypeSet(jalalClientTypeSet);
-        applicationMemberService.save(jalalHoseyni);
+        appMemberService.save(jalalHoseyni);
 
-        AppMember Moslem_Balavandi= new AppMember(35,"moslem","moslem","moslem","0912350550","balavandi@gmail.com",avatar,UserGender.Male,guest,1L,now,now,null,null);
+        AppMember Moslem_Balavandi= new AppMember(35,"moslem","moslem","moslem","0912350550","balavandi@gmail.com",avatar_content_1,UserGender.Male,guest,1L,now,now,null,null);
         Set moslem_ClientTypeSet = new HashSet<ClientType>();
         moslem_ClientTypeSet.add(mobile);
         moslem_ClientTypeSet.add(web);
         Moslem_Balavandi.setClientTypeSet(moslem_ClientTypeSet);
-        applicationMemberService.save(Moslem_Balavandi);
+        appMemberService.save(Moslem_Balavandi);
 
-        AppMember alireza_zarei= new AppMember(35,"alireza","alireza","alireza","0912350550","zare@sharif.edu",avatar,UserGender.Male,guest,1L,now,now,null,null);
+        AppMember alireza_zarei= new AppMember(35,"alireza","alireza","alireza","0912350550","zare@sharif.edu",avatar_content_1,UserGender.Male,guest,1L,now,now,null,null);
         Set alireza_ClientTypeSet = new HashSet<ClientType>();
         alireza_ClientTypeSet.add(mobile);
         alireza_ClientTypeSet.add(web);
         alireza_ClientTypeSet.add(tablet);
         alireza_zarei.setClientTypeSet(alireza_ClientTypeSet);
-        applicationMemberService.save(alireza_zarei);
+        appMemberService.save(alireza_zarei);
 
         PLRuleEvent click_ruleEvent = new PLRuleEvent("Click", PLRuleEventType.User_Event, UserEvent.Click.ordinal(),1L,now,now,admin_1,admin_1);
         PLRuleEvent Internal_Event = new PLRuleEvent("Internal_Event", PLRuleEventType.System_Event, SystemEvent.Internal_Event.ordinal(),1L,now,now,admin_1,admin_1);

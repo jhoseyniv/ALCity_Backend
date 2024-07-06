@@ -164,9 +164,9 @@ public class AttributeService implements AttributeRepository {
         return attributeRepository.findByOwnerIdAndName(ownerId,name);
     }
     @Autowired
-    private AppMemberRepository applicationMemberRepository;
+    private AppMemberRepository appMemberRepository;
     public Attribute save(AttributeDTO dto, String code) {
-        AppMember createdBy = applicationMemberRepository.findByUsername("admin");
+        AppMember createdBy = appMemberRepository.findByUsername("admin");
         Optional<Attribute> attributeOptional =  attributeRepository.findById(dto.getId());
         AttributeOwnerType attributeOwnerType =  AttributeOwnerType.getByTitle(dto.getAttributeOwnerType());
         Collection<AttributeValueDTO> valueDTOS = dto.getAttributeValueDTOS();

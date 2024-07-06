@@ -40,7 +40,7 @@ public class BaseItemConrollerTest {
     @Autowired
     private AppMemberService applicationMemberService;
     @Mock
-    private AppMemberRepository applicationMemberRepository;
+    private AppMemberRepository appMemberRepository;
 
     public String address="http://127.0.0.1:8080";
     public String port="8080";

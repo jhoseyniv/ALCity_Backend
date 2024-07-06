@@ -25,14 +25,14 @@ public class LearningContentService implements LearningContentRepository {
     BinaryContentService binaryContentService;
 
     @Autowired
-    private AppMemberRepository applicationMemberRepository;
+    private AppMemberRepository appMemberRepository;
 
     @Override
     public <S extends LearningContent> S save(S entity) {
         return learningContentRepository.save(entity);
     }
     public LearningContent save(LearningContentDTO dto, String code) {
-        AppMember createdBy = applicationMemberRepository.findByUsername("admin");
+        AppMember createdBy = appMemberRepository.findByUsername("admin");
         Optional<BinaryContent> binaryContentOptional =  binaryContentService.findById(dto.getBinaryContentId());
         LearningContent learningContent=null;
         if (code.equalsIgnoreCase("Save")) { //Save

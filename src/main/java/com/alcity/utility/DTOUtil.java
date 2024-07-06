@@ -17,7 +17,7 @@ import com.alcity.dto.learning.LearningContentDTO;
 import com.alcity.dto.learning.LearningTopicDTO;
 import com.alcity.dto.player.PermitedPlayerDTO;
 import com.alcity.dto.puzzle.*;
-import com.alcity.dto.appmember.ApplicationMemberDTO;
+import com.alcity.dto.appmember.AppMemberDTO;
 import com.alcity.dto.appmember.MemberTypeDTO;
 import com.alcity.dto.appmember.WalletItemDTO;
 import com.alcity.entity.alenum.AttributeOwnerType;
@@ -475,10 +475,10 @@ public class DTOUtil {
         return binaryContentDTO;
     }
 
-    public static ApplicationMemberDTO getApplicationMemberDTO(AppMember member){
-        ApplicationMemberDTO memberDTO = new ApplicationMemberDTO(member.getId(),member.getAge(),
-                member.getUsername(),member.getPassword(), member.getNickname(), member.getMobile(), member.getEmail(),
-                member.getAvatar(), member.getCreatedBy().getId(), member.getUpdatedBy().getId());
+    public static AppMemberDTO getApplicationMemberDTO(AppMember member){
+        AppMemberDTO memberDTO = new AppMemberDTO(member.getId(),member.getAge(),
+                member.getUsername(),member.getPassword(), member.getNickname(), member.getMobile(), member.getEmail(),member.getAvatar().getId(),
+                 member.getVersion(), member.getCreated(), member.getUpdated(), member.getCreatedBy().getUsername(), member.getUpdatedBy().getUsername());
 
         return memberDTO;
     }

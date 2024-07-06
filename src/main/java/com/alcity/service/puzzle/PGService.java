@@ -64,7 +64,7 @@ public class PGService implements PGRepository {
         pgRepository.deleteById(aLong);
     }
     @Autowired
-    private AppMemberRepository applicationMemberRepository;
+    private AppMemberRepository appMemberRepository;
 
     @Autowired
     private BinaryContentRepository binaryContentRepository;
@@ -72,7 +72,7 @@ public class PGService implements PGRepository {
     private PuzzleCategoryRepository puzzleCategoryRepository;
 
     public PuzzleGroup save(PGDTO dto, String code) {
-        AppMember createdBy = applicationMemberRepository.findByUsername("admin");
+        AppMember createdBy = appMemberRepository.findByUsername("admin");
         PuzzleGroup puzzleGroup=null;
         Optional<BinaryContent> icon = binaryContentRepository.findById(dto.getIconId());
         Optional<BinaryContent> pic = binaryContentRepository.findById(dto.getPicId());

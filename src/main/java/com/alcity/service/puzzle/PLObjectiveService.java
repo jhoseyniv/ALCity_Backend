@@ -117,10 +117,10 @@ public class PLObjectiveService implements PLObjectiveRepository {
         return null;
     }
     @Autowired
-    private AppMemberRepository applicationMemberRepository;
+    private AppMemberRepository appMemberRepository;
 
     public PLObjective save(PLObjectiveDTO dto, String code) {
-        AppMember createdBy = applicationMemberRepository.findByUsername("admin");
+        AppMember createdBy = appMemberRepository.findByUsername("admin");
         PLObjective plObjective=null;
         Optional<LearningSkill> learningSkillOptional =  learningSkillRepository.findById(dto.getSkillId());
         Optional<WalletItem> walletItemOptional =  walletItemRespository.findById(dto.getWalletItemId());

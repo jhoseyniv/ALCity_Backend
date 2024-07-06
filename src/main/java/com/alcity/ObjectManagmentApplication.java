@@ -33,7 +33,7 @@ public class ObjectManagmentApplication {
 	}
 
 	@Autowired
-	private AppMemberService applicationMemberService;
+	private AppMemberService appMemberService;
 
 
 

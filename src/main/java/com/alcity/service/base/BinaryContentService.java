@@ -116,7 +116,7 @@ public class BinaryContentService implements BinaryContentRepository , BinaryCon
     }
 
     @Autowired
-    private AppMemberRepository applicationMemberRepository;
+    private AppMemberRepository appMemberRepository;
 
 
     @Override
@@ -124,7 +124,7 @@ public class BinaryContentService implements BinaryContentRepository , BinaryCon
         LocalDateTime current = LocalDateTime.now();
         DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
         String now = current.format(format);
-        AppMember createdBy = applicationMemberRepository.findByUsername("admin");
+        AppMember createdBy = appMemberRepository.findByUsername("admin");
         BinaryContentType binaryContentType = ImageUtil.getBinaryContentType(file.getContentType());
         BinaryContent binaryContent = new BinaryContent(fileName,file.getBytes(), binaryContentType,1L,now,now,createdBy,createdBy);
         binaryContentRepository.save(binaryContent);
@@ -183,7 +183,7 @@ public class BinaryContentService implements BinaryContentRepository , BinaryCon
     }
 
     public BinaryContent save(BinaryContentDTO dto, String code) {
-        AppMember createdBy = applicationMemberRepository.findByUsername("admin");
+        AppMember createdBy = appMemberRepository.findByUsername("admin");
         BinaryContent binaryContent=null;
         if (code.equalsIgnoreCase("Save")) { // save
             binaryContent = new BinaryContent(dto.getFileName(), dto.getContent(),

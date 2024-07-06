@@ -27,10 +27,10 @@ public class WalletItemTypeService implements WalletItemTypeRepository {
         return walletItemTypeRepository.save(entity);
     }
     @Autowired
-    private AppMemberRepository applicationMemberRepository;
+    private AppMemberRepository appMemberRepository;
 
     public WalletItemType save(WalletItemTypeDTO dto, String code) {
-        AppMember createdBy = applicationMemberRepository.findByUsername("admin");
+        AppMember createdBy = appMemberRepository.findByUsername("admin");
         WalletItemCategory walletItemCategory = WalletItemCategory.getByTitle(dto.getWalletItemCategory());
         WalletItemType walletItemType=null;
         Optional<WalletItemType> walletItemTypeOptional= walletItemTypeRepository.findByValue(dto.getValue());

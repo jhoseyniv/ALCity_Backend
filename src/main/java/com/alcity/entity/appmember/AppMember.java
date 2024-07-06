@@ -36,9 +36,10 @@ public class AppMember extends BaseTable implements Serializable {
     @Column(name="email")
     private String email;
 
-    @Lob
-    @Basic(fetch = FetchType.LAZY)
-    private byte[] avatar;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "avatar_id")
+    @JsonIgnore
+    private BinaryContent avatar;
 
     @Override
     public Long getId() {
@@ -97,11 +98,11 @@ public class AppMember extends BaseTable implements Serializable {
         this.email = email;
     }
 
-    public byte[] getAvatar() {
+    public BinaryContent getAvatar() {
         return avatar;
     }
 
-    public void setAvatar(byte[] avatar) {
+    public void setAvatar(BinaryContent avatar) {
         this.avatar = avatar;
     }
 
@@ -167,7 +168,7 @@ public class AppMember extends BaseTable implements Serializable {
     public AppMember() {
     }
 
-    public AppMember(Integer age, String username, String password, String nickname, String mobile, String email, byte[] avatar, UserGender gender, MemberType memberType, Long version, String created, String updated, AppMember createdBy, AppMember updatedBy) {
+    public AppMember(Integer age, String username, String password, String nickname, String mobile, String email,BinaryContent avatar, UserGender gender, MemberType memberType, Long version, String created, String updated, AppMember createdBy, AppMember updatedBy) {
         super(version, created, updated, createdBy, updatedBy);
         this.age = age;
         this.username = username;

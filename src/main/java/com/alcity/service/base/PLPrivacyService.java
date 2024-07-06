@@ -94,10 +94,10 @@ public class PLPrivacyService implements PLPrivacyRepository {
         return plPrivacyRepository.findByValue(value);
     }
     @Autowired
-    private AppMemberRepository applicationMemberRepository;
+    private AppMemberRepository appMemberRepository;
 
     public PLPrivacy save(PLPrivacyDTO dto, String code) {
-        AppMember createdBy = applicationMemberRepository.findByUsername("admin");
+        AppMember createdBy = appMemberRepository.findByUsername("admin");
         PLPrivacy plPrivacy=null;
 
         if (code.equalsIgnoreCase("Save")) { //Save

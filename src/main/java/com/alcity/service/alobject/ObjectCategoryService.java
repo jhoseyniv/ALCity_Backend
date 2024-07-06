@@ -25,10 +25,10 @@ public class ObjectCategoryService implements ObjectCategoryRepository {
         return objectCategoryRepository.save(entity);
     }
     @Autowired
-    private AppMemberRepository applicationMemberRepository;
+    private AppMemberRepository appMemberRepository;
 
     public ObjectCategory save(ObjectCategoryDTO dto, String code) {
-        AppMember createdBy = applicationMemberRepository.findByUsername("admin");
+        AppMember createdBy = appMemberRepository.findByUsername("admin");
         ObjectCategory objectCategory=null;
         if (code.equalsIgnoreCase("Save")) { //Save
             objectCategory = new ObjectCategory(dto.getLabel(), dto.getValue(), 1L,

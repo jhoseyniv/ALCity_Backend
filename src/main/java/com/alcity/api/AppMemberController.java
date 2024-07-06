@@ -1,7 +1,7 @@
 package com.alcity.api;
 
 import com.alcity.customexception.ALCityResponseObject;
-import com.alcity.dto.appmember.ApplicationMemberDTO;
+import com.alcity.dto.appmember.AppMemberDTO;
 import com.alcity.dto.appmember.ApplicationMemberWalletDTO;
 import com.alcity.dto.appmember.WalletItemDTO;
 import com.alcity.dto.appmember.WalletItemTransactionDTO;
@@ -29,27 +29,30 @@ public class AppMemberController {
 
 
     @Autowired
-    private AppMemberService applicationMemberService;
+    private AppMemberService appMemberService;
 
 
-    @GetMapping("/members/all")
+    @GetMapping("/all")
+    @CrossOrigin(origins = "*")
     public Collection<AppMember> getApplicationMembers(Model model) {
-        Collection<AppMember> applicationMemberCollection = applicationMemberService.findAll();
+        Collection<AppMember> applicationMemberCollection = appMemberService.findAll();
         return applicationMemberCollection;
     }
 
-    @RequestMapping(value = "/member/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/id/{id}", method = RequestMethod.GET)
     @ResponseBody
+    @CrossOrigin(origins = "*")
     public Optional<AppMember> getApplicationMemberById(@PathVariable Long id) {
-        Optional<AppMember> member = applicationMemberService.findById(id);
+        Optional<AppMember> member = appMemberService.findById(id);
         return member;
     }
 
-    @RequestMapping(value = "/member/{id}/wallet/", method = RequestMethod.GET)
+    @RequestMapping(value = "/{id}/wallet/", method = RequestMethod.GET)
     @ResponseBody
+    @CrossOrigin(origins = "*")
     public Collection<ApplicationMemberWalletDTO> getApplicationMemberWalletDataById(@PathVariable Long id) {
         Collection<ApplicationMemberWalletDTO> applicationMemberWalletDTOS = new ArrayList<>();
-        Optional<AppMember> member = applicationMemberService.findById(id);
+        Optional<AppMember> member = appMemberService.findById(id);
         Collection<AppMember_WalletItem> applicationMember_walletItems = member.get().getApplicationMember_walletItems();
         Collection<WalletItemTransactionDTO> transactionDTOS = new ArrayList<>();
 
@@ -84,6 +87,7 @@ public class AppMemberController {
     private WalletItemService walletItemService;
     @RequestMapping(value = "/id/{id}/wallet-item/all", method = RequestMethod.GET)
     @ResponseBody
+    @CrossOrigin(origins = "*")
     public Collection<WalletItemDTO> getWalletItemsByUserId(@PathVariable Long id) {
         Collection<WalletItem> walletItemCollection = walletItemService.findAll();
         Collection<WalletItemDTO> dtos = new ArrayList<WalletItemDTO>();
@@ -91,27 +95,28 @@ public class AppMemberController {
         return dtos;
     }
 
-    @RequestMapping(value = "/wallet-item/id/{id}", method = RequestMethod.GET)
-    @ResponseBody
-    public WalletItemDTO getWalletItemById(@PathVariable Long id) {
-        Optional<WalletItem> walletItemOptional = walletItemService.findById(id);
-        if(walletItemOptional.isEmpty()) return null;
-        return DTOUtil.getWalletItemDTO(walletItemOptional.get());
-    }
+//    @RequestMapping(value = "/wallet-item/id/{id}", method = RequestMethod.GET)
+//    @ResponseBody
+//    public WalletItemDTO getWalletItemById(@PathVariable Long id) {
+//        Optional<WalletItem> walletItemOptional = walletItemService.findById(id);
+//        if(walletItemOptional.isEmpty()) return null;
+//        return DTOUtil.getWalletItemDTO(walletItemOptional.get());
+//    }
 
     @Operation( summary = "Login to System ",  description = "Login Action")
-    @PostMapping("/user/login")
-    public ALCityResponseObject login(@RequestBody ApplicationMemberDTO memberDTO)  {
+    @PostMapping("/login")
+    @CrossOrigin(origins = "*")
+    public ALCityResponseObject login(@RequestBody AppMemberDTO memberDTO)  {
         ALCityResponseObject responseObject = new ALCityResponseObject();
 
-        AppMember member = applicationMemberService.findByUsername(memberDTO.getUsername());
+        AppMember member = appMemberService.findByUsername(memberDTO.getUsername());
         if(member==null)
             return  new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", -1L, "data Not Found!");
 
 
         if(!member.getPassword().equals(memberDTO.getPassword()))
             return  new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", -1L, "data Not Found!");
-        applicationMemberService.login(member.getUsername(), member.getPassword());
+        appMemberService.login(member.getUsername(), member.getPassword());
         return responseObject;
     }
 
