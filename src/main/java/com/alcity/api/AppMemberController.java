@@ -2,7 +2,7 @@ package com.alcity.api;
 
 import com.alcity.customexception.ALCityResponseObject;
 import com.alcity.dto.appmember.AppMemberDTO;
-import com.alcity.dto.appmember.ApplicationMemberWalletDTO;
+import com.alcity.dto.appmember.AppMemberWalletDTO;
 import com.alcity.dto.appmember.WalletItemDTO;
 import com.alcity.dto.appmember.WalletItemTransactionDTO;
 import com.alcity.entity.appmember.AppMember;
@@ -50,8 +50,8 @@ public class AppMemberController {
     @RequestMapping(value = "/{id}/wallet/", method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin(origins = "*")
-    public Collection<ApplicationMemberWalletDTO> getApplicationMemberWalletDataById(@PathVariable Long id) {
-        Collection<ApplicationMemberWalletDTO> applicationMemberWalletDTOS = new ArrayList<>();
+    public Collection<AppMemberWalletDTO> getApplicationMemberWalletDataById(@PathVariable Long id) {
+        Collection<AppMemberWalletDTO> applicationMemberWalletDTOS = new ArrayList<>();
         Optional<AppMember> member = appMemberService.findById(id);
         Collection<AppMember_WalletItem> applicationMember_walletItems = member.get().getApplicationMember_walletItems();
         Collection<WalletItemTransactionDTO> transactionDTOS = new ArrayList<>();
@@ -59,7 +59,7 @@ public class AppMemberController {
         Iterator<AppMember_WalletItem> itr = applicationMember_walletItems.iterator();
         while(itr.hasNext()) {
             AppMember_WalletItem applicationMember_walletItem = itr.next();
-            ApplicationMemberWalletDTO applicationMemberWalletDTO = new ApplicationMemberWalletDTO();
+            AppMemberWalletDTO applicationMemberWalletDTO = new AppMemberWalletDTO();
             WalletItem walletItem = applicationMember_walletItem.getWalletItem();
             applicationMemberWalletDTO.setWalletItemTitle(walletItem.getLabel());
             applicationMemberWalletDTO.setWalletItemId(walletItem.getId());
