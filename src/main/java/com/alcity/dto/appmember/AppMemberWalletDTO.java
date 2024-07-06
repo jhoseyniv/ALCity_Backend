@@ -2,7 +2,7 @@ package com.alcity.dto.appmember;
 
 import java.util.Collection;
 
-public class ApplicationMemberWalletDTO {
+public class AppMemberWalletDTO {
     private Long walletItemId;
     private String walletItemTitle;
     private  Float amount;
@@ -42,10 +42,10 @@ public class ApplicationMemberWalletDTO {
         this.walletItemTransactionDTOSet = walletItemTransactionDTOSet;
     }
 
-    public ApplicationMemberWalletDTO() {
+    public AppMemberWalletDTO() {
     }
 
-    public ApplicationMemberWalletDTO(Long walletItemId, String walletItemTitle, Float amount, Collection<WalletItemTransactionDTO> walletItemTransactionDTOSet) {
+    public AppMemberWalletDTO(Long walletItemId, String walletItemTitle, Float amount, Collection<WalletItemTransactionDTO> walletItemTransactionDTOSet) {
         this.walletItemId = walletItemId;
         this.walletItemTitle = walletItemTitle;
         this.amount = amount;
