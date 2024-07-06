@@ -672,7 +672,7 @@ public class DTOUtil {
             alCityObjectDTO.setObjectCategory(co.getObjectCategory().getLabel());
             alCityObjectDTO.setTitle(co.getTitle());
             alCityObjectDTO.setVersion(co.getVersion());
-            alCityObjectDTO.setPictureId(co.getPicture().getId());
+            alCityObjectDTO.setPictureId(co.getPic().getId());
             alCityObjectDTO.setIconId(co.getIcon().getId());
             alCityObjectDTO.setCreated(co.getCreated());
             alCityObjectDTO.setUpdated(co.getUpdated());

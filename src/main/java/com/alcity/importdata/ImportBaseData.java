@@ -499,9 +499,7 @@ public class ImportBaseData implements CommandLineRunner {
         AttributeValue  move_ActionRenderer_param_moveType_value= new AttributeValue(null,null,null,"jump",null,null,null,move_ActionRenderer_param_8,move_ActionRenderer_param_8,1L,now,now,admin_1,admin_1);
         attributeValueService.save(move_ActionRenderer_param_moveType_value);
 
-        ALCityObject textObject = new ALCityObject("TextObject",objectCategory_TextObject,1L,now,now,jalalHoseyni,jalalHoseyni);
-        textObject.setIcon(textObject_icon);
-        textObject.setPicture(textObject_pic);
+        ALCityObject textObject = new ALCityObject(1L,now,now,jalalHoseyni,jalalHoseyni,"TextObject",objectCategory_TextObject,textObject_pic,textObject_icon);
         alCityObjectService.save(textObject);
 
         PuzzleObjectAction textObject_Create_Action = new PuzzleObjectAction(POActionOwnerType.ALCity_Object,textObject.getId(),ObjectAction.Create,create_Renderer,1L,now,now,admin_1,admin_1);
@@ -523,9 +521,7 @@ public class ImportBaseData implements CommandLineRunner {
 
 
 
-        ALCityObject ImageObject01 = new ALCityObject("ImageObject01",objectCategory_Image,1L,now,now,jalalHoseyni,jalalHoseyni);
-        ImageObject01.setIcon(image_Object_pic);
-        ImageObject01.setPicture(image_Object_pic);
+        ALCityObject ImageObject01 = new ALCityObject(1L,now,now,jalalHoseyni,jalalHoseyni,"ImageObject01",objectCategory_Image,image_Object_pic,image_Object_pic);
         alCityObjectService.save(ImageObject01);
 
         PuzzleObjectAction ImageObject01_Move_Action = new PuzzleObjectAction(POActionOwnerType.ALCity_Object,ImageObject01.getId(),ObjectAction.Move,move_Renderer,1L,now,now,admin_1,admin_1);
@@ -533,29 +529,19 @@ public class ImportBaseData implements CommandLineRunner {
         DTOUtil.copyAttributesActionFromTo(move_Renderer.getId(),ImageObject01_Move_Action.getId(),AttributeOwnerType.Action_Renderer_Parameter,AttributeOwnerType.AlCity_Object,
                 attributeService,attributeValueService);
 
-        ALCityObject ImageObject02 = new ALCityObject("ImageObject02",objectCategory_Image,1L,now,now,jalalHoseyni,jalalHoseyni);
-        ImageObject02.setPicture(image_Object_pic);
-        ImageObject02.setIcon(image_Object_icon);
+        ALCityObject ImageObject02 = new ALCityObject(1L,now,now,jalalHoseyni,jalalHoseyni,"ImageObject02",objectCategory_Image,image_Object_pic,image_Object_icon);
         alCityObjectService.save(ImageObject02);
 
-        ALCityObject eagle = new ALCityObject("eagle",objectCategory_bird,1L,now,now,jalalHoseyni,jalalHoseyni);
-        eagle.setIcon(eagle_Image_binary_content);
-        eagle.setPicture(eagle_Image_binary_content);
+        ALCityObject eagle = new ALCityObject(1L,now,now,jalalHoseyni,jalalHoseyni,"eagle",objectCategory_bird,eagle_Image_binary_content,eagle_Image_binary_content);
         alCityObjectService.save(eagle);
 
-        ALCityObject goose = new ALCityObject("Goose",objectCategory_bird,1L,now,now,jalalHoseyni,jalalHoseyni);
-        goose.setPicture(goose_Image_binary_content);
-        goose.setIcon(goose_Image_binary_content);
+        ALCityObject goose = new ALCityObject(1L,now,now,jalalHoseyni,jalalHoseyni,"Goose",objectCategory_bird,goose_Image_binary_content,goose_Image_binary_content);
         alCityObjectService.save(goose);
 
-        ALCityObject fox = new ALCityObject("Fox",objectCategory_Mamals,1L,now,now,jalalHoseyni,jalalHoseyni);
-        fox.setIcon(fox_Image_binary_content);
-        fox.setPicture(fox_Image_binary_content);
+        ALCityObject fox = new ALCityObject(1L,now,now,jalalHoseyni,jalalHoseyni,"Fox",objectCategory_Mamals,fox_Image_binary_content,fox_Image_binary_content);
         alCityObjectService.save(fox);
 
-        ALCityObject wheat = new ALCityObject("Wheat",objectCategory_cereal,1L,now,now,jalalHoseyni,jalalHoseyni);
-        wheat.setPicture(wheat_Image_binary_content);
-        wheat.setIcon(wheat_Image_binary_content);
+        ALCityObject wheat = new ALCityObject(1L,now,now,jalalHoseyni,jalalHoseyni,"Wheat",objectCategory_cereal,wheat_Image_binary_content,wheat_Image_binary_content);
         alCityObjectService.save(wheat);
 
     }

@@ -12,7 +12,7 @@ public interface ALCityObjectRepository extends CrudRepository<ALCityObject,Long
     Optional<ALCityObject> findById(Long id);
     Collection<ALCityObject> findAll();
     Optional<ALCityObject> findByIcon(BinaryContent icon);
-    Optional<ALCityObject> findByPicture(BinaryContent pic);
+    Optional<ALCityObject> findByPic(BinaryContent pic);
 
     Optional<ALCityObject> findByTitle(String title);
 

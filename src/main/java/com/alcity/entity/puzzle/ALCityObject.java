@@ -24,9 +24,9 @@ public class ALCityObject extends BaseTable implements Serializable {
 
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "picture_id", nullable = false)
+    @JoinColumn(name = "pic_id", nullable = false)
     @JsonIgnore
-    private BinaryContent picture;
+    private BinaryContent pic;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "icon_id", nullable = false)
@@ -37,6 +37,7 @@ public class ALCityObject extends BaseTable implements Serializable {
     @OneToMany(mappedBy = "alCityObject", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JsonIgnore
     private Collection<ALCityObjectInPG> alCityObjectInPGCollection;
+
 
     public Collection<ALCityObjectInPG> getAlCityObjectInPGCollection() {
         return alCityObjectInPGCollection;
@@ -62,12 +63,12 @@ public class ALCityObject extends BaseTable implements Serializable {
         this.title = title;
     }
 
-    public BinaryContent getPicture() {
-        return picture;
+    public BinaryContent getPic() {
+        return pic;
     }
 
-    public void setPicture(BinaryContent picture) {
-        this.picture = picture;
+    public void setPic(BinaryContent pic) {
+        this.pic = pic;
     }
 
     public BinaryContent getIcon() {
@@ -81,11 +82,11 @@ public class ALCityObject extends BaseTable implements Serializable {
     public ALCityObject() {
     }
 
-    public ALCityObject(Long version, String created, String updated, AppMember createdBy, AppMember updatedBy, String title, ObjectCategory objectCategory, BinaryContent picture, BinaryContent icon) {
+    public ALCityObject(Long version, String created, String updated, AppMember createdBy, AppMember updatedBy, String title, ObjectCategory objectCategory, BinaryContent pic, BinaryContent icon) {
         super(version, created, updated, createdBy, updatedBy);
         this.title = title;
         this.objectCategory = objectCategory;
-        this.picture = picture;
+        this.pic = pic;
         this.icon = icon;
     }
 }

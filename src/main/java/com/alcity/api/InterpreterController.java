@@ -113,7 +113,7 @@ public class InterpreterController {
        poData.setTitle(alCityObjectInPG.getTitle());
        poData.setCode(alCityObjectInPG.getCode());
 
-       BinaryContent picture = alCityObjectInPG.getAlCityObject().getPicture();
+       BinaryContent picture = alCityObjectInPG.getAlCityObject().getPic();
        poData.setImageGraphicId(picture.getId());
 
        BinaryContent icon = alCityObjectInPG.getAlCityObject().getIcon();

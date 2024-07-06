@@ -173,10 +173,10 @@ public class BinaryContentService implements BinaryContentRepository , BinaryCon
             alCityObject.setIcon(null);
             alCityObjectRepository.save(alCityObject);
         }
-        alCityObjectOptional = alCityObjectRepository.findByPicture(binaryContentOptional.get());
+        alCityObjectOptional = alCityObjectRepository.findByPic(binaryContentOptional.get());
         if(alCityObjectOptional.isPresent()){
             ALCityObject alCityObject = alCityObjectOptional.get();
-            alCityObject.setPicture(null);
+            alCityObject.setPic(null);
             alCityObjectRepository.save(alCityObject);
         }
 

@@ -66,8 +66,8 @@ public class ALCityObjectService implements ALCityObjectRepository {
     }
 
     @Override
-    public Optional<ALCityObject> findByPicture(BinaryContent pic) {
-        return alCityObjectRepository.findByPicture(pic);
+    public Optional<ALCityObject> findByPic(BinaryContent pic) {
+        return alCityObjectRepository.findByPic(pic);
     }
 
     @Override
@@ -132,7 +132,7 @@ public class ALCityObjectService implements ALCityObjectRepository {
         ObjectCategory objectCategory =  objectCategoryRepository.findByValue(dto.getObjectCategory());
         ALCityObject alCityObject=null;
         if (code.equalsIgnoreCase("Save")) { //Save
-            alCityObject = new ALCityObject(dto.getTitle(), objectCategory, 1L, DateUtils.getNow(), DateUtils.getNow(), createdBy, createdBy);
+            alCityObject = new ALCityObject(1L, DateUtils.getNow(), DateUtils.getNow(), createdBy, createdBy,dto.getTitle(), objectCategory,pic.get(),icon.get());
             alCityObjectRepository.save(alCityObject);
         }else{//edit
             Optional<ALCityObject> alCityObjectOptional= alCityObjectRepository.findById(dto.getId());
@@ -140,6 +140,8 @@ public class ALCityObjectService implements ALCityObjectRepository {
                 alCityObject = alCityObjectOptional.get();
                 alCityObject.setObjectCategory(objectCategory);
                 alCityObject.setTitle(dto.getTitle());
+                alCityObject.setPic(pic.get());
+                alCityObject.setIcon(icon.get());
                 alCityObject.setVersion(alCityObject.getVersion()+1);
                 alCityObject.setCreated(DateUtils.getNow());
                 alCityObject.setUpdated(DateUtils.getNow());
