@@ -2,9 +2,9 @@ package com.alcity.service.learning;
 
 import com.alcity.dto.learning.LearningTopicDTO;
 import com.alcity.entity.learning.LearningTopic;
-import com.alcity.entity.users.AppMember;
+import com.alcity.entity.appmember.AppMember;
 import com.alcity.repository.learning.LearningTopicRepository;
-import com.alcity.repository.users.ApplicationMemberRepository;
+import com.alcity.repository.appmember.AppMemberRepository;
 import com.alcity.utility.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -60,7 +60,7 @@ public class LearningTopicService implements LearningTopicRepository {
       learningTopicRepository.deleteById(aLong);
     }
  @Autowired
- private ApplicationMemberRepository applicationMemberRepository;
+ private AppMemberRepository applicationMemberRepository;
 
  public LearningTopic save(LearningTopicDTO dto, String code) {
   AppMember createdBy = applicationMemberRepository.findByUsername("admin");

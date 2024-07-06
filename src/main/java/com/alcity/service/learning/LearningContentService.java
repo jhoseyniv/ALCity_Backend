@@ -3,9 +3,9 @@ package com.alcity.service.learning;
 import com.alcity.dto.learning.LearningContentDTO;
 import com.alcity.entity.base.BinaryContent;
 import com.alcity.entity.learning.LearningContent;
-import com.alcity.entity.users.AppMember;
+import com.alcity.entity.appmember.AppMember;
 import com.alcity.repository.learning.LearningContentRepository;
-import com.alcity.repository.users.ApplicationMemberRepository;
+import com.alcity.repository.appmember.AppMemberRepository;
 import com.alcity.service.base.BinaryContentService;
 import com.alcity.utility.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +25,7 @@ public class LearningContentService implements LearningContentRepository {
     BinaryContentService binaryContentService;
 
     @Autowired
-    private ApplicationMemberRepository applicationMemberRepository;
+    private AppMemberRepository applicationMemberRepository;
 
     @Override
     public <S extends LearningContent> S save(S entity) {

@@ -1,10 +1,10 @@
-package com.alcity.service.users;
+package com.alcity.service.appmember;
 
 
-import com.alcity.entity.users.AppMember;
-import com.alcity.entity.users.AppMember_WalletItem;
-import com.alcity.entity.users.WalletItem;
-import com.alcity.repository.users.ApplicationMember_WalletItemRepository;
+import com.alcity.entity.appmember.AppMember;
+import com.alcity.entity.appmember.AppMember_WalletItem;
+import com.alcity.entity.appmember.WalletItem;
+import com.alcity.repository.appmember.AppMember_WalletItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,15 +14,15 @@ import java.util.Optional;
 
 @Service
 @Transactional
-public class ApplicationMember_WalletItemService implements ApplicationMember_WalletItemRepository {
+public class AppMember_WalletItemService implements AppMember_WalletItemRepository {
 
 
     @Autowired
-    ApplicationMember_WalletItemRepository applicationMember_WalletItemRepository;
+    AppMember_WalletItemRepository appMember_WalletItemRepository;
 
     @Override
     public <S extends AppMember_WalletItem> S save(S entity) {
-        return applicationMember_WalletItemRepository.save(entity);
+        return appMember_WalletItemRepository.save(entity);
     }
 
     @Override
@@ -37,7 +37,7 @@ public class ApplicationMember_WalletItemService implements ApplicationMember_Wa
 
     @Override
     public Optional<AppMember_WalletItem> findByApplicationMemberAndWalletItem(AppMember applicationMember, WalletItem walletItem) {
-        return applicationMember_WalletItemRepository.findByApplicationMemberAndWalletItem(applicationMember,walletItem);
+        return appMember_WalletItemRepository.findByApplicationMemberAndWalletItem(applicationMember,walletItem);
     }
 
     @Override

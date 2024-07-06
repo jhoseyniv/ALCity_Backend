@@ -1,10 +1,6 @@
 package com.alcity.dto.base;
 
 
-import com.alcity.dto.user.ApplicationMemberDTO;
-
-import java.time.ZonedDateTime;
-
 public class BinaryContentDTO {
 
     private Long id;

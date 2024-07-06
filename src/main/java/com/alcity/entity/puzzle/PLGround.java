@@ -4,7 +4,7 @@ package com.alcity.entity.puzzle;
 import com.alcity.entity.base.BinaryContent;
 import com.alcity.entity.base.BaseTable;
 import com.alcity.entity.base.CameraSetup;
-import com.alcity.entity.users.AppMember;
+import com.alcity.entity.appmember.AppMember;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.*;

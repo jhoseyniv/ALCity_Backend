@@ -1,11 +1,11 @@
 package com.alcity.service.base;
 
 
-import com.alcity.dto.user.MemberTypeDTO;
+import com.alcity.dto.appmember.MemberTypeDTO;
 import com.alcity.entity.base.MemberType;
-import com.alcity.entity.users.AppMember;
+import com.alcity.entity.appmember.AppMember;
 import com.alcity.repository.base.MemberTypeRepository;
-import com.alcity.service.users.ApplicationMemberService;
+import com.alcity.service.appmember.AppMemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,7 +22,7 @@ public class MemberTypeService implements MemberTypeRepository {
     private MemberTypeRepository memberTypeRepository;
 
     @Autowired
-    ApplicationMemberService applicationMemberService;
+    AppMemberService applicationMemberService;
 
     @Override
     public <S extends MemberType> S save(S entity) {

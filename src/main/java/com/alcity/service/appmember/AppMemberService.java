@@ -1,9 +1,9 @@
-package com.alcity.service.users;
+package com.alcity.service.appmember;
 
 import com.alcity.customexception.ALCityResponseObject;
-import com.alcity.entity.users.AppMember;
-import com.alcity.repository.users.ApplicationMemberRepository;
-import com.alcity.repository.users.CustomizedUserRepository;
+import com.alcity.entity.appmember.AppMember;
+import com.alcity.repository.appmember.AppMemberRepository;
+import com.alcity.repository.appmember.CustomizedUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,14 +13,14 @@ import java.util.Optional;
 
 @Service
 @Transactional
-public class ApplicationMemberService implements ApplicationMemberRepository, CustomizedUserRepository {
+public class AppMemberService implements AppMemberRepository, CustomizedUserRepository {
 
     @Autowired
-    private ApplicationMemberRepository applicationMemberRepository;
+    private AppMemberRepository appMemberRepository;
 
     @Override
     public <S extends AppMember> S save(S entity) {
-        return applicationMemberRepository.save(entity);
+        return appMemberRepository.save(entity);
     }
 
     @Override
@@ -30,7 +30,7 @@ public class ApplicationMemberService implements ApplicationMemberRepository, Cu
 
     @Override
     public Optional<AppMember> findById(Long id) {
-        return applicationMemberRepository.findById(id);
+        return appMemberRepository.findById(id);
     }
 
     @Override
@@ -40,7 +40,7 @@ public class ApplicationMemberService implements ApplicationMemberRepository, Cu
 
     @Override
     public Collection<AppMember> findAll() {
-        return applicationMemberRepository.findAll();
+        return appMemberRepository.findAll();
     }
 
     @Override
@@ -80,7 +80,7 @@ public class ApplicationMemberService implements ApplicationMemberRepository, Cu
 
     @Override
     public AppMember findByUsername(String username) {
-        return applicationMemberRepository.findByUsername(username);
+        return appMemberRepository.findByUsername(username);
     }
 
     @Override

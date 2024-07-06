@@ -1,4 +1,4 @@
-package com.alcity.dto.user;
+package com.alcity.dto.appmember;
 
 public class MemberTypeDTO {
     Long id;

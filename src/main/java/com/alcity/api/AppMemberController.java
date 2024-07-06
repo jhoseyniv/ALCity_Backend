@@ -1,16 +1,16 @@
 package com.alcity.api;
 
 import com.alcity.customexception.ALCityResponseObject;
-import com.alcity.dto.user.ApplicationMemberDTO;
-import com.alcity.dto.user.ApplicationMemberWalletDTO;
-import com.alcity.dto.user.WalletItemDTO;
-import com.alcity.dto.user.WalletItemTransactionDTO;
-import com.alcity.entity.users.AppMember;
-import com.alcity.entity.users.AppMember_WalletItem;
-import com.alcity.entity.users.WalletItem;
-import com.alcity.entity.users.WalletTransaction;
-import com.alcity.service.users.ApplicationMemberService;
-import com.alcity.service.users.WalletItemService;
+import com.alcity.dto.appmember.ApplicationMemberDTO;
+import com.alcity.dto.appmember.ApplicationMemberWalletDTO;
+import com.alcity.dto.appmember.WalletItemDTO;
+import com.alcity.dto.appmember.WalletItemTransactionDTO;
+import com.alcity.entity.appmember.AppMember;
+import com.alcity.entity.appmember.AppMember_WalletItem;
+import com.alcity.entity.appmember.WalletItem;
+import com.alcity.entity.appmember.WalletTransaction;
+import com.alcity.service.appmember.AppMemberService;
+import com.alcity.service.appmember.WalletItemService;
 import com.alcity.utility.DTOUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -25,11 +25,11 @@ import java.util.*;
 @CrossOrigin(origins = "*" ,maxAge = 3600)
 @RestController
 @RequestMapping("/user")
-public class UserController {
+public class AppMemberController {
 
 
     @Autowired
-    private ApplicationMemberService applicationMemberService;
+    private AppMemberService applicationMemberService;
 
 
     @GetMapping("/members/all")

@@ -14,10 +14,10 @@ import com.alcity.entity.learning.LearningTopic;
 import com.alcity.entity.puzzle.ALCityObject;
 import com.alcity.entity.puzzle.PLRuleEvent;
 import com.alcity.entity.puzzle.PuzzleGroup;
-import com.alcity.entity.users.AppMember;
-import com.alcity.entity.users.AppMember_WalletItem;
-import com.alcity.entity.users.WalletItem;
-import com.alcity.entity.users.WalletTransaction;
+import com.alcity.entity.appmember.AppMember;
+import com.alcity.entity.appmember.AppMember_WalletItem;
+import com.alcity.entity.appmember.WalletItem;
+import com.alcity.entity.appmember.WalletTransaction;
 import com.alcity.service.Journey.JourneyLearningSkillService;
 import com.alcity.service.Journey.JourneyService;
 import com.alcity.service.alobject.*;
@@ -30,10 +30,10 @@ import com.alcity.service.puzzle.ALCityObjectService;
 import com.alcity.service.puzzle.PGService;
 import com.alcity.service.puzzle.PLRuleEventService;
 import com.alcity.service.puzzle.PuzzleSkillLearningContentService;
-import com.alcity.service.users.ApplicationMemberService;
-import com.alcity.service.users.ApplicationMember_WalletItemService;
-import com.alcity.service.users.WalletItemService;
-import com.alcity.service.users.WalletTransactionService;
+import com.alcity.service.appmember.AppMemberService;
+import com.alcity.service.appmember.AppMember_WalletItemService;
+import com.alcity.service.appmember.WalletItemService;
+import com.alcity.service.appmember.WalletTransactionService;
 import com.alcity.utility.DTOUtil;
 import com.alcity.utility.ImageUtil;
 import org.apache.commons.logging.Log;
@@ -56,7 +56,7 @@ public class ImportBaseData implements CommandLineRunner {
     @Autowired
     private WalletItemTypeService walletItemTypeService;
     @Autowired
-    private ApplicationMemberService applicationMemberService;
+    private AppMemberService applicationMemberService;
     @Autowired
     private ClientTypeService clientTypeService;
 
@@ -72,7 +72,7 @@ public class ImportBaseData implements CommandLineRunner {
     ObjectCategoryService objectCategoryService;
 
     @Autowired
-    private ApplicationMember_WalletItemService applicationMember_walletItemService;
+    private AppMember_WalletItemService applicationMember_walletItemService;
 
     @Autowired
     private WalletTransactionService walletTransactionService;
@@ -170,7 +170,6 @@ public class ImportBaseData implements CommandLineRunner {
         applicationMemberService.save(admin_1);
 
 
-
         AppMember jalalHoseyni= new AppMember(35,"jalal","jalal","jalal","0912350550","j_hoseyni@yahoo.com",avatar,UserGender.Male,guest,1L,now,now,null,null);
         Set jalalClientTypeSet = new HashSet<ClientType>();
         jalalClientTypeSet.add(mobile);
@@ -196,7 +195,6 @@ public class ImportBaseData implements CommandLineRunner {
         PLRuleEvent Internal_Event = new PLRuleEvent("Internal_Event", PLRuleEventType.System_Event, SystemEvent.Internal_Event.ordinal(),1L,now,now,admin_1,admin_1);
         plRuleEventService.save(click_ruleEvent);
         plRuleEventService.save(Internal_Event);
-
 
 
         //update some fileds
@@ -253,7 +251,6 @@ public class ImportBaseData implements CommandLineRunner {
         LearningContent learningContent_Maze=new LearningContent("help to maze","this content is about maze tables",puzzle_group_Maze_Image_binary_content,1L,now,now,admin_1,admin_1);
         learningContentService.save(learningContent_Maze);
 
-       // PuzzleCategory mathematic = puzzleCategoryService.findByValue("mathematic");
 
         PuzzleGroup puzzleGroup_HashImage = new PuzzleGroup("Hash Image - Puzzle Group 1",mathematic,puzzle_group_binary_content_Icon,puzzle_group_binary_content_Icon,1L,now,now,admin_1,admin_1);
         PuzzleGroup puzzleGroup_IQ = new PuzzleGroup("IQ Puzzle Group",mathematic,puzzle_group_binary_content_2,puzzle_group_binary_content_3,1L,now,now,admin_1,admin_1);

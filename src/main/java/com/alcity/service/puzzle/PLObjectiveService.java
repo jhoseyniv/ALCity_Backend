@@ -4,14 +4,14 @@ import com.alcity.dto.puzzle.PLObjectiveDTO;
 import com.alcity.entity.learning.LearningSkill;
 import com.alcity.entity.puzzle.PLObjective;
 import com.alcity.entity.puzzle.PuzzleLevel;
-import com.alcity.entity.users.AppMember;
-import com.alcity.entity.users.WalletItem;
+import com.alcity.entity.appmember.AppMember;
+import com.alcity.entity.appmember.WalletItem;
 import com.alcity.repository.learning.LearningSkillRepository;
 import com.alcity.repository.puzzle.PLObjectiveRepository;
 import com.alcity.repository.puzzle.PuzzleLevelRepository;
-import com.alcity.repository.users.ApplicationMemberRepository;
-import com.alcity.repository.users.WalletItemRespository;
-import com.alcity.service.users.ApplicationMemberService;
+import com.alcity.repository.appmember.AppMemberRepository;
+import com.alcity.repository.appmember.WalletItemRespository;
+import com.alcity.service.appmember.AppMemberService;
 import com.alcity.utility.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -38,7 +38,7 @@ public class PLObjectiveService implements PLObjectiveRepository {
     LearningSkillRepository learningSkillRepository;
 
     @Autowired
-    ApplicationMemberService applicationMemberService;
+    AppMemberService applicationMemberService;
 
     @Override
     public <S extends PLObjective> S save(S entity) {
@@ -117,7 +117,7 @@ public class PLObjectiveService implements PLObjectiveRepository {
         return null;
     }
     @Autowired
-    private ApplicationMemberRepository applicationMemberRepository;
+    private AppMemberRepository applicationMemberRepository;
 
     public PLObjective save(PLObjectiveDTO dto, String code) {
         AppMember createdBy = applicationMemberRepository.findByUsername("admin");

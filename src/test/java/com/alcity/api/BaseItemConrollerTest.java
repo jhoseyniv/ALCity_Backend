@@ -2,9 +2,9 @@ package com.alcity.api;
 
 import com.alcity.entity.alenum.UserGender;
 import com.alcity.entity.learning.LearningSkill;
-import com.alcity.entity.users.AppMember;
-import com.alcity.repository.users.ApplicationMemberRepository;
-import com.alcity.service.users.ApplicationMemberService;
+import com.alcity.entity.appmember.AppMember;
+import com.alcity.repository.appmember.AppMemberRepository;
+import com.alcity.service.appmember.AppMemberService;
 import org.junit.Assert;
 import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,9 +38,9 @@ public class BaseItemConrollerTest {
     Optional<UserGender> female;
 
     @Autowired
-    private ApplicationMemberService applicationMemberService;
+    private AppMemberService applicationMemberService;
     @Mock
-    private ApplicationMemberRepository applicationMemberRepository;
+    private AppMemberRepository applicationMemberRepository;
 
     public String address="http://127.0.0.1:8080";
     public String port="8080";

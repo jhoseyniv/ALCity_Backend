@@ -1,9 +1,7 @@
 package com.alcity.repository.base;
 
-import com.alcity.dto.journey.JourneyDTO;
-import com.alcity.dto.user.MemberTypeDTO;
+import com.alcity.dto.appmember.MemberTypeDTO;
 import com.alcity.entity.base.MemberType;
-import com.alcity.entity.journey.Journey;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.Collection;

@@ -1,6 +1,4 @@
-package com.alcity.dto.user;
-
-import com.alcity.dto.user.WalletItemTransactionDTO;
+package com.alcity.dto.appmember;
 
 import java.util.Collection;
 

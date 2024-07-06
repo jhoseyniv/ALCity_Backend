@@ -1,4 +1,4 @@
-package com.alcity.repository.users;
+package com.alcity.repository.appmember;
 
 import com.alcity.customexception.ALCityResponseObject;
 

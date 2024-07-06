@@ -12,8 +12,8 @@ import com.alcity.entity.learning.LearningTopic;
 import com.alcity.entity.play.PermitedPlayer;
 import com.alcity.entity.play.PlayHistory;
 import com.alcity.entity.puzzle.*;
-import com.alcity.entity.users.AppMember;
-import com.alcity.entity.users.WalletItem;
+import com.alcity.entity.appmember.AppMember;
+import com.alcity.entity.appmember.WalletItem;
 import com.alcity.repository.play.PermitedPlayerRepository;
 import com.alcity.service.Journey.JourneyService;
 import com.alcity.service.Journey.JourneyStepService;
@@ -24,9 +24,9 @@ import com.alcity.service.learning.LearningSkillService;
 import com.alcity.service.learning.LearningTopicService;
 import com.alcity.service.play.PlayHistoryService;
 import com.alcity.service.puzzle.*;
-import com.alcity.service.users.ApplicationMemberService;
-import com.alcity.service.users.ApplicationMember_WalletItemService;
-import com.alcity.service.users.WalletItemService;
+import com.alcity.service.appmember.AppMemberService;
+import com.alcity.service.appmember.AppMember_WalletItemService;
+import com.alcity.service.appmember.WalletItemService;
 import com.alcity.utility.ImageUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -45,7 +45,7 @@ import java.util.Optional;
 public class ImportHashImageProblemData_1 implements CommandLineRunner {
 
     @Autowired
-    private ApplicationMemberService applicationMemberService;
+    private AppMemberService applicationMemberService;
 
     @Autowired
     private BinaryContentService binaryContentService;
@@ -148,7 +148,7 @@ public class ImportHashImageProblemData_1 implements CommandLineRunner {
     JourneyStepService journeyStepService;
 
     @Autowired
-    private ApplicationMember_WalletItemService applicationMember_walletItemService;
+    private AppMember_WalletItemService applicationMember_walletItemService;
 
 
     @Autowired

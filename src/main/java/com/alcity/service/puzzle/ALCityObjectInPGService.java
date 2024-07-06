@@ -7,10 +7,10 @@ import com.alcity.entity.alobject.PuzzleObjectAction;
 import com.alcity.entity.puzzle.ALCityObject;
 import com.alcity.entity.puzzle.ALCityObjectInPG;
 import com.alcity.entity.puzzle.PuzzleGroup;
-import com.alcity.entity.users.AppMember;
+import com.alcity.entity.appmember.AppMember;
 import com.alcity.repository.puzzle.ALCityObjectInPGRepository;
 import com.alcity.repository.puzzle.PGRepository;
-import com.alcity.repository.users.ApplicationMemberRepository;
+import com.alcity.repository.appmember.AppMemberRepository;
 import com.alcity.service.alobject.RendererService;
 import com.alcity.service.alobject.AttributeService;
 import com.alcity.service.alobject.AttributeValueService;
@@ -134,7 +134,7 @@ public class ALCityObjectInPGService implements ALCityObjectInPGRepository {
         return alCityObjectInPGRepository.findByalCityObject(cityObject);
     }
     @Autowired
-    private ApplicationMemberRepository applicationMemberRepository;
+    private AppMemberRepository applicationMemberRepository;
     public ALCityObjectInPG save(ALCityObjectInPGDTO dto, String code) {
         AppMember createdBy = applicationMemberRepository.findByUsername("admin");
         Optional<PuzzleGroup> puzzleGroupOptional =  pgRepository.findByTitle(dto.getPuzzleGroup());

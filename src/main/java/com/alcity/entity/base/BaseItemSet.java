@@ -2,7 +2,7 @@ package com.alcity.entity.base;
 
 
 
-import com.alcity.entity.users.AppMember;
+import com.alcity.entity.appmember.AppMember;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.io.Serializable;

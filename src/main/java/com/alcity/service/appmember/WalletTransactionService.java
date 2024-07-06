@@ -1,10 +1,9 @@
-package com.alcity.service.users;
+package com.alcity.service.appmember;
 
 
-import com.alcity.entity.users.WalletItem;
-import com.alcity.entity.users.WalletTransaction;
-import com.alcity.repository.users.WalletItemRespository;
-import com.alcity.repository.users.WalletTransactionRepository;
+import com.alcity.entity.appmember.WalletItem;
+import com.alcity.entity.appmember.WalletTransaction;
+import com.alcity.repository.appmember.WalletTransactionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -6,10 +6,10 @@ import com.alcity.entity.alobject.ObjectCategory;
 import com.alcity.entity.alobject.PuzzleObjectAction;
 import com.alcity.entity.base.BinaryContent;
 import com.alcity.entity.puzzle.ALCityObject;
-import com.alcity.entity.users.AppMember;
+import com.alcity.entity.appmember.AppMember;
 import com.alcity.repository.alobject.ObjectCategoryRepository;
 import com.alcity.repository.puzzle.ALCityObjectRepository;
-import com.alcity.repository.users.ApplicationMemberRepository;
+import com.alcity.repository.appmember.AppMemberRepository;
 import com.alcity.service.alobject.PuzzleObjectActionService;
 import com.alcity.utility.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -115,7 +115,7 @@ public class ALCityObjectService implements ALCityObjectRepository {
         return actions;
     }
     @Autowired
-    private ApplicationMemberRepository applicationMemberRepository;
+    private AppMemberRepository applicationMemberRepository;
 
 
     @Autowired

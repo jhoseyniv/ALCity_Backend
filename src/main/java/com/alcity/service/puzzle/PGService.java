@@ -4,11 +4,11 @@ import com.alcity.dto.puzzle.PGDTO;
 import com.alcity.entity.base.BinaryContent;
 import com.alcity.entity.base.PuzzleCategory;
 import com.alcity.entity.puzzle.PuzzleGroup;
-import com.alcity.entity.users.AppMember;
+import com.alcity.entity.appmember.AppMember;
 import com.alcity.repository.base.BinaryContentRepository;
 import com.alcity.repository.base.PuzzleCategoryRepository;
 import com.alcity.repository.puzzle.PGRepository;
-import com.alcity.repository.users.ApplicationMemberRepository;
+import com.alcity.repository.appmember.AppMemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -64,7 +64,7 @@ public class PGService implements PGRepository {
         pgRepository.deleteById(aLong);
     }
     @Autowired
-    private ApplicationMemberRepository applicationMemberRepository;
+    private AppMemberRepository applicationMemberRepository;
 
     @Autowired
     private BinaryContentRepository binaryContentRepository;

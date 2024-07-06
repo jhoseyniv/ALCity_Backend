@@ -3,9 +3,9 @@ package com.alcity.service.base;
 
 import com.alcity.dto.puzzle.PuzzleCategoryDTO;
 import com.alcity.entity.base.PuzzleCategory;
-import com.alcity.entity.users.AppMember;
+import com.alcity.entity.appmember.AppMember;
 import com.alcity.repository.base.PuzzleCategoryRepository;
-import com.alcity.repository.users.ApplicationMemberRepository;
+import com.alcity.repository.appmember.AppMemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
@@ -21,7 +21,7 @@ public class PuzzleCategoryService implements PuzzleCategoryRepository {
     @Autowired
     private PuzzleCategoryRepository puzzleCategoryRepository;
     @Autowired
-    private ApplicationMemberRepository applicationMemberRepository;
+    private AppMemberRepository applicationMemberRepository;
 
     public PuzzleCategory save(PuzzleCategoryDTO dto,String code) {
         AppMember createdBy = applicationMemberRepository.findByUsername("admin");

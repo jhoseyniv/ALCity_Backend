@@ -8,7 +8,7 @@ import com.alcity.service.base.PuzzleCategoryService;
 import com.alcity.service.learning.LearningSkill_LearningTopicService;
 import com.alcity.service.play.PlayHistoryService;
 import com.alcity.service.puzzle.*;
-import com.alcity.service.users.ApplicationMemberService;
+import com.alcity.service.appmember.AppMemberService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +33,7 @@ public class ObjectManagmentApplication {
 	}
 
 	@Autowired
-	private ApplicationMemberService applicationMemberService;
+	private AppMemberService applicationMemberService;
 
 
 

@@ -2,7 +2,7 @@ package com.alcity.entity.alobject;
 
 import com.alcity.entity.alenum.ObjectAction;
 import com.alcity.entity.base.BaseItemSet;
-import com.alcity.entity.users.AppMember;
+import com.alcity.entity.appmember.AppMember;
 
 import jakarta.persistence.*;
 import java.io.Serializable;

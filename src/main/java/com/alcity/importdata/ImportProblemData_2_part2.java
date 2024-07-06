@@ -9,8 +9,8 @@ import com.alcity.entity.journey.Journey;
 import com.alcity.entity.learning.LearningSkill;
 import com.alcity.entity.learning.LearningTopic;
 import com.alcity.entity.puzzle.*;
-import com.alcity.entity.users.AppMember;
-import com.alcity.entity.users.WalletItem;
+import com.alcity.entity.appmember.AppMember;
+import com.alcity.entity.appmember.WalletItem;
 import com.alcity.repository.play.PermitedPlayerRepository;
 import com.alcity.service.Journey.JourneyService;
 import com.alcity.service.alobject.*;
@@ -20,8 +20,8 @@ import com.alcity.service.learning.LearningSkillService;
 import com.alcity.service.learning.LearningTopicService;
 import com.alcity.service.play.PlayHistoryService;
 import com.alcity.service.puzzle.*;
-import com.alcity.service.users.ApplicationMemberService;
-import com.alcity.service.users.WalletItemService;
+import com.alcity.service.appmember.AppMemberService;
+import com.alcity.service.appmember.WalletItemService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +39,7 @@ import java.util.Optional;
 public class ImportProblemData_2_part2 implements CommandLineRunner {
 
     @Autowired
-    private ApplicationMemberService applicationMemberService;
+    private AppMemberService applicationMemberService;
 
     @Autowired
     private BinaryContentService binaryContentService;

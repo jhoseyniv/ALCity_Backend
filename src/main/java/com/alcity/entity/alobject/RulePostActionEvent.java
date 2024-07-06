@@ -2,7 +2,7 @@ package com.alcity.entity.alobject;
 
 import com.alcity.entity.base.BaseTable;
 import com.alcity.entity.puzzle.PLRulePostAction;
-import com.alcity.entity.users.AppMember;
+import com.alcity.entity.appmember.AppMember;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.*;

@@ -4,10 +4,10 @@ import com.alcity.dto.alobject.RendererDTO;
 import com.alcity.entity.alenum.ObjectAction;
 import com.alcity.entity.alobject.Renderer;
 import com.alcity.entity.base.ClientType;
-import com.alcity.entity.users.AppMember;
+import com.alcity.entity.appmember.AppMember;
 import com.alcity.repository.alobject.RendererRepository;
 import com.alcity.repository.base.ClientTypeRepository;
-import com.alcity.repository.users.ApplicationMemberRepository;
+import com.alcity.repository.appmember.AppMemberRepository;
 import com.alcity.utility.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,7 +28,7 @@ public class RendererService implements RendererRepository {
         return rendererRepository.save(entity);
     }
     @Autowired
-    private ApplicationMemberRepository applicationMemberRepository;
+    private AppMemberRepository applicationMemberRepository;
     @Autowired
     private ClientTypeRepository clientTypeRepository;
 

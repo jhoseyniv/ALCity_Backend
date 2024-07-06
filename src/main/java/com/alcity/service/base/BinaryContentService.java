@@ -7,12 +7,12 @@ import com.alcity.entity.learning.LearningContent;
 import com.alcity.entity.puzzle.ALCityObject;
 import com.alcity.entity.puzzle.PuzzleGroup;
 import com.alcity.entity.puzzle.PuzzleLevel;
-import com.alcity.entity.users.AppMember;
+import com.alcity.entity.appmember.AppMember;
 import com.alcity.repository.base.BinaryContentCustom;
 import com.alcity.repository.base.BinaryContentRepository;
 import com.alcity.repository.puzzle.ALCityObjectRepository;
 import com.alcity.repository.puzzle.PuzzleLevelRepository;
-import com.alcity.repository.users.ApplicationMemberRepository;
+import com.alcity.repository.appmember.AppMemberRepository;
 import com.alcity.service.learning.LearningContentService;
 import com.alcity.service.puzzle.PGService;
 import com.alcity.utility.ImageUtil;
@@ -116,7 +116,7 @@ public class BinaryContentService implements BinaryContentRepository , BinaryCon
     }
 
     @Autowired
-    private ApplicationMemberRepository applicationMemberRepository;
+    private AppMemberRepository applicationMemberRepository;
 
 
     @Override

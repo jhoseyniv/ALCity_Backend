@@ -2,9 +2,9 @@ package com.alcity.service.base;
 
 import com.alcity.dto.base.PLPrivacyDTO;
 import com.alcity.entity.base.PLPrivacy;
-import com.alcity.entity.users.AppMember;
+import com.alcity.entity.appmember.AppMember;
 import com.alcity.repository.base.PLPrivacyRepository;
-import com.alcity.repository.users.ApplicationMemberRepository;
+import com.alcity.repository.appmember.AppMemberRepository;
 import com.alcity.utility.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -94,7 +94,7 @@ public class PLPrivacyService implements PLPrivacyRepository {
         return plPrivacyRepository.findByValue(value);
     }
     @Autowired
-    private ApplicationMemberRepository applicationMemberRepository;
+    private AppMemberRepository applicationMemberRepository;
 
     public PLPrivacy save(PLPrivacyDTO dto, String code) {
         AppMember createdBy = applicationMemberRepository.findByUsername("admin");

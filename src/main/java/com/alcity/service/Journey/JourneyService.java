@@ -5,10 +5,10 @@ import com.alcity.dto.base.BinaryContentDTO;
 import com.alcity.dto.journey.JourneyDTO;
 import com.alcity.entity.base.BinaryContent;
 import com.alcity.entity.journey.Journey;
-import com.alcity.entity.users.AppMember;
+import com.alcity.entity.appmember.AppMember;
 import com.alcity.repository.journey.JourneyRepository;
 import com.alcity.service.base.BinaryContentService;
-import com.alcity.service.users.ApplicationMemberService;
+import com.alcity.service.appmember.AppMemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,7 +26,7 @@ public class JourneyService implements JourneyRepository {
     @Autowired
     BinaryContentService binaryContentService;
     @Autowired
-    ApplicationMemberService applicationMemberService;
+    AppMemberService applicationMemberService;
     @Override
     public <S extends Journey> S save(S entity) {
         Optional<BinaryContent> graphic =binaryContentService.findById(entity.getGraphic().getId());

@@ -1,7 +1,4 @@
-package com.alcity.dto.user;
-
-import com.alcity.dto.base.WalletItemTypeDTO;
-import com.alcity.entity.base.WalletItemType;
+package com.alcity.dto.appmember;
 
 public class WalletItemDTO {
     private Long id;

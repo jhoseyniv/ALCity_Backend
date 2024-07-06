@@ -2,7 +2,7 @@ package com.alcity.entity.puzzle;
 
 import com.alcity.entity.base.BaseTable;
 import com.alcity.entity.alenum.PLRuleEventType;
-import com.alcity.entity.users.AppMember;
+import com.alcity.entity.appmember.AppMember;
 
 import jakarta.persistence.*;
 import java.io.Serializable;

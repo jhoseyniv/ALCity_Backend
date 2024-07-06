@@ -1,6 +1,6 @@
-package com.alcity.repository.users;
+package com.alcity.repository.appmember;
 
-import com.alcity.entity.users.WalletItem;
+import com.alcity.entity.appmember.WalletItem;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.Collection;

@@ -1,7 +1,6 @@
 package com.alcity.dto.journey;
 
 import com.alcity.dto.base.BinaryContentDTO;
-import com.alcity.dto.user.ApplicationMemberDTO;
 import com.alcity.entity.journey.JourneyLearningSkill;
 
 import java.util.Set;

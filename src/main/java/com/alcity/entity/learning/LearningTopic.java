@@ -1,7 +1,7 @@
 package com.alcity.entity.learning;
 
 import com.alcity.entity.base.BaseTable;
-import com.alcity.entity.users.AppMember;
+import com.alcity.entity.appmember.AppMember;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;

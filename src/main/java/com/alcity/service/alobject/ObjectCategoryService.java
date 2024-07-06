@@ -2,9 +2,9 @@ package com.alcity.service.alobject;
 
 import com.alcity.dto.alobject.ObjectCategoryDTO;
 import com.alcity.entity.alobject.ObjectCategory;
-import com.alcity.entity.users.AppMember;
+import com.alcity.entity.appmember.AppMember;
 import com.alcity.repository.alobject.ObjectCategoryRepository;
-import com.alcity.repository.users.ApplicationMemberRepository;
+import com.alcity.repository.appmember.AppMemberRepository;
 import com.alcity.utility.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,7 +25,7 @@ public class ObjectCategoryService implements ObjectCategoryRepository {
         return objectCategoryRepository.save(entity);
     }
     @Autowired
-    private ApplicationMemberRepository applicationMemberRepository;
+    private AppMemberRepository applicationMemberRepository;
 
     public ObjectCategory save(ObjectCategoryDTO dto, String code) {
         AppMember createdBy = applicationMemberRepository.findByUsername("admin");

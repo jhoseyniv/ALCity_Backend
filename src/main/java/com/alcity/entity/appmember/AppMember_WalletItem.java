@@ -1,4 +1,4 @@
-package com.alcity.entity.users;
+package com.alcity.entity.appmember;
 
 
 import com.alcity.entity.base.BaseTable;
