@@ -81,9 +81,11 @@ public class ALCityObject extends BaseTable implements Serializable {
     public ALCityObject() {
     }
 
-    public ALCityObject(String title, ObjectCategory objectCategory, Long version, String created, String updated, AppMember createdBy, AppMember updatedBy) {
+    public ALCityObject(Long version, String created, String updated, AppMember createdBy, AppMember updatedBy, String title, ObjectCategory objectCategory, BinaryContent picture, BinaryContent icon) {
         super(version, created, updated, createdBy, updatedBy);
         this.title = title;
         this.objectCategory = objectCategory;
+        this.picture = picture;
+        this.icon = icon;
     }
 }

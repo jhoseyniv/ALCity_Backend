@@ -5,9 +5,11 @@ import com.alcity.entity.alenum.POActionOwnerType;
 import com.alcity.entity.alobject.ObjectCategory;
 import com.alcity.entity.alobject.PuzzleObjectAction;
 import com.alcity.entity.base.BinaryContent;
+import com.alcity.entity.base.PuzzleCategory;
 import com.alcity.entity.puzzle.ALCityObject;
 import com.alcity.entity.appmember.AppMember;
 import com.alcity.repository.alobject.ObjectCategoryRepository;
+import com.alcity.repository.base.BinaryContentRepository;
 import com.alcity.repository.puzzle.ALCityObjectRepository;
 import com.alcity.repository.appmember.AppMemberRepository;
 import com.alcity.service.alobject.PuzzleObjectActionService;
@@ -120,9 +122,13 @@ public class ALCityObjectService implements ALCityObjectRepository {
 
     @Autowired
     private ObjectCategoryRepository objectCategoryRepository;
+    @Autowired
+    private BinaryContentRepository binaryContentRepository;
 
     public ALCityObject save(ALCityObjectDTO dto, String code) {
         AppMember createdBy = appMemberRepository.findByUsername("admin");
+        Optional<BinaryContent> icon = binaryContentRepository.findById(dto.getIconId());
+        Optional<BinaryContent> pic = binaryContentRepository.findById(dto.getPictureId());
         ObjectCategory objectCategory =  objectCategoryRepository.findByValue(dto.getObjectCategory());
         ALCityObject alCityObject=null;
         if (code.equalsIgnoreCase("Save")) { //Save
