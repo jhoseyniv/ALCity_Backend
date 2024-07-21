@@ -475,12 +475,25 @@ public class DTOUtil {
         return binaryContentDTO;
     }
 
-    public static AppMemberDTO getApplicationMemberDTO(AppMember member){
+    public static AppMemberDTO getAppMemberDTO(AppMember member){
+        String userName="admin";
+        if(member.getCreatedBy() == null || member.getCreatedBy() == null)
+            userName="admin";
+
         AppMemberDTO memberDTO = new AppMemberDTO(member.getId(),member.getAge(),
-                member.getUsername(),member.getPassword(), member.getNickname(), member.getMobile(), member.getEmail(),member.getAvatar().getId(),
-                 member.getVersion(), member.getCreated(), member.getUpdated(), member.getCreatedBy().getUsername(), member.getUpdatedBy().getUsername());
+                member.getUsername(),member.getPassword(), member.getNickname(), member.getMobile(), member.getEmail(),member.getGender().name(),member.getMemberType().getValue(),member.getAvatar().getId(),
+                 member.getVersion(), member.getCreated(), member.getUpdated(), userName, userName);
 
         return memberDTO;
+    }
+    public static Collection<AppMemberDTO> getAppMemberDTOS(Collection<AppMember> appMemberCollection) {
+        Collection<AppMemberDTO> dtos = new ArrayList<AppMemberDTO>();
+        Iterator<AppMember> iterator = appMemberCollection.iterator();
+        while (iterator.hasNext()) {
+            AppMemberDTO dto = getAppMemberDTO(iterator.next());
+            dtos.add(dto);
+        }
+        return dtos;
     }
     public static JourneyDTO getJourneyDTO(Journey journey) {
          JourneyDTO journeyDTO = new JourneyDTO();
@@ -528,7 +541,6 @@ public class DTOUtil {
     public static Collection<LearningContentDTO> getLearningContentDTOS(Collection<LearningContent> learningContents) {
         Collection<LearningContentDTO> learningContentDTOCollection = new ArrayList<LearningContentDTO>();
         Iterator<LearningContent> iterator = learningContents.iterator();
-
         while (iterator.hasNext()) {
             LearningContentDTO learningContentDTO = getLearningContentDTO(iterator.next());
             learningContentDTOCollection.add(learningContentDTO);

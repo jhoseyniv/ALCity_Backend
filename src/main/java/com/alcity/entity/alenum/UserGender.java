@@ -13,4 +13,13 @@ public enum UserGender  {
         }
         throw new IllegalArgumentException("no");
     }
+    public static UserGender getByTitle(String title)
+    {
+        for (UserGender e : UserGender.values())
+        {
+            if (title.equalsIgnoreCase(e.name())) return e;
+        }
+        throw new IllegalArgumentException("no");
+    }
+
 }

@@ -1,9 +1,11 @@
 package com.alcity.api;
 
+import com.alcity.customexception.ALCityResponseObject;
 import com.alcity.customexception.UniqueConstraintException;
 import com.alcity.customexception.ViolateForeignKeyException;
 import com.alcity.dto.base.LearningSkillDTO;
 import com.alcity.entity.learning.LearningSkill;
+import com.alcity.entity.puzzle.ALCityObject;
 import com.alcity.service.learning.LearningSkillService;
 import com.alcity.utility.DTOUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,16 +68,30 @@ public class LearningSkillController {
 
     @ExceptionHandler(UniqueConstraintException.class)
     @PostMapping("skill/save")
-    public Optional<LearningSkill> saveLearningSkill(@RequestBody LearningSkill learningSkill)  {
-        LearningSkill savedLearningSkill = null;
-        try {
-            savedLearningSkill = learningSkillService.save(learningSkill);
-        }catch (RuntimeException e )
-        {
-            throw new UniqueConstraintException(learningSkill.getLabel(), learningSkill.getId(), LearningSkill.class.toString());
+    public ALCityResponseObject saveLearningSkill(@RequestBody LearningSkillDTO dto)  {
+        LearningSkill savedRecord = null;
+        ALCityResponseObject responseObject = new ALCityResponseObject();
+
+        if (dto.getId() == null || dto.getId() <= 0L) { //save
+            try {
+                savedRecord = learningSkillService.save(dto,"Save");
+            } catch (RuntimeException e) {
+                throw new UniqueConstraintException(dto.getValue(), dto.getId(), "value must be Unique");
+            }
+            responseObject = new ALCityResponseObject(HttpStatus.OK.value(), "ok", savedRecord.getId(), "Record Saved Successfully!");
+        } else if (dto.getId() > 0L ) {//edit
+            savedRecord = learningSkillService.save(dto, "Edit");
+            if(savedRecord !=null)
+                responseObject = new ALCityResponseObject(HttpStatus.OK.value(), "ok", savedRecord.getId(), "Record Updated Successfully!");
+            else
+                responseObject = new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", dto.getId(), "Record Not Found!");
         }
-        Optional<LearningSkill> output = learningSkillService.findById(savedLearningSkill.getId());
-        return output;
+        else if (savedRecord==null)
+            responseObject = new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", -1L, "Record Not Found!");
+        else
+            responseObject = new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", -1L, "Record Not Found!");
+
+        return responseObject;
     }
     @DeleteMapping("skill/del/{id}")
     public ResponseEntity<String> deleteLearningSkillById(@PathVariable Long id) {

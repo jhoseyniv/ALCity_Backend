@@ -11,6 +11,8 @@ public class AppMemberDTO {
     private String mobile;
     private String email;
     private Long avatarId;
+    private String memberType;
+    private String gender;
 
     private Long version;
 
@@ -20,6 +22,13 @@ public class AppMemberDTO {
     private String createdBy;
     private String updatedBy;
 
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
 
     public Integer getAge() {
         return age;
@@ -129,7 +138,15 @@ public class AppMemberDTO {
         this.updatedBy = updatedBy;
     }
 
-    public AppMemberDTO(Long id, Integer age, String username, String password, String nickname, String mobile, String email, Long avatarId,
+    public String getMemberType() {
+        return memberType;
+    }
+
+    public void setMemberType(String memberType) {
+        this.memberType = memberType;
+    }
+
+    public AppMemberDTO(Long id, Integer age, String username, String password, String nickname, String mobile, String email,String gender,String memberType ,Long avatarId,
                         Long version, String created, String updated, String createdBy, String updatedBy) {
         this.id = id;
         this.age = age;
@@ -138,6 +155,7 @@ public class AppMemberDTO {
         this.nickname = nickname;
         this.mobile = mobile;
         this.email = email;
+        this.memberType = memberType;
         this.avatarId = avatarId;
         this.version = version;
         this.created = created;

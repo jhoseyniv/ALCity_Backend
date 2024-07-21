@@ -1,10 +1,13 @@
 package com.alcity.api;
 
 import com.alcity.customexception.ALCityResponseObject;
+import com.alcity.customexception.UniqueConstraintException;
+import com.alcity.dto.alobject.ObjectCategoryDTO;
 import com.alcity.dto.appmember.AppMemberDTO;
 import com.alcity.dto.appmember.AppMemberWalletDTO;
 import com.alcity.dto.appmember.WalletItemDTO;
 import com.alcity.dto.appmember.WalletItemTransactionDTO;
+import com.alcity.entity.alobject.ObjectCategory;
 import com.alcity.entity.appmember.AppMember;
 import com.alcity.entity.appmember.AppMember_WalletItem;
 import com.alcity.entity.appmember.WalletItem;
@@ -34,20 +37,53 @@ public class AppMemberController {
 
     @GetMapping("/all")
     @CrossOrigin(origins = "*")
-    public Collection<AppMember> getApplicationMembers(Model model) {
-        Collection<AppMember> applicationMemberCollection = appMemberService.findAll();
-        return applicationMemberCollection;
+    public Collection<AppMemberDTO> getApplicationMembers(Model model) {
+        Collection<AppMember> appMemberCollection = appMemberService.findAll();
+        Collection<AppMemberDTO> dtos = DTOUtil.getAppMemberDTOS(appMemberCollection);
+        return dtos;
     }
 
     @RequestMapping(value = "/id/{id}", method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin(origins = "*")
-    public Optional<AppMember> getApplicationMemberById(@PathVariable Long id) {
+    public AppMemberDTO getApplicationMemberById(@PathVariable Long id) {
         Optional<AppMember> member = appMemberService.findById(id);
-        return member;
+         AppMemberDTO dto = DTOUtil.getAppMemberDTO(member.get());
+        return dto;
     }
 
-    @RequestMapping(value = "/{id}/wallet/", method = RequestMethod.GET)
+
+
+    @Operation( summary = "Save an App Member ",  description = "Save an App Member ")
+    @PostMapping("/save")
+    @CrossOrigin(origins = "*")
+    public ALCityResponseObject saveAppMember(@RequestBody AppMemberDTO dto)  {
+        AppMember savedRecord = null;
+        ALCityResponseObject responseObject = new ALCityResponseObject();
+
+        if (dto.getId() == null || dto.getId() <= 0L) { //save
+            try {
+                savedRecord = appMemberService.save(dto,"Save");
+            } catch (RuntimeException e) {
+                throw new UniqueConstraintException(dto.getUsername(), dto.getId(), "title must be Unique");
+            }
+            responseObject = new ALCityResponseObject(HttpStatus.OK.value(), "ok", savedRecord.getId(), "Record Saved Successfully!");
+        } else if (dto.getId() > 0L ) {//edit
+            savedRecord = appMemberService.save(dto, "Edit");
+            if(savedRecord !=null)
+                responseObject = new ALCityResponseObject(HttpStatus.OK.value(), "ok", savedRecord.getId(), "Record Updated Successfully!");
+            else
+                responseObject = new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", dto.getId(), "Record Not Found!");
+        }
+        else if (savedRecord==null)
+            responseObject = new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", -1L, "Record Not Found!");
+        else
+            responseObject = new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", -1L, "Record Not Found!");
+
+        return responseObject;
+    }
+
+    @RequestMapping(value = "/id/{id}/wallet/", method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin(origins = "*")
     public Collection<AppMemberWalletDTO> getApplicationMemberWalletDataById(@PathVariable Long id) {
@@ -94,14 +130,6 @@ public class AppMemberController {
         dtos = DTOUtil.getWalletItemDTOS(walletItemCollection);
         return dtos;
     }
-
-//    @RequestMapping(value = "/wallet-item/id/{id}", method = RequestMethod.GET)
-//    @ResponseBody
-//    public WalletItemDTO getWalletItemById(@PathVariable Long id) {
-//        Optional<WalletItem> walletItemOptional = walletItemService.findById(id);
-//        if(walletItemOptional.isEmpty()) return null;
-//        return DTOUtil.getWalletItemDTO(walletItemOptional.get());
-//    }
 
     @Operation( summary = "Login to System ",  description = "Login Action")
     @PostMapping("/login")

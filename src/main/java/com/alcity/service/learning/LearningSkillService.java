@@ -1,8 +1,16 @@
 package com.alcity.service.learning;
 
 import com.alcity.customexception.RecordNotFoundException;
+import com.alcity.dto.base.LearningSkillDTO;
+import com.alcity.dto.puzzle.ALCityObjectDTO;
+import com.alcity.entity.alobject.ObjectCategory;
+import com.alcity.entity.appmember.AppMember;
+import com.alcity.entity.base.BinaryContent;
 import com.alcity.entity.learning.LearningSkill;
+import com.alcity.entity.puzzle.ALCityObject;
+import com.alcity.repository.appmember.AppMemberRepository;
 import com.alcity.repository.learning.LearningSkillRepository;
+import com.alcity.utility.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -86,9 +94,37 @@ public class LearningSkillService implements LearningSkillRepository {
 
         return learningSkillRepository.findByLabel(label);
     }
+    @Autowired
+    private AppMemberRepository appMemberRepository;
 
     @Override
     public LearningSkill findByValue(String value) {
         return learningSkillRepository.findByValue(value);
     }
+    public LearningSkill save(LearningSkillDTO dto, String code) {
+        AppMember createdBy = appMemberRepository.findByUsername("admin");
+        LearningSkill learningSkill=null;
+        if (code.equalsIgnoreCase("Save")) { //Save
+            learningSkill = new LearningSkill(dto.getLabel(), dto.getValue(),1L, DateUtils.getNow(), DateUtils.getNow(), createdBy, createdBy);
+            learningSkillRepository.save(learningSkill);
+        }else{//edit
+            Optional<LearningSkill> learningSkillOptional= learningSkillRepository.findById(dto.getId());
+            if(learningSkillOptional.isPresent()) {
+                learningSkill = learningSkillOptional.get();
+                learningSkill.setLabel(dto.getLabel());
+                learningSkill.setValue(dto.getValue());
+                learningSkill.setVersion(learningSkill.getVersion()+1);
+                learningSkill.setCreated(DateUtils.getNow());
+                learningSkill.setUpdated(DateUtils.getNow());
+                learningSkill.setCreatedBy(createdBy);
+                learningSkill.setUpdatedBy(createdBy);
+                learningSkillRepository.save(learningSkill);
+            }
+        }
+        return learningSkill;
+    }
+
+
+
+
 }

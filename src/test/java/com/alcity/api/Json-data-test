@@ -1,3 +1,17 @@
+//save app member in database
+
+{
+    "id": 53,
+    "age": 35,
+    "username": "admin",
+    "password": "admin",
+    "nickname": "admin0",
+    "mobile": "0912350550",
+    "email": "j_hoseyni@yahoo.com",
+    "avatarId": 52
+ }
+
+
 //save item type in database .....
  {
     "id": 17,
@@ -165,12 +179,7 @@
       "learningSkillDTO": {
           "id": 31,
           "label": "time Management",
-          "value": "timeManagement",
-          "version": 1,
-          "created": "06-05-2024 20:22:53",
-          "updated": "06-05-2024 20:22:53",
-          "createdBY": "admin",
-          "updatedBy": "admin"
+          "value": "timeManagement"
       }
   }
 
