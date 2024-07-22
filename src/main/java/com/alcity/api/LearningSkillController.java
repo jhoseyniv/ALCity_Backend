@@ -68,6 +68,7 @@ public class LearningSkillController {
 
     @ExceptionHandler(UniqueConstraintException.class)
     @PostMapping("skill/save")
+    @CrossOrigin(origins = "*")
     public ALCityResponseObject saveLearningSkill(@RequestBody LearningSkillDTO dto)  {
         LearningSkill savedRecord = null;
         ALCityResponseObject responseObject = new ALCityResponseObject();
@@ -94,6 +95,7 @@ public class LearningSkillController {
         return responseObject;
     }
     @DeleteMapping("skill/del/{id}")
+    @CrossOrigin(origins = "*")
     public ResponseEntity<String> deleteLearningSkillById(@PathVariable Long id) {
         Optional<LearningSkill> existingRecord = learningSkillService.findById(id);
         if(existingRecord.isPresent()){

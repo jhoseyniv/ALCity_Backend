@@ -66,7 +66,7 @@ public class LearningSkillService implements LearningSkillRepository {
 
     @Override
     public void deleteById(Long aLong) {
-
+        learningSkillRepository.deleteById(aLong);
     }
 
     @Override
