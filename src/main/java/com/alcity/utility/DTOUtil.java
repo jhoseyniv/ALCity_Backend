@@ -848,7 +848,7 @@ public class DTOUtil {
                 AttributeValue alCityAttributeValue = iteratorValues.next();
                 String value = getDataValue(alCityAttributeValue);
                 String type = attribute.getDataType().toString();
-                RecordData variable = new RecordData(attribute.getId(), attribute.getName(),value,type);
+                RecordData variable = new RecordData(attribute.getId(), attribute.getName(),alCityAttributeValue.getId(),value,type);
                 variables.add(variable);
             }
 

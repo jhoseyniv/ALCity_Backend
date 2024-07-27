@@ -97,7 +97,7 @@ public class RendererService implements RendererRepository {
 
     @Override
     public void deleteById(Long aLong) {
-
+        rendererRepository.deleteById(aLong);
     }
 
     @Override

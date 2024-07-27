@@ -3,6 +3,8 @@ package com.alcity.dto.Interpreter.object;
 public class RecordData {
     private Long id;
     private String name;
+
+    private Long valueId;
     private String value;
     private String type;
 
@@ -38,12 +40,21 @@ public class RecordData {
         this.id = id;
     }
 
+    public Long getValueId() {
+        return valueId;
+    }
+
+    public void setValueId(Long valueId) {
+        this.valueId = valueId;
+    }
+
     public RecordData() {
     }
 
-    public RecordData(Long id,String name, String value, String type) {
+    public RecordData(Long id,String name,Long valueId, String value, String type) {
         this.id = id;
         this.name = name;
+        this.valueId = valueId;
         this.value = value;
         this.type = type;
     }
