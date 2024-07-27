@@ -199,11 +199,20 @@ public class AttributeService implements AttributeRepository {
                 attribute.setUpdatedBy(createdBy);
                 attributeRepository.save(attribute);
                 Iterator<AttributeValueDTO> itr = valueDTOS.iterator();
-                if(itr.hasNext())   valueDTO = itr.next();
-                attributeValue = new AttributeValue(valueDTO.getBooleanValue(),valueDTO.getIntValue(),valueDTO.getLongValue(),valueDTO.getStringValue(),
-                        valueDTO.getObjectValue(),valueDTO.getDoubleValue(),valueDTO.getBinaryContentId(),attribute,attribute,
-                        1L,DateUtils.getNow(),DateUtils.getNow(),createdBy,createdBy);
-                attributeValueRepository.save(attributeValue);
+                if(itr.hasNext())  {
+                    valueDTO = itr.next();
+                    Optional<AttributeValue> attributeValueOptional =  attributeValueRepository.findById(valueDTO.getId());
+                    AttributeValue value = attributeValueOptional.get();
+                    value.setStringValue(valueDTO.getStringValue());
+                    value.setBooleanValue(valueDTO.getBooleanValue());
+                    value.setDoubleValue(valueDTO.getDoubleValue());
+                    value.setIntValue(valueDTO.getIntValue());
+                    value.setLongValue(valueDTO.getLongValue());
+                    value.setBinaryContentId(valueDTO.getBinaryContentId());
+                    value.setAttributeId(attribute);
+                    attributeValueRepository.save(value);
+                }
+
             }
         }
         return attribute;
