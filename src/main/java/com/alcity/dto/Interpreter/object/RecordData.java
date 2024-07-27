@@ -1,6 +1,7 @@
 package com.alcity.dto.Interpreter.object;
 
-public class RecordrData {
+public class RecordData {
+    private Long id;
     private String name;
     private String value;
     private String type;
@@ -29,10 +30,19 @@ public class RecordrData {
         this.type = type;
     }
 
-    public RecordrData() {
+    public Long getId() {
+        return id;
     }
 
-    public RecordrData(String name, String value, String type) {
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public RecordData() {
+    }
+
+    public RecordData(Long id,String name, String value, String type) {
+        this.id = id;
         this.name = name;
         this.value = value;
         this.type = type;

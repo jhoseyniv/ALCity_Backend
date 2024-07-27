@@ -2,7 +2,7 @@ package com.alcity.utility;
 
 import com.alcity.dto.CameraSetupDTO;
 import com.alcity.dto.Interpreter.PLObjectiveData;
-import com.alcity.dto.Interpreter.object.RecordrData;
+import com.alcity.dto.Interpreter.object.RecordData;
 import com.alcity.dto.Interpreter.object.RuleActionData;
 import com.alcity.dto.Interpreter.object.RuleData;
 import com.alcity.dto.alenum.EnumDTO;
@@ -813,7 +813,7 @@ public class DTOUtil {
         Collection<PLRulePostAction> plRulePostActions = plRule.getPlRulePostActions();
         Iterator<PLRulePostAction> iterator = plRulePostActions.iterator();
         while(iterator.hasNext()) {
-            Collection<RecordrData> parameters = new ArrayList<RecordrData>();
+            Collection<RecordData> parameters = new ArrayList<RecordData>();
 
             PLRulePostAction plRulePostAction =iterator.next();
             RuleActionData ruleActionData = new RuleActionData();
@@ -836,8 +836,8 @@ public class DTOUtil {
         return actions;
     }
 
-    public static Collection<RecordrData>  getAttributeForOwnerById(AttributeService attributeService , Long ownerId, AttributeOwnerType ownerType){
-        Collection<RecordrData> variables = new ArrayList<RecordrData>();
+    public static Collection<RecordData>  getAttributeForOwnerById(AttributeService attributeService , Long ownerId, AttributeOwnerType ownerType){
+        Collection<RecordData> variables = new ArrayList<RecordData>();
         Collection<Attribute>  attributes =attributeService.findByOwnerIdAndAttributeOwnerType(ownerId,ownerType);
         Iterator<Attribute> iterator = attributes.iterator();
         while(iterator.hasNext()) {
@@ -848,7 +848,7 @@ public class DTOUtil {
                 AttributeValue alCityAttributeValue = iteratorValues.next();
                 String value = getDataValue(alCityAttributeValue);
                 String type = attribute.getDataType().toString();
-                RecordrData variable = new RecordrData(attribute.getName(),value,type);
+                RecordData variable = new RecordData(attribute.getId(), attribute.getName(),value,type);
                 variables.add(variable);
             }
 

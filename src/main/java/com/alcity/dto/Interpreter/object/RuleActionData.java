@@ -13,7 +13,7 @@ public class RuleActionData {
     private String alertType;
     private String alertMessage;
 
-    private Collection<RecordrData> parameters;
+    private Collection<RecordData> parameters;
 
     public String getActionType() {
         return actionType;
@@ -47,11 +47,11 @@ public class RuleActionData {
         this.actionName = actionName;
     }
 
-    public Collection<RecordrData> getParameters() {
+    public Collection<RecordData> getParameters() {
         return parameters;
     }
 
-    public void setParameters(Collection<RecordrData> parameters) {
+    public void setParameters(Collection<RecordData> parameters) {
         this.parameters = parameters;
     }
 
@@ -90,7 +90,7 @@ public class RuleActionData {
         this.alertMessage = alertMessage;
     }
 
-    public RuleActionData(String actionType, Integer ordering, String objectId, String actionName, String variable, StringBuffer valueExperssion, String alertType, String alertMessage, Collection<RecordrData> parameters) {
+    public RuleActionData(String actionType, Integer ordering, String objectId, String actionName, String variable, StringBuffer valueExperssion, String alertType, String alertMessage, Collection<RecordData> parameters) {
         this.actionType = actionType;
         this.ordering = ordering;
         this.objectId = objectId;

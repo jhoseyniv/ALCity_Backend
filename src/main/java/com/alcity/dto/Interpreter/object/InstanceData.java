@@ -8,8 +8,8 @@ public class InstanceData {
     private String name;
 
     private Position position;
-    private Collection<RecordrData> properties;
-    private Collection<RecordrData> variables;
+    private Collection<RecordData> properties;
+    private Collection<RecordData> variables;
    // private Collection<ActionData> actionsParameters;
 
     public Long getId() {
@@ -36,19 +36,19 @@ public class InstanceData {
         this.position = position;
     }
 
-    public Collection<RecordrData> getVariables() {
+    public Collection<RecordData> getVariables() {
         return variables;
     }
 
-    public void setVariables(Collection<RecordrData> variables) {
+    public void setVariables(Collection<RecordData> variables) {
         this.variables = variables;
     }
 
-    public Collection<RecordrData> getProperties() {
+    public Collection<RecordData> getProperties() {
         return properties;
     }
 
-    public void setProperties(Collection<RecordrData> properties) {
+    public void setProperties(Collection<RecordData> properties) {
         this.properties = properties;
     }
 
@@ -63,7 +63,7 @@ public class InstanceData {
     public InstanceData() {
     }
 
-    public InstanceData(Long id, String name, Position position, Collection<RecordrData> properties) {
+    public InstanceData(Long id, String name, Position position, Collection<RecordData> properties) {
         this.id = id;
         this.name = name;
         this.position = position;

@@ -12,8 +12,8 @@ public class POData {
     private Long iconGraphicId;
     private Long imageGraphicId;
     private Collection<ActionData> actions;
-    private Collection<RecordrData> variables;
-    private Collection<RecordrData> properties;
+    private Collection<RecordData> variables;
+    private Collection<RecordData> properties;
 
     private  Collection<InstanceData> instances;
 
@@ -74,19 +74,19 @@ public class POData {
         this.actions = actions;
     }
 
-    public Collection<RecordrData> getVariables() {
+    public Collection<RecordData> getVariables() {
         return variables;
     }
 
-    public void setVariables(Collection<RecordrData> variables) {
+    public void setVariables(Collection<RecordData> variables) {
         this.variables = variables;
     }
 
-    public Collection<RecordrData> getProperties() {
+    public Collection<RecordData> getProperties() {
         return properties;
     }
 
-    public void setProperties(Collection<RecordrData> properties) {
+    public void setProperties(Collection<RecordData> properties) {
         this.properties = properties;
     }
 

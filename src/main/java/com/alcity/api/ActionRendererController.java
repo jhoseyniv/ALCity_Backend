@@ -3,11 +3,10 @@ package com.alcity.api;
 import com.alcity.customexception.ALCityResponseObject;
 import com.alcity.customexception.UniqueConstraintException;
 import com.alcity.customexception.ViolateForeignKeyException;
-import com.alcity.dto.Interpreter.object.RecordrData;
+import com.alcity.dto.Interpreter.object.RecordData;
 import com.alcity.dto.alobject.RendererDTO;
 import com.alcity.entity.alenum.AttributeOwnerType;
 import com.alcity.entity.alobject.Renderer;
-import com.alcity.entity.puzzle.PuzzleLevel;
 import com.alcity.service.alobject.RendererService;
 import com.alcity.service.alobject.AttributeService;
 import com.alcity.utility.DTOUtil;
@@ -107,7 +106,7 @@ public class ActionRendererController {
     @Operation( summary = "Fetch all parameters fo a render by  rendere-id  ",  description = "Fetch all parameters fo a render by  rendere-id ")
     @RequestMapping(value = "/id/{id}/params", method = RequestMethod.GET)
     @ResponseBody
-    public  Collection<RecordrData> getObjectActionRendererParameters(@PathVariable Long id) {
+    public  Collection<RecordData> getObjectActionRendererParameters(@PathVariable Long id) {
         Optional<Renderer> actionRendererOptional = rendererService.findById(id);
         if(actionRendererOptional.isPresent())
             return  DTOUtil.getAttributeForOwnerById(attributeService,actionRendererOptional.get().getId(), AttributeOwnerType.Action_Renderer_Parameter);;
