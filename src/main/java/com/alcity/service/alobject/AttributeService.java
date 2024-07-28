@@ -65,7 +65,7 @@ public class AttributeService implements AttributeRepository {
 
     @Override
     public void deleteById(Long aLong) {
-
+        attributeRepository.deleteById(aLong);
     }
 
     @Override

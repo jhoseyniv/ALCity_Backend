@@ -37,10 +37,6 @@ public class ALObjectController {
     @Autowired
     private ObjectCategoryService objectCategoryService;
 
-//    @Autowired
-//    private ActionRendererService actionRendererService;
-
-
 
     @Operation( summary = "Fetch all Object Categories",  description = "fetches all Object Category entities and their data from data source")
     @GetMapping("/cat/all")

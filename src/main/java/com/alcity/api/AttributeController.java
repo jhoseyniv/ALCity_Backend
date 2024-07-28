@@ -2,8 +2,10 @@ package com.alcity.api;
 
 import com.alcity.customexception.ALCityResponseObject;
 import com.alcity.customexception.UniqueConstraintException;
+import com.alcity.customexception.ViolateForeignKeyException;
 import com.alcity.dto.alobject.AttributeDTO;
 import com.alcity.entity.alobject.Attribute;
+import com.alcity.entity.alobject.ObjectCategory;
 import com.alcity.service.alobject.AttributeService;
 import com.alcity.utility.DTOUtil;
 import io.swagger.v3.oas.annotations.Operation;
@@ -35,6 +37,7 @@ public class AttributeController {
         attributeDTO = DTOUtil.getAttributeDTO(attributeOptional.get());
         return attributeDTO;
     }
+
     @Operation( summary = "Save an Attribute Entity ",  description = "Save an Attribute Entity...")
     @PostMapping("/save")
     @CrossOrigin(origins = "*")
@@ -63,4 +66,23 @@ public class AttributeController {
 
         return responseObject;
     }
+    @Operation( summary = "delete an Attribute with all values",  description = "delete an Attribute with all values from database")
+    @DeleteMapping("/del/{id}")
+    @CrossOrigin(origins = "*")
+    public ALCityResponseObject deleteAttributeById(@PathVariable Long id) {
+        Optional<Attribute> existingRecord = attributeService.findById(id);
+        if(existingRecord.isPresent()){
+            try {
+                attributeService.deleteById(existingRecord.get().getId());
+            }catch (Exception e )
+            {
+                throw new ViolateForeignKeyException(existingRecord.get().getName(), existingRecord.get().getId(), Attribute.class.toString());
+            }
+            return new ALCityResponseObject(HttpStatus.OK.value(), "ok", id,"Record deleted Successfully!");
+        }
+        return  new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", id,"Record not found!");
+    }
+
+
+
 }
