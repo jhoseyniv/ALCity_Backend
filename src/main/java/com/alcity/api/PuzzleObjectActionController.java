@@ -3,6 +3,7 @@ package com.alcity.api;
 
 import com.alcity.customexception.ALCityResponseObject;
 import com.alcity.customexception.UniqueConstraintException;
+import com.alcity.customexception.ViolateForeignKeyException;
 import com.alcity.dto.Interpreter.object.RecordData;
 import com.alcity.dto.puzzle.ALCityObjectDTO;
 import com.alcity.dto.puzzle.PuzzleObjectActionDTO;
@@ -11,6 +12,7 @@ import com.alcity.entity.alenum.POActionOwnerType;
 import com.alcity.entity.alobject.Renderer;
 import com.alcity.entity.alobject.PuzzleObjectAction;
 import com.alcity.entity.puzzle.ALCityObject;
+import com.alcity.entity.puzzle.PuzzleGroup;
 import com.alcity.service.alobject.AttributeService;
 import com.alcity.service.alobject.PuzzleObjectActionService;
 import com.alcity.utility.DTOUtil;
@@ -37,22 +39,22 @@ public class PuzzleObjectActionController {
     @Autowired
     AttributeService attributeService;
 
-//    @Operation( summary = "Fetch all parameters for a action  by id  ",  description = "Fetch all parameters fo a action by id ")
-//    @RequestMapping(value = "/id/{id}/params", method = RequestMethod.GET)
-//    @ResponseBody
-//    public Collection<RecordData> getParametersForAction(@PathVariable Long id) {
-//        Optional<PuzzleObjectAction> puzzleObjectActionOptional = puzzleObjectActionService.findById(id);
-//        PuzzleObjectAction puzzleObjectAction = new PuzzleObjectAction();
-//        if(puzzleObjectActionOptional.isPresent()) {
-//            puzzleObjectAction = puzzleObjectActionOptional.get();
-//            Renderer actionRenderer = puzzleObjectAction.getActionRenderer();
-//            if(actionRenderer != null)
-//                    return  DTOUtil.getAttributeForOwnerById(attributeService,actionRenderer.getId(), AttributeOwnerType.Action_Renderer_Parameter);
-//            else
-//                return null;
-//        }
-//        return null;
-//    }
+    @Operation( summary = "delete a Puzzle Object Action ",  description = "delete a Puzzle Object Action ")
+    @DeleteMapping("/del/{id}")
+    @CrossOrigin(origins = "*")
+    public ALCityResponseObject deletePuzzleObjectActionById(@PathVariable Long id) {
+        Optional<PuzzleObjectAction> existingRecord = puzzleObjectActionService.findById(id);
+        if(existingRecord.isPresent()){
+            try {
+                puzzleObjectActionService.deleteById(existingRecord.get().getId());
+            }catch (Exception e )
+            {
+                throw new ViolateForeignKeyException(existingRecord.get().getObjectAction().name(), existingRecord.get().getId(), PuzzleGroup.class.toString());
+            }
+            return new ALCityResponseObject(HttpStatus.OK.value(), "ok", id,"Record deleted Successfully!");
+        }
+        return  new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", id,"Record not found!");
+    }
 
     @Operation( summary = "Fetch all actions for an alcity object by id  ",  description = "Fetch all actions for an alcity object by id ")
     @RequestMapping(value = "/obj/id/{id}/all", method = RequestMethod.GET)

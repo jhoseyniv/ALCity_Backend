@@ -106,7 +106,7 @@ public class PuzzleObjectActionService implements PuzzleObjectActionRepository {
 
     @Override
     public void deleteById(Long aLong) {
-
+        puzzleObjectActionRepository.deleteById(aLong);
     }
 
     @Override
