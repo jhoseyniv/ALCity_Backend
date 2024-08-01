@@ -107,7 +107,7 @@ public class ALCityObjectController {
 
         return responseObject;
     }
-    @Operation( summary = "delete a  AL City Object",  description = "delete a AL City Object entity and their data to data base")
+    @Operation( summary = "delete an  AL City Object",  description = "delete an AL City Object entity and their data to data base")
     @DeleteMapping("/del/{id}")
     @CrossOrigin(origins = "*")
     public ALCityResponseObject deleteALCityObjectById(@PathVariable Long id) {

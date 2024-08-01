@@ -1,3 +1,18 @@
+//save a puzzle object action
+
+{
+        "id": 139,
+        "ownerObjectid": 138,
+        "objectAction": "Move",
+        "objectActionId": 0,
+        "actionRender": "Move",
+        "actionRenderId": 110,
+        "ownerType": "ALCity_Object",
+        "ownerTypeId": 0
+}
+
+
+
 //save app member in database
 
 {

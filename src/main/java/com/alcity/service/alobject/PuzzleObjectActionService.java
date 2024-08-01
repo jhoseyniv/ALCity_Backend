@@ -1,9 +1,20 @@
 package com.alcity.service.alobject;
 
+import com.alcity.dto.puzzle.ALCityObjectDTO;
+import com.alcity.dto.puzzle.PuzzleObjectActionDTO;
+import com.alcity.entity.alenum.ObjectAction;
 import com.alcity.entity.alenum.POActionOwnerType;
+import com.alcity.entity.alobject.ObjectCategory;
 import com.alcity.entity.alobject.PuzzleObjectAction;
+import com.alcity.entity.alobject.Renderer;
+import com.alcity.entity.appmember.AppMember;
+import com.alcity.entity.base.BinaryContent;
+import com.alcity.entity.puzzle.ALCityObject;
 import com.alcity.entity.puzzle.ALCityObjectInPG;
 import com.alcity.repository.alobject.PuzzleObjectActionRepository;
+import com.alcity.repository.appmember.AppMemberRepository;
+import com.alcity.service.puzzle.ALCityObjectService;
+import com.alcity.utility.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,10 +33,45 @@ public class PuzzleObjectActionService implements PuzzleObjectActionRepository {
     AttributeService  attributeService;
     @Autowired
     AttributeValueService  attributeValueService;
+    @Autowired
+    private AppMemberRepository appMemberRepository;
+    @Autowired
+    private ALCityObjectService alCityObjectService;
+    @Autowired
+    private RendererService rendererService;
 
     @Override
     public <S extends PuzzleObjectAction> S save(S entity) {
         return puzzleObjectActionRepository.save(entity);
+    }
+    public PuzzleObjectAction save(PuzzleObjectActionDTO dto, String code) {
+        AppMember createdBy = appMemberRepository.findByUsername("admin");
+        Optional<ALCityObject> cityObjectOptional = alCityObjectService.findById(dto.getOwnerObjectid());
+        ObjectAction objectAction = ObjectAction.getByTitle(dto.getObjectAction());
+        POActionOwnerType  actionOwnerType = POActionOwnerType.getByTitle(dto.getOwnerType());
+        Optional<Renderer> rendererOptional = rendererService.findById(dto.getActionRenderId());
+        PuzzleObjectAction puzzleObjectAction=null;
+        if (code.equalsIgnoreCase("Save")) { //Save
+           puzzleObjectAction = new PuzzleObjectAction(actionOwnerType, dto.getOwnerObjectid(), objectAction,rendererOptional.get(),
+                     1L,DateUtils.getNow(),DateUtils.getNow(),createdBy, createdBy);
+            puzzleObjectActionRepository.save(puzzleObjectAction);
+       }else{//edit
+            Optional<PuzzleObjectAction> puzzleObjectActionOptional= puzzleObjectActionRepository.findById(dto.getId());
+           if(puzzleObjectActionOptional.isPresent()) {
+                puzzleObjectAction = puzzleObjectActionOptional.get();
+                puzzleObjectAction.setPoActionOwnerType(actionOwnerType);
+                puzzleObjectAction.setObjectAction(objectAction);
+                puzzleObjectAction.setOwnerObjectid(dto.getOwnerObjectid());
+               puzzleObjectAction.setActionRenderer(rendererOptional.get());
+                puzzleObjectAction.setVersion(puzzleObjectAction.getVersion()+1);
+                puzzleObjectAction.setCreated(DateUtils.getNow());
+                puzzleObjectAction.setUpdated(DateUtils.getNow());
+                puzzleObjectAction.setCreatedBy(createdBy);
+                puzzleObjectAction.setUpdatedBy(createdBy);
+                puzzleObjectActionRepository.save(puzzleObjectAction);
+            }
+        }
+        return puzzleObjectAction;
     }
 
     @Override
