@@ -1,7 +1,9 @@
 package com.alcity.service.alobject;
 
+import com.alcity.dto.Interpreter.object.RecordData;
 import com.alcity.dto.puzzle.ALCityObjectDTO;
 import com.alcity.dto.puzzle.PuzzleObjectActionDTO;
+import com.alcity.entity.alenum.AttributeOwnerType;
 import com.alcity.entity.alenum.ObjectAction;
 import com.alcity.entity.alenum.POActionOwnerType;
 import com.alcity.entity.alobject.ObjectCategory;
@@ -14,6 +16,7 @@ import com.alcity.entity.puzzle.ALCityObjectInPG;
 import com.alcity.repository.alobject.PuzzleObjectActionRepository;
 import com.alcity.repository.appmember.AppMemberRepository;
 import com.alcity.service.puzzle.ALCityObjectService;
+import com.alcity.utility.DTOUtil;
 import com.alcity.utility.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,6 +24,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.Optional;
 
 @Service
@@ -55,6 +59,11 @@ public class PuzzleObjectActionService implements PuzzleObjectActionRepository {
            puzzleObjectAction = new PuzzleObjectAction(actionOwnerType, dto.getOwnerObjectid(), objectAction,rendererOptional.get(),
                      1L,DateUtils.getNow(),DateUtils.getNow(),createdBy, createdBy);
             puzzleObjectActionRepository.save(puzzleObjectAction);
+            DTOUtil.copyAttributesActionFromTo(dto.getActionRenderId(), puzzleObjectAction.getId(),AttributeOwnerType.Action_Renderer_Parameter,AttributeOwnerType.AlCity_Object,
+                    attributeService,attributeValueService);
+
+            copyParametersFromActionToALCityObjectAction(dto.getActionRenderId(), dto.getObjectActionId() );
+
        }else{//edit
             Optional<PuzzleObjectAction> puzzleObjectActionOptional= puzzleObjectActionRepository.findById(dto.getId());
            if(puzzleObjectActionOptional.isPresent()) {
@@ -159,6 +168,24 @@ public class PuzzleObjectActionService implements PuzzleObjectActionRepository {
         return actionsForPuzzleGroupObject;
     }
 
+    public void copyParametersFromActionToALCityObjectAction(Long actionId , Long puzzleObjectActionId){
+
+        Collection<RecordData> parameters =  DTOUtil.getAttributeForOwnerById(attributeService,actionId, AttributeOwnerType.Action_Renderer_Parameter);;
+//        Collection<PuzzleObjectAction> actions = alCityObjectService.findAllActions(alCityObject);
+//
+//        Iterator<PuzzleObjectAction> itr = actions.iterator();
+//        while(itr.hasNext()){
+//            PuzzleObjectAction action = new PuzzleObjectAction();
+//            action = itr.next();
+//            PuzzleObjectAction newAction = new PuzzleObjectAction(POActionOwnerType.Puzzle_Group_Object,alCityObjectInPG.getId(), action.getObjectAction(),action.getActionRenderer(),1L,action.getCreated(),
+//                    action.getUpdated(),action.getCreatedBy(),action.getUpdatedBy());
+//            puzzleObjectActionService.save(newAction);
+//
+//            DTOUtil.copyAttributesActionFromTo(action.getId(),newAction.getId(), AttributeOwnerType.AlCity_Object,AttributeOwnerType.ALCity_Object_In_Puzzle_Group,
+//                    attributeService,attributeValueService);
+//        }
+
+    }
 
 
 

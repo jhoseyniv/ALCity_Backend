@@ -5,10 +5,12 @@ import com.alcity.customexception.ALCityResponseObject;
 import com.alcity.customexception.UniqueConstraintException;
 import com.alcity.customexception.ViolateForeignKeyException;
 import com.alcity.dto.Interpreter.object.RecordData;
+import com.alcity.dto.alobject.AttributeDTO;
 import com.alcity.dto.puzzle.ALCityObjectDTO;
 import com.alcity.dto.puzzle.PuzzleObjectActionDTO;
 import com.alcity.entity.alenum.AttributeOwnerType;
 import com.alcity.entity.alenum.POActionOwnerType;
+import com.alcity.entity.alobject.Attribute;
 import com.alcity.entity.alobject.Renderer;
 import com.alcity.entity.alobject.PuzzleObjectAction;
 import com.alcity.entity.puzzle.ALCityObject;
@@ -39,8 +41,8 @@ public class PuzzleObjectActionController {
     @Autowired
     AttributeService attributeService;
 
-    @Operation( summary = "delete a Puzzle Object Action ",  description = "delete a Puzzle Object Action ")
-    @DeleteMapping("/del/{id}")
+    @Operation( summary = "Delete a Puzzle Object Action ",  description = "Delete a Puzzle Object Action ")
+    @DeleteMapping("/del/id/{id}")
     @CrossOrigin(origins = "*")
     public ALCityResponseObject deletePuzzleObjectActionById(@PathVariable Long id) {
         Optional<PuzzleObjectAction> existingRecord = puzzleObjectActionService.findById(id);
@@ -62,6 +64,14 @@ public class PuzzleObjectActionController {
     public Collection<PuzzleObjectActionDTO> getActionsForAALCityObject(@PathVariable Long id) {
         Collection<PuzzleObjectAction> puzzleObjectActions = puzzleObjectActionService.findByOwnerObjectidAndPoActionOwnerType(id, POActionOwnerType.ALCity_Object);
         Collection<PuzzleObjectActionDTO> dtos= DTOUtil.getPuzzleObjectActionDTOS(puzzleObjectActions);
+        return dtos;
+    }
+    @Operation( summary = "Fetch all parameters for an action defined in a al city object by id  ",  description = "Fetch all parameters for an action defined in a al city object by id")
+    @RequestMapping(value = "/action/id/{id}/param/all", method = RequestMethod.GET)
+    @ResponseBody
+    public Collection<AttributeDTO> getParamsForanALCityObjectAction(@PathVariable Long id) {
+        Collection<Attribute> attributes = attributeService.findByOwnerIdAndAttributeOwnerType(id, AttributeOwnerType.AlCity_Object.Puzzle_Object_Action_Parameter);
+        Collection<AttributeDTO> dtos= DTOUtil.getAttributesDTOS(attributes);
         return dtos;
     }
 

@@ -278,7 +278,6 @@ public class ImportProblemData_2 implements CommandLineRunner {
         AttributeValue alCity_showAction_parameter_Col= new AttributeValue(null,0,null,null,null,null,null,alCityAttribute_move_Col,alCityAttribute_move_Col,1L,now,now,admin_1,admin_1);
         attributeValueService.save(alCity_showAction_parameter_Col);
 
-
         PuzzleObjectAction imageObject01_HideAction = new PuzzleObjectAction(POActionOwnerType.ALCity_Object,puzzleGroup_puzzleObject.getId(),ObjectAction.Hide,hideActionRenderer,1L,now,now,admin_1,admin_1);
         puzzleObject_ObjectActionService.save(imageObject01_HideAction);
         Attribute attribute_hide_action_id =new Attribute("actionId",imageObject01_HideAction.getId(),AttributeOwnerType.Puzzle_Object_Action_Parameter,DataType.Long,1L,now,now,admin_1,admin_1);
