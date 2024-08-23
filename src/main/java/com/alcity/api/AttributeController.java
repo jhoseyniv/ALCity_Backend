@@ -3,9 +3,12 @@ package com.alcity.api;
 import com.alcity.customexception.ALCityResponseObject;
 import com.alcity.customexception.UniqueConstraintException;
 import com.alcity.customexception.ViolateForeignKeyException;
+import com.alcity.dto.Interpreter.object.RecordData;
 import com.alcity.dto.alobject.AttributeDTO;
+import com.alcity.entity.alenum.AttributeOwnerType;
 import com.alcity.entity.alobject.Attribute;
 import com.alcity.entity.alobject.ObjectCategory;
+import com.alcity.entity.alobject.Renderer;
 import com.alcity.service.alobject.AttributeService;
 import com.alcity.utility.DTOUtil;
 import io.swagger.v3.oas.annotations.Operation;
@@ -14,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collection;
 import java.util.Optional;
 
 @Tag(name = "Attribute Entity  API's ", description = "Get Attributes API for ...")
@@ -83,6 +87,16 @@ public class AttributeController {
         return  new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", id,"Record not found!");
     }
 
+    @Operation( summary = "Fetch all attributes for an attribute owner type id  ",  description = "Fetch all parameters fo a render by  rendere-id ")
+    @RequestMapping(value = "/owner/type/{type}/id/{id}", method = RequestMethod.GET)
+    @ResponseBody
+    public Collection<RecordData> getObjectActionRendererParameters(@PathVariable Long id,@PathVariable String type) {
+        Optional<Attribute> attributeOptional = attributeService.findById(id);
+        AttributeOwnerType attributeOwnerType = AttributeOwnerType.getByTitle(type);
+        if(attributeOptional.isPresent())
+            return  DTOUtil.getAttributeForOwnerById(attributeService,attributeOptional.get().getId(), attributeOwnerType);;
+        return null;
+    }
 
 
 }

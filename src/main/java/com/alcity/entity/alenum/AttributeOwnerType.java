@@ -3,20 +3,20 @@ package com.alcity.entity.alenum;
 
 public enum AttributeOwnerType {
 
-    Action_Renderer_Parameter,
-    AlCity_Object,
-    AlCity_Object_Property,
-    ALCity_Object_In_Puzzle_Group,
-    Puzzle_Object_Action_Parameter,
+    Action_Renderer_Parameter, //ARP
+    AlCity_Object,   //AO
+    AlCity_Object_Property, //AOP
+    ALCity_Object_In_Puzzle_Group, //AOinPG
+    Puzzle_Object_Action_Parameter,//POAP
 
-    Puzzle_Group_Object_Property,
-    Puzzle_Group_Object_Variable,
-    Puzzle_Level_Variable,
-    Puzzle_Level_Instance_Property,
-    Puzzle_Level_Instance_Variable,
-    Puzzle_Level_Instance_Action_Parameter,
+    Puzzle_Group_Object_Property, //PGOP
+    Puzzle_Group_Object_Variable, //PGOV
+    Puzzle_Level_Variable, //PLV
+    Puzzle_Level_Instance_Property, //PLIP
+    Puzzle_Level_Instance_Variable, //PLIV
+    Puzzle_Level_Instance_Action_Parameter, //PLIAP
 
-    Puzzle_Level_Rule_Post_Action;
+    Puzzle_Level_Rule_Post_Action; //PLRPA
     public static AttributeOwnerType getById(long id)
     {
         for (AttributeOwnerType e : AttributeOwnerType.values())

@@ -6,6 +6,7 @@ import com.alcity.customexception.RecordNotFoundException;
 import com.alcity.customexception.UniqueConstraintException;
 import com.alcity.customexception.ViolateForeignKeyException;
 import com.alcity.dto.puzzle.ALCityObjectInPGDTO;
+import com.alcity.dto.puzzle.PGDTO;
 import com.alcity.dto.puzzle.PuzzleObjectActionDTO;
 import com.alcity.dto.puzzle.ALCityObjectDTO;
 import com.alcity.entity.alenum.POActionOwnerType;
@@ -133,6 +134,18 @@ public class ALCityObjectController {
         Collection<PuzzleObjectAction> puzzleObjectActions = puzzleObjectActionService.findByOwnerObjectidAndPoActionOwnerType(id, POActionOwnerType.ALCity_Object);
         puzzleObjectActionDTOS = DTOUtil.getPuzzleObjectActionDTOS(puzzleObjectActions);
         return  puzzleObjectActionDTOS;
+    }
+    @Operation( summary = "Fetch all Puzzle Groups for an al city object ",  description = "Fetch all Puzzle Groups for an al city object")
+    @RequestMapping(value = "/id/{id}/pg/all", method = RequestMethod.GET)
+    @ResponseBody
+    @CrossOrigin(origins = "*")
+    public Collection<ALCityObjectInPGDTO> getPuzzleGroupForALCityObject(@PathVariable Long id) {
+        Collection<ALCityObjectInPGDTO> dtos = new ArrayList<ALCityObjectInPGDTO>();
+        Optional<ALCityObject> alCityObjectOptional = alCityObjectService.findById(id);
+        if(alCityObjectOptional.isEmpty()) return dtos;
+
+        dtos = DTOUtil.getALCityObjectInPGDTOS(alCityObjectOptional.get().getAlCityObjectInPGCollection());
+        return  dtos;
     }
 
 
