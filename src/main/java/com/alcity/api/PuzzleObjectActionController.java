@@ -29,7 +29,6 @@ import java.util.Optional;
 
 @Tag(name = "ALCity Object Action APIs", description = "Get AL City  Object actions and related entities as rest api")
 @CrossOrigin(origins = "*" ,maxAge = 3600)
-
 @RestController
 @RequestMapping("/poa")
 
