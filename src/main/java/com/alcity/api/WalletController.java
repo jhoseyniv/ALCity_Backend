@@ -25,7 +25,6 @@ import java.util.Optional;
 @CrossOrigin(origins = "*" ,maxAge = 3600)
 @RestController
 @RequestMapping("/wallet")
-
 public class WalletController {
     @Autowired
     private WalletItemTypeService walletItemTypeService;
@@ -45,6 +44,7 @@ public class WalletController {
         Collection<WalletItemDTO> dtos = DTOUtil.getWalletItemDTOS(walletItems);
         return dtos;
     }
+
     @RequestMapping(value = "/type/id/{id}", method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin(origins = "*")
