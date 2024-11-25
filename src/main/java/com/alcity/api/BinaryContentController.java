@@ -35,6 +35,7 @@ public class BinaryContentController {
 
     @RequestMapping(value="/id/{id}", method = RequestMethod.GET)
     @ResponseBody
+    @CrossOrigin(origins = "*")
     public BinaryContent getBinaryContentById(@PathVariable Long id) {
         Optional<BinaryContent> binaryContentOptional = binaryContentService.findById(id);
         if(binaryContentOptional.isPresent())

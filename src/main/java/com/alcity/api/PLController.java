@@ -64,7 +64,7 @@ public class PLController {
         return plObjectiveDTOCollection;
     }
 
-    @Operation( summary = "Fetch all Instances by a puzzle level Id ",  description = "fetches all objectives for a puzzle level ")
+    @Operation( summary = "Fetch all Instances by a puzzle level Id ",  description = "fetches all Instances for a puzzle level ")
     @RequestMapping(value = "/id/{id}/instances/all", method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin(origins = "*")

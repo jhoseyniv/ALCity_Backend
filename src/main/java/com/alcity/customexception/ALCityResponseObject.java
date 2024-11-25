@@ -4,7 +4,7 @@ public class ALCityResponseObject {
     private Integer code;
 
     private String status; //ok or error
-    private Long reocrdId;
+    private Long recordId;
     private String  message;
 
     public Integer getCode() {
@@ -23,12 +23,12 @@ public class ALCityResponseObject {
         this.status = status;
     }
 
-    public Long getReocrdId() {
-        return reocrdId;
+    public Long getRecordId() {
+        return recordId;
     }
 
-    public void setReocrdId(Long reocrdId) {
-        this.reocrdId = reocrdId;
+    public void setRecordId(Long recordId) {
+        this.recordId = recordId;
     }
 
     public String getMessage() {
@@ -44,10 +44,10 @@ public class ALCityResponseObject {
     public ALCityResponseObject() {
     }
 
-    public ALCityResponseObject(Integer code, String status, Long reocrdId, String message) {
+    public ALCityResponseObject(Integer code, String status, Long recordId, String message) {
         this.code = code;
         this.status = status;
-        this.reocrdId = reocrdId;
+        this.recordId = recordId;
         this.message = message;
     }
 }
