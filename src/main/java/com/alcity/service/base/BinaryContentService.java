@@ -2,12 +2,14 @@ package com.alcity.service.base;
 
 import com.alcity.dto.base.BinaryContentDTO;
 import com.alcity.entity.alenum.BinaryContentType;
+import com.alcity.entity.appmember.WalletItem;
 import com.alcity.entity.base.BinaryContent;
 import com.alcity.entity.learning.LearningContent;
 import com.alcity.entity.puzzle.ALCityObject;
 import com.alcity.entity.puzzle.PuzzleGroup;
 import com.alcity.entity.puzzle.PuzzleLevel;
 import com.alcity.entity.appmember.AppMember;
+import com.alcity.repository.appmember.WalletItemRespository;
 import com.alcity.repository.base.BinaryContentCustom;
 import com.alcity.repository.base.BinaryContentRepository;
 import com.alcity.repository.puzzle.ALCityObjectRepository;
@@ -44,6 +46,10 @@ public class BinaryContentService implements BinaryContentRepository , BinaryCon
     @Autowired
     @Qualifier("ALCityObjectRepository")
     private ALCityObjectRepository alCityObjectRepository;
+
+    @Autowired
+    @Qualifier("walletItemRespository")
+    private WalletItemRespository walletItemRespository;
 
     @Override
     public <S extends BinaryContent> S save(S entity) {
@@ -178,6 +184,13 @@ public class BinaryContentService implements BinaryContentRepository , BinaryCon
             ALCityObject alCityObject = alCityObjectOptional.get();
             alCityObject.setPic(null);
             alCityObjectRepository.save(alCityObject);
+        }
+
+        Optional<WalletItem> walletItemRespositoryOptional = walletItemRespository.findByIcon(binaryContentOptional.get());
+        if(walletItemRespositoryOptional.isPresent()){
+            WalletItem walletItem = walletItemRespositoryOptional.get();
+            walletItem.setIcon(null);
+            walletItemRespository.save(walletItem);
         }
 
     }

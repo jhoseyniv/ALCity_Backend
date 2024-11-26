@@ -131,5 +131,10 @@ public class WalletItemService implements WalletItemRespository {
         return walletItemRespository.findByValue(value);
     }
 
+    @Override
+    public Optional<WalletItem> findByIcon(BinaryContent icon) {
+        return walletItemRespository.findByIcon(icon);
+    }
+
 
 }
