@@ -17,7 +17,7 @@ public class Journey  extends BaseTable implements Serializable {
     private String title;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "binary_content_id", nullable = false)
+    @JoinColumn(name = "binary_content_id", nullable = true)
     @JsonIgnore
     private BinaryContent graphic;
 
