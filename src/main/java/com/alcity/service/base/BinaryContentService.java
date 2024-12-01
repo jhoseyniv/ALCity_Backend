@@ -1,6 +1,7 @@
 package com.alcity.service.base;
 
 import com.alcity.dto.base.BinaryContentDTO;
+import com.alcity.dto.base.SearchCriteriaDTO;
 import com.alcity.entity.alenum.BinaryContentType;
 import com.alcity.entity.appmember.WalletItem;
 import com.alcity.entity.base.BinaryContent;
@@ -124,6 +125,17 @@ public class BinaryContentService implements BinaryContentRepository , BinaryCon
     @Override
     public Collection<BinaryContent> findBySize(Integer size) {
         return null;
+    }
+
+    @Override
+    public Collection<BinaryContent> findByTag1OrTag2OrTag3OrFileNameOrContentType(String tag1, String tag2, String tag3, String fileName, BinaryContentType contentType) {
+        return binaryContentRepository.findByTag1OrTag2OrTag3OrFileNameOrContentType(tag1,tag2,tag3,fileName,contentType);
+    }
+
+
+    public Collection<BinaryContent> findByCriteria(SearchCriteriaDTO dto) {
+        return binaryContentRepository.findByTag1OrTag2OrTag3OrFileNameOrContentType(dto.getTag1(), dto.getTag2(), dto.getTag3(),
+                dto.getFileName(),BinaryContentType.getById(dto.getContentTypeId()));
     }
 
     @Autowired

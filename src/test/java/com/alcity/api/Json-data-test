@@ -39,6 +39,17 @@
 
 //Save Wallet Item Type  in Database...
 
+
+{
+  "fileName": "image",
+  "tag1": "tag1",
+  "tag2": "",
+  "tag3": "",
+  "contentType": "0",
+  "lastIndex": 0,
+  "pageSize": 0
+}
+
 {
     "id": 13,
     "label": "fiat",
