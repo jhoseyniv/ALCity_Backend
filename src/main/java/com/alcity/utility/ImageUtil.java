@@ -91,7 +91,7 @@ public class ImageUtil {
     }
 
     public static byte[] getThumbnail(byte[] content,String fileName) throws IOException {
-        Path path = Paths.get("d:\\"+ fileName );
+        Path path = Paths.get("src/main/resources/temp/"+ fileName );
         Files.write(path, content);
         File file = path.toFile();
 
