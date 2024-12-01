@@ -20,6 +20,7 @@ import com.alcity.service.learning.LearningContentService;
 import com.alcity.service.puzzle.PGService;
 import com.alcity.utility.DateUtils;
 import com.alcity.utility.ImageUtil;
+import com.alcity.utility.SlicedStream;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -29,6 +30,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.io.IOException;
 import java.util.Collection;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 @Service
 @Transactional
@@ -128,7 +130,12 @@ public class BinaryContentService implements BinaryContentRepository , BinaryCon
 
 
     public Collection<BinaryContent> findByCriteria(ContentSearchCriteriaDTO dto) {
-        return binaryContentRepository.findByTag1OrTag2OrTag3OrFileNameOrContentType(dto.getCriteria(), dto.getCriteria(), dto.getCriteria(), dto.getCriteria(),BinaryContentType.getById(dto.getContentTypeId()));
+        Collection<BinaryContent> binaryContents = binaryContentRepository.findByTag1OrTag2OrTag3OrFileNameOrContentType(dto.getCriteria(), dto.getCriteria(), dto.getCriteria(), dto.getCriteria(),BinaryContentType.getById(dto.getContentTypeId()));
+        Stream<BinaryContent> binaryContentStream = binaryContents.stream();
+        Collection<BinaryContent> page = SlicedStream.getSliceOfStream(binaryContentStream,dto.getLastIndex() ,dto.getLastIndex()  + dto.getPageSize() -1 ).toList();
+
+        return page;
+
     }
 
     @Autowired

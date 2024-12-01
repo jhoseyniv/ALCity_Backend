@@ -465,6 +465,18 @@ public class DTOUtil {
 
         return pl_ltDTOCollection;
     }
+
+    public static Collection<BinaryContentDTO> getBinaryContentsWithoutContent(Collection<BinaryContent> binaryContents) {
+        Collection<BinaryContentDTO> contentDTOS = new ArrayList<BinaryContentDTO>();
+        Iterator<BinaryContent> iterator = binaryContents.iterator();
+
+        while (iterator.hasNext()) {
+            BinaryContentDTO binaryContentDTO = getBinaryContentDTOWithoutContent(iterator.next());
+            contentDTOS.add(binaryContentDTO);
+        }
+        return contentDTOS;
+    }
+
     public static BinaryContentDTO getBinaryContentDTOWithoutContent(BinaryContent content){
         BinaryContentDTO binaryContentDTO = new BinaryContentDTO(content.getId(), content.getVersion(), content.getCreated(), content.getUpdated(), content.getCreatedBy().getUsername(), content.getUpdatedBy().getUsername(),
                 content.getFileName(), content.getSize(), null, content.getThumbnail(), content.getContentType().name(),

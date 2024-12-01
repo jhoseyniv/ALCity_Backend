@@ -9,6 +9,7 @@ import com.alcity.dto.base.ContentSearchCriteriaDTO;
 import com.alcity.entity.base.BinaryContent;
 import com.alcity.service.base.BinaryContentService;
 import com.alcity.service.puzzle.PGService;
+import com.alcity.utility.DTOUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,9 +45,9 @@ public class BinaryContentController {
     @PostMapping("/search")
     @ResponseBody
     @CrossOrigin(origins = "*")
-    public Collection<BinaryContent> getBinaryContentBySearchCriteria(@RequestBody ContentSearchCriteriaDTO criteriaDTO ) {
+    public Collection<BinaryContentDTO> getBinaryContentBySearchCriteria(@RequestBody ContentSearchCriteriaDTO criteriaDTO ) {
         Collection<BinaryContent> binaryContentCollection = binaryContentService.findByCriteria(criteriaDTO);
-        return binaryContentCollection;
+        return DTOUtil.getBinaryContentsWithoutContent(binaryContentCollection);
     }
 //    @Operation( summary = "Save a Binary Content to database  By Multipart",  description = "save a  Binary Content entity and their data to data base")
 //    @PostMapping( value = "/upload" , consumes = MediaType.MULTIPART_FORM_DATA_VALUE)

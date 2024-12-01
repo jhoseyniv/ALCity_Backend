@@ -176,7 +176,9 @@ public class ImportBaseData implements CommandLineRunner {
         clientTypeSet.add(web);
         admin_1.setClientTypeSet(clientTypeSet);
         appMemberService.save(admin_1);
-
+        avatar_content_1.setCreatedBy(admin_1);
+        avatar_content_1.setUpdatedBy(admin_1);
+        binaryContentService.save(avatar_content_1);
 
         AppMember jalalHoseyni= new AppMember(35,"jalal","jalal","jalal","0912350550","j_hoseyni@yahoo.com",avatar_content_1,UserGender.Male,guest,1L,now,now,null,null);
         Set jalalClientTypeSet = new HashSet<ClientType>();
