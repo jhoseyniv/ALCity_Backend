@@ -132,6 +132,8 @@ public class BinaryContentService implements BinaryContentRepository , BinaryCon
     public Collection<BinaryContent> findByCriteria(ContentSearchCriteriaDTO dto) {
         Collection<BinaryContent> binaryContents = binaryContentRepository.findByTag1OrTag2OrTag3OrFileNameOrContentType(dto.getCriteria(), dto.getCriteria(), dto.getCriteria(), dto.getCriteria(),BinaryContentType.getById(dto.getContentTypeId()));
         Stream<BinaryContent> binaryContentStream = binaryContents.stream();
+        if(dto.getLastIndex() < 0L ) dto.setLastIndex(0L);
+        if(dto.getPageSize() <= 0 ) dto.setPageSize(1);
         Collection<BinaryContent> page = SlicedStream.getSliceOfStream(binaryContentStream,dto.getLastIndex() ,dto.getLastIndex()  + dto.getPageSize() -1 ).toList();
 
         return page;
