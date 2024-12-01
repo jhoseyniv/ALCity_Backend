@@ -43,6 +43,10 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
+import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
@@ -162,7 +166,9 @@ public class ImportBaseData implements CommandLineRunner {
         clientTypeService.save(web);
         clientTypeService.save(tablet);
         byte[] avatar = ImageUtil.getImage("src/main/resources/images/","avatar.png");
-        BinaryContent avatar_content_1 = new BinaryContent("avatar",avatar,BinaryContentType.Image,1L,now,now,null,null);
+        byte[]  tumb = ImageUtil.getThumbnail(avatar,"avatar.png");
+
+        BinaryContent avatar_content_1 = new BinaryContent(1L, now, now,null , null,"avatar",avatar.length,avatar,tumb,"tag1","tag2","tag3",BinaryContentType.Image);
         binaryContentService.save(avatar_content_1);
 
         AppMember admin_1= new AppMember(35,"admin","admin","admin0","0912350550","j_hoseyni@yahoo.com",avatar_content_1,UserGender.Male,administrator,1L,now,now,null,null);
@@ -231,23 +237,24 @@ public class ImportBaseData implements CommandLineRunner {
         puzzleCategoryService.save(fun);
 
         byte[] puzzle_Ground_Maze_Image_1 = ImageUtil.getImage("src/main/resources/images/","playGround.png");
-        BinaryContent puzzle_ground_Maze_image_binary_content_1 = new BinaryContent("puzzle ground for Maze image",puzzle_Ground_Maze_Image_1,BinaryContentType.Image,1L,now,now,admin_1,admin_1);
+        byte[]  puzzle_Ground_Maze_Image_1_tumb = ImageUtil.getThumbnail(puzzle_Ground_Maze_Image_1,"playGround.png");
+        BinaryContent puzzle_ground_Maze_image_binary_content_1 = new BinaryContent(1L, now, now,admin_1 , admin_1,"puzzle ground for Maze image",puzzle_Ground_Maze_Image_1.length,puzzle_Ground_Maze_Image_1,puzzle_Ground_Maze_Image_1_tumb,"tag1","","",BinaryContentType.Image);
         binaryContentService.save(puzzle_ground_Maze_image_binary_content_1);
 
         byte[] puzzle_group_Icon_2 = ImageUtil.getImage("src/main/resources/images/","physic.png");
-        BinaryContent puzzle_group_binary_content_2 = new BinaryContent("image_puzzle_group_physic",puzzle_group_Icon_2,BinaryContentType.Image,1L,now,now,admin_1,admin_1);
+        BinaryContent puzzle_group_binary_content_2 = new BinaryContent(1L, now, now,admin_1 , admin_1,"image_puzzle_group_physic",puzzle_group_Icon_2.length,puzzle_group_Icon_2,null,"tag1","","",BinaryContentType.Image);
         binaryContentService.save(puzzle_group_binary_content_2);
 
         byte[] puzzle_group_Icon_3 = ImageUtil.getImage("src/main/resources/images/","IQ.png");
-        BinaryContent puzzle_group_binary_content_3 = new BinaryContent("image_puzzle_group_IQ",puzzle_group_Icon_3,BinaryContentType.Image,1L,now,now,admin_1,admin_1);
+        BinaryContent puzzle_group_binary_content_3 = new BinaryContent(1L, now, now,admin_1 , admin_1,"image_puzzle_group_IQ",puzzle_group_Icon_3.length,puzzle_group_Icon_3,null,"tag1","","",BinaryContentType.Image);
         binaryContentService.save(puzzle_group_binary_content_3);
 
         byte[] puzzle_group_Maze_Image = ImageUtil.getImage("src/main/resources/images/","MazeImage.png");
-        BinaryContent puzzle_group_Maze_Image_binary_content = new BinaryContent("MazeImage",puzzle_group_Maze_Image,BinaryContentType.Image,1L,now,now,admin_1,admin_1);
+        BinaryContent puzzle_group_Maze_Image_binary_content = new BinaryContent(1L, now, now,admin_1 , admin_1,"MazeImage",puzzle_group_Maze_Image.length,puzzle_group_Maze_Image,null,"tag1","","",BinaryContentType.Image);
         binaryContentService.save(puzzle_group_Maze_Image_binary_content);
 
         byte[] puzzle_group_Icon_1 = ImageUtil.getImage("src/main/resources/images/","puzzle_group_1.png");
-        BinaryContent puzzle_group_binary_content_Icon = new BinaryContent("image_puzzle_group_matematic",puzzle_group_Icon_1,BinaryContentType.Image,1L,now,now,admin_1,admin_1);
+        BinaryContent puzzle_group_binary_content_Icon = new BinaryContent(1L, now, now,admin_1 , admin_1,"image_puzzle_group_matematic",puzzle_group_Icon_1.length,puzzle_group_Icon_1,null,"tag1","","",BinaryContentType.Image);
         binaryContentService.save(puzzle_group_binary_content_Icon);
 
         LearningContent learningContent_Maze=new LearningContent("help to maze","this content is about maze tables",puzzle_group_Maze_Image_binary_content,1L,now,now,admin_1,admin_1);
@@ -261,11 +268,12 @@ public class ImportBaseData implements CommandLineRunner {
 
         byte[] tetherIcon = ImageUtil.getImage("src/main/resources/images/","Tether.png");
         byte[] carIcon = ImageUtil.getImage("src/main/resources/images/","car.png");
+       // byte[] carIcon = ImageUtil.getImage("src/main/resources/images/","car.png");
 
-        BinaryContent teterIcon_Content = new BinaryContent("Tether Icon",tetherIcon,BinaryContentType.Image,1L,now,now,admin_1,admin_1);
+        BinaryContent teterIcon_Content = new BinaryContent(1L, now, now,admin_1 , admin_1,"Tether Icon",tetherIcon.length,tetherIcon,null,"tag1","","",BinaryContentType.Image);
         binaryContentService.save(teterIcon_Content);
 
-        BinaryContent carIcon_Content = new BinaryContent("Car Icon",carIcon,BinaryContentType.Image,1L,now,now,admin_1,admin_1);
+        BinaryContent carIcon_Content = new BinaryContent(1L, now, now,admin_1 , admin_1,"Car Icon",carIcon.length,carIcon,null,"tag1","","",BinaryContentType.Image);
         binaryContentService.save(carIcon_Content);
 
 
@@ -279,8 +287,8 @@ public class ImportBaseData implements CommandLineRunner {
         walletItemTypeService.save(alCoin);
         walletItemTypeService.save(cityObject);
 
-         WalletItem teterWalletItem= new WalletItem(fiat,teterIcon_Content,"tether","tether",1L,now,now,admin_1,admin_1);
-        WalletItem alCoin10WalletItem= new WalletItem(alCoin,teterIcon_Content,"al_coin_10","al_coin_10",1L,now,now,admin_1,admin_1);
+         WalletItem teterWalletItem= new WalletItem(fiat,null,"tether","tether",1L,now,now,admin_1,admin_1);
+        WalletItem alCoin10WalletItem= new WalletItem(alCoin,null,"al_coin_10","al_coin_10",1L,now,now,admin_1,admin_1);
         WalletItem alCoin_100_WalletItem= new WalletItem(alCoin,teterIcon_Content,"al_coin_100","al_coin_100",1L,now,now,admin_1,admin_1);
         WalletItem carWalletItem= new WalletItem(cityObject,carIcon_Content,"car object","car_object",1L,now,now,admin_1,admin_1);
         WalletItem TVWalletItem= new WalletItem(cityObject,carIcon_Content,"TV object","TV_object",1L,now,now,admin_1,admin_1);
@@ -321,23 +329,23 @@ public class ImportBaseData implements CommandLineRunner {
 
 
         byte[] goose_Image = ImageUtil.getImage("src/main/resources/images/","goose.png");
-        BinaryContent goose_Image_binary_content = new BinaryContent("goose image",goose_Image, BinaryContentType.Image,1L,now,now,admin_1,admin_1);
+        BinaryContent goose_Image_binary_content = new BinaryContent(1L, now, now,admin_1 , admin_1,"goose image",goose_Image.length,goose_Image, null,"tag1","","",BinaryContentType.Image);
         binaryContentService.save(goose_Image_binary_content);
 
         byte[] eagle_Image = ImageUtil.getImage("src/main/resources/images/","eagle.png");
-        BinaryContent eagle_Image_binary_content = new BinaryContent("eagle image",eagle_Image,BinaryContentType.Image,1L,now,now,admin_1,admin_1);
+        BinaryContent eagle_Image_binary_content = new BinaryContent(1L, now, now,admin_1 , admin_1,"eagle image",eagle_Image.length,eagle_Image,null,"tag1","","",BinaryContentType.Image);
         binaryContentService.save(eagle_Image_binary_content);
 
         byte[] fox_Image = ImageUtil.getImage("src/main/resources/images/","fox.png");
-        BinaryContent fox_Image_binary_content = new BinaryContent("fox image",fox_Image,BinaryContentType.Image,1L,now,now,admin_1,admin_1);
+        BinaryContent fox_Image_binary_content = new BinaryContent(1L, now, now,admin_1 , admin_1,"fox image",fox_Image.length,fox_Image,null,"tag1","","",BinaryContentType.Image);
         binaryContentService.save(fox_Image_binary_content);
 
         byte[] wheat_Image = ImageUtil.getImage("src/main/resources/images/","wheat.png");
-        BinaryContent wheat_Image_binary_content = new BinaryContent("wheat image",wheat_Image,BinaryContentType.Image,1L,now,now,admin_1,admin_1);
+        BinaryContent wheat_Image_binary_content = new BinaryContent(1L, now, now,admin_1 , admin_1,"wheat image",wheat_Image.length,wheat_Image,null,"tag1","","",BinaryContentType.Image);
         binaryContentService.save(wheat_Image_binary_content);
 
         byte[] image_object = ImageUtil.getImage("src/main/resources/images/","image_object.png");
-        BinaryContent image_object_binary_content = new BinaryContent("image_object",image_object,BinaryContentType.Image,1L,now,now,admin_1,admin_1);
+        BinaryContent image_object_binary_content = new BinaryContent(1L, now, now,admin_1 , admin_1,"image_object", image_object.length, image_object,null,"tag1","","",BinaryContentType.Image);
         binaryContentService.save(image_object_binary_content);
 
 
@@ -395,9 +403,9 @@ public class ImportBaseData implements CommandLineRunner {
         byte[] jouerny_2_Image = ImageUtil.getImage("src/main/resources/images/","desert.png");
         byte[] jouerny_3_Image = ImageUtil.getImage("src/main/resources/images/","city.png");
 
-        BinaryContent image_journey_1 = new BinaryContent("image_journey_1",jouerny_1_Image,BinaryContentType.Image,1L,now,now,admin_1,admin_1);
-        BinaryContent image_journey_2 = new BinaryContent("image_journey_2",jouerny_2_Image,BinaryContentType.Image,1L,now,now,admin_1,admin_1);
-        BinaryContent image_journey_3 = new BinaryContent("image_journey_3",jouerny_3_Image,BinaryContentType.Image,1L,now,now,admin_1,admin_1);
+        BinaryContent image_journey_1 = new BinaryContent(1L, now, now,admin_1 , admin_1,"image_journey_1",jouerny_1_Image.length,jouerny_1_Image,null,"tag1","","",BinaryContentType.Image);
+        BinaryContent image_journey_2 = new BinaryContent(1L, now, now,admin_1 , admin_1,"image_journey_2",jouerny_2_Image.length,jouerny_2_Image,null,"tag1","","",BinaryContentType.Image);
+        BinaryContent image_journey_3 = new BinaryContent(1L, now, now,admin_1 , admin_1,"image_journey_3",jouerny_3_Image.length,jouerny_3_Image,null,"tag1","","",BinaryContentType.Image);
         binaryContentService.save(image_journey_1);
         binaryContentService.save(image_journey_2);
         binaryContentService.save(image_journey_3);
@@ -415,19 +423,19 @@ public class ImportBaseData implements CommandLineRunner {
         journeyLearningSkillService.save(journey_1_Skill_2);
 
         byte[] text_object_content_pic_byte = ImageUtil.getImage("src/main/resources/images/X-O Problem/","TextObject.png");
-        BinaryContent textObject_pic = new BinaryContent("text_object_x-o",text_object_content_pic_byte,BinaryContentType.Image,1L,now,now,admin_1,admin_1);
+        BinaryContent textObject_pic = new BinaryContent(1L, now, now,admin_1 , admin_1,"text_object_x-o",text_object_content_pic_byte.length,text_object_content_pic_byte,null,"tag1","","",BinaryContentType.Image);
         binaryContentService.save(textObject_pic);
 
         byte[] text_object_content_icon_byte = ImageUtil.getImage("src/main/resources/images/X-O Problem/","TextObject.png");
-        BinaryContent textObject_icon = new BinaryContent("text_object_x-o",text_object_content_icon_byte,BinaryContentType.Image,1L,now,now,admin_1,admin_1);
+        BinaryContent textObject_icon = new BinaryContent(1L, now, now,admin_1 , admin_1,"text_object_x-o",text_object_content_icon_byte.length,text_object_content_icon_byte,null,"tag1","","",BinaryContentType.Image);
         binaryContentService.save(textObject_icon);
 
         byte[] image_object_content_pic_byte = ImageUtil.getImage("src/main/resources/images/","image_object.png");
-        BinaryContent image_Object_pic = new BinaryContent("text_object_x-o",image_object_content_pic_byte,BinaryContentType.Image,1L,now,now,admin_1,admin_1);
+        BinaryContent image_Object_pic = new BinaryContent(1L, now, now,admin_1 , admin_1,"text_object_x-o",image_object_content_pic_byte.length,image_object_content_pic_byte,null,"tag1","","",BinaryContentType.Image);
         binaryContentService.save(image_Object_pic);
 
         byte[] image_object_content_icon_byte = ImageUtil.getImage("src/main/resources/images/","image_object_icon.png");
-        BinaryContent image_Object_icon = new BinaryContent("text_object_x-o",image_object_content_icon_byte,BinaryContentType.Image,1L,now,now,admin_1,admin_1);
+        BinaryContent image_Object_icon = new BinaryContent(1L, now, now,admin_1 , admin_1,"text_object_x-o",image_object_content_icon_byte.length,image_object_content_icon_byte,null,"tag1","","",BinaryContentType.Image);
         binaryContentService.save(image_Object_icon);
 
 

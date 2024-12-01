@@ -16,14 +16,14 @@ public abstract class BaseTable implements Serializable {
     public Long getId() {
         return id;
     }
-    @NotNull(message = "{bName.notempty}")
+    @NotNull(message = "{version.notempty}")
     private Long version;
 
-    @NotNull(message = "{bLength.notempty}")
+    @NotNull(message = "{created.notempty}")
     private String created;
 
 
-    @NotNull(message = "{bHeight.notempty}")
+    @NotNull(message = "{created.notempty}")
     private String updated;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = true)

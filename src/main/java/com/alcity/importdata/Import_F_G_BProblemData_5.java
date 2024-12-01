@@ -186,21 +186,21 @@ public class Import_F_G_BProblemData_5 implements CommandLineRunner {
 
 
         byte[]  planyGround_F_G_B_bytes = ImageUtil.getImage("src/main/resources/images/Fox-Goose-Bean/","playGround.png");
-        BinaryContent playGround_F_G_B_content = new BinaryContent("puzzle ground for Memory Game",planyGround_F_G_B_bytes,BinaryContentType.Image,1L,now,now,admin_1,admin_1);
+        BinaryContent playGround_F_G_B_content = new BinaryContent(1L, now, now,admin_1 , admin_1,"puzzle ground for Memory Game",planyGround_F_G_B_bytes.length,planyGround_F_G_B_bytes,null,"tag1","","",BinaryContentType.Image);
         binaryContentService.save(playGround_F_G_B_content);
 
         byte[] pl_Icon__F_G_B_bytes = ImageUtil.getImage("src/main/resources/images/Fox-Goose-Bean/","F_G_B_Icon.png");
-        BinaryContent pl_Icon_F_G_B_content = new BinaryContent("Memory_Game_Icon",pl_Icon__F_G_B_bytes,BinaryContentType.Image,1L,now,now,admin_1,admin_1);
+        BinaryContent pl_Icon_F_G_B_content = new BinaryContent(1L, now, now,admin_1 , admin_1,"Memory_Game_Icon",pl_Icon__F_G_B_bytes.length,pl_Icon__F_G_B_bytes,null,"tag1","","",BinaryContentType.Image);
         binaryContentService.save(pl_Icon_F_G_B_content);
 
         byte[] pl_pic_F_G_B_bytes = ImageUtil.getImage("src/main/resources/images/Fox-Goose-Bean/","F_G_B.png");
-        BinaryContent pl_pic_F_G_B_content = new BinaryContent("Memory_Game_Picture",pl_pic_F_G_B_bytes,BinaryContentType.Image,1L,now,now,admin_1,admin_1);
+        BinaryContent pl_pic_F_G_B_content = new BinaryContent(1L, now, now,admin_1 , admin_1,"Memory_Game_Picture",pl_pic_F_G_B_bytes.length,pl_pic_F_G_B_bytes,null,"tag1","","",BinaryContentType.Image);
         binaryContentService.save(pl_pic_F_G_B_content);
 
         BinaryContent puzzle_group_1_binary_content_image = binaryContentService.findByfileName("image_puzzle_group_matematic");
 
         byte[] text_object_content = ImageUtil.getImage("src/main/resources/images/X-O Problem/","TextObject.png");
-        BinaryContent textObject_binary_content = new BinaryContent("text_object_x-o",text_object_content,BinaryContentType.Image,1L,now,now,admin_1,admin_1);
+        BinaryContent textObject_binary_content = new BinaryContent(1L, now, now,admin_1 , admin_1,"text_object_x-o",text_object_content.length,text_object_content,null,"tag1","","",BinaryContentType.Image);
         binaryContentService.save(textObject_binary_content);
 
 //        ObjectCategory objectCategory_TextObject = objectCategoryService.findByValue("TextObject");
@@ -223,7 +223,7 @@ public class Import_F_G_BProblemData_5 implements CommandLineRunner {
 
 
         byte[]  F_G_B_Learning_Bytes = ImageUtil.getImage("src/main/resources/images/Fox-Goose-Bean/","F_G_B_Iearning_content.png");
-        BinaryContent F_G_B_learning_content = new BinaryContent("Fox-Goose-Bean",F_G_B_Learning_Bytes,BinaryContentType.Image,1L,now,now,admin_1,admin_1);
+        BinaryContent F_G_B_learning_content = new BinaryContent(1L, now, now,admin_1 , admin_1,"Fox-Goose-Bean",F_G_B_Learning_Bytes.length,F_G_B_Learning_Bytes,null,"tag1","","",BinaryContentType.Image);
         binaryContentService.save(F_G_B_learning_content);
 
         Integer xPos=1;

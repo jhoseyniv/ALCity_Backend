@@ -184,21 +184,21 @@ public class ImportMemoryGameProblemData_4 implements CommandLineRunner {
 
 
         byte[]  planyGround_Image_Memory_Game = ImageUtil.getImage("src/main/resources/images/Memory-Game/","MemGame.png");
-        BinaryContent playGround_Memory_Game_content = new BinaryContent("puzzle ground for Memory Game",planyGround_Image_Memory_Game,BinaryContentType.Image,1L,now,now,admin_1,admin_1);
+        BinaryContent playGround_Memory_Game_content = new BinaryContent(1L, now, now,admin_1 , admin_1,"puzzle ground for Memory Game",planyGround_Image_Memory_Game.length,planyGround_Image_Memory_Game,null,"tag1","","",BinaryContentType.Image);
         binaryContentService.save(playGround_Memory_Game_content);
 
         byte[] pl_Icon_Memory_Game_bytes = ImageUtil.getImage("src/main/resources/images/Memory-Game/","MemGame_icon.png");
-        BinaryContent pl_Icon_Memory_Game_content = new BinaryContent("Memory_Game_Icon",pl_Icon_Memory_Game_bytes,BinaryContentType.Image,1L,now,now,admin_1,admin_1);
+        BinaryContent pl_Icon_Memory_Game_content = new BinaryContent(1L, now, now,admin_1 , admin_1,"Memory_Game_Icon",pl_Icon_Memory_Game_bytes.length,pl_Icon_Memory_Game_bytes,null,"tag1","","",BinaryContentType.Image);
         binaryContentService.save(pl_Icon_Memory_Game_content);
 
         byte[] pl_pic_Memory_Game_bytes = ImageUtil.getImage("src/main/resources/images/Memory-Game/","MemGame.png");
-        BinaryContent pl_pic_Memory_Game_content = new BinaryContent("Memory_Game_Picture",pl_pic_Memory_Game_bytes,BinaryContentType.Image,1L,now,now,admin_1,admin_1);
+        BinaryContent pl_pic_Memory_Game_content = new BinaryContent(1L, now, now,admin_1 , admin_1,"Memory_Game_Picture",pl_pic_Memory_Game_bytes.length,pl_pic_Memory_Game_bytes,null,"tag1","","",BinaryContentType.Image);
         binaryContentService.save(pl_pic_Memory_Game_content);
 
         //BinaryContent puzzle_group_1_binary_content_image = binaryContentService.findByfileName("image_puzzle_group_matematic");
 
         byte[] text_object_content = ImageUtil.getImage("src/main/resources/images/X-O Problem/","TextObject.png");
-        BinaryContent textObject_binary_content = new BinaryContent("text_object_x-o",text_object_content,BinaryContentType.Image,1L,now,now,admin_1,admin_1);
+        BinaryContent textObject_binary_content = new BinaryContent(1L, now, now,admin_1 , admin_1,"text_object_x-o",text_object_content.length,text_object_content,null,"tag1","","",BinaryContentType.Image);
         binaryContentService.save(textObject_binary_content);
 
         ObjectCategory objectCategory_TextObject = objectCategoryService.findByValue("TextObject");
@@ -217,7 +217,7 @@ public class ImportMemoryGameProblemData_4 implements CommandLineRunner {
 
 
         byte[] X_O_LearningContent_Image_bytes = ImageUtil.getImage("src/main/resources/images/X-O Problem/","puzzle_group_X_O_Image.png");
-        BinaryContent pg_Memory_Game_learning_content = new BinaryContent("Memory-Game",X_O_LearningContent_Image_bytes,BinaryContentType.Image,1L,now,now,admin_1,admin_1);
+        BinaryContent pg_Memory_Game_learning_content = new BinaryContent(1L, now, now,admin_1 , admin_1,"Memory-Game", X_O_LearningContent_Image_bytes.length, X_O_LearningContent_Image_bytes,null,"tag1","","",BinaryContentType.Image);
         binaryContentService.save(pg_Memory_Game_learning_content);
 
         Integer xPos=1;

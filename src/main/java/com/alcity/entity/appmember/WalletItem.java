@@ -25,7 +25,7 @@ public class WalletItem extends BaseItemSet implements Serializable {
         this.walletItemType = walletItemType;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "icon_id", nullable = true)
     @JsonIgnore
     private BinaryContent icon;

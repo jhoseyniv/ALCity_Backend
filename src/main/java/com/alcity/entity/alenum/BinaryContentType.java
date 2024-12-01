@@ -8,6 +8,8 @@ public enum BinaryContentType {
     Video,
     Icon,
     Voice,
+    D2Object,
+    D3Object,
     Other;
 
     public static BinaryContentType getById(long id)

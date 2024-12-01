@@ -178,15 +178,15 @@ public class ImportHashImageProblemData_1 implements CommandLineRunner {
 
 
         byte[] puzzle_Ground_Image_1 = ImageUtil.getImage("src/main/resources/images/","playGround.png");
-        BinaryContent puzzle_ground_binary_content_1 = new BinaryContent("puzzle ground for hash image",puzzle_Ground_Image_1,BinaryContentType.Image,1L,now,now,admin_1,admin_1);
+        BinaryContent puzzle_ground_binary_content_1 = new BinaryContent(1L, now, now,admin_1 , admin_1,"puzzle ground for hash image",puzzle_Ground_Image_1.length,puzzle_Ground_Image_1,null,"tag1","","",BinaryContentType.Image);
         binaryContentService.save(puzzle_ground_binary_content_1);
 
         byte[] hashImage_icon_byte = ImageUtil.getImage("src/main/resources/images/hashImage_Puzzle/","hashImage_icon.png");
-        BinaryContent hashImage_icon = new BinaryContent("hash image icon",puzzle_Ground_Image_1,BinaryContentType.Image,1L,now,now,admin_1,admin_1);
+        BinaryContent hashImage_icon = new BinaryContent(1L, now, now,admin_1 , admin_1,"hash image icon",puzzle_Ground_Image_1.length,puzzle_Ground_Image_1,null,"tag1","","",BinaryContentType.Image);
         binaryContentService.save(hashImage_icon);
 
         byte[] hashImage_pic_byte = ImageUtil.getImage("src/main/resources/images/hashImage_Puzzle/","hashImage_pic.png");
-        BinaryContent hashImage_pic = new BinaryContent("hash image picture",puzzle_Ground_Image_1,BinaryContentType.Image,1L,now,now,admin_1,admin_1);
+        BinaryContent hashImage_pic = new BinaryContent(1L, now, now,admin_1 , admin_1,"hash image picture",puzzle_Ground_Image_1.length,puzzle_Ground_Image_1,null,"tag1","","",BinaryContentType.Image);
         binaryContentService.save(hashImage_pic);
 
         PuzzleCategory mathematic = puzzleCategoryService.findByValue("mathematic");
@@ -209,7 +209,7 @@ public class ImportHashImageProblemData_1 implements CommandLineRunner {
 
 
         byte[] puzzle_group_Hash_Image = ImageUtil.getImage("src/main/resources/images/hashImage_Puzzle","hashImage_pic.png");
-        BinaryContent puzzle_group_Hash_Image_binary_content = new BinaryContent("hashImage",puzzle_group_Hash_Image,BinaryContentType.Image,1L,now,now,admin_1,admin_1);
+        BinaryContent puzzle_group_Hash_Image_binary_content = new BinaryContent(1L, now, now,admin_1 , admin_1,"hashImage",puzzle_group_Hash_Image.length,puzzle_group_Hash_Image,null,"tag1","","",BinaryContentType.Image);
         binaryContentService.save(puzzle_group_Hash_Image_binary_content);
 
         Integer xPos=3;
@@ -303,15 +303,15 @@ public class ImportHashImageProblemData_1 implements CommandLineRunner {
         byte[] image_8_hash = ImageUtil.getImage("src/main/resources/images/hashImage_Puzzle/","8.png");
 
 
-        BinaryContent image_0_Instance_content = new BinaryContent("img0",image_0_hash,BinaryContentType.Image,1L,now,now,admin_1,admin_1);
-        BinaryContent image_1_Instance_content = new BinaryContent("img1",image_1_hash,BinaryContentType.Image,1L,now,now,admin_1,admin_1);
-        BinaryContent image_2_Instance_content = new BinaryContent("img2",image_2_hash,BinaryContentType.Image,1L,now,now,admin_1,admin_1);
-        BinaryContent image_3_Instance_content = new BinaryContent("img3",image_3_hash,BinaryContentType.Image,1L,now,now,admin_1,admin_1);
-        BinaryContent image_4_Instance_content = new BinaryContent("img4",image_4_hash,BinaryContentType.Image,1L,now,now,admin_1,admin_1);
-        BinaryContent image_5_Instance_content = new BinaryContent("img5",image_5_hash,BinaryContentType.Image,1L,now,now,admin_1,admin_1);
-        BinaryContent image_6_Instance_content = new BinaryContent("img6",image_6_hash,BinaryContentType.Image,1L,now,now,admin_1,admin_1);
-        BinaryContent image_7_Instance_content = new BinaryContent("img7",image_7_hash,BinaryContentType.Image,1L,now,now,admin_1,admin_1);
-        BinaryContent image_8_Instance_content = new BinaryContent("img8",image_8_hash,BinaryContentType.Image,1L,now,now,admin_1,admin_1);
+        BinaryContent image_0_Instance_content = new BinaryContent(1L, now, now,admin_1 , admin_1,"img0",image_0_hash.length,image_0_hash,null,"tag1","","",BinaryContentType.Image);
+        BinaryContent image_1_Instance_content = new BinaryContent(1L, now, now,admin_1 , admin_1,"img1",image_1_hash.length,image_1_hash,null,"tag1","","",BinaryContentType.Image);
+        BinaryContent image_2_Instance_content = new BinaryContent(1L, now, now,admin_1 , admin_1,"img2",image_2_hash.length,image_2_hash,null,"tag1","","",BinaryContentType.Image);
+        BinaryContent image_3_Instance_content = new BinaryContent(1L, now, now,admin_1 , admin_1,"img3",image_3_hash.length,image_3_hash,null,"tag1","","",BinaryContentType.Image);
+        BinaryContent image_4_Instance_content = new BinaryContent(1L, now, now,admin_1 , admin_1,"img4",image_4_hash.length,image_4_hash,null,"tag1","","",BinaryContentType.Image);
+        BinaryContent image_5_Instance_content = new BinaryContent(1L, now, now,admin_1 , admin_1,"img5",image_5_hash.length,image_5_hash,null,"tag1","","",BinaryContentType.Image);
+        BinaryContent image_6_Instance_content = new BinaryContent(1L, now, now,admin_1 , admin_1,"img6",image_6_hash.length,image_6_hash,null,"tag1","","",BinaryContentType.Image);
+        BinaryContent image_7_Instance_content = new BinaryContent(1L, now, now,admin_1 , admin_1,"img7",image_7_hash.length,image_7_hash,null,"tag1","","",BinaryContentType.Image);
+        BinaryContent image_8_Instance_content = new BinaryContent(1L, now, now,admin_1 , admin_1,"img8",image_8_hash.length,image_8_hash,null,"tag1","","",BinaryContentType.Image);
 
         binaryContentService.save(image_0_Instance_content);
         binaryContentService.save(image_1_Instance_content);

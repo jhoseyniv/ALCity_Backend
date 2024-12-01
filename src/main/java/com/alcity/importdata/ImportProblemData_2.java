@@ -134,16 +134,16 @@ public class ImportProblemData_2 implements CommandLineRunner {
         Journey journey_1 = journeyService.findByTitle("Journey_1");
 
         byte[] playGround_image_problem_2 = ImageUtil.getImage("src/main/resources/images/","playGround_2.png");
-        BinaryContent play_ground_binary_content_2 = new BinaryContent("puzzle ground for Maze Problem",playGround_image_problem_2,BinaryContentType.Image,1L,now,now,admin_1,admin_1);
+        BinaryContent play_ground_binary_content_2 = new BinaryContent(1L, now, now,admin_1 , admin_1,"puzzle ground for Maze Problem",playGround_image_problem_2.length,playGround_image_problem_2,null,"tag1","","",BinaryContentType.Image);
         binaryContentService.save(play_ground_binary_content_2);
 
         byte[] puzzle_group_Pic_2 = ImageUtil.getImage("src/main/resources/images/","puzzle_group_2.png");
-        BinaryContent puzzle_group_2_binary_content_pic = new BinaryContent("image_puzzle_group_Mazes",puzzle_group_Pic_2,BinaryContentType.Image,1L,now,now,admin_1,admin_1);
+        BinaryContent puzzle_group_2_binary_content_pic = new BinaryContent(1L, now, now,admin_1 , admin_1,"image_puzzle_group_Mazes",puzzle_group_Pic_2.length,puzzle_group_Pic_2,null,"tag1","","",BinaryContentType.Image);
         binaryContentService.save(puzzle_group_2_binary_content_pic);
 
 
         byte[] puzzle_group_Icon_2 = ImageUtil.getImage("src/main/resources/images/","puzzle_group2_icon.png");
-        BinaryContent puzzle_group_2_binary_content_icon = new BinaryContent("image_puzzle_group_Mazes",puzzle_group_Icon_2,BinaryContentType.Image,1L,now,now,admin_1,admin_1);
+        BinaryContent puzzle_group_2_binary_content_icon = new BinaryContent(1L, now, now,admin_1 , admin_1,"image_puzzle_group_Mazes",puzzle_group_Icon_2.length,puzzle_group_Icon_2,null,"tag1","","",BinaryContentType.Image);
         binaryContentService.save(puzzle_group_2_binary_content_icon);
 
 
@@ -164,7 +164,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
 
 
         byte[] puzzle_group_Maze_pic = ImageUtil.getImage("src/main/resources/images/","MazeImage.png");
-        BinaryContent puzzle_group_Maze_binary_content = new BinaryContent("Maze Image",puzzle_group_Maze_pic,BinaryContentType.Image,1L,now,now,admin_1,admin_1);
+        BinaryContent puzzle_group_Maze_binary_content = new BinaryContent(1L, now, now,admin_1 , admin_1,"Maze Image",puzzle_group_Maze_pic.length,puzzle_group_Maze_pic,null,"tag1","","",BinaryContentType.Image);
         binaryContentService.save(puzzle_group_Maze_binary_content);
 
         Integer xPos=5;
@@ -336,9 +336,9 @@ public class ImportProblemData_2 implements CommandLineRunner {
         byte[] image_0_maze_2 = ImageUtil.getImage("src/main/resources/images/Maze_problem/","black_space_image.png");
         byte[] image_0_maze_3 = ImageUtil.getImage("src/main/resources/images/Maze_problem/","yellow_space_image.png");
 
-        BinaryContent white_space_image = new BinaryContent("white_space_image",image_0_maze_1,BinaryContentType.Image,1L,now,now,admin_1,admin_1);
-        BinaryContent black_space_image = new BinaryContent("black_space_image",image_0_maze_2,BinaryContentType.Image,1L,now,now,admin_1,admin_1);
-        BinaryContent yellow_space_image = new BinaryContent("yellow_space_image",image_0_maze_3,BinaryContentType.Image,1L,now,now,admin_1,admin_1);
+        BinaryContent white_space_image = new BinaryContent(1L, now, now,admin_1 , admin_1,"white_space_image", image_0_maze_1.length, image_0_maze_1,null,"tag1","","",BinaryContentType.Image);
+        BinaryContent black_space_image = new BinaryContent(1L, now, now,admin_1 , admin_1,"black_space_image",image_0_maze_2.length,image_0_maze_2,null,"tag1","","",BinaryContentType.Image);
+        BinaryContent yellow_space_image = new BinaryContent(1L, now, now,admin_1 , admin_1,"yellow_space_image",image_0_maze_3.length,image_0_maze_3,null,"tag1","","",BinaryContentType.Image);
 
         binaryContentService.save(white_space_image);
         binaryContentService.save(black_space_image);

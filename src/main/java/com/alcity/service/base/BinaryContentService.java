@@ -17,6 +17,7 @@ import com.alcity.repository.puzzle.PuzzleLevelRepository;
 import com.alcity.repository.appmember.AppMemberRepository;
 import com.alcity.service.learning.LearningContentService;
 import com.alcity.service.puzzle.PGService;
+import com.alcity.utility.DateUtils;
 import com.alcity.utility.ImageUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -24,7 +25,11 @@ import org.springframework.stereotype.Service;
 
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;;
+import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Collection;
@@ -125,18 +130,22 @@ public class BinaryContentService implements BinaryContentRepository , BinaryCon
     private AppMemberRepository appMemberRepository;
 
 
-    @Override
-    public BinaryContent save(String fileName, MultipartFile file) throws IOException {
-        LocalDateTime current = LocalDateTime.now();
-        DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
-        String now = current.format(format);
-        AppMember createdBy = appMemberRepository.findByUsername("admin");
-        BinaryContentType binaryContentType = ImageUtil.getBinaryContentType(file.getContentType());
-        BinaryContent binaryContent = new BinaryContent(fileName,file.getBytes(), binaryContentType,1L,now,now,createdBy,createdBy);
-        binaryContentRepository.save(binaryContent);
-
-        return binaryContent;
-    }
+//    @Override
+//    public BinaryContent save(String fileName, MultipartFile uploadedFile) throws IOException {
+//        LocalDateTime current = LocalDateTime.now();
+//        DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+//        String now = current.format(format);
+//        AppMember createdBy = appMemberRepository.findByUsername("admin");
+//        BinaryContentType binaryContentType = ImageUtil.getBinaryContentType(uploadedFile.getContentType());
+//        File file= new File("src/main/resources/images/image-utility/",uploadedFile.getName());
+//        uploadedFile.transferTo(file);
+//        byte[] tubmnile = ImageUtil.getThumbnail(file);
+//        BinaryContent binaryContent = new BinaryContent(fileName,uploadedFile.getSize(),uploadedFile.getBytes(),tubmnile ,
+//                ,uploadedFile., binaryContentType,1L,now,now,createdBy,createdBy);
+//        binaryContentRepository.save(binaryContent);
+//
+//        return binaryContent;
+//    }
 
     @Override
     public void removeForeignKeys(Long id) throws IOException {
@@ -195,13 +204,14 @@ public class BinaryContentService implements BinaryContentRepository , BinaryCon
 
     }
 
-    public BinaryContent save(BinaryContentDTO dto, String code) {
+    public BinaryContent save(BinaryContentDTO dto, String code) throws IOException {
         AppMember createdBy = appMemberRepository.findByUsername("admin");
+
         BinaryContent binaryContent=null;
         if (code.equalsIgnoreCase("Save")) { // save
-            binaryContent = new BinaryContent(dto.getFileName(), dto.getContent(),
-                    BinaryContentType.getByTitle(dto.getContentType()) ,
-                    1L, "1714379790", "1714379790",createdBy, createdBy);
+            byte[]  tumb = ImageUtil.getThumbnail(dto.getContent(),dto.getFileName());
+            binaryContent = new BinaryContent(1L, DateUtils.getNow(), DateUtils.getNow(),createdBy , createdBy,dto.getFileName(),dto.getSize(), dto.getContent(), tumb, dto.getTag1(), dto.getTag2(), dto.getTag3(),
+                    BinaryContentType.getByTitle(dto.getContentType()));
             binaryContentRepository.save(binaryContent);
         }else{//edit
             Optional<BinaryContent> binaryContentOptional= binaryContentRepository.findById(dto.getId());

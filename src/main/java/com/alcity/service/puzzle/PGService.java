@@ -24,6 +24,10 @@ public class PGService implements PGRepository {
     @Qualifier("PGRepository")
     @Autowired
     PGRepository pgRepository;
+
+    @Autowired
+    BinaryContentRepository binaryContentRepository;
+
     @Override
     public <S extends PuzzleGroup> S save(S entity) {
         return pgRepository.save(entity);
@@ -61,13 +65,17 @@ public class PGService implements PGRepository {
 
     @Override
     public void deleteById(Long aLong) {
-        pgRepository.deleteById(aLong);
+
+    }
+
+    public void deleteById(PuzzleGroup puzzleGroup) {
+        binaryContentRepository.delete(puzzleGroup.getIcon());
+        binaryContentRepository.delete(puzzleGroup.getPic());
+        pgRepository.delete(puzzleGroup);
     }
     @Autowired
     private AppMemberRepository appMemberRepository;
 
-    @Autowired
-    private BinaryContentRepository binaryContentRepository;
     @Autowired
     private PuzzleCategoryRepository puzzleCategoryRepository;
 
@@ -97,6 +105,9 @@ public class PGService implements PGRepository {
 
     @Override
     public void delete(PuzzleGroup entity) {
+       // binaryContentRepository.delete(entity.getIcon());
+      //  binaryContentRepository.delete(entity.getPic());
+        pgRepository.delete(entity);
 
     }
 

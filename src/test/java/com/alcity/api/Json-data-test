@@ -281,3 +281,22 @@
         "createdBy": 8,
         "updatedBy": 8
     }
+    //save puzzle group
+
+ {
+     "id": -1,
+     "version": 1,
+     "created": "29-11-2024 06:13:46",
+     "updated": "29-11-2024 06:13:46",
+     "createdBy": "admin",
+     "updatedBy": "admin",
+     "title": "IQ Puzzle Group 1403",
+     "puzzleCategoryId": 8,
+     "iconId": 60,
+     "picId": 61,
+     "journeyStepDTOCollection": null,
+     "puzzleLevelDTOCollection": null,
+     "puzzleGroup_puzzleObjectDTOCollection": null,
+     "puzzleSkillLearningContentDTOCollection": null
+   }
+

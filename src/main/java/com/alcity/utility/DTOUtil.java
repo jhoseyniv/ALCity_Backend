@@ -21,6 +21,7 @@ import com.alcity.dto.appmember.AppMemberDTO;
 import com.alcity.dto.appmember.MemberTypeDTO;
 import com.alcity.dto.appmember.WalletItemDTO;
 import com.alcity.entity.alenum.AttributeOwnerType;
+import com.alcity.entity.alenum.BinaryContentType;
 import com.alcity.entity.alenum.ObjectAction;
 import com.alcity.entity.alobject.*;
 import com.alcity.entity.base.*;
@@ -36,6 +37,7 @@ import com.alcity.entity.appmember.WalletItem;
 import com.alcity.service.alobject.AttributeService;
 import com.alcity.service.alobject.AttributeValueService;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
@@ -464,14 +466,15 @@ public class DTOUtil {
         return pl_ltDTOCollection;
     }
     public static BinaryContentDTO getBinaryContentDTOWithoutContent(BinaryContent content){
-        BinaryContentDTO binaryContentDTO = new BinaryContentDTO(content.getId(), content.getVersion(), content.getCreated(), content.getUpdated(),
-                content.getCreatedBy().getUsername(),content.getUpdatedBy().getUsername(),
-                 content.getFileName(), content.getSize(), null,content.getContentType().name());
+        BinaryContentDTO binaryContentDTO = new BinaryContentDTO(content.getId(), content.getVersion(), content.getCreated(), content.getUpdated(), content.getCreatedBy().getUsername(), content.getUpdatedBy().getUsername(),
+                content.getFileName(), content.getSize(), null, content.getThumbnail(), content.getContentType().name(),
+                content.getTag1(), content.getTag2(), content.getTag3());
         return binaryContentDTO;
     }
     public static BinaryContentDTO getBinaryContentDTO(BinaryContent content){
-        BinaryContentDTO binaryContentDTO = new BinaryContentDTO(content.getId(), content.getVersion(), content.getCreated(), content.getUpdated(),
-                content.getCreatedBy().getUsername(),content.getUpdatedBy().getUsername(),content.getFileName(), content.getSize(), content.getContent(),content.getContentType().name());
+        BinaryContentDTO binaryContentDTO = new BinaryContentDTO(content.getId(), content.getVersion(), content.getCreated(), content.getUpdated(), content.getCreatedBy().getUsername(), content.getUpdatedBy().getUsername(),
+                content.getFileName(), content.getSize(), content.getContent(), content.getThumbnail(), content.getContentType().name(),
+                content.getTag1(), content.getTag2(), content.getTag3());
         return binaryContentDTO;
     }
 
@@ -573,9 +576,9 @@ public class DTOUtil {
         }
         return dtos;
     }
-    public static WalletItemDTO getWalletItemDTO(WalletItem wi) {
+    public static WalletItemDTO getWalletItemDTO(WalletItem wi)  {
         WalletItemTypeDTO walletItemTypeDTO = getWalletItemTypeDTO(wi.getWalletItemType());
-        WalletItemDTO walletItemDTO = new WalletItemDTO(wi.getId(), wi.getLabel(), wi.getValue(),wi.getIcon().getId(),
+         WalletItemDTO walletItemDTO = new WalletItemDTO(wi.getId(), wi.getLabel(), wi.getValue(),wi.getIcon().getId(),
                 wi.getWalletItemType().getValue(),wi.getVersion(),wi.getCreated(),
                 wi.getUpdated(),wi.getCreatedBy().getUsername(),wi.getUpdatedBy().getUsername());
         return walletItemDTO;

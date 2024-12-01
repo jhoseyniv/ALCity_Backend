@@ -129,7 +129,7 @@ public class PGController {
         Optional<PuzzleGroup> existingRecord = pgService.findById(id);
         if(existingRecord.isPresent()){
             try {
-                pgService.deleteById(existingRecord.get().getId());
+                pgService.delete(existingRecord.get());
 
             }catch (Exception e )
             {
