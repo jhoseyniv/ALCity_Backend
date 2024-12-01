@@ -1,7 +1,7 @@
 package com.alcity.service.base;
 
 import com.alcity.dto.base.BinaryContentDTO;
-import com.alcity.dto.base.SearchCriteriaDTO;
+import com.alcity.dto.base.ContentSearchCriteriaDTO;
 import com.alcity.entity.alenum.BinaryContentType;
 import com.alcity.entity.appmember.WalletItem;
 import com.alcity.entity.base.BinaryContent;
@@ -25,14 +25,8 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.multipart.MultipartFile;;
-import java.io.File;
+;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Collection;
 import java.util.Optional;
 
@@ -133,9 +127,8 @@ public class BinaryContentService implements BinaryContentRepository , BinaryCon
     }
 
 
-    public Collection<BinaryContent> findByCriteria(SearchCriteriaDTO dto) {
-        return binaryContentRepository.findByTag1OrTag2OrTag3OrFileNameOrContentType(dto.getTag1(), dto.getTag2(), dto.getTag3(),
-                dto.getFileName(),BinaryContentType.getById(dto.getContentTypeId()));
+    public Collection<BinaryContent> findByCriteria(ContentSearchCriteriaDTO dto) {
+        return binaryContentRepository.findByTag1OrTag2OrTag3OrFileNameOrContentType(dto.getCriteria(), dto.getCriteria(), dto.getCriteria(), dto.getCriteria(),BinaryContentType.getById(dto.getContentTypeId()));
     }
 
     @Autowired

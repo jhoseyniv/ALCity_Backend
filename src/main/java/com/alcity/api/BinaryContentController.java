@@ -5,18 +5,15 @@ import com.alcity.customexception.ALCityResponseObject;
 import com.alcity.customexception.UniqueConstraintException;
 import com.alcity.customexception.ViolateForeignKeyException;
 import com.alcity.dto.base.BinaryContentDTO;
-import com.alcity.dto.base.SearchCriteriaDTO;
+import com.alcity.dto.base.ContentSearchCriteriaDTO;
 import com.alcity.entity.base.BinaryContent;
-import com.alcity.entity.base.PuzzleCategory;
 import com.alcity.service.base.BinaryContentService;
 import com.alcity.service.puzzle.PGService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.Collection;
@@ -47,7 +44,7 @@ public class BinaryContentController {
     @PostMapping("/search")
     @ResponseBody
     @CrossOrigin(origins = "*")
-    public Collection<BinaryContent> getBinaryContentBySearchCriteria(@RequestBody SearchCriteriaDTO criteriaDTO ) {
+    public Collection<BinaryContent> getBinaryContentBySearchCriteria(@RequestBody ContentSearchCriteriaDTO criteriaDTO ) {
         Collection<BinaryContent> binaryContentCollection = binaryContentService.findByCriteria(criteriaDTO);
         return binaryContentCollection;
     }
