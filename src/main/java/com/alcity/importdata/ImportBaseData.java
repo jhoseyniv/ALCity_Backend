@@ -244,7 +244,7 @@ public class ImportBaseData implements CommandLineRunner {
         binaryContentService.save(puzzle_ground_Maze_image_binary_content_1);
 
         byte[] puzzle_group_Icon_2 = ImageUtil.getImage("src/main/resources/images/","physic.png");
-        BinaryContent puzzle_group_binary_content_2 = new BinaryContent(1L, now, now,admin_1 , admin_1,"image_puzzle_group_physic",puzzle_group_Icon_2.length,puzzle_group_Icon_2,null,"tag1","","",BinaryContentType.Image);
+        BinaryContent puzzle_group_binary_content_2 = new BinaryContent(1L, now, now,admin_1 , admin_1,"image_puzzle_group_physic",puzzle_group_Icon_2.length,puzzle_group_Icon_2,null,"tag1","kjkjk","",BinaryContentType.Image);
         binaryContentService.save(puzzle_group_binary_content_2);
 
         byte[] puzzle_group_Icon_3 = ImageUtil.getImage("src/main/resources/images/","IQ.png");
