@@ -289,8 +289,8 @@ public class ImportBaseData implements CommandLineRunner {
         walletItemTypeService.save(alCoin);
         walletItemTypeService.save(cityObject);
 
-         WalletItem teterWalletItem= new WalletItem(fiat,null,"tether","tether",1L,now,now,admin_1,admin_1);
-        WalletItem alCoin10WalletItem= new WalletItem(alCoin,null,"al_coin_10","al_coin_10",1L,now,now,admin_1,admin_1);
+         WalletItem teterWalletItem= new WalletItem(fiat,teterIcon_Content,"tether","tether",1L,now,now,admin_1,admin_1);
+        WalletItem alCoin10WalletItem= new WalletItem(alCoin,teterIcon_Content,"al_coin_10","al_coin_10",1L,now,now,admin_1,admin_1);
         WalletItem alCoin_100_WalletItem= new WalletItem(alCoin,teterIcon_Content,"al_coin_100","al_coin_100",1L,now,now,admin_1,admin_1);
         WalletItem carWalletItem= new WalletItem(cityObject,carIcon_Content,"car object","car_object",1L,now,now,admin_1,admin_1);
         WalletItem TVWalletItem= new WalletItem(cityObject,carIcon_Content,"TV object","TV_object",1L,now,now,admin_1,admin_1);
