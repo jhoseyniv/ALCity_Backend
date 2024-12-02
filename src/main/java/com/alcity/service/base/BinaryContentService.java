@@ -124,13 +124,13 @@ public class BinaryContentService implements BinaryContentRepository , BinaryCon
     }
 
     @Override
-    public Collection<BinaryContent> findByTag1OrTag2OrTag3OrFileNameOrContentType(String tag1, String tag2, String tag3, String fileName, BinaryContentType contentType) {
-        return binaryContentRepository.findByTag1OrTag2OrTag3OrFileNameOrContentType(tag1,tag2,tag3,fileName,contentType);
+    public Collection<BinaryContent> findByTag1OrTag2OrTag3OrFileNameAndContentType(String tag1, String tag2, String tag3, String fileName, BinaryContentType contentType) {
+        return binaryContentRepository.findByTag1OrTag2OrTag3OrFileNameAndContentType(tag1,tag2,tag3,fileName,contentType);
     }
 
 
     public Collection<BinaryContent> findByCriteria(ContentSearchCriteriaDTO dto) {
-        Collection<BinaryContent> binaryContents = binaryContentRepository.findByTag1OrTag2OrTag3OrFileNameOrContentType(dto.getCriteria(), dto.getCriteria(), dto.getCriteria(), dto.getCriteria(),BinaryContentType.getById(dto.getContentTypeId()));
+        Collection<BinaryContent> binaryContents = binaryContentRepository.findByTag1OrTag2OrTag3OrFileNameAndContentType(dto.getCriteria(), dto.getCriteria(), dto.getCriteria(), dto.getCriteria(),BinaryContentType.getById(dto.getContentTypeId()));
         Stream<BinaryContent> binaryContentStream = binaryContents.stream();
         if(dto.getLastIndex() < 0L ) dto.setLastIndex(0L);
         if(dto.getPageSize() <= 0 ) dto.setPageSize(1);
