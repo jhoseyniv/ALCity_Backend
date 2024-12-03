@@ -5,6 +5,7 @@ public class WalletItemDTO {
     private String label;
     private String value;
     private Long  iconId;
+    private byte[] thumbnail;
     private String walletItemType;
 
     private Long version;
@@ -13,7 +14,15 @@ public class WalletItemDTO {
     private String createdBY;
     private String updatedBy;
 
-     public String getWalletItemType() {
+    public byte[] getThumbnail() {
+        return thumbnail;
+    }
+
+    public void setThumbnail(byte[] thumbnail) {
+        this.thumbnail = thumbnail;
+    }
+
+    public String getWalletItemType() {
         return walletItemType;
     }
 
@@ -97,13 +106,14 @@ public class WalletItemDTO {
 
     }
 
-    public WalletItemDTO(Long id, String label, String value, Long iconId, String walletItemType,
+    public WalletItemDTO(Long id, String label, String value, Long iconId, String walletItemType,byte[] thumbnail,
                          Long version, String created, String updated, String createdBY, String updatedBy) {
         this.id = id;
         this.label = label;
         this.value = value;
         this.iconId = iconId;
         this.walletItemType = walletItemType;
+        this.thumbnail =thumbnail;
         this.version = version;
         this.created = created;
         this.updated = updated;

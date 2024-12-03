@@ -591,7 +591,7 @@ public class DTOUtil {
     public static WalletItemDTO getWalletItemDTO(WalletItem wi)  {
         WalletItemTypeDTO walletItemTypeDTO = getWalletItemTypeDTO(wi.getWalletItemType());
          WalletItemDTO walletItemDTO = new WalletItemDTO(wi.getId(), wi.getLabel(), wi.getValue(),wi.getIcon().getId(),
-                wi.getWalletItemType().getValue(),wi.getVersion(),wi.getCreated(),
+                wi.getWalletItemType().getValue(),wi.getIcon().getThumbnail(), wi.getVersion(),wi.getCreated(),
                 wi.getUpdated(),wi.getCreatedBy().getUsername(),wi.getUpdatedBy().getUsername());
         return walletItemDTO;
     }

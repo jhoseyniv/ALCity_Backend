@@ -270,12 +270,13 @@ public class ImportBaseData implements CommandLineRunner {
 
         byte[] tetherIcon = ImageUtil.getImage("src/main/resources/images/","Tether.png");
         byte[] carIcon = ImageUtil.getImage("src/main/resources/images/","car.png");
-       // byte[] carIcon = ImageUtil.getImage("src/main/resources/images/","car.png");
+        byte[]  carIcon_tumb = ImageUtil.getThumbnail(carIcon,"carIcon.png");
+        byte[]  tetherIcon_tumb = ImageUtil.getThumbnail(tetherIcon,"Tether.png");
 
-        BinaryContent teterIcon_Content = new BinaryContent(1L, now, now,admin_1 , admin_1,"Tether Icon",tetherIcon.length,tetherIcon,null,"tag1","","",BinaryContentType.Image);
+        BinaryContent teterIcon_Content = new BinaryContent(1L, now, now,admin_1 , admin_1,"Tether Icon",tetherIcon.length,tetherIcon,tetherIcon_tumb,"tag1","","",BinaryContentType.Image);
         binaryContentService.save(teterIcon_Content);
 
-        BinaryContent carIcon_Content = new BinaryContent(1L, now, now,admin_1 , admin_1,"Car Icon",carIcon.length,carIcon,null,"tag1","","",BinaryContentType.Image);
+        BinaryContent carIcon_Content = new BinaryContent(1L, now, now,admin_1 , admin_1,"Car Icon",carIcon.length,carIcon,carIcon_tumb,"tag1","","",BinaryContentType.Image);
         binaryContentService.save(carIcon_Content);
 
 
