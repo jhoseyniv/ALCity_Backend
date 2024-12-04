@@ -1,5 +1,7 @@
 package com.alcity.service.puzzle;
 
+import com.alcity.customexception.UniqueConstraintException;
+import com.alcity.customexception.ViolateForeignKeyException;
 import com.alcity.dto.puzzle.ALCityObjectDTO;
 import com.alcity.entity.alenum.POActionOwnerType;
 import com.alcity.entity.alobject.ObjectCategory;
@@ -8,6 +10,7 @@ import com.alcity.entity.base.BinaryContent;
 import com.alcity.entity.base.PuzzleCategory;
 import com.alcity.entity.puzzle.ALCityObject;
 import com.alcity.entity.appmember.AppMember;
+import com.alcity.entity.puzzle.PuzzleGroup;
 import com.alcity.repository.alobject.ObjectCategoryRepository;
 import com.alcity.repository.base.BinaryContentRepository;
 import com.alcity.repository.puzzle.ALCityObjectRepository;
@@ -86,9 +89,17 @@ public class ALCityObjectService implements ALCityObjectRepository {
     }
 
     @Override
-    public void delete(ALCityObject entity) {
+    public void delete(ALCityObject object)  {
+        try {
+            alCityObjectRepository.delete(object);
+        }catch (Exception e )
+        {
+            throw new ViolateForeignKeyException(object.getTitle(), object.getId(), ALCityObject.class.toString());
+        }
 
     }
+
+
 
     @Override
     public void deleteAllById(Iterable<? extends Long> longs) {
@@ -133,7 +144,12 @@ public class ALCityObjectService implements ALCityObjectRepository {
         ALCityObject alCityObject=null;
         if (code.equalsIgnoreCase("Save")) { //Save
             alCityObject = new ALCityObject(1L, DateUtils.getNow(), DateUtils.getNow(), createdBy, createdBy,dto.getTitle(), objectCategory,pic.get(),icon.get());
-            alCityObjectRepository.save(alCityObject);
+            try {
+                alCityObjectRepository.save(alCityObject);
+            }
+            catch (RuntimeException e) {
+                    throw new UniqueConstraintException(dto.getTitle(), dto.getId(), "title must be Unique");
+            }
         }else{//edit
             Optional<ALCityObject> alCityObjectOptional= alCityObjectRepository.findById(dto.getId());
             if(alCityObjectOptional.isPresent()) {

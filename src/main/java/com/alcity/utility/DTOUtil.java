@@ -45,11 +45,7 @@ import java.util.Optional;
 
 public class DTOUtil {
 
-    public static ObjectCategoryDTO getObjectCategoryDTO(ObjectCategory oc){
-        ObjectCategoryDTO objectCategoryDTO = new ObjectCategoryDTO(oc.getId(),oc.getLabel(),oc.getValue(), oc.getVersion(), oc.getCreated(),
-                oc.getUpdated(),null);
-            return objectCategoryDTO;
-    }
+
 
     public static PuzzleLevelLDTO getPuzzleLevelDTO(PuzzleLevel pl) {
         PuzzleLevelLDTO plDTO = new PuzzleLevelLDTO();
@@ -108,14 +104,14 @@ public class DTOUtil {
                         value.getIntValue(), value.getBinaryContentId() ,value.getStringValue(),value.getObjectValue(),value.getAttributeId().getId() );
         return valueDTO;
     }
-    public static Collection<AttributeValueDTO> getAttributesValueDTOS(Collection<AttributeValue> values) {
-        Collection<AttributeValueDTO> dtos = new ArrayList<AttributeValueDTO>();
-        Iterator<AttributeValue> itr = values.iterator();
+    public static Collection<AttributeValueDTO> getAttributesValueDTOS(Collection<AttributeValue> input) {
+        Collection<AttributeValueDTO> output = new ArrayList<AttributeValueDTO>();
+        Iterator<AttributeValue> itr = input.iterator();
         while (itr.hasNext()) {
             AttributeValueDTO valueDTO = getAttributeValueDTO(itr.next());
-            dtos.add(valueDTO);
+            output.add(valueDTO);
         }
-        return  dtos;
+        return  output;
     }
         public static AttributeDTO getAttributeDTO(Attribute att){
             Collection<AttributeValueDTO> valueDTOS = getAttributesValueDTOS(att.getAttributeValues()) ;
@@ -124,21 +120,21 @@ public class DTOUtil {
            return attributeDTO;
         }
 
-    public static Collection<AttributeDTO> getAttributesDTOS(Collection<Attribute> attributeCollection) {
-        Collection<AttributeDTO> attributeDTOCollection = new ArrayList<AttributeDTO>();
-        Iterator<Attribute> itr = attributeCollection.iterator();
+    public static Collection<AttributeDTO> getAttributesDTOS(Collection<Attribute> input) {
+        Collection<AttributeDTO> output = new ArrayList<AttributeDTO>();
+        Iterator<Attribute> itr = input.iterator();
         while (itr.hasNext()) {
            AttributeDTO attributeDTO = getAttributeDTO(itr.next());
-            attributeDTOCollection.add(attributeDTO);
+            output.add(attributeDTO);
         }
-        return attributeDTOCollection;
+        return output;
     }
 
 
 
-    public static Collection<JourneyStepDTO> getJorenyStepsDTOS(Collection<JourneyStep> journeyStepCollection) {
-        Collection<JourneyStepDTO> journeyStepDTOCollection = new ArrayList<JourneyStepDTO>();
-        Iterator<JourneyStep> itr = journeyStepCollection.iterator();
+    public static Collection<JourneyStepDTO> getJorenyStepsDTOS(Collection<JourneyStep> input) {
+        Collection<JourneyStepDTO> output = new ArrayList<JourneyStepDTO>();
+        Iterator<JourneyStep> itr = input.iterator();
         while (itr.hasNext()) {
             JourneyStep journeyStep = itr.next();
             JourneyStepDTO journeyStepDTO = new JourneyStepDTO();
@@ -150,9 +146,9 @@ public class DTOUtil {
             journeyStepDTO.setTitle(journeyStep.getTitle());
             journeyStepDTO.setCreated(journeyStep.getCreated());
             journeyStepDTO.setUpdated(journeyStep.getUpdated());
-            journeyStepDTOCollection.add(journeyStepDTO);
+            output.add(journeyStepDTO);
         }
-        return journeyStepDTOCollection;
+        return output;
     }
     public static void copyAttributesActionFromTo(Long fromOwnerId,Long toOwnerId, AttributeOwnerType from , AttributeOwnerType to,
                                  AttributeService attributeService, AttributeValueService attributeValueService){
@@ -220,32 +216,32 @@ public class DTOUtil {
         }
 
     }
-    public static Collection<PuzzleLevelLDTO> getPuzzleLevelDTOS(Collection<PuzzleLevel> puzzleLevelCollection) {
-        Collection<PuzzleLevelLDTO> puzzleLevelDTOCollection = new ArrayList<PuzzleLevelLDTO>();
+    public static Collection<PuzzleLevelLDTO> getPuzzleLevelDTOS(Collection<PuzzleLevel> input) {
+        Collection<PuzzleLevelLDTO> output = new ArrayList<PuzzleLevelLDTO>();
 
-        Iterator<PuzzleLevel> itrPuzzleLevel = puzzleLevelCollection.iterator();
-        while (itrPuzzleLevel.hasNext()) {
-            PuzzleLevel puzzleLevel = itrPuzzleLevel.next();
-            PuzzleLevelLDTO dtoObject = new PuzzleLevelLDTO();
-            dtoObject.setId(puzzleLevel.getId());
-            dtoObject.setVersion(puzzleLevel.getVersion());
-            dtoObject.setOrdering(puzzleLevel.getOrdering());
-            dtoObject.setApproveDate(puzzleLevel.getApproveDate());
-            dtoObject.setCreated(puzzleLevel.getCreated());
-            dtoObject.setUpdated(puzzleLevel.getUpdated());
-            dtoObject.setCode(puzzleLevel.getCode());
-            dtoObject.setTitle(puzzleLevel.getTitle());
-            dtoObject.setFromAge(puzzleLevel.getFromAge());
-            dtoObject.setToAge(puzzleLevel.getToAge());
-            dtoObject.setMaxScore(puzzleLevel.getMaxScore());
-            dtoObject.setPuzzleGroupId(puzzleLevel.getPuzzleGroup().getId());
-            dtoObject.setPuzzleLevelStatus(puzzleLevel.getPuzzleLevelStatus().name());
-            dtoObject.setPuzzleLevelDifficulty(puzzleLevel.getPuzzleDifficulty().name());
-            dtoObject.setPuzzleLevelPrivacy(puzzleLevel.getPuzzleLevelPrivacy().getValue());
+        Iterator<PuzzleLevel> itr = input.iterator();
+        while (itr.hasNext()) {
+            PuzzleLevel pl = itr.next();
+            PuzzleLevelLDTO dto = new PuzzleLevelLDTO();
+            dto.setId(pl.getId());
+            dto.setVersion(pl.getVersion());
+            dto.setOrdering(pl.getOrdering());
+            dto.setApproveDate(pl.getApproveDate());
+            dto.setCreated(pl.getCreated());
+            dto.setUpdated(pl.getUpdated());
+            dto.setCode(pl.getCode());
+            dto.setTitle(pl.getTitle());
+            dto.setFromAge(pl.getFromAge());
+            dto.setToAge(pl.getToAge());
+            dto.setMaxScore(pl.getMaxScore());
+            dto.setPuzzleGroupId(pl.getPuzzleGroup().getId());
+            dto.setPuzzleLevelStatus(pl.getPuzzleLevelStatus().name());
+            dto.setPuzzleLevelDifficulty(pl.getPuzzleDifficulty().name());
+            dto.setPuzzleLevelPrivacy(pl.getPuzzleLevelPrivacy().getValue());
 
-            puzzleLevelDTOCollection.add(dtoObject);
+            output.add(dto);
         }
-        return puzzleLevelDTOCollection;
+        return output;
     }
     public static <E extends Enum<?>> Collection<EnumDTO> getEnumByClass(Class<E> c)
     {
@@ -257,29 +253,29 @@ public class DTOUtil {
         return enumDTOS;
     }
 
-    public static Collection<LearningSkillLContentDTO> getLearningSkillContentDTOS(Collection<LearningSkillContent> learningSkillContents) {
-        Collection<LearningSkillLContentDTO> learningSkillLContentDTOS = new ArrayList<LearningSkillLContentDTO>();
-        Iterator<LearningSkillContent> itrPuzzleSkills = learningSkillContents.iterator();
-        while (itrPuzzleSkills.hasNext()) {
-            LearningSkillLContentDTO dtoObject = new LearningSkillLContentDTO();
-            LearningSkillContent learningSkillContent = itrPuzzleSkills.next();
+    public static Collection<LearningSkillLContentDTO> getLearningSkillContentDTOS(Collection<LearningSkillContent> input) {
+        Collection<LearningSkillLContentDTO> output = new ArrayList<LearningSkillLContentDTO>();
+        Iterator<LearningSkillContent> itr = input.iterator();
+        while (itr.hasNext()) {
+            LearningSkillLContentDTO dto = new LearningSkillLContentDTO();
+            LearningSkillContent lsc = itr.next();
 
-            dtoObject.setId(learningSkillContent.getId());
-            dtoObject.setVersion(learningSkillContent.getVersion());
-            dtoObject.setCreated(learningSkillContent.getCreated());
-            dtoObject.setCreatedById(learningSkillContent.getCreatedBy().getId());
-            dtoObject.setUpdated(learningSkillContent.getUpdated());
-            dtoObject.setUpdatedById(learningSkillContent.getUpdatedBy().getId());
-            dtoObject.setCreatedBy(learningSkillContent.getCreatedBy().getUsername());
-            dtoObject.setUpdatedBy(learningSkillContent.getUpdatedBy().getUsername());
-            dtoObject.setLearningSkillId(learningSkillContent.getLearningSkill().getId());
-            dtoObject.setLearningSkillTitle(learningSkillContent.getLearningSkill().getValue());
-            dtoObject.setLearningContentId(learningSkillContent.getLearningContent().getId());
-            dtoObject.setPuzzleGroupId(learningSkillContent.getPuzzleGroup().getId());
-            dtoObject.setPuzzleGroupTitle(learningSkillContent.getPuzzleGroup().getTitle());
-            learningSkillLContentDTOS.add(dtoObject);
+            dto.setId(lsc.getId());
+            dto.setVersion(lsc.getVersion());
+            dto.setCreated(lsc.getCreated());
+            dto.setCreatedById(lsc.getCreatedBy().getId());
+            dto.setUpdated(lsc.getUpdated());
+            dto.setUpdatedById(lsc.getUpdatedBy().getId());
+            dto.setCreatedBy(lsc.getCreatedBy().getUsername());
+            dto.setUpdatedBy(lsc.getUpdatedBy().getUsername());
+            dto.setLearningSkillId(lsc.getLearningSkill().getId());
+            dto.setLearningSkillTitle(lsc.getLearningSkill().getValue());
+            dto.setLearningContentId(lsc.getLearningContent().getId());
+            dto.setPuzzleGroupId(lsc.getPuzzleGroup().getId());
+            dto.setPuzzleGroupTitle(lsc.getPuzzleGroup().getTitle());
+            output.add(dto);
         }
-        return learningSkillLContentDTOS;
+        return output;
     }
     public static ALCityObjectInPGDTO getALCityObjectInPGDTO(ALCityObjectInPG alCityObjectInPG) {
         ALCityObjectInPGDTO dto = new ALCityObjectInPGDTO();
@@ -299,56 +295,56 @@ public class DTOUtil {
 
         return  dto;
     }
-    public static Collection<ALCityObjectInPGDTO> getALCityObjectInPGDTOS(Collection<ALCityObjectInPG> alCityObjectInPGCollection) {
-        Collection<ALCityObjectInPGDTO> dtoObjects = new ArrayList<ALCityObjectInPGDTO>();
-        Iterator<ALCityObjectInPG> iterator = alCityObjectInPGCollection.iterator();
-        while (iterator.hasNext()) {
-            ALCityObjectInPG alCityObjectInPG = iterator.next();
-            ALCityObjectInPGDTO dtoObject = getALCityObjectInPGDTO(alCityObjectInPG);
-            dtoObjects.add(dtoObject);
-        }
-        return dtoObjects;
-
-    }
-
-    public static Collection<PGDTO> getPuzzleGroupDTOS(Collection<PuzzleGroup> puzzleGroups) {
-        Collection<PGDTO> pgdtos = new ArrayList<PGDTO>();
-        Iterator<PuzzleGroup> itr = puzzleGroups.iterator();
+    public static Collection<ALCityObjectInPGDTO> getALCityObjectInPGDTOS(Collection<ALCityObjectInPG> input) {
+        Collection<ALCityObjectInPGDTO> dtos = new ArrayList<ALCityObjectInPGDTO>();
+        Iterator<ALCityObjectInPG> itr = input.iterator();
         while (itr.hasNext()) {
-            PGDTO pgdto = getPuzzleGroupDTO(itr.next());
-            pgdtos.add(pgdto);
+            ALCityObjectInPG alCityObjectInPG = itr.next();
+            ALCityObjectInPGDTO dto = getALCityObjectInPGDTO(alCityObjectInPG);
+            dtos.add(dto);
         }
-        return pgdtos;
+        return dtos;
+
     }
 
-    public static PGDTO getPuzzleGroupDTO(PuzzleGroup puzzleGroup) {
-        PGDTO puzzleGroupDTO = new PGDTO();
-        puzzleGroupDTO.setId(puzzleGroup.getId());
-        puzzleGroupDTO.setVersion(puzzleGroup.getVersion());
-        puzzleGroupDTO.setCreated(puzzleGroup.getCreated());
-        puzzleGroupDTO.setUpdated(puzzleGroup.getUpdated());
-        puzzleGroupDTO.setTitle(puzzleGroup.getTitle());
-        puzzleGroupDTO.setPuzzleCategoryId(puzzleGroup.getPuzzleCategory().getId());
-        puzzleGroupDTO.setIconId(puzzleGroup.getIcon().getId());
-        puzzleGroupDTO.setPicId(puzzleGroup.getPic().getId());
-        puzzleGroupDTO.setCreated(puzzleGroup.getCreated());
-        puzzleGroupDTO.setUpdated(puzzleGroup.getUpdated());
-        puzzleGroupDTO.setCreatedBy(puzzleGroup.getCreatedBy().getUsername());
-        puzzleGroupDTO.setUpdatedBy(puzzleGroup.getUpdatedBy().getUsername());
-
-        return puzzleGroupDTO;
+    public static Collection<PGDTO> getPuzzleGroupDTOS(Collection<PuzzleGroup> input) {
+        Collection<PGDTO> dtos = new ArrayList<PGDTO>();
+        Iterator<PuzzleGroup> itr = input.iterator();
+        while (itr.hasNext()) {
+            PGDTO dto = getPuzzleGroupDTO(itr.next());
+            dtos.add(dto);
+        }
+        return dtos;
     }
 
-    public static Collection<PuzzleCategoryDTO> getPuzzleCategoryDTOS(Collection<PuzzleCategory> puzzleCategories) {
-        Collection<PuzzleCategoryDTO> puzzleCategoryDTOCollection = new ArrayList<PuzzleCategoryDTO>();
-        PuzzleCategoryDTO puzzleCategoryDTO = new PuzzleCategoryDTO();
-        Iterator<PuzzleCategory> itr = puzzleCategories.iterator();
+    public static PGDTO getPuzzleGroupDTO(PuzzleGroup input) {
+        PGDTO dto = new PGDTO();
+        dto.setId(input.getId());
+        dto.setVersion(input.getVersion());
+        dto.setCreated(input.getCreated());
+        dto.setUpdated(input.getUpdated());
+        dto.setTitle(input.getTitle());
+        dto.setPuzzleCategoryId(input.getPuzzleCategory().getId());
+        dto.setIconId(input.getIcon().getId());
+        dto.setPicId(input.getPic().getId());
+        dto.setCreated(input.getCreated());
+        dto.setUpdated(input.getUpdated());
+        dto.setCreatedBy(input.getCreatedBy().getUsername());
+        dto.setUpdatedBy(input.getUpdatedBy().getUsername());
+
+        return dto;
+    }
+
+    public static Collection<PuzzleCategoryDTO> getPuzzleCategoryDTOS(Collection<PuzzleCategory> input) {
+        Collection<PuzzleCategoryDTO> output = new ArrayList<PuzzleCategoryDTO>();
+        PuzzleCategoryDTO dto = new PuzzleCategoryDTO();
+        Iterator<PuzzleCategory> itr = input.iterator();
         while(itr.hasNext()) {
             PuzzleCategory puzzleCategory = itr.next();
-            puzzleCategoryDTO = DTOUtil.getPuzzleCategoryDTO(puzzleCategory);
-            puzzleCategoryDTOCollection.add(puzzleCategoryDTO);
+            dto = DTOUtil.getPuzzleCategoryDTO(puzzleCategory);
+            output.add(dto);
         }
-        return puzzleCategoryDTOCollection;
+        return output;
     }
     public static PuzzleCategoryDTO getPuzzleCategoryDTO(PuzzleCategory pc) {
         PuzzleCategoryDTO pcDTO = new PuzzleCategoryDTO();
@@ -390,40 +386,40 @@ public class DTOUtil {
         return  plObjectiveDTO;
     }
 
-    public static Collection<PLObjectiveDTO> getPuzzleLevelObjectiveDTOS(PuzzleLevel puzzleLevel) {
-        Collection<PLObjectiveDTO> plObjectiveDTOCollection = new ArrayList<PLObjectiveDTO>();
-        Collection<PLObjective> plObjectiveCollection = puzzleLevel.getPlObjectives();
-        Iterator<PLObjective> itr_objectives = plObjectiveCollection.iterator();
+    public static Collection<PLObjectiveDTO> getPuzzleLevelObjectiveDTOS(PuzzleLevel input) {
+        Collection<PLObjectiveDTO> output = new ArrayList<PLObjectiveDTO>();
+        Collection<PLObjective> plObjectiveCollection = input.getPlObjectives();
+        Iterator<PLObjective> itr = plObjectiveCollection.iterator();
 
-        while (itr_objectives.hasNext()) {
-            PLObjectiveDTO plObjectiveDTO = getPuzzleLevelObjectiveDTO(itr_objectives.next());
-            plObjectiveDTOCollection.add(plObjectiveDTO);
+        while (itr.hasNext()) {
+            PLObjectiveDTO dto = getPuzzleLevelObjectiveDTO(itr.next());
+            output.add(dto);
         }
-        return plObjectiveDTOCollection;
+        return output;
     }
 
 
     //this method used for create Interpreter json
-    public static Collection<PLObjectiveData> getPuzzleLevelObjectiveData(PuzzleLevel puzzleLevel) {
-        Collection<PLObjectiveData> puzzleLevelObjectiveDataCollection = new ArrayList<PLObjectiveData>();
-        Collection<PLObjective> puzzleLevelObjectiveCollection = puzzleLevel.getPlObjectives();
+    public static Collection<PLObjectiveData> getPuzzleLevelObjectiveData(PuzzleLevel input) {
+        Collection<PLObjectiveData> output = new ArrayList<PLObjectiveData>();
+        Collection<PLObjective> puzzleLevelObjectiveCollection = input.getPlObjectives();
 
         Iterator<PLObjective> itr_objectives = puzzleLevelObjectiveCollection.iterator();
 
         while (itr_objectives.hasNext()) {
             PLObjective puzzleLevelObjective = itr_objectives.next();
-            PLObjectiveData puzzleLevelObjectiveData = new PLObjectiveData();
-            puzzleLevelObjectiveData.setId(puzzleLevelObjective.getId());
-            puzzleLevelObjectiveData.setTitle(puzzleLevelObjective.getTitle());
-            puzzleLevelObjectiveData.setDescription(puzzleLevelObjective.getDescription());
-            puzzleLevelObjectiveData.setCondition(puzzleLevelObjective.getCondition());
-            puzzleLevelObjectiveData.setRewardAmount(puzzleLevelObjective.getRewardAmount());
-            puzzleLevelObjectiveData.setRewardId(puzzleLevelObjective.getWalletItem().getId());
-            puzzleLevelObjectiveData.setSkillAmount(puzzleLevelObjective.getSkillAmount());
+            PLObjectiveData dto = new PLObjectiveData();
+            dto.setId(puzzleLevelObjective.getId());
+            dto.setTitle(puzzleLevelObjective.getTitle());
+            dto.setDescription(puzzleLevelObjective.getDescription());
+            dto.setCondition(puzzleLevelObjective.getCondition());
+            dto.setRewardAmount(puzzleLevelObjective.getRewardAmount());
+            dto.setRewardId(puzzleLevelObjective.getWalletItem().getId());
+            dto.setSkillAmount(puzzleLevelObjective.getSkillAmount());
 
-            puzzleLevelObjectiveDataCollection.add(puzzleLevelObjectiveData);
+            output.add(dto);
         }
-        return puzzleLevelObjectiveDataCollection;
+        return output;
     }
 
 
@@ -466,15 +462,15 @@ public class DTOUtil {
         return pl_ltDTOCollection;
     }
 
-    public static Collection<BinaryContentDTO> getBinaryContentsWithoutContent(Collection<BinaryContent> binaryContents) {
-        Collection<BinaryContentDTO> contentDTOS = new ArrayList<BinaryContentDTO>();
-        Iterator<BinaryContent> iterator = binaryContents.iterator();
+    public static Collection<BinaryContentDTO> getBinaryContentsWithoutContent(Collection<BinaryContent> input) {
+        Collection<BinaryContentDTO> dtos = new ArrayList<BinaryContentDTO>();
+        Iterator<BinaryContent> itr = input.iterator();
 
-        while (iterator.hasNext()) {
-            BinaryContentDTO binaryContentDTO = getBinaryContentDTOWithoutContent(iterator.next());
-            contentDTOS.add(binaryContentDTO);
+        while (itr.hasNext()) {
+            BinaryContentDTO dto = getBinaryContentDTOWithoutContent(itr.next());
+            dtos.add(dto);
         }
-        return contentDTOS;
+        return dtos;
     }
 
     public static BinaryContentDTO getBinaryContentDTOWithoutContent(BinaryContent content){
@@ -719,17 +715,17 @@ public class DTOUtil {
 
         return alCityObjectDTOSl;
     }
-    public static  Collection<PuzzleObjectActionDTO> getPuzzleObjectActionDTOS(Collection<PuzzleObjectAction> puzzleObjectActions) {
-        Collection<PuzzleObjectActionDTO> puzzleObjectActionDTOS = new ArrayList<PuzzleObjectActionDTO>();
-        Iterator<PuzzleObjectAction> iterator = puzzleObjectActions.iterator();
-        while (iterator.hasNext()) {
-            PuzzleObjectActionDTO puzzleObjectActionDTO = new PuzzleObjectActionDTO();
-            PuzzleObjectAction poa = iterator.next();
-            puzzleObjectActionDTO = getPuzzleObjectActionDTO(poa);
-            puzzleObjectActionDTOS.add(puzzleObjectActionDTO);
+    public static  Collection<PuzzleObjectActionDTO> getPuzzleObjectActionDTOS(Collection<PuzzleObjectAction> input) {
+        Collection<PuzzleObjectActionDTO> output = new ArrayList<PuzzleObjectActionDTO>();
+        Iterator<PuzzleObjectAction> itr = input.iterator();
+        while (itr.hasNext()) {
+            PuzzleObjectActionDTO dto = new PuzzleObjectActionDTO();
+            PuzzleObjectAction poa = itr.next();
+            dto = getPuzzleObjectActionDTO(poa);
+            output.add(dto);
         }
 
-        return puzzleObjectActionDTOS;
+        return output;
     }
 
     public static PuzzleObjectActionDTO getPuzzleObjectActionDTO(PuzzleObjectAction poa) {
@@ -773,6 +769,20 @@ public class DTOUtil {
        }
 
        return memberTypeDTOCollection;
+    }
+    public static ObjectCategoryDTO getObjectCategoryDTO(ObjectCategory oc){
+        ObjectCategoryDTO objectCategoryDTO = new ObjectCategoryDTO(oc.getId(),oc.getLabel(),oc.getValue(), oc.getVersion(), oc.getCreated(),
+                oc.getUpdated(),null);
+        return objectCategoryDTO;
+    }
+    public static Collection<ObjectCategoryDTO> getObjectCategories(Collection<ObjectCategory> input){
+        Collection<ObjectCategoryDTO> output = new ArrayList<ObjectCategoryDTO>();
+        Iterator<ObjectCategory> itr = input.iterator();
+        while(itr.hasNext()){
+            ObjectCategoryDTO dto =getObjectCategoryDTO(itr.next());
+            output.add(dto);
+        }
+        return output;
     }
     public static RendererDTO getActionRendererDTO(Renderer actionRenderer){
            RendererDTO rendererDTO = new RendererDTO();

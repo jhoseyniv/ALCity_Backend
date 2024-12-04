@@ -42,14 +42,9 @@ public class ALObjectController {
     @GetMapping("/cat/all")
     @CrossOrigin(origins = "*")
     public Collection<ObjectCategoryDTO> getObjectCategorie(Model model) {
-        Collection<ObjectCategoryDTO> oCategoryDTOCollection = new ArrayList<ObjectCategoryDTO>();
         Collection<ObjectCategory> objectCategories = objectCategoryService.findAll();
-        Iterator<ObjectCategory> iterator = objectCategories.iterator();
-        while(iterator.hasNext()){
-            ObjectCategoryDTO objectCategoryDTO =DTOUtil.getObjectCategoryDTO(iterator.next());
-            oCategoryDTOCollection.add(objectCategoryDTO);
-        }
-        return oCategoryDTOCollection;
+        Collection<ObjectCategoryDTO> output = DTOUtil.getObjectCategories(objectCategories);
+        return output;
     }
     @Operation( summary = "Fetch an Object Category by a Id",  description = "fetches an Object Category entity and their data from data source")
     @RequestMapping(value = "/cat/id/{id}", method = RequestMethod.GET)

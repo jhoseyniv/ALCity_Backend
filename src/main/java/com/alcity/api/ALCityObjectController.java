@@ -88,11 +88,9 @@ public class ALCityObjectController {
         ALCityResponseObject responseObject = new ALCityResponseObject();
 
         if (dto.getId() == null || dto.getId() <= 0L) { //save
-            try {
+
                 savedRecord = alCityObjectService.save(dto,"Save");
-            } catch (RuntimeException e) {
-                throw new UniqueConstraintException(dto.getTitle(), dto.getId(), "title must be Unique");
-            }
+
             responseObject = new ALCityResponseObject(HttpStatus.OK.value(), "ok", savedRecord.getId(), "Record Saved Successfully!");
         } else if (dto.getId() > 0L ) {//edit
             savedRecord = alCityObjectService.save(dto, "Edit");
@@ -114,12 +112,7 @@ public class ALCityObjectController {
     public ALCityResponseObject deleteALCityObjectById(@PathVariable Long id) {
         Optional<ALCityObject> existingRecord = alCityObjectService.findById(id);
         if(existingRecord.isPresent()){
-            try {
-                alCityObjectService.deleteById(existingRecord.get().getId());
-            }catch (Exception e )
-            {
-                throw new ViolateForeignKeyException(existingRecord.get().getTitle(), existingRecord.get().getId(), PuzzleGroup.class.toString());
-            }
+            alCityObjectService.delete(existingRecord.get());
             return new ALCityResponseObject(HttpStatus.OK.value(), "ok", id,"Record deleted Successfully!");
         }
         return  new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", id,"Record not found!");
