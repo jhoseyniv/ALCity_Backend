@@ -44,6 +44,15 @@ public class BaseItemSetConroller {
         return UserGender.getById(id);
     }
 
+    @Operation( summary = "Fetch all Wallet Item Types ",  description = "fetches all Wallet Item Types  entities and their data from data source")
+    @GetMapping("/wallet/type/all")
+    @CrossOrigin(origins = "*")
+    public Collection<EnumDTO> getWalletItemType(Model model) {
+
+        return DTOUtil.getEnumByClass(WalletItemCategory.class);
+    }
+
+
     @Autowired
     private ClientTypeService clientTypeService;
     @Operation( summary = "Fetch all client Types ",  description = "fetches all Client Types entities and their data from data source")
