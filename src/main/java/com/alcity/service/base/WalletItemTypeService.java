@@ -63,7 +63,7 @@ public class WalletItemTypeService implements WalletItemTypeRepository {
 
     @Override
     public Optional<WalletItemType> findById(Long id) {
-        return Optional.empty();
+        return walletItemTypeRepository.findById(id);
     }
 
     @Override
