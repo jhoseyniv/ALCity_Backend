@@ -46,6 +46,7 @@ public class WalletItemTypeService implements WalletItemTypeRepository {
                 walletItemType.setWalletItemCategory(walletItemCategory);
                 walletItemType.setLabel(dto.getLabel());
                 walletItemType.setValue(dto.getValue());
+                walletItemType.setCurrency(dto.getCurrency());
                 walletItemType.setVersion(walletItemType.getVersion()+1);
                 walletItemType.setUpdated(DateUtils.getNow());
                 walletItemType.setUpdatedBy(createdBy);
