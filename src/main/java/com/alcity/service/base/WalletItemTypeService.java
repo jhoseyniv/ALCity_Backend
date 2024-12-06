@@ -34,7 +34,7 @@ public class WalletItemTypeService implements WalletItemTypeRepository {
         WalletItemCategory walletItemCategory = WalletItemCategory.getByTitle(dto.getWalletItemCategory());
         WalletItemType walletItemType=null;
         Optional<WalletItemType> walletItemTypeOptional= walletItemTypeRepository.findByValue(dto.getValue());
-
+        if(dto.getCurrency()==null) dto.setCurrency(false);
         if (code.equalsIgnoreCase("Save")) { //Save
             walletItemType = new WalletItemType(walletItemCategory ,dto.getLabel(),dto.getValue(),dto.getCurrency() , 1L,
                     DateUtils.getNow(), DateUtils.getNow(), createdBy, createdBy);
