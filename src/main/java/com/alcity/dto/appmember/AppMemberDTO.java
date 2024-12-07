@@ -10,7 +10,9 @@ public class AppMemberDTO {
     private String nickname;
     private String mobile;
     private String email;
-    private Long avatarId;
+    private byte[] avatar;
+
+    private byte[] thumbnail;
     private String memberType;
     private String gender;
 
@@ -77,6 +79,16 @@ public class AppMemberDTO {
     public void setEmail(String email) {
         this.email = email;
     }
+
+    public byte[] getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(byte[] avatar) {
+        this.avatar = avatar;
+    }
+
+    private Long avatarId;
 
     public Long getAvatarId() {
         return avatarId;
@@ -146,17 +158,27 @@ public class AppMemberDTO {
         this.memberType = memberType;
     }
 
-    public AppMemberDTO(Long id, Integer age, String username, String password, String nickname, String mobile, String email,String gender,String memberType ,Long avatarId,
+    public byte[] getThumbnail() {
+        return thumbnail;
+    }
+
+    public void setThumbnail(byte[] thumbnail) {
+        this.thumbnail = thumbnail;
+    }
+
+    public AppMemberDTO(Long id, Integer age, String username, String password,byte[] avatar,byte[] thumbnail,Long avatarId, String nickname, String mobile, String email, String gender, String memberType ,
                         Long version, String created, String updated, String createdBy, String updatedBy) {
         this.id = id;
         this.age = age;
         this.username = username;
         this.password = password;
+        this.thumbnail = thumbnail;
+        this.avatarId = avatarId;
         this.nickname = nickname;
         this.mobile = mobile;
         this.email = email;
         this.memberType = memberType;
-        this.avatarId = avatarId;
+        this.avatar = avatar;
         this.version = version;
         this.created = created;
         this.updated = updated;
