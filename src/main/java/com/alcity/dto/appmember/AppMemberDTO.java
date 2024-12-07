@@ -179,6 +179,7 @@ public class AppMemberDTO {
         this.email = email;
         this.memberType = memberType;
         this.avatar = avatar;
+        this.gender = gender;
         this.version = version;
         this.created = created;
         this.updated = updated;

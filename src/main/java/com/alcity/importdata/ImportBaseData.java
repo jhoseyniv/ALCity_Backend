@@ -171,7 +171,8 @@ public class ImportBaseData implements CommandLineRunner {
         BinaryContent avatar_content_1 = new BinaryContent(1L, now, now,null , null,"avatar",avatar.length,avatar,tumb,"tag1","tag2","tag3",BinaryContentType.Image);
         binaryContentService.save(avatar_content_1);
 
-        AppMember admin_1= new AppMember(35,"admin","admin","admin0","0912350550","j_hoseyni@yahoo.com",avatar_content_1,UserGender.Male,administrator,1L,now,now,null,null);
+        AppMember admin_1= new AppMember(35,"admin","admin","admin0","0912350550","j_hoseyni@yahoo.com",avatar_content_1,
+                UserGender.Male,administrator,1L,now,now,null,null);
         Set clientTypeSet = new HashSet<ClientType>();
         clientTypeSet.add(web);
         admin_1.setClientTypeSet(clientTypeSet);
