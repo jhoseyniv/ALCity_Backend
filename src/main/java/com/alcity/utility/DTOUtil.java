@@ -492,7 +492,7 @@ public class DTOUtil {
             userName="admin";
 
         AppMemberDTO memberDTO = new AppMemberDTO(member.getId(),member.getAge(),
-                member.getUsername(),member.getPassword(),null,member.getAvatar().getThumbnail(),member.getAvatar().getId(), member.getNickname(),
+                member.getUsername(),member.getPassword(),null,member.getIcon().getThumbnail(),member.getIcon().getId(), member.getNickname(),
                 member.getMobile(), member.getEmail(),member.getGender().name(),member.getMemberType().getValue(),
                  member.getVersion(), member.getCreated(), member.getUpdated(), userName, userName);
 

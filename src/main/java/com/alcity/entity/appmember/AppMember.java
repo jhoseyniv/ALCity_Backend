@@ -37,9 +37,9 @@ public class AppMember extends BaseTable implements Serializable {
     private String email;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "avatar_id")
+    @JoinColumn(name = "icon_id")
     @JsonIgnore
-    private BinaryContent avatar;
+    private BinaryContent icon;
 
     @Override
     public Long getId() {
@@ -98,12 +98,12 @@ public class AppMember extends BaseTable implements Serializable {
         this.email = email;
     }
 
-    public BinaryContent getAvatar() {
-        return avatar;
+    public BinaryContent getIcon() {
+        return icon;
     }
 
-    public void setAvatar(BinaryContent avatar) {
-        this.avatar = avatar;
+    public void setIcon(BinaryContent icon) {
+        this.icon = icon;
     }
 
     public UserGender getGender() {
@@ -168,7 +168,7 @@ public class AppMember extends BaseTable implements Serializable {
     public AppMember() {
     }
 
-    public AppMember(Integer age, String username, String password, String nickname, String mobile, String email,BinaryContent avatar, UserGender gender, MemberType memberType, Long version, String created, String updated, AppMember createdBy, AppMember updatedBy) {
+    public AppMember(Integer age, String username, String password, String nickname, String mobile, String email,BinaryContent icon, UserGender gender, MemberType memberType, Long version, String created, String updated, AppMember createdBy, AppMember updatedBy) {
         super(version, created, updated, createdBy, updatedBy);
         this.age = age;
         this.username = username;
@@ -176,7 +176,7 @@ public class AppMember extends BaseTable implements Serializable {
         this.nickname = nickname;
         this.mobile = mobile;
         this.email = email;
-        this.avatar = avatar;
+        this.icon = icon;
         this.gender = gender;
         this.memberType = memberType;
     }

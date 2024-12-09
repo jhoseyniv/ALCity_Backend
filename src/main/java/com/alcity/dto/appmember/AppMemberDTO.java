@@ -10,7 +10,7 @@ public class AppMemberDTO {
     private String nickname;
     private String mobile;
     private String email;
-    private byte[] avatar;
+    private byte[] icon;
 
     private byte[] thumbnail;
     private String memberType;
@@ -80,22 +80,23 @@ public class AppMemberDTO {
         this.email = email;
     }
 
-    public byte[] getAvatar() {
-        return avatar;
+
+    private Long iconId;
+
+    public byte[] getIcon() {
+        return icon;
     }
 
-    public void setAvatar(byte[] avatar) {
-        this.avatar = avatar;
+    public void setIcon(byte[] icon) {
+        this.icon = icon;
     }
 
-    private Long avatarId;
-
-    public Long getAvatarId() {
-        return avatarId;
+    public Long getIconId() {
+        return iconId;
     }
 
-    public void setAvatarId(Long avatarId) {
-        this.avatarId = avatarId;
+    public void setIconId(Long iconId) {
+        this.iconId = iconId;
     }
 
     public Long getId() {
@@ -166,19 +167,19 @@ public class AppMemberDTO {
         this.thumbnail = thumbnail;
     }
 
-    public AppMemberDTO(Long id, Integer age, String username, String password,byte[] avatar,byte[] thumbnail,Long avatarId, String nickname, String mobile, String email, String gender, String memberType ,
+    public AppMemberDTO(Long id, Integer age, String username, String password,byte[] icon,byte[] thumbnail,Long iconId, String nickname, String mobile, String email, String gender, String memberType ,
                         Long version, String created, String updated, String createdBy, String updatedBy) {
         this.id = id;
         this.age = age;
         this.username = username;
         this.password = password;
         this.thumbnail = thumbnail;
-        this.avatarId = avatarId;
+        this.iconId = iconId;
         this.nickname = nickname;
         this.mobile = mobile;
         this.email = email;
         this.memberType = memberType;
-        this.avatar = avatar;
+        this.icon = icon;
         this.gender = gender;
         this.version = version;
         this.created = created;

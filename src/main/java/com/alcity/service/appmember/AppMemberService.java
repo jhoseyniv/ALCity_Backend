@@ -37,15 +37,13 @@ public class AppMemberService implements AppMemberRepository, CustomizedUserRepo
         AppMember createdBy = appMemberRepository.findByUsername("admin");
         MemberType memberType = memberTypeRepository.findByValue(dto.getMemberType());
         UserGender gender = UserGender.getByTitle(dto.getGender());
-        BinaryContent avatar=null;
-        if(dto.getAvatar() == null || dto.getAvatarId() == null)
-            avatar = binaryContentRepository.findByfileName("no_photo_avatar");
-        else
-            avatar = binaryContentRepository.findById(dto.getAvatarId()).get();
+        BinaryContent icon= icon = binaryContentRepository.findByfileName("no_photo_avatar");
+
+            icon = binaryContentRepository.findById(dto.getIconId()).get();
 
         AppMember appMember=null;
         if (code.equalsIgnoreCase("Save")) { //Save
-            appMember = new AppMember(dto.getAge(),dto.getUsername(), dto.getPassword(), dto.getNickname(), dto.getMobile(),dto.getEmail(),avatar,gender ,memberType
+            appMember = new AppMember(dto.getAge(),dto.getUsername(), dto.getPassword(), dto.getNickname(), dto.getMobile(),dto.getEmail(),icon,gender ,memberType
                     ,1L, DateUtils.getNow(), DateUtils.getNow(), createdBy, createdBy);
             appMemberRepository.save(appMember);
         }else{//edit
@@ -56,7 +54,7 @@ public class AppMemberService implements AppMemberRepository, CustomizedUserRepo
                 appMember.setUsername(dto.getUsername());
                 appMember.setPassword(dto.getPassword());
                 appMember.setMobile(dto.getMobile());
-                appMember.setAvatar(avatar);
+                appMember.setIcon(icon);
                 appMember.setMemberType(memberType);
                 appMember.setGender(gender);
                 appMember.setAge(appMember.getAge());
