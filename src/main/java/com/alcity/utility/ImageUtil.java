@@ -25,6 +25,7 @@ public class ImageUtil {
         String ext =  fileName.substring(fileName.lastIndexOf(".") + 1);
         return ext;
     }
+
     public static byte[] getThumbnail(File file) throws IOException {
        // File file = new File(directory, fileName);
         String ext = getFileExtension(file.getName());
@@ -173,6 +174,24 @@ public class ImageUtil {
     }
     public static byte[] getNoPhoto() throws IOException {
         Path imagePath = Path.of("src/main/resources/images/", "no-photo");
+        if (Files.exists(imagePath)) {
+            byte[] imageBytes = Files.readAllBytes(imagePath);
+            return imageBytes;
+        } else {
+            return null; // Handle missing images
+        }
+    }
+    public static byte[] getNoPhotoBinaryContent() throws IOException {
+        Path imagePath = Path.of("src/main/resources/images/", "no-photo");
+        if (Files.exists(imagePath)) {
+            byte[] imageBytes = Files.readAllBytes(imagePath);
+            return imageBytes;
+        } else {
+            return null; // Handle missing images
+        }
+    }
+    public static byte[] getNoAvatar() throws IOException {
+        Path imagePath = Path.of("src/main/resources/images/", "avatar.png");
 
         if (Files.exists(imagePath)) {
             byte[] imageBytes = Files.readAllBytes(imagePath);
@@ -187,6 +206,7 @@ public class ImageUtil {
 
         return BinaryContentType.Other;
     }
+
 //    public static void main(String[] args) throws IOException {
 //        //System.out.println("this is a get tumbnile of images.....");
 //        byte[]  tumb= getThumbnail("e://","pic.jpg");

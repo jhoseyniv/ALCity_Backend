@@ -14,6 +14,7 @@ import com.alcity.repository.appmember.CustomizedUserRepository;
 import com.alcity.repository.base.BinaryContentRepository;
 import com.alcity.repository.base.MemberTypeRepository;
 import com.alcity.utility.DateUtils;
+import com.alcity.utility.ImageUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -36,10 +37,15 @@ public class AppMemberService implements AppMemberRepository, CustomizedUserRepo
         AppMember createdBy = appMemberRepository.findByUsername("admin");
         MemberType memberType = memberTypeRepository.findByValue(dto.getMemberType());
         UserGender gender = UserGender.getByTitle(dto.getGender());
-        Optional<BinaryContent> avatarOptional = binaryContentRepository.findById(dto.getAvatarId());
+        BinaryContent avatar=null;
+        if(dto.getAvatar() == null || dto.getAvatarId() == null)
+            avatar = binaryContentRepository.findByfileName("no_photo_avatar");
+        else
+            avatar = binaryContentRepository.findById(dto.getAvatarId()).get();
+
         AppMember appMember=null;
         if (code.equalsIgnoreCase("Save")) { //Save
-            appMember = new AppMember(dto.getAge(),dto.getUsername(), dto.getPassword(), dto.getNickname(), dto.getMobile(),dto.getEmail(),avatarOptional.get(),gender ,memberType
+            appMember = new AppMember(dto.getAge(),dto.getUsername(), dto.getPassword(), dto.getNickname(), dto.getMobile(),dto.getEmail(),avatar,gender ,memberType
                     ,1L, DateUtils.getNow(), DateUtils.getNow(), createdBy, createdBy);
             appMemberRepository.save(appMember);
         }else{//edit
@@ -50,7 +56,7 @@ public class AppMemberService implements AppMemberRepository, CustomizedUserRepo
                 appMember.setUsername(dto.getUsername());
                 appMember.setPassword(dto.getPassword());
                 appMember.setMobile(dto.getMobile());
-                appMember.setAvatar(avatarOptional.get());
+                appMember.setAvatar(avatar);
                 appMember.setMemberType(memberType);
                 appMember.setGender(gender);
                 appMember.setAge(appMember.getAge());

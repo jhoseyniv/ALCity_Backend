@@ -168,6 +168,9 @@ public class ImportBaseData implements CommandLineRunner {
         byte[] avatar = ImageUtil.getImage("src/main/resources/images/","avatar.png");
         byte[]  tumb = ImageUtil.getThumbnail(avatar,"avatar.png");
 
+        BinaryContent no_photo_avatar = new BinaryContent(1L, now, now,null , null,"no_photo_avatar",avatar.length,avatar,tumb,"no_photo_avatar","no_photo_avatar","no_photo_avatar",BinaryContentType.Image);
+        binaryContentService.save(no_photo_avatar);
+
         BinaryContent avatar_content_1 = new BinaryContent(1L, now, now,null , null,"avatar",avatar.length,avatar,tumb,"tag1","tag2","tag3",BinaryContentType.Image);
         binaryContentService.save(avatar_content_1);
 
