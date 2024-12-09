@@ -38,7 +38,7 @@ public class AppMemberService implements AppMemberRepository, CustomizedUserRepo
         MemberType memberType = memberTypeRepository.findByValue(dto.getMemberType());
         UserGender gender = UserGender.getByTitle(dto.getGender());
         BinaryContent icon=null;
-        if(dto.getIcon()==null || dto.getIconId() == null)
+        if(dto.getIconId() == null)
                 icon = binaryContentRepository.findByfileName("no_photo_avatar");
         else
             icon = binaryContentRepository.findById(dto.getIconId()).get();
