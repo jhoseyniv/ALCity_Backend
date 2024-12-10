@@ -2,6 +2,7 @@ package com.alcity.api;
 
 import com.alcity.customexception.ALCityResponseObject;
 import com.alcity.customexception.UniqueConstraintException;
+import com.alcity.customexception.ViolateForeignKeyException;
 import com.alcity.dto.alobject.ObjectCategoryDTO;
 import com.alcity.dto.appmember.AppMemberDTO;
 import com.alcity.dto.appmember.AppMemberWalletDTO;
@@ -12,6 +13,7 @@ import com.alcity.entity.appmember.AppMember;
 import com.alcity.entity.appmember.AppMember_WalletItem;
 import com.alcity.entity.appmember.WalletItem;
 import com.alcity.entity.appmember.WalletTransaction;
+import com.alcity.entity.base.WalletItemType;
 import com.alcity.service.appmember.AppMemberService;
 import com.alcity.service.appmember.WalletItemService;
 import com.alcity.utility.DTOUtil;
@@ -50,6 +52,22 @@ public class AppMemberController {
         Optional<AppMember> member = appMemberService.findById(id);
          AppMemberDTO dto = DTOUtil.getAppMemberDTO(member.get());
         return dto;
+    }
+    @Operation( summary = "delete an  Application Member ",  description = "delete an Application Member .....")
+    @DeleteMapping("/del/id/{id}")
+    @CrossOrigin(origins = "*")
+    public ALCityResponseObject deleteWalletItemById(@PathVariable Long id) {
+        Optional<AppMember> existingRecord = appMemberService.findById(id);
+        if(existingRecord.isPresent()){
+            try {
+                appMemberService.deleteById(existingRecord.get().getId());
+            }catch (Exception e )
+            {
+                throw new ViolateForeignKeyException(existingRecord.get().getUsername(), existingRecord.get().getId(), AppMember.class.toString());
+            }
+            return new ALCityResponseObject(HttpStatus.OK.value(), "ok", id,"Record deleted Successfully!");
+        }
+        return  new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", id,"Record not found!");
     }
 
 

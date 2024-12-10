@@ -108,7 +108,7 @@ public class AppMemberService implements AppMemberRepository, CustomizedUserRepo
 
     @Override
     public void deleteById(Long aLong) {
-
+        appMemberRepository.deleteById(aLong);
     }
 
     @Override
