@@ -4,7 +4,6 @@ import com.alcity.customexception.ALCityResponseObject;
 import com.alcity.customexception.UniqueConstraintException;
 import com.alcity.customexception.ViolateForeignKeyException;
 import com.alcity.dto.puzzle.*;
-import com.alcity.entity.base.PuzzleCategory;
 import com.alcity.entity.puzzle.*;
 import com.alcity.service.puzzle.PuzzleLevelService;
 import com.alcity.utility.DTOUtil;
@@ -14,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.*;
 
 
@@ -23,10 +21,8 @@ import java.util.*;
 @RestController
 @RequestMapping("/pl")
 public class PLController {
-
     @Autowired
     private PuzzleLevelService puzzleLevelService;
-
     @Operation( summary = "Fetch all puzzle level data ",  description = "fetches all data for all puzzle level structure ")
     @GetMapping("/all")
     @CrossOrigin(origins = "*")

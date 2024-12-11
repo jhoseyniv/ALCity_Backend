@@ -35,7 +35,7 @@ public class AppMemberService implements AppMemberRepository, CustomizedUserRepo
 
     public AppMember save(AppMemberDTO dto, String code) {
         AppMember createdBy = appMemberRepository.findByUsername("admin");
-        MemberType memberType = memberTypeRepository.findByValue(dto.getMemberType());
+        MemberType memberType = memberTypeRepository.findByValue(dto.getMemberType()).get();
         UserGender gender = UserGender.getByTitle(dto.getGender());
         BinaryContent icon=null;
         if(dto.getIconId() == null || dto.getIconId() ==0)

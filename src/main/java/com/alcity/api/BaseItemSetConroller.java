@@ -155,16 +155,29 @@ public class BaseItemSetConroller {
     @Operation( summary = "Save a Member Type ",  description = "Save a  Member Types entity and their data to data base")
     @PostMapping("/member-type/save")
     @CrossOrigin(origins = "*")
-    public MemberType saveMemberType(@RequestBody MemberTypeDTO memberTypeDTO)  {
+    public ALCityResponseObject saveMemberType(@RequestBody MemberTypeDTO dto)  {
         MemberType savedRecord = null;
-        try {
-            savedRecord = memberTypeService.save(memberTypeDTO);
-        }catch (RuntimeException e )
-        {
-            throw new UniqueConstraintException(memberTypeDTO.getLabel(), memberTypeDTO.getId(), MemberType.class.toString());
+        ALCityResponseObject responseObject = new ALCityResponseObject();
+        if (dto.getId() == null || dto.getId() <= 0L) { //save
+            try {
+                savedRecord = memberTypeService.save(dto,"Save");
+            } catch (RuntimeException e) {
+                throw new UniqueConstraintException(dto.getValue(), dto.getId(), "Value and Lable Must be Unique");
+            }
+            responseObject = new ALCityResponseObject(HttpStatus.OK.value(), "ok", savedRecord.getId(), "Record Saved Successfully!");
+        } else if (dto.getId() > 0L ) {//edit
+            savedRecord = memberTypeService.save(dto, "Edit");
+            if(savedRecord !=null)
+                responseObject = new ALCityResponseObject(HttpStatus.OK.value(), "ok", savedRecord.getId(), "Record Updated Successfully!");
+            else
+                responseObject = new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", dto.getId(), "Record Not Found!");
         }
-        Optional<MemberType> output = memberTypeService.findById(savedRecord.getId());
-        return output.get();
+        else if (savedRecord==null)
+            responseObject = new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", -1L, "Record Not Found!");
+        else
+            responseObject = new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", -1L, "Record Not Found!");
+
+        return responseObject;
     }
 
     @Operation( summary = "Fetch all puzzle level  difficulty  ",  description = "fetches all puzzle level  difficulty entities and their data from data base")
