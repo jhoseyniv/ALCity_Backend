@@ -210,7 +210,7 @@ public class BaseItemSetConroller {
         Optional<PLPrivacy> puzzleLevelPrivacy = plPrivacyService.findById(id);
         return puzzleLevelPrivacy;
     }
-    @DeleteMapping("/del/{id}")
+    @DeleteMapping("/pl-privacy/del/{id}")
     @CrossOrigin(origins = "*")
     public ResponseEntity<String> deletePLPrivacyById(@PathVariable Long id) {
         Optional<PLPrivacy> existingRecord = plPrivacyService.findById(id);
