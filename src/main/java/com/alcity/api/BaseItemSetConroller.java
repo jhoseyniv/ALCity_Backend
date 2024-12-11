@@ -223,7 +223,7 @@ public class BaseItemSetConroller {
         Optional<PLPrivacy> puzzleLevelPrivacy = plPrivacyService.findById(id);
         return puzzleLevelPrivacy;
     }
-    @DeleteMapping("/pl-privacy/del/{id}")
+    @DeleteMapping("/pl-privacy/del/id/{id}")
     @CrossOrigin(origins = "*")
     public ResponseEntity<String> deletePLPrivacyById(@PathVariable Long id) {
         Optional<PLPrivacy> existingRecord = plPrivacyService.findById(id);
@@ -234,6 +234,22 @@ public class BaseItemSetConroller {
             }catch (Exception e )
             {
                 throw new ViolateForeignKeyException(existingRecord.get().getValue(), existingRecord.get().getId(), PLPrivacy.class.toString());
+            }
+            return new ResponseEntity<>("Record deleted Successfully!", HttpStatus.OK);
+        }
+        return ResponseEntity.notFound().build();
+    }
+    @DeleteMapping("/member-type/del/id/{id}")
+    @CrossOrigin(origins = "*")
+    public ResponseEntity<String> deleteMemberTypeById(@PathVariable Long id) {
+        Optional<MemberType> existingRecord = memberTypeService.findById(id);
+        if(existingRecord.isPresent()){
+            try {
+                memberTypeService.deleteById(existingRecord.get().getId());
+
+            }catch (Exception e )
+            {
+                throw new ViolateForeignKeyException(existingRecord.get().getValue(), existingRecord.get().getId(), MemberType.class.toString());
             }
             return new ResponseEntity<>("Record deleted Successfully!", HttpStatus.OK);
         }
