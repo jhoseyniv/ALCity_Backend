@@ -2,12 +2,14 @@ package com.alcity.api;
 
 import com.alcity.customexception.ALCityResponseObject;
 import com.alcity.customexception.UniqueConstraintException;
+import com.alcity.customexception.ViolateForeignKeyException;
 import com.alcity.dto.alenum.EnumDTO;
 import com.alcity.dto.base.ClientTypeDTO;
 import com.alcity.dto.base.PLPrivacyDTO;
 import com.alcity.dto.appmember.MemberTypeDTO;
 import com.alcity.entity.alenum.*;
 import com.alcity.entity.base.*;
+import com.alcity.entity.journey.Journey;
 import com.alcity.service.base.*;
 import com.alcity.utility.DTOUtil;
 import io.swagger.v3.oas.annotations.Operation;
@@ -24,7 +26,6 @@ import java.util.Optional;
 
 @Tag(name = "Basic Data Type APIs", description = "All APIs for basic data types... ")
 @CrossOrigin(origins = "*" ,maxAge = 3600)
-
 @RestController
 @RequestMapping("/base")
 public class BaseItemSetConroller {
@@ -209,9 +210,22 @@ public class BaseItemSetConroller {
         Optional<PLPrivacy> puzzleLevelPrivacy = plPrivacyService.findById(id);
         return puzzleLevelPrivacy;
     }
+    @DeleteMapping("/del/{id}")
+    @CrossOrigin(origins = "*")
+    public ResponseEntity<String> deletePLPrivacyById(@PathVariable Long id) {
+        Optional<PLPrivacy> existingRecord = plPrivacyService.findById(id);
+        if(existingRecord.isPresent()){
+            try {
+                plPrivacyService.deleteById(existingRecord.get().getId());
 
-
-
+            }catch (Exception e )
+            {
+                throw new ViolateForeignKeyException(existingRecord.get().getValue(), existingRecord.get().getId(), PLPrivacy.class.toString());
+            }
+            return new ResponseEntity<>("Record deleted Successfully!", HttpStatus.OK);
+        }
+        return ResponseEntity.notFound().build();
+    }
 
     @GetMapping("/binary-type/all")
     @CrossOrigin(origins = "*")
