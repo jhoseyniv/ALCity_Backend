@@ -76,16 +76,30 @@ public class BaseItemSetConroller {
     @Operation( summary = "Save a Client Type ",  description = "save a  Client Types entity and their data to data base")
     @PostMapping("/client-type/save")
     @CrossOrigin(origins = "*")
-    public ResponseEntity<ClientType> saveClientType(@RequestBody ClientType clientType)  {
+    public ALCityResponseObject saveClientType(@RequestBody ClientTypeDTO dto)  {
         ClientType savedRecord = null;
-        try {
-            savedRecord = clientTypeService.save(clientType);
-        }catch (RuntimeException e )
-        {
-            throw new UniqueConstraintException(clientType.getLabel(), clientType.getId(), ClientType.class.toString());
+        ALCityResponseObject responseObject = new ALCityResponseObject();
+
+        if (dto.getId() == null || dto.getId() <= 0L) { //save
+            try {
+                savedRecord = clientTypeService.save(dto,"Save");
+            } catch (RuntimeException e) {
+                throw new UniqueConstraintException(dto.getValue(), dto.getId(), "Value and Label Must be Unique");
+            }
+            responseObject = new ALCityResponseObject(HttpStatus.OK.value(), "ok", savedRecord.getId(), "Record Saved Successfully!");
+        } else if (dto.getId() > 0L ) {//edit
+            savedRecord = clientTypeService.save(dto, "Edit");
+            if(savedRecord !=null)
+                responseObject = new ALCityResponseObject(HttpStatus.OK.value(), "ok", savedRecord.getId(), "Record Updated Successfully!");
+            else
+                responseObject = new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", dto.getId(), "Record Not Found!");
         }
-        Optional<ClientType> output = clientTypeService.findById(savedRecord.getId());
-        return ResponseEntity.ok(clientTypeService.save(clientType));
+        else if (savedRecord==null)
+            responseObject = new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", -1L, "Record Not Found!");
+        else
+            responseObject = new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", -1L, "Record Not Found!");
+
+        return responseObject;
     }
     @Operation( summary = "Save a puzzle level privacy ",  description = "Save a puzzle level privacy entity and their data to data base")
     @PostMapping("/pl-privacy/save")
@@ -231,6 +245,21 @@ public class BaseItemSetConroller {
             }catch (Exception e )
             {
                 throw new ViolateForeignKeyException(existingRecord.get().getValue(), existingRecord.get().getId(), PLPrivacy.class.toString());
+            }
+            return new ResponseEntity<>("Record deleted Successfully!", HttpStatus.OK);
+        }
+        return ResponseEntity.notFound().build();
+    }
+    @DeleteMapping("/client-type/del/id/{id}")
+    @CrossOrigin(origins = "*")
+    public ResponseEntity<String> deleteclientTypeById(@PathVariable Long id) {
+        Optional<ClientType> existingRecord = clientTypeService.findById(id);
+        if(existingRecord.isPresent()){
+            try {
+                clientTypeService.deleteById(existingRecord.get().getId());
+            }catch (Exception e )
+            {
+                throw new ViolateForeignKeyException(existingRecord.get().getValue(), existingRecord.get().getId(), ClientType.class.toString());
             }
             return new ResponseEntity<>("Record deleted Successfully!", HttpStatus.OK);
         }

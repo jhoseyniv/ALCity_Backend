@@ -1,7 +1,13 @@
 package com.alcity.service.base;
 
+import com.alcity.dto.base.ClientTypeDTO;
+import com.alcity.dto.base.PLPrivacyDTO;
+import com.alcity.entity.appmember.AppMember;
 import com.alcity.entity.base.ClientType;
+import com.alcity.entity.base.PLPrivacy;
+import com.alcity.repository.appmember.AppMemberRepository;
 import com.alcity.repository.base.ClientTypeRepository;
+import com.alcity.utility.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -52,7 +58,7 @@ public class ClientTypeService  implements ClientTypeRepository {
 
     @Override
     public void deleteById(Long aLong) {
-
+        clientTypeRepository.deleteById(aLong);
     }
 
     @Override
@@ -73,6 +79,29 @@ public class ClientTypeService  implements ClientTypeRepository {
     @Override
     public void deleteAll() {
 
+    }
+    @Autowired
+    private AppMemberRepository appMemberRepository;
+
+    public ClientType save(ClientTypeDTO dto, String code) {
+        AppMember createdBy = appMemberRepository.findByUsername("admin");
+        ClientType clientType=null;
+
+        if (code.equalsIgnoreCase("Save")) { //Save
+            clientType = new ClientType(dto.getLabel(), dto.getValue(), 1L, DateUtils.getNow(), DateUtils.getNow(), createdBy, createdBy);
+            clientTypeRepository.save(clientType);
+        }else{//edit
+            Optional<ClientType> clientTypeOptional= clientTypeRepository.findById(dto.getId());
+            if(clientTypeOptional.isPresent()) {
+                clientType = clientTypeOptional.get();
+                clientType.setLabel(dto.getLabel());
+                clientType.setValue(dto.getValue());
+                clientType.setVersion(clientType.getVersion()+1);
+                clientType.setUpdated(DateUtils.getNow());
+                clientTypeRepository.save(clientType);
+            }
+        }
+    return clientType;
     }
 
     @Override
