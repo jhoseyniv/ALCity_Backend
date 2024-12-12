@@ -89,7 +89,7 @@ public class MemberTypeService implements MemberTypeRepository {
 
     @Override
     public void deleteById(Long aLong) {
-
+        memberTypeRepository.deleteById(aLong);
     }
 
     @Override

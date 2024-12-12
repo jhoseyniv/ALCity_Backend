@@ -9,7 +9,6 @@ import com.alcity.dto.base.PLPrivacyDTO;
 import com.alcity.dto.appmember.MemberTypeDTO;
 import com.alcity.entity.alenum.*;
 import com.alcity.entity.base.*;
-import com.alcity.entity.journey.Journey;
 import com.alcity.service.base.*;
 import com.alcity.utility.DTOUtil;
 import io.swagger.v3.oas.annotations.Operation;
@@ -29,7 +28,6 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/base")
 public class BaseItemSetConroller {
-
     @Operation( summary = "Fetch all Genders ",  description = "fetches all Gender entities and their data from data source")
     @GetMapping("/gender/all")
     @CrossOrigin(origins = "*")
@@ -230,7 +228,6 @@ public class BaseItemSetConroller {
         if(existingRecord.isPresent()){
             try {
                 plPrivacyService.deleteById(existingRecord.get().getId());
-
             }catch (Exception e )
             {
                 throw new ViolateForeignKeyException(existingRecord.get().getValue(), existingRecord.get().getId(), PLPrivacy.class.toString());
@@ -246,7 +243,6 @@ public class BaseItemSetConroller {
         if(existingRecord.isPresent()){
             try {
                 memberTypeService.deleteById(existingRecord.get().getId());
-
             }catch (Exception e )
             {
                 throw new ViolateForeignKeyException(existingRecord.get().getValue(), existingRecord.get().getId(), MemberType.class.toString());
@@ -264,13 +260,6 @@ public class BaseItemSetConroller {
     @ResponseBody
     @CrossOrigin(origins = "*")
     public BinaryContentType getBinaryTypeById(@PathVariable Long id) {   return BinaryContentType.getById(id);   }
-
-
-
-
-
-
-
 
 
 }

@@ -60,7 +60,7 @@ public class PLPrivacyService implements PLPrivacyRepository {
 
     @Override
     public void deleteById(Long aLong) {
-
+        plPrivacyRepository.deleteById(aLong);
     }
 
     @Override
