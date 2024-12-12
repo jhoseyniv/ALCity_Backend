@@ -101,7 +101,8 @@ public class AppMemberController {
         return responseObject;
     }
 
-    @RequestMapping(value = "/id/{id}/wallet/", method = RequestMethod.GET)
+    @Operation( summary = "Get all wallet items for a application member ",  description = "Get all wallet items")
+    @RequestMapping(value = "/id/{id}/wallet/all", method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin(origins = "*")
     public Collection<AppMemberWalletDTO> getApplicationMemberWalletDataById(@PathVariable Long id) {
