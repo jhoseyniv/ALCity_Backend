@@ -35,7 +35,7 @@ public class PLPrivacyService implements PLPrivacyRepository {
 
     @Override
     public Optional<PLPrivacy> findById(Long id) {
-        return Optional.empty();
+        return plPrivacyRepository.findById(id);
     }
 
     @Override
