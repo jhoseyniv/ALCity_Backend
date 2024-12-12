@@ -529,6 +529,7 @@ public class DTOUtil {
          journeyDTO.setCreatedById(journey.getCreatedBy().getId());
          journeyDTO.setUpdatedById(journey.getUpdatedBy().getId());
          journeyDTO.setIconId(journey.getGraphic().getId());
+         journeyDTO.setThumbnail(journey.getGraphic().getThumbnail());
          return journeyDTO;
     }
 
