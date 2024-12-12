@@ -507,6 +507,16 @@ public class DTOUtil {
         }
         return dtos;
     }
+    public static Collection<JourneyDTO> getJourneyDTOS(Collection<Journey> journeyCollection) {
+        Collection<JourneyDTO> dtos = new ArrayList<JourneyDTO>();
+        Iterator<Journey> itr = journeyCollection.iterator();
+        while (itr.hasNext()) {
+            JourneyDTO dto = getJourneyDTO(itr.next());
+            dtos.add(dto);
+        }
+        return dtos;
+    }
+
     public static JourneyDTO getJourneyDTO(Journey journey) {
          JourneyDTO journeyDTO = new JourneyDTO();
          journeyDTO.setId(journey.getId());
@@ -518,7 +528,7 @@ public class DTOUtil {
          journeyDTO.setUpdatedBy(journey.getUpdatedBy().getUsername());
          journeyDTO.setCreatedById(journey.getCreatedBy().getId());
          journeyDTO.setUpdatedById(journey.getUpdatedBy().getId());
-         journeyDTO.setGraphic(getBinaryContentDTOWithoutContent(journey.getGraphic()));
+         journeyDTO.setIconId(journey.getGraphic().getId());
          return journeyDTO;
     }
 

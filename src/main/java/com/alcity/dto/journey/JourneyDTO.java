@@ -18,9 +18,25 @@ public class JourneyDTO   {
     private Long updatedById;
 
     private String title;
-    private BinaryContentDTO graphic;
-    private Set<JourneyStepDTO> journeyStepDTOSet;
-    private Set<JourneyLearningSkill> journeyLearningSkillSet;
+    private byte[] thumbnail;
+
+    private Long  iconId;
+
+    public byte[] getThumbnail() {
+        return thumbnail;
+    }
+
+    public void setThumbnail(byte[] thumbnail) {
+        this.thumbnail = thumbnail;
+    }
+
+    public Long getIconId() {
+        return iconId;
+    }
+
+    public void setIconId(Long iconId) {
+        this.iconId = iconId;
+    }
 
     public String getTitle() {
         return title;
@@ -30,29 +46,6 @@ public class JourneyDTO   {
         this.title = title;
     }
 
-    public BinaryContentDTO getGraphic() {
-        return graphic;
-    }
-
-    public void setGraphic(BinaryContentDTO graphic) {
-        this.graphic = graphic;
-    }
-
-    public Set<JourneyStepDTO> getJourneyStepDTOSet() {
-        return journeyStepDTOSet;
-    }
-
-    public void setJourneyStepDTOSet(Set<JourneyStepDTO> journeyStepDTOSet) {
-        this.journeyStepDTOSet = journeyStepDTOSet;
-    }
-
-    public Set<JourneyLearningSkill> getJourneyLearningSkillSet() {
-        return journeyLearningSkillSet;
-    }
-
-    public void setJourneyLearningSkillSet(Set<JourneyLearningSkill> journeyLearningSkillSet) {
-        this.journeyLearningSkillSet = journeyLearningSkillSet;
-    }
 
     public JourneyDTO() {
     }
@@ -121,17 +114,17 @@ public class JourneyDTO   {
         this.updatedById = updatedById;
     }
 
-    public JourneyDTO(Long id, Long version, String created, String updated, String createdBy, String updatedBy,Long createdById,Long updatedById,
-                      String title, BinaryContentDTO graphic) {
+    public JourneyDTO(Long id, Long version, String created, String updated, String createdBy, String updatedBy, Long createdById, Long updatedById, String title, byte[] thumbnail,Long iconId) {
         this.id = id;
         this.version = version;
         this.created = created;
         this.updated = updated;
         this.createdBy = createdBy;
-        this.createdById = createdById;
         this.updatedBy = updatedBy;
+        this.createdById = createdById;
         this.updatedById = updatedById;
         this.title = title;
-        this.graphic = graphic;
+        this.thumbnail = thumbnail;
+        this.iconId=iconId;
     }
 }

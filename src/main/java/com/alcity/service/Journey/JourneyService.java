@@ -103,14 +103,13 @@ public class JourneyService implements JourneyRepository {
 
     @Override
     public Journey save(JourneyDTO journeyDTO) throws UniqueConstraintException {
-        BinaryContentDTO graphicDTO = journeyDTO.getGraphic();
         Optional<BinaryContent> binaryContentIsExist;
         Journey journey = null;
         Optional<AppMember> createdBy = applicationMemberService.findById(journeyDTO.getCreatedById());
         Optional<AppMember> updatedBy = applicationMemberService.findById(journeyDTO.getUpdatedById());
 
-        if(graphicDTO.getId() != null ) {
-            binaryContentIsExist = binaryContentService.findById(graphicDTO.getId());
+        if(journeyDTO.getId() != null ) {
+            binaryContentIsExist = binaryContentService.findById(journeyDTO.getIconId());
             if (binaryContentIsExist.isPresent()) {
                 journey = new Journey(journeyDTO.getTitle(), binaryContentIsExist.get(), journeyDTO.getVersion(),
                         journeyDTO.getCreated(), journeyDTO.getUpdated(), createdBy.get(), updatedBy.get());

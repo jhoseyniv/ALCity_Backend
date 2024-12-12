@@ -32,9 +32,10 @@ public class JourneyController {
     @Autowired
     private JourneyService journeyService;
     @GetMapping("/all")
-    public Collection<Journey> getJourneis(Model model) {
-        Collection<Journey> journeyCollection = journeyService.findAll();
-        return journeyCollection;
+    public Collection<JourneyDTO> getJourneis(Model model) {
+
+        Collection<JourneyDTO> journeyDTOCollection = DTOUtil.getJourneyDTOS(journeyService.findAll());
+        return journeyDTOCollection;
     }
     @RequestMapping(value = "/id/{id}", method = RequestMethod.GET)
     @ResponseBody
@@ -62,7 +63,7 @@ public class JourneyController {
     @PostMapping("/save")
     public Journey saveJourney(@RequestBody JourneyDTO journeyDTO)  {
         Journey savedJourney = null;
-        if(journeyDTO.getGraphic().getId()==null)
+        if(journeyDTO.getIconId()==null)
             throw new NotNullConstraintException("Graphic Field Must not be Null",journeyDTO.getTitle(), Journey.class.toString());
         try {
             savedJourney = journeyService.save(journeyDTO);
