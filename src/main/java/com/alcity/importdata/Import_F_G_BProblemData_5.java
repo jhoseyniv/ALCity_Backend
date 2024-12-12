@@ -180,10 +180,8 @@ public class Import_F_G_BProblemData_5 implements CommandLineRunner {
         Optional<WalletItem> alCoin100WalletItem = walletItemService.findByValue("al_coin_100");
         Optional<WalletItem> alCoin10WalletItem = walletItemService.findByValue("al_coin_10");
 
-        Journey journey_1 = journeyService.findByTitle("Journey_1");
-        Journey journey_2 = journeyService.findByTitle("Journey_2");
-
-
+        Optional<Journey> journey_1 = journeyService.findByTitle("Journey_1");
+        Optional<Journey> journey_2 = journeyService.findByTitle("Journey_2");
 
         byte[]  planyGround_F_G_B_bytes = ImageUtil.getImage("src/main/resources/images/Fox-Goose-Bean/","playGround.png");
         BinaryContent playGround_F_G_B_content = new BinaryContent(1L, now, now,admin_1 , admin_1,"puzzle ground for Memory Game",planyGround_F_G_B_bytes.length,planyGround_F_G_B_bytes,null,"tag1","","",BinaryContentType.Image);
@@ -204,14 +202,13 @@ public class Import_F_G_BProblemData_5 implements CommandLineRunner {
         binaryContentService.save(textObject_binary_content);
 
 //        ObjectCategory objectCategory_TextObject = objectCategoryService.findByValue("TextObject");
-//
+
        Optional<PuzzleGroup>  IQ_Puzzle_Group = puzzleGroupService.findByTitle("Maze Image - Puzzle Group 2");
-//
+
 //        Optional<ALCityObject> textObject = puzzleObjectService.findByTitle("TextObject");
 
 //        ALCityObjectInPG puzzleGroup_puzzleObject = new ALCityObjectInPG("Image Hash Puzzle Group with Text Object","X_O_textObject",IQ_Puzzle_Group.get(),textObject,1L,now,now,admin_1,admin_1);
 //        puzzleGroup_PuzzleObjectService.save(puzzleGroup_puzzleObject);
-
 
         PLPrivacy privacy_1 = plPrivacyService.findByValue("privacy1");
 

@@ -139,12 +139,9 @@ public class ImportProblemData_2_part_3 implements CommandLineRunner {
         LearningSkill find_paths = learningSkillService.findByValue("Find Paths");
 
         Optional<WalletItem> alCoin_100_WalletItem = walletItemService.findByValue("al_coin_100");
-        Journey journey_1 = journeyService.findByTitle("Journey_1");
-
-
+        Optional<Journey> journey_1 = journeyService.findByTitle("Journey_1");
 
         PuzzleCategory maze = puzzleCategoryService.findByValue("Maze");
-
 
         ObjectCategory objectCategory_Image = objectCategoryService.findByValue("Image");
 

@@ -131,7 +131,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
         LearningSkill find_paths = learningSkillService.findByValue("Find Paths");
 
         Optional<WalletItem> alCoin_100_WalletItem = walletItemService.findByValue("al_coin_100");
-        Journey journey_1 = journeyService.findByTitle("Journey_1");
+        Optional<Journey> journey_1 = journeyService.findByTitle("Journey_1");
 
         byte[] playGround_image_problem_2 = ImageUtil.getImage("src/main/resources/images/","playGround_2.png");
         BinaryContent play_ground_binary_content_2 = new BinaryContent(1L, now, now,admin_1 , admin_1,"puzzle ground for Maze Problem",playGround_image_problem_2.length,playGround_image_problem_2,null,"tag1","","",BinaryContentType.Image);
@@ -153,7 +153,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
         PuzzleGroup puzzleGroup_2 = new PuzzleGroup("Maze Image - Puzzle Group 2",maze,puzzle_group_2_binary_content_icon,puzzle_group_2_binary_content_pic,1L,now,now,admin_1,admin_1);
         puzzleGroupService.save(puzzleGroup_2);
 
-        JourneyStep step_3_journey_1 = new JourneyStep("step_3_journey_1",1,30,30,journey_1,puzzleGroup_2,1L,now,now,admin_1,admin_1);
+        JourneyStep step_3_journey_1 = new JourneyStep("step_3_journey_1",1,30,30,journey_1.get(),puzzleGroup_2,1L,now,now,admin_1,admin_1);
 
         PLPrivacy privacy_1 = puzzleLevelPrivacyService.findByValue("privacy1");
 

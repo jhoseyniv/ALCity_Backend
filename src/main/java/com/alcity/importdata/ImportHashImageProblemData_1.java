@@ -172,10 +172,8 @@ public class ImportHashImageProblemData_1 implements CommandLineRunner {
         LearningSkill division = learningSkillService.findByValue("division");
         Optional<WalletItem> alCoin10WalletItem = walletItemService.findByValue("al_coin_10");
 
-        Journey journey_1 = journeyService.findByTitle("Journey_1");
-        Journey journey_2 = journeyService.findByTitle("Journey_2");
-
-
+        Optional<Journey> journey_1 = journeyService.findByTitle("Journey_1");
+        Optional<Journey> journey_2 = journeyService.findByTitle("Journey_2");
 
         byte[] puzzle_Ground_Image_1 = ImageUtil.getImage("src/main/resources/images/","playGround.png");
         BinaryContent puzzle_ground_binary_content_1 = new BinaryContent(1L, now, now,admin_1 , admin_1,"puzzle ground for hash image",puzzle_Ground_Image_1.length,puzzle_Ground_Image_1,null,"tag1","","",BinaryContentType.Image);
@@ -192,13 +190,12 @@ public class ImportHashImageProblemData_1 implements CommandLineRunner {
         PuzzleCategory mathematic = puzzleCategoryService.findByValue("mathematic");
 
         Optional<PuzzleGroup> puzzleGroup_HashImage = puzzleGroupService.findByTitle("Hash Image - Puzzle Group 1");
-        JourneyStep step_1_journey_1 = new JourneyStep("step1_journey_1",1,30,30,journey_1,puzzleGroup_HashImage.get(),1L,now,now,admin_1,admin_1);
-        JourneyStep step_2_journey_1 = new JourneyStep("step2_journey_1",1,30,30,journey_1,puzzleGroup_HashImage.get(),1L,now,now,admin_1,admin_1);
-        JourneyStep step_1_journey_2 = new JourneyStep("step1_journey_2",1,30,30,journey_2,puzzleGroup_HashImage.get(),1L,now,now,admin_1,admin_1);
+        JourneyStep step_1_journey_1 = new JourneyStep("step1_journey_1",1,30,30,journey_1.get(),puzzleGroup_HashImage.get(),1L,now,now,admin_1,admin_1);
+        JourneyStep step_2_journey_1 = new JourneyStep("step2_journey_1",1,30,30,journey_1.get(),puzzleGroup_HashImage.get(),1L,now,now,admin_1,admin_1);
+        JourneyStep step_1_journey_2 = new JourneyStep("step1_journey_2",1,30,30,journey_2.get(),puzzleGroup_HashImage.get(),1L,now,now,admin_1,admin_1);
         journeyStepService.save(step_1_journey_1);
         journeyStepService.save(step_2_journey_1);
         journeyStepService.save(step_1_journey_2);
-
 
         PLPrivacy privacy_1 = plPrivacyService.findByValue("privacy1");
 

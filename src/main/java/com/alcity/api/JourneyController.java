@@ -1,13 +1,11 @@
 package com.alcity.api;
 
-
-import com.alcity.customexception.NotNullConstraintException;
+import com.alcity.customexception.ALCityResponseObject;
 import com.alcity.customexception.UniqueConstraintException;
 import com.alcity.customexception.ViolateForeignKeyException;
 import com.alcity.dto.journey.JourneyDTO;
-import com.alcity.entity.base.PuzzleCategory;
 import com.alcity.entity.journey.Journey;
-import com.alcity.entity.learning.LearningSkill;
+import com.alcity.repository.appmember.AppMemberRepository;
 import com.alcity.service.Journey.JourneyService;
 import com.alcity.utility.DTOUtil;
 import io.swagger.v3.oas.annotations.Operation;
@@ -31,12 +29,16 @@ public class JourneyController {
 
     @Autowired
     private JourneyService journeyService;
+
+    @Autowired
+    private AppMemberRepository appMemberRepository;
+
     @GetMapping("/all")
     public Collection<JourneyDTO> getJourneis(Model model) {
-
         Collection<JourneyDTO> journeyDTOCollection = DTOUtil.getJourneyDTOS(journeyService.findAll());
         return journeyDTOCollection;
     }
+
     @RequestMapping(value = "/id/{id}", method = RequestMethod.GET)
     @ResponseBody
     public JourneyDTO getJourneyById(@PathVariable Long id) {
@@ -44,6 +46,7 @@ public class JourneyController {
         JourneyDTO journeyDTO = DTOUtil.getJourneyDTO(journey.get());
         return journeyDTO;
     }
+
     @RequestMapping(value = "/cond/{criteria}", method = RequestMethod.GET)
     @ResponseBody
     public Collection<JourneyDTO> getJourneyByCriteria(@PathVariable String criteria) {
@@ -61,19 +64,32 @@ public class JourneyController {
 
     @Operation( summary = "Save a  Journey ",  description = "save a Journey entity and their data to data base")
     @PostMapping("/save")
-    public Journey saveJourney(@RequestBody JourneyDTO journeyDTO)  {
-        Journey savedJourney = null;
-        if(journeyDTO.getIconId()==null)
-            throw new NotNullConstraintException("Graphic Field Must not be Null",journeyDTO.getTitle(), Journey.class.toString());
-        try {
-            savedJourney = journeyService.save(journeyDTO);
-        }catch (RuntimeException e )
-        {
-            throw new UniqueConstraintException(journeyDTO.getTitle(), journeyDTO.getId(), Journey.class.toString());
+    @CrossOrigin(origins = "*")
+    public ALCityResponseObject saveOrEditJourney(@RequestBody JourneyDTO dto)  {
+        Journey savedRecord = null;
+        ALCityResponseObject responseObject = new ALCityResponseObject();
+        if (dto.getId() == null || dto.getId() <= 0L) { //save
+            try {
+                savedRecord = journeyService.save(dto,"Save");
+            } catch (RuntimeException e) {
+                throw new UniqueConstraintException(dto.getTitle(), dto.getId(), "Value and Lable Must be Unique");
+            }
+            responseObject = new ALCityResponseObject(HttpStatus.OK.value(), "ok", savedRecord.getId(), "Record Saved Successfully!");
+        } else if (dto.getId() > 0L ) {//edit
+            savedRecord = journeyService.save(dto, "Edit");
+            if(savedRecord !=null)
+                responseObject = new ALCityResponseObject(HttpStatus.OK.value(), "ok", savedRecord.getId(), "Record Updated Successfully!");
+            else
+                responseObject = new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", dto.getId(), "Record Not Found!");
         }
-        Optional<Journey> output = journeyService.findById(savedJourney.getId());
-        return output.get();
+        else if (savedRecord==null)
+            responseObject = new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", -1L, "Record Not Found!");
+        else
+            responseObject = new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", -1L, "Record Not Found!");
+
+        return responseObject;
     }
+
     @DeleteMapping("/del/{id}")
     public ResponseEntity<String> deleteJourneyById(@PathVariable Long id) {
         Optional<Journey> existingRecord = journeyService.findById(id);

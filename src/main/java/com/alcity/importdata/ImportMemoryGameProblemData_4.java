@@ -178,10 +178,8 @@ public class ImportMemoryGameProblemData_4 implements CommandLineRunner {
         Optional<WalletItem> alCoin100WalletItem = walletItemService.findByValue("al_coin_100");
         Optional<WalletItem> alCoin10WalletItem = walletItemService.findByValue("al_coin_10");
 
-        Journey journey_1 = journeyService.findByTitle("Journey_1");
-        Journey journey_2 = journeyService.findByTitle("Journey_2");
-
-
+        Optional<Journey> journey_1 = journeyService.findByTitle("Journey_1");
+        Optional<Journey> journey_2 = journeyService.findByTitle("Journey_2");
 
         byte[]  planyGround_Image_Memory_Game = ImageUtil.getImage("src/main/resources/images/Memory-Game/","MemGame.png");
         BinaryContent playGround_Memory_Game_content = new BinaryContent(1L, now, now,admin_1 , admin_1,"puzzle ground for Memory Game",planyGround_Image_Memory_Game.length,planyGround_Image_Memory_Game,null,"tag1","","",BinaryContentType.Image);
