@@ -411,12 +411,17 @@ public class ImportBaseData implements CommandLineRunner {
 
 
         byte[] jouerny_1_Image = ImageUtil.getImage("src/main/resources/images/","jungle.png");
-        byte[] jouerny_2_Image = ImageUtil.getImage("src/main/resources/images/","desert.png");
-        byte[] jouerny_3_Image = ImageUtil.getImage("src/main/resources/images/","city.png");
+        byte[]  tumb_jouerny_1 = ImageUtil.getThumbnail(jouerny_1_Image,"jungle.png");
 
-        BinaryContent image_journey_1 = new BinaryContent(1L, now, now,admin_1 , admin_1,"image_journey_1",jouerny_1_Image.length,jouerny_1_Image,null,"tag1","","",BinaryContentType.Image);
-        BinaryContent image_journey_2 = new BinaryContent(1L, now, now,admin_1 , admin_1,"image_journey_2",jouerny_2_Image.length,jouerny_2_Image,null,"tag1","","",BinaryContentType.Image);
-        BinaryContent image_journey_3 = new BinaryContent(1L, now, now,admin_1 , admin_1,"image_journey_3",jouerny_3_Image.length,jouerny_3_Image,null,"tag1","","",BinaryContentType.Image);
+        byte[] jouerny_2_Image = ImageUtil.getImage("src/main/resources/images/","desert.png");
+        byte[]  tumb_jouerny_2 = ImageUtil.getThumbnail(jouerny_2_Image,"desert.png");
+
+        byte[] jouerny_3_Image = ImageUtil.getImage("src/main/resources/images/","city.png");
+        byte[]  tumb_jouerny_3 = ImageUtil.getThumbnail(jouerny_3_Image,"city.png");
+
+        BinaryContent image_journey_1 = new BinaryContent(1L, now, now,admin_1 , admin_1,"image_journey_1",jouerny_1_Image.length,jouerny_1_Image,tumb_jouerny_1,"tag1","","",BinaryContentType.Image);
+        BinaryContent image_journey_2 = new BinaryContent(1L, now, now,admin_1 , admin_1,"image_journey_2",jouerny_2_Image.length,jouerny_2_Image,tumb_jouerny_2,"tag1","","",BinaryContentType.Image);
+        BinaryContent image_journey_3 = new BinaryContent(1L, now, now,admin_1 , admin_1,"image_journey_3",jouerny_3_Image.length,jouerny_3_Image,tumb_jouerny_3,"tag1","","",BinaryContentType.Image);
         binaryContentService.save(image_journey_1);
         binaryContentService.save(image_journey_2);
         binaryContentService.save(image_journey_3);
