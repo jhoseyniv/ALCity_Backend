@@ -3,8 +3,13 @@ package com.alcity.api;
 import com.alcity.customexception.ALCityResponseObject;
 import com.alcity.customexception.UniqueConstraintException;
 import com.alcity.customexception.ViolateForeignKeyException;
+import com.alcity.dto.appmember.AppMemberWalletDTO;
 import com.alcity.dto.journey.JourneyDTO;
+import com.alcity.dto.journey.JourneyStepDTO;
+import com.alcity.entity.appmember.AppMember;
+import com.alcity.entity.appmember.AppMember_WalletItem;
 import com.alcity.entity.journey.Journey;
+import com.alcity.entity.journey.JourneyStep;
 import com.alcity.repository.appmember.AppMemberRepository;
 import com.alcity.service.Journey.JourneyService;
 import com.alcity.utility.DTOUtil;
@@ -104,6 +109,17 @@ public class JourneyController {
             return new ResponseEntity<>("Record deleted Successfully!", HttpStatus.OK);
         }
         return ResponseEntity.notFound().build();
+    }
+
+    @Operation( summary = "Get all Journey steps for a Journey ",  description = "Get all Journey steps")
+    @RequestMapping(value = "/id/{id}/step/all", method = RequestMethod.GET)
+    @ResponseBody
+    @CrossOrigin(origins = "*")
+    public Collection<JourneyStepDTO> getJourneyStepsById(@PathVariable Long id) {
+        Optional<Journey> journey = journeyService.findById(id);
+        Collection<JourneyStep> steps = journey.get().getJourneyStepCollection();
+        Collection<JourneyStepDTO> dtos = DTOUtil.getJorenyStepsDTOS(steps);
+        return dtos;
     }
 
 

@@ -130,25 +130,27 @@ public class DTOUtil {
         return output;
     }
 
-
-
+    public static JourneyStepDTO getJorenyStepsDTO(JourneyStep entity) {
+        JourneyStepDTO dto = new JourneyStepDTO();
+        dto.setId(entity.getId());
+        dto.setVersion(entity.getVersion());
+        dto.setOrdering(entity.getOrdering());
+        dto.setXpos(entity.getXpos());
+        dto.setYpos(entity.getYpos());
+        dto.setTitle(entity.getTitle());
+        dto.setCreated(entity.getCreated());
+        dto.setUpdated(entity.getUpdated());
+        return dto;
+    }
     public static Collection<JourneyStepDTO> getJorenyStepsDTOS(Collection<JourneyStep> input) {
-        Collection<JourneyStepDTO> output = new ArrayList<JourneyStepDTO>();
+        Collection<JourneyStepDTO> dtos = new ArrayList<JourneyStepDTO>();
         Iterator<JourneyStep> itr = input.iterator();
         while (itr.hasNext()) {
             JourneyStep journeyStep = itr.next();
-            JourneyStepDTO journeyStepDTO = new JourneyStepDTO();
-            journeyStepDTO.setId(journeyStep.getId());
-            journeyStepDTO.setVersion(journeyStep.getVersion());
-            journeyStepDTO.setOrdering(journeyStep.getOrdering());
-            journeyStepDTO.setXpos(journeyStep.getXpos());
-            journeyStepDTO.setYpos(journeyStep.getYpos());
-            journeyStepDTO.setTitle(journeyStep.getTitle());
-            journeyStepDTO.setCreated(journeyStep.getCreated());
-            journeyStepDTO.setUpdated(journeyStep.getUpdated());
-            output.add(journeyStepDTO);
+            JourneyStepDTO dto = getJorenyStepsDTO(journeyStep);
+            dtos.add(dto);
         }
-        return output;
+        return dtos;
     }
     public static void copyAttributesActionFromTo(Long fromOwnerId,Long toOwnerId, AttributeOwnerType from , AttributeOwnerType to,
                                  AttributeService attributeService, AttributeValueService attributeValueService){
