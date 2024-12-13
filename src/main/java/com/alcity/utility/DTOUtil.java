@@ -137,6 +137,7 @@ public class DTOUtil {
         dto.setOrdering(entity.getOrdering());
         dto.setXpos(entity.getXpos());
         dto.setYpos(entity.getYpos());
+        dto.setPuzzleGroup(entity.getPuzzleGroup().getTitle());
         dto.setTitle(entity.getTitle());
         dto.setCreated(entity.getCreated());
         dto.setUpdated(entity.getUpdated());

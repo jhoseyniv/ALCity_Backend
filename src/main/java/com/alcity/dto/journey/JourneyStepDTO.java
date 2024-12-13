@@ -11,6 +11,7 @@ public class JourneyStepDTO  {
     private String updatedBy;
 
     private String title;
+    private String puzzleGroup;
     private Integer ordering;
     private Integer xpos;
     private Integer ypos;
@@ -95,10 +96,18 @@ public class JourneyStepDTO  {
         this.updatedBy = updatedBy;
     }
 
+    public String getPuzzleGroup() {
+        return puzzleGroup;
+    }
+
+    public void setPuzzleGroup(String puzzleGroup) {
+        this.puzzleGroup = puzzleGroup;
+    }
+
     public JourneyStepDTO() {
     }
 
-    public JourneyStepDTO(Long id, Long version, String created, String updated, String createdBy, String updatedBy, String title, Integer ordering, Integer xpos, Integer ypos) {
+    public JourneyStepDTO(Long id, Long version, String created, String updated, String createdBy, String updatedBy, String title, Integer ordering, Integer xpos, Integer ypos,String puzzleGroup) {
         this.id = id;
         this.version = version;
         this.created = created;
@@ -109,5 +118,6 @@ public class JourneyStepDTO  {
         this.ordering = ordering;
         this.xpos = xpos;
         this.ypos = ypos;
+        this.puzzleGroup= puzzleGroup;
     }
 }
