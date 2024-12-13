@@ -7,9 +7,6 @@ public class AppMemberWalletDTO {
     private String walletItemTitle;
     private  Float amount;
 
-    private Collection<WalletItemTransactionDTO> walletItemTransactionDTOSet;
-
-
     public Long getWalletItemId() {
         return walletItemId;
     }
@@ -34,21 +31,12 @@ public class AppMemberWalletDTO {
         this.amount = amount;
     }
 
-    public Collection<WalletItemTransactionDTO> getWalletItemTransactionDTOSet() {
-        return walletItemTransactionDTOSet;
-    }
-
-    public void setWalletItemTransactionDTOSet(Collection<WalletItemTransactionDTO> walletItemTransactionDTOSet) {
-        this.walletItemTransactionDTOSet = walletItemTransactionDTOSet;
-    }
-
     public AppMemberWalletDTO() {
     }
 
-    public AppMemberWalletDTO(Long walletItemId, String walletItemTitle, Float amount, Collection<WalletItemTransactionDTO> walletItemTransactionDTOSet) {
+    public AppMemberWalletDTO(Long walletItemId, String walletItemTitle, Float amount) {
         this.walletItemId = walletItemId;
         this.walletItemTitle = walletItemTitle;
         this.amount = amount;
-        this.walletItemTransactionDTOSet = walletItemTransactionDTOSet;
     }
 }
