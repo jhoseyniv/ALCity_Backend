@@ -101,41 +101,15 @@ public class AppMemberController {
         return responseObject;
     }
 
-    @Operation( summary = "Get all wallet items for a application member ",  description = "Get all wallet items")
+    @Operation( summary = "Get all wallet items for an application member ",  description = "Get all wallet items")
     @RequestMapping(value = "/id/{id}/wallet/all", method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin(origins = "*")
     public Collection<AppMemberWalletDTO> getApplicationMemberWalletDataById(@PathVariable Long id) {
-        Collection<AppMemberWalletDTO> applicationMemberWalletDTOS = new ArrayList<>();
         Optional<AppMember> member = appMemberService.findById(id);
         Collection<AppMember_WalletItem> applicationMember_walletItems = member.get().getApplicationMember_walletItems();
-        Collection<WalletItemTransactionDTO> transactionDTOS = new ArrayList<>();
-
-        Iterator<AppMember_WalletItem> itr = applicationMember_walletItems.iterator();
-        while(itr.hasNext()) {
-            AppMember_WalletItem applicationMember_walletItem = itr.next();
-            AppMemberWalletDTO applicationMemberWalletDTO = new AppMemberWalletDTO();
-            WalletItem walletItem = applicationMember_walletItem.getWalletItem();
-            applicationMemberWalletDTO.setWalletItemTitle(walletItem.getLabel());
-            applicationMemberWalletDTO.setWalletItemId(walletItem.getId());
-            applicationMemberWalletDTO.setAmount(applicationMember_walletItem.getAmount());
-
-            WalletItemTransactionDTO transactionDTO = new WalletItemTransactionDTO();
-            Collection<WalletTransaction>  transactions = applicationMember_walletItem.getWalletTransactionSet();
-            Iterator<WalletTransaction> itrTransactions = transactions.iterator();
-            while (itrTransactions.hasNext()) {
-                WalletTransaction walletTransaction = itrTransactions.next();
-                transactionDTO.setIncTransaction(walletTransaction.getIncTransaction());
-                transactionDTO.setDescription(walletTransaction.getDescription());
-                transactionDTO.setAmount(walletTransaction.getAmount());
-                transactionDTO.setTransactionDate(walletTransaction.getTransactionDate());
-                transactionDTOS.add(transactionDTO);
-            }
-            applicationMemberWalletDTO.setWalletItemTransactionDTOSet(transactionDTOS);
-            applicationMemberWalletDTOS.add(applicationMemberWalletDTO);
-        }
-
-        return applicationMemberWalletDTOS;
+        Collection<AppMemberWalletDTO> dtos = DTOUtil.getAppMemberWalletDTOS(applicationMember_walletItems);
+        return dtos;
     }
 
     @Autowired

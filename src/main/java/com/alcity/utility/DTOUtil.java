@@ -7,6 +7,7 @@ import com.alcity.dto.Interpreter.object.RuleActionData;
 import com.alcity.dto.Interpreter.object.RuleData;
 import com.alcity.dto.alenum.EnumDTO;
 import com.alcity.dto.alobject.*;
+import com.alcity.dto.appmember.*;
 import com.alcity.dto.base.BinaryContentDTO;
 import com.alcity.dto.base.ClientTypeDTO;
 import com.alcity.dto.base.LearningSkillDTO;
@@ -17,13 +18,12 @@ import com.alcity.dto.learning.LearningContentDTO;
 import com.alcity.dto.learning.LearningTopicDTO;
 import com.alcity.dto.player.PermitedPlayerDTO;
 import com.alcity.dto.puzzle.*;
-import com.alcity.dto.appmember.AppMemberDTO;
-import com.alcity.dto.appmember.MemberTypeDTO;
-import com.alcity.dto.appmember.WalletItemDTO;
 import com.alcity.entity.alenum.AttributeOwnerType;
 import com.alcity.entity.alenum.BinaryContentType;
 import com.alcity.entity.alenum.ObjectAction;
 import com.alcity.entity.alobject.*;
+import com.alcity.entity.appmember.AppMember_WalletItem;
+import com.alcity.entity.appmember.WalletTransaction;
 import com.alcity.entity.base.*;
 import com.alcity.entity.journey.Journey;
 import com.alcity.entity.journey.JourneyStep;
@@ -516,8 +516,26 @@ public class DTOUtil {
         }
         return dtos;
     }
+    public static AppMemberWalletDTO getAppMemberWalletDTO(AppMember_WalletItem appMember_walletItem) {
+        AppMemberWalletDTO dto = new AppMemberWalletDTO();
+        WalletItem walletItem = appMember_walletItem.getWalletItem();
+        dto.setWalletItemTitle(walletItem.getLabel());
+        dto.setWalletItemId(walletItem.getId());
+        dto.setAmount(appMember_walletItem.getAmount());
+        return dto;
+    }
 
-    public static JourneyDTO getJourneyDTO(Journey journey) {
+    public static Collection<AppMemberWalletDTO> getAppMemberWalletDTOS(Collection<AppMember_WalletItem> appMember_walletItems) {
+        Collection<AppMemberWalletDTO> dtos = new ArrayList<>();
+        Iterator<AppMember_WalletItem> itr = appMember_walletItems.iterator();
+        while(itr.hasNext()) {
+            AppMember_WalletItem appMember_walletItem = itr.next();
+            AppMemberWalletDTO dto = getAppMemberWalletDTO(appMember_walletItem);
+            dtos.add(dto);
+        }
+        return dtos;
+    }
+        public static JourneyDTO getJourneyDTO(Journey journey) {
          JourneyDTO journeyDTO = new JourneyDTO();
          journeyDTO.setId(journey.getId());
          journeyDTO.setVersion(journey.getVersion());
