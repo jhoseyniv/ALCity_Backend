@@ -516,12 +516,14 @@ public class DTOUtil {
         }
         return dtos;
     }
-    public static AppMemberWalletDTO getAppMemberWalletDTO(AppMember_WalletItem appMember_walletItem) {
+    public static AppMemberWalletDTO getAppMemberWalletDTO(AppMember_WalletItem entity) {
         AppMemberWalletDTO dto = new AppMemberWalletDTO();
-        WalletItem walletItem = appMember_walletItem.getWalletItem();
+        WalletItem walletItem = entity.getWalletItem();
         dto.setWalletItemTitle(walletItem.getLabel());
         dto.setWalletItemId(walletItem.getId());
-        dto.setAmount(appMember_walletItem.getAmount());
+        dto.setAmount(entity.getAmount());
+        dto.setThumbnail(entity.getWalletItem().getIcon().getThumbnail());
+        dto.setWalletItemType(entity.getWalletItem().getWalletItemType().getValue());
         return dto;
     }
 
