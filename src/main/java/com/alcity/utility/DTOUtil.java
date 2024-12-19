@@ -8,10 +8,7 @@ import com.alcity.dto.Interpreter.object.RuleData;
 import com.alcity.dto.alenum.EnumDTO;
 import com.alcity.dto.alobject.*;
 import com.alcity.dto.appmember.*;
-import com.alcity.dto.base.BinaryContentDTO;
-import com.alcity.dto.base.ClientTypeDTO;
-import com.alcity.dto.base.LearningSkillDTO;
-import com.alcity.dto.base.WalletItemTypeDTO;
+import com.alcity.dto.base.*;
 import com.alcity.dto.journey.JourneyDTO;
 import com.alcity.dto.journey.JourneyStepDTO;
 import com.alcity.dto.learning.LearningContentDTO;
@@ -497,9 +494,23 @@ public class DTOUtil {
         AppMemberDTO memberDTO = new AppMemberDTO(member.getId(),member.getAge(),
                 member.getUsername(),member.getPassword(),member.getIcon().getThumbnail(),member.getIcon().getId(), member.getNickname(),
                 member.getMobile(), member.getEmail(),member.getGender().name(),member.getMemberType().getValue(),
-                 member.getVersion(), member.getCreated(), member.getUpdated(), userName, userName);
+                member.getVersion(), member.getCreated(), member.getUpdated(), userName, userName);
 
         return memberDTO;
+    }
+    public static AdvertisementDTO getAdvertisementDTO(Advertisement ads){
+
+        AdvertisementDTO dto = new AdvertisementDTO(ads.getId(),ads.getAdText(), ads.getAdsType().name(),
+                ads.getVersion(), ads.getCreated(), ads.getUpdated(), ads.getCreatedBy().getUsername(), ads.getUpdatedBy().getUsername());
+
+        return dto;
+    }
+    public static AdvertisementDTO getTermsAndCondDTO(Advertisement ads){
+
+        AdvertisementDTO dto = new AdvertisementDTO(ads.getId(),ads.getAdText(), ads.getAdsType().name(),
+                ads.getVersion(), ads.getCreated(), ads.getUpdated(), ads.getCreatedBy().getUsername(), ads.getUpdatedBy().getUsername());
+
+        return dto;
     }
     public static Collection<AppMemberDTO> getAppMemberDTOS(Collection<AppMember> appMemberCollection) {
         Collection<AppMemberDTO> dtos = new ArrayList<AppMemberDTO>();

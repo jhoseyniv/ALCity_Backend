@@ -81,8 +81,6 @@ public class ImportBaseData implements CommandLineRunner {
     @Autowired
     private WalletTransactionService walletTransactionService;
 
-
-
     @Autowired
     private LearningSkillService learningSkillService;
 
@@ -112,6 +110,9 @@ public class ImportBaseData implements CommandLineRunner {
 
     @Autowired
     JourneyService journeyService;
+
+    @Autowired
+    AdvertisementService advertisementService;
 
     @Autowired
     JourneyLearningSkillService journeyLearningSkillService;
@@ -214,6 +215,8 @@ public class ImportBaseData implements CommandLineRunner {
         plRuleEventService.save(click_ruleEvent);
         plRuleEventService.save(Internal_Event);
 
+        Advertisement termsAndCondition = new Advertisement("this is a terms and Condtion",ADSType.TermCondition,1L,now,now,jalalHoseyni,jalalHoseyni);
+        advertisementService.save(termsAndCondition);
 
         //update some fileds
         administrator.setCreatedBy(admin_1);
