@@ -168,6 +168,7 @@ public class ImageUtil {
         Path imagePath = Path.of(file.getName()+"-tumb.png");
         if (Files.exists(imagePath)) {
             imageBytes = Files.readAllBytes(imagePath);
+            Files.delete(imagePath);
             return imageBytes;
         }
         return null;

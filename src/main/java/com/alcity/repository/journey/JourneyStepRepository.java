@@ -11,6 +11,6 @@ public interface JourneyStepRepository extends CrudRepository<JourneyStep,Long> 
     Collection<JourneyStep> findAll();
     Collection<JourneyStep> findByXpos(Integer xpos);
     Collection<JourneyStep> findByYpos(Integer ypos);
-    JourneyStep findByTitle(String title);
+    Optional<JourneyStep> findByTitle(String title);
 
 }

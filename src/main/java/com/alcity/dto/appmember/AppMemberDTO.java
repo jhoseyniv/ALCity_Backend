@@ -10,7 +10,8 @@ public class AppMemberDTO {
     private String nickname;
     private String mobile;
     private String email;
-    private byte[] icon;
+    //private byte[] icon;
+    private Long iconId;
 
     private byte[] thumbnail;
     private String memberType;
@@ -81,15 +82,13 @@ public class AppMemberDTO {
     }
 
 
-    private Long iconId;
-
-    public byte[] getIcon() {
-        return icon;
-    }
-
-    public void setIcon(byte[] icon) {
-        this.icon = icon;
-    }
+//    public byte[] getIcon() {
+//        return icon;
+//    }
+//
+//    public void setIcon(byte[] icon) {
+//        this.icon = icon;
+//    }
 
     public Long getIconId() {
         return iconId;
@@ -167,19 +166,19 @@ public class AppMemberDTO {
         this.thumbnail = thumbnail;
     }
 
-    public AppMemberDTO(Long id, Integer age, String username, String password,byte[] icon,byte[] thumbnail,Long iconId, String nickname, String mobile, String email, String gender, String memberType ,
+    public AppMemberDTO(Long id, Integer age, String username, String password,byte[] thumbnail,Long iconId, String nickname, String mobile, String email, String gender, String memberType ,
                         Long version, String created, String updated, String createdBy, String updatedBy) {
         this.id = id;
         this.age = age;
         this.username = username;
         this.password = password;
         this.thumbnail = thumbnail;
-        this.iconId = iconId;
         this.nickname = nickname;
         this.mobile = mobile;
         this.email = email;
         this.memberType = memberType;
-        this.icon = icon;
+//        this.icon = icon;
+        this.iconId = iconId;
         this.gender = gender;
         this.version = version;
         this.created = created;

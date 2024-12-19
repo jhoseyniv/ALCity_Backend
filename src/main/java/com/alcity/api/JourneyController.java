@@ -12,6 +12,7 @@ import com.alcity.entity.journey.Journey;
 import com.alcity.entity.journey.JourneyStep;
 import com.alcity.repository.appmember.AppMemberRepository;
 import com.alcity.service.Journey.JourneyService;
+import com.alcity.service.Journey.JourneyStepService;
 import com.alcity.utility.DTOUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -34,6 +35,8 @@ public class JourneyController {
 
     @Autowired
     private JourneyService journeyService;
+    @Autowired
+    private JourneyStepService journeyStepService;
 
     @Autowired
     private AppMemberRepository appMemberRepository;
@@ -82,6 +85,33 @@ public class JourneyController {
             responseObject = new ALCityResponseObject(HttpStatus.OK.value(), "ok", savedRecord.getId(), "Record Saved Successfully!");
         } else if (dto.getId() > 0L ) {//edit
             savedRecord = journeyService.save(dto, "Edit");
+            if(savedRecord !=null)
+                responseObject = new ALCityResponseObject(HttpStatus.OK.value(), "ok", savedRecord.getId(), "Record Updated Successfully!");
+            else
+                responseObject = new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", dto.getId(), "Record Not Found!");
+        }
+        else if (savedRecord==null)
+            responseObject = new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", -1L, "Record Not Found!");
+        else
+            responseObject = new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", -1L, "Record Not Found!");
+
+        return responseObject;
+    }
+    @Operation( summary = "Save a  Journey Step",  description = "save a Journey Step and their data to data base")
+    @PostMapping("/save/step")
+    @CrossOrigin(origins = "*")
+    public ALCityResponseObject saveOrEditJourneyStep(@RequestBody JourneyStepDTO dto)  {
+        JourneyStep savedRecord = null;
+        ALCityResponseObject responseObject = new ALCityResponseObject();
+        if (dto.getId() == null || dto.getId() <= 0L) { //save
+            try {
+                savedRecord = journeyStepService.save(dto,"Save");
+            } catch (RuntimeException e) {
+                throw new UniqueConstraintException(dto.getTitle(), dto.getId(), "Value and Lable Must be Unique");
+            }
+            responseObject = new ALCityResponseObject(HttpStatus.OK.value(), "ok", savedRecord.getId(), "Record Saved Successfully!");
+        } else if (dto.getId() > 0L ) {//edit
+            savedRecord = journeyStepService.save(dto, "Edit");
             if(savedRecord !=null)
                 responseObject = new ALCityResponseObject(HttpStatus.OK.value(), "ok", savedRecord.getId(), "Record Updated Successfully!");
             else

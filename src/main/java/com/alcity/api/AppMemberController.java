@@ -101,6 +101,22 @@ public class AppMemberController {
         return responseObject;
     }
 
+    @Operation( summary = "Save a Guest User ",  description = "Save a Guest User ")
+    @PostMapping("/save/guest")
+    @CrossOrigin(origins = "*")
+    public AppMemberDTO saveGuestUser()  {
+        AppMember savedRecord = null;
+        AppMemberDTO appMemberDTO = new AppMemberDTO();
+
+            try {
+                savedRecord = appMemberService.saveGuestUser();
+            } catch (RuntimeException e) {
+                throw new UniqueConstraintException("dto.getUsername()", -1L, "user name must be Unique");
+            }
+            appMemberDTO =  DTOUtil.getAppMemberDTO(savedRecord);
+        return appMemberDTO;
+    }
+
     @Operation( summary = "Get all wallet items for an application member ",  description = "Get all wallet items")
     @RequestMapping(value = "/id/{id}/wallet/all", method = RequestMethod.GET)
     @ResponseBody

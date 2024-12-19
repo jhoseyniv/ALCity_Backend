@@ -1,23 +1,22 @@
 package com.alcity.entity.alenum;
 
-public enum UserGender  {
+public enum MessageType {
+    TermCondition,
+    Advertisement,
+    Chat,
+    Other;
 
-    Female,
-    Male,
-    Unknow;
-
-
-    public static UserGender getById(long id)
+    public static MessageType getById(long id)
     {
-        for (UserGender e : UserGender.values())
+        for (MessageType e : MessageType.values())
         {
             if (id == e.ordinal()) return e;
         }
         throw new IllegalArgumentException("no");
     }
-    public static UserGender getByTitle(String title)
+    public static MessageType getByTitle(String title)
     {
-        for (UserGender e : UserGender.values())
+        for (MessageType e : MessageType.values())
         {
             if (title.equalsIgnoreCase(e.name())) return e;
         }

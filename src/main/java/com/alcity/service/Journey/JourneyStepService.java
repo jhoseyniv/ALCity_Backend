@@ -1,8 +1,17 @@
 package com.alcity.service.Journey;
 
+import com.alcity.dto.journey.JourneyDTO;
+import com.alcity.dto.journey.JourneyStepDTO;
+import com.alcity.entity.appmember.AppMember;
+import com.alcity.entity.base.BinaryContent;
 import com.alcity.entity.journey.Journey;
 import com.alcity.entity.journey.JourneyStep;
+import com.alcity.entity.puzzle.PuzzleGroup;
+import com.alcity.repository.appmember.AppMemberRepository;
+import com.alcity.repository.journey.JourneyRepository;
 import com.alcity.repository.journey.JourneyStepRepository;
+import com.alcity.repository.puzzle.PGRepository;
+import com.alcity.utility.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -55,6 +64,37 @@ public class JourneyStepService implements JourneyStepRepository {
     public void deleteById(Long aLong) {
 
     }
+    @Autowired
+    AppMemberRepository appMemberRepository;
+    @Autowired
+    PGRepository PGRepository;
+    @Autowired
+    JourneyRepository journeyRepository;
+
+    public JourneyStep save(JourneyStepDTO dto, String code) {
+        AppMember createdBy = appMemberRepository.findByUsername("admin");
+        JourneyStep journeyStep=null;
+        Optional<JourneyStep> journeyStepOptional= journeyStepRepository.findByTitle(dto.getTitle());
+        Optional<PuzzleGroup> puzzleGroup =PGRepository.findById(dto.getPuzzleGroupId());
+        Optional<Journey>  journey = journeyRepository.findById(dto.getJourneyId());
+
+        if (code.equalsIgnoreCase("Save")) { //Save
+            journeyStep = new JourneyStep(dto.getTitle() ,dto.getOrdering(),dto.getXpos(),dto.getYpos(),journey.get(),puzzleGroup.get()
+                    , 1L,DateUtils.getNow(), DateUtils.getNow(), createdBy, createdBy);
+            journeyStepRepository.save(journeyStep);
+        }else{//edit
+            journeyStepOptional= journeyStepRepository.findById(dto.getId());
+            if(journeyStepOptional.isPresent()) {
+                journeyStep = journeyStepOptional.get();
+                journeyStep.setTitle(dto.getTitle());
+                journeyStep.setVersion(journeyStep.getVersion()+1);
+                journeyStep.setUpdated(DateUtils.getNow());
+                journeyStep.setUpdatedBy(createdBy);
+                journeyStepRepository.save(journeyStep);
+            }
+        }
+        return journeyStep;
+    }
 
     @Override
     public void delete(JourneyStep entity) {
@@ -87,8 +127,8 @@ public class JourneyStepService implements JourneyStepRepository {
     }
 
     @Override
-    public JourneyStep findByTitle(String title) {
-        return null;
+    public Optional<JourneyStep> findByTitle(String title) {
+        return Optional.empty();
     }
 
 

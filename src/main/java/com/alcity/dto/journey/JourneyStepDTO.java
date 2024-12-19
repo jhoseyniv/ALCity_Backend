@@ -2,19 +2,29 @@ package com.alcity.dto.journey;
 
 public class JourneyStepDTO  {
 
+
     private Long id;
+    private String title;
+    private Integer ordering;
+    private Integer xpos;
+    private Integer ypos;
+
+
+    private String puzzleGroupTitle;
+    private Long puzzleGroupId;
+    private Long puzzleGroupIconId;
+
+    private Long journeyId;
+    private String journeyTitle;
+    private Long journeyIconId;
+
+
     private Long version;
     private String created;
     private String updated;
     private String createdBy;
 
     private String updatedBy;
-
-    private String title;
-    private String puzzleGroup;
-    private Integer ordering;
-    private Integer xpos;
-    private Integer ypos;
 
     public String getTitle() {
         return title;
@@ -96,28 +106,76 @@ public class JourneyStepDTO  {
         this.updatedBy = updatedBy;
     }
 
-    public String getPuzzleGroup() {
-        return puzzleGroup;
+    public String getPuzzleGroupTitle() {
+        return puzzleGroupTitle;
     }
 
-    public void setPuzzleGroup(String puzzleGroup) {
-        this.puzzleGroup = puzzleGroup;
+    public void setPuzzleGroupTitle(String puzzleGroupTitle) {
+        this.puzzleGroupTitle = puzzleGroupTitle;
+    }
+
+    public Long getPuzzleGroupId() {
+        return puzzleGroupId;
+    }
+
+    public void setPuzzleGroupId(Long puzzleGroupId) {
+        this.puzzleGroupId = puzzleGroupId;
+    }
+
+    public Long getPuzzleGroupIconId() {
+        return puzzleGroupIconId;
+    }
+
+    public void setPuzzleGroupIconId(Long puzzleGroupIconId) {
+        this.puzzleGroupIconId = puzzleGroupIconId;
     }
 
     public JourneyStepDTO() {
     }
 
-    public JourneyStepDTO(Long id, Long version, String created, String updated, String createdBy, String updatedBy, String title, Integer ordering, Integer xpos, Integer ypos,String puzzleGroup) {
+    public Long getJourneyId() {
+        return journeyId;
+    }
+
+    public void setJourneyId(Long journeyId) {
+        this.journeyId = journeyId;
+    }
+
+    public String getJourneyTitle() {
+        return journeyTitle;
+    }
+
+    public void setJourneyTitle(String journeyTitle) {
+        this.journeyTitle = journeyTitle;
+    }
+
+    public Long getJourneyIconId() {
+        return journeyIconId;
+    }
+
+    public void setJourneyIconId(Long journeyIconId) {
+        this.journeyIconId = journeyIconId;
+    }
+
+    public JourneyStepDTO(Long id, String title, Integer ordering, Integer xpos, Integer ypos,
+                          String puzzleGroupTitle, Long puzzleGroupId, Long puzzleGroupIconId,
+                          Long journeyId, String journeyTitle, Long journeyIconId,
+                          Long version, String created, String updated, String createdBy, String updatedBy) {
         this.id = id;
+        this.title = title;
+        this.ordering = ordering;
+        this.xpos = xpos;
+        this.ypos = ypos;
+        this.puzzleGroupTitle = puzzleGroupTitle;
+        this.puzzleGroupId = puzzleGroupId;
+        this.puzzleGroupIconId = puzzleGroupIconId;
+        this.journeyId = journeyId;
+        this.journeyTitle = journeyTitle;
+        this.journeyIconId = journeyIconId;
         this.version = version;
         this.created = created;
         this.updated = updated;
         this.createdBy = createdBy;
         this.updatedBy = updatedBy;
-        this.title = title;
-        this.ordering = ordering;
-        this.xpos = xpos;
-        this.ypos = ypos;
-        this.puzzleGroup= puzzleGroup;
     }
 }

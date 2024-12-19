@@ -137,7 +137,7 @@ public class DTOUtil {
         dto.setOrdering(entity.getOrdering());
         dto.setXpos(entity.getXpos());
         dto.setYpos(entity.getYpos());
-        dto.setPuzzleGroup(entity.getPuzzleGroup().getTitle());
+        dto.setPuzzleGroupTitle(entity.getPuzzleGroup().getTitle());
         dto.setTitle(entity.getTitle());
         dto.setCreated(entity.getCreated());
         dto.setUpdated(entity.getUpdated());
@@ -495,7 +495,7 @@ public class DTOUtil {
             userName="admin";
 
         AppMemberDTO memberDTO = new AppMemberDTO(member.getId(),member.getAge(),
-                member.getUsername(),member.getPassword(),null,member.getIcon().getThumbnail(),member.getIcon().getId(), member.getNickname(),
+                member.getUsername(),member.getPassword(),member.getIcon().getThumbnail(),member.getIcon().getId(), member.getNickname(),
                 member.getMobile(), member.getEmail(),member.getGender().name(),member.getMemberType().getValue(),
                  member.getVersion(), member.getCreated(), member.getUpdated(), userName, userName);
 

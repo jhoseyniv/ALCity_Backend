@@ -70,7 +70,20 @@ public class AppMemberService implements AppMemberRepository, CustomizedUserRepo
         }
         return appMember;
     }
-
+    public AppMember saveGuestUser() {
+        AppMember createdBy = appMemberRepository.findByUsername("admin");
+        MemberType memberType = memberTypeRepository.findByValue("Guest").get();
+        BinaryContent icon=null;
+        AppMember guest=null;
+            icon = binaryContentRepository.findByfileName("no_photo_avatar");
+        guest = new AppMember(0,"Guest", "Guest", "Guest", "","",icon,UserGender.Unknow ,memberType
+                ,1L, DateUtils.getNow(), DateUtils.getNow(), createdBy, createdBy);
+        appMemberRepository.save(guest);
+        String UniqueUserName= guest.getUsername() + guest.getId();
+        guest.setUsername(UniqueUserName);
+        appMemberRepository.save(guest);
+        return guest;
+    }
     @Override
     public <S extends AppMember> S save(S entity) {
         return appMemberRepository.save(entity);
