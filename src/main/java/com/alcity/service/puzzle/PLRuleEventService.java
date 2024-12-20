@@ -30,7 +30,8 @@ public class PLRuleEventService implements PLRuleEventRepository {
 
     @Override
     public Optional<PLRuleEvent> findById(Long id) {
-        return Optional.empty();
+        return
+                plRuleEventRepository.findById(id);
     }
 
     @Override

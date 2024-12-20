@@ -92,11 +92,11 @@ public class AdvertisementService implements AdvertisementRepository {
         return advertisements;
     }
     public Advertisement findTermAndCond() {
-        Collection<Advertisement> advertisements = findByAdsType(ADSType.TermCondition);
+        Collection<Advertisement> advertisements = findByAdsType(ADSType.TermAndCondition);
         Iterator<Advertisement> itr = advertisements.iterator();
         while (itr.hasNext()) {
             Advertisement dto = itr.next();
-            if(dto.getAdsType().equals(ADSType.TermCondition))
+            if(dto.getAdsType().equals(ADSType.TermAndCondition))
                 return  dto;
             }
         return null;

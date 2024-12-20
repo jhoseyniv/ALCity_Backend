@@ -1,7 +1,7 @@
 package com.alcity.entity.alenum;
 
 public enum ADSType {
-    TermCondition,
+    TermAndCondition,
     Advertisement,
     Other;
 

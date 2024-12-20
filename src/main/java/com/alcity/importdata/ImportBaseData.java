@@ -215,7 +215,7 @@ public class ImportBaseData implements CommandLineRunner {
         plRuleEventService.save(click_ruleEvent);
         plRuleEventService.save(Internal_Event);
 
-        Advertisement termsAndCondition = new Advertisement("this is a terms and Condtion",ADSType.TermCondition,1L,now,now,jalalHoseyni,jalalHoseyni);
+        Advertisement termsAndCondition = new Advertisement("this is a terms and Condtion",ADSType.TermAndCondition,1L,now,now,jalalHoseyni,jalalHoseyni);
         advertisementService.save(termsAndCondition);
 
         //update some fileds

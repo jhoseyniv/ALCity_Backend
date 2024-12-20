@@ -77,6 +77,14 @@ public class PLRule extends BaseTable implements Serializable {
         this.plRuleEvent = plRuleEvent;
     }
 
+    public PuzzleLevel getPuzzleLevel() {
+        return puzzleLevel;
+    }
+
+    public void setPuzzleLevel(PuzzleLevel puzzleLevel) {
+        this.puzzleLevel = puzzleLevel;
+    }
+
     public PLRule() {
     }
 
