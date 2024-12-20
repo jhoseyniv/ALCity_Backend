@@ -18,7 +18,7 @@ public class PLRuleDTO {
 
     private String  PLRuleEventName;
 
-    private  Long plRuleEventTypeId;
+    private  Integer plRuleEventTypeId;
     private  String plRuleEventTypeTitle;
 
     public String getPuzzleLeveTitle() {
@@ -45,11 +45,11 @@ public class PLRuleDTO {
         this.PLRuleEventName = PLRuleEventName;
     }
 
-    public Long getPlRuleEventTypeId() {
+    public Integer getPlRuleEventTypeId() {
         return plRuleEventTypeId;
     }
 
-    public void setPlRuleEventTypeId(Long plRuleEventTypeId) {
+    public void setPlRuleEventTypeId(Integer plRuleEventTypeId) {
         this.plRuleEventTypeId = plRuleEventTypeId;
     }
 
@@ -109,7 +109,7 @@ public class PLRuleDTO {
     }
 
     public PLRuleDTO(Long id, String title, Integer ordering, StringBuffer conditions, Long puzzleLevelId, String puzzleLeveTitle, Long PLRuleEventId, String PLRuleEventName,
-                     Long plRuleEventTypeId, String plRuleEventTypeTitle) {
+                     Integer plRuleEventTypeId, String plRuleEventTypeTitle) {
         this.id = id;
         this.title = title;
         this.ordering = ordering;

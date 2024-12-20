@@ -847,19 +847,31 @@ public class DTOUtil {
             rendererDTO.setHandler(actionRenderer.getHandler());
            return rendererDTO;
    }
+    public static PLRuleDTO getPLRuleDTO(PLRule plRule) {
+        PLRuleDTO dto = new PLRuleDTO();
+        dto.setId(plRule.getId());
+        dto.setTitle(plRule.getTitle());
+        dto.setOrdering(plRule.getOrdering());
+        dto.setConditions(plRule.getCondition());
+        dto.setPuzzleLevelId(plRule.getPuzzleLevel().getId());
+        dto.setPuzzleLeveTitle(plRule.getPuzzleLevel().getTitle());
+        dto.setPLRuleEventId(plRule.getPlRuleEvent().getId());
+        dto.setPLRuleEventName(plRule.getPlRuleEvent().getName());
+        dto.setPlRuleEventTypeId(plRule.getPlRuleEvent().getPlRuleEventType().ordinal());
+        dto.setPlRuleEventTypeTitle(plRule.getPlRuleEvent().getPlRuleEventType().name());
+        return dto;
+    }
     public static Collection<PLRuleDTO> getRulesForPuzzleLevel(PuzzleLevel pl){
-        Collection<PLRuleDTO> rules = new ArrayList<PLRuleDTO>();
+        Collection<PLRuleDTO> dtos = new ArrayList<PLRuleDTO>();
         Collection<PLRule>  puzzleLevelRules = pl.getPuzzleLevelRuleCollection();
         Iterator<PLRule> iterator = puzzleLevelRules.iterator();
         while(iterator.hasNext()) {
-            PLRule puzzleLevelRule = iterator.next();
-            PLRuleDTO rule = new PLRuleDTO();
-            rule.setTitle(puzzleLevelRule.getTitle());
-            rule.setOrdering(puzzleLevelRule.getOrdering());
-            rule.setConditions(puzzleLevelRule.getCondition());
-            rules.add(rule);
+            PLRule plRule = iterator.next();
+            PLRuleDTO dto = new PLRuleDTO();
+            dto = getPLRuleDTO(plRule);
+            dtos.add(dto);
         }
-        return rules;
+        return dtos;
     }
     public static Collection<RuleData> getRulesForPuzzleLevel(PuzzleLevel pl, AttributeService alCityAttributeService){
         Collection<RuleData> rules = new ArrayList<RuleData>();
