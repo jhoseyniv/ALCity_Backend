@@ -135,6 +135,8 @@ public class DTOUtil {
         dto.setXpos(entity.getXpos());
         dto.setYpos(entity.getYpos());
         dto.setPuzzleGroupTitle(entity.getPuzzleGroup().getTitle());
+        dto.setPuzzleGroupId(entity.getPuzzleGroup().getId());
+        dto.setPuzzleGroupIconId(entity.getPuzzleGroup().getIcon().getId());
         dto.setTitle(entity.getTitle());
         dto.setCreated(entity.getCreated());
         dto.setUpdated(entity.getUpdated());
@@ -379,8 +381,8 @@ public class DTOUtil {
         plObjectiveDTO.setUpdatedBy(plObjective.getUpdatedBy().getUsername());
         plObjectiveDTO.setUpdatedById(plObjective.getUpdatedBy().getId());
         plObjectiveDTO.setCreatedById(plObjective.getCreatedBy().getId());
-        plObjectiveDTO.setSkillId(plObjective.getLearningSkill().getId());
-        plObjectiveDTO.setSkillTitle(plObjective.getLearningSkill().getValue());
+        plObjectiveDTO.setSkillLable(plObjective.getLearningSkill().getLabel());
+        plObjectiveDTO.setSkillValue(plObjective.getLearningSkill().getValue());
         plObjectiveDTO.setWalletItemId(plObjective.getWalletItem().getId());
         plObjectiveDTO.setWalletItemTitle(plObjective.getWalletItem().getValue());
         return  plObjectiveDTO;

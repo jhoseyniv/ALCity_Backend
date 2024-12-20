@@ -25,6 +25,8 @@ public class JourneyStepService implements JourneyStepRepository {
 
     @Autowired
     JourneyStepRepository journeyStepRepository;
+    @Autowired
+    PGRepository PGRepository;
     @Override
     public <S extends JourneyStep> S save(S entity) {
         return journeyStepRepository.save(entity);
@@ -66,8 +68,6 @@ public class JourneyStepService implements JourneyStepRepository {
     }
     @Autowired
     AppMemberRepository appMemberRepository;
-    @Autowired
-    PGRepository PGRepository;
     @Autowired
     JourneyRepository journeyRepository;
 
@@ -128,8 +128,9 @@ public class JourneyStepService implements JourneyStepRepository {
 
     @Override
     public Optional<JourneyStep> findByTitle(String title) {
-        return Optional.empty();
+        return journeyStepRepository.findByTitle(title);
     }
+
 
 
 }

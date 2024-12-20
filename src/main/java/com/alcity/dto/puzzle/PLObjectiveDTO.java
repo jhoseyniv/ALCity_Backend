@@ -17,8 +17,9 @@ public class PLObjectiveDTO {
     private String description;
     private Float skillAmount;
 
-    private String skillTitle;
     private Long skillId;
+    private String skillLable;
+    private String skillValue;
 
     private Long puzzleLevelId;
     private Float rewardAmount;
@@ -34,20 +35,20 @@ public class PLObjectiveDTO {
         this.puzzleLevelId = puzzleLevelId;
     }
 
-    public String getSkillTitle() {
-        return skillTitle;
+    public String getSkillLable() {
+        return skillLable;
     }
 
-    public void setSkillTitle(String skillTitle) {
-        this.skillTitle = skillTitle;
+    public void setSkillLable(String skillLable) {
+        this.skillLable = skillLable;
     }
 
-    public Long getSkillId() {
-        return skillId;
+    public String getSkillValue() {
+        return skillValue;
     }
 
-    public void setSkillId(Long skillId) {
-        this.skillId = skillId;
+    public void setSkillValue(String skillValue) {
+        this.skillValue = skillValue;
     }
 
     public Long getWalletItemId() {
@@ -173,8 +174,16 @@ public class PLObjectiveDTO {
         this.updatedBy = updatedBy;
     }
 
+    public Long getSkillId() {
+        return skillId;
+    }
+
+    public void setSkillId(Long skillId) {
+        this.skillId = skillId;
+    }
+
     public PLObjectiveDTO(Long id, Long version, String created, String updated, String createdBy, String updatedBy, Long createdById, Long updatedById,
-                          String title, String description, Float skillAmount, String skillTitle, Long skillId, Float rewardAmount,
+                          String title, String description, Float skillAmount,Long skillId, String skillLable, String skillValue, Float rewardAmount,
                           Long walletItemId, String walletItemTitle, StringBuffer condition) {
         this.id = id;
         this.version = version;
@@ -186,9 +195,10 @@ public class PLObjectiveDTO {
         this.updatedById = updatedById;
         this.title = title;
         this.description = description;
-        this.skillAmount = skillAmount;
-        this.skillTitle = skillTitle;
         this.skillId = skillId;
+        this.skillAmount = skillAmount;
+        this.skillLable = skillLable;
+        this.skillValue = skillValue;
         this.rewardAmount = rewardAmount;
         this.walletItemId = walletItemId;
         this.walletItemTitle = walletItemTitle;

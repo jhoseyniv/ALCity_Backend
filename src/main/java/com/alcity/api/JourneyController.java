@@ -6,13 +6,16 @@ import com.alcity.customexception.ViolateForeignKeyException;
 import com.alcity.dto.appmember.AppMemberWalletDTO;
 import com.alcity.dto.journey.JourneyDTO;
 import com.alcity.dto.journey.JourneyStepDTO;
+import com.alcity.dto.puzzle.PGDTO;
 import com.alcity.entity.appmember.AppMember;
 import com.alcity.entity.appmember.AppMember_WalletItem;
 import com.alcity.entity.journey.Journey;
 import com.alcity.entity.journey.JourneyStep;
+import com.alcity.entity.puzzle.PuzzleGroup;
 import com.alcity.repository.appmember.AppMemberRepository;
 import com.alcity.service.Journey.JourneyService;
 import com.alcity.service.Journey.JourneyStepService;
+import com.alcity.service.puzzle.PGService;
 import com.alcity.utility.DTOUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -40,6 +43,9 @@ public class JourneyController {
 
     @Autowired
     private AppMemberRepository appMemberRepository;
+
+    @Autowired
+    private PGService pgService;
 
     @GetMapping("/all")
     public Collection<JourneyDTO> getJourneis(Model model) {
@@ -151,6 +157,7 @@ public class JourneyController {
         Collection<JourneyStepDTO> dtos = DTOUtil.getJorenyStepsDTOS(steps);
         return dtos;
     }
+
 
 
 }

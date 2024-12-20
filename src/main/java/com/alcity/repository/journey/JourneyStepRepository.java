@@ -1,6 +1,7 @@
 package com.alcity.repository.journey;
 
 import com.alcity.entity.journey.JourneyStep;
+import com.alcity.entity.puzzle.PuzzleGroup;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.Collection;
