@@ -45,6 +45,19 @@ public class PGController {
         }
         return  alCityObjectInPGDTOS;
     }
+    @Operation( summary = "Fetch all Journey Step that define for a puzzle group ",  description = "Fetch all Journey Step that define for a puzzle group")
+    @RequestMapping(value = "/id/{id}/journey-step/all", method = RequestMethod.GET)
+    @ResponseBody
+    public Collection<JourneyStepDTO> getJourneyStepsForAPG(@PathVariable Long id) {
+        Collection<JourneyStepDTO> journeyStepDTOS = new ArrayList<JourneyStepDTO>();
+        Collection<JourneyStep> journeySteps = new ArrayList<JourneyStep>();
+        Optional<PuzzleGroup> puzzleGroup = pgService.findById(id);
+        if(puzzleGroup.isPresent()) {
+            journeySteps = puzzleGroup.get().getJourneyStepCollection();
+            journeyStepDTOS = DTOUtil.getJorenyStepsDTOS(journeySteps);
+        }
+        return  journeyStepDTOS;
+    }
 
     @Operation( summary = "Fetch all Puzzle Levels that define in a puzzle group ",  description = "Fetch all puzzle level for a puzzle group")
     @RequestMapping(value = "/id/{id}/pl/all", method = RequestMethod.GET)
