@@ -374,6 +374,7 @@ public class DTOUtil {
         plObjectiveDTO.setDescription(plObjective.getDescription());
         plObjectiveDTO.setRewardAmount(plObjective.getRewardAmount());
         plObjectiveDTO.setSkillAmount(plObjective.getSkillAmount());
+        plObjectiveDTO.setSkillId(plObjective.getLearningSkill().getId());
         plObjectiveDTO.setPuzzleLevelId(plObjective.getPuzzleLevel().getId());
         plObjectiveDTO.setUpdated(plObjective.getUpdated());
         plObjectiveDTO.setCreated(plObjective.getCreated());
