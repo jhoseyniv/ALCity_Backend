@@ -5,6 +5,7 @@ public class PLObjectiveData {
     private String title;
     private String description;
     private Float skillAmount;
+    private Long skillId;
     private Float rewardAmount;
 
     private Long rewardId;
@@ -69,9 +70,18 @@ public class PLObjectiveData {
     public PLObjectiveData() {
     }
 
-    public PLObjectiveData(Long  id , String title, String description, Float skillAmount,Long rewardId, Float rewardAmount, StringBuffer condition) {
+    public Long getSkillId() {
+        return skillId;
+    }
+
+    public void setSkillId(Long skillId) {
+        this.skillId = skillId;
+    }
+
+    public PLObjectiveData(Long  id , String title, String description,Long skillId, Float skillAmount, Long rewardId, Float rewardAmount, StringBuffer condition) {
         this.title = title;
         this.description = description;
+        this.skillId = skillId;
         this.skillAmount = skillAmount;
         this.rewardAmount = rewardAmount;
         this.rewardId = rewardId;

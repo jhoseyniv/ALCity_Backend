@@ -233,6 +233,7 @@ public class BaseItemSetConroller {
         Collection<PLPrivacy> plPrivacyCollection = plPrivacyService.findAll();
         return plPrivacyCollection;
     }
+    @Operation( summary = "Get all puzzle level rule event ",  description = "Get all puzzle level rule event ")
     @GetMapping("/pl-rule-event/all")
     @CrossOrigin(origins = "*")
     public Collection<PLRuleEvent> getPLRuleEvent(Model model) {
@@ -262,6 +263,7 @@ public class BaseItemSetConroller {
         }
         return ResponseEntity.notFound().build();
     }
+
     @DeleteMapping("/client-type/del/id/{id}")
     @CrossOrigin(origins = "*")
     public ResponseEntity<String> deleteclientTypeById(@PathVariable Long id) {

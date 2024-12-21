@@ -418,6 +418,7 @@ public class DTOUtil {
             dto.setRewardAmount(puzzleLevelObjective.getRewardAmount());
             dto.setRewardId(puzzleLevelObjective.getWalletItem().getId());
             dto.setSkillAmount(puzzleLevelObjective.getSkillAmount());
+            dto.setSkillId(puzzleLevelObjective.getLearningSkill().getId());
 
             output.add(dto);
         }
