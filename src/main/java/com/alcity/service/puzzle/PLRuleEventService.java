@@ -41,7 +41,7 @@ public class PLRuleEventService implements PLRuleEventRepository {
 
     @Override
     public Collection<PLRuleEvent> findAll() {
-        return null;
+        return plRuleEventRepository.findAll();
     }
 
     @Override

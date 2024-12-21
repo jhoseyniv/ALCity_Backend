@@ -128,17 +128,18 @@ public class PLObjectiveService implements PLObjectiveRepository {
         Optional<PuzzleLevel>  puzzleLevelOptional = puzzleLevelRepository.findById(dto.getPuzzleLevelId());
         if(puzzleLevelOptional.isPresent())
               puzzleLevel = puzzleLevelOptional.get();
+        StringBuffer condition = new StringBuffer(dto.getCondition());
 
         if (code.equalsIgnoreCase("Save")) { //Save
             plObjective = new PLObjective(dto.getTitle(), dto.getDescription(), dto.getSkillAmount(),dto.getRewardAmount(),
-                    dto.getCondition(),learningSkillOptional.get(),walletItemOptional.get(),
+                    condition,learningSkillOptional.get(),walletItemOptional.get(),
                     puzzleLevel,1L, DateUtils.getNow(), DateUtils.getNow(), createdBy, createdBy);
             objectiveRepository.save(plObjective);
         }else{//edit
             Optional<PLObjective> plObjectiveOptional= objectiveRepository.findById(dto.getId());
             if(plObjectiveOptional.isPresent()) {
                 plObjective = plObjectiveOptional.get();
-                plObjective.setCondition(dto.getCondition());
+                plObjective.setCondition(condition);
                 plObjective.setDescription(dto.getDescription());
                 plObjective.setSkillAmount(dto.getSkillAmount());
                 plObjective.setLearningSkill(learningSkillOptional.get());

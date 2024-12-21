@@ -3,6 +3,11 @@ package com.alcity.dto.appmember;
 import java.util.Collection;
 
 public class AppMemberWalletDTO {
+
+    private Long id;
+    private Long appMemberId;
+    private String appMemberUsername;
+
     private Long walletItemId;
     private String walletItemTitle;
 
@@ -55,7 +60,34 @@ public class AppMemberWalletDTO {
         this.walletItemType = walletItemType;
     }
 
-    public AppMemberWalletDTO(Long walletItemId, String walletItemTitle, byte[] thumbnail, String walletItemType, Float amount) {
+    public Long getAppMemberId() {
+        return appMemberId;
+    }
+
+    public void setAppMemberId(Long appMemberId) {
+        this.appMemberId = appMemberId;
+    }
+
+    public String getAppMemberUsername() {
+        return appMemberUsername;
+    }
+
+    public void setAppMemberUsername(String appMemberUsername) {
+        this.appMemberUsername = appMemberUsername;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public AppMemberWalletDTO(Long id, Long appMemberId, String appMemberUsername, Long walletItemId, String walletItemTitle, byte[] thumbnail, String walletItemType, Float amount) {
+        this.id = id;
+        this.appMemberId = appMemberId;
+        this.appMemberUsername = appMemberUsername;
         this.walletItemId = walletItemId;
         this.walletItemTitle = walletItemTitle;
         this.thumbnail = thumbnail;

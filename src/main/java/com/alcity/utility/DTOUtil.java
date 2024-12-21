@@ -535,9 +535,12 @@ public class DTOUtil {
     public static AppMemberWalletDTO getAppMemberWalletDTO(AppMember_WalletItem entity) {
         AppMemberWalletDTO dto = new AppMemberWalletDTO();
         WalletItem walletItem = entity.getWalletItem();
+        dto.setId(entity.getId());
         dto.setWalletItemTitle(walletItem.getLabel());
         dto.setWalletItemId(walletItem.getId());
         dto.setAmount(entity.getAmount());
+        dto.setAppMemberId(entity.getApplicationMember().getId());
+        dto.setAppMemberUsername(entity.getApplicationMember().getUsername());
         dto.setThumbnail(entity.getWalletItem().getIcon().getThumbnail());
         dto.setWalletItemType(entity.getWalletItem().getWalletItemType().getValue());
         return dto;
@@ -852,7 +855,7 @@ public class DTOUtil {
         dto.setId(plRule.getId());
         dto.setTitle(plRule.getTitle());
         dto.setOrdering(plRule.getOrdering());
-        dto.setConditions(plRule.getCondition());
+        dto.setCondition(plRule.getCondition());
         dto.setPuzzleLevelId(plRule.getPuzzleLevel().getId());
         dto.setPuzzleLeveTitle(plRule.getPuzzleLevel().getTitle());
         dto.setPLRuleEventId(plRule.getPlRuleEvent().getId());

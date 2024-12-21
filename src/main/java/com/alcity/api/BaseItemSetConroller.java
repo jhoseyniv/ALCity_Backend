@@ -9,7 +9,9 @@ import com.alcity.dto.base.PLPrivacyDTO;
 import com.alcity.dto.appmember.MemberTypeDTO;
 import com.alcity.entity.alenum.*;
 import com.alcity.entity.base.*;
+import com.alcity.entity.puzzle.PLRuleEvent;
 import com.alcity.service.base.*;
+import com.alcity.service.puzzle.PLRuleEventService;
 import com.alcity.utility.DTOUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -222,12 +224,20 @@ public class BaseItemSetConroller {
 
     @Autowired
     private PLPrivacyService plPrivacyService;
+    @Autowired
+    private PLRuleEventService plRuleEventService;
 
     @GetMapping("/pl-privacy/all")
     @CrossOrigin(origins = "*")
-    public Collection<PLPrivacy> getPuzzleLevelPrivacy(Model model) {
+    public Collection<PLPrivacy> getPLPrivacy(Model model) {
         Collection<PLPrivacy> plPrivacyCollection = plPrivacyService.findAll();
         return plPrivacyCollection;
+    }
+    @GetMapping("/pl-rule-event/all")
+    @CrossOrigin(origins = "*")
+    public Collection<PLRuleEvent> getPLRuleEvent(Model model) {
+        Collection<PLRuleEvent> plRuleEvents = plRuleEventService.findAll();
+        return plRuleEvents;
     }
 
     @RequestMapping(value = "/pl-privacy/id/{id}", method = RequestMethod.GET)

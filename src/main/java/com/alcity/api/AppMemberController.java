@@ -14,7 +14,9 @@ import com.alcity.entity.appmember.AppMember_WalletItem;
 import com.alcity.entity.appmember.WalletItem;
 import com.alcity.entity.appmember.WalletTransaction;
 import com.alcity.entity.base.WalletItemType;
+import com.alcity.repository.appmember.AppMember_WalletItemRepository;
 import com.alcity.service.appmember.AppMemberService;
+import com.alcity.service.appmember.AppMember_WalletItemService;
 import com.alcity.service.appmember.WalletItemService;
 import com.alcity.utility.DTOUtil;
 import io.swagger.v3.oas.annotations.Operation;
@@ -101,6 +103,36 @@ public class AppMemberController {
         return responseObject;
     }
 
+    @Operation( summary = "Charge or Decharge a wallet for specific  Member ",  description = "Save a record in APPMember_WalletItem Table : application member wallet management ")
+    @PostMapping("/id/{id}/wallet/charge")
+    @CrossOrigin(origins = "*")
+    public ALCityResponseObject chargeOrDechargeAppMemberWallet(@RequestBody AppMemberWalletDTO dto)  {
+        AppMember_WalletItem savedRecord = null;
+        ALCityResponseObject responseObject = new ALCityResponseObject();
+
+        if (dto.getId() == null || dto.getId() <= 0L) { //save
+            try {
+                savedRecord = appMemberService.chargeOrDeChargeAppMemberWallet(dto,"Save");
+            } catch (RuntimeException e) {
+                throw new UniqueConstraintException(dto.getAppMemberUsername(), dto.getId(), "title must be Unique");
+            }
+            responseObject = new ALCityResponseObject(HttpStatus.OK.value(), "ok", savedRecord.getId(), "Wallet Saved Successfully!");
+        } else if (dto.getId() > 0L ) {//edit
+            savedRecord = appMemberService.chargeOrDeChargeAppMemberWallet(dto, "Edit");
+            if(savedRecord !=null)
+                responseObject = new ALCityResponseObject(HttpStatus.OK.value(), "ok", savedRecord.getId(), "Wallet Updated Successfully!");
+            else
+                responseObject = new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", dto.getId(), "Record Not Found!");
+        }
+        else if (savedRecord==null)
+            responseObject = new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", -1L, "Record Not Found!");
+        else
+            responseObject = new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", -1L, "Record Not Found!");
+
+        return responseObject;
+    }
+
+
     @Operation( summary = "Save a Guest User ",  description = "Save a Guest User ")
     @PostMapping("/save/guest")
     @CrossOrigin(origins = "*")
@@ -128,7 +160,7 @@ public class AppMemberController {
         return dtos;
     }
 
-    @Autowired
+ /*   @Autowired
     private WalletItemService walletItemService;
     @RequestMapping(value = "/id/{id}/wallet-item/all", method = RequestMethod.GET)
     @ResponseBody
@@ -139,7 +171,7 @@ public class AppMemberController {
         dtos = DTOUtil.getWalletItemDTOS(walletItemCollection);
         return dtos;
     }
-
+*/
     @Operation( summary = "Login to System ",  description = "Login Action")
     @PostMapping("/login")
     @CrossOrigin(origins = "*")

@@ -2,15 +2,20 @@ package com.alcity.service.appmember;
 
 import com.alcity.customexception.ALCityResponseObject;
 import com.alcity.dto.appmember.AppMemberDTO;
+import com.alcity.dto.appmember.AppMemberWalletDTO;
 import com.alcity.dto.puzzle.ALCityObjectDTO;
 import com.alcity.entity.alenum.UserGender;
 import com.alcity.entity.alobject.ObjectCategory;
 import com.alcity.entity.appmember.AppMember;
+import com.alcity.entity.appmember.AppMember_WalletItem;
+import com.alcity.entity.appmember.WalletItem;
 import com.alcity.entity.base.BinaryContent;
 import com.alcity.entity.base.MemberType;
 import com.alcity.entity.puzzle.ALCityObject;
 import com.alcity.repository.appmember.AppMemberRepository;
+import com.alcity.repository.appmember.AppMember_WalletItemRepository;
 import com.alcity.repository.appmember.CustomizedUserRepository;
+import com.alcity.repository.appmember.WalletItemRespository;
 import com.alcity.repository.base.BinaryContentRepository;
 import com.alcity.repository.base.MemberTypeRepository;
 import com.alcity.utility.DateUtils;
@@ -33,6 +38,50 @@ public class AppMemberService implements AppMemberRepository, CustomizedUserRepo
     @Autowired
     private MemberTypeRepository memberTypeRepository;
 
+    @Autowired
+    private AppMember_WalletItemRepository appMember_WalletItemRepository;
+
+    @Autowired
+    private WalletItemRespository walletItemRespository;
+
+    public AppMember_WalletItem chargeOrDeChargeAppMemberWallet(AppMemberWalletDTO dto, String code) {
+        AppMember createdBy = appMemberRepository.findByUsername("admin");
+        Optional<WalletItem> walletItemOptional = walletItemRespository.findById(dto.getWalletItemId());
+        Optional<AppMember> appMemberOptional = appMemberRepository.findById(dto.getAppMemberId());
+        WalletItem walletItem =null;
+        AppMember appMember =null;
+
+        if(walletItemOptional.isPresent())
+            walletItem = walletItemOptional.get();
+
+        if(appMemberOptional.isPresent())
+            appMember = appMemberOptional.get();
+
+
+        AppMember_WalletItem appMember_walletItem=null;
+
+        if (code.equalsIgnoreCase("Save")) { //Save
+            appMember_walletItem = new AppMember_WalletItem(appMember,walletItem, dto.getAmount()
+                    ,1L, DateUtils.getNow(), DateUtils.getNow(), createdBy, createdBy);
+            appMember_WalletItemRepository.save(appMember_walletItem);
+        }else{//edit
+            Optional<AppMember_WalletItem> appMember_walletItemOptional= appMember_WalletItemRepository.findById(dto.getId());
+            if(appMember_walletItemOptional.isPresent()) {
+                appMember_walletItem = appMember_walletItemOptional.get();
+                appMember_walletItem.setApplicationMember(appMember);
+                appMember_walletItem.setWalletItem(walletItem);
+                appMember_walletItem.setAmount(dto.getAmount());
+                appMember_walletItem.setVersion(appMember.getVersion()+1);
+                appMember_walletItem.setCreated(DateUtils.getNow());
+                appMember_walletItem.setUpdated(DateUtils.getNow());
+                appMember_walletItem.setCreatedBy(createdBy);
+                appMember_walletItem.setUpdatedBy(createdBy);
+                appMember_WalletItemRepository.save(appMember_walletItem);
+            }
+        }
+        return appMember_walletItem;
+
+    }
     public AppMember save(AppMemberDTO dto, String code) {
         AppMember createdBy = appMemberRepository.findByUsername("admin");
         MemberType memberType = memberTypeRepository.findByValue(dto.getMemberType()).get();

@@ -8,7 +8,7 @@ public class PLRuleDTO {
     private Long id;
     private String title;
     private Integer ordering;
-    private StringBuffer conditions;
+    private StringBuffer condition;
 
     private Long puzzleLevelId;
 
@@ -95,12 +95,12 @@ public class PLRuleDTO {
 
 
 
-    public StringBuffer getConditions() {
-        return conditions;
+    public StringBuffer getCondition() {
+        return condition;
     }
 
-    public void setConditions(StringBuffer conditions) {
-        this.conditions = conditions;
+    public void setCondition(StringBuffer condition) {
+        this.condition = condition;
     }
 
 
@@ -108,12 +108,12 @@ public class PLRuleDTO {
     public PLRuleDTO() {
     }
 
-    public PLRuleDTO(Long id, String title, Integer ordering, StringBuffer conditions, Long puzzleLevelId, String puzzleLeveTitle, Long PLRuleEventId, String PLRuleEventName,
+    public PLRuleDTO(Long id, String title, Integer ordering, StringBuffer condition, Long puzzleLevelId, String puzzleLeveTitle, Long PLRuleEventId, String PLRuleEventName,
                      Integer plRuleEventTypeId, String plRuleEventTypeTitle) {
         this.id = id;
         this.title = title;
         this.ordering = ordering;
-        this.conditions = conditions;
+        this.condition = condition;
         this.puzzleLevelId = puzzleLevelId;
         this.puzzleLeveTitle = puzzleLeveTitle;
         this.PLRuleEventId = PLRuleEventId;
