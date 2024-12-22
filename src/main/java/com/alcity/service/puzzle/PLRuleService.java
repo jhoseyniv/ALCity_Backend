@@ -69,7 +69,7 @@ public class PLRuleService implements PLRuleRepository {
 
     @Override
     public void deleteById(Long aLong) {
-        appMemberRepository.deleteById(aLong);
+        ruleRepository.deleteById(aLong);
     }
 
     @Override
