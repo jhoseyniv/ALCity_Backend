@@ -106,7 +106,7 @@ public class PLRuleService implements PLRuleRepository {
             Optional<PLRule> plRuleOptional= ruleRepository.findById(dto.getId());
             if(plRuleOptional.isPresent()) {
                 plRule = plRuleOptional.get();
-                plRule.setTitle(plRule.getTitle());
+                plRule.setTitle(dto.getTitle());
                 plRule.setCondition(condition);
                 plRule.setPlRuleEvent(plRuleEvent);
                 plRule.setOrdering(dto.getOrdering());
