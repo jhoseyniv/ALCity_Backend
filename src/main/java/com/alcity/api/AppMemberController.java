@@ -109,7 +109,6 @@ public class AppMemberController {
     public ALCityResponseObject chargeOrDechargeAppMemberWallet(@RequestBody AppMemberWalletDTO dto)  {
         AppMember_WalletItem savedRecord = null;
         ALCityResponseObject responseObject = new ALCityResponseObject();
-
         if (dto.getId() == null || dto.getId() <= 0L) { //save
             try {
                 savedRecord = appMemberService.chargeOrDeChargeAppMemberWallet(dto,"Save");
