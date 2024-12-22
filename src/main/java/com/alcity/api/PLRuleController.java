@@ -68,7 +68,7 @@ public class PLRuleController {
 
 
     @Operation( summary = "delete a  Puzzle Level Rule",  description = "delete a Puzzle Level Rule")
-    @DeleteMapping("/del/{id}")
+    @DeleteMapping("/del/id/{id}")
     @CrossOrigin(origins = "*")
     public ALCityResponseObject deletePuzzleLevelRuleById(@PathVariable Long id) {
         Optional<PLRule> existingRecord = plRuleService.findById(id);
