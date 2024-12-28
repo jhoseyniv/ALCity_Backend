@@ -127,8 +127,7 @@ public class JourneyController {
             responseObject = new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", -1L, "Record Not Found!");
         else
             responseObject = new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", -1L, "Record Not Found!");
-
-        return responseObject;
+     return responseObject;
     }
 
     @DeleteMapping("/del/{id}")

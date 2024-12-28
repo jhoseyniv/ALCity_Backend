@@ -8,7 +8,6 @@ import com.alcity.dto.puzzle.*;
 import com.alcity.entity.base.PuzzleCategory;
 import com.alcity.entity.journey.JourneyStep;
 import com.alcity.entity.puzzle.*;
-import com.alcity.service.base.PuzzleCategoryService;
 import com.alcity.service.puzzle.PGService;
 import com.alcity.utility.DTOUtil;
 import io.swagger.v3.oas.annotations.Operation;
@@ -62,8 +61,8 @@ public class PGController {
     @Operation( summary = "Fetch all Puzzle Levels that define in a puzzle group ",  description = "Fetch all puzzle level for a puzzle group")
     @RequestMapping(value = "/id/{id}/pl/all", method = RequestMethod.GET)
     @ResponseBody
-    public Collection<PuzzleLevelLDTO> getPuzzleLevelForAPG(@PathVariable Long id) {
-        Collection<PuzzleLevelLDTO> puzzleLevelLDTOS = new ArrayList<PuzzleLevelLDTO>();
+    public Collection<PLDTO> getPuzzleLevelForAPG(@PathVariable Long id) {
+        Collection<PLDTO> puzzleLevelLDTOS = new ArrayList<PLDTO>();
         Collection<PuzzleLevel> puzzleLevels = new ArrayList<PuzzleLevel>();
         Optional<PuzzleGroup> puzzleGroup = pgService.findById(id);
         if(puzzleGroup.isPresent()) {

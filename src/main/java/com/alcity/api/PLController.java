@@ -26,26 +26,26 @@ public class PLController {
     @Operation( summary = "Fetch all puzzle level data ",  description = "fetches all data for all puzzle level structure ")
     @GetMapping("/all")
     @CrossOrigin(origins = "*")
-    public Collection<PuzzleLevelLDTO> getPuzzleLevels(Model model) {
-        Collection<PuzzleLevelLDTO> plDTOCollection = new ArrayList<PuzzleLevelLDTO>();
-        Collection<PuzzleLevel> plCollection = puzzleLevelService.findAll();
-        Iterator<PuzzleLevel> itr = plCollection.iterator();
+    public Collection<PLDTO> getPuzzleLevels(Model model) {
+        Collection<PLDTO> pldtos = new ArrayList<PLDTO>();
+        Collection<PuzzleLevel> puzzleLevels = puzzleLevelService.findAll();
+        Iterator<PuzzleLevel> itr = puzzleLevels.iterator();
         while(itr.hasNext()){
-            PuzzleLevelLDTO puzzleLevelDTO = DTOUtil.getPuzzleLevelDTO(itr.next());
-            plDTOCollection.add(puzzleLevelDTO);
+            PLDTO pldto = DTOUtil.getPuzzleLevelDTO(itr.next());
+            pldtos.add(pldto);
         }
-        return plDTOCollection;
+        return pldtos;
     }
 
     @Operation( summary = "Fetch puzzle level data by a Id ",  description = "fetches all data for a puzzle level ")
     @RequestMapping(value = "/id/{id}", method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin(origins = "*")
-    public PuzzleLevelLDTO getPuzzleLevelById(@PathVariable Long id) {
-        PuzzleLevelLDTO puzzleLevelDTO= new PuzzleLevelLDTO();
+    public PLDTO getPuzzleLevelById(@PathVariable Long id) {
+        PLDTO pldto= new PLDTO();
         Optional<PuzzleLevel> puzzleLevelOptional = puzzleLevelService.findById(id);
-        puzzleLevelDTO = DTOUtil.getPuzzleLevelDTO(puzzleLevelOptional);
-        return puzzleLevelDTO;
+        pldto = DTOUtil.getPuzzleLevelDTO(puzzleLevelOptional);
+        return pldto;
     }
 
     @Operation( summary = "Fetch all objective by a puzzle level Id ",  description = "fetches all objectives for a puzzle level ")
@@ -87,7 +87,7 @@ public class PLController {
     @Operation( summary = "Save a puzzle level  ",  description = "Save a puzzle level  entity and their data to data base")
     @PostMapping("/save")
     @CrossOrigin(origins = "*")
-    public ALCityResponseObject savePuzzleLevel(@RequestBody PuzzleLevelLDTO dto)  {
+    public ALCityResponseObject savePuzzleLevel(@RequestBody PLDTO dto)  {
         PuzzleLevel savedRecord = null;
         ALCityResponseObject responseObject = new ALCityResponseObject();
 

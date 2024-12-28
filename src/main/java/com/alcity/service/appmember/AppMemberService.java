@@ -22,7 +22,6 @@ import com.alcity.utility.DateUtils;
 import com.alcity.utility.ImageUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import org.springframework.transaction.annotation.Transactional;;
 import java.util.Collection;
 import java.util.Optional;
@@ -44,6 +43,10 @@ public class AppMemberService implements AppMemberRepository, CustomizedUserRepo
     @Autowired
     private WalletItemRespository walletItemRespository;
 
+//    @Autowired
+//    private BCryptPasswordEncoder passwordEncoder;
+
+
     public AppMember_WalletItem chargeOrDeChargeAppMemberWallet(AppMemberWalletDTO dto, String code) {
         AppMember createdBy = appMemberRepository.findByUsername("admin");
         Optional<WalletItem> walletItemOptional = walletItemRespository.findById(dto.getWalletItemId());
@@ -59,12 +62,17 @@ public class AppMemberService implements AppMemberRepository, CustomizedUserRepo
 
 
         AppMember_WalletItem appMember_walletItem=null;
-
-        if (code.equalsIgnoreCase("Save")) { //Save
+        Optional<AppMember_WalletItem> isWalletItemPresent = appMember_WalletItemRepository.findByApplicationMemberAndWalletItem(appMember,walletItem);
+        if (code.equalsIgnoreCase("Save") && !isWalletItemPresent.isPresent()) { //Save
             appMember_walletItem = new AppMember_WalletItem(appMember,walletItem, dto.getAmount()
                     ,1L, DateUtils.getNow(), DateUtils.getNow(), createdBy, createdBy);
             appMember_WalletItemRepository.save(appMember_walletItem);
-        }else{//edit
+        } else if(code.equalsIgnoreCase("Save") && isWalletItemPresent.isPresent()){
+             appMember_walletItem = isWalletItemPresent.get();
+            appMember_walletItem.setAmount(appMember_walletItem.getAmount() + dto.getAmount());
+            appMember_WalletItemRepository.save(appMember_walletItem);
+        }
+        else{//edit
             Optional<AppMember_WalletItem> appMember_walletItemOptional= appMember_WalletItemRepository.findById(dto.getId());
             if(appMember_walletItemOptional.isPresent()) {
                 appMember_walletItem = appMember_walletItemOptional.get();
@@ -135,6 +143,7 @@ public class AppMemberService implements AppMemberRepository, CustomizedUserRepo
     }
     @Override
     public <S extends AppMember> S save(S entity) {
+        //entity.setPassword(passwordEncoder.encode(entity.getPassword()));
         return appMemberRepository.save(entity);
     }
 

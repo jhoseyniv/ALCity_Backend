@@ -4,7 +4,7 @@ import com.alcity.dto.player.PermitedPlayerDTO;
 
 import java.util.Collection;
 
-public class PuzzleLevelLDTO {
+public class PLDTO {
     private Long id;
     private Long version;
     private String created;
@@ -203,7 +203,7 @@ public class PuzzleLevelLDTO {
         this.plInstanceDTOS = plInstanceDTOS;
     }
 
-    public PuzzleLevelLDTO() {
+    public PLDTO() {
     }
 
     public Long getId() {
@@ -254,8 +254,8 @@ public class PuzzleLevelLDTO {
         this.updatedBy = updatedBy;
     }
 
-    public PuzzleLevelLDTO(Long id, Long version, String created, String updated, String createdBy, String updatedBy, Long createdById, Long updatedById,
-                           String approveDate, Long ordering, String title, String code, Integer fromAge, Integer toAge, Float maxScore, String puzzleLevelStatus, String puzzleLevelPrivacy, String puzzleLevelDifficulty) {
+    public PLDTO(Long id, Long version, String created, String updated, String createdBy, String updatedBy, Long createdById, Long updatedById,
+                 String approveDate, Long ordering, String title, String code, Integer fromAge, Integer toAge, Float maxScore, String puzzleLevelStatus, String puzzleLevelPrivacy, String puzzleLevelDifficulty) {
         this.id = id;
         this.version = version;
         this.created = created;

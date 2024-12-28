@@ -19,7 +19,7 @@ public class PGDTO  {
     private Long picId;
 
     private Collection<JourneyStepDTO> journeyStepDTOCollection;
-    private Collection<PuzzleLevelLDTO> puzzleLevelDTOCollection;
+    private Collection<PLDTO> puzzleLevelDTOCollection;
 
     private Collection<ALCityObjectInPGDTO> puzzleGroup_puzzleObjectDTOCollection;
 
@@ -57,11 +57,11 @@ public class PGDTO  {
         this.journeyStepDTOCollection = journeyStepDTOCollection;
     }
 
-    public Collection<PuzzleLevelLDTO> getPuzzleLevelDTOCollection() {
+    public Collection<PLDTO> getPuzzleLevelDTOCollection() {
         return puzzleLevelDTOCollection;
     }
 
-    public void setPuzzleLevelDTOCollection(Collection<PuzzleLevelLDTO> puzzleLevelDTOCollection) {
+    public void setPuzzleLevelDTOCollection(Collection<PLDTO> puzzleLevelDTOCollection) {
         this.puzzleLevelDTOCollection = puzzleLevelDTOCollection;
     }
 

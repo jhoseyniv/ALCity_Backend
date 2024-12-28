@@ -16,11 +16,9 @@ import com.alcity.dto.learning.LearningTopicDTO;
 import com.alcity.dto.player.PermitedPlayerDTO;
 import com.alcity.dto.puzzle.*;
 import com.alcity.entity.alenum.AttributeOwnerType;
-import com.alcity.entity.alenum.BinaryContentType;
 import com.alcity.entity.alenum.ObjectAction;
 import com.alcity.entity.alobject.*;
 import com.alcity.entity.appmember.AppMember_WalletItem;
-import com.alcity.entity.appmember.WalletTransaction;
 import com.alcity.entity.base.*;
 import com.alcity.entity.journey.Journey;
 import com.alcity.entity.journey.JourneyStep;
@@ -34,7 +32,6 @@ import com.alcity.entity.appmember.WalletItem;
 import com.alcity.service.alobject.AttributeService;
 import com.alcity.service.alobject.AttributeValueService;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
@@ -44,8 +41,8 @@ public class DTOUtil {
 
 
 
-    public static PuzzleLevelLDTO getPuzzleLevelDTO(PuzzleLevel pl) {
-        PuzzleLevelLDTO plDTO = new PuzzleLevelLDTO();
+    public static PLDTO getPuzzleLevelDTO(PuzzleLevel pl) {
+        PLDTO plDTO = new PLDTO();
 
         plDTO.setId(pl.getId());
         plDTO.setVersion(pl.getVersion());
@@ -73,9 +70,9 @@ public class DTOUtil {
         return plDTO;
     }
 
-    public static PuzzleLevelLDTO getPuzzleLevelDTO(Optional<PuzzleLevel> puzzleLevelOptional) {
+    public static PLDTO getPuzzleLevelDTO(Optional<PuzzleLevel> puzzleLevelOptional) {
         PuzzleLevel puzzleLevel = new PuzzleLevel();
-        PuzzleLevelLDTO dto= new PuzzleLevelLDTO();
+        PLDTO dto= new PLDTO();
 
         if(puzzleLevelOptional.isPresent()){
             puzzleLevel = puzzleLevelOptional.get();
@@ -137,6 +134,8 @@ public class DTOUtil {
         dto.setPuzzleGroupTitle(entity.getPuzzleGroup().getTitle());
         dto.setPuzzleGroupId(entity.getPuzzleGroup().getId());
         dto.setPuzzleGroupIconId(entity.getPuzzleGroup().getIcon().getId());
+        dto.setJourneyId(entity.getJourney().getId());
+        dto.setJourneyTitle(entity.getTitle());
         dto.setTitle(entity.getTitle());
         dto.setCreated(entity.getCreated());
         dto.setUpdated(entity.getUpdated());
@@ -218,13 +217,13 @@ public class DTOUtil {
         }
 
     }
-    public static Collection<PuzzleLevelLDTO> getPuzzleLevelDTOS(Collection<PuzzleLevel> input) {
-        Collection<PuzzleLevelLDTO> output = new ArrayList<PuzzleLevelLDTO>();
+    public static Collection<PLDTO> getPuzzleLevelDTOS(Collection<PuzzleLevel> input) {
+        Collection<PLDTO> output = new ArrayList<PLDTO>();
 
         Iterator<PuzzleLevel> itr = input.iterator();
         while (itr.hasNext()) {
             PuzzleLevel pl = itr.next();
-            PuzzleLevelLDTO dto = new PuzzleLevelLDTO();
+            PLDTO dto = new PLDTO();
             dto.setId(pl.getId());
             dto.setVersion(pl.getVersion());
             dto.setOrdering(pl.getOrdering());

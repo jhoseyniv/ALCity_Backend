@@ -1,23 +1,14 @@
 package com.alcity.api;
 
+import com.alcity.customexception.ALCityAcessRight;
 import com.alcity.customexception.ALCityResponseObject;
 import com.alcity.customexception.UniqueConstraintException;
 import com.alcity.customexception.ViolateForeignKeyException;
-import com.alcity.dto.alobject.ObjectCategoryDTO;
 import com.alcity.dto.appmember.AppMemberDTO;
 import com.alcity.dto.appmember.AppMemberWalletDTO;
-import com.alcity.dto.appmember.WalletItemDTO;
-import com.alcity.dto.appmember.WalletItemTransactionDTO;
-import com.alcity.entity.alobject.ObjectCategory;
 import com.alcity.entity.appmember.AppMember;
 import com.alcity.entity.appmember.AppMember_WalletItem;
-import com.alcity.entity.appmember.WalletItem;
-import com.alcity.entity.appmember.WalletTransaction;
-import com.alcity.entity.base.WalletItemType;
-import com.alcity.repository.appmember.AppMember_WalletItemRepository;
 import com.alcity.service.appmember.AppMemberService;
-import com.alcity.service.appmember.AppMember_WalletItemService;
-import com.alcity.service.appmember.WalletItemService;
 import com.alcity.utility.DTOUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -37,6 +28,9 @@ public class AppMemberController {
 
     @Autowired
     private AppMemberService appMemberService;
+
+//    @Autowired
+//    private BCryptPasswordEncoder passwordEncoder;
 
 
     @GetMapping("/all")
@@ -174,18 +168,15 @@ public class AppMemberController {
     @Operation( summary = "Login to System ",  description = "Login Action")
     @PostMapping("/login")
     @CrossOrigin(origins = "*")
-    public ALCityResponseObject login(@RequestBody AppMemberDTO memberDTO)  {
-        ALCityResponseObject responseObject = new ALCityResponseObject();
-
+    public ALCityAcessRight login(@RequestBody AppMemberDTO memberDTO)  {
         AppMember member = appMemberService.findByUsername(memberDTO.getUsername());
         if(member==null)
-            return  new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", -1L, "data Not Found!");
-
-
+            return  new ALCityAcessRight(-1L, memberDTO.getUsername(), -1, "data Not Found!");
         if(!member.getPassword().equals(memberDTO.getPassword()))
-            return  new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", -1L, "data Not Found!");
+            return  new ALCityAcessRight(-1L, memberDTO.getUsername(), -1, "data Not Found!");
         appMemberService.login(member.getUsername(), member.getPassword());
-        return responseObject;
+        ALCityAcessRight acessRight = new ALCityAcessRight(member.getId(), member.getUsername(),0,"Login Success...");
+        return acessRight;
     }
 
 
