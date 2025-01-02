@@ -10,6 +10,7 @@ public enum BinaryContentType {
     Voice,
     D2Object,
     D3Object,
+    BoardGraphic_JSON,
     Other;
 
     public static BinaryContentType getById(long id)

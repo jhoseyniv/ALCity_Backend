@@ -50,12 +50,14 @@
 			<version>5.9.2</version>
 			<scope>test</scope>
 		</dependency>
-<!--
+
+		<!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-web -->
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-web</artifactId>
 			<version>6.4.2</version>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-config -->
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-config</artifactId>
@@ -66,7 +68,7 @@
 			<artifactId>spring-security-core</artifactId>
 			<version>6.4.2</version>
 		</dependency>
-!-->
+
 
 		<dependency>
 			<groupId>org.junit.jupiter</groupId>
@@ -127,6 +129,10 @@
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-crypto</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
 		</dependency>
 
 	</dependencies>
