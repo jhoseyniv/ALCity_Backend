@@ -212,7 +212,7 @@ public class Import_F_G_BProblemData_5 implements CommandLineRunner {
 
         PLPrivacy privacy_1 = plPrivacyService.findByValue("privacy1");
 
-        PuzzleLevel pl_F_G_B = new PuzzleLevel(now,1L,"Fox-Goose-Bean","4502",10,14,5f,IQ_Puzzle_Group.get(),PLDifficulty.Easy,PLStatus.Ongoing,
+        PuzzleLevel pl_F_G_B = new PuzzleLevel(now,1L,"Fox-Goose-Bean","4502",10,14,5f,1f,2f,3f,IQ_Puzzle_Group.get(),PLDifficulty.Easy,PLStatus.Ongoing,
                 privacy_1,3L,now,now,admin_1,admin_1);
         pl_F_G_B.setIcon(pl_pic_F_G_B_content);
         pl_F_G_B.setPicture(pl_Icon_F_G_B_content);

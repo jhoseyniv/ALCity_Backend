@@ -1,16 +1,13 @@
 package com.alcity.api;
 
-import com.alcity.customexception.ALCityResponseObject;
-import com.alcity.customexception.UniqueConstraintException;
-import com.alcity.customexception.ViolateForeignKeyException;
+import com.alcity.service.customexception.ALCityResponseObject;
+import com.alcity.service.customexception.UniqueConstraintException;
+import com.alcity.service.customexception.ViolateForeignKeyException;
 import com.alcity.dto.alobject.*;
-import com.alcity.dto.puzzle.ALCityObjectDTO;
 import com.alcity.entity.alenum.AttributeOwnerType;
 import com.alcity.entity.alenum.ObjectAction;
 import com.alcity.entity.alenum.POActionOwnerType;
 import com.alcity.entity.alobject.*;
-import com.alcity.entity.puzzle.ALCityObject;
-import com.alcity.entity.puzzle.PuzzleGroup;
 import com.alcity.service.alobject.*;
 import com.alcity.utility.DTOUtil;
 import io.swagger.v3.oas.annotations.Operation;
@@ -22,7 +19,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.Optional;
 
 

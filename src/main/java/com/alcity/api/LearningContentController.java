@@ -1,12 +1,10 @@
 package com.alcity.api;
 
-import com.alcity.customexception.ALCityResponseObject;
-import com.alcity.customexception.UniqueConstraintException;
-import com.alcity.customexception.ViolateForeignKeyException;
+import com.alcity.service.customexception.ALCityResponseObject;
+import com.alcity.service.customexception.UniqueConstraintException;
+import com.alcity.service.customexception.ViolateForeignKeyException;
 import com.alcity.dto.learning.LearningContentDTO;
-import com.alcity.dto.puzzle.ALCityObjectDTO;
 import com.alcity.entity.learning.LearningContent;
-import com.alcity.entity.puzzle.ALCityObject;
 import com.alcity.entity.puzzle.PuzzleGroup;
 import com.alcity.service.learning.LearningContentService;
 import com.alcity.utility.DTOUtil;

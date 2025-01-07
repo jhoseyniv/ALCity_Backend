@@ -36,6 +36,14 @@ public class PuzzleLevel extends BaseTable implements Serializable {
     @Column(name="maxScore")
     private Float maxScore;
 
+    @Column(name="firstStarScore")
+    private Float firstStarScore;
+
+    @Column(name="secondStarScore")
+    private Float secondStarScore;
+    @Column(name="thirdStartScore")
+    private Float thirdStartScore;
+
     public String getApproveDate() {
         return approveDate;
     }
@@ -240,10 +248,34 @@ public class PuzzleLevel extends BaseTable implements Serializable {
         this.puzzleGroupObjectInstanceCollection = puzzleGroupObjectInstanceCollection;
     }
 
+    public Float getFirstStarScore() {
+        return firstStarScore;
+    }
+
+    public void setFirstStarScore(Float firstStarScore) {
+        this.firstStarScore = firstStarScore;
+    }
+
+    public Float getSecondStarScore() {
+        return secondStarScore;
+    }
+
+    public void setSecondStarScore(Float secondStarScore) {
+        this.secondStarScore = secondStarScore;
+    }
+
+    public Float getThirdStartScore() {
+        return thirdStartScore;
+    }
+
+    public void setThirdStartScore(Float thirdStartScore) {
+        this.thirdStartScore = thirdStartScore;
+    }
+
     public PuzzleLevel() {
     }
 
-    public PuzzleLevel(String approveDate, Long ordering, String title, String code, Integer fromAge, Integer toAge, Float maxScore, PuzzleGroup puzzleGroup, PLDifficulty puzzleDifficulty, PLStatus puzzleLevelStatus, PLPrivacy puzzleLevelPrivacy,
+    public PuzzleLevel(String approveDate, Long ordering, String title, String code, Integer fromAge, Integer toAge, Float maxScore,Float firstStarScore,Float secondStarScore,Float thirdStartScore, PuzzleGroup puzzleGroup, PLDifficulty puzzleDifficulty, PLStatus puzzleLevelStatus, PLPrivacy puzzleLevelPrivacy,
                        Long version, String created, String updated, AppMember createdBy, AppMember updatedBy) {
         super(version, created, updated, createdBy, updatedBy);
         this.approveDate = approveDate;
@@ -253,6 +285,7 @@ public class PuzzleLevel extends BaseTable implements Serializable {
         this.fromAge = fromAge;
         this.toAge = toAge;
         this.maxScore = maxScore;
+        this.firstStarScore = firstStarScore;
         this.puzzleGroup = puzzleGroup;
         this.puzzleDifficulty = puzzleDifficulty;
         this.puzzleLevelStatus = puzzleLevelStatus;

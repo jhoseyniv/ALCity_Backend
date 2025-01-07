@@ -1,14 +1,12 @@
 package com.alcity.api;
 
-import com.alcity.customexception.ALCityResponseObject;
-import com.alcity.customexception.UniqueConstraintException;
-import com.alcity.customexception.ViolateForeignKeyException;
+import com.alcity.service.customexception.ALCityResponseObject;
+import com.alcity.service.customexception.UniqueConstraintException;
+import com.alcity.service.customexception.ViolateForeignKeyException;
 import com.alcity.dto.Interpreter.object.RecordData;
 import com.alcity.dto.alobject.AttributeDTO;
 import com.alcity.entity.alenum.AttributeOwnerType;
 import com.alcity.entity.alobject.Attribute;
-import com.alcity.entity.alobject.ObjectCategory;
-import com.alcity.entity.alobject.Renderer;
 import com.alcity.service.alobject.AttributeService;
 import com.alcity.utility.DTOUtil;
 import io.swagger.v3.oas.annotations.Operation;

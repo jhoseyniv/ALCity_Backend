@@ -1,17 +1,13 @@
 package com.alcity.api;
 
-import com.alcity.customexception.ALCityResponseObject;
-import com.alcity.customexception.UniqueConstraintException;
-import com.alcity.customexception.ViolateForeignKeyException;
-import com.alcity.dto.puzzle.ALCityObjectDTO;
+import com.alcity.service.customexception.ALCityResponseObject;
+import com.alcity.service.customexception.UniqueConstraintException;
+import com.alcity.service.customexception.ViolateForeignKeyException;
 import com.alcity.dto.puzzle.ALCityObjectInPGDTO;
 import com.alcity.dto.puzzle.PuzzleObjectActionDTO;
 import com.alcity.entity.alenum.POActionOwnerType;
 import com.alcity.entity.alobject.PuzzleObjectAction;
-import com.alcity.entity.puzzle.ALCityObject;
 import com.alcity.entity.puzzle.ALCityObjectInPG;
-import com.alcity.entity.puzzle.PuzzleGroup;
-import com.alcity.repository.puzzle.PGRepository;
 import com.alcity.service.alobject.PuzzleObjectActionService;
 import com.alcity.service.puzzle.ALCityObjectInPGService;
 import com.alcity.utility.DTOUtil;

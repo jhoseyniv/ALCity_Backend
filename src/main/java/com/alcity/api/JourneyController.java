@@ -1,17 +1,12 @@
 package com.alcity.api;
 
-import com.alcity.customexception.ALCityResponseObject;
-import com.alcity.customexception.UniqueConstraintException;
-import com.alcity.customexception.ViolateForeignKeyException;
-import com.alcity.dto.appmember.AppMemberWalletDTO;
+import com.alcity.service.customexception.ALCityResponseObject;
+import com.alcity.service.customexception.UniqueConstraintException;
+import com.alcity.service.customexception.ViolateForeignKeyException;
 import com.alcity.dto.journey.JourneyDTO;
 import com.alcity.dto.journey.JourneyStepDTO;
-import com.alcity.dto.puzzle.PGDTO;
-import com.alcity.entity.appmember.AppMember;
-import com.alcity.entity.appmember.AppMember_WalletItem;
 import com.alcity.entity.journey.Journey;
 import com.alcity.entity.journey.JourneyStep;
-import com.alcity.entity.puzzle.PuzzleGroup;
 import com.alcity.repository.appmember.AppMemberRepository;
 import com.alcity.service.Journey.JourneyService;
 import com.alcity.service.Journey.JourneyStepService;

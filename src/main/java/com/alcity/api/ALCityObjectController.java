@@ -1,19 +1,17 @@
 package com.alcity.api;
 
 
-import com.alcity.customexception.ALCityResponseObject;
-import com.alcity.customexception.RecordNotFoundException;
-import com.alcity.customexception.UniqueConstraintException;
-import com.alcity.customexception.ViolateForeignKeyException;
+import com.alcity.service.customexception.ALCityResponseObject;
+import com.alcity.service.customexception.RecordNotFoundException;
 import com.alcity.dto.puzzle.ALCityObjectInPGDTO;
-import com.alcity.dto.puzzle.PGDTO;
 import com.alcity.dto.puzzle.PuzzleObjectActionDTO;
 import com.alcity.dto.puzzle.ALCityObjectDTO;
 import com.alcity.entity.alenum.POActionOwnerType;
+import com.alcity.entity.alobject.ObjectCategory;
 import com.alcity.entity.alobject.PuzzleObjectAction;
 import com.alcity.entity.puzzle.ALCityObject;
 import com.alcity.entity.puzzle.ALCityObjectInPG;
-import com.alcity.entity.puzzle.PuzzleGroup;
+import com.alcity.service.alobject.ObjectCategoryService;
 import com.alcity.service.alobject.PuzzleObjectActionService;
 import com.alcity.service.puzzle.ALCityObjectInPGService;
 import com.alcity.service.puzzle.ALCityObjectService;
@@ -38,6 +36,8 @@ public class ALCityObjectController {
     @Autowired
     private ALCityObjectService alCityObjectService;
     @Autowired
+    private ObjectCategoryService objectCategoryService;
+    @Autowired
     private PuzzleObjectActionService puzzleObjectActionService;
 
     @Autowired
@@ -59,10 +59,20 @@ public class ALCityObjectController {
     @GetMapping("/all")
     @CrossOrigin(origins = "*")
     public Collection<ALCityObjectDTO> getALCityObjects(Model model) {
-        Collection<ALCityObject> alCityObjects = alCityObjectService.findAll();
+        Collection<ALCityObject> cityObjects = alCityObjectService.findAll();
+        Collection<ALCityObjectDTO> dtos = new ArrayList<ALCityObjectDTO>();
+        dtos =DTOUtil.getALCityObjectsDTOS(cityObjects);
+
+        return dtos;
+    }
+    @Operation( summary = "Fetch all AL City Objects by Object Category ",  description = "Fetch all AL City Objects ")
+    @GetMapping("/all/cat/id/{id}")
+    @CrossOrigin(origins = "*")
+    public Collection<ALCityObjectDTO> getALCityObjectsByCategory(@PathVariable Long id) {
+        Optional<ObjectCategory> category = objectCategoryService.findById(id);
+        Collection<ALCityObject> alCityObjects = alCityObjectService.findALCityObjectByObjectCategory(category.get());
         Collection<ALCityObjectDTO> alCityObjectDTOS = new ArrayList<ALCityObjectDTO>();
         alCityObjectDTOS =DTOUtil.getALCityObjectsDTOS(alCityObjects);
-
         return alCityObjectDTOS;
     }
 

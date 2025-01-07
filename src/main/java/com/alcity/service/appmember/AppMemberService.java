@@ -1,17 +1,14 @@
 package com.alcity.service.appmember;
 
-import com.alcity.customexception.ALCityResponseObject;
+import com.alcity.service.customexception.ALCityResponseObject;
 import com.alcity.dto.appmember.AppMemberDTO;
 import com.alcity.dto.appmember.AppMemberWalletDTO;
-import com.alcity.dto.puzzle.ALCityObjectDTO;
 import com.alcity.entity.alenum.UserGender;
-import com.alcity.entity.alobject.ObjectCategory;
 import com.alcity.entity.appmember.AppMember;
 import com.alcity.entity.appmember.AppMember_WalletItem;
 import com.alcity.entity.appmember.WalletItem;
 import com.alcity.entity.base.BinaryContent;
 import com.alcity.entity.base.MemberType;
-import com.alcity.entity.puzzle.ALCityObject;
 import com.alcity.repository.appmember.AppMemberRepository;
 import com.alcity.repository.appmember.AppMember_WalletItemRepository;
 import com.alcity.repository.appmember.CustomizedUserRepository;
@@ -19,7 +16,6 @@ import com.alcity.repository.appmember.WalletItemRespository;
 import com.alcity.repository.base.BinaryContentRepository;
 import com.alcity.repository.base.MemberTypeRepository;
 import com.alcity.utility.DateUtils;
-import com.alcity.utility.ImageUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;;

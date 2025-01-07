@@ -1,16 +1,14 @@
 package com.alcity.service.puzzle;
 
-import com.alcity.customexception.UniqueConstraintException;
-import com.alcity.customexception.ViolateForeignKeyException;
+import com.alcity.service.customexception.UniqueConstraintException;
+import com.alcity.service.customexception.ViolateForeignKeyException;
 import com.alcity.dto.puzzle.ALCityObjectDTO;
 import com.alcity.entity.alenum.POActionOwnerType;
 import com.alcity.entity.alobject.ObjectCategory;
 import com.alcity.entity.alobject.PuzzleObjectAction;
 import com.alcity.entity.base.BinaryContent;
-import com.alcity.entity.base.PuzzleCategory;
 import com.alcity.entity.puzzle.ALCityObject;
 import com.alcity.entity.appmember.AppMember;
-import com.alcity.entity.puzzle.PuzzleGroup;
 import com.alcity.repository.alobject.ObjectCategoryRepository;
 import com.alcity.repository.base.BinaryContentRepository;
 import com.alcity.repository.puzzle.ALCityObjectRepository;
@@ -37,6 +35,8 @@ public class ALCityObjectService implements ALCityObjectRepository {
 
     @Autowired
     PuzzleObjectActionService puzzleObjectActionService ;
+    @Autowired
+    ObjectCategoryRepository objectCategoryRepository ;
 
     @Override
     public <S extends ALCityObject> S save(S entity) {
@@ -61,6 +61,11 @@ public class ALCityObjectService implements ALCityObjectRepository {
     @Override
     public Collection<ALCityObject> findAll() {
         return alCityObjectRepository.findAll();
+    }
+
+    @Override
+    public Collection<ALCityObject> findALCityObjectByObjectCategory(ObjectCategory category) {
+        return alCityObjectRepository.findALCityObjectByObjectCategory(category);
     }
 
     @Override
@@ -131,8 +136,6 @@ public class ALCityObjectService implements ALCityObjectRepository {
     private AppMemberRepository appMemberRepository;
 
 
-    @Autowired
-    private ObjectCategoryRepository objectCategoryRepository;
     @Autowired
     private BinaryContentRepository binaryContentRepository;
 

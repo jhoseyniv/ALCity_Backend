@@ -1,13 +1,8 @@
 package com.alcity.service.learning;
 
-import com.alcity.customexception.RecordNotFoundException;
 import com.alcity.dto.base.LearningSkillDTO;
-import com.alcity.dto.puzzle.ALCityObjectDTO;
-import com.alcity.entity.alobject.ObjectCategory;
 import com.alcity.entity.appmember.AppMember;
-import com.alcity.entity.base.BinaryContent;
 import com.alcity.entity.learning.LearningSkill;
-import com.alcity.entity.puzzle.ALCityObject;
 import com.alcity.repository.appmember.AppMemberRepository;
 import com.alcity.repository.learning.LearningSkillRepository;
 import com.alcity.utility.DateUtils;

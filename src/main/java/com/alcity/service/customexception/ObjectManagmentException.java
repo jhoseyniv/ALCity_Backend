@@ -1,4 +1,4 @@
-package com.alcity.customexception;
+package com.alcity.service.customexception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

@@ -133,7 +133,7 @@ public class PuzzleLevelService implements PuzzleLevelRepository {
 
         if (code.equalsIgnoreCase("Save")) { //Save
             puzzleLevel = new PuzzleLevel(dto.getApproveDate(), dto.getOrdering(), dto.getTitle(),dto.getCode(),dto.getFromAge(),dto.getToAge(),
-                                dto.getMaxScore(),puzzleGroup,plDifficulty,plStatus,plPrivacy
+                                dto.getMaxScore(), dto.getFirstMaxScore(), dto.getSecondMaxScore(), dto.getThirdMaxScore(), puzzleGroup,plDifficulty,plStatus,plPrivacy
                                     , 1L, "1714379790", "1714379790", createdBy, createdBy);
             puzzleLevelRepository.save(puzzleLevel);
         }else{//edit

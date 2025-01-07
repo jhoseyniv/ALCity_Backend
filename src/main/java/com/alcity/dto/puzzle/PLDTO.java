@@ -22,6 +22,33 @@ public class PLDTO {
     private Integer fromAge;
     private Integer toAge;
     private Float maxScore;
+    private Float firstMaxScore;
+    private Float secondMaxScore;
+    private Float thirdMaxScore;
+
+    public Float getFirstMaxScore() {
+        return firstMaxScore;
+    }
+
+    public void setFirstMaxScore(Float firstMaxScore) {
+        this.firstMaxScore = firstMaxScore;
+    }
+
+    public Float getSecondMaxScore() {
+        return secondMaxScore;
+    }
+
+    public void setSecondMaxScore(Float secondMaxScore) {
+        this.secondMaxScore = secondMaxScore;
+    }
+
+    public Float getThirdMaxScore() {
+        return thirdMaxScore;
+    }
+
+    public void setThirdMaxScore(Float thirdMaxScore) {
+        this.thirdMaxScore = thirdMaxScore;
+    }
 
     private Long puzzleGroupId;
 
@@ -255,7 +282,7 @@ public class PLDTO {
     }
 
     public PLDTO(Long id, Long version, String created, String updated, String createdBy, String updatedBy, Long createdById, Long updatedById,
-                 String approveDate, Long ordering, String title, String code, Integer fromAge, Integer toAge, Float maxScore, String puzzleLevelStatus, String puzzleLevelPrivacy, String puzzleLevelDifficulty) {
+                 String approveDate, Long ordering, String title, String code, Integer fromAge, Integer toAge, Float maxScore,Float firstMaxScore ,Float secondMaxScore,Float thirdMaxScore,String puzzleLevelStatus, String puzzleLevelPrivacy, String puzzleLevelDifficulty) {
         this.id = id;
         this.version = version;
         this.created = created;
@@ -271,6 +298,9 @@ public class PLDTO {
         this.fromAge = fromAge;
         this.toAge = toAge;
         this.maxScore = maxScore;
+        this.firstMaxScore = firstMaxScore;
+        this.secondMaxScore =secondMaxScore;
+        this.thirdMaxScore = thirdMaxScore;
         this.puzzleLevelStatus = puzzleLevelStatus;
         this.puzzleLevelPrivacy = puzzleLevelPrivacy;
         this.puzzleLevelDifficulty = puzzleLevelDifficulty;

@@ -1,13 +1,10 @@
 package com.alcity.api;
 
-import com.alcity.customexception.ALCityResponseObject;
-import com.alcity.customexception.UniqueConstraintException;
-import com.alcity.customexception.ViolateForeignKeyException;
-import com.alcity.dto.puzzle.PLObjectiveDTO;
+import com.alcity.service.customexception.ALCityResponseObject;
+import com.alcity.service.customexception.UniqueConstraintException;
+import com.alcity.service.customexception.ViolateForeignKeyException;
 import com.alcity.dto.puzzle.PLRuleDTO;
-import com.alcity.entity.puzzle.PLObjective;
 import com.alcity.entity.puzzle.PLRule;
-import com.alcity.service.puzzle.PLObjectiveService;
 import com.alcity.service.puzzle.PLRuleService;
 import com.alcity.utility.DTOUtil;
 import io.swagger.v3.oas.annotations.Operation;

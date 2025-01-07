@@ -1,6 +1,6 @@
 package com.alcity.service.Journey;
 
-import com.alcity.customexception.UniqueConstraintException;
+import com.alcity.service.customexception.UniqueConstraintException;
 import com.alcity.dto.journey.JourneyDTO;
 import com.alcity.entity.base.BinaryContent;
 import com.alcity.entity.journey.Journey;

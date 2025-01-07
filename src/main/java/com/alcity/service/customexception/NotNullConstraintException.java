@@ -1,4 +1,4 @@
-package com.alcity.customexception;
+package com.alcity.service.customexception;
 
 public class NotNullConstraintException extends  RuntimeException{
     private String recordData;

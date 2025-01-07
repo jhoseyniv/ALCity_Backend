@@ -1,14 +1,10 @@
 package com.alcity.api;
 
 
-import com.alcity.customexception.ALCityResponseObject;
-import com.alcity.customexception.UniqueConstraintException;
-import com.alcity.customexception.ViolateForeignKeyException;
-import com.alcity.dto.alobject.ObjectCategoryDTO;
-import com.alcity.dto.alobject.RendererDTO;
+import com.alcity.service.customexception.ALCityResponseObject;
+import com.alcity.service.customexception.UniqueConstraintException;
+import com.alcity.service.customexception.ViolateForeignKeyException;
 import com.alcity.dto.learning.LearningTopicDTO;
-import com.alcity.entity.alobject.ObjectCategory;
-import com.alcity.entity.alobject.Renderer;
 import com.alcity.entity.learning.LearningTopic;
 import com.alcity.service.learning.LearningTopicService;
 import com.alcity.utility.DTOUtil;

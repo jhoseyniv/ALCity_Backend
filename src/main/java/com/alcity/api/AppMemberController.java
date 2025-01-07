@@ -1,9 +1,9 @@
 package com.alcity.api;
 
-import com.alcity.customexception.ALCityAcessRight;
-import com.alcity.customexception.ALCityResponseObject;
-import com.alcity.customexception.UniqueConstraintException;
-import com.alcity.customexception.ViolateForeignKeyException;
+import com.alcity.service.customexception.ALCityAcessRight;
+import com.alcity.service.customexception.ALCityResponseObject;
+import com.alcity.service.customexception.UniqueConstraintException;
+import com.alcity.service.customexception.ViolateForeignKeyException;
 import com.alcity.dto.appmember.AppMemberDTO;
 import com.alcity.dto.appmember.AppMemberWalletDTO;
 import com.alcity.entity.appmember.AppMember;
