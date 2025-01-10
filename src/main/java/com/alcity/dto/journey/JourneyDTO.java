@@ -18,6 +18,13 @@ public class JourneyDTO   {
     private Long updatedById;
 
     private String title;
+
+    private Integer ordering;
+
+    private Integer minScore;
+
+    private Integer maxScore;
+
     private byte[] thumbnail;
 
     private Long  iconId;
@@ -46,8 +53,31 @@ public class JourneyDTO   {
         this.title = title;
     }
 
+    public Integer getMinScore() {
+        return minScore;
+    }
+
+    public void setMinScore(Integer minScore) {
+        this.minScore = minScore;
+    }
+
+    public Integer getMaxScore() {
+        return maxScore;
+    }
+
+    public void setMaxScore(Integer maxScore) {
+        this.maxScore = maxScore;
+    }
 
     public JourneyDTO() {
+    }
+
+    public Integer getOrdering() {
+        return ordering;
+    }
+
+    public void setOrdering(Integer ordering) {
+        this.ordering = ordering;
     }
 
     public Long getId() {
@@ -114,8 +144,15 @@ public class JourneyDTO   {
         this.updatedById = updatedById;
     }
 
-    public JourneyDTO(Long id, Long version, String created, String updated, String createdBy, String updatedBy, Long createdById, Long updatedById, String title, byte[] thumbnail,Long iconId) {
+    public JourneyDTO(Long id , String title,Integer ordering, byte[] thumbnail,Long iconId, Integer minScore,Integer maxScore
+            , Long version, String created, String updated, String createdBy, String updatedBy, Long createdById, Long updatedById) {
         this.id = id;
+        this.title = title;
+        this.ordering = ordering;
+        this.minScore = minScore;
+        this.maxScore = maxScore;
+        this.thumbnail = thumbnail;
+        this.iconId=iconId;
         this.version = version;
         this.created = created;
         this.updated = updated;
@@ -123,8 +160,5 @@ public class JourneyDTO   {
         this.updatedBy = updatedBy;
         this.createdById = createdById;
         this.updatedById = updatedById;
-        this.title = title;
-        this.thumbnail = thumbnail;
-        this.iconId=iconId;
     }
 }

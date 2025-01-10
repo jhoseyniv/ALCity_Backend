@@ -429,9 +429,9 @@ public class ImportBaseData implements CommandLineRunner {
         binaryContentService.save(image_journey_2);
         binaryContentService.save(image_journey_3);
 
-        Journey journey_1 = new Journey("Journey_1",image_journey_1,1L,now,now,admin_1,admin_1);
-        Journey journey_2 = new Journey("Journey_2",image_journey_2,1L,now,now,admin_1,admin_1);
-        Journey journey_3 = new Journey("Journey_3",image_journey_3,1L,now,now,admin_1,admin_1);
+        Journey journey_1 = new Journey("Journey_1",1,10,50,image_journey_1,1L,now,now,admin_1,admin_1);
+        Journey journey_2 = new Journey("Journey_2",2,5,70,image_journey_2,1L,now,now,admin_1,admin_1);
+        Journey journey_3 = new Journey("Journey_3",3,15,100,image_journey_3,1L,now,now,admin_1,admin_1);
         journeyService.save(journey_1);
         journeyService.save(journey_2);
         journeyService.save(journey_3);

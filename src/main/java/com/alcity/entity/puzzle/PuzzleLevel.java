@@ -275,7 +275,8 @@ public class PuzzleLevel extends BaseTable implements Serializable {
     public PuzzleLevel() {
     }
 
-    public PuzzleLevel(String approveDate, Long ordering, String title, String code, Integer fromAge, Integer toAge, Float maxScore,Float firstStarScore,Float secondStarScore,Float thirdStartScore, PuzzleGroup puzzleGroup, PLDifficulty puzzleDifficulty, PLStatus puzzleLevelStatus, PLPrivacy puzzleLevelPrivacy,
+    public PuzzleLevel(String approveDate, Long ordering, String title, String code, Integer fromAge, Integer toAge, Float maxScore,Float firstStarScore,Float secondStarScore,Float thirdStartScore,
+                       PuzzleGroup puzzleGroup, PLDifficulty puzzleDifficulty, PLStatus puzzleLevelStatus, PLPrivacy puzzleLevelPrivacy,
                        Long version, String created, String updated, AppMember createdBy, AppMember updatedBy) {
         super(version, created, updated, createdBy, updatedBy);
         this.approveDate = approveDate;
@@ -286,6 +287,8 @@ public class PuzzleLevel extends BaseTable implements Serializable {
         this.toAge = toAge;
         this.maxScore = maxScore;
         this.firstStarScore = firstStarScore;
+        this.secondStarScore = secondStarScore;
+        this.thirdStartScore = thirdStartScore;
         this.puzzleGroup = puzzleGroup;
         this.puzzleDifficulty = puzzleDifficulty;
         this.puzzleLevelStatus = puzzleLevelStatus;

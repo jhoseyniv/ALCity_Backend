@@ -3,6 +3,8 @@ package com.alcity.entity.appmember;
 
 import com.alcity.entity.alenum.UserGender;
 import com.alcity.entity.base.*;
+import com.alcity.entity.play.PermitedPlayer;
+import com.alcity.entity.play.PlayHistory;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
@@ -125,6 +127,13 @@ public class AppMember extends BaseTable implements Serializable {
     @OneToMany(mappedBy = "applicationMember", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Collection<AppMember_WalletItem> walletItems;
 
+    @OneToMany(mappedBy = "player", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Collection<PlayHistory> playHistories;
+
+    @OneToMany(mappedBy = "player", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Collection<PermitedPlayer> permitedPlayers;
+
+
     public Collection<AppMember_WalletItem> getApplicationMember_walletItems() {
         return walletItems;
     }
@@ -164,6 +173,21 @@ public class AppMember extends BaseTable implements Serializable {
         this.clientTypeSet = clientTypeSet;
     }
 
+    public Collection<PlayHistory> getPlayHistories() {
+        return playHistories;
+    }
+
+    public void setPlayHistories(Collection<PlayHistory> playHistories) {
+        this.playHistories = playHistories;
+    }
+
+    public Collection<PermitedPlayer> getPermitedPlayers() {
+        return permitedPlayers;
+    }
+
+    public void setPermitedPlayers(Collection<PermitedPlayer> permitedPlayers) {
+        this.permitedPlayers = permitedPlayers;
+    }
 
     public AppMember() {
     }

@@ -30,6 +30,45 @@ public class PlayHistory extends BaseTable {
     @Column(name="playScore")
     private Float playScore;
 
+    public AppMember getPlayer() {
+        return player;
+    }
+
+    public void setPlayer(AppMember player) {
+        this.player = player;
+    }
+
+    public PuzzleLevel getPuzzleLevel() {
+        return puzzleLevel;
+    }
+
+    public void setPuzzleLevel(PuzzleLevel puzzleLevel) {
+        this.puzzleLevel = puzzleLevel;
+    }
+
+    public String getPlayTime() {
+        return playTime;
+    }
+
+    public void setPlayTime(String playTime) {
+        this.playTime = playTime;
+    }
+
+    public Integer getPlayDuration() {
+        return playDuration;
+    }
+
+    public void setPlayDuration(Integer playDuration) {
+        this.playDuration = playDuration;
+    }
+
+    public Float getPlayScore() {
+        return playScore;
+    }
+
+    public void setPlayScore(Float playScore) {
+        this.playScore = playScore;
+    }
 
     public PlayHistory() {
     }

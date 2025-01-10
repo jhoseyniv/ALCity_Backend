@@ -14,6 +14,7 @@ import com.alcity.dto.journey.JourneyStepDTO;
 import com.alcity.dto.learning.LearningContentDTO;
 import com.alcity.dto.learning.LearningTopicDTO;
 import com.alcity.dto.player.PermitedPlayerDTO;
+import com.alcity.dto.player.PlayHistoryDTO;
 import com.alcity.dto.puzzle.*;
 import com.alcity.entity.alenum.AttributeOwnerType;
 import com.alcity.entity.alenum.ObjectAction;
@@ -26,6 +27,7 @@ import com.alcity.entity.learning.LearningContent;
 import com.alcity.entity.learning.LearningSkill;
 import com.alcity.entity.learning.LearningTopic;
 import com.alcity.entity.play.PermitedPlayer;
+import com.alcity.entity.play.PlayHistory;
 import com.alcity.entity.puzzle.*;
 import com.alcity.entity.appmember.AppMember;
 import com.alcity.entity.appmember.WalletItem;
@@ -533,6 +535,45 @@ public class DTOUtil {
         }
         return dtos;
     }
+
+    public static Collection<JourneyDTO> getJourneyDTOSByUser(Collection<Journey> journeyCollection) {
+        Collection<JourneyDTO> dtos = new ArrayList<JourneyDTO>();
+        Iterator<Journey> itr = journeyCollection.iterator();
+        while (itr.hasNext()) {
+            JourneyDTO dto = getJourneyDTO(itr.next());
+            dtos.add(dto);
+        }
+        return dtos;
+    }
+    public static Collection<PlayHistoryDTO> getPlayHistoryDTOS(Collection<PlayHistory> histories) {
+        Collection<PlayHistoryDTO> dtos = new ArrayList<PlayHistoryDTO>();
+        Iterator<PlayHistory> itr = histories.iterator();
+        while (itr.hasNext()) {
+            PlayHistoryDTO dto = getPlayHistoryDTO(itr.next());
+            dtos.add(dto);
+        }
+        return dtos;
+    }
+    public static PlayHistoryDTO getPlayHistoryDTO(PlayHistory entity) {
+        PlayHistoryDTO dto = new PlayHistoryDTO();
+        PuzzleLevel pl = entity.getPuzzleLevel();
+        AppMember player = entity.getPlayer();
+        dto.setId(entity.getId());
+        dto.setPlayDuration(entity.getPlayDuration());
+        dto.setPlayTime(entity.getPlayTime());
+        dto.setPlayScore(entity.getPlayScore());
+
+        dto.setPlayerId(player.getId());
+        dto.setPlayerUsername(player.getUsername());
+
+        dto.setPlId(pl.getId());
+        dto.setPlTitle(pl.getTitle());
+        dto.setPlCode(pl.getCode());
+        dto.setPlMaxScore(pl.getMaxScore());
+
+        return dto;
+    }
+
     public static AppMemberWalletDTO getAppMemberWalletDTO(AppMember_WalletItem entity) {
         AppMemberWalletDTO dto = new AppMemberWalletDTO();
         WalletItem walletItem = entity.getWalletItem();
@@ -557,20 +598,23 @@ public class DTOUtil {
         }
         return dtos;
     }
-        public static JourneyDTO getJourneyDTO(Journey journey) {
-         JourneyDTO journeyDTO = new JourneyDTO();
-         journeyDTO.setId(journey.getId());
-         journeyDTO.setVersion(journey.getVersion());
-         journeyDTO.setCreated(journey.getCreated());
-         journeyDTO.setUpdated(journey.getUpdated());
-         journeyDTO.setTitle(journey.getTitle());
-         journeyDTO.setCreatedBy(journey.getCreatedBy().getUsername());
-         journeyDTO.setUpdatedBy(journey.getUpdatedBy().getUsername());
-         journeyDTO.setCreatedById(journey.getCreatedBy().getId());
-         journeyDTO.setUpdatedById(journey.getUpdatedBy().getId());
-         journeyDTO.setIconId(journey.getGraphic().getId());
-         journeyDTO.setThumbnail(journey.getGraphic().getThumbnail());
-         return journeyDTO;
+        public static JourneyDTO getJourneyDTO(Journey entity) {
+            JourneyDTO dto = new JourneyDTO();
+            dto.setId(entity.getId());
+            dto.setVersion(entity.getVersion());
+            dto.setCreated(entity.getCreated());
+            dto.setUpdated(entity.getUpdated());
+            dto.setTitle(entity.getTitle());
+            dto.setOrdering(entity.getOrdering());
+            dto.setMinScore(entity.getMinStar());
+            dto.setMaxScore(entity.getMaxStar());
+            dto.setCreatedBy(entity.getCreatedBy().getUsername());
+            dto.setUpdatedBy(entity.getUpdatedBy().getUsername());
+            dto.setCreatedById(entity.getCreatedBy().getId());
+            dto.setUpdatedById(entity.getUpdatedBy().getId());
+            dto.setIconId(entity.getGraphic().getId());
+            dto.setThumbnail(entity.getGraphic().getThumbnail());
+         return dto;
     }
 
     public static LearningSkillDTO getLearningSkillDTO(LearningSkill ls) {
@@ -578,6 +622,7 @@ public class DTOUtil {
                 ls.getVersion(), ls.getCreated(), ls.getUpdated(),ls.getCreatedBy().getUsername(),ls.getUpdatedBy().getUsername());
         return lsDTO;
     }
+
     public static LearningTopicDTO getLearningTopicDTO(LearningTopic lt) {
 
         LearningTopicDTO lsDTO =null;

@@ -47,7 +47,7 @@ public class JourneyService implements JourneyRepository {
         Journey journey=null;
         Optional<Journey> journeyOptional= journeyRepository.findByTitle(dto.getTitle());
         if (code.equalsIgnoreCase("Save")) { //Save
-            journey = new Journey(dto.getTitle() ,icon.get(),1L,
+            journey = new Journey(dto.getTitle(),dto.getOrdering(),dto.getMinScore(),dto.getMaxScore() ,icon.get(),1L,
                     DateUtils.getNow(), DateUtils.getNow(), createdBy, createdBy);
             journeyRepository.save(journey);
         }else{//edit
@@ -132,17 +132,17 @@ public class JourneyService implements JourneyRepository {
     }
 
     @Override
-    public Journey save(JourneyDTO journeyDTO) throws UniqueConstraintException {
+    public Journey save(JourneyDTO dto) throws UniqueConstraintException {
         Optional<BinaryContent> binaryContentIsExist;
         Journey journey = null;
-        Optional<AppMember> createdBy = appMemberRepository.findById(journeyDTO.getCreatedById());
-        Optional<AppMember> updatedBy = appMemberRepository.findById(journeyDTO.getUpdatedById());
+        Optional<AppMember> createdBy = appMemberRepository.findById(dto.getCreatedById());
+        Optional<AppMember> updatedBy = appMemberRepository.findById(dto.getUpdatedById());
 
-        if(journeyDTO.getId() != null ) {
-            binaryContentIsExist = binaryContentService.findById(journeyDTO.getIconId());
+        if(dto.getId() != null ) {
+            binaryContentIsExist = binaryContentService.findById(dto.getIconId());
             if (binaryContentIsExist.isPresent()) {
-                journey = new Journey(journeyDTO.getTitle(), binaryContentIsExist.get(), journeyDTO.getVersion(),
-                        journeyDTO.getCreated(), journeyDTO.getUpdated(), createdBy.get(), updatedBy.get());
+                journey = new Journey(dto.getTitle(),dto.getOrdering(),dto.getMinScore(),dto.getMaxScore(), binaryContentIsExist.get(), dto.getVersion(),
+                        dto.getCreated(), dto.getUpdated(), createdBy.get(), updatedBy.get());
                 journeyRepository.save(journey);
             }
         }

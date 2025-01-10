@@ -48,6 +48,17 @@ public class PLController {
         return pldto;
     }
 
+    @Operation( summary = "Fetch all puzzle levels for a user by age ",  description = "fetches all data for a puzzle level ")
+    @RequestMapping(value = "/age/{age}", method = RequestMethod.GET)
+    @ResponseBody
+    @CrossOrigin(origins = "*")
+    public Collection<PLDTO> getPuzzleLevelsForAUserByAge(@PathVariable Integer age) {
+        Collection<PLDTO> dtos= new ArrayList<>();
+        Collection<PuzzleLevel> puzzleLevels = puzzleLevelService.findAllByAge(age);
+        dtos = DTOUtil.getPuzzleLevelDTOS(puzzleLevels);
+        return dtos;
+    }
+
     @Operation( summary = "Fetch all objective by a puzzle level Id ",  description = "fetches all objectives for a puzzle level ")
     @RequestMapping(value = "/id/{id}/objectives/all", method = RequestMethod.GET)
     @ResponseBody

@@ -18,7 +18,9 @@ import org.springframework.stereotype.Service;
 
 import org.springframework.transaction.annotation.Transactional;;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -46,6 +48,12 @@ public class PuzzleLevelService implements PuzzleLevelRepository {
     @Override
     public Collection<PuzzleLevel> findAll() {
         return puzzleLevelRepository.findAll();
+    }
+    public Collection<PuzzleLevel> findAllByAge(Integer age) {
+        Collection<PuzzleLevel> puzzleLevels = puzzleLevelRepository.findAll();
+
+        Collection<PuzzleLevel> newpuzzleLevels =puzzleLevels.stream().filter(puzzleLevel -> puzzleLevel.getFromAge() <= age && age <= puzzleLevel.getToAge()).collect(Collectors.toList());
+        return newpuzzleLevels;
     }
 
     @Override

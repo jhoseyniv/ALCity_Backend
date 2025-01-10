@@ -1,5 +1,10 @@
 package com.alcity.service.appmember;
 
+import com.alcity.dto.appmember.AppMemberJourneyDTO;
+import com.alcity.dto.appmember.AppMemberJourneysDTO;
+import com.alcity.entity.journey.Journey;
+import com.alcity.entity.journey.JourneyStep;
+import com.alcity.entity.play.PlayHistory;
 import com.alcity.service.customexception.ALCityResponseObject;
 import com.alcity.dto.appmember.AppMemberDTO;
 import com.alcity.dto.appmember.AppMemberWalletDTO;
@@ -15,10 +20,12 @@ import com.alcity.repository.appmember.CustomizedUserRepository;
 import com.alcity.repository.appmember.WalletItemRespository;
 import com.alcity.repository.base.BinaryContentRepository;
 import com.alcity.repository.base.MemberTypeRepository;
+import com.alcity.service.play.PlayHistoryService;
 import com.alcity.utility.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Optional;
 
@@ -40,8 +47,21 @@ public class AppMemberService implements AppMemberRepository, CustomizedUserRepo
     private WalletItemRespository walletItemRespository;
 
 //    @Autowired
-//    private BCryptPasswordEncoder passwordEncoder;
+//    private PlayHistoryService playHistoryService;
 
+
+    public Collection<AppMemberJourneysDTO> getAppMemberJourneysByScores(AppMember member, Collection<Journey> journeys) {
+        Collection<AppMemberJourneysDTO> dtos = new ArrayList<AppMemberJourneysDTO>();
+        Collection<PlayHistory> playHistories = member.getPlayHistories();
+        return  dtos;
+    }
+    public AppMemberJourneyDTO getAppMemberJourneyByScore(AppMember member, Journey journey) {
+        AppMemberJourneyDTO dto = new AppMemberJourneyDTO();
+        Collection<JourneyStep> steps = journey.getJourneyStepCollection();
+        Collection<PlayHistory>  histories= member.getPlayHistories();
+
+        return  dto;
+    }
 
     public AppMember_WalletItem chargeOrDeChargeAppMemberWallet(AppMemberWalletDTO dto, String code) {
         AppMember createdBy = appMemberRepository.findByUsername("admin");

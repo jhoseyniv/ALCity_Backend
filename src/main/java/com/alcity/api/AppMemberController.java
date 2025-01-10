@@ -1,5 +1,12 @@
 package com.alcity.api;
 
+import com.alcity.dto.appmember.AppMemberJourneyDTO;
+import com.alcity.dto.appmember.AppMemberJourneysDTO;
+import com.alcity.dto.journey.JourneyDTO;
+import com.alcity.dto.player.PlayHistoryDTO;
+import com.alcity.entity.journey.Journey;
+import com.alcity.entity.play.PlayHistory;
+import com.alcity.service.Journey.JourneyService;
 import com.alcity.service.customexception.ALCityAcessRight;
 import com.alcity.service.customexception.ALCityResponseObject;
 import com.alcity.service.customexception.UniqueConstraintException;
@@ -28,10 +35,8 @@ public class AppMemberController {
 
     @Autowired
     private AppMemberService appMemberService;
-
-//    @Autowired
-//    private BCryptPasswordEncoder passwordEncoder;
-
+    @Autowired
+    private JourneyService journeyService;
 
     @GetMapping("/all")
     @CrossOrigin(origins = "*")
@@ -46,9 +51,42 @@ public class AppMemberController {
     @CrossOrigin(origins = "*")
     public AppMemberDTO getApplicationMemberById(@PathVariable Long id) {
         Optional<AppMember> member = appMemberService.findById(id);
-         AppMemberDTO dto = DTOUtil.getAppMemberDTO(member.get());
+        AppMemberDTO dto = DTOUtil.getAppMemberDTO(member.get());
         return dto;
     }
+
+    @Operation( summary = "Get all journeys for an Application Member and scores",  description = "get all journeys for an Application Member and scores ...")
+    @RequestMapping(value = "/id/{id}/jourenys", method = RequestMethod.GET)
+    @ResponseBody
+    @CrossOrigin(origins = "*")
+    public Collection<AppMemberJourneysDTO> getApplicationMemberJourneysById(@PathVariable Long id) {
+        Optional<AppMember> memberOptional = appMemberService.findById(id);
+        Collection<Journey> journeys = journeyService.findAll();
+        Collection<AppMemberJourneysDTO> dtos = appMemberService.getAppMemberJourneysByScores(memberOptional.get(),journeys);
+        return dtos;
+    }
+    @Operation( summary = "Get play history for an Application Member",  description = "get all play history for an Application Member ...")
+    @RequestMapping(value = "/id/{id}/playhistory", method = RequestMethod.GET)
+    @ResponseBody
+    @CrossOrigin(origins = "*")
+    public Collection<PlayHistoryDTO> getApplicationMemberPlayHistoryById(@PathVariable Long id) {
+        Optional<AppMember> memberOptional = appMemberService.findById(id);
+        Collection<PlayHistory>  histories= memberOptional.get().getPlayHistories();
+        Collection<PlayHistoryDTO> dtos = DTOUtil.getPlayHistoryDTOS(histories);
+        return dtos;
+    }
+
+    @Operation( summary = "Get a journey information for an Application Member and scores",  description = "get a journey for an Application Member and scores ...")
+    @RequestMapping(value = "/id/{id}/joureny/jid/{jid}", method = RequestMethod.GET)
+    @ResponseBody
+    @CrossOrigin(origins = "*")
+    public AppMemberJourneyDTO getApplicationMemberJourneyById(@PathVariable Long id,@PathVariable Long jid) {
+        Optional<AppMember> memberOptional = appMemberService.findById(id);
+        Optional<Journey> journeyOptional = journeyService.findById(jid);
+        AppMemberJourneyDTO dto = appMemberService.getAppMemberJourneyByScore(memberOptional.get(),journeyOptional.get());
+        return dto;
+    }
+
     @Operation( summary = "delete an  Application Member ",  description = "delete an Application Member .....")
     @DeleteMapping("/del/id/{id}")
     @CrossOrigin(origins = "*")
