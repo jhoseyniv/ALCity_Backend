@@ -25,6 +25,17 @@ public class PLDTO {
     private Float firstMaxScore;
     private Float secondMaxScore;
     private Float thirdMaxScore;
+    private Long puzzleGroupId;
+
+    private String puzzleGroupTitle;
+
+    public String getPuzzleGroupTitle() {
+        return puzzleGroupTitle;
+    }
+
+    public void setPuzzleGroupTitle(String puzzleGroupTitle) {
+        this.puzzleGroupTitle = puzzleGroupTitle;
+    }
 
     public Float getFirstMaxScore() {
         return firstMaxScore;
@@ -50,7 +61,6 @@ public class PLDTO {
         this.thirdMaxScore = thirdMaxScore;
     }
 
-    private Long puzzleGroupId;
 
     private String puzzleLevelStatus;
 
@@ -282,7 +292,7 @@ public class PLDTO {
     }
 
     public PLDTO(Long id, Long version, String created, String updated, String createdBy, String updatedBy, Long createdById, Long updatedById,
-                 String approveDate, Long ordering, String title, String code, Integer fromAge, Integer toAge, Float maxScore,Float firstMaxScore ,Float secondMaxScore,Float thirdMaxScore,String puzzleLevelStatus, String puzzleLevelPrivacy, String puzzleLevelDifficulty) {
+                 String approveDate,Long puzzleGroupId,String puzzleGroupTitle, Long ordering, String title, String code, Integer fromAge, Integer toAge, Float maxScore,Float firstMaxScore ,Float secondMaxScore,Float thirdMaxScore,String puzzleLevelStatus, String puzzleLevelPrivacy, String puzzleLevelDifficulty) {
         this.id = id;
         this.version = version;
         this.created = created;
@@ -294,6 +304,9 @@ public class PLDTO {
         this.approveDate = approveDate;
         this.ordering = ordering;
         this.title = title;
+        this.approveDate =approveDate;
+        this.puzzleGroupId = puzzleGroupId;
+        this.puzzleGroupTitle = puzzleGroupTitle;
         this.code = code;
         this.fromAge = fromAge;
         this.toAge = toAge;

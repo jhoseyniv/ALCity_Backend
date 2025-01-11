@@ -175,7 +175,7 @@ public class ImportBaseData implements CommandLineRunner {
         BinaryContent avatar_content_1 = new BinaryContent(1L, now, now,null , null,"avatar",avatar.length,avatar,tumb,"tag1","tag2","tag3",BinaryContentType.Image);
         binaryContentService.save(avatar_content_1);
 
-        AppMember admin_1= new AppMember(35,"admin","admin","admin0","0912350550","j_hoseyni@yahoo.com",avatar_content_1,
+        AppMember admin_1= new AppMember(14,"admin","admin","admin0","0912350550","j_hoseyni@yahoo.com",avatar_content_1,
                 UserGender.Male,administrator,1L,now,now,null,null);
         Set clientTypeSet = new HashSet<ClientType>();
         clientTypeSet.add(web);
@@ -189,20 +189,20 @@ public class ImportBaseData implements CommandLineRunner {
         no_photo_avatar.setUpdatedBy(admin_1);
         binaryContentService.save(no_photo_avatar);
 
-        AppMember jalalHoseyni= new AppMember(35,"jalal","jalal","jalal","0912350550","j_hoseyni@yahoo.com",avatar_content_1,UserGender.Male,guest,1L,now,now,null,null);
+        AppMember jalalHoseyni= new AppMember(10,"jalal","jalal","jalal","0912350550","j_hoseyni@yahoo.com",avatar_content_1,UserGender.Male,guest,1L,now,now,null,null);
         Set jalalClientTypeSet = new HashSet<ClientType>();
         jalalClientTypeSet.add(mobile);
         jalalHoseyni.setClientTypeSet(jalalClientTypeSet);
         appMemberService.save(jalalHoseyni);
 
-        AppMember Moslem_Balavandi= new AppMember(35,"moslem","moslem","moslem","0912350550","balavandi@gmail.com",avatar_content_1,UserGender.Male,guest,1L,now,now,null,null);
+        AppMember Moslem_Balavandi= new AppMember(15,"moslem","moslem","moslem","0912350550","balavandi@gmail.com",avatar_content_1,UserGender.Male,guest,1L,now,now,null,null);
         Set moslem_ClientTypeSet = new HashSet<ClientType>();
         moslem_ClientTypeSet.add(mobile);
         moslem_ClientTypeSet.add(web);
         Moslem_Balavandi.setClientTypeSet(moslem_ClientTypeSet);
         appMemberService.save(Moslem_Balavandi);
 
-        AppMember alireza_zarei= new AppMember(35,"alireza","alireza","alireza","0912350550","zare@sharif.edu",avatar_content_1,UserGender.Male,guest,1L,now,now,null,null);
+        AppMember alireza_zarei= new AppMember(20,"alireza","alireza","alireza","0912350550","zare@sharif.edu",avatar_content_1,UserGender.Male,guest,1L,now,now,null,null);
         Set alireza_ClientTypeSet = new HashSet<ClientType>();
         alireza_ClientTypeSet.add(mobile);
         alireza_ClientTypeSet.add(web);
@@ -435,6 +435,7 @@ public class ImportBaseData implements CommandLineRunner {
         journeyService.save(journey_1);
         journeyService.save(journey_2);
         journeyService.save(journey_3);
+
 
         JourneyLearningSkill journey_1_Skill_1 = new JourneyLearningSkill(0.5f,journey_1,timeManagement,1L,now,now,admin_1,admin_1);
         JourneyLearningSkill journey_1_Skill_2 = new JourneyLearningSkill(0.5f,journey_1,division,1L,now,now,admin_1,admin_1);

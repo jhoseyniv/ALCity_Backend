@@ -43,33 +43,34 @@ public class DTOUtil {
 
 
 
-    public static PLDTO getPuzzleLevelDTO(PuzzleLevel pl) {
-        PLDTO plDTO = new PLDTO();
+    public static PLDTO getPuzzleLevelDTO(PuzzleLevel entity) {
+        PLDTO dto = new PLDTO();
 
-        plDTO.setId(pl.getId());
-        plDTO.setVersion(pl.getVersion());
-        plDTO.setCode(pl.getCode());
-        plDTO.setApproveDate(pl.getApproveDate());
-        plDTO.setTitle(pl.getTitle());
-        plDTO.setToAge(pl.getToAge());
-        plDTO.setFromAge(pl.getFromAge());
-        plDTO.setOrdering(pl.getOrdering());
-        plDTO.setMaxScore(pl.getMaxScore());
-        plDTO.setPuzzleGroupId(pl.getPuzzleGroup().getId());
-        plDTO.setUpdated(pl.getUpdated());
-        plDTO.setCreated(pl.getCreated());
-        plDTO.setCreatedBy(pl.getCreatedBy().getUsername());
-        plDTO.setUpdatedBy(pl.getUpdatedBy().getUsername());
-        plDTO.setCreatedById(pl.getCreatedBy().getId());
-        plDTO.setUpdatedById(pl.getUpdatedBy().getId());
+        dto.setId(entity.getId());
+        dto.setVersion(entity.getVersion());
+        dto.setCode(entity.getCode());
+        dto.setApproveDate(entity.getApproveDate());
+        dto.setTitle(entity.getTitle());
+        dto.setToAge(entity.getToAge());
+        dto.setFromAge(entity.getFromAge());
+        dto.setOrdering(entity.getOrdering());
+        dto.setMaxScore(entity.getMaxScore());
+        dto.setPuzzleGroupId(entity.getPuzzleGroup().getId());
+        dto.setPuzzleGroupTitle(entity.getPuzzleGroup().getTitle());
+        dto.setUpdated(entity.getUpdated());
+        dto.setCreated(entity.getCreated());
+        dto.setCreatedBy(entity.getCreatedBy().getUsername());
+        dto.setUpdatedBy(entity.getUpdatedBy().getUsername());
+        dto.setCreatedById(entity.getCreatedBy().getId());
+        dto.setUpdatedById(entity.getUpdatedBy().getId());
 
-        plDTO.setPuzzleLevelDifficulty(pl.getPuzzleDifficulty().toString());
-        plDTO.setPuzzleLevelPrivacy(pl.getPuzzleLevelPrivacy().getLabel());
-        plDTO.setPuzzleLevelStatus(pl.getPuzzleLevelStatus().toString());
-        plDTO.setIconId(pl.getIcon().getId());
-        plDTO.setPicId(pl.getPicture().getId());
+        dto.setPuzzleLevelDifficulty(entity.getPuzzleDifficulty().toString());
+        dto.setPuzzleLevelPrivacy(entity.getPuzzleLevelPrivacy().getLabel());
+        dto.setPuzzleLevelStatus(entity.getPuzzleLevelStatus().toString());
+        dto.setIconId(entity.getIcon().getId());
+        dto.setPicId(entity.getPicture().getId());
 
-        return plDTO;
+        return dto;
     }
 
     public static PLDTO getPuzzleLevelDTO(Optional<PuzzleLevel> puzzleLevelOptional) {
@@ -99,6 +100,14 @@ public class DTOUtil {
         AttributeValueDTO valueDTO= new AttributeValueDTO(value.getId(),value.getBooleanValue(), value.getLongValue(), value.getDoubleValue(),
                         value.getIntValue(), value.getBinaryContentId() ,value.getStringValue(),value.getObjectValue(),value.getAttributeId().getId() );
         return valueDTO;
+    }
+    public static PuzzleLevelStepMappingDTO puzzleLevelJourneyStepMapping(PuzzleLevel pl, JourneyStep journeyStep) {
+        PuzzleLevelStepMappingDTO dto = new PuzzleLevelStepMappingDTO();
+            PLDTO pldto = DTOUtil.getPuzzleLevelDTO(pl);
+            JourneyStepDTO journeyStepDTO = DTOUtil.getJorenyStepsDTO(journeyStep);
+            dto.setJourneyStepDTO(journeyStepDTO);
+            dto.setPldto(pldto);
+        return dto;
     }
     public static Collection<AttributeValueDTO> getAttributesValueDTOS(Collection<AttributeValue> input) {
         Collection<AttributeValueDTO> output = new ArrayList<AttributeValueDTO>();
@@ -534,6 +543,18 @@ public class DTOUtil {
             dtos.add(dto);
         }
         return dtos;
+    }
+    public static AppMemberJourneyDTO getAppmemberJourneyDTO(Journey entity) {
+        AppMemberJourneyDTO dto = new AppMemberJourneyDTO();
+        dto.setJourneyId(entity.getId());
+        dto.setOpen(false);
+        dto.setCurrentStar(-1);
+        dto.setMinStar(entity.getMinStar());
+        dto.setMaxStar(entity.getMaxStar());
+        dto.setTitle(entity.getTitle());
+        dto.setTitle(entity.getTitle());
+        dto.setIconId(entity.getGraphic().getId());
+        return dto;
     }
 
     public static Collection<JourneyDTO> getJourneyDTOSByUser(Collection<Journey> journeyCollection) {

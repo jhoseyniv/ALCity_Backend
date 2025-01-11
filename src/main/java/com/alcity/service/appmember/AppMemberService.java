@@ -1,7 +1,7 @@
 package com.alcity.service.appmember;
 
+import com.alcity.dto.appmember.AppMemberJourneyDetailDTO;
 import com.alcity.dto.appmember.AppMemberJourneyDTO;
-import com.alcity.dto.appmember.AppMemberJourneysDTO;
 import com.alcity.entity.journey.Journey;
 import com.alcity.entity.journey.JourneyStep;
 import com.alcity.entity.play.PlayHistory;
@@ -20,13 +20,14 @@ import com.alcity.repository.appmember.CustomizedUserRepository;
 import com.alcity.repository.appmember.WalletItemRespository;
 import com.alcity.repository.base.BinaryContentRepository;
 import com.alcity.repository.base.MemberTypeRepository;
-import com.alcity.service.play.PlayHistoryService;
+import com.alcity.utility.DTOUtil;
 import com.alcity.utility.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.Optional;
 
 @Service
@@ -50,13 +51,19 @@ public class AppMemberService implements AppMemberRepository, CustomizedUserRepo
 //    private PlayHistoryService playHistoryService;
 
 
-    public Collection<AppMemberJourneysDTO> getAppMemberJourneysByScores(AppMember member, Collection<Journey> journeys) {
-        Collection<AppMemberJourneysDTO> dtos = new ArrayList<AppMemberJourneysDTO>();
-        Collection<PlayHistory> playHistories = member.getPlayHistories();
+    public Collection<AppMemberJourneyDTO> getAppMemberJourneysByScores(AppMember member, Collection<Journey> journeys) {
+        Collection<AppMemberJourneyDTO> dtos = new ArrayList<AppMemberJourneyDTO>();
+        //Collection<PlayHistory> playHistories = member.getPlayHistories();
+        Iterator<Journey>  itr = journeys.iterator();
+        while(itr.hasNext()) {
+            AppMemberJourneyDTO dto = new AppMemberJourneyDTO();
+            dto = DTOUtil.getAppmemberJourneyDTO(itr.next());
+            dtos.add(dto);
+        }
         return  dtos;
     }
-    public AppMemberJourneyDTO getAppMemberJourneyByScore(AppMember member, Journey journey) {
-        AppMemberJourneyDTO dto = new AppMemberJourneyDTO();
+    public AppMemberJourneyDetailDTO getAppMemberJourneyByScore(AppMember member, Journey journey) {
+        AppMemberJourneyDetailDTO dto = new AppMemberJourneyDetailDTO();
         Collection<JourneyStep> steps = journey.getJourneyStepCollection();
         Collection<PlayHistory>  histories= member.getPlayHistories();
 

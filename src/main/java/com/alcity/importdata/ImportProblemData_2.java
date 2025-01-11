@@ -17,6 +17,7 @@ import com.alcity.entity.appmember.AppMember;
 import com.alcity.entity.appmember.WalletItem;
 import com.alcity.repository.play.PermitedPlayerRepository;
 import com.alcity.service.Journey.JourneyService;
+import com.alcity.service.Journey.JourneyStepService;
 import com.alcity.service.alobject.*;
 import com.alcity.service.base.*;
 import com.alcity.service.learning.LearningContentService;
@@ -68,6 +69,9 @@ public class ImportProblemData_2 implements CommandLineRunner {
     WalletItemService walletItemService;
     @Autowired
     JourneyService journeyService;
+    @Autowired
+    JourneyStepService journeyStepService;
+
     @Autowired
     private PuzzleCategoryService puzzleCategoryService;
     @Autowired
@@ -154,7 +158,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
         puzzleGroupService.save(puzzleGroup_2);
 
         JourneyStep step_3_journey_1 = new JourneyStep("step_3_journey_1",1,30,30,journey_1.get(),puzzleGroup_2,1L,now,now,admin_1,admin_1);
-
+        journeyStepService.save(step_3_journey_1);
         PLPrivacy privacy_1 = puzzleLevelPrivacyService.findByValue("privacy1");
 
         PuzzleLevel puzzleLevel_Maze = new PuzzleLevel(now,1L,"Find shortest path from start to end in maze","4546",14,20,5f,0f,2f,3f,puzzleGroup_2, PLDifficulty.Medium, PLStatus.Not_Started,privacy_1,3L,now,now,admin_1,admin_1);

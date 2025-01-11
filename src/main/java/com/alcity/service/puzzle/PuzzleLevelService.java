@@ -1,10 +1,14 @@
 package com.alcity.service.puzzle;
 
+import com.alcity.dto.alobject.AttributeValueDTO;
 import com.alcity.dto.puzzle.PLDTO;
+import com.alcity.dto.puzzle.PuzzleLevelStepMappingDTO;
 import com.alcity.entity.alenum.PLDifficulty;
 import com.alcity.entity.alenum.PLStatus;
+import com.alcity.entity.alobject.AttributeValue;
 import com.alcity.entity.base.BinaryContent;
 import com.alcity.entity.base.PLPrivacy;
+import com.alcity.entity.journey.JourneyStep;
 import com.alcity.entity.puzzle.PuzzleGroup;
 import com.alcity.entity.puzzle.PuzzleLevel;
 import com.alcity.entity.appmember.AppMember;
@@ -12,14 +16,13 @@ import com.alcity.repository.base.PLPrivacyRepository;
 import com.alcity.repository.puzzle.PGRepository;
 import com.alcity.repository.puzzle.PuzzleLevelRepository;
 import com.alcity.repository.appmember.AppMemberRepository;
+import com.alcity.utility.DTOUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import org.springframework.transaction.annotation.Transactional;;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -29,6 +32,7 @@ public class PuzzleLevelService implements PuzzleLevelRepository {
 
     @Autowired
     PuzzleLevelRepository puzzleLevelRepository;
+
     @Override
     public <S extends PuzzleLevel> S save(S entity) {
         return puzzleLevelRepository.save(entity);
@@ -49,13 +53,32 @@ public class PuzzleLevelService implements PuzzleLevelRepository {
     public Collection<PuzzleLevel> findAll() {
         return puzzleLevelRepository.findAll();
     }
-    public Collection<PuzzleLevel> findAllByAge(Integer age) {
+    public Collection<PuzzleLevel> findAllMatchesToAge(Integer age) {
         Collection<PuzzleLevel> puzzleLevels = puzzleLevelRepository.findAll();
-
         Collection<PuzzleLevel> newpuzzleLevels =puzzleLevels.stream().filter(puzzleLevel -> puzzleLevel.getFromAge() <= age && age <= puzzleLevel.getToAge()).collect(Collectors.toList());
+       // getJourneyStepsMatchWithPuzzleLvels(newpuzzleLevels);
         return newpuzzleLevels;
     }
+    public JourneyStep getFirstItem(Collection<JourneyStep> steps){
+        Iterator<JourneyStep> itr = steps.iterator();
+        if(itr.hasNext())  return itr.next();
+        return  null;
+    }
+    public Collection<PuzzleLevelStepMappingDTO> getJourneyStepsMatchWithPuzzleLvels(Collection<PuzzleLevel> puzzleLevels) {
+        Collection<PuzzleLevelStepMappingDTO> puzzleLevelStepMappingDTOS = new ArrayList<>();
+        Iterator<PuzzleLevel> itr = puzzleLevels.iterator();
+        while (itr.hasNext()) {
+            PuzzleLevel puzzleLevel = itr.next();
+            PuzzleGroup puzzleGroup = puzzleLevel.getPuzzleGroup();
 
+            Collection<JourneyStep> steps = puzzleGroup.getJourneyStepCollection();
+            JourneyStep step = getFirstItem(steps);
+            PuzzleLevelStepMappingDTO  dto =  DTOUtil.puzzleLevelJourneyStepMapping(puzzleLevel,step) ;
+            puzzleLevelStepMappingDTOS.add(dto);
+        }
+
+        return  puzzleLevelStepMappingDTOS;
+    }
     @Override
     public Collection<PuzzleLevel> findByTitle(String title) {
         return puzzleLevelRepository.findByTitle(title);

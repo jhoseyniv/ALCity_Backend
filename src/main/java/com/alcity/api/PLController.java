@@ -1,5 +1,7 @@
 package com.alcity.api;
 
+import com.alcity.entity.appmember.AppMember;
+import com.alcity.service.appmember.AppMemberService;
 import com.alcity.service.customexception.ALCityResponseObject;
 import com.alcity.service.customexception.UniqueConstraintException;
 import com.alcity.service.customexception.ViolateForeignKeyException;
@@ -23,6 +25,9 @@ import java.util.*;
 public class PLController {
     @Autowired
     private PuzzleLevelService puzzleLevelService;
+    @Autowired
+    private AppMemberService appMemberService;
+
     @Operation( summary = "Fetch all puzzle level data ",  description = "fetches all data for all puzzle level structure ")
     @GetMapping("/all")
     @CrossOrigin(origins = "*")
@@ -54,8 +59,20 @@ public class PLController {
     @CrossOrigin(origins = "*")
     public Collection<PLDTO> getPuzzleLevelsForAUserByAge(@PathVariable Integer age) {
         Collection<PLDTO> dtos= new ArrayList<>();
-        Collection<PuzzleLevel> puzzleLevels = puzzleLevelService.findAllByAge(age);
-        dtos = DTOUtil.getPuzzleLevelDTOS(puzzleLevels);
+        Collection<PuzzleLevel> matchesToAge = puzzleLevelService.findAllMatchesToAge(age);
+        dtos = DTOUtil.getPuzzleLevelDTOS(matchesToAge);
+        return dtos;
+    }
+
+    @Operation( summary = "Fetch all puzzle levels matches with journey steps ",  description = "Fetch all puzzle levels matches with journey steps")
+    @RequestMapping(value = "/user/id/{id}", method = RequestMethod.GET)
+    @ResponseBody
+    @CrossOrigin(origins = "*")
+    public Collection<PuzzleLevelStepMappingDTO> getJourneyStepsMatchWithPuzzleLvels(@PathVariable Long id) {
+        Optional<AppMember > memberOptional = appMemberService.findById(id);
+        Collection<PuzzleLevel> matchesToAge = puzzleLevelService.findAllMatchesToAge(memberOptional.get().getAge());
+
+        Collection<PuzzleLevelStepMappingDTO> dtos = puzzleLevelService.getJourneyStepsMatchWithPuzzleLvels(matchesToAge);
         return dtos;
     }
 

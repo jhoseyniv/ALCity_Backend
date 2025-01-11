@@ -1,23 +1,21 @@
 package com.alcity.dto.appmember;
 
-import java.util.Collection;
-
 public class AppMemberJourneyDTO {
-    private Long id;
+    private Long journeyId;
     private String title;
-    private Long passedImageId;
-    private Long currentImageId;
-    private Long lockedImageId;
+    private Boolean isOpen;
+    private Long  iconId;
+    private Integer  maxStar;
+    private Integer  minStar;
+    private Integer  currentStar;
+    private Long appMemberId;
 
-    private Collection<RoadMapDTO> roadMapDTOS;
-    private Collection<AppMemberJourneyStepDTO> journeyStepsDTO;
-
-    public Long getId() {
-        return id;
+    public Long getJourneyId() {
+        return journeyId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setJourneyId(Long journeyId) {
+        this.journeyId = journeyId;
     }
 
     public String getTitle() {
@@ -28,57 +26,65 @@ public class AppMemberJourneyDTO {
         this.title = title;
     }
 
-    public Collection<RoadMapDTO> getRoadMapDTOS() {
-        return roadMapDTOS;
+    public Boolean getOpen() {
+        return isOpen;
     }
 
-    public void setRoadMapDTOS(Collection<RoadMapDTO> roadMapDTOS) {
-        this.roadMapDTOS = roadMapDTOS;
+    public void setOpen(Boolean open) {
+        isOpen = open;
     }
 
-    public Collection<AppMemberJourneyStepDTO> getJourneyStepsDTO() {
-        return journeyStepsDTO;
+    public Long getIconId() {
+        return iconId;
     }
 
-    public void setJourneyStepsDTO(Collection<AppMemberJourneyStepDTO> journeyStepsDTO) {
-        this.journeyStepsDTO = journeyStepsDTO;
+    public void setIconId(Long iconId) {
+        this.iconId = iconId;
     }
 
-    public Long getPassedImageId() {
-        return passedImageId;
+    public Integer getMaxStar() {
+        return maxStar;
     }
 
-    public void setPassedImageId(Long passedImageId) {
-        this.passedImageId = passedImageId;
+    public void setMaxStar(Integer maxStar) {
+        this.maxStar = maxStar;
     }
 
-    public Long getCurrentImageId() {
-        return currentImageId;
+    public Integer getMinStar() {
+        return minStar;
     }
 
-    public void setCurrentImageId(Long currentImageId) {
-        this.currentImageId = currentImageId;
+    public void setMinStar(Integer minStar) {
+        this.minStar = minStar;
     }
 
-    public Long getLockedImageId() {
-        return lockedImageId;
+    public Integer getCurrentStar() {
+        return currentStar;
     }
 
-    public void setLockedImageId(Long lockedImageId) {
-        this.lockedImageId = lockedImageId;
+    public void setCurrentStar(Integer currentStar) {
+        this.currentStar = currentStar;
+    }
+
+    public Long getAppMemberId() {
+        return appMemberId;
+    }
+
+    public void setAppMemberId(Long appMemberId) {
+        this.appMemberId = appMemberId;
     }
 
     public AppMemberJourneyDTO() {
     }
 
-    public AppMemberJourneyDTO(Long id, String title, Long passedImageId, Long currentImageId, Long lockedImageId,
-                               Collection<RoadMapDTO> roadMapDTOS, Collection<AppMemberJourneyStepDTO> journeyStepsDTO) {
-        this.id = id;
+    public AppMemberJourneyDTO(Long journeyId, String title, Boolean isOpen, Long iconId, Integer maxStar, Integer minStar, Integer currentStar, Long appMemberId) {
+        this.journeyId = journeyId;
         this.title = title;
-        this.passedImageId = passedImageId;
-        this.currentImageId = currentImageId;
-        this.lockedImageId = lockedImageId;
-        this.roadMapDTOS = roadMapDTOS;
-        this.journeyStepsDTO = journeyStepsDTO;
+        this.isOpen = isOpen;
+        this.iconId = iconId;
+        this.maxStar = maxStar;
+        this.minStar = minStar;
+        this.currentStar = currentStar;
+        this.appMemberId = appMemberId;
     }
 }
