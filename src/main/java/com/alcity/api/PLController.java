@@ -53,6 +53,17 @@ public class PLController {
         return pldto;
     }
 
+    @Operation( summary = "Fetch  step and journey mapped by a puzzle level by Id ",  description = "fetches all data for a puzzle level ")
+    @RequestMapping(value = "/id/{id}/step", method = RequestMethod.GET)
+    @ResponseBody
+    @CrossOrigin(origins = "*")
+    public PuzzleLevelStepMappingDTO getPuzzleLevelStepById(@PathVariable Long id) {
+        PuzzleLevelStepMappingDTO dto= new PuzzleLevelStepMappingDTO();
+        Optional<PuzzleLevel> puzzleLevelOptional = puzzleLevelService.findById(id);
+        dto = puzzleLevelService.getJourneyStepMappedWithPuzzleLevel(puzzleLevelOptional.get());
+        return dto;
+    }
+
     @Operation( summary = "Fetch all puzzle levels for a user by age ",  description = "fetches all data for a puzzle level ")
     @RequestMapping(value = "/age/{age}", method = RequestMethod.GET)
     @ResponseBody

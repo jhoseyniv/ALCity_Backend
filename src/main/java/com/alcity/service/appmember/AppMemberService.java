@@ -2,6 +2,8 @@ package com.alcity.service.appmember;
 
 import com.alcity.dto.appmember.AppMemberJourneyDetailDTO;
 import com.alcity.dto.appmember.AppMemberJourneyDTO;
+import com.alcity.dto.journey.JourneyStepDTO;
+import com.alcity.dto.player.PlayHistoryDTO;
 import com.alcity.entity.journey.Journey;
 import com.alcity.entity.journey.JourneyStep;
 import com.alcity.entity.play.PlayHistory;
@@ -20,11 +22,12 @@ import com.alcity.repository.appmember.CustomizedUserRepository;
 import com.alcity.repository.appmember.WalletItemRespository;
 import com.alcity.repository.base.BinaryContentRepository;
 import com.alcity.repository.base.MemberTypeRepository;
+import com.alcity.service.puzzle.PuzzleLevelService;
 import com.alcity.utility.DTOUtil;
 import com.alcity.utility.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;;
+import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
@@ -47,25 +50,37 @@ public class AppMemberService implements AppMemberRepository, CustomizedUserRepo
     @Autowired
     private WalletItemRespository walletItemRespository;
 
-//    @Autowired
-//    private PlayHistoryService playHistoryService;
+    @Autowired
+    private PuzzleLevelService puzzleLevelService;
 
 
     public Collection<AppMemberJourneyDTO> getAppMemberJourneysByScores(AppMember member, Collection<Journey> journeys) {
         Collection<AppMemberJourneyDTO> dtos = new ArrayList<AppMemberJourneyDTO>();
-        //Collection<PlayHistory> playHistories = member.getPlayHistories();
+        Collection<PlayHistory> histories = member.getPlayHistories();
+        Collection<PlayHistoryDTO> historyDTOS = DTOUtil.getPlayHistoryDTOS(histories);
         Iterator<Journey>  itr = journeys.iterator();
         while(itr.hasNext()) {
             AppMemberJourneyDTO dto = new AppMemberJourneyDTO();
-            dto = DTOUtil.getAppmemberJourneyDTO(itr.next());
+            dto = DTOUtil.getAppmemberJourneyDTO(member,itr.next());
             dtos.add(dto);
         }
         return  dtos;
     }
+    public AppMemberJourneyDTO getJourneyScoresForAppMember(AppMember member, Journey journey) {
+        Collection<PlayHistory> histories = member.getPlayHistories();
+        Collection<PlayHistoryDTO> historyDTOS = DTOUtil.getPlayHistoryDTOS(histories);
+        Collection<JourneyStepDTO> journeyStepDTOS = DTOUtil.getJorenyStepsDTOS(journey.getJourneyStepCollection());
+        AppMemberJourneyDTO dto = new AppMemberJourneyDTO();
+        //puzzleLevelService.getJourneyStepMappedWithPuzzleLevel()
+        dto = DTOUtil.getAppmemberJourneyDTO(member,journey);
+    return  dto;
+    }
+
     public AppMemberJourneyDetailDTO getAppMemberJourneyByScore(AppMember member, Journey journey) {
         AppMemberJourneyDetailDTO dto = new AppMemberJourneyDetailDTO();
         Collection<JourneyStep> steps = journey.getJourneyStepCollection();
         Collection<PlayHistory>  histories= member.getPlayHistories();
+        Collection<PlayHistoryDTO> historyDTOS = DTOUtil.getPlayHistoryDTOS(histories);
 
         return  dto;
     }

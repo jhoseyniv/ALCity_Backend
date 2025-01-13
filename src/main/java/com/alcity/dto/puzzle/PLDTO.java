@@ -22,9 +22,9 @@ public class PLDTO {
     private Integer fromAge;
     private Integer toAge;
     private Float maxScore;
-    private Float firstMaxScore;
-    private Float secondMaxScore;
-    private Float thirdMaxScore;
+    private Float firstStarScore;
+    private Float secondStarScore;
+    private Float thirdStartScore;
     private Long puzzleGroupId;
 
     private String puzzleGroupTitle;
@@ -36,31 +36,6 @@ public class PLDTO {
     public void setPuzzleGroupTitle(String puzzleGroupTitle) {
         this.puzzleGroupTitle = puzzleGroupTitle;
     }
-
-    public Float getFirstMaxScore() {
-        return firstMaxScore;
-    }
-
-    public void setFirstMaxScore(Float firstMaxScore) {
-        this.firstMaxScore = firstMaxScore;
-    }
-
-    public Float getSecondMaxScore() {
-        return secondMaxScore;
-    }
-
-    public void setSecondMaxScore(Float secondMaxScore) {
-        this.secondMaxScore = secondMaxScore;
-    }
-
-    public Float getThirdMaxScore() {
-        return thirdMaxScore;
-    }
-
-    public void setThirdMaxScore(Float thirdMaxScore) {
-        this.thirdMaxScore = thirdMaxScore;
-    }
-
 
     private String puzzleLevelStatus;
 
@@ -165,6 +140,30 @@ public class PLDTO {
 
     public void setMaxScore(Float maxScore) {
         this.maxScore = maxScore;
+    }
+
+    public Float getFirstStarScore() {
+        return firstStarScore;
+    }
+
+    public void setFirstStarScore(Float firstStarScore) {
+        this.firstStarScore = firstStarScore;
+    }
+
+    public Float getSecondStarScore() {
+        return secondStarScore;
+    }
+
+    public void setSecondStarScore(Float secondStarScore) {
+        this.secondStarScore = secondStarScore;
+    }
+
+    public Float getThirdStartScore() {
+        return thirdStartScore;
+    }
+
+    public void setThirdStartScore(Float thirdStartScore) {
+        this.thirdStartScore = thirdStartScore;
     }
 
     private Collection<PLObjectiveDTO> puzzleLevelObjectiveDTOCollection;
@@ -292,7 +291,7 @@ public class PLDTO {
     }
 
     public PLDTO(Long id, Long version, String created, String updated, String createdBy, String updatedBy, Long createdById, Long updatedById,
-                 String approveDate,Long puzzleGroupId,String puzzleGroupTitle, Long ordering, String title, String code, Integer fromAge, Integer toAge, Float maxScore,Float firstMaxScore ,Float secondMaxScore,Float thirdMaxScore,String puzzleLevelStatus, String puzzleLevelPrivacy, String puzzleLevelDifficulty) {
+                 String approveDate,Long puzzleGroupId,String puzzleGroupTitle, Long ordering, String title, String code, Integer fromAge, Integer toAge, Float maxScore,Float firstStarScore ,Float secondStarScore,Float thirdStarScore,String puzzleLevelStatus, String puzzleLevelPrivacy, String puzzleLevelDifficulty) {
         this.id = id;
         this.version = version;
         this.created = created;
@@ -311,9 +310,9 @@ public class PLDTO {
         this.fromAge = fromAge;
         this.toAge = toAge;
         this.maxScore = maxScore;
-        this.firstMaxScore = firstMaxScore;
-        this.secondMaxScore =secondMaxScore;
-        this.thirdMaxScore = thirdMaxScore;
+        this.firstStarScore = firstStarScore;
+        this.secondStarScore =secondStarScore;
+        this.thirdStartScore = thirdStartScore;
         this.puzzleLevelStatus = puzzleLevelStatus;
         this.puzzleLevelPrivacy = puzzleLevelPrivacy;
         this.puzzleLevelDifficulty = puzzleLevelDifficulty;

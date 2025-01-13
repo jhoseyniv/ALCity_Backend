@@ -65,7 +65,7 @@ public class LearningTopicService implements LearningTopicRepository {
  public LearningTopic save(LearningTopicDTO dto, String code) {
   AppMember createdBy = appMemberRepository.findByUsername("admin");
   LearningTopic learningTopic=null;
-  Optional<LearningTopic> learningTopicParent= learningTopicRepository.findByTitle(dto.getParentTitle());
+  Optional<LearningTopic> learningTopicParent= learningTopicRepository.findById(dto.getParentId());
   if (code.equalsIgnoreCase("Save")) { //Save
    learningTopic = new LearningTopic(dto.getTitle(), learningTopicParent.get(), 1L,
            DateUtils.getNow(), DateUtils.getNow(), createdBy, createdBy);

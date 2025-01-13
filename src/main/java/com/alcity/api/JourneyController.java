@@ -141,7 +141,7 @@ public class JourneyController {
         return ResponseEntity.notFound().build();
     }
 
-    @Operation( summary = "Get all Journey steps for a Journey ",  description = "Get all Journey steps")
+    @Operation( summary = "Get all steps for a Journey ",  description = "Get all steps")
     @RequestMapping(value = "/id/{id}/step/all", method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin(origins = "*")

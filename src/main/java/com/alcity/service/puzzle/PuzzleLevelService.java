@@ -64,6 +64,7 @@ public class PuzzleLevelService implements PuzzleLevelRepository {
         if(itr.hasNext())  return itr.next();
         return  null;
     }
+
     public Collection<PuzzleLevelStepMappingDTO> getJourneyStepsMatchWithPuzzleLvels(Collection<PuzzleLevel> puzzleLevels) {
         Collection<PuzzleLevelStepMappingDTO> puzzleLevelStepMappingDTOS = new ArrayList<>();
         Iterator<PuzzleLevel> itr = puzzleLevels.iterator();
@@ -79,6 +80,16 @@ public class PuzzleLevelService implements PuzzleLevelRepository {
 
         return  puzzleLevelStepMappingDTOS;
     }
+
+    public PuzzleLevelStepMappingDTO getJourneyStepMappedWithPuzzleLevel(PuzzleLevel puzzleLevel) {
+            PuzzleGroup puzzleGroup = puzzleLevel.getPuzzleGroup();
+            Collection<JourneyStep> steps = puzzleGroup.getJourneyStepCollection();
+            JourneyStep step = getFirstItem(steps);
+            PuzzleLevelStepMappingDTO  dto =  DTOUtil.puzzleLevelJourneyStepMapping(puzzleLevel,step) ;
+        return  dto;
+    }
+
+
     @Override
     public Collection<PuzzleLevel> findByTitle(String title) {
         return puzzleLevelRepository.findByTitle(title);
@@ -151,7 +162,7 @@ public class PuzzleLevelService implements PuzzleLevelRepository {
     @Autowired
     private PGRepository pgRepository;
 
-    public PuzzleLevel save(PLDTO dto, String code) {
+        public PuzzleLevel save(PLDTO dto, String code) {
         AppMember createdBy = appMemberRepository.findByUsername("admin");
         PuzzleLevel puzzleLevel=null;
         PLDifficulty plDifficulty =  PLDifficulty.getByTitle(dto.getPuzzleLevelDifficulty());
@@ -164,7 +175,7 @@ public class PuzzleLevelService implements PuzzleLevelRepository {
 
         if (code.equalsIgnoreCase("Save")) { //Save
             puzzleLevel = new PuzzleLevel(dto.getApproveDate(), dto.getOrdering(), dto.getTitle(),dto.getCode(),dto.getFromAge(),dto.getToAge(),
-                                dto.getMaxScore(), dto.getFirstMaxScore(), dto.getSecondMaxScore(), dto.getThirdMaxScore(), puzzleGroup,plDifficulty,plStatus,plPrivacy
+                                dto.getMaxScore(), dto.getFirstStarScore(), dto.getSecondStarScore(), dto.getThirdStartScore(), puzzleGroup,plDifficulty,plStatus,plPrivacy
                                     , 1L, "1714379790", "1714379790", createdBy, createdBy);
             puzzleLevelRepository.save(puzzleLevel);
         }else{//edit

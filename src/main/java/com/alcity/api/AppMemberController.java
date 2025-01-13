@@ -55,7 +55,7 @@ public class AppMemberController {
     }
 
     @Operation( summary = "Get all journeys for an Application Member with scores",  description = "get all journeys for an Application Member and scores ...")
-    @RequestMapping(value = "/id/{id}/jourenys", method = RequestMethod.GET)
+    @RequestMapping(value = "/id/{id}/journeys", method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin(origins = "*")
     public Collection<AppMemberJourneyDTO> getApplicationMemberJourneysById(@PathVariable Long id) {
@@ -63,6 +63,16 @@ public class AppMemberController {
         Collection<Journey> journeys = journeyService.findAll();
         Collection<AppMemberJourneyDTO> dtos = appMemberService.getAppMemberJourneysByScores(memberOptional.get(),journeys);
         return dtos;
+    }
+    @Operation( summary = "Get a journey for an Application Member with scores",  description = "get a journey for an Application Member and scores ...")
+    @RequestMapping(value = "/id/{id}/journey/jid/{jid}", method = RequestMethod.GET)
+    @ResponseBody
+    @CrossOrigin(origins = "*")
+    public AppMemberJourneyDTO getJourneyScoresForAppMemberById(@PathVariable Long id,@PathVariable Long jid) {
+        Optional<AppMember> memberOptional = appMemberService.findById(id);
+        Optional<Journey> journeyOptional = journeyService.findById(jid);
+        AppMemberJourneyDTO dto = appMemberService.getJourneyScoresForAppMember(memberOptional.get(),journeyOptional.get());
+        return dto;
     }
     @Operation( summary = "Get play history for an Application Member",  description = "get all play history for an Application Member ...")
     @RequestMapping(value = "/id/{id}/playhistory", method = RequestMethod.GET)

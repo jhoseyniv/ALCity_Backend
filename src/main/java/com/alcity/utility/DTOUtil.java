@@ -101,12 +101,31 @@ public class DTOUtil {
                         value.getIntValue(), value.getBinaryContentId() ,value.getStringValue(),value.getObjectValue(),value.getAttributeId().getId() );
         return valueDTO;
     }
-    public static PuzzleLevelStepMappingDTO puzzleLevelJourneyStepMapping(PuzzleLevel pl, JourneyStep journeyStep) {
+    public static PuzzleLevelStepMappingDTO puzzleLevelJourneyStepMapping(PuzzleLevel pl, JourneyStep step) {
         PuzzleLevelStepMappingDTO dto = new PuzzleLevelStepMappingDTO();
-            PLDTO pldto = DTOUtil.getPuzzleLevelDTO(pl);
-            JourneyStepDTO journeyStepDTO = DTOUtil.getJorenyStepsDTO(journeyStep);
-            dto.setJourneyStepDTO(journeyStepDTO);
-            dto.setPldto(pldto);
+        dto.setPlId(pl.getId());
+        dto.setPlTitle(pl.getTitle());
+        dto.setPlCode(pl.getCode());
+        dto.setPlApproveDate(pl.getApproveDate());
+        dto.setPlFromAge(pl.getFromAge());
+        dto.setPlToAge(pl.getToAge());
+        dto.setFirstStarScore(pl.getFirstStarScore());
+        dto.setSecondStarScore(pl.getSecondStarScore());
+        dto.setThirdStartScore(pl.getThirdStartScore());
+        dto.setPlMaxScore(pl.getMaxScore());
+        dto.setPlOrdering(pl.getOrdering());
+        dto.setPgId(pl.getPuzzleGroup().getId());
+        dto.setPgTitle(pl.getPuzzleGroup().getTitle());
+
+        dto.setStepId(step.getId());
+        dto.setStepTitle(step.getTitle());
+        dto.setStepOrdering(step.getOrdering());
+        dto.setStepXpos(step.getXpos());
+        dto.setStepYpos(step.getYpos());
+
+        dto.setJourneyId(step.getJourney().getId());
+        dto.setJourneyTitle(step.getJourney().getTitle());
+        dto.setJourneyOrdering(step.getJourney().getOrdering());
         return dto;
     }
     public static Collection<AttributeValueDTO> getAttributesValueDTOS(Collection<AttributeValue> input) {
@@ -544,14 +563,13 @@ public class DTOUtil {
         }
         return dtos;
     }
-    public static AppMemberJourneyDTO getAppmemberJourneyDTO(Journey entity) {
+    public static AppMemberJourneyDTO getAppmemberJourneyDTO(AppMember member ,Journey entity) {
         AppMemberJourneyDTO dto = new AppMemberJourneyDTO();
         dto.setJourneyId(entity.getId());
         dto.setOpen(false);
         dto.setCurrentStar(-1);
         dto.setMinStar(entity.getMinStar());
         dto.setMaxStar(entity.getMaxStar());
-        dto.setTitle(entity.getTitle());
         dto.setTitle(entity.getTitle());
         dto.setIconId(entity.getGraphic().getId());
         return dto;

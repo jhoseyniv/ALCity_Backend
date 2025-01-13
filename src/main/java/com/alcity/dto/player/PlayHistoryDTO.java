@@ -5,6 +5,7 @@ public class PlayHistoryDTO {
     private String playTime;
     private Integer playDuration;
     private Float playScore;
+    private Integer stars;
 
     private Long playerId;
     private String playerUsername;
@@ -13,6 +14,20 @@ public class PlayHistoryDTO {
     private String plTitle;
     private String plCode;
     private Float plMaxScore;
+
+    private Long pgId;
+
+    private String pgTitle;
+
+    private Long journeyId;
+
+    private  String journeyTitle;
+
+    private Long stepId;
+
+    private  String stepTitle;
+
+
 
     public Long getId() {
         return id;
@@ -94,19 +109,83 @@ public class PlayHistoryDTO {
         this.playerId = playerId;
     }
 
+    public Integer getStars() {
+        return stars;
+    }
+
+    public void setStars(Integer stars) {
+        this.stars = stars;
+    }
+
+    public Long getPgId() {
+        return pgId;
+    }
+
+    public void setPgId(Long pgId) {
+        this.pgId = pgId;
+    }
+
+    public String getPgTitle() {
+        return pgTitle;
+    }
+
+    public void setPgTitle(String pgTitle) {
+        this.pgTitle = pgTitle;
+    }
+
+    public Long getJourneyId() {
+        return journeyId;
+    }
+
+    public void setJourneyId(Long journeyId) {
+        this.journeyId = journeyId;
+    }
+
+    public String getJourneyTitle() {
+        return journeyTitle;
+    }
+
+    public void setJourneyTitle(String journeyTitle) {
+        this.journeyTitle = journeyTitle;
+    }
+
+    public Long getStepId() {
+        return stepId;
+    }
+
+    public void setStepId(Long stepId) {
+        this.stepId = stepId;
+    }
+
+    public String getStepTitle() {
+        return stepTitle;
+    }
+
+    public void setStepTitle(String stepTitle) {
+        this.stepTitle = stepTitle;
+    }
+
     public PlayHistoryDTO() {
     }
 
-    public PlayHistoryDTO(Long id, String playerUsername, String playTime,
-                          Integer playDuration, Float playScore, Long plId, String plTitle, String plCode, Float plMaxScore) {
+    public PlayHistoryDTO(Long id, String playTime, Integer playDuration, Float playScore, Integer stars, Long playerId, String playerUsername, Long plId, String plTitle, String plCode, Float plMaxScore, Long pgId, String pgTitle,
+                          Long journeyId, String journeyTitle, Long stepId, String stepTitle) {
         this.id = id;
-        this.playerUsername = playerUsername;
         this.playTime = playTime;
         this.playDuration = playDuration;
         this.playScore = playScore;
+        this.stars = stars;
+        this.playerId = playerId;
+        this.playerUsername = playerUsername;
         this.plId = plId;
         this.plTitle = plTitle;
         this.plCode = plCode;
         this.plMaxScore = plMaxScore;
+        this.pgId = pgId;
+        this.pgTitle = pgTitle;
+        this.journeyId = journeyId;
+        this.journeyTitle = journeyTitle;
+        this.stepId = stepId;
+        this.stepTitle = stepTitle;
     }
 }
