@@ -666,10 +666,10 @@ public class DTOUtil {
 
         LearningTopicDTO lsDTO =null;
         if(lt.getParentTopic()==null)
-            lsDTO = new LearningTopicDTO(lt.getId(), lt.getTitle(), "ROOT",0L,
+            lsDTO = new LearningTopicDTO(lt.getId(), lt.getTitle(), 0L,
                     lt.getVersion(), lt.getCreated(), lt.getUpdated(),lt.getCreatedBy().getUsername(),lt.getUpdatedBy().getUsername());
         else
-            lsDTO = new LearningTopicDTO(lt.getId(), lt.getTitle(), lt.getParentTopic().getTitle(),lt.getParentTopic().getId(),
+            lsDTO = new LearningTopicDTO(lt.getId(), lt.getTitle(),lt.getParentTopic().getId(),
                     lt.getVersion(), lt.getCreated(), lt.getUpdated(),lt.getCreatedBy().getUsername(),lt.getUpdatedBy().getUsername());
 
         return lsDTO;

@@ -390,6 +390,7 @@ public class ImportBaseData implements CommandLineRunner {
         learningSkillService.save(memory_booster);
 
         LearningTopic root_Topic = new LearningTopic("Root Topic",null,1L,now,now,admin_1,admin_1);
+        LearningTopic root_Topic2 = new LearningTopic("Root Topic 2",null,1L,now,now,admin_1,admin_1);
         LearningTopic hashImage_Topic = new LearningTopic("Hash Image",root_Topic,1L,now,now,admin_1,admin_1);
         LearningTopic X_O_Topic = new LearningTopic("X-O Game",root_Topic,1L,now,now,admin_1,admin_1);
         LearningTopic Memory_Game_Topic = new LearningTopic("Memory_Game",root_Topic,1L,now,now,admin_1,admin_1);
@@ -398,6 +399,7 @@ public class ImportBaseData implements CommandLineRunner {
         LearningTopic algorithm_Topic = new LearningTopic("Algorithm",root_Topic,1L,now,now,admin_1,admin_1);
         LearningTopic routing_in_the_table = new LearningTopic("Routing in the Table",root_Topic,1L,now,now,admin_1,admin_1);
         learningTopicService.save(root_Topic);
+        learningTopicService.save(root_Topic2);
         learningTopicService.save(hashImage_Topic);
         learningTopicService.save(X_O_Topic);
         learningTopicService.save(magic_matrix_Topic);
