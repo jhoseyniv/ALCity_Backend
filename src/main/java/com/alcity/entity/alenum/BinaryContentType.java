@@ -11,6 +11,14 @@ public enum BinaryContentType {
     D2Object,
     D3Object,
     BoardGraphic_JSON,
+    PNG,
+    FBX,
+    MAT,
+    ANIM,
+    MP3,
+    MAV,
+    OGG,
+    AMR,
     Other;
 
     public static BinaryContentType getById(long id)

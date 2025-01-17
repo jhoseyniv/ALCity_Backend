@@ -53,7 +53,7 @@ public class PGController {
         Optional<PuzzleGroup> puzzleGroup = pgService.findById(id);
         if(puzzleGroup.isPresent()) {
             journeySteps = puzzleGroup.get().getJourneyStepCollection();
-            journeyStepDTOS = DTOUtil.getJorenyStepsDTOS(journeySteps);
+            journeyStepDTOS = DTOUtil.getJorneyStepsDTOS(journeySteps);
         }
         return  journeyStepDTOS;
     }

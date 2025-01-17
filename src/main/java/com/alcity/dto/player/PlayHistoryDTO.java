@@ -11,6 +11,9 @@ public class PlayHistoryDTO {
     private String playerUsername;
 
     private Long plId;
+    private Integer plFromAge;
+
+    private Integer plToAge;
     private String plTitle;
     private String plCode;
     private Float plMaxScore;
@@ -168,7 +171,23 @@ public class PlayHistoryDTO {
     public PlayHistoryDTO() {
     }
 
-    public PlayHistoryDTO(Long id, String playTime, Integer playDuration, Float playScore, Integer stars, Long playerId, String playerUsername, Long plId, String plTitle, String plCode, Float plMaxScore, Long pgId, String pgTitle,
+    public Integer getPlFromAge() {
+        return plFromAge;
+    }
+
+    public void setPlFromAge(Integer plFromAge) {
+        this.plFromAge = plFromAge;
+    }
+
+    public Integer getPlToAge() {
+        return plToAge;
+    }
+
+    public void setPlToAge(Integer plToAge) {
+        this.plToAge = plToAge;
+    }
+
+    public PlayHistoryDTO(Long id, String playTime, Integer playDuration, Float playScore, Integer stars, Long playerId, String playerUsername, Long plId, String plTitle, String plCode,Integer plFromAge,Integer plToAge, Float plMaxScore, Long pgId, String pgTitle,
                           Long journeyId, String journeyTitle, Long stepId, String stepTitle) {
         this.id = id;
         this.playTime = playTime;
@@ -180,6 +199,8 @@ public class PlayHistoryDTO {
         this.plId = plId;
         this.plTitle = plTitle;
         this.plCode = plCode;
+        this.plFromAge = plFromAge;
+        this.plToAge = plToAge;
         this.plMaxScore = plMaxScore;
         this.pgId = pgId;
         this.pgTitle = pgTitle;

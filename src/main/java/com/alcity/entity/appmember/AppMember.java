@@ -5,6 +5,7 @@ import com.alcity.entity.alenum.UserGender;
 import com.alcity.entity.base.*;
 import com.alcity.entity.play.PermitedPlayer;
 import com.alcity.entity.play.PlayHistory;
+import com.alcity.entity.puzzle.PuzzleLevel;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
@@ -127,6 +128,9 @@ public class AppMember extends BaseTable implements Serializable {
     @OneToMany(mappedBy = "applicationMember", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Collection<AppMember_WalletItem> walletItems;
 
+    @OneToMany(mappedBy = "creator", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Collection<PuzzleLevel> puzzleLevels;
+
     @OneToMany(mappedBy = "player", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Collection<PlayHistory> playHistories;
 
@@ -187,6 +191,14 @@ public class AppMember extends BaseTable implements Serializable {
 
     public void setPermitedPlayers(Collection<PermitedPlayer> permitedPlayers) {
         this.permitedPlayers = permitedPlayers;
+    }
+
+    public Collection<PuzzleLevel> getPuzzleLevels() {
+        return puzzleLevels;
+    }
+
+    public void setPuzzleLevels(Collection<PuzzleLevel> puzzleLevels) {
+        this.puzzleLevels = puzzleLevels;
     }
 
     public AppMember() {

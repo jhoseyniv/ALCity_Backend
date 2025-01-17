@@ -29,6 +29,8 @@ public class PlayHistory extends BaseTable {
 
     @Column(name="playScore")
     private Float playScore;
+    @Column(name="stars")
+    private Integer stars;
 
     public AppMember getPlayer() {
         return player;
@@ -70,15 +72,24 @@ public class PlayHistory extends BaseTable {
         this.playScore = playScore;
     }
 
+    public Integer getStars() {
+        return stars;
+    }
+
+    public void setStars(Integer stars) {
+        this.stars = stars;
+    }
+
     public PlayHistory() {
     }
 
-    public PlayHistory(AppMember player, PuzzleLevel puzzleLevel, String playTime, Integer playDuration, Float playScore, Long version, String created, String updated, AppMember createdBy, AppMember updatedBy) {
+    public PlayHistory(AppMember player, PuzzleLevel puzzleLevel, String playTime, Integer playDuration, Float playScore,Integer stars, Long version, String created, String updated, AppMember createdBy, AppMember updatedBy) {
         super(version, created, updated, createdBy, updatedBy);
         this.player = player;
         this.puzzleLevel = puzzleLevel;
         this.playTime = playTime;
         this.playDuration = playDuration;
         this.playScore = playScore;
+        this.stars = stars;
     }
 }

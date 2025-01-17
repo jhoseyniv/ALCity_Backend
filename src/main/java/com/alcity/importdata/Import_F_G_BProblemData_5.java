@@ -31,6 +31,7 @@ import com.alcity.service.appmember.AppMemberService;
 import com.alcity.service.appmember.AppMember_WalletItemService;
 import com.alcity.service.appmember.WalletItemService;
 import com.alcity.utility.ImageUtil;
+import com.alcity.utility.ToolBox;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -210,9 +211,9 @@ public class Import_F_G_BProblemData_5 implements CommandLineRunner {
 //        ALCityObjectInPG puzzleGroup_puzzleObject = new ALCityObjectInPG("Image Hash Puzzle Group with Text Object","X_O_textObject",IQ_Puzzle_Group.get(),textObject,1L,now,now,admin_1,admin_1);
 //        puzzleGroup_PuzzleObjectService.save(puzzleGroup_puzzleObject);
 
-        PLPrivacy privacy_1 = plPrivacyService.findByValue("privacy1");
+        PLPrivacy privacy_1 = plPrivacyService.findByValue("public");
 
-        PuzzleLevel pl_F_G_B = new PuzzleLevel(now,1L,"Fox-Goose-Bean","4502",10,14,5f,1f,2f,3f,IQ_Puzzle_Group.get(),PLDifficulty.Easy,PLStatus.Ongoing,
+        PuzzleLevel pl_F_G_B = new PuzzleLevel(admin_1,now,1L,"Fox-Goose-Bean","4502",14,21,15f,5f,10f,13f,IQ_Puzzle_Group.get(),PLDifficulty.Easy,PLStatus.Ongoing,
                 privacy_1,3L,now,now,admin_1,admin_1);
         pl_F_G_B.setIcon(pl_pic_F_G_B_content);
         pl_F_G_B.setPicture(pl_Icon_F_G_B_content);
@@ -241,8 +242,10 @@ public class Import_F_G_BProblemData_5 implements CommandLineRunner {
 
         LearningSubjectInPL puzzleLevelLearningTopic_1 = new LearningSubjectInPL(pl_F_G_B,X_O_Topic.get(),learningContent_Mathcing,1L,now,now,admin_1,admin_1);
         plLearningTopicService.save(puzzleLevelLearningTopic_1);
-
-        PlayHistory playHistory_1 = new PlayHistory(Alireza_Zare,pl_F_G_B,now,100,10f,1L,now,now,Alireza_Zare,Alireza_Zare);
+        Float playScore =8f;
+        Integer stars = ToolBox.getPuzzleLevelStars(playScore,pl_F_G_B.getFirstStarScore(),pl_F_G_B.getSecondStarScore(),pl_F_G_B.getThirdStartScore());
+        PlayHistory playHistory_1 = new PlayHistory(Alireza_Zare,pl_F_G_B,now,100,playScore,stars,1L,now,now,Alireza_Zare,Alireza_Zare);
+        playHistory_1.setStars(stars);
         playHistoryService.save(playHistory_1);
 
         LearningSkillContent puzzleSkillLearningContent_1 = new LearningSkillContent(matching,IQ_Puzzle_Group.get(),learningContent_Mathcing,1L,now,now,admin_1,admin_1);

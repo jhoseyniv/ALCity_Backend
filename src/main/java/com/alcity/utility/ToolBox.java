@@ -26,14 +26,12 @@ public class ToolBox {
         }
         return object;
     }
-//    public static ADSType getByTitle(String title)
-//    {
-//        for (ADSType e : ADSType.values())
-//        {
-//            if (title.equalsIgnoreCase(e.name())) return e;
-//        }
-//        throw new IllegalArgumentException("no");
-//    }
+    public static Integer getPuzzleLevelStars(Float score,Float first,Float two,Float three) {
+        if( 0 <= score && score <= first) return  1;
+        if( first <= score && score<= two) return  2;
+        if(score >= three) return  3;
+        return 1;
+    }
     public static void main(String args[]){
         getEnumById(ADSType.class,1);
     }

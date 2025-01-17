@@ -1,6 +1,7 @@
 package com.alcity.repository.puzzle;
 
 import com.alcity.entity.base.BinaryContent;
+import com.alcity.entity.base.PLPrivacy;
 import com.alcity.entity.puzzle.PuzzleLevel;
 import org.springframework.data.repository.CrudRepository;
 
@@ -15,5 +16,6 @@ public interface PuzzleLevelRepository  extends CrudRepository<PuzzleLevel,Long>
     Optional<PuzzleLevel>  findByPicture(BinaryContent pic);
 
     Optional<PuzzleLevel>  findByIcon(BinaryContent icon);
+    Collection<PuzzleLevel> findByPuzzleLevelPrivacy(PLPrivacy privacy);
 
 }

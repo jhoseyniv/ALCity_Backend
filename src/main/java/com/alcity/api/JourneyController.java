@@ -1,5 +1,6 @@
 package com.alcity.api;
 
+import com.alcity.cruddto.journey.JourneyStepRecord;
 import com.alcity.service.customexception.ALCityResponseObject;
 import com.alcity.service.customexception.UniqueConstraintException;
 import com.alcity.service.customexception.ViolateForeignKeyException;
@@ -101,7 +102,7 @@ public class JourneyController {
     @Operation( summary = "Save a  Journey Step",  description = "save a Journey Step and their data to data base")
     @PostMapping("/save/step")
     @CrossOrigin(origins = "*")
-    public ALCityResponseObject saveOrEditJourneyStep(@RequestBody JourneyStepDTO dto)  {
+    public ALCityResponseObject saveOrEditJourneyStep(@RequestBody JourneyStepRecord dto)  {
         JourneyStep savedRecord = null;
         ALCityResponseObject responseObject = new ALCityResponseObject();
         if (dto.getId() == null || dto.getId() <= 0L) { //save
@@ -148,7 +149,7 @@ public class JourneyController {
     public Collection<JourneyStepDTO> getJourneyStepsById(@PathVariable Long id) {
         Optional<Journey> journey = journeyService.findById(id);
         Collection<JourneyStep> steps = journey.get().getJourneyStepCollection();
-        Collection<JourneyStepDTO> dtos = DTOUtil.getJorenyStepsDTOS(steps);
+        Collection<JourneyStepDTO> dtos = DTOUtil.getJorneyStepsDTOS(steps);
         return dtos;
     }
 

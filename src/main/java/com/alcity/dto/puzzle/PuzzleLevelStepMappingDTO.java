@@ -28,6 +28,26 @@ public class PuzzleLevelStepMappingDTO {
     private String journeyTitle;
     private Integer journeyOrdering;
 
+    private Integer journeyMaxStar;
+
+    private Integer journeyMinStar;
+
+    public Integer getJourneyMaxStar() {
+        return journeyMaxStar;
+    }
+
+    public void setJourneyMaxStar(Integer journeyMaxStar) {
+        this.journeyMaxStar = journeyMaxStar;
+    }
+
+    public Integer getJourneyMinStar() {
+        return journeyMinStar;
+    }
+
+    public void setJourneyMinStar(Integer journeyMinStar) {
+        this.journeyMinStar = journeyMinStar;
+    }
+
     public PuzzleLevelStepMappingDTO() {
     }
 
@@ -200,7 +220,7 @@ public class PuzzleLevelStepMappingDTO {
     }
 
     public PuzzleLevelStepMappingDTO(Long plId, String plApproveDate, Long plOrdering, String plTitle, String plCode, Integer plFromAge, Integer plToAge, Float plMaxScore, Float firstStarScore, Float secondStarScore, Float thirdStartScore, Long pgId, String pgTitle,
-                                     Long stepId,String stepTitle, Integer stepOrdering, Integer stepXpos, Integer stepYpos, String journeyTitle, Integer journeyOrdering) {
+                                     Long stepId,String stepTitle, Integer stepOrdering, Integer stepXpos, Integer stepYpos, String journeyTitle, Integer journeyOrdering,Integer journeyMaxStar, Integer journeyMinStar) {
         this.plId = plId;
         this.plApproveDate = plApproveDate;
         this.plOrdering = plOrdering;
@@ -222,5 +242,7 @@ public class PuzzleLevelStepMappingDTO {
         this.stepYpos = stepYpos;
         this.journeyTitle = journeyTitle;
         this.journeyOrdering = journeyOrdering;
+        this.journeyMaxStar = journeyMaxStar;
+        this.journeyMinStar = journeyMinStar;
     }
 }

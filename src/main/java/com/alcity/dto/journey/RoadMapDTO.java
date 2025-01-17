@@ -1,9 +1,19 @@
-package com.alcity.dto.appmember;
+package com.alcity.dto.journey;
 
 public class RoadMapDTO {
+
+    private Long id;
     private Integer xpos;
     private Integer ypos;
     private Long graphicId;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public Integer getXpos() {
         return xpos;
@@ -29,7 +39,11 @@ public class RoadMapDTO {
         this.graphicId = graphicId;
     }
 
-    public RoadMapDTO(Integer xpos, Integer ypos, Long graphicId) {
+    public RoadMapDTO() {
+    }
+
+    public RoadMapDTO(Long id, Integer xpos, Integer ypos, Long graphicId) {
+        this.id =id;
         this.xpos = xpos;
         this.ypos = ypos;
         this.graphicId = graphicId;

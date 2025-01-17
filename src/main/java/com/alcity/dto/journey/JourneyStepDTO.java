@@ -1,23 +1,21 @@
 package com.alcity.dto.journey;
 
 public class JourneyStepDTO  {
-
-
-    private Long id;
-    private String title;
-    private Integer ordering;
-    private Integer xpos;
-    private Integer ypos;
-
-
-    private String puzzleGroupTitle;
-    private Long puzzleGroupId;
-    private Long puzzleGroupIconId;
+    private Long stepId;
+    private String stepTitle;
+    private Integer stepOrdering;
+    private Integer stepXpos;
+    private Integer stepYpos;
 
     private Long journeyId;
     private String journeyTitle;
+    private Integer journeyOrdering;
+    private Integer journeyMaxStar;
+    private Integer journeyMinStar;
+    private String puzzleGroupTitle;
+    private Long puzzleGroupId;
+    private Long puzzleGroupIconId;
     private Long journeyIconId;
-
 
     private Long version;
     private String created;
@@ -26,45 +24,6 @@ public class JourneyStepDTO  {
 
     private String updatedBy;
 
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public Integer getOrdering() {
-        return ordering;
-    }
-
-    public void setOrdering(Integer ordering) {
-        this.ordering = ordering;
-    }
-
-    public Integer getXpos() {
-        return xpos;
-    }
-
-    public void setXpos(Integer xpos) {
-        this.xpos = xpos;
-    }
-
-    public Integer getYpos() {
-        return ypos;
-    }
-
-    public void setYpos(Integer ypos) {
-        this.ypos = ypos;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public Long getVersion() {
         return version;
@@ -157,25 +116,69 @@ public class JourneyStepDTO  {
         this.journeyIconId = journeyIconId;
     }
 
-    public JourneyStepDTO(Long id, String title, Integer ordering, Integer xpos, Integer ypos,
-                          String puzzleGroupTitle, Long puzzleGroupId, Long puzzleGroupIconId,
-                          Long journeyId, String journeyTitle, Long journeyIconId,
-                          Long version, String created, String updated, String createdBy, String updatedBy) {
-        this.id = id;
-        this.title = title;
-        this.ordering = ordering;
-        this.xpos = xpos;
-        this.ypos = ypos;
-        this.puzzleGroupTitle = puzzleGroupTitle;
-        this.puzzleGroupId = puzzleGroupId;
-        this.puzzleGroupIconId = puzzleGroupIconId;
-        this.journeyId = journeyId;
-        this.journeyTitle = journeyTitle;
-        this.journeyIconId = journeyIconId;
-        this.version = version;
-        this.created = created;
-        this.updated = updated;
-        this.createdBy = createdBy;
-        this.updatedBy = updatedBy;
+    public Long getStepId() {
+        return stepId;
     }
+
+    public void setStepId(Long stepId) {
+        this.stepId = stepId;
+    }
+
+    public String getStepTitle() {
+        return stepTitle;
+    }
+
+    public void setStepTitle(String stepTitle) {
+        this.stepTitle = stepTitle;
+    }
+
+    public Integer getStepOrdering() {
+        return stepOrdering;
+    }
+
+    public void setStepOrdering(Integer stepOrdering) {
+        this.stepOrdering = stepOrdering;
+    }
+
+    public Integer getStepXpos() {
+        return stepXpos;
+    }
+
+    public void setStepXpos(Integer stepXpos) {
+        this.stepXpos = stepXpos;
+    }
+
+    public Integer getStepYpos() {
+        return stepYpos;
+    }
+
+    public void setStepYpos(Integer stepYpos) {
+        this.stepYpos = stepYpos;
+    }
+
+    public Integer getJourneyOrdering() {
+        return journeyOrdering;
+    }
+
+    public void setJourneyOrdering(Integer journeyOrdering) {
+        this.journeyOrdering = journeyOrdering;
+    }
+
+    public Integer getJourneyMaxStar() {
+        return journeyMaxStar;
+    }
+
+    public void setJourneyMaxStar(Integer journeyMaxStar) {
+        this.journeyMaxStar = journeyMaxStar;
+    }
+
+    public Integer getJourneyMinStar() {
+        return journeyMinStar;
+    }
+
+    public void setJourneyMinStar(Integer journeyMinStar) {
+        this.journeyMinStar = journeyMinStar;
+    }
+
+
 }

@@ -28,6 +28,7 @@ import com.alcity.service.appmember.AppMemberService;
 import com.alcity.service.appmember.AppMember_WalletItemService;
 import com.alcity.service.appmember.WalletItemService;
 import com.alcity.utility.ImageUtil;
+import com.alcity.utility.ToolBox;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -193,16 +194,16 @@ public class ImportHashImageProblemData_1 implements CommandLineRunner {
         Optional<PuzzleGroup> puzzleGroup_IQ = puzzleGroupService.findByTitle("IQ Puzzle Group");
         Optional<PuzzleGroup> puzzleGroup_HashImage2 = puzzleGroupService.findByTitle("Maze Image - Puzzle Group 2");
 
-        JourneyStep step_1_journey_1 = new JourneyStep("step1_journey_1",1,30,30,journey_1.get(),puzzleGroup_HashImage.get(),1L,now,now,admin_1,admin_1);
+        JourneyStep step_1_journey_1 = new JourneyStep("step1_journey_1",1,20,20,journey_1.get(),puzzleGroup_HashImage.get(),1L,now,now,admin_1,admin_1);
         JourneyStep step_2_journey_1 = new JourneyStep("step2_journey_1",1,30,30,journey_1.get(),puzzleGroup_IQ.get(),1L,now,now,admin_1,admin_1);
-        JourneyStep step_1_journey_2 = new JourneyStep("step1_journey_2",1,30,30,journey_2.get(),puzzleGroup_IQ.get(),1L,now,now,admin_1,admin_1);
+        JourneyStep step_1_journey_2 = new JourneyStep("step1_journey_2",1,40,40,journey_2.get(),puzzleGroup_IQ.get(),1L,now,now,admin_1,admin_1);
         journeyStepService.save(step_1_journey_1);
         journeyStepService.save(step_2_journey_1);
         journeyStepService.save(step_1_journey_2);
 
-        PLPrivacy privacy_1 = plPrivacyService.findByValue("privacy1");
+        PLPrivacy privacy_1 = plPrivacyService.findByValue("public");
 
-        PuzzleLevel puzzleLevel_hashimage = new PuzzleLevel(now,1L,"hashed image with a empty cell","4545",8,14,15f,4f,8f,13f,puzzleGroup_HashImage.get(),PLDifficulty.Easy,PLStatus.Ongoing,privacy_1,3L,now,now,admin_1,admin_1);
+        PuzzleLevel puzzleLevel_hashimage = new PuzzleLevel(admin_1,now,1L,"hashed image with a empty cell","4545",8,14,15f,4f,8f,13f,puzzleGroup_HashImage.get(),PLDifficulty.Easy,PLStatus.Ongoing,privacy_1,3L,now,now,admin_1,admin_1);
         puzzleLevel_hashimage.setIcon(hashImage_icon);
         puzzleLevel_hashimage.setPicture(hashImage_pic);
         puzzleLevelService.save(puzzleLevel_hashimage);
@@ -230,8 +231,10 @@ public class ImportHashImageProblemData_1 implements CommandLineRunner {
 
         LearningSubjectInPL puzzleLevelLearningTopic_1 = new LearningSubjectInPL(puzzleLevel_hashimage,hashImage_Topic.get(),learningContent_Division,1L,now,now,admin_1,admin_1);
         plLearningTopicService.save(puzzleLevelLearningTopic_1);
+        Float playScore =14f;
+        Integer stars = ToolBox.getPuzzleLevelStars(playScore,puzzleLevel_hashimage.getFirstStarScore(),puzzleLevel_hashimage.getSecondStarScore(),puzzleLevel_hashimage.getThirdStartScore());
 
-        PlayHistory playHistory_1 = new PlayHistory(jalalHoseyni,puzzleLevel_hashimage,now,100,10f,1L,now,now,jalalHoseyni,jalalHoseyni);
+        PlayHistory playHistory_1 = new PlayHistory(jalalHoseyni,puzzleLevel_hashimage,now,100,playScore,stars,1L,now,now,jalalHoseyni,jalalHoseyni);
         playHistoryService.save(playHistory_1);
 
         LearningSkillContent puzzleSkillLearningContent_1 = new LearningSkillContent(division,puzzleGroup_HashImage.get(),learningContent_Division,1L,now,now,admin_1,admin_1);

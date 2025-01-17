@@ -1,8 +1,9 @@
 package com.alcity.api;
 
-import com.alcity.dto.appmember.AppMemberJourneyDetailDTO;
 import com.alcity.dto.appmember.AppMemberJourneyDTO;
 import com.alcity.dto.player.PlayHistoryDTO;
+import com.alcity.dto.puzzle.PLDTO;
+import com.alcity.dtotransient.AppMemberJourneyInfo;
 import com.alcity.entity.journey.Journey;
 import com.alcity.entity.play.PlayHistory;
 import com.alcity.service.Journey.JourneyService;
@@ -54,6 +55,78 @@ public class AppMemberController {
         return dto;
     }
 
+
+    @Operation( summary = "Get public puzzle levels for a app member ",  description = "Get all puzzles for a user ...")
+    @RequestMapping(value = "/id/{id}/all-pl", method = RequestMethod.GET)
+    @ResponseBody
+    @CrossOrigin(origins = "*")
+    public Collection<PLDTO> getPublicPuzzleLevels(@PathVariable Long id) {
+        Optional<AppMember> memberOptional = appMemberService.findById(id);
+        Collection<PLDTO> pldtos = appMemberService.getPublicPuzzleLevels(memberOptional.get());
+        return pldtos;
+    }
+
+    @Operation( summary = "Get puzzle levels defined for a app member but not played ",  description = "Get all puzzle levels defined for a app member but not played ...")
+    @RequestMapping(value = "/id/{id}/not-played", method = RequestMethod.GET)
+    @ResponseBody
+    @CrossOrigin(origins = "*")
+    public Collection<PLDTO> getApplicationMemberPuzzleLevelsNotPlayed(@PathVariable Long id) {
+        Optional<AppMember> memberOptional = appMemberService.findById(id);
+        Collection<PLDTO>  publicPuzzleLevels = appMemberService.getPublicPuzzleLevels(memberOptional.get());
+        Collection<PLDTO>  playedPuzlles = appMemberService.getPuzzleLevelsPlayed(memberOptional.get());
+        Collection<PLDTO> pldtos = appMemberService.getPuzzleLevelsNotPlayed(publicPuzzleLevels,playedPuzlles);
+        return pldtos;
+    }
+    @Operation( summary = "Get puzzle levels for an Application Member that played",  description = "Get all puzzle levels for an Application Member that played ...")
+    @RequestMapping(value = "/id/{id}/played", method = RequestMethod.GET)
+    @ResponseBody
+    @CrossOrigin(origins = "*")
+    public Collection<PLDTO> getApplicationMemberPuzzleLevelsPlayed(@PathVariable Long id) {
+        Optional<AppMember> memberOptional = appMemberService.findById(id);
+        Collection<PLDTO> pldtos = appMemberService.getPuzzleLevelsPlayed(memberOptional.get());
+        return pldtos;
+    }
+
+
+
+    @Operation( summary = "Get all history for an Application Member",  description = "get all play history for an Application Member ...")
+    @RequestMapping(value = "/id/{id}/playhistory", method = RequestMethod.GET)
+    @ResponseBody
+    @CrossOrigin(origins = "*")
+    public Collection<PlayHistoryDTO> getApplicationMemberPlayHistoryById(@PathVariable Long id) {
+        Optional<AppMember> memberOptional = appMemberService.findById(id);
+        Collection<PlayHistory>  histories= memberOptional.get().getPlayHistories();
+        Collection<PlayHistoryDTO> dtos = DTOUtil.getPlayHistoryDTOS(histories);
+        return dtos;
+    }
+    @Operation( summary = "Get a Journey Information with steps and scores for an Application Member",  description = "get a data structure that encompass steps and puzzles for an member and a journey ...")
+    @RequestMapping(value = "/id/{id}/journey/jid/{jid}", method = RequestMethod.GET)
+    @ResponseBody
+    @CrossOrigin(origins = "*")
+    public AppMemberJourneyInfo getPuzzleLevelMappedStepInJourney(@PathVariable Long id, @PathVariable Long jid) {
+        Optional<AppMember> memberOptional = appMemberService.findById(id);
+        Optional<Journey> journeyOptional = journeyService.findById(jid);
+        AppMemberJourneyInfo journeyInfoWithScores =null;
+        if(memberOptional.isEmpty()  || journeyOptional.isEmpty()) return  null;
+        AppMemberJourneyInfo journeyInfo = appMemberService.getAppMemberJourneyInfo(memberOptional.get(),journeyOptional.get());
+        journeyInfoWithScores =appMemberService.getAppMemberJourneyInfoWithScores(memberOptional.get(),journeyInfo);
+        return journeyInfoWithScores;
+    }
+
+/*
+    @Operation( summary = "Get all data for a steps of a journey with scores and status",  description = "Get all data for a steps of a journey with scores and status ...")
+    @RequestMapping(value = "/id/{id}/journey-details/jid/{jid}", method = RequestMethod.GET)
+    @ResponseBody
+    @CrossOrigin(origins = "*")
+    public AppMemberJourneyDetailDTO getApplicationMemberJourneyStepsDetailById(@PathVariable Long id,@PathVariable Long jid) {
+        Optional<AppMember> memberOptional = appMemberService.findById(id);
+        Optional<Journey> journeyOptional = journeyService.findById(jid);
+
+        AppMemberJourneyDetailDTO dto = appMemberService.getAppMemberJourneyDetailByScores(memberOptional.get(),journeyOptional.get());
+        return dto;
+    }
+    */
+
     @Operation( summary = "Get all journeys for an Application Member with scores",  description = "get all journeys for an Application Member and scores ...")
     @RequestMapping(value = "/id/{id}/journeys", method = RequestMethod.GET)
     @ResponseBody
@@ -64,7 +137,7 @@ public class AppMemberController {
         Collection<AppMemberJourneyDTO> dtos = appMemberService.getAppMemberJourneysByScores(memberOptional.get(),journeys);
         return dtos;
     }
-    @Operation( summary = "Get a journey for an Application Member with scores",  description = "get a journey for an Application Member and scores ...")
+/*    @Operation( summary = "Get a journey for an Application Member with scores",  description = "get a journey for an Application Member and scores ...")
     @RequestMapping(value = "/id/{id}/journey/jid/{jid}", method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin(origins = "*")
@@ -73,16 +146,6 @@ public class AppMemberController {
         Optional<Journey> journeyOptional = journeyService.findById(jid);
         AppMemberJourneyDTO dto = appMemberService.getJourneyScoresForAppMember(memberOptional.get(),journeyOptional.get());
         return dto;
-    }
-    @Operation( summary = "Get play history for an Application Member",  description = "get all play history for an Application Member ...")
-    @RequestMapping(value = "/id/{id}/playhistory", method = RequestMethod.GET)
-    @ResponseBody
-    @CrossOrigin(origins = "*")
-    public Collection<PlayHistoryDTO> getApplicationMemberPlayHistoryById(@PathVariable Long id) {
-        Optional<AppMember> memberOptional = appMemberService.findById(id);
-        Collection<PlayHistory>  histories= memberOptional.get().getPlayHistories();
-        Collection<PlayHistoryDTO> dtos = DTOUtil.getPlayHistoryDTOS(histories);
-        return dtos;
     }
 
     @Operation( summary = "Get a journey information for an Application Member with scores in detail",  description = "get a journey for an Application Member and scores ...")
@@ -95,7 +158,7 @@ public class AppMemberController {
         AppMemberJourneyDetailDTO dto = appMemberService.getAppMemberJourneyByScore(memberOptional.get(),journeyOptional.get());
         return dto;
     }
-
+*/
     @Operation( summary = "delete an  Application Member ",  description = "delete an Application Member .....")
     @DeleteMapping("/del/id/{id}")
     @CrossOrigin(origins = "*")

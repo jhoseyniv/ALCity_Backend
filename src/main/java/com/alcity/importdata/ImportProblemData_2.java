@@ -28,6 +28,7 @@ import com.alcity.service.puzzle.*;
 import com.alcity.service.appmember.AppMemberService;
 import com.alcity.service.appmember.WalletItemService;
 import com.alcity.utility.ImageUtil;
+import com.alcity.utility.ToolBox;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -157,11 +158,11 @@ public class ImportProblemData_2 implements CommandLineRunner {
         PuzzleGroup puzzleGroup_2 = new PuzzleGroup("Maze Image - Puzzle Group 2",maze,puzzle_group_2_binary_content_icon,puzzle_group_2_binary_content_pic,1L,now,now,admin_1,admin_1);
         puzzleGroupService.save(puzzleGroup_2);
 
-        JourneyStep step_3_journey_1 = new JourneyStep("step_3_journey_1",1,30,30,journey_1.get(),puzzleGroup_2,1L,now,now,admin_1,admin_1);
+        JourneyStep step_3_journey_1 = new JourneyStep("step_3_journey_1",1,10,10,journey_1.get(),puzzleGroup_2,1L,now,now,admin_1,admin_1);
         journeyStepService.save(step_3_journey_1);
-        PLPrivacy privacy_1 = puzzleLevelPrivacyService.findByValue("privacy1");
+        PLPrivacy privacy_1 = puzzleLevelPrivacyService.findByValue("public");
 
-        PuzzleLevel puzzleLevel_Maze = new PuzzleLevel(now,1L,"Find shortest path from start to end in maze","4546",14,20,5f,0f,2f,3f,puzzleGroup_2, PLDifficulty.Medium, PLStatus.Not_Started,privacy_1,3L,now,now,admin_1,admin_1);
+        PuzzleLevel puzzleLevel_Maze = new PuzzleLevel(admin_1,now,1L,"Find shortest path from start to end in maze","4546",14,20,5f,0f,2f,3f,puzzleGroup_2, PLDifficulty.Medium, PLStatus.Not_Started,privacy_1,3L,now,now,admin_1,admin_1);
         puzzleLevel_Maze.setIcon(puzzle_group_2_binary_content_icon);
         puzzleLevel_Maze.setPicture(puzzle_group_2_binary_content_pic);
         puzzleLevelService.save(puzzleLevel_Maze);
@@ -192,13 +193,20 @@ public class ImportProblemData_2 implements CommandLineRunner {
         LearningSubjectInPL puzzleLevelLearningTopic_1 = new LearningSubjectInPL(puzzleLevel_Maze,routing_in_the_table.get(),learningContent_routing,1L,now,now,admin_1,admin_1);
         plLearningTopicService.save(puzzleLevelLearningTopic_1);
 
-        PlayHistory playHistory_1 = new PlayHistory(jalalHoseyni,puzzleLevel_Maze,now,100,10f,1L,now,now,jalalHoseyni,jalalHoseyni);
+        Float playScore =10f;
+        Integer stars = ToolBox.getPuzzleLevelStars(playScore,puzzleLevel_Maze.getFirstStarScore(),puzzleLevel_Maze.getSecondStarScore(),puzzleLevel_Maze.getThirdStartScore());
+
+        PlayHistory playHistory_1 = new PlayHistory(jalalHoseyni,puzzleLevel_Maze,now,100,playScore,stars,1L,now,now,jalalHoseyni,jalalHoseyni);
         playHistoryService.save(playHistory_1);
 
-        PlayHistory playHistory_2 = new PlayHistory(moslemBalavandi,puzzleLevel_Maze,now,100,10f,1L,now,now,moslemBalavandi,moslemBalavandi);
+        playScore =10f;
+        stars = ToolBox.getPuzzleLevelStars(playScore,puzzleLevel_Maze.getFirstStarScore(),puzzleLevel_Maze.getSecondStarScore(),puzzleLevel_Maze.getThirdStartScore());
+        PlayHistory playHistory_2 = new PlayHistory(moslemBalavandi,puzzleLevel_Maze,now,100,playScore,stars,1L,now,now,moslemBalavandi,moslemBalavandi);
         playHistoryService.save(playHistory_2);
 
-        PlayHistory playHistory_3 = new PlayHistory(alirezaZarei,puzzleLevel_Maze,now,100,10f,1L,now,now,alirezaZarei,alirezaZarei);
+        playScore =12f;
+        stars = ToolBox.getPuzzleLevelStars(playScore,puzzleLevel_Maze.getFirstStarScore(),puzzleLevel_Maze.getSecondStarScore(),puzzleLevel_Maze.getThirdStartScore());
+        PlayHistory playHistory_3 = new PlayHistory(alirezaZarei,puzzleLevel_Maze,now,100,playScore,stars,1L,now,now,alirezaZarei,alirezaZarei);
         playHistoryService.save(playHistory_3);
 
         LearningSkillContent puzzleSkillLearningContent_1 = new LearningSkillContent(routing,puzzleGroup_2,learningContent_routing,1L,now,now,admin_1,admin_1);

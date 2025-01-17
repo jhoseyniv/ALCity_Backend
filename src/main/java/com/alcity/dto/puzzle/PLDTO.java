@@ -15,6 +15,9 @@ public class PLDTO {
     private Long createdById;
     private Long updatedById;
 
+    private Long creatorId;
+
+    private String creator;
     private String approveDate;
     private Long ordering;
     private String title;
@@ -28,6 +31,22 @@ public class PLDTO {
     private Long puzzleGroupId;
 
     private String puzzleGroupTitle;
+
+    public Long getCreatorId() {
+        return creatorId;
+    }
+
+    public void setCreatorId(Long creatorId) {
+        this.creatorId = creatorId;
+    }
+
+    public String getCreator() {
+        return creator;
+    }
+
+    public void setCreator(String creator) {
+        this.creator = creator;
+    }
 
     public String getPuzzleGroupTitle() {
         return puzzleGroupTitle;
@@ -166,11 +185,6 @@ public class PLDTO {
         this.thirdStartScore = thirdStartScore;
     }
 
-    private Collection<PLObjectiveDTO> puzzleLevelObjectiveDTOCollection;
-    private Collection<PuzzleLevel_LearningTopicDTO> puzzleLevel_learningTopicDTOCollection;
-
-    private Collection<PLGroundDTO> puzzleLevelGroundDTOCollection;
-    private Collection<PermitedPlayerDTO> permitedPlayerDTOCollection;
 
 
     public String getPuzzleLevelStatus() {
@@ -197,47 +211,7 @@ public class PLDTO {
         this.puzzleLevelDifficulty = puzzleLevelDifficulty;
     }
 
-    public Collection<PermitedPlayerDTO> getPermitedPlayerDTOCollection() {
-        return permitedPlayerDTOCollection;
-    }
 
-    public void setPermitedPlayerDTOCollection(Collection<PermitedPlayerDTO> permitedPlayerDTOCollection) {
-        this.permitedPlayerDTOCollection = permitedPlayerDTOCollection;
-    }
-
-    public Collection<PLGroundDTO> getPuzzleLevelGroundDTOCollection() {
-        return puzzleLevelGroundDTOCollection;
-    }
-
-    public void setPuzzleLevelGroundDTOCollection(Collection<PLGroundDTO> puzzleLevelGroundDTOCollection) {
-        this.puzzleLevelGroundDTOCollection = puzzleLevelGroundDTOCollection;
-    }
-
-    public Collection<PLObjectiveDTO> getPuzzleLevelObjectiveDTOCollection() {
-        return puzzleLevelObjectiveDTOCollection;
-    }
-
-    public void setPuzzleLevelObjectiveDTOCollection(Collection<PLObjectiveDTO> puzzleLevelObjectiveDTOCollection) {
-        this.puzzleLevelObjectiveDTOCollection = puzzleLevelObjectiveDTOCollection;
-    }
-
-    public Collection<PuzzleLevel_LearningTopicDTO> getPuzzleLevel_learningTopicDTOCollection() {
-        return puzzleLevel_learningTopicDTOCollection;
-    }
-
-    public void setPuzzleLevel_learningTopicDTOCollection(Collection<PuzzleLevel_LearningTopicDTO> puzzleLevel_learningTopicDTOCollection) {
-        this.puzzleLevel_learningTopicDTOCollection = puzzleLevel_learningTopicDTOCollection;
-    }
-
-    private Collection<PLInstanceDTO> plInstanceDTOS;
-
-    public Collection<PLInstanceDTO> getPlInstanceDTOS() {
-        return plInstanceDTOS;
-    }
-
-    public void setPlInstanceDTOS(Collection<PLInstanceDTO> plInstanceDTOS) {
-        this.plInstanceDTOS = plInstanceDTOS;
-    }
 
     public PLDTO() {
     }
@@ -291,7 +265,7 @@ public class PLDTO {
     }
 
     public PLDTO(Long id, Long version, String created, String updated, String createdBy, String updatedBy, Long createdById, Long updatedById,
-                 String approveDate,Long puzzleGroupId,String puzzleGroupTitle, Long ordering, String title, String code, Integer fromAge, Integer toAge, Float maxScore,Float firstStarScore ,Float secondStarScore,Float thirdStarScore,String puzzleLevelStatus, String puzzleLevelPrivacy, String puzzleLevelDifficulty) {
+                 Long creatorId, String creator,String approveDate,Long puzzleGroupId,String puzzleGroupTitle, Long ordering, String title, String code, Integer fromAge, Integer toAge, Float maxScore,Float firstStarScore ,Float secondStarScore,Float thirdStarScore,String puzzleLevelStatus, String puzzleLevelPrivacy, String puzzleLevelDifficulty) {
         this.id = id;
         this.version = version;
         this.created = created;
@@ -300,6 +274,8 @@ public class PLDTO {
         this.updatedBy = updatedBy;
         this.createdById = createdById;
         this.updatedById = updatedById;
+        this.creatorId = creatorId;
+        this.creator = creator;
         this.approveDate = approveDate;
         this.ordering = ordering;
         this.title = title;

@@ -23,6 +23,21 @@ public class Journey  extends BaseTable implements Serializable {
     @JsonIgnore
     private BinaryContent graphic;
 
+    @ManyToOne(fetch = FetchType.LAZY, optional = true)
+    @JoinColumn(name = "button_passed_icon_id", nullable = false)
+    @JsonIgnore
+    private BinaryContent buttonPassedIcon;
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = true)
+    @JoinColumn(name = "button_current_icon_id", nullable = false)
+    @JsonIgnore
+    private BinaryContent buttonCurrenIcon;
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = true)
+    @JoinColumn(name = "button_locked_icon_id", nullable = false)
+    @JsonIgnore
+    private BinaryContent buttonLockedIcon;
+
 
     @OneToMany(mappedBy = "journey", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Collection<JourneyStep> journeyStepCollection;
@@ -33,10 +48,10 @@ public class Journey  extends BaseTable implements Serializable {
     @OneToMany(mappedBy = "journey", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Collection<RoadMap> roadMaps;
 
-    @Column(name="maxStar",unique = true)
+    @Column(name="maxStar")
     private Integer maxStar;
 
-    @Column(name="minStar",unique = true)
+    @Column(name="minStar")
     private Integer minStar;
 
     public String getTitle() {
@@ -69,6 +84,30 @@ public class Journey  extends BaseTable implements Serializable {
 
     public void setJourneyLearningSkillCollection(Collection<JourneyLearningSkill> journeyLearningSkillCollection) {
         this.journeyLearningSkillCollection = journeyLearningSkillCollection;
+    }
+
+    public BinaryContent getButtonPassedIcon() {
+        return buttonPassedIcon;
+    }
+
+    public void setButtonPassedIcon(BinaryContent buttonPassedIcon) {
+        this.buttonPassedIcon = buttonPassedIcon;
+    }
+
+    public BinaryContent getButtonCurrenIcon() {
+        return buttonCurrenIcon;
+    }
+
+    public void setButtonCurrenIcon(BinaryContent buttonCurrenIcon) {
+        this.buttonCurrenIcon = buttonCurrenIcon;
+    }
+
+    public BinaryContent getButtonLockedIcon() {
+        return buttonLockedIcon;
+    }
+
+    public void setButtonLockedIcon(BinaryContent buttonLockedIcon) {
+        this.buttonLockedIcon = buttonLockedIcon;
     }
 
     public Integer getMaxStar() {

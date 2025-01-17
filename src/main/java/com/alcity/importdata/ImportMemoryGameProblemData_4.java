@@ -29,6 +29,7 @@ import com.alcity.service.appmember.AppMemberService;
 import com.alcity.service.appmember.AppMember_WalletItemService;
 import com.alcity.service.appmember.WalletItemService;
 import com.alcity.utility.ImageUtil;
+import com.alcity.utility.ToolBox;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -206,9 +207,9 @@ public class ImportMemoryGameProblemData_4 implements CommandLineRunner {
          Optional<ALCityObject> textObject = puzzleObjectService.findByTitle("TextObject");
 
 
-        PLPrivacy privacy_1 = puzzleLevelPrivacyService.findByValue("privacy1");
+        PLPrivacy privacy_1 = puzzleLevelPrivacyService.findByValue("public");
 
-        PuzzleLevel pl_Memory_Game= new PuzzleLevel(now,1L,"Memory-Game","4501",10,14,5f,0f,2f,3f,IQ_Puzzle_Group.get(),PLDifficulty.Easy,PLStatus.Ongoing,privacy_1,3L,now,now,admin_1,admin_1);
+        PuzzleLevel pl_Memory_Game= new PuzzleLevel(admin_1,now,1L,"Memory-Game","4501",15,22,5f,0f,2f,3f,IQ_Puzzle_Group.get(),PLDifficulty.Easy,PLStatus.Ongoing,privacy_1,3L,now,now,admin_1,admin_1);
         pl_Memory_Game.setIcon(pl_pic_Memory_Game_content);
         pl_Memory_Game.setPicture(pl_pic_Memory_Game_content);
         puzzleLevelService.save(pl_Memory_Game);
@@ -236,7 +237,10 @@ public class ImportMemoryGameProblemData_4 implements CommandLineRunner {
         LearningSubjectInPL pllLearningTopic_1 = new LearningSubjectInPL(pl_Memory_Game,Memory_Game_Topic.get(),learningContent_memory,1L,now,now,admin_1,admin_1);
         plLearningTopicService.save(pllLearningTopic_1);
 
-        PlayHistory playHistory_1 = new PlayHistory(Alireza_Zare,pl_Memory_Game,now,100,10f,1L,now,now,Alireza_Zare,Alireza_Zare);
+        Float playScore =1f;
+        Integer stars = ToolBox.getPuzzleLevelStars(playScore,pl_Memory_Game.getFirstStarScore(),pl_Memory_Game.getSecondStarScore(),pl_Memory_Game.getThirdStartScore());
+
+        PlayHistory playHistory_1 = new PlayHistory(Alireza_Zare,pl_Memory_Game,now,100,playScore,stars,1L,now,now,Alireza_Zare,Alireza_Zare);
         playHistoryService.save(playHistory_1);
 
         LearningSkillContent puzzleSkillLearningContent_1 = new LearningSkillContent(memory_booster,IQ_Puzzle_Group.get(),learningContent_memory,1L,now,now,admin_1,admin_1);

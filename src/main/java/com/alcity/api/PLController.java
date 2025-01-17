@@ -1,6 +1,9 @@
 package com.alcity.api;
 
+import com.alcity.entity.alenum.AttributeOwnerType;
+import com.alcity.entity.alobject.Attribute;
 import com.alcity.entity.appmember.AppMember;
+import com.alcity.service.alobject.AttributeService;
 import com.alcity.service.appmember.AppMemberService;
 import com.alcity.service.customexception.ALCityResponseObject;
 import com.alcity.service.customexception.UniqueConstraintException;
@@ -47,12 +50,12 @@ public class PLController {
     @ResponseBody
     @CrossOrigin(origins = "*")
     public PLDTO getPuzzleLevelById(@PathVariable Long id) {
-        PLDTO pldto= new PLDTO();
+        PLDTO   pldto= new PLDTO();
         Optional<PuzzleLevel> puzzleLevelOptional = puzzleLevelService.findById(id);
         pldto = DTOUtil.getPuzzleLevelDTO(puzzleLevelOptional);
         return pldto;
     }
-
+/*
     @Operation( summary = "Fetch  step and journey mapped by a puzzle level by Id ",  description = "fetches all data for a puzzle level ")
     @RequestMapping(value = "/id/{id}/step", method = RequestMethod.GET)
     @ResponseBody
@@ -63,6 +66,8 @@ public class PLController {
         dto = puzzleLevelService.getJourneyStepMappedWithPuzzleLevel(puzzleLevelOptional.get());
         return dto;
     }
+
+ */
 
     @Operation( summary = "Fetch all puzzle levels for a user by age ",  description = "fetches all data for a puzzle level ")
     @RequestMapping(value = "/age/{age}", method = RequestMethod.GET)
@@ -168,7 +173,30 @@ public class PLController {
         }
         return  new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", id,"Record not found!");
     }
+    @Autowired
+    private AttributeService attributeService;
 
+    @Operation( summary = "Fetch all AL City Object for that define in a puzzle group ",  description = "Fetch all Al city object for an puzzle group")
+    @RequestMapping(value = "/id/{id}/objects/all", method = RequestMethod.GET)
+    @ResponseBody
+    public Collection<ALCityObjectInPGDTO> getObjectsForAPG(@PathVariable Long id) {
+        Collection<ALCityObjectInPGDTO> dtos = new ArrayList<ALCityObjectInPGDTO>();
+        Collection<ALCityObjectInPG> alCityObjectInPGS = new ArrayList<ALCityObjectInPG>();
+        Optional<PuzzleLevel> puzzleLevelOptional = puzzleLevelService.findById(id);
+        PuzzleGroup puzzleGroup =puzzleLevelOptional.get().getPuzzleGroup();
+        if(puzzleGroup != null) {
+            alCityObjectInPGS = puzzleGroup.getAlCityObjectInPGS();
+            Iterator<ALCityObjectInPG> itr = alCityObjectInPGS.iterator();
+            while(itr.hasNext()) {
+                ALCityObjectInPGDTO dto = new ALCityObjectInPGDTO();
+                ALCityObjectInPG entity = itr.next();
+                dto = DTOUtil.getALCityObjectInPGDTO(entity);
+                Collection<Attribute> attributes = attributeService.findByOwnerIdAndAttributeOwnerType(entity.getId(), AttributeOwnerType.ALCity_Object_In_Puzzle_Group);
+                dtos.add(dto);
+            }
+        }
+        return  dtos;
+    }
 
 
 

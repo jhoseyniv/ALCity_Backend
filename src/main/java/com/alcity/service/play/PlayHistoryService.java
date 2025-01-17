@@ -9,6 +9,7 @@ import com.alcity.entity.play.PlayHistory;
 import com.alcity.entity.puzzle.PuzzleGroup;
 import com.alcity.entity.puzzle.PuzzleLevel;
 import com.alcity.repository.play.PlayHistoryRepository;
+import com.alcity.utility.ToolBox;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,12 +24,7 @@ public class PlayHistoryService implements PlayHistoryRepository {
     @Autowired
     PlayHistoryRepository playHistoryRepository;
 
-    public Integer getPuzzleLevelStars(Float score,Float first,Float two,Float three) {
-        if(score >= first) return  1;
-        if(score >= two) return  2;
-        if(score >= three) return  3;
-        return 1;
-    }
+
 
     public PlayHistoryDTO getPlayHistory(PlayHistory history){
         PlayHistoryDTO dto = new PlayHistoryDTO();
@@ -36,7 +32,6 @@ public class PlayHistoryService implements PlayHistoryRepository {
         dto.setPlayScore(history.getPlayScore());
         dto.setPlayTime(history.getPlayTime());
         dto.setPlayDuration(history.getPlayDuration());
-
         //get player information
         AppMember player = history.getPlayer();
         dto.setPlayerId(player.getId());
@@ -48,7 +43,7 @@ public class PlayHistoryService implements PlayHistoryRepository {
         dto.setPlCode(pl.getCode());
         dto.setPlTitle(pl.getTitle());
         dto.setPlMaxScore(pl.getMaxScore());
-        dto.setStars(getPuzzleLevelStars(history.getPlayScore(),pl.getFirstStarScore(),pl.getSecondStarScore(),pl.getThirdStartScore()));
+        dto.setStars(ToolBox.getPuzzleLevelStars(history.getPlayScore(),pl.getFirstStarScore(),pl.getSecondStarScore(),pl.getThirdStartScore()));
 
         //get Puzzle Group information
         PuzzleGroup pg = pl.getPuzzleGroup();

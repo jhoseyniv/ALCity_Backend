@@ -8,11 +8,14 @@ import com.alcity.entity.alenum.PLStatus;
 import com.alcity.entity.alobject.AttributeValue;
 import com.alcity.entity.base.BinaryContent;
 import com.alcity.entity.base.PLPrivacy;
+import com.alcity.entity.journey.Journey;
 import com.alcity.entity.journey.JourneyStep;
 import com.alcity.entity.puzzle.PuzzleGroup;
 import com.alcity.entity.puzzle.PuzzleLevel;
 import com.alcity.entity.appmember.AppMember;
 import com.alcity.repository.base.PLPrivacyRepository;
+import com.alcity.repository.journey.JourneyRepository;
+import com.alcity.repository.journey.JourneyStepRepository;
 import com.alcity.repository.puzzle.PGRepository;
 import com.alcity.repository.puzzle.PuzzleLevelRepository;
 import com.alcity.repository.appmember.AppMemberRepository;
@@ -32,6 +35,8 @@ public class PuzzleLevelService implements PuzzleLevelRepository {
 
     @Autowired
     PuzzleLevelRepository puzzleLevelRepository;
+    @Autowired
+    JourneyStepRepository journeyStepRepository;
 
     @Override
     public <S extends PuzzleLevel> S save(S entity) {
@@ -56,7 +61,6 @@ public class PuzzleLevelService implements PuzzleLevelRepository {
     public Collection<PuzzleLevel> findAllMatchesToAge(Integer age) {
         Collection<PuzzleLevel> puzzleLevels = puzzleLevelRepository.findAll();
         Collection<PuzzleLevel> newpuzzleLevels =puzzleLevels.stream().filter(puzzleLevel -> puzzleLevel.getFromAge() <= age && age <= puzzleLevel.getToAge()).collect(Collectors.toList());
-       // getJourneyStepsMatchWithPuzzleLvels(newpuzzleLevels);
         return newpuzzleLevels;
     }
     public JourneyStep getFirstItem(Collection<JourneyStep> steps){
@@ -82,11 +86,39 @@ public class PuzzleLevelService implements PuzzleLevelRepository {
     }
 
     public PuzzleLevelStepMappingDTO getJourneyStepMappedWithPuzzleLevel(PuzzleLevel puzzleLevel) {
-            PuzzleGroup puzzleGroup = puzzleLevel.getPuzzleGroup();
-            Collection<JourneyStep> steps = puzzleGroup.getJourneyStepCollection();
-            JourneyStep step = getFirstItem(steps);
-            PuzzleLevelStepMappingDTO  dto =  DTOUtil.puzzleLevelJourneyStepMapping(puzzleLevel,step) ;
+        PuzzleGroup puzzleGroup = puzzleLevel.getPuzzleGroup();
+        Collection<JourneyStep> steps = puzzleGroup.getJourneyStepCollection();
+        JourneyStep step = getFirstItem(steps);
+        PuzzleLevelStepMappingDTO  dto =  DTOUtil.puzzleLevelJourneyStepMapping(puzzleLevel,step) ;
         return  dto;
+    }
+    public Long getJourneyIdMappedWithPuzzleLevel(PuzzleLevel puzzleLevel) {
+        PuzzleGroup puzzleGroup = puzzleLevel.getPuzzleGroup();
+        Collection<JourneyStep> steps = puzzleGroup.getJourneyStepCollection();
+        JourneyStep step = getFirstItem(steps);
+        if(step == null || step.getJourney() == null) return  -1L;
+        Long journeyId = step.getJourney().getId();
+        return  journeyId;
+    }
+    /*
+    public Long getJourneyStepIdMappedWithPuzzleLevel(PuzzleLevel puzzleLevel) {
+        PuzzleGroup puzzleGroup = puzzleLevel.getPuzzleGroup();
+        Collection<JourneyStep> steps = puzzleGroup.getJourneyStepCollection();
+        JourneyStep step = getFirstItem(steps);
+        if(steps == null || step == null) return  -1L;
+        Long stepId = step.getId();
+
+        return  stepId;
+    }
+    */
+
+    public JourneyStep getJourneyStepIdMappedWithPuzzleLevel(Journey journey, PuzzleLevel puzzleLevel) {
+        PuzzleGroup puzzleGroup = puzzleLevel.getPuzzleGroup();
+        Collection<JourneyStep> steps = puzzleGroup.getJourneyStepCollection();
+        JourneyStep step = getFirstItem(steps);
+        if(steps == null || step == null) return  null;
+        Optional<JourneyStep> journeyStep = journeyStepRepository.findById(step.getId());
+        return  journeyStep.get();
     }
 
 
@@ -116,6 +148,11 @@ public class PuzzleLevelService implements PuzzleLevelRepository {
     @Override
     public Optional<PuzzleLevel> findByIcon(BinaryContent icon) {
         return puzzleLevelRepository.findByIcon(icon);
+    }
+
+    @Override
+    public Collection<PuzzleLevel> findByPuzzleLevelPrivacy(PLPrivacy privacy) {
+        return puzzleLevelRepository.findByPuzzleLevelPrivacy(privacy);
     }
 
     @Override
@@ -174,7 +211,7 @@ public class PuzzleLevelService implements PuzzleLevelRepository {
                     puzzleGroup = puzzleGroupOptional.get();
 
         if (code.equalsIgnoreCase("Save")) { //Save
-            puzzleLevel = new PuzzleLevel(dto.getApproveDate(), dto.getOrdering(), dto.getTitle(),dto.getCode(),dto.getFromAge(),dto.getToAge(),
+            puzzleLevel = new PuzzleLevel(createdBy,dto.getApproveDate(), dto.getOrdering(), dto.getTitle(),dto.getCode(),dto.getFromAge(),dto.getToAge(),
                                 dto.getMaxScore(), dto.getFirstStarScore(), dto.getSecondStarScore(), dto.getThirdStartScore(), puzzleGroup,plDifficulty,plStatus,plPrivacy
                                     , 1L, "1714379790", "1714379790", createdBy, createdBy);
             puzzleLevelRepository.save(puzzleLevel);
@@ -201,5 +238,24 @@ public class PuzzleLevelService implements PuzzleLevelRepository {
 
         return puzzleLevel;
     }
+    public Collection<PuzzleLevel> getPublicPuzzleLevelByAppMember(AppMember member) {
+            PLPrivacy publicPL = plPrivacyRepository.findByValue("public");
+          Collection<PuzzleLevel> puzzleLevels = puzzleLevelRepository.findByPuzzleLevelPrivacy(publicPL);
+        Collection<PuzzleLevel> filterdByAge = puzzleLevels.stream().filter(PuzzleLevel -> PuzzleLevel.getFromAge() <=member.getAge()  && member.getAge() <= PuzzleLevel.getToAge()).collect(Collectors.toList());
+         return  filterdByAge;
+    }
+   public JourneyStep getPuzzleLevelMappedStep(Long id){
+        JourneyStep journeyStep = null;
+        PuzzleLevel puzzleLevel = new PuzzleLevel();
+           Optional<PuzzleLevel> puzzleLevelOptional = puzzleLevelRepository.findById(id);
+           if(puzzleLevelOptional.isPresent()) {
+               puzzleLevel = puzzleLevelOptional.get();
+               PuzzleGroup puzzleGroup = puzzleLevel.getPuzzleGroup();
+               Collection<JourneyStep> journeyStepCollection = puzzleGroup.getJourneyStepCollection();
+               Iterator<JourneyStep> itr = journeyStepCollection.iterator();
+               if(itr.hasNext()) return itr.next();
+           }
 
+      return journeyStep;
+    }
     }

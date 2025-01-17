@@ -1,5 +1,6 @@
 package com.alcity.service.Journey;
 
+import com.alcity.cruddto.journey.JourneyStepRecord;
 import com.alcity.dto.journey.JourneyDTO;
 import com.alcity.dto.journey.JourneyStepDTO;
 import com.alcity.entity.appmember.AppMember;
@@ -71,7 +72,7 @@ public class JourneyStepService implements JourneyStepRepository {
     @Autowired
     JourneyRepository journeyRepository;
 
-    public JourneyStep save(JourneyStepDTO dto, String code) {
+    public JourneyStep save(JourneyStepRecord dto, String code) {
         AppMember createdBy = appMemberRepository.findByUsername("admin");
         JourneyStep journeyStep=null;
         Optional<JourneyStep> journeyStepOptional= journeyStepRepository.findByTitle(dto.getTitle());
@@ -124,6 +125,11 @@ public class JourneyStepService implements JourneyStepRepository {
     @Override
     public Collection<JourneyStep> findByYpos(Integer ypos) {
         return null;
+    }
+
+    @Override
+    public Collection<JourneyStep> findByJourney(Journey journey) {
+        return journeyStepRepository.findByJourney(journey);
     }
 
     @Override

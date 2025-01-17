@@ -1,5 +1,11 @@
 package com.alcity.dto.puzzle;
 
+import com.alcity.dto.alobject.AttributeDTO;
+import com.alcity.dto.alobject.Dependency;
+import com.alcity.entity.alobject.Attribute;
+
+import java.util.Collection;
+
 public class ALCityObjectInPGDTO {
 
     private Long id;
@@ -10,6 +16,8 @@ public class ALCityObjectInPGDTO {
 
     private Long puzzleGroupId;
     private String alCityObject;
+
+    private Collection<Dependency> dependencies;
 
     private Long alCityObjectId;
 
@@ -120,7 +128,15 @@ public class ALCityObjectInPGDTO {
         this.alCityObjectId = alCityObjectId;
     }
 
-    public ALCityObjectInPGDTO(Long id, String title, String code, String puzzleGroup, Long puzzleGroupId, String alCityObject, Long alCityObjectId,
+    public Collection<Dependency> getDependencies() {
+        return dependencies;
+    }
+
+    public void setDependencies(Collection<Dependency> dependencies) {
+        this.dependencies = dependencies;
+    }
+
+    public ALCityObjectInPGDTO(Long id, String title, String code, String puzzleGroup, Long puzzleGroupId, String alCityObject, Long alCityObjectId,Collection<Dependency> dependencies,
                                Long version, String created, String updated, String createdBy, String updatedBy) {
         this.id = id;
         this.title = title;
@@ -129,6 +145,7 @@ public class ALCityObjectInPGDTO {
         this.puzzleGroupId = puzzleGroupId;
         this.alCityObject = alCityObject;
         this.alCityObjectId = alCityObjectId;
+        this.dependencies = dependencies;
         this.version = version;
         this.created = created;
         this.updated = updated;

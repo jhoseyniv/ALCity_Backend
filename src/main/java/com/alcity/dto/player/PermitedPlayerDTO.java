@@ -3,6 +3,9 @@ package com.alcity.dto.player;
 public class PermitedPlayerDTO   {
 
     private Long id;
+    private Long plId;
+
+    private String plTitle;
     private Long version;
     private String created;
     private String updated;
@@ -10,8 +13,17 @@ public class PermitedPlayerDTO   {
 
     private String updatedBy;
 
+    private Long playerId;
     private String playerUsername;
     private String email;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getEmail() {
         return email;
@@ -32,12 +44,28 @@ public class PermitedPlayerDTO   {
         this.playerUsername = playerUsername;
     }
 
-    public Long getId() {
-        return id;
+    public Long getPlId() {
+        return plId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setPlId(Long plId) {
+        this.plId = plId;
+    }
+
+    public String getPlTitle() {
+        return plTitle;
+    }
+
+    public void setPlTitle(String plTitle) {
+        this.plTitle = plTitle;
+    }
+
+    public Long getPlayerId() {
+        return playerId;
+    }
+
+    public void setPlayerId(Long playerId) {
+        this.playerId = playerId;
     }
 
     public Long getVersion() {
@@ -80,14 +108,17 @@ public class PermitedPlayerDTO   {
         this.updatedBy = updatedBy;
     }
 
-    public PermitedPlayerDTO(Long id, Long version, String created, String updated, String createdBy, String updatedBy,
-                             String playerUsername, String email) {
-        this.id = id;
+    public PermitedPlayerDTO(Long id,Long plId,String plTitle, Long version, String created, String updated, String createdBy, String updatedBy,
+                             Long plyerId,String playerUsername, String email) {
+        this.id =id;
+        this.plId = plId;
+        this.plTitle = plTitle;
         this.version = version;
         this.created = created;
         this.updated = updated;
         this.createdBy = createdBy;
         this.updatedBy = updatedBy;
+        this.playerId = plyerId;
         this.playerUsername = playerUsername;
         this.email = email;
     }

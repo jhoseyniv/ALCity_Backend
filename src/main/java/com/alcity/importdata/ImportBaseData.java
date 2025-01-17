@@ -7,6 +7,7 @@ import com.alcity.entity.alenum.ObjectAction;
 import com.alcity.entity.base.*;
 import com.alcity.entity.journey.Journey;
 import com.alcity.entity.journey.JourneyLearningSkill;
+import com.alcity.entity.journey.RoadMap;
 import com.alcity.entity.learning.LearningContent;
 import com.alcity.entity.learning.LearningSkill;
 import com.alcity.entity.learning.LearningSkillTopic;
@@ -20,6 +21,7 @@ import com.alcity.entity.appmember.WalletItem;
 import com.alcity.entity.appmember.WalletTransaction;
 import com.alcity.service.Journey.JourneyLearningSkillService;
 import com.alcity.service.Journey.JourneyService;
+import com.alcity.service.Journey.RoadMapService;
 import com.alcity.service.alobject.*;
 import com.alcity.service.base.*;
 import com.alcity.service.learning.LearningContentService;
@@ -110,6 +112,9 @@ public class ImportBaseData implements CommandLineRunner {
 
     @Autowired
     JourneyService journeyService;
+
+    @Autowired
+    RoadMapService roadMapService;
 
     @Autowired
     AdvertisementService advertisementService;
@@ -363,8 +368,8 @@ public class ImportBaseData implements CommandLineRunner {
         binaryContentService.save(image_object_binary_content);
 
 
-        PLPrivacy privacy_1 = new PLPrivacy("privacy 1","privacy1",1L,now,now,admin_1,admin_1);
-        PLPrivacy privacy_2 = new PLPrivacy("privacy 2","privacy2",1L,now,now,admin_1,admin_1);
+        PLPrivacy privacy_1 = new PLPrivacy("public","public",1L,now,now,admin_1,admin_1);
+        PLPrivacy privacy_2 = new PLPrivacy("private","private",1L,now,now,admin_1,admin_1);
         PLPrivacy privacy_3 = new PLPrivacy("privacy 3","privacy3",1L,now,now,admin_1,admin_1);
         puzzleLevelPrivacyService.save(privacy_1);
         puzzleLevelPrivacyService.save(privacy_2);
@@ -431,13 +436,49 @@ public class ImportBaseData implements CommandLineRunner {
         binaryContentService.save(image_journey_2);
         binaryContentService.save(image_journey_3);
 
-        Journey journey_1 = new Journey("Journey_1",1,10,50,image_journey_1,1L,now,now,admin_1,admin_1);
+        byte[] jouerny_passed_Image = ImageUtil.getImage("src/main/resources/images/","passed.png");
+        byte[]  tumb_jouerny_passed = ImageUtil.getThumbnail(jouerny_passed_Image,"passed.png");
+
+        byte[] jouerny_current_Image = ImageUtil.getImage("src/main/resources/images/","current.png");
+        byte[]  tumb_jouerny_current = ImageUtil.getThumbnail(jouerny_current_Image,"current.png");
+
+        byte[] jouerny_locked_Image = ImageUtil.getImage("src/main/resources/images/","locked.png");
+        byte[]  tumb_jouerny_locked = ImageUtil.getThumbnail(jouerny_locked_Image,"locked.png");
+
+
+        BinaryContent image_journey_passed = new BinaryContent(1L, now, now,admin_1 , admin_1,"image_journey_passed",jouerny_passed_Image.length,jouerny_passed_Image,tumb_jouerny_passed,"tag1","","",BinaryContentType.Image);
+        BinaryContent image_journey_current = new BinaryContent(1L, now, now,admin_1 , admin_1,"image_journey_current",jouerny_current_Image.length,jouerny_current_Image,tumb_jouerny_current,"tag1","","",BinaryContentType.Image);
+        BinaryContent image_journey_locked = new BinaryContent(1L, now, now,admin_1 , admin_1,"image_journey_locked",jouerny_locked_Image.length,jouerny_locked_Image,tumb_jouerny_locked,"tag1","","",BinaryContentType.Image);
+        binaryContentService.save(image_journey_passed);
+        binaryContentService.save(image_journey_current);
+        binaryContentService.save(image_journey_locked);
+
+
+
+        Journey journey_1 = new Journey("Journey_1",1,5,50,image_journey_1,1L,now,now,admin_1,admin_1);
         Journey journey_2 = new Journey("Journey_2",2,5,70,image_journey_2,1L,now,now,admin_1,admin_1);
         Journey journey_3 = new Journey("Journey_3",3,15,100,image_journey_3,1L,now,now,admin_1,admin_1);
+
+        journey_1.setButtonCurrenIcon(image_journey_current);
+        journey_1.setButtonPassedIcon(image_journey_passed);
+        journey_1.setButtonLockedIcon(image_journey_locked);
         journeyService.save(journey_1);
+
+
+        journey_2.setButtonCurrenIcon(image_journey_current);
+        journey_2.setButtonPassedIcon(image_journey_passed);
+        journey_2.setButtonLockedIcon(image_journey_locked);
         journeyService.save(journey_2);
+
+        journey_3.setButtonCurrenIcon(image_journey_current);
+        journey_3.setButtonPassedIcon(image_journey_passed);
+        journey_3.setButtonLockedIcon(image_journey_locked);
         journeyService.save(journey_3);
 
+        RoadMap roadMap1=new RoadMap(100,100,image_journey_1,journey_1,1L,now,now,jalalHoseyni,jalalHoseyni);
+        RoadMap roadMap2=new RoadMap(300,100,image_journey_2,journey_1,1L,now,now,jalalHoseyni,jalalHoseyni);
+        roadMapService.save(roadMap1);
+        roadMapService.save(roadMap2);
 
         JourneyLearningSkill journey_1_Skill_1 = new JourneyLearningSkill(0.5f,journey_1,timeManagement,1L,now,now,admin_1,admin_1);
         JourneyLearningSkill journey_1_Skill_2 = new JourneyLearningSkill(0.5f,journey_1,division,1L,now,now,admin_1,admin_1);
@@ -529,8 +570,29 @@ public class ImportBaseData implements CommandLineRunner {
         AttributeValue  move_ActionRenderer_param_moveType_value= new AttributeValue(null,null,null,"jump",null,null,null,move_ActionRenderer_param_8,move_ActionRenderer_param_8,1L,now,now,admin_1,admin_1);
         attributeValueService.save(move_ActionRenderer_param_moveType_value);
 
+
         ALCityObject textObject = new ALCityObject(1L,now,now,jalalHoseyni,jalalHoseyni,"TextObject",objectCategory_TextObject,textObject_pic,textObject_icon);
         alCityObjectService.save(textObject);
+
+        byte[] fbx_file_byte = ImageUtil.getImage("src/main/resources/images/","image_object_icon.png");
+        BinaryContent fbx_file = new BinaryContent(1L, now, now,admin_1 , admin_1,"fbx_file",fbx_file_byte.length,image_object_content_icon_byte,null,"tag1","","",BinaryContentType.Image);
+        binaryContentService.save(fbx_file);
+
+        byte[] texture_file_byte = ImageUtil.getImage("src/main/resources/images/","image_object_icon.png");
+        BinaryContent texture_file = new BinaryContent(1L, now, now,admin_1 , admin_1,"fbx_file",texture_file_byte.length,image_object_content_icon_byte,null,"tag1","","",BinaryContentType.Image);
+        binaryContentService.save(texture_file);
+
+        Attribute fbx_file_att= new Attribute("fbx_file",textObject.getId(),AttributeOwnerType.ALCity_Object_In_Puzzle_Group,DataType.Binary,1L,now,now,admin_1,admin_1);
+        attributeService.save(fbx_file_att);
+
+        AttributeValue fbx_file_att_value = new AttributeValue(false,-1,-1L,"",null,0f,fbx_file.getId(),fbx_file_att,fbx_file_att,1L,now,now,admin_1,admin_1);
+        attributeValueService.save(fbx_file_att_value);
+
+        Attribute texture_file_att= new Attribute("texture_file",textObject.getId(),AttributeOwnerType.ALCity_Object_In_Puzzle_Group,DataType.Binary,1L,now,now,admin_1,admin_1);
+        attributeService.save(texture_file_att);
+
+        AttributeValue texture_file_att_value = new AttributeValue(false,-1,-1L,"",null,0f,texture_file_att.getId(),texture_file_att,texture_file_att,1L,now,now,admin_1,admin_1);
+        attributeValueService.save(texture_file_att_value);
 
         PuzzleObjectAction textObject_Create_Action = new PuzzleObjectAction(POActionOwnerType.ALCity_Object,textObject.getId(),ObjectAction.Create,create_Renderer,1L,now,now,admin_1,admin_1);
         puzzleObjectActionService.save(textObject_Create_Action);

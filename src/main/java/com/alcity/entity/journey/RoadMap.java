@@ -18,7 +18,6 @@ public class RoadMap  extends BaseTable implements Serializable {
     @Column(name="ypos")
     private Integer ypos;
 
-
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "binary_content_id", nullable = true)
     @JsonIgnore
@@ -57,10 +56,11 @@ public class RoadMap  extends BaseTable implements Serializable {
     public RoadMap() {
     }
 
-    public RoadMap(Integer xpos, Integer ypos, BinaryContent graphic , Long version, String created, String updated, AppMember createdBy, AppMember updatedBy) {
+    public RoadMap(Integer xpos, Integer ypos, BinaryContent graphic, Journey journey,Long version, String created, String updated, AppMember createdBy, AppMember updatedBy) {
         super(version, created, updated, createdBy, updatedBy);
         this.xpos = xpos;
         this.ypos = ypos;
         this.graphic = graphic;
+        this.journey = journey;
     }
 }

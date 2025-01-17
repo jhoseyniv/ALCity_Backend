@@ -1,15 +1,17 @@
 package com.alcity.service.appmember;
 
-import com.alcity.dto.appmember.AppMemberJourneyDetailDTO;
-import com.alcity.dto.appmember.AppMemberJourneyDTO;
-import com.alcity.dto.journey.JourneyStepDTO;
+import com.alcity.dto.appmember.*;
+import com.alcity.dto.journey.RoadMapDTO;
 import com.alcity.dto.player.PlayHistoryDTO;
+import com.alcity.dto.puzzle.PLDTO;
+import com.alcity.dto.puzzle.PuzzleLevelStepMappingDTO;
+import com.alcity.dtotransient.AppMemberJourneyInfo;
+import com.alcity.dtotransient.AppMemberStepInfo;
 import com.alcity.entity.journey.Journey;
 import com.alcity.entity.journey.JourneyStep;
 import com.alcity.entity.play.PlayHistory;
+import com.alcity.entity.puzzle.PuzzleLevel;
 import com.alcity.service.customexception.ALCityResponseObject;
-import com.alcity.dto.appmember.AppMemberDTO;
-import com.alcity.dto.appmember.AppMemberWalletDTO;
 import com.alcity.entity.alenum.UserGender;
 import com.alcity.entity.appmember.AppMember;
 import com.alcity.entity.appmember.AppMember_WalletItem;
@@ -32,6 +34,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -53,29 +56,159 @@ public class AppMemberService implements AppMemberRepository, CustomizedUserRepo
     @Autowired
     private PuzzleLevelService puzzleLevelService;
 
+/*
+    public Collection<AppMemberJourneyStepDTO>  getJourneyStepsScore(Collection<PlayHistory> histories, Journey journey){
+        Collection<AppMemberJourneyStepDTO> dtos = new ArrayList<>();
+        Iterator<PlayHistory> itr = histories.iterator();
+        while(itr.hasNext()){
+            PlayHistory playHistory = itr.next();
+            JourneyStep journeyStep = puzzleLevelService.getJourneyStepIdMappedWithPuzzleLevel(journey,playHistory.getPuzzleLevel());
+            if(journeyStep.getJourney().getId() == journey.getId()) {
+                AppMemberJourneyStepDTO dto = new AppMemberJourneyStepDTO();
+                dto.setStepId(journeyStep.getId());
+                dto.setXpos(journeyStep.getXpos());
+                dto.setYpos(journeyStep.getYpos());
+                dto.setPuzzleLevelId(playHistory.getPuzzleLevel().getId());
+                dto.setStars(playHistory.getStars());
+                dto.setCompleted(Boolean.TRUE);
+                dtos.add(dto);
+            }
+        }
+        return dtos;
+    }
+
+    /*
+    public AppMemberJourneyDetailDTO getAppMemberJourneyDetailByScores(AppMember member, Journey journey) {
+        Integer age= member.getAge();
+        Collection<PlayHistory> histories = member.getPlayHistories();
+        Collection<PlayHistoryDTO> playHistoryDTOS = DTOUtil.getPlayHistoryDTOS(histories);
+        Collection<PlayHistoryDTO> filtredPlayHistoryDTOS = playHistoryDTOS.stream().filter(PlayHistoryDTO -> PlayHistoryDTO.getPlFromAge() <= age && age <= PlayHistoryDTO.getPlToAge()).collect(Collectors.toList());
+        AppMemberJourneyDetailDTO journeyDetailDTO = new AppMemberJourneyDetailDTO();
+        Collection<JourneyStepDTO> journeyStepDTOS = DTOUtil.getJorneyStepsDTOS(journey.getJourneyStepCollection());
+        journeyDetailDTO = DTOUtil.getAppMemberJourneyDetailDTO(filtredPlayHistoryDTOS,journeyStepDTOS);
+        Collection<RoadMapDTO> roadMapDTOS = DTOUtil.getJourneyRoadMapsDTOS(journey.getRoadMaps());
+        journeyDetailDTO.setRoadMapDTOS(roadMapDTOS);
+        journeyDetailDTO.setId(journey.getId());
+        journeyDetailDTO.setTitle(journey.getTitle());
+        return  journeyDetailDTO;
+    }
+*/
+    public  Collection<PLDTO> getPublicPuzzleLevels(AppMember appMember){
+        Collection<PLDTO>  pldtos= new ArrayList<PLDTO>();
+        Collection<PuzzleLevel> puzzleLevels = puzzleLevelService.getPublicPuzzleLevelByAppMember(appMember);
+        pldtos =DTOUtil.getPuzzleLevelDTOS(puzzleLevels);
+        return pldtos;
+    }
+
+    public  Collection<PLDTO> getPuzzleLevelsNotPlayed(Collection<PLDTO> puzzles,Collection<PLDTO> played){
+        Collection<PLDTO>  notPlayed = puzzles.stream().filter(pldto -> played.contains(pldto)).collect(Collectors.toList());
+        return notPlayed;
+    }
+    public  Collection<PLDTO> getPuzzleLevelsPlayed(AppMember appMember){
+        Collection<PLDTO>  pldtos= new ArrayList<PLDTO>();
+        Collection<PlayHistory> histories = appMember.getPlayHistories();
+        pldtos =DTOUtil.getPlayedPuzzlesByAppMemberDTOS(histories);
+
+        return pldtos;
+    }
 
     public Collection<AppMemberJourneyDTO> getAppMemberJourneysByScores(AppMember member, Collection<Journey> journeys) {
         Collection<AppMemberJourneyDTO> dtos = new ArrayList<AppMemberJourneyDTO>();
-        Collection<PlayHistory> histories = member.getPlayHistories();
-        Collection<PlayHistoryDTO> historyDTOS = DTOUtil.getPlayHistoryDTOS(histories);
-        Iterator<Journey>  itr = journeys.iterator();
-        while(itr.hasNext()) {
-            AppMemberJourneyDTO dto = new AppMemberJourneyDTO();
-            dto = DTOUtil.getAppmemberJourneyDTO(member,itr.next());
+        Iterator<Journey> itr = journeys.iterator();
+        while(itr.hasNext()){
+            Journey journey = itr.next();
+            AppMemberJourneyDTO dto = getJourneyScoresForAppMember(member,journey);
             dtos.add(dto);
         }
         return  dtos;
     }
+
+
+    public AppMemberJourneyInfo getAppMemberJourneyInfo(AppMember member, Journey journey) {
+        Collection<AppMemberStepInfo> stepInfos = new ArrayList<>();
+        Collection<PLDTO> publicPuzzleLevels = getPublicPuzzleLevels(member);
+        Iterator<PLDTO> itr = publicPuzzleLevels.iterator();
+        Collection<RoadMapDTO> roadMapDTOS = DTOUtil.getJourneyRoadMapsDTOS(journey.getRoadMaps());
+        AppMemberJourneyInfo journeyInfo = new AppMemberJourneyInfo();
+        journeyInfo.setRoadMaps(roadMapDTOS);
+        journeyInfo.setJourneyTitle(journey.getTitle());
+        journeyInfo.setJourneyId(journey.getId());
+        journeyInfo.setAppMemberId(member.getId());
+        journeyInfo.setAppMemberUserName(member.getUsername());
+        journeyInfo.setCurrentIconId(journey.getButtonCurrenIcon().getId());
+        journeyInfo.setPassedIconId(journey.getButtonPassedIcon().getId());
+        journeyInfo.setLockedIconId(journey.getButtonLockedIcon().getId());
+        while (itr.hasNext()){
+            PLDTO pldto = itr.next();
+            JourneyStep journeyStep = puzzleLevelService.getPuzzleLevelMappedStep(pldto.getId());
+            if(journeyStep.getJourney().getId() == journey.getId()) {
+                AppMemberStepInfo dto = new AppMemberStepInfo(journeyStep.getId(), journeyStep.getTitle(),journeyStep.getXpos(),journeyStep.getXpos(),
+                        pldto.getId(), pldto.getTitle(), pldto.getPuzzleGroupId(), pldto.getPuzzleGroupTitle(),0,Boolean.FALSE);
+                stepInfos.add(dto);
+            }
+        }
+        journeyInfo.setSteps(stepInfos);
+        return journeyInfo;
+    }
+    public AppMemberJourneyInfo getAppMemberJourneyInfoWithScores(AppMember member, AppMemberJourneyInfo journeyInfo) {
+        AppMemberJourneyInfo journeyInfoWithScores = new AppMemberJourneyInfo();
+        journeyInfoWithScores.setRoadMaps(journeyInfo.getRoadMaps());
+        journeyInfoWithScores.setJourneyTitle(journeyInfo.getJourneyTitle());
+        journeyInfoWithScores.setJourneyId(journeyInfo.getJourneyId());
+        journeyInfoWithScores.setPassedIconId(journeyInfo.getPassedIconId());
+        journeyInfoWithScores.setCurrentIconId(journeyInfo.getCurrentIconId());
+        journeyInfoWithScores.setLockedIconId(journeyInfo.getJourneyId());
+
+        journeyInfoWithScores.setAppMemberId(member.getId());
+        journeyInfoWithScores.setAppMemberUserName(member.getUsername());
+
+        Collection<PlayHistory>  histories= member.getPlayHistories();
+        Collection<PlayHistoryDTO> playedPuzzles = DTOUtil.getPlayHistoryDTOS(histories);
+        Iterator<PlayHistoryDTO> itr = playedPuzzles.iterator();
+        Collection<AppMemberStepInfo> stepInfos = journeyInfo.getSteps();
+
+        while (itr.hasNext()){
+            PlayHistoryDTO historyDTO = itr.next();
+            Optional<AppMemberStepInfo> stepInfoOptional = stepInfos.stream().filter(AppMemberStepInfo -> AppMemberStepInfo.getPuzzleLevelId() == historyDTO.getPlId()).findFirst();
+            if(stepInfoOptional.isPresent()){
+                AppMemberStepInfo stepInfo =stepInfoOptional.get();
+                stepInfo.setCompleted(Boolean.TRUE);
+                stepInfo.setStars(historyDTO.getStars());
+            }
+
+        }
+        journeyInfoWithScores.setSteps(stepInfos);
+        return journeyInfoWithScores;
+    }
+
     public AppMemberJourneyDTO getJourneyScoresForAppMember(AppMember member, Journey journey) {
         Collection<PlayHistory> histories = member.getPlayHistories();
-        Collection<PlayHistoryDTO> historyDTOS = DTOUtil.getPlayHistoryDTOS(histories);
-        Collection<JourneyStepDTO> journeyStepDTOS = DTOUtil.getJorenyStepsDTOS(journey.getJourneyStepCollection());
+        Collection<PuzzleLevelStepMappingDTO> mappingDTOS = new ArrayList<>();
         AppMemberJourneyDTO dto = new AppMemberJourneyDTO();
-        //puzzleLevelService.getJourneyStepMappedWithPuzzleLevel()
-        dto = DTOUtil.getAppmemberJourneyDTO(member,journey);
+        Integer currentStar=0;
+        Iterator<PlayHistory> itr = histories.iterator();
+        dto.setTitle(journey.getTitle());
+        dto.setIconId(journey.getGraphic().getId());
+        dto.setAppMemberId(member.getId());
+        dto.setOpen(Boolean.FALSE);
+        dto.setMaxStar(journey.getMaxStar());
+        dto.setMinStar(journey.getMinStar());
+        dto.setJourneyId(journey.getId());
+        while(itr.hasNext()) {
+            PlayHistory playHistory = itr.next();
+            Long journeyId = puzzleLevelService.getJourneyIdMappedWithPuzzleLevel(playHistory.getPuzzleLevel());
+            if(journeyId == journey.getId()) {
+                currentStar += playHistory.getStars();
+            }
+        }
+        dto.setCurrentStar(currentStar);
+        if(currentStar >= journey.getMinStar())
+            dto.setOpen(Boolean.TRUE);
     return  dto;
     }
 
+
+/*
     public AppMemberJourneyDetailDTO getAppMemberJourneyByScore(AppMember member, Journey journey) {
         AppMemberJourneyDetailDTO dto = new AppMemberJourneyDetailDTO();
         Collection<JourneyStep> steps = journey.getJourneyStepCollection();
@@ -85,6 +218,8 @@ public class AppMemberService implements AppMemberRepository, CustomizedUserRepo
         return  dto;
     }
 
+
+ */
     public AppMember_WalletItem chargeOrDeChargeAppMemberWallet(AppMemberWalletDTO dto, String code) {
         AppMember createdBy = appMemberRepository.findByUsername("admin");
         Optional<WalletItem> walletItemOptional = walletItemRespository.findById(dto.getWalletItemId());
