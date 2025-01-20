@@ -13,6 +13,7 @@ public enum BinaryContentType {
     BoardGraphic_JSON,
     PNG,
     FBX,
+    TEXTURE,
     MAT,
     ANIM,
     MP3,

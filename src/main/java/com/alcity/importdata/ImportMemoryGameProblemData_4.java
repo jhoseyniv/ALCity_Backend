@@ -258,43 +258,43 @@ public class ImportMemoryGameProblemData_4 implements CommandLineRunner {
 
         Attribute pl_variable_matched =new Attribute("matched",pl_Memory_Game.getId(), AttributeOwnerType.Puzzle_Level_Variable,DataType.Integer,1L,now,now,admin_1,admin_1);
         attributeService.save(pl_variable_matched);
-        AttributeValue pl_variable_matched_value= new AttributeValue(null,0,null,null,null,null,null,pl_variable_matched,pl_variable_matched,1L,now,now,admin_1,admin_1);
+        AttributeValue pl_variable_matched_value= new AttributeValue(null,0,null,null,null,null,null,pl_variable_matched,pl_variable_matched,1L,now,now,admin_1,admin_1,pl_Memory_Game.getId(), AttributeOwnerType.Puzzle_Level_Variable);
         attributeValueService.save(pl_variable_matched_value);
 
         Attribute pl_variable_turn =new Attribute("turn",pl_Memory_Game.getId(),AttributeOwnerType.Puzzle_Level_Variable,DataType.Integer,1L,now,now,admin_1,admin_1);
         attributeService.save(pl_variable_turn);
 
-        AttributeValue pl_variable_turn_value= new AttributeValue(null,0,null,null,null,null,null,pl_variable_turn,pl_variable_turn,1L,now,now,admin_1,admin_1);
+        AttributeValue pl_variable_turn_value= new AttributeValue(null,0,null,null,null,null,null,pl_variable_turn,pl_variable_turn,1L,now,now,admin_1,admin_1,pl_Memory_Game.getId(),AttributeOwnerType.Puzzle_Level_Variable);
         attributeValueService.save(pl_variable_turn_value);
 
         Attribute pl_variable_firstFlippedX =new Attribute("firstFlippedX",pl_Memory_Game.getId(),AttributeOwnerType.Puzzle_Level_Variable,DataType.Integer,1L,now,now,admin_1,admin_1);
         attributeService.save(pl_variable_firstFlippedX);
 
-        AttributeValue pl_variable_firstFlippedX_value= new AttributeValue(null,0,null,null,null,null,null,pl_variable_firstFlippedX,pl_variable_firstFlippedX,1L,now,now,admin_1,admin_1);
+        AttributeValue pl_variable_firstFlippedX_value= new AttributeValue(null,0,null,null,null,null,null,pl_variable_firstFlippedX,pl_variable_firstFlippedX,1L,now,now,admin_1,admin_1,pl_Memory_Game.getId(),AttributeOwnerType.Puzzle_Level_Variable);
         attributeValueService.save(pl_variable_firstFlippedX_value);
 
         Attribute pl_variable_firstFlippedY =new Attribute("firstFlippedY",pl_Memory_Game.getId(),AttributeOwnerType.Puzzle_Level_Variable,DataType.Integer,1L,now,now,admin_1,admin_1);
         attributeService.save(pl_variable_firstFlippedY);
 
-        AttributeValue pl_variable_firstFlippedY_value= new AttributeValue(null,0,null,null,null,null,null,pl_variable_firstFlippedY,pl_variable_firstFlippedY,1L,now,now,admin_1,admin_1);
+        AttributeValue pl_variable_firstFlippedY_value= new AttributeValue(null,0,null,null,null,null,null,pl_variable_firstFlippedY,pl_variable_firstFlippedY,1L,now,now,admin_1,admin_1,pl_Memory_Game.getId(),AttributeOwnerType.Puzzle_Level_Variable);
         attributeValueService.save(pl_variable_firstFlippedY_value);
 
         Attribute pl_variable_secondFlippedX =new Attribute("secondFlippedX",pl_Memory_Game.getId(),AttributeOwnerType.Puzzle_Level_Variable,DataType.Integer,1L,now,now,admin_1,admin_1);
         attributeService.save(pl_variable_secondFlippedX);
 
-        AttributeValue pl_variable_secondFlippedX_value= new AttributeValue(null,0,null,null,null,null,null,pl_variable_secondFlippedX,pl_variable_secondFlippedX,1L,now,now,admin_1,admin_1);
+        AttributeValue pl_variable_secondFlippedX_value= new AttributeValue(null,0,null,null,null,null,null,pl_variable_secondFlippedX,pl_variable_secondFlippedX,1L,now,now,admin_1,admin_1,pl_Memory_Game.getId(),AttributeOwnerType.Puzzle_Level_Variable);
         attributeValueService.save(pl_variable_secondFlippedX_value);
 
         Attribute pl_variable_secondFlippedY =new Attribute("secondFlippedY",pl_Memory_Game.getId(),AttributeOwnerType.Puzzle_Level_Variable,DataType.Integer,1L,now,now,admin_1,admin_1);
         attributeService.save(pl_variable_secondFlippedY);
 
-        AttributeValue pl_variable_secondFlippedY_value= new AttributeValue(null,0,null,null,null,null,null,pl_variable_secondFlippedY,pl_variable_secondFlippedY,1L,now,now,admin_1,admin_1);
+        AttributeValue pl_variable_secondFlippedY_value= new AttributeValue(null,0,null,null,null,null,null,pl_variable_secondFlippedY,pl_variable_secondFlippedY,1L,now,now,admin_1,admin_1,pl_Memory_Game.getId(),AttributeOwnerType.Puzzle_Level_Variable);
         attributeValueService.save(pl_variable_secondFlippedY_value);
 
         Attribute pl_variable_finished =new Attribute("finished",pl_Memory_Game.getId(),AttributeOwnerType.Puzzle_Level_Variable,DataType.Boolean,1L,now,now,admin_1,admin_1);
         attributeService.save(pl_variable_finished);
 
-        AttributeValue pl_variable_finished_value= new AttributeValue(false,null,null,null,null,null,null,pl_variable_finished,pl_variable_finished,1L,now,now,admin_1,admin_1);
+        AttributeValue pl_variable_finished_value= new AttributeValue(false,null,null,null,null,null,null,pl_variable_finished,pl_variable_finished,1L,now,now,admin_1,admin_1,pl_Memory_Game.getId(),AttributeOwnerType.Puzzle_Level_Variable);
         attributeValueService.save(pl_variable_finished_value);
 
 

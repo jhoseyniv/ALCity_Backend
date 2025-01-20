@@ -53,10 +53,18 @@ public class RoadMap  extends BaseTable implements Serializable {
         this.graphic = graphic;
     }
 
+    public Journey getJourney() {
+        return journey;
+    }
+
+    public void setJourney(Journey journey) {
+        this.journey = journey;
+    }
+
     public RoadMap() {
     }
 
-    public RoadMap(Integer xpos, Integer ypos, BinaryContent graphic, Journey journey,Long version, String created, String updated, AppMember createdBy, AppMember updatedBy) {
+    public RoadMap(Integer xpos, Integer ypos, BinaryContent graphic,Journey journey,Long version, String created, String updated, AppMember createdBy, AppMember updatedBy) {
         super(version, created, updated, createdBy, updatedBy);
         this.xpos = xpos;
         this.ypos = ypos;

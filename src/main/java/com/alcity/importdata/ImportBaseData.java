@@ -455,9 +455,9 @@ public class ImportBaseData implements CommandLineRunner {
 
 
 
-        Journey journey_1 = new Journey("Journey_1",1,5,50,image_journey_1,1L,now,now,admin_1,admin_1);
-        Journey journey_2 = new Journey("Journey_2",2,5,70,image_journey_2,1L,now,now,admin_1,admin_1);
-        Journey journey_3 = new Journey("Journey_3",3,15,100,image_journey_3,1L,now,now,admin_1,admin_1);
+        Journey journey_1 = new Journey("Journey_1",1,5,50,1L,now,now,admin_1,admin_1);
+        Journey journey_2 = new Journey("Journey_2",2,5,70,1L,now,now,admin_1,admin_1);
+        Journey journey_3 = new Journey("Journey_3",3,15,100,1L,now,now,admin_1,admin_1);
 
         journey_1.setButtonCurrenIcon(image_journey_current);
         journey_1.setButtonPassedIcon(image_journey_passed);
@@ -508,12 +508,12 @@ public class ImportBaseData implements CommandLineRunner {
         //add parameters and default values
         Attribute create_ActionRenderer_param_1 =new Attribute("text",create_Renderer.getId(),AttributeOwnerType.Action_Renderer_Parameter,DataType.String,1L,now,now,admin_1,admin_1);
         attributeService.save(create_ActionRenderer_param_1);
-        AttributeValue create_ActionRenderer_param_1_value= new AttributeValue(null,null,null,"InstProp(CurrentInst(), text)",null,null,null,create_ActionRenderer_param_1,create_ActionRenderer_param_1,1L,now,now,admin_1,admin_1);
+        AttributeValue create_ActionRenderer_param_1_value= new AttributeValue(null,null,null,"InstProp(CurrentInst(), text)",null,null,null,create_ActionRenderer_param_1,create_ActionRenderer_param_1,1L,now,now,admin_1,admin_1,create_Renderer.getId(),AttributeOwnerType.Action_Renderer_Parameter);
         attributeValueService.save(create_ActionRenderer_param_1_value);
 
         Attribute create_ActionRenderer_param_2 =new Attribute("CODE",create_Renderer.getId(),AttributeOwnerType.Action_Renderer_Parameter,DataType.String,1L,now,now,admin_1,admin_1);
         attributeService.save(create_ActionRenderer_param_2);
-        AttributeValue create_ActionRenderer_param_2_value= new AttributeValue(null,null,null,"CODE",null,null,null,create_ActionRenderer_param_2,create_ActionRenderer_param_2,1L,now,now,admin_1,admin_1);
+        AttributeValue create_ActionRenderer_param_2_value= new AttributeValue(null,null,null,"CODE",null,null,null,create_ActionRenderer_param_2,create_ActionRenderer_param_2,1L,now,now,admin_1,admin_1,create_Renderer.getId(),AttributeOwnerType.Action_Renderer_Parameter);
         attributeValueService.save(create_ActionRenderer_param_2_value);
 
 
@@ -522,7 +522,7 @@ public class ImportBaseData implements CommandLineRunner {
 
         Attribute show_ActionRenderer_param_1 =new Attribute("text",show_Renderer.getId(),AttributeOwnerType.Action_Renderer_Parameter,DataType.String,1L,now,now,admin_1,admin_1);
         attributeService.save(show_ActionRenderer_param_1);
-        AttributeValue show_ActionRenderer_param_1_value= new AttributeValue(null,null,null,"InstProp(CurrentInst(), text)",null,null,null,show_ActionRenderer_param_1,show_ActionRenderer_param_1,1L,now,now,admin_1,admin_1);
+        AttributeValue show_ActionRenderer_param_1_value= new AttributeValue(null,null,null,"InstProp(CurrentInst(), text)",null,null,null,show_ActionRenderer_param_1,show_ActionRenderer_param_1,1L,now,now,admin_1,admin_1,show_Renderer.getId(),AttributeOwnerType.Action_Renderer_Parameter);
         attributeValueService.save(show_ActionRenderer_param_1_value);
 
 
@@ -532,42 +532,42 @@ public class ImportBaseData implements CommandLineRunner {
         //add parameters and default values
         Attribute move_ActionRenderer_param_1 =new Attribute("actionId",move_Renderer.getId(),AttributeOwnerType.Action_Renderer_Parameter,DataType.Long,1L,now,now,admin_1,admin_1);
         attributeService.save(move_ActionRenderer_param_1);
-        AttributeValue  move_ActionRenderer_param_actionId_value= new AttributeValue(null,null,ObjectAction.getOrdinalId("Move"),null,null,null,null,move_ActionRenderer_param_1,move_ActionRenderer_param_1,1L,now,now,admin_1,admin_1);
+        AttributeValue  move_ActionRenderer_param_actionId_value= new AttributeValue(null,null,ObjectAction.getOrdinalId("Move"),null,null,null,null,move_ActionRenderer_param_1,move_ActionRenderer_param_1,1L,now,now,admin_1,admin_1,move_Renderer.getId(),AttributeOwnerType.Action_Renderer_Parameter);
         attributeValueService.save(move_ActionRenderer_param_actionId_value);
 
         Attribute move_ActionRenderer_param_2 =new Attribute("aSync",move_Renderer.getId(),AttributeOwnerType.Action_Renderer_Parameter,DataType.Boolean,1L,now,now,admin_1,admin_1);
         attributeService.save(move_ActionRenderer_param_2);
-        AttributeValue  move_ActionRenderer_param_aSync_value= new AttributeValue(false,null,null,null,null,null,null,move_ActionRenderer_param_2,move_ActionRenderer_param_2,1L,now,now,admin_1,admin_1);
+        AttributeValue  move_ActionRenderer_param_aSync_value= new AttributeValue(false,null,null,null,null,null,null,move_ActionRenderer_param_2,move_ActionRenderer_param_2,1L,now,now,admin_1,admin_1,move_Renderer.getId(),AttributeOwnerType.Action_Renderer_Parameter);
         attributeValueService.save(move_ActionRenderer_param_aSync_value);
 
         Attribute move_ActionRenderer_param_3 =new Attribute("formRow",move_Renderer.getId(),AttributeOwnerType.Action_Renderer_Parameter,DataType.Integer,1L,now,now,admin_1,admin_1);
         attributeService.save(move_ActionRenderer_param_3);
-        AttributeValue  move_ActionRenderer_param_formRow_value= new AttributeValue(null,0,null,null,null,null,null,move_ActionRenderer_param_3,move_ActionRenderer_param_3,1L,now,now,admin_1,admin_1);
+        AttributeValue  move_ActionRenderer_param_formRow_value= new AttributeValue(null,0,null,null,null,null,null,move_ActionRenderer_param_3,move_ActionRenderer_param_3,1L,now,now,admin_1,admin_1,move_Renderer.getId(),AttributeOwnerType.Action_Renderer_Parameter);
         attributeValueService.save(move_ActionRenderer_param_formRow_value);
 
         Attribute move_ActionRenderer_param_4 =new Attribute("toRow",move_Renderer.getId(),AttributeOwnerType.Action_Renderer_Parameter,DataType.Integer,1L,now,now,admin_1,admin_1);
         attributeService.save(move_ActionRenderer_param_4);
-        AttributeValue  move_ActionRenderer_param_toRow_value= new AttributeValue(null,0,null,null,null,null,null,move_ActionRenderer_param_4,move_ActionRenderer_param_4,1L,now,now,admin_1,admin_1);
+        AttributeValue  move_ActionRenderer_param_toRow_value= new AttributeValue(null,0,null,null,null,null,null,move_ActionRenderer_param_4,move_ActionRenderer_param_4,1L,now,now,admin_1,admin_1,move_Renderer.getId(),AttributeOwnerType.Action_Renderer_Parameter);
         attributeValueService.save(move_ActionRenderer_param_toRow_value);
 
         Attribute move_ActionRenderer_param_5 =new Attribute("FromCol",move_Renderer.getId(),AttributeOwnerType.Action_Renderer_Parameter,DataType.Integer,1L,now,now,admin_1,admin_1);
         attributeService.save(move_ActionRenderer_param_5);
-        AttributeValue  move_ActionRenderer_param_FromCol_value= new AttributeValue(null,0,null,null,null,null,null,move_ActionRenderer_param_5,move_ActionRenderer_param_5,1L,now,now,admin_1,admin_1);
+        AttributeValue  move_ActionRenderer_param_FromCol_value= new AttributeValue(null,0,null,null,null,null,null,move_ActionRenderer_param_5,move_ActionRenderer_param_5,1L,now,now,admin_1,admin_1,move_Renderer.getId(),AttributeOwnerType.Action_Renderer_Parameter);
         attributeValueService.save(move_ActionRenderer_param_FromCol_value);
 
         Attribute move_ActionRenderer_param_6 =new Attribute("toCol",move_Renderer.getId(),AttributeOwnerType.Action_Renderer_Parameter,DataType.Integer,1L,now,now,admin_1,admin_1);
         attributeService.save(move_ActionRenderer_param_6);
-        AttributeValue  move_ActionRenderer_param_toCol_value= new AttributeValue(null,0,null,null,null,null,null,move_ActionRenderer_param_6,move_ActionRenderer_param_6,1L,now,now,admin_1,admin_1);
+        AttributeValue  move_ActionRenderer_param_toCol_value= new AttributeValue(null,0,null,null,null,null,null,move_ActionRenderer_param_6,move_ActionRenderer_param_6,1L,now,now,admin_1,admin_1,move_Renderer.getId(),AttributeOwnerType.Action_Renderer_Parameter);
         attributeValueService.save(move_ActionRenderer_param_toCol_value);
 
         Attribute move_ActionRenderer_param_7 =new Attribute("ObjectId",move_Renderer.getId(),AttributeOwnerType.Action_Renderer_Parameter,DataType.Long,1L,now,now,admin_1,admin_1);
         attributeService.save(move_ActionRenderer_param_7);
-        AttributeValue  move_ActionRenderer_param_ObjectId_value= new AttributeValue(null,null,0L,null,null,null,null,move_ActionRenderer_param_7,move_ActionRenderer_param_7,1L,now,now,admin_1,admin_1);
+        AttributeValue  move_ActionRenderer_param_ObjectId_value= new AttributeValue(null,null,0L,null,null,null,null,move_ActionRenderer_param_7,move_ActionRenderer_param_7,1L,now,now,admin_1,admin_1,move_Renderer.getId(),AttributeOwnerType.Action_Renderer_Parameter);
         attributeValueService.save(move_ActionRenderer_param_ObjectId_value);
 
         Attribute move_ActionRenderer_param_8 =new Attribute("moveType",move_Renderer.getId(),AttributeOwnerType.Action_Renderer_Parameter,DataType.String,1L,now,now,admin_1,admin_1);
         attributeService.save(move_ActionRenderer_param_8);
-        AttributeValue  move_ActionRenderer_param_moveType_value= new AttributeValue(null,null,null,"jump",null,null,null,move_ActionRenderer_param_8,move_ActionRenderer_param_8,1L,now,now,admin_1,admin_1);
+        AttributeValue  move_ActionRenderer_param_moveType_value= new AttributeValue(null,null,null,"jump",null,null,null,move_ActionRenderer_param_8,move_ActionRenderer_param_8,1L,now,now,admin_1,admin_1,move_Renderer.getId(),AttributeOwnerType.Action_Renderer_Parameter);
         attributeValueService.save(move_ActionRenderer_param_moveType_value);
 
 
@@ -575,23 +575,23 @@ public class ImportBaseData implements CommandLineRunner {
         alCityObjectService.save(textObject);
 
         byte[] fbx_file_byte = ImageUtil.getImage("src/main/resources/images/","image_object_icon.png");
-        BinaryContent fbx_file = new BinaryContent(1L, now, now,admin_1 , admin_1,"fbx_file",fbx_file_byte.length,image_object_content_icon_byte,null,"tag1","","",BinaryContentType.Image);
+        BinaryContent fbx_file = new BinaryContent(1L, now, now,admin_1 , admin_1,"fbx_file",fbx_file_byte.length,image_object_content_icon_byte,null,"tag1","","",BinaryContentType.FBX);
         binaryContentService.save(fbx_file);
 
         byte[] texture_file_byte = ImageUtil.getImage("src/main/resources/images/","image_object_icon.png");
-        BinaryContent texture_file = new BinaryContent(1L, now, now,admin_1 , admin_1,"fbx_file",texture_file_byte.length,image_object_content_icon_byte,null,"tag1","","",BinaryContentType.Image);
+        BinaryContent texture_file = new BinaryContent(1L, now, now,admin_1 , admin_1,"fbx_file",texture_file_byte.length,image_object_content_icon_byte,null,"tag1","","",BinaryContentType.TEXTURE);
         binaryContentService.save(texture_file);
 
-        Attribute fbx_file_att= new Attribute("fbx_file",textObject.getId(),AttributeOwnerType.ALCity_Object_In_Puzzle_Group,DataType.Binary,1L,now,now,admin_1,admin_1);
+        Attribute fbx_file_att= new Attribute("fbx_file",textObject.getId(),AttributeOwnerType.AlCity_Object,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(fbx_file_att);
 
-        AttributeValue fbx_file_att_value = new AttributeValue(false,-1,-1L,"",null,0f,fbx_file.getId(),fbx_file_att,fbx_file_att,1L,now,now,admin_1,admin_1);
+        AttributeValue fbx_file_att_value = new AttributeValue(false,-1,-1L,"",null,0f,fbx_file.getId(),fbx_file_att,fbx_file_att,1L,now,now,admin_1,admin_1,textObject.getId(),AttributeOwnerType.AlCity_Object);
         attributeValueService.save(fbx_file_att_value);
 
-        Attribute texture_file_att= new Attribute("texture_file",textObject.getId(),AttributeOwnerType.ALCity_Object_In_Puzzle_Group,DataType.Binary,1L,now,now,admin_1,admin_1);
+        Attribute texture_file_att= new Attribute("texture_file",textObject.getId(),AttributeOwnerType.AlCity_Object,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(texture_file_att);
 
-        AttributeValue texture_file_att_value = new AttributeValue(false,-1,-1L,"",null,0f,texture_file_att.getId(),texture_file_att,texture_file_att,1L,now,now,admin_1,admin_1);
+        AttributeValue texture_file_att_value = new AttributeValue(false,-1,-1L,"",null,0f,texture_file_att.getId(),texture_file_att,texture_file_att,1L,now,now,admin_1,admin_1,textObject.getId(),AttributeOwnerType.AlCity_Object);
         attributeValueService.save(texture_file_att_value);
 
         PuzzleObjectAction textObject_Create_Action = new PuzzleObjectAction(POActionOwnerType.ALCity_Object,textObject.getId(),ObjectAction.Create,create_Renderer,1L,now,now,admin_1,admin_1);
@@ -607,10 +607,8 @@ public class ImportBaseData implements CommandLineRunner {
 
         Attribute alCity_object_property_1 =new Attribute("text",textObject.getId(),AttributeOwnerType.AlCity_Object_Property,DataType.String,1L,now,now,admin_1,admin_1);
         attributeService.save(alCity_object_property_1);
-        AttributeValue  object_property_1_value= new AttributeValue(null,null,null,"",null,null,null,alCity_object_property_1,alCity_object_property_1,1L,now,now,admin_1,admin_1);
+        AttributeValue  object_property_1_value= new AttributeValue(null,null,null,"",null,null,null,alCity_object_property_1,alCity_object_property_1,1L,now,now,admin_1,admin_1,textObject.getId(),AttributeOwnerType.AlCity_Object_Property);
         attributeValueService.save(object_property_1_value);
-
-
 
 
         ALCityObject ImageObject01 = new ALCityObject(1L,now,now,jalalHoseyni,jalalHoseyni,"ImageObject01",objectCategory_Image,image_Object_pic,image_Object_pic);

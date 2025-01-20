@@ -201,37 +201,37 @@ public class ImportProblemData_2_part_3 implements CommandLineRunner {
         Attribute rulePostAction_7_hide_param_1 =new Attribute("actionId",rulePostAction_7_hide.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action,DataType.String,1L,now,now,admin_1,admin_1);
         attributeService.save(rulePostAction_7_hide_param_1);
 
-        AttributeValue rulePostAction_7_hide_param_1_value= new AttributeValue(null,null,null,"show action id",null,null,null,rulePostAction_7_hide_param_1,rulePostAction_7_hide_param_1,1L,now,now,admin_1,admin_1);
+        AttributeValue rulePostAction_7_hide_param_1_value= new AttributeValue(null,null,null,"show action id",null,null,null,rulePostAction_7_hide_param_1,rulePostAction_7_hide_param_1,1L,now,now,admin_1,admin_1,rulePostAction_7_hide.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action);
         attributeValueService.save(rulePostAction_7_hide_param_1_value);
 
         Attribute rulePostAction_7_hide_param_2 =new Attribute("aSync",rulePostAction_7_hide.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action,DataType.Boolean,1L,now,now,admin_1,admin_1);
         attributeService.save(rulePostAction_7_hide_param_2);
 
-        AttributeValue rulePostAction_7_hide_param_2_value= new AttributeValue(false,null,null,null,null,null,null,rulePostAction_7_hide_param_2,rulePostAction_7_hide_param_2,1L,now,now,admin_1,admin_1);
+        AttributeValue rulePostAction_7_hide_param_2_value= new AttributeValue(false,null,null,null,null,null,null,rulePostAction_7_hide_param_2,rulePostAction_7_hide_param_2,1L,now,now,admin_1,admin_1,rulePostAction_7_hide.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action);
         attributeValueService.save(rulePostAction_7_hide_param_2_value);
 
         Attribute rulePostAction_7_hide_param_3 =new Attribute("graphic",rulePostAction_7_hide.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(rulePostAction_7_hide_param_3);
 
-        AttributeValue rulePostAction_7_hide_param_3_value= new AttributeValue(null,null,null,null,null,null,null,rulePostAction_7_hide_param_3,rulePostAction_7_hide_param_3,1L,now,now,admin_1,admin_1);
+        AttributeValue rulePostAction_7_hide_param_3_value= new AttributeValue(null,null,null,null,null,null,null,rulePostAction_7_hide_param_3,rulePostAction_7_hide_param_3,1L,now,now,admin_1,admin_1,rulePostAction_7_hide.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action);
         attributeValueService.save(rulePostAction_7_hide_param_3_value);
 
         Attribute rulePostAction_7_hide_param_4 =new Attribute("ObjectId",rulePostAction_7_hide.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action,DataType.String,1L,now,now,admin_1,admin_1);
         attributeService.save(rulePostAction_7_hide_param_4);
 
-        AttributeValue rulePostAction_7_hide_param_4_value= new AttributeValue(null,null,null,"objects[e.x][e.y][WhiteObject]",null,null,null,rulePostAction_7_hide_param_4,rulePostAction_7_hide_param_4,1L,now,now,admin_1,admin_1);
+        AttributeValue rulePostAction_7_hide_param_4_value= new AttributeValue(null,null,null,"objects[e.x][e.y][WhiteObject]",null,null,null,rulePostAction_7_hide_param_4,rulePostAction_7_hide_param_4,1L,now,now,admin_1,admin_1,rulePostAction_7_hide.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action);
         attributeValueService.save(rulePostAction_7_hide_param_4_value);
 
         Attribute rulePostAction_7_hide_param_5 =new Attribute("row",rulePostAction_7_hide.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action,DataType.String,1L,now,now,admin_1,admin_1);
         attributeService.save(rulePostAction_7_hide_param_5);
 
-        AttributeValue rulePostAction_7_hide_param_5_value= new AttributeValue(null,null,null,"e.x",null,null,null,rulePostAction_7_hide_param_5,rulePostAction_7_hide_param_5,1L,now,now,admin_1,admin_1);
+        AttributeValue rulePostAction_7_hide_param_5_value= new AttributeValue(null,null,null,"e.x",null,null,null,rulePostAction_7_hide_param_5,rulePostAction_7_hide_param_5,1L,now,now,admin_1,admin_1,rulePostAction_7_hide.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action);
         attributeValueService.save(rulePostAction_7_hide_param_5_value);
 
         Attribute rulePostAction_7_hide_param_6 =new Attribute("col",rulePostAction_7_hide.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action,DataType.String,1L,now,now,admin_1,admin_1);
         attributeService.save(rulePostAction_7_hide_param_6);
 
-        AttributeValue rulePostAction_7_hide_param_6_value= new AttributeValue(null,null,null,"e.y",null,null,null,rulePostAction_7_hide_param_6,rulePostAction_7_hide_param_6,1L,now,now,admin_1,admin_1);
+        AttributeValue rulePostAction_7_hide_param_6_value= new AttributeValue(null,null,null,"e.y",null,null,null,rulePostAction_7_hide_param_6,rulePostAction_7_hide_param_6,1L,now,now,admin_1,admin_1,rulePostAction_7_hide.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action);
         attributeValueService.save(rulePostAction_7_hide_param_6_value);
 
 
@@ -242,36 +242,36 @@ public class ImportProblemData_2_part_3 implements CommandLineRunner {
         Attribute rulePostAction_8_show_param_1 =new Attribute("actionId",rulePostAction_8_show.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action,DataType.String,1L,now,now,admin_1,admin_1);
         attributeService.save(rulePostAction_8_show_param_1);
 
-        AttributeValue rulePostAction_8_show_param_1_value= new AttributeValue(null,null,null,"show action id",null,null,null,rulePostAction_8_show_param_1,rulePostAction_8_show_param_1,1L,now,now,admin_1,admin_1);
+        AttributeValue rulePostAction_8_show_param_1_value= new AttributeValue(null,null,null,"show action id",null,null,null,rulePostAction_8_show_param_1,rulePostAction_8_show_param_1,1L,now,now,admin_1,admin_1,rulePostAction_8_show.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action);
         attributeValueService.save(rulePostAction_8_show_param_1_value);
 
         Attribute rulePostAction_8_show_param_2 =new Attribute("aSync",rulePostAction_8_show.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action,DataType.Boolean,1L,now,now,admin_1,admin_1);
         attributeService.save(rulePostAction_8_show_param_2);
 
-        AttributeValue rulePostAction_8_show_param_2_value= new AttributeValue(false,null,null,null,null,null,null,rulePostAction_8_show_param_2,rulePostAction_8_show_param_2,1L,now,now,admin_1,admin_1);
+        AttributeValue rulePostAction_8_show_param_2_value= new AttributeValue(false,null,null,null,null,null,null,rulePostAction_8_show_param_2,rulePostAction_8_show_param_2,1L,now,now,admin_1,admin_1,rulePostAction_8_show.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action);
         attributeValueService.save(rulePostAction_8_show_param_2_value);
 
         Attribute rulePostAction_8_show_param_3 =new Attribute("graphic",rulePostAction_8_show.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(rulePostAction_8_show_param_3);
-        AttributeValue rulePostAction_8_show_param_3_value= new AttributeValue(null,null,null,null,null,null,null,rulePostAction_8_show_param_3,rulePostAction_8_show_param_3,1L,now,now,admin_1,admin_1);
+        AttributeValue rulePostAction_8_show_param_3_value= new AttributeValue(null,null,null,null,null,null,null,rulePostAction_8_show_param_3,rulePostAction_8_show_param_3,1L,now,now,admin_1,admin_1,rulePostAction_8_show.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action);
         attributeValueService.save(rulePostAction_8_show_param_3_value);
 
         Attribute rulePostAction_8_show_param_4 =new Attribute("ObjectId",rulePostAction_8_show.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action,DataType.String,1L,now,now,admin_1,admin_1);
         attributeService.save(rulePostAction_8_show_param_4);
 
-        AttributeValue rulePostAction_8_show_param_4_value= new AttributeValue(null,null,null,"objects[e.x][e.y][WhiteObject]",null,null,null,rulePostAction_8_show_param_4,rulePostAction_8_show_param_4,1L,now,now,admin_1,admin_1);
+        AttributeValue rulePostAction_8_show_param_4_value= new AttributeValue(null,null,null,"objects[e.x][e.y][WhiteObject]",null,null,null,rulePostAction_8_show_param_4,rulePostAction_8_show_param_4,1L,now,now,admin_1,admin_1,rulePostAction_8_show.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action);
         attributeValueService.save(rulePostAction_8_show_param_4_value);
 
         Attribute rulePostAction_8_show_param_5 =new Attribute("row",rulePostAction_8_show.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action,DataType.String,1L,now,now,admin_1,admin_1);
         attributeService.save(rulePostAction_8_show_param_5);
 
-        AttributeValue rulePostAction_8_show_param_5_value= new AttributeValue(null,null,null,"e.x",null,null,null,rulePostAction_8_show_param_5,rulePostAction_8_show_param_5,1L,now,now,admin_1,admin_1);
+        AttributeValue rulePostAction_8_show_param_5_value= new AttributeValue(null,null,null,"e.x",null,null,null,rulePostAction_8_show_param_5,rulePostAction_8_show_param_5,1L,now,now,admin_1,admin_1,rulePostAction_8_show.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action);
         attributeValueService.save(rulePostAction_8_show_param_5_value);
 
         Attribute rulePostAction_8_show_param_6 =new Attribute("col",rulePostAction_8_show.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action,DataType.String,1L,now,now,admin_1,admin_1);
         attributeService.save(rulePostAction_8_show_param_6);
 
-        AttributeValue rulePostAction_8_show_param_6_value= new AttributeValue(null,null,null,"e.y",null,null,null,rulePostAction_8_show_param_6,rulePostAction_8_show_param_6,1L,now,now,admin_1,admin_1);
+        AttributeValue rulePostAction_8_show_param_6_value= new AttributeValue(null,null,null,"e.y",null,null,null,rulePostAction_8_show_param_6,rulePostAction_8_show_param_6,1L,now,now,admin_1,admin_1,rulePostAction_8_show.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action);
         attributeValueService.save(rulePostAction_8_show_param_6_value);
 
 
@@ -303,37 +303,37 @@ public class ImportProblemData_2_part_3 implements CommandLineRunner {
         Attribute deSelect_PostAction_5_param_1 =new Attribute("actionId",deSelect_PostAction_5_hide.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action,DataType.String,1L,now,now,admin_1,admin_1);
         attributeService.save(deSelect_PostAction_5_param_1);
 
-        AttributeValue deSelect_PostAction_5_param_1_value= new AttributeValue(null,null,null,"show action id",null,null,null,deSelect_PostAction_5_param_1,deSelect_PostAction_5_param_1,1L,now,now,admin_1,admin_1);
+        AttributeValue deSelect_PostAction_5_param_1_value= new AttributeValue(null,null,null,"show action id",null,null,null,deSelect_PostAction_5_param_1,deSelect_PostAction_5_param_1,1L,now,now,admin_1,admin_1,deSelect_PostAction_5_hide.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action);
         attributeValueService.save(deSelect_PostAction_5_param_1_value);
 
         Attribute deSelect_PostAction_5_param_2 =new Attribute("aSync",deSelect_PostAction_5_hide.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action,DataType.Boolean,1L,now,now,admin_1,admin_1);
         attributeService.save(deSelect_PostAction_5_param_2);
 
-        AttributeValue deSelect_PostAction_5_param_2_value= new AttributeValue(false,null,null,null,null,null,null,deSelect_PostAction_5_param_2,deSelect_PostAction_5_param_2,1L,now,now,admin_1,admin_1);
+        AttributeValue deSelect_PostAction_5_param_2_value= new AttributeValue(false,null,null,null,null,null,null,deSelect_PostAction_5_param_2,deSelect_PostAction_5_param_2,1L,now,now,admin_1,admin_1,deSelect_PostAction_5_hide.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action);
         attributeValueService.save(deSelect_PostAction_5_param_2_value);
 
         Attribute deSelect_PostAction_5_param_3 =new Attribute("graphic",deSelect_PostAction_5_hide.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(deSelect_PostAction_5_param_3);
 
-        AttributeValue deSelect_PostAction_5_param_3_value= new AttributeValue(null,null,null,null,null,null,null,deSelect_PostAction_5_param_3,deSelect_PostAction_5_param_3,1L,now,now,admin_1,admin_1);
+        AttributeValue deSelect_PostAction_5_param_3_value= new AttributeValue(null,null,null,null,null,null,null,deSelect_PostAction_5_param_3,deSelect_PostAction_5_param_3,1L,now,now,admin_1,admin_1,deSelect_PostAction_5_hide.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action);
         attributeValueService.save(deSelect_PostAction_5_param_3_value);
 
         Attribute deSelect_PostAction_5_param_4 =new Attribute("ObjectId",deSelect_PostAction_5_hide.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action,DataType.String,1L,now,now,admin_1,admin_1);
         attributeService.save(deSelect_PostAction_5_param_4);
 
-        AttributeValue deSelect_PostAction_5_param_4_value= new AttributeValue(null,null,null,"objects[e.x][e.y][YellowObject]",null,null,null,deSelect_PostAction_5_param_4,deSelect_PostAction_5_param_4,1L,now,now,admin_1,admin_1);
+        AttributeValue deSelect_PostAction_5_param_4_value= new AttributeValue(null,null,null,"objects[e.x][e.y][YellowObject]",null,null,null,deSelect_PostAction_5_param_4,deSelect_PostAction_5_param_4,1L,now,now,admin_1,admin_1,deSelect_PostAction_5_hide.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action);
         attributeValueService.save(deSelect_PostAction_5_param_4_value);
 
         Attribute deSelect_PostAction_5_param_5 =new Attribute("row",deSelect_PostAction_5_hide.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action,DataType.String,1L,now,now,admin_1,admin_1);
         attributeService.save(deSelect_PostAction_5_param_5);
 
-        AttributeValue deSelect_PostAction_5_param_5_value= new AttributeValue(null,null,null,"e.x",null,null,null,deSelect_PostAction_5_param_5,deSelect_PostAction_5_param_5,1L,now,now,admin_1,admin_1);
+        AttributeValue deSelect_PostAction_5_param_5_value= new AttributeValue(null,null,null,"e.x",null,null,null,deSelect_PostAction_5_param_5,deSelect_PostAction_5_param_5,1L,now,now,admin_1,admin_1,deSelect_PostAction_5_hide.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action);
         attributeValueService.save(deSelect_PostAction_5_param_5_value);
 
         Attribute deSelect_PostAction_5_param_6 =new Attribute("col",deSelect_PostAction_5_hide.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action,DataType.String,1L,now,now,admin_1,admin_1);
         attributeService.save(deSelect_PostAction_5_param_6);
 
-        AttributeValue deSelect_PostAction_5_param_6_value= new AttributeValue(null,null,null,"e.y",null,null,null,deSelect_PostAction_5_param_6,deSelect_PostAction_5_param_6,1L,now,now,admin_1,admin_1);
+        AttributeValue deSelect_PostAction_5_param_6_value= new AttributeValue(null,null,null,"e.y",null,null,null,deSelect_PostAction_5_param_6,deSelect_PostAction_5_param_6,1L,now,now,admin_1,admin_1,deSelect_PostAction_5_hide.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action);
         attributeValueService.save(deSelect_PostAction_5_param_6_value);
 
 
@@ -344,37 +344,37 @@ public class ImportProblemData_2_part_3 implements CommandLineRunner {
         Attribute deSelect_PostAction_6_param_1 =new Attribute("actionId",deSelect_PostAction_6_show.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action,DataType.String,1L,now,now,admin_1,admin_1);
         attributeService.save(deSelect_PostAction_6_param_1);
 
-        AttributeValue deSelect_PostAction_6_param_1_value= new AttributeValue(null,null,null,"show action id",null,null,null,deSelect_PostAction_6_param_1,deSelect_PostAction_6_param_1,1L,now,now,admin_1,admin_1);
+        AttributeValue deSelect_PostAction_6_param_1_value= new AttributeValue(null,null,null,"show action id",null,null,null,deSelect_PostAction_6_param_1,deSelect_PostAction_6_param_1,1L,now,now,admin_1,admin_1,deSelect_PostAction_6_show.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action);
         attributeValueService.save(deSelect_PostAction_6_param_1_value);
 
         Attribute deSelect_PostAction_6_param_2 =new Attribute("aSync",deSelect_PostAction_6_show.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action,DataType.Boolean,1L,now,now,admin_1,admin_1);
         attributeService.save(deSelect_PostAction_6_param_2);
 
-        AttributeValue deSelect_PostAction_6_param_2_value= new AttributeValue(false,null,null,null,null,null,null,deSelect_PostAction_6_param_2,deSelect_PostAction_6_param_2,1L,now,now,admin_1,admin_1);
+        AttributeValue deSelect_PostAction_6_param_2_value= new AttributeValue(false,null,null,null,null,null,null,deSelect_PostAction_6_param_2,deSelect_PostAction_6_param_2,1L,now,now,admin_1,admin_1,deSelect_PostAction_6_show.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action);
         attributeValueService.save(deSelect_PostAction_6_param_2_value);
 
         Attribute deSelect_PostAction_6_param_3 =new Attribute("graphic",deSelect_PostAction_6_show.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(deSelect_PostAction_6_param_3);
 
-        AttributeValue deSelect_PostAction_6_param_3_value= new AttributeValue(null,null,null,null,null,null,null,deSelect_PostAction_6_param_3,deSelect_PostAction_6_param_3,1L,now,now,admin_1,admin_1);
+        AttributeValue deSelect_PostAction_6_param_3_value= new AttributeValue(null,null,null,null,null,null,null,deSelect_PostAction_6_param_3,deSelect_PostAction_6_param_3,1L,now,now,admin_1,admin_1,deSelect_PostAction_6_show.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action);
         attributeValueService.save(deSelect_PostAction_6_param_3_value);
 
         Attribute deSelect_PostAction_6_param_4 =new Attribute("ObjectId",deSelect_PostAction_6_show.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action,DataType.String,1L,now,now,admin_1,admin_1);
         attributeService.save(deSelect_PostAction_6_param_4);
 
-        AttributeValue deSelect_PostAction_6_param_4_value= new AttributeValue(null,null,null,"objects[e.x][e.y][WhiteObject]",null,null,null,deSelect_PostAction_6_param_4,deSelect_PostAction_6_param_4,1L,now,now,admin_1,admin_1);
+        AttributeValue deSelect_PostAction_6_param_4_value= new AttributeValue(null,null,null,"objects[e.x][e.y][WhiteObject]",null,null,null,deSelect_PostAction_6_param_4,deSelect_PostAction_6_param_4,1L,now,now,admin_1,admin_1,deSelect_PostAction_6_show.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action);
         attributeValueService.save(deSelect_PostAction_6_param_4_value);
 
         Attribute deSelect_PostAction_6_param_5 =new Attribute("row",deSelect_PostAction_6_show.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action,DataType.String,1L,now,now,admin_1,admin_1);
         attributeService.save(deSelect_PostAction_6_param_5);
 
-        AttributeValue deSelect_PostAction_6_param_5_value= new AttributeValue(null,null,null,"e.x",null,null,null,deSelect_PostAction_6_param_5,deSelect_PostAction_6_param_5,1L,now,now,admin_1,admin_1);
+        AttributeValue deSelect_PostAction_6_param_5_value= new AttributeValue(null,null,null,"e.x",null,null,null,deSelect_PostAction_6_param_5,deSelect_PostAction_6_param_5,1L,now,now,admin_1,admin_1,deSelect_PostAction_6_show.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action);
         attributeValueService.save(deSelect_PostAction_6_param_5_value);
 
         Attribute deSelect_PostAction_6_param_6 =new Attribute("col",deSelect_PostAction_6_show.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action,DataType.String,1L,now,now,admin_1,admin_1);
         attributeService.save(deSelect_PostAction_6_param_6);
 
-        AttributeValue deSelect_PostAction_6_param_6_value= new AttributeValue(null,null,null,"e.y",null,null,null,deSelect_PostAction_6_param_6,deSelect_PostAction_6_param_6,1L,now,now,admin_1,admin_1);
+        AttributeValue deSelect_PostAction_6_param_6_value= new AttributeValue(null,null,null,"e.y",null,null,null,deSelect_PostAction_6_param_6,deSelect_PostAction_6_param_6,1L,now,now,admin_1,admin_1,deSelect_PostAction_6_show.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action);
         attributeValueService.save(deSelect_PostAction_6_param_6_value);
 
 
@@ -390,31 +390,31 @@ public class ImportProblemData_2_part_3 implements CommandLineRunner {
         Attribute win_rule_PostAction_1_param_1 =new Attribute("actionId",win_rule_PostAction_1_showMessage.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action,DataType.String,1L,now,now,admin_1,admin_1);
         attributeService.save(win_rule_PostAction_1_param_1);
 
-        AttributeValue win_rule_PostAction_1_param_1_value= new AttributeValue(null,null,null,"show message action id",null,null,null,win_rule_PostAction_1_param_1,win_rule_PostAction_1_param_1,1L,now,now,admin_1,admin_1);
+        AttributeValue win_rule_PostAction_1_param_1_value= new AttributeValue(null,null,null,"show message action id",null,null,null,win_rule_PostAction_1_param_1,win_rule_PostAction_1_param_1,1L,now,now,admin_1,admin_1,win_rule_PostAction_1_showMessage.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action);
         attributeValueService.save(win_rule_PostAction_1_param_1_value);
 
         Attribute win_rule_PostAction_1_param_2 =new Attribute("aSync",win_rule_PostAction_1_showMessage.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action,DataType.Boolean,1L,now,now,admin_1,admin_1);
         attributeService.save(win_rule_PostAction_1_param_2);
 
-        AttributeValue win_rule_PostAction_1_param_2_value= new AttributeValue(false,null,null,null,null,null,null,win_rule_PostAction_1_param_2,win_rule_PostAction_1_param_2,1L,now,now,admin_1,admin_1);
+        AttributeValue win_rule_PostAction_1_param_2_value= new AttributeValue(false,null,null,null,null,null,null,win_rule_PostAction_1_param_2,win_rule_PostAction_1_param_2,1L,now,now,admin_1,admin_1,win_rule_PostAction_1_showMessage.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action);
         attributeValueService.save(win_rule_PostAction_1_param_2_value);
 
         Attribute win_rule_PostAction_1_param_3 =new Attribute("MessageType",win_rule_PostAction_1_showMessage.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action,DataType.String,1L,now,now,admin_1,admin_1);
         attributeService.save(win_rule_PostAction_1_param_3);
 
-        AttributeValue win_rule_PostAction_1_param_3_value= new AttributeValue(null,null,null,"info",null,null,null,win_rule_PostAction_1_param_3,win_rule_PostAction_1_param_3,1L,now,now,admin_1,admin_1);
+        AttributeValue win_rule_PostAction_1_param_3_value= new AttributeValue(null,null,null,"info",null,null,null,win_rule_PostAction_1_param_3,win_rule_PostAction_1_param_3,1L,now,now,admin_1,admin_1,win_rule_PostAction_1_showMessage.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action);
         attributeValueService.save(win_rule_PostAction_1_param_3_value);
 
         Attribute win_rule_PostAction_1_param_4 =new Attribute("DialougeType",win_rule_PostAction_1_showMessage.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action,DataType.String,1L,now,now,admin_1,admin_1);
         attributeService.save(win_rule_PostAction_1_param_4);
 
-        AttributeValue win_rule_PostAction_1_param_4_value= new AttributeValue(null,null,null,"toast",null,null,null,win_rule_PostAction_1_param_4,win_rule_PostAction_1_param_4,1L,now,now,admin_1,admin_1);
+        AttributeValue win_rule_PostAction_1_param_4_value= new AttributeValue(null,null,null,"toast",null,null,null,win_rule_PostAction_1_param_4,win_rule_PostAction_1_param_4,1L,now,now,admin_1,admin_1,win_rule_PostAction_1_showMessage.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action);
         attributeValueService.save(win_rule_PostAction_1_param_4_value);
 
         Attribute win_rule_PostAction_1_param_5 =new Attribute("text",win_rule_PostAction_1_showMessage.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action,DataType.String,1L,now,now,admin_1,admin_1);
         attributeService.save(win_rule_PostAction_1_param_5);
 
-        AttributeValue win_rule_PostAction_1_param_5_value= new AttributeValue(null,null,null,"win",null,null,null,win_rule_PostAction_1_param_5,win_rule_PostAction_1_param_5,1L,now,now,admin_1,admin_1);
+        AttributeValue win_rule_PostAction_1_param_5_value= new AttributeValue(null,null,null,"win",null,null,null,win_rule_PostAction_1_param_5,win_rule_PostAction_1_param_5,1L,now,now,admin_1,admin_1,win_rule_PostAction_1_showMessage.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action);
         attributeValueService.save(win_rule_PostAction_1_param_5_value);
 
     }

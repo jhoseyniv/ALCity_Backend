@@ -94,24 +94,6 @@ public class ALObjectController {
         return attributeDTOCollection;
     }
 
-    @RequestMapping(value = "/att/owner/{id}/type/{type}", method = RequestMethod.GET)
-    @ResponseBody
-    @CrossOrigin(origins = "*")
-    public Collection<AttributeDTO> getAttributesByOwnerIdAndOwnerType(@PathVariable Long id,@PathVariable Long type) {
-        Collection<Attribute> attributeCollection = attributeService.findByOwnerIdAndAttributeOwnerType(id,AttributeOwnerType.getById(type));
-        Collection<AttributeDTO> attributeDTOCollection = new ArrayList<AttributeDTO>();
-        attributeDTOCollection = DTOUtil.getAttributesDTOS(attributeCollection);
-        return  attributeDTOCollection;
-    }
-    @RequestMapping(value = "/att/id/{id}", method = RequestMethod.GET)
-    @ResponseBody
-    @CrossOrigin(origins = "*")
-    public AttributeDTO getALCityAttributeById(@PathVariable Long id) {
-        Optional<Attribute> attributeOptional = attributeService.findById(id);
-        if(attributeOptional.isPresent())
-            return  DTOUtil.getAttributeDTO(attributeOptional.get());
-        return null;
-    }
 
 
     @Operation( summary = "Save an Object Category ",  description = "Save an Object Category ")

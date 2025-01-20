@@ -1,4 +1,4 @@
-package com.alcity.dto.alobject;
+package com.alcity.dto.puzzle;
 
 public class Dependency {
     private  Long id;

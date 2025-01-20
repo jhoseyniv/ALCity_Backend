@@ -18,11 +18,6 @@ public class Journey  extends BaseTable implements Serializable {
     @Column(name="ordering",unique = true)
     private Integer ordering;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "binary_content_id", nullable = true)
-    @JsonIgnore
-    private BinaryContent graphic;
-
     @ManyToOne(fetch = FetchType.LAZY, optional = true)
     @JoinColumn(name = "button_passed_icon_id", nullable = false)
     @JsonIgnore
@@ -48,11 +43,11 @@ public class Journey  extends BaseTable implements Serializable {
     @OneToMany(mappedBy = "journey", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Collection<RoadMap> roadMaps;
 
-    @Column(name="maxStar")
-    private Integer maxStar;
+    @Column(name="minToPassStar")
+    private Integer minToPassStar;
 
-    @Column(name="minStar")
-    private Integer minStar;
+    @Column(name="minToOpenStar")
+    private Integer minToOpenStar;
 
     public String getTitle() {
         return title;
@@ -62,13 +57,6 @@ public class Journey  extends BaseTable implements Serializable {
         this.title = title;
     }
 
-    public BinaryContent getGraphic() {
-        return graphic;
-    }
-
-    public void setGraphic(BinaryContent graphic) {
-        this.graphic = graphic;
-    }
 
     public Collection<JourneyStep> getJourneyStepCollection() {
         return journeyStepCollection;
@@ -110,20 +98,20 @@ public class Journey  extends BaseTable implements Serializable {
         this.buttonLockedIcon = buttonLockedIcon;
     }
 
-    public Integer getMaxStar() {
-        return maxStar;
+    public Integer getMinToPassStar() {
+        return minToPassStar;
     }
 
-    public void setMaxStar(Integer maxStar) {
-        this.maxStar = maxStar;
+    public void setMinToPassStar(Integer minToPassStar) {
+        this.minToPassStar = minToPassStar;
     }
 
-    public Integer getMinStar() {
-        return minStar;
+    public Integer getMinToOpenStar() {
+        return minToOpenStar;
     }
 
-    public void setMinStar(Integer minStar) {
-        this.minStar = minStar;
+    public void setMinToOpenStar(Integer minToOpenStar) {
+        this.minToOpenStar = minToOpenStar;
     }
 
     public Collection<RoadMap> getRoadMaps() {
@@ -145,12 +133,11 @@ public class Journey  extends BaseTable implements Serializable {
     public Journey() {
     }
 
-    public Journey(String title,Integer ordering,Integer minStar,Integer maxStar, BinaryContent graphic, Long version, String created, String updated, AppMember createdBy, AppMember updatedBy) {
+    public Journey(String title,Integer ordering,Integer minToOpenStar,Integer minToPassStar, Long version, String created, String updated, AppMember createdBy, AppMember updatedBy) {
         super(version, created, updated, createdBy, updatedBy);
         this.title = title;
         this.ordering = ordering;
-        this.minStar = minStar;
-        this.maxStar = maxStar;
-        this.graphic = graphic;
+        this.minToOpenStar = minToOpenStar;
+        this.minToPassStar = minToPassStar;
     }
 }

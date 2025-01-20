@@ -129,14 +129,14 @@ public class DTOUtil {
            return attributeDTO;
         }
 
-    public static Collection<AttributeDTO> getAttributesDTOS(Collection<Attribute> input) {
-        Collection<AttributeDTO> output = new ArrayList<AttributeDTO>();
-        Iterator<Attribute> itr = input.iterator();
+    public static Collection<AttributeDTO> getAttributesDTOS(Collection<Attribute> attributes) {
+        Collection<AttributeDTO> dtos = new ArrayList<AttributeDTO>();
+        Iterator<Attribute> itr = attributes.iterator();
         while (itr.hasNext()) {
-           AttributeDTO attributeDTO = getAttributeDTO(itr.next());
-            output.add(attributeDTO);
+           AttributeDTO dto = getAttributeDTO(itr.next());
+            dtos.add(dto);
         }
-        return output;
+        return dtos;
     }
 
     public static JourneyStepDTO getJorenyStepsDTO(JourneyStep entity) {
@@ -185,7 +185,7 @@ public class DTOUtil {
                 attValue = itrAttributeValuesIterator.next();
                 AttributeValue newAttributeValue = new AttributeValue(attValue.getBooleanValue(),attValue.getIntValue(),attValue.getLongValue(),attValue.getStringValue(),
                         attValue.getObjectValue(),attValue.getDoubleValue(),attValue.getBinaryContentId(),newRecord,newRecord,
-                        attValue.getVersion(),attValue.getCreated(),attValue.getUpdated(),attValue.getCreatedBy(),attValue.getUpdatedBy());
+                        attValue.getVersion(),attValue.getCreated(),attValue.getUpdated(),attValue.getCreatedBy(),attValue.getUpdatedBy(),attValue.getOwnerId(),attValue.getAttributeOwnerType());
 
                 //for log info
                 if(att.getName().equalsIgnoreCase("CODE"))   newAttributeValue.setStringValue("NEW CODE FOR ALCITY Object");
@@ -218,7 +218,7 @@ public class DTOUtil {
                 attValue = itrAttributeValuesIterator.next();
                 AttributeValue newAttributeValue = new AttributeValue(attValue.getBooleanValue(),attValue.getIntValue(),attValue.getLongValue(),attValue.getStringValue(),
                         attValue.getObjectValue(),attValue.getDoubleValue(),attValue.getBinaryContentId(),newRecord,newRecord,
-                        attValue.getVersion(),attValue.getCreated(),attValue.getUpdated(),attValue.getCreatedBy(),attValue.getUpdatedBy());
+                        attValue.getVersion(),attValue.getCreated(),attValue.getUpdated(),attValue.getCreatedBy(),attValue.getUpdatedBy(),attValue.getOwnerId(),attValue.getAttributeOwnerType());
 
                 //for log info
                 if(att.getName().equalsIgnoreCase("CODE"))   newAttributeValue.setStringValue("NEW CODE FOR ALCITY Object");
@@ -594,10 +594,9 @@ public class DTOUtil {
         dto.setJourneyId(entity.getId());
         dto.setOpen(false);
         dto.setCurrentStar(-1);
-        dto.setMinStar(entity.getMinStar());
-        dto.setMaxStar(entity.getMaxStar());
+        dto.setMinToPassStar(entity.getMinToPassStar());
+        dto.setMinToOpenStar(entity.getMinToOpenStar());
         dto.setTitle(entity.getTitle());
-        dto.setIconId(entity.getGraphic().getId());
         return dto;
     }
 
@@ -678,14 +677,12 @@ public class DTOUtil {
             dto.setUpdated(entity.getUpdated());
             dto.setTitle(entity.getTitle());
             dto.setOrdering(entity.getOrdering());
-            dto.setMinScore(entity.getMinStar());
-            dto.setMaxScore(entity.getMaxStar());
+            dto.setMinToOpenStar(entity.getMinToOpenStar());
+            dto.setMinToPassStar(entity.getMinToPassStar());
             dto.setCreatedBy(entity.getCreatedBy().getUsername());
             dto.setUpdatedBy(entity.getUpdatedBy().getUsername());
             dto.setCreatedById(entity.getCreatedBy().getId());
             dto.setUpdatedById(entity.getUpdatedBy().getId());
-            dto.setIconId(entity.getGraphic().getId());
-            dto.setThumbnail(entity.getGraphic().getThumbnail());
          return dto;
     }
 
@@ -957,27 +954,31 @@ public class DTOUtil {
         return plInstanceDTOS;
     }
 
-    public static ALCityObjectDTO getALCityObjectDTO(ALCityObject co){
-        ALCityObjectDTO alCityObjectDTO= new ALCityObjectDTO();
-            alCityObjectDTO.setId(co.getId());
-            alCityObjectDTO.setObjectCategory(co.getObjectCategory().getLabel());
-            alCityObjectDTO.setTitle(co.getTitle());
-            alCityObjectDTO.setVersion(co.getVersion());
-            alCityObjectDTO.setPictureId(co.getPic().getId());
-            alCityObjectDTO.setIconId(co.getIcon().getId());
-            alCityObjectDTO.setCreated(co.getCreated());
-            alCityObjectDTO.setUpdated(co.getUpdated());
-            alCityObjectDTO.setUpdatedBy(co.getUpdatedBy().getUsername());
-            alCityObjectDTO.setCreatedBy(co.getCreatedBy().getUsername());
-        return alCityObjectDTO;
+    public static ALCityObjectDTO getALCityObjectDTO(ALCityObject co,Collection<Attribute>  attributes){
+        Collection<AttributeDTO>  attributeDTOS = DTOUtil.getAttributesDTOS(attributes);
+        ALCityObjectDTO dto= new ALCityObjectDTO();
+            dto.setId(co.getId());
+            dto.setTitle(co.getTitle());
+            dto.setCategoryId(co.getObjectCategory().getId());
+            dto.setCategory(co.getObjectCategory().getLabel());
+            dto.setVersion(co.getVersion());
+            dto.setPictureId(co.getPic().getId());
+            dto.setIconId(co.getIcon().getId());
+            dto.setCreated(co.getCreated());
+            dto.setUpdated(co.getUpdated());
+            dto.setUpdatedBy(co.getUpdatedBy().getUsername());
+            dto.setCreatedBy(co.getCreatedBy().getUsername());
+            dto.setDependencies(attributeDTOS);
+        return dto;
     }
-    public static  Collection<ALCityObjectDTO> getALCityObjectsDTOS(Collection<ALCityObject> puzzleObjectCollection){
+    public static  Collection<ALCityObjectDTO> getALCityObjectsDTOS(Collection<ALCityObject> puzzleObjectCollection,AttributeService attributeService){
         Collection<ALCityObjectDTO> alCityObjectDTOSl = new ArrayList<ALCityObjectDTO>();
         Iterator<ALCityObject> iterator = puzzleObjectCollection.iterator();
         while (iterator.hasNext()) {
             ALCityObjectDTO alCityObjectDTO = new ALCityObjectDTO();
             ALCityObject alCityObject = iterator.next();
-            alCityObjectDTO = getALCityObjectDTO(alCityObject);
+            Collection<Attribute> attributes = attributeService.findByOwnerIdAndAttributeOwnerType(alCityObject.getId(), AttributeOwnerType.AlCity_Object);
+            alCityObjectDTO = getALCityObjectDTO(alCityObject,attributes);
             alCityObjectDTOSl.add(alCityObjectDTO);
         }
 

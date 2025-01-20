@@ -1,6 +1,10 @@
 package com.alcity.api;
 
 
+import com.alcity.dto.alobject.AttributeDTO;
+import com.alcity.entity.alenum.AttributeOwnerType;
+import com.alcity.entity.alobject.Attribute;
+import com.alcity.service.alobject.AttributeService;
 import com.alcity.service.customexception.ALCityResponseObject;
 import com.alcity.service.customexception.RecordNotFoundException;
 import com.alcity.dto.puzzle.ALCityObjectInPGDTO;
@@ -39,6 +43,8 @@ public class ALCityObjectController {
     private ObjectCategoryService objectCategoryService;
     @Autowired
     private PuzzleObjectActionService puzzleObjectActionService;
+    @Autowired
+    private AttributeService attributeService;
 
     @Autowired
     private ALCityObjectInPGService alCityObjectInPGService;
@@ -48,12 +54,14 @@ public class ALCityObjectController {
     @CrossOrigin(origins = "*")
     @ResponseBody
     public ALCityObjectDTO getALCityObject(@PathVariable Long id) {
-        ALCityObjectDTO puzzleObjectDTO= new ALCityObjectDTO();
-        Optional<ALCityObject> alCityObject = alCityObjectService.findById(id);
-        if(alCityObject.isPresent())
-            puzzleObjectDTO = DTOUtil.getALCityObjectDTO(alCityObject.get());
-        else puzzleObjectDTO=null;
-        return  puzzleObjectDTO;
+        ALCityObjectDTO dto= new ALCityObjectDTO();
+        Optional<ALCityObject> objectOptional = alCityObjectService.findById(id);
+        if(objectOptional.isPresent()) {
+            ALCityObject object = objectOptional.get();
+            Collection<Attribute>  attributes = attributeService.findByOwnerIdAndAttributeOwnerType(object.getId(), AttributeOwnerType.AlCity_Object);
+            dto = DTOUtil.getALCityObjectDTO(object,attributes);
+        }
+        return  dto;
     }
     @Operation( summary = "Fetch all AL City Objects ",  description = "Fetch all AL City Objects ")
     @GetMapping("/all")
@@ -61,8 +69,7 @@ public class ALCityObjectController {
     public Collection<ALCityObjectDTO> getALCityObjects(Model model) {
         Collection<ALCityObject> cityObjects = alCityObjectService.findAll();
         Collection<ALCityObjectDTO> dtos = new ArrayList<ALCityObjectDTO>();
-        dtos =DTOUtil.getALCityObjectsDTOS(cityObjects);
-
+        dtos =DTOUtil.getALCityObjectsDTOS(cityObjects,attributeService);
         return dtos;
     }
     @Operation( summary = "Fetch all AL City Objects by Object Category ",  description = "Fetch all AL City Objects ")
@@ -72,7 +79,7 @@ public class ALCityObjectController {
         Optional<ObjectCategory> category = objectCategoryService.findById(id);
         Collection<ALCityObject> alCityObjects = alCityObjectService.findALCityObjectByObjectCategory(category.get());
         Collection<ALCityObjectDTO> alCityObjectDTOS = new ArrayList<ALCityObjectDTO>();
-        alCityObjectDTOS =DTOUtil.getALCityObjectsDTOS(alCityObjects);
+        alCityObjectDTOS =DTOUtil.getALCityObjectsDTOS(alCityObjects,attributeService);
         return alCityObjectDTOS;
     }
 

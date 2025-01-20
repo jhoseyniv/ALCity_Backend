@@ -188,11 +188,10 @@ public class AppMemberService implements AppMemberRepository, CustomizedUserRepo
         Integer currentStar=0;
         Iterator<PlayHistory> itr = histories.iterator();
         dto.setTitle(journey.getTitle());
-        dto.setIconId(journey.getGraphic().getId());
         dto.setAppMemberId(member.getId());
         dto.setOpen(Boolean.FALSE);
-        dto.setMaxStar(journey.getMaxStar());
-        dto.setMinStar(journey.getMinStar());
+        dto.setMinToOpenStar(journey.getMinToOpenStar());
+        dto.setMinToPassStar(journey.getMinToPassStar());
         dto.setJourneyId(journey.getId());
         while(itr.hasNext()) {
             PlayHistory playHistory = itr.next();
@@ -202,7 +201,7 @@ public class AppMemberService implements AppMemberRepository, CustomizedUserRepo
             }
         }
         dto.setCurrentStar(currentStar);
-        if(currentStar >= journey.getMinStar())
+        if(currentStar >= journey.getMinToOpenStar())
             dto.setOpen(Boolean.TRUE);
     return  dto;
     }

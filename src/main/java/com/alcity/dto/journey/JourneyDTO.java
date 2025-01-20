@@ -21,28 +21,24 @@ public class JourneyDTO   {
 
     private Integer ordering;
 
-    private Integer minScore;
+    private Integer minToPassStar;
 
-    private Integer maxScore;
+    private Integer minToOpenStar;
 
-    private byte[] thumbnail;
-
-    private Long  iconId;
-
-    public byte[] getThumbnail() {
-        return thumbnail;
+    public Integer getMinToPassStar() {
+        return minToPassStar;
     }
 
-    public void setThumbnail(byte[] thumbnail) {
-        this.thumbnail = thumbnail;
+    public void setMinToPassStar(Integer minToPassStar) {
+        this.minToPassStar = minToPassStar;
     }
 
-    public Long getIconId() {
-        return iconId;
+    public Integer getMinToOpenStar() {
+        return minToOpenStar;
     }
 
-    public void setIconId(Long iconId) {
-        this.iconId = iconId;
+    public void setMinToOpenStar(Integer minToOpenStar) {
+        this.minToOpenStar = minToOpenStar;
     }
 
     public String getTitle() {
@@ -53,21 +49,6 @@ public class JourneyDTO   {
         this.title = title;
     }
 
-    public Integer getMinScore() {
-        return minScore;
-    }
-
-    public void setMinScore(Integer minScore) {
-        this.minScore = minScore;
-    }
-
-    public Integer getMaxScore() {
-        return maxScore;
-    }
-
-    public void setMaxScore(Integer maxScore) {
-        this.maxScore = maxScore;
-    }
 
     public JourneyDTO() {
     }
@@ -144,15 +125,13 @@ public class JourneyDTO   {
         this.updatedById = updatedById;
     }
 
-    public JourneyDTO(Long id , String title,Integer ordering, byte[] thumbnail,Long iconId, Integer minScore,Integer maxScore
+    public JourneyDTO(Long id , String title,Integer ordering, Integer minToPassStar,Integer minToOpenStar
             , Long version, String created, String updated, String createdBy, String updatedBy, Long createdById, Long updatedById) {
         this.id = id;
         this.title = title;
         this.ordering = ordering;
-        this.minScore = minScore;
-        this.maxScore = maxScore;
-        this.thumbnail = thumbnail;
-        this.iconId=iconId;
+        this.minToPassStar = minToPassStar;
+        this.minToOpenStar = minToOpenStar;
         this.version = version;
         this.created = created;
         this.updated = updated;

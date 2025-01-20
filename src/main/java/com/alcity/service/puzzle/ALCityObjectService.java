@@ -143,7 +143,7 @@ public class ALCityObjectService implements ALCityObjectRepository {
         AppMember createdBy = appMemberRepository.findByUsername("admin");
         Optional<BinaryContent> icon = binaryContentRepository.findById(dto.getIconId());
         Optional<BinaryContent> pic = binaryContentRepository.findById(dto.getPictureId());
-        ObjectCategory objectCategory =  objectCategoryRepository.findByValue(dto.getObjectCategory());
+        ObjectCategory objectCategory =  objectCategoryRepository.findByValue(dto.getCategory());
         ALCityObject alCityObject=null;
         if (code.equalsIgnoreCase("Save")) { //Save
             alCityObject = new ALCityObject(1L, DateUtils.getNow(), DateUtils.getNow(), createdBy, createdBy,dto.getTitle(), objectCategory,pic.get(),icon.get());

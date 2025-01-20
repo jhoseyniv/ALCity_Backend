@@ -185,7 +185,7 @@ public class AttributeService implements AttributeRepository {
             if(itr.hasNext())   valueDTO = itr.next();
             attributeValue = new AttributeValue(valueDTO.getBooleanValue(),valueDTO.getIntValue(),valueDTO.getLongValue(),valueDTO.getStringValue(),
                     valueDTO.getObjectValue(),valueDTO.getDoubleValue(),valueDTO.getBinaryContentId(),attribute,attribute,
-                    1L,DateUtils.getNow(),DateUtils.getNow(),createdBy,createdBy);
+                    1L,DateUtils.getNow(),DateUtils.getNow(),createdBy,createdBy,attribute.getOwnerId(),attribute.getAttributeOwnerType());
             attributeValueRepository.save(attributeValue);
         }else{//edit
             if(attributeOptional.isPresent()) {

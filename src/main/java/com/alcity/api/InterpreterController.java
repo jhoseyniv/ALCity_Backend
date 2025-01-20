@@ -140,12 +140,12 @@ public class InterpreterController {
     public Collection<POData> getObjectsForPuzzleGroup(PuzzleGroup pg, PuzzleLevel pl) {
         Collection<POData> pObjectsData = new ArrayList<POData>();
 
-        Collection<ALCityObjectInPG> alCityObjectInPGCollection = new ArrayList<>();
-            alCityObjectInPGCollection = pg.getAlCityObjectInPGS();
-        Iterator<ALCityObjectInPG> iterator = alCityObjectInPGCollection.iterator();
+        Collection<ALCityObjectInPG> objects = new ArrayList<>();
+        objects = pg.getAlCityObjectInPGS();
+        Iterator<ALCityObjectInPG> iterator = objects.iterator();
         while(iterator.hasNext()) {
-            ALCityObjectInPG alCityObjectInPG = iterator.next();
-            POData poData =getObjectData(alCityObjectInPG,pl);
+            ALCityObjectInPG object = iterator.next();
+            POData poData =getObjectData(object,pl);
             pObjectsData.add(poData);
         }
         return pObjectsData;

@@ -1,5 +1,6 @@
 package com.alcity.entity.alobject;
 
+import com.alcity.entity.alenum.AttributeOwnerType;
 import com.alcity.entity.base.BaseTable;
 import com.alcity.entity.appmember.AppMember;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -28,6 +29,13 @@ public class AttributeValue extends BaseTable implements Serializable {
 
     @Column(name="doubleValue")
     private Float doubleValue;
+
+    @Column(name="ownerId")
+    private Long ownerId;
+
+    @Enumerated(EnumType.ORDINAL)
+    private AttributeOwnerType attributeOwnerType;
+
 
     public String getObjectValue() {
         return objectValue;
@@ -117,10 +125,26 @@ public class AttributeValue extends BaseTable implements Serializable {
         this.attributeId = attributeId;
     }
 
+    public Long getOwnerId() {
+        return ownerId;
+    }
+
+    public void setOwnerId(Long ownerId) {
+        this.ownerId = ownerId;
+    }
+
+    public AttributeOwnerType getAttributeOwnerType() {
+        return attributeOwnerType;
+    }
+
+    public void setAttributeOwnerType(AttributeOwnerType attributeOwnerType) {
+        this.attributeOwnerType = attributeOwnerType;
+    }
+
     public AttributeValue() {
     }
 
-    public AttributeValue(Boolean booleanValue, Integer intValue, Long longValue, String stringValue, String objectValue, Float doubleValue, Long binaryContentId, Attribute bindedAttributeId, Attribute attributeId, Long version, String created, String updated, AppMember createdBy, AppMember updatedBy) {
+    public AttributeValue(Boolean booleanValue, Integer intValue, Long longValue, String stringValue, String objectValue, Float doubleValue, Long binaryContentId, Attribute bindedAttributeId, Attribute attributeId, Long version, String created, String updated, AppMember createdBy, AppMember updatedBy,Long ownerId ,AttributeOwnerType attributeOwnerType) {
         super(version, created, updated, createdBy, updatedBy);
         this.booleanValue = booleanValue;
         this.intValue = intValue;
@@ -131,5 +155,7 @@ public class AttributeValue extends BaseTable implements Serializable {
         this.binaryContentId = binaryContentId;
         this.bindedAttributeId = bindedAttributeId;
         this.attributeId = attributeId;
+        this.ownerId = ownerId;
+        this.attributeOwnerType = attributeOwnerType;
     }
 }

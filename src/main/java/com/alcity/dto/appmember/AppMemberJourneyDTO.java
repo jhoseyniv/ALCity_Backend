@@ -5,8 +5,8 @@ public class AppMemberJourneyDTO {
     private String title;
     private Boolean isOpen;
     private Long  iconId;
-    private Integer  maxStar;
-    private Integer  minStar;
+    private Integer  minToPassStar;
+    private Integer  minToOpenStar;
     private Integer  currentStar;
     private Long appMemberId;
 
@@ -42,20 +42,20 @@ public class AppMemberJourneyDTO {
         this.iconId = iconId;
     }
 
-    public Integer getMaxStar() {
-        return maxStar;
+    public Integer getMinToPassStar() {
+        return minToPassStar;
     }
 
-    public void setMaxStar(Integer maxStar) {
-        this.maxStar = maxStar;
+    public void setMinToPassStar(Integer minToPassStar) {
+        this.minToPassStar = minToPassStar;
     }
 
-    public Integer getMinStar() {
-        return minStar;
+    public Integer getMinToOpenStar() {
+        return minToOpenStar;
     }
 
-    public void setMinStar(Integer minStar) {
-        this.minStar = minStar;
+    public void setMinToOpenStar(Integer minToOpenStar) {
+        this.minToOpenStar = minToOpenStar;
     }
 
     public Integer getCurrentStar() {
@@ -77,13 +77,13 @@ public class AppMemberJourneyDTO {
     public AppMemberJourneyDTO() {
     }
 
-    public AppMemberJourneyDTO(Long journeyId, String title, Boolean isOpen, Long iconId, Integer maxStar, Integer minStar, Integer currentStar, Long appMemberId) {
+    public AppMemberJourneyDTO(Long journeyId, String title, Boolean isOpen, Long iconId, Integer minToPassStar, Integer minToOpenStar, Integer currentStar, Long appMemberId) {
         this.journeyId = journeyId;
         this.title = title;
         this.isOpen = isOpen;
         this.iconId = iconId;
-        this.maxStar = maxStar;
-        this.minStar = minStar;
+        this.minToPassStar = minToPassStar;
+        this.minToPassStar = minToPassStar;
         this.currentStar = currentStar;
         this.appMemberId = appMemberId;
     }

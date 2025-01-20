@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Optional;
 
@@ -96,5 +97,25 @@ public class AttributeController {
         return null;
     }
 
+    @Operation( summary = "Fetch all attributes for an owner by id and type ",  description = "Fetch all attributes for an owner by id and type ")
+    @RequestMapping(value = "/att/owner/{id}/type/{type}", method = RequestMethod.GET)
+    @ResponseBody
+    @CrossOrigin(origins = "*")
+    public Collection<AttributeDTO> getAttributesByOwnerIdAndOwnerType(@PathVariable Long id,@PathVariable Long type) {
+        Collection<Attribute> attributes = attributeService.findByOwnerIdAndAttributeOwnerType(id,AttributeOwnerType.getById(type));
+        Collection<AttributeDTO> dtos = new ArrayList<AttributeDTO>();
+        dtos = DTOUtil.getAttributesDTOS(attributes);
+        return  dtos;
+    }
+    @Operation( summary = "Fetch all attributes Information by id",  description = "Fetch all attributes Information by id")
+    @RequestMapping(value = "/att/id/{id}", method = RequestMethod.GET)
+    @ResponseBody
+    @CrossOrigin(origins = "*")
+    public AttributeDTO getALCityAttributeById(@PathVariable Long id) {
+        Optional<Attribute> attributeOptional = attributeService.findById(id);
+        if(attributeOptional.isPresent())
+            return  DTOUtil.getAttributeDTO(attributeOptional.get());
+        return null;
+    }
 
 }

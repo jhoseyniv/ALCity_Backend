@@ -1,9 +1,5 @@
 package com.alcity.dto.puzzle;
 
-import com.alcity.dto.alobject.AttributeDTO;
-import com.alcity.dto.alobject.Dependency;
-import com.alcity.entity.alobject.Attribute;
-
 import java.util.Collection;
 
 public class ALCityObjectInPGDTO {
