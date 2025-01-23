@@ -1,9 +1,9 @@
 package com.alcity.service.puzzle;
 
-import com.alcity.dto.puzzle.ALCityObjectInPGDTO;
+import com.alcity.dto.puzzle.CityObjectInPGDTO;
 import com.alcity.entity.alenum.AttributeOwnerType;
 import com.alcity.entity.alenum.POActionOwnerType;
-import com.alcity.entity.alobject.PuzzleObjectAction;
+import com.alcity.entity.alobject.ObjectAction;
 import com.alcity.entity.puzzle.ALCityObject;
 import com.alcity.entity.puzzle.ALCityObjectInPG;
 import com.alcity.entity.puzzle.PuzzleGroup;
@@ -135,7 +135,7 @@ public class ALCityObjectInPGService implements ALCityObjectInPGRepository {
     }
     @Autowired
     private AppMemberRepository appMemberRepository;
-    public ALCityObjectInPG save(ALCityObjectInPGDTO dto, String code) {
+    public ALCityObjectInPG save(CityObjectInPGDTO dto, String code) {
         AppMember createdBy = appMemberRepository.findByUsername("admin");
         Optional<PuzzleGroup> puzzleGroupOptional =  pgRepository.findByTitle(dto.getPuzzleGroup());
         Optional<ALCityObject> alCityObjectOptional =  alCityObjectService.findByTitle(dto.getAlCityObject());
@@ -162,13 +162,13 @@ public class ALCityObjectInPGService implements ALCityObjectInPGRepository {
 
     public void copyActionFromALCityObjectToPuzzleGroupObject(ALCityObjectInPG alCityObjectInPG){
         ALCityObject alCityObject = alCityObjectInPG.getAlCityObject();
-        Collection<PuzzleObjectAction> actions = alCityObjectService.findAllActions(alCityObject);
+        Collection<ObjectAction> actions = alCityObjectService.findAllActions(alCityObject);
 
-        Iterator<PuzzleObjectAction> itr = actions.iterator();
+        Iterator<ObjectAction> itr = actions.iterator();
         while(itr.hasNext()){
-            PuzzleObjectAction action = new PuzzleObjectAction();
+            ObjectAction action = new ObjectAction();
             action = itr.next();
-            PuzzleObjectAction newAction = new PuzzleObjectAction(POActionOwnerType.Puzzle_Group_Object,alCityObjectInPG.getId(), action.getObjectAction(),action.getActionRenderer(),1L,action.getCreated(),
+            ObjectAction newAction = new ObjectAction(POActionOwnerType.Puzzle_Group_Object,alCityObjectInPG.getId(), action.getObjectAction(),action.getActionRenderer(),1L,action.getCreated(),
                     action.getUpdated(),action.getCreatedBy(),action.getUpdatedBy());
             puzzleObjectActionService.save(newAction);
 

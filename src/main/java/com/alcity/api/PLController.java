@@ -179,8 +179,8 @@ public class PLController {
     @Operation( summary = "Fetch all AL City Object for that define in a puzzle group ",  description = "Fetch all Al city object for an puzzle group")
     @RequestMapping(value = "/id/{id}/objects/all", method = RequestMethod.GET)
     @ResponseBody
-    public Collection<ALCityObjectInPGDTO> getObjectsForAPG(@PathVariable Long id) {
-        Collection<ALCityObjectInPGDTO> dtos = new ArrayList<ALCityObjectInPGDTO>();
+    public Collection<CityObjectInPGDTO> getObjectsForAPG(@PathVariable Long id) {
+        Collection<CityObjectInPGDTO> dtos = new ArrayList<CityObjectInPGDTO>();
         Collection<ALCityObjectInPG> alCityObjectInPGS = new ArrayList<ALCityObjectInPG>();
         Optional<PuzzleLevel> puzzleLevelOptional = puzzleLevelService.findById(id);
         PuzzleGroup puzzleGroup =puzzleLevelOptional.get().getPuzzleGroup();
@@ -188,7 +188,7 @@ public class PLController {
             alCityObjectInPGS = puzzleGroup.getAlCityObjectInPGS();
             Iterator<ALCityObjectInPG> itr = alCityObjectInPGS.iterator();
             while(itr.hasNext()) {
-                ALCityObjectInPGDTO dto = new ALCityObjectInPGDTO();
+                CityObjectInPGDTO dto = new CityObjectInPGDTO();
                 ALCityObjectInPG entity = itr.next();
                 dto = DTOUtil.getALCityObjectInPGDTO(entity);
                 Collection<Attribute> attributes = attributeService.findByOwnerIdAndAttributeOwnerType(entity.getId(), AttributeOwnerType.ALCity_Object_In_Puzzle_Group);

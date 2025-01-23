@@ -18,7 +18,7 @@ import com.alcity.dto.player.PermitedPlayerDTO;
 import com.alcity.dto.player.PlayHistoryDTO;
 import com.alcity.dto.puzzle.*;
 import com.alcity.entity.alenum.AttributeOwnerType;
-import com.alcity.entity.alenum.ObjectAction;
+import com.alcity.entity.alenum.ObjectActionType;
 import com.alcity.entity.alobject.*;
 import com.alcity.entity.appmember.AppMember_WalletItem;
 import com.alcity.entity.base.*;
@@ -35,7 +35,6 @@ import com.alcity.entity.appmember.AppMember;
 import com.alcity.entity.appmember.WalletItem;
 import com.alcity.service.alobject.AttributeService;
 import com.alcity.service.alobject.AttributeValueService;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -289,8 +288,8 @@ public class DTOUtil {
         }
         return output;
     }
-    public static ALCityObjectInPGDTO getALCityObjectInPGDTO(ALCityObjectInPG alCityObjectInPG) {
-        ALCityObjectInPGDTO dto = new ALCityObjectInPGDTO();
+    public static CityObjectInPGDTO getALCityObjectInPGDTO(ALCityObjectInPG alCityObjectInPG) {
+        CityObjectInPGDTO dto = new CityObjectInPGDTO();
         dto.setId(alCityObjectInPG.getId());
         dto.setCode(alCityObjectInPG.getCode());
         dto.setTitle(alCityObjectInPG.getTitle());
@@ -309,12 +308,12 @@ public class DTOUtil {
 
         return  dto;
     }
-    public static Collection<ALCityObjectInPGDTO> getALCityObjectInPGDTOS(Collection<ALCityObjectInPG> input) {
-        Collection<ALCityObjectInPGDTO> dtos = new ArrayList<ALCityObjectInPGDTO>();
+    public static Collection<CityObjectInPGDTO> getALCityObjectInPGDTOS(Collection<ALCityObjectInPG> input) {
+        Collection<CityObjectInPGDTO> dtos = new ArrayList<CityObjectInPGDTO>();
         Iterator<ALCityObjectInPG> itr = input.iterator();
         while (itr.hasNext()) {
             ALCityObjectInPG alCityObjectInPG = itr.next();
-            ALCityObjectInPGDTO dto = getALCityObjectInPGDTO(alCityObjectInPG);
+            CityObjectInPGDTO dto = getALCityObjectInPGDTO(alCityObjectInPG);
             dtos.add(dto);
         }
         return dtos;
@@ -954,71 +953,7 @@ public class DTOUtil {
         return plInstanceDTOS;
     }
 
-    public static ALCityObjectDTO getALCityObjectDTO(ALCityObject co,Collection<Attribute>  attributes){
-        Collection<AttributeDTO>  attributeDTOS = DTOUtil.getAttributesDTOS(attributes);
-        ALCityObjectDTO dto= new ALCityObjectDTO();
-            dto.setId(co.getId());
-            dto.setTitle(co.getTitle());
-            dto.setCategoryId(co.getObjectCategory().getId());
-            dto.setCategory(co.getObjectCategory().getLabel());
-            dto.setVersion(co.getVersion());
-            dto.setPictureId(co.getPic().getId());
-            dto.setIconId(co.getIcon().getId());
-            dto.setCreated(co.getCreated());
-            dto.setUpdated(co.getUpdated());
-            dto.setUpdatedBy(co.getUpdatedBy().getUsername());
-            dto.setCreatedBy(co.getCreatedBy().getUsername());
-            dto.setDependencies(attributeDTOS);
-        return dto;
-    }
-    public static  Collection<ALCityObjectDTO> getALCityObjectsDTOS(Collection<ALCityObject> puzzleObjectCollection,AttributeService attributeService){
-        Collection<ALCityObjectDTO> alCityObjectDTOSl = new ArrayList<ALCityObjectDTO>();
-        Iterator<ALCityObject> iterator = puzzleObjectCollection.iterator();
-        while (iterator.hasNext()) {
-            ALCityObjectDTO alCityObjectDTO = new ALCityObjectDTO();
-            ALCityObject alCityObject = iterator.next();
-            Collection<Attribute> attributes = attributeService.findByOwnerIdAndAttributeOwnerType(alCityObject.getId(), AttributeOwnerType.AlCity_Object);
-            alCityObjectDTO = getALCityObjectDTO(alCityObject,attributes);
-            alCityObjectDTOSl.add(alCityObjectDTO);
-        }
 
-        return alCityObjectDTOSl;
-    }
-    public static  Collection<PuzzleObjectActionDTO> getPuzzleObjectActionDTOS(Collection<PuzzleObjectAction> input) {
-        Collection<PuzzleObjectActionDTO> output = new ArrayList<PuzzleObjectActionDTO>();
-        Iterator<PuzzleObjectAction> itr = input.iterator();
-        while (itr.hasNext()) {
-            PuzzleObjectActionDTO dto = new PuzzleObjectActionDTO();
-            PuzzleObjectAction poa = itr.next();
-            dto = getPuzzleObjectActionDTO(poa);
-            output.add(dto);
-        }
-
-        return output;
-    }
-
-    public static PuzzleObjectActionDTO getPuzzleObjectActionDTO(PuzzleObjectAction poa) {
-        PuzzleObjectActionDTO poaDTO = new PuzzleObjectActionDTO();
-
-        poaDTO.setId(poa.getId());
-        poaDTO.setVersion(poa.getVersion());
-        poaDTO.setOwnerObjectid(poa.getOwnerObjectid());
-        poaDTO.setUpdated(poa.getUpdated());
-        poaDTO.setCreated(poa.getCreated());
-        poaDTO.setUpdatedBy(poa.getUpdatedBy().getUsername());
-        poaDTO.setCreatedBy(poa.getUpdatedBy().getUsername());
-
-        poaDTO.setObjectAction(poa.getObjectAction().name());
-        poaDTO.setObjectActionId( Long.valueOf(poa.getObjectAction().ordinal()));
-
-        poaDTO.setActionRender(poa.getActionRenderer().getHandler());
-        poaDTO.setActionRenderId(poa.getActionRenderer().getId());
-
-        poaDTO.setOwnerType(poa.getPoActionOwnerType().name());
-        poaDTO.setOwnerTypeId( Long.valueOf(poa.getPoActionOwnerType().ordinal()));
-
-        return poaDTO;
-    }
   public static ClientTypeDTO getClientTypeDTO(ClientType ctype){
       ClientTypeDTO clientTypeDTO = new ClientTypeDTO(ctype.getId(), ctype.getLabel(),
               ctype.getValue(),  ctype.getVersion(), ctype.getCreated(),ctype.getUpdated());
@@ -1061,7 +996,7 @@ public class DTOUtil {
              rendererDTO.setVersion(actionRenderer.getVersion());
              rendererDTO.setUpdatedBy(actionRenderer.getUpdatedBy().getUsername());
              rendererDTO.setCreatedBy(actionRenderer.getCreatedBy().getUsername());
-            ObjectAction objectAction = actionRenderer.getObjectAction();
+            ObjectActionType objectAction = actionRenderer.getObjectAction();
             rendererDTO.setObjectAction(objectAction.name());
             ClientType clientType = actionRenderer.getClientType();
             rendererDTO.setClientType(clientType.getValue());
@@ -1162,26 +1097,19 @@ public class DTOUtil {
 
         return variables;
     }
-    public static String getDataValue(AttributeValue alCityAttributeValue){
-        if (alCityAttributeValue.getBooleanValue()!=null )
-            return alCityAttributeValue.getBooleanValue().toString();
+    public static String getDataValue(AttributeValue value){
+        if (value.getBooleanValue()!=null )  return value.getBooleanValue().toString();
 
-        if (alCityAttributeValue.getDoubleValue()!=null )
-            return alCityAttributeValue.getDoubleValue().toString();
+        if (value.getDoubleValue()!=null )    return value.getDoubleValue().toString();
 
-        if (alCityAttributeValue.getIntValue()!=null )
-            return alCityAttributeValue.getIntValue().toString();
+        if (value.getIntValue()!=null )      return value.getIntValue().toString();
 
-        if (alCityAttributeValue.getLongValue()!=null )
-            return alCityAttributeValue.getLongValue().toString();
+        if (value.getLongValue()!=null )     return value.getLongValue().toString();
 
-        if (alCityAttributeValue.getBinaryContentId()!=null )
-            return alCityAttributeValue.getBinaryContentId().toString();
+        if (value.getBinaryContentId()!=null )  return value.getBinaryContentId().toString();
 
-        if (alCityAttributeValue.getStringValue()!=null )
-            return alCityAttributeValue.getStringValue();
-        if (alCityAttributeValue.getObjectValue()!=null )
-            return alCityAttributeValue.getStringValue();
+        if (value.getStringValue()!=null )     return value.getStringValue();
+        if (value.getObjectValue()!=null )     return value.getStringValue();
 
         return "Unknown Value";
     }

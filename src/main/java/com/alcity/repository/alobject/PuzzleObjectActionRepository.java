@@ -1,18 +1,18 @@
 package com.alcity.repository.alobject;
 
 import com.alcity.entity.alenum.POActionOwnerType;
-import com.alcity.entity.alobject.PuzzleObjectAction;
+import com.alcity.entity.alobject.ObjectAction;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.Collection;
 import java.util.Optional;
 
-public interface PuzzleObjectActionRepository extends CrudRepository<PuzzleObjectAction,Long> {
-    Optional<PuzzleObjectAction> findById(Long id);
-    Collection<PuzzleObjectAction> findAll();
-    Collection<PuzzleObjectAction> findByActionRendererId(Long id);
-    Collection<PuzzleObjectAction> findByPoActionOwnerType(Long id);
-    Collection<PuzzleObjectAction> findByOwnerObjectid(Long ownerId);
-    Collection<PuzzleObjectAction> findByOwnerObjectidAndPoActionOwnerType(Long ownerId,POActionOwnerType ownerType);
+public interface PuzzleObjectActionRepository extends CrudRepository<ObjectAction,Long> {
+    Optional<ObjectAction> findById(Long id);
+    Collection<ObjectAction> findAll();
+    Collection<ObjectAction> findByActionRendererId(Long id);
+    Collection<ObjectAction> findByPoActionOwnerType(Long id);
+    Collection<ObjectAction> findByOwnerObjectid(Long ownerId);
+    Collection<ObjectAction> findByOwnerObjectidAndPoActionOwnerType(Long ownerId, POActionOwnerType ownerType);
 
 }

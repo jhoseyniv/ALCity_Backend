@@ -3,14 +3,15 @@ package com.alcity.api;
 import com.alcity.service.customexception.ALCityResponseObject;
 import com.alcity.service.customexception.UniqueConstraintException;
 import com.alcity.service.customexception.ViolateForeignKeyException;
-import com.alcity.dto.puzzle.ALCityObjectInPGDTO;
-import com.alcity.dto.puzzle.PuzzleObjectActionDTO;
+import com.alcity.dto.puzzle.CityObjectInPGDTO;
+import com.alcity.dto.puzzle.object.ActionDTO;
 import com.alcity.entity.alenum.POActionOwnerType;
-import com.alcity.entity.alobject.PuzzleObjectAction;
+import com.alcity.entity.alobject.ObjectAction;
 import com.alcity.entity.puzzle.ALCityObjectInPG;
 import com.alcity.service.alobject.PuzzleObjectActionService;
 import com.alcity.service.puzzle.ALCityObjectInPGService;
 import com.alcity.utility.DTOUtil;
+import com.alcity.utility.PLDTOUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,27 +39,27 @@ public class ALCityObjectInPGController {
     @RequestMapping(value = "/id/{id}/actions", method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin(origins = "*")
-    public Collection<PuzzleObjectActionDTO> getActionsForAObjectInPG(@PathVariable Long id) {
-        Collection<PuzzleObjectActionDTO> puzzleObjectActionDTOS = new ArrayList<PuzzleObjectActionDTO>();
-        Collection<PuzzleObjectAction> puzzleObjectActions = puzzleObjectActionService.findByOwnerObjectidAndPoActionOwnerType(id, POActionOwnerType.Puzzle_Group_Object);
-        puzzleObjectActionDTOS = DTOUtil.getPuzzleObjectActionDTOS(puzzleObjectActions);
-        return  puzzleObjectActionDTOS;
+    public Collection<ActionDTO> getActionsForAnObjectInPG(@PathVariable Long id) {
+        Collection<ActionDTO> actionDTOS = new ArrayList<ActionDTO>();
+        Collection<ObjectAction> actions = puzzleObjectActionService.findByOwnerObjectidAndPoActionOwnerType(id, POActionOwnerType.Puzzle_Group_Object);
+        actionDTOS = PLDTOUtil.getActionDTOS(actions);
+        return  actionDTOS;
     }
 
     @Operation( summary = "Fetch an al city object that define in a puzzle group ",  description = "Fetch an al city object that defined in a puzzle group")
     @RequestMapping(value = "/id/{id}", method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin(origins = "*")
-    public ALCityObjectInPGDTO getAnAObjectInPGDTO(@PathVariable Long id) {
+    public CityObjectInPGDTO getAnAObjectInPGDTO(@PathVariable Long id) {
         Optional<ALCityObjectInPG> alCityObjectInPGOptional = alCityObjectInPGService.findById(id);
-        ALCityObjectInPGDTO alCityObjectInPGDTO = DTOUtil.getALCityObjectInPGDTO(alCityObjectInPGOptional.get());
+        CityObjectInPGDTO alCityObjectInPGDTO = DTOUtil.getALCityObjectInPGDTO(alCityObjectInPGOptional.get());
         return  alCityObjectInPGDTO;
     }
 
     @Operation( summary = "Add an AL City Object to a Puzzle Group ",  description = "Add an AL City Object to a Puzzle Group ")
     @PostMapping("/save")
     @CrossOrigin(origins = "*")
-    public ALCityResponseObject saveALCityObjectInPG(@RequestBody ALCityObjectInPGDTO dto)  {
+    public ALCityResponseObject saveALCityObjectInPG(@RequestBody CityObjectInPGDTO dto)  {
         ALCityObjectInPG savedRecord = null;
         ALCityResponseObject responseObject = new ALCityResponseObject();
 
@@ -93,7 +94,7 @@ public class ALCityObjectInPGController {
                 alCityObjectInPGService.deleteById(existingRecord.get().getId());
             }catch (Exception e )
             {
-                throw new ViolateForeignKeyException(existingRecord.get().getTitle(), existingRecord.get().getId(), ALCityObjectInPGDTO.class.toString());
+                throw new ViolateForeignKeyException(existingRecord.get().getTitle(), existingRecord.get().getId(), CityObjectInPGDTO.class.toString());
             }
             return new ALCityResponseObject(HttpStatus.OK.value(), "ok", id,"Record deleted Successfully!");
         }

@@ -1,12 +1,12 @@
 package com.alcity.dto.Interpreter.object;
 
-import com.alcity.entity.alenum.ObjectAction;
+import com.alcity.entity.alenum.ObjectActionType;
 
 import java.util.Collection;
 
 public class ActionData {
     private Long id;
-    private ObjectAction actionName;
+    private ObjectActionType actionName;
 
     private String handler;
 
@@ -19,7 +19,7 @@ public class ActionData {
         this.id = id;
     }
 
-    public ObjectAction getActionName() {
+    public ObjectActionType getActionName() {
         return actionName;
     }
 
@@ -39,14 +39,14 @@ public class ActionData {
         this.handler = handler;
     }
 
-    public void setActionName(ObjectAction actionName) {
+    public void setActionName(ObjectActionType actionName) {
         this.actionName = actionName;
     }
 
     public ActionData() {
     }
 
-    public ActionData(Long id, ObjectAction actionName, String handler, Collection<RecordData> parameters) {
+    public ActionData(Long id, ObjectActionType actionName, String handler, Collection<RecordData> parameters) {
         this.id = id;
         this.actionName = actionName;
         this.handler = handler;

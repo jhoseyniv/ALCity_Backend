@@ -1,9 +1,10 @@
-package com.alcity.dto.puzzle;
+package com.alcity.dto.puzzle.object;
 
-public class Dependency {
+public class PropertyDTO {
     private  Long id;
     private String name;
     private String type;
+    private String value;
 
     public Long getId() {
         return id;
@@ -29,12 +30,22 @@ public class Dependency {
         this.type = type;
     }
 
-    public Dependency() {
+    public String getValue() {
+        return value;
     }
 
-    public Dependency(Long id, String name, String type) {
+    public void setValue(String value) {
+        this.value = value;
+    }
+
+    public PropertyDTO() {
+    }
+
+    public PropertyDTO(Long id, String name, String type,String value) {
         this.id = id;
         this.name = name;
         this.type = type;
+        this.value = value;
+
     }
 }

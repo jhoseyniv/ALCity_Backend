@@ -5,7 +5,7 @@ import com.alcity.service.customexception.UniqueConstraintException;
 import com.alcity.service.customexception.ViolateForeignKeyException;
 import com.alcity.dto.alobject.*;
 import com.alcity.entity.alenum.AttributeOwnerType;
-import com.alcity.entity.alenum.ObjectAction;
+import com.alcity.entity.alenum.ObjectActionType;
 import com.alcity.entity.alenum.POActionOwnerType;
 import com.alcity.entity.alobject.*;
 import com.alcity.service.alobject.*;
@@ -56,16 +56,16 @@ public class ALObjectController {
     @Operation( summary = "Fetch All Object actions ",  description = "fetches All actions that an Object can have in the al city ")
     @GetMapping("/action/all")
     @CrossOrigin(origins = "*")
-    public ObjectAction[] getObjectActions(Model model) {
-        return ObjectAction.values();
+    public ObjectActionType[] getObjectActions(Model model) {
+        return ObjectActionType.values();
     }
 
     @Operation( summary = "Fetch an action by a Id ",  description = "fetches one action by id ")
     @RequestMapping(value = "/action/id/{id}", method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin(origins = "*")
-    public ObjectAction getObjectActionById(@PathVariable Integer id) {
-       return ObjectAction.getById(id);
+    public ObjectActionType getObjectActionById(@PathVariable Integer id) {
+       return ObjectActionType.getById(id);
     }
 
     @Operation( summary = "Fetch all owner types of action ",  description = "fetches all owner types for object actions")

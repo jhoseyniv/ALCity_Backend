@@ -4,7 +4,7 @@ package com.alcity.api;
 import com.alcity.dto.Interpreter.*;
 import com.alcity.dto.Interpreter.object.*;
 import com.alcity.entity.alenum.AttributeOwnerType;
-import com.alcity.entity.alenum.ObjectAction;
+import com.alcity.entity.alenum.ObjectActionType;
 import com.alcity.entity.alobject.*;
 import com.alcity.entity.base.BinaryContent;
 import com.alcity.entity.base.CameraSetup;
@@ -155,13 +155,13 @@ public class InterpreterController {
     PuzzleObjectActionService puzzleObjectActionService;
     public Collection<ActionData> getActionsDTOForALCityObjectInPG(ALCityObjectInPG alCityObjectInPG){
         Collection<ActionData> actionDataCollection = new ArrayList<ActionData>();
-        Collection<PuzzleObjectAction> actionsCollection = new ArrayList<PuzzleObjectAction>();
+        Collection<ObjectAction> actionsCollection = new ArrayList<ObjectAction>();
         actionsCollection = puzzleObjectActionService.findActionsForALCityObjectInPG(alCityObjectInPG);
 
-        Iterator<PuzzleObjectAction> iterator = actionsCollection.iterator();
+        Iterator<ObjectAction> iterator = actionsCollection.iterator();
         while(iterator.hasNext()) {
-            PuzzleObjectAction puzzleObjectAction = iterator.next();
-            ObjectAction objectAction = puzzleObjectAction.getObjectAction();
+            ObjectAction puzzleObjectAction = iterator.next();
+            ObjectActionType objectAction = puzzleObjectAction.getObjectAction();
 
             Collection<RecordData> parametersData = DTOUtil.getAttributeForOwnerById(attributeService,puzzleObjectAction.getId(),AttributeOwnerType.ALCity_Object_In_Puzzle_Group);
 

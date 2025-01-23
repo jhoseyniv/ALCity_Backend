@@ -1,12 +1,8 @@
-package com.alcity.dto.puzzle;
-
-import com.alcity.dto.alobject.AttributeDTO;
-import com.alcity.dto.base.BinaryContentDTO;
-import com.alcity.entity.alobject.Attribute;
+package com.alcity.dto.puzzle.object;
 
 import java.util.Collection;
 
-public class ALCityObjectDTO {
+public class CityObjectDTO {
 
     private Long id;
     private String title;
@@ -17,7 +13,8 @@ public class ALCityObjectDTO {
     private Long pictureId;
     private Long iconId;
 
-    private Collection<AttributeDTO> dependencies;
+    private Collection<PropertyDTO> properties;
+    private Collection<ActionDTO> actions;
     private Long version;
     private String created;
     private String updated;
@@ -25,7 +22,7 @@ public class ALCityObjectDTO {
 
     private String updatedBy;
 
-    public ALCityObjectDTO() {
+    public CityObjectDTO() {
     }
 
     public String getTitle() {
@@ -117,23 +114,33 @@ public class ALCityObjectDTO {
         this.category = category;
     }
 
-    public Collection<AttributeDTO> getDependencies() {
-        return dependencies;
+    public Collection<PropertyDTO> getProperties() {
+        return properties;
     }
 
-    public void setDependencies(Collection<AttributeDTO> dependencies) {
-        this.dependencies = dependencies;
+    public void setProperties(Collection<PropertyDTO> properties) {
+        this.properties = properties;
     }
 
-    public ALCityObjectDTO(Long id, String title, Long categoryId, String category, Long pictureId, Long iconId, Collection<AttributeDTO> dependencies,
-                           Long version, String created, String updated, String createdBy, String updatedBy) {
+    public Collection<ActionDTO> getActions() {
+        return actions;
+    }
+
+    public void setActions(Collection<ActionDTO> actions) {
+        this.actions = actions;
+    }
+
+    public CityObjectDTO(Long id, String title, Long categoryId, String category, Long pictureId, Long iconId, Collection<PropertyDTO> properties,
+                         Collection<ActionDTO> actions,
+                         Long version, String created, String updated, String createdBy, String updatedBy) {
         this.id = id;
         this.title = title;
         this.categoryId = categoryId;
         this.category = category;
         this.pictureId = pictureId;
         this.iconId = iconId;
-        this.dependencies = dependencies;
+        this.properties = properties;
+        this.actions = actions;
         this.version = version;
         this.created = created;
         this.updated = updated;

@@ -1,16 +1,13 @@
 package com.alcity.service.alobject;
 
 import com.alcity.dto.Interpreter.object.RecordData;
-import com.alcity.dto.puzzle.ALCityObjectDTO;
-import com.alcity.dto.puzzle.PuzzleObjectActionDTO;
+import com.alcity.dto.puzzle.object.ActionDTO;
 import com.alcity.entity.alenum.AttributeOwnerType;
-import com.alcity.entity.alenum.ObjectAction;
+import com.alcity.entity.alenum.ObjectActionType;
 import com.alcity.entity.alenum.POActionOwnerType;
-import com.alcity.entity.alobject.ObjectCategory;
-import com.alcity.entity.alobject.PuzzleObjectAction;
+import com.alcity.entity.alobject.ObjectAction;
 import com.alcity.entity.alobject.Renderer;
 import com.alcity.entity.appmember.AppMember;
-import com.alcity.entity.base.BinaryContent;
 import com.alcity.entity.puzzle.ALCityObject;
 import com.alcity.entity.puzzle.ALCityObjectInPG;
 import com.alcity.repository.alobject.PuzzleObjectActionRepository;
@@ -24,7 +21,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.Optional;
 
 @Service
@@ -45,18 +41,18 @@ public class PuzzleObjectActionService implements PuzzleObjectActionRepository {
     private RendererService rendererService;
 
     @Override
-    public <S extends PuzzleObjectAction> S save(S entity) {
+    public <S extends ObjectAction> S save(S entity) {
         return puzzleObjectActionRepository.save(entity);
     }
-    public PuzzleObjectAction save(PuzzleObjectActionDTO dto, String code) {
+    public ObjectAction save(ActionDTO dto, String code) {
         AppMember createdBy = appMemberRepository.findByUsername("admin");
         Optional<ALCityObject> cityObjectOptional = alCityObjectService.findById(dto.getOwnerObjectid());
-        ObjectAction objectAction = ObjectAction.getByTitle(dto.getObjectAction());
+        ObjectActionType objectAction = ObjectActionType.getByTitle(dto.getObjectAction());
         POActionOwnerType  actionOwnerType = POActionOwnerType.getByTitle(dto.getOwnerType());
         Optional<Renderer> rendererOptional = rendererService.findById(dto.getActionRenderId());
-        PuzzleObjectAction puzzleObjectAction=null;
+        ObjectAction puzzleObjectAction=null;
         if (code.equalsIgnoreCase("Save")) { //Save
-           puzzleObjectAction = new PuzzleObjectAction(actionOwnerType, dto.getOwnerObjectid(), objectAction,rendererOptional.get(),
+           puzzleObjectAction = new ObjectAction(actionOwnerType, dto.getOwnerObjectid(), objectAction,rendererOptional.get(),
                      1L,DateUtils.getNow(),DateUtils.getNow(),createdBy, createdBy);
             puzzleObjectActionRepository.save(puzzleObjectAction);
             DTOUtil.copyAttributesActionFromTo(dto.getActionRenderId(), puzzleObjectAction.getId(),AttributeOwnerType.Action_Renderer_Parameter,AttributeOwnerType.AlCity_Object,
@@ -65,7 +61,7 @@ public class PuzzleObjectActionService implements PuzzleObjectActionRepository {
             copyParametersFromActionToALCityObjectAction(dto.getActionRenderId(), dto.getObjectActionId() );
 
        }else{//edit
-            Optional<PuzzleObjectAction> puzzleObjectActionOptional= puzzleObjectActionRepository.findById(dto.getId());
+            Optional<ObjectAction> puzzleObjectActionOptional= puzzleObjectActionRepository.findById(dto.getId());
            if(puzzleObjectActionOptional.isPresent()) {
                 puzzleObjectAction = puzzleObjectActionOptional.get();
                 puzzleObjectAction.setPoActionOwnerType(actionOwnerType);
@@ -84,12 +80,12 @@ public class PuzzleObjectActionService implements PuzzleObjectActionRepository {
     }
 
     @Override
-    public <S extends PuzzleObjectAction> Iterable<S> saveAll(Iterable<S> entities) {
+    public <S extends ObjectAction> Iterable<S> saveAll(Iterable<S> entities) {
         return null;
     }
 
     @Override
-    public Optional<PuzzleObjectAction> findById(Long id) {
+    public Optional<ObjectAction> findById(Long id) {
         return puzzleObjectActionRepository.findById(id);
     }
 
@@ -99,12 +95,12 @@ public class PuzzleObjectActionService implements PuzzleObjectActionRepository {
     }
 
     @Override
-    public Collection<PuzzleObjectAction> findAll() {
+    public Collection<ObjectAction> findAll() {
         return puzzleObjectActionRepository.findAll();
     }
 
     @Override
-    public Iterable<PuzzleObjectAction> findAllById(Iterable<Long> longs) {
+    public Iterable<ObjectAction> findAllById(Iterable<Long> longs) {
         return null;
     }
 
@@ -119,7 +115,7 @@ public class PuzzleObjectActionService implements PuzzleObjectActionRepository {
     }
 
     @Override
-    public void delete(PuzzleObjectAction entity) {
+    public void delete(ObjectAction entity) {
 
     }
 
@@ -129,7 +125,7 @@ public class PuzzleObjectActionService implements PuzzleObjectActionRepository {
     }
 
     @Override
-    public void deleteAll(Iterable<? extends PuzzleObjectAction> entities) {
+    public void deleteAll(Iterable<? extends ObjectAction> entities) {
 
     }
 
@@ -139,28 +135,28 @@ public class PuzzleObjectActionService implements PuzzleObjectActionRepository {
     }
 
     @Override
-    public Collection<PuzzleObjectAction> findByActionRendererId(Long id) {
+    public Collection<ObjectAction> findByActionRendererId(Long id) {
         return null;
     }
 
     @Override
-    public Collection<PuzzleObjectAction> findByPoActionOwnerType(Long id) {
+    public Collection<ObjectAction> findByPoActionOwnerType(Long id) {
         return null;
     }
 
     @Override
-    public Collection<PuzzleObjectAction> findByOwnerObjectid(Long ownerId) {
+    public Collection<ObjectAction> findByOwnerObjectid(Long ownerId) {
         return null;
     }
 
     @Override
-    public Collection<PuzzleObjectAction> findByOwnerObjectidAndPoActionOwnerType(Long ownerId, POActionOwnerType ownerType) {
+    public Collection<ObjectAction> findByOwnerObjectidAndPoActionOwnerType(Long ownerId, POActionOwnerType ownerType) {
         return puzzleObjectActionRepository.findByOwnerObjectidAndPoActionOwnerType(ownerId,ownerType);
     }
 
-    public Collection<PuzzleObjectAction> findActionsForALCityObjectInPG(ALCityObjectInPG alCityObjectInPG) {
+    public Collection<ObjectAction> findActionsForALCityObjectInPG(ALCityObjectInPG alCityObjectInPG) {
        // Collection<PuzzleObjectAction> actionsForAlCityObject = new ArrayList<PuzzleObjectAction>();
-        Collection<PuzzleObjectAction> actionsForPuzzleGroupObject = new ArrayList<PuzzleObjectAction>();
+        Collection<ObjectAction> actionsForPuzzleGroupObject = new ArrayList<ObjectAction>();
         actionsForPuzzleGroupObject = puzzleObjectActionRepository.findByOwnerObjectid(alCityObjectInPG.getId());
        // actionsForAlCityObject = puzzleObjectActionRepository.findByOwnerObjectid(alCityObjectInPG.getAlCityObject().getId());
       //  actionsForPuzzleGroupObject.addAll(actionsForAlCityObject);

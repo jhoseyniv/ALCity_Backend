@@ -1,7 +1,7 @@
 package com.alcity.service.alobject;
 
 import com.alcity.dto.alobject.RendererDTO;
-import com.alcity.entity.alenum.ObjectAction;
+import com.alcity.entity.alenum.ObjectActionType;
 import com.alcity.entity.alobject.Renderer;
 import com.alcity.entity.base.ClientType;
 import com.alcity.entity.appmember.AppMember;
@@ -37,7 +37,7 @@ public class RendererService implements RendererRepository {
         Renderer renderer=null;
         Optional<Renderer>  rendererOptional = rendererRepository.findById(dto.getId());
         ClientType clientType =  clientTypeRepository.findByValue(dto.getClientType());
-        ObjectAction objectAction = ObjectAction.getByTitle(dto.getObjectAction());
+        ObjectActionType objectAction = ObjectActionType.getByTitle(dto.getObjectAction());
 
         if (code.equalsIgnoreCase("Save")) { //Save
             renderer = new Renderer(dto.getHandler(), clientType, objectAction
@@ -81,7 +81,7 @@ public class RendererService implements RendererRepository {
     }
 
     @Override
-    public Optional<Renderer> findByHandlerAndObjectAction(String handler, ObjectAction action) {
+    public Optional<Renderer> findByHandlerAndObjectAction(String handler, ObjectActionType action) {
         return rendererRepository.findByHandlerAndObjectAction(handler,action);
     }
 

@@ -3,7 +3,7 @@ package com.alcity.importdata;
 
 import com.alcity.entity.alenum.*;
 import com.alcity.entity.alobject.*;
-import com.alcity.entity.alenum.ObjectAction;
+import com.alcity.entity.alobject.ObjectAction;
 import com.alcity.entity.base.*;
 import com.alcity.entity.journey.Journey;
 import com.alcity.entity.journey.JourneyLearningSkill;
@@ -45,10 +45,6 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
-import java.io.File;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
@@ -502,7 +498,7 @@ public class ImportBaseData implements CommandLineRunner {
         binaryContentService.save(image_Object_icon);
 
 
-        Renderer create_Renderer = new Renderer("Show",mobile, ObjectAction.Create,1L,now,now,admin_1,admin_1);
+        Renderer create_Renderer = new Renderer("Show",mobile, ObjectActionType.Create,1L,now,now,admin_1,admin_1);
         actionRendererService.save(create_Renderer);
 
         //add parameters and default values
@@ -517,7 +513,7 @@ public class ImportBaseData implements CommandLineRunner {
         attributeValueService.save(create_ActionRenderer_param_2_value);
 
 
-        Renderer show_Renderer = new Renderer("Show",mobile, ObjectAction.Show,1L,now,now,admin_1,admin_1);
+        Renderer show_Renderer = new Renderer("Show",mobile, ObjectActionType.Show,1L,now,now,admin_1,admin_1);
         actionRendererService.save(show_Renderer);
 
         Attribute show_ActionRenderer_param_1 =new Attribute("text",show_Renderer.getId(),AttributeOwnerType.Action_Renderer_Parameter,DataType.String,1L,now,now,admin_1,admin_1);
@@ -526,13 +522,13 @@ public class ImportBaseData implements CommandLineRunner {
         attributeValueService.save(show_ActionRenderer_param_1_value);
 
 
-        Renderer move_Renderer = new Renderer("Move",mobile, ObjectAction.Move,1L,now,now,admin_1,admin_1);
+        Renderer move_Renderer = new Renderer("Move",mobile, ObjectActionType.Move,1L,now,now,admin_1,admin_1);
         actionRendererService.save(move_Renderer);
 
         //add parameters and default values
         Attribute move_ActionRenderer_param_1 =new Attribute("actionId",move_Renderer.getId(),AttributeOwnerType.Action_Renderer_Parameter,DataType.Long,1L,now,now,admin_1,admin_1);
         attributeService.save(move_ActionRenderer_param_1);
-        AttributeValue  move_ActionRenderer_param_actionId_value= new AttributeValue(null,null,ObjectAction.getOrdinalId("Move"),null,null,null,null,move_ActionRenderer_param_1,move_ActionRenderer_param_1,1L,now,now,admin_1,admin_1,move_Renderer.getId(),AttributeOwnerType.Action_Renderer_Parameter);
+        AttributeValue  move_ActionRenderer_param_actionId_value= new AttributeValue(null,null, ObjectActionType.getOrdinalId("Move"),null,null,null,null,move_ActionRenderer_param_1,move_ActionRenderer_param_1,1L,now,now,admin_1,admin_1,move_Renderer.getId(),AttributeOwnerType.Action_Renderer_Parameter);
         attributeValueService.save(move_ActionRenderer_param_actionId_value);
 
         Attribute move_ActionRenderer_param_2 =new Attribute("aSync",move_Renderer.getId(),AttributeOwnerType.Action_Renderer_Parameter,DataType.Boolean,1L,now,now,admin_1,admin_1);
@@ -585,21 +581,21 @@ public class ImportBaseData implements CommandLineRunner {
         Attribute fbx_file_att= new Attribute("fbx_file",textObject.getId(),AttributeOwnerType.AlCity_Object,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(fbx_file_att);
 
-        AttributeValue fbx_file_att_value = new AttributeValue(false,-1,-1L,"",null,0f,fbx_file.getId(),fbx_file_att,fbx_file_att,1L,now,now,admin_1,admin_1,textObject.getId(),AttributeOwnerType.AlCity_Object);
+        AttributeValue fbx_file_att_value = new AttributeValue(null,null,null,null,null,null,fbx_file.getId(),fbx_file_att,fbx_file_att,1L,now,now,admin_1,admin_1,textObject.getId(),AttributeOwnerType.AlCity_Object);
         attributeValueService.save(fbx_file_att_value);
 
         Attribute texture_file_att= new Attribute("texture_file",textObject.getId(),AttributeOwnerType.AlCity_Object,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(texture_file_att);
 
-        AttributeValue texture_file_att_value = new AttributeValue(false,-1,-1L,"",null,0f,texture_file_att.getId(),texture_file_att,texture_file_att,1L,now,now,admin_1,admin_1,textObject.getId(),AttributeOwnerType.AlCity_Object);
+        AttributeValue texture_file_att_value = new AttributeValue(null,null,null,null,null,null,texture_file_att.getId(),texture_file_att,texture_file_att,1L,now,now,admin_1,admin_1,textObject.getId(),AttributeOwnerType.AlCity_Object);
         attributeValueService.save(texture_file_att_value);
 
-        PuzzleObjectAction textObject_Create_Action = new PuzzleObjectAction(POActionOwnerType.ALCity_Object,textObject.getId(),ObjectAction.Create,create_Renderer,1L,now,now,admin_1,admin_1);
+        ObjectAction textObject_Create_Action = new ObjectAction(POActionOwnerType.ALCity_Object,textObject.getId(), ObjectActionType.Create,create_Renderer,1L,now,now,admin_1,admin_1);
         puzzleObjectActionService.save(textObject_Create_Action);
         DTOUtil.copyAttributesActionFromTo(create_Renderer.getId(),textObject_Create_Action.getId(),AttributeOwnerType.Action_Renderer_Parameter,AttributeOwnerType.AlCity_Object,
                                  attributeService,attributeValueService);
 
-        PuzzleObjectAction textObject_Show_Action = new PuzzleObjectAction(POActionOwnerType.ALCity_Object,textObject.getId(),ObjectAction.Show,show_Renderer,1L,now,now,admin_1,admin_1);
+        ObjectAction textObject_Show_Action = new ObjectAction(POActionOwnerType.ALCity_Object,textObject.getId(), ObjectActionType.Show,show_Renderer,1L,now,now,admin_1,admin_1);
         puzzleObjectActionService.save(textObject_Show_Action);
         DTOUtil.copyAttributesActionFromTo(show_Renderer.getId(),textObject_Show_Action.getId(),AttributeOwnerType.Action_Renderer_Parameter,AttributeOwnerType.AlCity_Object,
                 attributeService,attributeValueService);
@@ -614,7 +610,7 @@ public class ImportBaseData implements CommandLineRunner {
         ALCityObject ImageObject01 = new ALCityObject(1L,now,now,jalalHoseyni,jalalHoseyni,"ImageObject01",objectCategory_Image,image_Object_pic,image_Object_pic);
         alCityObjectService.save(ImageObject01);
 
-        PuzzleObjectAction ImageObject01_Move_Action = new PuzzleObjectAction(POActionOwnerType.ALCity_Object,ImageObject01.getId(),ObjectAction.Move,move_Renderer,1L,now,now,admin_1,admin_1);
+        ObjectAction ImageObject01_Move_Action = new ObjectAction(POActionOwnerType.ALCity_Object,ImageObject01.getId(), ObjectActionType.Move,move_Renderer,1L,now,now,admin_1,admin_1);
         puzzleObjectActionService.save(ImageObject01_Move_Action);
         DTOUtil.copyAttributesActionFromTo(move_Renderer.getId(),ImageObject01_Move_Action.getId(),AttributeOwnerType.Action_Renderer_Parameter,AttributeOwnerType.AlCity_Object,
                 attributeService,attributeValueService);

@@ -1,6 +1,6 @@
 package com.alcity.entity.alobject;
 
-import com.alcity.entity.alenum.ObjectAction;
+import com.alcity.entity.alenum.ObjectActionType;
 import com.alcity.entity.base.BaseTable;
 import com.alcity.entity.base.ClientType;
 import com.alcity.entity.appmember.AppMember;
@@ -38,33 +38,33 @@ public class Renderer extends BaseTable implements Serializable {
         this.clientType = clientType;
     }
 
-    public ObjectAction getObjectAction() {
+    public ObjectActionType getObjectAction() {
         return objectAction;
     }
 
-    public void setObjectAction(ObjectAction objectAction) {
+    public void setObjectAction(ObjectActionType objectAction) {
         this.objectAction = objectAction;
     }
 
     @Enumerated(EnumType.ORDINAL)
-    private ObjectAction objectAction;
+    private ObjectActionType objectAction;
 
     @OneToMany(mappedBy = "actionRenderer", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JsonIgnore
-    private Collection<PuzzleObjectAction> puzzleObjectActions;
+    private Collection<ObjectAction> puzzleObjectActions;
 
-    public Collection<PuzzleObjectAction> getPuzzleObjectActions() {
+    public Collection<ObjectAction> getPuzzleObjectActions() {
         return puzzleObjectActions;
     }
 
-    public void setPuzzleObjectActions(Collection<PuzzleObjectAction> puzzleObjectActions) {
+    public void setPuzzleObjectActions(Collection<ObjectAction> puzzleObjectActions) {
         this.puzzleObjectActions = puzzleObjectActions;
     }
 
     public Renderer() {
     }
 
-    public Renderer(String handler, ClientType clientType, ObjectAction objectAction, Long version, String created, String updated, AppMember createdBy, AppMember updatedBy) {
+    public Renderer(String handler, ClientType clientType, ObjectActionType objectAction, Long version, String created, String updated, AppMember createdBy, AppMember updatedBy) {
         super(version, created, updated, createdBy, updatedBy);
         this.handler = handler;
         this.clientType = clientType;

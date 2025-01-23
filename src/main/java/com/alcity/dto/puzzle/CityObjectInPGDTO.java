@@ -1,8 +1,10 @@
 package com.alcity.dto.puzzle;
 
+import com.alcity.dto.puzzle.object.PropertyDTO;
+
 import java.util.Collection;
 
-public class ALCityObjectInPGDTO {
+public class CityObjectInPGDTO {
 
     private Long id;
     private String title;
@@ -13,7 +15,7 @@ public class ALCityObjectInPGDTO {
     private Long puzzleGroupId;
     private String alCityObject;
 
-    private Collection<Dependency> dependencies;
+    private Collection<PropertyDTO> dependencies;
 
     private Long alCityObjectId;
 
@@ -105,7 +107,7 @@ public class ALCityObjectInPGDTO {
         this.puzzleGroupId = puzzleGroupId;
     }
 
-    public ALCityObjectInPGDTO() {
+    public CityObjectInPGDTO() {
     }
 
     public String getAlCityObject() {
@@ -124,16 +126,16 @@ public class ALCityObjectInPGDTO {
         this.alCityObjectId = alCityObjectId;
     }
 
-    public Collection<Dependency> getDependencies() {
+    public Collection<PropertyDTO> getDependencies() {
         return dependencies;
     }
 
-    public void setDependencies(Collection<Dependency> dependencies) {
+    public void setDependencies(Collection<PropertyDTO> dependencies) {
         this.dependencies = dependencies;
     }
 
-    public ALCityObjectInPGDTO(Long id, String title, String code, String puzzleGroup, Long puzzleGroupId, String alCityObject, Long alCityObjectId,Collection<Dependency> dependencies,
-                               Long version, String created, String updated, String createdBy, String updatedBy) {
+    public CityObjectInPGDTO(Long id, String title, String code, String puzzleGroup, Long puzzleGroupId, String alCityObject, Long alCityObjectId, Collection<PropertyDTO> dependencies,
+                             Long version, String created, String updated, String createdBy, String updatedBy) {
         this.id = id;
         this.title = title;
         this.code = code;

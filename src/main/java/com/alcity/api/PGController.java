@@ -34,8 +34,8 @@ public class PGController {
     @Operation( summary = "Fetch all AL City Object for that define in a puzzle group ",  description = "Fetch all Al city object for an puzzle group")
     @RequestMapping(value = "/id/{id}/objects/all", method = RequestMethod.GET)
     @ResponseBody
-    public Collection<ALCityObjectInPGDTO> getObjectsForAPG(@PathVariable Long id) {
-        Collection<ALCityObjectInPGDTO> alCityObjectInPGDTOS = new ArrayList<ALCityObjectInPGDTO>();
+    public Collection<CityObjectInPGDTO> getObjectsForAPG(@PathVariable Long id) {
+        Collection<CityObjectInPGDTO> alCityObjectInPGDTOS = new ArrayList<CityObjectInPGDTO>();
         Collection<ALCityObjectInPG> alCityObjectInPGS = new ArrayList<ALCityObjectInPG>();
         Optional<PuzzleGroup> puzzleGroup = pgService.findById(id);
         if(puzzleGroup.isPresent()) {

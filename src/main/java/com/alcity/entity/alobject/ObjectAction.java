@@ -1,6 +1,6 @@
 package com.alcity.entity.alobject;
 
-import com.alcity.entity.alenum.ObjectAction;
+import com.alcity.entity.alenum.ObjectActionType;
 import com.alcity.entity.alenum.POActionOwnerType;
 import com.alcity.entity.base.BaseTable;
 import com.alcity.entity.appmember.AppMember;
@@ -10,7 +10,7 @@ import jakarta.persistence.*;
 import java.io.Serializable;
 
 @Entity
-public class PuzzleObjectAction extends BaseTable implements Serializable {
+public class ObjectAction extends BaseTable implements Serializable {
     @Column(name="ownerObjectid")
     private Long ownerObjectid;
 
@@ -34,13 +34,13 @@ public class PuzzleObjectAction extends BaseTable implements Serializable {
     }
 
     @Enumerated(EnumType.ORDINAL)
-    private ObjectAction objectAction;
+    private ObjectActionType objectAction;
 
-    public ObjectAction getObjectAction() {
+    public ObjectActionType getObjectAction() {
         return objectAction;
     }
 
-    public void setObjectAction(ObjectAction objectAction) {
+    public void setObjectAction(ObjectActionType objectAction) {
         this.objectAction = objectAction;
     }
 
@@ -57,10 +57,10 @@ public class PuzzleObjectAction extends BaseTable implements Serializable {
         this.actionRenderer = actionRenderer;
     }
 
-    public PuzzleObjectAction() {
+    public ObjectAction() {
     }
 
-    public PuzzleObjectAction(POActionOwnerType poActionOwnerType, Long ownerObjectid, ObjectAction objectAction, Renderer actionRenderer, Long version, String created, String updated, AppMember createdBy, AppMember updatedBy) {
+    public ObjectAction(POActionOwnerType poActionOwnerType, Long ownerObjectid, ObjectActionType objectAction, Renderer actionRenderer, Long version, String created, String updated, AppMember createdBy, AppMember updatedBy) {
         super(version, created, updated, createdBy, updatedBy);
         this.ownerObjectid = ownerObjectid;
         this.poActionOwnerType = poActionOwnerType;

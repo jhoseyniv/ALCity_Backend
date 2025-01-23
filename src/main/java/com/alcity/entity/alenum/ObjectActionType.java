@@ -1,6 +1,6 @@
 package com.alcity.entity.alenum;
 
-public enum   ObjectAction  {
+public enum ObjectActionType {
 
     Move,
     Remove,
@@ -12,9 +12,9 @@ public enum   ObjectAction  {
     Convert,
     Show,
     PlaySound;
-    public static ObjectAction getById(Integer id)
+    public static ObjectActionType getById(Integer id)
     {
-        for (ObjectAction e : ObjectAction.values())
+        for (ObjectActionType e : ObjectActionType.values())
         {
             if (id == e.ordinal()) return e;
         }
@@ -22,15 +22,15 @@ public enum   ObjectAction  {
     }
     public static Long getOrdinalId(String name)
     {
-        for (ObjectAction e : ObjectAction.values())
+        for (ObjectActionType e : ObjectActionType.values())
         {
             if (name.equalsIgnoreCase(e.toString())) return Long.valueOf(e.ordinal());
         }
         throw new IllegalArgumentException("no id");
     }
-    public static ObjectAction getByTitle(String title)
+    public static ObjectActionType getByTitle(String title)
     {
-        for (ObjectAction e : ObjectAction.values())
+        for (ObjectActionType e : ObjectActionType.values())
         {
             if (title.equalsIgnoreCase(e.name())) return e;
         }

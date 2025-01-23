@@ -5,15 +5,16 @@ import com.alcity.service.customexception.ALCityResponseObject;
 import com.alcity.service.customexception.UniqueConstraintException;
 import com.alcity.service.customexception.ViolateForeignKeyException;
 import com.alcity.dto.alobject.AttributeDTO;
-import com.alcity.dto.puzzle.PuzzleObjectActionDTO;
+import com.alcity.dto.puzzle.object.ActionDTO;
 import com.alcity.entity.alenum.AttributeOwnerType;
 import com.alcity.entity.alenum.POActionOwnerType;
 import com.alcity.entity.alobject.Attribute;
-import com.alcity.entity.alobject.PuzzleObjectAction;
+import com.alcity.entity.alobject.ObjectAction;
 import com.alcity.entity.puzzle.PuzzleGroup;
 import com.alcity.service.alobject.AttributeService;
 import com.alcity.service.alobject.PuzzleObjectActionService;
 import com.alcity.utility.DTOUtil;
+import com.alcity.utility.PLDTOUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,7 +41,7 @@ public class PuzzleObjectActionController {
     @DeleteMapping("/del/id/{id}")
     @CrossOrigin(origins = "*")
     public ALCityResponseObject deletePuzzleObjectActionById(@PathVariable Long id) {
-        Optional<PuzzleObjectAction> existingRecord = puzzleObjectActionService.findById(id);
+        Optional<ObjectAction> existingRecord = puzzleObjectActionService.findById(id);
         if(existingRecord.isPresent()){
             try {
                 puzzleObjectActionService.deleteById(existingRecord.get().getId());
@@ -57,9 +58,9 @@ public class PuzzleObjectActionController {
     @RequestMapping(value = "/obj/id/{id}/all", method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin(origins = "*")
-    public Collection<PuzzleObjectActionDTO> getActionsForAALCityObject(@PathVariable Long id) {
-        Collection<PuzzleObjectAction> puzzleObjectActions = puzzleObjectActionService.findByOwnerObjectidAndPoActionOwnerType(id, POActionOwnerType.ALCity_Object);
-        Collection<PuzzleObjectActionDTO> dtos= DTOUtil.getPuzzleObjectActionDTOS(puzzleObjectActions);
+    public Collection<ActionDTO> getActionsForAALCityObject(@PathVariable Long id) {
+        Collection<ObjectAction> actions = puzzleObjectActionService.findByOwnerObjectidAndPoActionOwnerType(id, POActionOwnerType.ALCity_Object);
+        Collection<ActionDTO> dtos= PLDTOUtil.getActionDTOS(actions);
         return dtos;
     }
     @Operation( summary = "Fetch all parameters for an action defined in a al city object by id  ",  description = "Fetch all parameters for an action defined in a al city object by id")
@@ -75,8 +76,8 @@ public class PuzzleObjectActionController {
     @Operation( summary = "Save a Puzzle Object Action... ",  description = "Save a Puzzle Object Action...")
     @PostMapping("/save")
     @CrossOrigin(origins = "*")
-    public ALCityResponseObject savePuzzleObjectAction(@RequestBody PuzzleObjectActionDTO dto)  {
-        PuzzleObjectAction savedRecord = null;
+    public ALCityResponseObject savePuzzleObjectAction(@RequestBody ActionDTO dto)  {
+        ObjectAction savedRecord = null;
         ALCityResponseObject responseObject = new ALCityResponseObject();
 
         if (dto.getId() == null || dto.getId() <= 0L) { //save

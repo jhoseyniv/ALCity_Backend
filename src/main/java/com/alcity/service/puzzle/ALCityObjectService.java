@@ -2,10 +2,10 @@ package com.alcity.service.puzzle;
 
 import com.alcity.service.customexception.UniqueConstraintException;
 import com.alcity.service.customexception.ViolateForeignKeyException;
-import com.alcity.dto.puzzle.ALCityObjectDTO;
+import com.alcity.dto.puzzle.object.CityObjectDTO;
 import com.alcity.entity.alenum.POActionOwnerType;
 import com.alcity.entity.alobject.ObjectCategory;
-import com.alcity.entity.alobject.PuzzleObjectAction;
+import com.alcity.entity.alobject.ObjectAction;
 import com.alcity.entity.base.BinaryContent;
 import com.alcity.entity.puzzle.ALCityObject;
 import com.alcity.entity.appmember.AppMember;
@@ -126,8 +126,8 @@ public class ALCityObjectService implements ALCityObjectRepository {
         return alCityObjectRepository.findByTitle(title);
     }
 
-    public  Collection<PuzzleObjectAction> findAllActions(ALCityObject cityObject){
-        Collection<PuzzleObjectAction> actions = new ArrayList<PuzzleObjectAction>();
+    public  Collection<ObjectAction> findAllActions(ALCityObject cityObject){
+        Collection<ObjectAction> actions = new ArrayList<ObjectAction>();
         actions = puzzleObjectActionService.findByOwnerObjectidAndPoActionOwnerType(cityObject.getId(), POActionOwnerType.ALCity_Object);
 
         return actions;
@@ -139,7 +139,7 @@ public class ALCityObjectService implements ALCityObjectRepository {
     @Autowired
     private BinaryContentRepository binaryContentRepository;
 
-    public ALCityObject save(ALCityObjectDTO dto, String code) {
+    public ALCityObject save(CityObjectDTO dto, String code) {
         AppMember createdBy = appMemberRepository.findByUsername("admin");
         Optional<BinaryContent> icon = binaryContentRepository.findById(dto.getIconId());
         Optional<BinaryContent> pic = binaryContentRepository.findById(dto.getPictureId());

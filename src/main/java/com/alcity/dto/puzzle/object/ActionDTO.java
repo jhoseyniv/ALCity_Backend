@@ -1,6 +1,6 @@
-package com.alcity.dto.puzzle;
+package com.alcity.dto.puzzle.object;
 
-public class PuzzleObjectActionDTO {
+public class ActionDTO {
     private Long id;
     private Long ownerObjectid;
 
@@ -11,12 +11,6 @@ public class PuzzleObjectActionDTO {
     private Long actionRenderId;
     private String ownerType;
     private Long ownerTypeId;
-    private Long version;
-    private String created;
-    private String updated;
-    private String createdBy;
-
-    private String updatedBy;
 
     public Long getOwnerObjectid() {
         return ownerObjectid;
@@ -28,7 +22,7 @@ public class PuzzleObjectActionDTO {
 
 
 
-    public PuzzleObjectActionDTO() {
+    public ActionDTO() {
     }
 
     public Long getId() {
@@ -39,45 +33,6 @@ public class PuzzleObjectActionDTO {
         this.id = id;
     }
 
-    public Long getVersion() {
-        return version;
-    }
-
-    public void setVersion(Long version) {
-        this.version = version;
-    }
-
-    public String getCreated() {
-        return created;
-    }
-
-    public void setCreated(String created) {
-        this.created = created;
-    }
-
-    public String getUpdated() {
-        return updated;
-    }
-
-    public void setUpdated(String updated) {
-        this.updated = updated;
-    }
-
-    public String getCreatedBy() {
-        return createdBy;
-    }
-
-    public void setCreatedBy(String createdBy) {
-        this.createdBy = createdBy;
-    }
-
-    public String getUpdatedBy() {
-        return updatedBy;
-    }
-
-    public void setUpdatedBy(String updatedBy) {
-        this.updatedBy = updatedBy;
-    }
 
     public String getObjectAction() {
         return objectAction;
@@ -124,6 +79,17 @@ public class PuzzleObjectActionDTO {
     }
 
     public void setOwnerTypeId(Long ownerTypeId) {
+        this.ownerTypeId = ownerTypeId;
+    }
+
+    public ActionDTO(Long id, Long ownerObjectid, String objectAction, Long objectActionId, String actionRender, Long actionRenderId, String ownerType, Long ownerTypeId) {
+        this.id = id;
+        this.ownerObjectid = ownerObjectid;
+        this.objectAction = objectAction;
+        this.objectActionId = objectActionId;
+        this.actionRender = actionRender;
+        this.actionRenderId = actionRenderId;
+        this.ownerType = ownerType;
         this.ownerTypeId = ownerTypeId;
     }
 }
