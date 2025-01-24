@@ -13,7 +13,7 @@ import com.alcity.repository.alobject.ObjectCategoryRepository;
 import com.alcity.repository.base.BinaryContentRepository;
 import com.alcity.repository.puzzle.ALCityObjectRepository;
 import com.alcity.repository.appmember.AppMemberRepository;
-import com.alcity.service.alobject.PuzzleObjectActionService;
+import com.alcity.service.alobject.ActionService;
 import com.alcity.utility.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -34,7 +34,7 @@ public class ALCityObjectService implements ALCityObjectRepository {
     ALCityObjectRepository alCityObjectRepository ;
 
     @Autowired
-    PuzzleObjectActionService puzzleObjectActionService ;
+    ActionService puzzleObjectActionService ;
     @Autowired
     ObjectCategoryRepository objectCategoryRepository ;
 

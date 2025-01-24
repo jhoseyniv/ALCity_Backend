@@ -104,7 +104,7 @@ public class ObjectManagmentApplication {
 	@Autowired
     RendererService actionRendererService;
 	@Autowired
-	PuzzleObjectActionService puzzleObject_ObjectActionService;
+    ActionService puzzleObject_ObjectActionService;
 
 	@Autowired
     PLRuleService puzzleLevelRuleService;

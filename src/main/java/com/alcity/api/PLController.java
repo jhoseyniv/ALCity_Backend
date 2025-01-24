@@ -2,6 +2,7 @@ package com.alcity.api;
 
 import com.alcity.entity.alenum.AttributeOwnerType;
 import com.alcity.entity.alobject.Attribute;
+import com.alcity.entity.alobject.AttributeValue;
 import com.alcity.entity.appmember.AppMember;
 import com.alcity.service.alobject.AttributeService;
 import com.alcity.service.appmember.AppMemberService;
@@ -80,7 +81,7 @@ public class PLController {
         return dtos;
     }
 
-    @Operation( summary = "Fetch all puzzle levels matches with journey steps ",  description = "Fetch all puzzle levels matches with journey steps")
+    @Operation( summary = "Fetch all puzzle levels matches with journey steps  for a specific user",  description = "Fetch all puzzle levels matches with journey steps")
     @RequestMapping(value = "/user/id/{id}", method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin(origins = "*")

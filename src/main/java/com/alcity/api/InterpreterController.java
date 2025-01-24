@@ -10,7 +10,7 @@ import com.alcity.entity.base.BinaryContent;
 import com.alcity.entity.base.CameraSetup;
 import com.alcity.entity.puzzle.*;
 import com.alcity.service.alobject.AttributeService;
-import com.alcity.service.alobject.PuzzleObjectActionService;
+import com.alcity.service.alobject.ActionService;
 import com.alcity.service.puzzle.ALCityInstanceInPLService;
 import com.alcity.service.puzzle.PLGroundService;
 import com.alcity.utility.DTOUtil;
@@ -152,7 +152,7 @@ public class InterpreterController {
     }
 
     @Autowired
-    PuzzleObjectActionService puzzleObjectActionService;
+    ActionService puzzleObjectActionService;
     public Collection<ActionData> getActionsDTOForALCityObjectInPG(ALCityObjectInPG alCityObjectInPG){
         Collection<ActionData> actionDataCollection = new ArrayList<ActionData>();
         Collection<ObjectAction> actionsCollection = new ArrayList<ObjectAction>();

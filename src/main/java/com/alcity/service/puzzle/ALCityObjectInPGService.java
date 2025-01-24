@@ -14,7 +14,7 @@ import com.alcity.repository.appmember.AppMemberRepository;
 import com.alcity.service.alobject.RendererService;
 import com.alcity.service.alobject.AttributeService;
 import com.alcity.service.alobject.AttributeValueService;
-import com.alcity.service.alobject.PuzzleObjectActionService;
+import com.alcity.service.alobject.ActionService;
 import com.alcity.utility.DTOUtil;
 import com.alcity.utility.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +36,7 @@ public class ALCityObjectInPGService implements ALCityObjectInPGRepository {
     ALCityObjectInPGRepository alCityObjectInPGRepository;
 
     @Autowired
-    PuzzleObjectActionService puzzleObjectActionService;
+    ActionService puzzleObjectActionService;
 
     @Autowired
     @Qualifier("PGRepository")

@@ -112,7 +112,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
     @Autowired
     ClientTypeService clientTypeService;
     @Autowired
-    PuzzleObjectActionService puzzleObject_ObjectActionService;
+    ActionService puzzleObject_ObjectActionService;
 
     private static final Logger log = LoggerFactory.getLogger(ObjectManagmentApplication.class);
 

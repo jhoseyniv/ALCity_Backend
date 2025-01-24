@@ -2,7 +2,7 @@ package com.alcity.service.alobject;
 
 
 import com.alcity.entity.alobject.ObjectActionEvent;
-import com.alcity.repository.alobject.ObjectActionEventRepository;
+import com.alcity.repository.alobject.ActionEventRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,13 +12,13 @@ import java.util.Optional;
 
 @Service
 @Transactional
-public class ObjectActionEventService implements ObjectActionEventRepository {
+public class ActionEventService implements ActionEventRepository {
     @Autowired
-    ObjectActionEventRepository objectActionEventRepository;
+    ActionEventRepository actionEventRepository;
 
     @Override
     public <S extends ObjectActionEvent> S save(S entity) {
-        return objectActionEventRepository.save(entity);
+        return actionEventRepository.save(entity);
     }
 
     @Override

@@ -95,7 +95,7 @@ public class ImportBaseData implements CommandLineRunner {
     ALCityObjectService alCityObjectService;
 
     @Autowired
-    PuzzleObjectActionService puzzleObjectActionService;
+    ActionService puzzleObjectActionService;
     @Autowired
     PuzzleSkillLearningContentService puzzleSkillLearningContentService;
     @Autowired

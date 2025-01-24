@@ -118,7 +118,7 @@ public class Import_F_G_BProblemData_5 implements CommandLineRunner {
 
 
     @Autowired
-    PuzzleObjectActionService puzzleObject_ObjectActionService;
+    ActionService puzzleObject_ObjectActionService;
 
     @Autowired
     ALCityObjectInPGService puzzleGroup_PuzzleObjectService;

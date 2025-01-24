@@ -8,7 +8,7 @@ import com.alcity.dto.puzzle.object.ActionDTO;
 import com.alcity.entity.alenum.POActionOwnerType;
 import com.alcity.entity.alobject.ObjectAction;
 import com.alcity.entity.puzzle.ALCityObjectInPG;
-import com.alcity.service.alobject.PuzzleObjectActionService;
+import com.alcity.service.alobject.ActionService;
 import com.alcity.service.puzzle.ALCityObjectInPGService;
 import com.alcity.utility.DTOUtil;
 import com.alcity.utility.PLDTOUtil;
@@ -30,7 +30,7 @@ import java.util.Optional;
 public class ALCityObjectInPGController {
 
     @Autowired
-    private PuzzleObjectActionService puzzleObjectActionService;
+    private ActionService puzzleObjectActionService;
     @Autowired
     private ALCityObjectInPGService alCityObjectInPGService;
 

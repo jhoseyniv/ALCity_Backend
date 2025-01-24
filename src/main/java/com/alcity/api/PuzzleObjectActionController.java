@@ -12,7 +12,7 @@ import com.alcity.entity.alobject.Attribute;
 import com.alcity.entity.alobject.ObjectAction;
 import com.alcity.entity.puzzle.PuzzleGroup;
 import com.alcity.service.alobject.AttributeService;
-import com.alcity.service.alobject.PuzzleObjectActionService;
+import com.alcity.service.alobject.ActionService;
 import com.alcity.utility.DTOUtil;
 import com.alcity.utility.PLDTOUtil;
 import io.swagger.v3.oas.annotations.Operation;
@@ -31,7 +31,7 @@ import java.util.Optional;
 
 public class PuzzleObjectActionController {
     @Autowired
-    private PuzzleObjectActionService puzzleObjectActionService;
+    private ActionService puzzleObjectActionService;
 
 
     @Autowired

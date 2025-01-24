@@ -7,7 +7,7 @@ import java.util.Collection;
 import java.util.Optional;
 
 
-public interface ObjectActionEventRepository extends CrudRepository<ObjectActionEvent,Long> {
+public interface ActionEventRepository extends CrudRepository<ObjectActionEvent,Long> {
     Optional<ObjectActionEvent> findById(Long id);
     Collection<ObjectActionEvent> findAll();
 

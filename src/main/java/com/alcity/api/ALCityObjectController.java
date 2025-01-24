@@ -17,7 +17,7 @@ import com.alcity.entity.alobject.ObjectAction;
 import com.alcity.entity.puzzle.ALCityObject;
 import com.alcity.entity.puzzle.ALCityObjectInPG;
 import com.alcity.service.alobject.ObjectCategoryService;
-import com.alcity.service.alobject.PuzzleObjectActionService;
+import com.alcity.service.alobject.ActionService;
 import com.alcity.service.puzzle.ALCityObjectInPGService;
 import com.alcity.service.puzzle.ALCityObjectService;
 import com.alcity.utility.DTOUtil;
@@ -43,7 +43,7 @@ public class ALCityObjectController {
     @Autowired
     private ObjectCategoryService objectCategoryService;
     @Autowired
-    private PuzzleObjectActionService objectActionService;
+    private ActionService actionService;
     @Autowired
     private AttributeService attributeService;
 
@@ -59,7 +59,7 @@ public class ALCityObjectController {
         Optional<ALCityObject> objectOptional = objectService.findById(id);
         if(objectOptional.isPresent()) {
             ALCityObject object = objectOptional.get();
-            dto = PLDTOUtil.getCityObjectDTO(object,objectActionService,attributeService);
+            dto = PLDTOUtil.getCityObjectDTO(object,actionService,attributeService);
         }
         return  dto;
     }
@@ -67,9 +67,9 @@ public class ALCityObjectController {
     @GetMapping("/all")
     @CrossOrigin(origins = "*")
     public Collection<CityObjectDTO> getALCityObjects(Model model) {
-        Collection<ALCityObject> cityObjects = objectService.findAll();
+        Collection<ALCityObject> objects = objectService.findAll();
         Collection<CityObjectDTO> dtos = new ArrayList<CityObjectDTO>();
-        dtos =PLDTOUtil.getCityObjectsDTOS(cityObjects,objectActionService,attributeService);
+        dtos =PLDTOUtil.getCityObjectsDTOS(objects,actionService,attributeService);
         return dtos;
     }
     @Operation( summary = "Fetch all AL City Objects by Object Category ",  description = "Fetch all AL City Objects ")
@@ -79,7 +79,7 @@ public class ALCityObjectController {
         Optional<ObjectCategory> category = objectCategoryService.findById(id);
         Collection<ALCityObject> objects = objectService.findALCityObjectByObjectCategory(category.get());
         Collection<CityObjectDTO> objectDTOS = new ArrayList<CityObjectDTO>();
-        objectDTOS =PLDTOUtil.getCityObjectsDTOS(objects,objectActionService,attributeService);
+        objectDTOS =PLDTOUtil.getCityObjectsDTOS(objects,actionService,attributeService);
         return objectDTOS;
     }
 
@@ -141,7 +141,7 @@ public class ALCityObjectController {
     @CrossOrigin(origins = "*")
     public Collection<ActionDTO> getALCityObjectActions(@PathVariable Long id) {
         Collection<ActionDTO> actionDTOS = new ArrayList<ActionDTO>();
-        Collection<ObjectAction> actions = objectActionService.findByOwnerObjectidAndPoActionOwnerType(id, POActionOwnerType.ALCity_Object);
+        Collection<ObjectAction> actions = actionService.findByOwnerObjectidAndPoActionOwnerType(id, POActionOwnerType.ALCity_Object);
         actionDTOS = PLDTOUtil.getActionDTOS(actions);
         return  actionDTOS;
     }
@@ -150,10 +150,10 @@ public class ALCityObjectController {
     @ResponseBody
     @CrossOrigin(origins = "*")
     public Collection<AttributeDTO> getALCityObjectAttributes(@PathVariable Long id) {
-        Collection<AttributeDTO> attributeDTOS = new ArrayList<AttributeDTO>();
+        Collection<AttributeDTO> dtos = new ArrayList<AttributeDTO>();
         Collection<Attribute> attributes = attributeService.findByOwnerIdAndAttributeOwnerType(id, AttributeOwnerType.AlCity_Object);
-        attributeDTOS = DTOUtil.getAttributesDTOS(attributes);
-        return  attributeDTOS;
+        dtos = DTOUtil.getAttributesDTOS(attributes);
+        return  dtos;
     }
     @Operation( summary = "Fetch all Puzzle Groups for an al city object ",  description = "Fetch all Puzzle Groups for an al city object")
     @RequestMapping(value = "/id/{id}/pg/all", method = RequestMethod.GET)

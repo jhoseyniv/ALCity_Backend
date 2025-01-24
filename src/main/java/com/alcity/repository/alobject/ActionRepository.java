@@ -7,7 +7,7 @@ import org.springframework.data.repository.CrudRepository;
 import java.util.Collection;
 import java.util.Optional;
 
-public interface PuzzleObjectActionRepository extends CrudRepository<ObjectAction,Long> {
+public interface ActionRepository extends CrudRepository<ObjectAction,Long> {
     Optional<ObjectAction> findById(Long id);
     Collection<ObjectAction> findAll();
     Collection<ObjectAction> findByActionRendererId(Long id);

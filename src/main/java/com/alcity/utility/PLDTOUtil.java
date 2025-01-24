@@ -1,7 +1,5 @@
 package com.alcity.utility;
 
-import com.alcity.dto.alobject.AttributeDTO;
-import com.alcity.dto.puzzle.PLDTO;
 import com.alcity.dto.puzzle.object.ActionDTO;
 import com.alcity.dto.puzzle.object.CityObjectDTO;
 import com.alcity.dto.puzzle.object.PropertyDTO;
@@ -12,13 +10,11 @@ import com.alcity.entity.alobject.AttributeValue;
 import com.alcity.entity.alobject.ObjectAction;
 import com.alcity.entity.puzzle.ALCityObject;
 import com.alcity.service.alobject.AttributeService;
-import com.alcity.service.alobject.PuzzleObjectActionService;
-import com.alcity.utility.DTOUtil;
+import com.alcity.service.alobject.ActionService;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
-import java.util.stream.Collectors;
 
 public class PLDTOUtil {
 
@@ -38,7 +34,7 @@ public class PLDTOUtil {
         }
         return dtos;
     }
-    public static CityObjectDTO getCityObjectDTO(ALCityObject co, PuzzleObjectActionService actionService,AttributeService attributeService){
+    public static CityObjectDTO getCityObjectDTO(ALCityObject co, ActionService actionService, AttributeService attributeService){
         Collection<PropertyDTO>  properties = new ArrayList<PropertyDTO>();
         Collection<ActionDTO>  actions = new ArrayList<ActionDTO>();
         Collection<Attribute>  attributes = attributeService.findByOwnerIdAndAttributeOwnerType(co.getId(), AttributeOwnerType.AlCity_Object);
@@ -52,7 +48,7 @@ public class PLDTOUtil {
 
         return dto;
     }
-    public static  Collection<CityObjectDTO> getCityObjectsDTOS(Collection<ALCityObject> objects,PuzzleObjectActionService actionService,AttributeService attributeService){
+    public static  Collection<CityObjectDTO> getCityObjectsDTOS(Collection<ALCityObject> objects, ActionService actionService, AttributeService attributeService){
         Collection<CityObjectDTO> dtos = new ArrayList<CityObjectDTO>();
         Iterator<ALCityObject> iterator = objects.iterator();
         while (iterator.hasNext()) {

@@ -113,7 +113,7 @@ public class ImportHashImageProblemData_1 implements CommandLineRunner {
 
 
     @Autowired
-    PuzzleObjectActionService puzzleObject_ObjectActionService;
+    ActionService puzzleObject_ObjectActionService;
 
     @Autowired
     ALCityObjectInPGService alCityObjectInPGService;

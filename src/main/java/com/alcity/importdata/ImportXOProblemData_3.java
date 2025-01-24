@@ -28,7 +28,6 @@ import com.alcity.service.appmember.WalletItemService;
 import com.alcity.utility.DTOUtil;
 import com.alcity.utility.ImageUtil;
 import com.alcity.utility.ToolBox;
-import jakarta.persistence.criteria.CriteriaBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -111,7 +110,7 @@ public class ImportXOProblemData_3 implements CommandLineRunner {
 
 
     @Autowired
-    PuzzleObjectActionService puzzleObjectActionService;
+    ActionService puzzleObjectActionService;
 
     @Autowired
     ALCityObjectInPGService alCityObjectInPGService;
