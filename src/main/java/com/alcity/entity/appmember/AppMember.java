@@ -44,6 +44,12 @@ public class AppMember extends BaseTable implements Serializable {
     @JsonIgnore
     private BinaryContent icon;
 
+    @ManyToMany( fetch = FetchType.EAGER)
+    @JoinTable(name = "appmember_authority_mapping",
+            joinColumns = @JoinColumn(name = "appmember_id"),
+            inverseJoinColumns = @JoinColumn(name = "authority_id"))
+    private Collection<Authority> authorities;
+
     @Override
     public Long getId() {
         return id;
@@ -137,6 +143,13 @@ public class AppMember extends BaseTable implements Serializable {
     @OneToMany(mappedBy = "player", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Collection<PermitedPlayer> permitedPlayers;
 
+    public Collection<Authority> getAuthorities() {
+        return authorities;
+    }
+
+    public void setAuthorities(Collection<Authority> authorities) {
+        this.authorities = authorities;
+    }
 
     public Collection<AppMember_WalletItem> getApplicationMember_walletItems() {
         return walletItems;

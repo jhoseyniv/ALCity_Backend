@@ -82,7 +82,8 @@ public class DTOUtil {
     }
     public static AttributeValueDTO getAttributeValueDTO(AttributeValue value){
         AttributeValueDTO valueDTO= new AttributeValueDTO(value.getId(),value.getBooleanValue(), value.getLongValue(), value.getDoubleValue(),
-                        value.getIntValue(), value.getBinaryContentId() ,value.getStringValue(),value.getObjectValue(),value.getAttributeId().getId() );
+                        value.getIntValue(), value.getBinaryContentId() ,
+                value.getStringValue(),value.getObjectValue(),value.getAttributeId().getId() );
         return valueDTO;
     }
     public static PuzzleLevelStepMappingDTO puzzleLevelJourneyStepMapping(PuzzleLevel pl, JourneyStep step) {
@@ -113,19 +114,21 @@ public class DTOUtil {
         return dto;
     }
     public static Collection<AttributeValueDTO> getAttributesValueDTOS(Collection<AttributeValue> input) {
-        Collection<AttributeValueDTO> output = new ArrayList<AttributeValueDTO>();
+        Collection<AttributeValueDTO> dtos = new ArrayList<AttributeValueDTO>();
         Iterator<AttributeValue> itr = input.iterator();
         while (itr.hasNext()) {
-            AttributeValueDTO valueDTO = getAttributeValueDTO(itr.next());
-            output.add(valueDTO);
+            AttributeValueDTO dto = getAttributeValueDTO(itr.next());
+            dtos.add(dto);
         }
-        return  output;
+        return  dtos;
     }
         public static AttributeDTO getAttributeDTO(Attribute att){
             Collection<AttributeValueDTO> valueDTOS = getAttributesValueDTOS(att.getAttributeValues()) ;
-            AttributeDTO attributeDTO = new AttributeDTO(att.getId(), att.getName(), att.getOwnerId(), att.getAttributeOwnerType().name(), att.getDataType().name(),valueDTOS ,
-                    att.getVersion(), att.getCreated(), att.getCreated(), att.getCreatedBy().getUsername(), att.getUpdatedBy().getUsername());
-           return attributeDTO;
+            AttributeDTO dto = new AttributeDTO(att.getId(), att.getName(),
+                                    att.getOwnerId(), att.getAttributeOwnerType().name(),
+                                     att.getDataType().name(),valueDTOS , att.getVersion(), att.getCreated(),
+                                        att.getCreated(), att.getCreatedBy().getUsername(), att.getUpdatedBy().getUsername());
+           return dto;
         }
 
     public static Collection<AttributeDTO> getAttributesDTOS(Collection<Attribute> attributes) {
@@ -495,10 +498,10 @@ public class DTOUtil {
         return binaryContentDTO;
     }
     public static BinaryContentDTO getBinaryContentDTO(BinaryContent content){
-        BinaryContentDTO binaryContentDTO = new BinaryContentDTO(content.getId(), content.getVersion(), content.getCreated(), content.getUpdated(), content.getCreatedBy().getUsername(), content.getUpdatedBy().getUsername(),
+        BinaryContentDTO dto = new BinaryContentDTO(content.getId(), content.getVersion(), content.getCreated(), content.getUpdated(), content.getCreatedBy().getUsername(), content.getUpdatedBy().getUsername(),
                 content.getFileName(), content.getSize(), content.getContent(), content.getThumbnail(), content.getContentType().name(),
                 content.getTag1(), content.getTag2(), content.getTag3());
-        return binaryContentDTO;
+        return dto;
     }
 
     public static AppMemberDTO getAppMemberDTO(AppMember member){
@@ -536,9 +539,9 @@ public class DTOUtil {
         }
         return dtos;
     }
-    public static Collection<JourneyDTO> getJourneyDTOS(Collection<Journey> journeyCollection) {
+    public static Collection<JourneyDTO> getJourneyDTOS(Collection<Journey> journeys) {
         Collection<JourneyDTO> dtos = new ArrayList<JourneyDTO>();
-        Iterator<Journey> itr = journeyCollection.iterator();
+        Iterator<Journey> itr = journeys.iterator();
         while (itr.hasNext()) {
             JourneyDTO dto = getJourneyDTO(itr.next());
             dtos.add(dto);
@@ -599,9 +602,9 @@ public class DTOUtil {
         return dto;
     }
 
-    public static Collection<JourneyDTO> getJourneyDTOSByUser(Collection<Journey> journeyCollection) {
+    public static Collection<JourneyDTO> getJourneyDTOSByUser(Collection<Journey> journeys) {
         Collection<JourneyDTO> dtos = new ArrayList<JourneyDTO>();
-        Iterator<Journey> itr = journeyCollection.iterator();
+        Iterator<Journey> itr = journeys.iterator();
         while (itr.hasNext()) {
             JourneyDTO dto = getJourneyDTO(itr.next());
             dtos.add(dto);

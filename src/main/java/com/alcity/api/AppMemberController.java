@@ -81,7 +81,7 @@ public class AppMemberController {
     @RequestMapping(value = "/id/{id}/played", method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin(origins = "*")
-    public Collection<PLDTO> getApplicationMemberPuzzleLevelsPlayed(@PathVariable Long id) {
+    public Collection<PLDTO> getPuzzleLevelsPlayedByUserId(@PathVariable Long id) {
         Optional<AppMember> memberOptional = appMemberService.findById(id);
         Collection<PLDTO> pldtos = appMemberService.getPuzzleLevelsPlayed(memberOptional.get());
         return pldtos;
@@ -93,7 +93,7 @@ public class AppMemberController {
     @RequestMapping(value = "/id/{id}/playhistory", method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin(origins = "*")
-    public Collection<PlayHistoryDTO> getApplicationMemberPlayHistoryById(@PathVariable Long id) {
+    public Collection<PlayHistoryDTO> getPlayHistoryByUserId(@PathVariable Long id) {
         Optional<AppMember> memberOptional = appMemberService.findById(id);
         Collection<PlayHistory>  histories= memberOptional.get().getPlayHistories();
         Collection<PlayHistoryDTO> dtos = DTOUtil.getPlayHistoryDTOS(histories);
@@ -131,7 +131,7 @@ public class AppMemberController {
     @RequestMapping(value = "/id/{id}/journeys", method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin(origins = "*")
-    public Collection<AppMemberJourneyDTO> getApplicationMemberJourneysById(@PathVariable Long id) {
+    public Collection<AppMemberJourneyDTO> getJourneysByUserId(@PathVariable Long id) {
         Optional<AppMember> memberOptional = appMemberService.findById(id);
         Collection<Journey> journeys = journeyService.findAll();
         Collection<AppMemberJourneyDTO> dtos = appMemberService.getAppMemberJourneysByScores(memberOptional.get(),journeys);
@@ -256,7 +256,7 @@ public class AppMemberController {
     @RequestMapping(value = "/id/{id}/wallet/all", method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin(origins = "*")
-    public Collection<AppMemberWalletDTO> getApplicationMemberWalletDataById(@PathVariable Long id) {
+    public Collection<AppMemberWalletDTO> getWalletDataByUserId(@PathVariable Long id) {
         Optional<AppMember> member = appMemberService.findById(id);
         Collection<AppMember_WalletItem> applicationMember_walletItems = member.get().getApplicationMember_walletItems();
         Collection<AppMemberWalletDTO> dtos = DTOUtil.getAppMemberWalletDTOS(applicationMember_walletItems);

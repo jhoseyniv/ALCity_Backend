@@ -4,6 +4,7 @@ package com.alcity.importdata;
 import com.alcity.entity.alenum.*;
 import com.alcity.entity.alobject.*;
 import com.alcity.entity.alobject.ObjectAction;
+import com.alcity.entity.appmember.*;
 import com.alcity.entity.base.*;
 import com.alcity.entity.journey.Journey;
 import com.alcity.entity.journey.JourneyLearningSkill;
@@ -15,14 +16,11 @@ import com.alcity.entity.learning.LearningTopic;
 import com.alcity.entity.puzzle.ALCityObject;
 import com.alcity.entity.puzzle.PLRuleEvent;
 import com.alcity.entity.puzzle.PuzzleGroup;
-import com.alcity.entity.appmember.AppMember;
-import com.alcity.entity.appmember.AppMember_WalletItem;
-import com.alcity.entity.appmember.WalletItem;
-import com.alcity.entity.appmember.WalletTransaction;
 import com.alcity.service.Journey.JourneyLearningSkillService;
 import com.alcity.service.Journey.JourneyService;
 import com.alcity.service.Journey.RoadMapService;
 import com.alcity.service.alobject.*;
+import com.alcity.service.appmember.*;
 import com.alcity.service.base.*;
 import com.alcity.service.learning.LearningContentService;
 import com.alcity.service.learning.LearningSkillService;
@@ -32,10 +30,6 @@ import com.alcity.service.puzzle.ALCityObjectService;
 import com.alcity.service.puzzle.PGService;
 import com.alcity.service.puzzle.PLRuleEventService;
 import com.alcity.service.puzzle.PuzzleSkillLearningContentService;
-import com.alcity.service.appmember.AppMemberService;
-import com.alcity.service.appmember.AppMember_WalletItemService;
-import com.alcity.service.appmember.WalletItemService;
-import com.alcity.service.appmember.WalletTransactionService;
 import com.alcity.utility.DTOUtil;
 import com.alcity.utility.ImageUtil;
 import org.apache.commons.logging.Log;
@@ -47,6 +41,8 @@ import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -59,6 +55,8 @@ public class ImportBaseData implements CommandLineRunner {
     private WalletItemTypeService walletItemTypeService;
     @Autowired
     private AppMemberService appMemberService;
+    @Autowired
+    private AuthorityService authorityService;
     @Autowired
     private ClientTypeService clientTypeService;
 
@@ -170,6 +168,12 @@ public class ImportBaseData implements CommandLineRunner {
         byte[] avatar = ImageUtil.getImage("src/main/resources/images/","avatar.png");
         byte[]  tumb = ImageUtil.getThumbnail(avatar,"avatar.png");
 
+        Authority  ROLE_USER = new Authority(1L,now,now,null,null,"ROLE_USER");
+        Authority  ROLE_ADMIN = new Authority(1L,now,now,null,null,"ROLE_ADMIN");
+
+        authorityService.save(ROLE_USER);
+        authorityService.save(ROLE_ADMIN);
+
         BinaryContent no_photo_avatar = new BinaryContent(1L, now, now,null , null,"no_photo_avatar",avatar.length,avatar,tumb,"no_photo_avatar","no_photo_avatar","no_photo_avatar",BinaryContentType.Image);
         binaryContentService.save(no_photo_avatar);
 
@@ -178,6 +182,7 @@ public class ImportBaseData implements CommandLineRunner {
 
         AppMember admin_1= new AppMember(14,"admin","admin","admin0","0912350550","j_hoseyni@yahoo.com",avatar_content_1,
                 UserGender.Male,administrator,1L,now,now,null,null);
+
         Set clientTypeSet = new HashSet<ClientType>();
         clientTypeSet.add(web);
         admin_1.setClientTypeSet(clientTypeSet);
@@ -194,6 +199,9 @@ public class ImportBaseData implements CommandLineRunner {
         Set jalalClientTypeSet = new HashSet<ClientType>();
         jalalClientTypeSet.add(mobile);
         jalalHoseyni.setClientTypeSet(jalalClientTypeSet);
+        Collection<Authority> authorities = new ArrayList<>();
+        authorities.add(ROLE_USER);
+        jalalHoseyni.setAuthorities(authorities);
         appMemberService.save(jalalHoseyni);
 
         AppMember Moslem_Balavandi= new AppMember(15,"moslem","moslem","moslem","0912350550","balavandi@gmail.com",avatar_content_1,UserGender.Male,guest,1L,now,now,null,null);
