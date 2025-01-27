@@ -2,6 +2,7 @@ package com.alcity.api;
 
 
 import com.alcity.dto.alobject.AttributeDTO;
+import com.alcity.entity.alenum.DataType;
 import com.alcity.utility.PLDTOUtil;
 import com.alcity.entity.alenum.AttributeOwnerType;
 import com.alcity.entity.alobject.Attribute;
@@ -24,6 +25,7 @@ import com.alcity.utility.DTOUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.amqp.RabbitProperties;
 import org.springframework.http.HttpStatus;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -31,6 +33,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Tag(name = "AL City Objects APIs", description = "Get ALCity Objects and related entities as rest api")
 @CrossOrigin(origins = "*" ,maxAge = 3600)
@@ -72,6 +75,7 @@ public class ALCityObjectController {
         dtos =PLDTOUtil.getCityObjectsDTOS(objects,actionService,attributeService);
         return dtos;
     }
+
     @Operation( summary = "Fetch all AL City Objects by Object Category ",  description = "Fetch all AL City Objects ")
     @GetMapping("/all/cat/id/{id}")
     @CrossOrigin(origins = "*")
@@ -145,6 +149,7 @@ public class ALCityObjectController {
         actionDTOS = PLDTOUtil.getActionDTOS(actions);
         return  actionDTOS;
     }
+
     @Operation( summary = "Fetch all attributes for an al city object ",  description = "Fetch all attributes for an al city object")
     @RequestMapping(value = "/id/{id}/atts", method = RequestMethod.GET)
     @ResponseBody
@@ -155,6 +160,18 @@ public class ALCityObjectController {
         dtos = DTOUtil.getAttributesDTOS(attributes);
         return  dtos;
     }
+    @Operation( summary = "Fetch all attributes for an al city object by attribute content type () ",  description = "Fetch all attributes for an al city object")
+    @RequestMapping(value = "/id/{id}/atts/contents", method = RequestMethod.GET)
+    @ResponseBody
+    @CrossOrigin(origins = "*")
+    public Collection<AttributeDTO> getALCityObjectAttributesByContent(@PathVariable Long id) {
+        Collection<AttributeDTO> dtos = new ArrayList<AttributeDTO>();
+        Collection<Attribute> attributes = attributeService.findByOwnerIdAndAttributeOwnerType(id, AttributeOwnerType.AlCity_Object);
+        dtos = DTOUtil.getAttributesDTOS(attributes);
+        dtos = dtos.stream().filter(dto -> dto.getDataType().equalsIgnoreCase(DataType.Binary.name())).collect(Collectors.toList());
+        return  dtos;
+    }
+
     @Operation( summary = "Fetch all Puzzle Groups for an al city object ",  description = "Fetch all Puzzle Groups for an al city object")
     @RequestMapping(value = "/id/{id}/pg/all", method = RequestMethod.GET)
     @ResponseBody

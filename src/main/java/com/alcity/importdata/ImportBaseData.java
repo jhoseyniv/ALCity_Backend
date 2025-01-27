@@ -578,25 +578,25 @@ public class ImportBaseData implements CommandLineRunner {
         ALCityObject textObject = new ALCityObject(1L,now,now,jalalHoseyni,jalalHoseyni,"TextObject",objectCategory_TextObject,textObject_pic,textObject_icon);
         alCityObjectService.save(textObject);
 
-        byte[] fbx_file_byte = ImageUtil.getImage("src/main/resources/images/","image_object_icon.png");
-        BinaryContent fbx_file = new BinaryContent(1L, now, now,admin_1 , admin_1,"fbx_file",fbx_file_byte.length,image_object_content_icon_byte,null,"tag1","","",BinaryContentType.FBX);
-        binaryContentService.save(fbx_file);
+        byte[] bundle_file_byte = ImageUtil.getImage("src/main/resources/images/","bundle1.zip");
+        BinaryContent bundle_file = new BinaryContent(1L, now, now,admin_1 , admin_1,"bundle",bundle_file_byte.length,image_object_content_icon_byte,null,"tag1","","",BinaryContentType.PNG);
+        binaryContentService.save(bundle_file);
 
-        byte[] texture_file_byte = ImageUtil.getImage("src/main/resources/images/","image_object_icon.png");
-        BinaryContent texture_file = new BinaryContent(1L, now, now,admin_1 , admin_1,"fbx_file",texture_file_byte.length,image_object_content_icon_byte,null,"tag1","","",BinaryContentType.TEXTURE);
-        binaryContentService.save(texture_file);
+//        byte[] texture_file_byte = ImageUtil.getImage("src/main/resources/images/","image_object_icon.png");
+//        BinaryContent texture_file = new BinaryContent(1L, now, now,admin_1 , admin_1,"fbx_file",texture_file_byte.length,image_object_content_icon_byte,null,"tag1","","",BinaryContentType.TEXTURE);
+//        binaryContentService.save(texture_file);
 
-        Attribute fbx_file_att= new Attribute("fbx_file",textObject.getId(),AttributeOwnerType.AlCity_Object,DataType.Binary,1L,now,now,admin_1,admin_1);
-        attributeService.save(fbx_file_att);
+        Attribute bundle_file_att= new Attribute("bundle_file_png",textObject.getId(),AttributeOwnerType.AlCity_Object,DataType.Binary,1L,now,now,admin_1,admin_1);
+        attributeService.save(bundle_file_att);
 
-        AttributeValue fbx_file_att_value = new AttributeValue(null,null,null,null,null,null,fbx_file.getId(),fbx_file_att,fbx_file_att,1L,now,now,admin_1,admin_1,textObject.getId(),AttributeOwnerType.AlCity_Object);
-        attributeValueService.save(fbx_file_att_value);
+        AttributeValue bundle_file_att_value = new AttributeValue(null,null,null,null,null,null,bundle_file.getId(),bundle_file_att,bundle_file_att,1L,now,now,admin_1,admin_1,textObject.getId(),AttributeOwnerType.AlCity_Object);
+        attributeValueService.save(bundle_file_att_value);
 
-        Attribute texture_file_att= new Attribute("texture_file",textObject.getId(),AttributeOwnerType.AlCity_Object,DataType.Binary,1L,now,now,admin_1,admin_1);
-        attributeService.save(texture_file_att);
-
-        AttributeValue texture_file_att_value = new AttributeValue(null,null,null,null,null,null,texture_file_att.getId(),texture_file_att,texture_file_att,1L,now,now,admin_1,admin_1,textObject.getId(),AttributeOwnerType.AlCity_Object);
-        attributeValueService.save(texture_file_att_value);
+//        Attribute texture_file_att= new Attribute("texture_file",textObject.getId(),AttributeOwnerType.AlCity_Object,DataType.Binary,1L,now,now,admin_1,admin_1);
+//        attributeService.save(texture_file_att);
+//
+//        AttributeValue texture_file_att_value = new AttributeValue(null,null,null,null,null,null,texture_file_att.getId(),texture_file_att,texture_file_att,1L,now,now,admin_1,admin_1,textObject.getId(),AttributeOwnerType.AlCity_Object);
+//        attributeValueService.save(texture_file_att_value);
 
         ObjectAction textObject_Create_Action = new ObjectAction(POActionOwnerType.ALCity_Object,textObject.getId(), ObjectActionType.Create,create_Renderer,1L,now,now,admin_1,admin_1);
         puzzleObjectActionService.save(textObject_Create_Action);
