@@ -10,8 +10,12 @@ import com.alcity.entity.appmember.AppMember;
 import com.alcity.repository.alobject.AttributeRepository;
 import com.alcity.repository.alobject.AttributeValueRepository;
 import com.alcity.repository.appmember.AppMemberRepository;
+import com.alcity.service.customexception.ALCityResponseObject;
+import com.alcity.service.customexception.UniqueConstraintException;
+import com.alcity.utility.DTOUtil;
 import com.alcity.utility.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -165,12 +169,11 @@ public class AttributeService implements AttributeRepository {
     }
     @Autowired
     private AppMemberRepository appMemberRepository;
+
     public Attribute save(AttributeDTO dto, String code) {
         AppMember createdBy = appMemberRepository.findByUsername("admin");
         Optional<Attribute> attributeOptional =  attributeRepository.findById(dto.getId());
-        AttributeOwnerType attributeOwnerType =  AttributeOwnerType.getByTitle(dto.getAttributeOwnerType());
-        Collection<AttributeValueDTO> valueDTOS = dto.getAttributeValueDTOS();
-        AttributeValueDTO valueDTO = new AttributeValueDTO();
+        AttributeOwnerType attributeOwnerType =  AttributeOwnerType.getById(dto.getOwnerTypeId());
         DataType dataType =  DataType.getByTitle(dto.getDataType());
         Attribute attribute=null;
         AttributeValue attributeValue=null;
@@ -179,10 +182,7 @@ public class AttributeService implements AttributeRepository {
                     1L, DateUtils.getNow(), DateUtils.getNow(), createdBy, createdBy);
 
             attributeRepository.save(attribute);
-
-            //save attribute value
-            Iterator<AttributeValueDTO> itr = valueDTOS.iterator();
-            if(itr.hasNext())   valueDTO = itr.next();
+            AttributeValueDTO valueDTO = dto.getAttributeValueDTO();
             attributeValue = new AttributeValue(valueDTO.getBooleanValue(),valueDTO.getIntValue(),valueDTO.getLongValue(),valueDTO.getStringValue(),
                     valueDTO.getObjectValue(),valueDTO.getDoubleValue(),valueDTO.getBinaryContentId(),attribute,attribute,
                     1L,DateUtils.getNow(),DateUtils.getNow(),createdBy,createdBy,attribute.getOwnerId(),attribute.getAttributeOwnerType());
@@ -198,9 +198,7 @@ public class AttributeService implements AttributeRepository {
                 attribute.setUpdated(DateUtils.getNow());
                 attribute.setUpdatedBy(createdBy);
                 attributeRepository.save(attribute);
-                Iterator<AttributeValueDTO> itr = valueDTOS.iterator();
-                if(itr.hasNext())  {
-                    valueDTO = itr.next();
+                AttributeValueDTO valueDTO = dto.getAttributeValueDTO();
                     Optional<AttributeValue> attributeValueOptional =  attributeValueRepository.findById(valueDTO.getId());
                     AttributeValue value = attributeValueOptional.get();
                     value.setStringValue(valueDTO.getStringValue());
@@ -211,11 +209,36 @@ public class AttributeService implements AttributeRepository {
                     value.setBinaryContentId(valueDTO.getBinaryContentId());
                     value.setAttributeId(attribute);
                     attributeValueRepository.save(value);
-                }
-
             }
         }
         return attribute;
+    }
+    public Collection<ALCityResponseObject> saveAll(Collection<AttributeDTO> dtos) {
+        Collection<ALCityResponseObject> responseObjects = new ArrayList<>();
+        Attribute savedRecord = new Attribute();
+        Iterator<AttributeDTO> itr = dtos.iterator();
+        while(itr.hasNext()){
+            AttributeDTO dto = itr.next();
+            ALCityResponseObject responseObject = new ALCityResponseObject();
+            if (dto.getId() == null || dto.getId() <= 0L) { //save
+                try {
+                    savedRecord  = save(dto,"Save");
+                } catch (RuntimeException e) {
+                    throw new UniqueConstraintException(dto.getName(), dto.getId(), "title must be Unique");
+                }
+                responseObject = new ALCityResponseObject(HttpStatus.OK.value(), "ok", savedRecord.getId(), "Record Saved Successfully!");
+            }else{
+                try {
+                    savedRecord  = save(dto,"Edit");
+                } catch (RuntimeException e) {
+                    throw new UniqueConstraintException(dto.getName(), dto.getId(), "title must be Unique");
+                }
+                responseObject = new ALCityResponseObject(HttpStatus.OK.value(), "ok", savedRecord.getId(), "Record Saved Successfully!");
+
+            }
+            responseObjects.add(responseObject);
+        }
+        return responseObjects;
     }
 
 

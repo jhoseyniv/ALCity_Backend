@@ -160,6 +160,7 @@ public class ALCityObjectController {
         dtos = DTOUtil.getAttributesDTOS(attributes);
         return  dtos;
     }
+
     @Operation( summary = "Fetch all attributes for an al city object by attribute content type () ",  description = "Fetch all attributes for an al city object")
     @RequestMapping(value = "/id/{id}/atts/contents", method = RequestMethod.GET)
     @ResponseBody

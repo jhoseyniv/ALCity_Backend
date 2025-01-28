@@ -34,7 +34,7 @@ public class AttributeValue extends BaseTable implements Serializable {
     private Long ownerId;
 
     @Enumerated(EnumType.ORDINAL)
-    private AttributeOwnerType attributeOwnerType;
+    private AttributeOwnerType ownerType;
 
 
     public String getObjectValue() {
@@ -133,18 +133,18 @@ public class AttributeValue extends BaseTable implements Serializable {
         this.ownerId = ownerId;
     }
 
-    public AttributeOwnerType getAttributeOwnerType() {
-        return attributeOwnerType;
+    public AttributeOwnerType getOwnerType() {
+        return ownerType;
     }
 
-    public void setAttributeOwnerType(AttributeOwnerType attributeOwnerType) {
-        this.attributeOwnerType = attributeOwnerType;
+    public void setOwnerType(AttributeOwnerType ownerType) {
+        this.ownerType = ownerType;
     }
 
     public AttributeValue() {
     }
 
-    public AttributeValue(Boolean booleanValue, Integer intValue, Long longValue, String stringValue, String objectValue, Float doubleValue, Long binaryContentId, Attribute bindedAttributeId, Attribute attributeId, Long version, String created, String updated, AppMember createdBy, AppMember updatedBy,Long ownerId ,AttributeOwnerType attributeOwnerType) {
+    public AttributeValue(Boolean booleanValue, Integer intValue, Long longValue, String stringValue, String objectValue, Float doubleValue, Long binaryContentId, Attribute bindedAttributeId, Attribute attributeId, Long version, String created, String updated, AppMember createdBy, AppMember updatedBy,Long ownerId ,AttributeOwnerType ownerType) {
         super(version, created, updated, createdBy, updatedBy);
         this.booleanValue = booleanValue;
         this.intValue = intValue;
@@ -156,6 +156,6 @@ public class AttributeValue extends BaseTable implements Serializable {
         this.bindedAttributeId = bindedAttributeId;
         this.attributeId = attributeId;
         this.ownerId = ownerId;
-        this.attributeOwnerType = attributeOwnerType;
+        this.ownerType = ownerType;
     }
 }

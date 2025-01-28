@@ -18,6 +18,7 @@ import com.alcity.dto.player.PermitedPlayerDTO;
 import com.alcity.dto.player.PlayHistoryDTO;
 import com.alcity.dto.puzzle.*;
 import com.alcity.entity.alenum.AttributeOwnerType;
+import com.alcity.entity.alenum.DataType;
 import com.alcity.entity.alenum.ObjectActionType;
 import com.alcity.entity.alobject.*;
 import com.alcity.entity.appmember.AppMember_WalletItem;
@@ -82,11 +83,35 @@ public class DTOUtil {
     }
     public static AttributeValueDTO getAttributeValueDTO(AttributeValue value){
         AttributeValueDTO valueDTO= new AttributeValueDTO(value.getId(),value.getBooleanValue(), value.getLongValue(), value.getDoubleValue(),
-                        value.getIntValue(), value.getBinaryContentId() ,
-                value.getStringValue(),value.getObjectValue(),value.getAttributeId().getId() );
+                value.getIntValue(), value.getBinaryContentId() ,
+                value.getStringValue(),value.getObjectValue(),value.getAttributeId().getId(), value.getOwnerId(), value.getOwnerType().ordinal());
         return valueDTO;
     }
-    public static PuzzleLevelStepMappingDTO puzzleLevelJourneyStepMapping(PuzzleLevel pl, JourneyStep step) {
+  /*  public static String getDataValue(AttributeValue value){
+        if (value.getBooleanValue()!=null )  return value.getBooleanValue().toString();
+
+        if (value.getDoubleValue()!=null )    return value.getDoubleValue().toString();
+
+        if (value.getIntValue()!=null )      return value.getIntValue().toString();
+
+        if (value.getLongValue()!=null )     return value.getLongValue().toString();
+
+        if (value.getBinaryContentId()!=null )  return value.getBinaryContentId().toString();
+
+        if (value.getStringValue()!=null )     return value.getStringValue();
+        if (value.getObjectValue()!=null )     return value.getStringValue();
+
+        return "Unknown Value";
+    }
+*/
+//    public static AttributeValueDTO changeValuesToNull(DataType dataType , AttributeValueDTO value){
+//        if(dataType.equals(DataType.Binary))
+//        AttributeValueDTO dto= new AttributeValueDTO(value.getId(),value.getBooleanValue(), value.getLongValue(), value.getDoubleValue(),
+//                value.getIntValue(), value.getBinaryContentId() ,
+//                value.getStringValue(),value.getObjectValue(),value.getAttributeId().getId(), value.getOwnerId(), value.getOwnerType().ordinal());
+//        return dto;
+//    }
+   public static PuzzleLevelStepMappingDTO puzzleLevelJourneyStepMapping(PuzzleLevel pl, JourneyStep step) {
         PuzzleLevelStepMappingDTO dto = new PuzzleLevelStepMappingDTO();
         dto.setPlId(pl.getId());
         dto.setPlTitle(pl.getTitle());
@@ -122,14 +147,19 @@ public class DTOUtil {
         }
         return  dtos;
     }
-        public static AttributeDTO getAttributeDTO(Attribute att){
+    public static AttributeValueDTO getFirstAttributeValueDTO(Collection<AttributeValueDTO> valueDTOS) {
+        Iterator<AttributeValueDTO> itr = valueDTOS.iterator();
+        if(itr.hasNext()) return itr.next();
+        return null;
+    }
+    public static AttributeDTO getAttributeDTO(Attribute att){
             Collection<AttributeValueDTO> valueDTOS = getAttributesValueDTOS(att.getAttributeValues()) ;
+            AttributeValueDTO valueDTO = getFirstAttributeValueDTO(valueDTOS);
             AttributeDTO dto = new AttributeDTO(att.getId(), att.getName(),
-                                    att.getOwnerId(), att.getAttributeOwnerType().name(),
-                                     att.getDataType().name(),valueDTOS , att.getVersion(), att.getCreated(),
-                                        att.getCreated(), att.getCreatedBy().getUsername(), att.getUpdatedBy().getUsername());
+                                    att.getOwnerId(), att.getAttributeOwnerType().ordinal(),
+                                     att.getDataType().name(),valueDTO);
            return dto;
-        }
+    }
 
     public static Collection<AttributeDTO> getAttributesDTOS(Collection<Attribute> attributes) {
         Collection<AttributeDTO> dtos = new ArrayList<AttributeDTO>();
@@ -187,7 +217,7 @@ public class DTOUtil {
                 attValue = itrAttributeValuesIterator.next();
                 AttributeValue newAttributeValue = new AttributeValue(attValue.getBooleanValue(),attValue.getIntValue(),attValue.getLongValue(),attValue.getStringValue(),
                         attValue.getObjectValue(),attValue.getDoubleValue(),attValue.getBinaryContentId(),newRecord,newRecord,
-                        attValue.getVersion(),attValue.getCreated(),attValue.getUpdated(),attValue.getCreatedBy(),attValue.getUpdatedBy(),attValue.getOwnerId(),attValue.getAttributeOwnerType());
+                        attValue.getVersion(),attValue.getCreated(),attValue.getUpdated(),attValue.getCreatedBy(),attValue.getUpdatedBy(),attValue.getOwnerId(),attValue.getOwnerType());
 
                 //for log info
                 if(att.getName().equalsIgnoreCase("CODE"))   newAttributeValue.setStringValue("NEW CODE FOR ALCITY Object");
@@ -220,7 +250,7 @@ public class DTOUtil {
                 attValue = itrAttributeValuesIterator.next();
                 AttributeValue newAttributeValue = new AttributeValue(attValue.getBooleanValue(),attValue.getIntValue(),attValue.getLongValue(),attValue.getStringValue(),
                         attValue.getObjectValue(),attValue.getDoubleValue(),attValue.getBinaryContentId(),newRecord,newRecord,
-                        attValue.getVersion(),attValue.getCreated(),attValue.getUpdated(),attValue.getCreatedBy(),attValue.getUpdatedBy(),attValue.getOwnerId(),attValue.getAttributeOwnerType());
+                        attValue.getVersion(),attValue.getCreated(),attValue.getUpdated(),attValue.getCreatedBy(),attValue.getUpdatedBy(),attValue.getOwnerId(),attValue.getOwnerType());
 
                 //for log info
                 if(att.getName().equalsIgnoreCase("CODE"))   newAttributeValue.setStringValue("NEW CODE FOR ALCITY Object");

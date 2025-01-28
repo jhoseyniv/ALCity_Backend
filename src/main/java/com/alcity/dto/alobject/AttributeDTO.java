@@ -8,17 +8,11 @@ public class AttributeDTO  {
     private Long id;
     private String name;
     private Long ownerId;
-    private String attributeOwnerType;
+    private Integer ownerTypeId;
     private String dataType;
 
-    private Collection<AttributeValueDTO> attributeValueDTOS;
+    private AttributeValueDTO attributeValueDTO;
 
-    private Long version;
-    private String created;
-    private String updated;
-    private String createdBy;
-
-    private String updatedBy;
 
 
     public String getDataType() {
@@ -37,45 +31,6 @@ public class AttributeDTO  {
         this.id = id;
     }
 
-    public Long getVersion() {
-        return version;
-    }
-
-    public void setVersion(Long version) {
-        this.version = version;
-    }
-
-    public String getCreated() {
-        return created;
-    }
-
-    public void setCreated(String created) {
-        this.created = created;
-    }
-
-    public String getUpdated() {
-        return updated;
-    }
-
-    public void setUpdated(String updated) {
-        this.updated = updated;
-    }
-
-    public String getCreatedBy() {
-        return createdBy;
-    }
-
-    public void setCreatedBy(String createdBy) {
-        this.createdBy = createdBy;
-    }
-
-    public String getUpdatedBy() {
-        return updatedBy;
-    }
-
-    public void setUpdatedBy(String updatedBy) {
-        this.updatedBy = updatedBy;
-    }
 
     public String getName() {
         return name;
@@ -93,37 +48,31 @@ public class AttributeDTO  {
         this.ownerId = ownerId;
     }
 
-    public String getAttributeOwnerType() {
-        return attributeOwnerType;
+    public Integer getOwnerTypeId() {
+        return ownerTypeId;
     }
 
-    public void setAttributeOwnerType(String attributeOwnerType) {
-        this.attributeOwnerType = attributeOwnerType;
+    public void setOwnerTypeId(Integer ownerTypeId) {
+        this.ownerTypeId = ownerTypeId;
     }
 
     public AttributeDTO() {
     }
 
-    public Collection<AttributeValueDTO> getAttributeValueDTOS() {
-        return attributeValueDTOS;
+    public AttributeValueDTO getAttributeValueDTO() {
+        return attributeValueDTO;
     }
 
-    public void setAttributeValueDTO(  Collection<AttributeValueDTO> attributeValueDTOS) {
-        this.attributeValueDTOS = attributeValueDTOS;
+    public void setAttributeValueDTO(AttributeValueDTO attributeValueDTO) {
+        this.attributeValueDTO = attributeValueDTO;
     }
 
-    public AttributeDTO(Long id, String name, Long ownerId, String attributeOwnerType, String dataType, Collection<AttributeValueDTO> attributeValueDTOS,
-                        Long version, String created, String updated, String createdBy, String updatedBy) {
+    public AttributeDTO(Long id, String name, Long ownerId, Integer ownerTypeId, String dataType, AttributeValueDTO attributeValueDTO ) {
         this.id = id;
         this.name = name;
         this.ownerId = ownerId;
-        this.attributeOwnerType = attributeOwnerType;
+        this.ownerTypeId = ownerTypeId;
         this.dataType = dataType;
-        this.attributeValueDTOS = attributeValueDTOS;
-        this.version = version;
-        this.created = created;
-        this.updated = updated;
-        this.createdBy = createdBy;
-        this.updatedBy = updatedBy;
+        this.attributeValueDTO = attributeValueDTO;
     }
 }

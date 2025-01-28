@@ -25,7 +25,6 @@ import java.util.Optional;
 @RequestMapping("/att")
 public class AttributeController {
 
-
     @Autowired
     private AttributeService attributeService;
 
@@ -69,6 +68,16 @@ public class AttributeController {
 
         return responseObject;
     }
+    @Operation( summary = "Save an Attribute Collection ",  description = "Save an Attribute collection Entity...")
+    @PostMapping("/save/all")
+    @CrossOrigin(origins = "*")
+    public Collection<ALCityResponseObject> saveAllAttribute(@RequestBody Collection<AttributeDTO> dtos)  {
+        Collection<ALCityResponseObject> responseObject = new ArrayList<>();
+        Collection<ALCityResponseObject> responseObjects = attributeService.saveAll(dtos);
+        return responseObjects;
+    }
+
+
     @Operation( summary = "delete an Attribute with all values",  description = "delete an Attribute with all values from database")
     @DeleteMapping("/del/{id}")
     @CrossOrigin(origins = "*")

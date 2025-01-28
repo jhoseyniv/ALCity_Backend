@@ -1,5 +1,6 @@
 package com.alcity.dto.alobject;
 
+import com.alcity.entity.alenum.AttributeOwnerType;
 import jakarta.persistence.criteria.CriteriaBuilder;
 
 public class AttributeValueDTO {
@@ -14,6 +15,10 @@ public class AttributeValueDTO {
     private Boolean booleanValue;
 
     private Long attributeId;
+
+    private Long ownerId;
+
+    private Integer ownerTypeId;
 
     public Long getAttributeId() {
         return attributeId;
@@ -79,6 +84,22 @@ public class AttributeValueDTO {
         this.objectValue = objectValue;
     }
 
+    public Long getOwnerId() {
+        return ownerId;
+    }
+
+    public void setOwnerId(Long ownerId) {
+        this.ownerId = ownerId;
+    }
+
+    public Integer getOwnerTypeId() {
+        return ownerTypeId;
+    }
+
+    public void setOwnerTypeId(Integer ownerTypeId) {
+        this.ownerTypeId = ownerTypeId;
+    }
+
     public AttributeValueDTO() {
     }
 
@@ -90,8 +111,10 @@ public class AttributeValueDTO {
         this.booleanValue = booleanValue;
     }
 
-    public AttributeValueDTO(Long id,Boolean booleanValue ,Long longValue, Float doubleValue, Integer intValue, Long binaryContentId, String stringValue, String objectValue,Long attributeId) {
+    public AttributeValueDTO(Long id,Boolean booleanValue ,Long longValue, Float doubleValue, Integer intValue, Long binaryContentId, String stringValue, String objectValue,Long attributeId,Long ownerId,Integer ownerTypeId) {
         this.id = id;
+        this.ownerId = ownerId;
+        this.ownerTypeId = ownerTypeId;
         this.booleanValue = booleanValue;
         this.longValue = longValue;
         this.doubleValue = doubleValue;
