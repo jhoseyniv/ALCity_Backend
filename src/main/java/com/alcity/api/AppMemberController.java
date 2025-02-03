@@ -3,7 +3,7 @@ package com.alcity.api;
 import com.alcity.dto.appmember.AppMemberJourneyDTO;
 import com.alcity.dto.player.PlayHistoryDTO;
 import com.alcity.dto.puzzle.PLDTO;
-import com.alcity.dtotransient.AppMemberJourneyInfo;
+import com.alcity.entity.appmember.AppMemberJourneyInfo;
 import com.alcity.entity.journey.Journey;
 import com.alcity.entity.play.PlayHistory;
 import com.alcity.service.Journey.JourneyService;

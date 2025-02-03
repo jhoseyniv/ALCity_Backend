@@ -1,6 +1,6 @@
 package com.alcity.api;
 
-import com.alcity.cruddto.journey.JourneyStepRecord;
+import com.alcity.dto.journey.JourneyStepRecord;
 import com.alcity.service.customexception.ALCityResponseObject;
 import com.alcity.service.customexception.UniqueConstraintException;
 import com.alcity.service.customexception.ViolateForeignKeyException;

@@ -1,4 +1,4 @@
-package com.alcity.dtotransient;
+package com.alcity.entity.appmember;
 
 import com.alcity.dto.journey.RoadMapDTO;
 

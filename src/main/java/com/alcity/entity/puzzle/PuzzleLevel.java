@@ -44,6 +44,17 @@ public class PuzzleLevel extends BaseTable implements Serializable {
     @Column(name="thirdStartScore")
     private Float thirdStartScore;
 
+    @Column(name="interpreterFile")
+    private byte[] interpreterFile;
+
+    public byte[] getInterpreterFile() {
+        return interpreterFile;
+    }
+
+    public void setInterpreterFile(byte[] interpreterFile) {
+        this.interpreterFile = interpreterFile;
+    }
+
     public String getApproveDate() {
         return approveDate;
     }

@@ -1,10 +1,7 @@
 package com.alcity.service.Journey;
 
-import com.alcity.cruddto.journey.JourneyStepRecord;
-import com.alcity.dto.journey.JourneyDTO;
-import com.alcity.dto.journey.JourneyStepDTO;
+import com.alcity.dto.journey.JourneyStepRecord;
 import com.alcity.entity.appmember.AppMember;
-import com.alcity.entity.base.BinaryContent;
 import com.alcity.entity.journey.Journey;
 import com.alcity.entity.journey.JourneyStep;
 import com.alcity.entity.puzzle.PuzzleGroup;

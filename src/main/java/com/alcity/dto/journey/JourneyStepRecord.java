@@ -1,4 +1,4 @@
-package com.alcity.cruddto.journey;
+package com.alcity.dto.journey;
 
 import com.alcity.entity.puzzle.PuzzleGroup;
 

@@ -3,6 +3,7 @@ package com.alcity.service.base;
 import com.alcity.dto.base.BinaryContentDTO;
 import com.alcity.dto.base.ContentSearchCriteriaDTO;
 import com.alcity.entity.alenum.BinaryContentType;
+import com.alcity.entity.alobject.AttributeValue;
 import com.alcity.entity.appmember.WalletItem;
 import com.alcity.entity.base.BinaryContent;
 import com.alcity.entity.learning.LearningContent;
@@ -124,14 +125,17 @@ public class BinaryContentService implements BinaryContentRepository , BinaryCon
     }
 
     @Override
-    public Collection<BinaryContent> findByFileNameContainsIgnoreCaseOrTag1ContainsIgnoreCaseOrTag2ContainsIgnoreCaseOrTag3ContainsIgnoreCaseAndContentType(String fileName,String tag1, String tag2, String tag3,  BinaryContentType contentType) {
-        return binaryContentRepository.findByFileNameContainsIgnoreCaseOrTag1ContainsIgnoreCaseOrTag2ContainsIgnoreCaseOrTag3ContainsIgnoreCaseAndContentType(fileName,tag1,tag2,tag3,contentType);
+    public Collection<BinaryContent> findByFileNameContainsIgnoreCaseOrTag1ContainsIgnoreCaseOrTag2ContainsIgnoreCaseOrTag3ContainsIgnoreCase(String fileName,String tag1, String tag2, String tag3) {
+        return binaryContentRepository.findByFileNameContainsIgnoreCaseOrTag1ContainsIgnoreCaseOrTag2ContainsIgnoreCaseOrTag3ContainsIgnoreCase(fileName,tag1,tag2,tag3);
     }
 
 
     public Collection<BinaryContent> findByCriteria(ContentSearchCriteriaDTO dto) {
-        Collection<BinaryContent> binaryContents = binaryContentRepository.findByFileNameContainsIgnoreCaseOrTag1ContainsIgnoreCaseOrTag2ContainsIgnoreCaseOrTag3ContainsIgnoreCaseAndContentType(dto.getCriteria(), dto.getCriteria(), dto.getCriteria(), dto.getCriteria(),BinaryContentType.getById(dto.getContentTypeId()));
-        Stream<BinaryContent> binaryContentStream = binaryContents.stream();
+        BinaryContentType contentType =BinaryContentType.getById(dto.getContentTypeId());
+        Collection<BinaryContent> binaryContents = binaryContentRepository.findByFileNameContainsIgnoreCaseOrTag1ContainsIgnoreCaseOrTag2ContainsIgnoreCaseOrTag3ContainsIgnoreCase(dto.getCriteria(), dto.getCriteria(), dto.getCriteria(), dto.getCriteria());
+        Collection<BinaryContent> matchValues = binaryContents.stream().filter(binaryContent ->  binaryContent.getContentType().equals(contentType)).toList();
+
+        Stream<BinaryContent> binaryContentStream = matchValues.stream();
         if(dto.getLastIndex() < 0L ) dto.setLastIndex(0L);
         if(dto.getPageSize() <= 0 ) dto.setPageSize(1);
         Collection<BinaryContent> page = SlicedStream.getSliceOfStream(binaryContentStream,dto.getLastIndex() ,dto.getLastIndex()  + dto.getPageSize() -1 ).toList();

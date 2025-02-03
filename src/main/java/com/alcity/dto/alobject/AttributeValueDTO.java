@@ -11,9 +11,7 @@ public class AttributeValueDTO {
     private Long binaryContentId;
     private String stringValue;
     private String objectValue;
-
     private Boolean booleanValue;
-
     private Long attributeId;
 
     private Long ownerId;

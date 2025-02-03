@@ -68,6 +68,7 @@ public class AttributeController {
 
         return responseObject;
     }
+
     @Operation( summary = "Save an Attribute Collection ",  description = "Save an Attribute collection Entity...")
     @PostMapping("/save/all")
     @CrossOrigin(origins = "*")
@@ -76,7 +77,6 @@ public class AttributeController {
         Collection<ALCityResponseObject> responseObjects = attributeService.saveAll(dtos);
         return responseObjects;
     }
-
 
     @Operation( summary = "delete an Attribute with all values",  description = "delete an Attribute with all values from database")
     @DeleteMapping("/del/{id}")
