@@ -2,9 +2,10 @@ package com.alcity.dto.Interpreter.object;
 
 import com.alcity.entity.alenum.ObjectActionType;
 
+import java.io.Serializable;
 import java.util.Collection;
 
-public class ActionData {
+public class ActionData implements Serializable {
     private Long id;
     private ObjectActionType actionName;
 

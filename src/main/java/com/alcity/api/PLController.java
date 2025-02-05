@@ -1,5 +1,6 @@
 package com.alcity.api;
 
+import com.alcity.dto.Interpreter.PLData;
 import com.alcity.entity.alenum.AttributeOwnerType;
 import com.alcity.entity.alobject.Attribute;
 import com.alcity.entity.alobject.AttributeValue;
@@ -13,12 +14,15 @@ import com.alcity.dto.puzzle.*;
 import com.alcity.entity.puzzle.*;
 import com.alcity.service.puzzle.PuzzleLevelService;
 import com.alcity.utility.DTOUtil;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.io.*;
 import java.util.*;
 
 
@@ -56,7 +60,25 @@ public class PLController {
         pldto = DTOUtil.getPuzzleLevelDTO(puzzleLevelOptional);
         return pldto;
     }
-/*
+    @Operation( summary = "Fetch puzzle level Json by a Id ",  description = "fetches Json for a puzzle level ")
+    @RequestMapping(value = "json/id/{id}", method = RequestMethod.GET)
+    @ResponseBody
+    @CrossOrigin(origins = "*")
+    public PLData getPuzzleLevelJsonById(@PathVariable Long id) throws IOException, ClassNotFoundException {
+        Optional<PuzzleLevel> puzzleLevelOptional = puzzleLevelService.findById(id);
+         PuzzleLevel pl = puzzleLevelOptional.get();
+         byte[] plData = pl.getInterpreterFile();
+
+        FileOutputStream outputStream = new FileOutputStream("file.ser");
+        outputStream.write(plData);
+        FileInputStream inputStream = new FileInputStream("file.ser");
+        ObjectInputStream objectInputStream = new ObjectInputStream(inputStream);
+        PLData plData1 = (PLData) objectInputStream.readObject();
+        return plData1;
+    }
+
+
+    /*
     @Operation( summary = "Fetch  step and journey mapped by a puzzle level by Id ",  description = "fetches all data for a puzzle level ")
     @RequestMapping(value = "/id/{id}/step", method = RequestMethod.GET)
     @ResponseBody

@@ -1,8 +1,9 @@
 package com.alcity.dto.Interpreter.object;
 
+import java.io.Serializable;
 import java.util.Collection;
 
-public class RuleActionData {
+public class RuleActionData implements Serializable {
     private String actionType;
     private Integer ordering;
     private String objectId;

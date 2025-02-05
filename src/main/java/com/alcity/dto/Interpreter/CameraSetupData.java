@@ -2,7 +2,9 @@ package com.alcity.dto.Interpreter;
 
 import com.alcity.dto.Interpreter.object.Position;
 
-public class CameraSetupData {
+import java.io.Serializable;
+
+public class CameraSetupData implements Serializable {
 
     Position Position;
     Position Rotation;

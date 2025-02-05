@@ -1,5 +1,6 @@
 package com.alcity.service.puzzle;
 
+import com.alcity.dto.Interpreter.PLData;
 import com.alcity.dto.alobject.AttributeValueDTO;
 import com.alcity.dto.puzzle.PLDTO;
 import com.alcity.dto.puzzle.PuzzleLevelStepMappingDTO;
@@ -195,9 +196,13 @@ public class PuzzleLevelService implements PuzzleLevelRepository {
     @Qualifier("PLPrivacyRepository")
     @Autowired
     private PLPrivacyRepository plPrivacyRepository;
+
     @Qualifier("PGRepository")
     @Autowired
     private PGRepository pgRepository;
+//    public PuzzleLevel updateInterpreterJson(PLData plData) {
+//        //PuzzleLevel puzzleLevel = puzzleLevelRepository.findById(plData.)
+//    }
 
         public PuzzleLevel save(PLDTO dto, String code) {
         AppMember createdBy = appMemberRepository.findByUsername("admin");

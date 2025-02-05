@@ -1,6 +1,8 @@
 package com.alcity.dto.Interpreter;
 
-public class PLObjectiveData {
+import java.io.Serializable;
+
+public class PLObjectiveData implements Serializable {
     private Long id;
     private String title;
     private String description;

@@ -1,6 +1,8 @@
 package com.alcity.dto.Interpreter.object;
 
-public class RecordData {
+import java.io.Serializable;
+
+public class RecordData implements Serializable {
     private Long id;
     private String name;
 

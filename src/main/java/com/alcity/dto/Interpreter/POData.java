@@ -2,9 +2,10 @@ package com.alcity.dto.Interpreter;
 
 import com.alcity.dto.Interpreter.object.*;
 
+import java.io.Serializable;
 import java.util.Collection;
 
-public class POData {
+public class POData implements Serializable {
     private Long id;
     private Long version;
     private String title;

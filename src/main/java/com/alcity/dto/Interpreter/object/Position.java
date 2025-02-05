@@ -1,6 +1,8 @@
 package com.alcity.dto.Interpreter.object;
 
-public class Position {
+import java.io.Serializable;
+
+public class Position implements Serializable {
     private Integer X;
     private Integer Y;
     private Integer Z;

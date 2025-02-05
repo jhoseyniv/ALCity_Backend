@@ -13,12 +13,17 @@ import com.alcity.service.alobject.AttributeService;
 import com.alcity.service.alobject.ActionService;
 import com.alcity.service.puzzle.ALCityInstanceInPLService;
 import com.alcity.service.puzzle.PLGroundService;
+import com.alcity.service.puzzle.PuzzleLevelService;
 import com.alcity.utility.DTOUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.apache.commons.lang3.ArrayUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
@@ -33,6 +38,9 @@ public class InterpreterController {
 
     @Autowired
     private PLGroundService plGroundService;
+
+    @Autowired
+    PuzzleLevelService puzzleLevelService;
 
     @Autowired
     AttributeService attributeService;
@@ -74,10 +82,25 @@ public class InterpreterController {
              puzzleLevelData.setVariables(variables);
              puzzleLevelData.setObjects(objects);
              puzzleLevelData.setRules(rules);
+             byte[] bytes = convertObjectToBytes(puzzleLevelData);
+             pl.setInterpreterFile(bytes);
+             puzzleLevelService.save(pl);
          }
         return puzzleLevelData;
     }
+    public static byte[] convertObjectToBytes(PLData obj) {
+        ByteArrayOutputStream boas = new ByteArrayOutputStream();
+        try (ObjectOutputStream ois = new ObjectOutputStream(boas)) {
+            ois.writeObject(obj);
+            //Byte[] byteObject = ArrayUtils.toObject();
 
+            return boas.toByteArray();
+
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+        }
+        throw new RuntimeException();
+    }
 
     public Collection<InstanceData> getInstancesForAObjectInPuzzleLevel(ALCityObjectInPG pgpo, PuzzleLevel  pl) {
         Collection<InstanceData> objectInstanceDataCollection = new ArrayList<InstanceData>();

@@ -1,6 +1,7 @@
 package com.alcity.entity.puzzle;
 
 
+import com.alcity.dto.Interpreter.PLData;
 import com.alcity.entity.alenum.PLStatus;
 import com.alcity.entity.alenum.PLDifficulty;
 import com.alcity.entity.base.*;

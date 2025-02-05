@@ -1,8 +1,9 @@
 package com.alcity.dto.Interpreter.object;
 
+import java.io.Serializable;
 import java.util.Collection;
 
-public class RuleData {
+public class RuleData implements Serializable {
     private String title;
     private Integer ordering;
     private String event;

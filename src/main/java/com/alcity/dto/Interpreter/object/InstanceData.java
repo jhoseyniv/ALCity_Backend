@@ -1,8 +1,9 @@
 package com.alcity.dto.Interpreter.object;
 
+import java.io.Serializable;
 import java.util.Collection;
 
-public class InstanceData {
+public class InstanceData implements Serializable {
 
     private Long id;
     private String name;
