@@ -18,7 +18,7 @@ public class PLGround extends BaseTable {
     @Column(name="numColumns")
     private Integer numColumns;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = true,cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY, optional = true,cascade = CascadeType.MERGE)
     @JoinColumn(name = "camera_setup_id", nullable = true)
     @JsonIgnore
     private CameraSetup cameraSetup;
@@ -77,7 +77,7 @@ public class PLGround extends BaseTable {
     public PLGround() {
     }
 
-    public PLGround(Integer numRows, Integer numColumns, PuzzleLevel puzzleLevel, BinaryContent boardGraphic, Long version, String created, String updated, AppMember createdBy, AppMember updatedBy) {
+    public PLGround(Integer numRows, Integer numColumns, PuzzleLevel puzzleLevel, BinaryContent boardGraphic,Long version, String created, String updated, AppMember createdBy, AppMember updatedBy) {
         super(version, created, updated, createdBy, updatedBy);
         this.numRows = numRows;
         this.numColumns = numColumns;

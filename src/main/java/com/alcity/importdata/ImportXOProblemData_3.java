@@ -191,7 +191,7 @@ public class ImportXOProblemData_3 implements CommandLineRunner {
 
         PLPrivacy privacy_1 = plPrivacyService.findByValue("public");
 
-        PuzzleLevel puzzleLevel = new PuzzleLevel(admin_1,now,1L,"X-O","4500",10,14,10f,3f,5f,8f,IQ_Puzzle_Group.get(),PLDifficulty.Easy,PLStatus.Ongoing,privacy_1,3L,now,now,admin_1,admin_1);
+        PuzzleLevel puzzleLevel = new PuzzleLevel(admin_1,now,1L,"X-O","4500",8,14,10f,3f,5f,8f,IQ_Puzzle_Group.get(),PLDifficulty.Easy,PLStatus.Ongoing,privacy_1,3L,now,now,admin_1,admin_1);
         puzzleLevel.setIcon(pgIcon_bc);
         puzzleLevel.setPicture(pgIcon_bc);
         puzzleLevelService.save(puzzleLevel);
@@ -200,7 +200,7 @@ public class ImportXOProblemData_3 implements CommandLineRunner {
 
         Integer xPos=1;
         Integer xRotation=0;
-        CameraSetup cameraSetup = new CameraSetup(1L,now,now,admin_1,admin_1,xPos,xPos,xPos,xRotation,xRotation,xRotation);
+        CameraSetup cameraSetup = new CameraSetup("setup 4",xPos,xPos,xPos,xRotation,xRotation,xRotation,1L,now,now,admin_1,admin_1);
         cameraSetupService.save(cameraSetup);
 
         PLGround plGround = new PLGround(3,3,puzzleLevel,puzzle_ground_binary_content_1,1L,now,now,admin_1,admin_1);

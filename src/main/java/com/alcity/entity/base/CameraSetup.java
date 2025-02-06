@@ -7,6 +7,10 @@ import java.io.Serializable;
 @Entity
 public class CameraSetup  extends BaseTable implements Serializable {
 
+
+    @Column(name="title")
+    private String title;
+
     @Column(name="xPosition")
     private Integer xPosition;
 
@@ -76,8 +80,18 @@ public class CameraSetup  extends BaseTable implements Serializable {
         this.zRotation = zRotation;
     }
 
-    public CameraSetup(Long version, String created, String updated, AppMember createdBy, AppMember updatedBy, Integer xPosition, Integer yPosition, Integer zPosition, Integer xRotation, Integer yRotation, Integer zRotation) {
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public CameraSetup(String title,Integer xPosition, Integer yPosition, Integer zPosition, Integer xRotation, Integer yRotation, Integer zRotation,
+                       Long version, String created, String updated, AppMember createdBy, AppMember updatedBy) {
         super(version, created, updated, createdBy, updatedBy);
+        this.title = title;
         this.xPosition = xPosition;
         this.yPosition = yPosition;
         this.zPosition = zPosition;

@@ -221,7 +221,7 @@ public class ImportMemoryGameProblemData_4 implements CommandLineRunner {
 
         Integer xPos=1;
         Integer xRotation=0;
-        CameraSetup cameraSetup = new CameraSetup(1L,now,now,admin_1,admin_1,xPos,xPos,xPos,xRotation,xRotation,xRotation);
+        CameraSetup cameraSetup = new CameraSetup("setup 3",xPos,xPos,xPos,xRotation,xRotation,xRotation,1L,now,now,admin_1,admin_1);
         cameraSetupService.save(cameraSetup);
 
         PLGround pl_Memory_Game_ground = new PLGround(4,3,pl_Memory_Game,playGround_Memory_Game_content,1L,now,now,admin_1,admin_1);

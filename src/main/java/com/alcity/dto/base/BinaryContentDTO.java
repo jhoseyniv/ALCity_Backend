@@ -5,11 +5,11 @@ public class BinaryContentDTO {
 
     private Long id;
     private Long version;
-    private String created;
-    private String updated;
-    private String createdBy;
-
-    private String updatedBy;
+//    private String created;
+//    private String updated;
+//    private String createdBy;
+//
+//    private String updatedBy;
 
     private String fileName;
     private Integer size;
@@ -62,37 +62,6 @@ public class BinaryContentDTO {
         this.version = version;
     }
 
-    public String getCreated() {
-        return created;
-    }
-
-    public void setCreated(String created) {
-        this.created = created;
-    }
-
-    public String getUpdated() {
-        return updated;
-    }
-
-    public void setUpdated(String updated) {
-        this.updated = updated;
-    }
-
-    public String getCreatedBy() {
-        return createdBy;
-    }
-
-    public void setCreatedBy(String createdBy) {
-        this.createdBy = createdBy;
-    }
-
-    public String getUpdatedBy() {
-        return updatedBy;
-    }
-
-    public void setUpdatedBy(String updatedBy) {
-        this.updatedBy = updatedBy;
-    }
 
     public String getContentType() {
         return contentType;
@@ -141,10 +110,6 @@ public class BinaryContentDTO {
                             String fileName, Integer size, byte[] content, byte[] thumbnail, String contentType, String tag1, String tag2, String tag3) {
         this.id = id;
         this.version = version;
-        this.created = created;
-        this.updated = updated;
-        this.createdBy = createdBy;
-        this.updatedBy = updatedBy;
         this.fileName = fileName;
         this.size = size;
         this.content = content;

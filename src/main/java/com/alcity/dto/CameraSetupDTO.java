@@ -2,14 +2,15 @@ package com.alcity.dto;
 
 public class CameraSetupDTO  {
     private Long id;
-    private Long version;
-    private String created;
-    private String updated;
-    private String createdBy;
+   // private Long version;
+//    private String created;
+//    private String updated;
+//    private String createdBy;
+//
+//    private String updatedBy;
 
-    private String updatedBy;
 
-
+    private String title;
     private Integer xPosition;
     private Integer yPosition;
     private Integer zPosition;
@@ -19,6 +20,14 @@ public class CameraSetupDTO  {
     private Integer zRotation;
 
     public CameraSetupDTO() {
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public Integer getxPosition() {
@@ -77,53 +86,18 @@ public class CameraSetupDTO  {
         this.id = id;
     }
 
-    public Long getVersion() {
-        return version;
-    }
+//    public Long getVersion() {
+//        return version;
+//    }
+//
+//    public void setVersion(Long version) {
+//        this.version = version;
+//    }
 
-    public void setVersion(Long version) {
-        this.version = version;
-    }
 
-    public String getCreated() {
-        return created;
-    }
-
-    public void setCreated(String created) {
-        this.created = created;
-    }
-
-    public String getUpdated() {
-        return updated;
-    }
-
-    public void setUpdated(String updated) {
-        this.updated = updated;
-    }
-
-    public String getCreatedBy() {
-        return createdBy;
-    }
-
-    public void setCreatedBy(String createdBy) {
-        this.createdBy = createdBy;
-    }
-
-    public String getUpdatedBy() {
-        return updatedBy;
-    }
-
-    public void setUpdatedBy(String updatedBy) {
-        this.updatedBy = updatedBy;
-    }
-
-    public CameraSetupDTO(Long id, Long version, String created, String updated, String createdBy, String updatedBy, Integer xPosition, Integer yPosition, Integer zPosition, Integer xRotation, Integer yRotation, Integer zRotation) {
+    public CameraSetupDTO(Long id, String title, Integer xPosition, Integer yPosition, Integer zPosition, Integer xRotation, Integer yRotation, Integer zRotation) {
         this.id = id;
-        this.version = version;
-        this.created = created;
-        this.updated = updated;
-        this.createdBy = createdBy;
-        this.updatedBy = updatedBy;
+        this.title = title;
         this.xPosition = xPosition;
         this.yPosition = yPosition;
         this.zPosition = zPosition;
@@ -132,18 +106,18 @@ public class CameraSetupDTO  {
         this.zRotation = zRotation;
     }
 
-    public String getCameraSetupInfottttttt() {
-
-        return "position:{" +
-                "x:" + getxPosition() +
-                ",y:" + getyPosition() +
-                ",z:" + getzPosition() +
-                "}," + System.lineSeparator() +
-                "rotation:{" + System.lineSeparator() +
-                "x:" + getxRotation() +
-                ",y:" + getyRotation() +
-                ",z:" + getzRotation() +
-                "}";
-    }
+//    public String getCameraSetupInfottttttt() {
+//
+//        return "position:{" +
+//                "x:" + getxPosition() +
+//                ",y:" + getyPosition() +
+//                ",z:" + getzPosition() +
+//                "}," + System.lineSeparator() +
+//                "rotation:{" + System.lineSeparator() +
+//                "x:" + getxRotation() +
+//                ",y:" + getyRotation() +
+//                ",z:" + getzRotation() +
+//                "}";
+//    }
 
 }

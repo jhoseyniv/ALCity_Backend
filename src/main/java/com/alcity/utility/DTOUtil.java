@@ -798,41 +798,52 @@ public class DTOUtil {
         return dtos;
     }
 
-    public static CameraSetupDTO getCameraSetupDTO(CameraSetup cs){
-        CameraSetupDTO cameraSetupDTO = new CameraSetupDTO(cs.getId(), cs.getVersion(), cs.getCreated(), cs.getUpdated(),
-                cs.getCreatedBy().getUsername(),cs.getUpdatedBy().getUsername(),
-                cs.getxPosition(),cs.getyPosition(),cs.getzPosition(),cs.getxRotation(),cs.getyRotation(),cs.getzRotation());
-            return cameraSetupDTO;
-    }
-    public static Collection<PLGroundDTO> getPuzzleLevelGroundDTOS(PuzzleLevel puzzleLevel) {
-        Collection<PLGroundDTO> plGroundDTOCollection = new ArrayList<PLGroundDTO>();
-        Collection<PLGround> plGroundCollection = puzzleLevel.getPlGrounds();
-        Iterator<PLGround> itr = plGroundCollection.iterator();
-        while(itr.hasNext()) {
-            PLGround puzzleLevelGround = itr.next();
-            PLGroundDTO dto = new PLGroundDTO();
-            dto.setId(puzzleLevelGround.getId());
-            dto.setVersion(puzzleLevelGround.getVersion());
-            dto.setCreated(puzzleLevelGround.getCreated());
-            dto.setUpdated(puzzleLevelGround.getUpdated());
-            dto.setNumRows(puzzleLevelGround.getNumRows());
-            dto.setNumColumns(puzzleLevelGround.getNumColumns());
-            CameraSetupDTO cameraSetupDTO = getCameraSetupDTO(puzzleLevelGround.getCameraSetup());
-            dto.setCameraSetup(cameraSetupDTO);
-
-            BinaryContent boardGraphic = puzzleLevelGround.getBoardGraphic();
-            BinaryContentDTO backGroundDTO= new BinaryContentDTO();
-            backGroundDTO.setId(boardGraphic.getId());
-            backGroundDTO.setFileName(boardGraphic.getFileName());
-            backGroundDTO.setVersion(boardGraphic.getVersion());
-            backGroundDTO.setSize(boardGraphic.getSize());
-            backGroundDTO.setUpdated(puzzleLevelGround.getUpdated());
-            backGroundDTO.setCreated(puzzleLevelGround.getCreated());
-
-            dto.setBoardGraphic(backGroundDTO);
-            plGroundDTOCollection.add(dto);
+    public static Collection<CameraSetupDTO> getCameraSetupDTOS(Collection<CameraSetup> cameraSetups){
+        Collection<CameraSetupDTO> dtos = new ArrayList<CameraSetupDTO>();
+        Iterator<CameraSetup> itr = cameraSetups.iterator();
+        while(itr.hasNext()){
+            CameraSetupDTO dto = DTOUtil.getCameraSetupDTO(itr.next());
+            dtos.add(dto);
         }
-        return plGroundDTOCollection;
+        return dtos;
+    }
+
+    public static CameraSetupDTO getCameraSetupDTO(CameraSetup cs){
+        CameraSetupDTO cameraSetupDTO = new CameraSetupDTO(cs.getId(), cs.getTitle(),
+                cs.getxPosition(),cs.getyPosition(),cs.getzPosition(),cs.getxRotation(),cs.getyRotation(),cs.getzRotation());
+        return cameraSetupDTO;
+    }
+    public static PLGroundDTO getPLGroundDTO(PLGround plGround) {
+        PLGroundDTO dto = new PLGroundDTO();
+        dto.setId(plGround.getId());
+        dto.setVersion(plGround.getVersion());
+        dto.setCreated(plGround.getCreated());
+        dto.setUpdated(plGround.getUpdated());
+        dto.setNumRows(plGround.getNumRows());
+        dto.setNumColumns(plGround.getNumColumns());
+        CameraSetupDTO cameraSetupDTO = getCameraSetupDTO(plGround.getCameraSetup());
+        dto.setCameraSetup(cameraSetupDTO);
+
+        BinaryContent boardGraphic = plGround.getBoardGraphic();
+        BinaryContentDTO backGroundDTO= new BinaryContentDTO();
+        backGroundDTO.setId(boardGraphic.getId());
+        backGroundDTO.setFileName(boardGraphic.getFileName());
+        backGroundDTO.setVersion(boardGraphic.getVersion());
+        backGroundDTO.setSize(boardGraphic.getSize());
+
+        dto.setBoardGraphic(backGroundDTO);
+        return  dto;
+    }
+    public static Collection<PLGroundDTO> getPLGroundDTOS(PuzzleLevel puzzleLevel) {
+        Collection<PLGroundDTO> dtos = new ArrayList<PLGroundDTO>();
+        Collection<PLGround> plGrounds = puzzleLevel.getPlGrounds();
+        Iterator<PLGround> itr = plGrounds.iterator();
+        while(itr.hasNext()) {
+            PLGround plGround = itr.next();
+            PLGroundDTO plGroundDTO = getPLGroundDTO(plGround);
+            dtos.add(plGroundDTO);
+        }
+        return dtos;
     }
  /*   public static Collection<PLDTO> getPublicPuzzleLevelsDTOS(Collection<PuzzleLevel> puzzleLevels, Integer age) {
         Collection<PLDTO> dtos = new ArrayList<PLDTO>();

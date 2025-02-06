@@ -175,7 +175,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
 
         Integer xPos=5;
         Integer xRotation=5;
-        CameraSetup cameraSetup = new CameraSetup(1L,now,now,admin_1,admin_1,xPos,xPos,xPos,xRotation,xRotation,xRotation);
+        CameraSetup cameraSetup = new CameraSetup("setup 2",xPos,xPos,xPos,xRotation,xRotation,xRotation,1L,now,now,admin_1,admin_1);
         cameraSetupService.save(cameraSetup);
 
         PLGround puzzleLevel_Maze_ground = new PLGround(19,19,puzzleLevel_Maze,play_ground_binary_content_2,1L,now,now,admin_1,admin_1);

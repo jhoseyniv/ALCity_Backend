@@ -215,7 +215,7 @@ public class ImportHashImageProblemData_1 implements CommandLineRunner {
 
         Integer xPos=3;
         Integer xRotation=3;
-        CameraSetup cameraSetup = new CameraSetup(1L,now,now,admin_1,admin_1,xPos,xPos,xPos,xRotation,xRotation,xRotation);
+        CameraSetup cameraSetup = new CameraSetup("setup 5",xPos,xPos,xPos,xRotation,xRotation,xRotation,1L,now,now,admin_1,admin_1);
         cameraSetupService.save(cameraSetup);
 
 

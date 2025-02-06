@@ -13,9 +13,12 @@ public class PLGroundDTO  {
     private String updatedBy;
     private Integer numRows;
     private Integer numColumns;
+
+    private Long puzzleLevelId;
+
+    private String puzzleLevelTitle;
     private CameraSetupDTO cameraSetup;
     private BinaryContentDTO boardGraphic;
-
 
     public Integer getNumRows() {
         return numRows;
@@ -97,11 +100,27 @@ public class PLGroundDTO  {
         this.updatedBy = updatedBy;
     }
 
+    public Long getPuzzleLevelId() {
+        return puzzleLevelId;
+    }
+
+    public void setPuzzleLevelId(Long puzzleLevelId) {
+        this.puzzleLevelId = puzzleLevelId;
+    }
+
+    public String getPuzzleLevelTitle() {
+        return puzzleLevelTitle;
+    }
+
+    public void setPuzzleLevelTitle(String puzzleLevelTitle) {
+        this.puzzleLevelTitle = puzzleLevelTitle;
+    }
+
     public PLGroundDTO() {
     }
 
     public PLGroundDTO(Long id, Long version, String created, String updated, String createdBy, String updatedBy,
-                       Integer numRows, Integer numColumns, CameraSetupDTO cameraSetup, BinaryContentDTO boardGraphic) {
+                       Integer numRows, Integer numColumns, Long puzzleLevelId, String puzzleLevelTitle, CameraSetupDTO cameraSetup, BinaryContentDTO boardGraphic) {
         this.id = id;
         this.version = version;
         this.created = created;
@@ -110,6 +129,8 @@ public class PLGroundDTO  {
         this.updatedBy = updatedBy;
         this.numRows = numRows;
         this.numColumns = numColumns;
+        this.puzzleLevelId = puzzleLevelId;
+        this.puzzleLevelTitle = puzzleLevelTitle;
         this.cameraSetup = cameraSetup;
         this.boardGraphic = boardGraphic;
     }

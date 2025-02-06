@@ -6,15 +6,22 @@ import com.alcity.entity.appmember.AppMember;
 import com.alcity.repository.appmember.AppMemberRepository;
 import com.alcity.service.appmember.AppMemberService;
 import org.junit.Assert;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.core.env.Environment;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.web.client.RestTemplate;
 
 import java.net.URI;
@@ -22,13 +29,13 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertEquals;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 
 
+@AutoConfigureMockMvc
 @SpringBootTest
-@EnableConfigurationProperties
-
 public class BaseItemConrollerTest {
 
     @MockBean   // working perfectly here but something is wrong with controller, same thing is not working in above controller.
@@ -42,6 +49,9 @@ public class BaseItemConrollerTest {
     @Mock
     private AppMemberRepository appMemberRepository;
 
+    @Autowired
+    private MockMvc mockMvc;
+
     public String address="http://127.0.0.1:8080";
     public String port="8080";
 
@@ -50,6 +60,7 @@ public class BaseItemConrollerTest {
     DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
     String now = current.format(format);
 
+    long clientTypeId = 1L;
 
 
     @org.junit.Test
@@ -58,6 +69,7 @@ public class BaseItemConrollerTest {
         //Gender Entity API
         ResponseEntity allGenders = restTemplate.getForEntity(address +"/base/gender/all" , String.class);
         ResponseEntity genderById = restTemplate.getForEntity(address +"/base/gender/id/1" , String.class);
+
 
         //Client Type Entity API
         ResponseEntity allClientTypes = restTemplate.getForEntity(address +"/base/client-type/all" , String.class);

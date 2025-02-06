@@ -1,7 +1,21 @@
 package com.alcity.service.puzzle;
 
+import com.alcity.dto.puzzle.PLDTO;
+import com.alcity.dto.puzzle.PLGroundDTO;
+import com.alcity.entity.alenum.PLDifficulty;
+import com.alcity.entity.alenum.PLStatus;
+import com.alcity.entity.appmember.AppMember;
+import com.alcity.entity.base.BinaryContent;
+import com.alcity.entity.base.CameraSetup;
+import com.alcity.entity.base.PLPrivacy;
 import com.alcity.entity.puzzle.PLGround;
+import com.alcity.entity.puzzle.PuzzleGroup;
+import com.alcity.entity.puzzle.PuzzleLevel;
+import com.alcity.repository.appmember.AppMemberRepository;
+import com.alcity.repository.base.BinaryContentRepository;
+import com.alcity.repository.base.CameraSetupRepository;
 import com.alcity.repository.puzzle.PLGroundRepository;
+import com.alcity.repository.puzzle.PuzzleLevelRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -17,11 +31,59 @@ public class PLGroundService implements PLGroundRepository {
     @Autowired
     @Qualifier("PLGroundRepository")
     PLGroundRepository groundRepository;
+
+    @Autowired
+    private AppMemberRepository appMemberRepository;
+    @Autowired
+    PuzzleLevelRepository puzzleLevelRepository;
+    @Autowired
+    BinaryContentRepository binaryContentRepository;
+    @Autowired
+    CameraSetupRepository cameraSetupRepository;
+
     @Override
     public <S extends PLGround> S save(S entity) {
         return groundRepository.save(entity);
     }
+    public PLGround save(PLGroundDTO  dto, String code) {
+        AppMember createdBy = appMemberRepository.findByUsername("admin");
+        PLGround plGround=null;
+        PuzzleLevel puzzleLevel=null;
+        BinaryContent boardGraphic=null;
+        CameraSetup cameraSetup=null;
 
+        Optional<PuzzleLevel> puzzleLevelOptional =  puzzleLevelRepository.findById(dto.getPuzzleLevelId());
+        Optional<BinaryContent> boardGraphicOptional =  binaryContentRepository.findById(dto.getBoardGraphic().getId());
+        Optional<CameraSetup> cameraSetupOptional =  cameraSetupRepository.findById(dto.getCameraSetup().getId());
+
+        if(puzzleLevelOptional.isPresent())
+            puzzleLevel = puzzleLevelOptional.get();
+
+        if(boardGraphicOptional.isPresent())
+            boardGraphic = boardGraphicOptional.get();
+
+        if(cameraSetupOptional.isPresent())
+            cameraSetup = cameraSetupOptional.get();
+
+        if (code.equalsIgnoreCase("Save")) { //Save
+            plGround = new PLGround(dto.getNumRows(),dto.getNumColumns(), puzzleLevel,boardGraphic
+                                 , 1L, "1714379790", "1714379790", createdBy, createdBy);
+            groundRepository.save(plGround);
+        }else{//edit
+            Optional<PLGround> plGroundOptional =  groundRepository.findById(dto.getId());
+            if(plGroundOptional.isPresent()) {
+                plGround = plGroundOptional.get();
+                plGround.setCameraSetup(cameraSetup);
+                plGround.setBoardGraphic(boardGraphic);
+                plGround.setNumColumns(dto.getNumColumns());
+                plGround.setNumRows(dto.getNumRows());
+                plGround.setPuzzleLevel(puzzleLevel);
+                puzzleLevel.setVersion(puzzleLevel.getVersion()+1);
+                groundRepository.save(plGround);
+            }
+        }
+        return plGround;
+    }
     @Override
     public <S extends PLGround> Iterable<S> saveAll(Iterable<S> entities) {
         return null;
@@ -29,7 +91,7 @@ public class PLGroundService implements PLGroundRepository {
 
     @Override
     public Optional<PLGround> findById(Long id) {
-        return Optional.empty();
+        return groundRepository.findById(id);
     }
 
     @Override

@@ -68,12 +68,12 @@ public class PLController {
         Optional<PuzzleLevel> puzzleLevelOptional = puzzleLevelService.findById(id);
          PuzzleLevel pl = puzzleLevelOptional.get();
          byte[] plData = pl.getInterpreterFile();
-
-        FileOutputStream outputStream = new FileOutputStream("file.ser");
-        outputStream.write(plData);
-        FileInputStream inputStream = new FileInputStream("file.ser");
-        ObjectInputStream objectInputStream = new ObjectInputStream(inputStream);
-        PLData plData1 = (PLData) objectInputStream.readObject();
+         ByteArrayInputStream bis = new ByteArrayInputStream(plData);
+         ObjectInputStream ois = new ObjectInputStream(bis);
+        //FileOutputStream outputStream = new FileOutputStream("file.ser");
+        //outputStream.write(plData);
+        //FileInputStream inputStream = new FileInputStream("file.ser");
+        PLData plData1 = (PLData) ois.readObject();
         return plData1;
     }
 

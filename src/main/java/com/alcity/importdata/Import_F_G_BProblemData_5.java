@@ -226,7 +226,7 @@ public class Import_F_G_BProblemData_5 implements CommandLineRunner {
 
         Integer xPos=1;
         Integer xRotation=0;
-        CameraSetup cameraSetup = new CameraSetup(1L,now,now,admin_1,admin_1,xPos,xPos,xPos,xRotation,xRotation,xRotation);
+        CameraSetup cameraSetup = new CameraSetup("setup 1",xPos,xPos,xPos,xRotation,xRotation,xRotation,1L,now,now,admin_1,admin_1);
         cameraSetupService.save(cameraSetup);
 
 
