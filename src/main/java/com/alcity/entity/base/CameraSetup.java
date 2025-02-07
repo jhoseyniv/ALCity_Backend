@@ -1,8 +1,11 @@
 package com.alcity.entity.base;
 
 import com.alcity.entity.appmember.AppMember;
+import com.alcity.entity.puzzle.PLGround;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import java.io.Serializable;
+import java.util.Collection;
 
 @Entity
 public class CameraSetup  extends BaseTable implements Serializable {
@@ -28,6 +31,18 @@ public class CameraSetup  extends BaseTable implements Serializable {
 
     @Column(name="zRotation")
     private Integer zRotation;
+
+//    @OneToMany(mappedBy = "cameraSetup", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+//    @JsonIgnore
+//    private Collection<PLGround> plGrounds;
+//
+//    public Collection<PLGround> getPlGrounds() {
+//        return plGrounds;
+//    }
+//
+//    public void setPlGrounds(Collection<PLGround> plGrounds) {
+//        this.plGrounds = plGrounds;
+//    }
 
     public CameraSetup() {
     }

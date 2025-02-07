@@ -1,6 +1,6 @@
 package com.alcity.utility;
 
-import com.alcity.dto.CameraSetupDTO;
+import com.alcity.dto.puzzle.CameraSetupDTO;
 import com.alcity.dto.Interpreter.PLObjectiveData;
 import com.alcity.dto.Interpreter.object.RecordData;
 import com.alcity.dto.Interpreter.object.RuleActionData;
@@ -18,7 +18,6 @@ import com.alcity.dto.player.PermitedPlayerDTO;
 import com.alcity.dto.player.PlayHistoryDTO;
 import com.alcity.dto.puzzle.*;
 import com.alcity.entity.alenum.AttributeOwnerType;
-import com.alcity.entity.alenum.DataType;
 import com.alcity.entity.alenum.ObjectActionType;
 import com.alcity.entity.alobject.*;
 import com.alcity.entity.appmember.AppMember_WalletItem;

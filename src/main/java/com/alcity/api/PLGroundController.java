@@ -1,12 +1,16 @@
 package com.alcity.api;
 
 
+import com.alcity.dto.base.BinaryContentDTO;
+import com.alcity.dto.puzzle.CameraSetupDTO;
 import com.alcity.dto.puzzle.PLDTO;
 import com.alcity.dto.puzzle.PLGroundDTO;
+import com.alcity.entity.base.BinaryContent;
 import com.alcity.entity.base.CameraSetup;
 import com.alcity.entity.puzzle.PLGround;
 import com.alcity.entity.puzzle.PuzzleLevel;
 import com.alcity.repository.base.CameraSetupRepository;
+import com.alcity.service.base.BinaryContentService;
 import com.alcity.service.base.CameraSetupService;
 import com.alcity.service.customexception.ALCityResponseObject;
 import com.alcity.service.customexception.UniqueConstraintException;
@@ -19,6 +23,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.Optional;
 
 @Tag(name = "Puzzle Level Ground API ", description = "Get Puzzle Levels Ground Format for other systems...")
@@ -29,6 +34,10 @@ public class PLGroundController {
 
     @Autowired
     private PLGroundService plGroundService;
+    @Autowired
+    private CameraSetupService cameraSetupService;
+    @Autowired
+    private BinaryContentService binaryContentService;
 
     @Operation( summary = "Fetch puzzle level Ground by a Id ",  description = "Fetch puzzle level Ground by a Id ")
     @RequestMapping(value = "/id/{id}", method = RequestMethod.GET)
@@ -68,6 +77,77 @@ public class PLGroundController {
 
         return responseObject;
     }
+
+    @Operation( summary = "Save a Camera Setup information for a PL ground ",  description = "Save a Camera Setup information for a PL ground")
+    @PostMapping("/id/{id}/save/camera-setup")
+    @CrossOrigin(origins = "*")
+    public ALCityResponseObject saveCameraSetupPLGround(@RequestBody CameraSetupDTO dto,@PathVariable Long id)  {
+        CameraSetup savedRecord = null;
+        PLGround plGround = null;
+                ALCityResponseObject responseObject = new ALCityResponseObject();
+        Optional<PLGround> plGroundOptional = plGroundService.findById(id);
+        if(plGroundOptional.isPresent())
+                 plGround =  plGroundOptional.get();
+        if (dto.getId() == null || dto.getId() <= 0L) { //save
+            try {
+                savedRecord = cameraSetupService.save(dto,"Save");
+             } catch (RuntimeException e) {
+                throw new UniqueConstraintException(dto.getTitle(), dto.getId(), "Code Must be Unique");
+            }
+            responseObject = new ALCityResponseObject(HttpStatus.OK.value(), "ok", savedRecord.getId(), "CameraSetup Saved Successfully!");
+        } else if (dto.getId() > 0L ) {//edit
+            savedRecord = cameraSetupService.save(dto, "Edit");
+            if(savedRecord !=null)
+                responseObject = new ALCityResponseObject(HttpStatus.OK.value(), "ok", savedRecord.getId(), "CameraSetup Updated Successfully!");
+            else
+                responseObject = new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", dto.getId(), "CameraSetup Not Found!");
+        }
+        else if (savedRecord==null)
+            responseObject = new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", -1L, "CameraSetup Not Found!");
+        else
+            responseObject = new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", -1L, "CameraSetup Not Found!");
+        plGround.setCameraSetup(savedRecord);
+        plGroundService.save(plGround);
+
+        return responseObject;
+    }
+    @Operation( summary = "Save a Board Graphic information for a PL ground ",  description = "Save a Board Graphic information for a PL ground")
+    @PostMapping("/id/{id}/save/board-graphic")
+    @CrossOrigin(origins = "*")
+    public ALCityResponseObject saveBoardGraphicPLGround(@RequestBody BinaryContentDTO dto,@PathVariable Long id) throws IOException {
+        BinaryContent savedRecord = null;
+        PLGround plGround = null;
+        ALCityResponseObject responseObject = new ALCityResponseObject();
+        Optional<PLGround> plGroundOptional = plGroundService.findById(id);
+        if(plGroundOptional.isPresent())
+            plGround =  plGroundOptional.get();
+        if (dto.getId() == null || dto.getId() <= 0L) { //save
+            try {
+                savedRecord = binaryContentService.save(dto,"Save");
+            } catch (RuntimeException e) {
+                throw new UniqueConstraintException("PL", dto.getId(), "Code Must be Unique");
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            responseObject = new ALCityResponseObject(HttpStatus.OK.value(), "ok", savedRecord.getId(), "Record Saved Successfully!");
+        } else if (dto.getId() > 0L ) {//edit
+            savedRecord = binaryContentService.save(dto, "Edit");
+            if(savedRecord !=null)
+                responseObject = new ALCityResponseObject(HttpStatus.OK.value(), "ok", savedRecord.getId(), "Record Updated Successfully!");
+            else
+                responseObject = new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", dto.getId(), "Record Not Found!");
+        }
+        else if (savedRecord==null)
+            responseObject = new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", -1L, "Record Not Found!");
+        else
+            responseObject = new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", -1L, "Record Not Found!");
+        plGround.setBoardGraphic(savedRecord);
+        plGroundService.save(plGround);
+
+        return responseObject;
+    }
+
+
 
     @Operation( summary = "delete a  PL Ground ",  description = "delete a PL ground")
     @DeleteMapping("/del/{id}")

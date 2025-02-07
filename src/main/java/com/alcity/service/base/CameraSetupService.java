@@ -1,14 +1,11 @@
 package com.alcity.service.base;
 
-import com.alcity.dto.CameraSetupDTO;
-import com.alcity.dto.puzzle.PLGroundDTO;
+import com.alcity.dto.puzzle.CameraSetupDTO;
 import com.alcity.entity.appmember.AppMember;
-import com.alcity.entity.base.BinaryContent;
 import com.alcity.entity.base.CameraSetup;
-import com.alcity.entity.puzzle.PLGround;
-import com.alcity.entity.puzzle.PuzzleLevel;
 import com.alcity.repository.appmember.AppMemberRepository;
 import com.alcity.repository.base.CameraSetupRepository;
+import com.alcity.utility.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -34,21 +31,21 @@ public class CameraSetupService implements CameraSetupRepository {
         AppMember createdBy = appMemberRepository.findByUsername("admin");
         CameraSetup cameraSetup=null;
         if (code.equalsIgnoreCase("Save")) { //Save
-            cameraSetup = new CameraSetup(dto.getTitle(),dto.getxPosition(),dto.getyPosition(), dto.getzPosition(),
-                                dto.getyRotation(),dto.getyRotation(),dto.getzRotation() ,
-                    1L, "1714379790", "1714379790", createdBy, createdBy);
+            cameraSetup = new CameraSetup(dto.getTitle(),dto.getXPosition(),dto.getYPosition(), dto.getZPosition(),
+                                dto.getXRotation(),dto.getYRotation(),dto.getZRotation() ,
+                    1L, "1714379790", DateUtils.getNow(), createdBy, createdBy);
             cameraSetupRepository.save(cameraSetup);
         }else{//edit
             Optional<CameraSetup> cameraSetupOptional =  cameraSetupRepository.findById(dto.getId());
             if(cameraSetupOptional.isPresent()) {
                 cameraSetup = cameraSetupOptional.get();
                 cameraSetup.setTitle(dto.getTitle());
-                cameraSetup.setxPosition(dto.getxPosition());
-                cameraSetup.setxRotation(dto.getxRotation());
-                cameraSetup.setyPosition(dto.getyPosition());
-                cameraSetup.setyRotation(dto.getyRotation());
-                cameraSetup.setzPosition(dto.getzPosition());
-                cameraSetup.setzRotation(dto.getzRotation());
+                cameraSetup.setxPosition(dto.getXPosition());
+                cameraSetup.setxRotation(dto.getXRotation());
+                cameraSetup.setyPosition(dto.getYPosition());
+                cameraSetup.setyRotation(dto.getYRotation());
+                cameraSetup.setzPosition(dto.getZPosition());
+                cameraSetup.setzRotation(dto.getZRotation());
                 cameraSetupRepository.save(cameraSetup);
             }
         }

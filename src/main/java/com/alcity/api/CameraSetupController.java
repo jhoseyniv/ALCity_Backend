@@ -1,11 +1,8 @@
 package com.alcity.api;
 
 
-import com.alcity.dto.CameraSetupDTO;
-import com.alcity.dto.puzzle.PLDTO;
-import com.alcity.dto.puzzle.PLGroundDTO;
+import com.alcity.dto.puzzle.CameraSetupDTO;
 import com.alcity.entity.base.CameraSetup;
-import com.alcity.entity.puzzle.PLGround;
 import com.alcity.entity.puzzle.PuzzleLevel;
 import com.alcity.service.base.CameraSetupService;
 import com.alcity.service.customexception.ALCityResponseObject;
@@ -21,7 +18,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.Optional;
 
 @Tag(name = " Camera Setup API ", description = "Get Puzzle Levels Ground Format for other systems...")

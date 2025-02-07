@@ -16,6 +16,7 @@ import com.alcity.repository.base.BinaryContentRepository;
 import com.alcity.repository.base.CameraSetupRepository;
 import com.alcity.repository.puzzle.PLGroundRepository;
 import com.alcity.repository.puzzle.PuzzleLevelRepository;
+import com.alcity.utility.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -67,7 +68,7 @@ public class PLGroundService implements PLGroundRepository {
 
         if (code.equalsIgnoreCase("Save")) { //Save
             plGround = new PLGround(dto.getNumRows(),dto.getNumColumns(), puzzleLevel,boardGraphic
-                                 , 1L, "1714379790", "1714379790", createdBy, createdBy);
+                                 , 1L, DateUtils.getNow(), DateUtils.getNow(), createdBy, createdBy);
             groundRepository.save(plGround);
         }else{//edit
             Optional<PLGround> plGroundOptional =  groundRepository.findById(dto.getId());
@@ -78,7 +79,8 @@ public class PLGroundService implements PLGroundRepository {
                 plGround.setNumColumns(dto.getNumColumns());
                 plGround.setNumRows(dto.getNumRows());
                 plGround.setPuzzleLevel(puzzleLevel);
-                puzzleLevel.setVersion(puzzleLevel.getVersion()+1);
+                plGround.setVersion(plGround.getVersion()+1);
+                plGround.setUpdated(DateUtils.getNow());
                 groundRepository.save(plGround);
             }
         }
