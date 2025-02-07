@@ -274,29 +274,16 @@ public class DTOUtil {
         }
 
     }
-    public static Collection<PLDTO> getPuzzleLevelDTOS(Collection<PuzzleLevel> input) {
-        Collection<PLDTO> output = new ArrayList<PLDTO>();
+    public static Collection<PLDTO> getPuzzleLevelDTOS(Collection<PuzzleLevel> inputs) {
+        Collection<PLDTO> dtos = new ArrayList<PLDTO>();
 
-        Iterator<PuzzleLevel> itr = input.iterator();
+        Iterator<PuzzleLevel> itr = inputs.iterator();
         while (itr.hasNext()) {
             PuzzleLevel pl = itr.next();
-            PLDTO dto = new PLDTO();
-            dto.setId(pl.getId());
-            dto.setVersion(pl.getVersion());
-            dto.setOrdering(pl.getOrdering());
-            dto.setApproveDate(pl.getApproveDate());
-            dto.setCreated(pl.getCreated());
-            dto.setUpdated(pl.getUpdated());
-            dto.setCode(pl.getCode());
-            dto.setTitle(pl.getTitle());
-            dto.setFromAge(pl.getFromAge());
-            dto.setToAge(pl.getToAge());
-            dto.setMaxScore(pl.getMaxScore());
-            dto.setPuzzleGroupId(pl.getPuzzleGroup().getId());
-            dto.setPuzzleGroupTitle(pl.getPuzzleGroup().getTitle());
-            output.add(dto);
+            PLDTO dto = getPuzzleLevelDTO(pl);
+            dtos.add(dto);
         }
-        return output;
+        return dtos;
     }
     public static <E extends Enum<?>> Collection<EnumDTO> getEnumByClass(Class<E> c)
     {
