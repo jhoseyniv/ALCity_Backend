@@ -57,13 +57,24 @@ public class DTOUtil {
         dto.setToAge(entity.getToAge());
         dto.setFromAge(entity.getFromAge());
         dto.setOrdering(entity.getOrdering());
+        dto.setPuzzleGroupId(entity.getPuzzleGroup().getId());
+        dto.setPuzzleGroupTitle(entity.getPuzzleGroup().getTitle());
+
         dto.setMaxScore(entity.getMaxScore());
+        dto.setFirstStarScore(entity.getFirstStarScore());
+        dto.setSecondStarScore(entity.getSecondStarScore());
+        dto.setThirdStartScore(entity.getThirdStartScore());
+        dto.setPuzzleLevelPrivacy(entity.getPuzzleLevelPrivacy().getValue());
+        dto.setPuzzleLevelStatus(entity.getPuzzleLevelStatus().name());
+        dto.setPuzzleLevelDifficulty(entity.getPuzzleDifficulty().name());
         dto.setUpdated(entity.getUpdated());
         dto.setCreated(entity.getCreated());
         dto.setCreatedBy(entity.getCreatedBy().getUsername());
         dto.setUpdatedBy(entity.getUpdatedBy().getUsername());
         dto.setCreatedById(entity.getCreatedBy().getId());
         dto.setUpdatedById(entity.getUpdatedBy().getId());
+
+
         dto.setIconId(entity.getIcon().getId());
         dto.setPicId(entity.getPicture().getId());
 
@@ -819,19 +830,23 @@ public class DTOUtil {
         dto.setVersion(plGround.getVersion());
         dto.setCreated(plGround.getCreated());
         dto.setUpdated(plGround.getUpdated());
+        dto.setCreatedBy(plGround.getCreatedBy().getUsername());
+        dto.setUpdatedBy(plGround.getUpdatedBy().getUsername());
         dto.setNumRows(plGround.getNumRows());
         dto.setNumColumns(plGround.getNumColumns());
-        CameraSetupDTO cameraSetupDTO = getCameraSetupDTO(plGround.getCameraSetup());
-        dto.setCameraSetup(cameraSetupDTO);
+        dto.setPuzzleLevelId(plGround.getPuzzleLevel().getId());
+        dto.setPuzzleLevelTitle(plGround.getPuzzleLevel().getTitle());
+
+        CameraSetup cameraSetup = plGround.getCameraSetup();
+        dto.setCameraSetupId(cameraSetup.getId());
+        dto.setCameraSetupTitle(cameraSetup.getTitle());
 
         BinaryContent boardGraphic = plGround.getBoardGraphic();
-        BinaryContentDTO backGroundDTO= new BinaryContentDTO();
-        backGroundDTO.setId(boardGraphic.getId());
-        backGroundDTO.setFileName(boardGraphic.getFileName());
-        backGroundDTO.setVersion(boardGraphic.getVersion());
-        backGroundDTO.setSize(boardGraphic.getSize());
+        dto.setBoardGraphicId(boardGraphic.getId());
+        dto.setBoardGraphicName(boardGraphic.getFileName());
+        dto.setVersion(boardGraphic.getVersion());
+        dto.setBoardGraphicFileType(boardGraphic.getContentType().name());
 
-        dto.setBoardGraphic(backGroundDTO);
         return  dto;
     }
     public static Collection<PLGroundDTO> getPLGroundDTOS(PuzzleLevel puzzleLevel) {

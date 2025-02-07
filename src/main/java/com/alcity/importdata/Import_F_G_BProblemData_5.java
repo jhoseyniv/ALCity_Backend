@@ -211,7 +211,7 @@ public class Import_F_G_BProblemData_5 implements CommandLineRunner {
 //        ALCityObjectInPG puzzleGroup_puzzleObject = new ALCityObjectInPG("Image Hash Puzzle Group with Text Object","X_O_textObject",IQ_Puzzle_Group.get(),textObject,1L,now,now,admin_1,admin_1);
 //        puzzleGroup_PuzzleObjectService.save(puzzleGroup_puzzleObject);
 
-        PLPrivacy privacy_1 = plPrivacyService.findByValue("public");
+        PLPrivacy privacy_1 = plPrivacyService.findByValue("Public");
 
         PuzzleLevel pl_F_G_B = new PuzzleLevel(admin_1,now,1L,"Fox-Goose-Bean","4502",14,21,15f,5f,10f,13f,IQ_Puzzle_Group.get(),PLDifficulty.Easy,PLStatus.Ongoing,
                 privacy_1,3L,now,now,admin_1,admin_1);

@@ -53,8 +53,8 @@ public class PLGroundService implements PLGroundRepository {
         CameraSetup cameraSetup=null;
 
         Optional<PuzzleLevel> puzzleLevelOptional =  puzzleLevelRepository.findById(dto.getPuzzleLevelId());
-        Optional<BinaryContent> boardGraphicOptional =  binaryContentRepository.findById(dto.getBoardGraphic().getId());
-        Optional<CameraSetup> cameraSetupOptional =  cameraSetupRepository.findById(dto.getCameraSetup().getId());
+        Optional<BinaryContent> boardGraphicOptional =  binaryContentRepository.findById(dto.getBoardGraphicId());
+        Optional<CameraSetup> cameraSetupOptional =  cameraSetupRepository.findById(dto.getCameraSetupId());
 
         if(puzzleLevelOptional.isPresent())
             puzzleLevel = puzzleLevelOptional.get();

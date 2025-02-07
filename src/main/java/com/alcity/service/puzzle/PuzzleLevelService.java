@@ -21,6 +21,7 @@ import com.alcity.repository.puzzle.PGRepository;
 import com.alcity.repository.puzzle.PuzzleLevelRepository;
 import com.alcity.repository.appmember.AppMemberRepository;
 import com.alcity.utility.DTOUtil;
+import com.alcity.utility.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -218,7 +219,7 @@ public class PuzzleLevelService implements PuzzleLevelRepository {
         if (code.equalsIgnoreCase("Save")) { //Save
             puzzleLevel = new PuzzleLevel(createdBy,dto.getApproveDate(), dto.getOrdering(), dto.getTitle(),dto.getCode(),dto.getFromAge(),dto.getToAge(),
                                 dto.getMaxScore(), dto.getFirstStarScore(), dto.getSecondStarScore(), dto.getThirdStartScore(), puzzleGroup,plDifficulty,plStatus,plPrivacy
-                                    , 1L, "1714379790", "1714379790", createdBy, createdBy);
+                                    , 1L, "1714379790", DateUtils.getNow(), createdBy, createdBy);
             puzzleLevelRepository.save(puzzleLevel);
         }else{//edit
             Optional<PuzzleLevel> puzzleLevelOptional= puzzleLevelRepository.findById(dto.getId());
@@ -230,9 +231,14 @@ public class PuzzleLevelService implements PuzzleLevelRepository {
                 puzzleLevel.setFromAge(dto.getFromAge());
                 puzzleLevel.setToAge(dto.getToAge());
                 puzzleLevel.setMaxScore(dto.getMaxScore());
+                puzzleLevel.setFirstStarScore(dto.getFirstStarScore());
+                puzzleLevel.setSecondStarScore(dto.getSecondStarScore());
+                puzzleLevel.setThirdStartScore(dto.getThirdStartScore());
+
                 puzzleLevel.setPuzzleDifficulty(plDifficulty);
                 puzzleLevel.setPuzzleLevelStatus(plStatus);
                 puzzleLevel.setPuzzleLevelPrivacy(plPrivacy);
+
                 puzzleLevel.setTitle(dto.getTitle());
                 puzzleLevel.setVersion(puzzleLevel.getVersion()+1);
                 puzzleLevel.setPuzzleGroup(puzzleGroup);
@@ -244,7 +250,7 @@ public class PuzzleLevelService implements PuzzleLevelRepository {
         return puzzleLevel;
     }
     public Collection<PuzzleLevel> getPublicPuzzleLevelByAppMember(AppMember member) {
-            PLPrivacy publicPL = plPrivacyRepository.findByValue("public");
+          PLPrivacy publicPL = plPrivacyRepository.findByValue("public");
           Collection<PuzzleLevel> puzzleLevels = puzzleLevelRepository.findByPuzzleLevelPrivacy(publicPL);
         Collection<PuzzleLevel> filterdByAge = puzzleLevels.stream().filter(PuzzleLevel -> PuzzleLevel.getFromAge() <=member.getAge()  && member.getAge() <= PuzzleLevel.getToAge()).collect(Collectors.toList());
          return  filterdByAge;

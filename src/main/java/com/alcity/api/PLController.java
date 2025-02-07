@@ -12,6 +12,7 @@ import com.alcity.service.customexception.UniqueConstraintException;
 import com.alcity.service.customexception.ViolateForeignKeyException;
 import com.alcity.dto.puzzle.*;
 import com.alcity.entity.puzzle.*;
+import com.alcity.service.puzzle.PLGroundService;
 import com.alcity.service.puzzle.PuzzleLevelService;
 import com.alcity.utility.DTOUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -35,6 +36,8 @@ public class PLController {
     private PuzzleLevelService puzzleLevelService;
     @Autowired
     private AppMemberService appMemberService;
+    @Autowired
+    private PLGroundService plGroundService;
 
     @Operation( summary = "Fetch all puzzle level data ",  description = "fetches all data for all puzzle level structure ")
     @GetMapping("/all")
@@ -125,6 +128,19 @@ public class PLController {
         if(puzzleLevelOptional.isPresent())
             plObjectiveDTOCollection = DTOUtil.getPuzzleLevelObjectiveDTOS(puzzleLevelOptional.get());
         return plObjectiveDTOCollection;
+    }
+    @Operation( summary = "Fetch Ground Information for a puzzle level by Id ",  description = "Fetch Ground Information for a puzzle level by Id ")
+    @RequestMapping(value = "/id/{id}/ground", method = RequestMethod.GET)
+    @ResponseBody
+    @CrossOrigin(origins = "*")
+    public PLGroundDTO getGroundForPuzzleLevelById(@PathVariable Long id) {
+        PLGroundDTO groundDTO= new PLGroundDTO();
+        Optional<PuzzleLevel> puzzleLevelOptional = puzzleLevelService.findById(id);
+        if(puzzleLevelOptional.isPresent()) {
+            Optional<PLGround> plGroundOptional = plGroundService.findByPuzzleLevelId(puzzleLevelOptional.get().getId());
+            if(plGroundOptional.isPresent())      groundDTO = DTOUtil.getPLGroundDTO(plGroundOptional.get());
+        }
+        return groundDTO;
     }
 
     @Operation( summary = "Fetch all Instances by a puzzle level Id ",  description = "fetches all Instances for a puzzle level ")

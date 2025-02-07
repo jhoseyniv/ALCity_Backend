@@ -161,7 +161,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
 
         JourneyStep step_3_journey_1 = new JourneyStep("step_3_journey_1",1,10,10,journey_1.get(),puzzleGroup_2,1L,now,now,admin_1,admin_1);
         journeyStepService.save(step_3_journey_1);
-        PLPrivacy privacy_1 = puzzleLevelPrivacyService.findByValue("public");
+        PLPrivacy privacy_1 = puzzleLevelPrivacyService.findByValue("Public");
 
         PuzzleLevel puzzleLevel_Maze = new PuzzleLevel(admin_1,now,1L,"Find shortest path from start to end in maze","4546",14,20,5f,0f,2f,3f,puzzleGroup_2, PLDifficulty.Medium, PLStatus.Not_Started,privacy_1,3L,now,now,admin_1,admin_1);
         puzzleLevel_Maze.setIcon(puzzle_group_2_binary_content_icon);

@@ -10,6 +10,7 @@ import com.alcity.entity.puzzle.PuzzleLevel;
 import com.alcity.service.base.CameraSetupService;
 import com.alcity.service.customexception.ALCityResponseObject;
 import com.alcity.service.customexception.UniqueConstraintException;
+import com.alcity.service.customexception.ViolateForeignKeyException;
 import com.alcity.utility.DTOUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -80,6 +81,22 @@ public class CameraSetupController {
             responseObject = new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", -1L, "Record Not Found!");
 
         return responseObject;
+    }
+    @Operation( summary = "delete a  Camera Setup ",  description = "delete a Camera Setup")
+    @DeleteMapping("/del/{id}")
+    @CrossOrigin(origins = "*")
+    public ALCityResponseObject deleteCameraSetupById(@PathVariable Long id) {
+        Optional<CameraSetup> existingRecord = cameraSetupService.findById(id);
+        if(existingRecord.isPresent()){
+            try {
+                cameraSetupService.deleteById(existingRecord.get().getId());
+            }catch (Exception e )
+            {
+                throw new ViolateForeignKeyException(existingRecord.get().getTitle(), existingRecord.get().getId(), PuzzleLevel.class.toString());
+            }
+            return new ALCityResponseObject(HttpStatus.OK.value(), "ok", id,"Record deleted Successfully!");
+        }
+        return  new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", id,"Record not found!");
     }
 
 }

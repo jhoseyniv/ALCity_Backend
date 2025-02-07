@@ -10,6 +10,7 @@ import com.alcity.repository.base.CameraSetupRepository;
 import com.alcity.service.base.CameraSetupService;
 import com.alcity.service.customexception.ALCityResponseObject;
 import com.alcity.service.customexception.UniqueConstraintException;
+import com.alcity.service.customexception.ViolateForeignKeyException;
 import com.alcity.service.puzzle.PLGroundService;
 import com.alcity.utility.DTOUtil;
 import io.swagger.v3.oas.annotations.Operation;
@@ -66,6 +67,23 @@ public class PLGroundController {
             responseObject = new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", -1L, "Record Not Found!");
 
         return responseObject;
+    }
+
+    @Operation( summary = "delete a  PL Ground ",  description = "delete a PL ground")
+    @DeleteMapping("/del/{id}")
+    @CrossOrigin(origins = "*")
+    public ALCityResponseObject deletePLGroundById(@PathVariable Long id) {
+        Optional<PLGround> existingRecord = plGroundService.findById(id);
+        if(existingRecord.isPresent()){
+            try {
+                plGroundService.deleteById(existingRecord.get().getId());
+            }catch (Exception e )
+            {
+                throw new ViolateForeignKeyException("PLGround", existingRecord.get().getId(), PuzzleLevel.class.toString());
+            }
+            return new ALCityResponseObject(HttpStatus.OK.value(), "ok", id,"Record deleted Successfully!");
+        }
+        return  new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", id,"Record not found!");
     }
 
 }

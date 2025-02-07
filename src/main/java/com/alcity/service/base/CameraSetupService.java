@@ -49,7 +49,6 @@ public class CameraSetupService implements CameraSetupRepository {
                 cameraSetup.setyRotation(dto.getyRotation());
                 cameraSetup.setzPosition(dto.getzPosition());
                 cameraSetup.setzRotation(dto.getzRotation());
-                cameraSetup.setVersion(dto.getVersion()+1);
                 cameraSetupRepository.save(cameraSetup);
             }
         }
@@ -88,7 +87,7 @@ public class CameraSetupService implements CameraSetupRepository {
 
     @Override
     public void deleteById(Long aLong) {
-
+        cameraSetupRepository.deleteById(aLong);
     }
 
     @Override

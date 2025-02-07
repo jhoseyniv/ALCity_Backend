@@ -207,7 +207,7 @@ public class ImportMemoryGameProblemData_4 implements CommandLineRunner {
          Optional<ALCityObject> textObject = puzzleObjectService.findByTitle("TextObject");
 
 
-        PLPrivacy privacy_1 = puzzleLevelPrivacyService.findByValue("public");
+        PLPrivacy privacy_1 = puzzleLevelPrivacyService.findByValue("Public");
 
         PuzzleLevel pl_Memory_Game= new PuzzleLevel(admin_1,now,1L,"Memory-Game","4501",15,22,5f,0f,2f,3f,IQ_Puzzle_Group.get(),PLDifficulty.Easy,PLStatus.Ongoing,privacy_1,3L,now,now,admin_1,admin_1);
         pl_Memory_Game.setIcon(pl_pic_Memory_Game_content);

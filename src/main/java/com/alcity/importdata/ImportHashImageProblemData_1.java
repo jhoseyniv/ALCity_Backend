@@ -201,7 +201,7 @@ public class ImportHashImageProblemData_1 implements CommandLineRunner {
         journeyStepService.save(step_2_journey_1);
         journeyStepService.save(step_1_journey_2);
 
-        PLPrivacy privacy_1 = plPrivacyService.findByValue("public");
+        PLPrivacy privacy_1 = plPrivacyService.findByValue("Public");
 
         PuzzleLevel puzzleLevel_hashimage = new PuzzleLevel(admin_1,now,1L,"hashed image with a empty cell","4545",8,14,15f,4f,8f,13f,puzzleGroup_HashImage.get(),PLDifficulty.Easy,PLStatus.Ongoing,privacy_1,3L,now,now,admin_1,admin_1);
         puzzleLevel_hashimage.setIcon(hashImage_icon);

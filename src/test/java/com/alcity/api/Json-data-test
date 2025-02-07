@@ -1,3 +1,15 @@
+//save camera setup
+{
+    "id": 2569,
+    "title": "setup 1",
+    "xPosition": 1,
+    "yPosition": 1,
+    "zPosition": 1,
+    "xRotation": 0,
+    "yRotation": 0,
+    "zRotation": 0
+  }
+
 [
 {
   "id": -1,

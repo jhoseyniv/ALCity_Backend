@@ -17,8 +17,13 @@ public class PLGroundDTO  {
     private Long puzzleLevelId;
 
     private String puzzleLevelTitle;
-    private CameraSetupDTO cameraSetup;
-    private BinaryContentDTO boardGraphic;
+
+    private Long cameraSetupId;
+    private String cameraSetupTitle;
+
+    private Long boardGraphicId;
+    private String boardGraphicName;
+    private String boardGraphicFileType;
 
     public Integer getNumRows() {
         return numRows;
@@ -36,21 +41,7 @@ public class PLGroundDTO  {
         this.numColumns = numColumns;
     }
 
-    public CameraSetupDTO getCameraSetup() {
-        return cameraSetup;
-    }
 
-    public void setCameraSetup(CameraSetupDTO cameraSetup) {
-        this.cameraSetup = cameraSetup;
-    }
-
-    public BinaryContentDTO getBoardGraphic() {
-        return boardGraphic;
-    }
-
-    public void setBoardGraphic(BinaryContentDTO boardGraphic) {
-        this.boardGraphic = boardGraphic;
-    }
 
     public Long getId() {
         return id;
@@ -116,11 +107,52 @@ public class PLGroundDTO  {
         this.puzzleLevelTitle = puzzleLevelTitle;
     }
 
+    public Long getCameraSetupId() {
+        return cameraSetupId;
+    }
+
+    public void setCameraSetupId(Long cameraSetupId) {
+        this.cameraSetupId = cameraSetupId;
+    }
+
+    public String getCameraSetupTitle() {
+        return cameraSetupTitle;
+    }
+
+    public void setCameraSetupTitle(String cameraSetupTitle) {
+        this.cameraSetupTitle = cameraSetupTitle;
+    }
+
+    public Long getBoardGraphicId() {
+        return boardGraphicId;
+    }
+
+    public void setBoardGraphicId(Long boardGraphicId) {
+        this.boardGraphicId = boardGraphicId;
+    }
+
+    public String getBoardGraphicName() {
+        return boardGraphicName;
+    }
+
+    public void setBoardGraphicName(String boardGraphicName) {
+        this.boardGraphicName = boardGraphicName;
+    }
+
+    public String getBoardGraphicFileType() {
+        return boardGraphicFileType;
+    }
+
+    public void setBoardGraphicFileType(String boardGraphicFileType) {
+        this.boardGraphicFileType = boardGraphicFileType;
+    }
+
     public PLGroundDTO() {
     }
 
     public PLGroundDTO(Long id, Long version, String created, String updated, String createdBy, String updatedBy,
-                       Integer numRows, Integer numColumns, Long puzzleLevelId, String puzzleLevelTitle, CameraSetupDTO cameraSetup, BinaryContentDTO boardGraphic) {
+                       Integer numRows, Integer numColumns, Long puzzleLevelId, String puzzleLevelTitle, Long cameraSetupId, String cameraSetupTitle,
+                       Long boardGraphicId ,String boardGraphicFileName, String boardGraphicFileType) {
         this.id = id;
         this.version = version;
         this.created = created;
@@ -131,7 +163,10 @@ public class PLGroundDTO  {
         this.numColumns = numColumns;
         this.puzzleLevelId = puzzleLevelId;
         this.puzzleLevelTitle = puzzleLevelTitle;
-        this.cameraSetup = cameraSetup;
-        this.boardGraphic = boardGraphic;
+        this.cameraSetupId = cameraSetupId;
+        this.cameraSetupTitle = cameraSetupTitle;
+        this.boardGraphicId = boardGraphicId;
+        this.boardGraphicName = boardGraphicFileName;
+        this.boardGraphicFileType = boardGraphicFileType;
     }
 }

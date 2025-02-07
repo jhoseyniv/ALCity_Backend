@@ -372,9 +372,9 @@ public class ImportBaseData implements CommandLineRunner {
         binaryContentService.save(image_object_binary_content);
 
 
-        PLPrivacy privacy_1 = new PLPrivacy("public","public",1L,now,now,admin_1,admin_1);
-        PLPrivacy privacy_2 = new PLPrivacy("private","private",1L,now,now,admin_1,admin_1);
-        PLPrivacy privacy_3 = new PLPrivacy("privacy 3","privacy3",1L,now,now,admin_1,admin_1);
+        PLPrivacy privacy_1 = new PLPrivacy("Public","Public",1L,now,now,admin_1,admin_1);
+        PLPrivacy privacy_2 = new PLPrivacy("Private","Private",1L,now,now,admin_1,admin_1);
+        PLPrivacy privacy_3 = new PLPrivacy("Privacy 3","Privacy 3",1L,now,now,admin_1,admin_1);
         puzzleLevelPrivacyService.save(privacy_1);
         puzzleLevelPrivacyService.save(privacy_2);
         puzzleLevelPrivacyService.save(privacy_3);

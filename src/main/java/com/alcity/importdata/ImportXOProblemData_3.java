@@ -189,7 +189,7 @@ public class ImportXOProblemData_3 implements CommandLineRunner {
         alCityObjectInPGService.save(textObject_in_Puzzle_Group_1);
         alCityObjectInPGService.copyActionFromALCityObjectToPuzzleGroupObject(textObject_in_Puzzle_Group_1);
 
-        PLPrivacy privacy_1 = plPrivacyService.findByValue("public");
+        PLPrivacy privacy_1 = plPrivacyService.findByValue("Public");
 
         PuzzleLevel puzzleLevel = new PuzzleLevel(admin_1,now,1L,"X-O","4500",8,14,10f,3f,5f,8f,IQ_Puzzle_Group.get(),PLDifficulty.Easy,PLStatus.Ongoing,privacy_1,3L,now,now,admin_1,admin_1);
         puzzleLevel.setIcon(pgIcon_bc);
