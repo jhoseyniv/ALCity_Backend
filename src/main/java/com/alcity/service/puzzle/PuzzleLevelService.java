@@ -20,6 +20,7 @@ import com.alcity.repository.journey.JourneyStepRepository;
 import com.alcity.repository.puzzle.PGRepository;
 import com.alcity.repository.puzzle.PuzzleLevelRepository;
 import com.alcity.repository.appmember.AppMemberRepository;
+import com.alcity.service.base.BinaryContentService;
 import com.alcity.utility.DTOUtil;
 import com.alcity.utility.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -201,6 +202,8 @@ public class PuzzleLevelService implements PuzzleLevelRepository {
     @Qualifier("PGRepository")
     @Autowired
     private PGRepository pgRepository;
+    @Autowired
+    private BinaryContentService binaryContentService;
 //    public PuzzleLevel updateInterpreterJson(PLData plData) {
 //        //PuzzleLevel puzzleLevel = puzzleLevelRepository.findById(plData.)
 //    }
@@ -215,11 +218,10 @@ public class PuzzleLevelService implements PuzzleLevelRepository {
         Optional<PuzzleGroup>  puzzleGroupOptional = pgRepository.findById(dto.getPuzzleGroupId());
         if(puzzleGroupOptional.isPresent())
                     puzzleGroup = puzzleGroupOptional.get();
-
         if (code.equalsIgnoreCase("Save")) { //Save
             puzzleLevel = new PuzzleLevel(createdBy,dto.getApproveDate(), dto.getOrdering(), dto.getTitle(),dto.getCode(),dto.getFromAge(),dto.getToAge(),
                                 dto.getMaxScore(), dto.getFirstStarScore(), dto.getSecondStarScore(), dto.getThirdStartScore(), puzzleGroup,plDifficulty,plStatus,plPrivacy
-                                    , 1L, "1714379790", DateUtils.getNow(), createdBy, createdBy);
+                                    , 1L, DateUtils.getNow(), DateUtils.getNow(), createdBy, createdBy);
             puzzleLevelRepository.save(puzzleLevel);
         }else{//edit
             Optional<PuzzleLevel> puzzleLevelOptional= puzzleLevelRepository.findById(dto.getId());

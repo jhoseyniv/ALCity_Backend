@@ -299,13 +299,14 @@ public class AppMemberService implements AppMemberRepository, CustomizedUserRepo
         }
         return appMember;
     }
-    public AppMember saveGuestUser() {
+    public AppMember saveGuestUser(Integer bornYear) {
         AppMember createdBy = appMemberRepository.findByUsername("admin");
         MemberType memberType = memberTypeRepository.findByValue("Guest").get();
         BinaryContent icon=null;
         AppMember guest=null;
+        Integer age = DateUtils.calculateAge(bornYear);
             icon = binaryContentRepository.findByfileName("no_photo_avatar");
-        guest = new AppMember(0,"Guest", "Guest", "Guest", "","",icon,UserGender.Unknow ,memberType
+        guest = new AppMember(age,"Guest", "Guest", "Guest", "","",icon,UserGender.Unknow ,memberType
                 ,1L, DateUtils.getNow(), DateUtils.getNow(), createdBy, createdBy);
         appMemberRepository.save(guest);
         String UniqueUserName= guest.getUsername() + guest.getId();

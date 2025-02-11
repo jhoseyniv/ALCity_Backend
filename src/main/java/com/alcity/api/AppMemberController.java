@@ -32,7 +32,6 @@ import java.util.*;
 @RequestMapping("/user")
 public class AppMemberController {
 
-
     @Autowired
     private AppMemberService appMemberService;
     @Autowired
@@ -237,14 +236,15 @@ public class AppMemberController {
 
 
     @Operation( summary = "Save a Guest User ",  description = "Save a Guest User ")
-    @PostMapping("/save/guest")
+    @PostMapping("/save/guest/{age}/age")
+    @RequestMapping(value = "/save/guest/byear/{byear}", method = RequestMethod.GET)
     @CrossOrigin(origins = "*")
-    public AppMemberDTO saveGuestUser()  {
+    public AppMemberDTO saveGuestUser(@PathVariable Integer byear)  {
         AppMember savedRecord = null;
         AppMemberDTO appMemberDTO = new AppMemberDTO();
 
             try {
-                savedRecord = appMemberService.saveGuestUser();
+                savedRecord = appMemberService.saveGuestUser(byear);
             } catch (RuntimeException e) {
                 throw new UniqueConstraintException("dto.getUsername()", -1L, "user name must be Unique");
             }
@@ -281,11 +281,12 @@ public class AppMemberController {
     public ALCityAcessRight login(@RequestBody AppMemberDTO memberDTO)  {
         AppMember member = appMemberService.findByUsername(memberDTO.getUsername());
         if(member==null)
-            return  new ALCityAcessRight(-1L, memberDTO.getUsername(), -1, "data Not Found!");
+            return  new ALCityAcessRight(-1L, memberDTO.getUsername(),-1,"data not found","-1",-1,"error","error","error",-1L,"error","error");
         if(!member.getPassword().equals(memberDTO.getPassword()))
-            return  new ALCityAcessRight(-1L, memberDTO.getUsername(), -1, "data Not Found!");
+            return  new ALCityAcessRight(-1L, memberDTO.getUsername(),-1,"data not found","-1",-1,"error","error","error",-1L,"error","error");
         appMemberService.login(member.getUsername(), member.getPassword());
-        ALCityAcessRight acessRight = new ALCityAcessRight(member.getId(), member.getUsername(),0,"Login Success...");
+        ALCityAcessRight acessRight = new ALCityAcessRight(member.getId(), member.getUsername(),0,"Login Successfull","JWT Token", member.getAge(), memberDTO.getNickname(), memberDTO.getMobile(),
+                memberDTO.getEmail(), memberDTO.getIconId(), memberDTO.getMemberType(), memberDTO.getGender());
         return acessRight;
     }
 

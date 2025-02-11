@@ -1,9 +1,6 @@
 package com.alcity.utility;
 
-import java.time.Instant;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
+import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 import java.util.Locale;
@@ -30,5 +27,12 @@ public class  DateUtils {
      return current.format(format);
 
  }
+    public static Integer calculateAge(Integer birthYear) {
+        LocalDate birthdate = LocalDate.of(birthYear, 12, 29);
 
+        // Calculate period between birthdate and current date
+        Period period = Period.between(birthdate, LocalDate.now());
+
+        return period.getYears();
+    }
 }
