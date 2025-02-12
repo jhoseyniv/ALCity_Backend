@@ -252,7 +252,7 @@ public class PuzzleLevelService implements PuzzleLevelRepository {
         return puzzleLevel;
     }
     public Collection<PuzzleLevel> getPublicPuzzleLevelByAppMember(AppMember member) {
-          PLPrivacy publicPL = plPrivacyRepository.findByValue("public");
+          PLPrivacy publicPL = plPrivacyRepository.findByValue("Public");
           Collection<PuzzleLevel> puzzleLevels = puzzleLevelRepository.findByPuzzleLevelPrivacy(publicPL);
         Collection<PuzzleLevel> filterdByAge = puzzleLevels.stream().filter(PuzzleLevel -> PuzzleLevel.getFromAge() <=member.getAge()  && member.getAge() <= PuzzleLevel.getToAge()).collect(Collectors.toList());
          return  filterdByAge;
