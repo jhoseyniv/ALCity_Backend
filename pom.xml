@@ -100,7 +100,12 @@
 			<artifactId>thumbnailator</artifactId>
 			<version>0.4.8</version>
 		</dependency>
-
+	<!--	<dependency>
+			<groupId>net.time4j</groupId>
+			<artifactId>time4j-calendar</artifactId>
+			<version>5.5</version>
+		</dependency>
+		-->
 	</dependencies>
 
 	<build>

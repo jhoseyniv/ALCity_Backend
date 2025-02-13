@@ -3,6 +3,8 @@ package com.alcity.utility;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.Locale;
 
 public class  DateUtils {
@@ -27,12 +29,22 @@ public class  DateUtils {
      return current.format(format);
 
  }
-    public static Integer calculateAge(Integer birthYear) {
+    public static Integer calculateAgeFromGregorian(Integer birthYear) {
         LocalDate birthdate = LocalDate.of(birthYear, 12, 29);
-
         // Calculate period between birthdate and current date
         Period period = Period.between(birthdate, LocalDate.now());
 
         return period.getYears();
     }
+    public static Integer calculateAgeFromJalali(Integer birthYear) {
+        JalaliCalendar jalaliCalendar = new JalaliCalendar(birthYear, 12, 29);
+        GregorianCalendar gc = jalaliCalendar.toGregorian();
+        return calculateAgeFromGregorian(gc.get(Calendar.YEAR));
+    }
+
+        public static void main(String[] args)  {
+        System.out.println("this is a get tumbnile of images.....");
+        System.out.println();
+        }
+
 }

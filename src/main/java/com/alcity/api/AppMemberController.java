@@ -236,7 +236,6 @@ public class AppMemberController {
 
 
     @Operation( summary = "Save a Guest User ",  description = "Save a Guest User ")
-    @PostMapping("/save/guest/{age}/age")
     @RequestMapping(value = "/save/guest/byear/{byear}", method = RequestMethod.GET)
     @CrossOrigin(origins = "*")
     public AppMemberDTO saveGuestUser(@PathVariable Integer byear)  {

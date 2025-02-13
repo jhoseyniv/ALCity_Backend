@@ -304,7 +304,7 @@ public class AppMemberService implements AppMemberRepository, CustomizedUserRepo
         MemberType memberType = memberTypeRepository.findByValue("Guest").get();
         BinaryContent icon=null;
         AppMember guest=null;
-        Integer age = DateUtils.calculateAge(bornYear);
+        Integer age = DateUtils.calculateAgeFromJalali(bornYear);
             icon = binaryContentRepository.findByfileName("no_photo_avatar");
         guest = new AppMember(age,"Guest", "Guest", "Guest", "","",icon,UserGender.Unknow ,memberType
                 ,1L, DateUtils.getNow(), DateUtils.getNow(), createdBy, createdBy);
