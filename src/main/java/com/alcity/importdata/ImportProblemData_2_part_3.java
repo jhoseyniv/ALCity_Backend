@@ -3,7 +3,7 @@ package com.alcity.importdata;
 
 import com.alcity.ObjectManagmentApplication;
 import com.alcity.entity.alenum.AttributeOwnerType;
-import com.alcity.entity.base.PLRulePostActionType;
+import com.alcity.entity.alenum.PLRulePostActionType;
 import com.alcity.entity.alobject.Attribute;
 import com.alcity.entity.alobject.AttributeValue;
 import com.alcity.entity.alobject.ObjectCategory;
