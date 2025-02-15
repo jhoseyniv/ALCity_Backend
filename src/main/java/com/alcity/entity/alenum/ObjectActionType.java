@@ -5,13 +5,18 @@ public enum ObjectActionType {
     Move,
     Remove,
     Rotate,
+    Show,
+    Hide,
     Enable,
     Disable,
-    Hide,
     Create,
     Convert,
-    Show,
-    PlaySound;
+    PlaySound,
+    StopMoving,
+    CreateTimer,
+    StopTimer,
+    Gamefinished
+    ;
     public static ObjectActionType getById(Integer id)
     {
         for (ObjectActionType e : ObjectActionType.values())

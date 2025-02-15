@@ -566,7 +566,7 @@ public class ImportHashImageProblemData_1 implements CommandLineRunner {
         puzzleLevelRuleService.save(rule_for_move);
 
 
-        PLRulePostAction move_rule_post_Action_1 = new PLRulePostAction(rule_for_move,PLRulePostActionType.Call_Object_Action,1,"move","objects[e.x][e.y]",
+        PLRulePostAction move_rule_post_Action_1 = new PLRulePostAction(rule_for_move,PLRulePostActionType.CallObjectAction,1,"move","objects[e.x][e.y]",
                 "",new StringBuffer(""),"","",1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(move_rule_post_Action_1);
 
@@ -620,7 +620,7 @@ public class ImportHashImageProblemData_1 implements CommandLineRunner {
         AttributeValue rulePostAction_1_move_param_8_value= new AttributeValue(null,null,null,"Jump",null,null,null,rulePostAction_1_move_param_8,rulePostAction_1_move_param_8,1L,now,now,admin_1,admin_1,move_rule_post_Action_1.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action);
         attributeValueService.save(rulePostAction_1_move_param_8_value);
 
-        PLRulePostAction move_rule_post_Action_2 =  new PLRulePostAction(rule_for_move,PLRulePostActionType.Call_Object_Action,2,"move","objects[X][Y]",
+        PLRulePostAction move_rule_post_Action_2 =  new PLRulePostAction(rule_for_move,PLRulePostActionType.CallObjectAction,2,"move","objects[X][Y]",
                 "",new StringBuffer(""),"","",1L ,now,now,admin_1,admin_1);
         puzzleLevelRulePostActionService.save(move_rule_post_Action_2);
 
@@ -673,20 +673,20 @@ public class ImportHashImageProblemData_1 implements CommandLineRunner {
         AttributeValue rulePostAction_2_move_param_8_value= new AttributeValue(null,null,null,"Jump",null,null,null,rulePostAction_2_move_param_8,rulePostAction_2_move_param_8,1L,now,now,admin_1,admin_1,move_rule_post_Action_2.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action);
         attributeValueService.save(rulePostAction_2_move_param_8_value);
 
-        PLRulePostAction rulePostAction_3_assignment = new PLRulePostAction(rule_for_move,PLRulePostActionType.Variable_Assignment_Action,3,"","",
+        PLRulePostAction rulePostAction_3_assignment = new PLRulePostAction(rule_for_move,PLRulePostActionType.VariableAssignmentAction,3,"","",
                 "objects[X][Y].x",new StringBuffer("X"),"","",1L ,now,now,admin_1,admin_1);
         puzzleLevelRulePostActionService.save(rulePostAction_3_assignment);
 
 
-        PLRulePostAction rulePostAction_4_assignment = new PLRulePostAction(rule_for_move,PLRulePostActionType.Variable_Assignment_Action,4,"","",
+        PLRulePostAction rulePostAction_4_assignment = new PLRulePostAction(rule_for_move,PLRulePostActionType.VariableAssignmentAction,4,"","",
                 "objects[X][Y].y",new StringBuffer("Y"),"","",1L ,now,now,admin_1,admin_1);
         puzzleLevelRulePostActionService.save(rulePostAction_4_assignment);
 
-        PLRulePostAction rulePostAction_5_assignment = new PLRulePostAction(rule_for_move,PLRulePostActionType.Variable_Assignment_Action,5,"","",
+        PLRulePostAction rulePostAction_5_assignment = new PLRulePostAction(rule_for_move,PLRulePostActionType.VariableAssignmentAction,5,"","",
                 "X",new StringBuffer("e.x"),"","",1L ,now,now,admin_1,admin_1);
         puzzleLevelRulePostActionService.save(rulePostAction_5_assignment);
 
-        PLRulePostAction rulePostAction_6_assignment =  new PLRulePostAction(rule_for_move,PLRulePostActionType.Variable_Assignment_Action,6,"","",
+        PLRulePostAction rulePostAction_6_assignment =  new PLRulePostAction(rule_for_move,PLRulePostActionType.VariableAssignmentAction,6,"","",
                 "Y",new StringBuffer("e.y"),"","",1L ,now,now,admin_1,admin_1);
         puzzleLevelRulePostActionService.save(rulePostAction_6_assignment);
 

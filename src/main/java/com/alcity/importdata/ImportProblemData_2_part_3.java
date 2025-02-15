@@ -162,39 +162,39 @@ public class ImportProblemData_2_part_3 implements CommandLineRunner {
 
      StringBuffer assignmentActionExpression=new StringBuffer(" " );
 
-     PLRulePostAction rulePostAction_1_assignment = new PLRulePostAction(rule_Select_object,PLRulePostActionType.Variable_Assignment_Action,0,"","",
+     PLRulePostAction rulePostAction_1_assignment = new PLRulePostAction(rule_Select_object,PLRulePostActionType.VariableAssignmentAction,0,"","",
               "Object[e.x, e.y].PreX",new StringBuffer("LastX"),"","",1L ,now,now,admin_1,admin_1);
      plRulePostActionService.save(rulePostAction_1_assignment);
 
 
 
-     PLRulePostAction rulePostAction_2_assignment = new PLRulePostAction(rule_Select_object,PLRulePostActionType.Variable_Assignment_Action,0,"","",
+     PLRulePostAction rulePostAction_2_assignment = new PLRulePostAction(rule_Select_object,PLRulePostActionType.VariableAssignmentAction,0,"","",
              "Object[e.x, e.y].PreY",new StringBuffer("LastY"),"","",1L ,now,now,admin_1,admin_1);
      plRulePostActionService.save(rulePostAction_2_assignment);
 
 
-     PLRulePostAction rulePostAction_3_assignment = new PLRulePostAction(rule_Select_object,PLRulePostActionType.Variable_Assignment_Action,0,"","",
+     PLRulePostAction rulePostAction_3_assignment = new PLRulePostAction(rule_Select_object,PLRulePostActionType.VariableAssignmentAction,0,"","",
              "Object[e.x, e.y].Selected",new StringBuffer("true"),"","",1L ,now,now,admin_1,admin_1);
      plRulePostActionService.save(rulePostAction_3_assignment);
 
 
 
-        PLRulePostAction rulePostAction_4_assignment = new PLRulePostAction(rule_Select_object,PLRulePostActionType.Variable_Assignment_Action,0,"","",
+        PLRulePostAction rulePostAction_4_assignment = new PLRulePostAction(rule_Select_object,PLRulePostActionType.VariableAssignmentAction,0,"","",
                 "LastX",new StringBuffer("e.x"),"","",1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(rulePostAction_4_assignment);
 
 
-        PLRulePostAction rulePostAction_5_assignment = new PLRulePostAction(rule_Select_object,PLRulePostActionType.Variable_Assignment_Action,0,"","",
+        PLRulePostAction rulePostAction_5_assignment = new PLRulePostAction(rule_Select_object,PLRulePostActionType.VariableAssignmentAction,0,"","",
                 "LastY",new StringBuffer("e.y"),"","",1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(rulePostAction_5_assignment);
 
 
-        PLRulePostAction rulePostAction_6_assignment =new PLRulePostAction(rule_Select_object,PLRulePostActionType.Variable_Assignment_Action,0,"","",
+        PLRulePostAction rulePostAction_6_assignment =new PLRulePostAction(rule_Select_object,PLRulePostActionType.VariableAssignmentAction,0,"","",
                 "PathLen",new StringBuffer("PathLen+1"),"","",1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(rulePostAction_6_assignment);
 
 
-        PLRulePostAction rulePostAction_7_hide = new PLRulePostAction(rule_Select_object,PLRulePostActionType.Call_Object_Action,0,"hide","objects[e.x][e.y]",
+        PLRulePostAction rulePostAction_7_hide = new PLRulePostAction(rule_Select_object,PLRulePostActionType.CallObjectAction,0,"hide","objects[e.x][e.y]",
                 "",new StringBuffer(""),"","",1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(rulePostAction_7_hide);
 
@@ -235,7 +235,7 @@ public class ImportProblemData_2_part_3 implements CommandLineRunner {
         attributeValueService.save(rulePostAction_7_hide_param_6_value);
 
 
-        PLRulePostAction rulePostAction_8_show = new PLRulePostAction(rule_Select_object,PLRulePostActionType.Call_Object_Action,0,"show","objects[e.x][e.y]",
+        PLRulePostAction rulePostAction_8_show = new PLRulePostAction(rule_Select_object,PLRulePostActionType.CallObjectAction,0,"show","objects[e.x][e.y]",
                 "",new StringBuffer(""),"","",1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(rulePostAction_8_show);
 
@@ -279,24 +279,24 @@ public class ImportProblemData_2_part_3 implements CommandLineRunner {
         PLRule rule_DeSelect_object   = new PLRule("De Select object",2 ,pr_DeSelect_object_Condition,puzzleLevel_Maze,click_event.get(),1L,now,now,admin_1,admin_1);
         plRuleService.save(rule_DeSelect_object);
 
-        PLRulePostAction deSelect_PostAction_1_assignment = new PLRulePostAction(rule_DeSelect_object,PLRulePostActionType.Variable_Assignment_Action,0,"","",
+        PLRulePostAction deSelect_PostAction_1_assignment = new PLRulePostAction(rule_DeSelect_object,PLRulePostActionType.VariableAssignmentAction,0,"","",
                 "LastX",new StringBuffer("Object[e.x, e.y].PreX"),"","",1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(deSelect_PostAction_1_assignment);
 
-        PLRulePostAction deSelect_PostAction_2_assignment = new PLRulePostAction(rule_DeSelect_object,PLRulePostActionType.Variable_Assignment_Action,0,"","",
+        PLRulePostAction deSelect_PostAction_2_assignment = new PLRulePostAction(rule_DeSelect_object,PLRulePostActionType.VariableAssignmentAction,0,"","",
                 "LastY",new StringBuffer("Object[e.x, e.y].PreY"),"","",1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(deSelect_PostAction_2_assignment);
 
-        PLRulePostAction deSelect_PostAction_3_assignment = new PLRulePostAction(rule_DeSelect_object,PLRulePostActionType.Variable_Assignment_Action,0,"","",
+        PLRulePostAction deSelect_PostAction_3_assignment = new PLRulePostAction(rule_DeSelect_object,PLRulePostActionType.VariableAssignmentAction,0,"","",
                 "Object[e.x, e.y].Selected",new StringBuffer("false"),"","",1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(deSelect_PostAction_3_assignment);
 
 
-        PLRulePostAction deSelect_PostAction_4_assignment = new PLRulePostAction(rule_DeSelect_object,PLRulePostActionType.Variable_Assignment_Action,0,"","",
+        PLRulePostAction deSelect_PostAction_4_assignment = new PLRulePostAction(rule_DeSelect_object,PLRulePostActionType.VariableAssignmentAction,0,"","",
                 "PathLen",new StringBuffer("PathLen-1"),"","",1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(deSelect_PostAction_4_assignment);
 
-        PLRulePostAction deSelect_PostAction_5_hide = new PLRulePostAction(rule_DeSelect_object,PLRulePostActionType.Call_Object_Action,0,"hide","objects[e.x][e.y]",
+        PLRulePostAction deSelect_PostAction_5_hide = new PLRulePostAction(rule_DeSelect_object,PLRulePostActionType.CallObjectAction,0,"hide","objects[e.x][e.y]",
                 "",new StringBuffer(""),"","",1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(deSelect_PostAction_5_hide);
 
@@ -337,7 +337,7 @@ public class ImportProblemData_2_part_3 implements CommandLineRunner {
         attributeValueService.save(deSelect_PostAction_5_param_6_value);
 
 
-        PLRulePostAction deSelect_PostAction_6_show = new PLRulePostAction(rule_DeSelect_object,PLRulePostActionType.Call_Object_Action,0,"show","objects[e.x][e.y]",
+        PLRulePostAction deSelect_PostAction_6_show = new PLRulePostAction(rule_DeSelect_object,PLRulePostActionType.CallObjectAction,0,"show","objects[e.x][e.y]",
                 "",new StringBuffer(""),"","",1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(deSelect_PostAction_6_show);
 
@@ -383,7 +383,7 @@ public class ImportProblemData_2_part_3 implements CommandLineRunner {
         PLRule rule_win_object   = new PLRule("Win Rule",3,win_rule_object_Condition,puzzleLevel_Maze,click_event.get(),1L,now,now,admin_1,admin_1);
         plRuleService.save(rule_win_object);
 
-        PLRulePostAction win_rule_PostAction_1_showMessage = new PLRulePostAction(rule_win_object,PLRulePostActionType.Show_Message,0,"","",
+        PLRulePostAction win_rule_PostAction_1_showMessage = new PLRulePostAction(rule_win_object,PLRulePostActionType.ShowMessage,0,"","",
                 "",new StringBuffer(""),"","",1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(win_rule_PostAction_1_showMessage);
 
