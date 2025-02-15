@@ -15,6 +15,7 @@ import com.alcity.entity.puzzle.*;
 import com.alcity.service.puzzle.PLGroundService;
 import com.alcity.service.puzzle.PuzzleLevelService;
 import com.alcity.utility.DTOUtil;
+import com.alcity.utility.PLDTOUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -69,15 +70,8 @@ public class PLController {
     @CrossOrigin(origins = "*")
     public PLData getPuzzleLevelJsonById(@PathVariable Long id) throws IOException, ClassNotFoundException {
         Optional<PuzzleLevel> puzzleLevelOptional = puzzleLevelService.findById(id);
-         PuzzleLevel pl = puzzleLevelOptional.get();
-         byte[] plData = pl.getInterpreterFile();
-         ByteArrayInputStream bis = new ByteArrayInputStream(plData);
-         ObjectInputStream ois = new ObjectInputStream(bis);
-        //FileOutputStream outputStream = new FileOutputStream("file.ser");
-        //outputStream.write(plData);
-        //FileInputStream inputStream = new FileInputStream("file.ser");
-        PLData plData1 = (PLData) ois.readObject();
-        return plData1;
+        PLData plData = PLDTOUtil.getInterpreterJSON(puzzleLevelOptional);
+        return plData;
     }
 
 

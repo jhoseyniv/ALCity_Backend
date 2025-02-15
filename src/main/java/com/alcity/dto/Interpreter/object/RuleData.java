@@ -7,7 +7,7 @@ public class RuleData implements Serializable {
     private String title;
     private Integer ordering;
     private String event;
-    private StringBuffer conditions;
+    private StringBuffer condition;
     private Collection<RuleActionData> actions;
 
     public String getTitle() {
@@ -34,12 +34,12 @@ public class RuleData implements Serializable {
         this.event = event;
     }
 
-    public StringBuffer getConditions() {
-        return conditions;
+    public StringBuffer getCondition() {
+        return condition;
     }
 
-    public void setConditions(StringBuffer conditions) {
-        this.conditions = conditions;
+    public void setConditions(StringBuffer condition) {
+        this.condition = condition;
     }
 
     public Collection<RuleActionData> getActions() {
@@ -54,11 +54,11 @@ public class RuleData implements Serializable {
     public RuleData() {
     }
 
-    public RuleData(String title, Integer ordering, String event, StringBuffer conditions, Collection<RuleActionData> actions) {
+    public RuleData(String title, Integer ordering, String event, StringBuffer condition, Collection<RuleActionData> actions) {
         this.title = title;
         this.ordering = ordering;
         this.event = event;
-        this.conditions = conditions;
+        this.condition = condition;
         this.actions = actions;
     }
 }

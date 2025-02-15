@@ -15,6 +15,7 @@ import com.alcity.service.puzzle.ALCityInstanceInPLService;
 import com.alcity.service.puzzle.PLGroundService;
 import com.alcity.service.puzzle.PuzzleLevelService;
 import com.alcity.utility.DTOUtil;
+import com.alcity.utility.PLDTOUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.apache.commons.lang3.ArrayUtils;
@@ -51,43 +52,60 @@ public class InterpreterController {
     @Operation( summary = "Fetch a json ",  description = "fetches all data that need to Interpret a puzzle level structure and rules")
     @RequestMapping(value = "/id/{id}", method = RequestMethod.GET)
     @ResponseBody
-    public PLData getPuzzleLevelForInterpreter(@PathVariable Long id) {
-         PLData puzzleLevelData= new PLData();
-         Optional<PLGround> puzzleLevelGroundOptional = plGroundService.findByPuzzleLevelId(id);
-        PLGround plGround = new PLGround();
-         if(puzzleLevelGroundOptional.isPresent()){
-             plGround = puzzleLevelGroundOptional.get();
-
-             puzzleLevelData.setBoardGraphicId(plGround.getBoardGraphic().getId());
-             CameraSetup cameraSetup =  plGround.getCameraSetup();
-             Position Position = new Position(cameraSetup.getxPosition(),cameraSetup.getyPosition(), cameraSetup.getzPosition());
-             Position Rotation = new Position(cameraSetup.getxRotation(),cameraSetup.getyRotation(),cameraSetup.getzRotation());
-             CameraSetupData cameraSetupInterpreter = new CameraSetupData(Position,Rotation);
-             puzzleLevelData.setCameraSetup(cameraSetupInterpreter);
-
-             PuzzleLevel pl = plGround.getPuzzleLevel();
-             puzzleLevelData.setCode(pl.getCode());
-             puzzleLevelData.setName(pl.getTitle());
-
-             Collection<RecordData>  variables = DTOUtil.getAttributeForOwnerById(attributeService,pl.getId(),AttributeOwnerType.Puzzle_Level_Variable);
-
-             Collection<PLObjectiveData> plObjectiveDataCollection = DTOUtil.getPuzzleLevelObjectiveData(pl);
-             puzzleLevelData.setObjectives(plObjectiveDataCollection);
-             PuzzleGroup pg = pl.getPuzzleGroup();
-             Collection<POData> objects = getObjectsForPuzzleGroup(pg,pl);
-             Collection<RuleData> rules = DTOUtil.getRulesForPuzzleLevel(pl,attributeService);
-
-             puzzleLevelData.setCols(plGround.getNumColumns());
-             puzzleLevelData.setRows(plGround.getNumRows());
-             puzzleLevelData.setVariables(variables);
-             puzzleLevelData.setObjects(objects);
-             puzzleLevelData.setRules(rules);
-             byte[] bytes = convertObjectToBytes(puzzleLevelData);
-             pl.setInterpreterFile(bytes);
-             puzzleLevelService.save(pl);
-         }
-        return puzzleLevelData;
+    public PLData getPuzzleLevelForInterpreter(@PathVariable Long id) throws IOException, ClassNotFoundException {
+        Optional<PuzzleLevel> puzzleLevelOptional = puzzleLevelService.findById(id);
+        PLData plData = new PLData();
+        if(puzzleLevelOptional.isPresent()){
+            PuzzleLevel puzzleLevel = puzzleLevelOptional.get();
+            if(puzzleLevel.getInterpreterFile()!=null)
+                plData = PLDTOUtil.getInterpreterJSON(puzzleLevel.getInterpreterFile());
+            else {
+                plData = getJsonFile(id);
+            }
+        }
+        return plData;
     }
+
+    public  PLData getJsonFile(Long puzzleLevelId) {
+        PLData puzzleLevelData= new PLData();
+
+        Optional<PLGround> puzzleLevelGroundOptional = plGroundService.findByPuzzleLevelId(puzzleLevelId);
+        PLGround plGround = new PLGround();
+        if(puzzleLevelGroundOptional.isPresent()){
+            plGround = puzzleLevelGroundOptional.get();
+
+            puzzleLevelData.setBoardGraphicId(plGround.getBoardGraphic().getId());
+            CameraSetup cameraSetup =  plGround.getCameraSetup();
+            Position Position = new Position(cameraSetup.getxPosition(),cameraSetup.getyPosition(), cameraSetup.getzPosition());
+            Position Rotation = new Position(cameraSetup.getxRotation(),cameraSetup.getyRotation(),cameraSetup.getzRotation());
+            CameraSetupData cameraSetupInterpreter = new CameraSetupData(Position,Rotation);
+            puzzleLevelData.setCameraSetup(cameraSetupInterpreter);
+
+            PuzzleLevel pl = plGround.getPuzzleLevel();
+            puzzleLevelData.setCode(pl.getCode());
+            puzzleLevelData.setName(pl.getTitle());
+
+            Collection<RecordData>  variables = DTOUtil.getAttributeForOwnerById(attributeService,pl.getId(),AttributeOwnerType.Puzzle_Level_Variable);
+
+            Collection<PLObjectiveData> plObjectiveDataCollection = DTOUtil.getPuzzleLevelObjectiveData(pl);
+            puzzleLevelData.setObjectives(plObjectiveDataCollection);
+            PuzzleGroup pg = pl.getPuzzleGroup();
+            Collection<POData> objects = getObjectsForPuzzleGroup(pg,pl);
+            Collection<RuleData> rules = DTOUtil.getRulesForPuzzleLevel(pl,attributeService);
+
+            puzzleLevelData.setCols(plGround.getNumColumns());
+            puzzleLevelData.setRows(plGround.getNumRows());
+            puzzleLevelData.setVariables(variables);
+            puzzleLevelData.setObjects(objects);
+            puzzleLevelData.setRules(rules);
+            byte[] bytes = convertObjectToBytes(puzzleLevelData);
+            pl.setInterpreterFile(bytes);
+            puzzleLevelService.save(pl);
+        }
+        return puzzleLevelData;
+
+    }
+
     public static byte[] convertObjectToBytes(PLData obj) {
         ByteArrayOutputStream boas = new ByteArrayOutputStream();
         try (ObjectOutputStream ois = new ObjectOutputStream(boas)) {
@@ -107,14 +125,15 @@ public class InterpreterController {
         Collection<ALCityInstanceInPL> InstanceCollection = pgObjectInstanceService.findByAlCityObjectInPGAndPuzzleLevel(pgpo,pl);
         //Collection<ALCityInstanceInPL> puzzleGroupObjectInstanceCollection = pgpo.getAlCityInstanceInPLCollection();
         Iterator<ALCityInstanceInPL> iterator = InstanceCollection.iterator();
-
+        Integer zorder =1;
         while(iterator.hasNext()) {
             ALCityInstanceInPL puzzleGroupObjectInstance = iterator.next();
-
+            if( puzzleGroupObjectInstance.getzOrder()!=0 &&  puzzleGroupObjectInstance.getzOrder()!=null)
+                zorder = puzzleGroupObjectInstance.getzOrder();
             InstanceData objectInstanceData = new InstanceData();
             objectInstanceData.setId(puzzleGroupObjectInstance.getId());
             objectInstanceData.setName(puzzleGroupObjectInstance.getName());
-            Position instancePostion = new Position(puzzleGroupObjectInstance.getRow() , puzzleGroupObjectInstance.getCol(),puzzleGroupObjectInstance.getzOrder());
+            Position instancePostion = new Position(puzzleGroupObjectInstance.getRow() , puzzleGroupObjectInstance.getCol(),zorder);
             objectInstanceData.setPosition(instancePostion);
 
             Collection<RecordData> properties = DTOUtil.getAttributeForOwnerById(attributeService,puzzleGroupObjectInstance.getId(),AttributeOwnerType.Puzzle_Level_Instance_Property);
