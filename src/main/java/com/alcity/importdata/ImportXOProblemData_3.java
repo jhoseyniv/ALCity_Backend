@@ -361,7 +361,7 @@ public class ImportXOProblemData_3 implements CommandLineRunner {
         attributeValueService.save(obj_3_3_property_1_value);
 
         Optional<PLRuleEvent> click_event = plRuleEventService.findByName("Click");
-        Optional<PLRuleEvent> Internal_Event = plRuleEventService.findByName("Internal_Event");
+        Optional<PLRuleEvent> Internal_Event = plRuleEventService.findByName("InternalEvent");
 
 
         StringBuffer    Click_NON_EMPTY_Cell_condition = new StringBuffer("unequal(InstProp(InstByPos(EventParam(row), EventParam(col)), text),null)");
