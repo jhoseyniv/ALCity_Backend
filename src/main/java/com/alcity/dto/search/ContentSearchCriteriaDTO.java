@@ -1,4 +1,4 @@
-package com.alcity.dto.base;
+package com.alcity.dto.search;
 
 public class ContentSearchCriteriaDTO {
 

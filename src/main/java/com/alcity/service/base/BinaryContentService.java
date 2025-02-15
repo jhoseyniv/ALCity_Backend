@@ -1,9 +1,8 @@
 package com.alcity.service.base;
 
 import com.alcity.dto.base.BinaryContentDTO;
-import com.alcity.dto.base.ContentSearchCriteriaDTO;
+import com.alcity.dto.search.ContentSearchCriteriaDTO;
 import com.alcity.entity.alenum.BinaryContentType;
-import com.alcity.entity.alobject.AttributeValue;
 import com.alcity.entity.appmember.WalletItem;
 import com.alcity.entity.base.BinaryContent;
 import com.alcity.entity.learning.LearningContent;

@@ -133,6 +133,12 @@ public class ALCityObjectInPGService implements ALCityObjectInPGRepository {
     public Collection<ALCityObjectInPG> findByalCityObject(ALCityObject cityObject) {
         return alCityObjectInPGRepository.findByalCityObject(cityObject);
     }
+
+    @Override
+    public Collection<ALCityObjectInPG> findByPuzzleGroup(PuzzleGroup puzzleGroup) {
+        return alCityObjectInPGRepository.findByPuzzleGroup(puzzleGroup);
+    }
+
     @Autowired
     private AppMemberRepository appMemberRepository;
     public ALCityObjectInPG save(CityObjectInPGDTO dto, String code) {

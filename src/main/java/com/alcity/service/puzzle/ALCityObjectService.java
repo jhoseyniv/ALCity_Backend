@@ -1,5 +1,8 @@
 package com.alcity.service.puzzle;
 
+import com.alcity.dto.search.ObjectSearchCriteriaDTO;
+import com.alcity.entity.puzzle.ALCityObjectInPG;
+import com.alcity.entity.puzzle.PuzzleGroup;
 import com.alcity.service.customexception.UniqueConstraintException;
 import com.alcity.service.customexception.ViolateForeignKeyException;
 import com.alcity.dto.puzzle.object.CityObjectDTO;
@@ -15,14 +18,15 @@ import com.alcity.repository.puzzle.ALCityObjectRepository;
 import com.alcity.repository.appmember.AppMemberRepository;
 import com.alcity.service.alobject.ActionService;
 import com.alcity.utility.DateUtils;
+import com.alcity.utility.ToolBox;
+import org.apache.catalina.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -37,6 +41,10 @@ public class ALCityObjectService implements ALCityObjectRepository {
     ActionService puzzleObjectActionService ;
     @Autowired
     ObjectCategoryRepository objectCategoryRepository ;
+    @Autowired
+    ALCityObjectInPGService cityObjectInPGService ;
+    @Autowired
+    PGService pgService ;
 
     @Override
     public <S extends ALCityObject> S save(S entity) {
@@ -68,6 +76,85 @@ public class ALCityObjectService implements ALCityObjectRepository {
         return alCityObjectRepository.findALCityObjectByObjectCategory(category);
     }
 
+    @Override
+    public Collection<ALCityObject> findALCityObjectByTitleContains(String criteria) {
+        return alCityObjectRepository.findALCityObjectByTitleContains(criteria);
+    }
+
+    @Override
+    public Collection<ALCityObject> findALCityObjectByObjectCategoryAndTitle(ObjectCategory category, String title) {
+        return alCityObjectRepository.findALCityObjectByObjectCategoryAndTitle(category,title);
+    }
+     public Collection<ALCityObject> searchCityObjectSByCriteria(ObjectSearchCriteriaDTO criteria) {
+        Optional<ObjectCategory> categoryOptional = objectCategoryRepository.findById(criteria.getObjectCategoryId());
+        Optional<PuzzleGroup> puzzleGroupOptional = pgService.findById(criteria.getPuzzleGroupdId());
+        Collection<ALCityObject> matchValues=null;
+
+        if(puzzleGroupOptional.isEmpty() && categoryOptional.isEmpty() && (criteria.getTitle().equals("") || criteria.getTitle()==null))
+            matchValues = alCityObjectRepository.findAll();
+            //000
+        else if(puzzleGroupOptional.isEmpty() && categoryOptional.isEmpty() && (criteria.getTitle() != null || !criteria.getTitle().equals(""))) {
+            //001
+            matchValues = alCityObjectRepository.findALCityObjectByTitleContains(criteria.getTitle());
+            matchValues = matchValues.stream().filter(cityObject -> ToolBox.compareCaseInsensitive(cityObject.getTitle(), criteria.getTitle())).collect(Collectors.toList());
+        }
+         else if(puzzleGroupOptional.isEmpty() && categoryOptional.isPresent() && (criteria.getTitle().equals("") || criteria.getTitle()==null))
+            matchValues = alCityObjectRepository.findALCityObjectByObjectCategory(categoryOptional.get());
+            //010
+        else if(puzzleGroupOptional.isEmpty() && categoryOptional.isPresent() && (criteria.getTitle() != null || !criteria.getTitle().equals(""))) {
+            //011
+            matchValues = alCityObjectRepository.findALCityObjectByObjectCategory(categoryOptional.get());
+            matchValues = matchValues.stream().filter(cityObject -> ToolBox.compareCaseInsensitive(cityObject.getTitle(),criteria.getTitle())).collect(Collectors.toList());
+        }
+        else if(puzzleGroupOptional.isPresent() && categoryOptional.isEmpty() && (criteria.getTitle() == null || criteria.getTitle().equals(""))){
+            //100
+            Collection<ALCityObjectInPG> pgs =  cityObjectInPGService.findByPuzzleGroup(puzzleGroupOptional.get());
+            matchValues = getALCityObjectByPG(pgs);
+        }
+        else if(puzzleGroupOptional.isPresent() && categoryOptional.isEmpty() && (criteria.getTitle() != null || !criteria.getTitle().equals(""))){
+            //101
+            Collection<ALCityObjectInPG> pgs =  cityObjectInPGService.findByPuzzleGroup(puzzleGroupOptional.get());
+            matchValues = getALCityObjectByPG(pgs);
+            matchValues = matchValues.stream().filter(cityObject -> ToolBox.compareCaseInsensitive(cityObject.getTitle(),criteria.title)).collect(Collectors.toList());
+
+        }
+        else if(puzzleGroupOptional.isPresent() && categoryOptional.isPresent() && (criteria.getTitle() == null || criteria.getTitle().equals(""))){
+            //110
+            Collection<ALCityObject> list1 =  alCityObjectRepository.findALCityObjectByObjectCategory(categoryOptional.get());
+            Collection<ALCityObjectInPG> pgs =  cityObjectInPGService.findByPuzzleGroup(puzzleGroupOptional.get());
+            Collection<ALCityObject>  list2 = getALCityObjectByPG(pgs);
+            matchValues = list1.stream().filter(cityObject ->list2.contains(cityObject)).collect(Collectors.toList());
+        }
+        else if(puzzleGroupOptional.isPresent() && categoryOptional.isPresent() && (criteria.getTitle() != null || !criteria.getTitle().equals(""))){
+            //111
+            Collection<ALCityObject> cityObjects =  alCityObjectRepository.findALCityObjectByObjectCategory(categoryOptional.get());
+            Collection<ALCityObject> list1 = cityObjects.stream().filter(cityObject -> ToolBox.compareCaseInsensitive(cityObject.getTitle(),criteria.getTitle())).collect(Collectors.toList());
+            Collection<ALCityObjectInPG> pgs =  cityObjectInPGService.findByPuzzleGroup(puzzleGroupOptional.get());
+             Collection<ALCityObject> list2 = getALCityObjectByPG(pgs);
+            matchValues = list1.stream().filter(cityObject ->list2.contains(cityObject)).collect(Collectors.toList());
+        }
+
+        return matchValues;
+    }
+    public Collection<ALCityObject> getALCityObjectByPG(Collection<ALCityObjectInPG> pgs){
+        Collection<ALCityObject> objects=new ArrayList<ALCityObject>();
+        Iterator<ALCityObjectInPG> itr = pgs.iterator();
+        while(itr.hasNext()){
+            ALCityObjectInPG  cityObjectInPG = itr.next();
+            ALCityObject object = cityObjectInPG.getAlCityObject();
+            objects.add(object);
+        }
+        return objects;
+    }
+
+//    public Collection<ALCityObject>  findObjectsBySearchCriteria(ObjectSearchCriteriaDTO criteria){
+//        Collection<ALCityObject> matchValues=null;
+//        Optional<ObjectCategory> objectCategoryOptional = objectCategoryRepository.findById(criteria.getObjectCategoryId());
+//        Optional<PuzzleGroup> puzzleGroupOptional = pgService.findById(criteria.getPuzzleGroupdId());
+//        matchValues = findALCityObjectByObjectCategoryAndTitle(objectCategoryOptional.get(),criteria.getTitle());
+//
+//        return matchValues;
+//    }
     @Override
     public Optional<ALCityObject> findByIcon(BinaryContent icon) {
         return alCityObjectRepository.findByIcon(icon);

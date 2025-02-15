@@ -1,6 +1,6 @@
 package com.alcity.repository.base;
 
-import com.alcity.dto.base.ContentSearchCriteriaDTO;
+import com.alcity.dto.search.ContentSearchCriteriaDTO;
 import com.alcity.entity.base.BinaryContent;
 
 import java.io.IOException;

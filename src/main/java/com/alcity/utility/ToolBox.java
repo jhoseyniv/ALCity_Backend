@@ -32,6 +32,11 @@ public class ToolBox {
         if(score >= three) return  3;
         return 1;
     }
+    public static boolean compareCaseInsensitive(String s1, String s2){
+        if(s1.toLowerCase().contains(s2.toLowerCase())) return true;
+        return false;
+    }
+
     public static void main(String args[]){
         getEnumById(ADSType.class,1);
     }

@@ -2,7 +2,11 @@ package com.alcity.api;
 
 
 import com.alcity.dto.alobject.AttributeDTO;
+import com.alcity.dto.base.BinaryContentDTO;
+import com.alcity.dto.search.ContentSearchCriteriaDTO;
+import com.alcity.dto.search.ObjectSearchCriteriaDTO;
 import com.alcity.entity.alenum.DataType;
+import com.alcity.entity.base.BinaryContent;
 import com.alcity.utility.PLDTOUtil;
 import com.alcity.entity.alenum.AttributeOwnerType;
 import com.alcity.entity.alobject.Attribute;
@@ -82,6 +86,15 @@ public class ALCityObjectController {
     public Collection<CityObjectDTO> getALCityObjectsByCategory(@PathVariable Long id) {
         Optional<ObjectCategory> category = objectCategoryService.findById(id);
         Collection<ALCityObject> objects = objectService.findALCityObjectByObjectCategory(category.get());
+        Collection<CityObjectDTO> objectDTOS = new ArrayList<CityObjectDTO>();
+        objectDTOS =PLDTOUtil.getCityObjectsDTOS(objects,actionService,attributeService);
+        return objectDTOS;
+    }
+     @Operation( summary = "Fetch all AL City Objects by Object Category and puzzle group and search title ",  description = "Fetch all AL City Objects by Object Category and puzzle group and search title")
+    @PostMapping("/search")
+    @CrossOrigin(origins = "*")
+    public Collection<CityObjectDTO> getALCityObjectsByCriteria(@RequestBody ObjectSearchCriteriaDTO criteriaDTO) {
+        Collection<ALCityObject> objects = objectService.searchCityObjectSByCriteria(criteriaDTO);
         Collection<CityObjectDTO> objectDTOS = new ArrayList<CityObjectDTO>();
         objectDTOS =PLDTOUtil.getCityObjectsDTOS(objects,actionService,attributeService);
         return objectDTOS;
