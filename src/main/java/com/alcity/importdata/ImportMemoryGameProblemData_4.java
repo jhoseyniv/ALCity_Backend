@@ -302,7 +302,7 @@ public class ImportMemoryGameProblemData_4 implements CommandLineRunner {
 
 
 
-        Optional<ALCityObjectInPG> textObject_in_PG = alCityObjectInPGService.findByCodeAndTitle("textObject"," Text Image in hash puzzle group");
+        Optional<ALCityObjectInPG> textObject_in_PG = alCityObjectInPGService.findByCodeAndTitle("TextObject"," Text Image in hash puzzle group");
 
 
         ALCityInstanceInPL obj_1_1 = new ALCityInstanceInPL("obj_1_1",1,1,0,textObject_in_PG.get(),pl_Memory_Game,1L,now,now,admin_1,admin_1);

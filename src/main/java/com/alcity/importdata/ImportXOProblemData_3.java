@@ -185,7 +185,7 @@ public class ImportXOProblemData_3 implements CommandLineRunner {
 
         Optional<ALCityObject>  textObject = alCityObjectService.findByTitle("TextObject");
 
-        ALCityObjectInPG textObject_in_Puzzle_Group_1 = new ALCityObjectInPG(" Text Image in hash puzzle group","textObject",IQ_Puzzle_Group.get(),textObject.get(),1L,now,now,admin_1,admin_1);
+        ALCityObjectInPG textObject_in_Puzzle_Group_1 = new ALCityObjectInPG(" Text Image in hash puzzle group","TextObject",IQ_Puzzle_Group.get(),textObject.get(),1L,now,now,admin_1,admin_1);
         alCityObjectInPGService.save(textObject_in_Puzzle_Group_1);
         alCityObjectInPGService.copyActionFromALCityObjectToPuzzleGroupObject(textObject_in_Puzzle_Group_1);
 
@@ -423,8 +423,8 @@ public class ImportXOProblemData_3 implements CommandLineRunner {
         plRulePostActionService.save(Game_Finished_Post_Action_1);
 
 
-        StringBuffer    X_Win_Rule_condition = new StringBuffer("equal(BoardVar(finished),true)");
-        PLRule X_Win_Rule_rule = new PLRule("X Win Rule",1 ,X_Win_Rule_condition,puzzleLevel,click_event.get(),1L,now,now,admin_1,admin_1);
+        StringBuffer    X_Win_Rule_condition = new StringBuffer("(equal(InstProp(InstByPos(2, 2),text),X) & ( (equal(InstProp(InstByPos(2, 1),text),X)&equal(InstProp(InstByPos(2, 3),text),X)) |  (equal(InstProp(InstByPos(1, 2),text),X)&equal(InstProp(InstByPos(3, 2),text),X)) |      (equal(InstProp(InstByPos(1, 1),text),X)&equal(InstProp(InstByPos(3, 3),text),X)) |(equal(InstProp(InstByPos(1, 3),text),X)&equal(InstProp(InstByPos(3, 1),text),X))))|(equal(InstProp(InstByPos(1, 1),text),X) & ((equal(InstProp(InstByPos(1, 2),text),X)&equal(InstProp(InstByPos(1, 3),text),X)) |(equal(InstProp(InstByPos(2, 1),text),X)&equal(InstProp(InstByPos(3, 1),text),X))))|(equal(InstProp(InstByPos(3, 3),text),X) & ((equal(InstProp(InstByPos(2, 3),text),X)&equal(InstProp(InstByPos(1, 3),text),X)) |(equal(InstProp(InstByPos(3, 1),text),X)&equal(InstProp(InstByPos(3, 2),text),X))))");
+        PLRule X_Win_Rule_rule = new PLRule("X Win Rule",1 ,X_Win_Rule_condition,puzzleLevel,Internal_Event.get(),1L,now,now,admin_1,admin_1);
         puzzleLevelRuleService.save(X_Win_Rule_rule);
 
         PLRulePostAction X_Win_Rule_rule_post_Action_1 = new PLRulePostAction(X_Win_Rule_rule,PLRulePostActionType.VariableAssignmentAction,0,"","",
@@ -435,7 +435,7 @@ public class ImportXOProblemData_3 implements CommandLineRunner {
                 "",new StringBuffer(""),"info","X won!",1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(X_Win_Rule_rule_post_Action_2);
 
-        StringBuffer    O_Win_Rule_condition = new StringBuffer("equal(BoardVar(finished),true)");
+        StringBuffer    O_Win_Rule_condition = new StringBuffer("condition\": \"(equal(InstProp(InstByPos(2, 2),text),O) & ( (equal(InstProp(InstByPos(2, 1),text),O)&equal(InstProp(InstByPos(2, 3),text),O)) |  (equal(InstProp(InstByPos(1, 2),text),O)&equal(InstProp(InstByPos(3, 2),text),O)) |      (equal(InstProp(InstByPos(1, 1),text),O)&equal(InstProp(InstByPos(3, 3),text),O)) |(equal(InstProp(InstByPos(1, 3),text),O)&equal(InstProp(InstByPos(3, 1),text),O))))|(equal(InstProp(InstByPos(1, 1),text),O) & ((equal(InstProp(InstByPos(1, 2),text),O)&equal(InstProp(InstByPos(1, 3),text),O)) |(equal(InstProp(InstByPos(2, 1),text),O)&equal(InstProp(InstByPos(3, 1),text),O))))|(equal(InstProp(InstByPos(3, 3),text),O) & ((equal(InstProp(InstByPos(2, 3),text),O)&equal(InstProp(InstByPos(1, 3),text),O)) |(equal(InstProp(InstByPos(3, 1),text),O)&equal(InstProp(InstByPos(3, 2),text),O))))");
         PLRule O_Win_Rule_rule = new PLRule("O Win Rule",1 ,O_Win_Rule_condition,puzzleLevel,Internal_Event.get(),1L,now,now,admin_1,admin_1);
         puzzleLevelRuleService.save(O_Win_Rule_rule);
 
