@@ -144,7 +144,7 @@ public class ALCityObjectInPGService implements ALCityObjectInPGRepository {
     public ALCityObjectInPG save(CityObjectInPGDTO dto, String code) {
         AppMember createdBy = appMemberRepository.findByUsername("admin");
         Optional<PuzzleGroup> puzzleGroupOptional =  pgRepository.findByTitle(dto.getPuzzleGroup());
-        Optional<ALCityObject> alCityObjectOptional =  alCityObjectService.findByTitle(dto.getAlCityObject());
+        Optional<ALCityObject> alCityObjectOptional =  alCityObjectService.findById(dto.getAlCityObjectId());
         ALCityObjectInPG alCityObjectInPG=null;
         if(puzzleGroupOptional.isPresent())
         if (code.equalsIgnoreCase("Save")) { //Save

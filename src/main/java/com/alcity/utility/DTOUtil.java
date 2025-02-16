@@ -326,15 +326,15 @@ public class DTOUtil {
 
         dto.setPuzzleGroup(alCityObjectInPG.getPuzzleGroup().getTitle());
         dto.setPuzzleGroupId(alCityObjectInPG.getPuzzleGroup().getId());
-        dto.setAlCityObject(alCityObjectInPG.getAlCityObject().getTitle());
+        dto.setAlCityObjectTitle(alCityObjectInPG.getAlCityObject().getTitle());
         dto.setAlCityObjectId(alCityObjectInPG.getAlCityObject().getId());
 
 
-        dto.setVersion(alCityObjectInPG.getVersion());
-        dto.setCreated(alCityObjectInPG.getCreated());
-        dto.setUpdated(alCityObjectInPG.getUpdated());
-        dto.setCreatedBy(alCityObjectInPG.getCreatedBy().getUsername());
-        dto.setUpdatedBy(alCityObjectInPG.getUpdatedBy().getUsername());
+//        dto.setVersion(alCityObjectInPG.getVersion());
+//        dto.setCreated(alCityObjectInPG.getCreated());
+//        dto.setUpdated(alCityObjectInPG.getUpdated());
+//        dto.setCreatedBy(alCityObjectInPG.getCreatedBy().getUsername());
+//        dto.setUpdatedBy(alCityObjectInPG.getUpdatedBy().getUsername());
 
         return  dto;
     }

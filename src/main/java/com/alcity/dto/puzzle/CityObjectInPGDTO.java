@@ -13,17 +13,18 @@ public class CityObjectInPGDTO {
     private String puzzleGroup;
 
     private Long puzzleGroupId;
-    private String alCityObject;
-
-    private Collection<PropertyDTO> dependencies;
 
     private Long alCityObjectId;
 
-    private Long version;
-    private String created;
-    private String updated;
-    private String createdBy;
-    private String updatedBy;
+    private String alCityObjectTitle;
+
+    public String getAlCityObjectTitle() {
+        return alCityObjectTitle;
+    }
+
+    public void setAlCityObjectTitle(String alCityObjectTitle) {
+        this.alCityObjectTitle = alCityObjectTitle;
+    }
 
     public String getTitle() {
         return title;
@@ -50,46 +51,6 @@ public class CityObjectInPGDTO {
         this.id = id;
     }
 
-    public Long getVersion() {
-        return version;
-    }
-
-    public void setVersion(Long version) {
-        this.version = version;
-    }
-
-    public String getCreated() {
-        return created;
-    }
-
-    public void setCreated(String created) {
-        this.created = created;
-    }
-
-    public String getUpdated() {
-        return updated;
-    }
-
-    public void setUpdated(String updated) {
-        this.updated = updated;
-    }
-
-    public String getCreatedBy() {
-        return createdBy;
-    }
-
-    public void setCreatedBy(String createdBy) {
-        this.createdBy = createdBy;
-    }
-
-    public String getUpdatedBy() {
-        return updatedBy;
-    }
-
-    public void setUpdatedBy(String updatedBy) {
-        this.updatedBy = updatedBy;
-    }
-
 
     public String getPuzzleGroup() {
         return puzzleGroup;
@@ -110,13 +71,6 @@ public class CityObjectInPGDTO {
     public CityObjectInPGDTO() {
     }
 
-    public String getAlCityObject() {
-        return alCityObject;
-    }
-
-    public void setAlCityObject(String alCityObject) {
-        this.alCityObject = alCityObject;
-    }
 
     public Long getAlCityObjectId() {
         return alCityObjectId;
@@ -126,28 +80,15 @@ public class CityObjectInPGDTO {
         this.alCityObjectId = alCityObjectId;
     }
 
-    public Collection<PropertyDTO> getDependencies() {
-        return dependencies;
-    }
 
-    public void setDependencies(Collection<PropertyDTO> dependencies) {
-        this.dependencies = dependencies;
-    }
-
-    public CityObjectInPGDTO(Long id, String title, String code, String puzzleGroup, Long puzzleGroupId, String alCityObject, Long alCityObjectId, Collection<PropertyDTO> dependencies,
-                             Long version, String created, String updated, String createdBy, String updatedBy) {
+    public CityObjectInPGDTO(Long id, String title, String code, String puzzleGroup, Long puzzleGroupId, Long alCityObjectId,String alCityObjectTitle
+                             ) {
         this.id = id;
         this.title = title;
         this.code = code;
         this.puzzleGroup = puzzleGroup;
         this.puzzleGroupId = puzzleGroupId;
-        this.alCityObject = alCityObject;
         this.alCityObjectId = alCityObjectId;
-        this.dependencies = dependencies;
-        this.version = version;
-        this.created = created;
-        this.updated = updated;
-        this.createdBy = createdBy;
-        this.updatedBy = updatedBy;
+        this.alCityObjectTitle = alCityObjectTitle;
     }
 }
