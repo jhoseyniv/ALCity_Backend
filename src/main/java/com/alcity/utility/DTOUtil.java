@@ -655,7 +655,8 @@ public class DTOUtil {
 
         dto.setId(entity.getId());
         dto.setPlayDuration(entity.getPlayDuration());
-        dto.setPlayTime(entity.getPlayTime());
+        dto.setStartPlayTime(entity.getStartPlayTime());
+        dto.setEndPlayTime(entity.getEndPlayTime());
         dto.setPlayScore(entity.getPlayScore());
         dto.setStars(entity.getStars());
         dto.setPlayerId(player.getId());

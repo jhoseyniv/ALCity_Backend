@@ -30,7 +30,8 @@ public class PlayHistoryService implements PlayHistoryRepository {
         PlayHistoryDTO dto = new PlayHistoryDTO();
         dto.setId(history.getId());
         dto.setPlayScore(history.getPlayScore());
-        dto.setPlayTime(history.getPlayTime());
+        dto.setStartPlayTime(history.getStartPlayTime());
+        dto.setEndPlayTime(history.getEndPlayTime());
         dto.setPlayDuration(history.getPlayDuration());
         //get player information
         AppMember player = history.getPlayer();

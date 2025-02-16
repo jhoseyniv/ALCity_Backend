@@ -203,7 +203,7 @@ public class ImportHashImageProblemData_1 implements CommandLineRunner {
 
         PLPrivacy privacy_1 = plPrivacyService.findByValue("Public");
 
-        PuzzleLevel puzzleLevel_hashimage = new PuzzleLevel(admin_1,now,1L,"hashed image with a empty cell","4545",8,14,15f,4f,8f,13f,puzzleGroup_HashImage.get(),PLDifficulty.Easy,PLStatus.Ongoing,privacy_1,3L,now,now,admin_1,admin_1);
+        PuzzleLevel puzzleLevel_hashimage = new PuzzleLevel(admin_1,now,1L,"hashed image with a empty cell","4545",8,14,15f,4f,8f,13f,puzzleGroup_HashImage.get(),PLDifficulty.Easy,PLStatus.Active,privacy_1,3L,now,now,admin_1,admin_1);
         puzzleLevel_hashimage.setIcon(hashImage_icon);
         puzzleLevel_hashimage.setPicture(hashImage_pic);
         puzzleLevelService.save(puzzleLevel_hashimage);
@@ -234,13 +234,13 @@ public class ImportHashImageProblemData_1 implements CommandLineRunner {
         Float playScore =14f;
         Integer stars = ToolBox.getPuzzleLevelStars(playScore,puzzleLevel_hashimage.getFirstStarScore(),puzzleLevel_hashimage.getSecondStarScore(),puzzleLevel_hashimage.getThirdStartScore());
 
-        PlayHistory playHistory_1 = new PlayHistory(jalalHoseyni,puzzleLevel_hashimage,now,100,playScore,stars,1L,now,now,jalalHoseyni,jalalHoseyni);
+        PlayHistory playHistory_1 = new PlayHistory(jalalHoseyni,puzzleLevel_hashimage,now,now,80L,playScore,stars,1L,now,now,jalalHoseyni,jalalHoseyni);
         playHistoryService.save(playHistory_1);
 
         LearningSkillContent puzzleSkillLearningContent_1 = new LearningSkillContent(division,puzzleGroup_HashImage.get(),learningContent_Division,1L,now,now,admin_1,admin_1);
         puzzleSkillLearningContentService.save(puzzleSkillLearningContent_1);
 
-        PLGameInstance puzzleLevelGameInstance= new PLGameInstance(jalalHoseyni,puzzleLevel_hashimage,GameStatus.gameStatus_1,1L,now,now,jalalHoseyni,jalalHoseyni);
+        PLGameInstance puzzleLevelGameInstance= new PLGameInstance(jalalHoseyni,puzzleLevel_hashimage,now,now,GameStatus.Playing,1L,now,now,jalalHoseyni,jalalHoseyni);
         plGameInstanceService.save(puzzleLevelGameInstance);
 
         Optional<ALCityObject> ImageObject01 =alCityObjectService.findByTitle("ImageObject01");

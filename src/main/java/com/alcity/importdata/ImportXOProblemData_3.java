@@ -191,7 +191,7 @@ public class ImportXOProblemData_3 implements CommandLineRunner {
 
         PLPrivacy privacy_1 = plPrivacyService.findByValue("Public");
 
-        PuzzleLevel puzzleLevel = new PuzzleLevel(admin_1,now,1L,"X-O","4500",8,14,10f,3f,5f,8f,IQ_Puzzle_Group.get(),PLDifficulty.Easy,PLStatus.Ongoing,privacy_1,3L,now,now,admin_1,admin_1);
+        PuzzleLevel puzzleLevel = new PuzzleLevel(admin_1,now,1L,"X-O","4500",8,14,10f,3f,5f,8f,IQ_Puzzle_Group.get(),PLDifficulty.Easy,PLStatus.Active,privacy_1,3L,now,now,admin_1,admin_1);
         puzzleLevel.setIcon(pgIcon_bc);
         puzzleLevel.setPicture(pgIcon_bc);
         puzzleLevelService.save(puzzleLevel);
@@ -219,13 +219,13 @@ public class ImportXOProblemData_3 implements CommandLineRunner {
        Float playScore =10f;
        Integer stars = ToolBox.getPuzzleLevelStars(playScore,puzzleLevel.getFirstStarScore(),puzzleLevel.getSecondStarScore(),puzzleLevel.getThirdStartScore());
 
-        PlayHistory playHistory_1 = new PlayHistory(Alireza_Zare,puzzleLevel,now,100,playScore,stars,1L,now,now,Alireza_Zare,Alireza_Zare);
+        PlayHistory playHistory_1 = new PlayHistory(Alireza_Zare,puzzleLevel,now,now,85L,playScore,stars,1L,now,now,Alireza_Zare,Alireza_Zare);
         playHistoryService.save(playHistory_1);
 
         LearningSkillContent puzzleSkillLearningContent_1 = new LearningSkillContent(matching,IQ_Puzzle_Group.get(),learningContent_Mathcing,1L,now,now,admin_1,admin_1);
         puzzleSkillLearningContentService.save(puzzleSkillLearningContent_1);
 
-        PLGameInstance puzzleLevelGameInstance= new PLGameInstance(jalalHoseyni,puzzleLevel,GameStatus.gameStatus_1,1L,now,now,Alireza_Zare,Alireza_Zare);
+        PLGameInstance puzzleLevelGameInstance= new PLGameInstance(jalalHoseyni,puzzleLevel,now,now,GameStatus.Playing,1L,now,now,Alireza_Zare,Alireza_Zare);
         plGameInstanceService.save(puzzleLevelGameInstance);
 
         StringBuffer  condition_Objective_1 = new StringBuffer("(equal(InstProp(InstByPos(2, 2),text),X) & " +

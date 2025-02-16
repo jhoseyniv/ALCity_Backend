@@ -23,16 +23,65 @@ public class PLGameInstance extends BaseTable implements Serializable {
     @JsonIgnore
     private PuzzleLevel puzzleLevel;
 
+    @Column(name="startPlayTime")
+    private String startPlayTime;
+
+    @Column(name="endPlayTime")
+    private String endPlayTime;
+
     @Enumerated(EnumType.ORDINAL)
     private GameStatus gameStatus;
+
+    public AppMember getPlayer() {
+        return player;
+    }
+
+    public void setPlayer(AppMember player) {
+        this.player = player;
+    }
+
+    public PuzzleLevel getPuzzleLevel() {
+        return puzzleLevel;
+    }
+
+    public void setPuzzleLevel(PuzzleLevel puzzleLevel) {
+        this.puzzleLevel = puzzleLevel;
+    }
+
+    public String getStartPlayTime() {
+        return startPlayTime;
+    }
+
+    public void setStartPlayTime(String startPlayTime) {
+        this.startPlayTime = startPlayTime;
+    }
+
+    public String getEndPlayTime() {
+        return endPlayTime;
+    }
+
+    public void setEndPlayTime(String endPlayTime) {
+        this.endPlayTime = endPlayTime;
+    }
+
+    public GameStatus getGameStatus() {
+        return gameStatus;
+    }
+
+    public void setGameStatus(GameStatus gameStatus) {
+        this.gameStatus = gameStatus;
+    }
 
     public PLGameInstance() {
     }
 
-    public PLGameInstance(AppMember player, PuzzleLevel puzzleLevel, GameStatus gameStatus, Long version, String created, String updated, AppMember createdBy, AppMember updatedBy) {
+    public PLGameInstance( AppMember player, PuzzleLevel puzzleLevel, String startPlayTime, String endPlayTime, GameStatus gameStatus,
+                           Long version, String created, String updated, AppMember createdBy, AppMember updatedBy) {
         super(version, created, updated, createdBy, updatedBy);
         this.player = player;
         this.puzzleLevel = puzzleLevel;
+        this.startPlayTime = startPlayTime;
+        this.endPlayTime = endPlayTime;
         this.gameStatus = gameStatus;
     }
 }

@@ -213,7 +213,7 @@ public class Import_F_G_BProblemData_5 implements CommandLineRunner {
 
         PLPrivacy privacy_1 = plPrivacyService.findByValue("Public");
 
-        PuzzleLevel pl_F_G_B = new PuzzleLevel(admin_1,now,1L,"Fox-Goose-Bean","4502",14,21,15f,5f,10f,13f,IQ_Puzzle_Group.get(),PLDifficulty.Easy,PLStatus.Ongoing,
+        PuzzleLevel pl_F_G_B = new PuzzleLevel(admin_1,now,1L,"Fox-Goose-Bean","4502",14,21,15f,5f,10f,13f,IQ_Puzzle_Group.get(),PLDifficulty.Easy,PLStatus.Active,
                 privacy_1,3L,now,now,admin_1,admin_1);
         pl_F_G_B.setIcon(pl_pic_F_G_B_content);
         pl_F_G_B.setPicture(pl_Icon_F_G_B_content);
@@ -244,14 +244,15 @@ public class Import_F_G_BProblemData_5 implements CommandLineRunner {
         plLearningTopicService.save(puzzleLevelLearningTopic_1);
         Float playScore =8f;
         Integer stars = ToolBox.getPuzzleLevelStars(playScore,pl_F_G_B.getFirstStarScore(),pl_F_G_B.getSecondStarScore(),pl_F_G_B.getThirdStartScore());
-        PlayHistory playHistory_1 = new PlayHistory(Alireza_Zare,pl_F_G_B,now,100,playScore,stars,1L,now,now,Alireza_Zare,Alireza_Zare);
+
+        PlayHistory playHistory_1 = new PlayHistory(Alireza_Zare,pl_F_G_B,now,now,10L,playScore,stars,1L,now,now,Alireza_Zare,Alireza_Zare);
         playHistory_1.setStars(stars);
         playHistoryService.save(playHistory_1);
 
         LearningSkillContent puzzleSkillLearningContent_1 = new LearningSkillContent(matching,IQ_Puzzle_Group.get(),learningContent_Mathcing,1L,now,now,admin_1,admin_1);
         puzzleSkillLearningContentService.save(puzzleSkillLearningContent_1);
 
-        PLGameInstance puzzleLevelGameInstance= new PLGameInstance(jalalHoseyni,pl_F_G_B, GameStatus.gameStatus_1,1L,now,now,Alireza_Zare,Alireza_Zare);
+        PLGameInstance puzzleLevelGameInstance= new PLGameInstance(jalalHoseyni,pl_F_G_B,now,now, GameStatus.Playing,1L,now,now,Alireza_Zare,Alireza_Zare);
         plGameInstanceService.save(puzzleLevelGameInstance);
 
         StringBuffer  condition_Objective_1 = new StringBuffer("unequal(InstByPos(1, 4),null) & unequal(InstByPos(2, 4),null) & unequal(InstByPos(3, 4),null)");

@@ -209,7 +209,7 @@ public class ImportMemoryGameProblemData_4 implements CommandLineRunner {
 
         PLPrivacy privacy_1 = puzzleLevelPrivacyService.findByValue("Public");
 
-        PuzzleLevel pl_Memory_Game= new PuzzleLevel(admin_1,now,1L,"Memory-Game","4501",15,22,5f,0f,2f,3f,IQ_Puzzle_Group.get(),PLDifficulty.Easy,PLStatus.Ongoing,privacy_1,3L,now,now,admin_1,admin_1);
+        PuzzleLevel pl_Memory_Game= new PuzzleLevel(admin_1,now,1L,"Memory-Game","4501",15,22,5f,0f,2f,3f,IQ_Puzzle_Group.get(),PLDifficulty.Easy,PLStatus.Active,privacy_1,3L,now,now,admin_1,admin_1);
         pl_Memory_Game.setIcon(pl_pic_Memory_Game_content);
         pl_Memory_Game.setPicture(pl_pic_Memory_Game_content);
         puzzleLevelService.save(pl_Memory_Game);
@@ -240,13 +240,13 @@ public class ImportMemoryGameProblemData_4 implements CommandLineRunner {
         Float playScore =1f;
         Integer stars = ToolBox.getPuzzleLevelStars(playScore,pl_Memory_Game.getFirstStarScore(),pl_Memory_Game.getSecondStarScore(),pl_Memory_Game.getThirdStartScore());
 
-        PlayHistory playHistory_1 = new PlayHistory(Alireza_Zare,pl_Memory_Game,now,100,playScore,stars,1L,now,now,Alireza_Zare,Alireza_Zare);
+        PlayHistory playHistory_1 = new PlayHistory(Alireza_Zare,pl_Memory_Game,now,now,15L,playScore,stars,1L,now,now,Alireza_Zare,Alireza_Zare);
         playHistoryService.save(playHistory_1);
 
         LearningSkillContent puzzleSkillLearningContent_1 = new LearningSkillContent(memory_booster,IQ_Puzzle_Group.get(),learningContent_memory,1L,now,now,admin_1,admin_1);
         puzzleSkillLearningContentService.save(puzzleSkillLearningContent_1);
 
-        PLGameInstance puzzleLevelGameInstance= new PLGameInstance(jalalHoseyni,pl_Memory_Game,GameStatus.gameStatus_1,1L,now,now,Alireza_Zare,Alireza_Zare);
+        PLGameInstance puzzleLevelGameInstance= new PLGameInstance(jalalHoseyni,pl_Memory_Game,now,now,GameStatus.Playing,1L,now,now,Alireza_Zare,Alireza_Zare);
         plGameInstanceService.save(puzzleLevelGameInstance);
 
         StringBuffer  condition_Objective_1 = new StringBuffer("BoardVar(matched)=6");

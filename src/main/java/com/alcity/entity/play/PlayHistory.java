@@ -21,14 +21,16 @@ public class PlayHistory extends BaseTable {
     @JsonIgnore
     private PuzzleLevel puzzleLevel;
 
-    @Column(name="playTime")
-    private String playTime;
+    @Column(name="startPlayTime")
+    private String startPlayTime;
 
-    @Column(name="playDuration")
-    private Integer playDuration;
+    @Column(name="endPlayTime")
+    private String endPlayTime;
 
     @Column(name="playScore")
     private Float playScore;
+    @Column(name="playDuration")
+    private Long playDuration;
     @Column(name="stars")
     private Integer stars;
 
@@ -48,19 +50,27 @@ public class PlayHistory extends BaseTable {
         this.puzzleLevel = puzzleLevel;
     }
 
-    public String getPlayTime() {
-        return playTime;
+    public String getStartPlayTime() {
+        return startPlayTime;
     }
 
-    public void setPlayTime(String playTime) {
-        this.playTime = playTime;
+    public void setStartPlayTime(String startPlayTime) {
+        this.startPlayTime = startPlayTime;
     }
 
-    public Integer getPlayDuration() {
+    public String getEndPlayTime() {
+        return endPlayTime;
+    }
+
+    public void setEndPlayTime(String endPlayTime) {
+        this.endPlayTime = endPlayTime;
+    }
+
+    public Long getPlayDuration() {
         return playDuration;
     }
 
-    public void setPlayDuration(Integer playDuration) {
+    public void setPlayDuration(Long playDuration) {
         this.playDuration = playDuration;
     }
 
@@ -83,11 +93,12 @@ public class PlayHistory extends BaseTable {
     public PlayHistory() {
     }
 
-    public PlayHistory(AppMember player, PuzzleLevel puzzleLevel, String playTime, Integer playDuration, Float playScore,Integer stars, Long version, String created, String updated, AppMember createdBy, AppMember updatedBy) {
+    public PlayHistory(AppMember player, PuzzleLevel puzzleLevel, String startPlayTime,String endPlayTime,Long playDuration , Float playScore,Integer stars, Long version, String created, String updated, AppMember createdBy, AppMember updatedBy) {
         super(version, created, updated, createdBy, updatedBy);
         this.player = player;
         this.puzzleLevel = puzzleLevel;
-        this.playTime = playTime;
+        this.startPlayTime = startPlayTime;
+        this.endPlayTime = endPlayTime;
         this.playDuration = playDuration;
         this.playScore = playScore;
         this.stars = stars;

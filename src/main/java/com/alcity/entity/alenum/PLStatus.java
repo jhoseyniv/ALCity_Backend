@@ -2,10 +2,8 @@ package com.alcity.entity.alenum;
 
 
 public enum PLStatus {
-    Completed,
-    Canceled,
-    Ongoing,
-    Not_Started;
+    Active,
+    DeActive;
 
     public static PLStatus getById(long id)
     {

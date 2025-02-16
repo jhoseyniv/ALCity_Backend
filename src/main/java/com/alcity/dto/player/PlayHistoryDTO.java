@@ -2,8 +2,10 @@ package com.alcity.dto.player;
 
 public class PlayHistoryDTO {
     private Long id;
-    private String playTime;
-    private Integer playDuration;
+    private String startPlayTime;
+
+    private String endPlayTime;
+    private Long playDuration;
     private Float playScore;
     private Integer stars;
 
@@ -48,21 +50,6 @@ public class PlayHistoryDTO {
         this.playerUsername = playerUsername;
     }
 
-    public String getPlayTime() {
-        return playTime;
-    }
-
-    public void setPlayTime(String playTime) {
-        this.playTime = playTime;
-    }
-
-    public Integer getPlayDuration() {
-        return playDuration;
-    }
-
-    public void setPlayDuration(Integer playDuration) {
-        this.playDuration = playDuration;
-    }
 
     public Float getPlayScore() {
         return playScore;
@@ -187,10 +174,35 @@ public class PlayHistoryDTO {
         this.plToAge = plToAge;
     }
 
-    public PlayHistoryDTO(Long id, String playTime, Integer playDuration, Float playScore, Integer stars, Long playerId, String playerUsername, Long plId, String plTitle, String plCode,Integer plFromAge,Integer plToAge, Float plMaxScore, Long pgId, String pgTitle,
+    public String getStartPlayTime() {
+        return startPlayTime;
+    }
+
+    public void setStartPlayTime(String startPlayTime) {
+        this.startPlayTime = startPlayTime;
+    }
+
+    public String getEndPlayTime() {
+        return endPlayTime;
+    }
+
+    public void setEndPlayTime(String endPlayTime) {
+        this.endPlayTime = endPlayTime;
+    }
+
+    public Long getPlayDuration() {
+        return playDuration;
+    }
+
+    public void setPlayDuration(Long playDuration) {
+        this.playDuration = playDuration;
+    }
+
+    public PlayHistoryDTO(Long id, String startPlayTime, String endPlayTime, Long playDuration, Float playScore, Integer stars, Long playerId, String playerUsername, Long plId, String plTitle, String plCode, Integer plFromAge, Integer plToAge, Float plMaxScore, Long pgId, String pgTitle,
                           Long journeyId, String journeyTitle, Long stepId, String stepTitle) {
         this.id = id;
-        this.playTime = playTime;
+        this.startPlayTime = startPlayTime;
+        this.endPlayTime = endPlayTime;
         this.playDuration = playDuration;
         this.playScore = playScore;
         this.stars = stars;

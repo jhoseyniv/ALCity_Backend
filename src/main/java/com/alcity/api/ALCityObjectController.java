@@ -100,6 +100,7 @@ public class ALCityObjectController {
         return objectDTOS;
     }
 
+
     @Operation( summary = "Fetch all Puzzle Groups that this Object are in them ",  description = "Fetch all Puzzle Groups that this Object are in them ")
     @RequestMapping(value = "/id/{id}/pg", method = RequestMethod.GET)
     @CrossOrigin(origins = "*")

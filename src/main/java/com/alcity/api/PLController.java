@@ -1,9 +1,9 @@
 package com.alcity.api;
 
 import com.alcity.dto.Interpreter.PLData;
+import com.alcity.dto.search.ObjectSearchCriteriaDTO;
 import com.alcity.entity.alenum.AttributeOwnerType;
 import com.alcity.entity.alobject.Attribute;
-import com.alcity.entity.alobject.AttributeValue;
 import com.alcity.entity.appmember.AppMember;
 import com.alcity.service.alobject.AttributeService;
 import com.alcity.service.appmember.AppMemberService;
@@ -16,7 +16,6 @@ import com.alcity.service.puzzle.PLGroundService;
 import com.alcity.service.puzzle.PuzzleLevelService;
 import com.alcity.utility.DTOUtil;
 import com.alcity.utility.PLDTOUtil;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,6 +63,7 @@ public class PLController {
         pldto = DTOUtil.getPuzzleLevelDTO(puzzleLevelOptional);
         return pldto;
     }
+
     @Operation( summary = "Fetch puzzle level Json by a Id ",  description = "fetches Json for a puzzle level ")
     @RequestMapping(value = "json/id/{id}", method = RequestMethod.GET)
     @ResponseBody
@@ -147,6 +147,20 @@ public class PLController {
         if(puzzleLevelOptional.isPresent())
             plInstancesDTOS = DTOUtil.getPuzzleLevelInstance(puzzleLevelOptional.get());
         return plInstancesDTOS;
+    }
+    @Operation( summary = "Start Puzzle (Game) after play by user ",  description = "Update Puzzle (Game) Status after play by user")
+    @PostMapping("/start-play")
+    @CrossOrigin(origins = "*")
+    public ALCityResponseObject StartGameEvent(@RequestBody PLEventDTO eventDTO) {
+        ALCityResponseObject response = new ALCityResponseObject();
+        return response;
+    }
+    @Operation( summary = "Update Puzzle (Game) Status after change status by user ",  description = "Update Puzzle (Game) Status after change status play by user")
+    @PostMapping("/update-play")
+    @CrossOrigin(origins = "*")
+    public ALCityResponseObject updateGameEvent(@RequestBody PLEventDTO eventDTO) {
+        ALCityResponseObject response = new ALCityResponseObject();
+        return response;
     }
 
     @Operation( summary = "Fetch all Rules by a puzzle level Id ",  description = "fetches all Rules for a puzzle level ")

@@ -163,7 +163,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
         journeyStepService.save(step_3_journey_1);
         PLPrivacy privacy_1 = puzzleLevelPrivacyService.findByValue("Public");
 
-        PuzzleLevel puzzleLevel_Maze = new PuzzleLevel(admin_1,now,1L,"Find shortest path from start to end in maze","4546",14,20,5f,0f,2f,3f,puzzleGroup_2, PLDifficulty.Medium, PLStatus.Not_Started,privacy_1,3L,now,now,admin_1,admin_1);
+        PuzzleLevel puzzleLevel_Maze = new PuzzleLevel(admin_1,now,1L,"Find shortest path from start to end in maze","4546",14,20,5f,0f,2f,3f,puzzleGroup_2, PLDifficulty.Medium, PLStatus.Active,privacy_1,3L,now,now,admin_1,admin_1);
         puzzleLevel_Maze.setIcon(puzzle_group_2_binary_content_icon);
         puzzleLevel_Maze.setPicture(puzzle_group_2_binary_content_pic);
         puzzleLevelService.save(puzzleLevel_Maze);
@@ -197,23 +197,23 @@ public class ImportProblemData_2 implements CommandLineRunner {
         Float playScore =10f;
         Integer stars = ToolBox.getPuzzleLevelStars(playScore,puzzleLevel_Maze.getFirstStarScore(),puzzleLevel_Maze.getSecondStarScore(),puzzleLevel_Maze.getThirdStartScore());
 
-        PlayHistory playHistory_1 = new PlayHistory(jalalHoseyni,puzzleLevel_Maze,now,100,playScore,stars,1L,now,now,jalalHoseyni,jalalHoseyni);
+        PlayHistory playHistory_1 = new PlayHistory(jalalHoseyni,puzzleLevel_Maze,now,now,100L,playScore,stars,1L,now,now,jalalHoseyni,jalalHoseyni);
         playHistoryService.save(playHistory_1);
 
         playScore =10f;
         stars = ToolBox.getPuzzleLevelStars(playScore,puzzleLevel_Maze.getFirstStarScore(),puzzleLevel_Maze.getSecondStarScore(),puzzleLevel_Maze.getThirdStartScore());
-        PlayHistory playHistory_2 = new PlayHistory(moslemBalavandi,puzzleLevel_Maze,now,100,playScore,stars,1L,now,now,moslemBalavandi,moslemBalavandi);
+        PlayHistory playHistory_2 = new PlayHistory(moslemBalavandi,puzzleLevel_Maze,now,now,100L,playScore,stars,1L,now,now,moslemBalavandi,moslemBalavandi);
         playHistoryService.save(playHistory_2);
 
         playScore =12f;
         stars = ToolBox.getPuzzleLevelStars(playScore,puzzleLevel_Maze.getFirstStarScore(),puzzleLevel_Maze.getSecondStarScore(),puzzleLevel_Maze.getThirdStartScore());
-        PlayHistory playHistory_3 = new PlayHistory(alirezaZarei,puzzleLevel_Maze,now,100,playScore,stars,1L,now,now,alirezaZarei,alirezaZarei);
+        PlayHistory playHistory_3 = new PlayHistory(alirezaZarei,puzzleLevel_Maze,now,now,55L,playScore,stars,1L,now,now,alirezaZarei,alirezaZarei);
         playHistoryService.save(playHistory_3);
 
         LearningSkillContent puzzleSkillLearningContent_1 = new LearningSkillContent(routing,puzzleGroup_2,learningContent_routing,1L,now,now,admin_1,admin_1);
         puzzleSkillLearningContentService.save(puzzleSkillLearningContent_1);
 
-        PLGameInstance puzzleLevelGameInstance= new PLGameInstance(jalalHoseyni,puzzleLevel_Maze, GameStatus.gameStatus_1,1L,now,now,jalalHoseyni,jalalHoseyni);
+        PLGameInstance puzzleLevelGameInstance= new PLGameInstance(jalalHoseyni,puzzleLevel_Maze,now,now,GameStatus.Completed,1L,now,now,jalalHoseyni,jalalHoseyni);
         plGameInstanceService.save(puzzleLevelGameInstance);
 
         ObjectCategory objectCategory_Image = objectCategoryService.findByValue("Image");
