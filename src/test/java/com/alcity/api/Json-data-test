@@ -1,3 +1,15 @@
+//save an alcity instance in a puzzle level
+{
+  "id": 0,
+  "name": "fox",
+  "row": 0,
+  "col": 0,
+  "getzOrder": 0,
+  "alCityObjectInPGId": 190,
+  "puzzleLevelId": 2567
+}
+
+
 //save camera setup
 {
     "id": 2569,

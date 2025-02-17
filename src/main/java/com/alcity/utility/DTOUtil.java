@@ -338,6 +338,25 @@ public class DTOUtil {
 
         return  dto;
     }
+    public static CityObjectInPLDTO getALCityObjectInPLDTO(ALCityInstanceInPL alCityInstanceInPL) {
+        CityObjectInPLDTO dto = new CityObjectInPLDTO();
+        dto.setId(alCityInstanceInPL.getId());
+        dto.setName(alCityInstanceInPL.getName());
+        dto.setCol(alCityInstanceInPL.getCol());
+        dto.setRow(alCityInstanceInPL.getRow());
+
+        dto.setZorder(alCityInstanceInPL.getzOrder());
+        dto.setAlCityObjectInPGId(alCityInstanceInPL.getAlCityObjectInPG().getId());
+        dto.setPuzzleLevelId(alCityInstanceInPL.getPuzzleLevel().getId());
+
+//        dto.setVersion(alCityObjectInPG.getVersion());
+//        dto.setCreated(alCityObjectInPG.getCreated());
+//        dto.setUpdated(alCityObjectInPG.getUpdated());
+//        dto.setCreatedBy(alCityObjectInPG.getCreatedBy().getUsername());
+//        dto.setUpdatedBy(alCityObjectInPG.getUpdatedBy().getUsername());
+
+        return  dto;
+    }
     public static Collection<CityObjectInPGDTO> getALCityObjectInPGDTOS(Collection<ALCityObjectInPG> input) {
         Collection<CityObjectInPGDTO> dtos = new ArrayList<CityObjectInPGDTO>();
         Iterator<ALCityObjectInPG> itr = input.iterator();
