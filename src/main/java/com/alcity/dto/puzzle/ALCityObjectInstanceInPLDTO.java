@@ -1,6 +1,6 @@
 package com.alcity.dto.puzzle;
 
-public class PLInstanceDTO {
+public class ALCityObjectInstanceInPLDTO {
 
     private Long id;
     private Long version;
@@ -117,7 +117,7 @@ public class PLInstanceDTO {
         this.updatedBy = updatedBy;
     }
 
-    public PLInstanceDTO() {
+    public ALCityObjectInstanceInPLDTO() {
     }
 
     public Long getCreatedById() {
@@ -136,8 +136,8 @@ public class PLInstanceDTO {
         this.updatedByID = updatedByID;
     }
 
-    public PLInstanceDTO(Long id, Long version, String created, String updated, String createdBy, String updatedBy, Long createdById, Long updatedByID,
-                         Integer row, Integer col, Integer zOrder, Long alCityObjectinPGId, String alCityObjectinPGTitle, String alCityObjectinPGCode) {
+    public ALCityObjectInstanceInPLDTO(Long id, Long version, String created, String updated, String createdBy, String updatedBy, Long createdById, Long updatedByID,
+                                       Integer row, Integer col, Integer zOrder, Long alCityObjectinPGId, String alCityObjectinPGTitle, String alCityObjectinPGCode) {
         this.id = id;
         this.version = version;
         this.created = created;

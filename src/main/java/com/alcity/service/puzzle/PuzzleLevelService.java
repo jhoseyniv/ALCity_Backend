@@ -192,6 +192,7 @@ public class PuzzleLevelService implements PuzzleLevelRepository {
     public void deleteAll() {
 
     }
+
     @Autowired
     private AppMemberRepository appMemberRepository;
 

@@ -44,7 +44,17 @@ import java.util.Optional;
 public class DTOUtil {
 
 
-
+    public static PLGameInstanceDTO getPLGameInstanceDTO(PLGameInstance gameInstance){
+        PLGameInstanceDTO dto = new PLGameInstanceDTO();
+        dto.setId(gameInstance.getId());
+        dto.setGameStatus(gameInstance.getGameStatus().name());
+        dto.setAppMemmberId(gameInstance.getPlayer().getId());
+        dto.setUserName(gameInstance.getPlayer().getUsername());
+        dto.setStartPlayTime(gameInstance.getStartPlayTime());
+        dto.setPuzzleLevelId(gameInstance.getPuzzleLevel().getId());
+        dto.setPuzzleLevelTitle(gameInstance.getPuzzleLevel().getTitle());
+        return  dto;
+    }
     public static PLDTO getPuzzleLevelDTO(PuzzleLevel entity) {
         PLDTO dto = new PLDTO();
 
@@ -986,14 +996,14 @@ public class DTOUtil {
         return dtos;
     }
 
-    public static Collection<PLInstanceDTO>  getPuzzleLevelInstance(PuzzleLevel puzzleLevel){
-        Collection<PLInstanceDTO> dtos = new ArrayList<PLInstanceDTO>();
+    public static Collection<ALCityObjectInstanceInPLDTO>  getPuzzleLevelInstance(PuzzleLevel puzzleLevel){
+        Collection<ALCityObjectInstanceInPLDTO> dtos = new ArrayList<ALCityObjectInstanceInPLDTO>();
         Collection<ALCityInstanceInPL> alCityInstanceInPLCollection = puzzleLevel.getPuzzleGroupObjectInstanceCollection();
         Iterator<ALCityInstanceInPL> itr = alCityInstanceInPLCollection.iterator();
 
         while(itr.hasNext()){
             ALCityInstanceInPL pgObjectInstance = itr.next();
-            PLInstanceDTO dto = new PLInstanceDTO();
+            ALCityObjectInstanceInPLDTO dto = new ALCityObjectInstanceInPLDTO();
             dto.setId(pgObjectInstance.getId());
             dto.setVersion(pgObjectInstance.getVersion());
             dto.setCol(pgObjectInstance.getCol());

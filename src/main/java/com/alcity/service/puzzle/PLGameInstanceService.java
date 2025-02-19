@@ -1,8 +1,18 @@
 package com.alcity.service.puzzle;
 
 
+import com.alcity.dto.puzzle.PLDTO;
+import com.alcity.dto.puzzle.PLEventDTO;
+import com.alcity.dto.puzzle.PLGameInstanceDTO;
+import com.alcity.entity.alenum.GameStatus;
+import com.alcity.entity.appmember.AppMember;
 import com.alcity.entity.puzzle.PLGameInstance;
+import com.alcity.entity.puzzle.PuzzleLevel;
+import com.alcity.repository.appmember.AppMemberRepository;
 import com.alcity.repository.puzzle.PLGameInstanceRepository;
+import com.alcity.service.appmember.AppMemberService;
+import com.alcity.utility.DTOUtil;
+import com.alcity.utility.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -20,10 +30,45 @@ public class PLGameInstanceService implements PLGameInstanceRepository {
 
     PLGameInstanceRepository plGameInstanceRepository;
 
+    @Autowired
+    private AppMemberService appMemberService;
+
+    @Autowired
+    private PuzzleLevelService puzzleLevelService;
 
     @Override
     public <S extends PLGameInstance> S save(S entity) {
         return plGameInstanceRepository.save(entity);
+    }
+    public PLGameInstanceDTO updateGameInstanceStatus(PLEventDTO plEventDTO) {
+        Optional<AppMember> appMemberOptional = appMemberService.findById(plEventDTO.getAppMemberId());
+        Optional<PuzzleLevel> puzzleLevelOptional = puzzleLevelService.findById(plEventDTO.getPuzzleLevelId());
+        GameStatus gameStatus = GameStatus.getByTitle(plEventDTO.getEventType());
+        PLGameInstanceDTO instanceDTO = null;
+       switch (gameStatus) {
+            case Playing :  {
+                instanceDTO =startGameInstance(appMemberOptional.get(),puzzleLevelOptional.get(),gameStatus);
+            }
+            case Canceled:
+            case Completed:
+//            case Unknown:
+//            case Not_Started:
+//            case Paused:
+//
+//
+       }
+       return instanceDTO;
+    }
+    public PLGameInstanceDTO startGameInstance(AppMember appMember, PuzzleLevel puzzleLevel, GameStatus gameStatus) {
+        PLGameInstance  gameInstance = new PLGameInstance(appMember,puzzleLevel, DateUtils.getNow(),null,gameStatus,1L,DateUtils.getNow(),DateUtils.getNow(),appMember,appMember);
+        plGameInstanceRepository.save(gameInstance);
+        PLGameInstanceDTO instanceDTO = DTOUtil.getPLGameInstanceDTO(gameInstance);
+        return  instanceDTO;
+    }
+
+    public void updateGameInstanceStatus(AppMember appMember,PuzzleLevel puzzleLevel,GameStatus gameStatus) {
+        PLGameInstance  gameInstance = new PLGameInstance(appMember,puzzleLevel, DateUtils.getNow(),null,gameStatus,1L,DateUtils.getNow(),DateUtils.getNow(),appMember,appMember);
+        plGameInstanceRepository.save(gameInstance);
     }
 
     @Override
