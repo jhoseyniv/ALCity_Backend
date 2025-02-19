@@ -156,16 +156,16 @@ public class PLController {
     @PostMapping("/start-play")
     @CrossOrigin(origins = "*")
     public PLGameInstanceDTO StartGameEvent(@RequestBody PLEventDTO plEventDTO) {
-        PLGameInstanceDTO instanceDTO =  plGameInstanceService.updateGameInstanceStatus(plEventDTO);
+        PLGameInstanceDTO instanceDTO =  plGameInstanceService.startGameInstance(plEventDTO);
         return instanceDTO;
     }
 
     @Operation( summary = "Update Puzzle (Game) Status after change status by user ",  description = "Update Puzzle (Game) Status after change status play by user")
     @PostMapping("/update-play")
     @CrossOrigin(origins = "*")
-    public ALCityResponseObject updateGameEvent(@RequestBody PLEventDTO eventDTO) {
-        ALCityResponseObject response = new ALCityResponseObject();
-        return response;
+    public PLGameInstanceDTO updateGameEvent(@RequestBody PLEventDTO eventDTO) {
+        PLGameInstanceDTO instanceDTO =  plGameInstanceService.updateGameInstanceStatus(eventDTO);
+        return instanceDTO;
     }
 
     @Operation( summary = "Fetch all Rules by a puzzle level Id ",  description = "fetches all Rules for a puzzle level ")

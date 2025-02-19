@@ -1,6 +1,7 @@
 package com.alcity.dto.puzzle;
 
 public class PLEventDTO {
+    private Long id;
     private Long puzzleLevelId;
     private Long appMemberId;
 
@@ -43,7 +44,15 @@ public class PLEventDTO {
     public PLEventDTO() {
     }
 
-    public PLEventDTO(Long puzzleLevelId, Long appMemberId, String eventTime, String eventType) {
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public PLEventDTO(Long id , Long puzzleLevelId, Long appMemberId, String eventTime, String eventType) {
         this.puzzleLevelId = puzzleLevelId;
         this.appMemberId = appMemberId;
         this.eventTime = eventTime;

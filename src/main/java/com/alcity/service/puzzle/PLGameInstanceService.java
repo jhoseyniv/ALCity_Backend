@@ -40,35 +40,34 @@ public class PLGameInstanceService implements PLGameInstanceRepository {
     public <S extends PLGameInstance> S save(S entity) {
         return plGameInstanceRepository.save(entity);
     }
+    public PLGameInstanceDTO startGameInstance(PLEventDTO plEventDTO) {
+
+        Optional<AppMember> appMemberOptional = appMemberService.findById(plEventDTO.getAppMemberId());
+        Optional<PuzzleLevel> puzzleLevelOptional = puzzleLevelService.findById(plEventDTO.getPuzzleLevelId());
+        GameStatus gameStatus = GameStatus.getByTitle(plEventDTO.getEventType());
+        PLGameInstance  gameInstance = new PLGameInstance(appMemberOptional.get(),puzzleLevelOptional.get(), DateUtils.getNow(),null,gameStatus,1L,DateUtils.getNow(),DateUtils.getNow(),appMemberOptional.get(),appMemberOptional.get());
+        plGameInstanceRepository.save(gameInstance);
+        PLGameInstanceDTO instanceDTO = DTOUtil.getPLGameInstanceDTO(gameInstance);
+        return instanceDTO;
+    }
+
+//    public PLGameInstanceDTO startGameInstance(AppMember appMember, PuzzleLevel puzzleLevel, GameStatus gameStatus) {
+//        PLGameInstance  gameInstance = new PLGameInstance(appMember,puzzleLevel, DateUtils.getNow(),null,gameStatus,1L,DateUtils.getNow(),DateUtils.getNow(),appMember,appMember);
+//        plGameInstanceRepository.save(gameInstance);
+//        PLGameInstanceDTO instanceDTO = DTOUtil.getPLGameInstanceDTO(gameInstance);
+//        return  instanceDTO;
+//    }
+
     public PLGameInstanceDTO updateGameInstanceStatus(PLEventDTO plEventDTO) {
         Optional<AppMember> appMemberOptional = appMemberService.findById(plEventDTO.getAppMemberId());
         Optional<PuzzleLevel> puzzleLevelOptional = puzzleLevelService.findById(plEventDTO.getPuzzleLevelId());
         GameStatus gameStatus = GameStatus.getByTitle(plEventDTO.getEventType());
-        PLGameInstanceDTO instanceDTO = null;
-       switch (gameStatus) {
-            case Playing :  {
-                instanceDTO =startGameInstance(appMemberOptional.get(),puzzleLevelOptional.get(),gameStatus);
-            }
-            case Canceled:
-            case Completed:
-//            case Unknown:
-//            case Not_Started:
-//            case Paused:
-//
-//
-       }
-       return instanceDTO;
-    }
-    public PLGameInstanceDTO startGameInstance(AppMember appMember, PuzzleLevel puzzleLevel, GameStatus gameStatus) {
-        PLGameInstance  gameInstance = new PLGameInstance(appMember,puzzleLevel, DateUtils.getNow(),null,gameStatus,1L,DateUtils.getNow(),DateUtils.getNow(),appMember,appMember);
-        plGameInstanceRepository.save(gameInstance);
-        PLGameInstanceDTO instanceDTO = DTOUtil.getPLGameInstanceDTO(gameInstance);
+        Optional<PLGameInstance> plGameInstanceOptional = plGameInstanceRepository.findById(plEventDTO.getId());
+        PLGameInstance plGameInstance = plGameInstanceOptional.get();
+        plGameInstance.setGameStatus(gameStatus);
+        plGameInstanceRepository.save(plGameInstance);
+        PLGameInstanceDTO instanceDTO = DTOUtil.getPLGameInstanceDTO(plGameInstance);
         return  instanceDTO;
-    }
-
-    public void updateGameInstanceStatus(AppMember appMember,PuzzleLevel puzzleLevel,GameStatus gameStatus) {
-        PLGameInstance  gameInstance = new PLGameInstance(appMember,puzzleLevel, DateUtils.getNow(),null,gameStatus,1L,DateUtils.getNow(),DateUtils.getNow(),appMember,appMember);
-        plGameInstanceRepository.save(gameInstance);
     }
 
     @Override
