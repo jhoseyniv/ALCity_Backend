@@ -1,6 +1,7 @@
 package com.alcity.service.puzzle;
 
 import com.alcity.dto.search.ObjectSearchCriteriaDTO;
+import com.alcity.dto.search.SearchResultCityObject;
 import com.alcity.entity.puzzle.ALCityObjectInPG;
 import com.alcity.entity.puzzle.PuzzleGroup;
 import com.alcity.service.customexception.UniqueConstraintException;
@@ -18,6 +19,7 @@ import com.alcity.repository.puzzle.ALCityObjectRepository;
 import com.alcity.repository.appmember.AppMemberRepository;
 import com.alcity.service.alobject.ActionService;
 import com.alcity.utility.DateUtils;
+import com.alcity.utility.PLDTOUtil;
 import com.alcity.utility.ToolBox;
 import org.apache.catalina.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -85,13 +87,15 @@ public class ALCityObjectService implements ALCityObjectRepository {
     public Collection<ALCityObject> findALCityObjectByObjectCategoryAndTitle(ObjectCategory category, String title) {
         return alCityObjectRepository.findALCityObjectByObjectCategoryAndTitle(category,title);
     }
-     public Collection<ALCityObject> searchCityObjectSByCriteria(ObjectSearchCriteriaDTO criteria) {
+     public Collection<SearchResultCityObject> searchCityObjectSByCriteria(ObjectSearchCriteriaDTO criteria) {
         Optional<ObjectCategory> categoryOptional = objectCategoryRepository.findById(criteria.getObjectCategoryId());
         Optional<PuzzleGroup> puzzleGroupOptional = pgService.findById(criteria.getPuzzleGroupdId());
-        Collection<ALCityObject> matchValues=null;
+         Collection<ALCityObject> matchValues=null;
+         Collection<SearchResultCityObject> matchValueDTOS=null;
 
         if(puzzleGroupOptional.isEmpty() && categoryOptional.isEmpty() && (criteria.getTitle().equals("") || criteria.getTitle()==null))
             matchValues = alCityObjectRepository.findAll();
+
             //000
         else if(puzzleGroupOptional.isEmpty() && categoryOptional.isEmpty() && (criteria.getTitle() != null || !criteria.getTitle().equals(""))) {
             //001
@@ -132,9 +136,10 @@ public class ALCityObjectService implements ALCityObjectRepository {
             Collection<ALCityObjectInPG> pgs =  cityObjectInPGService.findByPuzzleGroup(puzzleGroupOptional.get());
              Collection<ALCityObject> list2 = getALCityObjectByPG(pgs);
             matchValues = list1.stream().filter(cityObject ->list2.contains(cityObject)).collect(Collectors.toList());
+            matchValueDTOS = PLDTOUtil.getSearchResultCityObjectsDTOS(matchValues,puzzleGroupOptional.get());
         }
 
-        return matchValues;
+        return matchValueDTOS;
     }
     public Collection<ALCityObject> getALCityObjectByPG(Collection<ALCityObjectInPG> pgs){
         Collection<ALCityObject> objects=new ArrayList<ALCityObject>();
