@@ -41,7 +41,7 @@ public class ALCityInstanceInPLService implements ALCityInstanceInPLRepository {
 
         ALCityInstanceInPL alCityInstanceInPL=null;
             if (code.equalsIgnoreCase("Save")) { //Save
-                alCityInstanceInPL = new ALCityInstanceInPL(dto.getName(), dto.getRow(),dto.getCol(),dto.getzOrder(),alCityObjectInPGOptional.get(),
+                alCityInstanceInPL = new ALCityInstanceInPL(dto.getName(), dto.getRow(),dto.getCol(),dto.getZorder(),alCityObjectInPGOptional.get(),
                         puzzleLevelOptional.get(), 1L, DateUtils.getNow(), DateUtils.getNow(), createdBy, createdBy);
                 repository.save(alCityInstanceInPL);
             }else{//edit
@@ -51,7 +51,7 @@ public class ALCityInstanceInPLService implements ALCityInstanceInPLRepository {
                     alCityInstanceInPL.setName(dto.getName());
                     alCityInstanceInPL.setRow(dto.getRow());
                     alCityInstanceInPL.setCol(dto.getCol());
-                    alCityInstanceInPL.setzOrder(dto.getzOrder());
+                    alCityInstanceInPL.setzOrder(dto.getZorder());
                     alCityInstanceInPL.setAlCityObjectInPG(alCityObjectInPGOptional.get());
                     alCityInstanceInPL.setPuzzleLevel(puzzleLevelOptional.get());
                     repository.save(alCityInstanceInPL);

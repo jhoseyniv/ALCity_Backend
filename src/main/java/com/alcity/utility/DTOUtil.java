@@ -355,7 +355,7 @@ public class DTOUtil {
         dto.setCol(alCityInstanceInPL.getCol());
         dto.setRow(alCityInstanceInPL.getRow());
 
-        dto.setzOrder(alCityInstanceInPL.getzOrder());
+        dto.setZorder(alCityInstanceInPL.getzOrder());
         dto.setAlCityObjectInPGId(alCityInstanceInPL.getAlCityObjectInPG().getId());
         dto.setPuzzleLevelId(alCityInstanceInPL.getPuzzleLevel().getId());
 
