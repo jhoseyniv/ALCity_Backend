@@ -5,7 +5,7 @@ public class CityObjectInPLDTO {
     private String name;
     private Integer row;
     private Integer col;
-    private Integer zorder;
+    private Integer zOrder;
     private Long alCityObjectInPGId;
     private Long puzzleLevelId;
 
@@ -41,12 +41,12 @@ public class CityObjectInPLDTO {
         this.col = col;
     }
 
-    public Integer getZorder() {
-        return zorder;
+    public Integer getzOrder() {
+        return zOrder;
     }
 
-    public void setZorder(Integer zorder) {
-        this.zorder = zorder;
+    public void setzOrder(Integer zOrder) {
+        this.zOrder = zOrder;
     }
 
     public Long getAlCityObjectInPGId() {
@@ -68,12 +68,12 @@ public class CityObjectInPLDTO {
     public CityObjectInPLDTO() {
     }
 
-    public CityObjectInPLDTO(Long id,String name, Integer row, Integer col, Integer zorder, Long alCityObjectInPGId, Long puzzleLevelId) {
+    public CityObjectInPLDTO(Long id,String name, Integer row, Integer col, Integer zOrder, Long alCityObjectInPGId, Long puzzleLevelId) {
         this.id = id;
         this.name = name;
         this.row = row;
         this.col = col;
-        this.zorder = zorder;
+        this.zOrder = zOrder;
         this.alCityObjectInPGId = alCityObjectInPGId;
         this.puzzleLevelId = puzzleLevelId;
     }

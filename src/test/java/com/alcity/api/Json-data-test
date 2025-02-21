@@ -1,3 +1,14 @@
+{
+  "id": 2473,
+  "name": "gggg",
+  "row": 90,
+  "col": 100,
+  "zorder": 101,
+  "alCityObjectInPGId": 2449,
+  "puzzleLevelId": 2458
+}
+
+
 //save an alcity instance in a puzzle level
 {
   "id": 0,
