@@ -2,12 +2,9 @@ package com.alcity.api;
 
 
 import com.alcity.dto.alobject.AttributeDTO;
-import com.alcity.dto.base.BinaryContentDTO;
-import com.alcity.dto.search.ContentSearchCriteriaDTO;
 import com.alcity.dto.search.ObjectSearchCriteriaDTO;
-import com.alcity.dto.search.SearchResultCityObject;
+import com.alcity.dto.search.SearchResultCityObjectDTO;
 import com.alcity.entity.alenum.DataType;
-import com.alcity.entity.base.BinaryContent;
 import com.alcity.utility.PLDTOUtil;
 import com.alcity.entity.alenum.AttributeOwnerType;
 import com.alcity.entity.alobject.Attribute;
@@ -30,7 +27,6 @@ import com.alcity.utility.DTOUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.amqp.RabbitProperties;
 import org.springframework.http.HttpStatus;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -91,11 +87,20 @@ public class ALCityObjectController {
         objectDTOS =PLDTOUtil.getCityObjectsDTOS(objects,actionService,attributeService);
         return objectDTOS;
     }
-     @Operation( summary = "Fetch all AL City Objects by Object Category and puzzle group and search title ",  description = "Fetch all AL City Objects by Object Category and puzzle group and search title")
+    @Operation( summary = "Fetch all AL City Objects by Object Category and puzzle group and search title ",  description = "Fetch all AL City Objects by Object Category and puzzle group and search title")
     @PostMapping("/search")
     @CrossOrigin(origins = "*")
-    public Collection<SearchResultCityObject> getALCityObjectsByCriteria(@RequestBody ObjectSearchCriteriaDTO criteriaDTO) {
-        Collection<SearchResultCityObject> results = objectService.searchCityObjectSByCriteria(criteriaDTO);
+    public Collection<CityObjectDTO> getALCityObjectsByCriteria(@RequestBody ObjectSearchCriteriaDTO criteriaDTO) {
+        Collection<ALCityObject> objects = objectService.searchCityObjectSByCriteria(criteriaDTO);
+        Collection<CityObjectDTO> objectDTOS = new ArrayList<CityObjectDTO>();
+        objectDTOS =PLDTOUtil.getCityObjectsDTOS(objects,actionService,attributeService);
+        return objectDTOS;
+    }
+    @Operation( summary = "Fetch all AL City Objects in a puzzle group by  title and category ",  description = "Fetch all AL City Objects in a puzzle group by  title and category")
+    @PostMapping("/search-in-pg")
+    @CrossOrigin(origins = "*")
+    public Collection<SearchResultCityObjectDTO> getALCityObjectsInAPGByCriteria(@RequestBody ObjectSearchCriteriaDTO criteriaDTO) {
+        Collection<SearchResultCityObjectDTO> results = objectService.searchCityObjectInPGByCriteria(criteriaDTO);
         return results;
     }
 

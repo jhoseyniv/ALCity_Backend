@@ -13,8 +13,8 @@ public interface ALCityObjectRepository extends CrudRepository<ALCityObject,Long
     Optional<ALCityObject> findById(Long id);
     Collection<ALCityObject> findAll();
     Collection<ALCityObject> findALCityObjectByObjectCategory(ObjectCategory category);
-    Collection<ALCityObject> findALCityObjectByTitleContains(String  criteria);
-    Collection<ALCityObject> findALCityObjectByObjectCategoryAndTitle(ObjectCategory category,String title);
+    Collection<ALCityObject> findALCityObjectByTitleIgnoreCaseContains(String  criteria);
+    Collection<ALCityObject> findALCityObjectByObjectCategoryAndTitleIgnoreCase(ObjectCategory category,String title);
     Optional<ALCityObject> findByIcon(BinaryContent icon);
     Optional<ALCityObject> findByPic(BinaryContent pic);
 

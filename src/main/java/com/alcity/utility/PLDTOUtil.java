@@ -4,13 +4,15 @@ import com.alcity.dto.Interpreter.PLData;
 import com.alcity.dto.puzzle.object.ActionDTO;
 import com.alcity.dto.puzzle.object.CityObjectDTO;
 import com.alcity.dto.puzzle.object.PropertyDTO;
-import com.alcity.dto.search.SearchResultCityObject;
+import com.alcity.dto.search.SearchResultCityObjectDTO;
 import com.alcity.entity.alenum.AttributeOwnerType;
 import com.alcity.entity.alenum.POActionOwnerType;
 import com.alcity.entity.alobject.Attribute;
 import com.alcity.entity.alobject.AttributeValue;
 import com.alcity.entity.alobject.ObjectAction;
+import com.alcity.entity.alobject.ObjectCategory;
 import com.alcity.entity.puzzle.ALCityObject;
+import com.alcity.entity.puzzle.ALCityObjectInPG;
 import com.alcity.entity.puzzle.PuzzleGroup;
 import com.alcity.entity.puzzle.PuzzleLevel;
 import com.alcity.service.alobject.AttributeService;
@@ -56,25 +58,23 @@ public class PLDTOUtil {
 
         return dto;
     }
-    public static SearchResultCityObject getSearchResultCityObjectDTO(ALCityObject co, PuzzleGroup puzzleGroup){
-        String puzzleGroupTitle="";
-        Long puzzleGroupId=0L;
-        if(puzzleGroup!=null) {
-            puzzleGroupId = puzzleGroup.getId();
-            puzzleGroupTitle = puzzleGroup.getTitle();
-        }
-        SearchResultCityObject dto= new SearchResultCityObject(co.getId(), co.getTitle(), co.getObjectCategory().getId(),
-                co.getObjectCategory().getLabel(),puzzleGroupId,puzzleGroupTitle,co.getPic().getId(),co.getIcon().getId());
+    public static SearchResultCityObjectDTO getSearchResultCityObjectDTO(ALCityObjectInPG alCityObjectInPG){
+        ALCityObject alCityObject = alCityObjectInPG.getAlCityObject();
+        PuzzleGroup puzzleGroup = alCityObjectInPG.getPuzzleGroup();
+        ObjectCategory  objectCategory= alCityObject.getObjectCategory();
+
+        SearchResultCityObjectDTO dto= new SearchResultCityObjectDTO(alCityObject.getId(), alCityObject.getTitle(), objectCategory.getId(),
+                objectCategory.getLabel(),puzzleGroup.getId(),puzzleGroup.getTitle(),alCityObjectInPG.getId(),alCityObjectInPG.getTitle(), alCityObject.getPic().getId(),alCityObject.getIcon().getId());
 
         return dto;
     }
-    public static  Collection<SearchResultCityObject> getSearchResultCityObjectsDTOS(Collection<ALCityObject> objects, PuzzleGroup puzzleGroup){
-        Collection<SearchResultCityObject> dtos = new ArrayList<SearchResultCityObject>();
-        Iterator<ALCityObject> iterator = objects.iterator();
+    public static  Collection<SearchResultCityObjectDTO> getSearchResultCityObjectsInPGDTOS(Collection<ALCityObjectInPG> objects){
+        Collection<SearchResultCityObjectDTO> dtos = new ArrayList<SearchResultCityObjectDTO>();
+        Iterator<ALCityObjectInPG> iterator = objects.iterator();
         while (iterator.hasNext()) {
-            SearchResultCityObject dto = new SearchResultCityObject();
-            ALCityObject object = iterator.next();
-            dto = getSearchResultCityObjectDTO(object,puzzleGroup);
+            SearchResultCityObjectDTO dto = new SearchResultCityObjectDTO();
+            ALCityObjectInPG object = iterator.next();
+            dto = getSearchResultCityObjectDTO(object);
             dtos.add(dto);
         }
 
