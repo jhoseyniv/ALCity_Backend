@@ -32,6 +32,11 @@ public class AttributeValue extends BaseTable implements Serializable {
 
     @Column(name="ownerId")
     private Long ownerId;
+    @Column(name="binaryContentId")
+    private Long binaryContentId;
+
+    @Column(name="experssion")
+    private String experssion;
 
     @Enumerated(EnumType.ORDINAL)
     private AttributeOwnerType ownerType;
@@ -88,8 +93,13 @@ public class AttributeValue extends BaseTable implements Serializable {
         this.doubleValue = doubleValue;
     }
 
+    public String getExperssion() {
+        return experssion;
+    }
 
-    private Long binaryContentId;
+    public void setExperssion(String experssion) {
+        this.experssion = experssion;
+    }
 
     public Long getBinaryContentId() {
         return binaryContentId;
@@ -144,7 +154,7 @@ public class AttributeValue extends BaseTable implements Serializable {
     public AttributeValue() {
     }
 
-    public AttributeValue(Boolean booleanValue, Integer intValue, Long longValue, String stringValue, String objectValue, Float doubleValue, Long binaryContentId, Attribute bindedAttributeId, Attribute attributeId, Long version, String created, String updated, AppMember createdBy, AppMember updatedBy,Long ownerId ,AttributeOwnerType ownerType) {
+    public AttributeValue(Boolean booleanValue, Integer intValue, Long longValue, String stringValue, String objectValue, Float doubleValue, Long binaryContentId,String experssion, Attribute bindedAttributeId, Attribute attributeId, Long version, String created, String updated, AppMember createdBy, AppMember updatedBy,Long ownerId ,AttributeOwnerType ownerType) {
         super(version, created, updated, createdBy, updatedBy);
         this.booleanValue = booleanValue;
         this.intValue = intValue;
@@ -153,6 +163,7 @@ public class AttributeValue extends BaseTable implements Serializable {
         this.objectValue = objectValue;
         this.doubleValue = doubleValue;
         this.binaryContentId = binaryContentId;
+        this.experssion = experssion;
         this.bindedAttributeId = bindedAttributeId;
         this.attributeId = attributeId;
         this.ownerId = ownerId;

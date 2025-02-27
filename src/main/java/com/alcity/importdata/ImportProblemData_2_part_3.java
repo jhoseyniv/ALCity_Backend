@@ -2,20 +2,6 @@ package com.alcity.importdata;
 
 
 import com.alcity.ObjectManagmentApplication;
-import com.alcity.entity.alenum.AttributeOwnerType;
-import com.alcity.entity.alenum.PLRulePostActionType;
-import com.alcity.entity.alobject.Attribute;
-import com.alcity.entity.alobject.AttributeValue;
-import com.alcity.entity.alobject.ObjectCategory;
-import com.alcity.entity.base.BinaryContent;
-import com.alcity.entity.alenum.DataType;
-import com.alcity.entity.base.PuzzleCategory;
-import com.alcity.entity.journey.Journey;
-import com.alcity.entity.learning.LearningSkill;
-import com.alcity.entity.learning.LearningTopic;
-import com.alcity.entity.puzzle.*;
-import com.alcity.entity.appmember.AppMember;
-import com.alcity.entity.appmember.WalletItem;
 import com.alcity.repository.play.PermitedPlayerRepository;
 import com.alcity.service.Journey.JourneyService;
 import com.alcity.service.alobject.*;
@@ -36,7 +22,6 @@ import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Optional;
 
 
 @Order(value=5)
@@ -126,7 +111,7 @@ public class ImportProblemData_2_part_3 implements CommandLineRunner {
         DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
         String now = current.format(format);
 
-
+/*
         AppMember admin_1 = applicationMemberService.findByUsername("admin");
         AppMember jalalHoseyni = applicationMemberService.findByUsername("jalal");
         AppMember moslemBalavandi = applicationMemberService.findByUsername("moslem");
@@ -416,7 +401,7 @@ public class ImportProblemData_2_part_3 implements CommandLineRunner {
 
         AttributeValue win_rule_PostAction_1_param_5_value= new AttributeValue(null,null,null,"win",null,null,null,win_rule_PostAction_1_param_5,win_rule_PostAction_1_param_5,1L,now,now,admin_1,admin_1,win_rule_PostAction_1_showMessage.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action);
         attributeValueService.save(win_rule_PostAction_1_param_5_value);
-
+*/
     }
 
 }

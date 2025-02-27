@@ -6,6 +6,7 @@ public enum AttributeOwnerType {
     Action_Renderer_Parameter, //ARP
     AlCity_Object,   //AO
     AlCity_Object_Property, //AOP
+    AlCity_Object_Variable, //AOV
     ALCity_Object_In_Puzzle_Group, //AOinPG
     Puzzle_Object_Action_Parameter,//POAP
 

@@ -139,7 +139,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
         Optional<WalletItem> alCoin_100_WalletItem = walletItemService.findByValue("al_coin_100");
         Optional<Journey> journey_1 = journeyService.findByTitle("Journey_1");
 
-        byte[] playGround_image_problem_2 = ImageUtil.getImage("src/main/resources/images/","playGround_2.png");
+/*        byte[] playGround_image_problem_2 = ImageUtil.getImage("src/main/resources/images/","playGround_2.png");
         BinaryContent play_ground_binary_content_2 = new BinaryContent(1L, now, now,admin_1 , admin_1,"puzzle ground for Maze Problem",playGround_image_problem_2.length,playGround_image_problem_2,null,"tag1","","",BinaryContentType.Image);
         binaryContentService.save(play_ground_binary_content_2);
 
@@ -3001,7 +3001,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
         attributeValueService.save(img_16_10_1_bgImage_property_value);
 
 
-
+*/
 
 
 

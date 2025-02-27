@@ -103,7 +103,7 @@ public class DTOUtil {
     }
     public static AttributeValueDTO getAttributeValueDTO(AttributeValue value){
         AttributeValueDTO valueDTO= new AttributeValueDTO(value.getId(),value.getBooleanValue(), value.getLongValue(), value.getDoubleValue(),
-                value.getIntValue(), value.getBinaryContentId() ,
+                value.getIntValue(), value.getBinaryContentId() ,value.getExperssion(),
                 value.getStringValue(),value.getObjectValue(),value.getAttributeId().getId(), value.getOwnerId(), value.getOwnerType().ordinal());
         return valueDTO;
     }
@@ -236,7 +236,7 @@ public class DTOUtil {
                 AttributeValue attValue = new AttributeValue();
                 attValue = itrAttributeValuesIterator.next();
                 AttributeValue newAttributeValue = new AttributeValue(attValue.getBooleanValue(),attValue.getIntValue(),attValue.getLongValue(),attValue.getStringValue(),
-                        attValue.getObjectValue(),attValue.getDoubleValue(),attValue.getBinaryContentId(),newRecord,newRecord,
+                        attValue.getObjectValue(),attValue.getDoubleValue(),attValue.getBinaryContentId(),attValue.getExperssion(),newRecord,newRecord,
                         attValue.getVersion(),attValue.getCreated(),attValue.getUpdated(),attValue.getCreatedBy(),attValue.getUpdatedBy(),attValue.getOwnerId(),attValue.getOwnerType());
 
                 //for log info
@@ -269,7 +269,7 @@ public class DTOUtil {
                 AttributeValue attValue = new AttributeValue();
                 attValue = itrAttributeValuesIterator.next();
                 AttributeValue newAttributeValue = new AttributeValue(attValue.getBooleanValue(),attValue.getIntValue(),attValue.getLongValue(),attValue.getStringValue(),
-                        attValue.getObjectValue(),attValue.getDoubleValue(),attValue.getBinaryContentId(),newRecord,newRecord,
+                        attValue.getObjectValue(),attValue.getDoubleValue(),attValue.getBinaryContentId(),attValue.getExperssion(),newRecord,newRecord,
                         attValue.getVersion(),attValue.getCreated(),attValue.getUpdated(),attValue.getCreatedBy(),attValue.getUpdatedBy(),attValue.getOwnerId(),attValue.getOwnerType());
 
                 //for log info
@@ -811,7 +811,7 @@ public class DTOUtil {
     public static WalletItemDTO getWalletItemDTO(WalletItem wi)  {
         WalletItemTypeDTO walletItemTypeDTO = getWalletItemTypeDTO(wi.getWalletItemType());
          WalletItemDTO walletItemDTO = new WalletItemDTO(wi.getId(), wi.getLabel(), wi.getValue(),wi.getIcon().getId(),
-                wi.getWalletItemType().getValue(),wi.getIcon().getThumbnail(), wi.getVersion(),wi.getCreated(),
+                wi.getWalletItemType().getValue(),walletItemTypeDTO.getCurrency(),wi.getIcon().getThumbnail(), wi.getVersion(),wi.getCreated(),
                 wi.getUpdated(),wi.getCreatedBy().getUsername(),wi.getUpdatedBy().getUsername());
         return walletItemDTO;
     }
@@ -1134,7 +1134,7 @@ public class DTOUtil {
             ruleActionData.setObjectId(plRulePostAction.getObjectId());
             ruleActionData.setVariable(plRulePostAction.getVariable());
             ruleActionData.setValueExperssion(plRulePostAction.getValueExperssion());
-            ruleActionData.setActionType(plRulePostAction.getPlRulePostActionType().toString());
+            ruleActionData.setActionType(plRulePostAction.getPlRulePostActionType().getValue());
             ruleActionData.setAlertMessage(plRulePostAction.getAlertMessage());
             ruleActionData.setAlertType(plRulePostAction.getAlertType());
 
@@ -1179,6 +1179,7 @@ public class DTOUtil {
         if (value.getBinaryContentId()!=null )  return value.getBinaryContentId().toString();
 
         if (value.getStringValue()!=null )     return value.getStringValue();
+        if (value.getExperssion()!=null )     return value.getExperssion();
         if (value.getObjectValue()!=null )     return value.getStringValue();
 
         return "Unknown Value";

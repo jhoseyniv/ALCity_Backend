@@ -7,6 +7,7 @@ public class WalletItemDTO {
     private Long  iconId;
     private byte[] thumbnail;
     private String walletItemType;
+    private Boolean isCurrency;
 
     private Long version;
     private String created;
@@ -102,17 +103,26 @@ public class WalletItemDTO {
         this.iconId = iconId;
     }
 
+    public Boolean getCurrency() {
+        return isCurrency;
+    }
+
+    public void setCurrency(Boolean currency) {
+        isCurrency = currency;
+    }
+
     public WalletItemDTO() {
 
     }
 
-    public WalletItemDTO(Long id, String label, String value, Long iconId, String walletItemType,byte[] thumbnail,
+    public WalletItemDTO(Long id, String label, String value, Long iconId, String walletItemType,Boolean isCurrency,byte[] thumbnail,
                          Long version, String created, String updated, String createdBY, String updatedBy) {
         this.id = id;
         this.label = label;
         this.value = value;
         this.iconId = iconId;
         this.walletItemType = walletItemType;
+        this.isCurrency = isCurrency;
         this.thumbnail =thumbnail;
         this.version = version;
         this.created = created;

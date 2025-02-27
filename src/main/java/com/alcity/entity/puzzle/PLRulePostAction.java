@@ -1,6 +1,6 @@
 package com.alcity.entity.puzzle;
 
-import com.alcity.entity.alenum.PLRulePostActionType;
+import com.alcity.entity.alobject.PLRulePostActionType;
 import com.alcity.entity.base.BaseTable;
 import com.alcity.entity.alobject.RulePostActionEvent;
 import com.alcity.entity.appmember.AppMember;
@@ -66,7 +66,9 @@ public class PLRulePostAction extends BaseTable implements Serializable {
         this.alertMessage = alertMessage;
     }
 
-    @Enumerated(EnumType.ORDINAL)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "pl_rule_post_action_type_id", nullable = false)
+    @JsonIgnore
     private PLRulePostActionType plRulePostActionType;
 
     @OneToMany(mappedBy = "plRulePostAction", fetch = FetchType.LAZY, cascade = CascadeType.ALL)

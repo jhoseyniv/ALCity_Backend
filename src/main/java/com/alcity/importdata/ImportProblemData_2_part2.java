@@ -121,7 +121,7 @@ public class ImportProblemData_2_part2 implements CommandLineRunner {
         DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
         String now = current.format(format);
 
-
+/*
         AppMember admin_1 = applicationMemberService.findByUsername("admin");
         AppMember jalalHoseyni = applicationMemberService.findByUsername("jalal");
         AppMember moslemBalavandi = applicationMemberService.findByUsername("moslem");
@@ -2554,7 +2554,7 @@ public class ImportProblemData_2_part2 implements CommandLineRunner {
         AttributeValue img_19_19_0_locked_variable_value= new AttributeValue(true,null,null,null,null,null,null,img_19_19_0_locked_variable,img_19_19_0_locked_variable,1L,now,now,admin_1,admin_1,img_19_19_0.getId(),AttributeOwnerType.Puzzle_Level_Instance_Variable);
         attributeValueService.save(img_19_19_0_locked_variable_value);
 
-
+*/
 
 
     }

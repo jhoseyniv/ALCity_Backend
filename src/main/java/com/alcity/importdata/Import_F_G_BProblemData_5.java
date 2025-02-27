@@ -213,52 +213,52 @@ public class Import_F_G_BProblemData_5 implements CommandLineRunner {
 
         PLPrivacy privacy_1 = plPrivacyService.findByValue("Public");
 
-        PuzzleLevel pl_F_G_B = new PuzzleLevel(admin_1,now,1L,"Fox-Goose-Bean","4502",14,21,15f,5f,10f,13f,IQ_Puzzle_Group.get(),PLDifficulty.Easy,PLStatus.Active,
-                privacy_1,3L,now,now,admin_1,admin_1);
-        pl_F_G_B.setIcon(pl_pic_F_G_B_content);
-        pl_F_G_B.setPicture(pl_Icon_F_G_B_content);
-        puzzleLevelService.save(pl_F_G_B);
-
-
-        byte[]  F_G_B_Learning_Bytes = ImageUtil.getImage("src/main/resources/images/Fox-Goose-Bean/","F_G_B_Iearning_content.png");
-        BinaryContent F_G_B_learning_content = new BinaryContent(1L, now, now,admin_1 , admin_1,"Fox-Goose-Bean",F_G_B_Learning_Bytes.length,F_G_B_Learning_Bytes,null,"tag1","","",BinaryContentType.Image);
-        binaryContentService.save(F_G_B_learning_content);
-
-        Integer xPos=1;
-        Integer xRotation=0;
-        CameraSetup cameraSetup = new CameraSetup("setup 1",xPos,xPos,xPos,xRotation,xRotation,xRotation,1L,now,now,admin_1,admin_1);
-        cameraSetupService.save(cameraSetup);
-
-
-        PLGround pl_F_G_B_ground = new PLGround(3,4,pl_F_G_B,playGround_F_G_B_content,1L,now,now,admin_1,admin_1);
-        pl_F_G_B_ground.setCameraSetup(cameraSetup);
-        puzzleLevelGroundService.save(pl_F_G_B_ground);
-
-        PermitedPlayer player_1_puzzleLevel_X_O = new PermitedPlayer(Alireza_Zare,pl_F_G_B,1L,now,now,admin_1,admin_1);
-        permitedPlayerRepository.save(player_1_puzzleLevel_X_O);
-
-        LearningContent learningContent_Mathcing=new LearningContent("help to IQ","this content is about F_G_B Games",F_G_B_learning_content,1L,now,now,admin_1,admin_1);
-        learningContentService.save(learningContent_Mathcing);
-
-        LearningSubjectInPL puzzleLevelLearningTopic_1 = new LearningSubjectInPL(pl_F_G_B,X_O_Topic.get(),learningContent_Mathcing,1L,now,now,admin_1,admin_1);
-        plLearningTopicService.save(puzzleLevelLearningTopic_1);
-        Float playScore =8f;
-        Integer stars = ToolBox.getPuzzleLevelStars(playScore,pl_F_G_B.getFirstStarScore(),pl_F_G_B.getSecondStarScore(),pl_F_G_B.getThirdStartScore());
-
-        PlayHistory playHistory_1 = new PlayHistory(Alireza_Zare,pl_F_G_B,now,now,10L,playScore,stars,1L,now,now,Alireza_Zare,Alireza_Zare);
-        playHistory_1.setStars(stars);
-        playHistoryService.save(playHistory_1);
-
-        LearningSkillContent puzzleSkillLearningContent_1 = new LearningSkillContent(matching,IQ_Puzzle_Group.get(),learningContent_Mathcing,1L,now,now,admin_1,admin_1);
-        puzzleSkillLearningContentService.save(puzzleSkillLearningContent_1);
-
-        PLGameInstance puzzleLevelGameInstance= new PLGameInstance(jalalHoseyni,pl_F_G_B,now,now, GameStatus.Playing,1L,now,now,Alireza_Zare,Alireza_Zare);
-        plGameInstanceService.save(puzzleLevelGameInstance);
-
-        StringBuffer  condition_Objective_1 = new StringBuffer("unequal(InstByPos(1, 4),null) & unequal(InstByPos(2, 4),null) & unequal(InstByPos(3, 4),null)");
-
-        PLObjective puzzleLevelObjective_1 = new PLObjective("finished","mission completed",1.5f,2f,condition_Objective_1,matching, alCoin10WalletItem.get(),pl_F_G_B ,1L,now,now,admin_1,admin_1);
-        plObjectiveService.save(puzzleLevelObjective_1);
+//        PuzzleLevel pl_F_G_B = new PuzzleLevel(admin_1,now,1L,"Fox-Goose-Bean","4502",14,21,15f,5f,10f,13f,IQ_Puzzle_Group.get(),PLDifficulty.Easy,PLStatus.Active,
+//                privacy_1,3L,now,now,admin_1,admin_1);
+//        pl_F_G_B.setIcon(pl_pic_F_G_B_content);
+//        pl_F_G_B.setPicture(pl_Icon_F_G_B_content);
+//        puzzleLevelService.save(pl_F_G_B);
+//
+//
+//        byte[]  F_G_B_Learning_Bytes = ImageUtil.getImage("src/main/resources/images/Fox-Goose-Bean/","F_G_B_Iearning_content.png");
+//        BinaryContent F_G_B_learning_content = new BinaryContent(1L, now, now,admin_1 , admin_1,"Fox-Goose-Bean",F_G_B_Learning_Bytes.length,F_G_B_Learning_Bytes,null,"tag1","","",BinaryContentType.Image);
+//        binaryContentService.save(F_G_B_learning_content);
+//
+//        Integer xPos=1;
+//        Integer xRotation=0;
+//        CameraSetup cameraSetup = new CameraSetup("setup 1",xPos,xPos,xPos,xRotation,xRotation,xRotation,1L,now,now,admin_1,admin_1);
+//        cameraSetupService.save(cameraSetup);
+//
+//
+//        PLGround pl_F_G_B_ground = new PLGround(3,4,pl_F_G_B,playGround_F_G_B_content,1L,now,now,admin_1,admin_1);
+//        pl_F_G_B_ground.setCameraSetup(cameraSetup);
+//        puzzleLevelGroundService.save(pl_F_G_B_ground);
+//
+//        PermitedPlayer player_1_puzzleLevel_X_O = new PermitedPlayer(Alireza_Zare,pl_F_G_B,1L,now,now,admin_1,admin_1);
+//        permitedPlayerRepository.save(player_1_puzzleLevel_X_O);
+//
+//        LearningContent learningContent_Mathcing=new LearningContent("help to IQ","this content is about F_G_B Games",F_G_B_learning_content,1L,now,now,admin_1,admin_1);
+//        learningContentService.save(learningContent_Mathcing);
+//
+//        LearningSubjectInPL puzzleLevelLearningTopic_1 = new LearningSubjectInPL(pl_F_G_B,X_O_Topic.get(),learningContent_Mathcing,1L,now,now,admin_1,admin_1);
+//        plLearningTopicService.save(puzzleLevelLearningTopic_1);
+//        Float playScore =8f;
+//        Integer stars = ToolBox.getPuzzleLevelStars(playScore,pl_F_G_B.getFirstStarScore(),pl_F_G_B.getSecondStarScore(),pl_F_G_B.getThirdStartScore());
+//
+//        PlayHistory playHistory_1 = new PlayHistory(Alireza_Zare,pl_F_G_B,now,now,10L,playScore,stars,1L,now,now,Alireza_Zare,Alireza_Zare);
+//        playHistory_1.setStars(stars);
+//        playHistoryService.save(playHistory_1);
+//
+//        LearningSkillContent puzzleSkillLearningContent_1 = new LearningSkillContent(matching,IQ_Puzzle_Group.get(),learningContent_Mathcing,1L,now,now,admin_1,admin_1);
+//        puzzleSkillLearningContentService.save(puzzleSkillLearningContent_1);
+//
+//        PLGameInstance puzzleLevelGameInstance= new PLGameInstance(jalalHoseyni,pl_F_G_B,now,now, GameStatus.Playing,1L,now,now,Alireza_Zare,Alireza_Zare);
+//        plGameInstanceService.save(puzzleLevelGameInstance);
+//
+//        StringBuffer  condition_Objective_1 = new StringBuffer("unequal(InstByPos(1, 4),null) & unequal(InstByPos(2, 4),null) & unequal(InstByPos(3, 4),null)");
+//
+//        PLObjective puzzleLevelObjective_1 = new PLObjective("finished","mission completed",1.5f,2f,condition_Objective_1,matching, alCoin10WalletItem.get(),pl_F_G_B ,1L,now,now,admin_1,admin_1);
+//        plObjectiveService.save(puzzleLevelObjective_1);
 
 
 //        Attribute attribute_variable_Turn =new Attribute("Turn",puzzleLevel_x_o.getId(), AttributeOwnerType.Puzzle_Level_Variable,DataType.String,1L,now,now,admin_1,admin_1);

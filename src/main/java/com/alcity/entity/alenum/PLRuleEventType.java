@@ -1,16 +1,14 @@
 package com.alcity.entity.alenum;
 
 public enum PLRuleEventType  {
-    Click,
-    DoubleClick,
-    StartDrag,
-    EndDrag,
-    Drag,
-    HoldDrag,
+    SystemEvent,
+    UserEvent,
+    ObjectActionEvent,
+    RulePostActionEvent,
     BeforeCellEnter,
     AfterCellEnter,
     Action,
     OnActionComplete,
-    InternalEvent
+
 
 }
