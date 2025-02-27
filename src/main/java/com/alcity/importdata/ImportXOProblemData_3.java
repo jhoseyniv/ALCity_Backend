@@ -176,12 +176,12 @@ public class ImportXOProblemData_3 implements CommandLineRunner {
         Optional<WalletItem> alCoin100WalletItem = walletItemService.findByValue("al_coin_100");
         Optional<WalletItem> alCoin10WalletItem = walletItemService.findByValue("al_coin_10");
 
-        byte[] plGroundImage = ImageUtil.getImage("src/main/resources/images/X-O Problem/","x-o-ground.png");
-        BinaryContent puzzle_ground_binary_content_1 = new BinaryContent(1L, now, now,admin_1 , admin_1,"puzzle ground for X-O Game",plGroundImage.length,plGroundImage,null,"tag1","","",BinaryContentType.Image);
+        byte[] plGroundImage = ImageUtil.getImage("src/main/resources/images/X-O Problem/","x-o-ground.json");
+        BinaryContent puzzle_ground_binary_content_1 = new BinaryContent(1L, now, now,admin_1 , admin_1,"puzzle ground for X-O Game json",plGroundImage.length,plGroundImage,null,"tag1","json","board graphic",BinaryContentType.Image);
         binaryContentService.save(puzzle_ground_binary_content_1);
 
         byte[] pgIcon = ImageUtil.getImage("src/main/resources/images/","puzzle_group_1.png");
-        BinaryContent pgIcon_bc = new BinaryContent(1L, now, now,admin_1 , admin_1,"image_puzzle_group_x-o",pgIcon.length,pgIcon,null,"tag1","","",BinaryContentType.Image);
+        BinaryContent pgIcon_bc = new BinaryContent(1L, now, now,admin_1 , admin_1,"image_puzzle_group_x-o ",pgIcon.length,pgIcon,null,"tag1","","",BinaryContentType.Image);
         binaryContentService.save(pgIcon_bc);
 
         Optional<PuzzleGroup>  IQ_Puzzle_Group =pgService.findByTitle("Hash Image - Puzzle Group 1");
