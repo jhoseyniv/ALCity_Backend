@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Collection;
 import java.util.Optional;
 
 @Service
@@ -30,7 +31,7 @@ public class PLRulePostActionTypeService implements PLRulePostActionTypeReposito
 
     @Override
     public Optional<PLRulePostActionType> findById(Long aLong) {
-        return Optional.empty();
+        return repository.findById(aLong);
     }
 
     @Override
@@ -38,10 +39,6 @@ public class PLRulePostActionTypeService implements PLRulePostActionTypeReposito
         return false;
     }
 
-    @Override
-    public Iterable<PLRulePostActionType> findAll() {
-        return null;
-    }
 
     @Override
     public Iterable<PLRulePostActionType> findAllById(Iterable<Long> longs) {
@@ -76,6 +73,11 @@ public class PLRulePostActionTypeService implements PLRulePostActionTypeReposito
     @Override
     public void deleteAll() {
 
+    }
+
+    @Override
+    public Collection<PLRulePostActionType> findAll() {
+        return repository.findAll();
     }
 
     @Override

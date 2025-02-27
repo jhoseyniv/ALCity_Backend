@@ -101,6 +101,7 @@ public class DTOUtil {
 
         return dto;
     }
+
     public static AttributeValueDTO getAttributeValueDTO(AttributeValue value){
         AttributeValueDTO valueDTO= new AttributeValueDTO(value.getId(),value.getBooleanValue(), value.getLongValue(), value.getDoubleValue(),
                 value.getIntValue(), value.getBinaryContentId() ,value.getExperssion(),
@@ -1059,6 +1060,25 @@ public class DTOUtil {
         }
         return dtos;
     }
+    public static PLRulePostActionTypeDTO getPLRulePostActionTypeDTO(PLRulePostActionType entity) {
+        PLRulePostActionTypeDTO dto = new PLRulePostActionTypeDTO(entity.getId(),entity.getLabel(),entity.getValue(),entity.getSubAction(),1L,entity.getCreated()
+        ,entity.getUpdated());
+
+        return dto;
+    }
+        public static Collection<PLRulePostActionTypeDTO> getPLRulePostActionTypeDTOS(Collection<PLRulePostActionType> rulePostActionTypes){
+        Collection<PLRulePostActionTypeDTO> dtos = new ArrayList<PLRulePostActionTypeDTO>();
+        Iterator<PLRulePostActionType> iterator = rulePostActionTypes.iterator();
+        while(iterator.hasNext()) {
+            PLRulePostActionType rulePostActionType = iterator.next();
+            PLRulePostActionTypeDTO dto = new PLRulePostActionTypeDTO();
+            dto = getPLRulePostActionTypeDTO(rulePostActionType);
+            dtos.add(dto);
+        }
+        return dtos;
+    }
+
+
     public static RendererDTO getActionRendererDTO(Renderer actionRenderer){
            RendererDTO dto = new RendererDTO();
         dto.setId(actionRenderer.getId());
