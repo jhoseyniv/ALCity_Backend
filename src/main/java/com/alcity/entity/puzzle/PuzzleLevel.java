@@ -1,7 +1,6 @@
 package com.alcity.entity.puzzle;
 
 
-import com.alcity.dto.Interpreter.PLData;
 import com.alcity.entity.alenum.PLStatus;
 import com.alcity.entity.alenum.PLDifficulty;
 import com.alcity.entity.base.*;
@@ -249,14 +248,14 @@ public class PuzzleLevel extends BaseTable implements Serializable {
 
     @OneToMany(mappedBy = "puzzleLevel", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JsonIgnore
-    private Collection<LearningSubjectInPL> learningSubjectInPLCollection;
+    private Collection<LearningTopicInPL> learningTopicInPLCollection;
 
-    public Collection<LearningSubjectInPL> getLearningSubjectInPLCollection() {
-        return learningSubjectInPLCollection;
+    public Collection<LearningTopicInPL> getLearningTopicInPLCollection() {
+        return learningTopicInPLCollection;
     }
 
-    public void setLearningSubjectInPLCollection(Collection<LearningSubjectInPL> learningSubjectInPLCollection) {
-        this.learningSubjectInPLCollection = learningSubjectInPLCollection;
+    public void setLearningTopicInPLCollection(Collection<LearningTopicInPL> learningTopicInPLCollection) {
+        this.learningTopicInPLCollection = learningTopicInPLCollection;
     }
 
     @OneToMany(mappedBy = "puzzleLevel", fetch = FetchType.LAZY, cascade = CascadeType.ALL)

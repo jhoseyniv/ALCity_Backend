@@ -234,7 +234,7 @@ public class ImportMemoryGameProblemData_4 implements CommandLineRunner {
         LearningContent learningContent_memory=new LearningContent("help to Memory","this content is about Memory Games",pg_Memory_Game_learning_content,1L,now,now,admin_1,admin_1);
         learningContentService.save(learningContent_memory);
 
-        LearningSubjectInPL pllLearningTopic_1 = new LearningSubjectInPL(pl_Memory_Game,Memory_Game_Topic.get(),learningContent_memory,1L,now,now,admin_1,admin_1);
+        LearningTopicInPL pllLearningTopic_1 = new LearningTopicInPL(pl_Memory_Game,Memory_Game_Topic.get(),learningContent_memory,1L,now,now,admin_1,admin_1);
         plLearningTopicService.save(pllLearningTopic_1);
 
         Float playScore =1f;

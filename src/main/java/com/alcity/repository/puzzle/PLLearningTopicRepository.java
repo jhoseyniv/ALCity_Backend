@@ -1,14 +1,14 @@
 package com.alcity.repository.puzzle;
 
-import com.alcity.entity.puzzle.LearningSubjectInPL;
+import com.alcity.entity.puzzle.LearningTopicInPL;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.Collection;
 import java.util.Optional;
 
-public interface PLLearningTopicRepository extends CrudRepository<LearningSubjectInPL,Long> {
+public interface PLLearningTopicRepository extends CrudRepository<LearningTopicInPL,Long> {
 
-    Optional<LearningSubjectInPL> findById(Long id);
-    Collection<LearningSubjectInPL> findAll();
+    Optional<LearningTopicInPL> findById(Long id);
+    Collection<LearningTopicInPL> findAll();
 
 }

@@ -232,7 +232,7 @@ public class ImportHashImageProblemData_1 implements CommandLineRunner {
         LearningContent learningContent_Division=new LearningContent("help to math","this content is about hash images",puzzle_group_Hash_Image_binary_content,1L,now,now,admin_1,admin_1);
         learningContentService.save(learningContent_Division);
 
-        LearningSubjectInPL puzzleLevelLearningTopic_1 = new LearningSubjectInPL(puzzleLevel_hashimage,hashImage_Topic.get(),learningContent_Division,1L,now,now,admin_1,admin_1);
+        LearningTopicInPL puzzleLevelLearningTopic_1 = new LearningTopicInPL(puzzleLevel_hashimage,hashImage_Topic.get(),learningContent_Division,1L,now,now,admin_1,admin_1);
         plLearningTopicService.save(puzzleLevelLearningTopic_1);
         Float playScore =14f;
         Integer stars = ToolBox.getPuzzleLevelStars(playScore,puzzleLevel_hashimage.getFirstStarScore(),puzzleLevel_hashimage.getSecondStarScore(),puzzleLevel_hashimage.getThirdStartScore());

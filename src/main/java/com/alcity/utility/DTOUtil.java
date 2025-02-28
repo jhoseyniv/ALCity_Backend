@@ -514,45 +514,42 @@ public class DTOUtil {
         }
         return output;
     }
+  public static Pl_LearningTopicDTO getPl_LearningTopicDTO(LearningTopicInPL entity){
+        Pl_LearningTopicDTO dto = new Pl_LearningTopicDTO();
+        PuzzleLevel puzzleLevel = entity.getPuzzleLevel();
+        LearningTopic learningTopic = entity.getLearningTopic();
+        LearningContent learningContent = entity.getLearningContent();
+        BinaryContent binaryContent = learningContent.getBinaryContent();
 
+        dto.setId(entity.getId());
+        dto.setPuzzleLevelId(puzzleLevel.getId());
+        dto.setPuzzleLevelTitle(puzzleLevel.getTitle());
 
-    public static Collection<PuzzleLevel_LearningTopicDTO> getPuzzleLevel_LearningTopicDTOS(PuzzleLevel puzzleLevel) {
-        Collection<PuzzleLevel_LearningTopicDTO> pl_ltDTOCollection = new ArrayList<PuzzleLevel_LearningTopicDTO>();
-        Collection<LearningSubjectInPL> pl_learningTopicCollection = puzzleLevel.getLearningSubjectInPLCollection();
-        Iterator<LearningSubjectInPL> itr_learningTopics = pl_learningTopicCollection.iterator();
-        while(itr_learningTopics.hasNext()) {
-            LearningSubjectInPL pl_learningTopic = itr_learningTopics.next();
-            PuzzleLevel_LearningTopicDTO pl_learningTopicDTO = new PuzzleLevel_LearningTopicDTO();
-            LearningTopicDTO learningTopicDTO = new LearningTopicDTO();
-            LearningContentDTO learningContentDTO = new LearningContentDTO();
+        dto.setLearningTopicId(learningTopic.getId());
+        dto.setLearningTopicTitle(learningTopic.getTitle());
 
-            pl_learningTopicDTO.setId(pl_learningTopic.getId());
-            pl_learningTopicDTO.setVersion(pl_learningTopic.getVersion());
-            pl_learningTopicDTO.setUpdated(pl_learningTopic.getUpdated());
-            pl_learningTopicDTO.setCreated(pl_learningTopic.getCreated());
+        dto.setLearningContentId(learningContent.getId());
+        dto.setLearningContentDescBrief(learningContent.getDescBrief());
+        dto.setLearningContentDescText(learningContent.getDescText());
 
-            learningTopicDTO.setId(pl_learningTopic.getLearningTopic().getId());
-            learningTopicDTO.setTitle(pl_learningTopic.getLearningTopic().getTitle());
-            learningTopicDTO.setVersion(pl_learningTopic.getLearningTopic().getVersion());
-            learningTopicDTO.setCreated(pl_learningTopic.getLearningTopic().getCreated());
-            learningTopicDTO.setUpdated(pl_learningTopic.getLearningTopic().getUpdated());
-            pl_learningTopicDTO.setLearningTopicDTO(learningTopicDTO);
+        dto.setBinaryContentId(binaryContent.getId());
+        dto.setLearningContentFileName(binaryContent.getFileName());
 
-            learningContentDTO.setId(pl_learningTopic.getLearningContent().getId());
-            learningContentDTO.setVersion(pl_learningTopic.getLearningContent().getVersion());
-            learningContentDTO.setCreated(pl_learningTopic.getLearningContent().getCreated());
-            learningContentDTO.setUpdated(pl_learningTopic.getLearningContent().getUpdated());
+        return dto;
+    }
 
-            learningContentDTO.setDescText(pl_learningTopic.getLearningContent().getDescText());
-            learningContentDTO.setDescBrief(pl_learningTopic.getLearningContent().getDescBrief());
-
-            pl_learningTopicDTO.setLearningContentDTO(learningContentDTO);
-
-
-            pl_ltDTOCollection.add(pl_learningTopicDTO);
+    public static Collection<Pl_LearningTopicDTO> getPl_LearningTopicDTOS(PuzzleLevel puzzleLevel) {
+        Collection<Pl_LearningTopicDTO> dtos = new ArrayList<Pl_LearningTopicDTO>();
+        Collection<LearningTopicInPL> pl_learningTopicCollection = puzzleLevel.getLearningTopicInPLCollection();
+        Iterator<LearningTopicInPL> itr = pl_learningTopicCollection.iterator();
+        Pl_LearningTopicDTO dto = new Pl_LearningTopicDTO();
+        while(itr.hasNext()) {
+            LearningTopicInPL pl_learningTopic = itr.next();
+            dto = getPl_LearningTopicDTO(pl_learningTopic);
+            dtos.add(dto);
         }
 
-        return pl_ltDTOCollection;
+        return dtos;
     }
 
     public static Collection<BinaryContentDTO> getBinaryContentsWithoutContent(Collection<BinaryContent> input) {

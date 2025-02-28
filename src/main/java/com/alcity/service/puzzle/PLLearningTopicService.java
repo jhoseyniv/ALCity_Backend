@@ -1,6 +1,6 @@
 package com.alcity.service.puzzle;
 
-import com.alcity.entity.puzzle.LearningSubjectInPL;
+import com.alcity.entity.puzzle.LearningTopicInPL;
 import com.alcity.repository.puzzle.PLLearningTopicRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -19,17 +19,17 @@ public class PLLearningTopicService implements PLLearningTopicRepository {
 
     PLLearningTopicRepository plLearningTopicRepository;
     @Override
-    public <S extends LearningSubjectInPL> S save(S entity) {
+    public <S extends LearningTopicInPL> S save(S entity) {
         return plLearningTopicRepository.save(entity);
     }
 
     @Override
-    public <S extends LearningSubjectInPL> Iterable<S> saveAll(Iterable<S> entities) {
+    public <S extends LearningTopicInPL> Iterable<S> saveAll(Iterable<S> entities) {
         return null;
     }
 
     @Override
-    public Optional<LearningSubjectInPL> findById(Long id) {
+    public Optional<LearningTopicInPL> findById(Long id) {
         return Optional.empty();
     }
 
@@ -39,12 +39,12 @@ public class PLLearningTopicService implements PLLearningTopicRepository {
     }
 
     @Override
-    public Collection<LearningSubjectInPL> findAll() {
+    public Collection<LearningTopicInPL> findAll() {
         return null;
     }
 
     @Override
-    public Iterable<LearningSubjectInPL> findAllById(Iterable<Long> longs) {
+    public Iterable<LearningTopicInPL> findAllById(Iterable<Long> longs) {
         return null;
     }
 
@@ -59,7 +59,7 @@ public class PLLearningTopicService implements PLLearningTopicRepository {
     }
 
     @Override
-    public void delete(LearningSubjectInPL entity) {
+    public void delete(LearningTopicInPL entity) {
 
     }
 
@@ -69,7 +69,7 @@ public class PLLearningTopicService implements PLLearningTopicRepository {
     }
 
     @Override
-    public void deleteAll(Iterable<? extends LearningSubjectInPL> entities) {
+    public void deleteAll(Iterable<? extends LearningTopicInPL> entities) {
 
     }
 
