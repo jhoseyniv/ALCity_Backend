@@ -54,7 +54,7 @@ public class ALObjectController {
     }
 
     @Operation( summary = "Fetch All Object actions ",  description = "fetches All actions that an Object can have in the al city ")
-    @GetMapping("/action/all")
+    @GetMapping("/actions/all")
     @CrossOrigin(origins = "*")
     public ObjectActionType[] getObjectActions(Model model) {
         return ObjectActionType.values();

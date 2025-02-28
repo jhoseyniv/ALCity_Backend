@@ -196,11 +196,11 @@ public class InterpreterController {
     @Autowired
     ActionService puzzleObjectActionService;
     public Collection<ActionData> getActionsDTOForALCityObjectInPG(ALCityObjectInPG alCityObjectInPG){
-        Collection<ActionData> actionDataCollection = new ArrayList<ActionData>();
-        Collection<ObjectAction> actionsCollection = new ArrayList<ObjectAction>();
-        actionsCollection = puzzleObjectActionService.findActionsForALCityObjectInPG(alCityObjectInPG);
+        Collection<ActionData> actionsData = new ArrayList<ActionData>();
+        Collection<ObjectAction> actions = new ArrayList<ObjectAction>();
+        actions = puzzleObjectActionService.findActionsForALCityObjectInPG(alCityObjectInPG);
 
-        Iterator<ObjectAction> iterator = actionsCollection.iterator();
+        Iterator<ObjectAction> iterator = actions.iterator();
         while(iterator.hasNext()) {
             ObjectAction puzzleObjectAction = iterator.next();
             ObjectActionType objectAction = puzzleObjectAction.getObjectAction();
@@ -213,10 +213,10 @@ public class InterpreterController {
             objectActionData.setHandler(puzzleObjectAction.getActionRenderer().getHandler());
             objectActionData.setParameters(parametersData);
 
-            actionDataCollection.add(objectActionData);
+            actionsData.add(objectActionData);
         }
 
-        return actionDataCollection;
+        return actionsData;
     }
 
 }

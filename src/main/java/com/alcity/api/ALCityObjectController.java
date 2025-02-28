@@ -158,7 +158,7 @@ public class ALCityObjectController {
     }
 
     @Operation( summary = "Fetch all actions for an al city object ",  description = "Fetch all actions for an al city object")
-    @RequestMapping(value = "/id/{id}/actions", method = RequestMethod.GET)
+    @RequestMapping(value = "/id/{id}/actions/all", method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin(origins = "*")
     public Collection<ActionDTO> getALCityObjectActions(@PathVariable Long id) {

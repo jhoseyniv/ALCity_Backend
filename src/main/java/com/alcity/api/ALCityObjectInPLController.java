@@ -1,16 +1,20 @@
 package com.alcity.api;
 
 
+import com.alcity.dto.Interpreter.object.ActionData;
 import com.alcity.dto.Interpreter.object.RecordData;
 import com.alcity.dto.alobject.AttributeDTO;
 import com.alcity.dto.puzzle.CityObjectInPGDTO;
 import com.alcity.dto.puzzle.CityObjectInPLDTO;
 import com.alcity.dto.puzzle.PLRuleDTO;
 import com.alcity.entity.alenum.AttributeOwnerType;
+import com.alcity.entity.alenum.POActionOwnerType;
 import com.alcity.entity.alobject.Attribute;
+import com.alcity.entity.alobject.ObjectAction;
 import com.alcity.entity.puzzle.ALCityInstanceInPL;
 import com.alcity.entity.puzzle.ALCityObjectInPG;
 import com.alcity.entity.puzzle.PuzzleLevel;
+import com.alcity.service.alobject.ActionService;
 import com.alcity.service.alobject.AttributeService;
 import com.alcity.service.customexception.ALCityResponseObject;
 import com.alcity.service.customexception.UniqueConstraintException;
@@ -40,6 +44,9 @@ public class ALCityObjectInPLController {
 
     @Autowired
     private AttributeService attributeService;
+
+    @Autowired
+    ActionService puzzleObjectActionService;
 
     @Operation( summary = "Add an AL City Object Instance to a Puzzle Level ",  description = "Add an AL City Object Instance to a Puzzle Level ")
     @PostMapping("/save")
@@ -78,7 +85,19 @@ public class ALCityObjectInPLController {
         CityObjectInPLDTO cityObjectInPLDTO = DTOUtil.getALCityObjectInPLDTO(alCityInstanceInPLOptional.get());
         return  cityObjectInPLDTO;
     }
-    @Operation( summary = "Fetch all variables for an alcity object instance in a puzzle level by instance Id ",  description = "Fetch all properties for an alcity object instance ")
+    @Operation( summary = "Fetch all actions for an alcity object instance in a puzzle level by instance Id ",  description = "Fetch all actions for an alcity object instance ")
+    @RequestMapping(value = "/id/{id}/actions/all", method = RequestMethod.GET)
+    @ResponseBody
+    @CrossOrigin(origins = "*")
+    public Collection<ActionData> getAllActionsForAnALCityInstanceInPuzzleLevelById(@PathVariable Long id) {
+        Collection<ActionData> actionsData = new ArrayList<ActionData>();
+        Collection<ObjectAction> actions = new ArrayList<ObjectAction>();
+        actions = puzzleObjectActionService.findByOwnerObjectidAndPoActionOwnerType(id, POActionOwnerType.Puzzle_Level_Instance);
+        actionsData = DTOUtil.getObjectActionDTOS(actions);
+        return  actionsData;
+    }
+
+    @Operation( summary = "Fetch all variables for an alcity object instance in a puzzle level by instance Id ",  description = "Fetch all variables for an alcity object instance ")
     @RequestMapping(value = "/id/{id}/variables/all", method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin(origins = "*")

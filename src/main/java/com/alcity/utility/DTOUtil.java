@@ -1,5 +1,6 @@
 package com.alcity.utility;
 
+import com.alcity.dto.Interpreter.object.ActionData;
 import com.alcity.dto.puzzle.CameraSetupDTO;
 import com.alcity.dto.Interpreter.PLObjectiveData;
 import com.alcity.dto.Interpreter.object.RecordData;
@@ -378,6 +379,23 @@ public class DTOUtil {
         }
         return dtos;
 
+    }
+
+    public static ActionData getActionDTO(ObjectAction input) {
+        ActionData dto = new ActionData();
+        dto.setId(input.getId());
+        dto.setActionName(input.getObjectAction());
+        dto.setHandler(input.getActionRenderer().getHandler());
+        return dto;
+    }
+    public static Collection<ActionData> getObjectActionDTOS(Collection<ObjectAction> input) {
+        Collection<ActionData> dtos = new ArrayList<ActionData>();
+        Iterator<ObjectAction> itr = input.iterator();
+        while (itr.hasNext()) {
+            ActionData dto = getActionDTO(itr.next());
+            dtos.add(dto);
+        }
+        return dtos;
     }
 
     public static Collection<PGDTO> getPuzzleGroupDTOS(Collection<PuzzleGroup> input) {
