@@ -57,11 +57,11 @@ public class InterpreterController {
         PLData plData = new PLData();
         if(puzzleLevelOptional.isPresent()){
             PuzzleLevel puzzleLevel = puzzleLevelOptional.get();
-        //    if(puzzleLevel.getInterpreterFile()!=null)
-          //      plData = PLDTOUtil.getInterpreterJSON(puzzleLevel.getInterpreterFile());
-            //else {
+            if(puzzleLevel.getInterpreterFile()!=null)
+                plData = PLDTOUtil.getInterpreterJSON(puzzleLevel.getInterpreterFile());
+            else {
                 plData = getJsonFile(id);
-           // }
+            }
         }
         return plData;
     }
@@ -127,17 +127,17 @@ public class InterpreterController {
         Iterator<ALCityInstanceInPL> iterator = InstanceCollection.iterator();
         Integer zorder =1;
         while(iterator.hasNext()) {
-            ALCityInstanceInPL puzzleGroupObjectInstance = iterator.next();
-            if( puzzleGroupObjectInstance.getzOrder()!=0 &&  puzzleGroupObjectInstance.getzOrder()!=null)
-                zorder = puzzleGroupObjectInstance.getzOrder();
+            ALCityInstanceInPL alCityInstanceInPL = iterator.next();
+            if( alCityInstanceInPL.getzOrder()!=0 &&  alCityInstanceInPL.getzOrder()!=null)
+                zorder = alCityInstanceInPL.getzOrder();
             InstanceData objectInstanceData = new InstanceData();
-            objectInstanceData.setId(puzzleGroupObjectInstance.getId());
-            objectInstanceData.setName(puzzleGroupObjectInstance.getName());
-            Position instancePostion = new Position(puzzleGroupObjectInstance.getRow() , puzzleGroupObjectInstance.getCol(),zorder);
+            objectInstanceData.setId(alCityInstanceInPL.getId());
+            objectInstanceData.setName(alCityInstanceInPL.getName());
+            Position instancePostion = new Position(alCityInstanceInPL.getRow() , alCityInstanceInPL.getCol(),zorder);
             objectInstanceData.setPosition(instancePostion);
 
-            Collection<RecordData> properties = DTOUtil.getAttributeForOwnerById(attributeService,puzzleGroupObjectInstance.getId(),AttributeOwnerType.Puzzle_Level_Instance_Property);
-            Collection<RecordData>  variables = DTOUtil.getAttributeForOwnerById(attributeService,puzzleGroupObjectInstance.getId(),AttributeOwnerType.Puzzle_Level_Instance_Variable);
+            Collection<RecordData> properties = DTOUtil.getAttributeForOwnerById(attributeService,alCityInstanceInPL.getId(),AttributeOwnerType.Puzzle_Level_Instance_Property);
+            Collection<RecordData>  variables = DTOUtil.getAttributeForOwnerById(attributeService,alCityInstanceInPL.getId(),AttributeOwnerType.Puzzle_Level_Instance_Variable);
 
             objectInstanceData.setProperties(properties);
             objectInstanceData.setVariables(variables);
