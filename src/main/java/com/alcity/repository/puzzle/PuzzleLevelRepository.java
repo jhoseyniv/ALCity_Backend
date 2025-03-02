@@ -12,7 +12,7 @@ public interface PuzzleLevelRepository  extends CrudRepository<PuzzleLevel,Long>
     Optional<PuzzleLevel> findById(Long id);
     Collection<PuzzleLevel> findAll();
     Collection<PuzzleLevel> findByTitle(String title);
-    PuzzleLevel findByCode(String code);
+    Optional<PuzzleLevel> findByCode(String code);
     Optional<PuzzleLevel>  findByPicture(BinaryContent pic);
 
     Optional<PuzzleLevel>  findByIcon(BinaryContent icon);

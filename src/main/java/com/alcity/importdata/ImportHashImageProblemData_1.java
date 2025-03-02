@@ -382,18 +382,18 @@ public class ImportHashImageProblemData_1 implements CommandLineRunner {
         Attribute alCityAttribute_bgImage_0 =new Attribute("bgImage",instance_img0.getId(),AttributeOwnerType.Puzzle_Level_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(alCityAttribute_bgImage_0);
 
-        AttributeValue alCityAttributeValue_binary_0= new AttributeValue(null,null,image_0_Instance_content.getId(),null,null,null,null,null,alCityAttribute_bgImage_0,alCityAttribute_bgImage_0,1L,now,now,admin_1,admin_1,instance_img0.getId(),AttributeOwnerType.Puzzle_Level_Instance_Property);
+        AttributeValue alCityAttributeValue_binary_0= new AttributeValue(null,null,null,null,null,null,image_0_Instance_content.getId(),null,alCityAttribute_bgImage_0,alCityAttribute_bgImage_0,1L,now,now,admin_1,admin_1,instance_img0.getId(),AttributeOwnerType.Puzzle_Level_Instance_Property);
 
         Attribute alCityAttribute_bgImage_1 =new Attribute("bgImage",instance_img1.getId(),AttributeOwnerType.Puzzle_Level_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(alCityAttribute_bgImage_1);
 
-        AttributeValue alCityAttributeValue_binary_1= new AttributeValue(null,null,image_1_Instance_content.getId(),null,null,null,null,null,alCityAttribute_bgImage_1,alCityAttribute_bgImage_1,1L,now,now,admin_1,admin_1,instance_img1.getId(),AttributeOwnerType.Puzzle_Level_Instance_Property);
+        AttributeValue alCityAttributeValue_binary_1= new AttributeValue(null,null,null,null,null,null,image_1_Instance_content.getId(),null,alCityAttribute_bgImage_1,alCityAttribute_bgImage_1,1L,now,now,admin_1,admin_1,instance_img1.getId(),AttributeOwnerType.Puzzle_Level_Instance_Property);
 
 
         Attribute alCityAttribute_bgImage_2 =new Attribute("bgImage",instance_img2.getId(),AttributeOwnerType.Puzzle_Level_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(alCityAttribute_bgImage_2);
 
-        AttributeValue alCityAttributeValue_binary_2= new AttributeValue(null,null,image_2_Instance_content.getId(),null,null,null,null,null,alCityAttribute_bgImage_2,alCityAttribute_bgImage_2,1L,now,now,admin_1,admin_1,instance_img2.getId(),AttributeOwnerType.Puzzle_Level_Instance_Property);
+        AttributeValue alCityAttributeValue_binary_2= new AttributeValue(null,null,null,null,null,null,image_2_Instance_content.getId(),null,alCityAttribute_bgImage_2,alCityAttribute_bgImage_2,1L,now,now,admin_1,admin_1,instance_img2.getId(),AttributeOwnerType.Puzzle_Level_Instance_Property);
 
         Attribute alCityAttribute_bgImage_3 =new Attribute("bgImage",instance_img3.getId(),AttributeOwnerType.Puzzle_Level_Instance_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(alCityAttribute_bgImage_3);

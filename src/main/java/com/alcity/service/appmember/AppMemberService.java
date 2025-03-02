@@ -1,5 +1,6 @@
 package com.alcity.service.appmember;
 
+import com.alcity.dto.RemoteAccess.RemoteAccessDTO;
 import com.alcity.dto.appmember.*;
 import com.alcity.dto.journey.RoadMapDTO;
 import com.alcity.dto.player.PlayHistoryDTO;
@@ -305,8 +306,28 @@ public class AppMemberService implements AppMemberRepository, CustomizedUserRepo
         BinaryContent icon=null;
         AppMember guest=null;
         Integer age = DateUtils.calculateAgeFromJalali(bornYear);
-            icon = binaryContentRepository.findByfileName("no_photo_avatar");
+        icon = binaryContentRepository.findByfileName("no_photo_avatar");
         guest = new AppMember(age,"Guest", "Guest", "Guest", "","",icon,UserGender.Unknow ,memberType
+                ,1L, DateUtils.getNow(), DateUtils.getNow(), createdBy, createdBy);
+        appMemberRepository.save(guest);
+        String UniqueUserName= guest.getUsername() + guest.getId();
+        guest.setUsername(UniqueUserName);
+        appMemberRepository.save(guest);
+        return guest;
+    }
+    public AppMember findRemoteUser(RemoteAccessDTO remoteAccessDTO) {
+
+
+        return  null;
+    }
+        public AppMember saveRemoteUser(RemoteAccessDTO accessDTO) {
+        AppMember createdBy = appMemberRepository.findByUsername("admin");
+        MemberType memberType = memberTypeRepository.findByValue("Guest").get();
+        BinaryContent icon=null;
+        AppMember guest=null;
+        Integer age = DateUtils.calculateAgeFromJalali(accessDTO.birthYear);
+        icon = binaryContentRepository.findByfileName("no_photo_avatar");
+        guest = new AppMember(age,accessDTO.getRemoteHost() + "-" + accessDTO.getRemoteUserName(), "Guest", "Guest", "","",icon,UserGender.Unknow ,memberType
                 ,1L, DateUtils.getNow(), DateUtils.getNow(), createdBy, createdBy);
         appMemberRepository.save(guest);
         String UniqueUserName= guest.getUsername() + guest.getId();

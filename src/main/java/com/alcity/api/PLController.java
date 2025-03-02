@@ -2,7 +2,6 @@ package com.alcity.api;
 
 import com.alcity.dto.Interpreter.PLData;
 import com.alcity.dto.Interpreter.object.RecordData;
-import com.alcity.dto.learning.LearningTopicDTO;
 import com.alcity.entity.alenum.AttributeOwnerType;
 import com.alcity.entity.alobject.Attribute;
 import com.alcity.entity.appmember.AppMember;
