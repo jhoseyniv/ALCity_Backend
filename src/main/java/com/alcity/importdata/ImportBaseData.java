@@ -572,7 +572,7 @@ public class ImportBaseData implements CommandLineRunner {
 
         Attribute showImage_ActionRenderer_param_1 =new Attribute("img",showImage_Renderer.getId(),AttributeOwnerType.Action_Renderer_Parameter,DataType.Experssion,1L,now,now,admin_1,admin_1);
         attributeService.save(showImage_ActionRenderer_param_1);
-        AttributeValue showImage_ActionRenderer_param_1_value= new AttributeValue(null,null,null,null,null,null,null,"InstProp(CurrentInst(), image)",showImage_ActionRenderer_param_1,showImage_ActionRenderer_param_1,1L,now,now,admin_1,admin_1,showImage_Renderer.getId(),AttributeOwnerType.Action_Renderer_Parameter);
+        AttributeValue showImage_ActionRenderer_param_1_value= new AttributeValue(null,null,null,null,null,null,null,"InstProp(CurrentInst(), bgImage)",showImage_ActionRenderer_param_1,showImage_ActionRenderer_param_1,1L,now,now,admin_1,admin_1,showImage_Renderer.getId(),AttributeOwnerType.Action_Renderer_Parameter);
         attributeValueService.save(showImage_ActionRenderer_param_1_value);
 
 
