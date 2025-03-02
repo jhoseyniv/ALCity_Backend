@@ -198,8 +198,8 @@ public class ImportHashImageProblemData_1 implements CommandLineRunner {
         Optional<PuzzleGroup> puzzleGroup_HashImage2 = puzzleGroupService.findByTitle("Maze Image - Puzzle Group 2");
 
         JourneyStep step_1_journey_1 = new JourneyStep("step1_journey_1",1,20,20,journey_1.get(),puzzleGroup_HashImage.get(),1L,now,now,admin_1,admin_1);
-        JourneyStep step_2_journey_1 = new JourneyStep("step2_journey_1",1,30,30,journey_1.get(),puzzleGroup_IQ.get(),1L,now,now,admin_1,admin_1);
-        JourneyStep step_1_journey_2 = new JourneyStep("step1_journey_2",1,40,40,journey_2.get(),puzzleGroup_IQ.get(),1L,now,now,admin_1,admin_1);
+        JourneyStep step_2_journey_1 = new JourneyStep("step2_journey_1",2,100,100,journey_1.get(),puzzleGroup_IQ.get(),1L,now,now,admin_1,admin_1);
+        JourneyStep step_1_journey_2 = new JourneyStep("step1_journey_2",3,200,200,journey_2.get(),puzzleGroup_IQ.get(),1L,now,now,admin_1,admin_1);
         journeyStepService.save(step_1_journey_1);
         journeyStepService.save(step_2_journey_1);
         journeyStepService.save(step_1_journey_2);

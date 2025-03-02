@@ -518,7 +518,7 @@ public class ImportBaseData implements CommandLineRunner {
         journeyService.save(journey_3);
 
         RoadMap roadMap1=new RoadMap(100,100,image_journey_1,journey_1,1L,now,now,jalalHoseyni,jalalHoseyni);
-        RoadMap roadMap2=new RoadMap(300,100,image_journey_2,journey_1,1L,now,now,jalalHoseyni,jalalHoseyni);
+        RoadMap roadMap2=new RoadMap(300,300,image_journey_2,journey_1,1L,now,now,jalalHoseyni,jalalHoseyni);
         roadMapService.save(roadMap1);
         roadMapService.save(roadMap2);
 
