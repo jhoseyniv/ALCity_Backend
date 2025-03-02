@@ -698,7 +698,7 @@ public class ImportBaseData implements CommandLineRunner {
 //        DTOUtil.copyAttributesActionFromTo(move_Renderer.getId(),ImageObject01_Move_Action.getId(),AttributeOwnerType.Action_Renderer_Parameter,AttributeOwnerType.AlCity_Object,
 //                attributeService,attributeValueService);
 
-        ObjectAction ImageObject01_Show_Action = new ObjectAction(POActionOwnerType.ALCity_Object,ImageObject01.getId(), ObjectActionType.Show,showImage_Renderer,1L,now,now,admin_1,admin_1);
+        ObjectAction ImageObject01_Show_Action = new ObjectAction(POActionOwnerType.ALCity_Object,ImageObject01.getId(), ObjectActionType.Create,showImage_Renderer,1L,now,now,admin_1,admin_1);
         puzzleObjectActionService.save(ImageObject01_Show_Action);
         DTOUtil.copyAttributesActionFromTo(showImage_Renderer.getId(),ImageObject01_Show_Action.getId(),AttributeOwnerType.Action_Renderer_Parameter,AttributeOwnerType.AlCity_Object,
                 attributeService,attributeValueService);
