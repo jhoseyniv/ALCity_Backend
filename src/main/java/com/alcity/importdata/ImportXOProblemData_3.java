@@ -184,7 +184,7 @@ public class ImportXOProblemData_3 implements CommandLineRunner {
         BinaryContent pgIcon_bc = new BinaryContent(1L, now, now,admin_1 , admin_1,"image_puzzle_group_x-o ",pgIcon.length,pgIcon,null,"tag1","","",BinaryContentType.Image);
         binaryContentService.save(pgIcon_bc);
 
-        Optional<PuzzleGroup>  IQ_Puzzle_Group =pgService.findByTitle("Hash Image - Puzzle Group 1");
+        Optional<PuzzleGroup>  IQ_Puzzle_Group =pgService.findByTitle("IQ Puzzle Group");
 
         Optional<ALCityObject>  textObject = alCityObjectService.findByTitle("TextObject");
 
