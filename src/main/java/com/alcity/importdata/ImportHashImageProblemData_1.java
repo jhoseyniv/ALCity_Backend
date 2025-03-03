@@ -254,14 +254,14 @@ public class ImportHashImageProblemData_1 implements CommandLineRunner {
         //change actions for ImageObject01_in_haseImage_puzzleGroup
         alCityObjectInPGService.copyActionFromALCityObjectToPuzzleGroupObject(ImageObject01_in_haseImage_puzzleGroup);
 
-        StringBuffer  condition_Objective = new StringBuffer("(img1.x == img1.targetX)&&(img1.y == img1.targetY)" +","
-                + "(img2.x == img2.targetX)&&(img2.y == img2.targetY)" + ","
-                + "(img3.x == img3.targetX)&&(img3.y == img3.targetY)" + ","
-                + "(img4.x == img4.targetX)&&(img4.y == img4.targetY)" + ","
-                + "(img5.x == img5.targetX)&&(img5.y == img5.targetY)" +  ","
-                + "(img6.x == img6.targetX)&&(img6.y == img6.targetY)" +	","
-                + "(img7.x == img7.targetX)&&(img7.y == img7.targetY)"+","
-                + "(img8.x == img8.targetX)&&(img8.y == img8.targetY)");
+        StringBuffer  condition_Objective = new StringBuffer("equal(BoardVar(finished),true)");
+              //  + "(img2.x == img2.targetX)&&(img2.y == img2.targetY)" + ","
+               // + "(img3.x == img3.targetX)&&(img3.y == img3.targetY)" + ","
+              //  + "(img4.x == img4.targetX)&&(img4.y == img4.targetY)" + ","
+              //  + "(img5.x == img5.targetX)&&(img5.y == img5.targetY)" +  ","
+              //  + "(img6.x == img6.targetX)&&(img6.y == img6.targetY)" +	","
+              //  + "(img7.x == img7.targetX)&&(img7.y == img7.targetY)"+","
+              //  + "(img8.x == img8.targetX)&&(img8.y == img8.targetY)");
 
         PLObjective puzzleLevelObjective = new PLObjective("arrange image pieces","arrange image pieces as correct image",10f,2f,condition_Objective,timeManagement,alCoin10WalletItem.get(),puzzleLevel_hashimage
                 ,1L,now,now,admin_1,admin_1);
