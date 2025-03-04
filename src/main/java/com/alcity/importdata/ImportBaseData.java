@@ -548,7 +548,7 @@ public class ImportBaseData implements CommandLineRunner {
         actionRendererService.save(create_Renderer);
 
         //add parameters and default values
-        Attribute create_ActionRenderer_param_1 =new Attribute("text",create_Renderer.getId(),AttributeOwnerType.Action_Renderer_Parameter,DataType.Experssion,1L,now,now,admin_1,admin_1);
+        Attribute create_ActionRenderer_param_1 =new Attribute("text",create_Renderer.getId(),AttributeOwnerType.Action_Renderer_Parameter,DataType.Expression,1L,now,now,admin_1,admin_1);
         attributeService.save(create_ActionRenderer_param_1);
         AttributeValue create_ActionRenderer_param_1_value= new AttributeValue(null,null,null,null,null,null,null,"InstProp(CurrentInst(), text)",create_ActionRenderer_param_1,create_ActionRenderer_param_1,1L,now,now,admin_1,admin_1,create_Renderer.getId(),AttributeOwnerType.Action_Renderer_Parameter);
         attributeValueService.save(create_ActionRenderer_param_1_value);
@@ -562,7 +562,7 @@ public class ImportBaseData implements CommandLineRunner {
         Renderer show_Renderer = new Renderer("Show",mobile, ObjectActionType.Show,1L,now,now,admin_1,admin_1);
         actionRendererService.save(show_Renderer);
 
-        Attribute show_ActionRenderer_param_1 =new Attribute("text",show_Renderer.getId(),AttributeOwnerType.Action_Renderer_Parameter,DataType.Experssion,1L,now,now,admin_1,admin_1);
+        Attribute show_ActionRenderer_param_1 =new Attribute("text",show_Renderer.getId(),AttributeOwnerType.Action_Renderer_Parameter,DataType.Expression,1L,now,now,admin_1,admin_1);
         attributeService.save(show_ActionRenderer_param_1);
         AttributeValue show_ActionRenderer_param_1_value= new AttributeValue(null,null,null,null,null,null,null,"InstProp(CurrentInst(), text)",show_ActionRenderer_param_1,show_ActionRenderer_param_1,1L,now,now,admin_1,admin_1,show_Renderer.getId(),AttributeOwnerType.Action_Renderer_Parameter);
         attributeValueService.save(show_ActionRenderer_param_1_value);
@@ -570,7 +570,7 @@ public class ImportBaseData implements CommandLineRunner {
         Renderer showImage_Renderer = new Renderer("ShowImage",mobile, ObjectActionType.Create,1L,now,now,admin_1,admin_1);
         actionRendererService.save(showImage_Renderer);
 
-        Attribute showImage_ActionRenderer_param_1 =new Attribute("img",showImage_Renderer.getId(),AttributeOwnerType.Action_Renderer_Parameter,DataType.Experssion,1L,now,now,admin_1,admin_1);
+        Attribute showImage_ActionRenderer_param_1 =new Attribute("img",showImage_Renderer.getId(),AttributeOwnerType.Action_Renderer_Parameter,DataType.Expression,1L,now,now,admin_1,admin_1);
         attributeService.save(showImage_ActionRenderer_param_1);
         AttributeValue showImage_ActionRenderer_param_1_value= new AttributeValue(null,null,null,null,null,null,null,"InstProp(CurrentInst(), bgImage)",showImage_ActionRenderer_param_1,showImage_ActionRenderer_param_1,1L,now,now,admin_1,admin_1,showImage_Renderer.getId(),AttributeOwnerType.Action_Renderer_Parameter);
         attributeValueService.save(showImage_ActionRenderer_param_1_value);
@@ -579,22 +579,22 @@ public class ImportBaseData implements CommandLineRunner {
         Renderer moveImage_Renderer = new Renderer("MoveImage",mobile, ObjectActionType.Move,1L,now,now,admin_1,admin_1);
         actionRendererService.save(moveImage_Renderer);
 
-        Attribute moveImage_ActionRenderer_param_1 =new Attribute("fromRow",moveImage_Renderer.getId(),AttributeOwnerType.Action_Renderer_Parameter,DataType.Experssion,1L,now,now,admin_1,admin_1);
+        Attribute moveImage_ActionRenderer_param_1 =new Attribute("fromRow",moveImage_Renderer.getId(),AttributeOwnerType.Action_Renderer_Parameter,DataType.Expression,1L,now,now,admin_1,admin_1);
         attributeService.save(moveImage_ActionRenderer_param_1);
         AttributeValue moveImage_ActionRenderer_param_1_value= new AttributeValue(null,null,null,null,null,null,null,"BoardVar(fromRow)",moveImage_ActionRenderer_param_1,moveImage_ActionRenderer_param_1,1L,now,now,admin_1,admin_1,moveImage_Renderer.getId(),AttributeOwnerType.Action_Renderer_Parameter);
         attributeValueService.save(moveImage_ActionRenderer_param_1_value);
 
-        Attribute moveImage_ActionRenderer_param_2 =new Attribute("toRow",moveImage_Renderer.getId(),AttributeOwnerType.Action_Renderer_Parameter,DataType.Experssion,1L,now,now,admin_1,admin_1);
+        Attribute moveImage_ActionRenderer_param_2 =new Attribute("toRow",moveImage_Renderer.getId(),AttributeOwnerType.Action_Renderer_Parameter,DataType.Expression,1L,now,now,admin_1,admin_1);
         attributeService.save(moveImage_ActionRenderer_param_2);
         AttributeValue moveImage_ActionRenderer_param_2_value= new AttributeValue(null,null,null,null,null,null,null,"BoardVar(toRow)",moveImage_ActionRenderer_param_2,moveImage_ActionRenderer_param_2,1L,now,now,admin_1,admin_1,moveImage_Renderer.getId(),AttributeOwnerType.Action_Renderer_Parameter);
         attributeValueService.save(moveImage_ActionRenderer_param_2_value);
 
-        Attribute moveImage_ActionRenderer_param_3 =new Attribute("fromCol",moveImage_Renderer.getId(),AttributeOwnerType.Action_Renderer_Parameter,DataType.Experssion,1L,now,now,admin_1,admin_1);
+        Attribute moveImage_ActionRenderer_param_3 =new Attribute("fromCol",moveImage_Renderer.getId(),AttributeOwnerType.Action_Renderer_Parameter,DataType.Expression,1L,now,now,admin_1,admin_1);
         attributeService.save(moveImage_ActionRenderer_param_3);
         AttributeValue moveImage_ActionRenderer_param_3_value= new AttributeValue(null,null,null,null,null,null,null,"BoardVar(fromCol)",moveImage_ActionRenderer_param_3,moveImage_ActionRenderer_param_3,1L,now,now,admin_1,admin_1,moveImage_Renderer.getId(),AttributeOwnerType.Action_Renderer_Parameter);
         attributeValueService.save(moveImage_ActionRenderer_param_3_value);
 
-        Attribute moveImage_ActionRenderer_param_4 =new Attribute("toCol",moveImage_Renderer.getId(),AttributeOwnerType.Action_Renderer_Parameter,DataType.Experssion,1L,now,now,admin_1,admin_1);
+        Attribute moveImage_ActionRenderer_param_4 =new Attribute("toCol",moveImage_Renderer.getId(),AttributeOwnerType.Action_Renderer_Parameter,DataType.Expression,1L,now,now,admin_1,admin_1);
         attributeService.save(moveImage_ActionRenderer_param_4);
         AttributeValue moveImage_ActionRenderer_param_4_value= new AttributeValue(null,null,null,null,null,null,null,"BoardVar(toCol)",moveImage_ActionRenderer_param_4,moveImage_ActionRenderer_param_4,1L,now,now,admin_1,admin_1,moveImage_Renderer.getId(),AttributeOwnerType.Action_Renderer_Parameter);
         attributeValueService.save(moveImage_ActionRenderer_param_4_value);
