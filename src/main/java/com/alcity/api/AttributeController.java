@@ -116,7 +116,7 @@ public class AttributeController {
         dtos = DTOUtil.getAttributesDTOS(attributes);
         return  dtos;
     }
-    @Operation( summary = "Fetch all attributes Information by id",  description = "Fetch all attributes Information by id")
+ /*   @Operation( summary = "Fetch all attributes Information by id",  description = "Fetch all attributes Information by id")
     @RequestMapping(value = "/att/id/{id}", method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin(origins = "*")
@@ -126,5 +126,5 @@ public class AttributeController {
             return  DTOUtil.getAttributeDTO(attributeOptional.get());
         return null;
     }
-
+*/
 }
