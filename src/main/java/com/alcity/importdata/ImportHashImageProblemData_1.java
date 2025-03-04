@@ -347,7 +347,6 @@ public class ImportHashImageProblemData_1 implements CommandLineRunner {
         DTOUtil.copyPropertiesFromTo(ImageObject01_in_haseImage_puzzleGroup.getId(),instance_img8.getId(),AttributeOwnerType.Puzzle_Group_Object_Variable,AttributeOwnerType.Puzzle_Level_Instance_Variable,
                 attributeService,attributeValueService);
 
-
         byte[] image_0_hash = ImageUtil.getImage("src/main/resources/images/hashImage_Puzzle/","0.png");
         byte[] image_1_hash = ImageUtil.getImage("src/main/resources/images/hashImage_Puzzle/","1.png");
         byte[] image_2_hash = ImageUtil.getImage("src/main/resources/images/hashImage_Puzzle/","2.png");
