@@ -209,8 +209,17 @@ public class AttributeService implements AttributeRepository {
                 attributeRepository.save(attribute);
                 AttributeValueDTO valueDTO = dto.getAttributeValueDTO();
                 Optional<AttributeValue> attributeValueOptional =  attributeValueRepository.findById(valueDTO.getId());
-                Optional<AttributeValue>  bindedAttributeValueOptional =  attributeValueRepository.findById(valueDTO.getBindedAttributeId());
-                    AttributeValue value = attributeValueOptional.get();
+                AttributeValue value = attributeValueOptional.get();
+
+                Optional<AttributeValue> bindedAttributeValueOptional=null;
+                if (valueDTO.getBindedAttributeId() != null){
+                    bindedAttributeValueOptional = attributeValueRepository.findById(valueDTO.getBindedAttributeId());
+                    value.setBindedAttributeId(bindedAttributeValueOptional.get().getBindedAttributeId());
+                } else {
+                    value.setBindedAttributeId(null);
+
+                }
+
                     value.setStringValue(valueDTO.getStringValue());
                     value.setBooleanValue(valueDTO.getBooleanValue());
                     value.setDoubleValue(valueDTO.getDoubleValue());
@@ -219,7 +228,6 @@ public class AttributeService implements AttributeRepository {
                     value.setExperssion(valueDTO.getExperssion());
                     value.setBinaryContentId(valueDTO.getBinaryContentId());
                     value.setAttributeId(attribute);
-                    value.setBindedAttributeId(bindedAttributeValueOptional.get().getBindedAttributeId());
                     attributeValueRepository.save(value);
             }
         }
