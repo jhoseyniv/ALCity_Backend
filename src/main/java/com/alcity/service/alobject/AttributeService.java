@@ -191,8 +191,9 @@ public class AttributeService implements AttributeRepository {
 
             attributeRepository.save(attribute);
             AttributeValueDTO valueDTO = dto.getAttributeValueDTO();
+            Optional<Attribute> bindedAttributeOptional =  attributeRepository.findById(valueDTO.getAttributeId());
             attributeValue = new AttributeValue(valueDTO.getBooleanValue(),valueDTO.getIntValue(),valueDTO.getLongValue(),valueDTO.getStringValue(),
-                    valueDTO.getObjectValue(),valueDTO.getDoubleValue(),valueDTO.getBinaryContentId(), valueDTO.getExperssion(), attribute,attribute,
+                    valueDTO.getObjectValue(),valueDTO.getDoubleValue(),valueDTO.getBinaryContentId(), valueDTO.getExperssion(), bindedAttributeOptional.get(),attribute,
                     1L,DateUtils.getNow(),DateUtils.getNow(),createdBy,createdBy,attribute.getOwnerId(),attribute.getAttributeOwnerType());
             attributeValueRepository.save(attributeValue);
         }else{//edit
@@ -207,15 +208,18 @@ public class AttributeService implements AttributeRepository {
                 attribute.setUpdatedBy(createdBy);
                 attributeRepository.save(attribute);
                 AttributeValueDTO valueDTO = dto.getAttributeValueDTO();
-                    Optional<AttributeValue> attributeValueOptional =  attributeValueRepository.findById(valueDTO.getId());
+                Optional<AttributeValue> attributeValueOptional =  attributeValueRepository.findById(valueDTO.getId());
+                Optional<AttributeValue>  bindedAttributeValueOptional =  attributeValueRepository.findById(valueDTO.getBindedAttributeId());
                     AttributeValue value = attributeValueOptional.get();
                     value.setStringValue(valueDTO.getStringValue());
                     value.setBooleanValue(valueDTO.getBooleanValue());
                     value.setDoubleValue(valueDTO.getDoubleValue());
                     value.setIntValue(valueDTO.getIntValue());
                     value.setLongValue(valueDTO.getLongValue());
+                    value.setExperssion(valueDTO.getExperssion());
                     value.setBinaryContentId(valueDTO.getBinaryContentId());
                     value.setAttributeId(attribute);
+                    value.setBindedAttributeId(bindedAttributeValueOptional.get().getBindedAttributeId());
                     attributeValueRepository.save(value);
             }
         }
