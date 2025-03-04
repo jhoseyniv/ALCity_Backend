@@ -95,7 +95,7 @@ public class AttributeController {
         return  new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", id,"Record not found!");
     }
 
-    @Operation( summary = "Fetch all attributes for an attribute owner type id  ",  description = "Fetch all parameters fo a render by  rendere-id ")
+  /*  @Operation( summary = "Fetch all attributes for an attribute owner type id  ",  description = "Fetch all parameters fo a render by  rendere-id ")
     @RequestMapping(value = "/owner/type/{type}/id/{id}", method = RequestMethod.GET)
     @ResponseBody
     public Collection<RecordData> getObjectActionRendererParameters(@PathVariable Long id,@PathVariable String type) {
@@ -105,9 +105,9 @@ public class AttributeController {
             return  DTOUtil.getAttributeForOwnerById(attributeService,attributeOptional.get().getId(), attributeOwnerType);;
         return null;
     }
-
+*/
     @Operation( summary = "Fetch all attributes for an owner by id and type ",  description = "Fetch all attributes for an owner by id and type ")
-    @RequestMapping(value = "/att/owner/{id}/type/{type}", method = RequestMethod.GET)
+    @RequestMapping(value = "/owner/{id}/type/{type}", method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin(origins = "*")
     public Collection<AttributeDTO> getAttributesByOwnerIdAndOwnerType(@PathVariable Long id,@PathVariable Long type) {
