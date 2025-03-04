@@ -1215,6 +1215,7 @@ public class DTOUtil {
 
         if (value.getStringValue()!=null )     return value.getStringValue();
         if (value.getExperssion()!=null )     return value.getExperssion();
+        if (value.getBindedAttributeId()!=null )     return value.getBindedAttributeId().getId().toString();
         if (value.getObjectValue()!=null )     return value.getStringValue();
 
         return "Unknown Value";
