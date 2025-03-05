@@ -104,9 +104,12 @@ public class DTOUtil {
     }
 
     public static AttributeValueDTO getAttributeValueDTO(AttributeValue value){
+        Long bindedAttribute =null;
+        if(value.getBindedAttributeId() != null)
+            bindedAttribute = value.getBindedAttributeId().getId();
         AttributeValueDTO valueDTO= new AttributeValueDTO(value.getId(),value.getBooleanValue(), value.getLongValue(), value.getDoubleValue(),
                 value.getIntValue(), value.getBinaryContentId() ,value.getExperssion(),
-                value.getStringValue(),value.getObjectValue(),value.getAttributeId().getId(),value.getBindedAttributeId().getId(), value.getOwnerId(), value.getOwnerType().ordinal());
+                value.getStringValue(),value.getObjectValue(),value.getAttributeId().getId(),bindedAttribute, value.getOwnerId(), value.getOwnerType().ordinal());
         return valueDTO;
     }
   /*  public static String getDataValue(AttributeValue value){
