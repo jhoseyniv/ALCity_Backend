@@ -9,7 +9,7 @@ public class AttributeValueDTO {
     private Float doubleValue;
     private Integer intValue;
     private Long binaryContentId;
-    private String  experssion;
+    private String  expression;
     private String stringValue;
     private String objectValue;
     private Boolean booleanValue;
@@ -108,12 +108,13 @@ public class AttributeValueDTO {
         this.ownerTypeId = ownerTypeId;
     }
 
-    public String getExperssion() {
-        return experssion;
+
+    public String getExpression() {
+        return expression;
     }
 
-    public void setExperssion(String experssion) {
-        this.experssion = experssion;
+    public void setExpression(String expression) {
+        this.expression = expression;
     }
 
     public AttributeValueDTO() {
@@ -127,7 +128,7 @@ public class AttributeValueDTO {
         this.booleanValue = booleanValue;
     }
 
-    public AttributeValueDTO(Long id,Boolean booleanValue ,Long longValue, Float doubleValue, Integer intValue, Long binaryContentId,String experssion, String stringValue, String objectValue,Long attributeId,Long bindedAttributeId,Long ownerId,Integer ownerTypeId) {
+    public AttributeValueDTO(Long id,Boolean booleanValue ,Long longValue, Float doubleValue, Integer intValue, Long binaryContentId,String expression, String stringValue, String objectValue,Long attributeId,Long bindedAttributeId,Long ownerId,Integer ownerTypeId) {
         this.id = id;
         this.ownerId = ownerId;
         this.ownerTypeId = ownerTypeId;
@@ -136,7 +137,7 @@ public class AttributeValueDTO {
         this.doubleValue = doubleValue;
         this.intValue = intValue;
         this.binaryContentId = binaryContentId;
-        this.experssion = experssion;
+        this.expression = expression;
         this.stringValue = stringValue;
         this.objectValue = objectValue;
         this.attributeId = attributeId;
