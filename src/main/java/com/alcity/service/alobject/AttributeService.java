@@ -192,8 +192,11 @@ public class AttributeService implements AttributeRepository {
             attributeRepository.save(attribute);
             AttributeValueDTO valueDTO = dto.getAttributeValueDTO();
             Optional<Attribute> bindedAttributeOptional =  attributeRepository.findById(valueDTO.getAttributeId());
+            Attribute bindedAttribute=null;
+            if(bindedAttributeOptional.isPresent())
+                bindedAttribute =bindedAttributeOptional.get();
             attributeValue = new AttributeValue(valueDTO.getBooleanValue(),valueDTO.getIntValue(),valueDTO.getLongValue(),valueDTO.getStringValue(),
-                    valueDTO.getObjectValue(),valueDTO.getDoubleValue(),valueDTO.getBinaryContentId(), valueDTO.getExpression(), bindedAttributeOptional.get(),attribute,
+                    valueDTO.getObjectValue(),valueDTO.getDoubleValue(),valueDTO.getBinaryContentId(), valueDTO.getExpression(),bindedAttribute ,attribute,
                     1L,DateUtils.getNow(),DateUtils.getNow(),createdBy,createdBy,attribute.getOwnerId(),attribute.getAttributeOwnerType());
             attributeValueRepository.save(attributeValue);
         }else{//edit
