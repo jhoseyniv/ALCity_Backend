@@ -214,10 +214,10 @@ public class AttributeService implements AttributeRepository {
                 Optional<AttributeValue> attributeValueOptional =  attributeValueRepository.findById(valueDTO.getId());
                 AttributeValue value = attributeValueOptional.get();
 
-                Optional<AttributeValue> bindedAttributeValueOptional=null;
+                Optional<Attribute> bindedAttributeValueOptional=null;
                 if (valueDTO.getBindedAttributeId() != null){
-                    bindedAttributeValueOptional = attributeValueRepository.findById(valueDTO.getBindedAttributeId());
-                    value.setBindedAttributeId(bindedAttributeValueOptional.get().getBindedAttributeId());
+                    bindedAttributeValueOptional = attributeRepository.findById(valueDTO.getBindedAttributeId());
+                    value.setBindedAttributeId(bindedAttributeValueOptional.get());
                 } else {
                     value.setBindedAttributeId(null);
 

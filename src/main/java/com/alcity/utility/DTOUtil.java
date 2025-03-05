@@ -112,6 +112,7 @@ public class DTOUtil {
                 value.getStringValue(),value.getObjectValue(),value.getAttributeId().getId(),bindedAttribute, value.getOwnerId(), value.getOwnerType().ordinal());
         return valueDTO;
     }
+
   /*  public static String getDataValue(AttributeValue value){
         if (value.getBooleanValue()!=null )  return value.getBooleanValue().toString();
 
