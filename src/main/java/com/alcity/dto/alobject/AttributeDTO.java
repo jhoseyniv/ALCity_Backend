@@ -8,7 +8,7 @@ public class AttributeDTO  {
     private Long id;
     private String name;
     private Long ownerId;
-    private Integer ownerTypeId;
+    private String ownerType;
     private String dataType;
 
     private AttributeValueDTO attributeValueDTO;
@@ -48,12 +48,12 @@ public class AttributeDTO  {
         this.ownerId = ownerId;
     }
 
-    public Integer getOwnerTypeId() {
-        return ownerTypeId;
+    public String getOwnerType() {
+        return ownerType;
     }
 
-    public void setOwnerTypeId(Integer ownerTypeId) {
-        this.ownerTypeId = ownerTypeId;
+    public void setOwnerType(String ownerType) {
+        this.ownerType = ownerType;
     }
 
     public AttributeDTO() {
@@ -67,11 +67,11 @@ public class AttributeDTO  {
         this.attributeValueDTO = attributeValueDTO;
     }
 
-    public AttributeDTO(Long id, String name, Long ownerId, Integer ownerTypeId, String dataType, AttributeValueDTO attributeValueDTO ) {
+    public AttributeDTO(Long id, String name, Long ownerId, String ownerType, String dataType, AttributeValueDTO attributeValueDTO ) {
         this.id = id;
         this.name = name;
         this.ownerId = ownerId;
-        this.ownerTypeId = ownerTypeId;
+        this.ownerType = ownerType;
         this.dataType = dataType;
         this.attributeValueDTO = attributeValueDTO;
     }

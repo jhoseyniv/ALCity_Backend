@@ -181,7 +181,7 @@ public class AttributeService implements AttributeRepository {
     public Attribute save(AttributeDTO dto, String code) {
         AppMember createdBy = appMemberRepository.findByUsername("admin");
         Optional<Attribute> attributeOptional =  attributeRepository.findById(dto.getId());
-        AttributeOwnerType attributeOwnerType =  AttributeOwnerType.getById(dto.getOwnerTypeId());
+        AttributeOwnerType attributeOwnerType =  AttributeOwnerType.getByTitle(dto.getOwnerType());
         DataType dataType =  DataType.getByTitle(dto.getDataType());
         Attribute attribute=null;
         AttributeValue attributeValue=null;

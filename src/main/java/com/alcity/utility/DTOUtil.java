@@ -182,7 +182,7 @@ public class DTOUtil {
             Collection<AttributeValueDTO> valueDTOS = getAttributesValueDTOS(att.getAttributeValues()) ;
             AttributeValueDTO valueDTO = getFirstAttributeValueDTO(valueDTOS);
             AttributeDTO dto = new AttributeDTO(att.getId(), att.getName(),
-                                    att.getOwnerId(), att.getAttributeOwnerType().ordinal(),
+                                    att.getOwnerId(), att.getAttributeOwnerType().name(),
                                      att.getDataType().name(),valueDTO);
            return dto;
     }
