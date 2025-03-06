@@ -157,14 +157,16 @@ public class PLController {
         return  DTOUtil.getCameraSetupDTO(cameraSetup);
     }
 
-    @Operation( summary = "Fetch all variables for a puzzle level by  Id ",  description = "Fetch all variables for a puzzle level by  Id")
+ /*   @Operation( summary = "Fetch all variables for a puzzle level by  Id ",  description = "Fetch all variables for a puzzle level by  Id")
     @RequestMapping(value = "/id/{id}/variables/all", method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin(origins = "*")
     public Collection<RecordData> getAllVariablesForPuzzleLevelById(@PathVariable Long id) {
-        Collection<RecordData>  variables = DTOUtil.getAttributeForOwnerById(attributeService,id,AttributeOwnerType.Instance_Puzzle_Group_Object_Variable);
+        Collection<RecordData>  variables = DTOUtil.getAttributeForOwnerById(attributeService,id,AttributeOwnerType.Puzzle_Level_Variable);
         return  variables;
     }
+
+  */
     @Operation( summary = "Fetch all learning topics for a puzzle level by  Id ",  description = "Fetch all variables for a puzzle level by  Id")
     @RequestMapping(value = "/id/{id}/learning-topic/all", method = RequestMethod.GET)
     @ResponseBody

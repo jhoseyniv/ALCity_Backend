@@ -30,7 +30,7 @@ import java.util.Optional;
 public class ALCityObjectInPGController {
 
     @Autowired
-    private ActionService puzzleObjectActionService;
+    private ActionService actionService;
     @Autowired
     private ALCityObjectInPGService alCityObjectInPGService;
 
@@ -41,12 +41,12 @@ public class ALCityObjectInPGController {
     @CrossOrigin(origins = "*")
     public Collection<ActionDTO> getActionsForAnObjectInPG(@PathVariable Long id) {
         Collection<ActionDTO> actionDTOS = new ArrayList<ActionDTO>();
-        Collection<ObjectAction> actions = puzzleObjectActionService.findByOwnerObjectidAndPoActionOwnerType(id, POActionOwnerType.Puzzle_Group_Object);
+        Collection<ObjectAction> actions = actionService.findByOwnerObjectidAndPoActionOwnerType(id, POActionOwnerType.Puzzle_Group_Object);
         actionDTOS = PLDTOUtil.getActionDTOS(actions);
         return  actionDTOS;
     }
 
-    @Operation( summary = "Fetch an al city object that define in a puzzle group ",  description = "Fetch an al city object that defined in a puzzle group")
+    @Operation( summary = "Fetch a object that define in a puzzle group ",  description = "Fetch an al city object that defined in a puzzle group")
     @RequestMapping(value = "/id/{id}", method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin(origins = "*")
@@ -56,7 +56,7 @@ public class ALCityObjectInPGController {
         return  alCityObjectInPGDTO;
     }
 
-    @Operation( summary = "Add an AL City Object to a Puzzle Group ",  description = "Add an AL City Object to a Puzzle Group ")
+    @Operation( summary = "Add a Object to a Puzzle Group ",  description = "Add an AL City Object to a Puzzle Group ")
     @PostMapping("/save")
     @CrossOrigin(origins = "*")
     public ALCityResponseObject saveALCityObjectInPG(@RequestBody CityObjectInPGDTO dto)  {
@@ -84,7 +84,7 @@ public class ALCityObjectInPGController {
 
         return responseObject;
     }
-    @Operation( summary = "Remove an  AL City Object From a Puzzle Group",  description = "Remove an  AL City Object From a Puzzle Group")
+    @Operation( summary = "Remove a Object From a Puzzle Group",  description = "Remove an  AL City Object From a Puzzle Group")
     @DeleteMapping("/del/id/{id}")
     @CrossOrigin(origins = "*")
     public ALCityResponseObject deleteALCityObjectInPGById(@PathVariable Long id) {
