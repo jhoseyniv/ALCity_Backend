@@ -9,6 +9,7 @@ public class AttributeDTO  {
     private String name;
     private Long ownerId;
     private String ownerType;
+
     private String dataType;
 
     private AttributeValueDTO attributeValueDTO;
@@ -51,7 +52,7 @@ public class AttributeDTO  {
     public String getOwnerType() {
         return ownerType;
     }
-
+//sdfsf
     public void setOwnerType(String ownerType) {
         this.ownerType = ownerType;
     }

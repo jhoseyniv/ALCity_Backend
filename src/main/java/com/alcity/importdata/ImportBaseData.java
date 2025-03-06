@@ -659,7 +659,7 @@ public class ImportBaseData implements CommandLineRunner {
         BinaryContent bundle_file = new BinaryContent(1L, now, now,admin_1 , admin_1,"bundle",bundle_file_byte.length,image_object_content_icon_byte,null,"tag1","","",BinaryContentType.PNG);
         binaryContentService.save(bundle_file);
 
-        Attribute bundle_file_att= new Attribute("bundle_file_png",textObject.getId(),AttributeOwnerType.Object_Bundle,DataType.Binary,1L,now,now,admin_1,admin_1);
+        Attribute bundle_file_att= new Attribute("bundle_file_png",textObject.getId(),AttributeOwnerType.Object_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(bundle_file_att);
 
         AttributeValue bundle_file_att_value = new AttributeValue(null,null,null,null,null,null,bundle_file.getId(),null,bundle_file_att,bundle_file_att,1L,now,now,admin_1,admin_1,textObject.getId(),AttributeOwnerType.Object_Bundle);
