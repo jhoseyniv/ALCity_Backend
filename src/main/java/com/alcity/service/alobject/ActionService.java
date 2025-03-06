@@ -55,7 +55,7 @@ public class ActionService implements ActionRepository {
            puzzleObjectAction = new ObjectAction(actionOwnerType, dto.getOwnerObjectid(), objectAction,rendererOptional.get(),
                      1L,DateUtils.getNow(),DateUtils.getNow(),createdBy, createdBy);
             actionRepository.save(puzzleObjectAction);
-            DTOUtil.copyAttributesActionFromTo(dto.getActionRenderId(), puzzleObjectAction.getId(),AttributeOwnerType.Action_Renderer_Parameter,AttributeOwnerType.AlCity_Object,
+            DTOUtil.copyActionParametersFromTo(dto.getActionRenderId(), puzzleObjectAction.getId(),AttributeOwnerType.Action_Handler_Parameter,AttributeOwnerType.Object_Action_Handler_Parameter,
                     attributeService,attributeValueService);
 
             copyParametersFromActionToALCityObjectAction(dto.getActionRenderId(), dto.getObjectActionId() );
@@ -67,7 +67,7 @@ public class ActionService implements ActionRepository {
                 puzzleObjectAction.setPoActionOwnerType(actionOwnerType);
                 puzzleObjectAction.setObjectAction(objectAction);
                 puzzleObjectAction.setOwnerObjectid(dto.getOwnerObjectid());
-               puzzleObjectAction.setActionRenderer(rendererOptional.get());
+                puzzleObjectAction.setActionRenderer(rendererOptional.get());
                 puzzleObjectAction.setVersion(puzzleObjectAction.getVersion()+1);
                 puzzleObjectAction.setCreated(DateUtils.getNow());
                 puzzleObjectAction.setUpdated(DateUtils.getNow());
@@ -166,7 +166,7 @@ public class ActionService implements ActionRepository {
 
     public void copyParametersFromActionToALCityObjectAction(Long actionId , Long puzzleObjectActionId){
 
-        Collection<RecordData> parameters =  DTOUtil.getAttributeForOwnerById(attributeService,actionId, AttributeOwnerType.Action_Renderer_Parameter);;
+        Collection<RecordData> parameters =  DTOUtil.getAttributeForOwnerById(attributeService,actionId, AttributeOwnerType.Action_Handler_Parameter);;
 //        Collection<PuzzleObjectAction> actions = alCityObjectService.findAllActions(alCityObject);
 //
 //        Iterator<PuzzleObjectAction> itr = actions.iterator();

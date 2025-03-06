@@ -2,7 +2,7 @@ package com.alcity.entity.alenum;
 
 
 public enum POActionOwnerType {
-    ALCity_Object,
+    Object,
     Puzzle_Group_Object,
     Puzzle_Level_Instance;
     public static POActionOwnerType getById(Integer id)

@@ -162,7 +162,7 @@ public class PLController {
     @ResponseBody
     @CrossOrigin(origins = "*")
     public Collection<RecordData> getAllVariablesForPuzzleLevelById(@PathVariable Long id) {
-        Collection<RecordData>  variables = DTOUtil.getAttributeForOwnerById(attributeService,id,AttributeOwnerType.Puzzle_Level_Variable);
+        Collection<RecordData>  variables = DTOUtil.getAttributeForOwnerById(attributeService,id,AttributeOwnerType.Instance_Puzzle_Group_Object_Variable);
         return  variables;
     }
     @Operation( summary = "Fetch all learning topics for a puzzle level by  Id ",  description = "Fetch all variables for a puzzle level by  Id")
@@ -279,7 +279,7 @@ public class PLController {
                 CityObjectInPGDTO dto = new CityObjectInPGDTO();
                 ALCityObjectInPG entity = itr.next();
                 dto = DTOUtil.getALCityObjectInPGDTO(entity);
-                Collection<Attribute> attributes = attributeService.findByOwnerIdAndAttributeOwnerType(entity.getId(), AttributeOwnerType.ALCity_Object_In_Puzzle_Group);
+                //Collection<Attribute> attributes = attributeService.findByOwnerIdAndAttributeOwnerType(entity.getId(), AttributeOwnerType.Object_In_Puzzle_Group);
                 dtos.add(dto);
             }
         }

@@ -97,12 +97,12 @@ public class ALCityObjectInPLController {
         return  actionsData;
     }
 
-    @Operation( summary = "Fetch all variables for an alcity object instance in a puzzle level by instance Id ",  description = "Fetch all variables for an alcity object instance ")
+    @Operation( summary = "Fetch all variables for a city object instance in a puzzle level by instance Id ",  description = "Fetch all variables for an alcity object instance ")
     @RequestMapping(value = "/id/{id}/variables/all", method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin(origins = "*")
     public Collection<RecordData> getAllVariablesForAnALCityInstanceInPuzzleLevelById(@PathVariable Long id) {
-        Collection<RecordData>  variables = DTOUtil.getAttributeForOwnerById(attributeService,id,AttributeOwnerType.Puzzle_Level_Instance_Variable);
+        Collection<RecordData>  variables = DTOUtil.getAttributeForOwnerById(attributeService,id,AttributeOwnerType.Instance_Puzzle_Group_Object_Variable);
         return  variables;
     }
     @Operation( summary = "Fetch all properties for an alcity object instance in a puzzle level by instance Id ",  description = "Fetch all properties for an alcity object instance  ")
@@ -110,7 +110,7 @@ public class ALCityObjectInPLController {
     @ResponseBody
     @CrossOrigin(origins = "*")
     public Collection<RecordData> getAllPropertiesForAnALCityInstanceInPuzzleLevelById(@PathVariable Long id) {
-        Collection<RecordData>  properties = DTOUtil.getAttributeForOwnerById(attributeService,id,AttributeOwnerType.Puzzle_Level_Instance_Property);
+        Collection<RecordData>  properties = DTOUtil.getAttributeForOwnerById(attributeService,id,AttributeOwnerType.Instance_Puzzle_Group_Object_Property);
         return  properties;
     }
 

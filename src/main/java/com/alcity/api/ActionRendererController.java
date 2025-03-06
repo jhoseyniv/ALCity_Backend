@@ -109,7 +109,7 @@ public class ActionRendererController {
     public  Collection<RecordData> getObjectActionRendererParameters(@PathVariable Long id) {
         Optional<Renderer> actionRendererOptional = rendererService.findById(id);
         if(actionRendererOptional.isPresent())
-            return  DTOUtil.getAttributeForOwnerById(attributeService,actionRendererOptional.get().getId(), AttributeOwnerType.Action_Renderer_Parameter);;
+            return  DTOUtil.getAttributeForOwnerById(attributeService,actionRendererOptional.get().getId(), AttributeOwnerType.Action_Handler_Parameter);;
         return null;
     }
 

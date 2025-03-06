@@ -224,7 +224,7 @@ public class DTOUtil {
         }
         return dtos;
     }
-    public static void copyAttributesActionFromTo(Long fromOwnerId,Long toOwnerId, AttributeOwnerType from , AttributeOwnerType to,
+    public static void copyActionParametersFromTo(Long fromOwnerId,Long toOwnerId, AttributeOwnerType from , AttributeOwnerType to,
                                  AttributeService attributeService, AttributeValueService attributeValueService){
         //ActionRenderer actionRenderer = action.getActionRenderer();
         Collection<AttributeValue> attributeValues = new ArrayList<AttributeValue>();
@@ -256,7 +256,12 @@ public class DTOUtil {
         }
 
     }
-    public static void copyPropertiesFromTo(Long fromOwnerId,Long toOwnerId, AttributeOwnerType from , AttributeOwnerType to,
+
+    public static void copyVariablesFromTo(Long fromOwnerId,Long toOwnerId, AttributeOwnerType from , AttributeOwnerType to,
+                                            AttributeService attributeService, AttributeValueService attributeValueService) {
+
+    }
+        public static void copyPropertiesFromTo(Long fromOwnerId,Long toOwnerId, AttributeOwnerType from , AttributeOwnerType to,
                                                   AttributeService attributeService, AttributeValueService attributeValueService){
         //ActionRenderer actionRenderer = action.getActionRenderer();
         Collection<AttributeValue> attributeValues = new ArrayList<AttributeValue>();

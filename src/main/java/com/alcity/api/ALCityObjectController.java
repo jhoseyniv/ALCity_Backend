@@ -163,7 +163,7 @@ public class ALCityObjectController {
     @CrossOrigin(origins = "*")
     public Collection<ActionDTO> getALCityObjectActions(@PathVariable Long id) {
         Collection<ActionDTO> actionDTOS = new ArrayList<ActionDTO>();
-        Collection<ObjectAction> actions = actionService.findByOwnerObjectidAndPoActionOwnerType(id, POActionOwnerType.ALCity_Object);
+        Collection<ObjectAction> actions = actionService.findByOwnerObjectidAndPoActionOwnerType(id, POActionOwnerType.Object);
         actionDTOS = PLDTOUtil.getActionDTOS(actions);
         return  actionDTOS;
     }
@@ -172,20 +172,20 @@ public class ALCityObjectController {
     @RequestMapping(value = "/id/{id}/atts", method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin(origins = "*")
-    public Collection<AttributeDTO> getALCityObjectAttributes(@PathVariable Long id) {
+    public Collection<AttributeDTO> getALCityObjectProperties(@PathVariable Long id) {
         Collection<AttributeDTO> dtos = new ArrayList<AttributeDTO>();
-        Collection<Attribute> attributes = attributeService.findByOwnerIdAndAttributeOwnerType(id, AttributeOwnerType.AlCity_Object);
+        Collection<Attribute> attributes = attributeService.findByOwnerIdAndAttributeOwnerType(id, AttributeOwnerType.Object_Bundle);
         dtos = DTOUtil.getAttributesDTOS(attributes);
         return  dtos;
     }
 
-    @Operation( summary = "Fetch all attributes for an al city object by attribute content type () ",  description = "Fetch all attributes for an al city object")
+    @Operation( summary = "Fetch all properties for a city object by attribute content type () ",  description = "Fetch all attributes for a city object")
     @RequestMapping(value = "/id/{id}/atts/contents", method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin(origins = "*")
-    public Collection<AttributeDTO> getALCityObjectAttributesByContent(@PathVariable Long id) {
+    public Collection<AttributeDTO> getALCityObjectPropertiesByContent(@PathVariable Long id) {
         Collection<AttributeDTO> dtos = new ArrayList<AttributeDTO>();
-        Collection<Attribute> attributes = attributeService.findByOwnerIdAndAttributeOwnerType(id, AttributeOwnerType.AlCity_Object);
+        Collection<Attribute> attributes = attributeService.findByOwnerIdAndAttributeOwnerType(id, AttributeOwnerType.Object_Bundle);
         dtos = DTOUtil.getAttributesDTOS(attributes);
         dtos = dtos.stream().filter(dto -> dto.getDataType().equalsIgnoreCase(DataType.Binary.name())).collect(Collectors.toList());
         return  dtos;

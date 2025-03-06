@@ -178,7 +178,7 @@ public class ALCityObjectInPGService implements ALCityObjectInPGRepository {
                     action.getUpdated(),action.getCreatedBy(),action.getUpdatedBy());
             puzzleObjectActionService.save(newAction);
 
-            DTOUtil.copyAttributesActionFromTo(action.getId(),newAction.getId(), AttributeOwnerType.AlCity_Object,AttributeOwnerType.ALCity_Object_In_Puzzle_Group,
+            DTOUtil.copyActionParametersFromTo(action.getId(),newAction.getId(), AttributeOwnerType.Object_Bundle,AttributeOwnerType.Puzzle_Group_Object_Action_Handler_Parameter,
                     attributeService,attributeValueService);
         }
 

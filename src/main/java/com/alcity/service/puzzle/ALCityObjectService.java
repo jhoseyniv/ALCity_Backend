@@ -257,7 +257,7 @@ public class ALCityObjectService implements ALCityObjectRepository {
 
     public  Collection<ObjectAction> findAllActions(ALCityObject cityObject){
         Collection<ObjectAction> actions = new ArrayList<ObjectAction>();
-        actions = puzzleObjectActionService.findByOwnerObjectidAndPoActionOwnerType(cityObject.getId(), POActionOwnerType.ALCity_Object);
+        actions = puzzleObjectActionService.findByOwnerObjectidAndPoActionOwnerType(cityObject.getId(), POActionOwnerType.Object);
 
         return actions;
     }

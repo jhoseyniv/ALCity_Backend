@@ -59,7 +59,7 @@ public class PuzzleObjectActionController {
     @ResponseBody
     @CrossOrigin(origins = "*")
     public Collection<ActionDTO> getActionsForAALCityObject(@PathVariable Long id) {
-        Collection<ObjectAction> actions = puzzleObjectActionService.findByOwnerObjectidAndPoActionOwnerType(id, POActionOwnerType.ALCity_Object);
+        Collection<ObjectAction> actions = puzzleObjectActionService.findByOwnerObjectidAndPoActionOwnerType(id, POActionOwnerType.Object);
         Collection<ActionDTO> dtos= PLDTOUtil.getActionDTOS(actions);
         return dtos;
     }
@@ -67,9 +67,9 @@ public class PuzzleObjectActionController {
     @RequestMapping(value = "/action/id/{id}/param/all", method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin(origins = "*")
-    public Collection<AttributeDTO> getParamsForanALCityObjectAction(@PathVariable Long id) {
-        Collection<Attribute> attributes = attributeService.findByOwnerIdAndAttributeOwnerType(id, AttributeOwnerType.AlCity_Object);
-        Collection<AttributeDTO> dtos= DTOUtil.getAttributesDTOS(attributes);
+    public Collection<AttributeDTO> getParametersForCityObjectAction(@PathVariable Long id) {
+        Collection<Attribute> parameters = attributeService.findByOwnerIdAndAttributeOwnerType(id, AttributeOwnerType.Object_Action_Handler_Parameter);
+        Collection<AttributeDTO> dtos= DTOUtil.getAttributesDTOS(parameters);
         return dtos;
     }
 

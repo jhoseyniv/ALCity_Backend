@@ -85,7 +85,7 @@ public class InterpreterController {
             puzzleLevelData.setCode(pl.getCode());
             puzzleLevelData.setName(pl.getTitle());
 
-            Collection<RecordData>  variables = DTOUtil.getAttributeForOwnerById(attributeService,pl.getId(),AttributeOwnerType.Puzzle_Level_Variable);
+            Collection<RecordData>  variables = DTOUtil.getAttributeForOwnerById(attributeService,pl.getId(),AttributeOwnerType.Instance_Puzzle_Group_Object_Variable);
 
             Collection<PLObjectiveData> plObjectiveDataCollection = DTOUtil.getPuzzleLevelObjectiveData(pl);
             puzzleLevelData.setObjectives(plObjectiveDataCollection);
@@ -136,8 +136,8 @@ public class InterpreterController {
             Position instancePostion = new Position(alCityInstanceInPL.getRow() , alCityInstanceInPL.getCol(),zorder);
             objectInstanceData.setPosition(instancePostion);
 
-            Collection<RecordData> properties = DTOUtil.getAttributeForOwnerById(attributeService,alCityInstanceInPL.getId(),AttributeOwnerType.Puzzle_Level_Instance_Property);
-            Collection<RecordData>  variables = DTOUtil.getAttributeForOwnerById(attributeService,alCityInstanceInPL.getId(),AttributeOwnerType.Puzzle_Level_Instance_Variable);
+            Collection<RecordData> properties = DTOUtil.getAttributeForOwnerById(attributeService,alCityInstanceInPL.getId(),AttributeOwnerType.Instance_Puzzle_Group_Object_Property);
+            Collection<RecordData>  variables = DTOUtil.getAttributeForOwnerById(attributeService,alCityInstanceInPL.getId(),AttributeOwnerType.Instance_Puzzle_Group_Object_Variable);
 
             objectInstanceData.setProperties(properties);
             objectInstanceData.setVariables(variables);
@@ -205,7 +205,7 @@ public class InterpreterController {
             ObjectAction puzzleObjectAction = iterator.next();
             ObjectActionType objectAction = puzzleObjectAction.getObjectAction();
 
-            Collection<RecordData> parametersData = DTOUtil.getAttributeForOwnerById(attributeService,puzzleObjectAction.getId(),AttributeOwnerType.ALCity_Object_In_Puzzle_Group);
+            Collection<RecordData> parametersData = DTOUtil.getAttributeForOwnerById(attributeService,puzzleObjectAction.getId(),AttributeOwnerType.Puzzle_Group_Object_Action_Handler_Parameter);
 
             ActionData objectActionData = new ActionData();
             objectActionData.setActionName(objectAction);

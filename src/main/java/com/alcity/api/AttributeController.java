@@ -110,12 +110,13 @@ public class AttributeController {
     @RequestMapping(value = "/owner/{id}/type/{type}", method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin(origins = "*")
-    public Collection<AttributeDTO> getAttributesByOwnerIdAndOwnerType(@PathVariable Long id,@PathVariable Long type) {
-        Collection<Attribute> attributes = attributeService.findByOwnerIdAndAttributeOwnerType(id,AttributeOwnerType.getById(type));
+    public Collection<AttributeDTO> getAttributesByOwnerIdAndOwnerType(@PathVariable Long id,@PathVariable String type) {
+        Collection<Attribute> attributes = attributeService.findByOwnerIdAndAttributeOwnerType(id,AttributeOwnerType.getByTitle(type));
         Collection<AttributeDTO> dtos = new ArrayList<AttributeDTO>();
         dtos = DTOUtil.getAttributesDTOS(attributes);
         return  dtos;
     }
+
  /*   @Operation( summary = "Fetch all attributes Information by id",  description = "Fetch all attributes Information by id")
     @RequestMapping(value = "/att/id/{id}", method = RequestMethod.GET)
     @ResponseBody

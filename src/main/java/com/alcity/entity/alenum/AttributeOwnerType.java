@@ -3,19 +3,22 @@ package com.alcity.entity.alenum;
 
 public enum AttributeOwnerType {
 
-    Action_Renderer_Parameter, //ARP
-    AlCity_Object,   //AO
-    AlCity_Object_Property, //AOP
-    AlCity_Object_Variable, //AOV
-    ALCity_Object_In_Puzzle_Group, //AOinPG
-    Puzzle_Object_Action_Parameter,//POAP
-
+    Action_Handler_Parameter, //AHP
+    Object_Bundle,
+    Object_Action_Handler_Parameter,//OAHP
+    Object_Property, //OP
+    Object_Variable, //OV
+    Puzzle_Group_Object,
+    Puzzle_Group_Object_Action_Handler_Parameter,
     Puzzle_Group_Object_Property, //PGOP
     Puzzle_Group_Object_Variable, //PGOV
-    Puzzle_Level_Variable, //PLV
-    Puzzle_Level_Instance_Property, //PLIP
-    Puzzle_Level_Instance_Variable, //PLIV
-    Puzzle_Level_Instance_Action_Parameter, //PLIAP
+
+    Instance_Puzzle_Group_Object,
+    Instance_Puzzle_Group_Object_Action_Handler_Parameter,
+    Instance_Puzzle_Group_Object_Property, //PGOP
+    Instance_Puzzle_Group_Object_Variable, //PGOV
+
+    Puzzle_Level_Variable,
 
     Puzzle_Level_Rule_Post_Action; //PLRPA
     public static AttributeOwnerType getById(long id)

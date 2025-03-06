@@ -47,8 +47,8 @@ public class PLDTOUtil {
     public static CityObjectDTO getCityObjectDTO(ALCityObject co, ActionService actionService, AttributeService attributeService){
         Collection<PropertyDTO>  properties = new ArrayList<PropertyDTO>();
         Collection<ActionDTO>  actions = new ArrayList<ActionDTO>();
-        Collection<Attribute>  attributes = attributeService.findByOwnerIdAndAttributeOwnerType(co.getId(), AttributeOwnerType.AlCity_Object);
-        Collection<ObjectAction> objectActions = actionService.findByOwnerObjectidAndPoActionOwnerType(co.getId(), POActionOwnerType.ALCity_Object);
+        Collection<Attribute>  attributes = attributeService.findByOwnerIdAndAttributeOwnerType(co.getId(), AttributeOwnerType.Object_Bundle);
+        Collection<ObjectAction> objectActions = actionService.findByOwnerObjectidAndPoActionOwnerType(co.getId(), POActionOwnerType.Object);
         properties = getPropertyDTOS(attributes);
         actions =getActionDTOS(objectActions);
         CityObjectDTO dto= new CityObjectDTO(co.getId(), co.getTitle(), co.getObjectCategory().getId(),
