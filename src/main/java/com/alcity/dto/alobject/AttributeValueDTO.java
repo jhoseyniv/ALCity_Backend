@@ -18,7 +18,7 @@ public class AttributeValueDTO {
 
     private Long ownerId;
 
-    private Integer ownerTypeId;
+    private String ownerType;
 
     public Long getAttributeId() {
         return attributeId;
@@ -100,14 +100,13 @@ public class AttributeValueDTO {
         this.ownerId = ownerId;
     }
 
-    public Integer getOwnerTypeId() {
-        return ownerTypeId;
+    public String getOwnerType() {
+        return ownerType;
     }
 
-    public void setOwnerTypeId(Integer ownerTypeId) {
-        this.ownerTypeId = ownerTypeId;
+    public void setOwnerType(String ownerType) {
+        this.ownerType = ownerType;
     }
-
 
     public String getExpression() {
         return expression;
@@ -128,10 +127,10 @@ public class AttributeValueDTO {
         this.booleanValue = booleanValue;
     }
 
-    public AttributeValueDTO(Long id,Boolean booleanValue ,Long longValue, Float doubleValue, Integer intValue, Long binaryContentId,String expression, String stringValue, String objectValue,Long attributeId,Long bindedAttributeId,Long ownerId,Integer ownerTypeId) {
+    public AttributeValueDTO(Long id,Boolean booleanValue ,Long longValue, Float doubleValue, Integer intValue, Long binaryContentId,String expression, String stringValue, String objectValue,Long attributeId,Long bindedAttributeId,Long ownerId,String ownerType) {
         this.id = id;
         this.ownerId = ownerId;
-        this.ownerTypeId = ownerTypeId;
+        this.ownerType = ownerType;
         this.booleanValue = booleanValue;
         this.longValue = longValue;
         this.doubleValue = doubleValue;
