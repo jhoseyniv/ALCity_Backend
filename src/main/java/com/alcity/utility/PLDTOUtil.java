@@ -109,8 +109,7 @@ public class PLDTOUtil {
                     Long.valueOf(action.getObjectAction().ordinal()),
                             action.getActionRenderer().getHandler(),
                                 action.getActionRenderer().getId(),
-                                    action.getPoActionOwnerType().name(),
-                                      Long.valueOf(action.getPoActionOwnerType().ordinal()));
+                                    action.getPoActionOwnerType().name());
 
         return dto;
     }

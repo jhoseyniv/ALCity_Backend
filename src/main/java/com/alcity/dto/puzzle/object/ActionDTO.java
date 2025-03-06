@@ -10,7 +10,6 @@ public class ActionDTO {
     private String actionRender;
     private Long actionRenderId;
     private String ownerType;
-    private Long ownerTypeId;
 
     public Long getOwnerObjectid() {
         return ownerObjectid;
@@ -74,15 +73,8 @@ public class ActionDTO {
         this.ownerType = ownerType;
     }
 
-    public Long getOwnerTypeId() {
-        return ownerTypeId;
-    }
 
-    public void setOwnerTypeId(Long ownerTypeId) {
-        this.ownerTypeId = ownerTypeId;
-    }
-
-    public ActionDTO(Long id, Long ownerObjectid, String objectAction, Long objectActionId, String actionRender, Long actionRenderId, String ownerType, Long ownerTypeId) {
+    public ActionDTO(Long id, Long ownerObjectid, String objectAction, Long objectActionId, String actionRender, Long actionRenderId, String ownerType) {
         this.id = id;
         this.ownerObjectid = ownerObjectid;
         this.objectAction = objectAction;
@@ -90,6 +82,5 @@ public class ActionDTO {
         this.actionRender = actionRender;
         this.actionRenderId = actionRenderId;
         this.ownerType = ownerType;
-        this.ownerTypeId = ownerTypeId;
     }
 }
