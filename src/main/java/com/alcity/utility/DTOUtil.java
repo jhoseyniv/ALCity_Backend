@@ -298,12 +298,12 @@ public class DTOUtil {
 
     public static void copyPropertyFromTo(Long fromOwnerId,Long toOwnerId, AttributeOwnerType from , AttributeOwnerType to,
                                               AttributeService attributeService, AttributeValueService attributeValueService) {
-            copyAttributeFromTo(fromOwnerId,toOwnerId,AttributeOwnerType.Puzzle_Group_Object_Variable,AttributeOwnerType.Instance_Puzzle_Group_Object_Variable,attributeService,attributeValueService);
+            copyAttributeFromTo(fromOwnerId,toOwnerId,from,to,attributeService,attributeValueService);
 
         }
         public static void copyVariableFromTo(Long fromOwnerId,Long toOwnerId, AttributeOwnerType from , AttributeOwnerType to,
                                               AttributeService attributeService, AttributeValueService attributeValueService) {
-            copyAttributeFromTo(fromOwnerId,toOwnerId,AttributeOwnerType.Puzzle_Group_Object_Property,AttributeOwnerType.Instance_Puzzle_Group_Object_Property,attributeService,attributeValueService);
+            copyAttributeFromTo(fromOwnerId,toOwnerId,from,to,attributeService,attributeValueService);
 
        }
 
