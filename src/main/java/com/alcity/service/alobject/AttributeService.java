@@ -109,6 +109,10 @@ public class AttributeService implements AttributeRepository {
 
         ArrayList<Attribute> outputAttributes = new ArrayList<Attribute>();
 
+        if(ownerType == AttributeOwnerType.Puzzle_Group_Object_Action_Handler_Parameter)
+            outputAttributes = alCityAttributes.stream().
+                    filter(attribute -> attribute.getAttributeOwnerType().equals(AttributeOwnerType.Puzzle_Group_Object_Action_Handler_Parameter))
+                    .collect(Collectors.toCollection(ArrayList::new));
         if(ownerType == AttributeOwnerType.Puzzle_Level_Rule_Post_Action)
             outputAttributes = alCityAttributes.stream().
                     filter(attribute -> attribute.getAttributeOwnerType().equals(AttributeOwnerType.Puzzle_Level_Rule_Post_Action))

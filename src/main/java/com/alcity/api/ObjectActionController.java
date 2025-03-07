@@ -54,7 +54,7 @@ public class ObjectActionController {
         return  new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", id,"Record not found!");
     }
 
-    @Operation( summary = "Fetch all actions for an object by id  ",  description = "Fetch all actions for an object by id ")
+   @Operation( summary = "Fetch all actions for an object by id  ",  description = "Fetch all actions for an object by id ")
     @RequestMapping(value = "/obj/id/{id}/all", method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin(origins = "*")
@@ -63,7 +63,7 @@ public class ObjectActionController {
         Collection<ActionDTO> dtos= PLDTOUtil.getActionDTOS(actions);
         return dtos;
     }
-    @Operation( summary = "Fetch all parameters for an action defined in a city object by id  ",  description = "Fetch all parameters for an action defined in a object by id")
+/*    @Operation( summary = "Fetch all parameters for an action defined in a city object by id  ",  description = "Fetch all parameters for an action defined in a object by id")
     @RequestMapping(value = "/action/id/{id}/param/all", method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin(origins = "*")
@@ -72,7 +72,7 @@ public class ObjectActionController {
         Collection<AttributeDTO> dtos= DTOUtil.getAttributesDTOS(parameters);
         return dtos;
     }
-
+*/
     @Operation( summary = "Save a Object Action... ",  description = "Save a Object Action...")
     @PostMapping("/save")
     @CrossOrigin(origins = "*")
