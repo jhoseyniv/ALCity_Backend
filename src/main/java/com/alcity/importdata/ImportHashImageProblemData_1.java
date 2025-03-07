@@ -114,7 +114,7 @@ public class ImportHashImageProblemData_1 implements CommandLineRunner {
 
 
     @Autowired
-    ActionService puzzleObject_ObjectActionService;
+    ActionService actionService;
 
     @Autowired
     ALCityObjectInPGService alCityObjectInPGService;
@@ -252,8 +252,8 @@ public class ImportHashImageProblemData_1 implements CommandLineRunner {
         alCityObjectInPGService.save(ImageObject01_in_haseImage_puzzleGroup);
 
         //change actions for ImageObject01_in_haseImage_puzzleGroup
-        alCityObjectInPGService.copyActionFromALCityObjectToPuzzleGroupObject(ImageObject01_in_haseImage_puzzleGroup);
-
+        DTOUtil.copyActionFromTo(ImageObject01.get().getId(), ImageObject01_in_haseImage_puzzleGroup.getId(),AttributeOwnerType.Object_Action_Handler_Parameter,
+                AttributeOwnerType.Puzzle_Group_Object_Action_Handler_Parameter,actionService,POActionOwnerType.Object,POActionOwnerType.Puzzle_Group_Object,attributeService,attributeValueService);
         StringBuffer  condition_Objective = new StringBuffer("equal(BoardVar(finished),true)");
               //  + "(img2.x == img2.targetX)&&(img2.y == img2.targetY)" + ","
                // + "(img3.x == img3.targetX)&&(img3.y == img3.targetY)" + ","
@@ -323,28 +323,28 @@ public class ImportHashImageProblemData_1 implements CommandLineRunner {
         pgObjectInstanceService.save(instance_img7);
         pgObjectInstanceService.save(instance_img8);
 
-        DTOUtil.copyPropertiesFromTo(ImageObject01_in_haseImage_puzzleGroup.getId(),instance_img0.getId(),AttributeOwnerType.Puzzle_Group_Object_Variable,AttributeOwnerType.Instance_Puzzle_Group_Object_Variable,
+        DTOUtil.copyAttributeFromTo(ImageObject01_in_haseImage_puzzleGroup.getId(),instance_img0.getId(),AttributeOwnerType.Puzzle_Group_Object_Variable,AttributeOwnerType.Instance_Puzzle_Group_Object_Variable,
                 attributeService,attributeValueService);
-        DTOUtil.copyPropertiesFromTo(ImageObject01_in_haseImage_puzzleGroup.getId(),instance_img1.getId(),AttributeOwnerType.Puzzle_Group_Object_Variable,AttributeOwnerType.Instance_Puzzle_Group_Object_Variable,
+        DTOUtil.copyAttributeFromTo(ImageObject01_in_haseImage_puzzleGroup.getId(),instance_img1.getId(),AttributeOwnerType.Puzzle_Group_Object_Variable,AttributeOwnerType.Instance_Puzzle_Group_Object_Variable,
                 attributeService,attributeValueService);
-        DTOUtil.copyPropertiesFromTo(ImageObject01_in_haseImage_puzzleGroup.getId(),instance_img2.getId(),AttributeOwnerType.Puzzle_Group_Object_Variable,AttributeOwnerType.Instance_Puzzle_Group_Object_Variable,
+        DTOUtil.copyAttributeFromTo(ImageObject01_in_haseImage_puzzleGroup.getId(),instance_img2.getId(),AttributeOwnerType.Puzzle_Group_Object_Variable,AttributeOwnerType.Instance_Puzzle_Group_Object_Variable,
                 attributeService,attributeValueService);
-        DTOUtil.copyPropertiesFromTo(ImageObject01_in_haseImage_puzzleGroup.getId(),instance_img3.getId(),AttributeOwnerType.Puzzle_Group_Object_Variable,AttributeOwnerType.Instance_Puzzle_Group_Object_Variable,
-                attributeService,attributeValueService);
-
-        DTOUtil.copyPropertiesFromTo(ImageObject01_in_haseImage_puzzleGroup.getId(),instance_img4.getId(),AttributeOwnerType.Puzzle_Group_Object_Variable,AttributeOwnerType.Instance_Puzzle_Group_Object_Variable,
+        DTOUtil.copyAttributeFromTo(ImageObject01_in_haseImage_puzzleGroup.getId(),instance_img3.getId(),AttributeOwnerType.Puzzle_Group_Object_Variable,AttributeOwnerType.Instance_Puzzle_Group_Object_Variable,
                 attributeService,attributeValueService);
 
-        DTOUtil.copyPropertiesFromTo(ImageObject01_in_haseImage_puzzleGroup.getId(),instance_img5.getId(),AttributeOwnerType.Puzzle_Group_Object_Variable,AttributeOwnerType.Instance_Puzzle_Group_Object_Variable,
+        DTOUtil.copyAttributeFromTo(ImageObject01_in_haseImage_puzzleGroup.getId(),instance_img4.getId(),AttributeOwnerType.Puzzle_Group_Object_Variable,AttributeOwnerType.Instance_Puzzle_Group_Object_Variable,
                 attributeService,attributeValueService);
 
-        DTOUtil.copyPropertiesFromTo(ImageObject01_in_haseImage_puzzleGroup.getId(),instance_img6.getId(),AttributeOwnerType.Puzzle_Group_Object_Variable,AttributeOwnerType.Instance_Puzzle_Group_Object_Variable,
+        DTOUtil.copyAttributeFromTo(ImageObject01_in_haseImage_puzzleGroup.getId(),instance_img5.getId(),AttributeOwnerType.Puzzle_Group_Object_Variable,AttributeOwnerType.Instance_Puzzle_Group_Object_Variable,
                 attributeService,attributeValueService);
 
-        DTOUtil.copyPropertiesFromTo(ImageObject01_in_haseImage_puzzleGroup.getId(),instance_img7.getId(),AttributeOwnerType.Puzzle_Group_Object_Variable,AttributeOwnerType.Instance_Puzzle_Group_Object_Variable,
+        DTOUtil.copyAttributeFromTo(ImageObject01_in_haseImage_puzzleGroup.getId(),instance_img6.getId(),AttributeOwnerType.Puzzle_Group_Object_Variable,AttributeOwnerType.Instance_Puzzle_Group_Object_Variable,
                 attributeService,attributeValueService);
 
-        DTOUtil.copyPropertiesFromTo(ImageObject01_in_haseImage_puzzleGroup.getId(),instance_img8.getId(),AttributeOwnerType.Puzzle_Group_Object_Variable,AttributeOwnerType.Instance_Puzzle_Group_Object_Variable,
+        DTOUtil.copyAttributeFromTo(ImageObject01_in_haseImage_puzzleGroup.getId(),instance_img7.getId(),AttributeOwnerType.Puzzle_Group_Object_Variable,AttributeOwnerType.Instance_Puzzle_Group_Object_Variable,
+                attributeService,attributeValueService);
+
+        DTOUtil.copyAttributeFromTo(ImageObject01_in_haseImage_puzzleGroup.getId(),instance_img8.getId(),AttributeOwnerType.Puzzle_Group_Object_Variable,AttributeOwnerType.Instance_Puzzle_Group_Object_Variable,
                 attributeService,attributeValueService);
 
         byte[] image_0_hash = ImageUtil.getImage("src/main/resources/images/hashImage_Puzzle/","0.png");

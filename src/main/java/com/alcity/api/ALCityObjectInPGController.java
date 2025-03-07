@@ -1,5 +1,9 @@
 package com.alcity.api;
 
+import com.alcity.entity.alenum.AttributeOwnerType;
+import com.alcity.entity.alobject.AttributeValue;
+import com.alcity.service.alobject.AttributeService;
+import com.alcity.service.alobject.AttributeValueService;
 import com.alcity.service.customexception.ALCityResponseObject;
 import com.alcity.service.customexception.UniqueConstraintException;
 import com.alcity.service.customexception.ViolateForeignKeyException;
@@ -34,6 +38,11 @@ public class ALCityObjectInPGController {
     @Autowired
     private ALCityObjectInPGService alCityObjectInPGService;
 
+    @Autowired
+    private AttributeService attributeService;
+    @Autowired
+    private AttributeValueService attributeValueService;
+
 
     @Operation( summary = "Fetch all actions for an al city object that define in a puzzle group ",  description = "Fetch all actions for an al city object")
     @RequestMapping(value = "/id/{id}/actions/all", method = RequestMethod.GET)
@@ -56,7 +65,7 @@ public class ALCityObjectInPGController {
         return  alCityObjectInPGDTO;
     }
 
-    @Operation( summary = "Add a Object to a Puzzle Group ",  description = "Add an AL City Object to a Puzzle Group ")
+    @Operation( summary = "Add a Object to a Puzzle Group ",  description = "Add a Object to a Puzzle Group ")
     @PostMapping("/save")
     @CrossOrigin(origins = "*")
     public ALCityResponseObject saveALCityObjectInPG(@RequestBody CityObjectInPGDTO dto)  {
@@ -66,6 +75,12 @@ public class ALCityObjectInPGController {
         if (dto.getId() == null || dto.getId() <= 0L) { //save
             try {
                 savedRecord = alCityObjectInPGService.save(dto,"Save");
+                DTOUtil.copyActionFromTo(dto.getAlCityObjectId(), savedRecord.getId(),AttributeOwnerType.Object_Action_Handler_Parameter,
+                        AttributeOwnerType.Puzzle_Group_Object_Action_Handler_Parameter,actionService,POActionOwnerType.Object,
+                        POActionOwnerType.Puzzle_Group_Object,attributeService,attributeValueService);
+                DTOUtil.copyPropertyFromTo(dto.getAlCityObjectId(),savedRecord.getId(),AttributeOwnerType.Object_Property,AttributeOwnerType.Puzzle_Group_Object_Property,attributeService,attributeValueService);
+                DTOUtil.copyVariableFromTo(dto.getAlCityObjectId(),savedRecord.getId(),AttributeOwnerType.Object_Variable,AttributeOwnerType.Puzzle_Group_Object_Variable,attributeService,attributeValueService);
+
             } catch (RuntimeException e) {
                 throw new UniqueConstraintException(dto.getTitle(), dto.getId(), "title must be Unique");
             }

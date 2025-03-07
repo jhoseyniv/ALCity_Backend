@@ -16,7 +16,7 @@ public enum AttributeOwnerType {
     Instance_Puzzle_Group_Object,
     Instance_Puzzle_Group_Object_Action_Handler_Parameter,
     Instance_Puzzle_Group_Object_Property, //PGOP
-    Instance_Puzzle_Group_Object_Variable, //PGOV
+    Instance_Puzzle_Group_Object_Variable,
 
     Puzzle_Level_Variable,
 

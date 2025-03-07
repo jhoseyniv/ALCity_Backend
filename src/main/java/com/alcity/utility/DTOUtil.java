@@ -20,6 +20,7 @@ import com.alcity.dto.player.PlayHistoryDTO;
 import com.alcity.dto.puzzle.*;
 import com.alcity.entity.alenum.AttributeOwnerType;
 import com.alcity.entity.alenum.ObjectActionType;
+import com.alcity.entity.alenum.POActionOwnerType;
 import com.alcity.entity.alobject.*;
 import com.alcity.entity.appmember.AppMember_WalletItem;
 import com.alcity.entity.base.*;
@@ -34,6 +35,7 @@ import com.alcity.entity.play.PlayHistory;
 import com.alcity.entity.puzzle.*;
 import com.alcity.entity.appmember.AppMember;
 import com.alcity.entity.appmember.WalletItem;
+import com.alcity.service.alobject.ActionService;
 import com.alcity.service.alobject.AttributeService;
 import com.alcity.service.alobject.AttributeValueService;
 
@@ -224,9 +226,9 @@ public class DTOUtil {
         }
         return dtos;
     }
+
     public static void copyActionParametersFromTo(Long fromOwnerId,Long toOwnerId, AttributeOwnerType from , AttributeOwnerType to,
                                  AttributeService attributeService, AttributeValueService attributeValueService){
-        //ActionRenderer actionRenderer = action.getActionRenderer();
         Collection<AttributeValue> attributeValues = new ArrayList<AttributeValue>();
         Collection<Attribute> parameters = attributeService.findByOwnerIdAndAttributeOwnerType(fromOwnerId, from);
         Iterator<Attribute> itr = parameters.iterator();
@@ -257,13 +259,56 @@ public class DTOUtil {
 
     }
 
-    public static void copyVariablesFromTo(Long fromOwnerId,Long toOwnerId, AttributeOwnerType from , AttributeOwnerType to,
-                                            AttributeService attributeService, AttributeValueService attributeValueService) {
-
+//    public static void copyObjectActions(Long toOwnerId ,Collection<ObjectAction> actions,ActionService actionService){
+//       Iterator<ObjectAction> itr = actions.iterator();
+//       while(itr.hasNext()){
+//           ObjectAction objectAction = itr.next();
+//           ObjectActionType objectActionType = ObjectActionType.getByTitle(objectAction.getObjectAction().name());
+//           ObjectAction newObjectAction = new ObjectAction(POActionOwnerType.Puzzle_Group_Object,toOwnerId,objectActionType,objectAction.getActionRenderer(),
+//                                                            objectAction.getVersion(),DateUtils.getNow(),DateUtils.getNow(),
+//                                                            objectAction.getCreatedBy(), objectAction.getUpdatedBy());
+//            actionService.save(newObjectAction);
+//       }
+//
+//    }
+    public static void copyActionFromTo(Long fromOwnerId, Long toOwnerId,AttributeOwnerType from,AttributeOwnerType to,
+                                        ActionService actionService,POActionOwnerType  fromAction,POActionOwnerType toAction,
+                                        AttributeService attributeService, AttributeValueService attributeValueService) {
+        Collection<ObjectAction> actions = actionService.findByOwnerObjectidAndPoActionOwnerType(fromOwnerId, POActionOwnerType.Object);
+        Iterator<ObjectAction> itr = actions.iterator();
+        while(itr.hasNext()){
+            ObjectAction objectAction = itr.next();
+            ObjectActionType objectActionType = ObjectActionType.getByTitle(objectAction.getObjectAction().name());
+            ObjectAction newObjectAction = new ObjectAction(POActionOwnerType.Puzzle_Group_Object,toOwnerId,objectActionType,objectAction.getActionRenderer(),
+                    objectAction.getVersion(),DateUtils.getNow(),DateUtils.getNow(),
+                    objectAction.getCreatedBy(), objectAction.getUpdatedBy());
+            actionService.save(newObjectAction);
+            copyActionParametersFromTo(objectAction.getId(),newObjectAction.getId(),from,to,attributeService,attributeValueService);
+        }
     }
-        public static void copyPropertiesFromTo(Long fromOwnerId,Long toOwnerId, AttributeOwnerType from , AttributeOwnerType to,
+
+//    public static void copyObjectFromTo(Long fromOwnerId, Long toOwnerId, AttributeOwnerType from, AttributeOwnerType to,
+//                                        ActionService actionService, POActionOwnerType  fromAction,POActionOwnerType toAction,
+//                                        AttributeService attributeService, AttributeValueService attributeValueService) {
+//
+//        copyActionFromTo(fromOwnerId,toOwnerId,from,to,actionService,fromAction,toAction,attributeService,attributeValueService);
+//        copyVariableFromTo(fromOwnerId,toOwnerId,from,to,attributeService,attributeValueService);
+//        copyPropertyFromTo(fromOwnerId,toOwnerId,from,to,attributeService,attributeValueService);
+//    }
+
+    public static void copyPropertyFromTo(Long fromOwnerId,Long toOwnerId, AttributeOwnerType from , AttributeOwnerType to,
+                                              AttributeService attributeService, AttributeValueService attributeValueService) {
+            copyAttributeFromTo(fromOwnerId,toOwnerId,AttributeOwnerType.Puzzle_Group_Object_Variable,AttributeOwnerType.Instance_Puzzle_Group_Object_Variable,attributeService,attributeValueService);
+
+        }
+        public static void copyVariableFromTo(Long fromOwnerId,Long toOwnerId, AttributeOwnerType from , AttributeOwnerType to,
+                                              AttributeService attributeService, AttributeValueService attributeValueService) {
+            copyAttributeFromTo(fromOwnerId,toOwnerId,AttributeOwnerType.Puzzle_Group_Object_Property,AttributeOwnerType.Instance_Puzzle_Group_Object_Property,attributeService,attributeValueService);
+
+       }
+
+        public static void copyAttributeFromTo(Long fromOwnerId,Long toOwnerId, AttributeOwnerType from , AttributeOwnerType to,
                                                   AttributeService attributeService, AttributeValueService attributeValueService){
-        //ActionRenderer actionRenderer = action.getActionRenderer();
         Collection<AttributeValue> attributeValues = new ArrayList<AttributeValue>();
         Collection<Attribute> parameters = attributeService.findByOwnerIdAndAttributeOwnerType(fromOwnerId, from);
         Iterator<Attribute> itr = parameters.iterator();

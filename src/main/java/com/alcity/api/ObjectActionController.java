@@ -24,14 +24,14 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Collection;
 import java.util.Optional;
 
-@Tag(name = "ALCity Object Action APIs", description = "Get AL City  Object actions and related entities as rest api")
+@Tag(name = "Object Action APIs", description = "Get Object actions and related entities as rest api")
 @CrossOrigin(origins = "*" ,maxAge = 3600)
 @RestController
 @RequestMapping("/poa")
 
-public class PuzzleObjectActionController {
+public class ObjectActionController {
     @Autowired
-    private ActionService puzzleObjectActionService;
+    private ActionService service;
 
 
     @Autowired
@@ -41,10 +41,10 @@ public class PuzzleObjectActionController {
     @DeleteMapping("/del/id/{id}")
     @CrossOrigin(origins = "*")
     public ALCityResponseObject deletePuzzleObjectActionById(@PathVariable Long id) {
-        Optional<ObjectAction> existingRecord = puzzleObjectActionService.findById(id);
+        Optional<ObjectAction> existingRecord = service.findById(id);
         if(existingRecord.isPresent()){
             try {
-                puzzleObjectActionService.deleteById(existingRecord.get().getId());
+                service.deleteById(existingRecord.get().getId());
             }catch (Exception e )
             {
                 throw new ViolateForeignKeyException(existingRecord.get().getObjectAction().name(), existingRecord.get().getId(), PuzzleGroup.class.toString());
@@ -54,16 +54,16 @@ public class PuzzleObjectActionController {
         return  new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", id,"Record not found!");
     }
 
-    @Operation( summary = "Fetch all actions for an alcity object by id  ",  description = "Fetch all actions for an alcity object by id ")
+    @Operation( summary = "Fetch all actions for an object by id  ",  description = "Fetch all actions for an object by id ")
     @RequestMapping(value = "/obj/id/{id}/all", method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin(origins = "*")
     public Collection<ActionDTO> getActionsForAALCityObject(@PathVariable Long id) {
-        Collection<ObjectAction> actions = puzzleObjectActionService.findByOwnerObjectidAndPoActionOwnerType(id, POActionOwnerType.Object);
+        Collection<ObjectAction> actions = service.findByOwnerObjectidAndPoActionOwnerType(id, POActionOwnerType.Object);
         Collection<ActionDTO> dtos= PLDTOUtil.getActionDTOS(actions);
         return dtos;
     }
-    @Operation( summary = "Fetch all parameters for an action defined in a al city object by id  ",  description = "Fetch all parameters for an action defined in a al city object by id")
+    @Operation( summary = "Fetch all parameters for an action defined in a city object by id  ",  description = "Fetch all parameters for an action defined in a object by id")
     @RequestMapping(value = "/action/id/{id}/param/all", method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin(origins = "*")
@@ -73,22 +73,22 @@ public class PuzzleObjectActionController {
         return dtos;
     }
 
-    @Operation( summary = "Save a Puzzle Object Action... ",  description = "Save a Puzzle Object Action...")
+    @Operation( summary = "Save a Object Action... ",  description = "Save a Object Action...")
     @PostMapping("/save")
     @CrossOrigin(origins = "*")
-    public ALCityResponseObject savePuzzleObjectAction(@RequestBody ActionDTO dto)  {
+    public ALCityResponseObject saveObjectAction(@RequestBody ActionDTO dto)  {
         ObjectAction savedRecord = null;
         ALCityResponseObject responseObject = new ALCityResponseObject();
 
         if (dto.getId() == null || dto.getId() <= 0L) { //save
             try {
-                savedRecord = puzzleObjectActionService.save(dto,"Save");
+                savedRecord = service.save(dto,"Save");
             } catch (RuntimeException e) {
                 throw new UniqueConstraintException(dto.getObjectAction().toString(), dto.getId(), "title must be Unique");
             }
             responseObject = new ALCityResponseObject(HttpStatus.OK.value(), "ok", savedRecord.getId(), "Record Saved Successfully!");
         } else if (dto.getId() > 0L ) {//edit
-            savedRecord = puzzleObjectActionService.save(dto, "Edit");
+            savedRecord = service.save(dto, "Edit");
             if(savedRecord !=null)
                 responseObject = new ALCityResponseObject(HttpStatus.OK.value(), "ok", savedRecord.getId(), "Record Updated Successfully!");
             else

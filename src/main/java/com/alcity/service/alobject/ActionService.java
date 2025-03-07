@@ -35,8 +35,9 @@ public class ActionService implements ActionRepository {
     AttributeValueService  attributeValueService;
     @Autowired
     private AppMemberRepository appMemberRepository;
-    @Autowired
-    private ALCityObjectService alCityObjectService;
+
+//    @Autowired
+//    private ALCityObjectService alCityObjectService;
     @Autowired
     private RendererService rendererService;
 
@@ -46,13 +47,13 @@ public class ActionService implements ActionRepository {
     }
     public ObjectAction save(ActionDTO dto, String code) {
         AppMember createdBy = appMemberRepository.findByUsername("admin");
-        Optional<ALCityObject> cityObjectOptional = alCityObjectService.findById(dto.getOwnerObjectid());
-        ObjectActionType objectAction = ObjectActionType.getByTitle(dto.getObjectAction());
+        //Optional<ALCityObject> cityObjectOptional = alCityObjectService.findById(dto.getOwnerObjectid());
+        ObjectActionType objectActionType = ObjectActionType.getByTitle(dto.getObjectAction());
         POActionOwnerType  actionOwnerType = POActionOwnerType.getByTitle(dto.getOwnerType());
         Optional<Renderer> rendererOptional = rendererService.findById(dto.getActionRenderId());
         ObjectAction puzzleObjectAction=null;
         if (code.equalsIgnoreCase("Save")) { //Save
-           puzzleObjectAction = new ObjectAction(actionOwnerType, dto.getOwnerObjectid(), objectAction,rendererOptional.get(),
+           puzzleObjectAction = new ObjectAction(actionOwnerType, dto.getOwnerObjectid(), objectActionType,rendererOptional.get(),
                      1L,DateUtils.getNow(),DateUtils.getNow(),createdBy, createdBy);
             actionRepository.save(puzzleObjectAction);
             DTOUtil.copyActionParametersFromTo(dto.getActionRenderId(), puzzleObjectAction.getId(),AttributeOwnerType.Action_Handler_Parameter,AttributeOwnerType.Object_Action_Handler_Parameter,
@@ -65,7 +66,7 @@ public class ActionService implements ActionRepository {
            if(puzzleObjectActionOptional.isPresent()) {
                 puzzleObjectAction = puzzleObjectActionOptional.get();
                 puzzleObjectAction.setPoActionOwnerType(actionOwnerType);
-                puzzleObjectAction.setObjectAction(objectAction);
+                puzzleObjectAction.setObjectAction(objectActionType);
                 puzzleObjectAction.setOwnerObjectid(dto.getOwnerObjectid());
                 puzzleObjectAction.setActionRenderer(rendererOptional.get());
                 puzzleObjectAction.setVersion(puzzleObjectAction.getVersion()+1);

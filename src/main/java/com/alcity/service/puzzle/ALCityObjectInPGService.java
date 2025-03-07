@@ -166,7 +166,7 @@ public class ALCityObjectInPGService implements ALCityObjectInPGRepository {
         return alCityObjectInPG;
     }
 
-    public void copyActionFromALCityObjectToPuzzleGroupObject(ALCityObjectInPG alCityObjectInPG){
+   /* public void copyActionFromALCityObjectToPuzzleGroupObject(ALCityObjectInPG alCityObjectInPG){
         ALCityObject alCityObject = alCityObjectInPG.getAlCityObject();
         Collection<ObjectAction> actions = alCityObjectService.findAllActions(alCityObject);
 
@@ -174,14 +174,14 @@ public class ALCityObjectInPGService implements ALCityObjectInPGRepository {
         while(itr.hasNext()){
             ObjectAction action = new ObjectAction();
             action = itr.next();
-            ObjectAction newAction = new ObjectAction(POActionOwnerType.Puzzle_Group_Object,alCityObjectInPG.getId(), action.getObjectAction(),action.getActionRenderer(),1L,action.getCreated(),
+            ObjectAction newAction = new ObjectAction(POActionOwnerType.Puzzle_Group_Object,alCityObjectInPG.getId(), action.getObjectAction(),action.getActionRenderer(),action.getVersion(),action.getCreated(),
                     action.getUpdated(),action.getCreatedBy(),action.getUpdatedBy());
             puzzleObjectActionService.save(newAction);
 
-            DTOUtil.copyActionParametersFromTo(action.getId(),newAction.getId(), AttributeOwnerType.Object_Bundle,AttributeOwnerType.Puzzle_Group_Object_Action_Handler_Parameter,
+            DTOUtil.copyActionParametersFromTo(action.getId(),newAction.getId(), AttributeOwnerType.Object_Action_Handler_Parameter,AttributeOwnerType.Puzzle_Group_Object_Action_Handler_Parameter,
                     attributeService,attributeValueService);
         }
 
     }
-
+*/
 }

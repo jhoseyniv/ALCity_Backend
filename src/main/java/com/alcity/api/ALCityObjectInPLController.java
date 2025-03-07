@@ -46,9 +46,9 @@ public class ALCityObjectInPLController {
     private AttributeService attributeService;
 
     @Autowired
-    ActionService puzzleObjectActionService;
+    ActionService actionService;
 
-    @Operation( summary = "Add an AL City Object Instance to a Puzzle Level ",  description = "Add an AL City Object Instance to a Puzzle Level ")
+    @Operation( summary = "Add a Object Instance to a Puzzle Level ",  description = "Add a Object Instance to a Puzzle Level ")
     @PostMapping("/save")
     @CrossOrigin(origins = "*")
     public ALCityResponseObject saveALCityObjectInPL(@RequestBody CityObjectInPLDTO dto)  {
@@ -92,12 +92,12 @@ public class ALCityObjectInPLController {
     public Collection<ActionData> getAllActionsForAnALCityInstanceInPuzzleLevelById(@PathVariable Long id) {
         Collection<ActionData> actionsData = new ArrayList<ActionData>();
         Collection<ObjectAction> actions = new ArrayList<ObjectAction>();
-        actions = puzzleObjectActionService.findByOwnerObjectidAndPoActionOwnerType(id, POActionOwnerType.Puzzle_Level_Instance);
+        actions = actionService.findByOwnerObjectidAndPoActionOwnerType(id, POActionOwnerType.Puzzle_Level_Instance);
         actionsData = DTOUtil.getObjectActionDTOS(actions);
         return  actionsData;
     }
 
-    @Operation( summary = "Fetch all variables for a city object instance in a puzzle level by instance Id ",  description = "Fetch all variables for an alcity object instance ")
+ /*   @Operation( summary = "Fetch all variables for a city object instance in a puzzle level by instance Id ",  description = "Fetch all variables for an alcity object instance ")
     @RequestMapping(value = "/id/{id}/variables/all", method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin(origins = "*")
@@ -105,7 +105,7 @@ public class ALCityObjectInPLController {
         Collection<RecordData>  variables = DTOUtil.getAttributeForOwnerById(attributeService,id,AttributeOwnerType.Instance_Puzzle_Group_Object_Variable);
         return  variables;
     }
-    @Operation( summary = "Fetch all properties for an alcity object instance in a puzzle level by instance Id ",  description = "Fetch all properties for an alcity object instance  ")
+    @Operation( summary = "Fetch all properties for an object instance in a puzzle level by instance Id ",  description = "Fetch all properties for an alcity object instance  ")
     @RequestMapping(value = "/id/{id}/properties/all", method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin(origins = "*")
@@ -113,9 +113,9 @@ public class ALCityObjectInPLController {
         Collection<RecordData>  properties = DTOUtil.getAttributeForOwnerById(attributeService,id,AttributeOwnerType.Instance_Puzzle_Group_Object_Property);
         return  properties;
     }
+*/
 
-
-    @Operation( summary = "Remove an  AL City Object Instance From a Puzzle Level",  description = "Remove an  AL City Object  Instance From a Puzzle Level")
+    @Operation( summary = "Remove a City Object Instance From a Puzzle Level",  description = "Remove an  AL City Object  Instance From a Puzzle Level")
     @DeleteMapping("/del/id/{id}")
     @CrossOrigin(origins = "*")
     public ALCityResponseObject deleteALCityObjectInPLById(@PathVariable Long id) {
