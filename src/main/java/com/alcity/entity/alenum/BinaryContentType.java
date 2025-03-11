@@ -20,6 +20,7 @@ public enum BinaryContentType {
     MAV,
     OGG,
     AMR,
+    PERFAB,
     Other;
 
     public static BinaryContentType getById(long id)
