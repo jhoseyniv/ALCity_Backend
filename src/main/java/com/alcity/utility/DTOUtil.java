@@ -401,7 +401,7 @@ public class DTOUtil {
             }
 
 
-            if(attribute.getAttributeOwnerType().equals(AttributeOwnerType.Puzzle_Group_Object_Property)){
+            if(attribute.getAttributeOwnerType().equals(AttributeOwnerType.Puzzle_Group_Object_Variable)){
                 boolean isValueChanged = isAttributeValueChanged(attributeValue,newAttributeValue);
                 if(isValueChanged)
                     overwiteValue(attributeValue,newAttributeValue,attributeRepository, attributeValueRepository);
