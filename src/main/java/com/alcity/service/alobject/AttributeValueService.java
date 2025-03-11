@@ -1,6 +1,7 @@
 package com.alcity.service.alobject;
 
 
+import com.alcity.entity.alobject.Attribute;
 import com.alcity.entity.alobject.AttributeValue;
 import com.alcity.repository.alobject.AttributeValueRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,11 +42,17 @@ public class AttributeValueService implements AttributeValueRepository {
         return null;
     }
 
-//    @Override
-//    public AttributeValue findByAttributeId(Long id) {
-//        AttributeValue attributeValue = attributeValueRepository.findByAttributeId(id);
-//        return attributeValue;
-//    }
+
+    @Override
+    public Collection<AttributeValue> findByAttributeId(Attribute attribute) {
+        return attributeValueRepository.findByAttributeId(attribute);
+    }
+
+    @Override
+    public Optional<AttributeValue> findByAttributeIdAndOwnerId(Attribute attribute, Long ownerId) {
+        return attributeValueRepository.findByAttributeIdAndOwnerId(attribute,ownerId);
+    }
+
 
     @Override
     public Iterable<AttributeValue> findAllById(Iterable<Long> longs) {

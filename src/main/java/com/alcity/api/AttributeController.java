@@ -1,9 +1,9 @@
 package com.alcity.api;
 
+import com.alcity.dto.alobject.AttributeDTOSave;
 import com.alcity.service.customexception.ALCityResponseObject;
 import com.alcity.service.customexception.UniqueConstraintException;
 import com.alcity.service.customexception.ViolateForeignKeyException;
-import com.alcity.dto.Interpreter.object.RecordData;
 import com.alcity.dto.alobject.AttributeDTO;
 import com.alcity.entity.alenum.AttributeOwnerType;
 import com.alcity.entity.alobject.Attribute;
@@ -43,7 +43,7 @@ public class AttributeController {
     @Operation( summary = "Save an Attribute Entity ",  description = "Save an Attribute Entity...")
     @PostMapping("/save")
     @CrossOrigin(origins = "*")
-    public ALCityResponseObject saveAttribute(@RequestBody AttributeDTO dto)  {
+    public ALCityResponseObject saveAttribute(@RequestBody AttributeDTOSave dto)  {
         Attribute savedRecord = null;
         ALCityResponseObject responseObject = new ALCityResponseObject();
 
@@ -72,7 +72,7 @@ public class AttributeController {
     @Operation( summary = "Save an Attribute Collection ",  description = "Save an Attribute collection Entity...")
     @PostMapping("/save/all")
     @CrossOrigin(origins = "*")
-    public Collection<ALCityResponseObject> saveAllAttribute(@RequestBody Collection<AttributeDTO> dtos)  {
+    public Collection<ALCityResponseObject> saveAllAttribute(@RequestBody Collection<AttributeDTOSave> dtos)  {
         Collection<ALCityResponseObject> responseObject = new ArrayList<>();
         Collection<ALCityResponseObject> responseObjects = attributeService.saveAll(dtos);
         return responseObjects;
@@ -106,12 +106,23 @@ public class AttributeController {
         return null;
     }
 */
-    @Operation( summary = "Fetch all attributes for an owner by id and type ",  description = "Fetch all attributes for an owner by id and type ")
-    @RequestMapping(value = "/owner/{id}/type/{type}", method = RequestMethod.GET)
+  @Operation( summary = "Fetch all attributes for an owner by id and type ",  description = "Fetch all attributes for an owner by id and type ")
+  @RequestMapping(value = "/owner/{id}/type/{type}", method = RequestMethod.GET)
+  @ResponseBody
+  @CrossOrigin(origins = "*")
+  public Collection<AttributeDTO> getAttributesByOwnerIdAndOwnerType(@PathVariable Long id,@PathVariable String type) {
+      Collection<Attribute> attributes = attributeService.findByOwnerIdAndAttributeOwnerTypeNew(id,AttributeOwnerType.getByTitle(type));
+      Collection<AttributeDTO> dtos = new ArrayList<AttributeDTO>();
+      dtos = DTOUtil.getAttributesDTOS(attributes);
+      return  dtos;
+  }
+
+  @Operation( summary = "Fetch all attributes for an owner by id and type ",  description = "Fetch all attributes for an owner by id and type ")
+    @RequestMapping(value = "/ownerNew/{id}/type/{type}", method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin(origins = "*")
-    public Collection<AttributeDTO> getAttributesByOwnerIdAndOwnerType(@PathVariable Long id,@PathVariable String type) {
-        Collection<Attribute> attributes = attributeService.findByOwnerIdAndAttributeOwnerType(id,AttributeOwnerType.getByTitle(type));
+    public Collection<AttributeDTO> getAttributesByOwnerIdAndOwnerTypeNew(@PathVariable Long id,@PathVariable String type) {
+        Collection<Attribute> attributes = attributeService.findByOwnerIdAndAttributeOwnerTypeNew(id,AttributeOwnerType.getByTitle(type));
         Collection<AttributeDTO> dtos = new ArrayList<AttributeDTO>();
         dtos = DTOUtil.getAttributesDTOS(attributes);
         return  dtos;

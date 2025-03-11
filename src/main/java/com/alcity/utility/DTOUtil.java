@@ -35,6 +35,8 @@ import com.alcity.entity.play.PlayHistory;
 import com.alcity.entity.puzzle.*;
 import com.alcity.entity.appmember.AppMember;
 import com.alcity.entity.appmember.WalletItem;
+import com.alcity.repository.alobject.AttributeRepository;
+import com.alcity.repository.alobject.AttributeValueRepository;
 import com.alcity.service.alobject.ActionService;
 import com.alcity.service.alobject.AttributeService;
 import com.alcity.service.alobject.AttributeValueService;
@@ -92,7 +94,20 @@ public class DTOUtil {
 
         return dto;
     }
-
+    public static void copyActionFromTo(Long fromOwnerId, Long toOwnerId,AttributeOwnerType from,AttributeOwnerType to,
+                                        ActionService actionService,POActionOwnerType  fromAction,POActionOwnerType toAction,
+                                        AttributeService attributeService, AttributeValueService attributeValueService) {
+        Collection<ObjectAction> actions = actionService.findByOwnerObjectidAndPoActionOwnerType(fromOwnerId, POActionOwnerType.Object);
+        Iterator<ObjectAction> itr = actions.iterator();
+        while(itr.hasNext()){
+            ObjectAction objectAction = itr.next();
+            ObjectActionType objectActionType = ObjectActionType.getByTitle(objectAction.getObjectAction().name());
+            ObjectAction newObjectAction = new ObjectAction(POActionOwnerType.Puzzle_Group_Object,toOwnerId,objectActionType,objectAction.getActionRenderer(),
+                    objectAction.getVersion(),DateUtils.getNow(),DateUtils.getNow(),
+                    objectAction.getCreatedBy(), objectAction.getUpdatedBy());
+            actionService.save(newObjectAction);
+        }
+    }
     public static PLDTO getPuzzleLevelDTO(Optional<PuzzleLevel> puzzleLevelOptional) {
         PuzzleLevel puzzleLevel = new PuzzleLevel();
         PLDTO dto= new PLDTO();
@@ -115,30 +130,7 @@ public class DTOUtil {
         return valueDTO;
     }
 
-  /*  public static String getDataValue(AttributeValue value){
-        if (value.getBooleanValue()!=null )  return value.getBooleanValue().toString();
 
-        if (value.getDoubleValue()!=null )    return value.getDoubleValue().toString();
-
-        if (value.getIntValue()!=null )      return value.getIntValue().toString();
-
-        if (value.getLongValue()!=null )     return value.getLongValue().toString();
-
-        if (value.getBinaryContentId()!=null )  return value.getBinaryContentId().toString();
-
-        if (value.getStringValue()!=null )     return value.getStringValue();
-        if (value.getObjectValue()!=null )     return value.getStringValue();
-
-        return "Unknown Value";
-    }
-*/
-//    public static AttributeValueDTO changeValuesToNull(DataType dataType , AttributeValueDTO value){
-//        if(dataType.equals(DataType.Binary))
-//        AttributeValueDTO dto= new AttributeValueDTO(value.getId(),value.getBooleanValue(), value.getLongValue(), value.getDoubleValue(),
-//                value.getIntValue(), value.getBinaryContentId() ,
-//                value.getStringValue(),value.getObjectValue(),value.getAttributeId().getId(), value.getOwnerId(), value.getOwnerType().ordinal());
-//        return dto;
-//    }
    public static PuzzleLevelStepMappingDTO puzzleLevelJourneyStepMapping(PuzzleLevel pl, JourneyStep step) {
         PuzzleLevelStepMappingDTO dto = new PuzzleLevelStepMappingDTO();
         dto.setPlId(pl.getId());
@@ -193,7 +185,8 @@ public class DTOUtil {
         Collection<AttributeDTO> dtos = new ArrayList<AttributeDTO>();
         Iterator<Attribute> itr = attributes.iterator();
         while (itr.hasNext()) {
-           AttributeDTO dto = getAttributeDTO(itr.next());
+            Attribute attribute = itr.next();
+           AttributeDTO dto = getAttributeDTO(attribute);
             dtos.add(dto);
         }
         return dtos;
@@ -227,118 +220,217 @@ public class DTOUtil {
         return dtos;
     }
 
-    public static void copyActionParametersFromTo(Long fromOwnerId,Long toOwnerId, AttributeOwnerType from , AttributeOwnerType to,
-                                 AttributeService attributeService, AttributeValueService attributeValueService){
-        Collection<AttributeValue> attributeValues = new ArrayList<AttributeValue>();
-        Collection<Attribute> parameters = attributeService.findByOwnerIdAndAttributeOwnerType(fromOwnerId, from);
-        Iterator<Attribute> itr = parameters.iterator();
-        while(itr.hasNext()){
-            Attribute att = new Attribute();
-            att = itr.next();
-            Attribute newRecord = new Attribute(att.getName(),toOwnerId,to,att.getDataType(),
-                    att.getVersion(),att.getCreated(),att.getUpdated(),att.getCreatedBy(),att.getUpdatedBy());
-            attributeService.save(newRecord);
-            attributeValues = att.getAttributeValues();
-            Iterator<AttributeValue> itrAttributeValuesIterator = attributeValues.iterator();
-            while(itrAttributeValuesIterator.hasNext()) {
-                AttributeValue attValue = new AttributeValue();
-                attValue = itrAttributeValuesIterator.next();
-                AttributeValue newAttributeValue = new AttributeValue(attValue.getBooleanValue(),attValue.getIntValue(),attValue.getLongValue(),attValue.getStringValue(),
-                        attValue.getObjectValue(),attValue.getDoubleValue(),attValue.getBinaryContentId(),attValue.getExperssion(),newRecord,newRecord,
-                        attValue.getVersion(),attValue.getCreated(),attValue.getUpdated(),attValue.getCreatedBy(),attValue.getUpdatedBy(),attValue.getOwnerId(),attValue.getOwnerType());
-
-                //for log info
-                if(att.getName().equalsIgnoreCase("CODE"))   newAttributeValue.setStringValue("NEW CODE FOR ALCITY Object");
-                if(att.getName().equalsIgnoreCase("aSync"))     newAttributeValue.setStringValue("True");
-
-                attributeValueService.save(newAttributeValue);
-            }
-
-
+    public static boolean isAttributeChanged(Attribute attribute , AttributeDTOSave newAttribute) {
+        if(!attribute.getName().equalsIgnoreCase(newAttribute.getName())
+             || attribute.getDataType().equals(newAttribute.getDataType())
+        ){
+            return true;
         }
 
+        return false;
     }
 
-//    public static void copyObjectActions(Long toOwnerId ,Collection<ObjectAction> actions,ActionService actionService){
-//       Iterator<ObjectAction> itr = actions.iterator();
-//       while(itr.hasNext()){
-//           ObjectAction objectAction = itr.next();
-//           ObjectActionType objectActionType = ObjectActionType.getByTitle(objectAction.getObjectAction().name());
-//           ObjectAction newObjectAction = new ObjectAction(POActionOwnerType.Puzzle_Group_Object,toOwnerId,objectActionType,objectAction.getActionRenderer(),
-//                                                            objectAction.getVersion(),DateUtils.getNow(),DateUtils.getNow(),
-//                                                            objectAction.getCreatedBy(), objectAction.getUpdatedBy());
-//            actionService.save(newObjectAction);
-//       }
-//
-//    }
-    public static void copyActionFromTo(Long fromOwnerId, Long toOwnerId,AttributeOwnerType from,AttributeOwnerType to,
-                                        ActionService actionService,POActionOwnerType  fromAction,POActionOwnerType toAction,
-                                        AttributeService attributeService, AttributeValueService attributeValueService) {
-        Collection<ObjectAction> actions = actionService.findByOwnerObjectidAndPoActionOwnerType(fromOwnerId, POActionOwnerType.Object);
-        Iterator<ObjectAction> itr = actions.iterator();
+    public static boolean isAttributeValueSChanged(Collection<AttributeValue> values , AttributeValueDTOSave newValues) {
+        Iterator<AttributeValue> itr = values.iterator();
         while(itr.hasNext()){
-            ObjectAction objectAction = itr.next();
-            ObjectActionType objectActionType = ObjectActionType.getByTitle(objectAction.getObjectAction().name());
-            ObjectAction newObjectAction = new ObjectAction(POActionOwnerType.Puzzle_Group_Object,toOwnerId,objectActionType,objectAction.getActionRenderer(),
-                    objectAction.getVersion(),DateUtils.getNow(),DateUtils.getNow(),
-                    objectAction.getCreatedBy(), objectAction.getUpdatedBy());
-            actionService.save(newObjectAction);
-            copyActionParametersFromTo(objectAction.getId(),newObjectAction.getId(),from,to,attributeService,attributeValueService);
+            if(isAttributeValueChanged(itr.next(),newValues))
+                return true;
         }
+        return false;
     }
+        public static boolean isAttributeValueChanged(AttributeValue value , AttributeValueDTOSave newValue) {
+        Attribute bindedAttribute = value.getBindedAttributeId();
+        Long bindedAttributeId=null;
+        if(bindedAttribute != null)   bindedAttributeId = bindedAttribute.getId();
 
-//    public static void copyObjectFromTo(Long fromOwnerId, Long toOwnerId, AttributeOwnerType from, AttributeOwnerType to,
-//                                        ActionService actionService, POActionOwnerType  fromAction,POActionOwnerType toAction,
-//                                        AttributeService attributeService, AttributeValueService attributeValueService) {
-//
-//        copyActionFromTo(fromOwnerId,toOwnerId,from,to,actionService,fromAction,toAction,attributeService,attributeValueService);
-//        copyVariableFromTo(fromOwnerId,toOwnerId,from,to,attributeService,attributeValueService);
-//        copyPropertyFromTo(fromOwnerId,toOwnerId,from,to,attributeService,attributeValueService);
-//    }
+        Boolean booleanValue = value.getBooleanValue();
+        Boolean newBooleanValue = newValue.getBooleanValue();
 
-    public static void copyPropertyFromTo(Long fromOwnerId,Long toOwnerId, AttributeOwnerType from , AttributeOwnerType to,
-                                              AttributeService attributeService, AttributeValueService attributeValueService) {
-            copyAttributeFromTo(fromOwnerId,toOwnerId,from,to,attributeService,attributeValueService);
+        String objectValue = value.getObjectValue();
+        String newObjectValue = newValue.getObjectValue();
 
+        Integer intValue = value.getIntValue();
+        Integer newIntValue = newValue.getIntValue();
+
+        Float doubleValue = value.getDoubleValue();
+        Float newDoubleValue = newValue.getDoubleValue();
+
+        String experssionValue = value.getExperssion();
+        String newExperssionValue = newValue.getExpression();
+
+        Long binaryContentdIdValue = value.getBinaryContentId();
+        Long newBinaryContentdIdValue = newValue.getBinaryContentId();
+
+        Long longValue = value.getLongValue();
+        Long newLongValue = newValue.getLongValue();
+
+        String stringValue = value.getStringValue();
+        String newStringValue = newValue.getStringValue();
+
+
+        Boolean isBindedAttributeChanged = false;
+        Boolean isBooleanValueChanged = false;
+        Boolean isObjectValueChanged = false;
+        Boolean isIntValueChanged = false;
+        Boolean isDoubleValueChanged = false;
+        Boolean isExperssionValueChanged = false;
+        Boolean isBinaryContentdIdValueChanged = false;
+        Boolean isLongValueChanged = false;
+        Boolean isStringValueChanged = false;
+
+        if(bindedAttributeId != newValue.getBindedAttributeId())
+            isBindedAttributeChanged = true;
+        if(booleanValue != newBooleanValue)
+            isBooleanValueChanged = true;
+
+        if((objectValue !=null && newObjectValue !=null)  ) {
+            if (!objectValue.equalsIgnoreCase(newObjectValue))
+                isObjectValueChanged = true;
         }
-        public static void copyVariableFromTo(Long fromOwnerId,Long toOwnerId, AttributeOwnerType from , AttributeOwnerType to,
-                                              AttributeService attributeService, AttributeValueService attributeValueService) {
-            copyAttributeFromTo(fromOwnerId,toOwnerId,from,to,attributeService,attributeValueService);
+        else if((objectValue==null && newObjectValue !=null) || (objectValue!=null && newObjectValue ==null)) {
+            isObjectValueChanged = true;
+        }else if(objectValue==null && newObjectValue ==null){
+            isObjectValueChanged = false;
+        }
 
+
+        if(intValue != newIntValue)
+            isIntValueChanged = true;
+        if(doubleValue != newDoubleValue)
+            isIntValueChanged = true;
+
+        if((experssionValue !=null && newExperssionValue !=null)  ) {
+            if (!experssionValue.equalsIgnoreCase(newExperssionValue))
+                isExperssionValueChanged = true;
+        }
+        else if((experssionValue==null && newExperssionValue !=null) || (experssionValue!=null && newExperssionValue ==null)) {
+            isExperssionValueChanged = true;
+        }else if(experssionValue==null && newExperssionValue ==null){
+            isExperssionValueChanged = false;
+        }
+
+
+        if(binaryContentdIdValue != newBinaryContentdIdValue)
+            isBinaryContentdIdValueChanged = true;
+        if(longValue != newLongValue)
+            isLongValueChanged = true;
+
+        if((stringValue !=null && newStringValue !=null)  ) {
+            if (!stringValue.equalsIgnoreCase(newStringValue))
+                isStringValueChanged = true;
+        }
+        else if((stringValue==null && newStringValue !=null) || (stringValue!=null && newStringValue ==null)) {
+                isStringValueChanged = true;
+        }else if(stringValue==null && newStringValue ==null){
+            isStringValueChanged = false;
+        }
+
+        if( isBooleanValueChanged  ||  isBindedAttributeChanged || isObjectValueChanged || isIntValueChanged
+         || isDoubleValueChanged || isExperssionValueChanged  || isStringValueChanged ||
+                isBinaryContentdIdValueChanged  || isLongValueChanged  ||  isStringValueChanged)
+        {
+            return true;
+        }
+        return false;
+   }
+
+    public static void saveNewValue(AttributeValueDTOSave newValue, AttributeRepository attributeRepository, AttributeValueRepository attributeValueRepository) {
+        Optional<Attribute> attributeOptional =attributeRepository.findById(newValue.getAttributeId());
+        AttributeOwnerType newOwnerType = AttributeOwnerType.getByTitle(newValue.getNewOwnerType());
+        Attribute  bindedAttribute=null;
+        if(newValue.getBindedAttributeId() != null ){
+            Optional<Attribute> bindedAttributeOptional = attributeRepository.findById(newValue.getBindedAttributeId());
+            bindedAttribute = bindedAttributeOptional.get();
+        }else{
+            bindedAttribute=null;
+        }
+
+        AttributeValue attributeValue = new AttributeValue(newValue.getBooleanValue(),newValue.getIntValue(),newValue.getLongValue(),
+                newValue.getStringValue(),newValue.getObjectValue(),
+                newValue.getDoubleValue(), newValue.getBinaryContentId(),newValue.getExpression(),bindedAttribute,attributeOptional.get(),
+                1L,DateUtils.getNow(),DateUtils.getNow(),attributeOptional.get().getCreatedBy(),attributeOptional.get().getUpdatedBy(), newValue.getNewOwnerId(),newOwnerType );
+        attributeValueRepository.save(attributeValue);
+
+    }
+   public static void overwiteValue(AttributeValue oldValue , AttributeValueDTOSave newValue, AttributeRepository attributeRepository, AttributeValueRepository attributeValueRepository){
+       Optional<Attribute> attributeOptional =attributeRepository.findById(newValue.getAttributeId());
+       AttributeOwnerType newOwnerType = AttributeOwnerType.getByTitle(newValue.getNewOwnerType());
+       Attribute  bindedAttribute=null;
+       if(newValue.getBindedAttributeId() != null ){
+           Optional<Attribute> bindedAttributeOptional = attributeRepository.findById(newValue.getBindedAttributeId());
+           bindedAttribute = bindedAttributeOptional.get();
+       }else{
+           bindedAttribute=null;
        }
+       oldValue.setLongValue(newValue.getLongValue());
+       oldValue.setIntValue(newValue.getIntValue());
+       oldValue.setDoubleValue(newValue.getDoubleValue());
+       oldValue.setObjectValue(newValue.getObjectValue());
+       oldValue.setStringValue(newValue.getStringValue());
+       oldValue.setAttributeId(attributeOptional.get());
+       oldValue.setExperssion(newValue.getExpression());
+       oldValue.setOwnerId(newValue.getNewOwnerId());
+       oldValue.setOwnerType(newOwnerType);
+       oldValue.setBooleanValue(newValue.getBooleanValue());
+       oldValue.setBindedAttributeId(bindedAttribute);
+       attributeValueRepository.save(oldValue);
 
-        public static void copyAttributeFromTo(Long fromOwnerId,Long toOwnerId, AttributeOwnerType from , AttributeOwnerType to,
-                                                  AttributeService attributeService, AttributeValueService attributeValueService){
-        Collection<AttributeValue> attributeValues = new ArrayList<AttributeValue>();
-        Collection<Attribute> parameters = attributeService.findByOwnerIdAndAttributeOwnerType(fromOwnerId, from);
-        Iterator<Attribute> itr = parameters.iterator();
+   }
+    public static void saveNewAttributeValue(Attribute attribute , AttributeDTOSave newValue, AttributeRepository attributeRepository, AttributeValueRepository attributeValueRepository){
+        AttributeValue defaultAttributeValue=null;
+        AttributeValue nonDefaultAttributeValue= null;
+        //fina all values for this attribute
+        Collection<AttributeValue> attributeValues = attributeValueRepository.findByAttributeId(attribute);
+        AttributeValueDTOSave newAttributeValue = newValue.getAttributeValueDTOSave();
+        Iterator<AttributeValue> itr = attributeValues.iterator();
         while(itr.hasNext()){
-            Attribute att = new Attribute();
-            att = itr.next();
-            Attribute newRecord = new Attribute(att.getName(),toOwnerId,to,att.getDataType(),
-                    att.getVersion(),att.getCreated(),att.getUpdated(),att.getCreatedBy(),att.getUpdatedBy());
-            attributeService.save(newRecord);
+            AttributeValue attributeValue = itr.next();
+            if(attribute.getAttributeOwnerType().equals(AttributeOwnerType.Object_Property) &&
+                    attribute.getOwnerId().equals(newValue.getOwnerId())  ){
+                boolean isValueChanged = isAttributeValueChanged(attributeValue,newAttributeValue);
+                if(isValueChanged)
+                    overwiteValue(attributeValue,newAttributeValue,attributeRepository, attributeValueRepository);
 
-            attributeValues = att.getAttributeValues();
-            Iterator<AttributeValue> itrAttributeValuesIterator = attributeValues.iterator();
-            while(itrAttributeValuesIterator.hasNext()) {
-                AttributeValue attValue = new AttributeValue();
-                attValue = itrAttributeValuesIterator.next();
-                AttributeValue newAttributeValue = new AttributeValue(attValue.getBooleanValue(),attValue.getIntValue(),attValue.getLongValue(),attValue.getStringValue(),
-                        attValue.getObjectValue(),attValue.getDoubleValue(),attValue.getBinaryContentId(),attValue.getExperssion(),newRecord,newRecord,
-                        attValue.getVersion(),attValue.getCreated(),attValue.getUpdated(),attValue.getCreatedBy(),attValue.getUpdatedBy(),attValue.getOwnerId(),attValue.getOwnerType());
+            }
+            if(attribute.getAttributeOwnerType().equals(AttributeOwnerType.Puzzle_Group_Object_Property) &&
+                    attribute.getOwnerId().equals(newValue.getOwnerId())  ){
+                boolean isValueChanged = isAttributeValueChanged(attributeValue,newAttributeValue);
+                if(isValueChanged)
+                    overwiteValue(attributeValue,newAttributeValue,attributeRepository, attributeValueRepository);
 
-                //for log info
-                if(att.getName().equalsIgnoreCase("CODE"))   newAttributeValue.setStringValue("NEW CODE FOR ALCITY Object");
-                if(att.getName().equalsIgnoreCase("aSync"))     newAttributeValue.setStringValue("True");
-
-                attributeValueService.save(newAttributeValue);
             }
 
 
+            if(attribute.getAttributeOwnerType().equals(AttributeOwnerType.Puzzle_Group_Object_Property)){
+                boolean isValueChanged = isAttributeValueChanged(attributeValue,newAttributeValue);
+                if(isValueChanged)
+                    overwiteValue(attributeValue,newAttributeValue,attributeRepository, attributeValueRepository);
+
+            }
+            if(attributeValue.getOwnerId().equals(attribute.getOwnerId())){
+                //this value is default value
+                defaultAttributeValue =attributeValue;
+            }
+           else if(attributeValue.getOwnerId().equals(newAttributeValue.getNewOwnerId())){
+                nonDefaultAttributeValue = attributeValue;
+            }
+
         }
+        boolean isDefaultValueChanged = isAttributeValueChanged(defaultAttributeValue,newAttributeValue);
+
+        if(newAttributeValue.getNewOwnerType().equalsIgnoreCase(AttributeOwnerType.Object_Property.name()) && isDefaultValueChanged){
+             // new value must be changed with current value
+            overwiteValue(defaultAttributeValue,newAttributeValue,attributeRepository, attributeValueRepository);
+        }
+        //find old value for this attribute if exist(maybe this value changed already)
+       else if(nonDefaultAttributeValue !=null){ // this value changed
+            overwiteValue(nonDefaultAttributeValue,newAttributeValue,attributeRepository, attributeValueRepository);
+        }else if(isDefaultValueChanged){ // first time this value changed
+           saveNewValue(newAttributeValue,attributeRepository,attributeValueRepository);
+         }
 
     }
+
     public static Collection<PLDTO> getPuzzleLevelDTOS(Collection<PuzzleLevel> inputs) {
         Collection<PLDTO> dtos = new ArrayList<PLDTO>();
 
@@ -1257,6 +1349,7 @@ public class DTOUtil {
         return variables;
     }
     public static String getDataValue(AttributeValue value){
+        if(value == null)  return "Attribute Value is Null";
         if (value.getBooleanValue()!=null )  return value.getBooleanValue().toString();
 
         if (value.getDoubleValue()!=null )    return value.getDoubleValue().toString();

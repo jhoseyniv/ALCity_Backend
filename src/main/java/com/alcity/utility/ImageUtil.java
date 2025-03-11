@@ -78,6 +78,14 @@ public class ImageUtil {
                 imageBytes = getBytesOfThumbnail(file);
                 break;
             }
+            case "perfab":
+            {
+                System.out.println("perfab");
+                System.out.println("file extension is perfab :");
+                file = new File(imageUrls, "excel.jpg");
+                imageBytes = getBytesOfThumbnail(file);
+                break;
+            }
             default:
                 System.out.println("unkown");
                 System.out.println("file extension is unkown :");

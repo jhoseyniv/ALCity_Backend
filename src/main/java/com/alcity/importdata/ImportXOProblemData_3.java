@@ -193,10 +193,10 @@ public class ImportXOProblemData_3 implements CommandLineRunner {
         DTOUtil.copyActionFromTo(textObject.get().getId(), textObject_In_IQ_Puzzle_Group.getId(),AttributeOwnerType.Object_Action_Handler_Parameter,
                 AttributeOwnerType.Puzzle_Group_Object_Action_Handler_Parameter,actionService,POActionOwnerType.Object,POActionOwnerType.Puzzle_Group_Object,attributeService,attributeValueService);
 
-        DTOUtil.copyPropertyFromTo(textObject.get().getId(),textObject_In_IQ_Puzzle_Group.getId(),AttributeOwnerType.Object_Property,AttributeOwnerType.Puzzle_Group_Object_Property,
-                attributeService,attributeValueService);
-        DTOUtil.copyVariableFromTo(textObject.get().getId(),textObject_In_IQ_Puzzle_Group.getId(),AttributeOwnerType.Object_Variable,AttributeOwnerType.Puzzle_Group_Object_Variable,
-                attributeService,attributeValueService);
+//        DTOUtil.copyPropertyFromTo(textObject.get().getId(),textObject_In_IQ_Puzzle_Group.getId(),AttributeOwnerType.Object_Property,AttributeOwnerType.Puzzle_Group_Object_Property,
+//                attributeService,attributeValueService);
+//        DTOUtil.copyVariableFromTo(textObject.get().getId(),textObject_In_IQ_Puzzle_Group.getId(),AttributeOwnerType.Object_Variable,AttributeOwnerType.Puzzle_Group_Object_Variable,
+//                attributeService,attributeValueService);
 
 
 
@@ -285,54 +285,54 @@ public class ImportXOProblemData_3 implements CommandLineRunner {
 
         ALCityInstanceInPL obj_1_1 = new ALCityInstanceInPL("obj_1_1",1,1,0,textObject_In_IQ_Puzzle_Group,puzzleLevel,1L,now,now,admin_1,admin_1);
         objectInstanceService.save(obj_1_1);
-        DTOUtil.copyVariableFromTo(textObject_In_IQ_Puzzle_Group.getId(),obj_1_1.getId(),AttributeOwnerType.Puzzle_Group_Object_Variable,AttributeOwnerType.Instance_Puzzle_Group_Object_Variable,attributeService,attributeValueService);
-        DTOUtil.copyPropertyFromTo(textObject_In_IQ_Puzzle_Group.getId(),obj_1_1.getId(),AttributeOwnerType.Puzzle_Group_Object_Property,AttributeOwnerType.Instance_Puzzle_Group_Object_Property,attributeService,attributeValueService);
+//        DTOUtil.copyVariableFromTo(textObject_In_IQ_Puzzle_Group.getId(),obj_1_1.getId(),AttributeOwnerType.Puzzle_Group_Object_Variable,AttributeOwnerType.Instance_Puzzle_Group_Object_Variable,attributeService,attributeValueService);
+//        DTOUtil.copyPropertyFromTo(textObject_In_IQ_Puzzle_Group.getId(),obj_1_1.getId(),AttributeOwnerType.Puzzle_Group_Object_Property,AttributeOwnerType.Instance_Puzzle_Group_Object_Property,attributeService,attributeValueService);
 
 
         ALCityInstanceInPL obj_1_2 = new ALCityInstanceInPL("obj_1_2",1,2,0,textObject_In_IQ_Puzzle_Group,puzzleLevel,1L,now,now,admin_1,admin_1);
         objectInstanceService.save(obj_1_2);
-        DTOUtil.copyVariableFromTo(textObject_In_IQ_Puzzle_Group.getId(),obj_1_2.getId(),AttributeOwnerType.Puzzle_Group_Object_Variable,AttributeOwnerType.Instance_Puzzle_Group_Object_Variable,attributeService,attributeValueService);
-        DTOUtil.copyPropertyFromTo(textObject_In_IQ_Puzzle_Group.getId(),obj_1_2.getId(),AttributeOwnerType.Puzzle_Group_Object_Property,AttributeOwnerType.Instance_Puzzle_Group_Object_Property,attributeService,attributeValueService);
+//        DTOUtil.copyVariableFromTo(textObject_In_IQ_Puzzle_Group.getId(),obj_1_2.getId(),AttributeOwnerType.Puzzle_Group_Object_Variable,AttributeOwnerType.Instance_Puzzle_Group_Object_Variable,attributeService,attributeValueService);
+//        DTOUtil.copyPropertyFromTo(textObject_In_IQ_Puzzle_Group.getId(),obj_1_2.getId(),AttributeOwnerType.Puzzle_Group_Object_Property,AttributeOwnerType.Instance_Puzzle_Group_Object_Property,attributeService,attributeValueService);
 
         ALCityInstanceInPL obj_1_3 = new ALCityInstanceInPL("obj_1_3",1,3,0,textObject_In_IQ_Puzzle_Group,puzzleLevel,1L,now,now,admin_1,admin_1);
         objectInstanceService.save(obj_1_3);
-        DTOUtil.copyVariableFromTo(textObject_In_IQ_Puzzle_Group.getId(),obj_1_3.getId(),AttributeOwnerType.Puzzle_Group_Object_Variable,AttributeOwnerType.Instance_Puzzle_Group_Object_Variable,attributeService,attributeValueService);
-        DTOUtil.copyPropertyFromTo(textObject_In_IQ_Puzzle_Group.getId(),obj_1_3.getId(),AttributeOwnerType.Puzzle_Group_Object_Property,AttributeOwnerType.Instance_Puzzle_Group_Object_Property,attributeService,attributeValueService);
+//        DTOUtil.copyVariableFromTo(textObject_In_IQ_Puzzle_Group.getId(),obj_1_3.getId(),AttributeOwnerType.Puzzle_Group_Object_Variable,AttributeOwnerType.Instance_Puzzle_Group_Object_Variable,attributeService,attributeValueService);
+//        DTOUtil.copyPropertyFromTo(textObject_In_IQ_Puzzle_Group.getId(),obj_1_3.getId(),AttributeOwnerType.Puzzle_Group_Object_Property,AttributeOwnerType.Instance_Puzzle_Group_Object_Property,attributeService,attributeValueService);
 
         ALCityInstanceInPL obj_2_1 = new ALCityInstanceInPL("obj_2_1",2,1,0,textObject_In_IQ_Puzzle_Group,puzzleLevel,1L,now,now,admin_1,admin_1);
         objectInstanceService.save(obj_2_1);
-        DTOUtil.copyVariableFromTo(textObject_In_IQ_Puzzle_Group.getId(),obj_2_1.getId(),AttributeOwnerType.Puzzle_Group_Object_Variable,AttributeOwnerType.Instance_Puzzle_Group_Object_Variable,attributeService,attributeValueService);
-        DTOUtil.copyPropertyFromTo(textObject_In_IQ_Puzzle_Group.getId(),obj_2_1.getId(),AttributeOwnerType.Puzzle_Group_Object_Property,AttributeOwnerType.Instance_Puzzle_Group_Object_Property,attributeService,attributeValueService);
+//        DTOUtil.copyVariableFromTo(textObject_In_IQ_Puzzle_Group.getId(),obj_2_1.getId(),AttributeOwnerType.Puzzle_Group_Object_Variable,AttributeOwnerType.Instance_Puzzle_Group_Object_Variable,attributeService,attributeValueService);
+//        DTOUtil.copyPropertyFromTo(textObject_In_IQ_Puzzle_Group.getId(),obj_2_1.getId(),AttributeOwnerType.Puzzle_Group_Object_Property,AttributeOwnerType.Instance_Puzzle_Group_Object_Property,attributeService,attributeValueService);
 
         ALCityInstanceInPL obj_2_2 = new ALCityInstanceInPL("obj_2_2",2,2,0,textObject_In_IQ_Puzzle_Group,puzzleLevel,1L,now,now,admin_1,admin_1);
         objectInstanceService.save(obj_2_2);
-        DTOUtil.copyAttributeFromTo(textObject_In_IQ_Puzzle_Group.getId(),obj_2_2.getId(),AttributeOwnerType.Puzzle_Group_Object_Variable,AttributeOwnerType.Instance_Puzzle_Group_Object_Variable,attributeService,attributeValueService);
-        DTOUtil.copyPropertyFromTo(textObject_In_IQ_Puzzle_Group.getId(),obj_2_2.getId(),AttributeOwnerType.Puzzle_Group_Object_Property,AttributeOwnerType.Instance_Puzzle_Group_Object_Property,attributeService,attributeValueService);
+//        DTOUtil.copyAttributeFromTo(textObject_In_IQ_Puzzle_Group.getId(),obj_2_2.getId(),AttributeOwnerType.Puzzle_Group_Object_Variable,AttributeOwnerType.Instance_Puzzle_Group_Object_Variable,attributeService,attributeValueService);
+//        DTOUtil.copyPropertyFromTo(textObject_In_IQ_Puzzle_Group.getId(),obj_2_2.getId(),AttributeOwnerType.Puzzle_Group_Object_Property,AttributeOwnerType.Instance_Puzzle_Group_Object_Property,attributeService,attributeValueService);
 
         ALCityInstanceInPL obj_2_3 = new ALCityInstanceInPL("obj_2_3",2,3,0,textObject_In_IQ_Puzzle_Group,puzzleLevel,1L,now,now,admin_1,admin_1);
         objectInstanceService.save(obj_2_3);
-        DTOUtil.copyVariableFromTo(textObject_In_IQ_Puzzle_Group.getId(),obj_2_3.getId(),AttributeOwnerType.Puzzle_Group_Object_Variable,AttributeOwnerType.Instance_Puzzle_Group_Object_Variable,attributeService,attributeValueService);
-        DTOUtil.copyPropertyFromTo(textObject_In_IQ_Puzzle_Group.getId(),obj_2_3.getId(),AttributeOwnerType.Puzzle_Group_Object_Property,AttributeOwnerType.Instance_Puzzle_Group_Object_Property,attributeService,attributeValueService);
+//        DTOUtil.copyVariableFromTo(textObject_In_IQ_Puzzle_Group.getId(),obj_2_3.getId(),AttributeOwnerType.Puzzle_Group_Object_Variable,AttributeOwnerType.Instance_Puzzle_Group_Object_Variable,attributeService,attributeValueService);
+//        DTOUtil.copyPropertyFromTo(textObject_In_IQ_Puzzle_Group.getId(),obj_2_3.getId(),AttributeOwnerType.Puzzle_Group_Object_Property,AttributeOwnerType.Instance_Puzzle_Group_Object_Property,attributeService,attributeValueService);
 
         ALCityInstanceInPL obj_3_1 = new ALCityInstanceInPL("obj_3_1",3,1,0,textObject_In_IQ_Puzzle_Group,puzzleLevel,1L,now,now,admin_1,admin_1);
         objectInstanceService.save(obj_3_1);
-        DTOUtil.copyVariableFromTo(textObject_In_IQ_Puzzle_Group.getId(),obj_3_1.getId(),AttributeOwnerType.Puzzle_Group_Object_Variable,AttributeOwnerType.Instance_Puzzle_Group_Object_Variable,attributeService,attributeValueService);
-        DTOUtil.copyPropertyFromTo(textObject_In_IQ_Puzzle_Group.getId(),obj_3_1.getId(),AttributeOwnerType.Puzzle_Group_Object_Property,AttributeOwnerType.Instance_Puzzle_Group_Object_Property,attributeService,attributeValueService);
+//        DTOUtil.copyVariableFromTo(textObject_In_IQ_Puzzle_Group.getId(),obj_3_1.getId(),AttributeOwnerType.Puzzle_Group_Object_Variable,AttributeOwnerType.Instance_Puzzle_Group_Object_Variable,attributeService,attributeValueService);
+//        DTOUtil.copyPropertyFromTo(textObject_In_IQ_Puzzle_Group.getId(),obj_3_1.getId(),AttributeOwnerType.Puzzle_Group_Object_Property,AttributeOwnerType.Instance_Puzzle_Group_Object_Property,attributeService,attributeValueService);
 
         ALCityInstanceInPL obj_3_2 = new ALCityInstanceInPL("obj_3_2",3,2,0,textObject_In_IQ_Puzzle_Group,puzzleLevel,1L,now,now,admin_1,admin_1);
         objectInstanceService.save(obj_3_2);
-        DTOUtil.copyVariableFromTo(textObject_In_IQ_Puzzle_Group.getId(),obj_3_2.getId(),AttributeOwnerType.Puzzle_Group_Object_Variable,AttributeOwnerType.Instance_Puzzle_Group_Object_Variable,attributeService,attributeValueService);
-        DTOUtil.copyPropertyFromTo(textObject_In_IQ_Puzzle_Group.getId(),obj_3_2.getId(),AttributeOwnerType.Puzzle_Group_Object_Property,AttributeOwnerType.Instance_Puzzle_Group_Object_Property,attributeService,attributeValueService);
+//        DTOUtil.copyVariableFromTo(textObject_In_IQ_Puzzle_Group.getId(),obj_3_2.getId(),AttributeOwnerType.Puzzle_Group_Object_Variable,AttributeOwnerType.Instance_Puzzle_Group_Object_Variable,attributeService,attributeValueService);
+//        DTOUtil.copyPropertyFromTo(textObject_In_IQ_Puzzle_Group.getId(),obj_3_2.getId(),AttributeOwnerType.Puzzle_Group_Object_Property,AttributeOwnerType.Instance_Puzzle_Group_Object_Property,attributeService,attributeValueService);
 
         ALCityInstanceInPL obj_3_3 = new ALCityInstanceInPL("obj_3_3",3,3,0,textObject_In_IQ_Puzzle_Group,puzzleLevel,1L,now,now,admin_1,admin_1);
         objectInstanceService.save(obj_3_3);
-        DTOUtil.copyVariableFromTo(textObject_In_IQ_Puzzle_Group.getId(),obj_3_3.getId(),AttributeOwnerType.Puzzle_Group_Object_Variable,AttributeOwnerType.Instance_Puzzle_Group_Object_Variable,attributeService,attributeValueService);
-        DTOUtil.copyPropertyFromTo(textObject_In_IQ_Puzzle_Group.getId(),obj_3_3.getId(),AttributeOwnerType.Puzzle_Group_Object_Property,AttributeOwnerType.Instance_Puzzle_Group_Object_Property,attributeService,attributeValueService);
+//        DTOUtil.copyVariableFromTo(textObject_In_IQ_Puzzle_Group.getId(),obj_3_3.getId(),AttributeOwnerType.Puzzle_Group_Object_Variable,AttributeOwnerType.Instance_Puzzle_Group_Object_Variable,attributeService,attributeValueService);
+//        DTOUtil.copyPropertyFromTo(textObject_In_IQ_Puzzle_Group.getId(),obj_3_3.getId(),AttributeOwnerType.Puzzle_Group_Object_Property,AttributeOwnerType.Instance_Puzzle_Group_Object_Property,attributeService,attributeValueService);
 
 
         Attribute alCity_object_property_1 =new Attribute("text",textObject_In_IQ_Puzzle_Group.getId(),AttributeOwnerType.Puzzle_Group_Object_Property,DataType.String,1L,now,now,admin_1,admin_1);
         attributeService.save(alCity_object_property_1);
-        AttributeValue  object_property_1_value= new AttributeValue(null,null,null,"",null,null,null,null,alCity_object_property_1,alCity_object_property_1,1L,now,now,admin_1,admin_1,textObject_In_IQ_Puzzle_Group.getId(),AttributeOwnerType.Puzzle_Group_Object_Property);
+        AttributeValue  object_property_1_value= new AttributeValue(null,null,null,"",null,null,null,null,null,alCity_object_property_1,1L,now,now,admin_1,admin_1,textObject_In_IQ_Puzzle_Group.getId(),AttributeOwnerType.Puzzle_Group_Object_Property);
         attributeValueService.save(object_property_1_value);
 
         Attribute obj_1_1_property_1 =new Attribute("text",obj_1_1.getId(),AttributeOwnerType.Instance_Puzzle_Group_Object_Property,DataType.String,1L,now,now,admin_1,admin_1);

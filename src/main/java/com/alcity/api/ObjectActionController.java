@@ -63,16 +63,19 @@ public class ObjectActionController {
         Collection<ActionDTO> dtos= PLDTOUtil.getActionDTOS(actions);
         return dtos;
     }
-/*    @Operation( summary = "Fetch all parameters for an action defined in a city object by id  ",  description = "Fetch all parameters for an action defined in a object by id")
+   @Operation( summary = "Fetch all parameters for an action defined in a city object by id  ",  description = "Fetch all parameters for an action defined in a object by id")
     @RequestMapping(value = "/action/id/{id}/param/all", method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin(origins = "*")
     public Collection<AttributeDTO> getParametersForCityObjectAction(@PathVariable Long id) {
-        Collection<Attribute> parameters = attributeService.findByOwnerIdAndAttributeOwnerType(id, AttributeOwnerType.Object_Action_Handler_Parameter);
+       Optional<ObjectAction>  objectAction = service.findById(id);
+       Long rendereId= objectAction.get().getActionRenderer().getId();
+       //Collection<Attribute> parameters = attributeService.findByOwnerIdAndAttributeOwnerType(id, AttributeOwnerType.Object_Action_Handler_Parameter);
+       Collection<Attribute> parameters = attributeService.findByOwnerId(rendereId);
         Collection<AttributeDTO> dtos= DTOUtil.getAttributesDTOS(parameters);
         return dtos;
     }
-*/
+
     @Operation( summary = "Save a Object Action... ",  description = "Save a Object Action...")
     @PostMapping("/save")
     @CrossOrigin(origins = "*")

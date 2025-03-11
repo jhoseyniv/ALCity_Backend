@@ -174,7 +174,7 @@ public class ALCityObjectController {
     @CrossOrigin(origins = "*")
     public Collection<AttributeDTO> getALCityObjectProperties(@PathVariable Long id) {
         Collection<AttributeDTO> dtos = new ArrayList<AttributeDTO>();
-        Collection<Attribute> attributes = attributeService.findByOwnerIdAndAttributeOwnerType(id, AttributeOwnerType.Object_Bundle);
+        Collection<Attribute> attributes = attributeService.findByOwnerIdAndAttributeOwnerType(id, AttributeOwnerType.Object_Property);
         dtos = DTOUtil.getAttributesDTOS(attributes);
         return  dtos;
     }
@@ -185,7 +185,7 @@ public class ALCityObjectController {
     @CrossOrigin(origins = "*")
     public Collection<AttributeDTO> getALCityObjectPropertiesByContent(@PathVariable Long id) {
         Collection<AttributeDTO> dtos = new ArrayList<AttributeDTO>();
-        Collection<Attribute> attributes = attributeService.findByOwnerIdAndAttributeOwnerType(id, AttributeOwnerType.Object_Bundle);
+        Collection<Attribute> attributes = attributeService.findByOwnerIdAndAttributeOwnerType(id, AttributeOwnerType.Object_Property);
         dtos = DTOUtil.getAttributesDTOS(attributes);
         dtos = dtos.stream().filter(dto -> dto.getDataType().equalsIgnoreCase(DataType.Binary.name())).collect(Collectors.toList());
         return  dtos;

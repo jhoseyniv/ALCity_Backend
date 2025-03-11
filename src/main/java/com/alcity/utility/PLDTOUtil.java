@@ -30,7 +30,10 @@ public class PLDTOUtil {
 
     public static PropertyDTO getPropertyDTO(Attribute attribute) {
        Collection<AttributeValue> values = attribute.getAttributeValues();
-        AttributeValue matchValue = values.stream().filter(value -> value.getOwnerId().equals(attribute.getOwnerId())).findFirst().get();
+        AttributeValue matchValue=null;
+        Optional<AttributeValue> matchValueOptional = values.stream().filter(value -> value.getOwnerId().equals(attribute.getOwnerId())).findFirst();
+        if(matchValueOptional.isPresent())
+            matchValue=matchValueOptional.get();
         PropertyDTO dto = new PropertyDTO(attribute.getId(), attribute.getName(), attribute.getDataType().name(),DTOUtil.getDataValue(matchValue));
         return dto;
     }
@@ -47,7 +50,7 @@ public class PLDTOUtil {
     public static CityObjectDTO getCityObjectDTO(ALCityObject co, ActionService actionService, AttributeService attributeService){
         Collection<PropertyDTO>  properties = new ArrayList<PropertyDTO>();
         Collection<ActionDTO>  actions = new ArrayList<ActionDTO>();
-        Collection<Attribute>  attributes = attributeService.findByOwnerIdAndAttributeOwnerType(co.getId(), AttributeOwnerType.Object_Bundle);
+        Collection<Attribute>  attributes = attributeService.findByOwnerIdAndAttributeOwnerType(co.getId(), AttributeOwnerType.Object_Property);
         Collection<ObjectAction> objectActions = actionService.findByOwnerObjectidAndPoActionOwnerType(co.getId(), POActionOwnerType.Object);
         properties = getPropertyDTOS(attributes);
         actions =getActionDTOS(objectActions);

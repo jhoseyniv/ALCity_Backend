@@ -548,14 +548,14 @@ public class ImportBaseData implements CommandLineRunner {
         actionRendererService.save(create_Renderer);
 
         //add parameters and default values
-        Attribute create_ActionRenderer_param_1 =new Attribute("text",create_Renderer.getId(),AttributeOwnerType.Action_Handler_Parameter,DataType.Expression,1L,now,now,admin_1,admin_1);
-        attributeService.save(create_ActionRenderer_param_1);
-        AttributeValue create_ActionRenderer_param_1_value= new AttributeValue(null,null,null,null,null,null,null,"InstProp(CurrentInst(), text)",create_ActionRenderer_param_1,create_ActionRenderer_param_1,1L,now,now,admin_1,admin_1,create_Renderer.getId(),AttributeOwnerType.Action_Handler_Parameter);
+        Attribute create_Renderer_param_1 =new Attribute("text",create_Renderer.getId(),AttributeOwnerType.Action_Handler_Parameter,DataType.Expression,1L,now,now,admin_1,admin_1);
+        attributeService.save(create_Renderer_param_1);
+        AttributeValue create_ActionRenderer_param_1_value= new AttributeValue(null,null,null,null,null,null,null,"InstProp(CurrentInst(), text)",null,create_Renderer_param_1,1L,now,now,admin_1,admin_1,create_Renderer.getId(),AttributeOwnerType.Action_Handler_Parameter);
         attributeValueService.save(create_ActionRenderer_param_1_value);
 
-        Attribute create_ActionRenderer_param_2 =new Attribute("code",create_Renderer.getId(),AttributeOwnerType.Action_Handler_Parameter,DataType.String,1L,now,now,admin_1,admin_1);
-        attributeService.save(create_ActionRenderer_param_2);
-        AttributeValue create_ActionRenderer_param_2_value= new AttributeValue(null,null,null,"CODE",null,null,null,null,create_ActionRenderer_param_2,create_ActionRenderer_param_2,1L,now,now,admin_1,admin_1,create_Renderer.getId(),AttributeOwnerType.Action_Handler_Parameter);
+        Attribute create_Renderer_param_2 =new Attribute("code",create_Renderer.getId(),AttributeOwnerType.Action_Handler_Parameter,DataType.String,1L,now,now,admin_1,admin_1);
+        attributeService.save(create_Renderer_param_2);
+        AttributeValue create_ActionRenderer_param_2_value= new AttributeValue(null,null,null,"CODE",null,null,null,null,null,create_Renderer_param_2,1L,now,now,admin_1,admin_1,create_Renderer.getId(),AttributeOwnerType.Action_Handler_Parameter);
         attributeValueService.save(create_ActionRenderer_param_2_value);
 
 
@@ -652,6 +652,7 @@ public class ImportBaseData implements CommandLineRunner {
         attributeValueService.save(move_ActionRenderer_param_moveType_value);
 
 
+
         ALCityObject textObject = new ALCityObject(1L,now,now,jalalHoseyni,jalalHoseyni,"TextObject",objectCategory_TextObject,textObject_pic,textObject_icon);
         alCityObjectService.save(textObject);
 
@@ -662,32 +663,38 @@ public class ImportBaseData implements CommandLineRunner {
         Attribute bundle_file_att= new Attribute("bundle_file_png",textObject.getId(),AttributeOwnerType.Object_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(bundle_file_att);
 
-        AttributeValue bundle_file_att_value = new AttributeValue(null,null,null,null,null,null,bundle_file.getId(),null,bundle_file_att,bundle_file_att,1L,now,now,admin_1,admin_1,textObject.getId(),AttributeOwnerType.Object_Bundle);
+        AttributeValue bundle_file_att_value = new AttributeValue(null,null,null,null,null,null,bundle_file.getId(),null,null,bundle_file_att,1L,now,now,admin_1,admin_1,textObject.getId(),AttributeOwnerType.Object_Property);
         attributeValueService.save(bundle_file_att_value);
+
+        Attribute color_att= new Attribute("color",textObject.getId(),AttributeOwnerType.Object_Property,DataType.String,1L,now,now,admin_1,admin_1);
+        attributeService.save(color_att);
+
+        AttributeValue color_att_value = new AttributeValue(null,null,null,"White",null,null,null,null,null,color_att,1L,now,now,admin_1,admin_1,textObject.getId(),AttributeOwnerType.Object_Property);
+        attributeValueService.save(color_att_value);
 
 
         ObjectAction textObject_Create_Action = new ObjectAction(POActionOwnerType.Object,textObject.getId(), ObjectActionType.Create,create_Renderer,1L,now,now,admin_1,admin_1);
         puzzleObjectActionService.save(textObject_Create_Action);
-        DTOUtil.copyActionParametersFromTo(create_Renderer.getId(),textObject_Create_Action.getId(),AttributeOwnerType.Action_Handler_Parameter,AttributeOwnerType.Object_Action_Handler_Parameter,
-                                 attributeService,attributeValueService);
+     //   DTOUtil.copyActionParametersFromTo(create_Renderer.getId(),textObject_Create_Action.getId(),AttributeOwnerType.Action_Handler_Parameter,AttributeOwnerType.Object_Action_Handler_Parameter,
+     //                            attributeService,attributeValueService);
 
         ObjectAction textObject_Show_Action = new ObjectAction(POActionOwnerType.Object,textObject.getId(), ObjectActionType.Show,show_Renderer,1L,now,now,admin_1,admin_1);
         puzzleObjectActionService.save(textObject_Show_Action);
-        DTOUtil.copyActionParametersFromTo(show_Renderer.getId(),textObject_Show_Action.getId(),AttributeOwnerType.Action_Handler_Parameter,AttributeOwnerType.Object_Action_Handler_Parameter,
-                attributeService,attributeValueService);
+//        DTOUtil.copyActionParametersFromTo(show_Renderer.getId(),textObject_Show_Action.getId(),AttributeOwnerType.Action_Handler_Parameter,AttributeOwnerType.Object_Action_Handler_Parameter,
+//                attributeService,attributeValueService);
 
         ALCityObject ImageObject01 = new ALCityObject(1L,now,now,jalalHoseyni,jalalHoseyni,"ImageObject01",objectCategory_Image,image_Object_pic,image_Object_pic);
         alCityObjectService.save(ImageObject01);
 
         ObjectAction ImageObject01_Show_Action = new ObjectAction(POActionOwnerType.Object,ImageObject01.getId(), ObjectActionType.Create,showImage_Renderer,1L,now,now,admin_1,admin_1);
         puzzleObjectActionService.save(ImageObject01_Show_Action);
-        DTOUtil.copyActionParametersFromTo(showImage_Renderer.getId(),ImageObject01_Show_Action.getId(),AttributeOwnerType.Action_Handler_Parameter,AttributeOwnerType.Object_Action_Handler_Parameter,
-                attributeService,attributeValueService);
+//        DTOUtil.copyActionParametersFromTo(showImage_Renderer.getId(),ImageObject01_Show_Action.getId(),AttributeOwnerType.Action_Handler_Parameter,AttributeOwnerType.Object_Action_Handler_Parameter,
+//                attributeService,attributeValueService);
 
         ObjectAction ImageObject01_moveImage_Action = new ObjectAction(POActionOwnerType.Object,ImageObject01.getId(), ObjectActionType.Move,moveImage_Renderer,1L,now,now,admin_1,admin_1);
         puzzleObjectActionService.save(ImageObject01_moveImage_Action);
-        DTOUtil.copyActionParametersFromTo(moveImage_Renderer.getId(),ImageObject01_moveImage_Action.getId(),AttributeOwnerType.Action_Handler_Parameter,AttributeOwnerType.Object_Action_Handler_Parameter,
-                attributeService,attributeValueService);
+//        DTOUtil.copyActionParametersFromTo(moveImage_Renderer.getId(),ImageObject01_moveImage_Action.getId(),AttributeOwnerType.Action_Handler_Parameter,AttributeOwnerType.Object_Action_Handler_Parameter,
+//                attributeService,attributeValueService);
 
 
 

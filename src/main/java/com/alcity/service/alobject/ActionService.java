@@ -56,10 +56,10 @@ public class ActionService implements ActionRepository {
            puzzleObjectAction = new ObjectAction(actionOwnerType, dto.getOwnerObjectid(), objectActionType,rendererOptional.get(),
                      1L,DateUtils.getNow(),DateUtils.getNow(),createdBy, createdBy);
             actionRepository.save(puzzleObjectAction);
-            DTOUtil.copyActionParametersFromTo(dto.getActionRenderId(), puzzleObjectAction.getId(),AttributeOwnerType.Action_Handler_Parameter,AttributeOwnerType.Object_Action_Handler_Parameter,
-                    attributeService,attributeValueService);
+//            DTOUtil.copyActionParametersFromTo(dto.getActionRenderId(), puzzleObjectAction.getId(),AttributeOwnerType.Action_Handler_Parameter,AttributeOwnerType.Object_Action_Handler_Parameter,
+//                    attributeService,attributeValueService);
 
-            copyParametersFromActionToALCityObjectAction(dto.getActionRenderId(), dto.getObjectActionId() );
+      //      copyParametersFromActionToALCityObjectAction(dto.getActionRenderId(), dto.getObjectActionId() );
 
        }else{//edit
             Optional<ObjectAction> puzzleObjectActionOptional= actionRepository.findById(dto.getId());
@@ -165,9 +165,9 @@ public class ActionService implements ActionRepository {
         return actionsForPuzzleGroupObject;
     }
 
-    public void copyParametersFromActionToALCityObjectAction(Long actionId , Long puzzleObjectActionId){
+ //   public void copyParametersFromActionToALCityObjectAction(Long actionId , Long puzzleObjectActionId){
 
-        Collection<RecordData> parameters =  DTOUtil.getAttributeForOwnerById(attributeService,actionId, AttributeOwnerType.Action_Handler_Parameter);;
+      //  Collection<RecordData> parameters =  DTOUtil.getAttributeForOwnerById(attributeService,actionId, AttributeOwnerType.Action_Handler_Parameter);;
 //        Collection<PuzzleObjectAction> actions = alCityObjectService.findAllActions(alCityObject);
 //
 //        Iterator<PuzzleObjectAction> itr = actions.iterator();
@@ -182,7 +182,7 @@ public class ActionService implements ActionRepository {
 //                    attributeService,attributeValueService);
 //        }
 
-    }
+ //   }
 
 
 

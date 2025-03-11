@@ -4,7 +4,7 @@ package com.alcity.entity.alenum;
 public enum AttributeOwnerType {
 
     Action_Handler_Parameter, //AHP
-    Object_Bundle,
+    //Object_Bundle,
     Object_Action_Handler_Parameter,//OAHP
     Object_Property, //OP
     Object_Variable, //OV

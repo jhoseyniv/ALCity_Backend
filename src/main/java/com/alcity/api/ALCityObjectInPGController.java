@@ -75,11 +75,11 @@ public class ALCityObjectInPGController {
         if (dto.getId() == null || dto.getId() <= 0L) { //save
             try {
                 savedRecord = alCityObjectInPGService.save(dto,"Save");
-                DTOUtil.copyActionFromTo(dto.getAlCityObjectId(), savedRecord.getId(),AttributeOwnerType.Object_Action_Handler_Parameter,
-                        AttributeOwnerType.Puzzle_Group_Object_Action_Handler_Parameter,actionService,POActionOwnerType.Object,
-                        POActionOwnerType.Puzzle_Group_Object,attributeService,attributeValueService);
-                DTOUtil.copyPropertyFromTo(dto.getAlCityObjectId(),savedRecord.getId(),AttributeOwnerType.Object_Property,AttributeOwnerType.Puzzle_Group_Object_Property,attributeService,attributeValueService);
-                DTOUtil.copyVariableFromTo(dto.getAlCityObjectId(),savedRecord.getId(),AttributeOwnerType.Object_Variable,AttributeOwnerType.Puzzle_Group_Object_Variable,attributeService,attributeValueService);
+//                DTOUtil.copyActionFromTo(dto.getAlCityObjectId(), savedRecord.getId(),AttributeOwnerType.Object_Action_Handler_Parameter,
+//                        AttributeOwnerType.Puzzle_Group_Object_Action_Handler_Parameter,actionService,POActionOwnerType.Object,
+//                        POActionOwnerType.Puzzle_Group_Object,attributeService,attributeValueService);
+//                DTOUtil.copyPropertyFromTo(dto.getAlCityObjectId(),savedRecord.getId(),AttributeOwnerType.Object_Property,AttributeOwnerType.Puzzle_Group_Object_Property,attributeService,attributeValueService);
+//                DTOUtil.copyVariableFromTo(dto.getAlCityObjectId(),savedRecord.getId(),AttributeOwnerType.Object_Variable,AttributeOwnerType.Puzzle_Group_Object_Variable,attributeService,attributeValueService);
 
             } catch (RuntimeException e) {
                 throw new UniqueConstraintException(dto.getTitle(), dto.getId(), "title must be Unique");
