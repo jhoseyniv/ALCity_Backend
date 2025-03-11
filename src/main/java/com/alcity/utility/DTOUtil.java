@@ -407,6 +407,13 @@ public class DTOUtil {
                     overwiteValue(attributeValue,newAttributeValue,attributeRepository, attributeValueRepository);
 
             }
+            if(attribute.getAttributeOwnerType().equals(AttributeOwnerType.Puzzle_Level_Variable) &&
+                    attribute.getOwnerId().equals(newValue.getOwnerId())  ){
+                boolean isValueChanged = isAttributeValueChanged(attributeValue,newAttributeValue);
+                if(isValueChanged)
+                    overwiteValue(attributeValue,newAttributeValue,attributeRepository, attributeValueRepository);
+            }
+
             if(attributeValue.getOwnerId().equals(attribute.getOwnerId())){
                 //this value is default value
                 defaultAttributeValue =attributeValue;
