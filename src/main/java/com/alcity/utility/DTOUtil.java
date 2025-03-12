@@ -19,6 +19,7 @@ import com.alcity.dto.player.PermitedPlayerDTO;
 import com.alcity.dto.player.PlayHistoryDTO;
 import com.alcity.dto.puzzle.*;
 import com.alcity.entity.alenum.AttributeOwnerType;
+import com.alcity.entity.alenum.DataType;
 import com.alcity.entity.alenum.ObjectActionType;
 import com.alcity.entity.alenum.POActionOwnerType;
 import com.alcity.entity.alobject.*;
@@ -335,7 +336,7 @@ public class DTOUtil {
         return false;
    }
 
-    public static void saveNewValue(Attribute attribute, AttributeValueDTOSave newValue, AttributeRepository attributeRepository, AttributeValueRepository attributeValueRepository) {
+    public static void saveNewValue(AttributeValue oldAttributeValue, AttributeValueDTOSave newValue, AttributeRepository attributeRepository, AttributeValueRepository attributeValueRepository) {
         AttributeOwnerType newOwnerType = AttributeOwnerType.getByTitle(newValue.getNewOwnerType());
         Attribute  bindedAttribute=null;
         if(newValue.getBindedAttributeId() != null ){
@@ -346,8 +347,8 @@ public class DTOUtil {
         }
         AttributeValue attributeValue = new AttributeValue(newValue.getBooleanValue(),newValue.getIntValue(),newValue.getLongValue(),
                 newValue.getStringValue(),newValue.getObjectValue(),
-                newValue.getDoubleValue(), newValue.getBinaryContentId(),newValue.getExpression(),bindedAttribute,attribute,
-                1L,DateUtils.getNow(),DateUtils.getNow(),attribute.getCreatedBy(),attribute.getUpdatedBy(), newValue.getNewOwnerId(),newOwnerType );
+                newValue.getDoubleValue(), newValue.getBinaryContentId(),newValue.getExpression(),bindedAttribute,oldAttributeValue.getAttributeId(),
+                1L,DateUtils.getNow(),DateUtils.getNow(),oldAttributeValue.getCreatedBy(),oldAttributeValue.getUpdatedBy(), newValue.getNewOwnerId(),newOwnerType );
         attributeValueRepository.save(attributeValue);
 
     }
@@ -379,22 +380,55 @@ public class DTOUtil {
         AttributeValue defaultAttributeValue=null;
         AttributeValue nonDefaultAttributeValue= null;
         //fina all values for this attribute
-        Collection<AttributeValue> attributeValues = attributeValueRepository.findByAttributeId(attribute);
         AttributeValueDTOSave newAttributeValue = newValue.getAttributeValueDTOSave();
         AttributeOwnerType attributeOwnerType = AttributeOwnerType.getByTitle(newAttributeValue.getNewOwnerType());
-         Optional<AttributeValue> attributeValueOptional = attributeValueRepository.findByAttributeIdAndOwnerIdAndOwnerType(attribute, newAttributeValue.getOwnerId(),attributeOwnerType );
-        if(attributeValueOptional.isEmpty() ){
-            //boolean isValueChanged = isAttributeValueChanged(attributeValue,newAttributeValue);
+        Optional<AttributeValue> attributeValueOptional = attributeValueRepository.findById(newAttributeValue.getId());
+        if(attributeValueOptional.isPresent()){
+            AttributeValue oldvalue = attributeValueOptional.get();
+            boolean isValueChanged = isAttributeValueChanged(oldvalue,newAttributeValue);
+            if(isValueChanged) {
+                if ( oldvalue.getOwnerId().equals(newAttributeValue.getNewOwnerId()) ) {
+                     overwiteValue(oldvalue, newAttributeValue, attributeRepository, attributeValueRepository);
+                }else{
+                    saveNewValue(oldvalue,newAttributeValue, attributeRepository, attributeValueRepository);
+                }
+
+            }else{
+                System.out.println("value not changed");
+            }
+
+        }
+        //   Collection<AttributeValue> filterByOwnerType = attributeValues.stream().filter(attributeValue -> attributeValue.getOwnerType().equals(newAttributeValue.getNewOwnerType())).collect(Collectors.toList());
+
+     //   Optional<AttributeValue> parentValueOptional = attributeValues.stream().filter(attributeValue -> attributeValue.getOwnerId().equals(attribute.getOwnerId())).findFirst();
+//        if(parentValueOptional.isEmpty()) {
+//            //defualt value must be enterd.
+//        }else {
+//            AttributeValue parentValue = parentValueOptional.get();
+//            boolean isValueChanged = isAttributeValueChanged(parentValue,newAttributeValue);
+//            if(!isValueChanged){
+//                //do nothing
+//            }else{
+//                saveNewValue(attribute,newAttributeValue, attributeRepository, attributeValueRepository);
+//
+//            }
+//        }
+
+   //     Collection<AttributeValue> filterByOwnerId = filterByOwnerType.stream().filter(attributeValue -> attributeValue.getOwnerId()==newAttributeValue.getNewOwnerId()).collect(Collectors.toList());
+    //    boolean isValueChanged = isAttributeValueChanged(attributeValue,newAttributeValue);
+
+      //  Optional<AttributeValue> attributeValueOptional = attributeValueRepository.findByAttributeIdAndOwnerIdAndOwnerType(attribute, newAttributeValue.getOwnerId(),attributeOwnerType );
+      //  if(attributeValueOptional.isEmpty() ){
             // if(attributeValue.getOwnerId().equals(attribute.getOwnerId())) { // this attribute value is default value for parent
              //   AttributeValue originalAttributeValue = attributeValue;
                // if (isValueChanged) { // original value has been changed so new value must be inserted and owners of old and new value are different
-                    saveNewValue(attribute,newAttributeValue, attributeRepository, attributeValueRepository);
+                    //saveNewValue(oldvalue,newAttributeValue, attributeRepository, attributeValueRepository);
               //  }else if (isValueChanged && (attributeValue.getId().equals(newAttributeValue.getId()) )){// old value is changed but  old owner and new owner id are same for this values so new value must re write to old value
-                }
-         else {
-                AttributeValue attributeValue = attributeValueOptional.get();
-                 overwiteValue(attributeValue,newAttributeValue,attributeRepository, attributeValueRepository);
-        }
+        //        }
+       //  else {
+          //      AttributeValue attributeValue = attributeValueOptional.get();
+           //      overwiteValue(attributeValue,newAttributeValue,attributeRepository, attributeValueRepository);
+    //    }
 
             /*
             if(attribute.getAttributeOwnerType().equals(AttributeOwnerType.Object_Property) &&
@@ -1352,8 +1386,8 @@ public class DTOUtil {
     }
 
     public static Collection<RecordData>  getAttributeForOwnerById(AttributeService attributeService , Long ownerId, AttributeOwnerType ownerType){
-        Collection<RecordData> variables = new ArrayList<RecordData>();
-        Collection<Attribute>  attributes =attributeService.findByOwnerIdAndAttributeOwnerType(ownerId,ownerType);
+        Collection<RecordData> records = new ArrayList<RecordData>();
+        Collection<Attribute>  attributes =attributeService.findByOwnerIdAndAttributeOwnerTypeNew(ownerId,ownerType);
         Iterator<Attribute> iterator = attributes.iterator();
         while(iterator.hasNext()) {
             Attribute attribute = iterator.next();
@@ -1362,13 +1396,12 @@ public class DTOUtil {
             while(iteratorValues.hasNext()) {
                 AttributeValue alCityAttributeValue = iteratorValues.next();
                 String value = getDataValue(alCityAttributeValue);
-                String type = attribute.getDataType().toString();
-                RecordData variable = new RecordData(attribute.getId(), attribute.getName(),alCityAttributeValue.getId(),value,type);
-                variables.add(variable);
+                String type = getDataType(attribute);
+                RecordData record = new RecordData(attribute.getId(), attribute.getName(),alCityAttributeValue.getId(),value,type);
+                records.add(record);
             }
-
         }
-        return variables;
+        return records;
     }
     public static String getDataValue(AttributeValue value){
         if(value == null)  return "Attribute Value is Null";
@@ -1389,5 +1422,9 @@ public class DTOUtil {
 
         return "Unknown Value";
     }
-
+    public static String getDataType(Attribute attribute){
+        if(attribute == null)  return "Attribute is Null";
+        if(attribute.getDataType().equals(DataType.Expression)) return DataType.Integer.name();
+        else return attribute.getDataType().name();
+     }
 }

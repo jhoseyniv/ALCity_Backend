@@ -533,6 +533,7 @@ public class AttributeService implements AttributeRepository {
         }else{//edit
             if(attributeOptional.isPresent()) {
                 attribute = attributeOptional.get();
+                DTOUtil.saveNewAttributeValue(attribute,newValue,attributeRepository,attributeValueRepository);
                     attribute.setAttributeOwnerType(attributeOwnerType);
                     attribute.setDataType(dataType);
                     attribute.setName(newValue.getName());
@@ -541,7 +542,6 @@ public class AttributeService implements AttributeRepository {
                     attribute.setUpdated(DateUtils.getNow());
                     attribute.setUpdatedBy(createdBy);
                     attributeRepository.save(attribute);
-                     DTOUtil.saveNewAttributeValue(attribute,newValue,attributeRepository,attributeValueRepository);
 
             }
 

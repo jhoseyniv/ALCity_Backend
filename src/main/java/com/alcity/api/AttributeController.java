@@ -117,6 +117,7 @@ public class AttributeController {
       return  dtos;
   }
 
+
   @Operation( summary = "Fetch all attributes for an owner by id and type ",  description = "Fetch all attributes for an owner by id and type ")
     @RequestMapping(value = "/ownerNew/{id}/type/{type}", method = RequestMethod.GET)
     @ResponseBody

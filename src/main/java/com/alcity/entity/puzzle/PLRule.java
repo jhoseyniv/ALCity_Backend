@@ -15,6 +15,9 @@ public class PLRule extends BaseTable implements Serializable {
 
     @Column(name="ordering")
     private Integer ordering;
+    @Column(name="ignoreRemaining")
+    private Boolean ignoreRemaining;
+
 
     @Column(name="condition")
     private StringBuffer condition;
@@ -45,6 +48,14 @@ public class PLRule extends BaseTable implements Serializable {
 
     public void setCondition(StringBuffer condition) {
         this.condition = condition;
+    }
+
+    public Boolean getIgnoreRemaining() {
+        return ignoreRemaining;
+    }
+
+    public void setIgnoreRemaining(Boolean ignoreRemaining) {
+        this.ignoreRemaining = ignoreRemaining;
     }
 
     @OneToMany(mappedBy = "puzzleLevelRule", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -88,11 +99,12 @@ public class PLRule extends BaseTable implements Serializable {
     public PLRule() {
     }
 
-    public PLRule(String title, Integer ordering, StringBuffer condition, PuzzleLevel puzzleLevel, PLRuleEvent plRuleEvent , Long version, String created, String updated, AppMember createdBy, AppMember updatedBy) {
+    public PLRule(String title, Integer ordering, StringBuffer condition,boolean ignoreRemaining,  PuzzleLevel puzzleLevel, PLRuleEvent plRuleEvent , Long version, String created, String updated, AppMember createdBy, AppMember updatedBy) {
         super(version, created, updated, createdBy, updatedBy);
         this.title = title;
         this.ordering = ordering;
         this.condition = condition;
+        this.ignoreRemaining = ignoreRemaining;
         this.plRuleEvent = plRuleEvent;
         this.puzzleLevel = puzzleLevel;
     }

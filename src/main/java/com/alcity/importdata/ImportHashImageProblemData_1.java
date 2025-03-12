@@ -246,22 +246,15 @@ public class ImportHashImageProblemData_1 implements CommandLineRunner {
         PLGameInstance puzzleLevelGameInstance= new PLGameInstance(jalalHoseyni,puzzleLevel_hashimage,now,now,GameStatus.Playing,1L,now,now,jalalHoseyni,jalalHoseyni);
         plGameInstanceService.save(puzzleLevelGameInstance);
 
-        Optional<ALCityObject> ImageObject01 =alCityObjectService.findByTitle("ImageObject01");
+        Optional<ALCityObject> imageObject01 =alCityObjectService.findByTitle("ImageObject01");
 
-        ALCityObjectInPG ImageObject01_in_haseImage_puzzleGroup = new ALCityObjectInPG("Image Hash Puzzle Group with Image Object","Hash_ImageObject",puzzleGroup_HashImage.get(),ImageObject01.get(),1L,now,now,admin_1,admin_1);
-        alCityObjectInPGService.save(ImageObject01_in_haseImage_puzzleGroup);
+        ALCityObjectInPG imageObject01_in_haseImage_puzzleGroup = new ALCityObjectInPG("Image Hash Puzzle Group with Image Object","Hash_ImageObject",puzzleGroup_HashImage.get(),imageObject01.get(),1L,now,now,admin_1,admin_1);
+        alCityObjectInPGService.save(imageObject01_in_haseImage_puzzleGroup);
+        DTOUtil.copyActionFromTo(imageObject01.get().getId(), imageObject01_in_haseImage_puzzleGroup.getId(),AttributeOwnerType.Object_Action_Handler_Parameter,
+                AttributeOwnerType.Puzzle_Group_Object_Action_Handler_Parameter,actionService,POActionOwnerType.Object,POActionOwnerType.Puzzle_Group_Object,attributeService,attributeValueService);
 
-        //change actions for ImageObject01_in_haseImage_puzzleGroup
-//        DTOUtil.copyActionFromTo(ImageObject01.get().getId(), ImageObject01_in_haseImage_puzzleGroup.getId(),AttributeOwnerType.Object_Action_Handler_Parameter,
-//                AttributeOwnerType.Puzzle_Group_Object_Action_Handler_Parameter,actionService,POActionOwnerType.Object,POActionOwnerType.Puzzle_Group_Object,attributeService,attributeValueService);
+
         StringBuffer  condition_Objective = new StringBuffer("equal(BoardVar(finished),true)");
-              //  + "(img2.x == img2.targetX)&&(img2.y == img2.targetY)" + ","
-               // + "(img3.x == img3.targetX)&&(img3.y == img3.targetY)" + ","
-              //  + "(img4.x == img4.targetX)&&(img4.y == img4.targetY)" + ","
-              //  + "(img5.x == img5.targetX)&&(img5.y == img5.targetY)" +  ","
-              //  + "(img6.x == img6.targetX)&&(img6.y == img6.targetY)" +	","
-              //  + "(img7.x == img7.targetX)&&(img7.y == img7.targetY)"+","
-              //  + "(img8.x == img8.targetX)&&(img8.y == img8.targetY)");
 
         PLObjective puzzleLevelObjective = new PLObjective("arrange image pieces","arrange image pieces as correct image",10f,2f,condition_Objective,timeManagement,alCoin10WalletItem.get(),puzzleLevel_hashimage
                 ,1L,now,now,admin_1,admin_1);
@@ -271,47 +264,47 @@ public class ImportHashImageProblemData_1 implements CommandLineRunner {
         Attribute pl_variable_finished =new Attribute("finished",puzzleLevel_hashimage.getId(), AttributeOwnerType.Puzzle_Level_Variable,DataType.Boolean,1L,now,now,admin_1,admin_1);
         attributeService.save(pl_variable_finished);
 
-        AttributeValue pl_variable_finished_value= new AttributeValue(null,1,null,null,null,null,null,null,pl_variable_finished,pl_variable_finished,1L,now,now,admin_1,admin_1,puzzleLevel_hashimage.getId(), AttributeOwnerType.Puzzle_Level_Variable);
+        AttributeValue pl_variable_finished_value= new AttributeValue(null,1,null,null,null,null,null,null,null,pl_variable_finished,1L,now,now,admin_1,admin_1,puzzleLevel_hashimage.getId(), AttributeOwnerType.Puzzle_Level_Variable);
         attributeValueService.save(pl_variable_finished_value);
 
         Attribute pl_variable_dragTargetObject =new Attribute("dragTargetObject",puzzleLevel_hashimage.getId(),AttributeOwnerType.Puzzle_Level_Variable,DataType.Integer,1L,now,now,admin_1,admin_1);
         attributeService.save(pl_variable_dragTargetObject);
-        AttributeValue pl_variable_dragTargetObject_value= new AttributeValue(null,1,null,null,null,null,null,null,pl_variable_dragTargetObject,pl_variable_dragTargetObject,1L,now,now,admin_1,admin_1,puzzleLevel_hashimage.getId(),AttributeOwnerType.Puzzle_Level_Variable);
+        AttributeValue pl_variable_dragTargetObject_value= new AttributeValue(null,1,null,null,null,null,null,null,null,pl_variable_dragTargetObject,1L,now,now,admin_1,admin_1,puzzleLevel_hashimage.getId(),AttributeOwnerType.Puzzle_Level_Variable);
         attributeValueService.save(pl_variable_dragTargetObject_value);
 
 
         Attribute pl_variable_machedCount =new Attribute("machedCount",puzzleLevel_hashimage.getId(),AttributeOwnerType.Puzzle_Level_Variable,DataType.Integer,1L,now,now,admin_1,admin_1);
         attributeService.save(pl_variable_machedCount);
-        AttributeValue pl_variable_machedCount_value= new AttributeValue(null,1,null,null,null,null,null,null,pl_variable_machedCount,pl_variable_machedCount,1L,now,now,admin_1,admin_1,puzzleLevel_hashimage.getId(),AttributeOwnerType.Puzzle_Level_Variable);
+        AttributeValue pl_variable_machedCount_value= new AttributeValue(null,1,null,null,null,null,null,null,null,pl_variable_machedCount,1L,now,now,admin_1,admin_1,puzzleLevel_hashimage.getId(),AttributeOwnerType.Puzzle_Level_Variable);
         attributeValueService.save(pl_variable_machedCount_value);
 
 
-        Attribute ImageObject01_property_1 =new Attribute("image",ImageObject01_in_haseImage_puzzleGroup.getId(),AttributeOwnerType.Puzzle_Group_Object_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
+        Attribute ImageObject01_property_1 =new Attribute("image",imageObject01_in_haseImage_puzzleGroup.getId(),AttributeOwnerType.Puzzle_Group_Object_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(ImageObject01_property_1);
-        AttributeValue  Image0object_property_1_value= new AttributeValue(null,null,null,null,null,null,puzzle_group_Hash_Image_binary_content.getId(),null,ImageObject01_property_1,ImageObject01_property_1,1L,now,now,admin_1,admin_1,ImageObject01_in_haseImage_puzzleGroup.getId(),AttributeOwnerType.Puzzle_Group_Object_Property);
+        AttributeValue  Image0object_property_1_value= new AttributeValue(null,null,null,null,null,null,puzzle_group_Hash_Image_binary_content.getId(),null,ImageObject01_property_1,ImageObject01_property_1,1L,now,now,admin_1,admin_1,imageObject01_in_haseImage_puzzleGroup.getId(),AttributeOwnerType.Puzzle_Group_Object_Property);
         attributeValueService.save(Image0object_property_1_value);
 
-        Attribute ImageObject01_variable_1 =new Attribute("targetX",ImageObject01_in_haseImage_puzzleGroup.getId(),AttributeOwnerType.Puzzle_Group_Object_Variable,DataType.Integer,1L,now,now,admin_1,admin_1);
+        Attribute ImageObject01_variable_1 =new Attribute("targetX",imageObject01_in_haseImage_puzzleGroup.getId(),AttributeOwnerType.Puzzle_Group_Object_Variable,DataType.Integer,1L,now,now,admin_1,admin_1);
         attributeService.save(ImageObject01_variable_1);
-        AttributeValue  ImageObject01_variable_1_value= new AttributeValue(null,3,null,null,null,null,null,null,ImageObject01_variable_1,ImageObject01_variable_1,1L,now,now,admin_1,admin_1,ImageObject01_in_haseImage_puzzleGroup.getId(),AttributeOwnerType.Puzzle_Group_Object_Variable);
+        AttributeValue  ImageObject01_variable_1_value= new AttributeValue(null,3,null,null,null,null,null,null,ImageObject01_variable_1,ImageObject01_variable_1,1L,now,now,admin_1,admin_1,imageObject01_in_haseImage_puzzleGroup.getId(),AttributeOwnerType.Puzzle_Group_Object_Variable);
         attributeValueService.save(ImageObject01_variable_1_value);
 
-        Attribute ImageObject01_variable_2 =new Attribute("targetY",ImageObject01_in_haseImage_puzzleGroup.getId(),AttributeOwnerType.Puzzle_Group_Object_Variable,DataType.Integer,1L,now,now,admin_1,admin_1);
+        Attribute ImageObject01_variable_2 =new Attribute("targetY",imageObject01_in_haseImage_puzzleGroup.getId(),AttributeOwnerType.Puzzle_Group_Object_Variable,DataType.Integer,1L,now,now,admin_1,admin_1);
         attributeService.save(ImageObject01_variable_2);
-        AttributeValue  ImageObject01_variable_2_value= new AttributeValue(null,3,null,null,null,null,null,null,ImageObject01_variable_2,ImageObject01_variable_2,1L,now,now,admin_1,admin_1,ImageObject01_in_haseImage_puzzleGroup.getId(),AttributeOwnerType.Puzzle_Group_Object_Variable);
+        AttributeValue  ImageObject01_variable_2_value= new AttributeValue(null,3,null,null,null,null,null,null,ImageObject01_variable_2,ImageObject01_variable_2,1L,now,now,admin_1,admin_1,imageObject01_in_haseImage_puzzleGroup.getId(),AttributeOwnerType.Puzzle_Group_Object_Variable);
         attributeValueService.save(ImageObject01_variable_2_value);
 
 
 
-        ALCityInstanceInPL instance_img0 = new ALCityInstanceInPL("instance_img0",1,1,1,ImageObject01_in_haseImage_puzzleGroup,puzzleLevel_hashimage,1L,now,now,admin_1,admin_1);
-        ALCityInstanceInPL instance_img1 = new ALCityInstanceInPL("instance_img1",2,3,1,ImageObject01_in_haseImage_puzzleGroup,puzzleLevel_hashimage,1L,now,now,admin_1,admin_1);
-        ALCityInstanceInPL instance_img2 = new ALCityInstanceInPL("instance_img2",1,2,1,ImageObject01_in_haseImage_puzzleGroup,puzzleLevel_hashimage,1L,now,now,admin_1,admin_1);
-        ALCityInstanceInPL instance_img3 = new ALCityInstanceInPL("instance_img3",2,1,1,ImageObject01_in_haseImage_puzzleGroup,puzzleLevel_hashimage,1L,now,now,admin_1,admin_1);
-        ALCityInstanceInPL instance_img4 = new ALCityInstanceInPL("instance_img4",3,2,1,ImageObject01_in_haseImage_puzzleGroup,puzzleLevel_hashimage,1L,now,now,admin_1,admin_1);
-        ALCityInstanceInPL instance_img5 = new ALCityInstanceInPL("instance_img5",1,3,1,ImageObject01_in_haseImage_puzzleGroup,puzzleLevel_hashimage,1L,now,now,admin_1,admin_1);
-        ALCityInstanceInPL instance_img6 = new ALCityInstanceInPL("instance_img6",2,2,1,ImageObject01_in_haseImage_puzzleGroup,puzzleLevel_hashimage,1L,now,now,admin_1,admin_1);
-        ALCityInstanceInPL instance_img7 = new ALCityInstanceInPL("instance_img7",3,3,1,ImageObject01_in_haseImage_puzzleGroup,puzzleLevel_hashimage,1L,now,now,admin_1,admin_1);
-        ALCityInstanceInPL instance_img8 = new ALCityInstanceInPL("instance_img8",3,1,1,ImageObject01_in_haseImage_puzzleGroup,puzzleLevel_hashimage,1L,now,now,admin_1,admin_1);
+        ALCityInstanceInPL instance_img0 = new ALCityInstanceInPL("instance_img0",1,1,1,imageObject01_in_haseImage_puzzleGroup,puzzleLevel_hashimage,1L,now,now,admin_1,admin_1);
+        ALCityInstanceInPL instance_img1 = new ALCityInstanceInPL("instance_img1",2,3,1,imageObject01_in_haseImage_puzzleGroup,puzzleLevel_hashimage,1L,now,now,admin_1,admin_1);
+        ALCityInstanceInPL instance_img2 = new ALCityInstanceInPL("instance_img2",1,2,1,imageObject01_in_haseImage_puzzleGroup,puzzleLevel_hashimage,1L,now,now,admin_1,admin_1);
+        ALCityInstanceInPL instance_img3 = new ALCityInstanceInPL("instance_img3",2,1,1,imageObject01_in_haseImage_puzzleGroup,puzzleLevel_hashimage,1L,now,now,admin_1,admin_1);
+        ALCityInstanceInPL instance_img4 = new ALCityInstanceInPL("instance_img4",3,2,1,imageObject01_in_haseImage_puzzleGroup,puzzleLevel_hashimage,1L,now,now,admin_1,admin_1);
+        ALCityInstanceInPL instance_img5 = new ALCityInstanceInPL("instance_img5",1,3,1,imageObject01_in_haseImage_puzzleGroup,puzzleLevel_hashimage,1L,now,now,admin_1,admin_1);
+        ALCityInstanceInPL instance_img6 = new ALCityInstanceInPL("instance_img6",2,2,1,imageObject01_in_haseImage_puzzleGroup,puzzleLevel_hashimage,1L,now,now,admin_1,admin_1);
+        ALCityInstanceInPL instance_img7 = new ALCityInstanceInPL("instance_img7",3,3,1,imageObject01_in_haseImage_puzzleGroup,puzzleLevel_hashimage,1L,now,now,admin_1,admin_1);
+        ALCityInstanceInPL instance_img8 = new ALCityInstanceInPL("instance_img8",3,1,1,imageObject01_in_haseImage_puzzleGroup,puzzleLevel_hashimage,1L,now,now,admin_1,admin_1);
 
         pgObjectInstanceService.save(instance_img0);
         pgObjectInstanceService.save(instance_img1);
@@ -323,29 +316,6 @@ public class ImportHashImageProblemData_1 implements CommandLineRunner {
         pgObjectInstanceService.save(instance_img7);
         pgObjectInstanceService.save(instance_img8);
 
-//        DTOUtil.copyAttributeFromTo(ImageObject01_in_haseImage_puzzleGroup.getId(),instance_img0.getId(),AttributeOwnerType.Puzzle_Group_Object_Variable,AttributeOwnerType.Instance_Puzzle_Group_Object_Variable,
-//                attributeService,attributeValueService);
-//        DTOUtil.copyAttributeFromTo(ImageObject01_in_haseImage_puzzleGroup.getId(),instance_img1.getId(),AttributeOwnerType.Puzzle_Group_Object_Variable,AttributeOwnerType.Instance_Puzzle_Group_Object_Variable,
-//                attributeService,attributeValueService);
-//        DTOUtil.copyAttributeFromTo(ImageObject01_in_haseImage_puzzleGroup.getId(),instance_img2.getId(),AttributeOwnerType.Puzzle_Group_Object_Variable,AttributeOwnerType.Instance_Puzzle_Group_Object_Variable,
-//                attributeService,attributeValueService);
-//        DTOUtil.copyAttributeFromTo(ImageObject01_in_haseImage_puzzleGroup.getId(),instance_img3.getId(),AttributeOwnerType.Puzzle_Group_Object_Variable,AttributeOwnerType.Instance_Puzzle_Group_Object_Variable,
-//                attributeService,attributeValueService);
-//
-//        DTOUtil.copyAttributeFromTo(ImageObject01_in_haseImage_puzzleGroup.getId(),instance_img4.getId(),AttributeOwnerType.Puzzle_Group_Object_Variable,AttributeOwnerType.Instance_Puzzle_Group_Object_Variable,
-//                attributeService,attributeValueService);
-//
-//        DTOUtil.copyAttributeFromTo(ImageObject01_in_haseImage_puzzleGroup.getId(),instance_img5.getId(),AttributeOwnerType.Puzzle_Group_Object_Variable,AttributeOwnerType.Instance_Puzzle_Group_Object_Variable,
-//                attributeService,attributeValueService);
-//
-//        DTOUtil.copyAttributeFromTo(ImageObject01_in_haseImage_puzzleGroup.getId(),instance_img6.getId(),AttributeOwnerType.Puzzle_Group_Object_Variable,AttributeOwnerType.Instance_Puzzle_Group_Object_Variable,
-//                attributeService,attributeValueService);
-//
-//        DTOUtil.copyAttributeFromTo(ImageObject01_in_haseImage_puzzleGroup.getId(),instance_img7.getId(),AttributeOwnerType.Puzzle_Group_Object_Variable,AttributeOwnerType.Instance_Puzzle_Group_Object_Variable,
-//                attributeService,attributeValueService);
-//
-//        DTOUtil.copyAttributeFromTo(ImageObject01_in_haseImage_puzzleGroup.getId(),instance_img8.getId(),AttributeOwnerType.Puzzle_Group_Object_Variable,AttributeOwnerType.Instance_Puzzle_Group_Object_Variable,
-//                attributeService,attributeValueService);
 
         byte[] image_0_hash = ImageUtil.getImage("src/main/resources/images/hashImage_Puzzle/","0.png");
         byte[] image_1_hash = ImageUtil.getImage("src/main/resources/images/hashImage_Puzzle/","1.png");
@@ -437,169 +407,6 @@ public class ImportHashImageProblemData_1 implements CommandLineRunner {
         attributeValueService.save(alCityAttributeValue_binary_8);
 
 
-
-//        Attribute alCityAttribute_instance_1_targetX= new Attribute("targetX",instance_img1.getId(),AttributeOwnerType.Puzzle_Level_Instance_Variable,DataType.Integer,1L,now,now,admin_1,admin_1);
-//        attributeService.save(alCityAttribute_instance_1_targetX);
-//        AttributeValue alCityAttributeValue_instance_1_targetX = new AttributeValue(null,1,null,null,null,null,null,null,alCityAttribute_instance_1_targetX,alCityAttribute_instance_1_targetX,1L,now,now,admin_1,admin_1,instance_img1.getId(),AttributeOwnerType.Puzzle_Level_Instance_Variable);
-//        attributeValueService.save(alCityAttributeValue_instance_1_targetX);
-//
-//        Attribute alCityAttribute_instance_1_targetY= new Attribute("targetY",instance_img1.getId(),AttributeOwnerType.Puzzle_Level_Instance_Variable,DataType.Integer,1L,now,now,admin_1,admin_1);
-//        attributeService.save(alCityAttribute_instance_1_targetY);
-//        AttributeValue alCityAttributeValue_instance_1_targetY = new AttributeValue(null,1,null,null,null,null,null,null,alCityAttribute_instance_1_targetY,alCityAttribute_instance_1_targetY,1L,now,now,admin_1,admin_1,instance_img1.getId(),AttributeOwnerType.Puzzle_Level_Instance_Variable);
-//        attributeValueService.save(alCityAttributeValue_instance_1_targetY);
-//
-//        Attribute alCityAttribute_instance_1_X= new Attribute("X",instance_img1.getId(),AttributeOwnerType.Puzzle_Level_Instance_Variable,DataType.Integer,1L,now,now,admin_1,admin_1);
-//        attributeService.save(alCityAttribute_instance_1_X);
-//        AttributeValue alCityAttributeValue_instance_1_X = new AttributeValue(null,2,null,null,null,null,null,null,alCityAttribute_instance_1_X,alCityAttribute_instance_1_X,1L,now,now,admin_1,admin_1,instance_img1.getId(),AttributeOwnerType.Puzzle_Level_Instance_Variable);
-//        attributeValueService.save(alCityAttributeValue_instance_1_X);
-//
-//        Attribute alCityAttribute_instance_1_Y= new Attribute("Y",instance_img1.getId(),AttributeOwnerType.Puzzle_Level_Instance_Variable,DataType.Integer,1L,now,now,admin_1,admin_1);
-//        attributeService.save(alCityAttribute_instance_1_Y);
-//        AttributeValue alCityAttributeValue_instance_1_Y = new AttributeValue(null,3,null,null,null,null,null,null,alCityAttribute_instance_1_Y,alCityAttribute_instance_1_Y,1L,now,now,admin_1,admin_1,instance_img1.getId(),AttributeOwnerType.Puzzle_Level_Instance_Variable);
-//        attributeValueService.save(alCityAttributeValue_instance_1_Y);
-//
-//        Attribute alCityAttribute_instance_2_targetX= new Attribute("targetX",instance_img2.getId(),AttributeOwnerType.Puzzle_Level_Instance_Variable,DataType.Integer,1L,now,now,admin_1,admin_1);
-//        attributeService.save(alCityAttribute_instance_2_targetX);
-//        AttributeValue alCityAttributeValue_instance_2_targetX = new AttributeValue(null,1,null,null,null,null,null,null,alCityAttribute_instance_2_targetX,alCityAttribute_instance_2_targetX,1L,now,now,admin_1,admin_1,instance_img2.getId(),AttributeOwnerType.Puzzle_Level_Instance_Variable);
-//        attributeValueService.save(alCityAttributeValue_instance_2_targetX);
-//
-//        Attribute alCityAttribute_instance_2_targetY= new Attribute("targetY",instance_img2.getId(),AttributeOwnerType.Puzzle_Level_Instance_Variable,DataType.Integer,1L,now,now,admin_1,admin_1);
-//        attributeService.save(alCityAttribute_instance_2_targetY);
-//        AttributeValue alCityAttributeValue_instance_2_targetY = new AttributeValue(null,2,null,null,null,null,null,null,alCityAttribute_instance_2_targetY,alCityAttribute_instance_2_targetY,1L,now,now,admin_1,admin_1,instance_img2.getId(),AttributeOwnerType.Puzzle_Level_Instance_Variable);
-//        attributeValueService.save(alCityAttributeValue_instance_2_targetY);
-//
-//        Attribute alCityAttribute_instance_2_X= new Attribute("X",instance_img2.getId(),AttributeOwnerType.Puzzle_Level_Instance_Variable,DataType.Integer,1L,now,now,admin_1,admin_1);
-//        attributeService.save(alCityAttribute_instance_2_X);
-//        AttributeValue alCityAttributeValue_instance_2_X = new AttributeValue(null,1,null,null,null,null,null,null,alCityAttribute_instance_2_X,alCityAttribute_instance_2_X,1L,now,now,admin_1,admin_1,instance_img2.getId(),AttributeOwnerType.Puzzle_Level_Instance_Variable);
-//        attributeValueService.save(alCityAttributeValue_instance_2_X);
-//
-//        Attribute alCityAttribute_instance_2_Y= new Attribute("Y",instance_img2.getId(),AttributeOwnerType.Puzzle_Level_Instance_Variable,DataType.Integer,1L,now,now,admin_1,admin_1);
-//        attributeService.save(alCityAttribute_instance_2_Y);
-//        AttributeValue alCityAttributeValue_instance_2_Y = new AttributeValue(null,2,null,null,null,null,null,null,alCityAttribute_instance_2_Y,alCityAttribute_instance_2_Y,1L,now,now,admin_1,admin_1,instance_img2.getId(),AttributeOwnerType.Puzzle_Level_Instance_Variable);
-//        attributeValueService.save(alCityAttributeValue_instance_2_Y);
-//
-//
-//        Attribute alCityAttribute_instance_3_targetX= new Attribute("targetX",instance_img3.getId(),AttributeOwnerType.Puzzle_Level_Instance_Variable,DataType.Integer,1L,now,now,admin_1,admin_1);
-//        attributeService.save(alCityAttribute_instance_3_targetX);
-//        AttributeValue alCityAttributeValue_instance_3_targetX = new AttributeValue(null,1,null,null,null,null,null,null,alCityAttribute_instance_3_targetX,alCityAttribute_instance_3_targetX,1L,now,now,admin_1,admin_1,instance_img3.getId(),AttributeOwnerType.Puzzle_Level_Instance_Variable);
-//        attributeValueService.save(alCityAttributeValue_instance_3_targetX);
-//
-//        Attribute alCityAttribute_instance_3_targetY= new Attribute("targetY",instance_img3.getId(),AttributeOwnerType.Puzzle_Level_Instance_Variable,DataType.Integer,1L,now,now,admin_1,admin_1);
-//        attributeService.save(alCityAttribute_instance_3_targetY);
-//        AttributeValue alCityAttributeValue_instance_3_targetY = new AttributeValue(null,3,null,null,null,null,null,null,alCityAttribute_instance_3_targetY,alCityAttribute_instance_3_targetY,1L,now,now,admin_1,admin_1,instance_img3.getId(),AttributeOwnerType.Puzzle_Level_Instance_Variable);
-//        attributeValueService.save(alCityAttributeValue_instance_3_targetY);
-//
-//        Attribute alCityAttribute_instance_3_X= new Attribute("X",instance_img3.getId(),AttributeOwnerType.Puzzle_Level_Instance_Variable,DataType.Integer,1L,now,now,admin_1,admin_1);
-//        attributeService.save(alCityAttribute_instance_3_X);
-//        AttributeValue alCityAttributeValue_instance_3_X = new AttributeValue(null,2,null,null,null,null,null,null,alCityAttribute_instance_3_X,alCityAttribute_instance_3_X,1L,now,now,admin_1,admin_1,instance_img3.getId(),AttributeOwnerType.Puzzle_Level_Instance_Variable);
-//        attributeValueService.save(alCityAttributeValue_instance_3_X);
-//
-//        Attribute alCityAttribute_instance_3_Y= new Attribute("Y",instance_img3.getId(),AttributeOwnerType.Puzzle_Level_Instance_Variable,DataType.Integer,1L,now,now,admin_1,admin_1);
-//        attributeService.save(alCityAttribute_instance_3_Y);
-//        AttributeValue alCityAttributeValue_instance_3_Y = new AttributeValue(null,1,null,null,null,null,null,null,alCityAttribute_instance_3_Y,alCityAttribute_instance_3_Y,1L,now,now,admin_1,admin_1,instance_img3.getId(),AttributeOwnerType.Puzzle_Level_Instance_Variable);
-//        attributeValueService.save(alCityAttributeValue_instance_3_Y);
-//
-//
-//        Attribute alCityAttribute_instance_4_targetX= new Attribute("targetX",instance_img4.getId(),AttributeOwnerType.Puzzle_Level_Instance_Variable,DataType.Integer,1L,now,now,admin_1,admin_1);
-//        attributeService.save(alCityAttribute_instance_4_targetX);
-//        AttributeValue alCityAttributeValue_instance_4_targetX = new AttributeValue(null,2,null,null,null,null,null,null,alCityAttribute_instance_4_targetX,alCityAttribute_instance_4_targetX,1L,now,now,admin_1,admin_1,instance_img4.getId(),AttributeOwnerType.Puzzle_Level_Instance_Variable);
-//        attributeValueService.save(alCityAttributeValue_instance_4_targetX);
-//
-//        Attribute alCityAttribute_instance_4_targetY= new Attribute("targetY",instance_img4.getId(),AttributeOwnerType.Puzzle_Level_Instance_Variable,DataType.Integer,1L,now,now,admin_1,admin_1);
-//        attributeService.save(alCityAttribute_instance_4_targetY);
-//        AttributeValue alCityAttributeValue_instance_4_targetY = new AttributeValue(null,1,null,null,null,null,null,null,alCityAttribute_instance_4_targetY,alCityAttribute_instance_4_targetY,1L,now,now,admin_1,admin_1,instance_img4.getId(),AttributeOwnerType.Puzzle_Level_Instance_Variable);
-//        attributeValueService.save(alCityAttributeValue_instance_4_targetY);
-//
-//        Attribute alCityAttribute_instance_4_X= new Attribute("X",instance_img4.getId(),AttributeOwnerType.Puzzle_Level_Instance_Variable,DataType.Integer,1L,now,now,admin_1,admin_1);
-//        attributeService.save(alCityAttribute_instance_4_X);
-//        AttributeValue alCityAttributeValue_instance_4_X = new AttributeValue(null,3,null,null,null,null,null,null,alCityAttribute_instance_4_X,alCityAttribute_instance_4_X,1L,now,now,admin_1,admin_1,instance_img4.getId(),AttributeOwnerType.Puzzle_Level_Instance_Variable);
-//        attributeValueService.save(alCityAttributeValue_instance_4_X);
-//
-//        Attribute alCityAttribute_instance_4_Y= new Attribute("Y",instance_img4.getId(),AttributeOwnerType.Puzzle_Level_Instance_Variable,DataType.Integer,1L,now,now,admin_1,admin_1);
-//        attributeService.save(alCityAttribute_instance_4_Y);
-//        AttributeValue alCityAttributeValue_instance_4_Y = new AttributeValue(null,2,null,null,null,null,null,null,alCityAttribute_instance_4_Y,alCityAttribute_instance_4_Y,1L,now,now,admin_1,admin_1,instance_img4.getId(),AttributeOwnerType.Puzzle_Level_Instance_Variable);
-//        attributeValueService.save(alCityAttributeValue_instance_4_Y);
-//
-//        Attribute alCityAttribute_instance_5_targetX= new Attribute("targetX",instance_img5.getId(),AttributeOwnerType.Puzzle_Level_Instance_Variable,DataType.Integer,1L,now,now,admin_1,admin_1);
-//        attributeService.save(alCityAttribute_instance_5_targetX);
-//        AttributeValue alCityAttributeValue_instance_5_targetX = new AttributeValue(null,2,null,null,null,null,null,null,alCityAttribute_instance_5_targetX,alCityAttribute_instance_5_targetX,1L,now,now,admin_1,admin_1,instance_img5.getId(),AttributeOwnerType.Puzzle_Level_Instance_Variable);
-//        attributeValueService.save(alCityAttributeValue_instance_5_targetX);
-//
-//        Attribute alCityAttribute_instance_5_targetY= new Attribute("targetY",instance_img5.getId(),AttributeOwnerType.Puzzle_Level_Instance_Variable,DataType.Integer,1L,now,now,admin_1,admin_1);
-//        attributeService.save(alCityAttribute_instance_5_targetY);
-//        AttributeValue alCityAttributeValue_instance_5_targetY = new AttributeValue(null,2,null,null,null,null,null,null,alCityAttribute_instance_5_targetY,alCityAttribute_instance_5_targetY,1L,now,now,admin_1,admin_1,instance_img5.getId(),AttributeOwnerType.Puzzle_Level_Instance_Variable);
-//        attributeValueService.save(alCityAttributeValue_instance_5_targetY);
-//
-//        Attribute alCityAttribute_instance_5_X= new Attribute("X",instance_img5.getId(),AttributeOwnerType.Puzzle_Level_Instance_Variable,DataType.Integer,1L,now,now,admin_1,admin_1);
-//        attributeService.save(alCityAttribute_instance_5_X);
-//        AttributeValue alCityAttributeValue_instance_5_X = new AttributeValue(null,1,null,null,null,null,null,null,alCityAttribute_instance_5_X,alCityAttribute_instance_5_X,1L,now,now,admin_1,admin_1,instance_img5.getId(),AttributeOwnerType.Puzzle_Level_Instance_Variable);
-//        attributeValueService.save(alCityAttributeValue_instance_5_X);
-//
-//        Attribute alCityAttribute_instance_5_Y= new Attribute("Y",instance_img5.getId(),AttributeOwnerType.Puzzle_Level_Instance_Variable,DataType.Integer,1L,now,now,admin_1,admin_1);
-//        attributeService.save(alCityAttribute_instance_5_Y);
-//        AttributeValue alCityAttributeValue_instance_5_Y = new AttributeValue(null,3,null,null,null,null,null,null,alCityAttribute_instance_5_Y,alCityAttribute_instance_5_Y,1L,now,now,admin_1,admin_1,instance_img5.getId(),AttributeOwnerType.Puzzle_Level_Instance_Variable);
-//        attributeValueService.save(alCityAttributeValue_instance_5_Y);
-//
-//        Attribute alCityAttribute_instance_6_targetX= new Attribute("targetX",instance_img6.getId(),AttributeOwnerType.Puzzle_Level_Instance_Variable,DataType.Integer,1L,now,now,admin_1,admin_1);
-//        attributeService.save(alCityAttribute_instance_6_targetX);
-//        AttributeValue alCityAttributeValue_instance_6_targetX = new AttributeValue(null,2,null,null,null,null,null,null,alCityAttribute_instance_6_targetX,alCityAttribute_instance_6_targetX,1L,now,now,admin_1,admin_1,instance_img6.getId(),AttributeOwnerType.Puzzle_Level_Instance_Variable);
-//        attributeValueService.save(alCityAttributeValue_instance_6_targetX);
-//
-//        Attribute alCityAttribute_instance_6_targetY= new Attribute("targetY",instance_img6.getId(),AttributeOwnerType.Puzzle_Level_Instance_Variable,DataType.Integer,1L,now,now,admin_1,admin_1);
-//        attributeService.save(alCityAttribute_instance_6_targetY);
-//        AttributeValue alCityAttributeValue_instance_6_targetY = new AttributeValue(null,3,null,null,null,null,null,null,alCityAttribute_instance_6_targetY,alCityAttribute_instance_6_targetY,1L,now,now,admin_1,admin_1,instance_img6.getId(),AttributeOwnerType.Puzzle_Level_Instance_Variable);
-//        attributeValueService.save(alCityAttributeValue_instance_6_targetY);
-//
-//        Attribute alCityAttribute_instance_6_X= new Attribute("X",instance_img6.getId(),AttributeOwnerType.Puzzle_Level_Instance_Variable,DataType.Integer,1L,now,now,admin_1,admin_1);
-//        attributeService.save(alCityAttribute_instance_6_X);
-//        AttributeValue alCityAttributeValue_instance_6_X = new AttributeValue(null,2,null,null,null,null,null,null,alCityAttribute_instance_6_X,alCityAttribute_instance_6_X,1L,now,now,admin_1,admin_1,instance_img6.getId(),AttributeOwnerType.Puzzle_Level_Instance_Variable);
-//        attributeValueService.save(alCityAttributeValue_instance_6_X);
-//
-//        Attribute alCityAttribute_instance_6_Y= new Attribute("Y",instance_img6.getId(),AttributeOwnerType.Puzzle_Level_Instance_Variable,DataType.Integer,1L,now,now,admin_1,admin_1);
-//        attributeService.save(alCityAttribute_instance_6_Y);
-//        AttributeValue alCityAttributeValue_instance_6_Y = new AttributeValue(null,2,null,null,null,null,null,null,alCityAttribute_instance_6_Y,alCityAttribute_instance_6_Y,1L,now,now,admin_1,admin_1,instance_img6.getId(),AttributeOwnerType.Puzzle_Level_Instance_Variable);
-//        attributeValueService.save(alCityAttributeValue_instance_6_Y);
-//
-//        Attribute alCityAttribute_instance_7_targetX= new Attribute("targetX",instance_img7.getId(),AttributeOwnerType.Puzzle_Level_Instance_Variable,DataType.Integer,1L,now,now,admin_1,admin_1);
-//        attributeService.save(alCityAttribute_instance_7_targetX);
-//        AttributeValue alCityAttributeValue_instance_7_targetX = new AttributeValue(null,3,null,null,null,null,null,null,alCityAttribute_instance_7_targetX,alCityAttribute_instance_7_targetX,1L,now,now,admin_1,admin_1,instance_img7.getId(),AttributeOwnerType.Puzzle_Level_Instance_Variable);
-//        attributeValueService.save(alCityAttributeValue_instance_7_targetX);
-//
-//        Attribute alCityAttribute_instance_7_targetY= new Attribute("targetY",instance_img7.getId(),AttributeOwnerType.Puzzle_Level_Instance_Variable,DataType.Integer,1L,now,now,admin_1,admin_1);
-//        attributeService.save(alCityAttribute_instance_7_targetY);
-//        AttributeValue alCityAttributeValue_instance_7_targetY = new AttributeValue(null,1,null,null,null,null,null,null,alCityAttribute_instance_7_targetY,alCityAttribute_instance_7_targetY,1L,now,now,admin_1,admin_1,instance_img7.getId(),AttributeOwnerType.Puzzle_Level_Instance_Variable);
-//        attributeValueService.save(alCityAttributeValue_instance_7_targetY);
-//
-//        Attribute alCityAttribute_instance_7_X= new Attribute("X",instance_img7.getId(),AttributeOwnerType.Puzzle_Level_Instance_Variable,DataType.Integer,1L,now,now,admin_1,admin_1);
-//        attributeService.save(alCityAttribute_instance_7_X);
-//        AttributeValue alCityAttributeValue_instance_7_X = new AttributeValue(null,3,null,null,null,null,null,null,alCityAttribute_instance_7_X,alCityAttribute_instance_7_X,1L,now,now,admin_1,admin_1,instance_img7.getId(),AttributeOwnerType.Puzzle_Level_Instance_Variable);
-//        attributeValueService.save(alCityAttributeValue_instance_7_X);
-//
-//        Attribute alCityAttribute_instance_7_Y= new Attribute("Y",instance_img7.getId(),AttributeOwnerType.Puzzle_Level_Instance_Variable,DataType.Integer,1L,now,now,admin_1,admin_1);
-//        attributeService.save(alCityAttribute_instance_7_Y);
-//        AttributeValue alCityAttributeValue_instance_7_Y = new AttributeValue(null,3,null,null,null,null,null,null,alCityAttribute_instance_7_Y,alCityAttribute_instance_7_Y,1L,now,now,admin_1,admin_1,instance_img7.getId(),AttributeOwnerType.Puzzle_Level_Instance_Variable);
-//        attributeValueService.save(alCityAttributeValue_instance_7_Y);
-//
-//        Attribute alCityAttribute_instance_8_targetX= new Attribute("targetX",instance_img8.getId(),AttributeOwnerType.Puzzle_Level_Instance_Variable,DataType.Integer,1L,now,now,admin_1,admin_1);
-//        attributeService.save(alCityAttribute_instance_8_targetX);
-//        AttributeValue alCityAttributeValue_instance_8_targetX = new AttributeValue(null,3,null,null,null,null,null,null,alCityAttribute_instance_8_targetX,alCityAttribute_instance_8_targetX,1L,now,now,admin_1,admin_1,instance_img8.getId(),AttributeOwnerType.Puzzle_Level_Instance_Variable);
-//        attributeValueService.save(alCityAttributeValue_instance_8_targetX);
-//
-//        Attribute alCityAttribute_instance_8_targetY= new Attribute("targetY",instance_img8.getId(),AttributeOwnerType.Puzzle_Level_Instance_Variable,DataType.Integer,1L,now,now,admin_1,admin_1);
-//        attributeService.save(alCityAttribute_instance_8_targetY);
-//        AttributeValue alCityAttributeValue_instance_8_targetY = new AttributeValue(null,2,null,null,null,null,null,null,alCityAttribute_instance_8_targetY,alCityAttribute_instance_8_targetY,1L,now,now,admin_1,admin_1,instance_img8.getId(),AttributeOwnerType.Puzzle_Level_Instance_Variable);
-//        attributeValueService.save(alCityAttributeValue_instance_8_targetY);
-//
-//        Attribute alCityAttribute_instance_8_X= new Attribute("X",instance_img8.getId(),AttributeOwnerType.Puzzle_Level_Instance_Variable,DataType.Integer,1L,now,now,admin_1,admin_1);
-//        attributeService.save(alCityAttribute_instance_8_X);
-//        AttributeValue alCityAttributeValue_instance_8_X = new AttributeValue(null,3,null,null,null,null,null,null,alCityAttribute_instance_8_X,alCityAttribute_instance_8_X,1L,now,now,admin_1,admin_1,instance_img8.getId(),AttributeOwnerType.Puzzle_Level_Instance_Variable);
-//        attributeValueService.save(alCityAttributeValue_instance_8_X);
-//
-//        Attribute alCityAttribute_instance_8_Y= new Attribute("Y",instance_img8.getId(),AttributeOwnerType.Puzzle_Level_Instance_Variable,DataType.Integer,1L,now,now,admin_1,admin_1);
-//        attributeService.save(alCityAttribute_instance_8_Y);
-//        AttributeValue alCityAttributeValue_instance_8_Y = new AttributeValue(null,1,null,null,null,null,null,null,alCityAttribute_instance_8_Y,alCityAttribute_instance_8_Y,1L,now,now,admin_1,admin_1,instance_img8.getId(),AttributeOwnerType.Puzzle_Level_Instance_Variable);
-//        attributeValueService.save(alCityAttributeValue_instance_8_Y);
-
         Optional<PLRuleEvent> drag_event = plRuleEventService.findByName("Drag");
         Optional<PLRuleEvent> internalevent_checkcell = plRuleEventService.findByName("internalevent:checkcell");
         Optional<PLRuleEvent> internalevent_check = plRuleEventService.findByName("internalevent:check");
@@ -613,8 +420,9 @@ public class ImportHashImageProblemData_1 implements CommandLineRunner {
         Optional<PLRulePostActionType> internalevent_checkcel = plRulePostActionTypeService.findByValue("internalevent:checkcell");
 
         StringBuffer    move_rule_condition = new StringBuffer("equal(1,1)");
+        Boolean ignoreRemaining = true;
         PLRule rule_for_move = new PLRule("Move object by Drag",1
-                ,move_rule_condition,puzzleLevel_hashimage,drag_event.get(),1L,now,now,admin_1,admin_1);
+                ,move_rule_condition,ignoreRemaining,puzzleLevel_hashimage,drag_event.get(),1L,now,now,admin_1,admin_1);
         puzzleLevelRuleService.save(rule_for_move);
 
 
@@ -826,7 +634,7 @@ public class ImportHashImageProblemData_1 implements CommandLineRunner {
 
         StringBuffer    x_win_rule_condition = new StringBuffer("equal(InstProp(InstByPos(EventParam(row), EventParam(col)),x),InstVar(InstByPos(EventParam(row), EventParam(col)),targetX)) & equal(InstProp(InstByPos(EventParam(row), EventParam(col)),y),InstVar(InstByPos(EventParam(row), EventParam(col)),targetY))");
         PLRule x_win_rule = new PLRule("X Win Rule",2
-                ,x_win_rule_condition,puzzleLevel_hashimage,internalevent_checkcell.get(),1L,now,now,admin_1,admin_1);
+                ,x_win_rule_condition,ignoreRemaining,puzzleLevel_hashimage,internalevent_checkcell.get(),1L,now,now,admin_1,admin_1);
         puzzleLevelRuleService.save(x_win_rule);
 
         PLRulePostAction x_win_rule_post_Action_1 = new PLRulePostAction(x_win_rule,VariableAssignmentAction.get(),1,"","",
@@ -835,7 +643,7 @@ public class ImportHashImageProblemData_1 implements CommandLineRunner {
 
         StringBuffer    x_win_rule_condition_2 = new StringBuffer("equal(BoardVar(machedCount),9)");
         PLRule x_win_rule_2 = new PLRule("X Win Rule",2
-                ,x_win_rule_condition_2,puzzleLevel_hashimage,internalevent_check.get(),1L,now,now,admin_1,admin_1);
+                ,x_win_rule_condition_2,ignoreRemaining,puzzleLevel_hashimage,internalevent_check.get(),1L,now,now,admin_1,admin_1);
         puzzleLevelRuleService.save(x_win_rule_2);
 
         PLRulePostAction x_win_rule_2_post_Action_1 = new PLRulePostAction(x_win_rule_2,VariableAssignmentAction.get(),1,"","",

@@ -675,26 +675,18 @@ public class ImportBaseData implements CommandLineRunner {
 
         ObjectAction textObject_Create_Action = new ObjectAction(POActionOwnerType.Object,textObject.getId(), ObjectActionType.Create,create_Renderer,1L,now,now,admin_1,admin_1);
         puzzleObjectActionService.save(textObject_Create_Action);
-     //   DTOUtil.copyActionParametersFromTo(create_Renderer.getId(),textObject_Create_Action.getId(),AttributeOwnerType.Action_Handler_Parameter,AttributeOwnerType.Object_Action_Handler_Parameter,
-     //                            attributeService,attributeValueService);
 
         ObjectAction textObject_Show_Action = new ObjectAction(POActionOwnerType.Object,textObject.getId(), ObjectActionType.Show,show_Renderer,1L,now,now,admin_1,admin_1);
         puzzleObjectActionService.save(textObject_Show_Action);
-//        DTOUtil.copyActionParametersFromTo(show_Renderer.getId(),textObject_Show_Action.getId(),AttributeOwnerType.Action_Handler_Parameter,AttributeOwnerType.Object_Action_Handler_Parameter,
-//                attributeService,attributeValueService);
 
-        ALCityObject ImageObject01 = new ALCityObject(1L,now,now,jalalHoseyni,jalalHoseyni,"ImageObject01",objectCategory_Image,image_Object_pic,image_Object_pic);
-        alCityObjectService.save(ImageObject01);
+        ALCityObject imageObject01 = new ALCityObject(1L,now,now,jalalHoseyni,jalalHoseyni,"ImageObject01",objectCategory_Image,image_Object_pic,image_Object_pic);
+        alCityObjectService.save(imageObject01);
 
-        ObjectAction ImageObject01_Show_Action = new ObjectAction(POActionOwnerType.Object,ImageObject01.getId(), ObjectActionType.Create,showImage_Renderer,1L,now,now,admin_1,admin_1);
-        puzzleObjectActionService.save(ImageObject01_Show_Action);
-//        DTOUtil.copyActionParametersFromTo(showImage_Renderer.getId(),ImageObject01_Show_Action.getId(),AttributeOwnerType.Action_Handler_Parameter,AttributeOwnerType.Object_Action_Handler_Parameter,
-//                attributeService,attributeValueService);
+        ObjectAction imageObject01_Show_Action = new ObjectAction(POActionOwnerType.Object,imageObject01.getId(), ObjectActionType.Create,showImage_Renderer,1L,now,now,admin_1,admin_1);
+        puzzleObjectActionService.save(imageObject01_Show_Action);
 
-        ObjectAction ImageObject01_moveImage_Action = new ObjectAction(POActionOwnerType.Object,ImageObject01.getId(), ObjectActionType.Move,moveImage_Renderer,1L,now,now,admin_1,admin_1);
-        puzzleObjectActionService.save(ImageObject01_moveImage_Action);
-//        DTOUtil.copyActionParametersFromTo(moveImage_Renderer.getId(),ImageObject01_moveImage_Action.getId(),AttributeOwnerType.Action_Handler_Parameter,AttributeOwnerType.Object_Action_Handler_Parameter,
-//                attributeService,attributeValueService);
+        ObjectAction imageObject01_moveImage_Action = new ObjectAction(POActionOwnerType.Object,imageObject01.getId(), ObjectActionType.Move,moveImage_Renderer,1L,now,now,admin_1,admin_1);
+        puzzleObjectActionService.save(imageObject01_moveImage_Action);
 
 
 

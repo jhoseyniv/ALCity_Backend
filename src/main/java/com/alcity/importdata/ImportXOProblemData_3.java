@@ -193,14 +193,6 @@ public class ImportXOProblemData_3 implements CommandLineRunner {
         DTOUtil.copyActionFromTo(textObject.get().getId(), textObject_In_IQ_Puzzle_Group.getId(),AttributeOwnerType.Object_Action_Handler_Parameter,
                 AttributeOwnerType.Puzzle_Group_Object_Action_Handler_Parameter,actionService,POActionOwnerType.Object,POActionOwnerType.Puzzle_Group_Object,attributeService,attributeValueService);
 
-//        DTOUtil.copyPropertyFromTo(textObject.get().getId(),textObject_In_IQ_Puzzle_Group.getId(),AttributeOwnerType.Object_Property,AttributeOwnerType.Puzzle_Group_Object_Property,
-//                attributeService,attributeValueService);
-//        DTOUtil.copyVariableFromTo(textObject.get().getId(),textObject_In_IQ_Puzzle_Group.getId(),AttributeOwnerType.Object_Variable,AttributeOwnerType.Puzzle_Group_Object_Variable,
-//                attributeService,attributeValueService);
-
-
-
-
 
         PLPrivacy privacy_1 = plPrivacyService.findByValue("Public");
 
@@ -285,49 +277,31 @@ public class ImportXOProblemData_3 implements CommandLineRunner {
 
         ALCityInstanceInPL obj_1_1 = new ALCityInstanceInPL("obj_1_1",1,1,0,textObject_In_IQ_Puzzle_Group,puzzleLevel,1L,now,now,admin_1,admin_1);
         objectInstanceService.save(obj_1_1);
-//        DTOUtil.copyVariableFromTo(textObject_In_IQ_Puzzle_Group.getId(),obj_1_1.getId(),AttributeOwnerType.Puzzle_Group_Object_Variable,AttributeOwnerType.Instance_Puzzle_Group_Object_Variable,attributeService,attributeValueService);
-//        DTOUtil.copyPropertyFromTo(textObject_In_IQ_Puzzle_Group.getId(),obj_1_1.getId(),AttributeOwnerType.Puzzle_Group_Object_Property,AttributeOwnerType.Instance_Puzzle_Group_Object_Property,attributeService,attributeValueService);
 
 
         ALCityInstanceInPL obj_1_2 = new ALCityInstanceInPL("obj_1_2",1,2,0,textObject_In_IQ_Puzzle_Group,puzzleLevel,1L,now,now,admin_1,admin_1);
         objectInstanceService.save(obj_1_2);
-//        DTOUtil.copyVariableFromTo(textObject_In_IQ_Puzzle_Group.getId(),obj_1_2.getId(),AttributeOwnerType.Puzzle_Group_Object_Variable,AttributeOwnerType.Instance_Puzzle_Group_Object_Variable,attributeService,attributeValueService);
-//        DTOUtil.copyPropertyFromTo(textObject_In_IQ_Puzzle_Group.getId(),obj_1_2.getId(),AttributeOwnerType.Puzzle_Group_Object_Property,AttributeOwnerType.Instance_Puzzle_Group_Object_Property,attributeService,attributeValueService);
 
         ALCityInstanceInPL obj_1_3 = new ALCityInstanceInPL("obj_1_3",1,3,0,textObject_In_IQ_Puzzle_Group,puzzleLevel,1L,now,now,admin_1,admin_1);
         objectInstanceService.save(obj_1_3);
-//        DTOUtil.copyVariableFromTo(textObject_In_IQ_Puzzle_Group.getId(),obj_1_3.getId(),AttributeOwnerType.Puzzle_Group_Object_Variable,AttributeOwnerType.Instance_Puzzle_Group_Object_Variable,attributeService,attributeValueService);
-//        DTOUtil.copyPropertyFromTo(textObject_In_IQ_Puzzle_Group.getId(),obj_1_3.getId(),AttributeOwnerType.Puzzle_Group_Object_Property,AttributeOwnerType.Instance_Puzzle_Group_Object_Property,attributeService,attributeValueService);
 
         ALCityInstanceInPL obj_2_1 = new ALCityInstanceInPL("obj_2_1",2,1,0,textObject_In_IQ_Puzzle_Group,puzzleLevel,1L,now,now,admin_1,admin_1);
         objectInstanceService.save(obj_2_1);
-//        DTOUtil.copyVariableFromTo(textObject_In_IQ_Puzzle_Group.getId(),obj_2_1.getId(),AttributeOwnerType.Puzzle_Group_Object_Variable,AttributeOwnerType.Instance_Puzzle_Group_Object_Variable,attributeService,attributeValueService);
-//        DTOUtil.copyPropertyFromTo(textObject_In_IQ_Puzzle_Group.getId(),obj_2_1.getId(),AttributeOwnerType.Puzzle_Group_Object_Property,AttributeOwnerType.Instance_Puzzle_Group_Object_Property,attributeService,attributeValueService);
 
         ALCityInstanceInPL obj_2_2 = new ALCityInstanceInPL("obj_2_2",2,2,0,textObject_In_IQ_Puzzle_Group,puzzleLevel,1L,now,now,admin_1,admin_1);
         objectInstanceService.save(obj_2_2);
-//        DTOUtil.copyAttributeFromTo(textObject_In_IQ_Puzzle_Group.getId(),obj_2_2.getId(),AttributeOwnerType.Puzzle_Group_Object_Variable,AttributeOwnerType.Instance_Puzzle_Group_Object_Variable,attributeService,attributeValueService);
-//        DTOUtil.copyPropertyFromTo(textObject_In_IQ_Puzzle_Group.getId(),obj_2_2.getId(),AttributeOwnerType.Puzzle_Group_Object_Property,AttributeOwnerType.Instance_Puzzle_Group_Object_Property,attributeService,attributeValueService);
 
         ALCityInstanceInPL obj_2_3 = new ALCityInstanceInPL("obj_2_3",2,3,0,textObject_In_IQ_Puzzle_Group,puzzleLevel,1L,now,now,admin_1,admin_1);
         objectInstanceService.save(obj_2_3);
-//        DTOUtil.copyVariableFromTo(textObject_In_IQ_Puzzle_Group.getId(),obj_2_3.getId(),AttributeOwnerType.Puzzle_Group_Object_Variable,AttributeOwnerType.Instance_Puzzle_Group_Object_Variable,attributeService,attributeValueService);
-//        DTOUtil.copyPropertyFromTo(textObject_In_IQ_Puzzle_Group.getId(),obj_2_3.getId(),AttributeOwnerType.Puzzle_Group_Object_Property,AttributeOwnerType.Instance_Puzzle_Group_Object_Property,attributeService,attributeValueService);
 
         ALCityInstanceInPL obj_3_1 = new ALCityInstanceInPL("obj_3_1",3,1,0,textObject_In_IQ_Puzzle_Group,puzzleLevel,1L,now,now,admin_1,admin_1);
         objectInstanceService.save(obj_3_1);
-//        DTOUtil.copyVariableFromTo(textObject_In_IQ_Puzzle_Group.getId(),obj_3_1.getId(),AttributeOwnerType.Puzzle_Group_Object_Variable,AttributeOwnerType.Instance_Puzzle_Group_Object_Variable,attributeService,attributeValueService);
-//        DTOUtil.copyPropertyFromTo(textObject_In_IQ_Puzzle_Group.getId(),obj_3_1.getId(),AttributeOwnerType.Puzzle_Group_Object_Property,AttributeOwnerType.Instance_Puzzle_Group_Object_Property,attributeService,attributeValueService);
 
         ALCityInstanceInPL obj_3_2 = new ALCityInstanceInPL("obj_3_2",3,2,0,textObject_In_IQ_Puzzle_Group,puzzleLevel,1L,now,now,admin_1,admin_1);
         objectInstanceService.save(obj_3_2);
-//        DTOUtil.copyVariableFromTo(textObject_In_IQ_Puzzle_Group.getId(),obj_3_2.getId(),AttributeOwnerType.Puzzle_Group_Object_Variable,AttributeOwnerType.Instance_Puzzle_Group_Object_Variable,attributeService,attributeValueService);
-//        DTOUtil.copyPropertyFromTo(textObject_In_IQ_Puzzle_Group.getId(),obj_3_2.getId(),AttributeOwnerType.Puzzle_Group_Object_Property,AttributeOwnerType.Instance_Puzzle_Group_Object_Property,attributeService,attributeValueService);
 
         ALCityInstanceInPL obj_3_3 = new ALCityInstanceInPL("obj_3_3",3,3,0,textObject_In_IQ_Puzzle_Group,puzzleLevel,1L,now,now,admin_1,admin_1);
         objectInstanceService.save(obj_3_3);
-//        DTOUtil.copyVariableFromTo(textObject_In_IQ_Puzzle_Group.getId(),obj_3_3.getId(),AttributeOwnerType.Puzzle_Group_Object_Variable,AttributeOwnerType.Instance_Puzzle_Group_Object_Variable,attributeService,attributeValueService);
-//        DTOUtil.copyPropertyFromTo(textObject_In_IQ_Puzzle_Group.getId(),obj_3_3.getId(),AttributeOwnerType.Puzzle_Group_Object_Property,AttributeOwnerType.Instance_Puzzle_Group_Object_Property,attributeService,attributeValueService);
 
 
         Attribute alCity_object_property_1 =new Attribute("text",textObject_In_IQ_Puzzle_Group.getId(),AttributeOwnerType.Puzzle_Group_Object_Property,DataType.String,1L,now,now,admin_1,admin_1);
@@ -388,8 +362,9 @@ public class ImportXOProblemData_3 implements CommandLineRunner {
         Optional<PLRulePostActionType> VariableAssignmentAction = plRulePostActionTypeService.findByValue("VariableAssignmentAction");
         Optional<PLRulePostActionType> FireEventAction = plRulePostActionTypeService.findByValue("FireEventAction");
 
+        Boolean ignoreRemaining = true;
         StringBuffer    Click_NON_EMPTY_Cell_condition = new StringBuffer("unequal(InstProp(InstByPos(EventParam(row), EventParam(col)), text),null)");
-        PLRule Click_NON_EMPTY_Cell_rule = new PLRule("Click NON_EMPTY Cell",1 ,Click_NON_EMPTY_Cell_condition,puzzleLevel,click_event.get(),1L,now,now,admin_1,admin_1);
+        PLRule Click_NON_EMPTY_Cell_rule = new PLRule("Click NON_EMPTY Cell",1 ,Click_NON_EMPTY_Cell_condition,ignoreRemaining,puzzleLevel,click_event.get(),1L,now,now,admin_1,admin_1);
         puzzleLevelRuleService.save(Click_NON_EMPTY_Cell_rule);
 
         PLRulePostAction Click_NON_EMPTY_Cell_rule_showMessage = new PLRulePostAction(Click_NON_EMPTY_Cell_rule,UserAlertAction.get(),0,"","",
@@ -397,7 +372,7 @@ public class ImportXOProblemData_3 implements CommandLineRunner {
         plRulePostActionService.save(Click_NON_EMPTY_Cell_rule_showMessage);
 
         StringBuffer    X_Turn_condition = new StringBuffer("unequal(BoardVar(finished),true) & equal(BoardVar(turn),X)&equal(InstProp(InstByPos(EventParam(row), EventParam(col)), text),null)");
-        PLRule X_Turn_rule = new PLRule("X Turn",1 ,X_Turn_condition,puzzleLevel,click_event.get(),1L,now,now,admin_1,admin_1);
+        PLRule X_Turn_rule = new PLRule("X Turn",1 ,X_Turn_condition,ignoreRemaining,puzzleLevel,click_event.get(),1L,now,now,admin_1,admin_1);
         puzzleLevelRuleService.save(X_Turn_rule);
 
         PLRulePostAction  X_Turn_post_Action_1 = new PLRulePostAction(X_Turn_rule,VariableAssignmentAction.get(),0,"","",
@@ -418,7 +393,7 @@ public class ImportXOProblemData_3 implements CommandLineRunner {
 
 
         StringBuffer    O_Turn_condition = new StringBuffer("unequal(BoardVar(finished),true) & equal(BoardVar(turn),O)&equal(InstProp(InstByPos(EventParam(row), EventParam(col)), text),null)");
-        PLRule O_Turn_rule = new PLRule("O Turn",1 ,O_Turn_condition,puzzleLevel,click_event.get(),1L,now,now,admin_1,admin_1);
+        PLRule O_Turn_rule = new PLRule("O Turn",1 ,O_Turn_condition,ignoreRemaining,puzzleLevel,click_event.get(),1L,now,now,admin_1,admin_1);
         puzzleLevelRuleService.save(O_Turn_rule);
 
         PLRulePostAction  O_Turn_post_Action_1 = new PLRulePostAction(O_Turn_rule,VariableAssignmentAction.get(),0,"","",
@@ -439,7 +414,7 @@ public class ImportXOProblemData_3 implements CommandLineRunner {
 
 
         StringBuffer    Game_Finished_Error_condition = new StringBuffer("equal(BoardVar(finished),true)");
-        PLRule Game_Finished_Error_rule = new PLRule("Game Finished Error",1 ,Game_Finished_Error_condition,puzzleLevel,click_event.get(),1L,now,now,admin_1,admin_1);
+        PLRule Game_Finished_Error_rule = new PLRule("Game Finished Error",1 ,Game_Finished_Error_condition,ignoreRemaining,puzzleLevel,click_event.get(),1L,now,now,admin_1,admin_1);
         puzzleLevelRuleService.save(Game_Finished_Error_rule);
 
         PLRulePostAction Game_Finished_Post_Action_1 = new PLRulePostAction(Game_Finished_Error_rule,UserAlertAction.get(),0,"","",
@@ -448,7 +423,7 @@ public class ImportXOProblemData_3 implements CommandLineRunner {
 
 
         StringBuffer    X_Win_Rule_condition = new StringBuffer("(equal(InstProp(InstByPos(2, 2),text),X) & ( (equal(InstProp(InstByPos(2, 1),text),X)&equal(InstProp(InstByPos(2, 3),text),X)) |  (equal(InstProp(InstByPos(1, 2),text),X)&equal(InstProp(InstByPos(3, 2),text),X)) |      (equal(InstProp(InstByPos(1, 1),text),X)&equal(InstProp(InstByPos(3, 3),text),X)) |(equal(InstProp(InstByPos(1, 3),text),X)&equal(InstProp(InstByPos(3, 1),text),X))))|(equal(InstProp(InstByPos(1, 1),text),X) & ((equal(InstProp(InstByPos(1, 2),text),X)&equal(InstProp(InstByPos(1, 3),text),X)) |(equal(InstProp(InstByPos(2, 1),text),X)&equal(InstProp(InstByPos(3, 1),text),X))))|(equal(InstProp(InstByPos(3, 3),text),X) & ((equal(InstProp(InstByPos(2, 3),text),X)&equal(InstProp(InstByPos(1, 3),text),X)) |(equal(InstProp(InstByPos(3, 1),text),X)&equal(InstProp(InstByPos(3, 2),text),X))))");
-        PLRule X_Win_Rule_rule = new PLRule("X Win Rule",1 ,X_Win_Rule_condition,puzzleLevel,Internal_Event.get(),1L,now,now,admin_1,admin_1);
+        PLRule X_Win_Rule_rule = new PLRule("X Win Rule",1 ,X_Win_Rule_condition,ignoreRemaining,puzzleLevel,Internal_Event.get(),1L,now,now,admin_1,admin_1);
         puzzleLevelRuleService.save(X_Win_Rule_rule);
 
         PLRulePostAction X_Win_Rule_rule_post_Action_1 = new PLRulePostAction(X_Win_Rule_rule,VariableAssignmentAction.get(),0,"","",
@@ -460,7 +435,7 @@ public class ImportXOProblemData_3 implements CommandLineRunner {
         plRulePostActionService.save(X_Win_Rule_rule_post_Action_2);
 
         StringBuffer    O_Win_Rule_condition = new StringBuffer("condition\": \"(equal(InstProp(InstByPos(2, 2),text),O) & ( (equal(InstProp(InstByPos(2, 1),text),O)&equal(InstProp(InstByPos(2, 3),text),O)) |  (equal(InstProp(InstByPos(1, 2),text),O)&equal(InstProp(InstByPos(3, 2),text),O)) |      (equal(InstProp(InstByPos(1, 1),text),O)&equal(InstProp(InstByPos(3, 3),text),O)) |(equal(InstProp(InstByPos(1, 3),text),O)&equal(InstProp(InstByPos(3, 1),text),O))))|(equal(InstProp(InstByPos(1, 1),text),O) & ((equal(InstProp(InstByPos(1, 2),text),O)&equal(InstProp(InstByPos(1, 3),text),O)) |(equal(InstProp(InstByPos(2, 1),text),O)&equal(InstProp(InstByPos(3, 1),text),O))))|(equal(InstProp(InstByPos(3, 3),text),O) & ((equal(InstProp(InstByPos(2, 3),text),O)&equal(InstProp(InstByPos(1, 3),text),O)) |(equal(InstProp(InstByPos(3, 1),text),O)&equal(InstProp(InstByPos(3, 2),text),O))))");
-        PLRule O_Win_Rule_rule = new PLRule("O Win Rule",1 ,O_Win_Rule_condition,puzzleLevel,Internal_Event.get(),1L,now,now,admin_1,admin_1);
+        PLRule O_Win_Rule_rule = new PLRule("O Win Rule",1 ,O_Win_Rule_condition,ignoreRemaining,puzzleLevel,Internal_Event.get(),1L,now,now,admin_1,admin_1);
         puzzleLevelRuleService.save(O_Win_Rule_rule);
 
         PLRulePostAction O_Win_Rule_rule_post_Action_1 = new PLRulePostAction(O_Win_Rule_rule,VariableAssignmentAction.get(),0,"","",

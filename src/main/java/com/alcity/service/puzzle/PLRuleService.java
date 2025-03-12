@@ -98,8 +98,9 @@ public class PLRuleService implements PLRuleRepository {
             plRuleEvent = plRuleEventOptional.get();
         StringBuffer condition = new StringBuffer(dto.getCondition());
 
+        Boolean ignoreRemaining = true;
         if (code.equalsIgnoreCase("Save")) { //Save
-            plRule = new PLRule(dto.getTitle(), dto.getOrdering(), condition,puzzleLevel,
+            plRule = new PLRule(dto.getTitle(), dto.getOrdering(), condition,ignoreRemaining,puzzleLevel,
                     plRuleEvent,1L, DateUtils.getNow(), DateUtils.getNow(), createdBy, createdBy);
             ruleRepository.save(plRule);
         }else{//edit
