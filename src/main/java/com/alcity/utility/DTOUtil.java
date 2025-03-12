@@ -45,6 +45,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class DTOUtil {
 
@@ -334,8 +335,7 @@ public class DTOUtil {
         return false;
    }
 
-    public static void saveNewValue(AttributeValueDTOSave newValue, AttributeRepository attributeRepository, AttributeValueRepository attributeValueRepository) {
-        Optional<Attribute> attributeOptional =attributeRepository.findById(newValue.getAttributeId());
+    public static void saveNewValue(Attribute attribute, AttributeValueDTOSave newValue, AttributeRepository attributeRepository, AttributeValueRepository attributeValueRepository) {
         AttributeOwnerType newOwnerType = AttributeOwnerType.getByTitle(newValue.getNewOwnerType());
         Attribute  bindedAttribute=null;
         if(newValue.getBindedAttributeId() != null ){
@@ -344,11 +344,10 @@ public class DTOUtil {
         }else{
             bindedAttribute=null;
         }
-
         AttributeValue attributeValue = new AttributeValue(newValue.getBooleanValue(),newValue.getIntValue(),newValue.getLongValue(),
                 newValue.getStringValue(),newValue.getObjectValue(),
-                newValue.getDoubleValue(), newValue.getBinaryContentId(),newValue.getExpression(),bindedAttribute,attributeOptional.get(),
-                1L,DateUtils.getNow(),DateUtils.getNow(),attributeOptional.get().getCreatedBy(),attributeOptional.get().getUpdatedBy(), newValue.getNewOwnerId(),newOwnerType );
+                newValue.getDoubleValue(), newValue.getBinaryContentId(),newValue.getExpression(),bindedAttribute,attribute,
+                1L,DateUtils.getNow(),DateUtils.getNow(),attribute.getCreatedBy(),attribute.getUpdatedBy(), newValue.getNewOwnerId(),newOwnerType );
         attributeValueRepository.save(attributeValue);
 
     }
@@ -382,9 +381,22 @@ public class DTOUtil {
         //fina all values for this attribute
         Collection<AttributeValue> attributeValues = attributeValueRepository.findByAttributeId(attribute);
         AttributeValueDTOSave newAttributeValue = newValue.getAttributeValueDTOSave();
-        Iterator<AttributeValue> itr = attributeValues.iterator();
-        while(itr.hasNext()){
-            AttributeValue attributeValue = itr.next();
+        AttributeOwnerType attributeOwnerType = AttributeOwnerType.getByTitle(newAttributeValue.getNewOwnerType());
+         Optional<AttributeValue> attributeValueOptional = attributeValueRepository.findByAttributeIdAndOwnerIdAndOwnerType(attribute, newAttributeValue.getOwnerId(),attributeOwnerType );
+        if(attributeValueOptional.isEmpty() ){
+            //boolean isValueChanged = isAttributeValueChanged(attributeValue,newAttributeValue);
+            // if(attributeValue.getOwnerId().equals(attribute.getOwnerId())) { // this attribute value is default value for parent
+             //   AttributeValue originalAttributeValue = attributeValue;
+               // if (isValueChanged) { // original value has been changed so new value must be inserted and owners of old and new value are different
+                    saveNewValue(attribute,newAttributeValue, attributeRepository, attributeValueRepository);
+              //  }else if (isValueChanged && (attributeValue.getId().equals(newAttributeValue.getId()) )){// old value is changed but  old owner and new owner id are same for this values so new value must re write to old value
+                }
+         else {
+                AttributeValue attributeValue = attributeValueOptional.get();
+                 overwiteValue(attributeValue,newAttributeValue,attributeRepository, attributeValueRepository);
+        }
+
+            /*
             if(attribute.getAttributeOwnerType().equals(AttributeOwnerType.Object_Property) &&
                     attribute.getOwnerId().equals(newValue.getOwnerId())  ){
                 boolean isValueChanged = isAttributeValueChanged(attributeValue,newAttributeValue);
@@ -392,49 +404,52 @@ public class DTOUtil {
                     overwiteValue(attributeValue,newAttributeValue,attributeRepository, attributeValueRepository);
 
             }
-            if(attribute.getAttributeOwnerType().equals(AttributeOwnerType.Puzzle_Group_Object_Property) &&
+            else if(attribute.getAttributeOwnerType().equals(AttributeOwnerType.Puzzle_Group_Object_Property) &&
                     attribute.getOwnerId().equals(newValue.getOwnerId())  ){
                 boolean isValueChanged = isAttributeValueChanged(attributeValue,newAttributeValue);
                 if(isValueChanged)
                     overwiteValue(attributeValue,newAttributeValue,attributeRepository, attributeValueRepository);
 
             }
-
-
-            if(attribute.getAttributeOwnerType().equals(AttributeOwnerType.Puzzle_Group_Object_Variable)){
+            else if(attribute.getAttributeOwnerType().equals(AttributeOwnerType.Puzzle_Group_Object_Variable)){
                 boolean isValueChanged = isAttributeValueChanged(attributeValue,newAttributeValue);
                 if(isValueChanged)
                     overwiteValue(attributeValue,newAttributeValue,attributeRepository, attributeValueRepository);
 
             }
-            if(attribute.getAttributeOwnerType().equals(AttributeOwnerType.Puzzle_Level_Variable) &&
+            else if(attribute.getAttributeOwnerType().equals(AttributeOwnerType.Instance_Puzzle_Group_Object_Variable)){
+                boolean isValueChanged = isAttributeValueChanged(attributeValue,newAttributeValue);
+                if(isValueChanged)
+                    overwiteValue(attributeValue,newAttributeValue,attributeRepository, attributeValueRepository);
+
+            }
+            else if(attribute.getAttributeOwnerType().equals(AttributeOwnerType.Puzzle_Level_Variable) &&
                     attribute.getOwnerId().equals(newValue.getOwnerId())  ){
                 boolean isValueChanged = isAttributeValueChanged(attributeValue,newAttributeValue);
                 if(isValueChanged)
                     overwiteValue(attributeValue,newAttributeValue,attributeRepository, attributeValueRepository);
             }
-
-            if(attributeValue.getOwnerId().equals(attribute.getOwnerId())){
-                //this value is default value
-                defaultAttributeValue =attributeValue;
+            else if(newAttributeValue.getNewOwnerType().equalsIgnoreCase(AttributeOwnerType.Object_Property.name()) && attribute.getOwnerId().equals(newValue.getOwnerId())){
+                // new value must be changed with current value
+                boolean isValueChanged = isAttributeValueChanged(attributeValue,newAttributeValue);
+                if(isValueChanged)
+                    overwiteValue(attributeValue,newAttributeValue,attributeRepository, attributeValueRepository);
             }
-           else if(attributeValue.getOwnerId().equals(newAttributeValue.getNewOwnerId())){
-                nonDefaultAttributeValue = attributeValue;
-            }
+                boolean isDefaultValueChanged = isAttributeValueChanged(defaultAttributeValue, newAttributeValue);
 
-        }
-        boolean isDefaultValueChanged = isAttributeValueChanged(defaultAttributeValue,newAttributeValue);
+                if (attributeValue.getOwnerId().equals(attribute.getOwnerId())) {
+                    //this value is default value
+                    defaultAttributeValue = attributeValue;
+                } else if (attributeValue.getOwnerId().equals(newAttributeValue.getNewOwnerId())) {
+                    nonDefaultAttributeValue = attributeValue;
+                } else if (nonDefaultAttributeValue != null) { // this value changed
+                    overwiteValue(nonDefaultAttributeValue, newAttributeValue, attributeRepository, attributeValueRepository);
+                } else if (isDefaultValueChanged) { // first time this value changed
+                    saveNewValue(attribute,newAttributeValue, attributeRepository, attributeValueRepository);
+                }
 
-        if(newAttributeValue.getNewOwnerType().equalsIgnoreCase(AttributeOwnerType.Object_Property.name()) && isDefaultValueChanged){
-             // new value must be changed with current value
-            overwiteValue(defaultAttributeValue,newAttributeValue,attributeRepository, attributeValueRepository);
-        }
-        //find old value for this attribute if exist(maybe this value changed already)
-       else if(nonDefaultAttributeValue !=null){ // this value changed
-            overwiteValue(nonDefaultAttributeValue,newAttributeValue,attributeRepository, attributeValueRepository);
-        }else if(isDefaultValueChanged){ // first time this value changed
-           saveNewValue(newAttributeValue,attributeRepository,attributeValueRepository);
-         }
+             */
+
 
     }
 

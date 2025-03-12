@@ -1,5 +1,6 @@
 package com.alcity.repository.alobject;
 
+import com.alcity.entity.alenum.AttributeOwnerType;
 import com.alcity.entity.alobject.Attribute;
 import com.alcity.entity.alobject.AttributeValue;
 import org.springframework.data.repository.CrudRepository;
@@ -12,4 +13,5 @@ public interface AttributeValueRepository extends CrudRepository<AttributeValue,
     Collection<AttributeValue> findAll();
     Collection<AttributeValue> findByAttributeId(Attribute attribute);
     Optional<AttributeValue> findByAttributeIdAndOwnerId(Attribute attribute,Long ownerId);
+    Optional<AttributeValue> findByAttributeIdAndOwnerIdAndOwnerType(Attribute attribute, Long ownerId, AttributeOwnerType ownerType);
 }

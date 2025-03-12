@@ -1,6 +1,7 @@
 package com.alcity.service.alobject;
 
 
+import com.alcity.entity.alenum.AttributeOwnerType;
 import com.alcity.entity.alobject.Attribute;
 import com.alcity.entity.alobject.AttributeValue;
 import com.alcity.repository.alobject.AttributeValueRepository;
@@ -51,6 +52,11 @@ public class AttributeValueService implements AttributeValueRepository {
     @Override
     public Optional<AttributeValue> findByAttributeIdAndOwnerId(Attribute attribute, Long ownerId) {
         return attributeValueRepository.findByAttributeIdAndOwnerId(attribute,ownerId);
+    }
+
+    @Override
+    public Optional<AttributeValue> findByAttributeIdAndOwnerIdAndOwnerType(Attribute attribute, Long ownerId, AttributeOwnerType ownerType) {
+        return attributeValueRepository.findByAttributeIdAndOwnerIdAndOwnerType(attribute,ownerId,ownerType);
     }
 
 
