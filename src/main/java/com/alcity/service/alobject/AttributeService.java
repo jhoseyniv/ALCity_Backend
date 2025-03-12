@@ -366,14 +366,25 @@ public class AttributeService implements AttributeRepository {
         //fetch properties for an object in a puzzle group
         Collection<Attribute> Instance_puzzle_Group_Object_properties = attributeRepository.findByOwnerIdAndAttributeOwnerType(ownerId,ownerType);
 
-        //fetch variables for a parent object of this puzzle group object instance
-        Long objectObjectInPGId=-1L;
+        //fetch properties for parent object of this puzzle group object instance
+        Long objectIdInPuzzleGroup=-1L;
+        Long objectId=-1L;
         Optional<ALCityInstanceInPL> alCityInstanceInPLOptional = aLCityInstanceInPLService.findById(ownerId);
-        if(alCityInstanceInPLOptional.isPresent())
-            objectObjectInPGId = alCityInstanceInPLOptional.get().getAlCityObjectInPG().getId();
-        Collection<Attribute> object_in_pg_properties = attributeRepository.findByOwnerIdAndAttributeOwnerType(objectObjectInPGId,AttributeOwnerType.Puzzle_Group_Object_Property);
+        if(alCityInstanceInPLOptional.isPresent()) {
+            objectIdInPuzzleGroup = alCityInstanceInPLOptional.get().getAlCityObjectInPG().getId();
+            objectId = alCityInstanceInPLOptional.get().getAlCityObjectInPG().getAlCityObject().getId();
+        }
+        Collection<Attribute> object_in_pg_properties = attributeRepository.findByOwnerIdAndAttributeOwnerType(objectIdInPuzzleGroup,AttributeOwnerType.Puzzle_Group_Object_Property);
+
+       // Collection<Attribute> propertiesForPuzzleGroupObject = new ArrayList<Attribute>();
         outputAttributes = getPropertiesWithValues(object_in_pg_properties,ownerId);
         outputAttributes.addAll(Instance_puzzle_Group_Object_properties);
+
+        Collection<Attribute> object_properties = attributeRepository.findByOwnerIdAndAttributeOwnerType(objectId,AttributeOwnerType.Object_Property);
+        Collection<Attribute> propertiesForObject = new ArrayList<Attribute>();
+        propertiesForObject = getPropertiesWithValues(object_properties,ownerId);
+
+        outputAttributes.addAll(propertiesForObject);
         return outputAttributes;
     }
     public Collection<Attribute> findByOwnerIdAndAttributeOwnerTypeNew(Long ownerId, AttributeOwnerType ownerType) {
@@ -408,7 +419,7 @@ public class AttributeService implements AttributeRepository {
             outputAttributes = findInstancePuzzleGroupObjectVariable(ownerId,ownerType);
         }
         if(ownerType == AttributeOwnerType.Instance_Puzzle_Group_Object_Property) {
-            outputAttributes = findInstancePuzzleGroupObjectVariable(ownerId,ownerType);
+            outputAttributes = findInstancePuzzleGroupObjectProperties(ownerId,ownerType);
         }
         if(ownerType == AttributeOwnerType.Puzzle_Level_Variable) {
             outputAttributes = findPuzzleLevelVariable(ownerId,ownerType);

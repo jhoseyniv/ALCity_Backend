@@ -332,12 +332,12 @@ public class ImportXOProblemData_3 implements CommandLineRunner {
 
         Attribute alCity_object_property_1 =new Attribute("text",textObject_In_IQ_Puzzle_Group.getId(),AttributeOwnerType.Puzzle_Group_Object_Property,DataType.String,1L,now,now,admin_1,admin_1);
         attributeService.save(alCity_object_property_1);
-        AttributeValue  object_property_1_value= new AttributeValue(null,null,null,"",null,null,null,null,null,alCity_object_property_1,1L,now,now,admin_1,admin_1,textObject_In_IQ_Puzzle_Group.getId(),AttributeOwnerType.Puzzle_Group_Object_Property);
+        AttributeValue  object_property_1_value= new AttributeValue(null,null,null,"text in puzzle group IQ",null,null,null,null,null,alCity_object_property_1,1L,now,now,admin_1,admin_1,textObject_In_IQ_Puzzle_Group.getId(),AttributeOwnerType.Puzzle_Group_Object_Property);
         attributeValueService.save(object_property_1_value);
 
         Attribute obj_1_1_property_1 =new Attribute("text",obj_1_1.getId(),AttributeOwnerType.Instance_Puzzle_Group_Object_Property,DataType.String,1L,now,now,admin_1,admin_1);
         attributeService.save(obj_1_1_property_1);
-        AttributeValue  obj_1_1_property_1_value= new AttributeValue(null,null,null,"",null,null,null,null,obj_1_1_property_1,obj_1_1_property_1,1L,now,now,admin_1,admin_1,obj_1_1.getId(),AttributeOwnerType.Instance_Puzzle_Group_Object_Property);
+        AttributeValue  obj_1_1_property_1_value= new AttributeValue(null,null,null,"text in obj_1_1",null,null,null,null,obj_1_1_property_1,obj_1_1_property_1,1L,now,now,admin_1,admin_1,obj_1_1.getId(),AttributeOwnerType.Instance_Puzzle_Group_Object_Property);
         attributeValueService.save(obj_1_1_property_1_value);
 
         Attribute obj_1_2_property_1 =new Attribute("text",obj_1_2.getId(),AttributeOwnerType.Instance_Puzzle_Group_Object_Property,DataType.String,1L,now,now,admin_1,admin_1);
