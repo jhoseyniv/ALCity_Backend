@@ -9,7 +9,8 @@ public class AttributeValueDTO {
     private Float doubleValue;
     private Integer intValue;
     private Long binaryContentId;
-    private String  expression;
+    private String  expressionValue;
+    private Boolean  isExpression;
     private String stringValue;
     private String objectValue;
     private Boolean booleanValue;
@@ -108,12 +109,20 @@ public class AttributeValueDTO {
         this.ownerType = ownerType;
     }
 
-    public String getExpression() {
-        return expression;
+    public String getExpressionValue() {
+        return expressionValue;
     }
 
-    public void setExpression(String expression) {
-        this.expression = expression;
+    public void setExpressionValue(String expressionValue) {
+        this.expressionValue = expressionValue;
+    }
+
+    public Boolean getExpression() {
+        return isExpression;
+    }
+
+    public void setExpression(Boolean expression) {
+        isExpression = expression;
     }
 
     public AttributeValueDTO() {
@@ -127,7 +136,7 @@ public class AttributeValueDTO {
         this.booleanValue = booleanValue;
     }
 
-    public AttributeValueDTO(Long id,Boolean booleanValue ,Long longValue, Float doubleValue, Integer intValue, Long binaryContentId,String expression, String stringValue, String objectValue,Long attributeId,Long bindedAttributeId,Long ownerId,String ownerType) {
+    public AttributeValueDTO(Long id,Boolean booleanValue ,Long longValue, Float doubleValue, Integer intValue, Long binaryContentId,String expressionValue,Boolean isExpression, String stringValue, String objectValue,Long attributeId,Long bindedAttributeId,Long ownerId,String ownerType) {
         this.id = id;
         this.ownerId = ownerId;
         this.ownerType = ownerType;
@@ -136,7 +145,8 @@ public class AttributeValueDTO {
         this.doubleValue = doubleValue;
         this.intValue = intValue;
         this.binaryContentId = binaryContentId;
-        this.expression = expression;
+        this.expressionValue = expressionValue;
+        this.isExpression = isExpression;
         this.stringValue = stringValue;
         this.objectValue = objectValue;
         this.attributeId = attributeId;

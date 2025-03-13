@@ -265,13 +265,13 @@ public class ImportXOProblemData_3 implements CommandLineRunner {
 
         Attribute attribute_variable_turn =new Attribute("turn",puzzleLevel.getId(), AttributeOwnerType.Puzzle_Level_Variable,DataType.String,1L,now,now,admin_1,admin_1);
         attributeService.save(attribute_variable_turn);
-        AttributeValue attribute_variable_turn_value= new AttributeValue(null,null,null,"X",null,null,null,null,attribute_variable_turn,attribute_variable_turn,1L,now,now,admin_1,admin_1,puzzleLevel.getId(), AttributeOwnerType.Puzzle_Level_Variable);
+        AttributeValue attribute_variable_turn_value= new AttributeValue(null,null,null,"X",null,null,null,null,Boolean.FALSE,null,attribute_variable_turn,1L,now,now,admin_1,admin_1,puzzleLevel.getId(), AttributeOwnerType.Puzzle_Level_Variable);
         attributeValueService.save(attribute_variable_turn_value);
 
         Attribute attribute_variable_Finished =new Attribute("finished",puzzleLevel.getId(),AttributeOwnerType.Puzzle_Level_Variable,DataType.Boolean,1L,now,now,admin_1,admin_1);
         attributeService.save(attribute_variable_Finished);
 
-        AttributeValue attribute_variable_Finished_value= new AttributeValue(false,null,null,null,null,null,null,null,attribute_variable_Finished,attribute_variable_Finished,1L,now,now,admin_1,admin_1,puzzleLevel.getId(),AttributeOwnerType.Puzzle_Level_Variable);
+        AttributeValue attribute_variable_Finished_value= new AttributeValue(false,null,null,null,null,null,null,null,Boolean.FALSE,null,attribute_variable_Finished,1L,now,now,admin_1,admin_1,puzzleLevel.getId(),AttributeOwnerType.Puzzle_Level_Variable);
         attributeValueService.save(attribute_variable_Finished_value);
 
 
@@ -306,52 +306,52 @@ public class ImportXOProblemData_3 implements CommandLineRunner {
 
         Attribute alCity_object_property_1 =new Attribute("text",textObject_In_IQ_Puzzle_Group.getId(),AttributeOwnerType.Puzzle_Group_Object_Property,DataType.String,1L,now,now,admin_1,admin_1);
         attributeService.save(alCity_object_property_1);
-        AttributeValue  object_property_1_value= new AttributeValue(null,null,null,"text in puzzle group IQ",null,null,null,null,null,alCity_object_property_1,1L,now,now,admin_1,admin_1,textObject_In_IQ_Puzzle_Group.getId(),AttributeOwnerType.Puzzle_Group_Object_Property);
+        AttributeValue  object_property_1_value= new AttributeValue(null,null,null,"text in puzzle group IQ",null,null,null,null,Boolean.FALSE,null,alCity_object_property_1,1L,now,now,admin_1,admin_1,textObject_In_IQ_Puzzle_Group.getId(),AttributeOwnerType.Puzzle_Group_Object_Property);
         attributeValueService.save(object_property_1_value);
 
         Attribute obj_1_1_property_1 =new Attribute("text",obj_1_1.getId(),AttributeOwnerType.Instance_Puzzle_Group_Object_Property,DataType.String,1L,now,now,admin_1,admin_1);
         attributeService.save(obj_1_1_property_1);
-        AttributeValue  obj_1_1_property_1_value= new AttributeValue(null,null,null,"text in obj_1_1",null,null,null,null,obj_1_1_property_1,obj_1_1_property_1,1L,now,now,admin_1,admin_1,obj_1_1.getId(),AttributeOwnerType.Instance_Puzzle_Group_Object_Property);
+        AttributeValue  obj_1_1_property_1_value= new AttributeValue(null,null,null,"text in obj_1_1",null,null,null,null,Boolean.FALSE,null,obj_1_1_property_1,1L,now,now,admin_1,admin_1,obj_1_1.getId(),AttributeOwnerType.Instance_Puzzle_Group_Object_Property);
         attributeValueService.save(obj_1_1_property_1_value);
 
         Attribute obj_1_2_property_1 =new Attribute("text",obj_1_2.getId(),AttributeOwnerType.Instance_Puzzle_Group_Object_Property,DataType.String,1L,now,now,admin_1,admin_1);
         attributeService.save(obj_1_2_property_1);
-        AttributeValue  obj_1_2_property_1_value= new AttributeValue(null,null,null,"",null,null,null,null,obj_1_2_property_1,obj_1_2_property_1,1L,now,now,admin_1,admin_1,obj_1_2.getId(),AttributeOwnerType.Instance_Puzzle_Group_Object_Property);
+        AttributeValue  obj_1_2_property_1_value= new AttributeValue(null,null,null,"",null,null,null,null,Boolean.FALSE,null,obj_1_2_property_1,1L,now,now,admin_1,admin_1,obj_1_2.getId(),AttributeOwnerType.Instance_Puzzle_Group_Object_Property);
         attributeValueService.save(obj_1_2_property_1_value);
 
         Attribute obj_1_3_property_1 =new Attribute("text",obj_1_3.getId(),AttributeOwnerType.Instance_Puzzle_Group_Object_Property,DataType.String,1L,now,now,admin_1,admin_1);
         attributeService.save(obj_1_3_property_1);
-        AttributeValue  obj_1_3_property_1_value= new AttributeValue(null,null,null,"",null,null,null,null,obj_1_3_property_1,obj_1_3_property_1,1L,now,now,admin_1,admin_1,obj_1_3.getId(),AttributeOwnerType.Instance_Puzzle_Group_Object_Property);
+        AttributeValue  obj_1_3_property_1_value= new AttributeValue(null,null,null,"",null,null,null,null,Boolean.FALSE,null,obj_1_3_property_1,1L,now,now,admin_1,admin_1,obj_1_3.getId(),AttributeOwnerType.Instance_Puzzle_Group_Object_Property);
         attributeValueService.save(obj_1_3_property_1_value);
 
         Attribute obj_2_1_property_1 =new Attribute("text",obj_2_1.getId(),AttributeOwnerType.Instance_Puzzle_Group_Object_Property,DataType.String,1L,now,now,admin_1,admin_1);
         attributeService.save(obj_2_1_property_1);
-        AttributeValue  obj_2_1_property_1_value= new AttributeValue(null,null,null,"",null,null,null,null,obj_2_1_property_1,obj_2_1_property_1,1L,now,now,admin_1,admin_1,obj_2_1.getId(),AttributeOwnerType.Instance_Puzzle_Group_Object_Property);
+        AttributeValue  obj_2_1_property_1_value= new AttributeValue(null,null,null,"",null,null,null,null,Boolean.FALSE,null,obj_2_1_property_1,1L,now,now,admin_1,admin_1,obj_2_1.getId(),AttributeOwnerType.Instance_Puzzle_Group_Object_Property);
         attributeValueService.save(obj_2_1_property_1_value);
 
         Attribute obj_2_2_property_1 =new Attribute("text",obj_2_2.getId(),AttributeOwnerType.Instance_Puzzle_Group_Object_Property,DataType.String,1L,now,now,admin_1,admin_1);
         attributeService.save(obj_2_2_property_1);
-        AttributeValue  obj_2_2_property_1_value= new AttributeValue(null,null,null,"",null,null,null,null,obj_2_2_property_1,obj_2_2_property_1,1L,now,now,admin_1,admin_1,obj_2_2.getId(),AttributeOwnerType.Instance_Puzzle_Group_Object_Property);
+        AttributeValue  obj_2_2_property_1_value= new AttributeValue(null,null,null,"",null,null,null,null,Boolean.FALSE,null,obj_2_2_property_1,1L,now,now,admin_1,admin_1,obj_2_2.getId(),AttributeOwnerType.Instance_Puzzle_Group_Object_Property);
         attributeValueService.save(obj_2_2_property_1_value);
 
         Attribute obj_2_3_property_1 =new Attribute("text",obj_2_3.getId(),AttributeOwnerType.Instance_Puzzle_Group_Object_Property,DataType.String,1L,now,now,admin_1,admin_1);
         attributeService.save(obj_2_3_property_1);
-        AttributeValue  obj_2_3_property_1_value= new AttributeValue(null,null,null,"",null,null,null,null,obj_2_3_property_1,obj_2_3_property_1,1L,now,now,admin_1,admin_1,obj_2_3.getId(),AttributeOwnerType.Instance_Puzzle_Group_Object_Property);
+        AttributeValue  obj_2_3_property_1_value= new AttributeValue(null,null,null,"",null,null,null,null,Boolean.FALSE,null,obj_2_3_property_1,1L,now,now,admin_1,admin_1,obj_2_3.getId(),AttributeOwnerType.Instance_Puzzle_Group_Object_Property);
         attributeValueService.save(obj_2_3_property_1_value);
 
         Attribute obj_3_1_property_1 =new Attribute("text",obj_3_1.getId(),AttributeOwnerType.Instance_Puzzle_Group_Object_Property,DataType.String,1L,now,now,admin_1,admin_1);
         attributeService.save(obj_3_1_property_1);
-        AttributeValue  obj_3_1_property_1_value= new AttributeValue(null,null,null,"",null,null,null,null,obj_3_1_property_1,obj_3_1_property_1,1L,now,now,admin_1,admin_1,obj_3_1.getId(),AttributeOwnerType.Instance_Puzzle_Group_Object_Property);
+        AttributeValue  obj_3_1_property_1_value= new AttributeValue(null,null,null,"",null,null,null,null,Boolean.FALSE,null,obj_3_1_property_1,1L,now,now,admin_1,admin_1,obj_3_1.getId(),AttributeOwnerType.Instance_Puzzle_Group_Object_Property);
         attributeValueService.save(obj_3_1_property_1_value);
 
         Attribute obj_3_2_property_1 =new Attribute("text",obj_3_2.getId(),AttributeOwnerType.Instance_Puzzle_Group_Object_Property,DataType.String,1L,now,now,admin_1,admin_1);
         attributeService.save(obj_3_2_property_1);
-        AttributeValue  obj_3_2_property_1_value= new AttributeValue(null,null,null,"",null,null,null,null,obj_3_2_property_1,obj_3_2_property_1,1L,now,now,admin_1,admin_1,obj_3_2.getId(),AttributeOwnerType.Instance_Puzzle_Group_Object_Property);
+        AttributeValue  obj_3_2_property_1_value= new AttributeValue(null,null,null,"",null,null,null,null,Boolean.FALSE,null,obj_3_2_property_1,1L,now,now,admin_1,admin_1,obj_3_2.getId(),AttributeOwnerType.Instance_Puzzle_Group_Object_Property);
         attributeValueService.save(obj_3_2_property_1_value);
 
         Attribute obj_3_3_property_1 =new Attribute("text",obj_3_3.getId(),AttributeOwnerType.Instance_Puzzle_Group_Object_Property,DataType.String,1L,now,now,admin_1,admin_1);
         attributeService.save(obj_3_3_property_1);
-        AttributeValue  obj_3_3_property_1_value= new AttributeValue(null,null,null,"",null,null,null,null,obj_3_3_property_1,obj_3_3_property_1,1L,now,now,admin_1,admin_1,obj_3_3.getId(),AttributeOwnerType.Instance_Puzzle_Group_Object_Property);
+        AttributeValue  obj_3_3_property_1_value= new AttributeValue(null,null,null,"",null,null,null,null,Boolean.FALSE,null,obj_3_3_property_1,1L,now,now,admin_1,admin_1,obj_3_3.getId(),AttributeOwnerType.Instance_Puzzle_Group_Object_Property);
         attributeValueService.save(obj_3_3_property_1_value);
 
         Optional<PLRuleEvent> click_event = plRuleEventService.findByName("Click");

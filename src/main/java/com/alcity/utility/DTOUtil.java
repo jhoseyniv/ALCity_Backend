@@ -127,7 +127,7 @@ public class DTOUtil {
         if(value.getBindedAttributeId() != null)
             bindedAttribute = value.getBindedAttributeId().getId();
         AttributeValueDTO valueDTO= new AttributeValueDTO(value.getId(),value.getBooleanValue(), value.getLongValue(), value.getDoubleValue(),
-                value.getIntValue(), value.getBinaryContentId() ,value.getExperssion(),
+                value.getIntValue(), value.getBinaryContentId() ,value.getExpressionValue(),value.getExpression(),
                 value.getStringValue(),value.getObjectValue(),value.getAttributeId().getId(),bindedAttribute, value.getOwnerId(), value.getOwnerType().name());
         return valueDTO;
     }
@@ -257,10 +257,13 @@ public class DTOUtil {
         Float doubleValue = value.getDoubleValue();
         Float newDoubleValue = newValue.getDoubleValue();
 
-        String experssionValue = value.getExperssion();
-        String newExperssionValue = newValue.getExpression();
+        String experssionValue = value.getExpressionValue();
+        String newExperssionValue = newValue.getExpressionValue();
 
-        Long binaryContentdIdValue = value.getBinaryContentId();
+         Boolean isExpression = value.getExpression();
+         Boolean newisExpression = newValue.getExpression();
+
+            Long binaryContentdIdValue = value.getBinaryContentId();
         Long newBinaryContentdIdValue = newValue.getBinaryContentId();
 
         Long longValue = value.getLongValue();
@@ -347,7 +350,7 @@ public class DTOUtil {
         }
         AttributeValue attributeValue = new AttributeValue(newValue.getBooleanValue(),newValue.getIntValue(),newValue.getLongValue(),
                 newValue.getStringValue(),newValue.getObjectValue(),
-                newValue.getDoubleValue(), newValue.getBinaryContentId(),newValue.getExpression(),bindedAttribute,oldAttributeValue.getAttributeId(),
+                newValue.getDoubleValue(), newValue.getBinaryContentId(),newValue.getExpressionValue(),newValue.getExpression(),bindedAttribute,oldAttributeValue.getAttributeId(),
                 1L,DateUtils.getNow(),DateUtils.getNow(),oldAttributeValue.getCreatedBy(),oldAttributeValue.getUpdatedBy(), newValue.getNewOwnerId(),newOwnerType );
         attributeValueRepository.save(attributeValue);
 
@@ -368,7 +371,7 @@ public class DTOUtil {
        oldValue.setObjectValue(newValue.getObjectValue());
        oldValue.setStringValue(newValue.getStringValue());
        oldValue.setAttributeId(attributeOptional.get());
-       oldValue.setExperssion(newValue.getExpression());
+       oldValue.setExpression(newValue.getExpression());
        oldValue.setOwnerId(newValue.getNewOwnerId());
        oldValue.setOwnerType(newOwnerType);
        oldValue.setBooleanValue(newValue.getBooleanValue());
@@ -377,9 +380,6 @@ public class DTOUtil {
 
    }
     public static void saveNewAttributeValue(Attribute attribute , AttributeDTOSave newValue, AttributeRepository attributeRepository, AttributeValueRepository attributeValueRepository){
-        AttributeValue defaultAttributeValue=null;
-        AttributeValue nonDefaultAttributeValue= null;
-        //fina all values for this attribute
         AttributeValueDTOSave newAttributeValue = newValue.getAttributeValueDTOSave();
         AttributeOwnerType attributeOwnerType = AttributeOwnerType.getByTitle(newAttributeValue.getNewOwnerType());
         Optional<AttributeValue> attributeValueOptional = attributeValueRepository.findById(newAttributeValue.getId());
@@ -430,62 +430,7 @@ public class DTOUtil {
            //      overwiteValue(attributeValue,newAttributeValue,attributeRepository, attributeValueRepository);
     //    }
 
-            /*
-            if(attribute.getAttributeOwnerType().equals(AttributeOwnerType.Object_Property) &&
-                    attribute.getOwnerId().equals(newValue.getOwnerId())  ){
-                boolean isValueChanged = isAttributeValueChanged(attributeValue,newAttributeValue);
-                if(isValueChanged)
-                    overwiteValue(attributeValue,newAttributeValue,attributeRepository, attributeValueRepository);
-
-            }
-            else if(attribute.getAttributeOwnerType().equals(AttributeOwnerType.Puzzle_Group_Object_Property) &&
-                    attribute.getOwnerId().equals(newValue.getOwnerId())  ){
-                boolean isValueChanged = isAttributeValueChanged(attributeValue,newAttributeValue);
-                if(isValueChanged)
-                    overwiteValue(attributeValue,newAttributeValue,attributeRepository, attributeValueRepository);
-
-            }
-            else if(attribute.getAttributeOwnerType().equals(AttributeOwnerType.Puzzle_Group_Object_Variable)){
-                boolean isValueChanged = isAttributeValueChanged(attributeValue,newAttributeValue);
-                if(isValueChanged)
-                    overwiteValue(attributeValue,newAttributeValue,attributeRepository, attributeValueRepository);
-
-            }
-            else if(attribute.getAttributeOwnerType().equals(AttributeOwnerType.Instance_Puzzle_Group_Object_Variable)){
-                boolean isValueChanged = isAttributeValueChanged(attributeValue,newAttributeValue);
-                if(isValueChanged)
-                    overwiteValue(attributeValue,newAttributeValue,attributeRepository, attributeValueRepository);
-
-            }
-            else if(attribute.getAttributeOwnerType().equals(AttributeOwnerType.Puzzle_Level_Variable) &&
-                    attribute.getOwnerId().equals(newValue.getOwnerId())  ){
-                boolean isValueChanged = isAttributeValueChanged(attributeValue,newAttributeValue);
-                if(isValueChanged)
-                    overwiteValue(attributeValue,newAttributeValue,attributeRepository, attributeValueRepository);
-            }
-            else if(newAttributeValue.getNewOwnerType().equalsIgnoreCase(AttributeOwnerType.Object_Property.name()) && attribute.getOwnerId().equals(newValue.getOwnerId())){
-                // new value must be changed with current value
-                boolean isValueChanged = isAttributeValueChanged(attributeValue,newAttributeValue);
-                if(isValueChanged)
-                    overwiteValue(attributeValue,newAttributeValue,attributeRepository, attributeValueRepository);
-            }
-                boolean isDefaultValueChanged = isAttributeValueChanged(defaultAttributeValue, newAttributeValue);
-
-                if (attributeValue.getOwnerId().equals(attribute.getOwnerId())) {
-                    //this value is default value
-                    defaultAttributeValue = attributeValue;
-                } else if (attributeValue.getOwnerId().equals(newAttributeValue.getNewOwnerId())) {
-                    nonDefaultAttributeValue = attributeValue;
-                } else if (nonDefaultAttributeValue != null) { // this value changed
-                    overwiteValue(nonDefaultAttributeValue, newAttributeValue, attributeRepository, attributeValueRepository);
-                } else if (isDefaultValueChanged) { // first time this value changed
-                    saveNewValue(attribute,newAttributeValue, attributeRepository, attributeValueRepository);
-                }
-
-             */
-
-
-    }
+               }
 
     public static Collection<PLDTO> getPuzzleLevelDTOS(Collection<PuzzleLevel> inputs) {
         Collection<PLDTO> dtos = new ArrayList<PLDTO>();
@@ -1416,7 +1361,7 @@ public class DTOUtil {
         if (value.getBinaryContentId()!=null )  return value.getBinaryContentId().toString();
 
         if (value.getStringValue()!=null )     return value.getStringValue();
-        if (value.getExperssion()!=null )     return value.getExperssion();
+        if (value.getExpressionValue()!=null )     return value.getExpressionValue();
         if (value.getBindedAttributeId()!=null )     return value.getBindedAttributeId().getId().toString();
         if (value.getObjectValue()!=null )     return value.getStringValue();
 
@@ -1424,7 +1369,6 @@ public class DTOUtil {
     }
     public static String getDataType(Attribute attribute){
         if(attribute == null)  return "Attribute is Null";
-        if(attribute.getDataType().equals(DataType.Expression)) return DataType.Integer.name();
         else return attribute.getDataType().name();
      }
 }

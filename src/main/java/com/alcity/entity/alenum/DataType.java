@@ -7,7 +7,7 @@ public enum DataType  {
     Boolean,
     String,
     Binary,
-    Expression,
+    Float,
     BindedAttribute,
     Object;
     public static DataType getById(long id)

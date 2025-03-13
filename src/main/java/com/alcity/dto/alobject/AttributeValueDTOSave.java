@@ -6,7 +6,9 @@ public class AttributeValueDTOSave {
     private Float doubleValue;
     private Integer intValue;
     private Long binaryContentId;
-    private String  expression;
+
+    private String  expressionValue;
+    private Boolean  isExpression;
     private String stringValue;
     private String objectValue;
     private Boolean booleanValue;
@@ -60,12 +62,16 @@ public class AttributeValueDTOSave {
         this.binaryContentId = binaryContentId;
     }
 
-    public String getExpression() {
-        return expression;
+    public String getExpressionValue() {
+        return expressionValue;
     }
 
-    public void setExpression(String expression) {
-        this.expression = expression;
+    public void setExpressionValue(String expressionValue) {
+        this.expressionValue = expressionValue;
+    }
+
+    public Boolean getExpression() {
+        return isExpression;
     }
 
     public String getStringValue() {
@@ -136,17 +142,22 @@ public class AttributeValueDTOSave {
         return newOwnerType;
     }
 
+    public void setExpression(Boolean expression) {
+        isExpression = expression;
+    }
+
     public void setNewOwnerType(String newOwnerType) {
         this.newOwnerType = newOwnerType;
     }
 
-    public AttributeValueDTOSave(Long id, Long longValue, Float doubleValue, Integer intValue, Long binaryContentId, String expression, String stringValue, String objectValue, Boolean booleanValue, Long attributeId, Long bindedAttributeId, Long ownerId, String ownerType, Long newOwnerId, String newOwnerType) {
+    public AttributeValueDTOSave(Long id, Long longValue, Float doubleValue, Integer intValue, Long binaryContentId, String expressionValue,Boolean isExpression, String stringValue, String objectValue, Boolean booleanValue, Long attributeId, Long bindedAttributeId, Long ownerId, String ownerType, Long newOwnerId, String newOwnerType) {
         this.id = id;
         this.longValue = longValue;
         this.doubleValue = doubleValue;
         this.intValue = intValue;
         this.binaryContentId = binaryContentId;
-        this.expression = expression;
+        this.expressionValue = expressionValue;
+        this.isExpression =isExpression;
         this.stringValue = stringValue;
         this.objectValue = objectValue;
         this.booleanValue = booleanValue;
