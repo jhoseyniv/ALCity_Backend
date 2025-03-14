@@ -372,6 +372,7 @@ public class DTOUtil {
        oldValue.setStringValue(newValue.getStringValue());
        oldValue.setAttributeId(attributeOptional.get());
        oldValue.setExpression(newValue.getExpression());
+       oldValue.setExpressionValue(newValue.getExpressionValue());
        oldValue.setOwnerId(newValue.getNewOwnerId());
        oldValue.setOwnerType(newOwnerType);
        oldValue.setBooleanValue(newValue.getBooleanValue());

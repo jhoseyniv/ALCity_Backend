@@ -12,6 +12,7 @@ import com.alcity.entity.journey.Journey;
 import com.alcity.entity.journey.JourneyStep;
 import com.alcity.entity.play.PlayHistory;
 import com.alcity.entity.puzzle.PuzzleLevel;
+import com.alcity.service.customexception.ALCityAcessRight;
 import com.alcity.service.customexception.ALCityResponseObject;
 import com.alcity.entity.alenum.UserGender;
 import com.alcity.entity.appmember.AppMember;
@@ -315,10 +316,12 @@ public class AppMemberService implements AppMemberRepository, CustomizedUserRepo
         appMemberRepository.save(guest);
         return guest;
     }
-    public AppMember findRemoteUser(RemoteAccessDTO remoteAccessDTO) {
+
+    public ALCityAcessRight findRemoteUser(RemoteAccessDTO remoteAccessDTO) {
         String userName = remoteAccessDTO.remoteUserName;;
         Optional<AppMember> appMemberOptional = appMemberRepository.findByUsername(userName);
-
+        if(appMemberOptional.isEmpty())
+            return  new ALCityAcessRight(-1L, remoteAccessDTO.getRemoteUserName(),-1,"data not found","-1",-1,"error","error","error",-1L,"error","error");
         return  null;
     }
         public AppMember saveRemoteUser(RemoteAccessDTO accessDTO) {

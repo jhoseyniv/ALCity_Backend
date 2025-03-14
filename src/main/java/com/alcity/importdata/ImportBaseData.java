@@ -388,6 +388,10 @@ public class ImportBaseData implements CommandLineRunner {
         objectCategoryService.save(objectCategory_Mamals);
         objectCategoryService.save(objectCategory_TextObject);
 
+        byte[] application = ImageUtil.getImage("src/main/resources/images/","goose.png");
+        BinaryContent application_content = new BinaryContent(1L, now, now,admin_1 , admin_1,"application",application.length,application, null,"application","application","",BinaryContentType.Image);
+        binaryContentService.save(application_content);
+
 
         byte[] goose_Image = ImageUtil.getImage("src/main/resources/images/","goose.png");
         BinaryContent goose_Image_binary_content = new BinaryContent(1L, now, now,admin_1 , admin_1,"goose image",goose_Image.length,goose_Image, null,"tag1","","",BinaryContentType.Image);

@@ -262,18 +262,6 @@ public class AppMemberController {
         return dtos;
     }
 
- /*   @Autowired
-    private WalletItemService walletItemService;
-    @RequestMapping(value = "/id/{id}/wallet-item/all", method = RequestMethod.GET)
-    @ResponseBody
-    @CrossOrigin(origins = "*")
-    public Collection<WalletItemDTO> getWalletItemsByUserId(@PathVariable Long id) {
-        Collection<WalletItem> walletItemCollection = walletItemService.findAll();
-        Collection<WalletItemDTO> dtos = new ArrayList<WalletItemDTO>();
-        dtos = DTOUtil.getWalletItemDTOS(walletItemCollection);
-        return dtos;
-    }
-*/
     @Operation( summary = "Login to System ",  description = "Login Action")
     @PostMapping("/login")
     @CrossOrigin(origins = "*")
@@ -284,9 +272,9 @@ public class AppMemberController {
         if(!member.get().getPassword().equals(memberDTO.getPassword()))
             return  new ALCityAcessRight(-1L, memberDTO.getUsername(),-1,"data not found","-1",-1,"error","error","error",-1L,"error","error");
         appMemberService.login(member.get().getUsername(), member.get().getPassword());
-        ALCityAcessRight acessRight = new ALCityAcessRight(member.get().getId(), member.get().getUsername(),0,"Login Successfull","JWT Token", member.get().getAge(), memberDTO.getNickname(), memberDTO.getMobile(),
+        ALCityAcessRight accessRight = new ALCityAcessRight(member.get().getId(), member.get().getUsername(),0,"Login Successfull","JWT Token", member.get().getAge(), memberDTO.getNickname(), memberDTO.getMobile(),
                 memberDTO.getEmail(), memberDTO.getIconId(), memberDTO.getMemberType(), memberDTO.getGender());
-        return acessRight;
+        return accessRight;
     }
 
 
