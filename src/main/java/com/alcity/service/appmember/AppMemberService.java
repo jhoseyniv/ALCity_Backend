@@ -221,7 +221,7 @@ public class AppMemberService implements AppMemberRepository, CustomizedUserRepo
 
  */
     public AppMember_WalletItem chargeOrDeChargeAppMemberWallet(AppMemberWalletDTO dto, String code) {
-        AppMember createdBy = appMemberRepository.findByUsername("admin");
+        Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
         Optional<WalletItem> walletItemOptional = walletItemRespository.findById(dto.getWalletItemId());
         Optional<AppMember> appMemberOptional = appMemberRepository.findById(dto.getAppMemberId());
         WalletItem walletItem =null;
@@ -238,7 +238,7 @@ public class AppMemberService implements AppMemberRepository, CustomizedUserRepo
         Optional<AppMember_WalletItem> isWalletItemPresent = appMember_WalletItemRepository.findByApplicationMemberAndWalletItem(appMember,walletItem);
         if (code.equalsIgnoreCase("Save") && !isWalletItemPresent.isPresent()) { //Save
             appMember_walletItem = new AppMember_WalletItem(appMember,walletItem, dto.getAmount()
-                    ,1L, DateUtils.getNow(), DateUtils.getNow(), createdBy, createdBy);
+                    ,1L, DateUtils.getNow(), DateUtils.getNow(), createdBy.get(), createdBy.get());
             appMember_WalletItemRepository.save(appMember_walletItem);
         } else if(code.equalsIgnoreCase("Save") && isWalletItemPresent.isPresent()){
              appMember_walletItem = isWalletItemPresent.get();
@@ -255,8 +255,8 @@ public class AppMemberService implements AppMemberRepository, CustomizedUserRepo
                 appMember_walletItem.setVersion(appMember.getVersion()+1);
                 appMember_walletItem.setCreated(DateUtils.getNow());
                 appMember_walletItem.setUpdated(DateUtils.getNow());
-                appMember_walletItem.setCreatedBy(createdBy);
-                appMember_walletItem.setUpdatedBy(createdBy);
+                appMember_walletItem.setCreatedBy(createdBy.get());
+                appMember_walletItem.setUpdatedBy(createdBy.get());
                 appMember_WalletItemRepository.save(appMember_walletItem);
             }
         }
@@ -264,7 +264,7 @@ public class AppMemberService implements AppMemberRepository, CustomizedUserRepo
 
     }
     public AppMember save(AppMemberDTO dto, String code) {
-        AppMember createdBy = appMemberRepository.findByUsername("admin");
+        Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
         MemberType memberType = memberTypeRepository.findByValue(dto.getMemberType()).get();
         UserGender gender = UserGender.getByTitle(dto.getGender());
         BinaryContent icon=null;
@@ -276,7 +276,7 @@ public class AppMemberService implements AppMemberRepository, CustomizedUserRepo
         AppMember appMember=null;
         if (code.equalsIgnoreCase("Save")) { //Save
             appMember = new AppMember(dto.getAge(),dto.getUsername(), dto.getPassword(), dto.getNickname(), dto.getMobile(),dto.getEmail(),icon,gender ,memberType
-                    ,1L, DateUtils.getNow(), DateUtils.getNow(), createdBy, createdBy);
+                    ,1L, DateUtils.getNow(), DateUtils.getNow(), createdBy.get(), createdBy.get());
             appMemberRepository.save(appMember);
         }else{//edit
             Optional<AppMember> appMemberOptional= appMemberRepository.findById(dto.getId());
@@ -293,22 +293,22 @@ public class AppMemberService implements AppMemberRepository, CustomizedUserRepo
                 appMember.setVersion(appMember.getVersion()+1);
                 appMember.setCreated(DateUtils.getNow());
                 appMember.setUpdated(DateUtils.getNow());
-                appMember.setCreatedBy(createdBy);
-                appMember.setUpdatedBy(createdBy);
+                appMember.setCreatedBy(createdBy.get());
+                appMember.setUpdatedBy(createdBy.get());
                 appMemberRepository.save(appMember);
             }
         }
         return appMember;
     }
     public AppMember saveGuestUser(Integer bornYear) {
-        AppMember createdBy = appMemberRepository.findByUsername("admin");
+        Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
         MemberType memberType = memberTypeRepository.findByValue("Guest").get();
         BinaryContent icon=null;
         AppMember guest=null;
         Integer age = DateUtils.calculateAgeFromJalali(bornYear);
         icon = binaryContentRepository.findByfileName("no_photo_avatar");
         guest = new AppMember(age,"Guest", "Guest", "Guest", "","",icon,UserGender.Unknow ,memberType
-                ,1L, DateUtils.getNow(), DateUtils.getNow(), createdBy, createdBy);
+                ,1L, DateUtils.getNow(), DateUtils.getNow(), createdBy.get(), createdBy.get());
         appMemberRepository.save(guest);
         String UniqueUserName= guest.getUsername() + guest.getId();
         guest.setUsername(UniqueUserName);
@@ -316,19 +316,20 @@ public class AppMemberService implements AppMemberRepository, CustomizedUserRepo
         return guest;
     }
     public AppMember findRemoteUser(RemoteAccessDTO remoteAccessDTO) {
-
+        String userName = remoteAccessDTO.remoteUserName;;
+        Optional<AppMember> appMemberOptional = appMemberRepository.findByUsername(userName);
 
         return  null;
     }
         public AppMember saveRemoteUser(RemoteAccessDTO accessDTO) {
-        AppMember createdBy = appMemberRepository.findByUsername("admin");
+        Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
         MemberType memberType = memberTypeRepository.findByValue("Guest").get();
         BinaryContent icon=null;
         AppMember guest=null;
         Integer age = DateUtils.calculateAgeFromJalali(accessDTO.birthYear);
         icon = binaryContentRepository.findByfileName("no_photo_avatar");
         guest = new AppMember(age,accessDTO.getRemoteHost() + "-" + accessDTO.getRemoteUserName(), "Guest", "Guest", "","",icon,UserGender.Unknow ,memberType
-                ,1L, DateUtils.getNow(), DateUtils.getNow(), createdBy, createdBy);
+                ,1L, DateUtils.getNow(), DateUtils.getNow(), createdBy.get(), createdBy.get());
         appMemberRepository.save(guest);
         String UniqueUserName= guest.getUsername() + guest.getId();
         guest.setUsername(UniqueUserName);
@@ -397,7 +398,7 @@ public class AppMemberService implements AppMemberRepository, CustomizedUserRepo
     }
 
     @Override
-    public AppMember findByUsername(String username) {
+    public Optional<AppMember> findByUsername(String username) {
         return appMemberRepository.findByUsername(username);
     }
 

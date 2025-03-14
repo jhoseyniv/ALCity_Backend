@@ -24,10 +24,10 @@ public class PuzzleCategoryService implements PuzzleCategoryRepository {
     private AppMemberRepository appMemberRepository;
 
     public PuzzleCategory save(PuzzleCategoryDTO dto,String code) {
-        AppMember createdBy = appMemberRepository.findByUsername("admin");
+        Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
         PuzzleCategory puzzleCategory=null;
         if (code.equalsIgnoreCase("Save")) { // save
-            puzzleCategory = new PuzzleCategory(dto.getLabel(), dto.getValue(), 1L, "1714379790", "1714379790", createdBy, createdBy);
+            puzzleCategory = new PuzzleCategory(dto.getLabel(), dto.getValue(), 1L, "1714379790", "1714379790", createdBy.get(), createdBy.get());
             puzzleCategoryRepository.save(puzzleCategory);
          }else{//edit
             Optional<PuzzleCategory> puzzleCategoryOptional= puzzleCategoryRepository.findById(dto.getId());

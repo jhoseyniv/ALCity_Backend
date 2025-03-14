@@ -70,7 +70,7 @@ public class JourneyStepService implements JourneyStepRepository {
     JourneyRepository journeyRepository;
 
     public JourneyStep save(JourneyStepRecord dto, String code) {
-        AppMember createdBy = appMemberRepository.findByUsername("admin");
+        Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
         JourneyStep journeyStep=null;
         Optional<JourneyStep> journeyStepOptional= journeyStepRepository.findByTitle(dto.getTitle());
         Optional<PuzzleGroup> puzzleGroup =PGRepository.findById(dto.getPuzzleGroupId());
@@ -78,7 +78,7 @@ public class JourneyStepService implements JourneyStepRepository {
 
         if (code.equalsIgnoreCase("Save")) { //Save
             journeyStep = new JourneyStep(dto.getTitle() ,dto.getOrdering(),dto.getXpos(),dto.getYpos(),journey.get(),puzzleGroup.get()
-                    , 1L,DateUtils.getNow(), DateUtils.getNow(), createdBy, createdBy);
+                    , 1L,DateUtils.getNow(), DateUtils.getNow(), createdBy.get(), createdBy.get());
             journeyStepRepository.save(journeyStep);
         }else{//edit
             journeyStepOptional= journeyStepRepository.findById(dto.getId());
@@ -87,7 +87,7 @@ public class JourneyStepService implements JourneyStepRepository {
                 journeyStep.setTitle(dto.getTitle());
                 journeyStep.setVersion(journeyStep.getVersion()+1);
                 journeyStep.setUpdated(DateUtils.getNow());
-                journeyStep.setUpdatedBy(createdBy);
+                journeyStep.setUpdatedBy(createdBy.get());
                 journeyStepRepository.save(journeyStep);
             }
         }

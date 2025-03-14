@@ -142,14 +142,14 @@ public class ALCityObjectInPGService implements ALCityObjectInPGRepository {
     @Autowired
     private AppMemberRepository appMemberRepository;
     public ALCityObjectInPG save(CityObjectInPGDTO dto, String code) {
-        AppMember createdBy = appMemberRepository.findByUsername("admin");
+        Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
         Optional<PuzzleGroup> puzzleGroupOptional =  pgRepository.findByTitle(dto.getPuzzleGroup());
         Optional<ALCityObject> alCityObjectOptional =  alCityObjectService.findById(dto.getAlCityObjectId());
         ALCityObjectInPG alCityObjectInPG=null;
         if(puzzleGroupOptional.isPresent())
         if (code.equalsIgnoreCase("Save")) { //Save
             alCityObjectInPG = new ALCityObjectInPG(dto.getTitle(), dto.getCode(),puzzleGroupOptional.get(),alCityObjectOptional.get(),
-                    1L, DateUtils.getNow(), DateUtils.getNow(), createdBy, createdBy);
+                    1L, DateUtils.getNow(), DateUtils.getNow(), createdBy.get(), createdBy.get());
             alCityObjectInPGRepository.save(alCityObjectInPG);
         }else{//edit
             Optional<ALCityObjectInPG> alCityObjectInPGOptional= alCityObjectInPGRepository.findById(dto.getId());
@@ -159,7 +159,7 @@ public class ALCityObjectInPGService implements ALCityObjectInPGRepository {
                 alCityObjectInPG.setTitle(dto.getTitle());
                 alCityObjectInPG.setVersion(alCityObjectInPG.getVersion()+1);
                 alCityObjectInPG.setUpdated(DateUtils.getNow());
-                alCityObjectInPG.setUpdatedBy(createdBy);
+                alCityObjectInPG.setUpdatedBy(createdBy.get());
                 alCityObjectInPGRepository.save(alCityObjectInPG);
             }
         }

@@ -28,11 +28,11 @@ public class ObjectCategoryService implements ObjectCategoryRepository {
     private AppMemberRepository appMemberRepository;
 
     public ObjectCategory save(ObjectCategoryDTO dto, String code) {
-        AppMember createdBy = appMemberRepository.findByUsername("admin");
+        Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
         ObjectCategory objectCategory=null;
         if (code.equalsIgnoreCase("Save")) { //Save
             objectCategory = new ObjectCategory(dto.getLabel(), dto.getValue(), 1L,
-                    DateUtils.getNow(), DateUtils.getNow(), createdBy, createdBy);
+                    DateUtils.getNow(), DateUtils.getNow(), createdBy.get(), createdBy.get());
             objectCategoryRepository.save(objectCategory);
         }else{//edit
             Optional<ObjectCategory> objectCategoryOptional= objectCategoryRepository.findById(dto.getId());
@@ -42,7 +42,7 @@ public class ObjectCategoryService implements ObjectCategoryRepository {
                 objectCategory.setValue(dto.getValue());
                 objectCategory.setVersion(objectCategory.getVersion()+1);
                 objectCategory.setUpdated(DateUtils.getNow());
-                objectCategory.setUpdatedBy(createdBy);
+                objectCategory.setUpdatedBy(createdBy.get());
                 objectCategoryRepository.save(objectCategory);
             }
         }

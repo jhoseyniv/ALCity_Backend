@@ -97,10 +97,10 @@ public class LearningSkillService implements LearningSkillRepository {
         return learningSkillRepository.findByValue(value);
     }
     public LearningSkill save(LearningSkillDTO dto, String code) {
-        AppMember createdBy = appMemberRepository.findByUsername("admin");
+        Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
         LearningSkill learningSkill=null;
         if (code.equalsIgnoreCase("Save")) { //Save
-            learningSkill = new LearningSkill(dto.getLabel(), dto.getValue(),1L, DateUtils.getNow(), DateUtils.getNow(), createdBy, createdBy);
+            learningSkill = new LearningSkill(dto.getLabel(), dto.getValue(),1L, DateUtils.getNow(), DateUtils.getNow(), createdBy.get(), createdBy.get());
             learningSkillRepository.save(learningSkill);
         }else{//edit
             Optional<LearningSkill> learningSkillOptional= learningSkillRepository.findById(dto.getId());
@@ -111,8 +111,8 @@ public class LearningSkillService implements LearningSkillRepository {
                 learningSkill.setVersion(learningSkill.getVersion()+1);
                 learningSkill.setCreated(DateUtils.getNow());
                 learningSkill.setUpdated(DateUtils.getNow());
-                learningSkill.setCreatedBy(createdBy);
-                learningSkill.setUpdatedBy(createdBy);
+                learningSkill.setCreatedBy(createdBy.get());
+                learningSkill.setUpdatedBy(createdBy.get());
                 learningSkillRepository.save(learningSkill);
             }
         }

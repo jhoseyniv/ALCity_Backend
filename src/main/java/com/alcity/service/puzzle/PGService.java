@@ -80,13 +80,13 @@ public class PGService implements PGRepository {
     private PuzzleCategoryRepository puzzleCategoryRepository;
 
     public PuzzleGroup save(PGDTO dto, String code) {
-        AppMember createdBy = appMemberRepository.findByUsername("admin");
+        Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
         PuzzleGroup puzzleGroup=null;
         Optional<BinaryContent> icon = binaryContentRepository.findById(dto.getIconId());
         Optional<BinaryContent> pic = binaryContentRepository.findById(dto.getPicId());
         Optional<PuzzleCategory>  puzzleCategory = puzzleCategoryRepository.findById(dto.getPuzzleCategoryId());
         if (code.equalsIgnoreCase("Save")) { // save
-            puzzleGroup = new PuzzleGroup(dto.getTitle(),puzzleCategory.get(),icon.get(),pic.get(), 1L, "1714379790", "1714379790", createdBy, createdBy);
+            puzzleGroup = new PuzzleGroup(dto.getTitle(),puzzleCategory.get(),icon.get(),pic.get(), 1L, "1714379790", "1714379790", createdBy.get(), createdBy.get());
             pgRepository.save(puzzleGroup);
         }else{//edit
             Optional<PuzzleGroup> puzzleGroupOptional= pgRepository.findById(dto.getId());

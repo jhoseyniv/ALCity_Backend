@@ -47,7 +47,7 @@ public class PLGroundService implements PLGroundRepository {
         return groundRepository.save(entity);
     }
     public PLGround save(PLGroundDTO  dto, String code) {
-        AppMember createdBy = appMemberRepository.findByUsername("admin");
+        Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
         PLGround plGround=null;
         PuzzleLevel puzzleLevel=null;
         BinaryContent boardGraphic=null;
@@ -68,7 +68,7 @@ public class PLGroundService implements PLGroundRepository {
 
         if (code.equalsIgnoreCase("Save")) { //Save
             plGround = new PLGround(dto.getNumRows(),dto.getNumColumns(), puzzleLevel,boardGraphic
-                                 , 1L, DateUtils.getNow(), DateUtils.getNow(), createdBy, createdBy);
+                                 , 1L, DateUtils.getNow(), DateUtils.getNow(), createdBy.get(), createdBy.get());
             groundRepository.save(plGround);
         }else{//edit
             Optional<PLGround> plGroundOptional =  groundRepository.findById(dto.getId());

@@ -222,12 +222,12 @@ public class BinaryContentService implements BinaryContentRepository , BinaryCon
     }
 
     public BinaryContent save(BinaryContentDTO dto, String code) throws IOException {
-        AppMember createdBy = appMemberRepository.findByUsername("admin");
+        Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
 
         BinaryContent binaryContent=null;
         if (code.equalsIgnoreCase("Save")) { // save
             byte[]  tumb = ImageUtil.getThumbnail(dto.getContent(),dto.getFileName());
-            binaryContent = new BinaryContent(1L, DateUtils.getNow(), DateUtils.getNow(),createdBy , createdBy,dto.getFileName(),
+            binaryContent = new BinaryContent(1L, DateUtils.getNow(), DateUtils.getNow(),createdBy.get() , createdBy.get(),dto.getFileName(),
                     dto.getSize(), dto.getContent(), tumb, dto.getTag1(), dto.getTag2(), dto.getTag3(), BinaryContentType.getByTitle(dto.getContentType()));
             binaryContentRepository.save(binaryContent);
         }else{//edit

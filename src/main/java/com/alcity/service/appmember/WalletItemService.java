@@ -32,7 +32,7 @@ public class WalletItemService implements WalletItemRespository {
     BinaryContentRepository binaryContentRepository;
 
     public WalletItem save(WalletItemDTO dto, String code) {
-        AppMember createdBy = appMemberRepository.findByUsername("admin");
+        Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
         Optional<WalletItemType> walletItemType = walletItemTypeRepository.findByValue(dto.getWalletItemType());
         Optional<BinaryContent> icon = binaryContentRepository.findById(dto.getIconId());
         if(icon.isEmpty()) {
@@ -43,7 +43,7 @@ public class WalletItemService implements WalletItemRespository {
 
         if (code.equalsIgnoreCase("Save")) { //Save
             walletItem = new WalletItem(walletItemType.get() ,icon.get(),dto.getLabel(),dto.getValue() , 1L,
-                    DateUtils.getNow(), DateUtils.getNow(), createdBy, createdBy);
+                    DateUtils.getNow(), DateUtils.getNow(), createdBy.get(), createdBy.get());
             walletItemRespository.save(walletItem);
         }else{//edit
             walletItemOptional= walletItemRespository.findById(dto.getId());
@@ -55,7 +55,7 @@ public class WalletItemService implements WalletItemRespository {
                 walletItem.setIcon(icon.get());
                 walletItem.setVersion(walletItem.getVersion()+1);
                 walletItem.setUpdated(DateUtils.getNow());
-                walletItem.setUpdatedBy(createdBy);
+                walletItem.setUpdatedBy(createdBy.get());
                 walletItemRespository.save(walletItem);
             }
         }

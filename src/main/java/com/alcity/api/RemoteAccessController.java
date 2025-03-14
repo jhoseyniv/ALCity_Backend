@@ -24,7 +24,7 @@ import java.util.Optional;
 @Tag(name = "Remote Access To Some  API's ", description = "Remote Access to API's...")
 @CrossOrigin(origins = "*" ,maxAge = 3600)
 @RestController
-@RequestMapping("/service")
+@RequestMapping("/3rd-party")
 public class RemoteAccessController extends BaseTable implements Serializable {
 
     @Autowired
@@ -34,7 +34,7 @@ public class RemoteAccessController extends BaseTable implements Serializable {
 
 
     @Operation( summary = "login  all AL City Objects by Object Category and puzzle group and search title ",  description = "Fetch all AL City Objects by Object Category and puzzle group and search title")
-    @PostMapping("/get-pl")
+    @PostMapping("/get/pl")
     @CrossOrigin(origins = "*")
     public AppMember getPuzzleLevel(@RequestBody RemoteAccessDTO accessDTO) {
         Optional<PuzzleLevel> puzzleLevelOptional = puzzleLevelService.findByCode(accessDTO.getPuzzleCode());

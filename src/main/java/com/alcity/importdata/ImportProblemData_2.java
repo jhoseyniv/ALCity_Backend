@@ -124,11 +124,17 @@ public class ImportProblemData_2 implements CommandLineRunner {
         LocalDateTime current = LocalDateTime.now();
         DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
         String now = current.format(format);
+        Optional<AppMember> admin_1Optional = applicationMemberService.findByUsername("admin");
+        Optional<AppMember> jalalHoseyniOptional = applicationMemberService.findByUsername("jalal");
+        Optional<AppMember> Alireza_ZareOptional = applicationMemberService.findByUsername("alireza");
+        Optional<AppMember> moslemBalavandiOptional = applicationMemberService.findByUsername("moslem");
+        Optional<LearningTopic> hashImage_Topic = learningTopicService.findByTitle("Hash Image");
+        AppMember  admin_1=admin_1Optional.get();
+        AppMember jalalHoseyni = jalalHoseyniOptional.get();
+        AppMember Alireza_Zare = Alireza_ZareOptional.get();
+        AppMember moslemBalavandi = moslemBalavandiOptional.get();
 
-        AppMember admin_1 = applicationMemberService.findByUsername("admin");
-        AppMember jalalHoseyni = applicationMemberService.findByUsername("jalal");
-        AppMember moslemBalavandi = applicationMemberService.findByUsername("moslem");
-        AppMember alirezaZarei = applicationMemberService.findByUsername("alireza");
+
         Optional<LearningTopic> routing_in_the_table = learningTopicService.findByTitle("Routing in the Table");
 
 

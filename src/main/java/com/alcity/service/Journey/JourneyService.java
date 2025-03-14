@@ -35,12 +35,12 @@ public class JourneyService implements JourneyRepository {
         return journeyRepository.save(entity);
     }
     public Journey save(JourneyDTO dto, String code) {
-        AppMember createdBy = appMemberRepository.findByUsername("admin");
+        Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
         Journey journey=null;
         Optional<Journey> journeyOptional= journeyRepository.findByTitle(dto.getTitle());
         if (code.equalsIgnoreCase("Save")) { //Save
             journey = new Journey(dto.getTitle(),dto.getOrdering(),dto.getMinToOpenStar(),dto.getMinToPassStar() ,1L,
-                    DateUtils.getNow(), DateUtils.getNow(), createdBy, createdBy);
+                    DateUtils.getNow(), DateUtils.getNow(), createdBy.get(), createdBy.get());
             journeyRepository.save(journey);
         }else{//edit
             journeyOptional= journeyRepository.findById(dto.getId());
@@ -49,7 +49,7 @@ public class JourneyService implements JourneyRepository {
                 journey.setTitle(dto.getTitle());
                 journey.setVersion(journey.getVersion()+1);
                 journey.setUpdated(DateUtils.getNow());
-                journey.setUpdatedBy(createdBy);
+                journey.setUpdatedBy(createdBy.get());
                 journeyRepository.save(journey);
             }
         }

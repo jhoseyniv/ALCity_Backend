@@ -120,7 +120,7 @@ public class PLObjectiveService implements PLObjectiveRepository {
     private AppMemberRepository appMemberRepository;
 
     public PLObjective save(PLObjectiveDTO dto, String code) {
-        AppMember createdBy = appMemberRepository.findByUsername("admin");
+        Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
         PLObjective plObjective=null;
         Optional<LearningSkill> learningSkillOptional =  learningSkillRepository.findById(dto.getSkillId());
         Optional<WalletItem> walletItemOptional =  walletItemRespository.findById(dto.getWalletItemId());
@@ -137,7 +137,7 @@ public class PLObjectiveService implements PLObjectiveRepository {
         if (code.equalsIgnoreCase("Save")) { //Save
             plObjective = new PLObjective(dto.getTitle(), dto.getDescription(), dto.getSkillAmount(),dto.getRewardAmount(),
                     condition,learningSkillOptional.get(),walletItem,
-                    puzzleLevel,1L, DateUtils.getNow(), DateUtils.getNow(), createdBy, createdBy);
+                    puzzleLevel,1L, DateUtils.getNow(), DateUtils.getNow(), createdBy.get(), createdBy.get());
             objectiveRepository.save(plObjective);
         }else{//edit
             Optional<PLObjective> plObjectiveOptional= objectiveRepository.findById(dto.getId());
@@ -151,8 +151,8 @@ public class PLObjectiveService implements PLObjectiveRepository {
                 plObjective.setPuzzleLevel(puzzleLevel);
                 plObjective.setCreated(DateUtils.getNow());
                 plObjective.setUpdated(DateUtils.getNow());
-                plObjective.setCreatedBy(createdBy);
-                plObjective.setUpdatedBy(createdBy);
+                plObjective.setCreatedBy(createdBy.get());
+                plObjective.setUpdatedBy(createdBy.get());
                 plObjective.setVersion(puzzleLevel.getVersion()+1);
                 objectiveRepository.save(plObjective);
             }

@@ -46,7 +46,7 @@ public class ActionService implements ActionRepository {
         return actionRepository.save(entity);
     }
     public ObjectAction save(ActionDTO dto, String code) {
-        AppMember createdBy = appMemberRepository.findByUsername("admin");
+        Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
         //Optional<ALCityObject> cityObjectOptional = alCityObjectService.findById(dto.getOwnerObjectid());
         ObjectActionType objectActionType = ObjectActionType.getByTitle(dto.getObjectAction());
         POActionOwnerType  actionOwnerType = POActionOwnerType.getByTitle(dto.getOwnerType());
@@ -54,7 +54,7 @@ public class ActionService implements ActionRepository {
         ObjectAction puzzleObjectAction=null;
         if (code.equalsIgnoreCase("Save")) { //Save
            puzzleObjectAction = new ObjectAction(actionOwnerType, dto.getOwnerObjectid(), objectActionType,rendererOptional.get(),
-                     1L,DateUtils.getNow(),DateUtils.getNow(),createdBy, createdBy);
+                     1L,DateUtils.getNow(),DateUtils.getNow(),createdBy.get(), createdBy.get());
             actionRepository.save(puzzleObjectAction);
 //            DTOUtil.copyActionParametersFromTo(dto.getActionRenderId(), puzzleObjectAction.getId(),AttributeOwnerType.Action_Handler_Parameter,AttributeOwnerType.Object_Action_Handler_Parameter,
 //                    attributeService,attributeValueService);
@@ -72,8 +72,8 @@ public class ActionService implements ActionRepository {
                 puzzleObjectAction.setVersion(puzzleObjectAction.getVersion()+1);
                 puzzleObjectAction.setCreated(DateUtils.getNow());
                 puzzleObjectAction.setUpdated(DateUtils.getNow());
-                puzzleObjectAction.setCreatedBy(createdBy);
-                puzzleObjectAction.setUpdatedBy(createdBy);
+                puzzleObjectAction.setCreatedBy(createdBy.get());
+                puzzleObjectAction.setUpdatedBy(createdBy.get());
                actionRepository.save(puzzleObjectAction);
             }
         }

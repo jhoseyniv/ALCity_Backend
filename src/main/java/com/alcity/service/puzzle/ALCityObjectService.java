@@ -269,13 +269,13 @@ public class ALCityObjectService implements ALCityObjectRepository {
     private BinaryContentRepository binaryContentRepository;
 
     public ALCityObject save(CityObjectDTO dto, String code) {
-        AppMember createdBy = appMemberRepository.findByUsername("admin");
+        Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
         Optional<BinaryContent> icon = binaryContentRepository.findById(dto.getIconId());
         Optional<BinaryContent> pic = binaryContentRepository.findById(dto.getPictureId());
         ObjectCategory objectCategory =  objectCategoryRepository.findByValue(dto.getCategory());
         ALCityObject alCityObject=null;
         if (code.equalsIgnoreCase("Save")) { //Save
-            alCityObject = new ALCityObject(1L, DateUtils.getNow(), DateUtils.getNow(), createdBy, createdBy,dto.getTitle(), objectCategory,pic.get(),icon.get());
+            alCityObject = new ALCityObject(1L, DateUtils.getNow(), DateUtils.getNow(), createdBy.get(), createdBy.get(),dto.getTitle(), objectCategory,pic.get(),icon.get());
             try {
                 alCityObjectRepository.save(alCityObject);
             }
@@ -293,8 +293,8 @@ public class ALCityObjectService implements ALCityObjectRepository {
                 alCityObject.setVersion(alCityObject.getVersion()+1);
                 alCityObject.setCreated(DateUtils.getNow());
                 alCityObject.setUpdated(DateUtils.getNow());
-                alCityObject.setCreatedBy(createdBy);
-                alCityObject.setUpdatedBy(createdBy);
+                alCityObject.setCreatedBy(createdBy.get());
+                alCityObject.setUpdatedBy(createdBy.get());
                 alCityObjectRepository.save(alCityObject);
             }
         }

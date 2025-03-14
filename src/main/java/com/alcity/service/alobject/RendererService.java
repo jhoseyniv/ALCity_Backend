@@ -33,7 +33,7 @@ public class RendererService implements RendererRepository {
     private ClientTypeRepository clientTypeRepository;
 
     public Renderer save(RendererDTO dto, String code) {
-        AppMember createdBy = appMemberRepository.findByUsername("admin");
+        Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
         Renderer renderer=null;
         Optional<Renderer>  rendererOptional = rendererRepository.findById(dto.getId());
         ClientType clientType =  clientTypeRepository.findByValue(dto.getClientType());
@@ -41,7 +41,7 @@ public class RendererService implements RendererRepository {
 
         if (code.equalsIgnoreCase("Save")) { //Save
             renderer = new Renderer(dto.getHandler(), clientType, objectAction
-                    , 1L, DateUtils.getNow(), DateUtils.getNow(), createdBy, createdBy);
+                    , 1L, DateUtils.getNow(), DateUtils.getNow(), createdBy.get(), createdBy.get());
             rendererRepository.save(renderer);
         }else{//edit
             rendererOptional = rendererRepository.findById(dto.getId());
@@ -51,7 +51,7 @@ public class RendererService implements RendererRepository {
                 renderer.setObjectAction(objectAction);
                 renderer.setClientType(clientType);
                 renderer.setVersion(renderer.getVersion()+1);
-                renderer.setUpdated(createdBy.getUsername());
+                renderer.setUpdated(createdBy.get().getUsername());
                 renderer.setUpdated(DateUtils.getNow());
                 rendererRepository.save(renderer);
             }

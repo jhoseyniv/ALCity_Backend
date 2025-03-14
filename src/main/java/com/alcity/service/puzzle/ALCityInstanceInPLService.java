@@ -34,7 +34,7 @@ public class ALCityInstanceInPLService implements ALCityInstanceInPLRepository {
     @Autowired
     private ALCityObjectInPGService alCityObjectInPGService;
     public ALCityInstanceInPL save(CityObjectInPLDTO dto, String code) {
-        AppMember createdBy = appMemberRepository.findByUsername("admin");
+        Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
         Optional<PuzzleLevel> puzzleLevelOptional =  puzzleLevelService.findById(dto.getPuzzleLevelId());
         Optional<ALCityObjectInPG> alCityObjectInPGOptional =  alCityObjectInPGService.findById(dto.getAlCityObjectInPGId());
         if(puzzleLevelOptional.isEmpty() || alCityObjectInPGOptional.isEmpty()) return null;
@@ -42,7 +42,7 @@ public class ALCityInstanceInPLService implements ALCityInstanceInPLRepository {
         ALCityInstanceInPL alCityInstanceInPL=null;
             if (code.equalsIgnoreCase("Save")) { //Save
                 alCityInstanceInPL = new ALCityInstanceInPL(dto.getName(), dto.getRow(),dto.getCol(),dto.getZorder(),alCityObjectInPGOptional.get(),
-                        puzzleLevelOptional.get(), 1L, DateUtils.getNow(), DateUtils.getNow(), createdBy, createdBy);
+                        puzzleLevelOptional.get(), 1L, DateUtils.getNow(), DateUtils.getNow(), createdBy.get(), createdBy.get());
                 repository.save(alCityInstanceInPL);
             }else{//edit
                 Optional<ALCityInstanceInPL> alCityInstanceInPLOptional= repository.findById(dto.getId());

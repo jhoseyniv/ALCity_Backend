@@ -85,7 +85,7 @@ public class PLRuleService implements PLRuleRepository {
 
 
     public PLRule save(PLRuleDTO dto, String code) {
-        AppMember createdBy = appMemberRepository.findByUsername("admin");
+        Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
         PLRule plRule=null;
         PuzzleLevel puzzleLevel = null;
         Optional<PuzzleLevel>  puzzleLevelOptional = puzzleLevelRepository.findById(dto.getPuzzleLevelId());
@@ -101,7 +101,7 @@ public class PLRuleService implements PLRuleRepository {
         Boolean ignoreRemaining = true;
         if (code.equalsIgnoreCase("Save")) { //Save
             plRule = new PLRule(dto.getTitle(), dto.getOrdering(), condition,ignoreRemaining,puzzleLevel,
-                    plRuleEvent,1L, DateUtils.getNow(), DateUtils.getNow(), createdBy, createdBy);
+                    plRuleEvent,1L, DateUtils.getNow(), DateUtils.getNow(), createdBy.get(), createdBy.get());
             ruleRepository.save(plRule);
         }else{//edit
             Optional<PLRule> plRuleOptional= ruleRepository.findById(dto.getId());
@@ -114,8 +114,8 @@ public class PLRuleService implements PLRuleRepository {
                 plRule.setPuzzleLevel(puzzleLevel);
                 plRule.setCreated(DateUtils.getNow());
                 plRule.setUpdated(DateUtils.getNow());
-                plRule.setCreatedBy(createdBy);
-                plRule.setUpdatedBy(createdBy);
+                plRule.setCreatedBy(createdBy.get());
+                plRule.setUpdatedBy(createdBy.get());
                 plRule.setVersion(puzzleLevel.getVersion()+1);
                 ruleRepository.save(plRule);
             }

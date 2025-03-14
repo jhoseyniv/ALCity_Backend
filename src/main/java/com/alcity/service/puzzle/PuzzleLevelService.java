@@ -210,7 +210,7 @@ public class PuzzleLevelService implements PuzzleLevelRepository {
 //    }
 
         public PuzzleLevel save(PLDTO dto, String code) {
-        AppMember createdBy = appMemberRepository.findByUsername("admin");
+        Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
         PuzzleLevel puzzleLevel=null;
         PLDifficulty plDifficulty =  PLDifficulty.getByTitle(dto.getPuzzleLevelDifficulty());
         PLStatus  plStatus =  PLStatus.getByTitle(dto.getPuzzleLevelStatus());
@@ -220,9 +220,9 @@ public class PuzzleLevelService implements PuzzleLevelRepository {
         if(puzzleGroupOptional.isPresent())
                     puzzleGroup = puzzleGroupOptional.get();
         if (code.equalsIgnoreCase("Save")) { //Save
-            puzzleLevel = new PuzzleLevel(createdBy,dto.getApproveDate(), dto.getOrdering(), dto.getTitle(),dto.getCode(),dto.getFromAge(),dto.getToAge(),
+            puzzleLevel = new PuzzleLevel(createdBy.get(),dto.getApproveDate(), dto.getOrdering(), dto.getTitle(),dto.getCode(),dto.getFromAge(),dto.getToAge(),
                                 dto.getMaxScore(), dto.getFirstStarScore(), dto.getSecondStarScore(), dto.getThirdStartScore(), puzzleGroup,plDifficulty,plStatus,plPrivacy
-                                    , 1L, DateUtils.getNow(), DateUtils.getNow(), createdBy, createdBy);
+                                    , 1L, DateUtils.getNow(), DateUtils.getNow(), createdBy.get(), createdBy.get());
             puzzleLevelRepository.save(puzzleLevel);
         }else{//edit
             Optional<PuzzleLevel> puzzleLevelOptional= puzzleLevelRepository.findById(dto.getId());

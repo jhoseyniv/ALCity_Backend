@@ -164,9 +164,14 @@ public class ImportXOProblemData_3 implements CommandLineRunner {
         DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
         String now = current.format(format);
 
-        AppMember admin_1 = applicationMemberService.findByUsername("admin");
-        AppMember jalalHoseyni = applicationMemberService.findByUsername("jalal");
-        AppMember Alireza_Zare = applicationMemberService.findByUsername("alireza");
+        Optional<AppMember> admin_1Optional = applicationMemberService.findByUsername("admin");
+        Optional<AppMember> jalalHoseyniOptional = applicationMemberService.findByUsername("jalal");
+        Optional<AppMember> Alireza_ZareOptional = applicationMemberService.findByUsername("alireza");
+        Optional<LearningTopic> hashImage_Topic = learningTopicService.findByTitle("Hash Image");
+        AppMember  admin_1=admin_1Optional.get();
+        AppMember jalalHoseyni = jalalHoseyniOptional.get();
+        AppMember Alireza_Zare = Alireza_ZareOptional.get();
+
 
         Optional<LearningTopic> X_O_Topic = learningTopicService.findByTitle("X-O Game");
 

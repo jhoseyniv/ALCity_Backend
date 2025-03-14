@@ -30,14 +30,14 @@ public class WalletItemTypeService implements WalletItemTypeRepository {
     private AppMemberRepository appMemberRepository;
 
     public WalletItemType save(WalletItemTypeDTO dto, String code) {
-        AppMember createdBy = appMemberRepository.findByUsername("admin");
+        Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
         WalletItemCategory walletItemCategory = WalletItemCategory.getByTitle(dto.getWalletItemCategory());
         WalletItemType walletItemType=null;
         Optional<WalletItemType> walletItemTypeOptional= walletItemTypeRepository.findByValue(dto.getValue());
         if(dto.getCurrency()==null) dto.setCurrency(false);
         if (code.equalsIgnoreCase("Save")) { //Save
             walletItemType = new WalletItemType(walletItemCategory ,dto.getLabel(),dto.getValue(),dto.getCurrency() , 1L,
-                    DateUtils.getNow(), DateUtils.getNow(), createdBy, createdBy);
+                    DateUtils.getNow(), DateUtils.getNow(), createdBy.get(), createdBy.get());
             walletItemTypeRepository.save(walletItemType);
         }else{//edit
             walletItemTypeOptional= walletItemTypeRepository.findById(dto.getId());
@@ -49,7 +49,7 @@ public class WalletItemTypeService implements WalletItemTypeRepository {
                 walletItemType.setCurrency(dto.getCurrency());
                 walletItemType.setVersion(walletItemType.getVersion()+1);
                 walletItemType.setUpdated(DateUtils.getNow());
-                walletItemType.setUpdatedBy(createdBy);
+                walletItemType.setUpdatedBy(createdBy.get());
                 walletItemTypeRepository.save(walletItemType);
             }
         }

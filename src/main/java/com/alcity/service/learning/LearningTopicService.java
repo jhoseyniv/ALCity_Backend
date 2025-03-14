@@ -63,7 +63,7 @@ public class LearningTopicService implements LearningTopicRepository {
  private AppMemberRepository appMemberRepository;
 
  public LearningTopic save(LearningTopicDTO dto, String code) {
-  AppMember createdBy = appMemberRepository.findByUsername("admin");
+  Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
      LearningTopic learningTopic=null;
      LearningTopic parentTopic=null;
   Optional<LearningTopic> learningTopicParentOptional= learningTopicRepository.findById(dto.getParentId());
@@ -72,7 +72,7 @@ public class LearningTopicService implements LearningTopicRepository {
 
   if (code.equalsIgnoreCase("Save")) { //Save
    learningTopic = new LearningTopic(dto.getTitle(),parentTopic , 1L,
-           DateUtils.getNow(), DateUtils.getNow(), createdBy, createdBy);
+           DateUtils.getNow(), DateUtils.getNow(), createdBy.get(), createdBy.get());
    learningTopicRepository.save(learningTopic);
   }else{//edit
    Optional<LearningTopic> learningTopicOptional= learningTopicRepository.findById(dto.getId());
@@ -82,7 +82,7 @@ public class LearningTopicService implements LearningTopicRepository {
     learningTopic.setParentTopic(parentTopic);
     learningTopic.setVersion(learningTopic.getVersion()+1);
     learningTopic.setUpdated(DateUtils.getNow());
-    learningTopic.setUpdatedBy(createdBy);
+    learningTopic.setUpdatedBy(createdBy.get());
     learningTopicRepository.save(learningTopic);
    }
   }

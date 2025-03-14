@@ -84,11 +84,11 @@ public class ClientTypeService  implements ClientTypeRepository {
     private AppMemberRepository appMemberRepository;
 
     public ClientType save(ClientTypeDTO dto, String code) {
-        AppMember createdBy = appMemberRepository.findByUsername("admin");
+        Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
         ClientType clientType=null;
 
         if (code.equalsIgnoreCase("Save")) { //Save
-            clientType = new ClientType(dto.getLabel(), dto.getValue(), 1L, DateUtils.getNow(), DateUtils.getNow(), createdBy, createdBy);
+            clientType = new ClientType(dto.getLabel(), dto.getValue(), 1L, DateUtils.getNow(), DateUtils.getNow(), createdBy.get(), createdBy.get());
             clientTypeRepository.save(clientType);
         }else{//edit
             Optional<ClientType> clientTypeOptional= clientTypeRepository.findById(dto.getId());

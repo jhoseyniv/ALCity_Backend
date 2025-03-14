@@ -278,13 +278,13 @@ public class AppMemberController {
     @PostMapping("/login")
     @CrossOrigin(origins = "*")
     public ALCityAcessRight login(@RequestBody AppMemberDTO memberDTO)  {
-        AppMember member = appMemberService.findByUsername(memberDTO.getUsername());
-        if(member==null)
+        Optional<AppMember> member = appMemberService.findByUsername(memberDTO.getUsername());
+        if(member.isEmpty())
             return  new ALCityAcessRight(-1L, memberDTO.getUsername(),-1,"data not found","-1",-1,"error","error","error",-1L,"error","error");
-        if(!member.getPassword().equals(memberDTO.getPassword()))
+        if(!member.get().getPassword().equals(memberDTO.getPassword()))
             return  new ALCityAcessRight(-1L, memberDTO.getUsername(),-1,"data not found","-1",-1,"error","error","error",-1L,"error","error");
-        appMemberService.login(member.getUsername(), member.getPassword());
-        ALCityAcessRight acessRight = new ALCityAcessRight(member.getId(), member.getUsername(),0,"Login Successfull","JWT Token", member.getAge(), memberDTO.getNickname(), memberDTO.getMobile(),
+        appMemberService.login(member.get().getUsername(), member.get().getPassword());
+        ALCityAcessRight acessRight = new ALCityAcessRight(member.get().getId(), member.get().getUsername(),0,"Login Successfull","JWT Token", member.get().getAge(), memberDTO.getNickname(), memberDTO.getMobile(),
                 memberDTO.getEmail(), memberDTO.getIconId(), memberDTO.getMemberType(), memberDTO.getGender());
         return acessRight;
     }

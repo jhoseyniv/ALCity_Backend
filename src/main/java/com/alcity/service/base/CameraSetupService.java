@@ -28,12 +28,12 @@ public class CameraSetupService implements CameraSetupRepository {
         return cameraSetupRepository.save(entity);
     }
     public CameraSetup save(CameraSetupDTO dto, String code) {
-        AppMember createdBy = appMemberRepository.findByUsername("admin");
+        Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
         CameraSetup cameraSetup=null;
         if (code.equalsIgnoreCase("Save")) { //Save
             cameraSetup = new CameraSetup(dto.getTitle(),dto.getXPosition(),dto.getYPosition(), dto.getZPosition(),
                                 dto.getXRotation(),dto.getYRotation(),dto.getZRotation() ,
-                    1L, "1714379790", DateUtils.getNow(), createdBy, createdBy);
+                    1L, "1714379790", DateUtils.getNow(), createdBy.get(), createdBy.get());
             cameraSetupRepository.save(cameraSetup);
         }else{//edit
             Optional<CameraSetup> cameraSetupOptional =  cameraSetupRepository.findById(dto.getId());

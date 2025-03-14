@@ -97,11 +97,11 @@ public class PLPrivacyService implements PLPrivacyRepository {
     private AppMemberRepository appMemberRepository;
 
     public PLPrivacy save(PLPrivacyDTO dto, String code) {
-        AppMember createdBy = appMemberRepository.findByUsername("admin");
+        Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
         PLPrivacy plPrivacy=null;
 
         if (code.equalsIgnoreCase("Save")) { //Save
-            plPrivacy = new PLPrivacy(dto.getLabel(), dto.getValue(), 1L, DateUtils.getNow(), DateUtils.getNow(), createdBy, createdBy);
+            plPrivacy = new PLPrivacy(dto.getLabel(), dto.getValue(), 1L, DateUtils.getNow(), DateUtils.getNow(), createdBy.get(), createdBy.get());
             plPrivacyRepository.save(plPrivacy);
         }else{//edit
             Optional<PLPrivacy> plPrivacyOptional= plPrivacyRepository.findById(dto.getId());

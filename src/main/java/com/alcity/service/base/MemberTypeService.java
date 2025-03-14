@@ -35,12 +35,12 @@ public class MemberTypeService implements MemberTypeRepository {
     }
 
     public MemberType save(MemberTypeDTO dto, String code) {
-        AppMember createdBy = appMemberRepository.findByUsername("admin");
+        Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
         MemberType memberType=null;
         Optional<MemberType> memberTypeOptional= memberTypeRepository.findByValue(dto.getValue());
         if (code.equalsIgnoreCase("Save")) { //Save
             memberType = new MemberType(dto.getLabel(),dto.getValue(), 1L,
-                    DateUtils.getNow(), DateUtils.getNow(), createdBy, createdBy);
+                    DateUtils.getNow(), DateUtils.getNow(), createdBy.get(), createdBy.get());
             memberTypeRepository.save(memberType);
         }else{//edit
             memberTypeOptional= memberTypeRepository.findById(dto.getId());
@@ -50,7 +50,7 @@ public class MemberTypeService implements MemberTypeRepository {
                 memberType.setValue(dto.getValue());
                 memberType.setVersion(memberType.getVersion()+1);
                 memberType.setUpdated(DateUtils.getNow());
-                memberType.setUpdatedBy(createdBy);
+                memberType.setUpdatedBy(createdBy.get());
                 memberTypeRepository.save(memberType);
             }
         }

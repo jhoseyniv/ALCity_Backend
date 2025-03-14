@@ -510,7 +510,7 @@ public class AttributeService implements AttributeRepository {
     private AppMemberRepository appMemberRepository;
 
     public Attribute save(AttributeDTOSave newValue, String code) {
-        AppMember createdBy = appMemberRepository.findByUsername("admin");
+        Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
         Optional<Attribute> attributeOptional =  attributeRepository.findById(newValue.getId());
         AttributeOwnerType attributeOwnerType =  AttributeOwnerType.getByTitle(newValue.getOwnerType());
         DataType dataType =  DataType.getByTitle(newValue.getDataType());
@@ -518,7 +518,7 @@ public class AttributeService implements AttributeRepository {
         AttributeValue attributeValue=null;
         if (code.equalsIgnoreCase("Save")) { //Save
             attribute = new Attribute(newValue.getName(), newValue.getOwnerId(),attributeOwnerType,dataType ,
-                    1L, DateUtils.getNow(), DateUtils.getNow(), createdBy, createdBy);
+                    1L, DateUtils.getNow(), DateUtils.getNow(), createdBy.get(), createdBy.get());
 
             attributeRepository.save(attribute);
             AttributeValueDTOSave valueDTO = newValue.getAttributeValueDTOSave();
@@ -528,7 +528,7 @@ public class AttributeService implements AttributeRepository {
                 bindedAttribute =bindedAttributeOptional.get();
             attributeValue = new AttributeValue(valueDTO.getBooleanValue(),valueDTO.getIntValue(),valueDTO.getLongValue(),valueDTO.getStringValue(),
                     valueDTO.getObjectValue(),valueDTO.getDoubleValue(),valueDTO.getBinaryContentId(), valueDTO.getExpressionValue(),valueDTO.getExpression(),bindedAttribute ,attribute,
-                    1L,DateUtils.getNow(),DateUtils.getNow(),createdBy,createdBy,attribute.getOwnerId(),attribute.getAttributeOwnerType());
+                    1L,DateUtils.getNow(),DateUtils.getNow(),createdBy.get(),createdBy.get(),attribute.getOwnerId(),attribute.getAttributeOwnerType());
             attributeValueRepository.save(attributeValue);
         }else{//edit
             if(attributeOptional.isPresent()) {
@@ -540,7 +540,7 @@ public class AttributeService implements AttributeRepository {
                     attribute.setVersion(attribute.getVersion()+1);
                     attribute.setCreated(DateUtils.getNow());
                     attribute.setUpdated(DateUtils.getNow());
-                    attribute.setUpdatedBy(createdBy);
+                    attribute.setUpdatedBy(createdBy.get());
                     attributeRepository.save(attribute);
 
             }

@@ -32,12 +32,12 @@ public class LearningContentService implements LearningContentRepository {
         return learningContentRepository.save(entity);
     }
     public LearningContent save(LearningContentDTO dto, String code) {
-        AppMember createdBy = appMemberRepository.findByUsername("admin");
+        Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
         Optional<BinaryContent> binaryContentOptional =  binaryContentService.findById(dto.getBinaryContentId());
         LearningContent learningContent=null;
         if (code.equalsIgnoreCase("Save")) { //Save
             learningContent = new LearningContent(dto.getDescText(), dto.getDescBrief(),binaryContentOptional.get(),
-                    1L, DateUtils.getNow(), DateUtils.getNow(), createdBy, createdBy);
+                    1L, DateUtils.getNow(), DateUtils.getNow(), createdBy.get(), createdBy.get());
             learningContentRepository.save(learningContent);
         }else{//edit
             Optional<LearningContent> learningContentOptional= learningContentRepository.findById(dto.getId());
@@ -48,7 +48,7 @@ public class LearningContentService implements LearningContentRepository {
                 learningContent.setDescBrief(dto.getDescBrief());
                 learningContent.setVersion(learningContent.getVersion()+1);
                 learningContent.setUpdated(DateUtils.getNow());
-                learningContent.setUpdatedBy(createdBy);
+                learningContent.setUpdatedBy(createdBy.get());
                 learningContentRepository.save(learningContent);
             }
         }
