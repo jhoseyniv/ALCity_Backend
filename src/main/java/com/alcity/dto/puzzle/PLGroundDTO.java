@@ -11,12 +11,12 @@ public class PLGroundDTO  {
     private Integer numRows;
     private Integer numColumns;
 
-    private Integer xPosition;
-    private Integer yPosition;
-    private Integer zPosition;
-    private Integer xRotation;
-    private Integer yRotation;
-    private Integer zRotation;
+    private Integer xposition;
+    private Integer yposition;
+    private Integer zposition;
+    private Integer xrotation;
+    private Integer yrotation;
+    private Integer zrotation;
     private Long puzzleLevelId;
 
     private String puzzleLevelTitle;
@@ -116,88 +116,57 @@ public class PLGroundDTO  {
         this.boardGraphic = boardGraphic;
     }
 
+    public Integer getXposition() {
+        return xposition;
+    }
+
+    public void setXposition(Integer xposition) {
+        this.xposition = xposition;
+    }
+
+    public Integer getYposition() {
+        return yposition;
+    }
+
+    public void setYposition(Integer yposition) {
+        this.yposition = yposition;
+    }
+
+    public Integer getZposition() {
+        return zposition;
+    }
+
+    public void setZposition(Integer zposition) {
+        this.zposition = zposition;
+    }
+
+    public Integer getXrotation() {
+        return xrotation;
+    }
+
+    public void setXrotation(Integer xrotation) {
+        this.xrotation = xrotation;
+    }
+
+    public Integer getYrotation() {
+        return yrotation;
+    }
+
+    public void setYrotation(Integer yrotation) {
+        this.yrotation = yrotation;
+    }
+
+    public Integer getZrotation() {
+        return zrotation;
+    }
+
+    public void setZrotation(Integer zrotation) {
+        this.zrotation = zrotation;
+    }
 
     public PLGroundDTO() {
     }
 
-    public Integer getxPosition() {
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        return xPosition;
-    }
-
-    public void setxPosition(Integer xPosition) {
-        this.xPosition = xPosition;
-    }
-
-    public Integer getyPosition() {
-        return yPosition;
-    }
-
-    public void setyPosition(Integer yPosition) {
-        this.yPosition = yPosition;
-    }
-
-    public Integer getzPosition() {
-        return zPosition;
-    }
-
-    public void setzPosition(Integer zPosition) {
-        this.zPosition = zPosition;
-    }
-
-    public Integer getxRotation() {
-        return xRotation;
-    }
-
-    public void setxRotation(Integer xRotation) {
-        this.xRotation = xRotation;
-    }
-
-    public Integer getyRotation() {
-        return yRotation;
-    }
-
-    public void setyRotation(Integer yRotation) {
-        this.yRotation = yRotation;
-    }
-
-    public Integer getzRotation() {
-        return zRotation;
-    }
-
-    public void setzRotation(Integer zRotation) {
-        this.zRotation = zRotation;
-    }
 
     public PLGroundDTO(Long id, Long version, String created, String updated, String createdBy, String updatedBy,
                        Integer numRows, Integer numColumns, Integer xPosition,Integer yPosition,Integer zPosition,Integer xRotation,Integer yRotation ,Integer zRotation,
@@ -211,12 +180,12 @@ public class PLGroundDTO  {
         this.updatedBy = updatedBy;
         this.numRows = numRows;
         this.numColumns = numColumns;
-        this.xPosition= xPosition;
-        this.yPosition = yPosition;
-        this.zPosition = zPosition;
-        this.xRotation = xRotation;
-        this.yRotation = yRotation;
-        this.zRotation = zRotation;
+        this.xposition= xPosition;
+        this.yposition = yPosition;
+        this.zposition = zPosition;
+        this.xrotation = xRotation;
+        this.yrotation = yRotation;
+        this.zrotation = zRotation;
 
         this.puzzleLevelId = puzzleLevelId;
         this.puzzleLevelTitle = puzzleLevelTitle;

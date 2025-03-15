@@ -946,12 +946,12 @@ public class DTOUtil {
         dto.setCreatedBy(plGround.getCreatedBy().getUsername());
         dto.setUpdatedBy(plGround.getUpdatedBy().getUsername());
         dto.setNumRows(plGround.getNumRows());
-        dto.setxPosition(plGround.getxPosition());
-        dto.setyPosition(plGround.getyPosition());
-        dto.setzPosition(plGround.getzPosition());
-        dto.setxRotation(plGround.getxRotation());
-        dto.setyRotation(plGround.getyRotation());
-        dto.setzRotation(plGround.getzRotation());
+        dto.setXposition(plGround.getxPosition());
+        dto.setYposition(plGround.getyPosition());
+        dto.setZposition(plGround.getzPosition());
+        dto.setXrotation(plGround.getxRotation());
+        dto.setXrotation(plGround.getyRotation());
+        dto.setZrotation(plGround.getzRotation());
         dto.setBoardGraphic(plGround.getBoardGraphic());
 
         dto.setNumColumns(plGround.getNumColumns());

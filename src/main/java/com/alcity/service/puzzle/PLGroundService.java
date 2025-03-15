@@ -56,8 +56,8 @@ public class PLGroundService implements PLGroundRepository {
 //            cameraSetup = cameraSetupOptional.get();
 
         if (code.equalsIgnoreCase("Save")) { //Save
-            plGround = new PLGround(dto.getNumRows(),dto.getNumColumns(),dto.getxPosition(),dto.getyPosition(),dto.getzPosition(),
-                      dto.getxRotation(),dto.getyRotation(),dto.getzRotation(), puzzleLevel,dto.getBoardGraphic()
+            plGround = new PLGround(dto.getNumRows(),dto.getNumColumns(),dto.getXposition(),dto.getYposition(),dto.getZposition(),
+                      dto.getXrotation(),dto.getYrotation(),dto.getZrotation(), puzzleLevel,dto.getBoardGraphic()
                                  , 1L, DateUtils.getNow(), DateUtils.getNow(), createdBy.get(), createdBy.get());
             groundRepository.save(plGround);
         }else{//edit
@@ -67,12 +67,12 @@ public class PLGroundService implements PLGroundRepository {
                 plGround.setBoardGraphic(dto.getBoardGraphic());
                 plGround.setNumColumns(dto.getNumColumns());
                 plGround.setNumRows(dto.getNumRows());
-                plGround.setxPosition(dto.getxPosition());
-                plGround.setyPosition(dto.getyPosition());
-                plGround.setzPosition(dto.getzPosition());
-                plGround.setxRotation(dto.getxRotation());
-                plGround.setyRotation(dto.getyRotation());
-                plGround.setzRotation(dto.getzRotation());
+                plGround.setxPosition(dto.getXposition());
+                plGround.setyPosition(dto.getZposition());
+                plGround.setzPosition(dto.getZposition());
+                plGround.setxRotation(dto.getXrotation());
+                plGround.setyRotation(dto.getYrotation());
+                plGround.setzRotation(dto.getZrotation());
                 plGround.setPuzzleLevel(puzzleLevel);
                 plGround.setVersion(plGround.getVersion()+1);
                 plGround.setUpdated(DateUtils.getNow());
