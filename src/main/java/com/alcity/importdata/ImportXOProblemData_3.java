@@ -37,6 +37,7 @@ import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
 import java.util.Optional;
 
 
@@ -173,7 +174,6 @@ public class ImportXOProblemData_3 implements CommandLineRunner {
         Optional<WalletItem> alCoin10WalletItem = walletItemService.findByValue("al_coin_10");
 
         byte[] plGroundImage = ImageUtil.getImage("src/main/resources/images/X-O Problem/","x-o-ground.json");
-
         byte[] pgIcon = ImageUtil.getImage("src/main/resources/images/","puzzle_group_1.png");
         BinaryContent pgIcon_bc = new BinaryContent(1L, now, now,admin_1 , admin_1,"image_puzzle_group_x-o ",pgIcon.length,pgIcon,null,"tag1","","",BinaryContentType.Image);
         binaryContentService.save(pgIcon_bc);
@@ -201,7 +201,7 @@ public class ImportXOProblemData_3 implements CommandLineRunner {
         Integer xPos=1;
         Integer xRotation=0;
 
-        PLGround plGround = new PLGround(3,3,xPos,xPos,xPos,xRotation,xRotation,xRotation,puzzleLevel,plGroundImage,1L,now,now,admin_1,admin_1);
+        PLGround plGround = new PLGround(3,3,xPos,xPos,xPos,xRotation,xRotation,xRotation,puzzleLevel, plGroundImage,1L,now,now,admin_1,admin_1);
         plGroundService.save(plGround);
 
         PermitedPlayer player_1 = new PermitedPlayer(Alireza_Zare,puzzleLevel,1L,now,now,admin_1,admin_1);

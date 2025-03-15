@@ -8,7 +8,13 @@ import com.alcity.repository.appmember.AppMemberRepository;
 import com.alcity.repository.base.BinaryContentRepository;
 import com.alcity.repository.puzzle.PLGroundRepository;
 import com.alcity.repository.puzzle.PuzzleLevelRepository;
+import com.alcity.utility.DTOUtil;
 import com.alcity.utility.DateUtils;
+import com.alcity.utility.ImageUtil;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -36,29 +42,28 @@ public class PLGroundService implements PLGroundRepository {
     public <S extends PLGround> S save(S entity) {
         return groundRepository.save(entity);
     }
-    public PLGround save(PLGroundDTO  dto, String code) {
+    public PLGround save(PLGroundDTO  dto, String code) throws JsonProcessingException, JSONException {
         Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
         PLGround plGround=null;
         PuzzleLevel puzzleLevel=null;
-        byte[] boardGraphic=null;
+        JSONObject objJsonObject = new JSONObject(dto.getBoardGraphic());
+        byte[] boardGraphic = objJsonObject.toString().getBytes();
 
         Optional<PuzzleLevel> puzzleLevelOptional =  puzzleLevelRepository.findById(dto.getPuzzleLevelId());
 
         if(puzzleLevelOptional.isPresent())
             puzzleLevel = puzzleLevelOptional.get();
 
-
-
         if (code.equalsIgnoreCase("Save")) { //Save
             plGround = new PLGround(dto.getNumRows(),dto.getNumColumns(),dto.getXposition(),dto.getYposition(),dto.getZposition(),
-                      dto.getXrotation(),dto.getYrotation(),dto.getZrotation(), puzzleLevel,dto.getBoardGraphic()
+                      dto.getXrotation(),dto.getYrotation(),dto.getZrotation(), puzzleLevel,boardGraphic
                                  , 1L, DateUtils.getNow(), DateUtils.getNow(), createdBy.get(), createdBy.get());
             groundRepository.save(plGround);
         }else{//edit
             Optional<PLGround> plGroundOptional =  groundRepository.findById(dto.getId());
             if(plGroundOptional.isPresent()) {
                 plGround = plGroundOptional.get();
-                plGround.setBoardGraphic(dto.getBoardGraphic());
+                plGround.setBoardGraphic(boardGraphic);
                 plGround.setNumColumns(dto.getNumColumns());
                 plGround.setNumRows(dto.getNumRows());
                 plGround.setxPosition(dto.getXposition());

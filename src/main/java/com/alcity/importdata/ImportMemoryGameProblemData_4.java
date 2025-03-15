@@ -36,6 +36,7 @@ import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
 import java.util.Optional;
 
 
@@ -181,7 +182,6 @@ public class ImportMemoryGameProblemData_4 implements CommandLineRunner {
         Optional<Journey> journey_2 = journeyService.findByTitle("Journey_2");
 
         byte[]  planyGround_Image_Memory_Game = ImageUtil.getImage("src/main/resources/images/Memory-Game/","MemGame.png");
-
         byte[] pl_Icon_Memory_Game_bytes = ImageUtil.getImage("src/main/resources/images/Memory-Game/","MemGame_icon.png");
         BinaryContent pl_Icon_Memory_Game_content = new BinaryContent(1L, now, now,admin_1 , admin_1,"Memory_Game_Icon",pl_Icon_Memory_Game_bytes.length,pl_Icon_Memory_Game_bytes,null,"tag1","","",BinaryContentType.Image);
         binaryContentService.save(pl_Icon_Memory_Game_content);
@@ -220,7 +220,7 @@ public class ImportMemoryGameProblemData_4 implements CommandLineRunner {
         Integer zPos=1;
         Integer xRotation=0;
 
-        PLGround pl_Memory_Game_ground = new PLGround(4,3,xPos,yPos,zPos,xRotation,xRotation,xRotation,pl_Memory_Game,planyGround_Image_Memory_Game,1L,now,now,admin_1,admin_1);
+        PLGround pl_Memory_Game_ground = new PLGround(4,3,xPos,yPos,zPos,xRotation,xRotation,xRotation,pl_Memory_Game, planyGround_Image_Memory_Game,1L,now,now,admin_1,admin_1);
        // pl_Memory_Game_ground.setCameraSetup(cameraSetup);
         puzzleLevelGroundService.save(pl_Memory_Game_ground);
 

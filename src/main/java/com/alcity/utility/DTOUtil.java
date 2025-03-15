@@ -1,5 +1,6 @@
 package com.alcity.utility;
 
+import com.alcity.dto.Interpreter.PLData;
 import com.alcity.dto.Interpreter.object.ActionData;
 import com.alcity.dto.puzzle.CameraSetupDTO;
 import com.alcity.dto.Interpreter.PLObjectiveData;
@@ -38,11 +39,22 @@ import com.alcity.repository.alobject.AttributeValueRepository;
 import com.alcity.service.alobject.ActionService;
 import com.alcity.service.alobject.AttributeService;
 import com.alcity.service.alobject.AttributeValueService;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.apache.catalina.connector.Request;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.Optional;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import javax.json.Json;
+import javax.json.JsonObject;
+import javax.json.JsonReader;
+import javax.json.JsonWriter;
+import java.nio.charset.StandardCharsets;
+import java.util.*;
 
 public class DTOUtil {
 
@@ -648,7 +660,12 @@ public class DTOUtil {
 
         return dto;
     }
-
+    public static String getBoardGraphicJSON(byte[] boardGraphic) throws IOException, ClassNotFoundException {
+        ByteArrayInputStream bis = new ByteArrayInputStream(boardGraphic);
+        ObjectInputStream ois = new ObjectInputStream(bis);
+        String plData1 = (String) ois.readObject();
+        return plData1;
+    }
     public static Collection<Pl_LearningTopicDTO> getPl_LearningTopicDTOS(PuzzleLevel puzzleLevel) {
         Collection<Pl_LearningTopicDTO> dtos = new ArrayList<Pl_LearningTopicDTO>();
         Collection<LearningTopicInPL> pl_learningTopicCollection = puzzleLevel.getLearningTopicInPLCollection();
@@ -935,9 +952,8 @@ public class DTOUtil {
     }
 
 
+       public static PLGroundDTO getPLGroundDTO(PLGround plGround) throws IOException, ClassNotFoundException, JSONException {
 
-
-    public static PLGroundDTO getPLGroundDTO(PLGround plGround) {
         PLGroundDTO dto = new PLGroundDTO();
         dto.setId(plGround.getId());
         dto.setVersion(plGround.getVersion());
@@ -952,7 +968,10 @@ public class DTOUtil {
         dto.setXrotation(plGround.getxRotation());
         dto.setYrotation(plGround.getyRotation());
         dto.setZrotation(plGround.getzRotation());
-        dto.setBoardGraphic(plGround.getBoardGraphic());
+           String s = new String(plGround.getBoardGraphic(), StandardCharsets.US_ASCII);
+           JSONObject objJsonObject = new JSONObject(s);
+
+           dto.setBoardGraphic(objJsonObject.toString());
 
         dto.setNumColumns(plGround.getNumColumns());
         dto.setPuzzleLevelId(plGround.getPuzzleLevel().getId());

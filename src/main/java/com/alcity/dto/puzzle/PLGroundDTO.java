@@ -1,5 +1,7 @@
 package com.alcity.dto.puzzle;
 
+import org.json.JSONObject;
+
 public class PLGroundDTO  {
     private Long id;
     private Long version;
@@ -22,7 +24,7 @@ public class PLGroundDTO  {
     private String puzzleLevelTitle;
 
 
-    private byte[] boardGraphic;
+    private String boardGraphic;
 
     public Integer getNumRows() {
         return numRows;
@@ -108,11 +110,11 @@ public class PLGroundDTO  {
 
 
 
-    public byte[] getBoardGraphic() {
+    public String getBoardGraphic() {
         return boardGraphic;
     }
 
-    public void setBoardGraphic(byte[] boardGraphic) {
+    public void setBoardGraphic(String boardGraphic) {
         this.boardGraphic = boardGraphic;
     }
 
@@ -171,7 +173,7 @@ public class PLGroundDTO  {
     public PLGroundDTO(Long id, Long version, String created, String updated, String createdBy, String updatedBy,
                        Integer numRows, Integer numColumns, Integer xPosition,Integer yPosition,Integer zPosition,Integer xRotation,Integer yRotation ,Integer zRotation,
                        Long puzzleLevelId, String puzzleLevelTitle,
-                       byte[] boardGraphic) {
+                       String boardGraphic) {
         this.id = id;
         this.version = version;
         this.created = created;

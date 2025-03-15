@@ -13,13 +13,16 @@ import com.alcity.service.customexception.UniqueConstraintException;
 import com.alcity.service.customexception.ViolateForeignKeyException;
 import com.alcity.service.puzzle.PLGroundService;
 import com.alcity.utility.DTOUtil;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.json.JSONException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Optional;
 
 @Tag(name = "Puzzle Level Ground API ", description = "Get Puzzle Levels Ground Format for other systems...")
@@ -38,7 +41,7 @@ public class PLGroundController {
     @RequestMapping(value = "/id/{id}", method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin(origins = "*")
-    public PLGroundDTO getPLGroundById(@PathVariable Long id) {
+    public PLGroundDTO getPLGroundById(@PathVariable Long id) throws IOException, ClassNotFoundException, JSONException {
         PLGroundDTO   plGroundDTO= new PLGroundDTO();
         Optional<PLGround> plGroundOptional = plGroundService.findById(id);
         plGroundDTO = DTOUtil.getPLGroundDTO(plGroundOptional.get());
@@ -48,7 +51,7 @@ public class PLGroundController {
     @Operation( summary = "Save a PL Ground information ",  description = "Save a puzzle level ground entity and their data to data base")
     @PostMapping("/save")
     @CrossOrigin(origins = "*")
-    public ALCityResponseObject savePLGround(@RequestBody PLGroundDTO dto)  {
+    public ALCityResponseObject savePLGround(@RequestBody PLGroundDTO dto) throws JsonProcessingException, JSONException {
         PLGround savedRecord = null;
         ALCityResponseObject responseObject = new ALCityResponseObject();
         if (dto.getId() == null || dto.getId() <= 0L) { //save
@@ -56,6 +59,10 @@ public class PLGroundController {
                 savedRecord = plGroundService.save(dto,"Save");
             } catch (RuntimeException e) {
                 throw new UniqueConstraintException("PL", dto.getId(), "Code Must be Unique");
+            } catch (JsonProcessingException e) {
+                throw new RuntimeException(e);
+            } catch (JSONException e) {
+                throw new RuntimeException(e);
             }
             responseObject = new ALCityResponseObject(HttpStatus.OK.value(), "ok", savedRecord.getId(), "Record Saved Successfully!");
         } else if (dto.getId() > 0L ) {//edit
@@ -147,13 +154,13 @@ public class PLGroundController {
     @RequestMapping(value = "/id/{id}/boardgraphic", method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin(origins = "*")
-    public byte[] getBoardGraphicByPLGroundId(@PathVariable Long id) {
+    public String getBoardGraphicByPLGroundId(@PathVariable Long id) {
         Optional<PLGround> plGroundOptional = plGroundService.findById(id);
         byte[] boardGraphic=null;
         if(plGroundOptional.isPresent()) {
             boardGraphic = plGroundOptional.get().getBoardGraphic();
         }
-        return  boardGraphic;
+        return Arrays.toString(boardGraphic);
     }
 
 

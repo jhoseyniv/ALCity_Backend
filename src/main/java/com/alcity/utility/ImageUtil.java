@@ -1,9 +1,12 @@
 package com.alcity.utility;
 
+import com.alcity.dto.Interpreter.PLData;
 import com.alcity.entity.alenum.BinaryContentType;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -168,7 +171,17 @@ public class ImageUtil {
 
     }
 
+    public static byte[] convertObjectToBytes(Object obj) {
+        ByteArrayOutputStream boas = new ByteArrayOutputStream();
+        try (ObjectOutputStream ois = new ObjectOutputStream(boas)) {
+            ois.writeObject(obj);
+            return boas.toByteArray();
 
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+        }
+        throw new RuntimeException();
+    }
     public  static byte[] getBytesOfThumbnail(File file) throws IOException {
         byte[] imageBytes=null;
         Thumbnails.of(file).size(100,100)

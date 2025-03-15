@@ -14,6 +14,7 @@ import com.alcity.service.puzzle.InstanceInPLService;
 import com.alcity.service.puzzle.PLGroundService;
 import com.alcity.service.puzzle.PuzzleLevelService;
 import com.alcity.utility.DTOUtil;
+import com.alcity.utility.ImageUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -95,7 +96,7 @@ public class InterpreterController {
             puzzleLevelData.setVariables(variables);
             puzzleLevelData.setObjects(objects);
             puzzleLevelData.setRules(rules);
-            byte[] bytes = convertObjectToBytes(puzzleLevelData);
+            byte[] bytes = ImageUtil.convertObjectToBytes(puzzleLevelData);
             pl.setInterpreterFile(bytes);
             puzzleLevelService.save(pl);
         }
@@ -103,19 +104,7 @@ public class InterpreterController {
 
     }
 
-    public static byte[] convertObjectToBytes(PLData obj) {
-        ByteArrayOutputStream boas = new ByteArrayOutputStream();
-        try (ObjectOutputStream ois = new ObjectOutputStream(boas)) {
-            ois.writeObject(obj);
-            //Byte[] byteObject = ArrayUtils.toObject();
 
-            return boas.toByteArray();
-
-        } catch (IOException ioe) {
-            ioe.printStackTrace();
-        }
-        throw new RuntimeException();
-    }
 
     public Collection<InstanceData> getInstancesForAObjectInPuzzleLevel(ALCityObjectInPG pgpo, PuzzleLevel  pl) {
         Collection<InstanceData> objectInstanceDataCollection = new ArrayList<InstanceData>();

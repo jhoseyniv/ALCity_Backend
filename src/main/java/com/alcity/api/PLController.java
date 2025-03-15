@@ -16,6 +16,7 @@ import com.alcity.utility.DTOUtil;
 import com.alcity.utility.PLDTOUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.json.JSONException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.ui.Model;
@@ -128,7 +129,7 @@ public class PLController {
     @RequestMapping(value = "/id/{id}/ground", method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin(origins = "*")
-    public PLGroundDTO getGroundForPuzzleLevelById(@PathVariable Long id) {
+    public PLGroundDTO getGroundForPuzzleLevelById(@PathVariable Long id) throws IOException, ClassNotFoundException, JSONException {
         PLGroundDTO groundDTO= new PLGroundDTO();
         Optional<PuzzleLevel> puzzleLevelOptional = puzzleLevelService.findById(id);
         if(puzzleLevelOptional.isPresent()) {

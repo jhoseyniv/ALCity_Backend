@@ -39,6 +39,7 @@ import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
 import java.util.Optional;
 
 
@@ -216,7 +217,7 @@ public class ImportHashImageProblemData_1 implements CommandLineRunner {
         Integer xRotation=3;
 
 
-        PLGround puzzleLevel_hashImage_ground = new PLGround(3,3,xPos,xPos,xPos,xRotation,xRotation,xRotation,puzzleLevel_hashimage,puzzle_Ground_Image_1,1L,now,now,admin_1,admin_1);
+        PLGround puzzleLevel_hashImage_ground = new PLGround(3,3,xPos,xPos,xPos,xRotation,xRotation,xRotation,puzzleLevel_hashimage, puzzle_Ground_Image_1,1L,now,now,admin_1,admin_1);
         puzzleLevelGroundService.save(puzzleLevel_hashImage_ground);
 
         PermitedPlayer player_1_puzzleLevel_hashimage = new PermitedPlayer(jalalHoseyni,puzzleLevel_hashimage,1L,now,now,admin_1,admin_1);
