@@ -950,7 +950,7 @@ public class DTOUtil {
         dto.setYposition(plGround.getyPosition());
         dto.setZposition(plGround.getzPosition());
         dto.setXrotation(plGround.getxRotation());
-        dto.setXrotation(plGround.getyRotation());
+        dto.setYrotation(plGround.getyRotation());
         dto.setZrotation(plGround.getzRotation());
         dto.setBoardGraphic(plGround.getBoardGraphic());
 
