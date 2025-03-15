@@ -3,15 +3,11 @@ package com.alcity.api;
 
 import com.alcity.dto.base.BinaryContentDTO;
 import com.alcity.dto.puzzle.CameraSetupDTO;
-import com.alcity.dto.puzzle.PLDTO;
 import com.alcity.dto.puzzle.PLGroundDTO;
 import com.alcity.entity.base.BinaryContent;
-import com.alcity.entity.base.CameraSetup;
 import com.alcity.entity.puzzle.PLGround;
 import com.alcity.entity.puzzle.PuzzleLevel;
-import com.alcity.repository.base.CameraSetupRepository;
 import com.alcity.service.base.BinaryContentService;
-import com.alcity.service.base.CameraSetupService;
 import com.alcity.service.customexception.ALCityResponseObject;
 import com.alcity.service.customexception.UniqueConstraintException;
 import com.alcity.service.customexception.ViolateForeignKeyException;
@@ -34,9 +30,8 @@ public class PLGroundController {
 
     @Autowired
     private PLGroundService plGroundService;
-    @Autowired
-    private CameraSetupService cameraSetupService;
-    @Autowired
+
+     @Autowired
     private BinaryContentService binaryContentService;
 
     @Operation( summary = "Fetch puzzle level Ground by a Id ",  description = "Fetch puzzle level Ground by a Id ")
@@ -77,12 +72,12 @@ public class PLGroundController {
 
         return responseObject;
     }
-
+/*
     @Operation( summary = "Save a Camera Setup information for a PL ground ",  description = "Save a Camera Setup information for a PL ground")
     @PostMapping("/id/{id}/save/camera-setup")
     @CrossOrigin(origins = "*")
     public ALCityResponseObject saveCameraSetupPLGround(@RequestBody CameraSetupDTO dto,@PathVariable Long id)  {
-        CameraSetup savedRecord = null;
+        CameraSetup_old savedRecord = null;
         PLGround plGround = null;
                 ALCityResponseObject responseObject = new ALCityResponseObject();
         Optional<PLGround> plGroundOptional = plGroundService.findById(id);
@@ -141,10 +136,24 @@ public class PLGroundController {
             responseObject = new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", -1L, "Record Not Found!");
         else
             responseObject = new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", -1L, "Record Not Found!");
-        plGround.setBoardGraphic(savedRecord);
+     //   plGround.setBoardGraphic(savedRecord);
         plGroundService.save(plGround);
 
         return responseObject;
+    }
+
+ */
+    @Operation( summary = "Fetch board graphic for a puzzle level by  Id ",  description = "Fetch boardgraphic for a puzzle level by  Id")
+    @RequestMapping(value = "/id/{id}/boardgraphic", method = RequestMethod.GET)
+    @ResponseBody
+    @CrossOrigin(origins = "*")
+    public byte[] getBoardGraphicByPLGroundId(@PathVariable Long id) {
+        Optional<PLGround> plGroundOptional = plGroundService.findById(id);
+        byte[] boardGraphic=null;
+        if(plGroundOptional.isPresent()) {
+            boardGraphic = plGroundOptional.get().getBoardGraphic();
+        }
+        return  boardGraphic;
     }
 
 

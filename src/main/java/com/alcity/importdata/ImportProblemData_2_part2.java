@@ -2,15 +2,6 @@ package com.alcity.importdata;
 
 
 import com.alcity.ObjectManagmentApplication;
-import com.alcity.entity.alenum.*;
-import com.alcity.entity.alobject.*;
-import com.alcity.entity.base.*;
-import com.alcity.entity.journey.Journey;
-import com.alcity.entity.learning.LearningSkill;
-import com.alcity.entity.learning.LearningTopic;
-import com.alcity.entity.puzzle.*;
-import com.alcity.entity.appmember.AppMember;
-import com.alcity.entity.appmember.WalletItem;
 import com.alcity.repository.play.PermitedPlayerRepository;
 import com.alcity.service.Journey.JourneyService;
 import com.alcity.service.alobject.*;
@@ -31,7 +22,6 @@ import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Optional;
 
 
 @Order(value=4)
@@ -71,8 +61,8 @@ public class ImportProblemData_2_part2 implements CommandLineRunner {
     private PLPrivacyService puzzleLevelPrivacyService;
     @Autowired
     PuzzleLevelService puzzleLevelService;
-    @Autowired
-    private CameraSetupService cameraSetupService;
+
+
     @Autowired
     PLGroundService puzzleLevelGroundService;
     @Autowired
@@ -82,9 +72,9 @@ public class ImportProblemData_2_part2 implements CommandLineRunner {
     @Autowired
     ObjectCategoryService objectCategoryService;
     @Autowired
-    ALCityObjectService puzzleObjectService;
+    ObjectService puzzleObjectService;
     @Autowired
-    ALCityObjectInPGService puzzleGroup_PuzzleObjectService;
+    ObjectInPGService puzzleGroup_PuzzleObjectService;
 
     @Autowired
     PLObjectiveService plObjectiveService;
@@ -92,7 +82,7 @@ public class ImportProblemData_2_part2 implements CommandLineRunner {
     AttributeValueService attributeValueService;
 
     @Autowired
-    ALCityInstanceInPLService pgObjectInstanceService;
+    InstanceInPLService pgObjectInstanceService;
 
     @Autowired
     AttributeService attributeService;

@@ -82,14 +82,14 @@ public class ObjectManagmentApplication {
 
 
 	@Autowired
-    ALCityObjectService puzzleObjectService;
+	ObjectService puzzleObjectService;
 
 	@Autowired
-    ALCityObjectInPGService puzzleGroup_PuzzleObjectService;
+	ObjectInPGService puzzleGroup_PuzzleObjectService;
 
 
 	@Autowired
-    ALCityInstanceInPLService alCityInstanceService;
+    InstanceInPLService alCityInstanceService;
 
 	@Autowired
     AttributeService alCityAttributeService;

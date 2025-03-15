@@ -27,7 +27,6 @@ public class PLGameInstanceService implements PLGameInstanceRepository {
 
     @Autowired
     @Qualifier("PLGameInstanceRepository")
-
     PLGameInstanceRepository plGameInstanceRepository;
 
     @Autowired

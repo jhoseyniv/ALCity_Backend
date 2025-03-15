@@ -1,7 +1,5 @@
 package com.alcity.api;
 
-import com.alcity.entity.alenum.AttributeOwnerType;
-import com.alcity.entity.alobject.AttributeValue;
 import com.alcity.service.alobject.AttributeService;
 import com.alcity.service.alobject.AttributeValueService;
 import com.alcity.service.customexception.ALCityResponseObject;
@@ -13,7 +11,7 @@ import com.alcity.entity.alenum.POActionOwnerType;
 import com.alcity.entity.alobject.ObjectAction;
 import com.alcity.entity.puzzle.ALCityObjectInPG;
 import com.alcity.service.alobject.ActionService;
-import com.alcity.service.puzzle.ALCityObjectInPGService;
+import com.alcity.service.puzzle.ObjectInPGService;
 import com.alcity.utility.DTOUtil;
 import com.alcity.utility.PLDTOUtil;
 import io.swagger.v3.oas.annotations.Operation;
@@ -31,12 +29,12 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/opg")
 
-public class ALCityObjectInPGController {
+public class ObjectInPGController {
 
     @Autowired
     private ActionService actionService;
     @Autowired
-    private ALCityObjectInPGService alCityObjectInPGService;
+    private ObjectInPGService alCityObjectInPGService;
 
     @Autowired
     private AttributeService attributeService;

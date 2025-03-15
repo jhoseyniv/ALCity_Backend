@@ -29,7 +29,7 @@ import java.util.Optional;
 public class ActionRendererController {
 
     @Autowired
-    private RendererService rendererService;
+    private RendererService service;
 
     @Autowired
     private AttributeService attributeService;
@@ -38,7 +38,7 @@ public class ActionRendererController {
     @GetMapping("/all")
     public Collection<RendererDTO> getActionRenderers(Model model) {
         Collection<RendererDTO> rendererDTOS = new ArrayList<RendererDTO>();
-        Collection<Renderer> renderers = rendererService.findAll();
+        Collection<Renderer> renderers = service.findAll();
         Iterator<Renderer> iterator = renderers.iterator();
         while(iterator.hasNext()){
             RendererDTO rendererDTO = DTOUtil.getActionRendererDTO(iterator.next());
@@ -55,14 +55,14 @@ public class ActionRendererController {
 
         if (dto.getId() == null || dto.getId() <= 0L) { //save
             try {
-                savedRecord = rendererService.save(dto,"Save");
+                savedRecord = service.save(dto,"Save");
             } catch (RuntimeException e) {
                 throw new UniqueConstraintException(dto.getHandler(), dto.getId(), "Handler Must be Unique");
             }
             responseObject = new ALCityResponseObject(HttpStatus.OK.value(), "ok", savedRecord.getId(), "Record Saved Successfully!");
         } else if (dto.getId() > 0L ) {//edit
             //Optional<PuzzleGroup>  puzzleGroupOptional = pgService.findById(dto.getId());
-            savedRecord = rendererService.save(dto, "Edit");
+            savedRecord = service.save(dto, "Edit");
             if(savedRecord !=null)
                 responseObject = new ALCityResponseObject(HttpStatus.OK.value(), "ok", savedRecord.getId(), "Record Updated Successfully!");
             else
@@ -80,7 +80,7 @@ public class ActionRendererController {
     @RequestMapping(value = "/id/{id}", method = RequestMethod.GET)
     @ResponseBody
     public RendererDTO getObjectActionRendererById(@PathVariable Long id) {
-        Optional<Renderer> actionRendererOptional = rendererService.findById(id);
+        Optional<Renderer> actionRendererOptional = service.findById(id);
         if(actionRendererOptional.isPresent())
             return  DTOUtil.getActionRendererDTO(actionRendererOptional.get());
         return null;
@@ -90,10 +90,10 @@ public class ActionRendererController {
     @DeleteMapping("/del/{id}")
     @CrossOrigin(origins = "*")
     public ALCityResponseObject deleteActionRendersById(@PathVariable Long id) {
-        Optional<Renderer> existingRecord = rendererService.findById(id);
+        Optional<Renderer> existingRecord = service.findById(id);
         if(existingRecord.isPresent()){
             try {
-                rendererService.deleteById(existingRecord.get().getId());
+                service.deleteById(existingRecord.get().getId());
             }catch (Exception e )
             {
                 throw new ViolateForeignKeyException(existingRecord.get().getHandler(), existingRecord.get().getId(), Renderer.class.toString());
@@ -107,7 +107,7 @@ public class ActionRendererController {
     @RequestMapping(value = "/id/{id}/params", method = RequestMethod.GET)
     @ResponseBody
     public  Collection<RecordData> getObjectActionRendererParameters(@PathVariable Long id) {
-        Optional<Renderer> actionRendererOptional = rendererService.findById(id);
+        Optional<Renderer> actionRendererOptional = service.findById(id);
         if(actionRendererOptional.isPresent())
             return  DTOUtil.getAttributeForOwnerById(attributeService,actionRendererOptional.get().getId(), AttributeOwnerType.Action_Handler_Parameter);;
         return null;

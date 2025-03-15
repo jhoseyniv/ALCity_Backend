@@ -1,39 +1,34 @@
 package com.alcity.service.puzzle;
 
 import com.alcity.dto.puzzle.CityObjectInPGDTO;
-import com.alcity.entity.alenum.AttributeOwnerType;
-import com.alcity.entity.alenum.POActionOwnerType;
-import com.alcity.entity.alobject.ObjectAction;
 import com.alcity.entity.puzzle.ALCityObject;
 import com.alcity.entity.puzzle.ALCityObjectInPG;
 import com.alcity.entity.puzzle.PuzzleGroup;
 import com.alcity.entity.appmember.AppMember;
-import com.alcity.repository.puzzle.ALCityObjectInPGRepository;
+import com.alcity.repository.puzzle.ObjectInPGRepository;
 import com.alcity.repository.puzzle.PGRepository;
 import com.alcity.repository.appmember.AppMemberRepository;
 import com.alcity.service.alobject.RendererService;
 import com.alcity.service.alobject.AttributeService;
 import com.alcity.service.alobject.AttributeValueService;
 import com.alcity.service.alobject.ActionService;
-import com.alcity.utility.DTOUtil;
 import com.alcity.utility.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import org.springframework.transaction.annotation.Transactional;;
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.Optional;
 
 
 @Service
 @Transactional
-public class ALCityObjectInPGService implements ALCityObjectInPGRepository {
+public class ObjectInPGService implements ObjectInPGRepository {
 
     @Autowired
-    @Qualifier("ALCityObjectInPGRepository")
-    ALCityObjectInPGRepository alCityObjectInPGRepository;
+    ObjectInPGRepository objectInPGRepository;
 
     @Autowired
     ActionService puzzleObjectActionService;
@@ -42,8 +37,9 @@ public class ALCityObjectInPGService implements ALCityObjectInPGRepository {
     @Qualifier("PGRepository")
     PGRepository pgRepository;
 
+    @Lazy
     @Autowired
-    ALCityObjectService alCityObjectService;
+    ObjectService objectService;
 
     @Autowired
     RendererService actionRendererService;
@@ -56,7 +52,7 @@ public class ALCityObjectInPGService implements ALCityObjectInPGRepository {
 
     @Override
     public <S extends ALCityObjectInPG> S save(S entity) {
-        return alCityObjectInPGRepository.save(entity);
+        return objectInPGRepository.save(entity);
     }
 
     @Override
@@ -66,7 +62,7 @@ public class ALCityObjectInPGService implements ALCityObjectInPGRepository {
 
     @Override
     public Optional<ALCityObjectInPG> findById(Long id) {
-        return alCityObjectInPGRepository.findById(id);
+        return objectInPGRepository.findById(id);
     }
 
     @Override
@@ -91,7 +87,7 @@ public class ALCityObjectInPGService implements ALCityObjectInPGRepository {
 
     @Override
     public void deleteById(Long aLong) {
-        alCityObjectInPGRepository.deleteById(aLong);
+        objectInPGRepository.deleteById(aLong);
     }
 
     @Override
@@ -121,22 +117,22 @@ public class ALCityObjectInPGService implements ALCityObjectInPGRepository {
 
     @Override
     public Collection<ALCityObjectInPG> findByCode(String code) {
-        return alCityObjectInPGRepository.findByCode(code);
+        return objectInPGRepository.findByCode(code);
     }
 
     @Override
     public Optional<ALCityObjectInPG> findByCodeAndTitle(String code, String title) {
-        return alCityObjectInPGRepository.findByCodeAndTitle(code,title);
+        return objectInPGRepository.findByCodeAndTitle(code,title);
     }
 
     @Override
     public Collection<ALCityObjectInPG> findByalCityObject(ALCityObject cityObject) {
-        return alCityObjectInPGRepository.findByalCityObject(cityObject);
+        return objectInPGRepository.findByalCityObject(cityObject);
     }
 
     @Override
     public Collection<ALCityObjectInPG> findByPuzzleGroup(PuzzleGroup puzzleGroup) {
-        return alCityObjectInPGRepository.findByPuzzleGroup(puzzleGroup);
+        return objectInPGRepository.findByPuzzleGroup(puzzleGroup);
     }
 
     @Autowired
@@ -144,15 +140,15 @@ public class ALCityObjectInPGService implements ALCityObjectInPGRepository {
     public ALCityObjectInPG save(CityObjectInPGDTO dto, String code) {
         Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
         Optional<PuzzleGroup> puzzleGroupOptional =  pgRepository.findByTitle(dto.getPuzzleGroup());
-        Optional<ALCityObject> alCityObjectOptional =  alCityObjectService.findById(dto.getAlCityObjectId());
+        Optional<ALCityObject> alCityObjectOptional =  objectService.findById(dto.getAlCityObjectId());
         ALCityObjectInPG alCityObjectInPG=null;
         if(puzzleGroupOptional.isPresent())
         if (code.equalsIgnoreCase("Save")) { //Save
             alCityObjectInPG = new ALCityObjectInPG(dto.getTitle(), dto.getCode(),puzzleGroupOptional.get(),alCityObjectOptional.get(),
                     1L, DateUtils.getNow(), DateUtils.getNow(), createdBy.get(), createdBy.get());
-            alCityObjectInPGRepository.save(alCityObjectInPG);
+            objectInPGRepository.save(alCityObjectInPG);
         }else{//edit
-            Optional<ALCityObjectInPG> alCityObjectInPGOptional= alCityObjectInPGRepository.findById(dto.getId());
+            Optional<ALCityObjectInPG> alCityObjectInPGOptional= objectInPGRepository.findById(dto.getId());
             if(alCityObjectInPGOptional.isPresent()) {
                 alCityObjectInPG = alCityObjectInPGOptional.get();
                 alCityObjectInPG.setCode(dto.getCode());
@@ -160,28 +156,11 @@ public class ALCityObjectInPGService implements ALCityObjectInPGRepository {
                 alCityObjectInPG.setVersion(alCityObjectInPG.getVersion()+1);
                 alCityObjectInPG.setUpdated(DateUtils.getNow());
                 alCityObjectInPG.setUpdatedBy(createdBy.get());
-                alCityObjectInPGRepository.save(alCityObjectInPG);
+                objectInPGRepository.save(alCityObjectInPG);
             }
         }
         return alCityObjectInPG;
     }
 
-   /* public void copyActionFromALCityObjectToPuzzleGroupObject(ALCityObjectInPG alCityObjectInPG){
-        ALCityObject alCityObject = alCityObjectInPG.getAlCityObject();
-        Collection<ObjectAction> actions = alCityObjectService.findAllActions(alCityObject);
 
-        Iterator<ObjectAction> itr = actions.iterator();
-        while(itr.hasNext()){
-            ObjectAction action = new ObjectAction();
-            action = itr.next();
-            ObjectAction newAction = new ObjectAction(POActionOwnerType.Puzzle_Group_Object,alCityObjectInPG.getId(), action.getObjectAction(),action.getActionRenderer(),action.getVersion(),action.getCreated(),
-                    action.getUpdated(),action.getCreatedBy(),action.getUpdatedBy());
-            puzzleObjectActionService.save(newAction);
-
-            DTOUtil.copyActionParametersFromTo(action.getId(),newAction.getId(), AttributeOwnerType.Object_Action_Handler_Parameter,AttributeOwnerType.Puzzle_Group_Object_Action_Handler_Parameter,
-                    attributeService,attributeValueService);
-        }
-
-    }
-*/
 }

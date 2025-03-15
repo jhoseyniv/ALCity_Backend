@@ -7,18 +7,15 @@ import com.alcity.entity.alenum.AttributeOwnerType;
 import com.alcity.entity.alenum.ObjectActionType;
 import com.alcity.entity.alobject.*;
 import com.alcity.entity.base.BinaryContent;
-import com.alcity.entity.base.CameraSetup;
 import com.alcity.entity.puzzle.*;
 import com.alcity.service.alobject.AttributeService;
 import com.alcity.service.alobject.ActionService;
-import com.alcity.service.puzzle.ALCityInstanceInPLService;
+import com.alcity.service.puzzle.InstanceInPLService;
 import com.alcity.service.puzzle.PLGroundService;
 import com.alcity.service.puzzle.PuzzleLevelService;
 import com.alcity.utility.DTOUtil;
-import com.alcity.utility.PLDTOUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.apache.commons.lang3.ArrayUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -47,7 +44,7 @@ public class InterpreterController {
     AttributeService attributeService;
 
     @Autowired
-    ALCityInstanceInPLService pgObjectInstanceService;
+    InstanceInPLService pgObjectInstanceService;
 
     @Operation( summary = "Fetch a json ",  description = "fetches all data that need to Interpret a puzzle level structure and rules")
     @RequestMapping(value = "/id/{id}", method = RequestMethod.GET)
@@ -74,12 +71,12 @@ public class InterpreterController {
         if(puzzleLevelGroundOptional.isPresent()){
             plGround = puzzleLevelGroundOptional.get();
 
-            puzzleLevelData.setBoardGraphicId(plGround.getBoardGraphic().getId());
-            CameraSetup cameraSetup =  plGround.getCameraSetup();
-            Position Position = new Position(cameraSetup.getxPosition(),cameraSetup.getyPosition(), cameraSetup.getzPosition());
-            Position Rotation = new Position(cameraSetup.getxRotation(),cameraSetup.getyRotation(),cameraSetup.getzRotation());
-            CameraSetupData cameraSetupInterpreter = new CameraSetupData(Position,Rotation);
-            puzzleLevelData.setCameraSetup(cameraSetupInterpreter);
+          //  puzzleLevelData.setBoardGraphicId(plGround.getBoardGraphic().getId());
+//            CameraSetup_old cameraSetup =  plGround.getCameraSetup();
+//            Position Position = new Position(cameraSetup.getxPosition(),cameraSetup.getyPosition(), cameraSetup.getzPosition());
+//            Position Rotation = new Position(cameraSetup.getxRotation(),cameraSetup.getyRotation(),cameraSetup.getzRotation());
+//            CameraSetupData cameraSetupInterpreter = new CameraSetupData(Position,Rotation);
+//            puzzleLevelData.setCameraSetup(cameraSetupInterpreter);
 
             PuzzleLevel pl = plGround.getPuzzleLevel();
             puzzleLevelData.setCode(pl.getCode());

@@ -15,7 +15,7 @@ import com.alcity.entity.puzzle.ALCityObject;
 import com.alcity.entity.appmember.AppMember;
 import com.alcity.repository.alobject.ObjectCategoryRepository;
 import com.alcity.repository.base.BinaryContentRepository;
-import com.alcity.repository.puzzle.ALCityObjectRepository;
+import com.alcity.repository.puzzle.ObjectRepository;
 import com.alcity.repository.appmember.AppMemberRepository;
 import com.alcity.service.alobject.ActionService;
 import com.alcity.utility.DateUtils;
@@ -32,24 +32,22 @@ import java.util.stream.Collectors;
 
 @Service
 @Transactional
-public class ALCityObjectService implements ALCityObjectRepository {
-
+public class ObjectService implements ObjectRepository {
     @Autowired
-    @Qualifier("ALCityObjectRepository")
-    ALCityObjectRepository alCityObjectRepository ;
+    ObjectRepository objectRepository ;
 
     @Autowired
     ActionService puzzleObjectActionService ;
     @Autowired
     ObjectCategoryRepository objectCategoryRepository ;
     @Autowired
-    ALCityObjectInPGService cityObjectInPGService ;
+    ObjectInPGService cityObjectInPGService ;
     @Autowired
     PGService pgService ;
 
     @Override
     public <S extends ALCityObject> S save(S entity) {
-        return alCityObjectRepository.save(entity);
+        return objectRepository.save(entity);
     }
 
     @Override
@@ -59,7 +57,7 @@ public class ALCityObjectService implements ALCityObjectRepository {
 
     @Override
     public Optional<ALCityObject> findById(Long id) {
-        return alCityObjectRepository.findById(id);
+        return objectRepository.findById(id);
     }
 
     @Override
@@ -69,30 +67,30 @@ public class ALCityObjectService implements ALCityObjectRepository {
 
     @Override
     public Collection<ALCityObject> findAll() {
-        return alCityObjectRepository.findAll();
+        return objectRepository.findAll();
     }
 
     @Override
     public Collection<ALCityObject> findALCityObjectByObjectCategory(ObjectCategory category) {
-        return alCityObjectRepository.findALCityObjectByObjectCategory(category);
+        return objectRepository.findALCityObjectByObjectCategory(category);
     }
 
     @Override
     public Collection<ALCityObject> findALCityObjectByTitleIgnoreCaseContains(String criteria) {
-        return alCityObjectRepository.findALCityObjectByTitleIgnoreCaseContains(criteria);
+        return objectRepository.findALCityObjectByTitleIgnoreCaseContains(criteria);
     }
 
     @Override
     public Collection<ALCityObject> findALCityObjectByObjectCategoryAndTitleIgnoreCase(ObjectCategory category, String title) {
-        return alCityObjectRepository.findALCityObjectByObjectCategoryAndTitleIgnoreCase(category,title);
+        return objectRepository.findALCityObjectByObjectCategoryAndTitleIgnoreCase(category,title);
     }
 
 //    public Collection<ALCityObject> findALCityObjectByTitleContains(String criteria) {
-//        return alCityObjectRepository.findALCityObjectByTitleIgnoreCaseContains(criteria);
+//        return objectRepository.findALCityObjectByTitleIgnoreCaseContains(criteria);
 //    }
 //
 //    public Collection<ALCityObject> findALCityObjectByObjectCategoryAndTitle(ObjectCategory category, String title) {
-//        return alCityObjectRepository.findALCityObjectByObjectCategoryAndTitleIgnoreCase(category,title);
+//        return objectRepository.findALCityObjectByObjectCategoryAndTitleIgnoreCase(category,title);
 //    }
     public Collection<ALCityObject> searchCityObjectSByCriteria(ObjectSearchCriteriaDTO criteria) {
         Optional<ObjectCategory> categoryOptional = objectCategoryRepository.findById(criteria.getObjectCategoryId());
@@ -100,20 +98,20 @@ public class ALCityObjectService implements ALCityObjectRepository {
         Collection<ALCityObject> matchValues=null;
 
         if(puzzleGroupOptional.isEmpty() && categoryOptional.isEmpty() && (criteria.getTitle().equals("") || criteria.getTitle()==null))
-            matchValues = alCityObjectRepository.findAll();
+            matchValues = objectRepository.findAll();
 
             //000
         else if(puzzleGroupOptional.isEmpty() && categoryOptional.isEmpty() && (criteria.getTitle() != null || !criteria.getTitle().equals(""))) {
             //001
-            matchValues = alCityObjectRepository.findALCityObjectByTitleIgnoreCaseContains(criteria.getTitle());
+            matchValues = objectRepository.findALCityObjectByTitleIgnoreCaseContains(criteria.getTitle());
             matchValues = matchValues.stream().filter(cityObject -> ToolBox.compareCaseInsensitive(cityObject.getTitle(), criteria.getTitle())).collect(Collectors.toList());
         }
         else if(puzzleGroupOptional.isEmpty() && categoryOptional.isPresent() && (criteria.getTitle().equals("") || criteria.getTitle()==null))
-            matchValues = alCityObjectRepository.findALCityObjectByObjectCategory(categoryOptional.get());
+            matchValues = objectRepository.findALCityObjectByObjectCategory(categoryOptional.get());
             //010
         else if(puzzleGroupOptional.isEmpty() && categoryOptional.isPresent() && (criteria.getTitle() != null || !criteria.getTitle().equals(""))) {
             //011
-            matchValues = alCityObjectRepository.findALCityObjectByObjectCategory(categoryOptional.get());
+            matchValues = objectRepository.findALCityObjectByObjectCategory(categoryOptional.get());
             matchValues = matchValues.stream().filter(cityObject -> ToolBox.compareCaseInsensitive(cityObject.getTitle(),criteria.getTitle())).collect(Collectors.toList());
         }
         else if(puzzleGroupOptional.isPresent() && categoryOptional.isEmpty() && (criteria.getTitle() == null || criteria.getTitle().equals(""))){
@@ -130,14 +128,14 @@ public class ALCityObjectService implements ALCityObjectRepository {
         }
         else if(puzzleGroupOptional.isPresent() && categoryOptional.isPresent() && (criteria.getTitle() == null || criteria.getTitle().equals(""))){
             //110
-            Collection<ALCityObject> list1 =  alCityObjectRepository.findALCityObjectByObjectCategory(categoryOptional.get());
+            Collection<ALCityObject> list1 =  objectRepository.findALCityObjectByObjectCategory(categoryOptional.get());
             Collection<ALCityObjectInPG> pgs =  cityObjectInPGService.findByPuzzleGroup(puzzleGroupOptional.get());
             Collection<ALCityObject>  list2 = getALCityObjectByPG(pgs);
             matchValues = list1.stream().filter(cityObject ->list2.contains(cityObject)).collect(Collectors.toList());
         }
         else if(puzzleGroupOptional.isPresent() && categoryOptional.isPresent() && (criteria.getTitle() != null || !criteria.getTitle().equals(""))){
             //111
-            Collection<ALCityObject> cityObjects =  alCityObjectRepository.findALCityObjectByObjectCategory(categoryOptional.get());
+            Collection<ALCityObject> cityObjects =  objectRepository.findALCityObjectByObjectCategory(categoryOptional.get());
             Collection<ALCityObject> list1 = cityObjects.stream().filter(cityObject -> ToolBox.compareCaseInsensitive(cityObject.getTitle(),criteria.getTitle())).collect(Collectors.toList());
             Collection<ALCityObjectInPG> pgs =  cityObjectInPGService.findByPuzzleGroup(puzzleGroupOptional.get());
             Collection<ALCityObject> list2 = getALCityObjectByPG(pgs);
@@ -199,12 +197,12 @@ public class ALCityObjectService implements ALCityObjectRepository {
 //    }
     @Override
     public Optional<ALCityObject> findByIcon(BinaryContent icon) {
-        return alCityObjectRepository.findByIcon(icon);
+        return objectRepository.findByIcon(icon);
     }
 
     @Override
     public Optional<ALCityObject> findByPic(BinaryContent pic) {
-        return alCityObjectRepository.findByPic(pic);
+        return objectRepository.findByPic(pic);
     }
 
     @Override
@@ -219,13 +217,13 @@ public class ALCityObjectService implements ALCityObjectRepository {
 
     @Override
     public void deleteById(Long aLong) {
-        alCityObjectRepository.deleteById(aLong);
+        objectRepository.deleteById(aLong);
     }
 
     @Override
     public void delete(ALCityObject object)  {
         try {
-            alCityObjectRepository.delete(object);
+            objectRepository.delete(object);
         }catch (Exception e )
         {
             throw new ViolateForeignKeyException(object.getTitle(), object.getId(), ALCityObject.class.toString());
@@ -252,7 +250,7 @@ public class ALCityObjectService implements ALCityObjectRepository {
 
     @Override
     public Optional<ALCityObject> findByTitle(String title) {
-        return alCityObjectRepository.findByTitle(title);
+        return objectRepository.findByTitle(title);
     }
 
     public  Collection<ObjectAction> findAllActions(ALCityObject cityObject){
@@ -277,13 +275,13 @@ public class ALCityObjectService implements ALCityObjectRepository {
         if (code.equalsIgnoreCase("Save")) { //Save
             alCityObject = new ALCityObject(1L, DateUtils.getNow(), DateUtils.getNow(), createdBy.get(), createdBy.get(),dto.getTitle(), objectCategory,pic.get(),icon.get());
             try {
-                alCityObjectRepository.save(alCityObject);
+                objectRepository.save(alCityObject);
             }
             catch (RuntimeException e) {
                     throw new UniqueConstraintException(dto.getTitle(), dto.getId(), "title must be Unique");
             }
         }else{//edit
-            Optional<ALCityObject> alCityObjectOptional= alCityObjectRepository.findById(dto.getId());
+            Optional<ALCityObject> alCityObjectOptional= objectRepository.findById(dto.getId());
             if(alCityObjectOptional.isPresent()) {
                 alCityObject = alCityObjectOptional.get();
                 alCityObject.setObjectCategory(objectCategory);
@@ -295,7 +293,7 @@ public class ALCityObjectService implements ALCityObjectRepository {
                 alCityObject.setUpdated(DateUtils.getNow());
                 alCityObject.setCreatedBy(createdBy.get());
                 alCityObject.setUpdatedBy(createdBy.get());
-                alCityObjectRepository.save(alCityObject);
+                objectRepository.save(alCityObject);
             }
         }
         return alCityObject;

@@ -87,7 +87,7 @@ public class ImportXOProblemData_3 implements CommandLineRunner {
 
 
     @Autowired
-    ALCityInstanceInPLService objectInstanceService;
+    InstanceInPLService objectInstanceService;
 
     @Autowired
     PLRulePostActionTypeService plRulePostActionTypeService;
@@ -101,21 +101,13 @@ public class ImportXOProblemData_3 implements CommandLineRunner {
 
 
     @Autowired
-    private CameraSetupService cameraSetupService;
-
-
-    @Autowired
     ClientTypeService clientTypeService;
 
     @Autowired
     RendererService actionRendererService;
 
-
-//    @Autowired
-//    ActionService puzzleObjectActionService;
-
     @Autowired
-    ALCityObjectInPGService objectInPGService;
+    ObjectInPGService objectInPGService;
 
     @Autowired
     AttributeService attributeService;
@@ -124,7 +116,7 @@ public class ImportXOProblemData_3 implements CommandLineRunner {
     AttributeValueService attributeValueService;
 
     @Autowired
-    ALCityObjectService objectService;
+    ObjectService objectService;
 
     @Autowired
     PLRuleService puzzleLevelRuleService;
@@ -181,8 +173,6 @@ public class ImportXOProblemData_3 implements CommandLineRunner {
         Optional<WalletItem> alCoin10WalletItem = walletItemService.findByValue("al_coin_10");
 
         byte[] plGroundImage = ImageUtil.getImage("src/main/resources/images/X-O Problem/","x-o-ground.json");
-        BinaryContent puzzle_ground_binary_content_1 = new BinaryContent(1L, now, now,admin_1 , admin_1,"puzzle ground for X-O Game json",plGroundImage.length,plGroundImage,null,"tag1","json","board graphic",BinaryContentType.Image);
-        binaryContentService.save(puzzle_ground_binary_content_1);
 
         byte[] pgIcon = ImageUtil.getImage("src/main/resources/images/","puzzle_group_1.png");
         BinaryContent pgIcon_bc = new BinaryContent(1L, now, now,admin_1 , admin_1,"image_puzzle_group_x-o ",pgIcon.length,pgIcon,null,"tag1","","",BinaryContentType.Image);
@@ -210,11 +200,8 @@ public class ImportXOProblemData_3 implements CommandLineRunner {
 
         Integer xPos=1;
         Integer xRotation=0;
-        CameraSetup cameraSetup = new CameraSetup("setup 4",xPos,xPos,xPos,xRotation,xRotation,xRotation,1L,now,now,admin_1,admin_1);
-        cameraSetupService.save(cameraSetup);
 
-        PLGround plGround = new PLGround(3,3,puzzleLevel,puzzle_ground_binary_content_1,1L,now,now,admin_1,admin_1);
-        plGround.setCameraSetup(cameraSetup);
+        PLGround plGround = new PLGround(3,3,xPos,xPos,xPos,xRotation,xRotation,xRotation,puzzleLevel,plGroundImage,1L,now,now,admin_1,admin_1);
         plGroundService.save(plGround);
 
         PermitedPlayer player_1 = new PermitedPlayer(Alireza_Zare,puzzleLevel,1L,now,now,admin_1,admin_1);

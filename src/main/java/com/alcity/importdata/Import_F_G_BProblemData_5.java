@@ -2,18 +2,11 @@ package com.alcity.importdata;
 
 import com.alcity.ObjectManagmentApplication;
 import com.alcity.entity.alenum.BinaryContentType;
-import com.alcity.entity.alenum.GameStatus;
-import com.alcity.entity.alenum.PLDifficulty;
-import com.alcity.entity.alenum.PLStatus;
 import com.alcity.entity.base.BinaryContent;
-import com.alcity.entity.base.CameraSetup;
 import com.alcity.entity.base.PLPrivacy;
 import com.alcity.entity.journey.Journey;
-import com.alcity.entity.learning.LearningContent;
 import com.alcity.entity.learning.LearningSkill;
 import com.alcity.entity.learning.LearningTopic;
-import com.alcity.entity.play.PermitedPlayer;
-import com.alcity.entity.play.PlayHistory;
 import com.alcity.entity.puzzle.*;
 import com.alcity.entity.appmember.AppMember;
 import com.alcity.entity.appmember.WalletItem;
@@ -31,7 +24,6 @@ import com.alcity.service.appmember.AppMemberService;
 import com.alcity.service.appmember.AppMember_WalletItemService;
 import com.alcity.service.appmember.WalletItemService;
 import com.alcity.utility.ImageUtil;
-import com.alcity.utility.ToolBox;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -93,10 +85,10 @@ public class Import_F_G_BProblemData_5 implements CommandLineRunner {
     ObjectCategoryService objectCategoryService;
 
     @Autowired
-    ALCityObjectService puzzleObjectService;
+    ObjectService puzzleObjectService;
 
     @Autowired
-    ALCityInstanceInPLService pgObjectInstanceService;
+    InstanceInPLService pgObjectInstanceService;
 
 
     @Autowired
@@ -106,11 +98,7 @@ public class Import_F_G_BProblemData_5 implements CommandLineRunner {
     PLRuleEventService plRuleEventService;
 
 
-    @Autowired
-    private CameraSetupService cameraSetupService;
-
-
-    @Autowired
+     @Autowired
     ClientTypeService clientTypeService;
 
     @Autowired
@@ -121,7 +109,7 @@ public class Import_F_G_BProblemData_5 implements CommandLineRunner {
     ActionService puzzleObject_ObjectActionService;
 
     @Autowired
-    ALCityObjectInPGService puzzleGroup_PuzzleObjectService;
+    ObjectInPGService puzzleGroup_PuzzleObjectService;
 
     @Autowired
     PLRuleService puzzleLevelRuleService;

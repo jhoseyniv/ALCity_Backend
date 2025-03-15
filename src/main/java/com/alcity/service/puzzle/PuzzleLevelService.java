@@ -87,7 +87,7 @@ public class PuzzleLevelService implements PuzzleLevelRepository {
 
         return  puzzleLevelStepMappingDTOS;
     }
-
+/*
     public PuzzleLevelStepMappingDTO getJourneyStepMappedWithPuzzleLevel(PuzzleLevel puzzleLevel) {
         PuzzleGroup puzzleGroup = puzzleLevel.getPuzzleGroup();
         Collection<JourneyStep> steps = puzzleGroup.getJourneyStepCollection();
@@ -95,6 +95,8 @@ public class PuzzleLevelService implements PuzzleLevelRepository {
         PuzzleLevelStepMappingDTO  dto =  DTOUtil.puzzleLevelJourneyStepMapping(puzzleLevel,step) ;
         return  dto;
     }
+
+ */
     public Long getJourneyIdMappedWithPuzzleLevel(PuzzleLevel puzzleLevel) {
         PuzzleGroup puzzleGroup = puzzleLevel.getPuzzleGroup();
         Collection<JourneyStep> steps = puzzleGroup.getJourneyStepCollection();
@@ -114,7 +116,7 @@ public class PuzzleLevelService implements PuzzleLevelRepository {
         return  stepId;
     }
     */
-
+/*
     public JourneyStep getJourneyStepIdMappedWithPuzzleLevel(Journey journey, PuzzleLevel puzzleLevel) {
         PuzzleGroup puzzleGroup = puzzleLevel.getPuzzleGroup();
         Collection<JourneyStep> steps = puzzleGroup.getJourneyStepCollection();
@@ -123,6 +125,8 @@ public class PuzzleLevelService implements PuzzleLevelRepository {
         Optional<JourneyStep> journeyStep = journeyStepRepository.findById(step.getId());
         return  journeyStep.get();
     }
+
+ */
 
 
     @Override

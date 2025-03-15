@@ -1,11 +1,10 @@
 package com.alcity.service.puzzle;
 
-import com.alcity.dto.puzzle.CityObjectInPGDTO;
 import com.alcity.dto.puzzle.CityObjectInPLDTO;
 import com.alcity.entity.appmember.AppMember;
 import com.alcity.entity.puzzle.*;
 import com.alcity.repository.appmember.AppMemberRepository;
-import com.alcity.repository.puzzle.ALCityInstanceInPLRepository;
+import com.alcity.repository.puzzle.InstanceInPLRepository;
 import com.alcity.utility.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -17,47 +16,46 @@ import java.util.Optional;
 
 @Service
 @Transactional
-public class ALCityInstanceInPLService implements ALCityInstanceInPLRepository {
+public class InstanceInPLService implements InstanceInPLRepository {
 
     @Autowired
-    @Qualifier("ALCityInstanceInPLRepository")
-    ALCityInstanceInPLRepository repository;
+    InstanceInPLRepository instanceInPLRepository;
 
     @Override
     public <S extends ALCityInstanceInPL> S save(S entity) {
-        return repository.save(entity);
+        return instanceInPLRepository.save(entity);
     }
     @Autowired
     private AppMemberRepository appMemberRepository;
     @Autowired
     private PuzzleLevelService puzzleLevelService;
     @Autowired
-    private ALCityObjectInPGService alCityObjectInPGService;
+    private ObjectInPGService objectInPGService;
     public ALCityInstanceInPL save(CityObjectInPLDTO dto, String code) {
         Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
         Optional<PuzzleLevel> puzzleLevelOptional =  puzzleLevelService.findById(dto.getPuzzleLevelId());
-        Optional<ALCityObjectInPG> alCityObjectInPGOptional =  alCityObjectInPGService.findById(dto.getAlCityObjectInPGId());
+        Optional<ALCityObjectInPG> alCityObjectInPGOptional =  objectInPGService.findById(dto.getAlCityObjectInPGId());
         if(puzzleLevelOptional.isEmpty() || alCityObjectInPGOptional.isEmpty()) return null;
 
-        ALCityInstanceInPL alCityInstanceInPL=null;
+        ALCityInstanceInPL instance=null;
             if (code.equalsIgnoreCase("Save")) { //Save
-                alCityInstanceInPL = new ALCityInstanceInPL(dto.getName(), dto.getRow(),dto.getCol(),dto.getZorder(),alCityObjectInPGOptional.get(),
+                instance = new ALCityInstanceInPL(dto.getName(), dto.getRow(),dto.getCol(),dto.getZorder(),alCityObjectInPGOptional.get(),
                         puzzleLevelOptional.get(), 1L, DateUtils.getNow(), DateUtils.getNow(), createdBy.get(), createdBy.get());
-                repository.save(alCityInstanceInPL);
+                instanceInPLRepository.save(instance);
             }else{//edit
-                Optional<ALCityInstanceInPL> alCityInstanceInPLOptional= repository.findById(dto.getId());
+                Optional<ALCityInstanceInPL> alCityInstanceInPLOptional= instanceInPLRepository.findById(dto.getId());
                 if(alCityInstanceInPLOptional.isPresent()) {
-                    alCityInstanceInPL = alCityInstanceInPLOptional.get();
-                    alCityInstanceInPL.setName(dto.getName());
-                    alCityInstanceInPL.setRow(dto.getRow());
-                    alCityInstanceInPL.setCol(dto.getCol());
-                    alCityInstanceInPL.setzOrder(dto.getZorder());
-                    alCityInstanceInPL.setAlCityObjectInPG(alCityObjectInPGOptional.get());
-                    alCityInstanceInPL.setPuzzleLevel(puzzleLevelOptional.get());
-                    repository.save(alCityInstanceInPL);
+                    instance = alCityInstanceInPLOptional.get();
+                    instance.setName(dto.getName());
+                    instance.setRow(dto.getRow());
+                    instance.setCol(dto.getCol());
+                    instance.setzOrder(dto.getZorder());
+                    instance.setAlCityObjectInPG(alCityObjectInPGOptional.get());
+                    instance.setPuzzleLevel(puzzleLevelOptional.get());
+                    instanceInPLRepository.save(instance);
                 }
             }
-        return alCityInstanceInPL;
+        return instance;
     }
 
 
@@ -68,7 +66,7 @@ public class ALCityInstanceInPLService implements ALCityInstanceInPLRepository {
 
     @Override
     public Optional<ALCityInstanceInPL> findById(Long id) {
-        return repository.findById(id);
+        return instanceInPLRepository.findById(id);
     }
 
     @Override
@@ -93,7 +91,7 @@ public class ALCityInstanceInPLService implements ALCityInstanceInPLRepository {
 
     @Override
     public void deleteById(Long aLong) {
-        repository.deleteById(aLong);
+        instanceInPLRepository.deleteById(aLong);
     }
 
     @Override
@@ -133,7 +131,7 @@ public class ALCityInstanceInPLService implements ALCityInstanceInPLRepository {
 
     @Override
     public Collection<ALCityInstanceInPL> findByAlCityObjectInPGAndPuzzleLevel(ALCityObjectInPG pgObject, PuzzleLevel pl) {
-        return repository.findByAlCityObjectInPGAndPuzzleLevel(pgObject,pl);
+        return instanceInPLRepository.findByAlCityObjectInPGAndPuzzleLevel(pgObject,pl);
     }
 
 

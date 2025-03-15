@@ -1,19 +1,14 @@
 package com.alcity.service.alobject;
 
-import com.alcity.dto.Interpreter.object.RecordData;
 import com.alcity.dto.puzzle.object.ActionDTO;
-import com.alcity.entity.alenum.AttributeOwnerType;
 import com.alcity.entity.alenum.ObjectActionType;
 import com.alcity.entity.alenum.POActionOwnerType;
 import com.alcity.entity.alobject.ObjectAction;
 import com.alcity.entity.alobject.Renderer;
 import com.alcity.entity.appmember.AppMember;
-import com.alcity.entity.puzzle.ALCityObject;
 import com.alcity.entity.puzzle.ALCityObjectInPG;
 import com.alcity.repository.alobject.ActionRepository;
 import com.alcity.repository.appmember.AppMemberRepository;
-import com.alcity.service.puzzle.ALCityObjectService;
-import com.alcity.utility.DTOUtil;
 import com.alcity.utility.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

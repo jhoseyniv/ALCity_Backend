@@ -21,8 +21,8 @@ import com.alcity.entity.puzzle.ALCityObject;
 import com.alcity.entity.puzzle.ALCityObjectInPG;
 import com.alcity.service.alobject.ObjectCategoryService;
 import com.alcity.service.alobject.ActionService;
-import com.alcity.service.puzzle.ALCityObjectInPGService;
-import com.alcity.service.puzzle.ALCityObjectService;
+import com.alcity.service.puzzle.ObjectInPGService;
+import com.alcity.service.puzzle.ObjectService;
 import com.alcity.utility.DTOUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -40,10 +40,10 @@ import java.util.stream.Collectors;
 @CrossOrigin(origins = "*" ,maxAge = 3600)
 @RestController
 @RequestMapping("/co")  // city object=co
-public class ALCityObjectController {
+public class ObjectController {
 
     @Autowired
-    private ALCityObjectService objectService;
+    private ObjectService service;
     @Autowired
     private ObjectCategoryService objectCategoryService;
     @Autowired
@@ -52,7 +52,7 @@ public class ALCityObjectController {
     private AttributeService attributeService;
 
     @Autowired
-    private ALCityObjectInPGService alCityObjectInPGService;
+    private ObjectInPGService alCityObjectInPGService;
 
     @Operation( summary = "Fetch an AL City Object  by id ",  description = "Fetch an AL City Object  by id  ")
     @RequestMapping(value = "/id/{id}", method = RequestMethod.GET)
@@ -60,7 +60,7 @@ public class ALCityObjectController {
     @ResponseBody
     public CityObjectDTO getALCityObject(@PathVariable Long id) {
         CityObjectDTO dto= new CityObjectDTO();
-        Optional<ALCityObject> objectOptional = objectService.findById(id);
+        Optional<ALCityObject> objectOptional = service.findById(id);
         if(objectOptional.isPresent()) {
             ALCityObject object = objectOptional.get();
             dto = PLDTOUtil.getCityObjectDTO(object,actionService,attributeService);
@@ -71,7 +71,7 @@ public class ALCityObjectController {
     @GetMapping("/all")
     @CrossOrigin(origins = "*")
     public Collection<CityObjectDTO> getALCityObjects(Model model) {
-        Collection<ALCityObject> objects = objectService.findAll();
+        Collection<ALCityObject> objects = service.findAll();
         Collection<CityObjectDTO> dtos = new ArrayList<CityObjectDTO>();
         dtos =PLDTOUtil.getCityObjectsDTOS(objects,actionService,attributeService);
         return dtos;
@@ -82,7 +82,7 @@ public class ALCityObjectController {
     @CrossOrigin(origins = "*")
     public Collection<CityObjectDTO> getALCityObjectsByCategory(@PathVariable Long id) {
         Optional<ObjectCategory> category = objectCategoryService.findById(id);
-        Collection<ALCityObject> objects = objectService.findALCityObjectByObjectCategory(category.get());
+        Collection<ALCityObject> objects = service.findALCityObjectByObjectCategory(category.get());
         Collection<CityObjectDTO> objectDTOS = new ArrayList<CityObjectDTO>();
         objectDTOS =PLDTOUtil.getCityObjectsDTOS(objects,actionService,attributeService);
         return objectDTOS;
@@ -91,7 +91,7 @@ public class ALCityObjectController {
     @PostMapping("/search")
     @CrossOrigin(origins = "*")
     public Collection<CityObjectDTO> getALCityObjectsByCriteria(@RequestBody ObjectSearchCriteriaDTO criteriaDTO) {
-        Collection<ALCityObject> objects = objectService.searchCityObjectSByCriteria(criteriaDTO);
+        Collection<ALCityObject> objects = service.searchCityObjectSByCriteria(criteriaDTO);
         Collection<CityObjectDTO> objectDTOS = new ArrayList<CityObjectDTO>();
         objectDTOS =PLDTOUtil.getCityObjectsDTOS(objects,actionService,attributeService);
         return objectDTOS;
@@ -100,7 +100,7 @@ public class ALCityObjectController {
     @PostMapping("/search-in-pg")
     @CrossOrigin(origins = "*")
     public Collection<SearchResultCityObjectDTO> getALCityObjectsInAPGByCriteria(@RequestBody ObjectSearchCriteriaDTO criteriaDTO) {
-        Collection<SearchResultCityObjectDTO> results = objectService.searchCityObjectInPGByCriteria(criteriaDTO);
+        Collection<SearchResultCityObjectDTO> results = service.searchCityObjectInPGByCriteria(criteriaDTO);
         return results;
     }
 
@@ -110,7 +110,7 @@ public class ALCityObjectController {
     @CrossOrigin(origins = "*")
     public Collection<CityObjectInPGDTO> getPuzzleGroupsForALCityObject(@PathVariable Long id) {
         Collection<CityObjectInPGDTO> alCityObjectInPGDTOS = new ArrayList<CityObjectInPGDTO>();
-        Optional<ALCityObject> alCityObjectOptional = objectService.findById(id);
+        Optional<ALCityObject> alCityObjectOptional = service.findById(id);
         if(alCityObjectOptional.isPresent()) {
             Collection<ALCityObjectInPG> alCityObjects = alCityObjectInPGService.findByalCityObject(alCityObjectOptional.get());
             alCityObjectInPGDTOS = DTOUtil.getALCityObjectInPGDTOS(alCityObjects);
@@ -128,11 +128,11 @@ public class ALCityObjectController {
 
         if (dto.getId() == null || dto.getId() <= 0L) { //save
 
-                savedRecord = objectService.save(dto,"Save");
+                savedRecord = service.save(dto,"Save");
 
             responseObject = new ALCityResponseObject(HttpStatus.OK.value(), "ok", savedRecord.getId(), "Record Saved Successfully!");
         } else if (dto.getId() > 0L ) {//edit
-            savedRecord = objectService.save(dto, "Edit");
+            savedRecord = service.save(dto, "Edit");
             if(savedRecord !=null)
                 responseObject = new ALCityResponseObject(HttpStatus.OK.value(), "ok", savedRecord.getId(), "Record Updated Successfully!");
             else
@@ -149,9 +149,9 @@ public class ALCityObjectController {
     @DeleteMapping("/del/{id}")
     @CrossOrigin(origins = "*")
     public ALCityResponseObject deleteALCityObjectById(@PathVariable Long id) {
-        Optional<ALCityObject> existingRecord = objectService.findById(id);
+        Optional<ALCityObject> existingRecord = service.findById(id);
         if(existingRecord.isPresent()){
-            objectService.delete(existingRecord.get());
+            service.delete(existingRecord.get());
             return new ALCityResponseObject(HttpStatus.OK.value(), "ok", id,"Record deleted Successfully!");
         }
         return  new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", id,"Record not found!");
@@ -197,7 +197,7 @@ public class ALCityObjectController {
     @CrossOrigin(origins = "*")
     public Collection<CityObjectInPGDTO> getPuzzleGroupForALCityObject(@PathVariable Long id) {
         Collection<CityObjectInPGDTO> dtos = new ArrayList<CityObjectInPGDTO>();
-        Optional<ALCityObject> alCityObjectOptional = objectService.findById(id);
+        Optional<ALCityObject> alCityObjectOptional = service.findById(id);
         if(alCityObjectOptional.isEmpty()) return dtos;
 
         dtos = DTOUtil.getALCityObjectInPGDTOS(alCityObjectOptional.get().getAlCityObjectInPGCollection());

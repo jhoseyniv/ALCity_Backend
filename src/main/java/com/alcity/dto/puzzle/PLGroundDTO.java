@@ -11,16 +11,18 @@ public class PLGroundDTO  {
     private Integer numRows;
     private Integer numColumns;
 
+    private Integer xPosition;
+    private Integer yPosition;
+    private Integer zPosition;
+    private Integer xRotation;
+    private Integer yRotation;
+    private Integer zRotation;
     private Long puzzleLevelId;
 
     private String puzzleLevelTitle;
 
-    private Long cameraSetupId;
-    private String cameraSetupTitle;
 
-    private Long boardGraphicId;
-    private String boardGraphicName;
-    private String boardGraphicFileType;
+    private byte[] boardGraphic;
 
     public Integer getNumRows() {
         return numRows;
@@ -104,52 +106,103 @@ public class PLGroundDTO  {
         this.puzzleLevelTitle = puzzleLevelTitle;
     }
 
-    public Long getCameraSetupId() {
-        return cameraSetupId;
+
+
+    public byte[] getBoardGraphic() {
+        return boardGraphic;
     }
 
-    public void setCameraSetupId(Long cameraSetupId) {
-        this.cameraSetupId = cameraSetupId;
+    public void setBoardGraphic(byte[] boardGraphic) {
+        this.boardGraphic = boardGraphic;
     }
 
-    public String getCameraSetupTitle() {
-        return cameraSetupTitle;
-    }
-
-    public void setCameraSetupTitle(String cameraSetupTitle) {
-        this.cameraSetupTitle = cameraSetupTitle;
-    }
-
-    public Long getBoardGraphicId() {
-        return boardGraphicId;
-    }
-
-    public void setBoardGraphicId(Long boardGraphicId) {
-        this.boardGraphicId = boardGraphicId;
-    }
-
-    public String getBoardGraphicName() {
-        return boardGraphicName;
-    }
-
-    public void setBoardGraphicName(String boardGraphicName) {
-        this.boardGraphicName = boardGraphicName;
-    }
-
-    public String getBoardGraphicFileType() {
-        return boardGraphicFileType;
-    }
-
-    public void setBoardGraphicFileType(String boardGraphicFileType) {
-        this.boardGraphicFileType = boardGraphicFileType;
-    }
 
     public PLGroundDTO() {
     }
 
+    public Integer getxPosition() {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        return xPosition;
+    }
+
+    public void setxPosition(Integer xPosition) {
+        this.xPosition = xPosition;
+    }
+
+    public Integer getyPosition() {
+        return yPosition;
+    }
+
+    public void setyPosition(Integer yPosition) {
+        this.yPosition = yPosition;
+    }
+
+    public Integer getzPosition() {
+        return zPosition;
+    }
+
+    public void setzPosition(Integer zPosition) {
+        this.zPosition = zPosition;
+    }
+
+    public Integer getxRotation() {
+        return xRotation;
+    }
+
+    public void setxRotation(Integer xRotation) {
+        this.xRotation = xRotation;
+    }
+
+    public Integer getyRotation() {
+        return yRotation;
+    }
+
+    public void setyRotation(Integer yRotation) {
+        this.yRotation = yRotation;
+    }
+
+    public Integer getzRotation() {
+        return zRotation;
+    }
+
+    public void setzRotation(Integer zRotation) {
+        this.zRotation = zRotation;
+    }
+
     public PLGroundDTO(Long id, Long version, String created, String updated, String createdBy, String updatedBy,
-                       Integer numRows, Integer numColumns, Long puzzleLevelId, String puzzleLevelTitle, Long cameraSetupId, String cameraSetupTitle,
-                       Long boardGraphicId ,String boardGraphicFileName, String boardGraphicFileType) {
+                       Integer numRows, Integer numColumns, Integer xPosition,Integer yPosition,Integer zPosition,Integer xRotation,Integer yRotation ,Integer zRotation,
+                       Long puzzleLevelId, String puzzleLevelTitle,
+                       byte[] boardGraphic) {
         this.id = id;
         this.version = version;
         this.created = created;
@@ -158,12 +211,15 @@ public class PLGroundDTO  {
         this.updatedBy = updatedBy;
         this.numRows = numRows;
         this.numColumns = numColumns;
+        this.xPosition= xPosition;
+        this.yPosition = yPosition;
+        this.zPosition = zPosition;
+        this.xRotation = xRotation;
+        this.yRotation = yRotation;
+        this.zRotation = zRotation;
+
         this.puzzleLevelId = puzzleLevelId;
         this.puzzleLevelTitle = puzzleLevelTitle;
-        this.cameraSetupId = cameraSetupId;
-        this.cameraSetupTitle = cameraSetupTitle;
-        this.boardGraphicId = boardGraphicId;
-        this.boardGraphicName = boardGraphicFileName;
-        this.boardGraphicFileType = boardGraphicFileType;
+        this.boardGraphic = boardGraphic;
     }
 }

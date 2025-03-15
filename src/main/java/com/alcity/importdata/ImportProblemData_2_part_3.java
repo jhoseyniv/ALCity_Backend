@@ -62,8 +62,6 @@ public class ImportProblemData_2_part_3 implements CommandLineRunner {
     @Autowired
     PuzzleLevelService puzzleLevelService;
     @Autowired
-    private CameraSetupService cameraSetupService;
-    @Autowired
     PLGroundService puzzleLevelGroundService;
     @Autowired
     PermitedPlayerRepository permitedPlayerRepository;
@@ -72,9 +70,9 @@ public class ImportProblemData_2_part_3 implements CommandLineRunner {
     @Autowired
     ObjectCategoryService objectCategoryService;
     @Autowired
-    ALCityObjectService puzzleObjectService;
+    ObjectService puzzleObjectService;
     @Autowired
-    ALCityObjectInPGService puzzleGroup_PuzzleObjectService;
+    ObjectInPGService puzzleGroup_PuzzleObjectService;
 
     @Autowired
     PLObjectiveService plObjectiveService;
@@ -82,7 +80,7 @@ public class ImportProblemData_2_part_3 implements CommandLineRunner {
     AttributeValueService attributeValueService;
 
     @Autowired
-    ALCityInstanceInPLService pgObjectInstanceService;
+    InstanceInPLService pgObjectInstanceService;
 
     @Autowired
     AttributeService attributeService;

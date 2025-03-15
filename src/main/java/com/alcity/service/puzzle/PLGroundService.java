@@ -1,19 +1,11 @@
 package com.alcity.service.puzzle;
 
-import com.alcity.dto.puzzle.PLDTO;
 import com.alcity.dto.puzzle.PLGroundDTO;
-import com.alcity.entity.alenum.PLDifficulty;
-import com.alcity.entity.alenum.PLStatus;
 import com.alcity.entity.appmember.AppMember;
-import com.alcity.entity.base.BinaryContent;
-import com.alcity.entity.base.CameraSetup;
-import com.alcity.entity.base.PLPrivacy;
 import com.alcity.entity.puzzle.PLGround;
-import com.alcity.entity.puzzle.PuzzleGroup;
 import com.alcity.entity.puzzle.PuzzleLevel;
 import com.alcity.repository.appmember.AppMemberRepository;
 import com.alcity.repository.base.BinaryContentRepository;
-import com.alcity.repository.base.CameraSetupRepository;
 import com.alcity.repository.puzzle.PLGroundRepository;
 import com.alcity.repository.puzzle.PuzzleLevelRepository;
 import com.alcity.utility.DateUtils;
@@ -39,8 +31,6 @@ public class PLGroundService implements PLGroundRepository {
     PuzzleLevelRepository puzzleLevelRepository;
     @Autowired
     BinaryContentRepository binaryContentRepository;
-    @Autowired
-    CameraSetupRepository cameraSetupRepository;
 
     @Override
     public <S extends PLGround> S save(S entity) {
@@ -50,34 +40,39 @@ public class PLGroundService implements PLGroundRepository {
         Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
         PLGround plGround=null;
         PuzzleLevel puzzleLevel=null;
-        BinaryContent boardGraphic=null;
-        CameraSetup cameraSetup=null;
+        byte[] boardGraphic=null;
 
         Optional<PuzzleLevel> puzzleLevelOptional =  puzzleLevelRepository.findById(dto.getPuzzleLevelId());
-        Optional<BinaryContent> boardGraphicOptional =  binaryContentRepository.findById(dto.getBoardGraphicId());
-        Optional<CameraSetup> cameraSetupOptional =  cameraSetupRepository.findById(dto.getCameraSetupId());
+        //Optional<BinaryContent> boardGraphicOptional =  binaryContentRepository.findById(dto.getBoardGraphicId());
+       // Optional<CameraSetup_old> cameraSetupOptional =  cameraSetupRepository.findById(dto.getCameraSetupId());
 
         if(puzzleLevelOptional.isPresent())
             puzzleLevel = puzzleLevelOptional.get();
 
-        if(boardGraphicOptional.isPresent())
-            boardGraphic = boardGraphicOptional.get();
+//        if(boardGraphicOptional.isPresent())
+//            boardGraphic = boardGraphicOptional.get();
 
-        if(cameraSetupOptional.isPresent())
-            cameraSetup = cameraSetupOptional.get();
+//        if(cameraSetupOptional.isPresent())
+//            cameraSetup = cameraSetupOptional.get();
 
         if (code.equalsIgnoreCase("Save")) { //Save
-            plGround = new PLGround(dto.getNumRows(),dto.getNumColumns(), puzzleLevel,boardGraphic
+            plGround = new PLGround(dto.getNumRows(),dto.getNumColumns(),dto.getxPosition(),dto.getyPosition(),dto.getzPosition(),
+                      dto.getxRotation(),dto.getyRotation(),dto.getzRotation(), puzzleLevel,dto.getBoardGraphic()
                                  , 1L, DateUtils.getNow(), DateUtils.getNow(), createdBy.get(), createdBy.get());
             groundRepository.save(plGround);
         }else{//edit
             Optional<PLGround> plGroundOptional =  groundRepository.findById(dto.getId());
             if(plGroundOptional.isPresent()) {
                 plGround = plGroundOptional.get();
-                plGround.setCameraSetup(cameraSetup);
-                plGround.setBoardGraphic(boardGraphic);
+                plGround.setBoardGraphic(dto.getBoardGraphic());
                 plGround.setNumColumns(dto.getNumColumns());
                 plGround.setNumRows(dto.getNumRows());
+                plGround.setxPosition(dto.getxPosition());
+                plGround.setyPosition(dto.getyPosition());
+                plGround.setzPosition(dto.getzPosition());
+                plGround.setxRotation(dto.getxRotation());
+                plGround.setyRotation(dto.getyRotation());
+                plGround.setzRotation(dto.getzRotation());
                 plGround.setPuzzleLevel(puzzleLevel);
                 plGround.setVersion(plGround.getVersion()+1);
                 plGround.setUpdated(DateUtils.getNow());

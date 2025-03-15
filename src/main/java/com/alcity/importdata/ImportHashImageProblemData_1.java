@@ -53,7 +53,7 @@ public class ImportHashImageProblemData_1 implements CommandLineRunner {
     private BinaryContentService binaryContentService;
 
     @Autowired
-    ALCityObjectService alCityObjectService;
+    ObjectService alCityObjectService;
 
     @Autowired
     PLGroundService puzzleLevelGroundService;
@@ -94,16 +94,11 @@ public class ImportHashImageProblemData_1 implements CommandLineRunner {
 
 
     @Autowired
-    ALCityInstanceInPLService pgObjectInstanceService;
+    InstanceInPLService pgObjectInstanceService;
 
 
     @Autowired
     AttributeValueService attributeValueService;
-
-
-
-    @Autowired
-    private CameraSetupService cameraSetupService;
 
 
     @Autowired
@@ -117,7 +112,7 @@ public class ImportHashImageProblemData_1 implements CommandLineRunner {
     ActionService actionService;
 
     @Autowired
-    ALCityObjectInPGService alCityObjectInPGService;
+    ObjectInPGService alCityObjectInPGService;
 
     @Autowired
     PLRuleService puzzleLevelRuleService;
@@ -182,10 +177,10 @@ public class ImportHashImageProblemData_1 implements CommandLineRunner {
 
         byte[] puzzle_Ground_Image_1 = ImageUtil.getImage("src/main/resources/images/X-O Problem/","x-o-ground.json");
 
-        BinaryContent puzzle_ground_binary_content_1 = new BinaryContent(1L, now, now,admin_1 , admin_1,"puzzle ground for hash image",puzzle_Ground_Image_1.length,puzzle_Ground_Image_1,null,"tag1","","",BinaryContentType.Image);
-        binaryContentService.save(puzzle_ground_binary_content_1);
+      //  BinaryContent puzzle_ground_binary_content_1 = new BinaryContent(1L, now, now,admin_1 , admin_1,"puzzle ground for hash image",puzzle_Ground_Image_1.length,puzzle_Ground_Image_1,null,"tag1","","",BinaryContentType.Image);
+       // binaryContentService.save(puzzle_ground_binary_content_1);
 
-        byte[] hashImage_icon_byte = ImageUtil.getImage("src/main/resources/images/hashImage_Puzzle/","hashImage_icon.png");
+       // byte[] hashImage_icon_byte = ImageUtil.getImage("src/main/resources/images/hashImage_Puzzle/","hashImage_icon.png");
         BinaryContent hashImage_icon = new BinaryContent(1L, now, now,admin_1 , admin_1,"hash image icon",puzzle_Ground_Image_1.length,puzzle_Ground_Image_1,null,"tag1","","",BinaryContentType.Image);
         binaryContentService.save(hashImage_icon);
 
@@ -193,7 +188,7 @@ public class ImportHashImageProblemData_1 implements CommandLineRunner {
         BinaryContent hashImage_pic = new BinaryContent(1L, now, now,admin_1 , admin_1,"hash image picture",puzzle_Ground_Image_1.length,hashImage_pic_byte,null,"tag1","","",BinaryContentType.Image);
         binaryContentService.save(hashImage_pic);
 
-        PuzzleCategory mathematic = puzzleCategoryService.findByValue("mathematic");
+       // PuzzleCategory mathematic = puzzleCategoryService.findByValue("mathematic");
 
         Optional<PuzzleGroup> puzzleGroup_HashImage = puzzleGroupService.findByTitle("Hash Image - Puzzle Group 1");
         Optional<PuzzleGroup> puzzleGroup_IQ = puzzleGroupService.findByTitle("IQ Puzzle Group");
@@ -219,12 +214,9 @@ public class ImportHashImageProblemData_1 implements CommandLineRunner {
 
         Integer xPos=3;
         Integer xRotation=3;
-        CameraSetup cameraSetup = new CameraSetup("setup 5",xPos,xPos,xPos,xRotation,xRotation,xRotation,1L,now,now,admin_1,admin_1);
-        cameraSetupService.save(cameraSetup);
 
 
-        PLGround puzzleLevel_hashImage_ground = new PLGround(3,3,puzzleLevel_hashimage,puzzle_ground_binary_content_1,1L,now,now,admin_1,admin_1);
-        puzzleLevel_hashImage_ground.setCameraSetup(cameraSetup);
+        PLGround puzzleLevel_hashImage_ground = new PLGround(3,3,xPos,xPos,xPos,xRotation,xRotation,xRotation,puzzleLevel_hashimage,puzzle_Ground_Image_1,1L,now,now,admin_1,admin_1);
         puzzleLevelGroundService.save(puzzleLevel_hashImage_ground);
 
         PermitedPlayer player_1_puzzleLevel_hashimage = new PermitedPlayer(jalalHoseyni,puzzleLevel_hashimage,1L,now,now,admin_1,admin_1);
@@ -433,7 +425,7 @@ public class ImportHashImageProblemData_1 implements CommandLineRunner {
 
 
         PLRulePostAction move_rule_post_Action_1 = new PLRulePostAction(rule_for_move,VariableAssignmentAction.get(),1,"","",
-                "BoardVar(dragTargetObject)",new StringBuffer("InstProp(InstByPos(EventParam(toRow),EventParam(toCol)),objectId)"),"","",1L ,now,now,admin_1,admin_1);
+                "BoardVar(dragStartObject)",new StringBuffer("InstProp(InstByPos(EventParam(fromRow),EventParam(fromCol)),objectId)"),"","",1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(move_rule_post_Action_1);
 
         PLRulePostAction move_rule_post_Action_2 = new PLRulePostAction(rule_for_move,VariableAssignmentAction.get(),2,"","",
@@ -446,15 +438,15 @@ public class ImportHashImageProblemData_1 implements CommandLineRunner {
 
 
         PLRulePostAction move_rule_post_Action_4 = new PLRulePostAction(rule_for_move,VariableAssignmentAction.get(),4,"","",
-                "InstProp(InstByPos(EventParam(fromRow),EventParam(fromCol)), x)",new StringBuffer("EventParam(toRow)"),"","",1L ,now,now,admin_1,admin_1);
+                "InstProp(InstById(BoardVar(dragStartObject)), x)",new StringBuffer("EventParam(toRow)"),"","",1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(move_rule_post_Action_4);
 
         PLRulePostAction move_rule_post_Action_5 = new PLRulePostAction(rule_for_move,VariableAssignmentAction.get(),5,"","",
-                "InstProp(InstByPos(EventParam(fromRow),EventParam(fromCol)), y)",new StringBuffer("EventParam(toCol)"),"","",1L ,now,now,admin_1,admin_1);
+                "InstProp(InstById(BoardVar(dragStartObject)), y)",new StringBuffer("EventParam(toCol)"),"","",1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(move_rule_post_Action_5);
 
 
-        PLRulePostAction move_rule_post_Action_6 = new PLRulePostAction(rule_for_move,CallObjectAction.get(),6,"move","InstByPos(EventParam(fromRow),EventParam(fromCol))",
+        PLRulePostAction move_rule_post_Action_6 = new PLRulePostAction(rule_for_move,CallObjectAction.get(),6,"move","BoardVar(dragStartObject)",
                 "",new StringBuffer(""),"","",1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(move_rule_post_Action_6);
 

@@ -1,11 +1,7 @@
 package com.alcity.api;
 
 import com.alcity.dto.Interpreter.PLData;
-import com.alcity.dto.Interpreter.object.RecordData;
-import com.alcity.entity.alenum.AttributeOwnerType;
-import com.alcity.entity.alobject.Attribute;
 import com.alcity.entity.appmember.AppMember;
-import com.alcity.entity.base.CameraSetup;
 import com.alcity.service.alobject.AttributeService;
 import com.alcity.service.appmember.AppMemberService;
 import com.alcity.service.customexception.ALCityResponseObject;
@@ -142,20 +138,9 @@ public class PLController {
         return groundDTO;
     }
 
-    @Operation( summary = "Fetch camera setup for a puzzle level by  Id ",  description = "Fetch all variables for a puzzle level by  Id")
-    @RequestMapping(value = "/id/{id}/camera-setup", method = RequestMethod.GET)
-    @ResponseBody
-    @CrossOrigin(origins = "*")
-    public CameraSetupDTO getCameraSetupForPuzzleLevelById(@PathVariable Long id) {
-        CameraSetupDTO  cameraSetupDTO = new CameraSetupDTO();
-        CameraSetup cameraSetup = new CameraSetup();
-        Optional<PuzzleLevel> puzzleLevelOptional = puzzleLevelService.findById(id);
-        if(puzzleLevelOptional.isPresent()) {
-            Optional<PLGround> plGroundOptional = plGroundService.findByPuzzleLevelId(puzzleLevelOptional.get().getId());
-            cameraSetup = plGroundOptional.get().getCameraSetup();
-        }
-        return  DTOUtil.getCameraSetupDTO(cameraSetup);
-    }
+    /*
+
+     */
 
  /*   @Operation( summary = "Fetch all variables for a puzzle level by  Id ",  description = "Fetch all variables for a puzzle level by  Id")
     @RequestMapping(value = "/id/{id}/variables/all", method = RequestMethod.GET)

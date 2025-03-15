@@ -17,9 +17,9 @@ import com.alcity.repository.alobject.AttributeValueRepository;
 import com.alcity.repository.appmember.AppMemberRepository;
 import com.alcity.service.customexception.ALCityResponseObject;
 import com.alcity.service.customexception.UniqueConstraintException;
-import com.alcity.service.puzzle.ALCityInstanceInPLService;
-import com.alcity.service.puzzle.ALCityObjectInPGService;
-import com.alcity.service.puzzle.ALCityObjectService;
+import com.alcity.service.puzzle.InstanceInPLService;
+import com.alcity.service.puzzle.ObjectInPGService;
+import com.alcity.service.puzzle.ObjectService;
 import com.alcity.utility.DTOUtil;
 import com.alcity.utility.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,13 +37,11 @@ public class AttributeService implements AttributeRepository {
     @Autowired
     AttributeRepository attributeRepository;
 
-    @Autowired
-    private ALCityObjectService objectService;
 
     @Autowired
-    private ALCityObjectInPGService alCityObjectInPGService;
+    private ObjectInPGService alCityObjectInPGService;
     @Autowired
-    private ALCityInstanceInPLService aLCityInstanceInPLService;
+    private InstanceInPLService aLCityInstanceInPLService;
 
     @Autowired
     AttributeValueRepository attributeValueRepository;
@@ -426,6 +424,7 @@ public class AttributeService implements AttributeRepository {
         }
         return outputAttributes;
         }
+
     @Override
     public Collection<Attribute> findByOwnerIdAndAttributeOwnerType(Long ownerId, AttributeOwnerType ownerType) {
         Collection<Attribute> alCityAttributes = attributeRepository.findByOwnerId(ownerId);

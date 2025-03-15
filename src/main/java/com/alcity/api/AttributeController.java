@@ -95,17 +95,7 @@ public class AttributeController {
         return  new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", id,"Record not found!");
     }
 
-  /*  @Operation( summary = "Fetch all attributes for an attribute owner type id  ",  description = "Fetch all parameters fo a render by  rendere-id ")
-    @RequestMapping(value = "/owner/type/{type}/id/{id}", method = RequestMethod.GET)
-    @ResponseBody
-    public Collection<RecordData> getObjectActionRendererParameters(@PathVariable Long id,@PathVariable String type) {
-        Optional<Attribute> attributeOptional = attributeService.findById(id);
-        AttributeOwnerType attributeOwnerType = AttributeOwnerType.getByTitle(type);
-        if(attributeOptional.isPresent())
-            return  DTOUtil.getAttributeForOwnerById(attributeService,attributeOptional.get().getId(), attributeOwnerType);;
-        return null;
-    }
-*/
+
   @Operation( summary = "Fetch all attributes for an owner by id and type ",  description = "Fetch all attributes for an owner by id and type ")
   @RequestMapping(value = "/owner/{id}/type/{type}", method = RequestMethod.GET)
   @ResponseBody
@@ -118,26 +108,6 @@ public class AttributeController {
   }
 
 
-  @Operation( summary = "Fetch all attributes for an owner by id and type ",  description = "Fetch all attributes for an owner by id and type ")
-    @RequestMapping(value = "/ownerNew/{id}/type/{type}", method = RequestMethod.GET)
-    @ResponseBody
-    @CrossOrigin(origins = "*")
-    public Collection<AttributeDTO> getAttributesByOwnerIdAndOwnerTypeNew(@PathVariable Long id,@PathVariable String type) {
-        Collection<Attribute> attributes = attributeService.findByOwnerIdAndAttributeOwnerTypeNew(id,AttributeOwnerType.getByTitle(type));
-        Collection<AttributeDTO> dtos = new ArrayList<AttributeDTO>();
-        dtos = DTOUtil.getAttributesDTOS(attributes);
-        return  dtos;
-    }
 
- /*   @Operation( summary = "Fetch all attributes Information by id",  description = "Fetch all attributes Information by id")
-    @RequestMapping(value = "/att/id/{id}", method = RequestMethod.GET)
-    @ResponseBody
-    @CrossOrigin(origins = "*")
-    public AttributeDTO getALCityAttributeById(@PathVariable Long id) {
-        Optional<Attribute> attributeOptional = attributeService.findById(id);
-        if(attributeOptional.isPresent())
-            return  DTOUtil.getAttributeDTO(attributeOptional.get());
-        return null;
-    }
-*/
+
 }

@@ -10,7 +10,7 @@ import java.util.Collection;
 import java.util.Optional;
 
 @Repository
-public interface ALCityInstanceInPLRepository extends CrudRepository<ALCityInstanceInPL,Long> {
+public interface InstanceInPLRepository extends CrudRepository<ALCityInstanceInPL,Long> {
     Optional<ALCityInstanceInPL> findById(Long id);
     Collection<ALCityInstanceInPL> findAll();
     Collection<ALCityInstanceInPL> findByRow(Integer row);

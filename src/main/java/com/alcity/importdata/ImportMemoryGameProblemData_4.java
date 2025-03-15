@@ -4,14 +4,12 @@ import com.alcity.ObjectManagmentApplication;
 import com.alcity.entity.alenum.*;
 import com.alcity.entity.alobject.*;
 import com.alcity.entity.base.BinaryContent;
-import com.alcity.entity.base.CameraSetup;
 import com.alcity.entity.base.PLPrivacy;
 import com.alcity.entity.journey.Journey;
 import com.alcity.entity.learning.LearningContent;
 import com.alcity.entity.learning.LearningSkill;
 import com.alcity.entity.learning.LearningTopic;
 import com.alcity.entity.play.PermitedPlayer;
-import com.alcity.entity.play.PlayHistory;
 import com.alcity.entity.puzzle.*;
 import com.alcity.entity.appmember.AppMember;
 import com.alcity.entity.appmember.WalletItem;
@@ -29,7 +27,6 @@ import com.alcity.service.appmember.AppMemberService;
 import com.alcity.service.appmember.AppMember_WalletItemService;
 import com.alcity.service.appmember.WalletItemService;
 import com.alcity.utility.ImageUtil;
-import com.alcity.utility.ToolBox;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -91,10 +88,10 @@ public class ImportMemoryGameProblemData_4 implements CommandLineRunner {
     ObjectCategoryService objectCategoryService;
 
     @Autowired
-    ALCityObjectService puzzleObjectService;
+    ObjectService puzzleObjectService;
 
     @Autowired
-    ALCityInstanceInPLService pgObjectInstanceService;
+    InstanceInPLService pgObjectInstanceService;
 
 
     @Autowired
@@ -104,11 +101,7 @@ public class ImportMemoryGameProblemData_4 implements CommandLineRunner {
     PLRuleEventService plRuleEventService;
 
 
-    @Autowired
-    private CameraSetupService cameraSetupService;
-
-
-    @Autowired
+     @Autowired
     ClientTypeService clientTypeService;
 
     @Autowired
@@ -119,7 +112,7 @@ public class ImportMemoryGameProblemData_4 implements CommandLineRunner {
     ActionService puzzleObject_ObjectActionService;
 
     @Autowired
-    ALCityObjectInPGService alCityObjectInPGService;
+    ObjectInPGService alCityObjectInPGService;
 
     @Autowired
     PLRuleService puzzleLevelRuleService;
@@ -188,8 +181,6 @@ public class ImportMemoryGameProblemData_4 implements CommandLineRunner {
         Optional<Journey> journey_2 = journeyService.findByTitle("Journey_2");
 
         byte[]  planyGround_Image_Memory_Game = ImageUtil.getImage("src/main/resources/images/Memory-Game/","MemGame.png");
-        BinaryContent playGround_Memory_Game_content = new BinaryContent(1L, now, now,admin_1 , admin_1,"puzzle ground for Memory Game",planyGround_Image_Memory_Game.length,planyGround_Image_Memory_Game,null,"tag1","","",BinaryContentType.Image);
-        binaryContentService.save(playGround_Memory_Game_content);
 
         byte[] pl_Icon_Memory_Game_bytes = ImageUtil.getImage("src/main/resources/images/Memory-Game/","MemGame_icon.png");
         BinaryContent pl_Icon_Memory_Game_content = new BinaryContent(1L, now, now,admin_1 , admin_1,"Memory_Game_Icon",pl_Icon_Memory_Game_bytes.length,pl_Icon_Memory_Game_bytes,null,"tag1","","",BinaryContentType.Image);
@@ -225,12 +216,12 @@ public class ImportMemoryGameProblemData_4 implements CommandLineRunner {
         binaryContentService.save(pg_Memory_Game_learning_content);
 
         Integer xPos=1;
+        Integer yPos=1;
+        Integer zPos=1;
         Integer xRotation=0;
-        CameraSetup cameraSetup = new CameraSetup("setup 3",xPos,xPos,xPos,xRotation,xRotation,xRotation,1L,now,now,admin_1,admin_1);
-        cameraSetupService.save(cameraSetup);
 
-        PLGround pl_Memory_Game_ground = new PLGround(4,3,pl_Memory_Game,playGround_Memory_Game_content,1L,now,now,admin_1,admin_1);
-        pl_Memory_Game_ground.setCameraSetup(cameraSetup);
+        PLGround pl_Memory_Game_ground = new PLGround(4,3,xPos,yPos,zPos,xRotation,xRotation,xRotation,pl_Memory_Game,planyGround_Image_Memory_Game,1L,now,now,admin_1,admin_1);
+       // pl_Memory_Game_ground.setCameraSetup(cameraSetup);
         puzzleLevelGroundService.save(pl_Memory_Game_ground);
 
         PermitedPlayer player_1_puzzleLevel_X_O = new PermitedPlayer(Alireza_Zare,pl_Memory_Game,1L,now,now,admin_1,admin_1);

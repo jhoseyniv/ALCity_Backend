@@ -2,18 +2,9 @@ package com.alcity.importdata;
 
 
 import com.alcity.ObjectManagmentApplication;
-import com.alcity.entity.alenum.*;
-import com.alcity.entity.alobject.*;
-import com.alcity.entity.alobject.ObjectAction;
-import com.alcity.entity.base.*;
 import com.alcity.entity.journey.Journey;
-import com.alcity.entity.journey.JourneyStep;
-import com.alcity.entity.learning.LearningContent;
 import com.alcity.entity.learning.LearningSkill;
 import com.alcity.entity.learning.LearningTopic;
-import com.alcity.entity.play.PermitedPlayer;
-import com.alcity.entity.play.PlayHistory;
-import com.alcity.entity.puzzle.*;
 import com.alcity.entity.appmember.AppMember;
 import com.alcity.entity.appmember.WalletItem;
 import com.alcity.repository.play.PermitedPlayerRepository;
@@ -28,8 +19,6 @@ import com.alcity.service.play.PlayHistoryService;
 import com.alcity.service.puzzle.*;
 import com.alcity.service.appmember.AppMemberService;
 import com.alcity.service.appmember.WalletItemService;
-import com.alcity.utility.ImageUtil;
-import com.alcity.utility.ToolBox;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -82,8 +71,8 @@ public class ImportProblemData_2 implements CommandLineRunner {
     private PLPrivacyService puzzleLevelPrivacyService;
     @Autowired
     PuzzleLevelService puzzleLevelService;
-    @Autowired
-    private CameraSetupService cameraSetupService;
+
+
     @Autowired
     PLGroundService puzzleLevelGroundService;
     @Autowired
@@ -93,9 +82,9 @@ public class ImportProblemData_2 implements CommandLineRunner {
     @Autowired
     ObjectCategoryService objectCategoryService;
     @Autowired
-    ALCityObjectService puzzleObjectService;
+    ObjectService puzzleObjectService;
     @Autowired
-    ALCityObjectInPGService puzzleGroup_PuzzleObjectService;
+    ObjectInPGService puzzleGroup_PuzzleObjectService;
 
     @Autowired
     PLObjectiveService plObjectiveService;
@@ -103,7 +92,7 @@ public class ImportProblemData_2 implements CommandLineRunner {
     AttributeValueService attributeValueService;
 
     @Autowired
-    ALCityInstanceInPLService pgObjectInstanceService;
+    InstanceInPLService pgObjectInstanceService;
 
     @Autowired
     AttributeService attributeService;

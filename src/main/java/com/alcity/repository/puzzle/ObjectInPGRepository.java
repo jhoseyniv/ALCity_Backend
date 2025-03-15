@@ -8,7 +8,7 @@ import org.springframework.data.repository.CrudRepository;
 import java.util.Collection;
 import java.util.Optional;
 
-public interface ALCityObjectInPGRepository extends CrudRepository<ALCityObjectInPG,Long> {
+public interface ObjectInPGRepository extends CrudRepository<ALCityObjectInPG,Long> {
     Optional<ALCityObjectInPG> findById(Long id);
     Collection<ALCityObjectInPG> findAll();
 
