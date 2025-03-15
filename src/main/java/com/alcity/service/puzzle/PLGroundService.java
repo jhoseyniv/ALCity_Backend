@@ -43,17 +43,11 @@ public class PLGroundService implements PLGroundRepository {
         byte[] boardGraphic=null;
 
         Optional<PuzzleLevel> puzzleLevelOptional =  puzzleLevelRepository.findById(dto.getPuzzleLevelId());
-        //Optional<BinaryContent> boardGraphicOptional =  binaryContentRepository.findById(dto.getBoardGraphicId());
-       // Optional<CameraSetup_old> cameraSetupOptional =  cameraSetupRepository.findById(dto.getCameraSetupId());
 
         if(puzzleLevelOptional.isPresent())
             puzzleLevel = puzzleLevelOptional.get();
 
-//        if(boardGraphicOptional.isPresent())
-//            boardGraphic = boardGraphicOptional.get();
 
-//        if(cameraSetupOptional.isPresent())
-//            cameraSetup = cameraSetupOptional.get();
 
         if (code.equalsIgnoreCase("Save")) { //Save
             plGround = new PLGround(dto.getNumRows(),dto.getNumColumns(),dto.getXposition(),dto.getYposition(),dto.getZposition(),
@@ -68,7 +62,7 @@ public class PLGroundService implements PLGroundRepository {
                 plGround.setNumColumns(dto.getNumColumns());
                 plGround.setNumRows(dto.getNumRows());
                 plGround.setxPosition(dto.getXposition());
-                plGround.setyPosition(dto.getZposition());
+                plGround.setyPosition(dto.getYposition());
                 plGround.setzPosition(dto.getZposition());
                 plGround.setxRotation(dto.getXrotation());
                 plGround.setyRotation(dto.getYrotation());
