@@ -48,9 +48,7 @@ public class PLGroundService implements PLGroundRepository {
         PuzzleLevel puzzleLevel=null;
         JSONObject objJsonObject = new JSONObject(dto.getBoardGraphic());
         byte[] boardGraphic = objJsonObject.toString().getBytes();
-
         Optional<PuzzleLevel> puzzleLevelOptional =  puzzleLevelRepository.findById(dto.getPuzzleLevelId());
-
         if(puzzleLevelOptional.isPresent())
             puzzleLevel = puzzleLevelOptional.get();
 

@@ -114,9 +114,13 @@ public class AttributeService implements AttributeRepository {
         return null;
     }
 
-    @Override
     public Collection<Attribute> findByOwnerId(Long ownerId) {
         return attributeRepository.findByOwnerId(ownerId);
+    }
+
+    @Override
+    public Collection<Attribute> findByOwnerIdAndAttributeOwnerType(Long ownerId, AttributeOwnerType OwnerType) {
+        return attributeRepository.findByOwnerIdAndAttributeOwnerType(ownerId,OwnerType);
     }
 
 
@@ -179,7 +183,7 @@ public class AttributeService implements AttributeRepository {
         Optional<ObjectAction> objectActionOptional = actionService.findById(ownerId);
         if (objectActionOptional.isEmpty()) return outputAttributes;
 
-        //fetch Object Action Handler
+        //fetch Object Action Handler for finding parameters
         Renderer renderer = objectActionOptional.get().getActionRenderer();
 
         //fetch parameters for parent handler
@@ -190,7 +194,7 @@ public class AttributeService implements AttributeRepository {
             Attribute parameter = itr.next();
             Collection<AttributeValue> outputValues = new ArrayList<>();
             Collection<AttributeValue> parameterValues = parameter.getAttributeValues();
-            Optional<AttributeValue> isPuzzleGroupObjectActionHasValue = parameterValues.stream().filter(value -> value.getOwnerType().equals(AttributeOwnerType.Puzzle_Group_Object_Action_Handler_Parameter)).findFirst();
+            Optional<AttributeValue> isPuzzleGroupObjectActionHasValue = parameterValues.stream().filter(value -> value.getOwnerId().equals(ownerId)).findFirst();
             Optional<AttributeValue> isObjectActionHasValue = parameterValues.stream().filter(value -> value.getOwnerType().equals(AttributeOwnerType.Object_Action_Handler_Parameter)).findFirst();
             Optional<AttributeValue> isActionHasValue = parameterValues.stream().filter(value -> value.getOwnerType().equals(AttributeOwnerType.Action_Handler_Parameter)).findFirst();
 
@@ -286,13 +290,19 @@ public class AttributeService implements AttributeRepository {
     }
 
 
+    public Collection<Attribute> findPuzzleLevelRulePostAction(Long ownerId,AttributeOwnerType ownerType) {
+        Collection<Attribute> outputAttributes = new ArrayList<Attribute>();
+        //fetch RulePostAction parameters
+        Collection<Attribute> parameters = attributeRepository.findByOwnerIdAndAttributeOwnerType(ownerId,ownerType);
+        return parameters;
+    }
     public Collection<Attribute> findPuzzleLevelVariable(Long ownerId,AttributeOwnerType ownerType) {
         Collection<Attribute> outputAttributes = new ArrayList<Attribute>();
         //fetch variables for a pl
         Collection<Attribute> variables = attributeRepository.findByOwnerIdAndAttributeOwnerType(ownerId,ownerType);
         return variables;
     }
-     public Collection<Attribute> getPropertiesWithValues(Collection<Attribute> object_parameters , Long pgo_id ){
+    public Collection<Attribute> getPropertiesWithValues(Collection<Attribute> object_parameters , Long pgo_id ){
         Collection<Attribute> attributes = new ArrayList<>();
         Collection<AttributeValue> values = new ArrayList<>();
         Collection<AttributeValue> pog_values = new ArrayList<>();
@@ -311,80 +321,313 @@ public class AttributeService implements AttributeRepository {
 
         return attributes;
     }
-
-    public Collection<Attribute> findPropertiesForPuzzleGroupObject(Long ownerId,AttributeOwnerType ownerType){
-        Collection<Attribute> outputAttributes = new ArrayList<Attribute>();
-        //fetch properties for an object in a puzzle group
-        Collection<Attribute> puzzle_Group_Object_parameters = attributeRepository.findByOwnerIdAndAttributeOwnerType(ownerId,ownerType);
-
-        //fetch properties for a parent object of this puzzle group object
+    public Long getObjectForThisPOG(Long pgo_id) {
+        // return pgo id for an instance
         Long objectId=-1L;
-        Optional<ALCityObjectInPG> alCityObjectInPGOptional = alCityObjectInPGService.findById(ownerId);
-        if(alCityObjectInPGOptional.isPresent())
-            objectId = alCityObjectInPGOptional.get().getAlCityObject().getId();
-        Collection<Attribute> object_parameters = attributeRepository.findByOwnerId(objectId);
+        Optional<ALCityObjectInPG> objectInPGOptional = alCityObjectInPGService.findById(pgo_id);
+        if(objectInPGOptional.isPresent())
+            objectId = objectInPGOptional.get().getAlCityObject().getId();
+        return  objectId;
+    }
+    public Collection<AttributeValue> removeIf(Collection<AttributeValue> list,AttributeOwnerType type){
+        Iterator<AttributeValue> itr = list.iterator();
+        Collection<AttributeValue>  output = new ArrayList<>();
+        while(itr.hasNext()){
+            AttributeValue value=itr.next();
+            if(!value.getOwnerType().equals(type))
+                output.add(value);
+        }
+        return output;
+    }
+    public Collection<Attribute> defined_properties_in_pg_object(Collection<Attribute> properties,Long pgo_id,long object_id) {
+        Collection<Attribute> defined_properties_in_object = new ArrayList<>();
+        Iterator<Attribute> itr = properties.iterator();
+        while(itr.hasNext()){
+            Attribute attribute = itr.next();
+            Collection<AttributeValue> attributeValues = attribute.getAttributeValues();
+            Collection<AttributeValue> newAttributeValues= new ArrayList<>();
+            Optional<AttributeValue> is_pgo_has_value = attributeValues.stream().filter(attributeValue -> attributeValue.getOwnerType().equals(AttributeOwnerType.Puzzle_Group_Object_Property)).findFirst();
+            Optional<AttributeValue> is_object_has_value = attributeValues.stream().filter(attributeValue -> attributeValue.getOwnerType().equals(AttributeOwnerType.Object_Property)).findFirst();
+            if(is_object_has_value.isEmpty() && is_pgo_has_value.isPresent()  ) { // value define and init in pgo only
+                newAttributeValues.add(is_pgo_has_value.get());
+            }else if(is_object_has_value.isPresent() && is_pgo_has_value.isEmpty()){//value is defined in object only
+                newAttributeValues.add(is_object_has_value.get());
+            }else if(is_object_has_value.isPresent() && is_pgo_has_value.isPresent()){//value defined in object but re init in pgo
+                newAttributeValues.add(is_pgo_has_value.get());
+            }
+            attribute.setAttributeValues(newAttributeValues);
+            defined_properties_in_object.add(attribute);
+        }
+        defined_properties_in_object = removeUnRelatedAttributeValues(defined_properties_in_object,AttributeOwnerType.Instance_Puzzle_Group_Object_Property);
 
-        outputAttributes = getPropertiesWithValues(object_parameters,ownerId);
-        outputAttributes.addAll(puzzle_Group_Object_parameters);
+        return defined_properties_in_object;
+    }
+    public Collection<Attribute> removeUnRelatedAttributeValues(Collection<Attribute>  inputs,AttributeOwnerType type){
+        Collection<Attribute> outputAttributes = new ArrayList<>();
+        Iterator<Attribute>  itr = inputs.iterator();
+        while(itr.hasNext()){
+            Collection<AttributeValue>  output = new ArrayList<>();
+            Attribute attribute = itr.next();
+            Collection<AttributeValue> values = attribute.getAttributeValues();
+            Iterator<AttributeValue> valueIterator = values.iterator();
+            while(valueIterator.hasNext()){
+                AttributeValue value=valueIterator.next();
+                if(!value.getOwnerType().equals(type))
+                    output.add(value);
+            }
+            attribute.setAttributeValues(output);
+            outputAttributes.add(attribute);
+        }
         return outputAttributes;
     }
+    public Collection<Attribute> findPropertiesForPuzzleGroupObject(Long pgo_Id,AttributeOwnerType ownerType){
+        //find properties for a object as parent of pgo + find properties for a pgo
+
+        Collection<Attribute> outputAttributes = new ArrayList<Attribute>();
+        Collection<Attribute> temp_Bug_properties_in_an_object = new ArrayList<>();
+
+        //check is_defined_and_init_in_pgo_only ?
+        Collection<Attribute> properties_for_pgo = attributeRepository.findByOwnerIdAndAttributeOwnerType(pgo_Id,ownerType);
+        // state 1 : if properties_for_pgo is not empty mean that properties is_defined_and_init_in_instance_only
+        outputAttributes = removeUnRelatedAttributeValues(properties_for_pgo,AttributeOwnerType.Instance_Puzzle_Group_Object_Property);
+
+        // check is_defined_in_object_and_reinit_in_pog ?
+        // find object - get parent object id for this pgo
+        Long object_id = getObjectForThisPOG(pgo_Id);
+
+        //fetch properties for a parent object of this pgo
+        Collection<Attribute> properties_in_a_object = attributeRepository.findByOwnerId(object_id);
+        properties_in_a_object = properties_in_a_object.stream().filter(attribute -> attribute.getAttributeOwnerType().equals(AttributeOwnerType.Object_Property)).collect(Collectors.toList());
+        Iterator<Attribute> iterator = properties_in_a_object.iterator();
+        while(iterator.hasNext()){
+            Attribute attribute = iterator.next();
+            Collection<AttributeValue> values = attributeValueRepository.findByAttributeId(attribute);
+            System.out.println(values.size());
+            attribute.setAttributeValues(values);
+            temp_Bug_properties_in_an_object.add(attribute);
+        }
+        //state 2 + state 3 : if properties_in_a_pg_object is not empty mean that variables is defined in parent(object)
+        //sate 2 : properties are defined in object and initialize there only
+        //state 3 : properties are defined in object but re-initialize in pgo
+        //following method find variables and values for state 2 and 3
+        Collection<Attribute> defined_properties_in_a_object = defined_properties_in_pg_object(temp_Bug_properties_in_an_object,pgo_Id,object_id);
+        outputAttributes.addAll(defined_properties_in_a_object);
+        return outputAttributes;
+    }
+
+    public Collection<Attribute> getVariablesValuesForThisOwner(Collection<Attribute> attributes , Long ownerId ){
+        Collection<Attribute> output_attributes = new ArrayList<>();
+        Collection<AttributeValue> values = new ArrayList<>();
+
+        Iterator<Attribute> itr = attributes.iterator();
+        while(itr.hasNext()) {
+            Collection<AttributeValue> output_values = new ArrayList<>();
+            Attribute attribute = itr.next();
+            values = attribute.getAttributeValues();
+            Optional<AttributeValue> attributeValueOptional = values.stream().filter(attributeValue -> attributeValue.getOwnerId().equals(ownerId)).findFirst();
+            if(attributeValueOptional.isPresent()){
+                output_values.add(attributeValueOptional.get());
+                attribute.setAttributeValues(output_values);
+            }
+            output_attributes.add(attribute);
+        }
+
+        return output_attributes;
+    }
+
     public Collection<Attribute> findVariablesForPuzzleGroupObject(Long ownerId,AttributeOwnerType ownerType){
         Collection<Attribute> outputAttributes = new ArrayList<Attribute>();
-        //fetch properties for an object in a puzzle group
-        Collection<Attribute> puzzle_Group_Object_variables = attributeRepository.findByOwnerIdAndAttributeOwnerType(ownerId,ownerType);
-
-        //fetch properties for a parent object of this puzzle group object
-        Long objectId=-1L;
-        Optional<ALCityObjectInPG> alCityObjectInPGOptional = alCityObjectInPGService.findById(ownerId);
-        if(alCityObjectInPGOptional.isPresent())
-            objectId = alCityObjectInPGOptional.get().getAlCityObject().getId();
-        Collection<Attribute> object_parameters = attributeRepository.findByOwnerId(objectId);
-
-        //outputAttributes = getPropertiesWithValues(object_parameters,ownerId,);
-        outputAttributes.addAll(puzzle_Group_Object_variables);
+        //fetch variables for an object in a puzzle group
+        Collection<Attribute> variables_PGO = attributeRepository.findByOwnerIdAndAttributeOwnerType(ownerId,ownerType);
+        outputAttributes = getVariablesValuesForThisOwner(variables_PGO,ownerId);
         return outputAttributes;
     }
-    public Collection<Attribute> findInstancePuzzleGroupObjectVariable(Long ownerId,AttributeOwnerType ownerType){
-        Collection<Attribute> outputAttributes = new ArrayList<Attribute>();
-        //fetch properties for an object in a puzzle group
-        Collection<Attribute> Instance_puzzle_Group_Object_variables = attributeRepository.findByOwnerIdAndAttributeOwnerType(ownerId,ownerType);
 
-        //fetch variables for a parent object of this puzzle group object instance
-        Long objectObjectInPGId=-1L;
-        Optional<ALCityInstanceInPL> alCityInstanceInPLOptional = aLCityInstanceInPLService.findById(ownerId);
+    public Long getPGOForThisInstance(Long instanceId) {
+        // return pgo id for an instance
+        Long objectInPGId=-1L;
+        Optional<ALCityInstanceInPL> alCityInstanceInPLOptional = aLCityInstanceInPLService.findById(instanceId);
         if(alCityInstanceInPLOptional.isPresent())
-            objectObjectInPGId = alCityInstanceInPLOptional.get().getAlCityObjectInPG().getId();
-        Collection<Attribute> object_in_pg_parameters = attributeRepository.findByOwnerIdAndAttributeOwnerType(objectObjectInPGId,AttributeOwnerType.Puzzle_Group_Object_Variable);
-        outputAttributes = getPropertiesWithValues(object_in_pg_parameters,ownerId);
-        outputAttributes.addAll(Instance_puzzle_Group_Object_variables);
-        return outputAttributes;
+            objectInPGId = alCityInstanceInPLOptional.get().getAlCityObjectInPG().getId();
+        return  objectInPGId;
     }
-    public Collection<Attribute> findInstancePuzzleGroupObjectProperties(Long ownerId,AttributeOwnerType ownerType){
-        Collection<Attribute> outputAttributes = new ArrayList<Attribute>();
-        //fetch properties for an object in a puzzle group
-        Collection<Attribute> Instance_puzzle_Group_Object_properties = attributeRepository.findByOwnerIdAndAttributeOwnerType(ownerId,ownerType);
-
-        //fetch properties for parent object of this puzzle group object instance
-        Long objectIdInPuzzleGroup=-1L;
-        Long objectId=-1L;
-        Optional<ALCityInstanceInPL> alCityInstanceInPLOptional = aLCityInstanceInPLService.findById(ownerId);
-        if(alCityInstanceInPLOptional.isPresent()) {
-            objectIdInPuzzleGroup = alCityInstanceInPLOptional.get().getAlCityObjectInPG().getId();
-            objectId = alCityInstanceInPLOptional.get().getAlCityObjectInPG().getAlCityObject().getId();
+    public Collection<Attribute> defined_variables_in_pog(Collection<Attribute> variables,Long instanceId,long pgo_id) {
+        Collection<Attribute> defined_variables_in_a_pg_object = new ArrayList<>();
+        Iterator<Attribute> itr = variables.iterator();
+        while(itr.hasNext()){
+            Attribute attribute = itr.next();
+            Collection<AttributeValue> attributeValues = attribute.getAttributeValues();
+            if(attributeValues.size()>1){   // mean that attribute is defined in pog but  re-init in instance
+                attributeValues = attributeValues.stream().filter(attributeValue -> attributeValue.getOwnerId().equals(instanceId)).collect(Collectors.toList());
+                attribute.setAttributeValues(attributeValues);
+            }else { // mean that attribute is defined and init in pog only
+                attributeValues = attributeValues.stream().filter(attributeValue -> attributeValue.getOwnerId().equals(pgo_id)).collect(Collectors.toList());
+                attribute.setAttributeValues(attributeValues);
+            }
+            defined_variables_in_a_pg_object.add(attribute);
         }
-        Collection<Attribute> object_in_pg_properties = attributeRepository.findByOwnerIdAndAttributeOwnerType(objectIdInPuzzleGroup,AttributeOwnerType.Puzzle_Group_Object_Property);
+        return defined_variables_in_a_pg_object;
+    }
 
-       // Collection<Attribute> propertiesForPuzzleGroupObject = new ArrayList<Attribute>();
-        outputAttributes = getPropertiesWithValues(object_in_pg_properties,ownerId);
-        outputAttributes.addAll(Instance_puzzle_Group_Object_properties);
+    public Collection<Attribute> findInstanceVariables(Long instanceId,AttributeOwnerType ownerType){
+        Collection<Attribute> outputAttributes = new ArrayList<Attribute>();
+        Collection<Attribute> temp_Bug_variables_in_a_pg_object = new ArrayList<>();
 
-        Collection<Attribute> object_properties = attributeRepository.findByOwnerIdAndAttributeOwnerType(objectId,AttributeOwnerType.Object_Property);
-        Collection<Attribute> propertiesForObject = new ArrayList<Attribute>();
-        propertiesForObject = getPropertiesWithValues(object_properties,ownerId);
+        //check is_defined_and_init_in_instance_only ?
+        Collection<Attribute> variables_for_instance = attributeRepository.findByOwnerIdAndAttributeOwnerType(instanceId,ownerType);
+        // state 1 : if variables_for_instance is not empty mean that variables is_defined_and_init_in_instance_only
+        outputAttributes = variables_for_instance;
 
-        outputAttributes.addAll(propertiesForObject);
+        // check is_defined_in_pgo_and_reinit_in_instance ?
+        // find pgo - get parent object id for this instance
+        Long pgo_id = getPGOForThisInstance(instanceId);
+
+        //fetch variables for a parent object of this instance
+        Collection<Attribute> variables_in_a_pg_object = attributeRepository.findByOwnerId(pgo_id);
+         variables_in_a_pg_object = variables_in_a_pg_object.stream().filter(attribute -> attribute.getAttributeOwnerType().equals(AttributeOwnerType.Puzzle_Group_Object_Variable)).collect(Collectors.toList());
+         Iterator<Attribute> iterator = variables_in_a_pg_object.iterator();
+         while(iterator.hasNext()){
+             Attribute attribute = iterator.next();
+            Collection<AttributeValue> values = attributeValueRepository.findByAttributeId(attribute);
+            System.out.println(values.size());
+            attribute.setAttributeValues(values);
+             temp_Bug_variables_in_a_pg_object.add(attribute);
+         }
+        //state 2 + state 3 : if variables_in_a_pg_object is not empty mean that variables is defined in parent(pgo)
+        //sate 2 : variables are defined in pgo and initialize there only
+        //state 3 : variables are defined in pgo but initialize in instance
+        //following method find variables and values for state 2 and 3
+        Collection<Attribute> defined_variables_in_a_pgo = defined_variables_in_pog(temp_Bug_variables_in_a_pg_object,instanceId,pgo_id);
+        outputAttributes.addAll(defined_variables_in_a_pgo);
+
         return outputAttributes;
     }
+    public Collection<Attribute> UnownBuginLoad_values(Collection<Attribute> inputs){
+        Collection<Attribute> outputs= new ArrayList<>();
+        Iterator<Attribute> iterator = inputs.iterator();
+        while(iterator.hasNext()){
+            Attribute attribute = iterator.next();
+            Collection<AttributeValue> values = attributeValueRepository.findByAttributeId(attribute);
+            System.out.println(values.size());
+            attribute.setAttributeValues(values);
+            outputs.add(attribute);
+        }
+        return outputs;
+    }
+    public Collection<Attribute> defined_properties_in_instance(Long instanceId,Long pgo_id,long object_id) {
+        Collection<Attribute> outputs = new ArrayList<>();
+        Collection<Attribute> properties_for_instance = attributeRepository.findByOwnerIdAndAttributeOwnerType(instanceId,AttributeOwnerType.Instance_Puzzle_Group_Object_Property);
+        outputs.addAll(properties_for_instance);
+
+
+        Collection<Attribute> properties_for_pgo = attributeRepository.findByOwnerIdAndAttributeOwnerType(pgo_id,AttributeOwnerType.Puzzle_Group_Object_Property);
+        properties_for_pgo = UnownBuginLoad_values(properties_for_pgo);
+        Iterator<Attribute> itreator_properties_for_pgo = properties_for_pgo.iterator();
+
+        while(itreator_properties_for_pgo.hasNext()){
+            Attribute attribute = itreator_properties_for_pgo.next();
+            Collection<AttributeValue> attributeValues = attribute.getAttributeValues();
+            Collection<AttributeValue> newAttributeValues= new ArrayList<>();
+            Optional<AttributeValue> is_instance_has_value = attributeValues.stream().filter(attributeValue -> attributeValue.getOwnerId().equals(instanceId)).findFirst();
+            Optional<AttributeValue> is_pgo_has_value = attributeValues.stream().filter(attributeValue -> attributeValue.getOwnerId().equals(pgo_id)).findFirst();
+            if(is_instance_has_value.isEmpty() && is_pgo_has_value.isPresent()  ) { // value define and init in pgo only
+                newAttributeValues.add(is_pgo_has_value.get());
+            }else if(is_instance_has_value.isPresent() && is_pgo_has_value.isEmpty()){//value is defined in instance only
+                newAttributeValues.add(is_instance_has_value.get());
+            }else if(is_instance_has_value.isPresent() && is_pgo_has_value.isPresent()){//value is defined in pgo but re init in instance
+                newAttributeValues.add(is_instance_has_value.get());
+            }
+            attribute.setAttributeValues(newAttributeValues);
+            outputs.add(attribute);
+        }
+
+
+        Collection<Attribute> properties_for_object = attributeRepository.findByOwnerIdAndAttributeOwnerType(object_id,AttributeOwnerType.Object_Property);
+        properties_for_object = UnownBuginLoad_values(properties_for_object);
+
+        Iterator<Attribute> itreator_properties_for_object = properties_for_object.iterator();
+        while(itreator_properties_for_object.hasNext()) {
+            Attribute attribute = itreator_properties_for_object.next();
+            Collection<AttributeValue> attributeValues = attribute.getAttributeValues();
+            Collection<AttributeValue> newAttributeValues= new ArrayList<>();
+            Optional<AttributeValue> is_instance_has_value = attributeValues.stream().filter(attributeValue -> attributeValue.getOwnerId().equals(instanceId)).findFirst();
+            Optional<AttributeValue> is_pgo_has_value = attributeValues.stream().filter(attributeValue -> attributeValue.getOwnerId().equals(pgo_id)).findFirst();
+            Optional<AttributeValue> is_object_has_value = attributeValues.stream().filter(attributeValue -> attributeValue.getOwnerId().equals(object_id)).findFirst();
+
+            if(is_instance_has_value.isEmpty() && is_pgo_has_value.isEmpty() && is_object_has_value.isEmpty()){// property is not defined at all
+                    //do nothing
+                System.out.println("property is not defined at all");
+            }else if(is_instance_has_value.isEmpty() && is_pgo_has_value.isEmpty() && is_object_has_value.isPresent()){ //property is defined in object only
+                newAttributeValues.add(is_object_has_value.get());
+            }else if(is_instance_has_value.isEmpty() && is_pgo_has_value.isPresent() && is_object_has_value.isEmpty()){ //property is defined in pgo only
+                newAttributeValues.add(is_pgo_has_value.get());
+            }else if(is_instance_has_value.isEmpty() && is_pgo_has_value.isPresent() && is_object_has_value.isPresent()){ // property is defined object and re init pgo
+                newAttributeValues.add(is_pgo_has_value.get());
+            }else if(is_instance_has_value.isPresent() && is_pgo_has_value.isEmpty() && is_object_has_value.isEmpty()){ // property is defined and init in instance only
+                newAttributeValues.add(is_instance_has_value.get());
+            }else if(is_instance_has_value.isPresent() && is_pgo_has_value.isEmpty() && is_object_has_value.isPresent()){ // property is defined in object and re init in instance
+                newAttributeValues.add(is_instance_has_value.get());
+            }else if(is_instance_has_value.isPresent() && is_pgo_has_value.isPresent() && is_object_has_value.isEmpty()){ // property is defined in pgo and re init in instance
+                newAttributeValues.add(is_instance_has_value.get());
+            }else if(is_instance_has_value.isPresent() && is_pgo_has_value.isPresent() && is_object_has_value.isPresent()){  // property is defined in object and re init in pgo and instance
+                newAttributeValues.add(is_instance_has_value.get());
+            }
+            attribute.setAttributeValues(newAttributeValues);
+            outputs.add(attribute);
+        }
+
+        return  outputs;
+    }public Collection<Attribute> findInstanceProperties(Long instanceId,AttributeOwnerType ownerType){
+       //     Collection<Attribute> outputAttributes = new ArrayList<Attribute>();
+            Collection<Attribute> definedAttributes = new ArrayList<Attribute>();
+
+   /*     //check is_defined_and_init_in_instance_only ?
+        Collection<Attribute> properties_for_instance = attributeRepository.findByOwnerIdAndAttributeOwnerType(instanceId,ownerType);
+        // state 1 : if properties_for_instance is not empty mean that properties is_defined_and_init_in_instance_only
+        outputAttributes = properties_for_instance;
+
+        // check is_defined_in_pgo_and_reinit_in_instance ?
+        // find pgo - get pg object id for this instance
+        Long pgo_id = getPGOForThisInstance(instanceId);
+        //fetch properties for a pg object of this instance
+
+        Collection<Attribute> temp_Bug_properties_in_a_pg_object = new ArrayList<>();
+        Collection<Attribute> properties_in_a_pg_object = attributeRepository.findByOwnerId(pgo_id);
+        properties_in_a_pg_object = properties_in_a_pg_object.stream().filter(attribute -> attribute.getAttributeOwnerType().equals(AttributeOwnerType.Puzzle_Group_Object_Property)).collect(Collectors.toList());
+        Iterator<Attribute> iterator = properties_in_a_pg_object.iterator();
+        while(iterator.hasNext()){
+            Attribute attribute = iterator.next();
+            Collection<AttributeValue> values = attributeValueRepository.findByAttributeId(attribute);
+            System.out.println(values.size());
+            attribute.setAttributeValues(values);
+            temp_Bug_properties_in_a_pg_object.add(attribute);
+        }
+        outputAttributes.addAll(temp_Bug_properties_in_a_pg_object);
+
+        Collection<Attribute> temp_Bug_properties_in_a_object = new ArrayList<>();
+        Long object_id = getObjectForThisPOG(pgo_id);
+        Collection<Attribute> properties_in_a_object = attributeRepository.findByOwnerId(object_id);
+        properties_in_a_object = properties_in_a_object.stream().filter(attribute -> attribute.getAttributeOwnerType().equals(AttributeOwnerType.Object_Property)).collect(Collectors.toList());
+        Iterator<Attribute> iterator_object = properties_in_a_object.iterator();
+
+        while(iterator_object.hasNext()){
+            Attribute attribute = iterator_object.next();
+            Collection<AttributeValue> values = attributeValueRepository.findByAttributeId(attribute);
+            System.out.println(values.size());
+            attribute.setAttributeValues(values);
+            temp_Bug_properties_in_a_object.add(attribute);
+        }
+        outputAttributes.addAll(temp_Bug_properties_in_a_object);
+*/
+        Long pgo_id = getPGOForThisInstance(instanceId);
+        Long object_id = getObjectForThisPOG(pgo_id);
+
+        definedAttributes = defined_properties_in_instance(instanceId,pgo_id,object_id);
+        return definedAttributes;
+
+
+     }
+
     public Collection<Attribute> findByOwnerIdAndAttributeOwnerTypeNew(Long ownerId, AttributeOwnerType ownerType) {
 
         Collection<Attribute> outputAttributes = new ArrayList<Attribute>();
@@ -414,18 +657,20 @@ public class AttributeService implements AttributeRepository {
             outputAttributes = findVariablesForPuzzleGroupObject(ownerId,ownerType);
         }
         if(ownerType == AttributeOwnerType.Instance_Puzzle_Group_Object_Variable) {
-            outputAttributes = findInstancePuzzleGroupObjectVariable(ownerId,ownerType);
+            outputAttributes = findInstanceVariables(ownerId,ownerType);
         }
         if(ownerType == AttributeOwnerType.Instance_Puzzle_Group_Object_Property) {
-            outputAttributes = findInstancePuzzleGroupObjectProperties(ownerId,ownerType);
+            outputAttributes = findInstanceProperties(ownerId,ownerType);
         }
         if(ownerType == AttributeOwnerType.Puzzle_Level_Variable) {
             outputAttributes = findPuzzleLevelVariable(ownerId,ownerType);
         }
+        if(ownerType == AttributeOwnerType.Puzzle_Level_Rule_Post_Action) {
+            outputAttributes = findPuzzleLevelRulePostAction(ownerId,ownerType);
+        }
         return outputAttributes;
         }
-
-    @Override
+/*
     public Collection<Attribute> findByOwnerIdAndAttributeOwnerType(Long ownerId, AttributeOwnerType ownerType) {
         Collection<Attribute> alCityAttributes = attributeRepository.findByOwnerId(ownerId);
 
@@ -501,6 +746,7 @@ public class AttributeService implements AttributeRepository {
 
         return outputAttributes;
     }
+*/
     @Override
     public Optional<Attribute> findByOwnerIdAndName(Long ownerId, String name) {
         return attributeRepository.findByOwnerIdAndName(ownerId,name);
@@ -533,8 +779,8 @@ public class AttributeService implements AttributeRepository {
             if(attributeOptional.isPresent()) {
                 attribute = attributeOptional.get();
                 DTOUtil.saveNewAttributeValue(attribute,newValue,attributeRepository,attributeValueRepository);
-                    attribute.setAttributeOwnerType(attributeOwnerType);
-                    attribute.setDataType(dataType);
+                   // attribute.setAttributeOwnerType(attributeOwnerType);
+                  //  attribute.setDataType(dataType);
                     attribute.setName(newValue.getName());
                     attribute.setVersion(attribute.getVersion()+1);
                     attribute.setCreated(DateUtils.getNow());

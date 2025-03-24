@@ -111,7 +111,7 @@ public class PuzzleLevel extends BaseTable implements Serializable {
         this.maxScore = maxScore;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "puzzle_group_id", nullable = false)
     @JsonIgnore
     private PuzzleGroup puzzleGroup;

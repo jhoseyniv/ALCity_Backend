@@ -55,6 +55,11 @@ public class AttributeValueService implements AttributeValueRepository {
     }
 
     @Override
+    public Collection<AttributeValue> findByOwnerIdAndOwnerType(Long ownerId, AttributeOwnerType ownerType) {
+        return attributeValueRepository.findByOwnerIdAndOwnerType(ownerId,ownerType);
+    }
+
+    @Override
     public Optional<AttributeValue> findByAttributeIdAndOwnerIdAndOwnerType(Attribute attribute, Long ownerId, AttributeOwnerType ownerType) {
         return attributeValueRepository.findByAttributeIdAndOwnerIdAndOwnerType(attribute,ownerId,ownerType);
     }

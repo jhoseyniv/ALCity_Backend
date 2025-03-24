@@ -15,7 +15,8 @@ public enum ObjectActionType {
     StopMoving,
     CreateTimer,
     StopTimer,
-    Gamefinished
+    Gamefinished,
+    Flip
     ;
     public static ObjectActionType getById(Integer id)
     {

@@ -55,6 +55,7 @@ import javax.json.JsonReader;
 import javax.json.JsonWriter;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class DTOUtil {
 
@@ -107,12 +108,12 @@ public class DTOUtil {
     public static void copyActionFromTo(Long fromOwnerId, Long toOwnerId,AttributeOwnerType from,AttributeOwnerType to,
                                         ActionService actionService,POActionOwnerType  fromAction,POActionOwnerType toAction,
                                         AttributeService attributeService, AttributeValueService attributeValueService) {
-        Collection<ObjectAction> actions = actionService.findByOwnerObjectidAndPoActionOwnerType(fromOwnerId, POActionOwnerType.Object);
+        Collection<ObjectAction> actions = actionService.findByOwnerObjectidAndPoActionOwnerType(fromOwnerId,fromAction);
         Iterator<ObjectAction> itr = actions.iterator();
         while(itr.hasNext()){
             ObjectAction objectAction = itr.next();
             ObjectActionType objectActionType = ObjectActionType.getByTitle(objectAction.getObjectAction().name());
-            ObjectAction newObjectAction = new ObjectAction(POActionOwnerType.Puzzle_Group_Object,toOwnerId,objectActionType,objectAction.getActionRenderer(),
+            ObjectAction newObjectAction = new ObjectAction(toAction,toOwnerId,objectActionType,objectAction.getActionRenderer(),
                     objectAction.getVersion(),DateUtils.getNow(),DateUtils.getNow(),
                     objectAction.getCreatedBy(), objectAction.getUpdatedBy());
             actionService.save(newObjectAction);
@@ -968,11 +969,11 @@ public class DTOUtil {
         dto.setXrotation(plGround.getxRotation());
         dto.setYrotation(plGround.getyRotation());
         dto.setZrotation(plGround.getzRotation());
-           String s = new String(plGround.getBoardGraphic(), StandardCharsets.US_ASCII);
-           JSONObject objJsonObject = new JSONObject(s);
 
-           dto.setBoardGraphic(objJsonObject.toString());
+        String s = new String(plGround.getBoardGraphic(), StandardCharsets.US_ASCII);
+        JSONObject objJsonObject = new JSONObject(s);
 
+        dto.setBoardGraphic(objJsonObject.toString());
         dto.setNumColumns(plGround.getNumColumns());
         dto.setPuzzleLevelId(plGround.getPuzzleLevel().getId());
         dto.setPuzzleLevelTitle(plGround.getPuzzleLevel().getTitle());
@@ -1251,11 +1252,60 @@ public class DTOUtil {
 
             actions.add(ruleActionData);
         }
-
-
         return actions;
     }
+    public static Collection<RecordData>  getActionParametersDTOS(Collection<Attribute>  attributes){
+        Collection<RecordData> records = new ArrayList<RecordData>();
+        Iterator<Attribute> iterator = attributes.iterator();
+        while(iterator.hasNext()) {
+            Attribute attribute = iterator.next();
+            Collection<AttributeValue> attributeValues = attribute.getAttributeValues();
+              Iterator<AttributeValue> iteratorValues = attributeValues.iterator();
+            while(iteratorValues.hasNext() ) {
+                AttributeValue alCityAttributeValue = iteratorValues.next();
+                String value = getDataValue(alCityAttributeValue);
+                String type = getDataType(attribute);
+                RecordData record = new RecordData(attribute.getId(), attribute.getName(),alCityAttributeValue.getId(),value,type);
+                records.add(record);
+            }
+        }
+        return records;
+    }
+    public static Collection<RecordData>  getPropertiesDTOForPGObject(Collection<Attribute>  properties){
+        Collection<RecordData> records = new ArrayList<RecordData>();
+        Iterator<Attribute> iterator = properties.iterator();
+        while(iterator.hasNext()) {
+            Attribute attribute = iterator.next();
+            Collection<AttributeValue> attributeValues = attribute.getAttributeValues();
+            Iterator<AttributeValue> iteratorValues = attributeValues.iterator();
+            while(iteratorValues.hasNext() ) {
+                AttributeValue alCityAttributeValue = iteratorValues.next();
+                String value = getDataValue(alCityAttributeValue);
+                String type = getDataType(attribute);
+                RecordData record = new RecordData(attribute.getId(), attribute.getName(),alCityAttributeValue.getId(),value,type);
+                records.add(record);
+            }
+        }
+        return records;
+    }
 
+    public static Collection<RecordData>  getVariablesDTOForPGObject(Collection<Attribute>  variables){
+        Collection<RecordData> records = new ArrayList<RecordData>();
+        Iterator<Attribute> iterator = variables.iterator();
+        while(iterator.hasNext()) {
+            Attribute attribute = iterator.next();
+            Collection<AttributeValue> attributeValues = attribute.getAttributeValues();
+            Iterator<AttributeValue> iteratorValues = attributeValues.iterator();
+            while(iteratorValues.hasNext() ) {
+                AttributeValue alCityAttributeValue = iteratorValues.next();
+                String value = getDataValue(alCityAttributeValue);
+                String type = getDataType(attribute);
+                RecordData record = new RecordData(attribute.getId(), attribute.getName(),alCityAttributeValue.getId(),value,type);
+                records.add(record);
+            }
+        }
+        return records;
+    }
     public static Collection<RecordData>  getAttributeForOwnerById(AttributeService attributeService , Long ownerId, AttributeOwnerType ownerType){
         Collection<RecordData> records = new ArrayList<RecordData>();
         Collection<Attribute>  attributes =attributeService.findByOwnerIdAndAttributeOwnerTypeNew(ownerId,ownerType);
@@ -1263,8 +1313,10 @@ public class DTOUtil {
         while(iterator.hasNext()) {
             Attribute attribute = iterator.next();
             Collection<AttributeValue> attributeValues = attribute.getAttributeValues();
+            //filter values by owner id
+            //attributeValues = attributeValues.stream().filter(value ->value.getOwnerId().equals(ownerId) ).collect(Collectors.toList());
             Iterator<AttributeValue> iteratorValues = attributeValues.iterator();
-            while(iteratorValues.hasNext()) {
+            while(iteratorValues.hasNext() ) {
                 AttributeValue alCityAttributeValue = iteratorValues.next();
                 String value = getDataValue(alCityAttributeValue);
                 String type = getDataType(attribute);

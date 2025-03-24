@@ -245,10 +245,6 @@ public class ImportBaseData implements CommandLineRunner {
         PLRulePostActionType ObjectActionList = new PLRulePostActionType("ObjectActionList","ObjectActionList","",1L,now,now,admin_1,admin_1);
         plRulePostActionTypeService.save(ObjectActionList);
 
-//        PLRulePostActionType internalevent_checkcell = new PLRulePostActionType("internalevent:checkcell","internalevent:checkcell","",1L,now,now,admin_1,admin_1);
-//        plRulePostActionTypeService.save(internalevent_checkcell);
-
-
 
         PLRuleEvent click_ruleEvent = new PLRuleEvent("Click", PLRuleEventType.UserEvent, UserEvent.Click.ordinal(),1L,now,now,admin_1,admin_1);
         PLRuleEvent drag_ruleEvent = new PLRuleEvent("Drag", PLRuleEventType.UserEvent, UserEvent.Drag.ordinal(),1L,now,now,admin_1,admin_1);
@@ -574,7 +570,7 @@ public class ImportBaseData implements CommandLineRunner {
         Renderer showImage_Renderer = new Renderer("ShowImage",mobile, ObjectActionType.Create,1L,now,now,admin_1,admin_1);
         actionRendererService.save(showImage_Renderer);
 
-        Attribute showImage_Renderer_param_1 =new Attribute("img",showImage_Renderer.getId(),AttributeOwnerType.Action_Handler_Parameter,DataType.Integer,1L,now,now,admin_1,admin_1);
+        Attribute showImage_Renderer_param_1 =new Attribute("img",showImage_Renderer.getId(),AttributeOwnerType.Action_Handler_Parameter,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(showImage_Renderer_param_1);
         AttributeValue showImage_ActionRenderer_param_1_value= new AttributeValue(null,null,null,null,null,null,null,"InstProp(CurrentInst(), bgImage)",Boolean.TRUE,null,showImage_Renderer_param_1,1L,now,now,admin_1,admin_1,showImage_Renderer.getId(),AttributeOwnerType.Action_Handler_Parameter);
         attributeValueService.save(showImage_ActionRenderer_param_1_value);
@@ -654,6 +650,20 @@ public class ImportBaseData implements CommandLineRunner {
         AttributeValue  move_ActionRenderer_param_moveType_value= new AttributeValue(null,null,null,"jump",null,null,null,null,Boolean.FALSE,null,move_ActionRenderer_param_8,1L,now,now,admin_1,admin_1,move_Renderer.getId(),AttributeOwnerType.Action_Handler_Parameter);
         attributeValueService.save(move_ActionRenderer_param_moveType_value);
 
+        Renderer flipImage_Renderer = new Renderer("FlipImage",mobile, ObjectActionType.Flip,1L,now,now,admin_1,admin_1);
+        actionRendererService.save(flipImage_Renderer);
+
+        Attribute flipImage_Renderer_param_1 =new Attribute("img",flipImage_Renderer.getId(),AttributeOwnerType.Action_Handler_Parameter,DataType.Binary,1L,now,now,admin_1,admin_1);
+        attributeService.save(flipImage_Renderer_param_1);
+        AttributeValue flipImage_ActionRenderer_param_1_value= new AttributeValue(null,null,null,null,null,null,null,"InstProp(CurrentInst(), image)",Boolean.TRUE,null,flipImage_Renderer_param_1,1L,now,now,admin_1,admin_1,flipImage_Renderer.getId(),AttributeOwnerType.Action_Handler_Parameter);
+        attributeValueService.save(flipImage_ActionRenderer_param_1_value);
+
+        Attribute withNext_Renderer_param_1 =new Attribute("withNext", flipImage_Renderer.getId(),AttributeOwnerType.Action_Handler_Parameter,DataType.Boolean,1L,now,now,admin_1,admin_1);
+        attributeService.save(withNext_Renderer_param_1);
+        AttributeValue withNext_ActionRenderer_param_1_value= new AttributeValue(true,null,null,null,null,null,null,null,Boolean.FALSE,null,withNext_Renderer_param_1,1L,now,now,admin_1,admin_1,flipImage_Renderer.getId(),AttributeOwnerType.Action_Handler_Parameter);
+        attributeValueService.save(withNext_ActionRenderer_param_1_value);
+
+
 
 
         ALCityObject textObject = new ALCityObject(1L,now,now,jalalHoseyni,jalalHoseyni,"TextObject",objectCategory_TextObject,textObject_pic,textObject_icon);
@@ -691,10 +701,32 @@ public class ImportBaseData implements CommandLineRunner {
         ObjectAction imageObject01_moveImage_Action = new ObjectAction(POActionOwnerType.Object,imageObject01.getId(), ObjectActionType.Move,moveImage_Renderer,1L,now,now,admin_1,admin_1);
         puzzleObjectActionService.save(imageObject01_moveImage_Action);
 
+        ObjectAction imageObject01_flipImage_Action = new ObjectAction(POActionOwnerType.Object,imageObject01.getId(), ObjectActionType.Flip,flipImage_Renderer,1L,now,now,admin_1,admin_1);
+        puzzleObjectActionService.save(imageObject01_flipImage_Action);
+
+//        Attribute ImageObject01_property_1 =new Attribute("property_1_image01",imageObject01.getId(),AttributeOwnerType.Object_Property,DataType.String,1L,now,now,admin_1,admin_1);
+//        attributeService.save(ImageObject01_property_1);
+//        AttributeValue  Image0object_property_1_value= new AttributeValue(null,null,null,"Define & Iniit in Object (state 1)",null,null,null,null,Boolean.FALSE,null,ImageObject01_property_1,1L,now,now,admin_1,admin_1,imageObject01.getId(),AttributeOwnerType.Object_Property);
+//        attributeValueService.save(Image0object_property_1_value);
+//
+//        Attribute ImageObject01_property_2 =new Attribute("property_2_image01",imageObject01.getId(),AttributeOwnerType.Object_Property,DataType.String,1L,now,now,admin_1,admin_1);
+//        attributeService.save(ImageObject01_property_2);
+//        AttributeValue  Image0object_property_2_value= new AttributeValue(null,null,null,"Define & Iniit in Object (state 2)",null,null,null,null,Boolean.FALSE,null,ImageObject01_property_2,1L,now,now,admin_1,admin_1,imageObject01.getId(),AttributeOwnerType.Object_Property);
+//        attributeValueService.save(Image0object_property_2_value);
+//
+//        Attribute ImageObject01_property_3 =new Attribute("property_3_image01",imageObject01.getId(),AttributeOwnerType.Object_Property,DataType.String,1L,now,now,admin_1,admin_1);
+//        attributeService.save(ImageObject01_property_3);
+//        AttributeValue  Image0object_property_3_value= new AttributeValue(null,null,null,"Define & Iniit in Object (state 3)",null,null,null,null,Boolean.FALSE,null,ImageObject01_property_3,1L,now,now,admin_1,admin_1,imageObject01.getId(),AttributeOwnerType.Object_Property);
+//        attributeValueService.save(Image0object_property_3_value);
+//
+//        Attribute ImageObject01_property_4 =new Attribute("property_4_image01",imageObject01.getId(),AttributeOwnerType.Object_Property,DataType.String,1L,now,now,admin_1,admin_1);
+//        attributeService.save(ImageObject01_property_4);
+//        AttributeValue  Image0object_property_4_value= new AttributeValue(null,null,null,"Define & Iniit in Object (state 4)",null,null,null,null,Boolean.FALSE,null,ImageObject01_property_4,1L,now,now,admin_1,admin_1,imageObject01.getId(),AttributeOwnerType.Object_Property);
+//        attributeValueService.save(Image0object_property_4_value);
 
 
-        ALCityObject ImageObject02 = new ALCityObject(1L,now,now,jalalHoseyni,jalalHoseyni,"ImageObject02",objectCategory_Image,image_Object_pic,image_Object_icon);
-        alCityObjectService.save(ImageObject02);
+//        ALCityObject ImageObject02 = new ALCityObject(1L,now,now,jalalHoseyni,jalalHoseyni,"ImageObject02",objectCategory_Image,image_Object_pic,image_Object_icon);
+//        alCityObjectService.save(ImageObject02);
 
         ALCityObject eagle = new ALCityObject(1L,now,now,jalalHoseyni,jalalHoseyni,"eagle",objectCategory_bird,eagle_Image_binary_content,eagle_Image_binary_content);
         alCityObjectService.save(eagle);
