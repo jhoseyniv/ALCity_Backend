@@ -14,7 +14,7 @@ public class PLData implements Serializable {
 
     private Integer cols;
     private Integer rows;
-   // private CameraSetupData cameraSetup;
+    private CameraSetupData cameraSetup;
     private Collection<PLObjectiveData> objectives;
 
     private Collection<RecordData> variables;
@@ -31,13 +31,6 @@ public class PLData implements Serializable {
         this.variables = variables;
     }
 
-//    public Long getBoardGraphicId() {
-//        return boardGraphicId;
-//    }
-//
-//    public void setBoardGraphicId(Long boardGraphicId) {
-//        this.boardGraphicId = boardGraphicId;
-//    }
 
     public Collection<PLObjectiveData> getObjectives() {
         return objectives;
@@ -79,14 +72,14 @@ public class PLData implements Serializable {
         this.rows = rows;
     }
 
-//
-//    public CameraSetupData getCameraSetup() {
-//        return cameraSetup;
-//    }
-//
-//    public void setCameraSetup(CameraSetupData cameraSetup) {
-//        this.cameraSetup = cameraSetup;
-//    }
+
+    public CameraSetupData getCameraSetup() {
+        return cameraSetup;
+    }
+
+    public void setCameraSetup(CameraSetupData cameraSetup) {
+        this.cameraSetup = cameraSetup;
+    }
 
     public Collection<RuleData> getRules() {
         return rules;

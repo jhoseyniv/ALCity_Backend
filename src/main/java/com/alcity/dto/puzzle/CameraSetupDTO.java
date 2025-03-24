@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public class CameraSetupDTO implements Serializable {
     private Long id;
-   // private Long version;
+// private Long version;
 //    private String created;
 //    private String updated;
 //    private String createdBy;

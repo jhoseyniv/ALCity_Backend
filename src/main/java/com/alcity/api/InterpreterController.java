@@ -3,6 +3,7 @@ package com.alcity.api;
 
 import com.alcity.dto.Interpreter.*;
 import com.alcity.dto.Interpreter.object.*;
+import com.alcity.dto.puzzle.CameraSetupDTO;
 import com.alcity.entity.alenum.AttributeOwnerType;
 import com.alcity.entity.alenum.ObjectActionType;
 import com.alcity.entity.alobject.*;
@@ -72,12 +73,10 @@ public class InterpreterController {
         if(puzzleLevelGroundOptional.isPresent()){
             plGround = puzzleLevelGroundOptional.get();
 
-          //  puzzleLevelData.setBoardGraphicId(plGround.getBoardGraphic().getId());
-//            CameraSetup_old cameraSetup =  plGround.getCameraSetup();
-//            Position Position = new Position(cameraSetup.getxPosition(),cameraSetup.getyPosition(), cameraSetup.getzPosition());
-//            Position Rotation = new Position(cameraSetup.getxRotation(),cameraSetup.getyRotation(),cameraSetup.getzRotation());
-//            CameraSetupData cameraSetupInterpreter = new CameraSetupData(Position,Rotation);
-//            puzzleLevelData.setCameraSetup(cameraSetupInterpreter);
+            Position Position = new Position(plGround.getxPosition(), plGround.getyPosition(), plGround.getzPosition());
+            Position Rotation = new Position(plGround.getxRotation(),plGround.getyRotation(),plGround.getzRotation());
+            CameraSetupData cameraSetupInterpreter = new CameraSetupData(Position,Rotation);
+            puzzleLevelData.setCameraSetup(cameraSetupInterpreter);
 
             PuzzleLevel pl = plGround.getPuzzleLevel();
             puzzleLevelData.setCode(pl.getCode());
