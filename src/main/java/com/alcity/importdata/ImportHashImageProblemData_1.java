@@ -193,13 +193,14 @@ public class ImportHashImageProblemData_1 implements CommandLineRunner {
 
         Optional<PuzzleGroup> puzzleGroup_HashImage = puzzleGroupService.findByTitle("Hash Image - Puzzle Group 1");
         Optional<PuzzleGroup> puzzleGroup_IQ = puzzleGroupService.findByTitle("IQ Puzzle Group");
+        Optional<PuzzleGroup> puzzleGroup_X_O = puzzleGroupService.findByTitle("X-O Puzzle Group");
 
         JourneyStep step_1_journey_1 = new JourneyStep("step1_journey_1",1,20,20,journey_1.get(),puzzleGroup_HashImage.get(),1L,now,now,admin_1,admin_1);
-        JourneyStep step_2_journey_1 = new JourneyStep("step2_journey_1",2,100,100,journey_1.get(),puzzleGroup_IQ.get(),1L,now,now,admin_1,admin_1);
-        JourneyStep step_1_journey_2 = new JourneyStep("step1_journey_2",3,200,200,journey_2.get(),puzzleGroup_IQ.get(),1L,now,now,admin_1,admin_1);
+        JourneyStep step_2_journey_1 = new JourneyStep("step2_journey_1",2,100,100,journey_1.get(),puzzleGroup_X_O.get(),1L,now,now,admin_1,admin_1);
+        JourneyStep step_3_journey_1 = new JourneyStep("step3_journey_1",3,200,200,journey_1.get(),puzzleGroup_IQ.get(),1L,now,now,admin_1,admin_1);
         journeyStepService.save(step_1_journey_1);
         journeyStepService.save(step_2_journey_1);
-        journeyStepService.save(step_1_journey_2);
+        journeyStepService.save(step_3_journey_1);
 
         PLPrivacy privacy_1 = plPrivacyService.findByValue("Public");
 

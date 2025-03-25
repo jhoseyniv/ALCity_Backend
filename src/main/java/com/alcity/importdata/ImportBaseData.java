@@ -317,9 +317,11 @@ public class ImportBaseData implements CommandLineRunner {
 
 
         PuzzleGroup puzzleGroup_HashImage = new PuzzleGroup("Hash Image - Puzzle Group 1",mathematic,puzzle_group_binary_content_Icon,puzzle_group_binary_content_Icon,1L,now,now,admin_1,admin_1);
-        PuzzleGroup puzzleGroup_IQ = new PuzzleGroup("IQ Puzzle Group",mathematic,puzzle_group_binary_content_2,puzzle_group_binary_content_3,1L,now,now,admin_1,admin_1);
+        PuzzleGroup puzzleGroup_IQ = new PuzzleGroup("IQ Puzzle Group",mathematic,puzzle_group_binary_content_2,puzzle_group_binary_content_Icon,1L,now,now,admin_1,admin_1);
+        PuzzleGroup puzzleGroup_X_O= new PuzzleGroup("X-O Puzzle Group",mathematic,puzzle_group_binary_content_2,puzzle_group_binary_content_Icon,1L,now,now,admin_1,admin_1);
         puzzleGroupService.save(puzzleGroup_HashImage);
         puzzleGroupService.save(puzzleGroup_IQ);
+        puzzleGroupService.save(puzzleGroup_X_O);
 
         byte[] tetherIcon = ImageUtil.getImage("src/main/resources/images/","Tether.png");
         byte[] carIcon = ImageUtil.getImage("src/main/resources/images/","car.png");
@@ -604,8 +606,6 @@ public class ImportBaseData implements CommandLineRunner {
         AttributeValue moveImage_ActionRenderer_param_5_value= new AttributeValue(Boolean.TRUE,null,null,null,null,null,null,null,Boolean.FALSE,null,moveImage_Renderer_param_5,1L,now,now,admin_1,admin_1,moveImage_Renderer.getId(),AttributeOwnerType.Action_Handler_Parameter);
         attributeValueService.save(moveImage_ActionRenderer_param_5_value);
 
-
-
         Renderer move_Renderer = new Renderer("Move",mobile, ObjectActionType.Move,1L,now,now,admin_1,admin_1);
         actionRendererService.save(move_Renderer);
 
@@ -679,11 +679,11 @@ public class ImportBaseData implements CommandLineRunner {
         AttributeValue bundle_file_att_value = new AttributeValue(null,null,null,null,null,null,bundle_file.getId(),null,Boolean.FALSE,null,bundle_file_att,1L,now,now,admin_1,admin_1,textObject.getId(),AttributeOwnerType.Object_Property);
         attributeValueService.save(bundle_file_att_value);
 
-        Attribute color_att= new Attribute("color",textObject.getId(),AttributeOwnerType.Object_Property,DataType.String,1L,now,now,admin_1,admin_1);
-        attributeService.save(color_att);
-
-        AttributeValue color_att_value = new AttributeValue(null,null,null,"White",null,null,null,null,Boolean.FALSE,null,color_att,1L,now,now,admin_1,admin_1,textObject.getId(),AttributeOwnerType.Object_Property);
-        attributeValueService.save(color_att_value);
+//        Attribute color_att= new Attribute("color",textObject.getId(),AttributeOwnerType.Object_Property,DataType.String,1L,now,now,admin_1,admin_1);
+//        attributeService.save(color_att);
+//
+//        AttributeValue color_att_value = new AttributeValue(null,null,null,"White",null,null,null,null,Boolean.FALSE,null,color_att,1L,now,now,admin_1,admin_1,textObject.getId(),AttributeOwnerType.Object_Property);
+//        attributeValueService.save(color_att_value);
 
 
         ObjectAction textObject_Create_Action = new ObjectAction(POActionOwnerType.Object,textObject.getId(), ObjectActionType.Create,create_Renderer,1L,now,now,admin_1,admin_1);
