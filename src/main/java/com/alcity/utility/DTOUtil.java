@@ -18,6 +18,7 @@ import com.alcity.dto.learning.LearningContentDTO;
 import com.alcity.dto.learning.LearningTopicDTO;
 import com.alcity.dto.player.PlayHistoryDTO;
 import com.alcity.dto.puzzle.*;
+import com.alcity.dto.puzzle.boardgraphic.BoardGraphicDTO;
 import com.alcity.entity.alenum.AttributeOwnerType;
 import com.alcity.entity.alenum.ObjectActionType;
 import com.alcity.entity.alenum.POActionOwnerType;
@@ -970,13 +971,13 @@ public class DTOUtil {
         dto.setYrotation(plGround.getyRotation());
         dto.setZrotation(plGround.getzRotation());
 
-        String s = new String(plGround.getBoardGraphic(), StandardCharsets.US_ASCII);
-        JSONObject objJsonObject = new JSONObject(s);
-
-        dto.setBoardGraphic(objJsonObject.toString());
+      //  String s = new String(plGround.getBoardGraphic(), StandardCharsets.US_ASCII);
+      //  JSONObject objJsonObject = new JSONObject(s);
+        BoardGraphicDTO boardGraphicDTO = PLDTOUtil.getBoardGraphicJSON(plGround);
+        dto.setBoardGraphicDTO(boardGraphicDTO);
         dto.setNumColumns(plGround.getNumColumns());
         dto.setPuzzleLevelId(plGround.getPuzzleLevel().getId());
-        dto.setPuzzleLevelTitle(plGround.getPuzzleLevel().getTitle());
+       // dto.setPuzzleLevelTitle(plGround.getPuzzleLevel().getTitle());
 
 
 

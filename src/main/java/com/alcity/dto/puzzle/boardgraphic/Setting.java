@@ -1,6 +1,8 @@
 package com.alcity.dto.puzzle.boardgraphic;
 
-public class Setting {
+import java.io.Serializable;
+
+public class Setting implements Serializable {
     private String skyboxId;
     private String environmentId;
     private StartPosition startPosition;

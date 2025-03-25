@@ -1,6 +1,8 @@
 package com.alcity.dto.puzzle.boardgraphic;
 
-public class Margin {
+import java.io.Serializable;
+
+public class Margin implements Serializable {
     private Integer top;
     private Integer bottom;
     private Integer left;

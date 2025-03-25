@@ -1,6 +1,7 @@
 package com.alcity.utility;
 
 import com.alcity.dto.Interpreter.PLData;
+import com.alcity.dto.puzzle.boardgraphic.BoardGraphicDTO;
 import com.alcity.dto.puzzle.object.ActionDTO;
 import com.alcity.dto.puzzle.object.CityObjectDTO;
 import com.alcity.dto.puzzle.object.PropertyDTO;
@@ -11,10 +12,7 @@ import com.alcity.entity.alobject.Attribute;
 import com.alcity.entity.alobject.AttributeValue;
 import com.alcity.entity.alobject.ObjectAction;
 import com.alcity.entity.alobject.ObjectCategory;
-import com.alcity.entity.puzzle.ALCityObject;
-import com.alcity.entity.puzzle.ALCityObjectInPG;
-import com.alcity.entity.puzzle.PuzzleGroup;
-import com.alcity.entity.puzzle.PuzzleLevel;
+import com.alcity.entity.puzzle.*;
 import com.alcity.service.alobject.AttributeService;
 import com.alcity.service.alobject.ActionService;
 
@@ -116,9 +114,7 @@ public class PLDTOUtil {
 
         return dto;
     }
-    public static PLData getInterpreterJSON(Optional<PuzzleLevel> puzzleLevelOptional) throws IOException, ClassNotFoundException {
-        if(puzzleLevelOptional.isEmpty()) return null;
-        PuzzleLevel pl = puzzleLevelOptional.get();
+    public static PLData getInterpreterJSON(PuzzleLevel pl) throws IOException, ClassNotFoundException {
         byte[] plData = pl.getInterpreterFile();
         ByteArrayInputStream bis = new ByteArrayInputStream(plData);
         ObjectInputStream ois = new ObjectInputStream(bis);
@@ -127,6 +123,13 @@ public class PLDTOUtil {
         //FileInputStream inputStream = new FileInputStream("file.ser");
         PLData plData1 = (PLData) ois.readObject();
         return plData1;
+    }
+    public static BoardGraphicDTO getBoardGraphicJSON(PLGround plGround) throws IOException, ClassNotFoundException {
+        byte[] boardGraphic = plGround.getBoardGraphic();
+        ByteArrayInputStream bis = new ByteArrayInputStream(boardGraphic);
+        ObjectInputStream ois = new ObjectInputStream(bis);
+        BoardGraphicDTO boardGraphicDTO = (BoardGraphicDTO) ois.readObject();
+        return boardGraphicDTO;
     }
 
     /*

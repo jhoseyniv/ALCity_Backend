@@ -1,8 +1,9 @@
 package com.alcity.dto.puzzle.boardgraphic;
 
+import java.io.Serializable;
 import java.util.Collection;
 
-public class BoardGraphicDTO {
+public class BoardGraphicDTO implements Serializable {
     private Setting settings;
     private Collection<Row> rows;
 

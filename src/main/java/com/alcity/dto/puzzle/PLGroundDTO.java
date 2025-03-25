@@ -1,8 +1,11 @@
 package com.alcity.dto.puzzle;
 
+import com.alcity.dto.puzzle.boardgraphic.BoardGraphicDTO;
 import org.json.JSONObject;
 
-public class PLGroundDTO  {
+import java.io.Serializable;
+
+public class PLGroundDTO  implements Serializable {
     private Long id;
     private Long version;
     private String created;
@@ -21,10 +24,10 @@ public class PLGroundDTO  {
     private Integer zrotation;
     private Long puzzleLevelId;
 
-    private String puzzleLevelTitle;
+  //  private String puzzleLevelTitle;
 
 
-    private String boardGraphic;
+    private BoardGraphicDTO boardGraphicDTO;
 
     public Integer getNumRows() {
         return numRows;
@@ -100,22 +103,21 @@ public class PLGroundDTO  {
         this.puzzleLevelId = puzzleLevelId;
     }
 
-    public String getPuzzleLevelTitle() {
-        return puzzleLevelTitle;
+//    public String getPuzzleLevelTitle() {
+//        return puzzleLevelTitle;
+//    }
+//
+//    public void setPuzzleLevelTitle(String puzzleLevelTitle) {
+//        this.puzzleLevelTitle = puzzleLevelTitle;
+//    }
+
+
+    public BoardGraphicDTO getBoardGraphicDTO() {
+        return boardGraphicDTO;
     }
 
-    public void setPuzzleLevelTitle(String puzzleLevelTitle) {
-        this.puzzleLevelTitle = puzzleLevelTitle;
-    }
-
-
-
-    public String getBoardGraphic() {
-        return boardGraphic;
-    }
-
-    public void setBoardGraphic(String boardGraphic) {
-        this.boardGraphic = boardGraphic;
+    public void setBoardGraphicDTO(BoardGraphicDTO boardGraphicDTO) {
+        this.boardGraphicDTO = boardGraphicDTO;
     }
 
     public Integer getXposition() {
@@ -172,8 +174,8 @@ public class PLGroundDTO  {
 
     public PLGroundDTO(Long id, Long version, String created, String updated, String createdBy, String updatedBy,
                        Integer numRows, Integer numColumns, Integer xPosition,Integer yPosition,Integer zPosition,Integer xRotation,Integer yRotation ,Integer zRotation,
-                       Long puzzleLevelId, String puzzleLevelTitle,
-                       String boardGraphic) {
+                       Long puzzleLevelId, //String puzzleLevelTitle,
+                       BoardGraphicDTO boardGraphicDTO) {
         this.id = id;
         this.version = version;
         this.created = created;
@@ -190,7 +192,7 @@ public class PLGroundDTO  {
         this.zrotation = zRotation;
 
         this.puzzleLevelId = puzzleLevelId;
-        this.puzzleLevelTitle = puzzleLevelTitle;
-        this.boardGraphic = boardGraphic;
+     //   this.puzzleLevelTitle = puzzleLevelTitle;
+        this.boardGraphicDTO = boardGraphicDTO;
     }
 }

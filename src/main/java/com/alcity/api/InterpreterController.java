@@ -16,6 +16,7 @@ import com.alcity.service.puzzle.PLGroundService;
 import com.alcity.service.puzzle.PuzzleLevelService;
 import com.alcity.utility.DTOUtil;
 import com.alcity.utility.ImageUtil;
+import com.alcity.utility.PLDTOUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,11 +57,11 @@ public class InterpreterController {
         PLData plData = new PLData();
         if(puzzleLevelOptional.isPresent()){
             PuzzleLevel puzzleLevel = puzzleLevelOptional.get();
-         //   if(puzzleLevel.getInterpreterFile()!=null)
-          //      plData = PLDTOUtil.getInterpreterJSON(puzzleLevel.getInterpreterFile());
-          //  else {
+            if(puzzleLevel.getInterpreterFile()!=null)
+               plData = PLDTOUtil.getInterpreterJSON(puzzleLevel);
+           else {
                 plData = getJsonFile(id);
-          //  }
+           }
         }
         return plData;
     }

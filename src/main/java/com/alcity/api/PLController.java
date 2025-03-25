@@ -72,7 +72,7 @@ public class PLController {
     @CrossOrigin(origins = "*")
     public PLData getPuzzleLevelJsonById(@PathVariable Long id) throws IOException, ClassNotFoundException {
         Optional<PuzzleLevel> puzzleLevelOptional = puzzleLevelService.findById(id);
-        PLData plData = PLDTOUtil.getInterpreterJSON(puzzleLevelOptional);
+        PLData plData = PLDTOUtil.getInterpreterJSON(puzzleLevelOptional.get());
         return plData;
     }
 

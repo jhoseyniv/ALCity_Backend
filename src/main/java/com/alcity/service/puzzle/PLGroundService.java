@@ -42,12 +42,16 @@ public class PLGroundService implements PLGroundRepository {
     public <S extends PLGround> S save(S entity) {
         return groundRepository.save(entity);
     }
-    public PLGround save(PLGroundDTO  dto, String code) throws JsonProcessingException, JSONException {
+    public PLGround save(PLGroundDTO  dto, String code)  {
         Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
         PLGround plGround=null;
         PuzzleLevel puzzleLevel=null;
-        JSONObject objJsonObject = new JSONObject(dto.getBoardGraphic());
-        byte[] boardGraphic = objJsonObject.toString().getBytes();
+        byte[] boardGraphic = ImageUtil.convertObjectToBytes(dto.getBoardGraphicDTO());
+
+       // JSONObject objJsonObject = new JSONObject(dto.getBoardGraphic());
+       // byte[] boardGraphic = objJsonObject.toString().getBytes();
+        //pl.setInterpreterFile(bytes);
+
         Optional<PuzzleLevel> puzzleLevelOptional =  puzzleLevelRepository.findById(dto.getPuzzleLevelId());
         if(puzzleLevelOptional.isPresent())
             puzzleLevel = puzzleLevelOptional.get();
@@ -73,6 +77,7 @@ public class PLGroundService implements PLGroundRepository {
                 plGround.setPuzzleLevel(puzzleLevel);
                 plGround.setVersion(plGround.getVersion()+1);
                 plGround.setUpdated(DateUtils.getNow());
+                plGround.setBoardGraphic(boardGraphic);
                 groundRepository.save(plGround);
             }
         }

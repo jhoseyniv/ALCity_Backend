@@ -1,6 +1,8 @@
 package com.alcity.dto.puzzle.boardgraphic;
 
-public class StartPosition {
+import java.io.Serializable;
+
+public class StartPosition implements Serializable {
     private Integer x;
     private Integer y;
     private Integer z;
