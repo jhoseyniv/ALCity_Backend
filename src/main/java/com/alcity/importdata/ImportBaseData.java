@@ -563,7 +563,7 @@ public class ImportBaseData implements CommandLineRunner {
         Renderer show_Renderer = new Renderer("Show",mobile, ObjectActionType.Show,1L,now,now,admin_1,admin_1);
         actionRendererService.save(show_Renderer);
 
-        Attribute show_Renderer_param_1 =new Attribute("text",show_Renderer.getId(),AttributeOwnerType.Action_Handler_Parameter,DataType.Integer,1L,now,now,admin_1,admin_1);
+        Attribute show_Renderer_param_1 =new Attribute("text",show_Renderer.getId(),AttributeOwnerType.Action_Handler_Parameter,DataType.String,1L,now,now,admin_1,admin_1);
         attributeService.save(show_Renderer_param_1);
         AttributeValue show_ActionRenderer_param_1_value= new AttributeValue(null,null,null,null,null,null,null,"InstProp(CurrentInst(), text)",Boolean.TRUE,null,show_Renderer_param_1,1L,now,now,admin_1,admin_1,show_Renderer.getId(),AttributeOwnerType.Action_Handler_Parameter);
         attributeValueService.save(show_ActionRenderer_param_1_value);
