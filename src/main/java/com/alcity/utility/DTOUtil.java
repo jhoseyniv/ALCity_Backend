@@ -198,8 +198,20 @@ public class DTOUtil {
         Iterator<Attribute> itr = attributes.iterator();
         while (itr.hasNext()) {
             Attribute attribute = itr.next();
-           AttributeDTO dto = getAttributeDTO(attribute);
+            AttributeDTO dto = getAttributeDTO(attribute);
             dtos.add(dto);
+        }
+        return dtos;
+    }
+    public static Set<Long> getBinaryContentFromAttributeDTOS(Collection<Attribute> attributes) {
+        Set<Long> dtos = new HashSet<>();
+        Iterator<Attribute> itr = attributes.iterator();
+        while (itr.hasNext()) {
+            Long contentId=-1L;
+            Attribute attribute = itr.next();
+            Optional<AttributeValue> valueOptional = attribute.getAttributeValues().stream().findFirst();
+            if(valueOptional.isPresent())
+                dtos.add(valueOptional.get().getBinaryContentId());
         }
         return dtos;
     }

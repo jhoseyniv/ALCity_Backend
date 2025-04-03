@@ -1,6 +1,10 @@
 package com.alcity.api;
 
 import com.alcity.dto.Interpreter.PLData;
+import com.alcity.dto.alobject.AttributeDTO;
+import com.alcity.entity.alenum.AttributeOwnerType;
+import com.alcity.entity.alenum.DataType;
+import com.alcity.entity.alobject.Attribute;
 import com.alcity.entity.appmember.AppMember;
 import com.alcity.service.alobject.AttributeService;
 import com.alcity.service.appmember.AppMemberService;
@@ -24,6 +28,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.*;
 import java.util.*;
+import java.util.stream.Collectors;
 
 
 @Tag(name = "Puzzle Level API's ", description = "Get Puzzle Levels data Format for other systems...")
@@ -76,20 +81,41 @@ public class PLController {
         return plData;
     }
 
-
-    /*
-    @Operation( summary = "Fetch  step and journey mapped by a puzzle level by Id ",  description = "fetches all data for a puzzle level ")
-    @RequestMapping(value = "/id/{id}/step", method = RequestMethod.GET)
+    @Operation( summary = "Fetch all Binary Contents for a puzzle level by id ",  description = "Fetch all binary contents a puzzle leve")
+    @RequestMapping(value = "/id/{id}/contents", method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin(origins = "*")
-    public PuzzleLevelStepMappingDTO getPuzzleLevelStepById(@PathVariable Long id) {
-        PuzzleLevelStepMappingDTO dto= new PuzzleLevelStepMappingDTO();
+    public Collection<Long> getPuzzleLevelContentsIdById(@PathVariable Long id) {
+        Set<Long> attributeDTOS = new HashSet<>();
         Optional<PuzzleLevel> puzzleLevelOptional = puzzleLevelService.findById(id);
-        dto = puzzleLevelService.getJourneyStepMappedWithPuzzleLevel(puzzleLevelOptional.get());
-        return dto;
+
+        if(puzzleLevelOptional.isEmpty()) return null;
+
+        PuzzleLevel puzzleLevel = puzzleLevelOptional.get();
+        Collection<ALCityInstanceInPL> instances = puzzleLevel.getPuzzleGroupObjectInstanceCollection();
+        Iterator<ALCityInstanceInPL> itr = instances.iterator();
+
+        while(itr.hasNext()) {
+            Set<Long> properties = new HashSet<>();
+            Set<Long> variables = new HashSet<>();
+            ALCityInstanceInPL instance = itr.next();
+
+            //find contents for pl instances properties
+            Collection<Attribute> instance_properties = attributeService.findInstanceProperties(instance.getId(), AttributeOwnerType.Instance_Puzzle_Group_Object_Property);
+            instance_properties = instance_properties.stream().filter(property -> property.getDataType().equals(DataType.Binary)).collect(Collectors.toList());
+            properties = DTOUtil.getBinaryContentFromAttributeDTOS(instance_properties);
+
+            //find contents for pl instances properties
+            Collection<Attribute> instance_variables = attributeService.findInstanceVariables(instance.getId(), AttributeOwnerType.Instance_Puzzle_Group_Object_Variable);
+            instance_variables = instance_variables.stream().filter(property -> property.getDataType().equals(DataType.Binary)).collect(Collectors.toList());
+            variables = DTOUtil.getBinaryContentFromAttributeDTOS(instance_variables);
+            properties.addAll(variables);
+
+            attributeDTOS.addAll(properties);
+        }
+        return  attributeDTOS;
     }
 
- */
 
     @Operation( summary = "Fetch all puzzle levels for a user by age ",  description = "fetches all data for a puzzle level ")
     @RequestMapping(value = "/age/{age}", method = RequestMethod.GET)
