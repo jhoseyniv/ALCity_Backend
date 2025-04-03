@@ -549,7 +549,7 @@ public class ImportBaseData implements CommandLineRunner {
         actionRendererService.save(create_Renderer);
 
         //add parameters and default values
-        Attribute create_Renderer_param_1 =new Attribute("text",create_Renderer.getId(),AttributeOwnerType.Action_Handler_Parameter,DataType.Integer,1L,now,now,admin_1,admin_1);
+        Attribute create_Renderer_param_1 =new Attribute("text",create_Renderer.getId(),AttributeOwnerType.Action_Handler_Parameter,DataType.String,1L,now,now,admin_1,admin_1);
         attributeService.save(create_Renderer_param_1);
         AttributeValue create_ActionRenderer_param_1_value= new AttributeValue(null,null,null,null,null,null,null,"InstProp(CurrentInst(), text)",Boolean.TRUE,null,create_Renderer_param_1,1L,now,now,admin_1,admin_1,create_Renderer.getId(),AttributeOwnerType.Action_Handler_Parameter);
         attributeValueService.save(create_ActionRenderer_param_1_value);
