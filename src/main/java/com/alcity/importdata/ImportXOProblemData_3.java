@@ -225,31 +225,13 @@ public class ImportXOProblemData_3 implements CommandLineRunner {
         PLGameInstance puzzleLevelGameInstance= new PLGameInstance(jalalHoseyni,puzzleLevel,now,now,GameStatus.Playing,1L,now,now,Alireza_Zare,Alireza_Zare);
         plGameInstanceService.save(puzzleLevelGameInstance);
 
-        StringBuffer  condition_Objective_1 = new StringBuffer("(equal(InstProp(InstByPos(2, 2),text),X) & " +
-                "( (equal(InstProp(InstByPos(2, 1),text),X)&equal(InstProp(InstByPos(2, 3),text),X)) |"+
-                        "(equal(InstProp(InstByPos(1, 2),text),X)&equal(InstProp(InstByPos(3, 2),text),X)) |   " +
-                        " (equal(InstProp(InstByPos(1, 1),text),X)&equal(InstProp(InstByPos(3, 3),text),X)) | " +
-                        "(equal(InstProp(InstByPos(1, 3),text),X)&equal(InstProp(InstByPos(3, 1),text),X))))| "+
-                        "(equal(InstProp(InstByPos(1, 1),text),X) & ((equal(InstProp(InstByPos(1, 2),text),X)&equal(InstProp(InstByPos(1, 3),text),X)) | " +
-                        "(equal(InstProp(InstByPos(2, 1),text),X)&equal(InstProp(InstByPos(3, 1),text),X))))|(equal(InstProp(InstByPos(3, 3),text),X) & " +
-                "((equal(InstProp(InstByPos(2, 3),text),X)&equal(InstProp(InstByPos(1, 3),text),X)) | " +
-                        "(equal(InstProp(InstByPos(3, 1),text),X)&equal(InstProp(InstByPos(3, 2),text),X))))");
+        StringBuffer  condition_Objective_1 = new StringBuffer("(equal(InstProp(InstByPos(1, 1),text),X) & ( (equal(InstProp(InstByPos(1, 2),text),X)&equal(InstProp(InstByPos(1, 3),text),X)) | (equal(InstProp(InstByPos(2, 1),text),X) & ( (equal(InstProp(InstByPos(2, 2),text),X)&equal(InstProp(InstByPos(2, 3),text),X)) |  (equal(InstProp(InstByPos(3, 1),text),X) & ( (equal(InstProp(InstByPos(3, 2),text),X)&equal(InstProp(InstByPos(3, 3),text),X)) |  (equal(InstProp(InstByPos(1, 1),text),X) & ( (equal(InstProp(InstByPos(2, 1),text),X)&equal(InstProp(InstByPos(3, 1),text),X)) |  (equal(InstProp(InstByPos(1, 2),text),X) & ( (equal(InstProp(InstByPos(2, 2),text),X)&equal(InstProp(InstByPos(3, 2),text),X)) |  (equal(InstProp(InstByPos(1, 3),text),X) & ( (equal(InstProp(InstByPos(2, 3),text),X)&equal(InstProp(InstByPos(3, 3),text),X)) |  (equal(InstProp(InstByPos(1, 1),text),X) & ( (equal(InstProp(InstByPos(2, 2),text),X)&equal(InstProp(InstByPos(3, 3),text),X)) |  (equal(InstProp(InstByPos(1, 3),text),X) & ( (equal(InstProp(InstByPos(2, 2),text),X)&equal(InstProp(InstByPos(3, 1),text),X))");
 
         PLObjective puzzleLevelObjective_1 = new PLObjective("X won","X won the game",1.5f,2f,condition_Objective_1,matching,
                                                                  alCoin10WalletItem.get(),puzzleLevel ,1L,now,now,admin_1,admin_1);
         plObjectiveService.save(puzzleLevelObjective_1);
 
-        StringBuffer  condition_Objective_2 = new StringBuffer("(equal(InstProp(InstByPos(2, 2),text),O) & " +
-                "( (equal(InstProp(InstByPos(2, 1),text),O)& equal(InstProp(InstByPos(2, 3),text),O)) | " +
-                " (equal(InstProp(InstByPos(1, 2),text),O)& equal(InstProp(InstByPos(3, 2),text),O)) " +
-                "| (equal(InstProp(InstByPos(1, 1),text),O)& equal(InstProp(InstByPos(3, 3),text),O))" +
-                " |(equal(InstProp(InstByPos(1, 3),text),O)& equal(InstProp(InstByPos(3, 1),text),O))))|" +
-                " (equal(InstProp(InstByPos(1, 1),text),O) & ((equal(InstProp(InstByPos(1, 2),text),O) &" +
-                " equal(InstProp(InstByPos(1, 3),text),O))" +
-                " |(equal(InstProp(InstByPos(2, 1),text),O)& equal(InstProp(InstByPos(3, 1),text),O))))|" +
-                "(equal(InstProp(InstByPos(3, 3),text),O) & ((equal(InstProp(InstByPos(2, 3),text),O) & " +
-                "equal(InstProp(InstByPos(1, 3),text),O)) " +
-                "|(equal(InstProp(InstByPos(3, 1),text),O)& equal(InstProp(InstByPos(3, 2),text),O))))");
+        StringBuffer  condition_Objective_2 = new StringBuffer("(equal(InstProp(InstByPos(1, 1),text),Y) & ( (equal(InstProp(InstByPos(1, 2),text),Y)&equal(InstProp(InstByPos(1, 3),text),Y)) | (equal(InstProp(InstByPos(2, 1),text),Y) & ( (equal(InstProp(InstByPos(2, 2),text),Y)&equal(InstProp(InstByPos(2, 3),text),Y)) |  (equal(InstProp(InstByPos(3, 1),text),Y) & ( (equal(InstProp(InstByPos(3, 2),text),Y)&equal(InstProp(InstByPos(3, 3),text),Y)) |  (equal(InstProp(InstByPos(1, 1),text),Y) & ( (equal(InstProp(InstByPos(2, 1),text),Y)&equal(InstProp(InstByPos(3, 1),text),Y)) |  (equal(InstProp(InstByPos(1, 2),text),Y) & ( (equal(InstProp(InstByPos(2, 2),text),Y)&equal(InstProp(InstByPos(3, 2),text),Y)) |  (equal(InstProp(InstByPos(1, 3),text),Y) & ( (equal(InstProp(InstByPos(2, 3),text),Y)&equal(InstProp(InstByPos(3, 3),text),Y)) |  (equal(InstProp(InstByPos(1, 1),text),Y) & ( (equal(InstProp(InstByPos(2, 2),text),Y)&equal(InstProp(InstByPos(3, 3),text),Y)) |  (equal(InstProp(InstByPos(1, 3),text),Y) & ( (equal(InstProp(InstByPos(2, 2),text),Y)&equal(InstProp(InstByPos(3, 1),text),Y))");
 
         PLObjective puzzleLevelObjective_2 = new PLObjective("O won","O won the game",5.5f,5f,condition_Objective_2,timeManagement,
                 alCoin10WalletItem.get(),puzzleLevel ,1L,now,now,admin_1,admin_1);
