@@ -667,7 +667,7 @@ public class ImportMemoryGameProblemData_4 implements CommandLineRunner {
 
         Attribute CallObjectAction_3_param_1 =new Attribute("img",CallObjectAction_3.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(CallObjectAction_3_param_1);
-        AttributeValue CallObjectAction_3_param_1_value= new AttributeValue(null,null,null,null,null,null,null,"InstProp(CurrentInst(), bgImage)",Boolean.TRUE,null,CallObjectAction_3_param_1,1L,now,now,admin_1,admin_1,CallObjectAction_3.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action);
+        AttributeValue CallObjectAction_3_param_1_value= new AttributeValue(null,null,null,null,null,null,null,"InstProp(CurrentInst(), bgImage)",true,null,CallObjectAction_3_param_1,1L,now,now,admin_1,admin_1,CallObjectAction_3.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action);
         attributeValueService.save(CallObjectAction_3_param_1_value);
 
         StringBuffer    SecondClickOnFirst_rule_condition = new StringBuffer("equal(BoardVar(firstClick),false) & equal(BoardVar(finished),false) & equal(InstProp(InstByPos(EventParam(row), EventParam(col)),objectId),BoardVar(firstSelectedObject))");
@@ -678,7 +678,7 @@ public class ImportMemoryGameProblemData_4 implements CommandLineRunner {
 
 
         PLRulePostAction VariableAssignmentAction_1_SecondClickOnFirst = new PLRulePostAction(rule_for_SecondClickOnFirst,VariableAssignmentAction.get(),1,"","",
-                "BoardVar(firstClick)",new StringBuffer("True"),"","",1L ,now,now,admin_1,admin_1);
+                "BoardVar(firstClick)",new StringBuffer("true"),"","",1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(VariableAssignmentAction_1_SecondClickOnFirst);
 
         PLRulePostAction VariableAssignmentAction_2_SecondClickOnFirst = new PLRulePostAction(rule_for_SecondClickOnFirst,VariableAssignmentAction.get(),2,"","",
@@ -702,7 +702,7 @@ public class ImportMemoryGameProblemData_4 implements CommandLineRunner {
         puzzleLevelRuleService.save(rule_for_SecondClickCorrect);
 
         PLRulePostAction VariableAssignmentAction_1_SecondClickCorrect = new PLRulePostAction(rule_for_SecondClickCorrect,VariableAssignmentAction.get(),1,"","",
-                "BoardVar(firstClick)",new StringBuffer("True"),"","",1L ,now,now,admin_1,admin_1);
+                "BoardVar(firstClick)",new StringBuffer("true"),"","",1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(VariableAssignmentAction_1_SecondClickCorrect);
 
         PLRulePostAction VariableAssignmentAction_2_SecondClickCorrect = new PLRulePostAction(rule_for_SecondClickCorrect,VariableAssignmentAction.get(),2,"","",
@@ -735,7 +735,7 @@ public class ImportMemoryGameProblemData_4 implements CommandLineRunner {
         puzzleLevelRuleService.save(rule_for_SecondClickInCorrect);
 
         PLRulePostAction VariableAssignmentAction_1_SecondClickInCorrect = new PLRulePostAction(rule_for_SecondClickInCorrect,VariableAssignmentAction.get(),1,"","",
-                "BoardVar(firstClick)",new StringBuffer("True"),"","",1L ,now,now,admin_1,admin_1);
+                "BoardVar(firstClick)",new StringBuffer("true"),"","",1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(VariableAssignmentAction_1_SecondClickInCorrect);
 
         PLRulePostAction VariableAssignmentAction_2_SecondClickInCorrect = new PLRulePostAction(rule_for_SecondClickInCorrect,VariableAssignmentAction.get(),2,"","",
@@ -773,11 +773,11 @@ public class ImportMemoryGameProblemData_4 implements CommandLineRunner {
         puzzleLevelRuleService.save(rule_for_CheckCompletion);
 
         PLRulePostAction VariableAssignmentAction_1_CheckCompletion = new PLRulePostAction(rule_for_CheckCompletion,VariableAssignmentAction.get(),1,"","",
-                "BoardVar(finished)",new StringBuffer("True"),"","",1L ,now,now,admin_1,admin_1);
+                "BoardVar(finished)",new StringBuffer("true"),"","",1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(VariableAssignmentAction_1_CheckCompletion);
 
         PLRulePostAction UserAlertAction_2_CheckCompletion = new PLRulePostAction(rule_for_CheckCompletion,UserAlertAction.get(),2,"","",
-                "BoardVar(finished)",new StringBuffer("True"),"info","mission completed!",1L ,now,now,admin_1,admin_1);
+                "BoardVar(finished)",new StringBuffer("true"),"info","mission completed!",1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(UserAlertAction_2_CheckCompletion);
 
 
