@@ -248,9 +248,9 @@ public class ImportBaseData implements CommandLineRunner {
 
         PLRuleEvent click_ruleEvent = new PLRuleEvent("Click", PLRuleEventType.UserEvent, UserEvent.Click.ordinal(),1L,now,now,admin_1,admin_1);
         PLRuleEvent drag_ruleEvent = new PLRuleEvent("Drag", PLRuleEventType.UserEvent, UserEvent.Drag.ordinal(),1L,now,now,admin_1,admin_1);
-        PLRuleEvent Internal_Event = new PLRuleEvent("internalevent", PLRuleEventType.SystemEvent, SystemEvent.InternalEvent.ordinal(),1L,now,now,admin_1,admin_1);
-        PLRuleEvent internalevent_checkcell = new PLRuleEvent("internalevent:checkcell", PLRuleEventType.SystemEvent, SystemEvent.InternalEvent.ordinal(),1L,now,now,admin_1,admin_1);
-        PLRuleEvent internalevent_check = new PLRuleEvent("internalevent:check", PLRuleEventType.SystemEvent, SystemEvent.InternalEvent.ordinal(),1L,now,now,admin_1,admin_1);
+        PLRuleEvent Internal_Event = new PLRuleEvent("internalevent", PLRuleEventType.SystemEvent, SystemEvent.internalEvent.ordinal(),1L,now,now,admin_1,admin_1);
+        PLRuleEvent internalevent_checkcell = new PLRuleEvent("internalevent:checkcell", PLRuleEventType.SystemEvent, SystemEvent.internalEvent.ordinal(),1L,now,now,admin_1,admin_1);
+        PLRuleEvent internalevent_check = new PLRuleEvent("internalevent:check", PLRuleEventType.SystemEvent, SystemEvent.internalEvent.ordinal(),1L,now,now,admin_1,admin_1);
         plRuleEventService.save(click_ruleEvent);
         plRuleEventService.save(drag_ruleEvent);
         plRuleEventService.save(Internal_Event);

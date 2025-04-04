@@ -311,7 +311,7 @@ public class ImportXOProblemData_3 implements CommandLineRunner {
 
 
         Optional<PLRuleEvent> click_event = plRuleEventService.findByName("Click");
-        Optional<PLRuleEvent> Internal_Event = plRuleEventService.findByName("InternalEvent");
+        Optional<PLRuleEvent> Internal_Event = plRuleEventService.findByName("internalevent");
 
         Optional<PLRulePostActionType> CallObjectAction = plRulePostActionTypeService.findByValue("CallObjectAction");
         Optional<PLRulePostActionType> UserAlertAction = plRulePostActionTypeService.findByValue("UserAlertAction");
