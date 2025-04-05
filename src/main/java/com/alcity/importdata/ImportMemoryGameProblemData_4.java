@@ -475,7 +475,7 @@ public class ImportMemoryGameProblemData_4 implements CommandLineRunner {
         ALCityInstanceInPL instance_img3 = new ALCityInstanceInPL("instance_img3",1,4,0,imageObject01_in_memoryGame_puzzleGroup,pl_Memory_Game,1L,now,now,admin_1,admin_1);
         pgObjectInstanceService.save(instance_img3);
 
-        AttributeValue ImageObject01_variable_2_value5 = new AttributeValue(null,null,null,"B",null,null,null,null,false,null,ImageObject01_variable_2,1L,now,now,admin_1,admin_1,instance_img3.getId(),AttributeOwnerType.Instance_Puzzle_Group_Object_Variable);
+        AttributeValue ImageObject01_variable_2_value5 = new AttributeValue(null,null,null,"H",null,null,null,null,false,null,ImageObject01_variable_2,1L,now,now,admin_1,admin_1,instance_img3.getId(),AttributeOwnerType.Instance_Puzzle_Group_Object_Variable);
         attributeValueService.save(ImageObject01_variable_2_value5);
 
         AttributeValue  Image0object_property_1_value5= new AttributeValue(null,null,null,null,null,null,F_Image_bytes_content.getId(),null,Boolean.FALSE,null,ImageObject01_property_1,1L,now,now,admin_1,admin_1,instance_img3.getId(),AttributeOwnerType.Instance_Puzzle_Group_Object_Property);
@@ -685,7 +685,7 @@ public class ImportMemoryGameProblemData_4 implements CommandLineRunner {
                 "BoardVar(steps)",new StringBuffer("BoardVar(steps)+1"),"","",1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(VariableAssignmentAction_2_SecondClickOnFirst);
 
-        PLRulePostAction CallObjectAction_3_SecondClickOnFirst = new PLRulePostAction(rule_for_SecondClickOnFirst,VariableAssignmentAction.get(),3,"flip","BoardVar(firstSelectedObject)",
+        PLRulePostAction CallObjectAction_3_SecondClickOnFirst = new PLRulePostAction(rule_for_SecondClickOnFirst,CallObjectAction.get(),3,"flip","BoardVar(firstSelectedObject)",
                 "",new StringBuffer(""),"","",1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(CallObjectAction_3_SecondClickOnFirst);
 
@@ -693,7 +693,6 @@ public class ImportMemoryGameProblemData_4 implements CommandLineRunner {
         attributeService.save(CallObjectAction_3_SecondClickOnFirst_param_1);
         AttributeValue CallObjectAction_3_SecondClickOnFirst_param_1_value= new AttributeValue(null,null,null,null,null,null,null,"InstProp(CurrentInst(), flippedImage)",Boolean.TRUE,null,CallObjectAction_3_SecondClickOnFirst_param_1,1L,now,now,admin_1,admin_1,CallObjectAction_3_SecondClickOnFirst.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action);
         attributeValueService.save(CallObjectAction_3_SecondClickOnFirst_param_1_value);
-
 
         StringBuffer    SecondClickCorrect_rule_condition = new StringBuffer("equal(BoardVar(firstClick),false) & equal(BoardVar(finished),false) & unequal(InstVar(InstByPos(EventParam(row), EventParam(col)),flipped),true) & equal(InstVar(InstByPos(EventParam(row), EventParam(col)),value),InstVar(InstById(BoardVar(firstSelectedObject)),value))");
         Boolean ignoreRemaining3 = true;
