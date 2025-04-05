@@ -8,6 +8,7 @@ public class RuleData implements Serializable {
     private Integer ordering;
     private String event;
     private StringBuffer condition;
+    private Boolean ignoreRemaining;
     private Collection<RuleActionData> actions;
 
     public String getTitle() {
@@ -46,6 +47,14 @@ public class RuleData implements Serializable {
         return actions;
     }
 
+    public Boolean getIgnoreRemaining() {
+        return ignoreRemaining;
+    }
+
+    public void setIgnoreRemaining(Boolean ignoreRemaining) {
+        this.ignoreRemaining = ignoreRemaining;
+    }
+
     public void setActions(Collection<RuleActionData> actions) {
         this.actions = actions;
 
@@ -54,10 +63,11 @@ public class RuleData implements Serializable {
     public RuleData() {
     }
 
-    public RuleData(String title, Integer ordering, String event, StringBuffer condition, Collection<RuleActionData> actions) {
+    public RuleData(String title, Integer ordering, String event,Boolean ignoreRemaining, StringBuffer condition, Collection<RuleActionData> actions) {
         this.title = title;
         this.ordering = ordering;
         this.event = event;
+        this.ignoreRemaining = ignoreRemaining;
         this.condition = condition;
         this.actions = actions;
     }

@@ -671,7 +671,7 @@ public class ImportMemoryGameProblemData_4 implements CommandLineRunner {
         attributeValueService.save(CallObjectAction_3_param_1_value);
 
         StringBuffer    SecondClickOnFirst_rule_condition = new StringBuffer("equal(BoardVar(firstClick),false) & equal(BoardVar(finished),false) & equal(InstProp(InstByPos(EventParam(row), EventParam(col)),objectId),BoardVar(firstSelectedObject))");
-        Boolean ignoreRemaining2 = true;
+        Boolean ignoreRemaining2 = false;
         PLRule rule_for_SecondClickOnFirst = new PLRule("SecondClickOnFirst",2
                 ,SecondClickOnFirst_rule_condition,ignoreRemaining2,pl_Memory_Game,click_event.get(),1L,now,now,admin_1,admin_1);
         puzzleLevelRuleService.save(rule_for_SecondClickOnFirst);
@@ -695,7 +695,7 @@ public class ImportMemoryGameProblemData_4 implements CommandLineRunner {
         attributeValueService.save(CallObjectAction_3_SecondClickOnFirst_param_1_value);
 
         StringBuffer    SecondClickCorrect_rule_condition = new StringBuffer("equal(BoardVar(firstClick),false) & equal(BoardVar(finished),false) & unequal(InstVar(InstByPos(EventParam(row), EventParam(col)),flipped),true) & equal(InstVar(InstByPos(EventParam(row), EventParam(col)),value),InstVar(InstById(BoardVar(firstSelectedObject)),value))");
-        Boolean ignoreRemaining3 = true;
+        Boolean ignoreRemaining3 = false;
         PLRule rule_for_SecondClickCorrect = new PLRule("SecondClickCorrect",3
                 ,SecondClickCorrect_rule_condition,ignoreRemaining3,pl_Memory_Game,click_event.get(),1L,now,now,admin_1,admin_1);
         puzzleLevelRuleService.save(rule_for_SecondClickCorrect);
@@ -721,14 +721,14 @@ public class ImportMemoryGameProblemData_4 implements CommandLineRunner {
         AttributeValue CallObjectAction_4_SecondClickCorrect_param_1_value= new AttributeValue(null,null,null,null,null,null,null,"InstProp(CurrentInst(), bgImage)",Boolean.TRUE,null,CallObjectAction_4_SecondClickCorrect_param_1,1L,now,now,admin_1,admin_1,CallObjectAction_4_SecondClickCorrect.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action);
         attributeValueService.save(CallObjectAction_4_SecondClickCorrect_param_1_value);
 
-        PLRulePostAction FireEventAction_5_SecondClickCorrect = new PLRulePostAction(rule_for_SecondClickCorrect,CallObjectAction.get(),5,"","",
+        PLRulePostAction FireEventAction_5_SecondClickCorrect = new PLRulePostAction(rule_for_SecondClickCorrect,FireEventAction.get(),5,"","",
                 "",new StringBuffer(""),"","",1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(FireEventAction_5_SecondClickCorrect);
 
 
 
         StringBuffer    SecondClickInCorrect_rule_condition = new StringBuffer("equal(BoardVar(firstClick),false) & equal(BoardVar(finished),false) & unequal(InstVar(InstByPos(EventParam(row), EventParam(col)),flipped),true) & unequal(InstVar(InstByPos(EventParam(row), EventParam(col)),value),InstVar(InstById(BoardVar(firstSelectedObject)),value))");
-        Boolean ignoreRemaining4 = true;
+        Boolean ignoreRemaining4 = false;
         PLRule rule_for_SecondClickInCorrect = new PLRule("SecondClickInCorrect",4
                 ,SecondClickInCorrect_rule_condition,ignoreRemaining4,pl_Memory_Game,click_event.get(),1L,now,now,admin_1,admin_1);
         puzzleLevelRuleService.save(rule_for_SecondClickInCorrect);
@@ -766,7 +766,7 @@ public class ImportMemoryGameProblemData_4 implements CommandLineRunner {
         attributeValueService.save(CallObjectAction_5_SecondClickInCorrect_param_1_value);
 
         StringBuffer    CheckCompletion_rule_condition = new StringBuffer("equal(BoardVar(solved),10)");
-        Boolean ignoreRemaining5 = true;
+        Boolean ignoreRemaining5 = false;
         PLRule rule_for_CheckCompletion = new PLRule("CheckCompletion",5
                 ,CheckCompletion_rule_condition,ignoreRemaining5,pl_Memory_Game,internalEvent.get(),1L,now,now,admin_1,admin_1);
         puzzleLevelRuleService.save(rule_for_CheckCompletion);

@@ -1202,6 +1202,7 @@ public class DTOUtil {
         dto.setTitle(plRule.getTitle());
         dto.setOrdering(plRule.getOrdering());
         dto.setCondition(plRule.getCondition());
+        dto.setIgnoreRemaining(plRule.getIgnoreRemaining());
         dto.setPuzzleLevelId(plRule.getPuzzleLevel().getId());
         dto.setPuzzleLeveTitle(plRule.getPuzzleLevel().getTitle());
         dto.setPLRuleEventId(plRule.getPlRuleEvent().getId());

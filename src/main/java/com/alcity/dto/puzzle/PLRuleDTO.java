@@ -8,6 +8,7 @@ public class PLRuleDTO {
     private Long id;
     private String title;
     private Integer ordering;
+    private Boolean ignoreRemaining;
     private StringBuffer condition;
 
     private Long puzzleLevelId;
@@ -20,6 +21,14 @@ public class PLRuleDTO {
 
     private  Integer plRuleEventTypeId;
     private  String plRuleEventTypeTitle;
+
+    public Boolean getIgnoreRemaining() {
+        return ignoreRemaining;
+    }
+
+    public void setIgnoreRemaining(Boolean ignoreRemaining) {
+        this.ignoreRemaining = ignoreRemaining;
+    }
 
     public String getPuzzleLeveTitle() {
         return puzzleLeveTitle;
@@ -108,11 +117,12 @@ public class PLRuleDTO {
     public PLRuleDTO() {
     }
 
-    public PLRuleDTO(Long id, String title, Integer ordering, StringBuffer condition, Long puzzleLevelId, String puzzleLeveTitle, Long PLRuleEventId, String PLRuleEventName,
+    public PLRuleDTO(Long id, String title, Integer ordering,Boolean ignoreRemaining, StringBuffer condition, Long puzzleLevelId, String puzzleLeveTitle, Long PLRuleEventId, String PLRuleEventName,
                      Integer plRuleEventTypeId, String plRuleEventTypeTitle) {
         this.id = id;
         this.title = title;
         this.ordering = ordering;
+        this.ignoreRemaining = ignoreRemaining;
         this.condition = condition;
         this.puzzleLevelId = puzzleLevelId;
         this.puzzleLeveTitle = puzzleLeveTitle;
