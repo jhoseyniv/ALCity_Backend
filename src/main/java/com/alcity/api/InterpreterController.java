@@ -49,7 +49,19 @@ public class InterpreterController {
     @Autowired
     InstanceInPLService pgObjectInstanceService;
 
-    @Operation( summary = "Fetch a json ",  description = "fetches all data that need to Interpret a puzzle level structure and rules")
+    @Operation( summary = "Create  json File ",  description = "Create Json file for a puzzle level structure and rules")
+    @RequestMapping(value = "/create-json/id/{id}", method = RequestMethod.GET)
+    @ResponseBody
+    public PLData createJsonFile(@PathVariable Long id) throws IOException, ClassNotFoundException {
+        Optional<PuzzleLevel> puzzleLevelOptional = puzzleLevelService.findById(id);
+        PLData plData = new PLData();
+        if(puzzleLevelOptional.isPresent()){
+            plData = getJsonFile(id);
+        }
+        return plData;
+    }
+
+    @Operation( summary = "Fetch a json ",  description = "Fetches all data that need to Interpret a puzzle level structure and rules")
     @RequestMapping(value = "/id/{id}", method = RequestMethod.GET)
     @ResponseBody
     public PLData getPuzzleLevelForInterpreter(@PathVariable Long id) throws IOException, ClassNotFoundException {
@@ -58,10 +70,10 @@ public class InterpreterController {
         if(puzzleLevelOptional.isPresent()){
             PuzzleLevel puzzleLevel = puzzleLevelOptional.get();
             if(puzzleLevel.getInterpreterFile()!=null)
-               plData = PLDTOUtil.getInterpreterJSON(puzzleLevel);
-           else {
+                plData = PLDTOUtil.getInterpreterJSON(puzzleLevel);
+            else {
                 plData = getJsonFile(id);
-           }
+            }
         }
         return plData;
     }
