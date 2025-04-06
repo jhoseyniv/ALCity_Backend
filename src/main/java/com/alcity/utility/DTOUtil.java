@@ -74,7 +74,12 @@ public class DTOUtil {
     }
     public static PLDTO getPuzzleLevelDTO(PuzzleLevel entity) {
         PLDTO dto = new PLDTO();
-
+        Collection<PLGround> plGrounds = entity.getPlGrounds();
+        Iterator<PLGround> iterator = plGrounds.iterator();
+        PLGround plGround = new PLGround();
+        while(iterator.hasNext()) {
+            plGround = iterator.next();
+        }
         dto.setId(entity.getId());
         dto.setVersion(entity.getVersion());
         dto.setCode(entity.getCode());
@@ -85,7 +90,7 @@ public class DTOUtil {
         dto.setOrdering(entity.getOrdering());
         dto.setPuzzleGroupId(entity.getPuzzleGroup().getId());
         dto.setPuzzleGroupTitle(entity.getPuzzleGroup().getTitle());
-
+        dto.setPlGroundId(plGround.getId());
         dto.setMaxScore(entity.getMaxScore());
         dto.setFirstStarScore(entity.getFirstStarScore());
         dto.setSecondStarScore(entity.getSecondStarScore());

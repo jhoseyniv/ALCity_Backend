@@ -32,6 +32,8 @@ public class PLDTO {
 
     private String puzzleGroupTitle;
 
+    private Long plGroundId;
+
     public Long getCreatorId() {
         return creatorId;
     }
@@ -211,7 +213,13 @@ public class PLDTO {
         this.puzzleLevelDifficulty = puzzleLevelDifficulty;
     }
 
+    public Long getPlGroundId() {
+        return plGroundId;
+    }
 
+    public void setPlGroundId(Long plGroundId) {
+        this.plGroundId = plGroundId;
+    }
 
     public PLDTO() {
     }
@@ -265,7 +273,7 @@ public class PLDTO {
     }
 
     public PLDTO(Long id, Long version, String created, String updated, String createdBy, String updatedBy, Long createdById, Long updatedById,
-                 Long creatorId, String creator,String approveDate,Long puzzleGroupId,String puzzleGroupTitle, Long ordering, String title, String code, Integer fromAge, Integer toAge, Float maxScore,Float firstStarScore ,Float secondStarScore,Float thirdStarScore,String puzzleLevelStatus, String puzzleLevelPrivacy, String puzzleLevelDifficulty) {
+                 Long creatorId, String creator,String approveDate,Long plGroundId,Long puzzleGroupId,String puzzleGroupTitle, Long ordering, String title, String code, Integer fromAge, Integer toAge, Float maxScore,Float firstStarScore ,Float secondStarScore,Float thirdStarScore,String puzzleLevelStatus, String puzzleLevelPrivacy, String puzzleLevelDifficulty) {
         this.id = id;
         this.version = version;
         this.created = created;
@@ -280,6 +288,7 @@ public class PLDTO {
         this.ordering = ordering;
         this.title = title;
         this.approveDate =approveDate;
+        this.puzzleGroupId = plGroundId;
         this.puzzleGroupId = puzzleGroupId;
         this.puzzleGroupTitle = puzzleGroupTitle;
         this.code = code;

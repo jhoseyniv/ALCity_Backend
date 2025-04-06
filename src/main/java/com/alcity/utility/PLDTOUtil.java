@@ -16,9 +16,7 @@ import com.alcity.entity.puzzle.*;
 import com.alcity.service.alobject.AttributeService;
 import com.alcity.service.alobject.ActionService;
 
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
@@ -132,16 +130,17 @@ public class PLDTOUtil {
         return boardGraphicDTO;
     }
 
+
     /*
-    public static PLData getInterpreterJSON(byte[] plData) throws IOException, ClassNotFoundException {
-        ByteArrayInputStream bis = new ByteArrayInputStream(plData);
+    public static BoardGraphicDTO getBoardGraphicJSON(byte[] boardGraphic) throws IOException, ClassNotFoundException {
+        ByteArrayInputStream bis = new ByteArrayInputStream(boardGraphic);
         ObjectInputStream ois = new ObjectInputStream(bis);
-        //FileOutputStream outputStream = new FileOutputStream("file.ser");
-        //outputStream.write(plData);
-        //FileInputStream inputStream = new FileInputStream("file.ser");
-        PLData plData1 = (PLData) ois.readObject();
+        FileOutputStream outputStream = new FileOutputStream("file.ser");
+        outputStream.write(boardGraphic);
+        FileInputStream inputStream = new FileInputStream("file.ser");
+        BoardGraphicDTO plData1 = (BoardGraphicDTO) ois.readObject();
         return plData1;
     }
+*/
 
-     */
 }

@@ -1,127 +1,55 @@
-{
-  "settings": {
-    "skyboxId": "dreamy_sky",
-    "environmentId": "Rural_Area",
-    "startPosition": {
-      "x": 2,
-      "y": 0,
-      "z": 3
+{   
+      "settings": {
+        "skyboxId": "dreamy_sky",
+        "environmentId": "rural_area",
+        "startPosition": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        }
+      },
+      "rows": [
+        {
+          "tiles": [
+            {
+              "id": 1,
+              "tileObjId": "grass_11",
+              "alpha": 1,
+              "zPosition": 0,
+              "margin": {
+                "top": 0,
+                "bottom": 0,
+                "left": 0,
+                "right": 0
+              }
+            },
+            {
+              "id": 2,
+              "tileObjId": "water_3456",
+              "alpha": 0.5,
+              "zPosition": 0,
+              "margin": {
+                "top": 0,
+                "bottom": 0,
+                "left": 0,
+                "right": 0
+              }
+            },
+            {
+              "id": 3,
+              "tileObjId": "mountain_82",
+              "alpha": 1,
+              "zPosition": 0,
+              "margin": {
+                "top": 0,
+                "bottom": 0,
+                "left": 0,
+                "right": 0
+              }
+            }
+          ]
+        }
+      ]
     }
-  },
-  "rows": [    
-      [
-        {
-          "id": 1,
-          "tileObjId": "Grass",
-          "alpha": 1,
-          "zPosition": 0,
-          "margin": {
-            "top": 0,
-            "bottom": 0,
-            "left": 0,
-            "right": 0
-          }
-        },
-        {
-          "id": 2,
-          "alpha": 0.5,
-          "tileObjId": "Water",
-          "zPosition": 0,
-          "margin": {
-            "top": 0,
-            "bottom": 0,
-            "left": 0,
-            "right": 0
-          }
-        },
-        {
-          "id": 3,
-          "tileObjId": "Grass",
-          "alpha": 1,
-          "zPosition": 0,
-          "margin": {
-            "top": 0,
-            "bottom": 0,
-            "left": 0,
-            "right": 0
-          }
-        }
-      ],
-	  [
-        {
-          "id": 4,
-          "tileObjId": "Grass",
-          "alpha": 1,
-          "zPosition": 0,
-          "margin": {
-            "top": 0,
-            "bottom": 0,
-            "left": 0,
-            "right": 0
-          }
-        },
-        {
-          "id": 5,
-          "alpha": 0.5,
-          "tileObjId": "Water",
-          "zPosition": 0,
-          "margin": {
-            "top": 0,
-            "bottom": 0,
-            "left": 0,
-            "right": 0
-          }
-        },
-        {
-          "id": 6,
-          "tileObjId": "Grass",
-          "alpha": 1,
-          "zPosition": 0,
-          "margin": {
-            "top": 0,
-            "bottom": 0,
-            "left": 0,
-            "right": 0
-          }
-        }
-      ],
-	  [
-        {
-          "id": 7,
-          "tileObjId": "Grass",
-          "alpha": 1,
-          "zPosition": 0,
-          "margin": {
-            "top": 0,
-            "bottom": 0,
-            "left": 0,
-            "right": 0
-          }
-        },
-        {
-          "id": 8,
-          "alpha": 0.5,
-          "tileObjId": "Water",
-          "zPosition": 0,
-          "margin": {
-            "top": 0,
-            "bottom": 0,
-            "left": 0,
-            "right": 0
-          }
-        },
-        {
-          "id": 9,
-          "tileObjId": "Grass",
-          "alpha": 1,
-          "zPosition": 0,
-          "margin": {
-            "top": 0,
-            "bottom": 0,
-            "left": 0,
-            "right": 0
-          }
-        }
-      ]    
-  ]
-}
+  
+  

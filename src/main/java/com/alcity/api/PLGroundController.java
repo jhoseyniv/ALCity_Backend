@@ -68,12 +68,12 @@ public class PLGroundController {
             if(savedRecord !=null)
                 responseObject = new ALCityResponseObject(HttpStatus.OK.value(), "ok", savedRecord.getId(), "Record Updated Successfully!");
             else
-                responseObject = new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", dto.getId(), "Record Not Found!");
+                responseObject = new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", dto.getId(), "Record not Found!");
         }
         else if (savedRecord==null)
-            responseObject = new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", -1L, "Record Not Found!");
+            responseObject = new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", -1L, "Record not Found!");
         else
-            responseObject = new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", -1L, "Record Not Found!");
+            responseObject = new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", -1L, "Record not Found!");
 
         return responseObject;
     }
@@ -148,7 +148,7 @@ public class PLGroundController {
     }
 
  */
-    @Operation( summary = "Fetch board graphic for a puzzle level by  Id ",  description = "Fetch boardgraphic for a puzzle level by  Id")
+    @Operation( summary = "Fetch board graphic for a puzzle level by  Id ",  description = "Fetch board graphic for a puzzle level by  Id")
     @RequestMapping(value = "/id/{id}/boardgraphic", method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin(origins = "*")

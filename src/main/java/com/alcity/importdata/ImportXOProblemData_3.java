@@ -1,6 +1,7 @@
 package com.alcity.importdata;
 
 import com.alcity.ObjectManagmentApplication;
+import com.alcity.dto.puzzle.boardgraphic.BoardGraphicDTO;
 import com.alcity.entity.alenum.*;
 import com.alcity.entity.alobject.*;
 import com.alcity.entity.base.*;
@@ -28,6 +29,9 @@ import com.alcity.service.appmember.WalletItemService;
 import com.alcity.utility.DTOUtil;
 import com.alcity.utility.ImageUtil;
 import com.alcity.utility.ToolBox;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.apache.tomcat.util.json.JSONParser;
+import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +39,12 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
+import javax.json.Json;
+import javax.json.JsonObject;
+import javax.json.JsonReader;
+import java.io.ByteArrayOutputStream;
+import java.io.FileReader;
+import java.io.ObjectOutputStream;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
@@ -172,8 +182,14 @@ public class ImportXOProblemData_3 implements CommandLineRunner {
         LearningSkill matching = learningSkillService.findByValue("matching");
         Optional<WalletItem> alCoin100WalletItem = walletItemService.findByValue("al_coin_100");
         Optional<WalletItem> alCoin10WalletItem = walletItemService.findByValue("al_coin_10");
+       // JSONParser jsonParser = new JSONParser(new FileReader("src/main/resources/images/X-O Problem/x-o-ground.json"));
+        //byte[] boardGraphic = ImageUtil.getImage("src/main/resources/images/X-O Problem/","x-o-ground.json");
+      //  Object obj = jsonParser.parse();
+        JsonReader reader = Json.createReader(new FileReader("src/main/resources/images/X-O Problem/x-o-ground.json"));
+        JsonObject jsonObject = reader.readObject();
+        ObjectMapper objectMapper = new ObjectMapper();
+        BoardGraphicDTO boardGraphic = objectMapper.readValue(jsonObject.toString(), BoardGraphicDTO.class);
 
-        byte[] plGroundImage = ImageUtil.getImage("src/main/resources/images/X-O Problem/","x-o-ground.json");
         byte[] pgIcon = ImageUtil.getImage("src/main/resources/images/","puzzle_group_1.png");
         BinaryContent pgIcon_bc = new BinaryContent(1L, now, now,admin_1 , admin_1,"image_puzzle_group_x-o ",pgIcon.length,pgIcon,null,"tag1","","",BinaryContentType.Image);
         binaryContentService.save(pgIcon_bc);
@@ -200,8 +216,9 @@ public class ImportXOProblemData_3 implements CommandLineRunner {
 
         Integer xPos=1;
         Integer xRotation=0;
+        byte[] boardGraphic2 = ImageUtil.convertObjectToBytes(boardGraphic);
 
-        PLGround plGround = new PLGround(3,3,xPos,xPos,xPos,xRotation,xRotation,xRotation,puzzleLevel, plGroundImage,1L,now,now,admin_1,admin_1);
+        PLGround plGround = new PLGround(3,3,xPos,xPos,xPos,xRotation,xRotation,xRotation,puzzleLevel, boardGraphic2,1L,now,now,admin_1,admin_1);
         plGroundService.save(plGround);
 
         PermitedPlayer player_1 = new PermitedPlayer(Alireza_Zare,puzzleLevel,1L,now,now,admin_1,admin_1);
@@ -282,32 +299,6 @@ public class ImportXOProblemData_3 implements CommandLineRunner {
         AttributeValue  object_property_1_value= new AttributeValue(null,null,null,"",null,null,null,null,Boolean.FALSE,null,alCity_object_property_1,1L,now,now,admin_1,admin_1,textObject_In_IQ_Puzzle_Group.getId(),AttributeOwnerType.Puzzle_Group_Object_Property);
         attributeValueService.save(object_property_1_value);
 
-//        AttributeValue  obj_1_1_property_1_value= new AttributeValue(null,null,null,"text in obj_1_1",null,null,null,null,Boolean.FALSE,null,alCity_object_property_1,1L,now,now,admin_1,admin_1,obj_1_1.getId(),AttributeOwnerType.Instance_Puzzle_Group_Object_Property);
-//        attributeValueService.save(obj_1_1_property_1_value);
-//
-//         AttributeValue  obj_1_2_property_1_value= new AttributeValue(null,null,null,"text in obj_1_2",null,null,null,null,Boolean.FALSE,null,alCity_object_property_1,1L,now,now,admin_1,admin_1,obj_1_2.getId(),AttributeOwnerType.Instance_Puzzle_Group_Object_Property);
-//        attributeValueService.save(obj_1_2_property_1_value);
-//
-//         AttributeValue  obj_1_3_property_1_value= new AttributeValue(null,null,null,"text in obj_1_3",null,null,null,null,Boolean.FALSE,null,alCity_object_property_1,1L,now,now,admin_1,admin_1,obj_1_3.getId(),AttributeOwnerType.Instance_Puzzle_Group_Object_Property);
-//        attributeValueService.save(obj_1_3_property_1_value);
-//
-//         AttributeValue  obj_2_1_property_1_value= new AttributeValue(null,null,null,"text in obj_2_1",null,null,null,null,Boolean.FALSE,null,alCity_object_property_1,1L,now,now,admin_1,admin_1,obj_2_1.getId(),AttributeOwnerType.Instance_Puzzle_Group_Object_Property);
-//        attributeValueService.save(obj_2_1_property_1_value);
-//
-//        AttributeValue  obj_2_2_property_1_value= new AttributeValue(null,null,null,"text in obj_2_2",null,null,null,null,Boolean.FALSE,null,alCity_object_property_1,1L,now,now,admin_1,admin_1,obj_2_2.getId(),AttributeOwnerType.Instance_Puzzle_Group_Object_Property);
-//        attributeValueService.save(obj_2_2_property_1_value);
-//
-//         AttributeValue  obj_2_3_property_1_value= new AttributeValue(null,null,null,"text in obj_2_3",null,null,null,null,Boolean.FALSE,null,alCity_object_property_1,1L,now,now,admin_1,admin_1,obj_2_3.getId(),AttributeOwnerType.Instance_Puzzle_Group_Object_Property);
-//        attributeValueService.save(obj_2_3_property_1_value);
-//
-//         AttributeValue  obj_3_1_property_1_value= new AttributeValue(null,null,null,"text in obj_3_1",null,null,null,null,Boolean.FALSE,null,alCity_object_property_1,1L,now,now,admin_1,admin_1,obj_3_1.getId(),AttributeOwnerType.Instance_Puzzle_Group_Object_Property);
-//        attributeValueService.save(obj_3_1_property_1_value);
-//
-//        AttributeValue  obj_3_2_property_1_value= new AttributeValue(null,null,null,"text in obj_3_2",null,null,null,null,Boolean.FALSE,null,alCity_object_property_1,1L,now,now,admin_1,admin_1,obj_3_2.getId(),AttributeOwnerType.Instance_Puzzle_Group_Object_Property);
-//        attributeValueService.save(obj_3_2_property_1_value);
-//
-//        AttributeValue  obj_3_3_property_1_value= new AttributeValue(null,null,null,"text in obj_3_3",null,null,null,null,Boolean.FALSE,null,alCity_object_property_1,1L,now,now,admin_1,admin_1,obj_3_3.getId(),AttributeOwnerType.Instance_Puzzle_Group_Object_Property);
-//        attributeValueService.save(obj_3_3_property_1_value);
 
 
         Optional<PLRuleEvent> click_event = plRuleEventService.findByName("Click");
