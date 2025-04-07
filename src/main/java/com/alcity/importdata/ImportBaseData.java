@@ -441,6 +441,7 @@ public class ImportBaseData implements CommandLineRunner {
         LearningTopic root_Topic2 = new LearningTopic("Root Topic 2",null,1L,now,now,admin_1,admin_1);
         LearningTopic hashImage_Topic = new LearningTopic("Hash Image",root_Topic,1L,now,now,admin_1,admin_1);
         LearningTopic X_O_Topic = new LearningTopic("X-O Game",root_Topic,1L,now,now,admin_1,admin_1);
+        LearningTopic Pipe_Game_Topic = new LearningTopic("Pipe_Game",root_Topic,1L,now,now,admin_1,admin_1);
         LearningTopic Memory_Game_Topic = new LearningTopic("Memory_Game",root_Topic,1L,now,now,admin_1,admin_1);
         LearningTopic magic_matrix_Topic = new LearningTopic("Magic Matrix",root_Topic,1L,now,now,admin_1,admin_1);
         LearningTopic maze_table_Topic = new LearningTopic("Maze Table",root_Topic,1L,now,now,admin_1,admin_1);
@@ -450,6 +451,7 @@ public class ImportBaseData implements CommandLineRunner {
         learningTopicService.save(root_Topic2);
         learningTopicService.save(hashImage_Topic);
         learningTopicService.save(X_O_Topic);
+        learningTopicService.save(Pipe_Game_Topic);
         learningTopicService.save(magic_matrix_Topic);
         learningTopicService.save(algorithm_Topic);
         learningTopicService.save(maze_table_Topic);
@@ -663,6 +665,17 @@ public class ImportBaseData implements CommandLineRunner {
         AttributeValue withNext_ActionRenderer_param_1_value= new AttributeValue(true,null,null,null,null,null,null,null,Boolean.FALSE,null,withNext_Renderer_param_1,1L,now,now,admin_1,admin_1,flipImage_Renderer.getId(),AttributeOwnerType.Action_Handler_Parameter);
         attributeValueService.save(withNext_ActionRenderer_param_1_value);
 
+        Renderer rotateImage_Renderer = new Renderer("Rotate",mobile, ObjectActionType.Rotate,1L,now,now,admin_1,admin_1);
+        actionRendererService.save(rotateImage_Renderer);
+        Attribute rotateImage_Renderer_param_1 =new Attribute("degree",rotateImage_Renderer.getId(),AttributeOwnerType.Action_Handler_Parameter,DataType.Float,1L,now,now,admin_1,admin_1);
+        attributeService.save(rotateImage_Renderer_param_1);
+        AttributeValue rotateImage_ActionRenderer_param_1_value= new AttributeValue(null,null,null,null,null,90F,null,null,Boolean.TRUE,null,rotateImage_Renderer_param_1,1L,now,now,admin_1,admin_1,rotateImage_Renderer.getId(),AttributeOwnerType.Action_Handler_Parameter);
+        attributeValueService.save(rotateImage_ActionRenderer_param_1_value);
+
+        Attribute rotate_Renderer_param_2 =new Attribute("withNext", rotateImage_Renderer.getId(),AttributeOwnerType.Action_Handler_Parameter,DataType.Boolean,1L,now,now,admin_1,admin_1);
+        attributeService.save(rotate_Renderer_param_2);
+        AttributeValue rotate_Renderer_param_2_value= new AttributeValue(true,null,null,null,null,null,null,null,Boolean.FALSE,null,rotate_Renderer_param_2,1L,now,now,admin_1,admin_1,rotateImage_Renderer.getId(),AttributeOwnerType.Action_Handler_Parameter);
+        attributeValueService.save(rotate_Renderer_param_2_value);
 
 
 
@@ -704,29 +717,9 @@ public class ImportBaseData implements CommandLineRunner {
         ObjectAction imageObject01_flipImage_Action = new ObjectAction(POActionOwnerType.Object,imageObject01.getId(), ObjectActionType.Flip,flipImage_Renderer,1L,now,now,admin_1,admin_1);
         puzzleObjectActionService.save(imageObject01_flipImage_Action);
 
-//        Attribute ImageObject01_property_1 =new Attribute("property_1_image01",imageObject01.getId(),AttributeOwnerType.Object_Property,DataType.String,1L,now,now,admin_1,admin_1);
-//        attributeService.save(ImageObject01_property_1);
-//        AttributeValue  Image0object_property_1_value= new AttributeValue(null,null,null,"Define & Iniit in Object (state 1)",null,null,null,null,Boolean.FALSE,null,ImageObject01_property_1,1L,now,now,admin_1,admin_1,imageObject01.getId(),AttributeOwnerType.Object_Property);
-//        attributeValueService.save(Image0object_property_1_value);
-//
-//        Attribute ImageObject01_property_2 =new Attribute("property_2_image01",imageObject01.getId(),AttributeOwnerType.Object_Property,DataType.String,1L,now,now,admin_1,admin_1);
-//        attributeService.save(ImageObject01_property_2);
-//        AttributeValue  Image0object_property_2_value= new AttributeValue(null,null,null,"Define & Iniit in Object (state 2)",null,null,null,null,Boolean.FALSE,null,ImageObject01_property_2,1L,now,now,admin_1,admin_1,imageObject01.getId(),AttributeOwnerType.Object_Property);
-//        attributeValueService.save(Image0object_property_2_value);
-//
-//        Attribute ImageObject01_property_3 =new Attribute("property_3_image01",imageObject01.getId(),AttributeOwnerType.Object_Property,DataType.String,1L,now,now,admin_1,admin_1);
-//        attributeService.save(ImageObject01_property_3);
-//        AttributeValue  Image0object_property_3_value= new AttributeValue(null,null,null,"Define & Iniit in Object (state 3)",null,null,null,null,Boolean.FALSE,null,ImageObject01_property_3,1L,now,now,admin_1,admin_1,imageObject01.getId(),AttributeOwnerType.Object_Property);
-//        attributeValueService.save(Image0object_property_3_value);
-//
-//        Attribute ImageObject01_property_4 =new Attribute("property_4_image01",imageObject01.getId(),AttributeOwnerType.Object_Property,DataType.String,1L,now,now,admin_1,admin_1);
-//        attributeService.save(ImageObject01_property_4);
-//        AttributeValue  Image0object_property_4_value= new AttributeValue(null,null,null,"Define & Iniit in Object (state 4)",null,null,null,null,Boolean.FALSE,null,ImageObject01_property_4,1L,now,now,admin_1,admin_1,imageObject01.getId(),AttributeOwnerType.Object_Property);
-//        attributeValueService.save(Image0object_property_4_value);
+        ObjectAction imageObject01_rotateImage_Action = new ObjectAction(POActionOwnerType.Object,imageObject01.getId(), ObjectActionType.Rotate,rotateImage_Renderer,1L,now,now,admin_1,admin_1);
+        puzzleObjectActionService.save(imageObject01_rotateImage_Action);
 
-
-//        ALCityObject ImageObject02 = new ALCityObject(1L,now,now,jalalHoseyni,jalalHoseyni,"ImageObject02",objectCategory_Image,image_Object_pic,image_Object_icon);
-//        alCityObjectService.save(ImageObject02);
 
         ALCityObject eagle = new ALCityObject(1L,now,now,jalalHoseyni,jalalHoseyni,"eagle",objectCategory_bird,eagle_Image_binary_content,eagle_Image_binary_content);
         alCityObjectService.save(eagle);
