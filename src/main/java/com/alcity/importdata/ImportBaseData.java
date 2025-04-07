@@ -305,11 +305,14 @@ public class ImportBaseData implements CommandLineRunner {
         binaryContentService.save(puzzle_group_binary_content_3);
 
         byte[] puzzle_group_Maze_Image = ImageUtil.getImage("src/main/resources/images/","MazeImage.png");
-        BinaryContent puzzle_group_Maze_Image_binary_content = new BinaryContent(1L, now, now,admin_1 , admin_1,"MazeImage",puzzle_group_Maze_Image.length,puzzle_group_Maze_Image,null,"tag1","","",BinaryContentType.Image);
+        byte[]  puzzle_group_Maze_Image_tumb = ImageUtil.getThumbnail(puzzle_group_Maze_Image,"puzzle_group_Maze_Image.png");
+        BinaryContent puzzle_group_Maze_Image_binary_content = new BinaryContent(1L, now, now,admin_1 , admin_1,"MazeImage",puzzle_group_Maze_Image.length,puzzle_group_Maze_Image,puzzle_group_Maze_Image_tumb,"tag1","","",BinaryContentType.Image);
         binaryContentService.save(puzzle_group_Maze_Image_binary_content);
 
         byte[] puzzle_group_Icon_1 = ImageUtil.getImage("src/main/resources/images/","puzzle_group_1.png");
-        BinaryContent puzzle_group_binary_content_Icon = new BinaryContent(1L, now, now,admin_1 , admin_1,"image_puzzle_group_matematic",puzzle_group_Icon_1.length,puzzle_group_Icon_1,null,"tag1","","",BinaryContentType.Image);
+        byte[]  puzzle_group_Icon_1_tumb = ImageUtil.getThumbnail(puzzle_group_Icon_1,"puzzle_group_1.png");
+
+        BinaryContent puzzle_group_binary_content_Icon = new BinaryContent(1L, now, now,admin_1 , admin_1,"image_puzzle_group_matematic",puzzle_group_Icon_1.length,puzzle_group_Icon_1,puzzle_group_Icon_1_tumb,"tag1","","",BinaryContentType.Image);
         binaryContentService.save(puzzle_group_binary_content_Icon);
 
         LearningContent learningContent_Maze=new LearningContent("help to maze","this content is about maze tables",puzzle_group_Maze_Image_binary_content,1L,now,now,admin_1,admin_1);
