@@ -11,6 +11,7 @@ import com.alcity.entity.base.BinaryContent;
 import com.alcity.entity.puzzle.*;
 import com.alcity.service.alobject.AttributeService;
 import com.alcity.service.alobject.ActionService;
+import com.alcity.service.customexception.ALCityResponseObject;
 import com.alcity.service.puzzle.InstanceInPLService;
 import com.alcity.service.puzzle.PLGroundService;
 import com.alcity.service.puzzle.PuzzleLevelService;
@@ -20,6 +21,7 @@ import com.alcity.utility.PLDTOUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.ByteArrayOutputStream;
@@ -52,13 +54,13 @@ public class InterpreterController {
     @Operation( summary = "Create  json File ",  description = "Create Json file for a puzzle level structure and rules")
     @RequestMapping(value = "/create-json/id/{id}", method = RequestMethod.GET)
     @ResponseBody
-    public PLData createJsonFile(@PathVariable Long id) throws IOException, ClassNotFoundException {
+    public ALCityResponseObject createJsonFile(@PathVariable Long id) throws IOException, ClassNotFoundException {
         Optional<PuzzleLevel> puzzleLevelOptional = puzzleLevelService.findById(id);
         PLData plData = new PLData();
         if(puzzleLevelOptional.isPresent()){
             plData = getJsonFile(id);
         }
-        return plData;
+        return new ALCityResponseObject(HttpStatus.OK.value(), "ok",id, "Json Created /Updated Successfully!");
     }
 
     @Operation( summary = "Fetch a json ",  description = "Fetches all data that need to Interpret a puzzle level structure and rules")
