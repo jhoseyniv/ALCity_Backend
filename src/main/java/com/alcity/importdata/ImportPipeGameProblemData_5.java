@@ -209,7 +209,7 @@ public class ImportPipeGameProblemData_5 implements CommandLineRunner {
 
         PLPrivacy privacy_1 = puzzleLevelPrivacyService.findByValue("Public");
 
-        PuzzleLevel pipe_Game= new PuzzleLevel(admin_1,now,1L,"pipe-Game","4548",8,15,5f,0f,2f,3f,IQ_Puzzle_Group.get(),PLDifficulty.Easy,PLStatus.Active,privacy_1,3L,now,now,admin_1,admin_1);
+        PuzzleLevel pipe_Game= new PuzzleLevel(admin_1,now,1L,"pipe-Game","4548",8,15,5f,0f,2f,3f,IQ_Puzzle_Group.get(),PLDifficulty.Easy,PLStatus.Active,privacy_1,pl_Icon_Memory_Game_content,pl_Icon_Memory_Game_content,3L,now,now,admin_1,admin_1);
         pipe_Game.setIcon(pl_pic_Memory_Game_content);
         pipe_Game.setPicture(pl_pic_Memory_Game_content);
         puzzleLevelService.save(pipe_Game);

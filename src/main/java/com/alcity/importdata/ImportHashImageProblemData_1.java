@@ -203,16 +203,16 @@ public class ImportHashImageProblemData_1 implements CommandLineRunner {
         journeyStepService.save(step_3_journey_1);
 
         PLPrivacy privacy_1 = plPrivacyService.findByValue("Public");
+        byte[] puzzle_group_Hash_Image = ImageUtil.getImage("src/main/resources/images/hashImage_Puzzle","hashImage_pic.png");
+        BinaryContent puzzle_group_Hash_Image_binary_content = new BinaryContent(1L, now, now,admin_1 , admin_1,"hashImage",puzzle_group_Hash_Image.length,puzzle_group_Hash_Image,null,"tag1","","",BinaryContentType.Image);
+        binaryContentService.save(puzzle_group_Hash_Image_binary_content);
 
-        PuzzleLevel puzzleLevel_hashimage = new PuzzleLevel(admin_1,now,1L,"hashed image with a empty cell","4545",8,15,15f,4f,8f,13f,puzzleGroup_HashImage.get(),PLDifficulty.Easy,PLStatus.Active,privacy_1,3L,now,now,admin_1,admin_1);
+        PuzzleLevel puzzleLevel_hashimage = new PuzzleLevel(admin_1,now,1L,"hashed image with a empty cell","4545",8,15,15f,4f,8f,13f,puzzleGroup_HashImage.get(),PLDifficulty.Easy,PLStatus.Active,privacy_1,puzzle_group_Hash_Image_binary_content,puzzle_group_Hash_Image_binary_content,3L,now,now,admin_1,admin_1);
         puzzleLevel_hashimage.setIcon(hashImage_icon);
         puzzleLevel_hashimage.setPicture(hashImage_pic);
         puzzleLevelService.save(puzzleLevel_hashimage);
 
 
-        byte[] puzzle_group_Hash_Image = ImageUtil.getImage("src/main/resources/images/hashImage_Puzzle","hashImage_pic.png");
-        BinaryContent puzzle_group_Hash_Image_binary_content = new BinaryContent(1L, now, now,admin_1 , admin_1,"hashImage",puzzle_group_Hash_Image.length,puzzle_group_Hash_Image,null,"tag1","","",BinaryContentType.Image);
-        binaryContentService.save(puzzle_group_Hash_Image_binary_content);
 
         Integer xPos=3;
         Integer xRotation=3;

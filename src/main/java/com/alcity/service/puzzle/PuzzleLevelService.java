@@ -218,15 +218,17 @@ public class PuzzleLevelService implements PuzzleLevelRepository {
         PuzzleLevel puzzleLevel=null;
         PLDifficulty plDifficulty =  PLDifficulty.getByTitle(dto.getPuzzleLevelDifficulty());
         PLStatus  plStatus =  PLStatus.getByTitle(dto.getPuzzleLevelStatus());
-        PLPrivacy plPrivacy =  plPrivacyRepository.findByValue(dto.getPuzzleLevelPrivacy());
+            PLPrivacy plPrivacy =  plPrivacyRepository.findByValue(dto.getPuzzleLevelPrivacy());
+            Optional<BinaryContent> pictureOptional =  binaryContentService.findById(dto.getPicId());
+            Optional<BinaryContent> iconOptional =  binaryContentService.findById(dto.getIconId());
         PuzzleGroup puzzleGroup = null;
         Optional<PuzzleGroup>  puzzleGroupOptional = pgRepository.findById(dto.getPuzzleGroupId());
         if(puzzleGroupOptional.isPresent())
                     puzzleGroup = puzzleGroupOptional.get();
         if (code.equalsIgnoreCase("Save")) { //Save
             puzzleLevel = new PuzzleLevel(createdBy.get(),dto.getApproveDate(), dto.getOrdering(), dto.getTitle(),dto.getCode(),dto.getFromAge(),dto.getToAge(),
-                                dto.getMaxScore(), dto.getFirstStarScore(), dto.getSecondStarScore(), dto.getThirdStartScore(), puzzleGroup,plDifficulty,plStatus,plPrivacy
-                                    , 1L, DateUtils.getNow(), DateUtils.getNow(), createdBy.get(), createdBy.get());
+                                dto.getMaxScore(), dto.getFirstStarScore(), dto.getSecondStarScore(), dto.getThirdStartScore(), puzzleGroup,plDifficulty,plStatus,plPrivacy,
+                    pictureOptional.get(),iconOptional.get() , 1L, DateUtils.getNow(), DateUtils.getNow(), createdBy.get(), createdBy.get());
             puzzleLevelRepository.save(puzzleLevel);
         }else{//edit
             Optional<PuzzleLevel> puzzleLevelOptional= puzzleLevelRepository.findById(dto.getId());
@@ -245,6 +247,8 @@ public class PuzzleLevelService implements PuzzleLevelRepository {
                 puzzleLevel.setPuzzleDifficulty(plDifficulty);
                 puzzleLevel.setPuzzleLevelStatus(plStatus);
                 puzzleLevel.setPuzzleLevelPrivacy(plPrivacy);
+                puzzleLevel.setPicture(pictureOptional.get());
+                puzzleLevel.setIcon(iconOptional.get());
 
                 puzzleLevel.setTitle(dto.getTitle());
                 puzzleLevel.setVersion(puzzleLevel.getVersion()+1);
