@@ -263,16 +263,16 @@ public class ImportPipeGameProblemData_5 implements CommandLineRunner {
                 alCoin10WalletItem.get(),pipe_Game ,1L,now,now,admin_1,admin_1);
         plObjectiveService.save(pl_objective_2);
 
-/*
+
         Attribute pl_variable_finished =new Attribute("finished",pipe_Game.getId(), AttributeOwnerType.Puzzle_Level_Variable,DataType.Boolean,1L,now,now,admin_1,admin_1);
         attributeService.save(pl_variable_finished);
-        AttributeValue pl_variable_finished_value= new AttributeValue(false,null,null,null,null,null,null,null,false,null,pl_variable_finished,1L,now,now,admin_1,admin_1,pl_Memory_Game.getId(), AttributeOwnerType.Puzzle_Level_Variable);
+        AttributeValue pl_variable_finished_value= new AttributeValue(false,null,null,null,null,null,null,null,false,null,pl_variable_finished,1L,now,now,admin_1,admin_1,pipe_Game.getId(), AttributeOwnerType.Puzzle_Level_Variable);
         attributeValueService.save(pl_variable_finished_value);
 
           Attribute pl_variable_steps =new Attribute("steps",pipe_Game.getId(),AttributeOwnerType.Puzzle_Level_Variable,DataType.Integer,1L,now,now,admin_1,admin_1);
         attributeService.save(pl_variable_steps);
 
-        AttributeValue pl_variable_steps_value= new AttributeValue(null,0,null,null,null,null,null,null,false,null,pl_variable_steps,1L,now,now,admin_1,admin_1,pl_Memory_Game.getId(),AttributeOwnerType.Puzzle_Level_Variable);
+        AttributeValue pl_variable_steps_value= new AttributeValue(null,0,null,null,null,null,null,null,false,null,pl_variable_steps,1L,now,now,admin_1,admin_1,pipe_Game.getId(),AttributeOwnerType.Puzzle_Level_Variable);
         attributeValueService.save(pl_variable_steps_value);
 
 
@@ -280,7 +280,7 @@ public class ImportPipeGameProblemData_5 implements CommandLineRunner {
         Attribute pl_variable_solved =new Attribute("solved",pipe_Game.getId(),AttributeOwnerType.Puzzle_Level_Variable,DataType.Integer,1L,now,now,admin_1,admin_1);
         attributeService.save(pl_variable_solved);
 
-        AttributeValue pl_variable_solved_value= new AttributeValue(null,0,null,null,null,null,null,null,false,null,pl_variable_solved,1L,now,now,admin_1,admin_1,pl_Memory_Game.getId(),AttributeOwnerType.Puzzle_Level_Variable);
+        AttributeValue pl_variable_solved_value= new AttributeValue(null,0,null,null,null,null,null,null,false,null,pl_variable_solved,1L,now,now,admin_1,admin_1,pipe_Game.getId(),AttributeOwnerType.Puzzle_Level_Variable);
         attributeValueService.save(pl_variable_solved_value);
 
 
@@ -320,7 +320,7 @@ public class ImportPipeGameProblemData_5 implements CommandLineRunner {
 //        AttributeValue  Image0object_property_4_value= new AttributeValue(null,null,null,"re- Iniit in puzzle group Object (state 4)",null,null,null,null,Boolean.FALSE,null,property_4_image01,1L,now,now,admin_1,admin_1,imageObject01_in_memoryGame_puzzleGroup.getId(),AttributeOwnerType.Puzzle_Group_Object_Property);
 //        attributeValueService.save(Image0object_property_4_value);
 
-/*
+
         Attribute ImageObject01_property_1 =new Attribute("bgImage",imageObject01_in_pipeGame_puzzleGroup.getId(),AttributeOwnerType.Puzzle_Group_Object_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(ImageObject01_property_1);
         AttributeValue  Image0object_property_1_value= new AttributeValue(null,null,null,null,null,null,puzzle_group_1_binary_content_image.getId(),null,Boolean.FALSE,null,ImageObject01_property_1,1L,now,now,admin_1,admin_1,imageObject01_in_pipeGame_puzzleGroup.getId(),AttributeOwnerType.Puzzle_Group_Object_Property);
@@ -332,18 +332,23 @@ public class ImportPipeGameProblemData_5 implements CommandLineRunner {
         AttributeValue  Image0object_variable_1_value= new AttributeValue(null,0,null,null,null,null,null,null,Boolean.FALSE,null,ImageObject01_variable_1,1L,now,now,admin_1,admin_1,imageObject01_in_pipeGame_puzzleGroup.getId(),AttributeOwnerType.Puzzle_Group_Object_Variable);
         attributeValueService.save(Image0object_variable_1_value);
 
-
-        Attribute ImageObject01_variable_2 =new Attribute("possibleDirs",imageObject01_in_pipeGame_puzzleGroup.getId(),AttributeOwnerType.Puzzle_Group_Object_Variable,DataType.Integer,1L,now,now,admin_1,admin_1);
+        Attribute ImageObject01_variable_2 =new Attribute("currentDir",imageObject01_in_pipeGame_puzzleGroup.getId(),AttributeOwnerType.Puzzle_Group_Object_Variable,DataType.Integer,1L,now,now,admin_1,admin_1);
         attributeService.save(ImageObject01_variable_2);
-        AttributeValue  ImageObject01_variable_2_value= new AttributeValue(null,4,null,null,null,null,null,null,Boolean.FALSE,null,ImageObject01_variable_2,1L,now,now,admin_1,admin_1,imageObject01_in_pipeGame_puzzleGroup.getId(),AttributeOwnerType.Puzzle_Group_Object_Variable);
-        attributeValueService.save(ImageObject01_variable_2_value);
+        AttributeValue  Image0object_variable_2_value= new AttributeValue(null,0,null,null,null,null,null,null,Boolean.FALSE,null,ImageObject01_variable_2,1L,now,now,admin_1,admin_1,imageObject01_in_pipeGame_puzzleGroup.getId(),AttributeOwnerType.Puzzle_Group_Object_Variable);
+        attributeValueService.save(Image0object_variable_2_value);
 
-        Attribute ImageObject01_variable_3 =new Attribute("canRotate",imageObject01_in_pipeGame_puzzleGroup.getId(),AttributeOwnerType.Puzzle_Group_Object_Variable,DataType.Boolean,1L,now,now,admin_1,admin_1);
+
+        Attribute ImageObject01_variable_3 =new Attribute("possibleDirs",imageObject01_in_pipeGame_puzzleGroup.getId(),AttributeOwnerType.Puzzle_Group_Object_Variable,DataType.Integer,1L,now,now,admin_1,admin_1);
         attributeService.save(ImageObject01_variable_3);
-        AttributeValue  ImageObject01_variable_3_value= new AttributeValue(true,null,null,null,null,null,null,null,Boolean.FALSE,null,ImageObject01_variable_3,1L,now,now,admin_1,admin_1,imageObject01_in_pipeGame_puzzleGroup.getId(),AttributeOwnerType.Puzzle_Group_Object_Variable);
+        AttributeValue  ImageObject01_variable_3_value= new AttributeValue(null,4,null,null,null,null,null,null,Boolean.FALSE,null,ImageObject01_variable_3,1L,now,now,admin_1,admin_1,imageObject01_in_pipeGame_puzzleGroup.getId(),AttributeOwnerType.Puzzle_Group_Object_Variable);
         attributeValueService.save(ImageObject01_variable_3_value);
 
+        Attribute ImageObject01_variable_4 =new Attribute("canRotate",imageObject01_in_pipeGame_puzzleGroup.getId(),AttributeOwnerType.Puzzle_Group_Object_Variable,DataType.Boolean,1L,now,now,admin_1,admin_1);
+        attributeService.save(ImageObject01_variable_4);
+        AttributeValue  ImageObject01_variable_4_value= new AttributeValue(true,null,null,null,null,null,null,null,Boolean.FALSE,null,ImageObject01_variable_4,1L,now,now,admin_1,admin_1,imageObject01_in_pipeGame_puzzleGroup.getId(),AttributeOwnerType.Puzzle_Group_Object_Variable);
+        attributeValueService.save(ImageObject01_variable_4_value);
 
+/*
         ALCityInstanceInPL instance_img0 = new ALCityInstanceInPL("instance_img0",1,1,0,imageObject01_in_memoryGame_puzzleGroup,pl_Memory_Game,1L,now,now,admin_1,admin_1);
         pgObjectInstanceService.save(instance_img0);
 

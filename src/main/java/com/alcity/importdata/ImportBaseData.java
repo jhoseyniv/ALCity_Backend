@@ -297,11 +297,13 @@ public class ImportBaseData implements CommandLineRunner {
         binaryContentService.save(puzzle_ground_Maze_image_binary_content_1);
 
         byte[] puzzle_group_Icon_2 = ImageUtil.getImage("src/main/resources/images/","physic.png");
-        BinaryContent puzzle_group_binary_content_2 = new BinaryContent(1L, now, now,admin_1 , admin_1,"image_puzzle_group_physic",puzzle_group_Icon_2.length,puzzle_group_Icon_2,null,"tag1","kjkjk","",BinaryContentType.Image);
+        byte[]  puzzle_group_Icon_2_tumb = ImageUtil.getThumbnail(puzzle_group_Icon_2,"physic_tumb.png");
+        BinaryContent puzzle_group_binary_content_2 = new BinaryContent(1L, now, now,admin_1 , admin_1,"image_puzzle_group_physic",puzzle_group_Icon_2.length,puzzle_group_Icon_2,puzzle_group_Icon_2_tumb,"tag1","kjkjk","",BinaryContentType.Image);
         binaryContentService.save(puzzle_group_binary_content_2);
 
         byte[] puzzle_group_Icon_3 = ImageUtil.getImage("src/main/resources/images/","IQ.png");
-        BinaryContent puzzle_group_binary_content_3 = new BinaryContent(1L, now, now,admin_1 , admin_1,"image_puzzle_group_IQ",puzzle_group_Icon_3.length,puzzle_group_Icon_3,null,"tag1","","",BinaryContentType.Image);
+        byte[]  puzzle_group_Icon_3_tumb = ImageUtil.getThumbnail(puzzle_group_Icon_3,"IQ_tumb.png");
+        BinaryContent puzzle_group_binary_content_3 = new BinaryContent(1L, now, now,admin_1 , admin_1,"image_puzzle_group_IQ",puzzle_group_Icon_3.length,puzzle_group_Icon_3,puzzle_group_Icon_3_tumb,"tag1","","",BinaryContentType.Image);
         binaryContentService.save(puzzle_group_binary_content_3);
 
         byte[] puzzle_group_Maze_Image = ImageUtil.getImage("src/main/resources/images/","MazeImage.png");
@@ -310,7 +312,7 @@ public class ImportBaseData implements CommandLineRunner {
         binaryContentService.save(puzzle_group_Maze_Image_binary_content);
 
         byte[] puzzle_group_Icon_1 = ImageUtil.getImage("src/main/resources/images/","puzzle_group_1.png");
-        byte[]  puzzle_group_Icon_1_tumb = ImageUtil.getThumbnail(puzzle_group_Icon_1,"puzzle_group_1.png");
+        byte[]  puzzle_group_Icon_1_tumb = ImageUtil.getThumbnail(puzzle_group_Icon_1,"image_puzzle_group_matematic_icon.png");
 
         BinaryContent puzzle_group_binary_content_Icon = new BinaryContent(1L, now, now,admin_1 , admin_1,"image_puzzle_group_matematic",puzzle_group_Icon_1.length,puzzle_group_Icon_1,puzzle_group_Icon_1_tumb,"tag1","","",BinaryContentType.Image);
         binaryContentService.save(puzzle_group_binary_content_Icon);
