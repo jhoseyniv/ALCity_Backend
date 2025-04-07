@@ -1,6 +1,7 @@
 package com.alcity.importdata;
 
 import com.alcity.ObjectManagmentApplication;
+import com.alcity.dto.puzzle.boardgraphic.BoardGraphicDTO;
 import com.alcity.entity.alenum.*;
 import com.alcity.entity.alobject.*;
 import com.alcity.entity.appmember.AppMember;
@@ -33,6 +34,7 @@ import com.alcity.service.puzzle.*;
 import com.alcity.utility.DTOUtil;
 import com.alcity.utility.ImageUtil;
 import com.alcity.utility.ToolBox;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +42,10 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
+import javax.json.Json;
+import javax.json.JsonObject;
+import javax.json.JsonReader;
+import java.io.FileReader;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Collection;
@@ -192,7 +198,13 @@ public class ImportPipeGameProblemData_5 implements CommandLineRunner {
         Optional<WalletItem> alCoin10WalletItem = walletItemService.findByValue("al_coin_10");
 
 
-        byte[]  planyGround_Image_Memory_Game = ImageUtil.getImage("src/main/resources/images/Pipe-Game/","PipeGame-ground.json");
+      //  byte[]  planyGround_Image_Memory_Game = ImageUtil.getImage("src/main/resources/images/Pipe-Game/","PipeGame-ground.json");
+        JsonReader reader = Json.createReader(new FileReader("src/main/resources/images/X-O Problem/x-o-ground.json"));
+        JsonObject jsonObject = reader.readObject();
+        ObjectMapper objectMapper = new ObjectMapper();
+        BoardGraphicDTO boardGraphic = objectMapper.readValue(jsonObject.toString(), BoardGraphicDTO.class);
+
+
         byte[] pl_Icon_Memory_Game_bytes = ImageUtil.getImage("src/main/resources/images/Pipe-Game/","MemGame_icon.png");
         BinaryContent pl_Icon_Memory_Game_content = new BinaryContent(1L, now, now,admin_1 , admin_1,"Memory_Game_Icon",pl_Icon_Memory_Game_bytes.length,pl_Icon_Memory_Game_bytes,null,"tag1","","",BinaryContentType.Image);
         binaryContentService.save(pl_Icon_Memory_Game_content);
@@ -224,7 +236,8 @@ public class ImportPipeGameProblemData_5 implements CommandLineRunner {
         Integer zPos=3;
         Integer xRotation=3;
 
-        PLGround pl_Memory_Game_ground = new PLGround(4,5,xPos,yPos,zPos,xRotation,xRotation,xRotation,pipe_Game, planyGround_Image_Memory_Game,1L,now,now,admin_1,admin_1);
+        byte[] boardGraphic2 = ImageUtil.convertObjectToBytes(boardGraphic);
+        PLGround pl_Memory_Game_ground = new PLGround(4,5,xPos,yPos,zPos,xRotation,xRotation,xRotation,pipe_Game, boardGraphic2,1L,now,now,admin_1,admin_1);
         puzzleLevelGroundService.save(pl_Memory_Game_ground);
 
         PermitedPlayer player_1_puzzleLevel_X_O = new PermitedPlayer(Alireza_Zare,pipe_Game,1L,now,now,admin_1,admin_1);

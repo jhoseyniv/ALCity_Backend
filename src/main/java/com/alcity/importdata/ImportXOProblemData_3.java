@@ -182,9 +182,7 @@ public class ImportXOProblemData_3 implements CommandLineRunner {
         LearningSkill matching = learningSkillService.findByValue("matching");
         Optional<WalletItem> alCoin100WalletItem = walletItemService.findByValue("al_coin_100");
         Optional<WalletItem> alCoin10WalletItem = walletItemService.findByValue("al_coin_10");
-       // JSONParser jsonParser = new JSONParser(new FileReader("src/main/resources/images/X-O Problem/x-o-ground.json"));
-        //byte[] boardGraphic = ImageUtil.getImage("src/main/resources/images/X-O Problem/","x-o-ground.json");
-      //  Object obj = jsonParser.parse();
+
         JsonReader reader = Json.createReader(new FileReader("src/main/resources/images/X-O Problem/x-o-ground.json"));
         JsonObject jsonObject = reader.readObject();
         ObjectMapper objectMapper = new ObjectMapper();

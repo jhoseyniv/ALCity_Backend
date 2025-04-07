@@ -1,6 +1,7 @@
 package com.alcity.importdata;
 
 import com.alcity.ObjectManagmentApplication;
+import com.alcity.dto.puzzle.boardgraphic.BoardGraphicDTO;
 import com.alcity.entity.alenum.*;
 import com.alcity.entity.alobject.*;
 import com.alcity.entity.base.*;
@@ -30,6 +31,7 @@ import com.alcity.service.appmember.WalletItemService;
 import com.alcity.utility.DTOUtil;
 import com.alcity.utility.ImageUtil;
 import com.alcity.utility.ToolBox;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +39,10 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
+import javax.json.Json;
+import javax.json.JsonObject;
+import javax.json.JsonReader;
+import java.io.FileReader;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
@@ -178,6 +184,11 @@ public class ImportHashImageProblemData_1 implements CommandLineRunner {
 
         byte[] puzzle_Ground_Image_1 = ImageUtil.getImage("src/main/resources/images/hashImage_Puzzle/","HashImage-ground.json");
 
+        JsonReader reader = Json.createReader(new FileReader("src/main/resources/images/X-O Problem/x-o-ground.json"));
+        JsonObject jsonObject = reader.readObject();
+        ObjectMapper objectMapper = new ObjectMapper();
+        BoardGraphicDTO boardGraphic = objectMapper.readValue(jsonObject.toString(), BoardGraphicDTO.class);
+
       //  BinaryContent puzzle_ground_binary_content_1 = new BinaryContent(1L, now, now,admin_1 , admin_1,"puzzle ground for hash image",puzzle_Ground_Image_1.length,puzzle_Ground_Image_1,null,"tag1","","",BinaryContentType.Image);
        // binaryContentService.save(puzzle_ground_binary_content_1);
 
@@ -249,7 +260,8 @@ public class ImportHashImageProblemData_1 implements CommandLineRunner {
         binaryContentService.save(image_8_Instance_content);
 
 
-        PLGround puzzleLevel_hashImage_ground = new PLGround(3,3,xPos,xPos,xPos,xRotation,xRotation,xRotation,puzzleLevel_hashimage, puzzle_Ground_Image_1,1L,now,now,admin_1,admin_1);
+        byte[] boardGraphic2 = ImageUtil.convertObjectToBytes(boardGraphic);
+        PLGround puzzleLevel_hashImage_ground = new PLGround(3,3,xPos,xPos,xPos,xRotation,xRotation,xRotation,puzzleLevel_hashimage, boardGraphic2,1L,now,now,admin_1,admin_1);
         puzzleLevelGroundService.save(puzzleLevel_hashImage_ground);
 
         PermitedPlayer player_1_puzzleLevel_hashimage = new PermitedPlayer(jalalHoseyni,puzzleLevel_hashimage,1L,now,now,admin_1,admin_1);
