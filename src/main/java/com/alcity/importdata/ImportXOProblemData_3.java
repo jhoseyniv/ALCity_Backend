@@ -192,11 +192,11 @@ public class ImportXOProblemData_3 implements CommandLineRunner {
         BinaryContent pgIcon_bc = new BinaryContent(1L, now, now,admin_1 , admin_1,"image_puzzle_group_x-o ",pgIcon.length,pgIcon,null,"tag1","","",BinaryContentType.Image);
         binaryContentService.save(pgIcon_bc);
 
-        Optional<PuzzleGroup>  IQ_Puzzle_Group =pgService.findByTitle("IQ Puzzle Group");
+        Optional<PuzzleGroup>  puzzleGroup_X_O =pgService.findByTitle("X-O Puzzle Group");
 
         Optional<ALCityObject>  textObject = objectService.findByTitle("TextObject");
 
-        ALCityObjectInPG textObject_In_IQ_Puzzle_Group = new ALCityObjectInPG(" Text Image in hash puzzle group","TextObject",IQ_Puzzle_Group.get(),textObject.get(),1L,now,now,admin_1,admin_1);
+        ALCityObjectInPG textObject_In_IQ_Puzzle_Group = new ALCityObjectInPG(" Text Image in hash puzzle group","TextObject",puzzleGroup_X_O.get(),textObject.get(),1L,now,now,admin_1,admin_1);
         objectInPGService.save(textObject_In_IQ_Puzzle_Group);
 
         DTOUtil.copyActionFromTo(textObject.get().getId(), textObject_In_IQ_Puzzle_Group.getId(),AttributeOwnerType.Object_Action_Handler_Parameter,
@@ -206,7 +206,7 @@ public class ImportXOProblemData_3 implements CommandLineRunner {
         PLPrivacy privacy_1 = plPrivacyService.findByValue("Public");
         BinaryContent puzzle_group_1_binary_content = binaryContentService.findByfileName("image_puzzle_group_matematic");
 
-        PuzzleLevel puzzleLevel = new PuzzleLevel(admin_1,now,1L,"X-O","4500",8,15,10f,3f,5f,8f,IQ_Puzzle_Group.get(),PLDifficulty.Easy,PLStatus.Active,privacy_1,puzzle_group_1_binary_content,puzzle_group_1_binary_content,3L,now,now,admin_1,admin_1);
+        PuzzleLevel puzzleLevel = new PuzzleLevel(admin_1,now,1L,"X-O","4500",8,15,10f,3f,5f,8f,puzzleGroup_X_O.get(),PLDifficulty.Easy,PLStatus.Active,privacy_1,puzzle_group_1_binary_content,puzzle_group_1_binary_content,3L,now,now,admin_1,admin_1);
         puzzleLevel.setIcon(pgIcon_bc);
         puzzleLevel.setPicture(pgIcon_bc);
         puzzleLevelService.save(puzzleLevel);
@@ -234,7 +234,7 @@ public class ImportXOProblemData_3 implements CommandLineRunner {
         PlayHistory playHistory_1 = new PlayHistory(Alireza_Zare,puzzleLevel,now,now,85L,playScore,stars,1L,now,now,Alireza_Zare,Alireza_Zare);
         playHistoryService.save(playHistory_1);
 
-        LearningSkillContent puzzleSkillLearningContent_1 = new LearningSkillContent(matching,IQ_Puzzle_Group.get(),learningContent_Mathcing,1L,now,now,admin_1,admin_1);
+        LearningSkillContent puzzleSkillLearningContent_1 = new LearningSkillContent(matching,puzzleGroup_X_O.get(),learningContent_Mathcing,1L,now,now,admin_1,admin_1);
         puzzleSkillLearningContentService.save(puzzleSkillLearningContent_1);
 
         PLGameInstance puzzleLevelGameInstance= new PLGameInstance(jalalHoseyni,puzzleLevel,now,now,GameStatus.Playing,1L,now,now,Alireza_Zare,Alireza_Zare);
