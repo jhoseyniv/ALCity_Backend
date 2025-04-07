@@ -176,7 +176,7 @@ public class ImportHashImageProblemData_1 implements CommandLineRunner {
         Optional<Journey> journey_1 = journeyService.findByTitle("Journey_1");
         Optional<Journey> journey_2 = journeyService.findByTitle("Journey_2");
 
-        byte[] puzzle_Ground_Image_1 = ImageUtil.getImage("src/main/resources/images/X-O Problem/","x-o-ground.json");
+        byte[] puzzle_Ground_Image_1 = ImageUtil.getImage("src/main/resources/images/hashImage_Puzzle/","HashImage-ground.json");
 
       //  BinaryContent puzzle_ground_binary_content_1 = new BinaryContent(1L, now, now,admin_1 , admin_1,"puzzle ground for hash image",puzzle_Ground_Image_1.length,puzzle_Ground_Image_1,null,"tag1","","",BinaryContentType.Image);
        // binaryContentService.save(puzzle_ground_binary_content_1);

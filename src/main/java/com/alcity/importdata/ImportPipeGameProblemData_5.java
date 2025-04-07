@@ -192,7 +192,7 @@ public class ImportPipeGameProblemData_5 implements CommandLineRunner {
         Optional<WalletItem> alCoin10WalletItem = walletItemService.findByValue("al_coin_10");
 
 
-        byte[]  planyGround_Image_Memory_Game = ImageUtil.getImage("src/main/resources/images/Pipe-Game/","MemGame.png");
+        byte[]  planyGround_Image_Memory_Game = ImageUtil.getImage("src/main/resources/images/Pipe-Game/","PipeGame-ground.json");
         byte[] pl_Icon_Memory_Game_bytes = ImageUtil.getImage("src/main/resources/images/Pipe-Game/","MemGame_icon.png");
         BinaryContent pl_Icon_Memory_Game_content = new BinaryContent(1L, now, now,admin_1 , admin_1,"Memory_Game_Icon",pl_Icon_Memory_Game_bytes.length,pl_Icon_Memory_Game_bytes,null,"tag1","","",BinaryContentType.Image);
         binaryContentService.save(pl_Icon_Memory_Game_content);
