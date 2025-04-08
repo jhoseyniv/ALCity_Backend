@@ -1367,6 +1367,7 @@ public class DTOUtil {
     }
     public static String getDataType(Attribute attribute){
         if(attribute == null)  return "Attribute is Null";
+        if(attribute.getDataType().name().equalsIgnoreCase("Float")) return "Decimal";
         else return attribute.getDataType().name();
      }
 }

@@ -485,100 +485,6 @@ public class ImportPipeGameProblemData_5 implements CommandLineRunner {
         attributeValueService.save(instance_img9_property_bgImage_value);
 
 
-/*
-        ALCityInstanceInPL instance_img10 = new ALCityInstanceInPL("instance_img10",3,1,0,imageObject01_in_memoryGame_puzzleGroup,pl_Memory_Game,1L,now,now,admin_1,admin_1);
-        pgObjectInstanceService.save(instance_img10);
-        AttributeValue instance_img10_variable_2_value2 = new AttributeValue(null,null,null,"E",null,null,null,null,false,null,ImageObject01_variable_2,1L,now,now,admin_1,admin_1,instance_img10.getId(),AttributeOwnerType.Instance_Puzzle_Group_Object_Variable);
-        attributeValueService.save(instance_img10_variable_2_value2);
-
-        AttributeValue  instance_img10_property_1_value2= new AttributeValue(null,null,null,null,null,null,E_Image_bytes_content.getId(),null,Boolean.FALSE,null,ImageObject01_property_1,1L,now,now,admin_1,admin_1,instance_img10.getId(),AttributeOwnerType.Instance_Puzzle_Group_Object_Property);
-        attributeValueService.save(instance_img10_property_1_value2);
-
-
-
-        ALCityInstanceInPL instance_img11 = new ALCityInstanceInPL("instance_img11",3,2,0,imageObject01_in_memoryGame_puzzleGroup,pl_Memory_Game,1L,now,now,admin_1,admin_1);
-        pgObjectInstanceService.save(instance_img11);
-        AttributeValue instance_img11_variable_2_value2 = new AttributeValue(null,null,null,"D",null,null,null,null,false,null,ImageObject01_variable_2,1L,now,now,admin_1,admin_1,instance_img11.getId(),AttributeOwnerType.Instance_Puzzle_Group_Object_Variable);
-        attributeValueService.save(instance_img11_variable_2_value2);
-
-        AttributeValue  instance_img11_property_1_value2= new AttributeValue(null,null,null,null,null,null,D_Image_bytes_content.getId(),null,Boolean.FALSE,null,ImageObject01_property_1,1L,now,now,admin_1,admin_1,instance_img11.getId(),AttributeOwnerType.Instance_Puzzle_Group_Object_Property);
-        attributeValueService.save(instance_img11_property_1_value2);
-
-
-        ALCityInstanceInPL instance_img12 = new ALCityInstanceInPL("instance_img12",3,3,0,imageObject01_in_memoryGame_puzzleGroup,pl_Memory_Game,1L,now,now,admin_1,admin_1);
-        pgObjectInstanceService.save(instance_img12);
-        AttributeValue instance_img12_variable_2_value2 = new AttributeValue(null,null,null,"I",null,null,null,null,false,null,ImageObject01_variable_2,1L,now,now,admin_1,admin_1,instance_img12.getId(),AttributeOwnerType.Instance_Puzzle_Group_Object_Variable);
-        attributeValueService.save(instance_img12_variable_2_value2);
-
-        AttributeValue  instance_img12_property_1_value2= new AttributeValue(null,null,null,null,null,null,I_Image_bytes_content.getId(),null,Boolean.FALSE,null,ImageObject01_property_1,1L,now,now,admin_1,admin_1,instance_img12.getId(),AttributeOwnerType.Instance_Puzzle_Group_Object_Property);
-        attributeValueService.save(instance_img12_property_1_value2);
-
-
-        ALCityInstanceInPL instance_img13 = new ALCityInstanceInPL("instance_img13",3,4,0,imageObject01_in_memoryGame_puzzleGroup,pl_Memory_Game,1L,now,now,admin_1,admin_1);
-        pgObjectInstanceService.save(instance_img13);
-        AttributeValue instance_img13_variable_2_value2 = new AttributeValue(null,null,null,"C",null,null,null,null,false,null,ImageObject01_variable_2,1L,now,now,admin_1,admin_1,instance_img13.getId(),AttributeOwnerType.Instance_Puzzle_Group_Object_Variable);
-        attributeValueService.save(instance_img13_variable_2_value2);
-
-        AttributeValue  instance_img13_property_1_value2= new AttributeValue(null,null,null,null,null,null,C_Image_bytes_content.getId(),null,Boolean.FALSE,null,ImageObject01_property_1,1L,now,now,admin_1,admin_1,instance_img13.getId(),AttributeOwnerType.Instance_Puzzle_Group_Object_Property);
-        attributeValueService.save(instance_img13_property_1_value2);
-
-
-
-        ALCityInstanceInPL instance_img14 = new ALCityInstanceInPL("instance_img14",3,5,0,imageObject01_in_memoryGame_puzzleGroup,pl_Memory_Game,1L,now,now,admin_1,admin_1);
-        pgObjectInstanceService.save(instance_img14);
-        AttributeValue instance_img14_variable_2_value2 = new AttributeValue(null,null,null,"J",null,null,null,null,false,null,ImageObject01_variable_2,1L,now,now,admin_1,admin_1,instance_img14.getId(),AttributeOwnerType.Instance_Puzzle_Group_Object_Variable);
-        attributeValueService.save(instance_img14_variable_2_value2);
-
-        AttributeValue  instance_img14_property_1_value2= new AttributeValue(null,null,null,null,null,null,J_Image_bytes_content.getId(),null,Boolean.FALSE,null,ImageObject01_property_1,1L,now,now,admin_1,admin_1,instance_img14.getId(),AttributeOwnerType.Instance_Puzzle_Group_Object_Property);
-        attributeValueService.save(instance_img14_property_1_value2);
-
-
-        ALCityInstanceInPL instance_img15 = new ALCityInstanceInPL("instance_img15",4,1,0,imageObject01_in_memoryGame_puzzleGroup,pl_Memory_Game,1L,now,now,admin_1,admin_1);
-        pgObjectInstanceService.save(instance_img15);
-        AttributeValue instance_img15_variable_2_value2 = new AttributeValue(null,null,null,"D",null,null,null,null,false,null,ImageObject01_variable_2,1L,now,now,admin_1,admin_1,instance_img15.getId(),AttributeOwnerType.Instance_Puzzle_Group_Object_Variable);
-        attributeValueService.save(instance_img15_variable_2_value2);
-
-        AttributeValue  instance_img15_property_1_value2= new AttributeValue(null,null,null,null,null,null,D_Image_bytes_content.getId(),null,Boolean.FALSE,null,ImageObject01_property_1,1L,now,now,admin_1,admin_1,instance_img15.getId(),AttributeOwnerType.Instance_Puzzle_Group_Object_Property);
-        attributeValueService.save(instance_img15_property_1_value2);
-
-
-
-        ALCityInstanceInPL instance_img16 = new ALCityInstanceInPL("instance_img16",4,2,0,imageObject01_in_memoryGame_puzzleGroup,pl_Memory_Game,1L,now,now,admin_1,admin_1);
-        pgObjectInstanceService.save(instance_img16);
-        AttributeValue instance_img16_variable_2_value2 = new AttributeValue(null,null,null,"I",null,null,null,null,false,null,ImageObject01_variable_2,1L,now,now,admin_1,admin_1,instance_img16.getId(),AttributeOwnerType.Instance_Puzzle_Group_Object_Variable);
-        attributeValueService.save(instance_img16_variable_2_value2);
-
-        AttributeValue  instance_img16_property_1_value2= new AttributeValue(null,null,null,null,null,null,I_Image_bytes_content.getId(),null,Boolean.FALSE,null,ImageObject01_property_1,1L,now,now,admin_1,admin_1,instance_img16.getId(),AttributeOwnerType.Instance_Puzzle_Group_Object_Property);
-        attributeValueService.save(instance_img16_property_1_value2);
-
-
-        ALCityInstanceInPL instance_img17 = new ALCityInstanceInPL("instance_img17",4,3,0,imageObject01_in_memoryGame_puzzleGroup,pl_Memory_Game,1L,now,now,admin_1,admin_1);
-        pgObjectInstanceService.save(instance_img17);
-        AttributeValue instance_img17_variable_2_value2 = new AttributeValue(null,null,null,"J",null,null,null,null,false,null,ImageObject01_variable_2,1L,now,now,admin_1,admin_1,instance_img17.getId(),AttributeOwnerType.Instance_Puzzle_Group_Object_Variable);
-        attributeValueService.save(instance_img17_variable_2_value2);
-
-        AttributeValue  instance_img17_property_1_value2= new AttributeValue(null,null,null,null,null,null,J_Image_bytes_content.getId(),null,Boolean.FALSE,null,ImageObject01_property_1,1L,now,now,admin_1,admin_1,instance_img17.getId(),AttributeOwnerType.Instance_Puzzle_Group_Object_Property);
-        attributeValueService.save(instance_img17_property_1_value2);
-
-
-        ALCityInstanceInPL instance_img18 = new ALCityInstanceInPL("instance_img18",4,4,0,imageObject01_in_memoryGame_puzzleGroup,pl_Memory_Game,1L,now,now,admin_1,admin_1);
-        pgObjectInstanceService.save(instance_img18);
-        AttributeValue instance_img18_variable_2_value2 = new AttributeValue(null,null,null,"B",null,null,null,null,false,null,ImageObject01_variable_2,1L,now,now,admin_1,admin_1,instance_img18.getId(),AttributeOwnerType.Instance_Puzzle_Group_Object_Variable);
-        attributeValueService.save(instance_img18_variable_2_value2);
-
-        AttributeValue  instance_img18_property_1_value2= new AttributeValue(null,null,null,null,null,null,B_Image_bytes_content.getId(),null,Boolean.FALSE,null,ImageObject01_property_1,1L,now,now,admin_1,admin_1,instance_img18.getId(),AttributeOwnerType.Instance_Puzzle_Group_Object_Property);
-        attributeValueService.save(instance_img18_property_1_value2);
-
-
-        ALCityInstanceInPL instance_img19 = new ALCityInstanceInPL("instance_img19",4,5,0,imageObject01_in_memoryGame_puzzleGroup,pl_Memory_Game,1L,now,now,admin_1,admin_1);
-        pgObjectInstanceService.save(instance_img19);
-        AttributeValue instance_img19_variable_2_value2 = new AttributeValue(null,null,null,"A",null,null,null,null,false,null,ImageObject01_variable_2,1L,now,now,admin_1,admin_1,instance_img19.getId(),AttributeOwnerType.Instance_Puzzle_Group_Object_Variable);
-        attributeValueService.save(instance_img19_variable_2_value2);
-
-        AttributeValue  instance_img19_property_1_value2= new AttributeValue(null,null,null,null,null,null,A_Image_bytes_content.getId(),null,Boolean.FALSE,null,ImageObject01_property_1,1L,now,now,admin_1,admin_1,instance_img19.getId(),AttributeOwnerType.Instance_Puzzle_Group_Object_Property);
-        attributeValueService.save(instance_img19_property_1_value2);
-*/
-
         Optional<PLRuleEvent> click_event = plRuleEventService.findByName("Click");
         Optional<PLRuleEvent> internalEvent = plRuleEventService.findByName("internalevent");
 
@@ -601,11 +507,11 @@ public class ImportPipeGameProblemData_5 implements CommandLineRunner {
                 "BoardVar(solved)",new StringBuffer("BoardVar(solved)-cond(equal(InstVar(InstByPos(EventParam(row), EventParam(col)), currentDir),InstVar(InstByPos(EventParam(row), EventParam(col)), correctDir)),1,0)"),"","",1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(VariableAssignmentAction_2);
 
-        PLRulePostAction VariableAssignmentAction_3 = new PLRulePostAction(rule_for_Click,CallObjectAction.get(),3,"","",
+        PLRulePostAction VariableAssignmentAction_3 = new PLRulePostAction(rule_for_Click,VariableAssignmentAction.get(),3,"","",
                 "InstVar(InstByPos(EventParam(row), EventParam(col)), currentDir)",new StringBuffer("(InstVar(InstByPos(EventParam(row), EventParam(col)), currentDir)+1) % InstVar(InstByPos(EventParam(row), EventParam(col)), possibleDirs)"),"","",1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(VariableAssignmentAction_3);
 
-        PLRulePostAction VariableAssignmentAction_4 = new PLRulePostAction(rule_for_Click,CallObjectAction.get(),4,"","",
+        PLRulePostAction VariableAssignmentAction_4 = new PLRulePostAction(rule_for_Click,VariableAssignmentAction.get(),4,"","",
                 "BoardVar(solved)",new StringBuffer("BoardVar(solved)+cond(equal(InstVar(InstByPos(EventParam(row), EventParam(col)), currentDir),InstVar(InstByPos(EventParam(row), EventParam(col)), correctDir)),1,0)"),"","",1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(VariableAssignmentAction_4);
 
@@ -621,7 +527,7 @@ public class ImportPipeGameProblemData_5 implements CommandLineRunner {
 
         StringBuffer   CheckCompletion_rule_condition = new StringBuffer("equal(BoardVar(solved),8)");
         Boolean ignoreRemaining2 = false;
-        PLRule rule_for_CheckCompletion = new PLRule("ChekcCompletion",2
+        PLRule rule_for_CheckCompletion = new PLRule("CheckCompletion",2
                 ,CheckCompletion_rule_condition,ignoreRemaining2,pipe_Game,internalEvent.get(),1L,now,now,admin_1,admin_1);
         puzzleLevelRuleService.save(rule_for_CheckCompletion);
 
@@ -632,7 +538,7 @@ public class ImportPipeGameProblemData_5 implements CommandLineRunner {
 
 
         PLRulePostAction UserAlertAction_2_CheckCompletion = new PLRulePostAction(rule_for_CheckCompletion,UserAlertAction.get(),2,"","",
-                "BoardVar(finished)",new StringBuffer("true"),"info","mission completed!",1L ,now,now,admin_1,admin_1);
+                "",new StringBuffer(""),"info","mission completed!",1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(UserAlertAction_2_CheckCompletion);
 
 
