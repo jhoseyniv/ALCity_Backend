@@ -324,9 +324,13 @@ public class ImportBaseData implements CommandLineRunner {
         PuzzleGroup puzzleGroup_HashImage = new PuzzleGroup("Hash Image - Puzzle Group 1",mathematic,puzzle_group_binary_content_Icon,puzzle_group_binary_content_Icon,1L,now,now,admin_1,admin_1);
         PuzzleGroup puzzleGroup_IQ = new PuzzleGroup("IQ Puzzle Group",mathematic,puzzle_group_binary_content_2,puzzle_group_binary_content_Icon,1L,now,now,admin_1,admin_1);
         PuzzleGroup puzzleGroup_X_O= new PuzzleGroup("X-O Puzzle Group",mathematic,puzzle_group_binary_content_2,puzzle_group_binary_content_Icon,1L,now,now,admin_1,admin_1);
+        PuzzleGroup puzzleGroup_Science= new PuzzleGroup("Science Puzzle Group",mathematic,puzzle_group_binary_content_2,puzzle_group_binary_content_Icon,1L,now,now,admin_1,admin_1);
+        PuzzleGroup puzzleGroup_Maze= new PuzzleGroup("Maze Puzzle Group",mathematic,puzzle_group_binary_content_2,puzzle_group_binary_content_Icon,1L,now,now,admin_1,admin_1);
         puzzleGroupService.save(puzzleGroup_HashImage);
         puzzleGroupService.save(puzzleGroup_IQ);
         puzzleGroupService.save(puzzleGroup_X_O);
+        puzzleGroupService.save(puzzleGroup_Science);
+        puzzleGroupService.save(puzzleGroup_Maze);
 
         byte[] tetherIcon = ImageUtil.getImage("src/main/resources/images/","Tether.png");
         byte[] carIcon = ImageUtil.getImage("src/main/resources/images/","car.png");
@@ -447,6 +451,7 @@ public class ImportBaseData implements CommandLineRunner {
         LearningTopic hashImage_Topic = new LearningTopic("Hash Image",root_Topic,1L,now,now,admin_1,admin_1);
         LearningTopic X_O_Topic = new LearningTopic("X-O Game",root_Topic,1L,now,now,admin_1,admin_1);
         LearningTopic Pipe_Game_Topic = new LearningTopic("Pipe_Game",root_Topic,1L,now,now,admin_1,admin_1);
+        LearningTopic Maze_Game_Topic = new LearningTopic("Maze_Game",root_Topic,1L,now,now,admin_1,admin_1);
         LearningTopic Memory_Game_Topic = new LearningTopic("Memory_Game",root_Topic,1L,now,now,admin_1,admin_1);
         LearningTopic magic_matrix_Topic = new LearningTopic("Magic Matrix",root_Topic,1L,now,now,admin_1,admin_1);
         LearningTopic maze_table_Topic = new LearningTopic("Maze Table",root_Topic,1L,now,now,admin_1,admin_1);
@@ -457,6 +462,7 @@ public class ImportBaseData implements CommandLineRunner {
         learningTopicService.save(hashImage_Topic);
         learningTopicService.save(X_O_Topic);
         learningTopicService.save(Pipe_Game_Topic);
+        learningTopicService.save(Maze_Game_Topic);
         learningTopicService.save(magic_matrix_Topic);
         learningTopicService.save(algorithm_Topic);
         learningTopicService.save(maze_table_Topic);
@@ -670,7 +676,7 @@ public class ImportBaseData implements CommandLineRunner {
         AttributeValue withNext_ActionRenderer_param_1_value= new AttributeValue(true,null,null,null,null,null,null,null,Boolean.FALSE,null,withNext_Renderer_param_1,1L,now,now,admin_1,admin_1,flipImage_Renderer.getId(),AttributeOwnerType.Action_Handler_Parameter);
         attributeValueService.save(withNext_ActionRenderer_param_1_value);
 
-        Renderer rotateImage_Renderer = new Renderer("Rotate",mobile, ObjectActionType.Rotate,1L,now,now,admin_1,admin_1);
+        Renderer rotateImage_Renderer = new Renderer("RotateImage",mobile, ObjectActionType.Rotate,1L,now,now,admin_1,admin_1);
         actionRendererService.save(rotateImage_Renderer);
         Attribute rotateImage_Renderer_param_1 =new Attribute("degree",rotateImage_Renderer.getId(),AttributeOwnerType.Action_Handler_Parameter,DataType.Float,1L,now,now,admin_1,admin_1);
         attributeService.save(rotateImage_Renderer_param_1);

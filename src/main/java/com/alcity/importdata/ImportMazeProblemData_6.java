@@ -8,7 +8,6 @@ import com.alcity.entity.appmember.AppMember;
 import com.alcity.entity.appmember.WalletItem;
 import com.alcity.entity.base.BinaryContent;
 import com.alcity.entity.base.PLPrivacy;
-import com.alcity.entity.journey.Journey;
 import com.alcity.entity.learning.LearningContent;
 import com.alcity.entity.learning.LearningSkill;
 import com.alcity.entity.learning.LearningTopic;
@@ -55,7 +54,7 @@ import java.util.Optional;
 
 @Order(value=8)
 @Component
-public class ImportPipeGameProblemData_5 implements CommandLineRunner {
+public class ImportMazeProblemData_6 implements CommandLineRunner {
 
     @Autowired
     private AppMemberService applicationMemberService;
@@ -178,7 +177,7 @@ public class ImportPipeGameProblemData_5 implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         log.info("Start Application...Import Problem 3 X-O Probelm");
-        System.out.println("...Import X-O Problem data");
+        System.out.println("...Import Maze game Problem data");
         LocalDateTime current = LocalDateTime.now();
         DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
         String now = current.format(format);
@@ -191,45 +190,44 @@ public class ImportPipeGameProblemData_5 implements CommandLineRunner {
         AppMember Alireza_Zare = Alireza_ZareOptional.get();
 
 
-        Optional<LearningTopic> pipe_Game_Topic = learningTopicService.findByTitle("Pipe_Game");
+        Optional<LearningTopic> Maze_Game_Topic = learningTopicService.findByTitle("Maze_Game");
 
         LearningSkill timeManagement = learningSkillService.findByValue("timeManagement");
         LearningSkill memory_booster = learningSkillService.findByValue("memory_booster");
         Optional<WalletItem> alCoin10WalletItem = walletItemService.findByValue("al_coin_10");
 
 
-      //  byte[]  planyGround_Image_Memory_Game = ImageUtil.getImage("src/main/resources/images/Pipe-Game/","PipeGame-ground.json");
-        JsonReader reader = Json.createReader(new FileReader("src/main/resources/images/X-O Problem/x-o-ground.json"));
+        JsonReader reader = Json.createReader(new FileReader("src/main/resources/images/Maze_Game/Maze_Game-ground.json"));
         JsonObject jsonObject = reader.readObject();
         ObjectMapper objectMapper = new ObjectMapper();
         BoardGraphicDTO boardGraphic = objectMapper.readValue(jsonObject.toString(), BoardGraphicDTO.class);
 
 
-        byte[] pl_Icon_Memory_Game_bytes = ImageUtil.getImage("src/main/resources/images/Pipe-Game/","MemGame_icon.png");
-        BinaryContent pl_Icon_Memory_Game_content = new BinaryContent(1L, now, now,admin_1 , admin_1,"Memory_Game_Icon",pl_Icon_Memory_Game_bytes.length,pl_Icon_Memory_Game_bytes,null,"tag1","","",BinaryContentType.Image);
-        binaryContentService.save(pl_Icon_Memory_Game_content);
+        byte[] pl_Icon_Maze_Game_bytes = ImageUtil.getImage("src/main/resources/images/Maze_Game/","MazeGame_icon.jpeg");
+        BinaryContent pl_Icon_Maze_Game_content = new BinaryContent(1L, now, now,admin_1 , admin_1,"Maze_Game_Icon",pl_Icon_Maze_Game_bytes.length,pl_Icon_Maze_Game_bytes,null,"tag1","","",BinaryContentType.Image);
+        binaryContentService.save(pl_Icon_Maze_Game_content);
 
-        byte[] pl_pic_pipe_game_bytes = ImageUtil.getImage("src/main/resources/images/Pipe-Game/","MemGame.png");
-        BinaryContent pl_pic_Memory_Game_content = new BinaryContent(1L, now, now,admin_1 , admin_1,"Memory_Game_Picture",pl_pic_pipe_game_bytes.length,pl_pic_pipe_game_bytes,null,"tag1","","",BinaryContentType.Image);
-        binaryContentService.save(pl_pic_Memory_Game_content);
+        byte[] pl_pic_Maze_game_bytes = ImageUtil.getImage("src/main/resources/images/Maze_Game/","MazeGame_icon.jpeg");
+        BinaryContent pl_pic_Maze_Game_content = new BinaryContent(1L, now, now,admin_1 , admin_1,"Maze_Game_Picture",pl_pic_Maze_game_bytes.length,pl_pic_Maze_game_bytes,null,"tag1","","",BinaryContentType.Image);
+        binaryContentService.save(pl_pic_Maze_Game_content);
 
         BinaryContent puzzle_group_1_binary_content_image = binaryContentService.findByfileName("image_puzzle_group_matematic");
 
 
 
-        Optional<PuzzleGroup>  puzzleGroup_Science =puzzleGroupService.findByTitle("Science Puzzle Group");
+        Optional<PuzzleGroup>  puzzleGroup_Maze =puzzleGroupService.findByTitle("Maze Puzzle Group");
 
         PLPrivacy privacy_1 = puzzleLevelPrivacyService.findByValue("Public");
 
-        PuzzleLevel pipe_Game= new PuzzleLevel(admin_1,now,1L,"pipe-Game","4548",8,15,5f,0f,2f,3f,puzzleGroup_Science.get(),PLDifficulty.Easy,PLStatus.Active,privacy_1,pl_Icon_Memory_Game_content,pl_Icon_Memory_Game_content,3L,now,now,admin_1,admin_1);
-        pipe_Game.setIcon(pl_pic_Memory_Game_content);
-        pipe_Game.setPicture(pl_pic_Memory_Game_content);
-        puzzleLevelService.save(pipe_Game);
+        PuzzleLevel maze_Game= new PuzzleLevel(admin_1,now,1L,"Maze-Game","4549",8,15,5f,0f,2f,3f,puzzleGroup_Maze.get(),PLDifficulty.Easy,PLStatus.Active,privacy_1,pl_Icon_Maze_Game_content,pl_pic_Maze_Game_content,3L,now,now,admin_1,admin_1);
+        maze_Game.setIcon(pl_Icon_Maze_Game_content);
+        maze_Game.setPicture(pl_pic_Maze_Game_content);
+        puzzleLevelService.save(maze_Game);
 
 
-        byte[] pipe_image_LearningContent_Image_bytes = ImageUtil.getImage("src/main/resources/images/X-O Problem/","puzzle_group_X_O_Image.png");
-        BinaryContent pg_pipe_Game_learning_content = new BinaryContent(1L, now, now,admin_1 , admin_1,"Memory-Game", pipe_image_LearningContent_Image_bytes.length, pipe_image_LearningContent_Image_bytes,null,"tag1","","",BinaryContentType.Image);
-        binaryContentService.save(pg_pipe_Game_learning_content);
+        byte[] maze_image_LearningContent_Image_bytes = ImageUtil.getImage("src/main/resources/images/Maze_Game/","MazeGame_icon.jpeg");
+        BinaryContent pg_maze_Game_learning_content = new BinaryContent(1L, now, now,admin_1 , admin_1,"Memory-Game", maze_image_LearningContent_Image_bytes.length, maze_image_LearningContent_Image_bytes,null,"tag1","","",BinaryContentType.Image);
+        binaryContentService.save(pg_maze_Game_learning_content);
 
         Integer xPos=3;
         Integer yPos=3;
@@ -237,65 +235,71 @@ public class ImportPipeGameProblemData_5 implements CommandLineRunner {
         Integer xRotation=3;
 
         byte[] boardGraphic2 = ImageUtil.convertObjectToBytes(boardGraphic);
-        PLGround pl_Memory_Game_ground = new PLGround(4,5,xPos,yPos,zPos,xRotation,xRotation,xRotation,pipe_Game, boardGraphic2,1L,now,now,admin_1,admin_1);
+        PLGround pl_Memory_Game_ground = new PLGround(4,5,xPos,yPos,zPos,xRotation,xRotation,xRotation,maze_Game, boardGraphic2,1L,now,now,admin_1,admin_1);
         puzzleLevelGroundService.save(pl_Memory_Game_ground);
 
-        PermitedPlayer player_1_puzzleLevel_X_O = new PermitedPlayer(Alireza_Zare,pipe_Game,1L,now,now,admin_1,admin_1);
-        permitedPlayerRepository.save(player_1_puzzleLevel_X_O);
+        PermitedPlayer player_1_puzzleLevel_Maze = new PermitedPlayer(Alireza_Zare,maze_Game,1L,now,now,admin_1,admin_1);
+        permitedPlayerRepository.save(player_1_puzzleLevel_Maze);
 
-        LearningContent learningContent_memory=new LearningContent("help to Memory","this content is about pipe Games",pg_pipe_Game_learning_content,1L,now,now,admin_1,admin_1);
+        LearningContent learningContent_memory=new LearningContent("help to Memory","this content is about pipe Games",pg_maze_Game_learning_content,1L,now,now,admin_1,admin_1);
         learningContentService.save(learningContent_memory);
 
 
-        LearningTopicInPL pllLearningTopic_1 = new LearningTopicInPL(pipe_Game,pipe_Game_Topic.get(),learningContent_memory,1L,now,now,admin_1,admin_1);
+        LearningTopicInPL pllLearningTopic_1 = new LearningTopicInPL(maze_Game,Maze_Game_Topic.get(),learningContent_memory,1L,now,now,admin_1,admin_1);
         plLearningTopicService.save(pllLearningTopic_1);
 
         Float playScore =1f;
-        Integer stars = ToolBox.getPuzzleLevelStars(playScore,pipe_Game.getFirstStarScore(),pipe_Game.getSecondStarScore(),pipe_Game.getThirdStartScore());
+        Integer stars = ToolBox.getPuzzleLevelStars(playScore,maze_Game.getFirstStarScore(),maze_Game.getSecondStarScore(),maze_Game.getThirdStartScore());
 
-        PlayHistory playHistory_1 = new PlayHistory(Alireza_Zare,pipe_Game,now,now,15L,playScore,stars,1L,now,now,Alireza_Zare,Alireza_Zare);
+        PlayHistory playHistory_1 = new PlayHistory(Alireza_Zare,maze_Game,now,now,15L,playScore,stars,1L,now,now,Alireza_Zare,Alireza_Zare);
         playHistoryService.save(playHistory_1);
 
-        LearningSkillContent puzzleSkillLearningContent_1 = new LearningSkillContent(memory_booster,puzzleGroup_Science.get(),learningContent_memory,1L,now,now,admin_1,admin_1);
+        LearningSkillContent puzzleSkillLearningContent_1 = new LearningSkillContent(memory_booster,puzzleGroup_Maze.get(),learningContent_memory,1L,now,now,admin_1,admin_1);
         puzzleSkillLearningContentService.save(puzzleSkillLearningContent_1);
 
-        PLGameInstance puzzleLevelGameInstance= new PLGameInstance(jalalHoseyni,pipe_Game,now,now,GameStatus.Playing,1L,now,now,Alireza_Zare,Alireza_Zare);
+        PLGameInstance puzzleLevelGameInstance= new PLGameInstance(jalalHoseyni,maze_Game,now,now,GameStatus.Playing,1L,now,now,Alireza_Zare,Alireza_Zare);
         plGameInstanceService.save(puzzleLevelGameInstance);
 
-        StringBuffer  condition_Objective_1 = new StringBuffer("equal(BoardVar(finished),true) & (BoardVar(steps)<=20)");
+        StringBuffer  condition_Objective_1 = new StringBuffer("equal(BoardVar(finished),true) & (BoardVar(steps)<=100)");
 
         PLObjective pl_objective_1 = new PLObjective("Finished in max number of possible steps","Finished in max number of possible steps",
                 10f,2f,condition_Objective_1,memory_booster,
-                                                                 alCoin10WalletItem.get(),pipe_Game ,1L,now,now,admin_1,admin_1);
+                                                                 alCoin10WalletItem.get(),maze_Game ,1L,now,now,admin_1,admin_1);
         plObjectiveService.save(pl_objective_1);
 
-        StringBuffer  condition_Objective_2 = new StringBuffer("equal(BoardVar(finished),true) & (BoardVar(steps)>20)");
+        StringBuffer  condition_Objective_2 = new StringBuffer("equal(BoardVar(finished),true) & (BoardVar(steps)>100)");
 
         PLObjective pl_objective_2 = new PLObjective("Finished in more than max number of possible steps","Finished in morethan max number of possible steps",
                 1f,2f,condition_Objective_2,memory_booster,
-                alCoin10WalletItem.get(),pipe_Game ,1L,now,now,admin_1,admin_1);
+                alCoin10WalletItem.get(),maze_Game ,1L,now,now,admin_1,admin_1);
         plObjectiveService.save(pl_objective_2);
 
 
-        Attribute pl_variable_finished =new Attribute("finished",pipe_Game.getId(), AttributeOwnerType.Puzzle_Level_Variable,DataType.Boolean,1L,now,now,admin_1,admin_1);
+        Attribute pl_variable_finished =new Attribute("finished",maze_Game.getId(), AttributeOwnerType.Puzzle_Level_Variable,DataType.Boolean,1L,now,now,admin_1,admin_1);
         attributeService.save(pl_variable_finished);
-        AttributeValue pl_variable_finished_value= new AttributeValue(false,null,null,null,null,null,null,null,false,null,pl_variable_finished,1L,now,now,admin_1,admin_1,pipe_Game.getId(), AttributeOwnerType.Puzzle_Level_Variable);
+        AttributeValue pl_variable_finished_value= new AttributeValue(false,null,null,null,null,null,null,null,false,null,pl_variable_finished,1L,now,now,admin_1,admin_1,maze_Game.getId(), AttributeOwnerType.Puzzle_Level_Variable);
         attributeValueService.save(pl_variable_finished_value);
 
-        Attribute pl_variable_steps =new Attribute("steps",pipe_Game.getId(),AttributeOwnerType.Puzzle_Level_Variable,DataType.Integer,1L,now,now,admin_1,admin_1);
+        Attribute pl_variable_steps =new Attribute("steps",maze_Game.getId(),AttributeOwnerType.Puzzle_Level_Variable,DataType.Integer,1L,now,now,admin_1,admin_1);
         attributeService.save(pl_variable_steps);
-        AttributeValue pl_variable_steps_value= new AttributeValue(null,0,null,null,null,null,null,null,false,null,pl_variable_steps,1L,now,now,admin_1,admin_1,pipe_Game.getId(),AttributeOwnerType.Puzzle_Level_Variable);
+        AttributeValue pl_variable_steps_value= new AttributeValue(null,0,null,null,null,null,null,null,false,null,pl_variable_steps,1L,now,now,admin_1,admin_1,maze_Game.getId(),AttributeOwnerType.Puzzle_Level_Variable);
         attributeValueService.save(pl_variable_steps_value);
 
 
-        Attribute pl_variable_solved =new Attribute("solved",pipe_Game.getId(),AttributeOwnerType.Puzzle_Level_Variable,DataType.Integer,1L,now,now,admin_1,admin_1);
-        attributeService.save(pl_variable_solved);
-        AttributeValue pl_variable_solved_value= new AttributeValue(null,0,null,null,null,null,null,null,false,null,pl_variable_solved,1L,now,now,admin_1,admin_1,pipe_Game.getId(),AttributeOwnerType.Puzzle_Level_Variable);
-        attributeValueService.save(pl_variable_solved_value);
+        Attribute pl_variable_objX =new Attribute("objX",maze_Game.getId(),AttributeOwnerType.Puzzle_Level_Variable,DataType.Integer,1L,now,now,admin_1,admin_1);
+        attributeService.save(pl_variable_objX);
+        AttributeValue pl_variable_objX_value= new AttributeValue(null,20,null,null,null,null,null,null,false,null,pl_variable_objX,1L,now,now,admin_1,admin_1,maze_Game.getId(),AttributeOwnerType.Puzzle_Level_Variable);
+        attributeValueService.save(pl_variable_objX_value);
+
+        Attribute pl_variable_objY =new Attribute("objY",maze_Game.getId(),AttributeOwnerType.Puzzle_Level_Variable,DataType.Integer,1L,now,now,admin_1,admin_1);
+        attributeService.save(pl_variable_objY);
+        AttributeValue pl_variable_objY_value= new AttributeValue(null,1,null,null,null,null,null,null,false,null,pl_variable_objY,1L,now,now,admin_1,admin_1,maze_Game.getId(),AttributeOwnerType.Puzzle_Level_Variable);
+        attributeValueService.save(pl_variable_objY_value);
+
 
         Optional<ALCityObject> imageObject01 =alCityObjectService.findByTitle("ImageObject01");
 
-
+/*
         ALCityObjectInPG imageObject01_in_pipeGame_puzzleGroup = new ALCityObjectInPG("Image Pipe Puzzle Group with Image Object","PipeGame_ImageObject",puzzleGroup_Science.get(),imageObject01.get(),1L,now,now,admin_1,admin_1);
         alCityObjectInPGService.save(imageObject01_in_pipeGame_puzzleGroup);
 
@@ -578,7 +582,7 @@ public class ImportPipeGameProblemData_5 implements CommandLineRunner {
         AttributeValue  instance_img19_property_1_value2= new AttributeValue(null,null,null,null,null,null,A_Image_bytes_content.getId(),null,Boolean.FALSE,null,ImageObject01_property_1,1L,now,now,admin_1,admin_1,instance_img19.getId(),AttributeOwnerType.Instance_Puzzle_Group_Object_Property);
         attributeValueService.save(instance_img19_property_1_value2);
 */
-
+/*
         Optional<PLRuleEvent> click_event = plRuleEventService.findByName("Click");
         Optional<PLRuleEvent> internalEvent = plRuleEventService.findByName("internalevent");
 
@@ -634,7 +638,7 @@ public class ImportPipeGameProblemData_5 implements CommandLineRunner {
         PLRulePostAction UserAlertAction_2_CheckCompletion = new PLRulePostAction(rule_for_CheckCompletion,UserAlertAction.get(),2,"","",
                 "BoardVar(finished)",new StringBuffer("true"),"info","mission completed!",1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(UserAlertAction_2_CheckCompletion);
-
+*/
 
     }
 
