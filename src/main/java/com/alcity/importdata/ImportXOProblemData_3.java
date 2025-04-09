@@ -30,8 +30,6 @@ import com.alcity.utility.DTOUtil;
 import com.alcity.utility.ImageUtil;
 import com.alcity.utility.ToolBox;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.apache.tomcat.util.json.JSONParser;
-import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,12 +40,9 @@ import org.springframework.stereotype.Component;
 import javax.json.Json;
 import javax.json.JsonObject;
 import javax.json.JsonReader;
-import java.io.ByteArrayOutputStream;
 import java.io.FileReader;
-import java.io.ObjectOutputStream;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Arrays;
 import java.util.Optional;
 
 
@@ -156,7 +151,7 @@ public class ImportXOProblemData_3 implements CommandLineRunner {
 
 
    @Autowired
-    PuzzleSkillLearningContentService puzzleSkillLearningContentService;
+   PGSkillLearningContentService puzzleSkillLearningContentService;
     private static final Logger log = LoggerFactory.getLogger(ObjectManagmentApplication.class);
 
     @Override
@@ -234,7 +229,7 @@ public class ImportXOProblemData_3 implements CommandLineRunner {
         PlayHistory playHistory_1 = new PlayHistory(Alireza_Zare,puzzleLevel,now,now,85L,playScore,stars,1L,now,now,Alireza_Zare,Alireza_Zare);
         playHistoryService.save(playHistory_1);
 
-        LearningSkillContent puzzleSkillLearningContent_1 = new LearningSkillContent(matching,puzzleGroup_X_O.get(),learningContent_Mathcing,1L,now,now,admin_1,admin_1);
+        PGLearningSkillContent puzzleSkillLearningContent_1 = new PGLearningSkillContent(matching,puzzleGroup_X_O.get(),learningContent_Mathcing,1L,now,now,admin_1,admin_1);
         puzzleSkillLearningContentService.save(puzzleSkillLearningContent_1);
 
         PLGameInstance puzzleLevelGameInstance= new PLGameInstance(jalalHoseyni,puzzleLevel,now,now,GameStatus.Playing,1L,now,now,Alireza_Zare,Alireza_Zare);

@@ -45,7 +45,6 @@ import javax.json.JsonReader;
 import java.io.FileReader;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Arrays;
 import java.util.Optional;
 
 
@@ -158,7 +157,7 @@ public class ImportHashImageProblemData_1 implements CommandLineRunner {
 
 
     @Autowired
-    PuzzleSkillLearningContentService puzzleSkillLearningContentService;
+    PGSkillLearningContentService puzzleSkillLearningContentService;
     private static final Logger log = LoggerFactory.getLogger(ObjectManagmentApplication.class);
 
     @Override
@@ -206,15 +205,18 @@ public class ImportHashImageProblemData_1 implements CommandLineRunner {
         Optional<PuzzleGroup> puzzleGroup_IQ = puzzleGroupService.findByTitle("IQ Puzzle Group");
         Optional<PuzzleGroup> puzzleGroup_X_O = puzzleGroupService.findByTitle("X-O Puzzle Group");
         Optional<PuzzleGroup> puzzleGroup_Pipe = puzzleGroupService.findByTitle("Science Puzzle Group");
+        Optional<PuzzleGroup> puzzleGroup_Maze = puzzleGroupService.findByTitle("Maze Puzzle Group");
 
         JourneyStep step_1_journey_1 = new JourneyStep("step1_journey_1",1,20,20,journey_1.get(),puzzleGroup_HashImage.get(),1L,now,now,admin_1,admin_1);
         JourneyStep step_2_journey_1 = new JourneyStep("step2_journey_1",2,100,100,journey_1.get(),puzzleGroup_X_O.get(),1L,now,now,admin_1,admin_1);
         JourneyStep step_3_journey_1 = new JourneyStep("step3_journey_1",3,200,200,journey_1.get(),puzzleGroup_IQ.get(),1L,now,now,admin_1,admin_1);
         JourneyStep step_4_journey_1 = new JourneyStep("step4_journey_1",4,300,300,journey_1.get(),puzzleGroup_Pipe.get(),1L,now,now,admin_1,admin_1);
+        JourneyStep step_5_journey_1 = new JourneyStep("step5_journey_1",5,400,400,journey_1.get(),puzzleGroup_Maze.get(),1L,now,now,admin_1,admin_1);
         journeyStepService.save(step_1_journey_1);
         journeyStepService.save(step_2_journey_1);
         journeyStepService.save(step_3_journey_1);
         journeyStepService.save(step_4_journey_1);
+        journeyStepService.save(step_5_journey_1);
 
         PLPrivacy privacy_1 = plPrivacyService.findByValue("Public");
         byte[] puzzle_group_Hash_Image = ImageUtil.getImage("src/main/resources/images/hashImage_Puzzle","hashImage_pic.png");
@@ -279,7 +281,7 @@ public class ImportHashImageProblemData_1 implements CommandLineRunner {
         PlayHistory playHistory_1 = new PlayHistory(jalalHoseyni,puzzleLevel_hashimage,now,now,80L,playScore,stars,1L,now,now,jalalHoseyni,jalalHoseyni);
         playHistoryService.save(playHistory_1);
 
-        LearningSkillContent puzzleSkillLearningContent_1 = new LearningSkillContent(division,puzzleGroup_HashImage.get(),learningContent_Division,1L,now,now,admin_1,admin_1);
+        PGLearningSkillContent puzzleSkillLearningContent_1 = new PGLearningSkillContent(division,puzzleGroup_HashImage.get(),learningContent_Division,1L,now,now,admin_1,admin_1);
         puzzleSkillLearningContentService.save(puzzleSkillLearningContent_1);
 
         PLGameInstance puzzleLevelGameInstance= new PLGameInstance(jalalHoseyni,puzzleLevel_hashimage,now,now,GameStatus.Playing,1L,now,now,jalalHoseyni,jalalHoseyni);

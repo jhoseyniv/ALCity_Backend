@@ -10,7 +10,7 @@ import jakarta.persistence.*;
 import java.io.Serializable;
 
 @Entity
-public class LearningSkillContent extends BaseTable implements Serializable {
+public class PGLearningSkillContent extends BaseTable implements Serializable {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = true)
     @JoinColumn(name = "learning_skill_id", nullable = true)
@@ -51,10 +51,10 @@ public class LearningSkillContent extends BaseTable implements Serializable {
         this.learningContent = learningContent;
     }
 
-    public LearningSkillContent() {
+    public PGLearningSkillContent() {
     }
 
-    public LearningSkillContent(LearningSkill learningSkill, PuzzleGroup puzzleGroup, LearningContent learningContent, Long version, String created, String updated, AppMember createdBy, AppMember updatedBy) {
+    public PGLearningSkillContent(LearningSkill learningSkill, PuzzleGroup puzzleGroup, LearningContent learningContent, Long version, String created, String updated, AppMember createdBy, AppMember updatedBy) {
         super(version, created, updated, createdBy, updatedBy);
         this.learningSkill = learningSkill;
         this.puzzleGroup = puzzleGroup;

@@ -5,7 +5,6 @@ import com.alcity.dto.puzzle.boardgraphic.BoardGraphicDTO;
 import com.alcity.entity.alenum.*;
 import com.alcity.entity.alobject.*;
 import com.alcity.entity.base.BinaryContent;
-import com.alcity.entity.base.ClientType;
 import com.alcity.entity.base.PLPrivacy;
 import com.alcity.entity.journey.Journey;
 import com.alcity.entity.learning.LearningContent;
@@ -46,11 +45,9 @@ import javax.json.JsonReader;
 import java.io.FileReader;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 
 @Order(value=7)
@@ -172,7 +169,7 @@ public class ImportMemoryGameProblemData_4 implements CommandLineRunner {
     ObjectService alCityObjectService;
 
    @Autowired
-    PuzzleSkillLearningContentService puzzleSkillLearningContentService;
+   PGSkillLearningContentService puzzleSkillLearningContentService;
     private static final Logger log = LoggerFactory.getLogger(ObjectManagmentApplication.class);
 
     @Override
@@ -308,7 +305,7 @@ public class ImportMemoryGameProblemData_4 implements CommandLineRunner {
         PlayHistory playHistory_1 = new PlayHistory(Alireza_Zare,pl_Memory_Game,now,now,15L,playScore,stars,1L,now,now,Alireza_Zare,Alireza_Zare);
         playHistoryService.save(playHistory_1);
 
-        LearningSkillContent puzzleSkillLearningContent_1 = new LearningSkillContent(memory_booster,IQ_Puzzle_Group.get(),learningContent_memory,1L,now,now,admin_1,admin_1);
+        PGLearningSkillContent puzzleSkillLearningContent_1 = new PGLearningSkillContent(memory_booster,IQ_Puzzle_Group.get(),learningContent_memory,1L,now,now,admin_1,admin_1);
         puzzleSkillLearningContentService.save(puzzleSkillLearningContent_1);
 
         PLGameInstance puzzleLevelGameInstance= new PLGameInstance(jalalHoseyni,pl_Memory_Game,now,now,GameStatus.Playing,1L,now,now,Alireza_Zare,Alireza_Zare);

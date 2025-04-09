@@ -1,8 +1,6 @@
 package com.alcity.utility;
 
-import com.alcity.dto.Interpreter.PLData;
 import com.alcity.dto.Interpreter.object.ActionData;
-import com.alcity.dto.puzzle.CameraSetupDTO;
 import com.alcity.dto.Interpreter.PLObjectiveData;
 import com.alcity.dto.Interpreter.object.RecordData;
 import com.alcity.dto.Interpreter.object.RuleActionData;
@@ -40,23 +38,12 @@ import com.alcity.repository.alobject.AttributeValueRepository;
 import com.alcity.service.alobject.ActionService;
 import com.alcity.service.alobject.AttributeService;
 import com.alcity.service.alobject.AttributeValueService;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.apache.catalina.connector.Request;
-import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
-import javax.json.Json;
-import javax.json.JsonObject;
-import javax.json.JsonReader;
-import javax.json.JsonWriter;
-import java.nio.charset.StandardCharsets;
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class DTOUtil {
 
@@ -450,12 +437,12 @@ public class DTOUtil {
         return enumDTOS;
     }
 
-    public static Collection<LearningSkillLContentDTO> getLearningSkillContentDTOS(Collection<LearningSkillContent> input) {
+    public static Collection<LearningSkillLContentDTO> getLearningSkillContentDTOS(Collection<PGLearningSkillContent> input) {
         Collection<LearningSkillLContentDTO> output = new ArrayList<LearningSkillLContentDTO>();
-        Iterator<LearningSkillContent> itr = input.iterator();
+        Iterator<PGLearningSkillContent> itr = input.iterator();
         while (itr.hasNext()) {
             LearningSkillLContentDTO dto = new LearningSkillLContentDTO();
-            LearningSkillContent lsc = itr.next();
+            PGLearningSkillContent lsc = itr.next();
 
             dto.setId(lsc.getId());
             dto.setVersion(lsc.getVersion());
@@ -656,8 +643,8 @@ public class DTOUtil {
         }
         return output;
     }
-  public static Pl_LearningTopicDTO getPl_LearningTopicDTO(LearningTopicInPL entity){
-        Pl_LearningTopicDTO dto = new Pl_LearningTopicDTO();
+  public static PlLearningTopicDTO getPl_LearningTopicDTO(LearningTopicInPL entity){
+        PlLearningTopicDTO dto = new PlLearningTopicDTO();
         PuzzleLevel puzzleLevel = entity.getPuzzleLevel();
         LearningTopic learningTopic = entity.getLearningTopic();
         LearningContent learningContent = entity.getLearningContent();
@@ -685,11 +672,11 @@ public class DTOUtil {
         String plData1 = (String) ois.readObject();
         return plData1;
     }
-    public static Collection<Pl_LearningTopicDTO> getPl_LearningTopicDTOS(PuzzleLevel puzzleLevel) {
-        Collection<Pl_LearningTopicDTO> dtos = new ArrayList<Pl_LearningTopicDTO>();
+    public static Collection<PlLearningTopicDTO> getPl_LearningTopicDTOS(PuzzleLevel puzzleLevel) {
+        Collection<PlLearningTopicDTO> dtos = new ArrayList<PlLearningTopicDTO>();
         Collection<LearningTopicInPL> pl_learningTopicCollection = puzzleLevel.getLearningTopicInPLCollection();
         Iterator<LearningTopicInPL> itr = pl_learningTopicCollection.iterator();
-        Pl_LearningTopicDTO dto = new Pl_LearningTopicDTO();
+        PlLearningTopicDTO dto = new PlLearningTopicDTO();
         while(itr.hasNext()) {
             LearningTopicInPL pl_learningTopic = itr.next();
             dto = getPl_LearningTopicDTO(pl_learningTopic);

@@ -30,7 +30,6 @@ import com.alcity.service.learning.LearningSkillService;
 import com.alcity.service.learning.LearningTopicService;
 import com.alcity.service.play.PlayHistoryService;
 import com.alcity.service.puzzle.*;
-import com.alcity.utility.DTOUtil;
 import com.alcity.utility.ImageUtil;
 import com.alcity.utility.ToolBox;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -47,8 +46,6 @@ import javax.json.JsonReader;
 import java.io.FileReader;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.Optional;
 
 
@@ -171,7 +168,7 @@ public class ImportMazeProblemData_6 implements CommandLineRunner {
     ObjectService alCityObjectService;
 
    @Autowired
-    PuzzleSkillLearningContentService puzzleSkillLearningContentService;
+   PGSkillLearningContentService puzzleSkillLearningContentService;
     private static final Logger log = LoggerFactory.getLogger(ObjectManagmentApplication.class);
 
     @Override
@@ -254,7 +251,7 @@ public class ImportMazeProblemData_6 implements CommandLineRunner {
         PlayHistory playHistory_1 = new PlayHistory(Alireza_Zare,maze_Game,now,now,15L,playScore,stars,1L,now,now,Alireza_Zare,Alireza_Zare);
         playHistoryService.save(playHistory_1);
 
-        LearningSkillContent puzzleSkillLearningContent_1 = new LearningSkillContent(memory_booster,puzzleGroup_Maze.get(),learningContent_memory,1L,now,now,admin_1,admin_1);
+        PGLearningSkillContent puzzleSkillLearningContent_1 = new PGLearningSkillContent(memory_booster,puzzleGroup_Maze.get(),learningContent_memory,1L,now,now,admin_1,admin_1);
         puzzleSkillLearningContentService.save(puzzleSkillLearningContent_1);
 
         PLGameInstance puzzleLevelGameInstance= new PLGameInstance(jalalHoseyni,maze_Game,now,now,GameStatus.Playing,1L,now,now,Alireza_Zare,Alireza_Zare);

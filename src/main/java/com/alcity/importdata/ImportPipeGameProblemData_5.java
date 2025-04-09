@@ -8,7 +8,6 @@ import com.alcity.entity.appmember.AppMember;
 import com.alcity.entity.appmember.WalletItem;
 import com.alcity.entity.base.BinaryContent;
 import com.alcity.entity.base.PLPrivacy;
-import com.alcity.entity.journey.Journey;
 import com.alcity.entity.learning.LearningContent;
 import com.alcity.entity.learning.LearningSkill;
 import com.alcity.entity.learning.LearningTopic;
@@ -172,7 +171,7 @@ public class ImportPipeGameProblemData_5 implements CommandLineRunner {
     ObjectService alCityObjectService;
 
    @Autowired
-    PuzzleSkillLearningContentService puzzleSkillLearningContentService;
+   PGSkillLearningContentService puzzleSkillLearningContentService;
     private static final Logger log = LoggerFactory.getLogger(ObjectManagmentApplication.class);
 
     @Override
@@ -256,7 +255,7 @@ public class ImportPipeGameProblemData_5 implements CommandLineRunner {
         PlayHistory playHistory_1 = new PlayHistory(Alireza_Zare,pipe_Game,now,now,15L,playScore,stars,1L,now,now,Alireza_Zare,Alireza_Zare);
         playHistoryService.save(playHistory_1);
 
-        LearningSkillContent puzzleSkillLearningContent_1 = new LearningSkillContent(memory_booster,puzzleGroup_Science.get(),learningContent_memory,1L,now,now,admin_1,admin_1);
+        PGLearningSkillContent puzzleSkillLearningContent_1 = new PGLearningSkillContent(memory_booster,puzzleGroup_Science.get(),learningContent_memory,1L,now,now,admin_1,admin_1);
         puzzleSkillLearningContentService.save(puzzleSkillLearningContent_1);
 
         PLGameInstance puzzleLevelGameInstance= new PLGameInstance(jalalHoseyni,pipe_Game,now,now,GameStatus.Playing,1L,now,now,Alireza_Zare,Alireza_Zare);

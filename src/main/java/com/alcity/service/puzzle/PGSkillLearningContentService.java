@@ -1,7 +1,7 @@
 package com.alcity.service.puzzle;
 
-import com.alcity.entity.puzzle.LearningSkillContent;
-import com.alcity.repository.puzzle.PuzzleSkillLearningContentRepository;
+import com.alcity.entity.puzzle.PGLearningSkillContent;
+import com.alcity.repository.puzzle.PGSkillLearningContentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,23 +12,23 @@ import java.util.Optional;
 
 @Service
 @Transactional
-public class PuzzleSkillLearningContentService implements PuzzleSkillLearningContentRepository {
+public class PGSkillLearningContentService implements PGSkillLearningContentRepository {
 
     @Autowired
-    PuzzleSkillLearningContentRepository puzzleSkillLearningContentRepository;
+    PGSkillLearningContentRepository puzzleSkillLearningContentRepository;
 
     @Override
-    public <S extends LearningSkillContent> S save(S entity) {
+    public <S extends PGLearningSkillContent> S save(S entity) {
         return puzzleSkillLearningContentRepository.save(entity);
     }
 
     @Override
-    public <S extends LearningSkillContent> Iterable<S> saveAll(Iterable<S> entities) {
+    public <S extends PGLearningSkillContent> Iterable<S> saveAll(Iterable<S> entities) {
         return null;
     }
 
     @Override
-    public Optional<LearningSkillContent> findById(Long id) {
+    public Optional<PGLearningSkillContent> findById(Long id) {
         return Optional.empty();
     }
 
@@ -38,12 +38,12 @@ public class PuzzleSkillLearningContentService implements PuzzleSkillLearningCon
     }
 
     @Override
-    public Collection<LearningSkillContent> findAll() {
+    public Collection<PGLearningSkillContent> findAll() {
         return null;
     }
 
     @Override
-    public Iterable<LearningSkillContent> findAllById(Iterable<Long> longs) {
+    public Iterable<PGLearningSkillContent> findAllById(Iterable<Long> longs) {
         return null;
     }
 
@@ -58,7 +58,7 @@ public class PuzzleSkillLearningContentService implements PuzzleSkillLearningCon
     }
 
     @Override
-    public void delete(LearningSkillContent entity) {
+    public void delete(PGLearningSkillContent entity) {
 
     }
 
@@ -68,7 +68,7 @@ public class PuzzleSkillLearningContentService implements PuzzleSkillLearningCon
     }
 
     @Override
-    public void deleteAll(Iterable<? extends LearningSkillContent> entities) {
+    public void deleteAll(Iterable<? extends PGLearningSkillContent> entities) {
 
     }
 

@@ -1,6 +1,6 @@
 package com.alcity.dto.puzzle;
 
-public class Pl_LearningTopicDTO {
+public class PlLearningTopicDTO {
     private Long id;
     private Long puzzleLevelId;
     private String puzzleLevelTitle;
@@ -15,7 +15,7 @@ public class Pl_LearningTopicDTO {
     private String learningContentFileName;
     private Long binaryContentId;
 
-    public Pl_LearningTopicDTO() {
+    public PlLearningTopicDTO() {
     }
 
     public Long getId() {
@@ -98,8 +98,8 @@ public class Pl_LearningTopicDTO {
         this.binaryContentId = binaryContentId;
     }
 
-    public Pl_LearningTopicDTO(Long id, Long puzzleLevelId, String puzzleLevelTitle, Long learningTopicId, String learningTopicTitle,
-                               Long learningContentId, String learningContentDescText, String learningContentDescBrief, String learningContentFileName, Long binaryContentId) {
+    public PlLearningTopicDTO(Long id, Long puzzleLevelId, String puzzleLevelTitle, Long learningTopicId, String learningTopicTitle,
+                              Long learningContentId, String learningContentDescText, String learningContentDescBrief, String learningContentFileName, Long binaryContentId) {
         this.id = id;
         this.puzzleLevelId = puzzleLevelId;
         this.puzzleLevelTitle = puzzleLevelTitle;

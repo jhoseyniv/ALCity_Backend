@@ -147,7 +147,7 @@ public class Import_F_G_BProblemData_5 implements CommandLineRunner {
 
 
    @Autowired
-    PuzzleSkillLearningContentService puzzleSkillLearningContentService;
+   PGSkillLearningContentService puzzleSkillLearningContentService;
     private static final Logger log = LoggerFactory.getLogger(ObjectManagmentApplication.class);
 
     @Override

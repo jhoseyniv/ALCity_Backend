@@ -1,7 +1,6 @@
 package com.alcity.api;
 
 import com.alcity.dto.Interpreter.PLData;
-import com.alcity.dto.alobject.AttributeDTO;
 import com.alcity.entity.alenum.AttributeOwnerType;
 import com.alcity.entity.alenum.DataType;
 import com.alcity.entity.alobject.Attribute;
@@ -165,30 +164,17 @@ public class PLController {
         return groundDTO;
     }
 
-    /*
 
-     */
-
- /*   @Operation( summary = "Fetch all variables for a puzzle level by  Id ",  description = "Fetch all variables for a puzzle level by  Id")
-    @RequestMapping(value = "/id/{id}/variables/all", method = RequestMethod.GET)
-    @ResponseBody
-    @CrossOrigin(origins = "*")
-    public Collection<RecordData> getAllVariablesForPuzzleLevelById(@PathVariable Long id) {
-        Collection<RecordData>  variables = DTOUtil.getAttributeForOwnerById(attributeService,id,AttributeOwnerType.Puzzle_Level_Variable);
-        return  variables;
-    }
-
-  */
     @Operation( summary = "Fetch all learning topics for a puzzle level by  Id ",  description = "Fetch all variables for a puzzle level by  Id")
     @RequestMapping(value = "/id/{id}/learning-topic/all", method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin(origins = "*")
-    public Collection<Pl_LearningTopicDTO> getAllLearningTopicsForPuzzleLevelById(@PathVariable Long id) {
+    public Collection<PlLearningTopicDTO> getAllLearningTopicsForPuzzleLevelById(@PathVariable Long id) {
         Optional<PuzzleLevel> puzzleLevelOptional = puzzleLevelService.findById(id);
         if(puzzleLevelOptional.isEmpty()) return  null;
         PuzzleLevel puzzleLevel = puzzleLevelOptional.get();
-        Collection<Pl_LearningTopicDTO>  pl_learningTopicDTOS = DTOUtil.getPl_LearningTopicDTOS(puzzleLevel);
-        return  pl_learningTopicDTOS;
+        Collection<PlLearningTopicDTO>  plLearningTopicDTOS = DTOUtil.getPl_LearningTopicDTOS(puzzleLevel);
+        return  plLearningTopicDTOS;
     }
 
     @Operation( summary = "Fetch all Instances by a puzzle level Id ",  description = "fetches all Instances for a puzzle level ")

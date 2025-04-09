@@ -68,7 +68,7 @@ public class ImportProblemData_2_part2 implements CommandLineRunner {
     @Autowired
     PermitedPlayerRepository permitedPlayerRepository;
     @Autowired
-    PuzzleSkillLearningContentService puzzleSkillLearningContentService;
+    PGSkillLearningContentService puzzleSkillLearningContentService;
     @Autowired
     ObjectCategoryService objectCategoryService;
     @Autowired

@@ -29,7 +29,7 @@ import com.alcity.service.learning.LearningTopicService;
 import com.alcity.service.puzzle.ObjectService;
 import com.alcity.service.puzzle.PGService;
 import com.alcity.service.puzzle.PLRuleEventService;
-import com.alcity.service.puzzle.PuzzleSkillLearningContentService;
+import com.alcity.service.puzzle.PGSkillLearningContentService;
 import com.alcity.utility.ImageUtil;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -96,7 +96,7 @@ public class ImportBaseData implements CommandLineRunner {
     @Autowired
     ActionService puzzleObjectActionService;
     @Autowired
-    PuzzleSkillLearningContentService puzzleSkillLearningContentService;
+    PGSkillLearningContentService puzzleSkillLearningContentService;
     @Autowired
     LearningContentService learningContentService;
 
