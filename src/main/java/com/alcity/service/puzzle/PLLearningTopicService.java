@@ -115,7 +115,7 @@ public class PLLearningTopicService implements PLLearningTopicRepository {
 
     @Override
     public void deleteById(Long aLong) {
-
+        plLearningTopicRepository.deleteById(aLong);
     }
 
     @Override

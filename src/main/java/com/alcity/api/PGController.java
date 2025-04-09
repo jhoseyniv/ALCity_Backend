@@ -93,15 +93,14 @@ public class PGController {
         return  puzzleGroupDTO;
     }
 
-    @Operation( summary = "get all learning skill for  a Puzzle Group ",  description = "get all learning skill for  a Puzzle Group")
+    @Operation( summary = "get all learning skill content for  a Puzzle Group ",  description = "get all learning skill for  a Puzzle Group")
     @RequestMapping(value = "/id/{id}/skills/all", method = RequestMethod.GET)
     @ResponseBody
-    public Collection<LearningSkillLContentDTO> getLearningSKillsForPuzzleGroupById(@PathVariable Long id) {
+    public Collection<PGLearningSkillContentDTO> getLearningSKillsForPuzzleGroupById(@PathVariable Long id) {
         Optional<PuzzleGroup> puzzleGroup = pgService.findById(id);
-
-        Collection<LearningSkillLContentDTO> learningSkillLContentDTOS = new ArrayList<LearningSkillLContentDTO>();
-        if(puzzleGroup.isPresent())  learningSkillLContentDTOS = DTOUtil.getLearningSkillContentDTOS(puzzleGroup.get().getLearningSkillContents());
-        return  learningSkillLContentDTOS;
+        Collection<PGLearningSkillContentDTO> dtos = new ArrayList<PGLearningSkillContentDTO>();
+        if(puzzleGroup.isPresent())  dtos = DTOUtil.getPGLearningSkillContentDTOS(puzzleGroup.get().getLearningSkillContents());
+        return  dtos;
     }
 
     @Operation( summary = "Save a Puzzle Group ",  description = "save a Puzzle Group entity to database")

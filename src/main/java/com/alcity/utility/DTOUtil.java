@@ -437,21 +437,14 @@ public class DTOUtil {
         return enumDTOS;
     }
 
-    public static Collection<LearningSkillLContentDTO> getLearningSkillContentDTOS(Collection<PGLearningSkillContent> input) {
-        Collection<LearningSkillLContentDTO> output = new ArrayList<LearningSkillLContentDTO>();
+    public static Collection<PGLearningSkillContentDTO> getPGLearningSkillContentDTOS(Collection<PGLearningSkillContent> input) {
+        Collection<PGLearningSkillContentDTO> output = new ArrayList<PGLearningSkillContentDTO>();
         Iterator<PGLearningSkillContent> itr = input.iterator();
         while (itr.hasNext()) {
-            LearningSkillLContentDTO dto = new LearningSkillLContentDTO();
+            PGLearningSkillContentDTO dto = new PGLearningSkillContentDTO();
             PGLearningSkillContent lsc = itr.next();
 
             dto.setId(lsc.getId());
-            dto.setVersion(lsc.getVersion());
-            dto.setCreated(lsc.getCreated());
-            dto.setCreatedById(lsc.getCreatedBy().getId());
-            dto.setUpdated(lsc.getUpdated());
-            dto.setUpdatedById(lsc.getUpdatedBy().getId());
-            dto.setCreatedBy(lsc.getCreatedBy().getUsername());
-            dto.setUpdatedBy(lsc.getUpdatedBy().getUsername());
             dto.setLearningSkillId(lsc.getLearningSkill().getId());
             dto.setLearningSkillTitle(lsc.getLearningSkill().getValue());
             dto.setLearningContentId(lsc.getLearningContent().getId());

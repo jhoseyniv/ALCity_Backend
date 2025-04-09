@@ -23,7 +23,7 @@ public class PGDTO  {
 
     private Collection<CityObjectInPGDTO> puzzleGroup_puzzleObjectDTOCollection;
 
-    private Collection<LearningSkillLContentDTO> puzzleSkillLearningContentDTOCollection;
+    private Collection<PGLearningSkillContentDTO> puzzleSkillLearningContentDTOCollection;
 
     public String getTitle() {
         return title;
@@ -65,11 +65,11 @@ public class PGDTO  {
         this.puzzleLevelDTOCollection = puzzleLevelDTOCollection;
     }
 
-    public Collection<LearningSkillLContentDTO> getPuzzleSkillLearningContentDTOCollection() {
+    public Collection<PGLearningSkillContentDTO> getPuzzleSkillLearningContentDTOCollection() {
         return puzzleSkillLearningContentDTOCollection;
     }
 
-    public void setPuzzleSkillLearningContentDTOCollection(Collection<LearningSkillLContentDTO> puzzleSkillLearningContentDTOCollection) {
+    public void setPuzzleSkillLearningContentDTOCollection(Collection<PGLearningSkillContentDTO> puzzleSkillLearningContentDTOCollection) {
         this.puzzleSkillLearningContentDTOCollection = puzzleSkillLearningContentDTOCollection;
     }
 

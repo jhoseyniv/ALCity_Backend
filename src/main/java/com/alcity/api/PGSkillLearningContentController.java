@@ -1,71 +1,61 @@
 package com.alcity.api;
 
-import com.alcity.dto.puzzle.PLDTO;
-import com.alcity.dto.puzzle.PlLearningTopicDTO;
-import com.alcity.entity.learning.LearningContent;
-import com.alcity.entity.learning.LearningTopic;
+import com.alcity.dto.puzzle.PGLearningSkillContentDTO;
 import com.alcity.entity.puzzle.LearningTopicInPL;
-import com.alcity.entity.puzzle.PuzzleLevel;
-import com.alcity.repository.puzzle.PLLearningTopicRepository;
+import com.alcity.entity.puzzle.PGLearningSkillContent;
+import com.alcity.entity.puzzle.PuzzleGroup;
 import com.alcity.service.customexception.ALCityResponseObject;
 import com.alcity.service.customexception.UniqueConstraintException;
 import com.alcity.service.customexception.ViolateForeignKeyException;
-import com.alcity.service.learning.LearningContentService;
-import com.alcity.service.learning.LearningTopicService;
-import com.alcity.service.puzzle.PLLearningTopicService;
-import com.alcity.service.puzzle.PuzzleLevelService;
+import com.alcity.service.puzzle.PGService;
+import com.alcity.service.puzzle.PGSkillLearningContentService;
 import com.alcity.utility.DTOUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Optional;
 
-@Tag(name = "Puzzle Level Learning Topic ", description = "Get Puzzle Levels learning topics...")
+@Tag(name = "Puzzle Skill Learning Content ", description = "Puzzle Skill Learning Content ...")
 @CrossOrigin(origins = "*" ,maxAge = 3600)
 @RestController
-@RequestMapping("/pl-learning-topic")
-public class PlLearningTopicController {
+@RequestMapping("/pg-skill-learning-content")
 
-
-    @Autowired
-    PLLearningTopicService plLearningTopicService;
-    @Autowired
-    private PuzzleLevelService puzzleLevelService;
+public class PGSkillLearningContentController {
 
     @Autowired
-    private LearningContentService learningContentService;
+    private PGSkillLearningContentService pgSkillLearningContentService;
     @Autowired
-    private LearningTopicService learningTopicService;
+    private PGService pgService;
 
-    @Operation( summary = "Fetch all learning topics for a puzzle level by  Id ",  description = "Fetch all variables for a puzzle level by  Id")
+    @Operation( summary = "Fetch all Puzzle Skill Learning Content for a puzzle group by  Id ",  description = "Puzzle Skill Learning Content for a puzzle group by  Id")
     @RequestMapping(value = "/id/{id}/all", method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin(origins = "*")
-    public Collection<PlLearningTopicDTO> getAllLearningTopicsForPuzzleLevelById(@PathVariable Long id) {
-        Optional<PuzzleLevel> puzzleLevelOptional = puzzleLevelService.findById(id);
-        if(puzzleLevelOptional.isEmpty()) return  null;
-        PuzzleLevel puzzleLevel = puzzleLevelOptional.get();
-        Collection<PlLearningTopicDTO>  plLearningTopicDTOS = DTOUtil.getPl_LearningTopicDTOS(puzzleLevel);
-        return  plLearningTopicDTOS;
+    public Collection<PGLearningSkillContentDTO> getAllPuzzleSkillLearningForPuzzleGroupById(@PathVariable Long id) {
+        Optional<PuzzleGroup> puzzleGroupOptional = pgService.findById(id);
+        if(puzzleGroupOptional.isEmpty()) return  null;
+        PuzzleGroup puzzleGroup = puzzleGroupOptional.get();
+        Collection<PGLearningSkillContentDTO> dtos = new ArrayList<PGLearningSkillContentDTO>();
+        dtos = DTOUtil.getPGLearningSkillContentDTOS(puzzleGroup.getLearningSkillContents());
+        return  dtos;
     }
-
-    @Operation( summary = "add a  learning topic to puzzle level ",  description = "Save a puzzle level learning topic entity and their data to data base")
+    @Operation( summary = "add a  learning skill  to puzzle group ",  description = "add a  learning skill  to puzzle group")
     @PostMapping("/add")
     @CrossOrigin(origins = "*")
-    public ALCityResponseObject savePLLearningTopic(@RequestBody PlLearningTopicDTO dto)  {
-        LearningTopicInPL savedRecord = null;
+    public ALCityResponseObject savePGLearningSkillContent(@RequestBody PGLearningSkillContentDTO dto)  {
+        PGLearningSkillContent savedRecord = null;
         ALCityResponseObject responseObject = new ALCityResponseObject();
 
         if (dto.getId() == null || dto.getId() <= 0L) { //save
             try {
-                savedRecord = plLearningTopicService.save(dto,"Save");
+                savedRecord = pgSkillLearningContentService.save(dto,"Save");
             } catch (RuntimeException e) {
-                throw new UniqueConstraintException(dto.getLearningTopicTitle(), dto.getId(), "Code Must be Unique");
+                throw new UniqueConstraintException(dto.getLearningSkillTitle(), dto.getId(), "Code Must be Unique");
             }
             responseObject = new ALCityResponseObject(HttpStatus.OK.value(), "ok", savedRecord.getId(), "Record Saved Successfully!");
         } else if (dto.getId() > 0L ) {//edit
@@ -83,21 +73,22 @@ public class PlLearningTopicController {
 
         return responseObject;
     }
-    @Operation( summary = "delete a  Puzzle Level learning Topic ",  description = "delete a Puzzle Level learning Topic")
+    @Operation( summary = "Delete a  PG Skill learning Content ",  description = "Delete a  PG Skill learning Content")
     @DeleteMapping("/del/id/{id}")
     @CrossOrigin(origins = "*")
     public ALCityResponseObject deleteAPuzzleLevelLearningTopicById(@PathVariable Long id) {
-        Optional<LearningTopicInPL> existingRecord = plLearningTopicService.findById(id);
+        Optional<PGLearningSkillContent> existingRecord = pgSkillLearningContentService.findById(id);
         if(existingRecord.isPresent()){
             try {
-                puzzleLevelService.deleteById(existingRecord.get().getId());
+                pgSkillLearningContentService.deleteById(existingRecord.get().getId());
             }catch (Exception e )
             {
-                throw new ViolateForeignKeyException(existingRecord.get().getLearningTopic().getTitle(), existingRecord.get().getId(), LearningTopicInPL.class.toString());
+                throw new ViolateForeignKeyException(existingRecord.get().getLearningSkill().getValue(), existingRecord.get().getId(), PGLearningSkillContent.class.toString());
             }
             return new ALCityResponseObject(HttpStatus.OK.value(), "ok", id,"Record deleted Successfully!");
         }
         return  new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", id,"Record not found!");
     }
+
 
 }
