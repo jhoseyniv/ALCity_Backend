@@ -292,6 +292,11 @@ public class AttributeService implements AttributeRepository {
 
     public Collection<Attribute> findPuzzleLevelRulePostAction(Long ownerId,AttributeOwnerType ownerType) {
         Collection<Attribute> outputAttributes = new ArrayList<Attribute>();
+        Collection<Attribute> parameters = attributeRepository.findByOwnerIdAndAttributeOwnerType(ownerId,ownerType);
+        return parameters;
+    }
+    public Collection<Attribute> findPuzzleLevelRulePostActionParameters(Long ownerId,AttributeOwnerType ownerType) {
+        Collection<Attribute> outputAttributes = new ArrayList<Attribute>();
         //fetch RulePostAction parameters
         Collection<Attribute> parameters = attributeRepository.findByOwnerIdAndAttributeOwnerType(ownerId,ownerType);
         return parameters;
@@ -667,6 +672,9 @@ public class AttributeService implements AttributeRepository {
         }
         if(ownerType == AttributeOwnerType.Puzzle_Level_Rule_Post_Action) {
             outputAttributes = findPuzzleLevelRulePostAction(ownerId,ownerType);
+        }
+        if(ownerType == AttributeOwnerType.Puzzle_Level_Rule_Post_Action_Parameter) {
+            outputAttributes = findPuzzleLevelRulePostActionParameters(ownerId,ownerType);
         }
         return outputAttributes;
         }

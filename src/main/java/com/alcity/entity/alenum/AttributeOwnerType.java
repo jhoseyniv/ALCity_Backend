@@ -20,7 +20,8 @@ public enum AttributeOwnerType {
 
     Puzzle_Level_Variable,
 
-    Puzzle_Level_Rule_Post_Action; //PLRPA
+    Puzzle_Level_Rule_Post_Action, //PLRPA
+    Puzzle_Level_Rule_Post_Action_Parameter; //PLRPA
     public static AttributeOwnerType getById(long id)
     {
         for (AttributeOwnerType e : AttributeOwnerType.values())

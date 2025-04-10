@@ -9,6 +9,6 @@ public enum PLRuleEventType  {
     AfterCellEnter,
     Action,
     OnActionComplete,
-
+    Swipe
 
 }

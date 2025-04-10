@@ -232,6 +232,8 @@ public class ImportBaseData implements CommandLineRunner {
 
         PLRulePostActionType FireEventAction = new PLRulePostActionType("FireEventAction","FireEventAction","",1L,now,now,admin_1,admin_1);
         plRulePostActionTypeService.save(FireEventAction);
+        PLRulePostActionType FireEventAction_Move = new PLRulePostActionType("FireEventAction:move","FireEventAction:move","",1L,now,now,admin_1,admin_1);
+        plRulePostActionTypeService.save(FireEventAction_Move);
 
         PLRulePostActionType FireEventAction_checkcell = new PLRulePostActionType("FireEventAction:checkcell","FireEventAction:checkcell","",1L,now,now,admin_1,admin_1);
         plRulePostActionTypeService.save(FireEventAction_checkcell);
@@ -245,17 +247,26 @@ public class ImportBaseData implements CommandLineRunner {
         PLRulePostActionType ObjectActionList = new PLRulePostActionType("ObjectActionList","ObjectActionList","",1L,now,now,admin_1,admin_1);
         plRulePostActionTypeService.save(ObjectActionList);
 
+        PLRulePostActionType FireEventAction_Swipe = new PLRulePostActionType("FireEventAction:swipe","FireEventAction:swipe","",1L,now,now,admin_1,admin_1);
+        plRulePostActionTypeService.save(FireEventAction_Swipe);
+
 
         PLRuleEvent click_ruleEvent = new PLRuleEvent("Click", PLRuleEventType.UserEvent, UserEvent.Click.ordinal(),1L,now,now,admin_1,admin_1);
         PLRuleEvent drag_ruleEvent = new PLRuleEvent("Drag", PLRuleEventType.UserEvent, UserEvent.Drag.ordinal(),1L,now,now,admin_1,admin_1);
         PLRuleEvent Internal_Event = new PLRuleEvent("internalevent", PLRuleEventType.SystemEvent, SystemEvent.internalEvent.ordinal(),1L,now,now,admin_1,admin_1);
         PLRuleEvent internalevent_checkcell = new PLRuleEvent("internalevent:checkcell", PLRuleEventType.SystemEvent, SystemEvent.internalEvent.ordinal(),1L,now,now,admin_1,admin_1);
         PLRuleEvent internalevent_check = new PLRuleEvent("internalevent:check", PLRuleEventType.SystemEvent, SystemEvent.internalEvent.ordinal(),1L,now,now,admin_1,admin_1);
+        PLRuleEvent internalevent_move = new PLRuleEvent("internalevent:move", PLRuleEventType.SystemEvent, SystemEvent.internalEvent.ordinal(),1L,now,now,admin_1,admin_1);
+        PLRuleEvent Swipe = new PLRuleEvent("Swipe", PLRuleEventType.SystemEvent, SystemEvent.internalEvent.ordinal(),1L,now,now,admin_1,admin_1);
+        PLRuleEvent internalevent_Swipe = new PLRuleEvent("internalevent:swipe", PLRuleEventType.SystemEvent, SystemEvent.internalEvent.ordinal(),1L,now,now,admin_1,admin_1);
         plRuleEventService.save(click_ruleEvent);
         plRuleEventService.save(drag_ruleEvent);
         plRuleEventService.save(Internal_Event);
         plRuleEventService.save(internalevent_check);
+        plRuleEventService.save(internalevent_move);
         plRuleEventService.save(internalevent_checkcell);
+        plRuleEventService.save(Swipe);
+        plRuleEventService.save(internalevent_Swipe);
 
         Advertisement termsAndCondition = new Advertisement("this is a terms and Condtion",ADSType.TermAndCondition,1L,now,now,jalalHoseyni,jalalHoseyni);
         advertisementService.save(termsAndCondition);
