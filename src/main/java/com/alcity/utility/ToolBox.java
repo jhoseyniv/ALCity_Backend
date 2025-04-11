@@ -39,5 +39,9 @@ public class ToolBox {
 
     public static void main(String args[]){
         getEnumById(ADSType.class,1);
+        String ref="sandcat,sandcat-moslem1403981,11-04-2025 15:21:50";
+        String[] tokens = ref.split(",");
+        for(int i=0; i<tokens.length;i++)
+        System.out.println(tokens[i]);
     }
 }

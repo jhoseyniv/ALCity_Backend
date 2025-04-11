@@ -57,7 +57,7 @@ public class RemoteAccessController extends BaseTable implements Serializable {
         else  return 0L;
     }
 
-    @Operation( summary = "request a puzzle level from algoopia  ",  description = "request a puzzle level from algoopia ")
+    @Operation( summary = "request a puzzle level from algoopia by a 3rd party application  ",  description = "request a puzzle level from algoopia by a 3rd party application ")
     @PostMapping("/request/puzzle")
     @CrossOrigin(origins = "*")
     public O3rdPartyResponse requestPuzzleLevel(@RequestBody RemoteRequestDTO request) {
@@ -69,29 +69,40 @@ public class RemoteAccessController extends BaseTable implements Serializable {
             member = memberOptional.get();
         Long puzzleLevelId = getPuzzleLevelId(request.getPuzzleCode());
         String refId = getReferenceId(request,member);
-        Long status =1L;
-        if(puzzleLevelId == 0L)   status = 0L;
+        Long status =0L;
+        if(puzzleLevelId > 0L)   status = 1L;
         O3rdPartyResponse response = new O3rdPartyResponse(refId, puzzleLevelId,status);
         return response;
     }
-
- /*   @Operation( summary = "login  to system by remote application ",  description = "login to system by remote application")
-    @RequestMapping("/get/refId/{refId}/plId/{plId}/status/{status}")
-    @CrossOrigin(origins = "*")
-    public ALCityAcessRight getPuzzleLevel(@PathVariable String refId,@PathVariable Long plId,@PathVariable Long status) {
-        Optional<AppMember> memberOptional = memberService.findByUsername(o3rdPartyResponse.ge());
-        AppMember member=null;
-        if(memberOptional.isEmpty())
-            member = memberService.saveRemoteUser(accessDTO);
-        else
-            member = memberOptional.get();
-
-        ALCityAcessRight accessRight = new ALCityAcessRight(member.getId(), member.getUsername(),0,"Login Successfull","JWT Token", member.getAge(), member.getNickname(), member.getMobile(),
-                member.getEmail(), member.getIcon().getId(), member.getMemberType().getValue(), member.getGender().name());
-
-        return accessRight;
+    public Boolean isReferenceIdOK(String refId){
+        return true;
     }
-    */
+    public String getRemoteUserName(String refId){
+        String[] tokens = refId.split(",");
+        return tokens[1];
+    }
+
+
+    @Operation( summary = "login  to system by remote application ", description = "login to system by remote application")
+    @RequestMapping(value = "/get/refId/{refId}/plId/{plId}/status/{status}" , method = RequestMethod.GET)
+    @CrossOrigin(origins = "*")
+    public ALCityAcessRight loginAndGetPuzzleLevel(@PathVariable String refId,@PathVariable Long plId,@PathVariable Long status) {
+        ALCityAcessRight accessRight =null;
+        if(isReferenceIdOK(refId)) {
+            String userName = getRemoteUserName(refId);
+            Optional<AppMember> memberOptional = memberService.findByUsername(userName);
+            AppMember member = memberOptional.get();
+            accessRight = new ALCityAcessRight(member.getId(), member.getUsername(),0,"Login Successfull","JWT Token", member.getAge(),
+                    member.getNickname(), member.getMobile(),
+                    member.getEmail(), member.getIcon().getId(), member.getMemberType().getValue(), member.getGender().name());
+        }else {
+            accessRight = new ALCityAcessRight(-1L, null,-1,"Login Fail",null, -1,
+                    null, null,null, null, null, null);
+
+        }
+          return accessRight;
+    }
+
 
     @Operation( summary = "get download page application file  ",  description = "get download application file")
     @GetMapping("/get/download-page")
