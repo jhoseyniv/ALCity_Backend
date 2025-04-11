@@ -82,13 +82,7 @@ public class AppMemberDTO {
     }
 
 
-//    public byte[] getIcon() {
-//        return icon;
-//    }
-//
-//    public void setIcon(byte[] icon) {
-//        this.icon = icon;
-//    }
+
 
     public Long getIconId() {
         return iconId;

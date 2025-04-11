@@ -266,6 +266,26 @@ public class AppMemberService implements AppMemberRepository, CustomizedUserRepo
         return appMember_walletItem;
 
     }
+    public AppMember updateAvatar(Long appMemmberId, Long avatarId) {
+        Optional<BinaryContent> iconOptional = binaryContentRepository.findById(avatarId);
+        BinaryContent icon= null;
+        AppMember appMember=null;
+
+        if(avatarId == null || avatarId ==0L || iconOptional.isEmpty())
+            icon = binaryContentRepository.findByfileName("no_photo_avatar");
+        else
+            icon = binaryContentRepository.findById(avatarId).get();
+
+            Optional<AppMember> appMemberOptional= appMemberRepository.findById(appMemmberId);
+
+            if(appMemberOptional.isPresent()) {
+                appMember = appMemberOptional.get();
+                appMember.setIcon(icon);
+                appMemberRepository.save(appMember);
+            }
+
+        return appMember;
+    }
     public AppMember save(AppMemberDTO dto, String code) {
         Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
         MemberType memberType = memberTypeRepository.findByValue(dto.getMemberType()).get();

@@ -112,20 +112,6 @@ public class AppMemberController {
         return journeyInfoWithScores;
     }
 
-/*
-    @Operation( summary = "Get all data for a steps of a journey with scores and status",  description = "Get all data for a steps of a journey with scores and status ...")
-    @RequestMapping(value = "/id/{id}/journey-details/jid/{jid}", method = RequestMethod.GET)
-    @ResponseBody
-    @CrossOrigin(origins = "*")
-    public AppMemberJourneyDetailDTO getApplicationMemberJourneyStepsDetailById(@PathVariable Long id,@PathVariable Long jid) {
-        Optional<AppMember> memberOptional = appMemberService.findById(id);
-        Optional<Journey> journeyOptional = journeyService.findById(jid);
-
-        AppMemberJourneyDetailDTO dto = appMemberService.getAppMemberJourneyDetailByScores(memberOptional.get(),journeyOptional.get());
-        return dto;
-    }
-    */
-
     @Operation( summary = "Get all journeys for an Application Member with scores",  description = "get all journeys for an Application Member and scores ...")
     @RequestMapping(value = "/id/{id}/journeys", method = RequestMethod.GET)
     @ResponseBody
@@ -136,28 +122,6 @@ public class AppMemberController {
         Collection<AppMemberJourneyDTO> dtos = appMemberService.getAppMemberJourneysByScores(memberOptional.get(),journeys);
         return dtos;
     }
-/*    @Operation( summary = "Get a journey for an Application Member with scores",  description = "get a journey for an Application Member and scores ...")
-    @RequestMapping(value = "/id/{id}/journey/jid/{jid}", method = RequestMethod.GET)
-    @ResponseBody
-    @CrossOrigin(origins = "*")
-    public AppMemberJourneyDTO getJourneyScoresForAppMemberById(@PathVariable Long id,@PathVariable Long jid) {
-        Optional<AppMember> memberOptional = appMemberService.findById(id);
-        Optional<Journey> journeyOptional = journeyService.findById(jid);
-        AppMemberJourneyDTO dto = appMemberService.getJourneyScoresForAppMember(memberOptional.get(),journeyOptional.get());
-        return dto;
-    }
-
-    @Operation( summary = "Get a journey information for an Application Member with scores in detail",  description = "get a journey for an Application Member and scores ...")
-    @RequestMapping(value = "/id/{id}/joureny/jid/{jid}", method = RequestMethod.GET)
-    @ResponseBody
-    @CrossOrigin(origins = "*")
-    public AppMemberJourneyDetailDTO getApplicationMemberJourneyById(@PathVariable Long id, @PathVariable Long jid) {
-        Optional<AppMember> memberOptional = appMemberService.findById(id);
-        Optional<Journey> journeyOptional = journeyService.findById(jid);
-        AppMemberJourneyDetailDTO dto = appMemberService.getAppMemberJourneyByScore(memberOptional.get(),journeyOptional.get());
-        return dto;
-    }
-*/
     @Operation( summary = "delete an  Application Member ",  description = "delete an Application Member .....")
     @DeleteMapping("/del/id/{id}")
     @CrossOrigin(origins = "*")
@@ -175,6 +139,22 @@ public class AppMemberController {
         return  new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", id,"Record not found!");
     }
 
+    @Operation( summary = "Update Avatar for an App Member ",  description = "Update Avatar for an App Member")
+    @PostMapping("/update-avatar")
+    @RequestMapping("/update-avatar/memberId/{memId}/avatarId/{avatarId}")
+    @CrossOrigin(origins = "*")
+    public ALCityResponseObject getPuzzleLevel(@PathVariable Long memId,@PathVariable Long avatarId) {
+        AppMember updatedRecord = null;
+        ALCityResponseObject responseObject = new ALCityResponseObject();
+
+        updatedRecord = appMemberService.updateAvatar(memId, avatarId);
+            if(updatedRecord !=null)
+                responseObject = new ALCityResponseObject(HttpStatus.OK.value(), "ok", updatedRecord.getId(), "Record Updated Successfully!");
+            else
+            responseObject = new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", -1L, "Record Not Found!");
+
+        return responseObject;
+    }
 
 
     @Operation( summary = "Save an App Member ",  description = "Save an App Member ")

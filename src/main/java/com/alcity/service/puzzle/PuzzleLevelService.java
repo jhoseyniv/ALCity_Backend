@@ -140,8 +140,6 @@ public class PuzzleLevelService implements PuzzleLevelRepository {
     }
 
 
-
-
     @Override
     public Optional<PuzzleLevel> findByCode(String code) {
         return puzzleLevelRepository.findByCode(code);
