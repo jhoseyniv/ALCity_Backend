@@ -487,7 +487,7 @@ public class ImportBaseData implements CommandLineRunner {
         learningSkill_LearningTopicService.save(learningSkill_learningTopic_2);
 
 
-        byte[] jouerny_1_Image = ImageUtil.getImage("src/main/resources/images/","jungle.png");
+        byte[] jouerny_1_Image = ImageUtil.getImage("src/main/resources/images/","jouerny_1.jpeg");
         byte[]  tumb_jouerny_1 = ImageUtil.getThumbnail(jouerny_1_Image,"jungle.png");
 
         byte[] jouerny_2_Image = ImageUtil.getImage("src/main/resources/images/","desert.png");
@@ -542,10 +542,15 @@ public class ImportBaseData implements CommandLineRunner {
         journey_3.setButtonLockedIcon(image_journey_locked);
         journeyService.save(journey_3);
 
-        RoadMap roadMap1=new RoadMap(100,100,image_journey_1,journey_1,1L,now,now,jalalHoseyni,jalalHoseyni);
-        RoadMap roadMap2=new RoadMap(300,300,image_journey_2,journey_1,1L,now,now,jalalHoseyni,jalalHoseyni);
+        byte[] jouerny_1_roadMap_Image = ImageUtil.getImage("src/main/resources/images/","jouerny_1_roadMap_Image.jpeg");
+        byte[]  tumb_image_RoadMap1_journey_1 = ImageUtil.getThumbnail(jouerny_1_roadMap_Image,"roadmap_1_journey_1.png");
+        BinaryContent image_RoadMap1_journey_1 = new BinaryContent(1L, now, now,admin_1 , admin_1,"jouerny_1_roadMap_Image",jouerny_1_roadMap_Image.length,jouerny_1_roadMap_Image,tumb_image_RoadMap1_journey_1,"tag1","","",BinaryContentType.Image);
+        binaryContentService.save(image_RoadMap1_journey_1);
+
+        RoadMap roadMap1=new RoadMap(0,0,image_RoadMap1_journey_1,journey_1,1L,now,now,jalalHoseyni,jalalHoseyni);
+       // RoadMap roadMap2=new RoadMap(300,300,image_journey_2,journey_1,1L,now,now,jalalHoseyni,jalalHoseyni);
         roadMapService.save(roadMap1);
-        roadMapService.save(roadMap2);
+     //   roadMapService.save(roadMap2);
 
         JourneyLearningSkill journey_1_Skill_1 = new JourneyLearningSkill(0.5f,journey_1,timeManagement,1L,now,now,admin_1,admin_1);
         JourneyLearningSkill journey_1_Skill_2 = new JourneyLearningSkill(0.5f,journey_1,division,1L,now,now,admin_1,admin_1);

@@ -207,11 +207,11 @@ public class ImportHashImageProblemData_1 implements CommandLineRunner {
         Optional<PuzzleGroup> puzzleGroup_Pipe = puzzleGroupService.findByTitle("Science Puzzle Group");
         Optional<PuzzleGroup> puzzleGroup_Maze = puzzleGroupService.findByTitle("Maze Puzzle Group");
 
-        JourneyStep step_1_journey_1 = new JourneyStep("step1_journey_1",1,20,20,journey_1.get(),puzzleGroup_HashImage.get(),1L,now,now,admin_1,admin_1);
-        JourneyStep step_2_journey_1 = new JourneyStep("step2_journey_1",2,100,100,journey_1.get(),puzzleGroup_X_O.get(),1L,now,now,admin_1,admin_1);
-        JourneyStep step_3_journey_1 = new JourneyStep("step3_journey_1",3,200,200,journey_1.get(),puzzleGroup_IQ.get(),1L,now,now,admin_1,admin_1);
-        JourneyStep step_4_journey_1 = new JourneyStep("step4_journey_1",4,300,300,journey_1.get(),puzzleGroup_Pipe.get(),1L,now,now,admin_1,admin_1);
-        JourneyStep step_5_journey_1 = new JourneyStep("step5_journey_1",5,400,400,journey_1.get(),puzzleGroup_Maze.get(),1L,now,now,admin_1,admin_1);
+        JourneyStep step_1_journey_1 = new JourneyStep("step1_journey_1",1,245,80,journey_1.get(),puzzleGroup_HashImage.get(),1L,now,now,admin_1,admin_1);
+        JourneyStep step_2_journey_1 = new JourneyStep("step2_journey_1",2,300,260,journey_1.get(),puzzleGroup_X_O.get(),1L,now,now,admin_1,admin_1);
+        JourneyStep step_3_journey_1 = new JourneyStep("step3_journey_1",3,470,410,journey_1.get(),puzzleGroup_IQ.get(),1L,now,now,admin_1,admin_1);
+        JourneyStep step_4_journey_1 = new JourneyStep("step4_journey_1",4,95,290,journey_1.get(),puzzleGroup_Pipe.get(),1L,now,now,admin_1,admin_1);
+        JourneyStep step_5_journey_1 = new JourneyStep("step5_journey_1",5,165,540,journey_1.get(),puzzleGroup_Maze.get(),1L,now,now,admin_1,admin_1);
         journeyStepService.save(step_1_journey_1);
         journeyStepService.save(step_2_journey_1);
         journeyStepService.save(step_3_journey_1);
