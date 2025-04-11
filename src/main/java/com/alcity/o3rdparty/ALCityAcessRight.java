@@ -1,4 +1,4 @@
-package com.alcity.service.customexception;
+package com.alcity.o3rdparty;
 
 public class ALCityAcessRight {
     private Long id;

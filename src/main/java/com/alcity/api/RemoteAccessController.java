@@ -1,25 +1,21 @@
 package com.alcity.api;
 
 
-import com.alcity.dto.RemoteAccess.RemoteAccessDTO;
-import com.alcity.dto.puzzle.object.CityObjectDTO;
-import com.alcity.dto.search.ObjectSearchCriteriaDTO;
+import com.alcity.dto.RemoteAccess.RemoteRequestDTO;
 import com.alcity.entity.appmember.AppMember;
 import com.alcity.entity.base.BaseTable;
 import com.alcity.entity.base.BinaryContent;
-import com.alcity.entity.puzzle.ALCityObject;
 import com.alcity.entity.puzzle.PuzzleLevel;
+import com.alcity.o3rdparty.O3rdPartyResponse;
 import com.alcity.service.appmember.AppMemberService;
 import com.alcity.service.base.BinaryContentService;
-import com.alcity.service.customexception.ALCityAcessRight;
+import com.alcity.o3rdparty.ALCityAcessRight;
 import com.alcity.service.puzzle.PuzzleLevelService;
-import com.alcity.utility.PLDTOUtil;
-import io.github.classgraph.Resource;
+import com.alcity.utility.DateUtils;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
-import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -29,8 +25,9 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Collection;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.Optional;
 
 @Tag(name = "Remote Access To Some  API's ", description = "Remote Access to API's...")
@@ -46,12 +43,43 @@ public class RemoteAccessController extends BaseTable implements Serializable {
     @Autowired
     private BinaryContentService binaryContentService;
 
+    public String getReferenceId(RemoteRequestDTO request,AppMember member ){
+        LocalDateTime current = LocalDateTime.now();
+        LocalDateTime expireTime = current.plusMinutes(30);
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+        String expire = expireTime.format(format);
+        String refrenceId = request.getRemoteHost() + "," + member.getUsername() + "," + expire ;
+        return refrenceId;
+    }
+    public Long getPuzzleLevelId(String puzzleCode){
+        Optional<PuzzleLevel> puzzleLevelOptional = puzzleLevelService.findByCode(puzzleCode);
+        if(puzzleLevelOptional.isPresent()) return puzzleLevelOptional.get().getId();
+        else  return 0L;
+    }
 
-    @Operation( summary = "login  to system by remote application ",  description = "login to system by remote application")
-    @PostMapping("/get/user")
+    @Operation( summary = "request a puzzle level from algoopia  ",  description = "request a puzzle level from algoopia ")
+    @PostMapping("/request/puzzle")
     @CrossOrigin(origins = "*")
-    public ALCityAcessRight getPuzzleLevel(@RequestBody RemoteAccessDTO accessDTO) {
-        Optional<AppMember> memberOptional = memberService.findByUsername(accessDTO.getRemoteUserName());
+    public O3rdPartyResponse requestPuzzleLevel(@RequestBody RemoteRequestDTO request) {
+        Optional<AppMember> memberOptional = memberService.findByUsername(request.getRemoteUserName());
+        AppMember member=null;
+        if(memberOptional.isEmpty())
+            member = memberService.saveRemoteUser(request);
+        else
+            member = memberOptional.get();
+        Long puzzleLevelId = getPuzzleLevelId(request.getPuzzleCode());
+        String refId = getReferenceId(request,member);
+        Long status =1L;
+        if(puzzleLevelId == 0L)   status = 0L;
+        O3rdPartyResponse response = new O3rdPartyResponse(refId, puzzleLevelId,status);
+        return response;
+    }
+
+ /*   @Operation( summary = "login  to system by remote application ",  description = "login to system by remote application")
+    @RequestMapping("/get/refId/{refId}/plId/{plId}/status/{status}")
+    @CrossOrigin(origins = "*")
+    public ALCityAcessRight getPuzzleLevel(@PathVariable String refId,@PathVariable Long plId,@PathVariable Long status) {
+        Optional<AppMember> memberOptional = memberService.findByUsername(o3rdPartyResponse.ge());
         AppMember member=null;
         if(memberOptional.isEmpty())
             member = memberService.saveRemoteUser(accessDTO);
@@ -63,6 +91,8 @@ public class RemoteAccessController extends BaseTable implements Serializable {
 
         return accessRight;
     }
+    */
+
     @Operation( summary = "get download page application file  ",  description = "get download application file")
     @GetMapping("/get/download-page")
     @CrossOrigin(origins = "*")

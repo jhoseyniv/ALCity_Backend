@@ -1,6 +1,6 @@
 package com.alcity.service.appmember;
 
-import com.alcity.dto.RemoteAccess.RemoteAccessDTO;
+import com.alcity.dto.RemoteAccess.RemoteRequestDTO;
 import com.alcity.dto.appmember.*;
 import com.alcity.dto.journey.RoadMapDTO;
 import com.alcity.dto.player.PlayHistoryDTO;
@@ -12,7 +12,7 @@ import com.alcity.entity.journey.Journey;
 import com.alcity.entity.journey.JourneyStep;
 import com.alcity.entity.play.PlayHistory;
 import com.alcity.entity.puzzle.PuzzleLevel;
-import com.alcity.service.customexception.ALCityAcessRight;
+import com.alcity.o3rdparty.ALCityAcessRight;
 import com.alcity.service.customexception.ALCityResponseObject;
 import com.alcity.entity.alenum.UserGender;
 import com.alcity.entity.appmember.AppMember;
@@ -319,19 +319,19 @@ public class AppMemberService implements AppMemberRepository, CustomizedUserRepo
         return guest;
     }
 
-    public ALCityAcessRight findRemoteUser(RemoteAccessDTO remoteAccessDTO) {
-        String userName = remoteAccessDTO.remoteUserName;;
+    public ALCityAcessRight findRemoteUser(RemoteRequestDTO remoteAccessDTO) {
+        String userName = remoteAccessDTO.getRemoteUserName();;
         Optional<AppMember> appMemberOptional = appMemberRepository.findByUsername(userName);
         if(appMemberOptional.isEmpty())
             return  new ALCityAcessRight(-1L, remoteAccessDTO.getRemoteUserName(),-1,"data not found","-1",-1,"error","error","error",-1L,"error","error");
         return  null;
     }
-        public AppMember saveRemoteUser(RemoteAccessDTO accessDTO) {
+        public AppMember saveRemoteUser(RemoteRequestDTO accessDTO) {
         Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
         MemberType memberType = memberTypeRepository.findByValue("Guest").get();
         BinaryContent icon=null;
         AppMember guest=null;
-        Integer age = DateUtils.calculateAgeFromJalali(accessDTO.birthYear);
+        Integer age = DateUtils.calculateAgeFromJalali(accessDTO.getBirthYear());
         icon = binaryContentRepository.findByfileName("no_photo_avatar");
         guest = new AppMember(age,accessDTO.getRemoteHost() + "-" + accessDTO.getRemoteUserName(), "Guest", "Guest", "","",icon,UserGender.Unknow ,memberType
                 ,1L, DateUtils.getNow(), DateUtils.getNow(), createdBy.get(), createdBy.get());

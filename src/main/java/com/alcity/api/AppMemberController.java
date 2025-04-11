@@ -7,7 +7,7 @@ import com.alcity.entity.appmember.AppMemberJourneyInfo;
 import com.alcity.entity.journey.Journey;
 import com.alcity.entity.play.PlayHistory;
 import com.alcity.service.Journey.JourneyService;
-import com.alcity.service.customexception.ALCityAcessRight;
+import com.alcity.o3rdparty.ALCityAcessRight;
 import com.alcity.service.customexception.ALCityResponseObject;
 import com.alcity.service.customexception.UniqueConstraintException;
 import com.alcity.service.customexception.ViolateForeignKeyException;

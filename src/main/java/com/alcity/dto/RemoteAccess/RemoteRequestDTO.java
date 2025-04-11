@@ -1,11 +1,11 @@
 package com.alcity.dto.RemoteAccess;
 
-public class RemoteAccessDTO {
+public class RemoteRequestDTO {
 
-    public String remoteHost;
-    public String remoteUserName;
-    public Integer birthYear;
-    public String puzzleCode;
+    private String remoteHost;
+    private String remoteUserName;
+    private Integer birthYear;
+    private String puzzleCode;
 
     public String getRemoteHost() {
         return remoteHost;
@@ -39,10 +39,10 @@ public class RemoteAccessDTO {
         this.birthYear = birthYear;
     }
 
-    public RemoteAccessDTO() {
+    public RemoteRequestDTO() {
     }
 
-    public RemoteAccessDTO(String remoteHost, String remoteUserName, Integer birthYear, String puzzleCode) {
+    public RemoteRequestDTO(String remoteHost, String remoteUserName, Integer birthYear, String puzzleCode) {
         this.remoteHost = remoteHost;
         this.remoteUserName = remoteUserName;
         this.birthYear = birthYear;
