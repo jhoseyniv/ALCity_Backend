@@ -193,8 +193,8 @@ public class ImportMemoryGameProblemData_4 implements CommandLineRunner {
 
         LearningSkill timeManagement = learningSkillService.findByValue("timeManagement");
         LearningSkill memory_booster = learningSkillService.findByValue("memory_booster");
-        Optional<WalletItem> alCoin100WalletItem = walletItemService.findByValue("al_coin_100");
-        Optional<WalletItem> alCoin10WalletItem = walletItemService.findByValue("al_coin_10");
+       // Optional<WalletItem> alCoin100WalletItem = walletItemService.findByValue("al_coin_100");
+        Optional<WalletItem> alCoin10WalletItem = walletItemService.findByValue("walletItem_3");
 
         Optional<Journey> journey_1 = journeyService.findByTitle("Journey_1");
         Optional<Journey> journey_2 = journeyService.findByTitle("Journey_2");

@@ -194,10 +194,8 @@ public class ImportPipeGameProblemData_5 implements CommandLineRunner {
 
         LearningSkill timeManagement = learningSkillService.findByValue("timeManagement");
         LearningSkill memory_booster = learningSkillService.findByValue("memory_booster");
-        Optional<WalletItem> alCoin10WalletItem = walletItemService.findByValue("al_coin_10");
+        Optional<WalletItem> alCoin10WalletItem = walletItemService.findByValue("walletItem_2");
 
-
-      //  byte[]  planyGround_Image_Memory_Game = ImageUtil.getImage("src/main/resources/images/Pipe-Game/","PipeGame-ground.json");
         JsonReader reader = Json.createReader(new FileReader("src/main/resources/images/X-O Problem/x-o-ground.json"));
         JsonObject jsonObject = reader.readObject();
         ObjectMapper objectMapper = new ObjectMapper();

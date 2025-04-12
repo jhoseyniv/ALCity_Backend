@@ -176,7 +176,7 @@ public class ImportHashImageProblemData_1 implements CommandLineRunner {
           AppMember jalalHoseyni = jalalHoseyniOptional.get();
          LearningSkill timeManagement = learningSkillService.findByValue("timeManagement");
         LearningSkill division = learningSkillService.findByValue("division");
-        Optional<WalletItem> alCoin10WalletItem = walletItemService.findByValue("al_coin_10");
+        Optional<WalletItem> alCoin10WalletItem = walletItemService.findByValue("walletItem_1");
 
         Optional<Journey> journey_1 = journeyService.findByTitle("Journey_1");
         Optional<Journey> journey_2 = journeyService.findByTitle("Journey_2");

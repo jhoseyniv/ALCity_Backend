@@ -194,7 +194,7 @@ public class ImportMazeProblemData_6 implements CommandLineRunner {
 
         LearningSkill timeManagement = learningSkillService.findByValue("timeManagement");
         LearningSkill memory_booster = learningSkillService.findByValue("memory_booster");
-        Optional<WalletItem> alCoin10WalletItem = walletItemService.findByValue("al_coin_10");
+        Optional<WalletItem> alCoin10WalletItem = walletItemService.findByValue("walletItem_1");
 
 
         JsonReader reader = Json.createReader(new FileReader("src/main/resources/images/Maze_Game/Maze_Game-ground.json"));
