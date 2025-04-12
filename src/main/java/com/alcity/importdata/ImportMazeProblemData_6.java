@@ -321,7 +321,32 @@ public class ImportMazeProblemData_6 implements CommandLineRunner {
                     attributeValueService.save(attributeValue);
                 }
             }
+            if(renderer.getHandler().equalsIgnoreCase("MoveImage")){
+                Collection<Attribute> attributes = attributeService.findByOwnerIdAndAttributeOwnerTypeNew(objectAction.getId(),AttributeOwnerType.Puzzle_Group_Object_Action_Handler_Parameter);
+                Iterator<Attribute> attributeIterator = attributes.iterator();
+                while(attributeIterator.hasNext()){
+                    Attribute attribute = attributeIterator.next();
+                    if(attribute.getName().equalsIgnoreCase("fromRow")) {
+                        AttributeValue attributeValue = new AttributeValue(null, null, null, null, null, null, null, "BoardVar(objX)", true, null, attribute, 1L, now, now, admin_1, admin_1, objectAction.getId(), AttributeOwnerType.Puzzle_Group_Object_Action_Handler_Parameter);
+                        attributeValueService.save(attributeValue);
+                    }
+                    if(attribute.getName().equalsIgnoreCase("toRow")) {
+                        AttributeValue attributeValue = new AttributeValue(null, 0, null, null, null, null, null, null, false, null, attribute, 1L, now, now, admin_1, admin_1, objectAction.getId(), AttributeOwnerType.Puzzle_Group_Object_Action_Handler_Parameter);
+                        attributeValueService.save(attributeValue);
+                    }
+                    if(attribute.getName().equalsIgnoreCase("fromCol")) {
+                        AttributeValue attributeValue = new AttributeValue(null, 0, null, null, null, null, null, null, false, null, attribute, 1L, now, now, admin_1, admin_1, objectAction.getId(), AttributeOwnerType.Puzzle_Group_Object_Action_Handler_Parameter);
+                        attributeValueService.save(attributeValue);
+                    }
+                    if(attribute.getName().equalsIgnoreCase("toCol")) {
+                        AttributeValue attributeValue = new AttributeValue(null, 0, null, null, null, null, null, null, false, null, attribute, 1L, now, now, admin_1, admin_1, objectAction.getId(), AttributeOwnerType.Puzzle_Group_Object_Action_Handler_Parameter);
+                        attributeValueService.save(attributeValue);
+                    }
+                }
+            }
+
         }
+
 
         Attribute ImageObject01_property_bgImage =new Attribute("bgImage",mazeGame_ImageObject.getId(),AttributeOwnerType.Puzzle_Group_Object_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(ImageObject01_property_bgImage);
