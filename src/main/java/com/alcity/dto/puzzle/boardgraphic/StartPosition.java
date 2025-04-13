@@ -3,38 +3,38 @@ package com.alcity.dto.puzzle.boardgraphic;
 import java.io.Serializable;
 
 public class StartPosition implements Serializable {
-    private Integer x;
-    private Integer y;
-    private Integer z;
+    private Float x;
+    private Float y;
+    private Float z;
 
-    public Integer getX() {
+    public Float getX() {
         return x;
     }
 
-    public void setX(Integer x) {
+    public void setX(Float x) {
         this.x = x;
     }
 
-    public Integer getY() {
+    public Float getY() {
         return y;
     }
 
-    public void setY(Integer y) {
+    public void setY(Float y) {
         this.y = y;
     }
 
-    public Integer getZ() {
+    public Float getZ() {
         return z;
     }
 
-    public void setZ(Integer z) {
+    public void setZ(Float z) {
         this.z = z;
     }
 
     public StartPosition() {
     }
 
-    public StartPosition(Integer x, Integer y, Integer z) {
+    public StartPosition(Float x, Float y, Float z) {
         this.x = x;
         this.y = y;
         this.z = z;

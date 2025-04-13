@@ -6,7 +6,7 @@ public class Tile implements Serializable {
     private Integer id;
     private String tileObjId;
     private Float alpha;
-    private Integer zPosition;
+    private Float zPosition;
     private Margin margin;
 
     public Integer getId() {
@@ -27,11 +27,11 @@ public class Tile implements Serializable {
         this.alpha = alpha;
     }
 
-    public Integer getzPosition() {
+    public Float getzPosition() {
         return zPosition;
     }
 
-    public void setzPosition(Integer zPosition) {
+    public void setzPosition(Float zPosition) {
         this.zPosition = zPosition;
     }
 
@@ -54,7 +54,7 @@ public class Tile implements Serializable {
     public Tile() {
     }
 
-    public Tile(Integer id, String tileObjId, Float alpha, Integer zPosition) {
+    public Tile(Integer id, String tileObjId, Float alpha, Float zPosition) {
         this.id = id;
         this.tileObjId = tileObjId;
         this.alpha = alpha;

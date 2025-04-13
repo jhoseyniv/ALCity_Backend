@@ -3,9 +3,9 @@
         "skyboxId": "dreamy_sky",
         "environmentId": "rural_area",
         "startPosition": {
-          "x": 0,
+          "x": 1.5,
           "y": 0,
-          "z": 0
+          "z": 2
         }
       },
       "rows": [

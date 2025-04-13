@@ -354,13 +354,13 @@ public class ImportBaseData implements CommandLineRunner {
         byte[]  walletItem_2_Icon_tumb = ImageUtil.getThumbnail(walletItem_2_Icon,"walletItem_2_Icon.jpeg");
         byte[]  walletItem_3_Icon_tumb = ImageUtil.getThumbnail(walletItem_3_Icon,"walletItem_3_Icon.jpeg");
 
-        BinaryContent walletItem_1_Content = new BinaryContent(1L, now, now,admin_1 , admin_1,"Tether Icon",walletItem_1_Icon.length,walletItem_1_Icon,walletItem_1_Icon_tumb,"tag1","","",BinaryContentType.Image);
+        BinaryContent walletItem_1_Content = new BinaryContent(1L, now, now,admin_1 , admin_1,"walletItem_1 Icon",walletItem_1_Icon.length,walletItem_1_Icon,walletItem_1_Icon_tumb,"tag1","","",BinaryContentType.Image);
         binaryContentService.save(walletItem_1_Content);
 
-        BinaryContent walletItem_2_Content = new BinaryContent(1L, now, now,admin_1 , admin_1,"Tether Icon",walletItem_1_Icon.length,walletItem_1_Icon,walletItem_1_Icon_tumb,"tag1","","",BinaryContentType.Image);
+        BinaryContent walletItem_2_Content = new BinaryContent(1L, now, now,admin_1 , admin_1,"walletItem_2 Icon",walletItem_1_Icon.length,walletItem_1_Icon,walletItem_1_Icon_tumb,"tag1","","",BinaryContentType.Image);
         binaryContentService.save(walletItem_2_Content);
 
-        BinaryContent walletItem_3_Content = new BinaryContent(1L, now, now,admin_1 , admin_1,"Tether Icon",walletItem_1_Icon.length,walletItem_1_Icon,walletItem_1_Icon_tumb,"tag1","","",BinaryContentType.Image);
+        BinaryContent walletItem_3_Content = new BinaryContent(1L, now, now,admin_1 , admin_1,"walletItem_3 Icon",walletItem_1_Icon.length,walletItem_1_Icon,walletItem_1_Icon_tumb,"tag1","","",BinaryContentType.Image);
         binaryContentService.save(walletItem_3_Content);
 
         BinaryContent teterIcon_Content = new BinaryContent(1L, now, now,admin_1 , admin_1,"Tether Icon",walletItem_1_Icon.length,walletItem_1_Icon,walletItem_1_Icon_tumb,"tag1","","",BinaryContentType.Image);
@@ -398,9 +398,11 @@ public class ImportBaseData implements CommandLineRunner {
         applicationMember_walletItemService.save(jalalHoseyni_carObject_20);
 
         AppMember_WalletItem admin_1_alcoin_10= new AppMember_WalletItem(admin_1,walletItem_2,10f,1L,now,now,admin_1,admin_1);
+        AppMember_WalletItem admin_1_walletItem_2 = new AppMember_WalletItem(admin_1,walletItem_1,12f,1L,now,now,admin_1,admin_1);
         AppMember_WalletItem admin_1_carObject_10= new AppMember_WalletItem(admin_1,carWalletItem,20f,1L,now,now,admin_1,admin_1);
         applicationMember_walletItemService.save(admin_1_alcoin_10);
         applicationMember_walletItemService.save(admin_1_carObject_10);
+        applicationMember_walletItemService.save(admin_1_walletItem_2);
 
         WalletTransaction transaction1 = new WalletTransaction(now,1.5f,Boolean.TRUE,"desc",jalalHoseyni_alcoin_10,1L,now,now,admin_1,admin_1);
         WalletTransaction transaction2 = new WalletTransaction(now,1f,Boolean.TRUE,"desc",jalalHoseyni_carObject_20,1L,now,now,admin_1,admin_1);

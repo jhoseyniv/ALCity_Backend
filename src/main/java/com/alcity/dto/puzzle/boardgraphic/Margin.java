@@ -3,47 +3,47 @@ package com.alcity.dto.puzzle.boardgraphic;
 import java.io.Serializable;
 
 public class Margin implements Serializable {
-    private Integer top;
-    private Integer bottom;
-    private Integer left;
-    private Integer right;
+    private Float top;
+    private Float bottom;
+    private Float left;
+    private Float right;
 
-    public Integer getTop() {
+    public Float getTop() {
         return top;
     }
 
-    public void setTop(Integer top) {
+    public void setTop(Float top) {
         this.top = top;
     }
 
-    public Integer getBottom() {
+    public Float getBottom() {
         return bottom;
     }
 
-    public void setBottom(Integer bottom) {
+    public void setBottom(Float bottom) {
         this.bottom = bottom;
     }
 
-    public Integer getLeft() {
+    public Float getLeft() {
         return left;
     }
 
-    public void setLeft(Integer left) {
+    public void setLeft(Float left) {
         this.left = left;
     }
 
-    public Integer getRight() {
+    public Float getRight() {
         return right;
     }
 
-    public void setRight(Integer right) {
+    public void setRight(Float right) {
         this.right = right;
     }
 
     public Margin() {
     }
 
-    public Margin(Integer top, Integer bottom, Integer left, Integer right) {
+    public Margin(Float top, Float bottom, Float left, Float right) {
         this.top = top;
         this.bottom = bottom;
         this.left = left;

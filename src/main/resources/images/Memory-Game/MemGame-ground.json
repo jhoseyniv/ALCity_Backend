@@ -1,11 +1,11 @@
 {   
       "settings": {
         "skyboxId": "dreamy_sky",
-        "environmentId": "rural_area",
+        "environmentId": "city_area",
         "startPosition": {
-          "x": 0,
+          "x": 2,
           "y": 0,
-          "z": 0
+          "z": 2.5
         }
       },
       "rows": [
