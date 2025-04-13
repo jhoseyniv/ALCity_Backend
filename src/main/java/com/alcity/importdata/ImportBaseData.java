@@ -346,27 +346,27 @@ public class ImportBaseData implements CommandLineRunner {
         byte[] walletItem_1_Icon = ImageUtil.getImage("src/main/resources/images/walletItem/","walletItem_1.jpeg");
         byte[] walletItem_2_Icon = ImageUtil.getImage("src/main/resources/images/walletItem/","walletItem_2.jpeg");
         byte[] walletItem_3_Icon = ImageUtil.getImage("src/main/resources/images/walletItem/","walletItem_3.jpeg");
-        byte[] tetherIcon = ImageUtil.getImage("src/main/resources/images/","Tether.png");
-        byte[] carIcon = ImageUtil.getImage("src/main/resources/images/","car.png");
-        byte[]  carIcon_tumb = ImageUtil.getThumbnail(carIcon,"carIcon.png");
-        byte[]  tetherIcon_tumb = ImageUtil.getThumbnail(tetherIcon,"Tether.png");
+       // byte[] tetherIcon = ImageUtil.getImage("src/main/resources/images/","Tether.png");
+      //  byte[] carIcon = ImageUtil.getImage("src/main/resources/images/","car.png");
+     //   byte[]  carIcon_tumb = ImageUtil.getThumbnail(carIcon,"carIcon.png");
+     //   byte[]  tetherIcon_tumb = ImageUtil.getThumbnail(tetherIcon,"Tether.png");
         byte[]  walletItem_1_Icon_tumb = ImageUtil.getThumbnail(walletItem_1_Icon,"walletItem_1_Icon.jpeg");
         byte[]  walletItem_2_Icon_tumb = ImageUtil.getThumbnail(walletItem_2_Icon,"walletItem_2_Icon.jpeg");
         byte[]  walletItem_3_Icon_tumb = ImageUtil.getThumbnail(walletItem_3_Icon,"walletItem_3_Icon.jpeg");
 
-        BinaryContent walletItem_1_Content = new BinaryContent(1L, now, now,admin_1 , admin_1,"Tether Icon",tetherIcon.length,tetherIcon,tetherIcon_tumb,"tag1","","",BinaryContentType.Image);
+        BinaryContent walletItem_1_Content = new BinaryContent(1L, now, now,admin_1 , admin_1,"Tether Icon",walletItem_1_Icon.length,walletItem_1_Icon,walletItem_1_Icon_tumb,"tag1","","",BinaryContentType.Image);
         binaryContentService.save(walletItem_1_Content);
 
-        BinaryContent walletItem_2_Content = new BinaryContent(1L, now, now,admin_1 , admin_1,"Tether Icon",tetherIcon.length,tetherIcon,tetherIcon_tumb,"tag1","","",BinaryContentType.Image);
+        BinaryContent walletItem_2_Content = new BinaryContent(1L, now, now,admin_1 , admin_1,"Tether Icon",walletItem_1_Icon.length,walletItem_1_Icon,walletItem_1_Icon_tumb,"tag1","","",BinaryContentType.Image);
         binaryContentService.save(walletItem_2_Content);
 
-        BinaryContent walletItem_3_Content = new BinaryContent(1L, now, now,admin_1 , admin_1,"Tether Icon",tetherIcon.length,tetherIcon,tetherIcon_tumb,"tag1","","",BinaryContentType.Image);
+        BinaryContent walletItem_3_Content = new BinaryContent(1L, now, now,admin_1 , admin_1,"Tether Icon",walletItem_1_Icon.length,walletItem_1_Icon,walletItem_1_Icon_tumb,"tag1","","",BinaryContentType.Image);
         binaryContentService.save(walletItem_3_Content);
 
-        BinaryContent teterIcon_Content = new BinaryContent(1L, now, now,admin_1 , admin_1,"Tether Icon",tetherIcon.length,tetherIcon,tetherIcon_tumb,"tag1","","",BinaryContentType.Image);
+        BinaryContent teterIcon_Content = new BinaryContent(1L, now, now,admin_1 , admin_1,"Tether Icon",walletItem_1_Icon.length,walletItem_1_Icon,walletItem_1_Icon_tumb,"tag1","","",BinaryContentType.Image);
         binaryContentService.save(teterIcon_Content);
 
-        BinaryContent carIcon_Content = new BinaryContent(1L, now, now,admin_1 , admin_1,"Car Icon",carIcon.length,carIcon,carIcon_tumb,"tag1","","",BinaryContentType.Image);
+        BinaryContent carIcon_Content = new BinaryContent(1L, now, now,admin_1 , admin_1,"Car Icon",walletItem_2_Icon.length,walletItem_2_Icon,walletItem_2_Icon_tumb,"tag1","","",BinaryContentType.Image);
         binaryContentService.save(carIcon_Content);
 
 
@@ -733,13 +733,6 @@ public class ImportBaseData implements CommandLineRunner {
 
         AttributeValue bundle_file_att_value = new AttributeValue(null,null,null,null,null,null,bundle_file.getId(),null,Boolean.FALSE,null,bundle_file_att,1L,now,now,admin_1,admin_1,textObject.getId(),AttributeOwnerType.Object_Property);
         attributeValueService.save(bundle_file_att_value);
-
-//        Attribute color_att= new Attribute("color",textObject.getId(),AttributeOwnerType.Object_Property,DataType.String,1L,now,now,admin_1,admin_1);
-//        attributeService.save(color_att);
-//
-//        AttributeValue color_att_value = new AttributeValue(null,null,null,"White",null,null,null,null,Boolean.FALSE,null,color_att,1L,now,now,admin_1,admin_1,textObject.getId(),AttributeOwnerType.Object_Property);
-//        attributeValueService.save(color_att_value);
-
 
         ObjectAction textObject_Create_Action = new ObjectAction(POActionOwnerType.Object,textObject.getId(), ObjectActionType.Create,create_Renderer,1L,now,now,admin_1,admin_1);
         puzzleObjectActionService.save(textObject_Create_Action);
