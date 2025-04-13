@@ -90,7 +90,7 @@ public class PlLearningTopicController {
         Optional<LearningTopicInPL> existingRecord = plLearningTopicService.findById(id);
         if(existingRecord.isPresent()){
             try {
-                puzzleLevelService.deleteById(existingRecord.get().getId());
+                plLearningTopicService.deleteById(existingRecord.get().getId());
             }catch (Exception e )
             {
                 throw new ViolateForeignKeyException(existingRecord.get().getLearningTopic().getTitle(), existingRecord.get().getId(), LearningTopicInPL.class.toString());
