@@ -57,7 +57,7 @@ public class PLLearningTopicService implements PLLearningTopicRepository {
     public LearningTopicInPL save(PlLearningTopicDTO dto, String code) {
         Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
         LearningTopicInPL learningTopicInPL=null;
-        Optional<LearningContent> learningContentOptional = learningContentService.findById(dto.getBinaryContentId());
+        Optional<LearningContent> learningContentOptional = learningContentService.findById(dto.getLearningContentId());
         Optional<LearningTopic> learningTopicOptional = learningTopicService.findById(dto.getLearningTopicId());
         Optional<PuzzleLevel> puzzleLevelOptional = puzzleLevelService.findById(dto.getPuzzleLevelId());
         if(learningContentOptional.isEmpty() || learningTopicOptional.isEmpty() || puzzleLevelOptional.isEmpty()) return  null;
