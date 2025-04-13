@@ -213,7 +213,9 @@ public class ImportMazeProblemData_6 implements CommandLineRunner {
 
         BinaryContent puzzle_group_1_binary_content_image = binaryContentService.findByfileName("image_puzzle_group_matematic");
 
-
+        byte[] pl_pic_Maze_Cell_bytes = ImageUtil.getImage("src/main/resources/images/Maze_Game/","cat.png");
+        BinaryContent pl_pic_Maze_Cell_content = new BinaryContent(1L, now, now,admin_1 , admin_1,"cat",pl_pic_Maze_Cell_bytes.length,pl_pic_Maze_Cell_bytes,null,"cat","","",BinaryContentType.Image);
+        binaryContentService.save(pl_pic_Maze_Cell_content);
 
         Optional<PuzzleGroup>  puzzleGroup_Maze =puzzleGroupService.findByTitle("Maze Puzzle Group");
 
@@ -902,7 +904,7 @@ public class ImportMazeProblemData_6 implements CommandLineRunner {
         ALCityInstanceInPL instance_img0 = new ALCityInstanceInPL("instance_img0",1,20,0,mazeGame_ImageObject,maze_Game,1L,now,now,admin_1,admin_1);
         pgObjectInstanceService.save(instance_img0);
 
-        AttributeValue instance_img0_property_bgimage_1_value2 = new AttributeValue(null,null,null,null,null,null,puzzle_group_1_binary_content_image.getId(),null,false,null,ImageObject01_property_bgImage,1L,now,now,admin_1,admin_1,instance_img0.getId(),AttributeOwnerType.Instance_Puzzle_Group_Object_Variable);
+        AttributeValue instance_img0_property_bgimage_1_value2 = new AttributeValue(null,null,null,null,null,null,pl_pic_Maze_Cell_content.getId(),null,false,null,ImageObject01_property_bgImage,1L,now,now,admin_1,admin_1,instance_img0.getId(),AttributeOwnerType.Instance_Puzzle_Group_Object_Variable);
         attributeValueService.save(instance_img0_property_bgimage_1_value2);
 
         AttributeValue  instance_variable_canMove_value2= new AttributeValue(true,null,null,null,null,null,null,null,Boolean.FALSE,null,ImageObject01_variable_canMove,1L,now,now,admin_1,admin_1,instance_img0.getId(),AttributeOwnerType.Instance_Puzzle_Group_Object_Property);
