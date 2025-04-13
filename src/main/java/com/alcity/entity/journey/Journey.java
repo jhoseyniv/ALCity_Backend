@@ -18,10 +18,21 @@ public class Journey  extends BaseTable implements Serializable {
     @Column(name="ordering",unique = true)
     private Integer ordering;
 
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "pic_id")
+    private BinaryContent pic;
     @ManyToOne(fetch = FetchType.LAZY, optional = true)
     @JoinColumn(name = "button_passed_icon_id", nullable = false)
     @JsonIgnore
     private BinaryContent buttonPassedIcon;
+
+    public BinaryContent getPic() {
+        return pic;
+    }
+
+    public void setPic(BinaryContent pic) {
+        this.pic = pic;
+    }
 
     @ManyToOne(fetch = FetchType.LAZY, optional = true)
     @JoinColumn(name = "button_current_icon_id", nullable = false)
@@ -133,9 +144,10 @@ public class Journey  extends BaseTable implements Serializable {
     public Journey() {
     }
 
-    public Journey(String title,Integer ordering,Integer minToOpenStar,Integer minToPassStar, Long version, String created, String updated, AppMember createdBy, AppMember updatedBy) {
+    public Journey(String title,BinaryContent pic,Integer ordering,Integer minToOpenStar,Integer minToPassStar, Long version, String created, String updated, AppMember createdBy, AppMember updatedBy) {
         super(version, created, updated, createdBy, updatedBy);
         this.title = title;
+        this.pic = pic;
         this.ordering = ordering;
         this.minToOpenStar = minToOpenStar;
         this.minToPassStar = minToPassStar;

@@ -503,7 +503,7 @@ public class ImportBaseData implements CommandLineRunner {
 
 
         byte[] jouerny_1_Image = ImageUtil.getImage("src/main/resources/images/","jouerny_1.jpeg");
-        byte[]  tumb_jouerny_1 = ImageUtil.getThumbnail(jouerny_1_Image,"jungle.png");
+        byte[]  tumb_jouerny_1 = ImageUtil.getThumbnail(jouerny_1_Image,"jouerny_1.jpeg");
 
         byte[] jouerny_2_Image = ImageUtil.getImage("src/main/resources/images/","desert.png");
         byte[]  tumb_jouerny_2 = ImageUtil.getThumbnail(jouerny_2_Image,"desert.png");
@@ -537,9 +537,9 @@ public class ImportBaseData implements CommandLineRunner {
 
 
 
-        Journey journey_1 = new Journey("Journey_1",1,5,50,1L,now,now,admin_1,admin_1);
-        Journey journey_2 = new Journey("Journey_2",2,5,70,1L,now,now,admin_1,admin_1);
-        Journey journey_3 = new Journey("Journey_3",3,15,100,1L,now,now,admin_1,admin_1);
+        Journey journey_1 = new Journey("Journey_1",image_journey_1,1,5,50,1L,now,now,admin_1,admin_1);
+        Journey journey_2 = new Journey("Journey_2",image_journey_2,2,5,70,1L,now,now,admin_1,admin_1);
+        Journey journey_3 = new Journey("Journey_3",image_journey_3,3,15,100,1L,now,now,admin_1,admin_1);
 
         journey_1.setButtonCurrenIcon(image_journey_current);
         journey_1.setButtonPassedIcon(image_journey_passed);
@@ -558,7 +558,7 @@ public class ImportBaseData implements CommandLineRunner {
         journeyService.save(journey_3);
 
         byte[] jouerny_1_roadMap_Image = ImageUtil.getImage("src/main/resources/images/","jouerny_1_roadMap_Image.jpeg");
-        byte[]  tumb_image_RoadMap1_journey_1 = ImageUtil.getThumbnail(jouerny_1_roadMap_Image,"roadmap_1_journey_1.png");
+        byte[]  tumb_image_RoadMap1_journey_1 = ImageUtil.getThumbnail(jouerny_1_roadMap_Image,"roadmap_1_journey_1.jpeg");
         BinaryContent image_RoadMap1_journey_1 = new BinaryContent(1L, now, now,admin_1 , admin_1,"jouerny_1_roadMap_Image",jouerny_1_roadMap_Image.length,jouerny_1_roadMap_Image,tumb_image_RoadMap1_journey_1,"tag1","","",BinaryContentType.Image);
         binaryContentService.save(image_RoadMap1_journey_1);
 

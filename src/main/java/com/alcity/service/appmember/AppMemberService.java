@@ -194,6 +194,7 @@ public class AppMemberService implements AppMemberRepository, CustomizedUserRepo
         dto.setTitle(journey.getTitle());
         dto.setAppMemberId(member.getId());
         dto.setOpen(Boolean.FALSE);
+        dto.setPicId(journey.getPic().getId());
         dto.setMinToOpenStar(journey.getMinToOpenStar());
         dto.setMinToPassStar(journey.getMinToPassStar());
         dto.setJourneyId(journey.getId());

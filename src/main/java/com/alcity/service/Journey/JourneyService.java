@@ -38,8 +38,9 @@ public class JourneyService implements JourneyRepository {
         Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
         Journey journey=null;
         Optional<Journey> journeyOptional= journeyRepository.findByTitle(dto.getTitle());
+        Optional<BinaryContent> pictureOptional = binaryContentRepository.findById(dto.getPicId());
         if (code.equalsIgnoreCase("Save")) { //Save
-            journey = new Journey(dto.getTitle(),dto.getOrdering(),dto.getMinToOpenStar(),dto.getMinToPassStar() ,1L,
+            journey = new Journey(dto.getTitle(),pictureOptional.get(),dto.getOrdering(),dto.getMinToOpenStar(),dto.getMinToPassStar() ,1L,
                     DateUtils.getNow(), DateUtils.getNow(), createdBy.get(), createdBy.get());
             journeyRepository.save(journey);
         }else{//edit
@@ -47,6 +48,7 @@ public class JourneyService implements JourneyRepository {
             if(journeyOptional.isPresent()) {
                 journey = journeyOptional.get();
                 journey.setTitle(dto.getTitle());
+                journey.setPic(pictureOptional.get());
                 journey.setVersion(journey.getVersion()+1);
                 journey.setUpdated(DateUtils.getNow());
                 journey.setUpdatedBy(createdBy.get());
@@ -124,13 +126,13 @@ public class JourneyService implements JourneyRepository {
 
     @Override
     public Journey save(JourneyDTO dto) throws UniqueConstraintException {
-        Optional<BinaryContent> binaryContentIsExist;
         Journey journey = null;
         Optional<AppMember> createdBy = appMemberRepository.findById(dto.getCreatedById());
         Optional<AppMember> updatedBy = appMemberRepository.findById(dto.getUpdatedById());
+        Optional<BinaryContent> pictureOptional = binaryContentRepository.findById(dto.getPicId());
 
         if(dto.getId() != null ) {
-                journey = new Journey(dto.getTitle(),dto.getOrdering(),dto.getMinToOpenStar(),dto.getMinToPassStar(), dto.getVersion(),
+                journey = new Journey(dto.getTitle(),pictureOptional.get(),dto.getOrdering(),dto.getMinToOpenStar(),dto.getMinToPassStar(), dto.getVersion(),
                         dto.getCreated(), dto.getUpdated(), createdBy.get(), updatedBy.get());
                 journeyRepository.save(journey);
         }

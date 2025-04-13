@@ -19,6 +19,8 @@ public class JourneyDTO   {
 
     private String title;
 
+    private Long picId;
+
     private Integer ordering;
 
     private Integer minToPassStar;
@@ -49,6 +51,13 @@ public class JourneyDTO   {
         this.title = title;
     }
 
+    public Long getPicId() {
+        return picId;
+    }
+
+    public void setPicId(Long picId) {
+        this.picId = picId;
+    }
 
     public JourneyDTO() {
     }
@@ -125,10 +134,11 @@ public class JourneyDTO   {
         this.updatedById = updatedById;
     }
 
-    public JourneyDTO(Long id , String title,Integer ordering, Integer minToPassStar,Integer minToOpenStar
+    public JourneyDTO(Long id , String title,Long picId,Integer ordering, Integer minToPassStar,Integer minToOpenStar
             , Long version, String created, String updated, String createdBy, String updatedBy, Long createdById, Long updatedById) {
         this.id = id;
         this.title = title;
+        this.picId = picId;
         this.ordering = ordering;
         this.minToPassStar = minToPassStar;
         this.minToOpenStar = minToOpenStar;

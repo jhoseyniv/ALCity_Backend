@@ -4,7 +4,7 @@ public class AppMemberJourneyDTO {
     private Long journeyId;
     private String title;
     private Boolean isOpen;
-    private Long  iconId;
+    private Long  picId;
     private Integer  minToPassStar;
     private Integer  minToOpenStar;
     private Integer  currentStar;
@@ -34,12 +34,12 @@ public class AppMemberJourneyDTO {
         isOpen = open;
     }
 
-    public Long getIconId() {
-        return iconId;
+    public Long getPicId() {
+        return picId;
     }
 
-    public void setIconId(Long iconId) {
-        this.iconId = iconId;
+    public void setPicId(Long picId) {
+        this.picId = picId;
     }
 
     public Integer getMinToPassStar() {
@@ -77,11 +77,11 @@ public class AppMemberJourneyDTO {
     public AppMemberJourneyDTO() {
     }
 
-    public AppMemberJourneyDTO(Long journeyId, String title, Boolean isOpen, Long iconId, Integer minToPassStar, Integer minToOpenStar, Integer currentStar, Long appMemberId) {
+    public AppMemberJourneyDTO(Long journeyId, String title, Boolean isOpen, Long picId, Integer minToPassStar, Integer minToOpenStar, Integer currentStar, Long appMemberId) {
         this.journeyId = journeyId;
         this.title = title;
         this.isOpen = isOpen;
-        this.iconId = iconId;
+        this.picId = picId;
         this.minToPassStar = minToPassStar;
         this.minToPassStar = minToPassStar;
         this.currentStar = currentStar;
