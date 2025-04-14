@@ -450,6 +450,7 @@ public class DTOUtil {
             dto.setLearningContentId(lsc.getLearningContent().getId());
             dto.setPuzzleGroupId(lsc.getPuzzleGroup().getId());
             dto.setPuzzleGroupTitle(lsc.getPuzzleGroup().getTitle());
+            dto.setLearningContentDescText(lsc.getLearningContent().getDescText());
             output.add(dto);
         }
         return output;

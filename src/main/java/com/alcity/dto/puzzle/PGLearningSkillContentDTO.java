@@ -11,6 +11,7 @@ public class PGLearningSkillContentDTO {
     private String puzzleGroupTitle;
     private Long puzzleGroupId;
     private Long learningContentId;
+    private String learningContentDescText;
 
 
     public Long getId() {
@@ -65,13 +66,22 @@ public class PGLearningSkillContentDTO {
     public PGLearningSkillContentDTO() {
     }
 
+    public String getLearningContentDescText() {
+        return learningContentDescText;
+    }
+
+    public void setLearningContentDescText(String learningContentDescText) {
+        this.learningContentDescText = learningContentDescText;
+    }
+
     public PGLearningSkillContentDTO(Long id , String learningSkillTitle,
-                                     Long learningSkillId, String puzzleGroupTitle, Long puzzleGroupId, Long learningContentId) {
+                                     Long learningSkillId, String puzzleGroupTitle, Long puzzleGroupId, Long learningContentId,String learningContentDescText) {
         this.id = id;
         this.learningSkillTitle = learningSkillTitle;
         this.learningSkillId = learningSkillId;
         this.puzzleGroupTitle = puzzleGroupTitle;
         this.puzzleGroupId = puzzleGroupId;
         this.learningContentId = learningContentId;
+        this.learningContentDescText = learningContentDescText;
     }
 }

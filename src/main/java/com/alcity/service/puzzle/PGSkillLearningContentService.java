@@ -76,7 +76,7 @@ public class PGSkillLearningContentService implements PGSkillLearningContentRepo
 
     @Override
     public Optional<PGLearningSkillContent> findById(Long id) {
-        return Optional.empty();
+        return pgSkillLearningContentRepository.findById(id);
     }
 
     @Override
