@@ -12,9 +12,9 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 @RequestMapping("")
 public class HomeController {
-    @GetMapping("/home")
+    @GetMapping("/index")
     public String   welcome() {
-        return "redirect:/home.html";
+        return "redirect:/index.html";
     }
     @RequestMapping("/in")
     public ModelAndView index () {
