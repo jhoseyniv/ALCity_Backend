@@ -361,6 +361,7 @@ public class ImportPipeGameProblemData_5 implements CommandLineRunner {
         ALCityInstanceInPL instance_img_1_5 = new ALCityInstanceInPL("instance_img1_5",1,5,0,imageObject_in_pipegame,pipe_Game,1L,now,now,admin_1,admin_1);
         pgObjectInstanceService.save(instance_img_1_5);
 
+
         byte[] instance_img_1_5_bytes = ImageUtil.getImage("src/main/resources/images/Pipe-Game/","instance_img1_5.png");
         BinaryContent instance_img_1_5_bytes_content = new BinaryContent(1L, now, now,admin_1 , admin_1,"instance_img1_5",instance_img_1_5_bytes.length,instance_img_1_5_bytes,null,"instance_img10","","",BinaryContentType.Image);
         binaryContentService.save(instance_img_1_5_bytes_content);
@@ -369,11 +370,6 @@ public class ImportPipeGameProblemData_5 implements CommandLineRunner {
         attributeValueService.save(instance_img_1_5_bgImage_value);
 
 
-        AttributeValue  instance_img_1_5_correctDir_value= new AttributeValue(null,1,null,null,null,null,null,null,Boolean.FALSE,null,ImageObject01_variable_correctDir,1L,now,now,admin_1,admin_1,instance_img_1_5.getId(),AttributeOwnerType.Instance_Puzzle_Group_Object_Property);
-        attributeValueService.save(instance_img_1_5_correctDir_value);
-
-        AttributeValue  instance_img_1_5_possibleDirs_value= new AttributeValue(null,2,null,null,null,null,null,null,Boolean.FALSE,null,ImageObject01_variable_possibleDirs,1L,now,now,admin_1,admin_1,instance_img_1_5.getId(),AttributeOwnerType.Instance_Puzzle_Group_Object_Property);
-        attributeValueService.save(instance_img_1_5_possibleDirs_value);
 
 
 
@@ -381,7 +377,9 @@ public class ImportPipeGameProblemData_5 implements CommandLineRunner {
         ALCityInstanceInPL instance_img_2_1 = new ALCityInstanceInPL("instance_img_2_1",2,1,0,imageObject_in_pipegame,pipe_Game,1L,now,now,admin_1,admin_1);
         pgObjectInstanceService.save(instance_img_2_1);
 
-
+        byte[] instance_img_2_2_bytes = ImageUtil.getImage("src/main/resources/images/Pipe-Game/","instance_img_2_2.png");
+        BinaryContent instance_img_2_2_bytes_content = new BinaryContent(1L, now, now,admin_1 , admin_1,"instance_img_2_2",instance_img_2_2_bytes.length,instance_img_2_2_bytes,null,"instance_img_2_2","","",BinaryContentType.Image);
+        binaryContentService.save(instance_img_2_2_bytes_content);
 
         ALCityInstanceInPL instance_img_2_2 = new ALCityInstanceInPL("instance_img_2_2",2,2,0,imageObject_in_pipegame,pipe_Game,1L,now,now,admin_1,admin_1);
         pgObjectInstanceService.save(instance_img_2_2);
@@ -389,15 +387,18 @@ public class ImportPipeGameProblemData_5 implements CommandLineRunner {
         AttributeValue instance_img_2_2_canRotate_value1 = new AttributeValue(true,null,null,null,null,null,null,null,false,null,ImageObject01_variable_canRotate,1L,now,now,admin_1,admin_1,instance_img_2_2.getId(),AttributeOwnerType.Instance_Puzzle_Group_Object_Variable);
         attributeValueService.save(instance_img_2_2_canRotate_value1);
 
-        byte[] instance_img_2_2_bytes = ImageUtil.getImage("src/main/resources/images/Pipe-Game/","instance_img_2_2.png");
-        BinaryContent instance_img_2_2_bytes_content = new BinaryContent(1L, now, now,admin_1 , admin_1,"instance_img_2_2",instance_img_2_2_bytes.length,instance_img_2_2_bytes,null,"instance_img_2_2","","",BinaryContentType.Image);
-        binaryContentService.save(instance_img_2_2_bytes_content);
-
-        AttributeValue  instance_img_2_2_bgImage_1_value1= new AttributeValue(null,null,null,null,null,null,instance_img_2_2_bytes_content.getId(),null,Boolean.FALSE,null,ImageObject01_property_bgImage,1L,now,now,admin_1,admin_1,instance_img_2_2.getId(),AttributeOwnerType.Instance_Puzzle_Group_Object_Property);
+         AttributeValue  instance_img_2_2_bgImage_1_value1= new AttributeValue(null,null,null,null,null,null,instance_img_2_2_bytes_content.getId(),null,Boolean.FALSE,null,ImageObject01_property_bgImage,1L,now,now,admin_1,admin_1,instance_img_2_2.getId(),AttributeOwnerType.Instance_Puzzle_Group_Object_Property);
         attributeValueService.save(instance_img_2_2_bgImage_1_value1);
+
         AttributeValue instance_img_2_2_correctDir_value1 = new AttributeValue(null,2,null,null,null,null,null,null,false,null,ImageObject01_variable_correctDir,1L,now,now,admin_1,admin_1,instance_img_2_2.getId(),AttributeOwnerType.Instance_Puzzle_Group_Object_Variable);
         attributeValueService.save(instance_img_2_2_correctDir_value1);
 
+
+
+
+        byte[] instance_img_2_3_bytes = ImageUtil.getImage("src/main/resources/images/Pipe-Game/","instance_img_2_3.png");
+        BinaryContent instance_img_2_3_bytes_content = new BinaryContent(1L, now, now,admin_1 , admin_1,"instance_img_2_3",instance_img_2_3_bytes.length,instance_img_2_3_bytes,null,"instance_img_2_3","","",BinaryContentType.Image);
+        binaryContentService.save(instance_img_2_3_bytes_content);
 
         ALCityInstanceInPL instance_img_2_3 = new ALCityInstanceInPL("instance_img_2_3",2,3,0,imageObject_in_pipegame,pipe_Game,1L,now,now,admin_1,admin_1);
         pgObjectInstanceService.save(instance_img_2_3);
@@ -405,44 +406,53 @@ public class ImportPipeGameProblemData_5 implements CommandLineRunner {
         AttributeValue instance_img_2_3_canRotate_value1 = new AttributeValue(true,null,null,null,null,null,null,null,false,null,ImageObject01_variable_canRotate,1L,now,now,admin_1,admin_1,instance_img_2_3.getId(),AttributeOwnerType.Instance_Puzzle_Group_Object_Variable);
         attributeValueService.save(instance_img_2_3_canRotate_value1);
 
-        byte[] instance_img_2_3_bytes = ImageUtil.getImage("src/main/resources/images/Pipe-Game/","instance_img_2_3.png");
-        BinaryContent instance_img_2_3_bytes_content = new BinaryContent(1L, now, now,admin_1 , admin_1,"instance_img_2_3",instance_img_2_3_bytes.length,instance_img_2_3_bytes,null,"instance_img_2_3","","",BinaryContentType.Image);
-        binaryContentService.save(instance_img_2_3_bytes_content);
-
         AttributeValue  instance_img_2_3_bgImage_1_value1= new AttributeValue(null,null,null,null,null,null,instance_img_2_3_bytes_content.getId(),null,Boolean.FALSE,null,ImageObject01_property_bgImage,1L,now,now,admin_1,admin_1,instance_img_2_3.getId(),AttributeOwnerType.Instance_Puzzle_Group_Object_Property);
         attributeValueService.save(instance_img_2_3_bgImage_1_value1);
 
         AttributeValue instance_img_2_3_correctDir_value1 = new AttributeValue(null,1,null,null,null,null,null,null,false,null,ImageObject01_variable_correctDir,1L,now,now,admin_1,admin_1,instance_img_2_3.getId(),AttributeOwnerType.Instance_Puzzle_Group_Object_Variable);
         attributeValueService.save(instance_img_2_3_correctDir_value1);
 
-
-
         ALCityInstanceInPL instance_img_2_4 = new ALCityInstanceInPL("instance_img_2_4",2,4,0,imageObject_in_pipegame,pipe_Game,1L,now,now,admin_1,admin_1);
         pgObjectInstanceService.save(instance_img_2_4);
 
-        ALCityInstanceInPL instance_img_2_5 = new ALCityInstanceInPL("instance_img_2_5",2,5,0,imageObject_in_pipegame,pipe_Game,1L,now,now,admin_1,admin_1);
-        pgObjectInstanceService.save(instance_img_2_5);
-
-        AttributeValue instance_img_2_5_canRotate_value1 = new AttributeValue(true,null,null,null,null,null,null,null,false,null,ImageObject01_variable_canRotate,1L,now,now,admin_1,admin_1,instance_img_2_5.getId(),AttributeOwnerType.Instance_Puzzle_Group_Object_Variable);
-        attributeValueService.save(instance_img_2_5_canRotate_value1);
 
         byte[] instance_img_2_5_bytes = ImageUtil.getImage("src/main/resources/images/Pipe-Game/","instance_img_2_5.png");
         BinaryContent instance_img_2_5_bytes_content = new BinaryContent(1L, now, now,admin_1 , admin_1,"instance_img_2_5",instance_img_2_5_bytes.length,instance_img_2_5_bytes,null,"instance_img_2_5","","",BinaryContentType.Image);
         binaryContentService.save(instance_img_2_5_bytes_content);
 
+        ALCityInstanceInPL instance_img_2_5 = new ALCityInstanceInPL("instance_img_2_5",2,5,0,imageObject_in_pipegame,pipe_Game,1L,now,now,admin_1,admin_1);
+        pgObjectInstanceService.save(instance_img_2_5);
+
+        AttributeValue  instance_img_2_5_bgImage_value= new AttributeValue(null,null,null,null,null,null,instance_img_2_5_bytes_content.getId(),null,Boolean.FALSE,null,ImageObject01_property_bgImage,1L,now,now,admin_1,admin_1,instance_img_2_5.getId(),AttributeOwnerType.Instance_Puzzle_Group_Object_Property);
+        attributeValueService.save(instance_img_2_5_bgImage_value);
+
+        AttributeValue instance_img_2_5_canRotate_value1 = new AttributeValue(true,null,null,null,null,null,null,null,false,null,ImageObject01_variable_canRotate,1L,now,now,admin_1,admin_1,instance_img_2_5.getId(),AttributeOwnerType.Instance_Puzzle_Group_Object_Variable);
+        attributeValueService.save(instance_img_2_5_canRotate_value1);
+
+
+        AttributeValue instance_img_2_5_correctDir_value1 = new AttributeValue(null,1,null,null,null,null,null,null,false,null,ImageObject01_variable_correctDir,1L,now,now,admin_1,admin_1,instance_img_2_5.getId(),AttributeOwnerType.Instance_Puzzle_Group_Object_Variable);
+        attributeValueService.save(instance_img_2_5_correctDir_value1);
+
+        AttributeValue instance_img_2_5_possibleDirs_value1 = new AttributeValue(null,2,null,null,null,null,null,null,false,null,ImageObject01_variable_possibleDirs,1L,now,now,admin_1,admin_1,instance_img_2_5.getId(),AttributeOwnerType.Instance_Puzzle_Group_Object_Variable);
+        attributeValueService.save(instance_img_2_5_possibleDirs_value1);
+
+
         ALCityInstanceInPL instance_img_3_1 = new ALCityInstanceInPL("instance_img_3_1",3,1,0,imageObject_in_pipegame,pipe_Game,1L,now,now,admin_1,admin_1);
         pgObjectInstanceService.save(instance_img_3_1);
 
 
-        ALCityInstanceInPL instance_img_3_2 = new ALCityInstanceInPL("instance_img_3_2",3,2,0,imageObject_in_pipegame,pipe_Game,1L,now,now,admin_1,admin_1);
-        pgObjectInstanceService.save(instance_img_3_2);
-
-        AttributeValue instance_img_3_2_canRotate_value1 = new AttributeValue(true,null,null,null,null,null,null,null,false,null,ImageObject01_variable_canRotate,1L,now,now,admin_1,admin_1,instance_img_3_2.getId(),AttributeOwnerType.Instance_Puzzle_Group_Object_Variable);
-        attributeValueService.save(instance_img_3_2_canRotate_value1);
-
         byte[] instance_img_3_2_bytes = ImageUtil.getImage("src/main/resources/images/Pipe-Game/","instance_img_3_2.png");
         BinaryContent instance_img_3_2_bytes_content = new BinaryContent(1L, now, now,admin_1 , admin_1,"instance_img_3_2",instance_img_3_2_bytes.length,instance_img_3_2_bytes,null,"instance_img_3_2","","",BinaryContentType.Image);
         binaryContentService.save(instance_img_3_2_bytes_content);
+
+        ALCityInstanceInPL instance_img_3_2 = new ALCityInstanceInPL("instance_img_3_2",3,2,0,imageObject_in_pipegame,pipe_Game,1L,now,now,admin_1,admin_1);
+        pgObjectInstanceService.save(instance_img_3_2);
+
+        AttributeValue  instance_img_3_2_bgImage_value= new AttributeValue(null,null,null,null,null,null,instance_img_3_2_bytes_content.getId(),null,Boolean.FALSE,null,ImageObject01_property_bgImage,1L,now,now,admin_1,admin_1,instance_img_3_2.getId(),AttributeOwnerType.Instance_Puzzle_Group_Object_Property);
+        attributeValueService.save(instance_img_3_2_bgImage_value);
+
+        AttributeValue instance_img_3_2_canRotate_value1 = new AttributeValue(true,null,null,null,null,null,null,null,false,null,ImageObject01_variable_canRotate,1L,now,now,admin_1,admin_1,instance_img_3_2.getId(),AttributeOwnerType.Instance_Puzzle_Group_Object_Variable);
+        attributeValueService.save(instance_img_3_2_canRotate_value1);
 
         AttributeValue instance_img_3_2_correctDir_value1 = new AttributeValue(null,1,null,null,null,null,null,null,false,null,ImageObject01_variable_correctDir,1L,now,now,admin_1,admin_1,instance_img_3_2.getId(),AttributeOwnerType.Instance_Puzzle_Group_Object_Variable);
         attributeValueService.save(instance_img_3_2_correctDir_value1);
@@ -451,23 +461,33 @@ public class ImportPipeGameProblemData_5 implements CommandLineRunner {
         attributeValueService.save(instance_img_3_2_possibleDirs_value1);
 
 
-        ALCityInstanceInPL instance_img_3_3 = new ALCityInstanceInPL("instance_img_3_3",3,3,0,imageObject_in_pipegame,pipe_Game,1L,now,now,admin_1,admin_1);
+        byte[] instance_img_3_3_bytes = ImageUtil.getImage("src/main/resources/images/Pipe-Game/","instance_img_3_3.png");
+        BinaryContent instance_img_3_3_bytes_content = new BinaryContent(1L, now, now,admin_1 , admin_1,"instance_img_3_3",instance_img_3_3_bytes.length,instance_img_3_3_bytes,null,"instance_img_3_3","","",BinaryContentType.Image);
+        binaryContentService.save(instance_img_3_3_bytes_content);
+
+         ALCityInstanceInPL instance_img_3_3 = new ALCityInstanceInPL("instance_img_3_3",3,3,0,imageObject_in_pipegame,pipe_Game,1L,now,now,admin_1,admin_1);
         pgObjectInstanceService.save(instance_img_3_3);
+
+        AttributeValue  instance_img_3_3_bgImage_value= new AttributeValue(null,null,null,null,null,null,instance_img_3_3_bytes_content.getId(),null,Boolean.FALSE,null,ImageObject01_property_bgImage,1L,now,now,admin_1,admin_1,instance_img_3_3.getId(),AttributeOwnerType.Instance_Puzzle_Group_Object_Property);
+        attributeValueService.save(instance_img_3_3_bgImage_value);
 
         AttributeValue instance_img_3_3_canRotate_value1 = new AttributeValue(true,null,null,null,null,null,null,null,false,null,ImageObject01_variable_canRotate,1L,now,now,admin_1,admin_1,instance_img_3_3.getId(),AttributeOwnerType.Instance_Puzzle_Group_Object_Variable);
         attributeValueService.save(instance_img_3_3_canRotate_value1);
 
-        byte[] instance_img_3_3_bytes = ImageUtil.getImage("src/main/resources/images/Pipe-Game/","instance_img_3_3.png");
-        BinaryContent instance_img_3_3_bytes_content = new BinaryContent(1L, now, now,admin_1 , admin_1,"instance_img_3_3",instance_img_3_3_bytes.length,instance_img_3_3_bytes,null,"instance_img_3_3","","",BinaryContentType.Image);
-        binaryContentService.save(instance_img_3_3_bytes_content);
 
         AttributeValue instance_img_3_3_correctDir_value1 = new AttributeValue(null,3,null,null,null,null,null,null,false,null,ImageObject01_variable_correctDir,1L,now,now,admin_1,admin_1,instance_img_3_3.getId(),AttributeOwnerType.Instance_Puzzle_Group_Object_Variable);
         attributeValueService.save(instance_img_3_3_correctDir_value1);
 
 
+        byte[] instance_img_3_4_bytes = ImageUtil.getImage("src/main/resources/images/Pipe-Game/","instance_img_3_4.png");
+        BinaryContent instance_img_3_4_bytes_content = new BinaryContent(1L, now, now,admin_1 , admin_1,"instance_img_3_4",instance_img_3_4_bytes.length,instance_img_3_4_bytes,null,"instance_img_3_4","","",BinaryContentType.Image);
+        binaryContentService.save(instance_img_3_4_bytes_content);
 
         ALCityInstanceInPL instance_img_3_4 = new ALCityInstanceInPL("instance_img_3_4",3,4,0,imageObject_in_pipegame,pipe_Game,1L,now,now,admin_1,admin_1);
         pgObjectInstanceService.save(instance_img_3_4);
+
+        AttributeValue  instance_img_3_4_bgImage_value= new AttributeValue(null,null,null,null,null,null,instance_img_3_4_bytes_content.getId(),null,Boolean.FALSE,null,ImageObject01_property_bgImage,1L,now,now,admin_1,admin_1,instance_img_3_4.getId(),AttributeOwnerType.Instance_Puzzle_Group_Object_Property);
+        attributeValueService.save(instance_img_3_4_bgImage_value);
 
         AttributeValue instance_img_3_4_canRotate_value1 = new AttributeValue(true,null,null,null,null,null,null,null,false,null,ImageObject01_variable_canRotate,1L,now,now,admin_1,admin_1,instance_img_3_4.getId(),AttributeOwnerType.Instance_Puzzle_Group_Object_Variable);
         attributeValueService.save(instance_img_3_4_canRotate_value1);
@@ -478,33 +498,50 @@ public class ImportPipeGameProblemData_5 implements CommandLineRunner {
         AttributeValue instance_img_3_4_possibleDirs_value1 = new AttributeValue(null,2,null,null,null,null,null,null,false,null,ImageObject01_variable_possibleDirs,1L,now,now,admin_1,admin_1,instance_img_3_4.getId(),AttributeOwnerType.Instance_Puzzle_Group_Object_Variable);
         attributeValueService.save(instance_img_3_4_possibleDirs_value1);
 
-        byte[] instance_img_3_4_bytes = ImageUtil.getImage("src/main/resources/images/Pipe-Game/","instance_img_3_4.png");
-        BinaryContent instance_img_3_4_bytes_content = new BinaryContent(1L, now, now,admin_1 , admin_1,"instance_img_3_4",instance_img_3_4_bytes.length,instance_img_3_4_bytes,null,"instance_img_3_4","","",BinaryContentType.Image);
-        binaryContentService.save(instance_img_3_4_bytes_content);
 
+
+
+        byte[] instance_img_3_5_bytes = ImageUtil.getImage("src/main/resources/images/Pipe-Game/","instance_img_3_5.png");
+        BinaryContent instance_img_3_5_bytes_content = new BinaryContent(1L, now, now,admin_1 , admin_1,"instance_img_3_5",instance_img_3_5_bytes.length,instance_img_3_5_bytes,null,"instance_img_3_5","","",BinaryContentType.Image);
+        binaryContentService.save(instance_img_3_5_bytes_content);
 
 
         ALCityInstanceInPL instance_img_3_5 = new ALCityInstanceInPL("instance_img_3_5",3,5,0,imageObject_in_pipegame,pipe_Game,1L,now,now,admin_1,admin_1);
         pgObjectInstanceService.save(instance_img_3_5);
 
-         byte[] instance_img_3_5_bytes = ImageUtil.getImage("src/main/resources/images/Pipe-Game/","instance_img_3_5.png");
-        BinaryContent instance_img_3_5_bytes_content = new BinaryContent(1L, now, now,admin_1 , admin_1,"instance_img_3_5",instance_img_3_5_bytes.length,instance_img_3_5_bytes,null,"instance_img_3_5","","",BinaryContentType.Image);
-        binaryContentService.save(instance_img_3_5_bytes_content);
+        AttributeValue instance_img_3_5_canRotate_value1 = new AttributeValue(true,null,null,null,null,null,null,null,false,null,ImageObject01_variable_canRotate,1L,now,now,admin_1,admin_1,instance_img_3_5.getId(),AttributeOwnerType.Instance_Puzzle_Group_Object_Variable);
+        attributeValueService.save(instance_img_3_5_canRotate_value1);
+
+        AttributeValue  instance_img_3_5_bgImage_value= new AttributeValue(null,null,null,null,null,null,instance_img_3_5_bytes_content.getId(),null,Boolean.FALSE,null,ImageObject01_property_bgImage,1L,now,now,admin_1,admin_1,instance_img_3_5.getId(),AttributeOwnerType.Instance_Puzzle_Group_Object_Property);
+        attributeValueService.save(instance_img_3_5_bgImage_value);
 
         AttributeValue  instance_img_3_5_correctDir_value= new AttributeValue(null,0,null,null,null,null,null,null,Boolean.FALSE,null,ImageObject01_variable_correctDir,1L,now,now,admin_1,admin_1,instance_img_3_5.getId(),AttributeOwnerType.Instance_Puzzle_Group_Object_Property);
         attributeValueService.save(instance_img_3_5_correctDir_value);
 
 
-        ALCityInstanceInPL instance_img_4_1 = new ALCityInstanceInPL("instance_img_4_1",4,1,0,imageObject_in_pipegame,pipe_Game,1L,now,now,admin_1,admin_1);
-        pgObjectInstanceService.save(instance_img_4_1);
 
         byte[] instance_img_4_1_bytes = ImageUtil.getImage("src/main/resources/images/Pipe-Game/","instance_img4_1.png");
         BinaryContent instance_img_4_1_bytes_content = new BinaryContent(1L, now, now,admin_1 , admin_1,"instance_img_4_1",instance_img_4_1_bytes.length,instance_img_4_1_bytes,null,"instance_img_4_1","","",BinaryContentType.Image);
         binaryContentService.save(instance_img_4_1_bytes_content);
 
+        ALCityInstanceInPL instance_img_4_1 = new ALCityInstanceInPL("instance_img_4_1",4,1,0,imageObject_in_pipegame,pipe_Game,1L,now,now,admin_1,admin_1);
+        pgObjectInstanceService.save(instance_img_4_1);
+
+        AttributeValue  instance_img_4_1_bgImage_value= new AttributeValue(null,null,null,null,null,null,instance_img_4_1_bytes_content.getId(),null,Boolean.FALSE,null,ImageObject01_property_bgImage,1L,now,now,admin_1,admin_1,instance_img_4_1.getId(),AttributeOwnerType.Instance_Puzzle_Group_Object_Property);
+        attributeValueService.save(instance_img_4_1_bgImage_value);
+
+
+
+        byte[] instance_img_4_2_bytes = ImageUtil.getImage("src/main/resources/images/Pipe-Game/","instance_img4_2.png");
+        BinaryContent instance_img_4_2_bytes_content = new BinaryContent(1L, now, now,admin_1 , admin_1,"instance_img_4_2",instance_img_4_2_bytes.length,instance_img_4_2_bytes,null,"instance_img_4_2","","",BinaryContentType.Image);
+        binaryContentService.save(instance_img_4_2_bytes_content);
+
 
         ALCityInstanceInPL instance_img_4_2 = new ALCityInstanceInPL("instance_img_4_2",4,2,0,imageObject_in_pipegame,pipe_Game,1L,now,now,admin_1,admin_1);
         pgObjectInstanceService.save(instance_img_4_2);
+
+        AttributeValue  instance_img_4_2_bgImage_value= new AttributeValue(null,null,null,null,null,null,instance_img_4_2_bytes_content.getId(),null,Boolean.FALSE,null,ImageObject01_property_bgImage,1L,now,now,admin_1,admin_1,instance_img_4_2.getId(),AttributeOwnerType.Instance_Puzzle_Group_Object_Property);
+        attributeValueService.save(instance_img_4_2_bgImage_value);
 
         AttributeValue instance_img_4_2_canRotate_value1 = new AttributeValue(true,null,null,null,null,null,null,null,false,null,ImageObject01_variable_canRotate,1L,now,now,admin_1,admin_1,instance_img_4_2.getId(),AttributeOwnerType.Instance_Puzzle_Group_Object_Variable);
         attributeValueService.save(instance_img_4_2_canRotate_value1);
@@ -512,9 +549,6 @@ public class ImportPipeGameProblemData_5 implements CommandLineRunner {
         AttributeValue  instance_img_4_2_correctDir_value= new AttributeValue(null,1,null,null,null,null,null,null,Boolean.FALSE,null,ImageObject01_variable_correctDir,1L,now,now,admin_1,admin_1,instance_img_4_2.getId(),AttributeOwnerType.Instance_Puzzle_Group_Object_Property);
         attributeValueService.save(instance_img_4_2_correctDir_value);
 
-        byte[] instance_img_4_2_bytes = ImageUtil.getImage("src/main/resources/images/Pipe-Game/","instance_img4_2.png");
-        BinaryContent instance_img_4_2_bytes_content = new BinaryContent(1L, now, now,admin_1 , admin_1,"instance_img_4_2",instance_img_4_2_bytes.length,instance_img_4_2_bytes,null,"instance_img_4_2","","",BinaryContentType.Image);
-        binaryContentService.save(instance_img_4_2_bytes_content);
 
 
         ALCityInstanceInPL instance_img_4_3 = new ALCityInstanceInPL("instance_img_4_3",4,3,0,imageObject_in_pipegame,pipe_Game,1L,now,now,admin_1,admin_1);
