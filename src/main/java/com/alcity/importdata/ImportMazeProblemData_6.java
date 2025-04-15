@@ -755,7 +755,6 @@ public class ImportMazeProblemData_6 implements CommandLineRunner {
         pgObjectInstanceService.save(instance_img0219);
 
 
-
         ALCityInstanceInPL instance_img0301 = new ALCityInstanceInPL("instance_img0301",3,1,0,mazeGame_ImageObject,maze_Game,1L,now,now,admin_1,admin_1);
         pgObjectInstanceService.save(instance_img0301);
 
@@ -866,6 +865,9 @@ public class ImportMazeProblemData_6 implements CommandLineRunner {
         ALCityInstanceInPL instance_img0519 = new ALCityInstanceInPL("instance_img0519",5,19,0,mazeGame_ImageObject,maze_Game,1L,now,now,admin_1,admin_1);
         pgObjectInstanceService.save(instance_img0519);
 
+        ALCityInstanceInPL instance_img0521 = new ALCityInstanceInPL("instance_img0519",5,21,0,mazeGame_ImageObject,maze_Game,1L,now,now,admin_1,admin_1);
+        pgObjectInstanceService.save(instance_img0521);
+
         ALCityInstanceInPL instance_img0601 = new ALCityInstanceInPL("instance_img0601",6,1,0,mazeGame_ImageObject,maze_Game,1L,now,now,admin_1,admin_1);
         pgObjectInstanceService.save(instance_img0601);
 
@@ -950,10 +952,7 @@ public class ImportMazeProblemData_6 implements CommandLineRunner {
         ALCityInstanceInPL instance_img0819 = new ALCityInstanceInPL("instance_img0819",8,19,0,mazeGame_ImageObject,maze_Game,1L,now,now,admin_1,admin_1);
         pgObjectInstanceService.save(instance_img0819);
 
-        ALCityInstanceInPL instance_img0821 = new ALCityInstanceInPL("instance_img0821",8,21,0,mazeGame_ImageObject,maze_Game,1L,now,now,admin_1,admin_1);
-        pgObjectInstanceService.save(instance_img0821);
-
-        ALCityInstanceInPL instance_img0901 = new ALCityInstanceInPL("instance_img0901",9,1,0,mazeGame_ImageObject,maze_Game,1L,now,now,admin_1,admin_1);
+         ALCityInstanceInPL instance_img0901 = new ALCityInstanceInPL("instance_img0901",9,1,0,mazeGame_ImageObject,maze_Game,1L,now,now,admin_1,admin_1);
         pgObjectInstanceService.save(instance_img0901);
 
         ALCityInstanceInPL instance_img0903 = new ALCityInstanceInPL("instance_img0903",9,3,0,mazeGame_ImageObject,maze_Game,1L,now,now,admin_1,admin_1);
@@ -1339,8 +1338,11 @@ public class ImportMazeProblemData_6 implements CommandLineRunner {
         ALCityInstanceInPL instance_img2021 = new ALCityInstanceInPL("instance_img2021",20,21,0,mazeGame_ImageObject,maze_Game,1L,now,now,admin_1,admin_1);
         pgObjectInstanceService.save(instance_img2021);
 
-         ALCityInstanceInPL instance_img2101 = new ALCityInstanceInPL("instance_img2101",21,1,0,mazeGame_ImageObject,maze_Game,1L,now,now,admin_1,admin_1);
+        ALCityInstanceInPL instance_img2101 = new ALCityInstanceInPL("instance_img2101",21,1,0,mazeGame_ImageObject,maze_Game,1L,now,now,admin_1,admin_1);
         pgObjectInstanceService.save(instance_img2101);
+
+        ALCityInstanceInPL instance_img2102 = new ALCityInstanceInPL("instance_img2102",21,2,0,mazeGame_ImageObject,maze_Game,1L,now,now,admin_1,admin_1);
+        pgObjectInstanceService.save(instance_img2102);
 
         ALCityInstanceInPL instance_img2103 = new ALCityInstanceInPL("instance_img2103",21,3,0,mazeGame_ImageObject,maze_Game,1L,now,now,admin_1,admin_1);
         pgObjectInstanceService.save(instance_img2103);
