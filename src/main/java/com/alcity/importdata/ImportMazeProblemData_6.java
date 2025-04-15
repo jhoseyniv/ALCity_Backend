@@ -735,14 +735,8 @@ public class ImportMazeProblemData_6 implements CommandLineRunner {
         ALCityInstanceInPL instance_img0120 = new ALCityInstanceInPL("instance_img0120",1,20,0,mazeGame_ImageObject,maze_Game,1L,now,now,admin_1,admin_1);
         pgObjectInstanceService.save(instance_img0120);
 
-
-
-
-
         ALCityInstanceInPL instance_img0121 = new ALCityInstanceInPL("instance_img0121",1,21,0,mazeGame_ImageObject,maze_Game,1L,now,now,admin_1,admin_1);
         pgObjectInstanceService.save(instance_img0121);
-        AttributeValue instance_img0121_property_bgimage_1_value2 = new AttributeValue(null,null,null,null,null,null,mazeGame_ImageObject.getId(),null,false,null,ImageObject01_property_bgImage,1L,now,now,admin_1,admin_1,instance_img0121.getId(),AttributeOwnerType.Instance_Puzzle_Group_Object_Variable);
-        attributeValueService.save(instance_img0121_property_bgimage_1_value2);
 
 
         ALCityInstanceInPL instance_img0201 = new ALCityInstanceInPL("instance_img0201",2,1,0,mazeGame_ImageObject,maze_Game,1L,now,now,admin_1,admin_1);
