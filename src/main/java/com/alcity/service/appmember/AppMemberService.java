@@ -208,7 +208,10 @@ public class AppMemberService implements AppMemberRepository, CustomizedUserRepo
         dto.setCurrentStar(currentStar);
         if(currentStar >= journey.getMinToOpenStar())
             dto.setOpen(Boolean.TRUE);
-    return  dto;
+        else if (currentStar==0 && journey.getOrdering()==1L)
+            dto.setOpen(Boolean.TRUE);
+
+        return  dto;
     }
 
 
