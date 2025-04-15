@@ -487,7 +487,7 @@ public class ImportPipeGameProblemData_5 implements CommandLineRunner {
         ALCityInstanceInPL instance_img_3_5 = new ALCityInstanceInPL("instance_img_3_5",3,5,0,imageObject_in_pipegame,pipe_Game,1L,now,now,admin_1,admin_1);
         pgObjectInstanceService.save(instance_img_3_5);
 
-         byte[] instance_img_3_5_bytes = ImageUtil.getImage("src/main/resources/images/Pipe-Game/","instance_img2_2.png");
+         byte[] instance_img_3_5_bytes = ImageUtil.getImage("src/main/resources/images/Pipe-Game/","instance_img_3_5.png");
         BinaryContent instance_img_3_5_bytes_content = new BinaryContent(1L, now, now,admin_1 , admin_1,"instance_img_3_5",instance_img_3_5_bytes.length,instance_img_3_5_bytes,null,"instance_img_3_5","","",BinaryContentType.Image);
         binaryContentService.save(instance_img_3_5_bytes_content);
 
