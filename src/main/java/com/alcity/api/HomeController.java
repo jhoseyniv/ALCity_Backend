@@ -16,12 +16,7 @@ public class HomeController {
     public String   welcome() {
         return "redirect:/index.html";
     }
-    @RequestMapping("/in")
-    public ModelAndView index () {
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("index");
-        return modelAndView;
-    }
+
 
 
 }
