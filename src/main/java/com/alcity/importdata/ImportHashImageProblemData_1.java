@@ -559,7 +559,7 @@ public class ImportHashImageProblemData_1 implements CommandLineRunner {
 
         PLRulePostAction move_rule_post_Action_11 = new PLRulePostAction(rule_for_move,FireEventAction_checkcell.get(),11,"","",
                 "",new StringBuffer(""),"","",1L ,now,now,admin_1,admin_1);
-        plRulePostActionService.save(move_rule_post_Action_10);
+        plRulePostActionService.save(move_rule_post_Action_11);
 
         Attribute rulePostAction_11_move_param_1 =new Attribute("row",move_rule_post_Action_11.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action_Parameter,DataType.Integer,1L,now,now,admin_1,admin_1);
         attributeService.save(rulePostAction_11_move_param_1);
