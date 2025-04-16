@@ -655,19 +655,19 @@ public class ImportHashImageProblemData_1 implements CommandLineRunner {
         AttributeValue rulePostAction_17_move_param_2_value= new AttributeValue(null,2,null,null,null,null,null,null,Boolean.FALSE,null,rulePostAction_17_move_param_2,1L,now,now,admin_1,admin_1,move_rule_post_Action_17.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action_Parameter);
         attributeValueService.save(rulePostAction_17_move_param_2_value);
 
-//        PLRulePostAction move_rule_post_Action_18 = new PLRulePostAction(rule_for_move,FireEventAction_checkcell.get(),18,"","",
-//                "",new StringBuffer(""),"","",1L ,now,now,admin_1,admin_1);
-//        plRulePostActionService.save(move_rule_post_Action_18);
-//
-//        Attribute rulePostAction_18_move_param_1 =new Attribute("row",move_rule_post_Action_18.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action_Parameter,DataType.Integer,1L,now,now,admin_1,admin_1);
-//        attributeService.save(rulePostAction_18_move_param_1);
-//        AttributeValue rulePostAction_18_move_param_1_value= new AttributeValue(null,3,null,null,null,null,null,null,Boolean.FALSE,null,rulePostAction_18_move_param_1,1L,now,now,admin_1,admin_1,move_rule_post_Action_18.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action_Parameter);
-//        attributeValueService.save(rulePostAction_18_move_param_1_value);
-//
-//        Attribute rulePostAction_18_move_param_2 =new Attribute("col",move_rule_post_Action_18.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action_Parameter,DataType.Integer,1L,now,now,admin_1,admin_1);
-//        attributeService.save(rulePostAction_18_move_param_2);
-//        AttributeValue rulePostAction_18_move_param_2_value= new AttributeValue(null,3,null,null,null,null,null,null,Boolean.FALSE,null,rulePostAction_18_move_param_2,1L,now,now,admin_1,admin_1,move_rule_post_Action_18.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action_Parameter);
-//        attributeValueService.save(rulePostAction_18_move_param_2_value);
+        PLRulePostAction move_rule_post_Action_18 = new PLRulePostAction(rule_for_move,FireEventAction_checkcell.get(),18,"","",
+                "",new StringBuffer(""),"","",1L ,now,now,admin_1,admin_1);
+        plRulePostActionService.save(move_rule_post_Action_18);
+
+        Attribute rulePostAction_18_move_param_1 =new Attribute("row",move_rule_post_Action_18.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action_Parameter,DataType.Integer,1L,now,now,admin_1,admin_1);
+        attributeService.save(rulePostAction_18_move_param_1);
+        AttributeValue rulePostAction_18_move_param_1_value= new AttributeValue(null,3,null,null,null,null,null,null,Boolean.FALSE,null,rulePostAction_18_move_param_1,1L,now,now,admin_1,admin_1,move_rule_post_Action_18.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action_Parameter);
+        attributeValueService.save(rulePostAction_18_move_param_1_value);
+
+        Attribute rulePostAction_18_move_param_2 =new Attribute("col",move_rule_post_Action_18.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action_Parameter,DataType.Integer,1L,now,now,admin_1,admin_1);
+        attributeService.save(rulePostAction_18_move_param_2);
+        AttributeValue rulePostAction_18_move_param_2_value= new AttributeValue(null,3,null,null,null,null,null,null,Boolean.FALSE,null,rulePostAction_18_move_param_2,1L,now,now,admin_1,admin_1,move_rule_post_Action_18.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action_Parameter);
+        attributeValueService.save(rulePostAction_18_move_param_2_value);
 
         PLRulePostAction move_rule_post_Action_19 = new PLRulePostAction(rule_for_move,FireEventAction_check.get(),18,"","",
                 "",new StringBuffer(""),"","",1L ,now,now,admin_1,admin_1);
