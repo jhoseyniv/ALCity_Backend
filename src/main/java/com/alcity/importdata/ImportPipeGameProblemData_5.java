@@ -289,7 +289,7 @@ public class ImportPipeGameProblemData_5 implements CommandLineRunner {
 
         Attribute pl_variable_solved =new Attribute("solved",pipe_Game.getId(),AttributeOwnerType.Puzzle_Level_Variable,DataType.Integer,1L,now,now,admin_1,admin_1);
         attributeService.save(pl_variable_solved);
-        AttributeValue pl_variable_solved_value= new AttributeValue(null,0,null,null,null,null,null,null,false,null,pl_variable_solved,1L,now,now,admin_1,admin_1,pipe_Game.getId(),AttributeOwnerType.Puzzle_Level_Variable);
+        AttributeValue pl_variable_solved_value= new AttributeValue(null,1,null,null,null,null,null,null,false,null,pl_variable_solved,1L,now,now,admin_1,admin_1,pipe_Game.getId(),AttributeOwnerType.Puzzle_Level_Variable);
         attributeValueService.save(pl_variable_solved_value);
 
         Optional<ALCityObject> imageObject01 =alCityObjectService.findByTitle("ImageObject01");
@@ -604,7 +604,7 @@ public class ImportPipeGameProblemData_5 implements CommandLineRunner {
 
         StringBuffer   CheckCompletion_rule_condition = new StringBuffer("equal(BoardVar(solved),8)");
         Boolean ignoreRemaining2 = false;
-        PLRule rule_for_CheckCompletion = new PLRule("CheckCompletion",2
+        PLRule rule_for_CheckCompletion = new PLRule("CheckCompletion",5
                 ,CheckCompletion_rule_condition,ignoreRemaining2,pipe_Game,internalEvent.get(),1L,now,now,admin_1,admin_1);
         puzzleLevelRuleService.save(rule_for_CheckCompletion);
 
