@@ -20,7 +20,7 @@ public class PuzzleLevel extends BaseTable implements Serializable {
     @Column(name="ordering")
     private Long ordering;
 
-    @Column(name="title")
+    @Column(name="title",unique = true)
     private String title;
 
     @Column(name="code",unique = true)

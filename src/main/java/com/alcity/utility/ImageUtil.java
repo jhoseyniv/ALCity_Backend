@@ -1,6 +1,5 @@
 package com.alcity.utility;
 
-import com.alcity.dto.Interpreter.PLData;
 import com.alcity.entity.alenum.BinaryContentType;
 
 import java.io.ByteArrayOutputStream;

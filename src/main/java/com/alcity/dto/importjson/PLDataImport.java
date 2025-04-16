@@ -6,7 +6,7 @@ import com.alcity.dto.Interpreter.object.RuleDataImport;
 import java.io.Serializable;
 import java.util.Collection;
 
-public class PLData implements Serializable {
+public class PLDataImport implements Serializable {
     private String code;
     private String name;
 
@@ -14,12 +14,12 @@ public class PLData implements Serializable {
 
     private Integer cols;
     private Integer rows;
-    private CameraSetupData cameraSetup;
-    private Collection<PLObjectiveData> objectives;
+    private CameraSetupDataImport cameraSetup;
+    private Collection<PLObjectiveDataImport> objectives;
 
     private Collection<RecordDataImport> variables;
 
-    private Collection<POData> objects;
+    private Collection<PODataImport> objects;
     private Collection<RuleDataImport> rules;
 
 
@@ -32,11 +32,11 @@ public class PLData implements Serializable {
     }
 
 
-    public Collection<PLObjectiveData> getObjectives() {
+    public Collection<PLObjectiveDataImport> getObjectives() {
         return objectives;
     }
 
-    public void setObjectives(Collection<PLObjectiveData> objectives) {
+    public void setObjectives(Collection<PLObjectiveDataImport> objectives) {
         this.objectives = objectives;
     }
 
@@ -73,11 +73,11 @@ public class PLData implements Serializable {
     }
 
 
-    public CameraSetupData getCameraSetup() {
+    public CameraSetupDataImport getCameraSetup() {
         return cameraSetup;
     }
 
-    public void setCameraSetup(CameraSetupData cameraSetup) {
+    public void setCameraSetup(CameraSetupDataImport cameraSetup) {
         this.cameraSetup = cameraSetup;
     }
 
@@ -89,15 +89,15 @@ public class PLData implements Serializable {
         this.rules = rules;
     }
 
-    public Collection<POData> getObjects() {
+    public Collection<PODataImport> getObjects() {
         return objects;
     }
 
-    public void setObjects(Collection<POData> objects) {
+    public void setObjects(Collection<PODataImport> objects) {
         this.objects = objects;
     }
 
-    public PLData() {
+    public PLDataImport() {
     }
 
 }

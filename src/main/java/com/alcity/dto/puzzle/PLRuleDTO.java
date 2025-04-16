@@ -1,9 +1,5 @@
 package com.alcity.dto.puzzle;
 
-import com.alcity.dto.Interpreter.object.RuleActionData;
-
-import java.util.Collection;
-
 public class PLRuleDTO {
     private Long id;
     private String title;

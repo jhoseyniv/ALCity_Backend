@@ -419,7 +419,7 @@ public class ImportHashImageProblemData_1 implements CommandLineRunner {
         AttributeValue  instance_img4_targetY_value= new AttributeValue(null,2,null,null,null,null,null,null,Boolean.FALSE,null,ImageObject01_variable_2,1L,now,now,admin_1,admin_1,instance_img4.getId(),AttributeOwnerType.Instance_Puzzle_Group_Object_Variable);
         attributeValueService.save(instance_img4_targetY_value);
 
-        AttributeValue  instance_img5_targetX_value= new AttributeValue(null,1,null,null,null,null,null,null,Boolean.FALSE,null,ImageObject01_variable_1,1L,now,now,admin_1,admin_1,instance_img5.getId(),AttributeOwnerType.Instance_Puzzle_Group_Object_Variable);
+        AttributeValue  instance_img5_targetX_value= new AttributeValue(null,2,null,null,null,null,null,null,Boolean.FALSE,null,ImageObject01_variable_1,1L,now,now,admin_1,admin_1,instance_img5.getId(),AttributeOwnerType.Instance_Puzzle_Group_Object_Variable);
         attributeValueService.save(instance_img5_targetX_value);
 
         AttributeValue  instance_img5_targetY_value= new AttributeValue(null,1,null,null,null,null,null,null,Boolean.FALSE,null,ImageObject01_variable_2,1L,now,now,admin_1,admin_1,instance_img5.getId(),AttributeOwnerType.Instance_Puzzle_Group_Object_Variable);

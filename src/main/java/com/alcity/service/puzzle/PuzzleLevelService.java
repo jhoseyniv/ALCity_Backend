@@ -1,25 +1,22 @@
 package com.alcity.service.puzzle;
 
-import com.alcity.dto.Interpreter.PLData;
-import com.alcity.dto.alobject.AttributeValueDTO;
+import com.alcity.dto.Interpreter.PLDataImport;
 import com.alcity.dto.puzzle.PLDTO;
 import com.alcity.dto.puzzle.PuzzleLevelStepMappingDTO;
 import com.alcity.entity.alenum.PLDifficulty;
 import com.alcity.entity.alenum.PLStatus;
-import com.alcity.entity.alobject.AttributeValue;
 import com.alcity.entity.base.BinaryContent;
 import com.alcity.entity.base.PLPrivacy;
-import com.alcity.entity.journey.Journey;
 import com.alcity.entity.journey.JourneyStep;
 import com.alcity.entity.puzzle.PuzzleGroup;
 import com.alcity.entity.puzzle.PuzzleLevel;
 import com.alcity.entity.appmember.AppMember;
 import com.alcity.repository.base.PLPrivacyRepository;
-import com.alcity.repository.journey.JourneyRepository;
 import com.alcity.repository.journey.JourneyStepRepository;
 import com.alcity.repository.puzzle.PGRepository;
 import com.alcity.repository.puzzle.PuzzleLevelRepository;
 import com.alcity.repository.appmember.AppMemberRepository;
+import com.alcity.service.appmember.AppMemberService;
 import com.alcity.service.base.BinaryContentService;
 import com.alcity.utility.DTOUtil;
 import com.alcity.utility.DateUtils;
@@ -87,16 +84,6 @@ public class PuzzleLevelService implements PuzzleLevelRepository {
 
         return  puzzleLevelStepMappingDTOS;
     }
-/*
-    public PuzzleLevelStepMappingDTO getJourneyStepMappedWithPuzzleLevel(PuzzleLevel puzzleLevel) {
-        PuzzleGroup puzzleGroup = puzzleLevel.getPuzzleGroup();
-        Collection<JourneyStep> steps = puzzleGroup.getJourneyStepCollection();
-        JourneyStep step = getFirstItem(steps);
-        PuzzleLevelStepMappingDTO  dto =  DTOUtil.puzzleLevelJourneyStepMapping(puzzleLevel,step) ;
-        return  dto;
-    }
-
- */
     public Long getJourneyIdMappedWithPuzzleLevel(PuzzleLevel puzzleLevel) {
         PuzzleGroup puzzleGroup = puzzleLevel.getPuzzleGroup();
         Collection<JourneyStep> steps = puzzleGroup.getJourneyStepCollection();
@@ -105,28 +92,6 @@ public class PuzzleLevelService implements PuzzleLevelRepository {
         Long journeyId = step.getJourney().getId();
         return  journeyId;
     }
-    /*
-    public Long getJourneyStepIdMappedWithPuzzleLevel(PuzzleLevel puzzleLevel) {
-        PuzzleGroup puzzleGroup = puzzleLevel.getPuzzleGroup();
-        Collection<JourneyStep> steps = puzzleGroup.getJourneyStepCollection();
-        JourneyStep step = getFirstItem(steps);
-        if(steps == null || step == null) return  -1L;
-        Long stepId = step.getId();
-
-        return  stepId;
-    }
-    */
-/*
-    public JourneyStep getJourneyStepIdMappedWithPuzzleLevel(Journey journey, PuzzleLevel puzzleLevel) {
-        PuzzleGroup puzzleGroup = puzzleLevel.getPuzzleGroup();
-        Collection<JourneyStep> steps = puzzleGroup.getJourneyStepCollection();
-        JourneyStep step = getFirstItem(steps);
-        if(steps == null || step == null) return  null;
-        Optional<JourneyStep> journeyStep = journeyStepRepository.findById(step.getId());
-        return  journeyStep.get();
-    }
-
- */
 
 
     @Override
@@ -207,9 +172,25 @@ public class PuzzleLevelService implements PuzzleLevelRepository {
     private PGRepository pgRepository;
     @Autowired
     private BinaryContentService binaryContentService;
-//    public PuzzleLevel updateInterpreterJson(PLData plData) {
-//        //PuzzleLevel puzzleLevel = puzzleLevelRepository.findById(plData.)
-//    }
+    @Autowired
+    private AppMemberService appMemberService;
+
+    public PuzzleLevel getPuzzleLevelFromJson(PLDataImport plData) {
+        Optional<AppMember> creatorOptional = appMemberService.findByUsername("admin");
+       PuzzleLevel puzzleLevel = new PuzzleLevel();
+
+//        AppMember creator,String approveDate, Long ordering, String title, String code, Integer fromAge, Integer toAge, Float maxScore,Float firstStarScore,Float secondStarScore,Float thirdStartScore,
+//                PuzzleGroup puzzleGroup, PLDifficulty puzzleDifficulty, PLStatus puzzleLevelStatus, PLPrivacy puzzleLevelPrivacy,BinaryContent picture ,BinaryContent icon,
+//                Long version, String created, String updated, AppMember createdBy, AppMember updatedBy
+
+        return puzzleLevel;
+    }
+
+
+    public void saveJsonInDatabase(PLDataImport plData) {
+        PuzzleLevel puzzleLevel = getPuzzleLevelFromJson(plData);
+    }
+
 
         public PuzzleLevel save(PLDTO dto, String code) {
         Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");

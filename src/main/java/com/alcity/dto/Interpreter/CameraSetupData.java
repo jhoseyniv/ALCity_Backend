@@ -9,19 +9,19 @@ public class CameraSetupData implements Serializable {
     Position Position;
     Position Rotation;
 
-    public com.alcity.dto.Interpreter.object.Position getPosition() {
+    public Position getPosition() {
         return Position;
     }
 
-    public void setPosition(com.alcity.dto.Interpreter.object.Position position) {
+    public void setPosition(Position position) {
         Position = position;
     }
 
-    public com.alcity.dto.Interpreter.object.Position getRotation() {
+    public Position getRotation() {
         return Rotation;
     }
 
-    public void setRotation(com.alcity.dto.Interpreter.object.Position rotation) {
+    public void setRotation(Position rotation) {
         Rotation = rotation;
     }
 
