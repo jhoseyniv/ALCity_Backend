@@ -183,7 +183,7 @@ public class ImportHashImageProblemData_1 implements CommandLineRunner {
 
         byte[] puzzle_Ground_Image_1 = ImageUtil.getImage("src/main/resources/images/hashImage_Puzzle/","HashImage-ground.json");
 
-        JsonReader reader = Json.createReader(new FileReader("src/main/resources/images/X-O Problem/x-o-ground.json"));
+        JsonReader reader = Json.createReader(new FileReader("src/main/resources/images/hashImage_Puzzle/HashImage-ground.json"));
         JsonObject jsonObject = reader.readObject();
         ObjectMapper objectMapper = new ObjectMapper();
         BoardGraphicDTO boardGraphic = objectMapper.readValue(jsonObject.toString(), BoardGraphicDTO.class);

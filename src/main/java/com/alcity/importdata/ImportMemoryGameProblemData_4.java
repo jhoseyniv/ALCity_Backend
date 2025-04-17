@@ -199,8 +199,7 @@ public class ImportMemoryGameProblemData_4 implements CommandLineRunner {
         Optional<Journey> journey_1 = journeyService.findByTitle("Journey_1");
         Optional<Journey> journey_2 = journeyService.findByTitle("Journey_2");
 
-        //byte[]  planyGround_Image_Memory_Game = ImageUtil.getImage("src/main/resources/images/Memory-Game/","MemGame-ground.json");
-        JsonReader reader = Json.createReader(new FileReader("src/main/resources/images/X-O Problem/x-o-ground.json"));
+        JsonReader reader = Json.createReader(new FileReader("src/main/resources/images/Memory-Game/MemGame-ground.json"));
         JsonObject jsonObject = reader.readObject();
         ObjectMapper objectMapper = new ObjectMapper();
         BoardGraphicDTO boardGraphic = objectMapper.readValue(jsonObject.toString(), BoardGraphicDTO.class);
