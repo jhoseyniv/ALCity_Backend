@@ -69,7 +69,7 @@ public class BaseItemSetConroller {
     }
 
     @Operation( summary = "Fetch a pl rule post action Types ",  description = "fetch a pl rule post action type their data from data source")
-    @RequestMapping("/pl-rule/post-action-type/id/{id}")
+    @RequestMapping(value = "/pl-rule/post-action-type/id/{id}" , method = RequestMethod.GET)
     @CrossOrigin(origins = "*")
     public PLRulePostActionTypeDTO getPLRulePostActionType(@PathVariable Long id) {
         Optional<PLRulePostActionType> rulePostActionType = plRulePostActionTypeService.findById(id);

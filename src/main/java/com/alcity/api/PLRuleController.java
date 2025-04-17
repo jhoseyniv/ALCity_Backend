@@ -72,7 +72,7 @@ public class PLRuleController {
         return ruleDTO;
     }
     @Operation( summary = "Fetch all Post Actions for a Rule by a rule Id ",  description = "Fetch all Post Actions for a Rule by a rule Id")
-    @RequestMapping(value = "/id/{id}/actions/all", method = RequestMethod.GET)
+    @RequestMapping(value = "/id/{id}/post-actions/all", method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin(origins = "*")
     public Collection<PLRulePostActionDTO> getPostActionsForRuleById(@PathVariable Long id) {
@@ -85,9 +85,54 @@ public class PLRuleController {
         }
         return rulePostActionDTOS;
     }
+    @Operation( summary = "Save a puzzle level  Rule Post Action ",  description = "Save a puzzle level  Rule Post Action entity and their data to data base")
+    @PostMapping("/save/post-action")
+    @CrossOrigin(origins = "*")
+    public ALCityResponseObject savePLRulePostAtion(@RequestBody PLRulePostActionDTO dto)  {
+        PLRulePostAction savedRecord = null;
+        ALCityResponseObject responseObject = new ALCityResponseObject();
 
+        if (dto.getId() == null || dto.getId() <= 0L) { //save
+            try {
+                savedRecord = plRulePostActionService.save(dto,"Save");
+            } catch (RuntimeException e) {
+                throw new UniqueConstraintException(dto.getActionName(), dto.getId(), PLRulePostAction.class.toString());
+            }
+            responseObject = new ALCityResponseObject(HttpStatus.OK.value(), "ok", savedRecord.getId(), "Record Saved Successfully!");
+        } else if (dto.getId() > 0L ) {//edit
+            //Optional<PuzzleGroup>  puzzleGroupOptional = pgService.findById(dto.getId());
+            savedRecord = plRulePostActionService.save(dto, "Edit");
+            if(savedRecord !=null)
+                responseObject = new ALCityResponseObject(HttpStatus.OK.value(), "ok", savedRecord.getId(), "Record Updated Successfully!");
+            else
+                responseObject = new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", dto.getId(), "Record Not Found!");
+        }
+        else if (savedRecord==null)
+            responseObject = new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", -1L, "Record Not Found!");
+        else
+            responseObject = new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", -1L, "Record Not Found!");
 
-    @Operation( summary = "delete a  Puzzle Level Rule",  description = "delete a Puzzle Level Rule")
+        return responseObject;
+    }
+
+    @Operation( summary = "Delete a  Puzzle Level Rule Post Action",  description = "Delete a Puzzle Level Rule Post Action")
+    @DeleteMapping("/del/post-action/id/{id}")
+    @CrossOrigin(origins = "*")
+    public ALCityResponseObject deletePuzzleLevelRulePostActionById(@PathVariable Long id) {
+        Optional<PLRulePostAction> existingRecord = plRulePostActionService.findById(id);
+        if(existingRecord.isPresent()){
+            try {
+                plRuleService.deleteById(existingRecord.get().getId());
+            }catch (Exception e )
+            {
+                throw new ViolateForeignKeyException(existingRecord.get().getActionName(), existingRecord.get().getId(), PLRule.class.toString());
+            }
+            return new ALCityResponseObject(HttpStatus.OK.value(), "ok", id,"Record deleted Successfully!");
+        }
+        return  new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", id,"Record not found!");
+    }
+
+    @Operation( summary = "Delete a  Puzzle Level Rule",  description = "Delete a Puzzle Level Rule")
     @DeleteMapping("/del/id/{id}")
     @CrossOrigin(origins = "*")
     public ALCityResponseObject deletePuzzleLevelRuleById(@PathVariable Long id) {

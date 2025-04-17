@@ -140,8 +140,8 @@ public class AppMemberController {
     }
 
     @Operation( summary = "Update Avatar for an App Member ",  description = "Update Avatar for an App Member")
-    @PostMapping("/update-avatar")
-    @RequestMapping("/update-avatar/memberId/{memId}/avatarId/{avatarId}")
+  //  @PostMapping("/update-avatar")
+    @RequestMapping(value ="/update-avatar/memberId/{memId}/avatarId/{avatarId}", method = RequestMethod.GET)
     @CrossOrigin(origins = "*")
     public ALCityResponseObject getPuzzleLevel(@PathVariable Long memId,@PathVariable Long avatarId) {
         AppMember updatedRecord = null;

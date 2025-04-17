@@ -1,7 +1,18 @@
 package com.alcity.service.puzzle;
 
+import com.alcity.dto.puzzle.PLRuleDTO;
+import com.alcity.dto.puzzle.PLRulePostActionDTO;
+import com.alcity.entity.alobject.PLRulePostActionType;
+import com.alcity.entity.appmember.AppMember;
+import com.alcity.entity.puzzle.PLRule;
+import com.alcity.entity.puzzle.PLRuleEvent;
 import com.alcity.entity.puzzle.PLRulePostAction;
+import com.alcity.entity.puzzle.PuzzleLevel;
+import com.alcity.repository.alobject.PLRulePostActionTypeRepository;
+import com.alcity.repository.appmember.AppMemberRepository;
 import com.alcity.repository.puzzle.PLRulePostActionRepository;
+import com.alcity.repository.puzzle.PLRuleRepository;
+import com.alcity.utility.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -18,10 +29,54 @@ public class PLRulePostActionService implements PLRulePostActionRepository {
     @Qualifier("PLRulePostActionRepository")
 
     PLRulePostActionRepository plRulePostActionRepository;
+    @Autowired
+    private AppMemberRepository appMemberRepository;
+    @Autowired
+    @Qualifier("PLRuleRepository")
+    PLRuleRepository ruleRepository;
+
+    @Qualifier("PLRulePostActionTypeRepository")
+    @Autowired
+    PLRulePostActionTypeRepository plRulePostActionTypeRepository;
 
     @Override
     public <S extends PLRulePostAction> S save(S entity) {
         return plRulePostActionRepository.save(entity);
+    }
+    public PLRulePostAction save(PLRulePostActionDTO dto, String code) {
+       Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
+       PLRulePostAction postAction=null;
+       PuzzleLevel puzzleLevel = null;
+        Optional<PLRule>  plRuleOptional = ruleRepository.findById(dto.getPuzzleLevelRuleId());
+        Optional<PLRulePostActionType>  plRulePostActionTypeOptional = plRulePostActionTypeRepository.findByValue(dto.getPlRulePostActionType());
+
+        if(plRuleOptional.isEmpty() || plRulePostActionTypeOptional.isEmpty()) return  null;
+
+        if (code.equalsIgnoreCase("Save")) { //Save
+            postAction = new PLRulePostAction(plRuleOptional.get(), plRulePostActionTypeOptional.get(), dto.getOrdering(), dto.getActionName(), dto.getObjectId(), dto.getVariable(),
+                                    dto.getValueExperssion(),dto.getAlertType(),dto.getAlertMessage(),1L, DateUtils.getNow(), DateUtils.getNow(), createdBy.get(), createdBy.get());
+            plRulePostActionRepository.save(postAction);
+        }else{//edit
+            Optional<PLRulePostAction> plRulePostActionOptional= plRulePostActionRepository.findById(dto.getId());
+            if(plRulePostActionOptional.isPresent()) {
+                postAction = plRulePostActionOptional.get();
+                postAction.setActionName(dto.getActionName());
+                postAction.setPlRulePostActionType(plRulePostActionTypeOptional.get());
+                postAction.setAlertMessage(dto.getAlertMessage());
+                postAction.setOrdering(dto.getOrdering());
+                postAction.setPuzzleLevelRule(plRuleOptional.get());
+                postAction.setObjectId(dto.getObjectId());
+                postAction.setValueExperssion(dto.getValueExperssion());
+                postAction.setVariable(dto.getVariable());
+                postAction.setCreated(DateUtils.getNow());
+                postAction.setUpdated(DateUtils.getNow());
+                postAction.setCreatedBy(createdBy.get());
+                postAction.setUpdatedBy(createdBy.get());
+                postAction.setVersion(puzzleLevel.getVersion()+1);
+                plRulePostActionRepository.save(postAction);
+            }
+        }
+        return postAction;
     }
 
     @Override
@@ -31,7 +86,7 @@ public class PLRulePostActionService implements PLRulePostActionRepository {
 
     @Override
     public Optional<PLRulePostAction> findById(Long id) {
-        return Optional.empty();
+        return plRulePostActionRepository.findById(id);
     }
 
     @Override

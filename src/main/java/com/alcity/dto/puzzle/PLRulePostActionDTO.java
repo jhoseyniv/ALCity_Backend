@@ -4,6 +4,8 @@ import com.alcity.entity.alobject.PLRulePostActionType;
 
 public class PLRulePostActionDTO {
     private Long id;
+
+    private Long puzzleLevelRuleId;
     private StringBuffer valueExperssion;
     private String variable;
     private Integer ordering;
@@ -88,7 +90,16 @@ public class PLRulePostActionDTO {
     public PLRulePostActionDTO() {
     }
 
-    public PLRulePostActionDTO(Long id, StringBuffer valueExperssion, String variable, Integer ordering, String objectId, String actionName, String alertType, String alertMessage, String plRulePostActionType) {
+    public Long getPuzzleLevelRuleId() {
+        return puzzleLevelRuleId;
+    }
+
+    public void setPuzzleLevelRuleId(Long puzzleLevelRuleId) {
+        this.puzzleLevelRuleId = puzzleLevelRuleId;
+    }
+
+    public PLRulePostActionDTO(Long id, StringBuffer valueExperssion, String variable, Integer ordering, String objectId,
+                               String actionName, String alertType, String alertMessage, String plRulePostActionType,Long puzzleLevelRuleId) {
         this.id = id;
         this.valueExperssion = valueExperssion;
         this.variable = variable;
@@ -98,5 +109,6 @@ public class PLRulePostActionDTO {
         this.alertType = alertType;
         this.alertMessage = alertMessage;
         this.plRulePostActionType = plRulePostActionType;
+        this.puzzleLevelRuleId = puzzleLevelRuleId;
     }
 }

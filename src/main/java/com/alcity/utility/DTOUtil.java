@@ -1191,6 +1191,7 @@ public class DTOUtil {
         dto.setVariable(postAction.getVariable());
         dto.setValueExperssion(postAction.getValueExperssion());
         dto.setOrdering(postAction.getOrdering());
+        dto.setPuzzleLevelRuleId(postAction.getPuzzleLevelRule().getId());
 
         return  dto;
     }
