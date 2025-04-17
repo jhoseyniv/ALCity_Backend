@@ -3,9 +3,9 @@
         "skyboxId": "dreamy_sky",
         "environmentId": "city_area",
         "startPosition": {
-          "x": 1.5,
+          "x": 3,
           "y": 0,
-          "z": 1.5
+          "z": 2.5
         }
       },
       "rows": [

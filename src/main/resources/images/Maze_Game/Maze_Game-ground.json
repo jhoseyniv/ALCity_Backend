@@ -4,8 +4,8 @@
         "environmentId": "desert_area",
         "startPosition": {
           "x": 11,
-          "y": 9,
-          "z": 0
+          "y": 0,
+          "z": 9
         }
       },
       "rows": [
