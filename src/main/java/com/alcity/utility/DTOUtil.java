@@ -1,10 +1,7 @@
 package com.alcity.utility;
 
-import com.alcity.dto.Interpreter.object.ActionDataImport;
-import com.alcity.dto.Interpreter.PLObjectiveDataImport;
-import com.alcity.dto.Interpreter.object.RecordDataImport;
-import com.alcity.dto.Interpreter.object.RuleActionDataImport;
-import com.alcity.dto.Interpreter.object.RuleDataImport;
+import com.alcity.dto.Interpreter.PLObjectiveData;
+import com.alcity.dto.Interpreter.object.*;
 import com.alcity.dto.alenum.EnumDTO;
 import com.alcity.dto.alobject.*;
 import com.alcity.dto.appmember.*;
@@ -501,18 +498,18 @@ public class DTOUtil {
 
     }
 
-    public static ActionDataImport getActionDTO(ObjectAction input) {
-        ActionDataImport dto = new ActionDataImport();
+    public static ActionData getActionDTO(ObjectAction input) {
+        ActionData dto = new ActionData();
         dto.setId(input.getId());
         dto.setActionName(input.getObjectAction());
         dto.setHandler(input.getActionRenderer().getHandler());
         return dto;
     }
-    public static Collection<ActionDataImport> getObjectActionDTOS(Collection<ObjectAction> input) {
-        Collection<ActionDataImport> dtos = new ArrayList<ActionDataImport>();
+    public static Collection<ActionData> getObjectActionDTOS(Collection<ObjectAction> input) {
+        Collection<ActionData> dtos = new ArrayList<ActionData>();
         Iterator<ObjectAction> itr = input.iterator();
         while (itr.hasNext()) {
-            ActionDataImport dto = getActionDTO(itr.next());
+            ActionData dto = getActionDTO(itr.next());
             dtos.add(dto);
         }
         return dtos;
@@ -612,15 +609,15 @@ public class DTOUtil {
 
 
     //this method used for create Interpreter json
-    public static Collection<PLObjectiveDataImport> getPuzzleLevelObjectiveData(PuzzleLevel input) {
-        Collection<PLObjectiveDataImport> output = new ArrayList<PLObjectiveDataImport>();
+    public static Collection<PLObjectiveData> getPuzzleLevelObjectiveData(PuzzleLevel input) {
+        Collection<PLObjectiveData> output = new ArrayList<PLObjectiveData>();
         Collection<PLObjective> puzzleLevelObjectiveCollection = input.getPlObjectives();
 
         Iterator<PLObjective> itr_objectives = puzzleLevelObjectiveCollection.iterator();
 
         while (itr_objectives.hasNext()) {
             PLObjective puzzleLevelObjective = itr_objectives.next();
-            PLObjectiveDataImport dto = new PLObjectiveDataImport();
+            PLObjectiveData dto = new PLObjectiveData();
             dto.setId(puzzleLevelObjective.getId());
             dto.setTitle(puzzleLevelObjective.getTitle());
             dto.setDescription(puzzleLevelObjective.getDescription());
@@ -1206,19 +1203,19 @@ public class DTOUtil {
         }
         return dtos;
     }
-    public static Collection<RuleDataImport> getRulesForPuzzleLevel(PuzzleLevel pl, AttributeService attributeService){
-        Collection<RuleDataImport> rules = new ArrayList<RuleDataImport>();
+    public static Collection<RuleData> getRulesForPuzzleLevel(PuzzleLevel pl, AttributeService attributeService){
+        Collection<RuleData> rules = new ArrayList<RuleData>();
         Collection<PLRule>  puzzleLevelRules = pl.getPuzzleLevelRuleCollection();
         Iterator<PLRule> iterator = puzzleLevelRules.iterator();
         while(iterator.hasNext()) {
             PLRule puzzleLevelRule = iterator.next();
-            RuleDataImport rule = new RuleDataImport();
+            RuleData rule = new RuleData();
             rule.setTitle(puzzleLevelRule.getTitle());
             rule.setOrdering(puzzleLevelRule.getOrdering());
             rule.setConditions(puzzleLevelRule.getCondition());
             rule.setIgnoreRemaining(puzzleLevelRule.getIgnoreRemaining());
             rule.setEvent(puzzleLevelRule.getPlRuleEvent().getName());
-            Collection<RuleActionDataImport> actions = getRuleActionData(attributeService, puzzleLevelRule);
+            Collection<RuleActionData> actions = getRuleActionData(attributeService, puzzleLevelRule);
             rule.setActions(actions);
 
             rules.add(rule);
@@ -1227,15 +1224,15 @@ public class DTOUtil {
         return rules;
     }
 
-    public static Collection<RuleActionDataImport> getRuleActionData(AttributeService attributeService , PLRule plRule){
-        Collection<RuleActionDataImport> actions = new ArrayList<RuleActionDataImport>();
+    public static Collection<RuleActionData> getRuleActionData(AttributeService attributeService , PLRule plRule){
+        Collection<RuleActionData> actions = new ArrayList<RuleActionData>();
         Collection<PLRulePostAction> plRulePostActions = plRule.getPlRulePostActions();
         Iterator<PLRulePostAction> iterator = plRulePostActions.iterator();
         while(iterator.hasNext()) {
-            Collection<RecordDataImport> parameters = new ArrayList<RecordDataImport>();
+            Collection<RecordData> parameters = new ArrayList<RecordData>();
 
             PLRulePostAction plRulePostAction =iterator.next();
-            RuleActionDataImport ruleActionData = new RuleActionDataImport();
+            RuleActionData ruleActionData = new RuleActionData();
             ruleActionData.setOrdering(plRulePostAction.getOrdering());
             ruleActionData.setActionName(plRulePostAction.getActionName());
             ruleActionData.setObjectId(plRulePostAction.getObjectId());
@@ -1252,8 +1249,8 @@ public class DTOUtil {
         }
         return actions;
     }
-    public static Collection<RecordDataImport>  getActionParametersDTOS(Collection<Attribute>  attributes){
-        Collection<RecordDataImport> records = new ArrayList<RecordDataImport>();
+    public static Collection<RecordData>  getActionParametersDTOS(Collection<Attribute>  attributes){
+        Collection<RecordData> records = new ArrayList<RecordData>();
         Iterator<Attribute> iterator = attributes.iterator();
         while(iterator.hasNext()) {
             Attribute attribute = iterator.next();
@@ -1263,14 +1260,14 @@ public class DTOUtil {
                 AttributeValue alCityAttributeValue = iteratorValues.next();
                 String value = getDataValue(alCityAttributeValue);
                 String type = getDataType(attribute);
-                RecordDataImport record = new RecordDataImport(attribute.getId(), attribute.getName(),alCityAttributeValue.getId(),value,type);
+                RecordData record = new RecordData(attribute.getId(), attribute.getName(),alCityAttributeValue.getId(),value,type);
                 records.add(record);
             }
         }
         return records;
     }
-    public static Collection<RecordDataImport>  getPropertiesDTOForPGObject(Collection<Attribute>  properties){
-        Collection<RecordDataImport> records = new ArrayList<RecordDataImport>();
+    public static Collection<RecordData>  getPropertiesDTOForPGObject(Collection<Attribute>  properties){
+        Collection<RecordData> records = new ArrayList<RecordData>();
         Iterator<Attribute> iterator = properties.iterator();
         while(iterator.hasNext()) {
             Attribute attribute = iterator.next();
@@ -1280,15 +1277,15 @@ public class DTOUtil {
                 AttributeValue alCityAttributeValue = iteratorValues.next();
                 String value = getDataValue(alCityAttributeValue);
                 String type = getDataType(attribute);
-                RecordDataImport record = new RecordDataImport(attribute.getId(), attribute.getName(),alCityAttributeValue.getId(),value,type);
+                RecordData record = new RecordData(attribute.getId(), attribute.getName(),alCityAttributeValue.getId(),value,type);
                 records.add(record);
             }
         }
         return records;
     }
 
-    public static Collection<RecordDataImport>  getVariablesDTOForPGObject(Collection<Attribute>  variables){
-        Collection<RecordDataImport> records = new ArrayList<RecordDataImport>();
+    public static Collection<RecordData>  getVariablesDTOForPGObject(Collection<Attribute>  variables){
+        Collection<RecordData> records = new ArrayList<RecordData>();
         Iterator<Attribute> iterator = variables.iterator();
         while(iterator.hasNext()) {
             Attribute attribute = iterator.next();
@@ -1298,14 +1295,14 @@ public class DTOUtil {
                 AttributeValue alCityAttributeValue = iteratorValues.next();
                 String value = getDataValue(alCityAttributeValue);
                 String type = getDataType(attribute);
-                RecordDataImport record = new RecordDataImport(attribute.getId(), attribute.getName(),alCityAttributeValue.getId(),value,type);
+                RecordData record = new RecordData(attribute.getId(), attribute.getName(),alCityAttributeValue.getId(),value,type);
                 records.add(record);
             }
         }
         return records;
     }
-    public static Collection<RecordDataImport>  getAttributeForOwnerById(AttributeService attributeService , Long ownerId, AttributeOwnerType ownerType){
-        Collection<RecordDataImport> records = new ArrayList<RecordDataImport>();
+    public static Collection<RecordData>  getAttributeForOwnerById(AttributeService attributeService , Long ownerId, AttributeOwnerType ownerType){
+        Collection<RecordData> records = new ArrayList<RecordData>();
         Collection<Attribute>  attributes =attributeService.findByOwnerIdAndAttributeOwnerTypeNew(ownerId,ownerType);
         Iterator<Attribute> iterator = attributes.iterator();
         while(iterator.hasNext()) {
@@ -1318,7 +1315,7 @@ public class DTOUtil {
                 AttributeValue alCityAttributeValue = iteratorValues.next();
                 String value = getDataValue(alCityAttributeValue);
                 String type = getDataType(attribute);
-                RecordDataImport record = new RecordDataImport(attribute.getId(), attribute.getName(),alCityAttributeValue.getId(),value,type);
+                RecordData record = new RecordData(attribute.getId(), attribute.getName(),alCityAttributeValue.getId(),value,type);
                 records.add(record);
             }
         }

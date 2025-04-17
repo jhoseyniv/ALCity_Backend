@@ -234,9 +234,12 @@ public class ImportPipeGameProblemData_5 implements CommandLineRunner {
         Integer yPos=3;
         Integer zPos=3;
         Integer xRotation=3;
+        Boolean zoom=false;
+        Boolean pan=false;
+        Boolean rotation=false;
 
         byte[] boardGraphic2 = ImageUtil.convertObjectToBytes(boardGraphic);
-        PLGround pl_Memory_Game_ground = new PLGround(4,5,xPos,yPos,zPos,xRotation,xRotation,xRotation,pipe_Game, boardGraphic2,1L,now,now,admin_1,admin_1);
+        PLGround pl_Memory_Game_ground = new PLGround(4,5,xPos,yPos,zPos,xRotation,xRotation,xRotation,zoom,pan,rotation,pipe_Game, boardGraphic2,1L,now,now,admin_1,admin_1);
         puzzleLevelGroundService.save(pl_Memory_Game_ground);
 
         PermitedPlayer player_1_puzzleLevel_X_O = new PermitedPlayer(Alireza_Zare,pipe_Game,1L,now,now,admin_1,admin_1);
@@ -559,8 +562,6 @@ public class ImportPipeGameProblemData_5 implements CommandLineRunner {
 
         ALCityInstanceInPL instance_img_4_5 = new ALCityInstanceInPL("instance_img_4_5",4,5,0,imageObject_in_pipegame,pipe_Game,1L,now,now,admin_1,admin_1);
         pgObjectInstanceService.save(instance_img_4_5);
-
-
 
         Optional<PLRuleEvent> click_event = plRuleEventService.findByName("Click");
         Optional<PLRuleEvent> internalEvent = plRuleEventService.findByName("internalevent");

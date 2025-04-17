@@ -34,6 +34,15 @@ public class PLGround extends BaseTable {
     @Column(name="zRotation")
     private Integer zRotation;
 
+    @Column(name="zoom")
+    private Boolean zoom;
+
+    @Column(name="pan")
+    private Boolean pan;
+
+    @Column(name="rotation")
+    private Boolean rotation;
+
 
 
     public Integer getNumRows() {
@@ -126,11 +135,35 @@ public class PLGround extends BaseTable {
         this.zRotation = zRotation;
     }
 
+    public Boolean getZoom() {
+        return zoom;
+    }
+
+    public void setZoom(Boolean zoom) {
+        this.zoom = zoom;
+    }
+
+    public Boolean getPan() {
+        return pan;
+    }
+
+    public void setPan(Boolean pan) {
+        this.pan = pan;
+    }
+
+    public Boolean getRotation() {
+        return rotation;
+    }
+
+    public void setRotation(Boolean rotation) {
+        this.rotation = rotation;
+    }
+
     public PLGround() {
     }
 
     public PLGround(Integer numRows, Integer numColumns, Integer xPosition,Integer yPosition,Integer zPosition,Integer xRotation,Integer yRotation ,Integer zRotation,
-                    PuzzleLevel puzzleLevel, byte[] boardGraphic,Long version, String created, String updated, AppMember createdBy, AppMember updatedBy) {
+                     Boolean zoom , Boolean pan,Boolean rotation,PuzzleLevel puzzleLevel, byte[] boardGraphic,Long version, String created, String updated, AppMember createdBy, AppMember updatedBy) {
         super(version, created, updated, createdBy, updatedBy);
         this.numRows = numRows;
         this.numColumns = numColumns;
@@ -140,6 +173,9 @@ public class PLGround extends BaseTable {
         this.xRotation = xRotation;
         this.yRotation = yRotation;
         this.zRotation = zRotation;
+        this.zoom =zoom;
+        this.pan = pan;
+        this.rotation = rotation;
         this.puzzleLevel = puzzleLevel;
         this.boardGraphic = boardGraphic;
     }

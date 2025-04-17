@@ -210,8 +210,11 @@ public class ImportXOProblemData_3 implements CommandLineRunner {
         Integer xPos=1;
         Integer xRotation=0;
         byte[] boardGraphic2 = ImageUtil.convertObjectToBytes(boardGraphic);
+        Boolean zoom=false;
+        Boolean pan=false;
+        Boolean rotation=false;
 
-        PLGround plGround = new PLGround(3,3,xPos,xPos,xPos,xRotation,xRotation,xRotation,puzzleLevel, boardGraphic2,1L,now,now,admin_1,admin_1);
+        PLGround plGround = new PLGround(3,3,xPos,xPos,xPos,xRotation,xRotation,xRotation,zoom,pan,rotation,puzzleLevel, boardGraphic2,1L,now,now,admin_1,admin_1);
         plGroundService.save(plGround);
 
         PermitedPlayer player_1 = new PermitedPlayer(Alireza_Zare,puzzleLevel,1L,now,now,admin_1,admin_1);

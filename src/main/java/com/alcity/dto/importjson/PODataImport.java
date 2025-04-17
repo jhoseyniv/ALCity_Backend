@@ -1,6 +1,9 @@
-package com.alcity.dto.Interpreter;
+package com.alcity.dto.importjson;
 
 import com.alcity.dto.Interpreter.object.*;
+import com.alcity.dto.importjson.importobject.ActionDataImport;
+import com.alcity.dto.importjson.importobject.InstanceDataImport;
+import com.alcity.dto.importjson.importobject.RecordDataImport;
 
 import java.io.Serializable;
 import java.util.Collection;

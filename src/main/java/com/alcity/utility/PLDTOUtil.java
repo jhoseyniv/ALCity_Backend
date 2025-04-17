@@ -1,6 +1,6 @@
 package com.alcity.utility;
 
-import com.alcity.dto.Interpreter.PLDataImport;
+import com.alcity.dto.Interpreter.PLData;
 import com.alcity.dto.puzzle.boardgraphic.BoardGraphicDTO;
 import com.alcity.dto.puzzle.object.ActionDTO;
 import com.alcity.dto.puzzle.object.CityObjectDTO;
@@ -112,14 +112,14 @@ public class PLDTOUtil {
 
         return dto;
     }
-    public static PLDataImport getInterpreterJSON(PuzzleLevel pl) throws IOException, ClassNotFoundException {
+    public static PLData getInterpreterJSON(PuzzleLevel pl) throws IOException, ClassNotFoundException {
         byte[] plData = pl.getInterpreterFile();
         ByteArrayInputStream bis = new ByteArrayInputStream(plData);
         ObjectInputStream ois = new ObjectInputStream(bis);
         //FileOutputStream outputStream = new FileOutputStream("file.ser");
         //outputStream.write(plData);
         //FileInputStream inputStream = new FileInputStream("file.ser");
-        PLDataImport plData1 = (PLDataImport) ois.readObject();
+        PLData plData1 = (PLData) ois.readObject();
         return plData1;
     }
     public static BoardGraphicDTO getBoardGraphicJSON(PLGround plGround) throws IOException, ClassNotFoundException {

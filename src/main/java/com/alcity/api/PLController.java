@@ -1,6 +1,6 @@
 package com.alcity.api;
 
-import com.alcity.dto.Interpreter.PLDataImport;
+import com.alcity.dto.Interpreter.PLData;
 import com.alcity.entity.alenum.AttributeOwnerType;
 import com.alcity.entity.alenum.DataType;
 import com.alcity.entity.alobject.Attribute;
@@ -74,9 +74,9 @@ public class PLController {
     @RequestMapping(value = "json/id/{id}", method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin(origins = "*")
-    public PLDataImport getPuzzleLevelJsonById(@PathVariable Long id) throws IOException, ClassNotFoundException {
+    public PLData getPuzzleLevelJsonById(@PathVariable Long id) throws IOException, ClassNotFoundException {
         Optional<PuzzleLevel> puzzleLevelOptional = puzzleLevelService.findById(id);
-        PLDataImport plData = PLDTOUtil.getInterpreterJSON(puzzleLevelOptional.get());
+        PLData plData = PLDTOUtil.getInterpreterJSON(puzzleLevelOptional.get());
         return plData;
     }
 

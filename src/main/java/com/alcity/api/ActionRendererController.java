@@ -1,9 +1,9 @@
 package com.alcity.api;
 
+import com.alcity.dto.Interpreter.object.RecordData;
 import com.alcity.service.customexception.ALCityResponseObject;
 import com.alcity.service.customexception.UniqueConstraintException;
 import com.alcity.service.customexception.ViolateForeignKeyException;
-import com.alcity.dto.Interpreter.object.RecordDataImport;
 import com.alcity.dto.alobject.RendererDTO;
 import com.alcity.entity.alenum.AttributeOwnerType;
 import com.alcity.entity.alobject.Renderer;
@@ -106,7 +106,7 @@ public class ActionRendererController {
     @Operation( summary = "Fetch all parameters fo a render by  rendere-id  ",  description = "Fetch all parameters fo a render by  rendere-id ")
     @RequestMapping(value = "/id/{id}/params", method = RequestMethod.GET)
     @ResponseBody
-    public  Collection<RecordDataImport> getObjectActionRendererParameters(@PathVariable Long id) {
+    public  Collection<RecordData> getObjectActionRendererParameters(@PathVariable Long id) {
         Optional<Renderer> actionRendererOptional = service.findById(id);
         if(actionRendererOptional.isPresent())
             return  DTOUtil.getAttributeForOwnerById(attributeService,actionRendererOptional.get().getId(), AttributeOwnerType.Action_Handler_Parameter);;

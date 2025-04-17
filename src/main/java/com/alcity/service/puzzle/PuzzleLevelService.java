@@ -1,6 +1,6 @@
 package com.alcity.service.puzzle;
 
-import com.alcity.dto.Interpreter.PLDataImport;
+import com.alcity.dto.importjson.PLDataImport;
 import com.alcity.dto.puzzle.PLDTO;
 import com.alcity.dto.puzzle.PuzzleLevelStepMappingDTO;
 import com.alcity.entity.alenum.PLDifficulty;

@@ -1,4 +1,5 @@
-package com.alcity.dto.Interpreter.object;
+package com.alcity.dto.importjson.importobject;
+
 
 import java.io.Serializable;
 import java.util.Collection;
@@ -13,8 +14,8 @@ public class RuleActionDataImport implements Serializable {
     private StringBuffer valueExperssion;
     private String alertType;
     private String alertMessage;
-
     private Collection<RecordDataImport> parameters;
+
 
     public String getActionType() {
         return actionType;

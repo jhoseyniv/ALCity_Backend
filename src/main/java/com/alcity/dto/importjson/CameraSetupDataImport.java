@@ -1,6 +1,7 @@
-package com.alcity.dto.Interpreter;
+package com.alcity.dto.importjson;
 
-import com.alcity.dto.Interpreter.object.PositionImport;
+
+import com.alcity.dto.importjson.importobject.PositionImport;
 
 import java.io.Serializable;
 

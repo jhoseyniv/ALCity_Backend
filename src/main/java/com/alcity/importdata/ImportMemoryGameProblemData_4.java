@@ -285,8 +285,11 @@ public class ImportMemoryGameProblemData_4 implements CommandLineRunner {
         Integer zPos=3;
         Integer xRotation=3;
         byte[] boardGraphic2 = ImageUtil.convertObjectToBytes(boardGraphic);
+        Boolean zoom=false;
+        Boolean pan=false;
+        Boolean rotation=false;
 
-        PLGround pl_Memory_Game_ground = new PLGround(4,5,xPos,yPos,zPos,xRotation,xRotation,xRotation,pl_Memory_Game, boardGraphic2,1L,now,now,admin_1,admin_1);
+        PLGround pl_Memory_Game_ground = new PLGround(4,5,xPos,yPos,zPos,xRotation,xRotation,xRotation,zoom,pan,rotation,pl_Memory_Game, boardGraphic2,1L,now,now,admin_1,admin_1);
         puzzleLevelGroundService.save(pl_Memory_Game_ground);
 
         PermitedPlayer player_1_puzzleLevel_X_O = new PermitedPlayer(Alireza_Zare,pl_Memory_Game,1L,now,now,admin_1,admin_1);

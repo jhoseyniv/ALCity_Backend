@@ -1,7 +1,8 @@
 package com.alcity.dto.Interpreter;
 
-import com.alcity.dto.Interpreter.object.RecordDataImport;
-import com.alcity.dto.Interpreter.object.RuleDataImport;
+
+import com.alcity.dto.Interpreter.object.RecordData;
+import com.alcity.dto.Interpreter.object.RuleData;
 
 import java.io.Serializable;
 import java.util.Collection;
@@ -17,17 +18,17 @@ public class PLData implements Serializable {
     private CameraSetupData cameraSetup;
     private Collection<PLObjectiveData> objectives;
 
-    private Collection<RecordDataImport> variables;
+    private Collection<RecordData> variables;
 
     private Collection<POData> objects;
-    private Collection<RuleDataImport> rules;
+    private Collection<RuleData> rules;
 
 
-    public Collection<RecordDataImport> getVariables() {
+    public Collection<RecordData> getVariables() {
         return variables;
     }
 
-    public void setVariables(Collection<RecordDataImport> variables) {
+    public void setVariables(Collection<RecordData> variables) {
         this.variables = variables;
     }
 
@@ -81,11 +82,11 @@ public class PLData implements Serializable {
         this.cameraSetup = cameraSetup;
     }
 
-    public Collection<RuleDataImport> getRules() {
+    public Collection<RuleData> getRules() {
         return rules;
     }
 
-    public void setRules(Collection<RuleDataImport> rules) {
+    public void setRules(Collection<RuleData> rules) {
         this.rules = rules;
     }
 

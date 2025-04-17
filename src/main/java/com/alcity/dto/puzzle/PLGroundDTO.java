@@ -22,6 +22,11 @@ public class PLGroundDTO  implements Serializable {
     private Integer xrotation;
     private Integer yrotation;
     private Integer zrotation;
+
+    private Boolean zoom;
+    private Boolean pan;
+    private Boolean rotation;
+
     private Long puzzleLevelId;
 
   //  private String puzzleLevelTitle;
@@ -45,7 +50,29 @@ public class PLGroundDTO  implements Serializable {
         this.numColumns = numColumns;
     }
 
+    public Boolean getZoom() {
+        return zoom;
+    }
 
+    public void setZoom(Boolean zoom) {
+        this.zoom = zoom;
+    }
+
+    public Boolean getPan() {
+        return pan;
+    }
+
+    public void setPan(Boolean pan) {
+        this.pan = pan;
+    }
+
+    public Boolean getRotation() {
+        return rotation;
+    }
+
+    public void setRotation(Boolean rotation) {
+        this.rotation = rotation;
+    }
 
     public Long getId() {
         return id;

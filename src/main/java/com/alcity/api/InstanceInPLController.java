@@ -1,7 +1,7 @@
 package com.alcity.api;
 
 
-import com.alcity.dto.Interpreter.object.ActionDataImport;
+import com.alcity.dto.Interpreter.object.ActionData;
 import com.alcity.dto.puzzle.CityObjectInPGDTO;
 import com.alcity.dto.puzzle.CityObjectInPLDTO;
 import com.alcity.entity.alenum.POActionOwnerType;
@@ -80,8 +80,8 @@ public class InstanceInPLController {
     @RequestMapping(value = "/id/{id}/actions/all", method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin(origins = "*")
-    public Collection<ActionDataImport> getAllActionsForAnALCityInstanceInPuzzleLevelById(@PathVariable Long id) {
-        Collection<ActionDataImport> actionsData = new ArrayList<ActionDataImport>();
+    public Collection<ActionData> getAllActionsForAnALCityInstanceInPuzzleLevelById(@PathVariable Long id) {
+        Collection<ActionData> actionsData = new ArrayList<ActionData>();
         Collection<ObjectAction> actions = new ArrayList<ObjectAction>();
         actions = actionService.findByOwnerObjectidAndPoActionOwnerType(id, POActionOwnerType.Puzzle_Level_Instance);
         actionsData = DTOUtil.getObjectActionDTOS(actions);

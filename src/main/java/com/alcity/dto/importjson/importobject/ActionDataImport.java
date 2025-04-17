@@ -1,4 +1,4 @@
-package com.alcity.dto.Interpreter.object;
+package com.alcity.dto.importjson.importobject;
 
 import com.alcity.entity.alenum.ObjectActionType;
 
