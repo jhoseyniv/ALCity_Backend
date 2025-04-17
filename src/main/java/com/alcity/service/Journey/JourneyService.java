@@ -39,9 +39,13 @@ public class JourneyService implements JourneyRepository {
         Journey journey=null;
         Optional<Journey> journeyOptional= journeyRepository.findByTitle(dto.getTitle());
         Optional<BinaryContent> pictureOptional = binaryContentRepository.findById(dto.getPicId());
+        Optional<BinaryContent> buttonPassedIconOptional = binaryContentRepository.findById(dto.getPicId());
+        Optional<BinaryContent> buttonCurrenIconOptional = binaryContentRepository.findById(dto.getPicId());
+        Optional<BinaryContent> buttonLockedIconOptional = binaryContentRepository.findById(dto.getPicId());
         if (code.equalsIgnoreCase("Save")) { //Save
-            journey = new Journey(dto.getTitle(),pictureOptional.get(),dto.getOrdering(),dto.getMinToOpenStar(),dto.getMinToPassStar() ,1L,
-                    DateUtils.getNow(), DateUtils.getNow(), createdBy.get(), createdBy.get());
+            journey = new Journey(1L,DateUtils.getNow(),DateUtils.getNow(),createdBy.get(),createdBy.get(),dto.getTitle(),dto.getOrdering(),
+                    pictureOptional.get(),buttonPassedIconOptional.get(),buttonCurrenIconOptional.get(),buttonLockedIconOptional.get(),
+                    dto.getMinToOpenStar(),dto.getMinToPassStar());
             journeyRepository.save(journey);
         }else{//edit
             journeyOptional= journeyRepository.findById(dto.getId());
@@ -130,11 +134,15 @@ public class JourneyService implements JourneyRepository {
         Optional<AppMember> createdBy = appMemberRepository.findById(dto.getCreatedById());
         Optional<AppMember> updatedBy = appMemberRepository.findById(dto.getUpdatedById());
         Optional<BinaryContent> pictureOptional = binaryContentRepository.findById(dto.getPicId());
+        Optional<BinaryContent> buttonPassedIconOptional = binaryContentRepository.findById(dto.getPicId());
+        Optional<BinaryContent> buttonCurrenIconOptional = binaryContentRepository.findById(dto.getPicId());
+        Optional<BinaryContent> buttonLockedIconOptional = binaryContentRepository.findById(dto.getPicId());
 
         if(dto.getId() != null ) {
-                journey = new Journey(dto.getTitle(),pictureOptional.get(),dto.getOrdering(),dto.getMinToOpenStar(),dto.getMinToPassStar(), dto.getVersion(),
-                        dto.getCreated(), dto.getUpdated(), createdBy.get(), updatedBy.get());
-                journeyRepository.save(journey);
+            journey = new Journey(1L,DateUtils.getNow(),DateUtils.getNow(),createdBy.get(),createdBy.get(),dto.getTitle(),dto.getOrdering(),
+                    pictureOptional.get(),buttonPassedIconOptional.get(),buttonCurrenIconOptional.get(),buttonLockedIconOptional.get(),
+                    dto.getMinToOpenStar(),dto.getMinToPassStar());
+            journeyRepository.save(journey);
         }
 
         return journey;

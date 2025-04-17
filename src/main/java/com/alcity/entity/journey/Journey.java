@@ -144,12 +144,15 @@ public class Journey  extends BaseTable implements Serializable {
     public Journey() {
     }
 
-    public Journey(String title,BinaryContent pic,Integer ordering,Integer minToOpenStar,Integer minToPassStar, Long version, String created, String updated, AppMember createdBy, AppMember updatedBy) {
+    public Journey(Long version, String created, String updated, AppMember createdBy, AppMember updatedBy, String title, Integer ordering, BinaryContent pic, BinaryContent buttonPassedIcon, BinaryContent buttonCurrenIcon, BinaryContent buttonLockedIcon,  Integer minToPassStar, Integer minToOpenStar) {
         super(version, created, updated, createdBy, updatedBy);
         this.title = title;
-        this.pic = pic;
         this.ordering = ordering;
-        this.minToOpenStar = minToOpenStar;
+        this.pic = pic;
+        this.buttonPassedIcon = buttonPassedIcon;
+        this.buttonCurrenIcon = buttonCurrenIcon;
+        this.buttonLockedIcon = buttonLockedIcon;
         this.minToPassStar = minToPassStar;
+        this.minToOpenStar = minToOpenStar;
     }
 }

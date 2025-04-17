@@ -856,6 +856,10 @@ public class DTOUtil {
             dto.setOrdering(entity.getOrdering());
             dto.setMinToOpenStar(entity.getMinToOpenStar());
             dto.setMinToPassStar(entity.getMinToPassStar());
+            dto.setPicId(entity.getPic().getId());
+            dto.setButtonCurrenIconId(entity.getButtonCurrenIcon().getId());
+            dto.setButtonLockedIconId(entity.getButtonLockedIcon().getId());
+            dto.setButtonPassedIconId(entity.getButtonPassedIcon().getId());
             dto.setCreatedBy(entity.getCreatedBy().getUsername());
             dto.setUpdatedBy(entity.getUpdatedBy().getUsername());
             dto.setCreatedById(entity.getCreatedBy().getId());

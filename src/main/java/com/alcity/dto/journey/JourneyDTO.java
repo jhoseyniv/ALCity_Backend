@@ -20,6 +20,9 @@ public class JourneyDTO   {
     private String title;
 
     private Long picId;
+    private Long buttonPassedIconId;
+    private Long buttonCurrenIconId;
+    private Long buttonLockedIconId;
 
     private Integer ordering;
 
@@ -134,14 +137,33 @@ public class JourneyDTO   {
         this.updatedById = updatedById;
     }
 
-    public JourneyDTO(Long id , String title,Long picId,Integer ordering, Integer minToPassStar,Integer minToOpenStar
-            , Long version, String created, String updated, String createdBy, String updatedBy, Long createdById, Long updatedById) {
+    public Long getButtonPassedIconId() {
+        return buttonPassedIconId;
+    }
+
+    public void setButtonPassedIconId(Long buttonPassedIconId) {
+        this.buttonPassedIconId = buttonPassedIconId;
+    }
+
+    public Long getButtonCurrenIconId() {
+        return buttonCurrenIconId;
+    }
+
+    public void setButtonCurrenIconId(Long buttonCurrenIconId) {
+        this.buttonCurrenIconId = buttonCurrenIconId;
+    }
+
+    public Long getButtonLockedIconId() {
+        return buttonLockedIconId;
+    }
+
+    public void setButtonLockedIconId(Long buttonLockedIconId) {
+        this.buttonLockedIconId = buttonLockedIconId;
+    }
+
+    public JourneyDTO(Long id, Long version, String created, String updated, String createdBy, String updatedBy, Long createdById, Long updatedById,
+                      String title, Long picId, Long buttonPassedIconId, Long buttonCurrenIconId, Long buttonLockedIconId, Integer ordering, Integer minToPassStar, Integer minToOpenStar) {
         this.id = id;
-        this.title = title;
-        this.picId = picId;
-        this.ordering = ordering;
-        this.minToPassStar = minToPassStar;
-        this.minToOpenStar = minToOpenStar;
         this.version = version;
         this.created = created;
         this.updated = updated;
@@ -149,5 +171,13 @@ public class JourneyDTO   {
         this.updatedBy = updatedBy;
         this.createdById = createdById;
         this.updatedById = updatedById;
+        this.title = title;
+        this.picId = picId;
+        this.buttonPassedIconId = buttonPassedIconId;
+        this.buttonCurrenIconId = buttonCurrenIconId;
+        this.buttonLockedIconId = buttonLockedIconId;
+        this.ordering = ordering;
+        this.minToPassStar = minToPassStar;
+        this.minToOpenStar = minToOpenStar;
     }
 }

@@ -539,9 +539,9 @@ public class ImportBaseData implements CommandLineRunner {
 
 
 
-        Journey journey_1 = new Journey("Journey_1",image_journey_1,1,5,50,1L,now,now,admin_1,admin_1);
-        Journey journey_2 = new Journey("Journey_2",image_journey_2,2,5,70,1L,now,now,admin_1,admin_1);
-        Journey journey_3 = new Journey("Journey_3",image_journey_3,3,15,100,1L,now,now,admin_1,admin_1);
+        Journey journey_1 = new Journey(1L,now,now,admin_1,admin_1,"Journey_1",1,image_journey_1,image_journey_current,image_journey_passed,image_journey_locked,5,50);
+        Journey journey_2 = new Journey(1L,now,now,admin_1,admin_1,"Journey_2",2,image_journey_2,image_journey_current,image_journey_passed,image_journey_locked,5,70);
+        Journey journey_3 = new Journey(1L,now,now,admin_1,admin_1,"Journey_3",3,image_journey_3,image_journey_current,image_journey_passed,image_journey_locked,15,100);
 
         journey_1.setButtonCurrenIcon(image_journey_current);
         journey_1.setButtonPassedIcon(image_journey_passed);
