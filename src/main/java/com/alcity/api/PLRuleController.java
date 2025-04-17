@@ -1,10 +1,13 @@
 package com.alcity.api;
 
+import com.alcity.dto.puzzle.PLRulePostActionDTO;
+import com.alcity.entity.puzzle.PLRulePostAction;
 import com.alcity.service.customexception.ALCityResponseObject;
 import com.alcity.service.customexception.UniqueConstraintException;
 import com.alcity.service.customexception.ViolateForeignKeyException;
 import com.alcity.dto.puzzle.PLRuleDTO;
 import com.alcity.entity.puzzle.PLRule;
+import com.alcity.service.puzzle.PLRulePostActionService;
 import com.alcity.service.puzzle.PLRuleService;
 import com.alcity.utility.DTOUtil;
 import io.swagger.v3.oas.annotations.Operation;
@@ -13,6 +16,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Optional;
 
 @Tag(name = "Puzzle Level Rule API's ", description = "Puzzle Levels Rules API's")
@@ -22,6 +27,10 @@ import java.util.Optional;
 public class PLRuleController {
     @Autowired
     private PLRuleService plRuleService;
+
+    @Autowired
+    PLRulePostActionService plRulePostActionService;
+
     @Operation( summary = "Save a puzzle level  Rule  ",  description = "Save a puzzle level  Rule entity and their data to data base")
     @PostMapping("/save")
     @CrossOrigin(origins = "*")
@@ -61,6 +70,20 @@ public class PLRuleController {
         if(plRuleOptional.isPresent())
             ruleDTO = DTOUtil.getPLRuleDTO(plRuleOptional.get());
         return ruleDTO;
+    }
+    @Operation( summary = "Fetch all Post Actions for a Rule by a rule Id ",  description = "Fetch all Post Actions for a Rule by a rule Id")
+    @RequestMapping(value = "/id/{id}/actions/all", method = RequestMethod.GET)
+    @ResponseBody
+    @CrossOrigin(origins = "*")
+    public Collection<PLRulePostActionDTO> getPostActionsForRuleById(@PathVariable Long id) {
+        Collection<PLRulePostActionDTO> rulePostActionDTOS = new ArrayList<>();
+        Optional<PLRule> plRuleOptional = plRuleService.findById(id);
+        if(plRuleOptional.isPresent()) {
+            PLRule rule = plRuleOptional.get();
+            Collection<PLRulePostAction> plRulePostActions = rule.getPlRulePostActions();
+            rulePostActionDTOS = DTOUtil.getPLRulePostActionDTOS(plRulePostActions);
+        }
+        return rulePostActionDTOS;
     }
 
 

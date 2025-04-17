@@ -336,12 +336,14 @@ public class ImportBaseData implements CommandLineRunner {
         PuzzleGroup puzzleGroup_IQ = new PuzzleGroup("IQ Puzzle Group",mathematic,puzzle_group_binary_content_2,puzzle_group_binary_content_Icon,1L,now,now,admin_1,admin_1);
         PuzzleGroup puzzleGroup_X_O= new PuzzleGroup("X-O Puzzle Group",mathematic,puzzle_group_binary_content_2,puzzle_group_binary_content_Icon,1L,now,now,admin_1,admin_1);
         PuzzleGroup puzzleGroup_Science= new PuzzleGroup("Science Puzzle Group",mathematic,puzzle_group_binary_content_2,puzzle_group_binary_content_Icon,1L,now,now,admin_1,admin_1);
-        PuzzleGroup puzzleGroup_Maze= new PuzzleGroup("Maze Puzzle Group",mathematic,puzzle_group_binary_content_2,puzzle_group_binary_content_Icon,1L,now,now,admin_1,admin_1);
+        PuzzleGroup puzzleGroup_Maze = new PuzzleGroup("Maze Puzzle Group",mathematic,puzzle_group_binary_content_2,puzzle_group_binary_content_Icon,1L,now,now,admin_1,admin_1);
+        PuzzleGroup puzzleGroup_Multiply = new PuzzleGroup("Multiply Puzzle Group",mathematic,puzzle_group_binary_content_2,puzzle_group_binary_content_Icon,1L,now,now,admin_1,admin_1);
         puzzleGroupService.save(puzzleGroup_HashImage);
         puzzleGroupService.save(puzzleGroup_IQ);
         puzzleGroupService.save(puzzleGroup_X_O);
         puzzleGroupService.save(puzzleGroup_Science);
         puzzleGroupService.save(puzzleGroup_Maze);
+        puzzleGroupService.save(puzzleGroup_Multiply);
 
         byte[] walletItem_1_Icon = ImageUtil.getImage("src/main/resources/images/walletItem/","walletItem_1.jpeg");
         byte[] walletItem_2_Icon = ImageUtil.getImage("src/main/resources/images/walletItem/","walletItem_2.jpeg");
@@ -480,6 +482,7 @@ public class ImportBaseData implements CommandLineRunner {
         LearningTopic X_O_Topic = new LearningTopic("X-O Game",root_Topic,1L,now,now,admin_1,admin_1);
         LearningTopic Pipe_Game_Topic = new LearningTopic("Pipe_Game",root_Topic,1L,now,now,admin_1,admin_1);
         LearningTopic Maze_Game_Topic = new LearningTopic("Maze_Game",root_Topic,1L,now,now,admin_1,admin_1);
+        LearningTopic Multiply_Game_Topic = new LearningTopic("Multiply_Game",root_Topic,1L,now,now,admin_1,admin_1);
         LearningTopic Memory_Game_Topic = new LearningTopic("Memory_Game",root_Topic,1L,now,now,admin_1,admin_1);
         LearningTopic magic_matrix_Topic = new LearningTopic("Magic Matrix",root_Topic,1L,now,now,admin_1,admin_1);
         LearningTopic maze_table_Topic = new LearningTopic("Maze Table",root_Topic,1L,now,now,admin_1,admin_1);
@@ -491,6 +494,7 @@ public class ImportBaseData implements CommandLineRunner {
         learningTopicService.save(X_O_Topic);
         learningTopicService.save(Pipe_Game_Topic);
         learningTopicService.save(Maze_Game_Topic);
+        learningTopicService.save(Multiply_Game_Topic);
         learningTopicService.save(magic_matrix_Topic);
         learningTopicService.save(algorithm_Topic);
         learningTopicService.save(maze_table_Topic);

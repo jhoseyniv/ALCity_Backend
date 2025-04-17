@@ -1180,7 +1180,32 @@ public class DTOUtil {
         dto.setHandler(actionRenderer.getHandler());
            return dto;
    }
-    public static PLRuleDTO getPLRuleDTO(PLRule plRule) {
+    public static PLRulePostActionDTO getPLRulePostActionDTO(PLRulePostAction postAction) {
+        PLRulePostActionDTO dto = new PLRulePostActionDTO();
+        dto.setId(postAction.getId());
+        dto.setActionName(postAction.getActionName());
+        dto.setAlertMessage(postAction.getAlertMessage());
+        dto.setAlertType(postAction.getAlertType());
+        dto.setPlRulePostActionType(postAction.getPlRulePostActionType().getValue());
+        dto.setObjectId(postAction.getObjectId());
+        dto.setVariable(postAction.getVariable());
+        dto.setValueExperssion(postAction.getValueExperssion());
+        dto.setOrdering(postAction.getOrdering());
+
+        return  dto;
+    }
+
+    public static Collection<PLRulePostActionDTO> getPLRulePostActionDTOS(Collection<PLRulePostAction> postActions) {
+        Collection<PLRulePostActionDTO> dtos = new ArrayList<>();
+        Iterator<PLRulePostAction> itr = postActions.iterator();
+        while(itr.hasNext()){
+            PLRulePostAction postAction = itr.next();
+            PLRulePostActionDTO dto = getPLRulePostActionDTO(postAction);
+            dtos.add(dto);
+        }
+        return  dtos;
+    }
+        public static PLRuleDTO getPLRuleDTO(PLRule plRule) {
         PLRuleDTO dto = new PLRuleDTO();
         dto.setId(plRule.getId());
         dto.setTitle(plRule.getTitle());
