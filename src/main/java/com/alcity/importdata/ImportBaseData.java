@@ -611,6 +611,12 @@ public class ImportBaseData implements CommandLineRunner {
         AttributeValue create_ActionRenderer_param_2_value= new AttributeValue(null,null,null,"CODE",null,null,null,null,Boolean.FALSE,null,create_Renderer_param_2,1L,now,now,admin_1,admin_1,create_Renderer.getId(),AttributeOwnerType.Action_Handler_Parameter);
         attributeValueService.save(create_ActionRenderer_param_2_value);
 
+        Attribute create_Renderer_param_3 =new Attribute("enabled",create_Renderer.getId(),AttributeOwnerType.Action_Handler_Parameter,DataType.Boolean,1L,now,now,admin_1,admin_1);
+        attributeService.save(create_Renderer_param_3);
+        AttributeValue create_Renderer_param_3_value= new AttributeValue(null,null,null,null,null,null,null,"InstProp(CurrentInst(), enabled)",Boolean.TRUE,null,create_Renderer_param_3,1L,now,now,admin_1,admin_1,create_Renderer.getId(),AttributeOwnerType.Action_Handler_Parameter);
+        attributeValueService.save(create_Renderer_param_3_value);
+
+
 
         Renderer show_Renderer = new Renderer("Show",mobile, ObjectActionType.Show,1L,now,now,admin_1,admin_1);
         actionRendererService.save(show_Renderer);
@@ -619,6 +625,24 @@ public class ImportBaseData implements CommandLineRunner {
         attributeService.save(show_Renderer_param_1);
         AttributeValue show_ActionRenderer_param_1_value= new AttributeValue(null,null,null,null,null,null,null,"InstProp(CurrentInst(), text)",Boolean.TRUE,null,show_Renderer_param_1,1L,now,now,admin_1,admin_1,show_Renderer.getId(),AttributeOwnerType.Action_Handler_Parameter);
         attributeValueService.save(show_ActionRenderer_param_1_value);
+
+        Attribute show_Renderer_param_2 =new Attribute("enabled",show_Renderer.getId(),AttributeOwnerType.Action_Handler_Parameter,DataType.Boolean,1L,now,now,admin_1,admin_1);
+        attributeService.save(show_Renderer_param_2);
+        AttributeValue show_ActionRenderer_param_2_value= new AttributeValue(true,null,null,null,null,null,null,null,Boolean.FALSE,null,show_Renderer_param_2,1L,now,now,admin_1,admin_1,show_Renderer.getId(),AttributeOwnerType.Action_Handler_Parameter);
+        attributeValueService.save(show_ActionRenderer_param_2_value);
+
+        Attribute show_Renderer_param_3 =new Attribute("bgColor",show_Renderer.getId(),AttributeOwnerType.Action_Handler_Parameter,DataType.String,1L,now,now,admin_1,admin_1);
+        attributeService.save(show_Renderer_param_3);
+        AttributeValue show_ActionRenderer_param_3_value= new AttributeValue(null,null,null,"",null,null,null,null,Boolean.FALSE,null,show_Renderer_param_3,1L,now,now,admin_1,admin_1,show_Renderer.getId(),AttributeOwnerType.Action_Handler_Parameter);
+        attributeValueService.save(show_ActionRenderer_param_3_value);
+
+        Renderer enable_Renderer = new Renderer("Enable",mobile, ObjectActionType.Enable,1L,now,now,admin_1,admin_1);
+        actionRendererService.save(enable_Renderer);
+
+        Renderer disable_Renderer = new Renderer("disable",mobile, ObjectActionType.Disable,1L,now,now,admin_1,admin_1);
+        actionRendererService.save(disable_Renderer);
+
+
 
 
         Renderer showImage_Renderer = new Renderer("ShowImage",mobile, ObjectActionType.Create,1L,now,now,admin_1,admin_1);

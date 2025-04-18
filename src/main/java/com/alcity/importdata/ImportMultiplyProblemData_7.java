@@ -331,63 +331,61 @@ public class ImportMultiplyProblemData_7 implements CommandLineRunner {
 
 
 
-        Optional<ALCityObject> textObject =alCityObjectService.findByTitle("TextObject");
+        Optional<ALCityObject> textObject_in_multiply =alCityObjectService.findByTitle("TextObject");
+        Optional<ALCityObject> imageObject_in_multiply =alCityObjectService.findByTitle("ImageObject01");
 
 
-        ALCityObjectInPG Multiply_textObject = new ALCityObjectInPG("text object in Multiply puzzlegroup Object","Multiply_Game_TextObject",puzzleGroup_Multiply.get(),textObject.get(),1L,now,now,admin_1,admin_1);
+        ALCityObjectInPG Multiply_textObject = new ALCityObjectInPG("text object in Multiply puzzlegroup Object","Multiply_Game_TextObject",puzzleGroup_Multiply.get(),textObject_in_multiply.get(),1L,now,now,admin_1,admin_1);
         alCityObjectInPGService.save(Multiply_textObject);
 
-        DTOUtil.copyActionFromTo(textObject.get().getId(), Multiply_textObject.getId(),AttributeOwnerType.Object_Action_Handler_Parameter,
+        ALCityObjectInPG Multiply_imageobject = new ALCityObjectInPG("Image object in Multiply puzzlegroup Object","Multiply_Game_ImageObject",puzzleGroup_Multiply.get(),imageObject_in_multiply.get(),1L,now,now,admin_1,admin_1);
+        alCityObjectInPGService.save(Multiply_imageobject);
+
+
+
+        DTOUtil.copyActionFromTo(textObject_in_multiply.get().getId(), Multiply_textObject.getId(),AttributeOwnerType.Object_Action_Handler_Parameter,
                 AttributeOwnerType.Puzzle_Group_Object_Action_Handler_Parameter,actionService,POActionOwnerType.Object,POActionOwnerType.Puzzle_Group_Object,attributeService,attributeValueService);
         Collection<ObjectAction> actions = puzzleObjectActionService.findByOwnerObjectidAndPoActionOwnerType(Multiply_textObject.getId(), POActionOwnerType.Puzzle_Group_Object);
 
-        /*
+
+        DTOUtil.copyActionFromTo(imageObject_in_multiply.get().getId(), Multiply_imageobject.getId(),AttributeOwnerType.Object_Action_Handler_Parameter,
+                AttributeOwnerType.Puzzle_Group_Object_Action_Handler_Parameter,actionService,POActionOwnerType.Object,POActionOwnerType.Puzzle_Group_Object,attributeService,attributeValueService);
+        Collection<ObjectAction> actions_imageObject = puzzleObjectActionService.findByOwnerObjectidAndPoActionOwnerType(Multiply_imageobject.getId(), POActionOwnerType.Puzzle_Group_Object);
+
 
         Iterator<ObjectAction> actionIterator = actions.iterator();
         while(actionIterator.hasNext()){
             ObjectAction objectAction = actionIterator.next();
             Renderer renderer = objectAction.getActionRenderer();
 
-            if(renderer.getHandler().equalsIgnoreCase("ShowImage")){
-                Collection<Attribute> attributes = attributeService.findByOwnerIdAndAttributeOwnerTypeNew(objectAction.getId(),AttributeOwnerType.Puzzle_Group_Object_Action_Handler_Parameter);
-                Iterator<Attribute> attributeIterator = attributes.iterator();
-                while(attributeIterator.hasNext()){
-                    Attribute attribute = attributeIterator.next();
-                    AttributeValue attributeValue = new AttributeValue(null,null,null,null,null,null,null,"InstProp(CurrentInst(), bgImage)",true,null,attribute,1L,now,now,admin_1,admin_1,objectAction.getId(),AttributeOwnerType.Puzzle_Group_Object_Action_Handler_Parameter);
-                    attributeValueService.save(attributeValue);
-                }
-            }
-            if(renderer.getHandler().equalsIgnoreCase("MoveImage")){
-                Collection<Attribute> attributes = attributeService.findByOwnerIdAndAttributeOwnerTypeNew(objectAction.getId(),AttributeOwnerType.Puzzle_Group_Object_Action_Handler_Parameter);
-                Iterator<Attribute> attributeIterator = attributes.iterator();
-                while(attributeIterator.hasNext()){
-                    Attribute attribute = attributeIterator.next();
-                    if(attribute.getName().equalsIgnoreCase("fromRow")) {
-                        AttributeValue attributeValue = new AttributeValue(null, null, null, null, null, null, null, "BoardVar(objX)", true, null, attribute, 1L, now, now, admin_1, admin_1, objectAction.getId(), AttributeOwnerType.Puzzle_Group_Object_Action_Handler_Parameter);
-                        attributeValueService.save(attributeValue);
-                    }
-                    if(attribute.getName().equalsIgnoreCase("toRow")) {
-                        AttributeValue attributeValue = new AttributeValue(null, 0, null, null, null, null, null, null, false, null, attribute, 1L, now, now, admin_1, admin_1, objectAction.getId(), AttributeOwnerType.Puzzle_Group_Object_Action_Handler_Parameter);
-                        attributeValueService.save(attributeValue);
-                    }
-                    if(attribute.getName().equalsIgnoreCase("fromCol")) {
-                        AttributeValue attributeValue = new AttributeValue(null, 0, null, null, null, null, null, null, false, null, attribute, 1L, now, now, admin_1, admin_1, objectAction.getId(), AttributeOwnerType.Puzzle_Group_Object_Action_Handler_Parameter);
-                        attributeValueService.save(attributeValue);
-                    }
-                    if(attribute.getName().equalsIgnoreCase("toCol")) {
-                        AttributeValue attributeValue = new AttributeValue(null, 0, null, null, null, null, null, null, false, null, attribute, 1L, now, now, admin_1, admin_1, objectAction.getId(), AttributeOwnerType.Puzzle_Group_Object_Action_Handler_Parameter);
-                        attributeValueService.save(attributeValue);
-                    }
-                }
-            }
 
+            if(renderer.getObjectAction().name().equalsIgnoreCase("Show")){
+                Collection<Attribute> attributes = attributeService.findByOwnerIdAndAttributeOwnerTypeNew(objectAction.getId(),AttributeOwnerType.Puzzle_Group_Object_Action_Handler_Parameter);
+                Iterator<Attribute> attributeIterator = attributes.iterator();
+                while(attributeIterator.hasNext()){
+                    Attribute attribute = attributeIterator.next();
+                    if(attribute.getName().equalsIgnoreCase("enabled")) {
+                        AttributeValue attributeValue = new AttributeValue(false, null, null, null, null, null, null, null, false, null, attribute, 1L, now, now, admin_1, admin_1, objectAction.getId(), AttributeOwnerType.Puzzle_Group_Object_Action_Handler_Parameter);
+                        attributeValueService.save(attributeValue);
+                    }
+                    if(attribute.getName().equalsIgnoreCase("bgColor")) {
+                        AttributeValue attributeValue = new AttributeValue(null, null, null, "white", null, null, null, null, false, null, attribute, 1L, now, now, admin_1, admin_1, objectAction.getId(), AttributeOwnerType.Puzzle_Group_Object_Action_Handler_Parameter);
+                        attributeValueService.save(attributeValue);
+                    }
+                 }
+            }
         }
+        Attribute textObject_property_text =new Attribute("text",Multiply_textObject.getId(),AttributeOwnerType.Puzzle_Group_Object_Property,DataType.String,1L,now,now,admin_1,admin_1);
+        attributeService.save(textObject_property_text);
+        AttributeValue  textObject_property_text_value= new AttributeValue(null,null,null,"",null,null,null,null,Boolean.FALSE,null,textObject_property_text,1L,now,now,admin_1,admin_1,Multiply_textObject.getId(),AttributeOwnerType.Puzzle_Group_Object_Property);
+        attributeValueService.save(textObject_property_text_value);
 
+        Attribute textObject_property_enabled =new Attribute("enabled",Multiply_textObject.getId(),AttributeOwnerType.Puzzle_Group_Object_Property,DataType.Boolean,1L,now,now,admin_1,admin_1);
+        attributeService.save(textObject_property_enabled);
+        AttributeValue  textObject_property_enabled_value= new AttributeValue(false,null,null,null,null,null,null,null,Boolean.FALSE,null,textObject_property_enabled,1L,now,now,admin_1,admin_1,Multiply_textObject.getId(),AttributeOwnerType.Puzzle_Group_Object_Property);
+        attributeValueService.save(textObject_property_enabled_value);
 
-        Attribute ImageObject01_property_bgImage =new Attribute("bgImage",mazeGame_ImageObject.getId(),AttributeOwnerType.Puzzle_Group_Object_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
-        attributeService.save(ImageObject01_property_bgImage);
-        AttributeValue  Image0object_property_1_value= new AttributeValue(null,null,null,null,null,null,puzzle_group_1_binary_content_image.getId(),null,Boolean.FALSE,null,ImageObject01_property_bgImage,1L,now,now,admin_1,admin_1,mazeGame_ImageObject.getId(),AttributeOwnerType.Puzzle_Group_Object_Property);
-        attributeValueService.save(Image0object_property_1_value);
+/*
 
 
         Attribute ImageObject01_variable_canMove=new Attribute("canMove",mazeGame_ImageObject.getId(),AttributeOwnerType.Puzzle_Group_Object_Variable,DataType.Boolean,1L,now,now,admin_1,admin_1);

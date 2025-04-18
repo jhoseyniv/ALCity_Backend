@@ -240,7 +240,7 @@ public class ImportMazeProblemData_6 implements CommandLineRunner {
         Boolean rotation=false;
 
         byte[] boardGraphic2 = ImageUtil.convertObjectToBytes(boardGraphic);
-        PLGround pl_Memory_Game_ground = new PLGround(4,5,xPos,yPos,zPos,xRotation,xRotation,xRotation,zoom,pan,rotation,maze_Game, boardGraphic2,1L,now,now,admin_1,admin_1);
+        PLGround pl_Memory_Game_ground = new PLGround(21,21,xPos,yPos,zPos,xRotation,xRotation,xRotation,zoom,pan,rotation,maze_Game, boardGraphic2,1L,now,now,admin_1,admin_1);
         puzzleLevelGroundService.save(pl_Memory_Game_ground);
 
         PermitedPlayer player_1_puzzleLevel_Maze = new PermitedPlayer(Alireza_Zare,maze_Game,1L,now,now,admin_1,admin_1);
