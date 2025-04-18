@@ -744,7 +744,7 @@ public class DTOUtil {
         return dtos;
     }
 
-    public static RoadMapDTO getRoadMapDTO(RoadMap entity) {
+    public static RoadMapDTO getJourneyRoadMapDTO(RoadMap entity) {
         RoadMapDTO dto = new RoadMapDTO();
         dto.setId(entity.getId());
         dto.setXpos(entity.getXpos());
@@ -757,7 +757,7 @@ public class DTOUtil {
         Collection<RoadMapDTO> dtos = new ArrayList<RoadMapDTO>();
         Iterator<RoadMap> itr = roadMaps.iterator();
         while (itr.hasNext()) {
-            RoadMapDTO dto = getRoadMapDTO(itr.next());
+            RoadMapDTO dto = getJourneyRoadMapDTO(itr.next());
             dtos.add(dto);
         }
         return dtos;

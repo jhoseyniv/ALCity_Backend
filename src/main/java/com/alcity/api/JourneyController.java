@@ -1,6 +1,9 @@
 package com.alcity.api;
 
 import com.alcity.dto.journey.JourneyStepRecord;
+import com.alcity.dto.journey.RoadMapDTO;
+import com.alcity.entity.journey.RoadMap;
+import com.alcity.service.Journey.RoadMapService;
 import com.alcity.service.customexception.ALCityResponseObject;
 import com.alcity.service.customexception.UniqueConstraintException;
 import com.alcity.service.customexception.ViolateForeignKeyException;
@@ -36,6 +39,8 @@ public class JourneyController {
     private JourneyService journeyService;
     @Autowired
     private JourneyStepService journeyStepService;
+    @Autowired
+    private RoadMapService roadMapService;
 
     @Autowired
     private AppMemberRepository appMemberRepository;
@@ -99,6 +104,7 @@ public class JourneyController {
 
         return responseObject;
     }
+
     @Operation( summary = "Save a  Journey Step",  description = "save a Journey Step and their data to data base")
     @PostMapping("/save/step")
     @CrossOrigin(origins = "*")
@@ -124,6 +130,64 @@ public class JourneyController {
         else
             responseObject = new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", -1L, "Record Not Found!");
      return responseObject;
+    }
+
+    @Operation( summary = "Save a  Road Map",  description = "save a Road Map and their data to data base")
+    @PostMapping("/save/road-map")
+    @CrossOrigin(origins = "*")
+    public ALCityResponseObject saveOrEditRoadMap(@RequestBody RoadMapDTO dto)  {
+        RoadMap savedRecord = null;
+        ALCityResponseObject responseObject = new ALCityResponseObject();
+        if (dto.getId() == null || dto.getId() <= 0L) { //save
+            try {
+                savedRecord = roadMapService.save(dto,"Save");
+            } catch (RuntimeException e) {
+                throw new UniqueConstraintException("Road Map", dto.getId(), "Must be Unique");
+            }
+            responseObject = new ALCityResponseObject(HttpStatus.OK.value(), "ok", savedRecord.getId(), "Record Saved Successfully!");
+        } else if (dto.getId() > 0L ) {//edit
+            savedRecord = roadMapService.save(dto, "Edit");
+            if(savedRecord !=null)
+                responseObject = new ALCityResponseObject(HttpStatus.OK.value(), "ok", savedRecord.getId(), "Record Updated Successfully!");
+            else
+                responseObject = new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", dto.getId(), "Record Not Found!");
+        }
+        else if (savedRecord==null)
+            responseObject = new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", -1L, "Record Not Found!");
+        else
+            responseObject = new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", -1L, "Record Not Found!");
+        return responseObject;
+    }
+
+    @DeleteMapping("/del/road-map/id/{id}")
+    public ResponseEntity<String> deleteJourneyRoadMapById(@PathVariable Long id) {
+        Optional<RoadMap> existingRecord = roadMapService.findById(id);
+        if(existingRecord.isPresent()){
+            try {
+                roadMapService.deleteById(existingRecord.get().getId());
+
+            }catch (Exception e )
+            {
+                throw new ViolateForeignKeyException("Road Map  With Id not deleted", existingRecord.get().getId(), RoadMap.class.toString());
+            }
+            return new ResponseEntity<>("Record deleted Successfully!", HttpStatus.OK);
+        }
+        return ResponseEntity.notFound().build();
+    }
+    @DeleteMapping("/del/step/id/{id}")
+    public ResponseEntity<String> deleteJourneyStepById(@PathVariable Long id) {
+        Optional<JourneyStep> existingRecord = journeyStepService.findById(id);
+        if(existingRecord.isPresent()){
+            try {
+                journeyService.deleteById(existingRecord.get().getId());
+
+            }catch (Exception e )
+            {
+                throw new ViolateForeignKeyException(existingRecord.get().getTitle(), existingRecord.get().getId(), JourneyStep.class.toString());
+            }
+            return new ResponseEntity<>("Record deleted Successfully!", HttpStatus.OK);
+        }
+        return ResponseEntity.notFound().build();
     }
 
     @DeleteMapping("/del/{id}")
@@ -153,6 +217,16 @@ public class JourneyController {
         return dtos;
     }
 
+    @Operation( summary = "Get all road maps for a Journey ",  description = "Get all steps")
+    @RequestMapping(value = "/id/{id}/road-map/all", method = RequestMethod.GET)
+    @ResponseBody
+    @CrossOrigin(origins = "*")
+    public Collection<RoadMapDTO> getJourneyRoadMapsById(@PathVariable Long id) {
+        Optional<Journey> journeyOptional = journeyService.findById(id);
+        Collection<RoadMap> roadMaps = journeyOptional.get().getRoadMaps();
+        Collection<RoadMapDTO> dtos = DTOUtil.getJourneyRoadMapsDTOS(roadMaps);
+        return dtos;
+    }
 
 
 }

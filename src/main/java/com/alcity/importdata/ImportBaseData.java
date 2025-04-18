@@ -569,9 +569,11 @@ public class ImportBaseData implements CommandLineRunner {
         binaryContentService.save(image_RoadMap1_journey_1);
 
         RoadMap roadMap1=new RoadMap(0,0,image_RoadMap1_journey_1,journey_1,1L,now,now,jalalHoseyni,jalalHoseyni);
-       // RoadMap roadMap2=new RoadMap(300,300,image_journey_2,journey_1,1L,now,now,jalalHoseyni,jalalHoseyni);
+        RoadMap roadMap2=new RoadMap(300,300,image_journey_2,journey_1,1L,now,now,jalalHoseyni,jalalHoseyni);
+        RoadMap roadMap3=new RoadMap(300,300,image_journey_3,journey_1,1L,now,now,jalalHoseyni,jalalHoseyni);
         roadMapService.save(roadMap1);
-     //   roadMapService.save(roadMap2);
+        roadMapService.save(roadMap2);
+        roadMapService.save(roadMap3);
 
         JourneyLearningSkill journey_1_Skill_1 = new JourneyLearningSkill(0.5f,journey_1,timeManagement,1L,now,now,admin_1,admin_1);
         JourneyLearningSkill journey_1_Skill_2 = new JourneyLearningSkill(0.5f,journey_1,division,1L,now,now,admin_1,admin_1);

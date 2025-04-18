@@ -1,9 +1,18 @@
 package com.alcity.service.Journey;
 
+import com.alcity.dto.journey.JourneyStepRecord;
 import com.alcity.dto.journey.RoadMapDTO;
+import com.alcity.entity.appmember.AppMember;
+import com.alcity.entity.base.BinaryContent;
 import com.alcity.entity.journey.Journey;
+import com.alcity.entity.journey.JourneyStep;
 import com.alcity.entity.journey.RoadMap;
+import com.alcity.entity.puzzle.PuzzleGroup;
+import com.alcity.repository.appmember.AppMemberRepository;
+import com.alcity.repository.journey.JourneyRepository;
 import com.alcity.repository.journey.RoadMapRepository;
+import com.alcity.service.base.BinaryContentService;
+import com.alcity.utility.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,8 +26,14 @@ public class RoadMapService implements RoadMapRepository {
     @Autowired
     RoadMapRepository roadMapRepository;
 
+    @Autowired
+    AppMemberRepository appMemberRepository;
 
-    
+    @Autowired
+    JourneyRepository journeyRepository;
+    @Autowired
+    BinaryContentService binaryContentService;
+
     @Override
     public <S extends RoadMap> S save(S entity) {
         return roadMapRepository.save(entity);
@@ -61,9 +76,36 @@ public class RoadMapService implements RoadMapRepository {
 
     @Override
     public void deleteById(Long aLong) {
-
+        roadMapRepository.deleteById(aLong);
     }
+    public RoadMap save(RoadMapDTO dto, String code) {
+        Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
+        RoadMap roadMap=null;
+        Optional<BinaryContent> binaryContentOptional= binaryContentService.findById(dto.getGraphicId());
+        Optional<Journey>  journeyOptional = journeyRepository.findById(dto.getJourneyId());
 
+        if(journeyOptional.isEmpty() || binaryContentOptional.isEmpty())  return  null;
+
+        if (code.equalsIgnoreCase("Save")) { //Save
+            roadMap = new RoadMap(dto.getXpos() ,dto.getYpos(),binaryContentOptional.get(),journeyOptional.get(),
+                    1L,DateUtils.getNow(),DateUtils.getNow(),createdBy.get(),createdBy.get());
+            roadMapRepository.save(roadMap);
+        }else{//edit
+            Optional<RoadMap> roadMapOptional= roadMapRepository.findById(dto.getId());
+            if(roadMapOptional.isPresent()) {
+                roadMap = roadMapOptional.get();
+                roadMap.setJourney(journeyOptional.get());
+                roadMap.setVersion(roadMap.getVersion()+1);
+                roadMap.setUpdated(DateUtils.getNow());
+                roadMap.setUpdatedBy(createdBy.get());
+                roadMap.setXpos(dto.getXpos());
+                roadMap.setYpos(dto.getYpos());
+                roadMap.setGraphic(binaryContentOptional.get());
+                roadMapRepository.save(roadMap);
+            }
+        }
+        return roadMap;
+    }
     @Override
     public void delete(RoadMap entity) {
 

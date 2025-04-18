@@ -5,6 +5,7 @@ public class RoadMapDTO {
     private Long id;
     private Integer xpos;
     private Integer ypos;
+    private Long journeyId;
     private Long graphicId;
 
     public Long getId() {
@@ -42,10 +43,19 @@ public class RoadMapDTO {
     public RoadMapDTO() {
     }
 
-    public RoadMapDTO(Long id, Integer xpos, Integer ypos, Long graphicId) {
-        this.id =id;
+    public Long getJourneyId() {
+        return journeyId;
+    }
+
+    public void setJourneyId(Long journeyId) {
+        this.journeyId = journeyId;
+    }
+
+    public RoadMapDTO(Long id, Integer xpos, Integer ypos, Long journeyId, Long graphicId) {
+        this.id = id;
         this.xpos = xpos;
         this.ypos = ypos;
+        this.journeyId = journeyId;
         this.graphicId = graphicId;
     }
 }
