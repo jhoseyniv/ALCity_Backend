@@ -111,7 +111,7 @@ public class PLRulePostActionService implements PLRulePostActionRepository {
 
     @Override
     public void deleteById(Long aLong) {
-
+        plRulePostActionRepository.deleteById(aLong);
     }
 
     @Override

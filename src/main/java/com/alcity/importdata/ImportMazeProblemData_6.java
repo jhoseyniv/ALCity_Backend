@@ -867,7 +867,6 @@ public class ImportMazeProblemData_6 implements CommandLineRunner {
         ALCityInstanceInPL instance_img0517 = new ALCityInstanceInPL("instance_img0517",5,17,0,mazeGame_ImageObject,maze_Game,1L,now,now,admin_1,admin_1);
         pgObjectInstanceService.save(instance_img0517);
 
-
         ALCityInstanceInPL instance_img0519 = new ALCityInstanceInPL("instance_img0519",5,19,0,mazeGame_ImageObject,maze_Game,1L,now,now,admin_1,admin_1);
         pgObjectInstanceService.save(instance_img0519);
 

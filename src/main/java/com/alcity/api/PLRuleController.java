@@ -122,7 +122,7 @@ public class PLRuleController {
         Optional<PLRulePostAction> existingRecord = plRulePostActionService.findById(id);
         if(existingRecord.isPresent()){
             try {
-                plRuleService.deleteById(existingRecord.get().getId());
+                plRulePostActionService.deleteById(existingRecord.get().getId());
             }catch (Exception e )
             {
                 throw new ViolateForeignKeyException(existingRecord.get().getActionName(), existingRecord.get().getId(), PLRule.class.toString());
