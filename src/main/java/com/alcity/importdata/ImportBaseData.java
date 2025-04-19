@@ -772,6 +772,12 @@ public class ImportBaseData implements CommandLineRunner {
         ObjectAction textObject_Show_Action = new ObjectAction(POActionOwnerType.Object,textObject.getId(), ObjectActionType.Show,show_Renderer,1L,now,now,admin_1,admin_1);
         puzzleObjectActionService.save(textObject_Show_Action);
 
+        ObjectAction textObject_Enable_Action = new ObjectAction(POActionOwnerType.Object,textObject.getId(), ObjectActionType.Enable,enable_Renderer,1L,now,now,admin_1,admin_1);
+        puzzleObjectActionService.save(textObject_Enable_Action);
+
+        ObjectAction textObject_Disable_Action = new ObjectAction(POActionOwnerType.Object,textObject.getId(), ObjectActionType.Disable,disable_Renderer,1L,now,now,admin_1,admin_1);
+        puzzleObjectActionService.save(textObject_Disable_Action);
+
         ALCityObject imageObject01 = new ALCityObject(1L,now,now,jalalHoseyni,jalalHoseyni,"ImageObject01",objectCategory_Image,image_Object_pic,image_Object_pic);
         alCityObjectService.save(imageObject01);
 

@@ -480,7 +480,7 @@ public class ImportMemoryGameProblemData_4 implements CommandLineRunner {
         AttributeValue ImageObject01_variable_2_value4 = new AttributeValue(null,null,null,"B",null,null,null,null,false,null,ImageObject01_variable_2,1L,now,now,admin_1,admin_1,instance_img2.getId(),AttributeOwnerType.Instance_Puzzle_Group_Object_Variable);
         attributeValueService.save(ImageObject01_variable_2_value4);
 
-        AttributeValue  Image0object_property_1_value4= new AttributeValue(null,null,null,null,null,null,F_Image_bytes_content.getId(),null,Boolean.FALSE,null,ImageObject01_property_1,1L,now,now,admin_1,admin_1,instance_img2.getId(),AttributeOwnerType.Instance_Puzzle_Group_Object_Property);
+        AttributeValue  Image0object_property_1_value4= new AttributeValue(null,null,null,null,null,null,B_Image_bytes_content.getId(),null,Boolean.FALSE,null,ImageObject01_property_1,1L,now,now,admin_1,admin_1,instance_img2.getId(),AttributeOwnerType.Instance_Puzzle_Group_Object_Property);
         attributeValueService.save(Image0object_property_1_value4);
 
 
@@ -490,7 +490,7 @@ public class ImportMemoryGameProblemData_4 implements CommandLineRunner {
         AttributeValue ImageObject01_variable_2_value5 = new AttributeValue(null,null,null,"H",null,null,null,null,false,null,ImageObject01_variable_2,1L,now,now,admin_1,admin_1,instance_img3.getId(),AttributeOwnerType.Instance_Puzzle_Group_Object_Variable);
         attributeValueService.save(ImageObject01_variable_2_value5);
 
-        AttributeValue  Image0object_property_1_value5= new AttributeValue(null,null,null,null,null,null,F_Image_bytes_content.getId(),null,Boolean.FALSE,null,ImageObject01_property_1,1L,now,now,admin_1,admin_1,instance_img3.getId(),AttributeOwnerType.Instance_Puzzle_Group_Object_Property);
+        AttributeValue  Image0object_property_1_value5= new AttributeValue(null,null,null,null,null,null,H_Image_bytes_content.getId(),null,Boolean.FALSE,null,ImageObject01_property_1,1L,now,now,admin_1,admin_1,instance_img3.getId(),AttributeOwnerType.Instance_Puzzle_Group_Object_Property);
         attributeValueService.save(Image0object_property_1_value5);
 
 
