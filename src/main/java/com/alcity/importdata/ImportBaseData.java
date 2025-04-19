@@ -731,7 +731,7 @@ public class ImportBaseData implements CommandLineRunner {
 
         Attribute flipImage_Renderer_param_1 =new Attribute("img",flipImage_Renderer.getId(),AttributeOwnerType.Action_Handler_Parameter,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(flipImage_Renderer_param_1);
-        AttributeValue flipImage_ActionRenderer_param_1_value= new AttributeValue(null,null,null,null,null,null,null,"InstProp(CurrentInst(), image)",Boolean.TRUE,null,flipImage_Renderer_param_1,1L,now,now,admin_1,admin_1,flipImage_Renderer.getId(),AttributeOwnerType.Action_Handler_Parameter);
+        AttributeValue flipImage_ActionRenderer_param_1_value= new AttributeValue(null,null,null,null,null,null,null,"InstProp(CurrentInst(), bgimage)",Boolean.TRUE,null,flipImage_Renderer_param_1,1L,now,now,admin_1,admin_1,flipImage_Renderer.getId(),AttributeOwnerType.Action_Handler_Parameter);
         attributeValueService.save(flipImage_ActionRenderer_param_1_value);
 
         Attribute withNext_Renderer_param_1 =new Attribute("withNext", flipImage_Renderer.getId(),AttributeOwnerType.Action_Handler_Parameter,DataType.Boolean,1L,now,now,admin_1,admin_1);
