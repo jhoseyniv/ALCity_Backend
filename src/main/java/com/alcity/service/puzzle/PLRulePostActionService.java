@@ -46,7 +46,6 @@ public class PLRulePostActionService implements PLRulePostActionRepository {
     public PLRulePostAction save(PLRulePostActionDTO dto, String code) {
        Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
        PLRulePostAction postAction=null;
-       PuzzleLevel puzzleLevel = null;
         Optional<PLRule>  plRuleOptional = ruleRepository.findById(dto.getPuzzleLevelRuleId());
         Optional<PLRulePostActionType>  plRulePostActionTypeOptional = plRulePostActionTypeRepository.findByValue(dto.getPlRulePostActionType());
 
@@ -72,7 +71,7 @@ public class PLRulePostActionService implements PLRulePostActionRepository {
                 postAction.setUpdated(DateUtils.getNow());
                 postAction.setCreatedBy(createdBy.get());
                 postAction.setUpdatedBy(createdBy.get());
-                postAction.setVersion(puzzleLevel.getVersion()+1);
+                postAction.setVersion(postAction.getVersion()+1);
                 plRulePostActionRepository.save(postAction);
             }
         }
