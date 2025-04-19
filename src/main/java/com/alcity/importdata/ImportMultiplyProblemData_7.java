@@ -385,6 +385,16 @@ public class ImportMultiplyProblemData_7 implements CommandLineRunner {
         AttributeValue  textObject_property_enabled_value= new AttributeValue(false,null,null,null,null,null,null,null,Boolean.FALSE,null,textObject_property_enabled,1L,now,now,admin_1,admin_1,Multiply_textObject.getId(),AttributeOwnerType.Puzzle_Group_Object_Property);
         attributeValueService.save(textObject_property_enabled_value);
 
+
+        byte[] Multiply_imageobject_bytes = ImageUtil.getImage("src/main/resources/images/Multiply_Game/","multyply_bg.png");
+        BinaryContent Multiply_imageobject_bytes_content = new BinaryContent(1L, now, now,admin_1 , admin_1,"multyply_bg",Multiply_imageobject_bytes.length,Multiply_imageobject_bytes,null,"multyply_bg","","",BinaryContentType.Image);
+        binaryContentService.save(Multiply_imageobject_bytes_content);
+
+        Attribute ImageObject01_property_bgImage =new Attribute("bgImage",Multiply_imageobject.getId(),AttributeOwnerType.Puzzle_Group_Object_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
+        attributeService.save(ImageObject01_property_bgImage);
+        AttributeValue  Image0object_variable_2_value= new AttributeValue(false,null,null,null,null,null,Multiply_imageobject_bytes_content.getId(),null,Boolean.FALSE,null,ImageObject01_property_bgImage,1L,now,now,admin_1,admin_1,Multiply_imageobject.getId(),AttributeOwnerType.Puzzle_Group_Object_Property);
+        attributeValueService.save(Image0object_variable_2_value);
+
 /*
 
 
@@ -393,10 +403,6 @@ public class ImportMultiplyProblemData_7 implements CommandLineRunner {
         AttributeValue  Image0object_variable_1_value= new AttributeValue(false,null,null,null,null,null,null,null,Boolean.FALSE,null,ImageObject01_variable_canMove,1L,now,now,admin_1,admin_1,mazeGame_ImageObject.getId(),AttributeOwnerType.Puzzle_Group_Object_Variable);
         attributeValueService.save(Image0object_variable_1_value);
 
-        Attribute ImageObject01_variable_isTarget =new Attribute("isTarget",mazeGame_ImageObject.getId(),AttributeOwnerType.Puzzle_Group_Object_Variable,DataType.Boolean,1L,now,now,admin_1,admin_1);
-        attributeService.save(ImageObject01_variable_isTarget);
-        AttributeValue  Image0object_variable_2_value= new AttributeValue(false,null,null,null,null,null,null,null,Boolean.FALSE,null,ImageObject01_variable_isTarget,1L,now,now,admin_1,admin_1,mazeGame_ImageObject.getId(),AttributeOwnerType.Puzzle_Group_Object_Variable);
-        attributeValueService.save(Image0object_variable_2_value);
 
         Optional<PLRuleEvent> click_event = plRuleEventService.findByName("Click");
         Optional<PLRuleEvent> internalEvent = plRuleEventService.findByName("internalevent");

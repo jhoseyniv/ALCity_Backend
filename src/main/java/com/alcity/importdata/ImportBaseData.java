@@ -639,7 +639,7 @@ public class ImportBaseData implements CommandLineRunner {
         Renderer enable_Renderer = new Renderer("Enable",mobile, ObjectActionType.Enable,1L,now,now,admin_1,admin_1);
         actionRendererService.save(enable_Renderer);
 
-        Renderer disable_Renderer = new Renderer("disable",mobile, ObjectActionType.Disable,1L,now,now,admin_1,admin_1);
+        Renderer disable_Renderer = new Renderer("ِDisable",mobile, ObjectActionType.Disable,1L,now,now,admin_1,admin_1);
         actionRendererService.save(disable_Renderer);
 
 

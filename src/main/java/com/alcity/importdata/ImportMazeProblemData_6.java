@@ -213,9 +213,9 @@ public class ImportMazeProblemData_6 implements CommandLineRunner {
 
         BinaryContent puzzle_group_1_binary_content_image = binaryContentService.findByfileName("image_puzzle_group_matematic");
 
-        byte[] pl_pic_Maze_Cell_bytes = ImageUtil.getImage("src/main/resources/images/Maze_Game/","cat.png");
-        BinaryContent pl_pic_Maze_Cell_content = new BinaryContent(1L, now, now,admin_1 , admin_1,"cat",pl_pic_Maze_Cell_bytes.length,pl_pic_Maze_Cell_bytes,null,"cat","","",BinaryContentType.Image);
-        binaryContentService.save(pl_pic_Maze_Cell_content);
+        byte[] maze_Cell_start_bytes = ImageUtil.getImage("src/main/resources/images/Maze_Game/","cat.png");
+        BinaryContent maze_Cell_start_content = new BinaryContent(1L, now, now,admin_1 , admin_1,"cat",maze_Cell_start_bytes.length,maze_Cell_start_bytes,null,"cat","","",BinaryContentType.Image);
+        binaryContentService.save(maze_Cell_start_content);
 
         Optional<PuzzleGroup>  puzzleGroup_Maze =puzzleGroupService.findByTitle("Maze Puzzle Group");
 
@@ -352,11 +352,19 @@ public class ImportMazeProblemData_6 implements CommandLineRunner {
 
         }
 
-
         Attribute ImageObject01_property_bgImage =new Attribute("bgImage",mazeGame_ImageObject.getId(),AttributeOwnerType.Puzzle_Group_Object_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(ImageObject01_property_bgImage);
-        AttributeValue  Image0object_property_1_value= new AttributeValue(null,null,null,null,null,null,puzzle_group_1_binary_content_image.getId(),null,Boolean.FALSE,null,ImageObject01_property_bgImage,1L,now,now,admin_1,admin_1,mazeGame_ImageObject.getId(),AttributeOwnerType.Puzzle_Group_Object_Property);
-        attributeValueService.save(Image0object_property_1_value);
+//        Attribute attributeBGImage_Image_Object= null;
+//        Collection<Attribute> attributes = attributeService.findPropertiesForALCityObject(imageObject01.get().getId(),AttributeOwnerType.Object_Property);
+//        Iterator<Attribute> attributeIterator = attributes.iterator();
+//        while(actionIterator.hasNext()){
+//            Attribute attribute = attributeIterator.next();
+//            if(attribute.getName().equalsIgnoreCase("bgImage")) {
+//                attributeBGImage_Image_Object =attribute;
+//
+//            }
+//        }
+
 
 
         Attribute ImageObject01_variable_canMove=new Attribute("canMove",mazeGame_ImageObject.getId(),AttributeOwnerType.Puzzle_Group_Object_Variable,DataType.Boolean,1L,now,now,admin_1,admin_1);
@@ -510,6 +518,7 @@ public class ImportMazeProblemData_6 implements CommandLineRunner {
         AttributeValue  FireEventAction_Swipe2Right_1_param_2_value= new AttributeValue(null,1,null,null,null,null,null,null,Boolean.FALSE,null,FireEventAction_Swipe2Right_1_param_2,1L,now,now,admin_1,admin_1,FireEventAction_Swipe2Right_1.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action_Parameter);
         attributeValueService.save(FireEventAction_Swipe2Right_1_param_2_value);
 
+
         StringBuffer   Swipe2Left_rule_condition = new StringBuffer("equal(BoardVar(finished),false) & equal(EventParam(dir), LEFT) & (BoardVar(objY)>1) & equal(InstByPos(BoardVar(objX), BoardVar(objY)-1), null)");
         Boolean ignoreRemaining_Swipe2Left = false;
         PLRule rule_for_Swipe2Left = new PLRule("Swipe2Left",8
@@ -525,7 +534,7 @@ public class ImportMazeProblemData_6 implements CommandLineRunner {
         AttributeValue  FireEventAction_Swipe2Left_1_param_1_value= new AttributeValue(null,0,null,null,null,null,null,null,Boolean.FALSE,null,FireEventAction_Swipe2Left_1_param_1,1L,now,now,admin_1,admin_1,FireEventAction_Swipe2Left_1.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action_Parameter);
         attributeValueService.save(FireEventAction_Swipe2Left_1_param_1_value);
 
-        Attribute FireEventAction_Swipe2Left_1_param_2=new Attribute("colInc",FireEventAction_Swipe2Right_1.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action_Parameter,DataType.Integer,1L,now,now,admin_1,admin_1);
+        Attribute FireEventAction_Swipe2Left_1_param_2=new Attribute("colInc",FireEventAction_Swipe2Left_1.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action_Parameter,DataType.Integer,1L,now,now,admin_1,admin_1);
         attributeService.save(FireEventAction_Swipe2Left_1_param_2);
         AttributeValue  FireEventAction_Swipe2Left_1_param_2_value= new AttributeValue(null,-1,null,null,null,null,null,null,Boolean.FALSE,null,FireEventAction_Swipe2Left_1_param_2,1L,now,now,admin_1,admin_1,FireEventAction_Swipe2Left_1.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action_Parameter);
         attributeValueService.save(FireEventAction_Swipe2Left_1_param_2_value);
@@ -672,7 +681,7 @@ public class ImportMazeProblemData_6 implements CommandLineRunner {
         ALCityInstanceInPL instance_img2001 = new ALCityInstanceInPL("instance_img2001",20,1,0,mazeGame_ImageObject,maze_Game,1L,now,now,admin_1,admin_1);
         pgObjectInstanceService.save(instance_img2001);
 
-        AttributeValue instance_img0_property_bgimage_1_value2 = new AttributeValue(null,null,null,null,null,null,pl_pic_Maze_Cell_content.getId(),null,false,null,ImageObject01_property_bgImage,1L,now,now,admin_1,admin_1,instance_img2001.getId(),AttributeOwnerType.Instance_Puzzle_Group_Object_Variable);
+        AttributeValue instance_img0_property_bgimage_1_value2 = new AttributeValue(null,null,null,null,null,null,maze_Cell_start_content.getId(),null,false,null,ImageObject01_property_bgImage,1L,now,now,admin_1,admin_1,instance_img2001.getId(),AttributeOwnerType.Instance_Puzzle_Group_Object_Variable);
         attributeValueService.save(instance_img0_property_bgimage_1_value2);
 
         AttributeValue  instance_variable_canMove_value2= new AttributeValue(true,null,null,null,null,null,null,null,Boolean.FALSE,null,ImageObject01_variable_canMove,1L,now,now,admin_1,admin_1,instance_img2001.getId(),AttributeOwnerType.Instance_Puzzle_Group_Object_Property);
@@ -949,7 +958,10 @@ public class ImportMazeProblemData_6 implements CommandLineRunner {
         ALCityInstanceInPL instance_img0819 = new ALCityInstanceInPL("instance_img0819",8,19,0,mazeGame_ImageObject,maze_Game,1L,now,now,admin_1,admin_1);
         pgObjectInstanceService.save(instance_img0819);
 
-         ALCityInstanceInPL instance_img0901 = new ALCityInstanceInPL("instance_img0901",9,1,0,mazeGame_ImageObject,maze_Game,1L,now,now,admin_1,admin_1);
+        ALCityInstanceInPL instance_img0821 = new ALCityInstanceInPL("instance_img0821",8,21,0,mazeGame_ImageObject,maze_Game,1L,now,now,admin_1,admin_1);
+        pgObjectInstanceService.save(instance_img0821);
+
+        ALCityInstanceInPL instance_img0901 = new ALCityInstanceInPL("instance_img0901",9,1,0,mazeGame_ImageObject,maze_Game,1L,now,now,admin_1,admin_1);
         pgObjectInstanceService.save(instance_img0901);
 
         ALCityInstanceInPL instance_img0903 = new ALCityInstanceInPL("instance_img0903",9,3,0,mazeGame_ImageObject,maze_Game,1L,now,now,admin_1,admin_1);

@@ -419,6 +419,13 @@ public class AttributeService implements AttributeRepository {
         outputAttributes.addAll(defined_properties_in_a_object);
         return outputAttributes;
     }
+    public Collection<Attribute> findPropertiesForALCityObject(Long object_id,AttributeOwnerType ownerType){
+        //find properties for a object as parent of pgo + find properties for a pgo
+       Collection<Attribute> properties_for_object = attributeRepository.findByOwnerIdAndAttributeOwnerType(object_id,ownerType);
+
+
+        return properties_for_object;
+    }
 
     public Collection<Attribute> getVariablesValuesForThisOwner(Collection<Attribute> attributes , Long ownerId ){
         Collection<Attribute> output_attributes = new ArrayList<>();
