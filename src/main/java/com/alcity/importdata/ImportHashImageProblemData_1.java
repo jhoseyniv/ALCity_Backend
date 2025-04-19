@@ -206,17 +206,20 @@ public class ImportHashImageProblemData_1 implements CommandLineRunner {
         Optional<PuzzleGroup> puzzleGroup_X_O = puzzleGroupService.findByTitle("X-O Puzzle Group");
         Optional<PuzzleGroup> puzzleGroup_Pipe = puzzleGroupService.findByTitle("Science Puzzle Group");
         Optional<PuzzleGroup> puzzleGroup_Maze = puzzleGroupService.findByTitle("Maze Puzzle Group");
+        Optional<PuzzleGroup> puzzleGroup_Multiply = puzzleGroupService.findByTitle("Multiply Puzzle Group");
 
         JourneyStep step_1_journey_1 = new JourneyStep("step1_journey_1",1,245,80,journey_1.get(),puzzleGroup_HashImage.get(),1L,now,now,admin_1,admin_1);
         JourneyStep step_2_journey_1 = new JourneyStep("step2_journey_1",2,300,260,journey_1.get(),puzzleGroup_X_O.get(),1L,now,now,admin_1,admin_1);
         JourneyStep step_3_journey_1 = new JourneyStep("step3_journey_1",3,470,410,journey_1.get(),puzzleGroup_IQ.get(),1L,now,now,admin_1,admin_1);
         JourneyStep step_4_journey_1 = new JourneyStep("step4_journey_1",4,95,290,journey_1.get(),puzzleGroup_Pipe.get(),1L,now,now,admin_1,admin_1);
         JourneyStep step_5_journey_1 = new JourneyStep("step5_journey_1",5,165,540,journey_1.get(),puzzleGroup_Maze.get(),1L,now,now,admin_1,admin_1);
+        JourneyStep step_6_journey_1 = new JourneyStep("step6_journey_1",6,220,740,journey_1.get(),puzzleGroup_Multiply.get(),1L,now,now,admin_1,admin_1);
         journeyStepService.save(step_1_journey_1);
         journeyStepService.save(step_2_journey_1);
         journeyStepService.save(step_3_journey_1);
         journeyStepService.save(step_4_journey_1);
         journeyStepService.save(step_5_journey_1);
+        journeyStepService.save(step_6_journey_1);
 
         PLPrivacy privacy_1 = plPrivacyService.findByValue("Public");
         byte[] puzzle_group_Hash_Image = ImageUtil.getImage("src/main/resources/images/hashImage_Puzzle","hashImage_pic.png");
