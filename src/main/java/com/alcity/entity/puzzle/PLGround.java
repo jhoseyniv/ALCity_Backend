@@ -17,22 +17,22 @@ public class PLGround extends BaseTable {
     private Integer numColumns;
 
     @Column(name="xPosition")
-    private Integer xPosition;
+    private Float xPosition;
 
     @Column(name="yPosition")
-    private Integer yPosition;
+    private Float yPosition;
 
     @Column(name="zPosition")
-    private Integer zPosition;
+    private Float zPosition;
 
     @Column(name="xRotation")
-    private Integer xRotation;
+    private Float xRotation;
 
     @Column(name="yRotation")
-    private Integer yRotation;
+    private Float yRotation;
 
     @Column(name="zRotation")
-    private Integer zRotation;
+    private Float zRotation;
 
     @Column(name="zoom")
     private Boolean zoom;
@@ -87,51 +87,51 @@ public class PLGround extends BaseTable {
         this.boardGraphic = boardGraphic;
     }
 
-    public Integer getxPosition() {
+    public Float getxPosition() {
         return xPosition;
     }
 
-    public void setxPosition(Integer xPosition) {
+    public void setxPosition(Float xPosition) {
         this.xPosition = xPosition;
     }
 
-    public Integer getyPosition() {
+    public Float getyPosition() {
         return yPosition;
     }
 
-    public void setyPosition(Integer yPosition) {
+    public void setyPosition(Float yPosition) {
         this.yPosition = yPosition;
     }
 
-    public Integer getzPosition() {
+    public Float getzPosition() {
         return zPosition;
     }
 
-    public void setzPosition(Integer zPosition) {
+    public void setzPosition(Float zPosition) {
         this.zPosition = zPosition;
     }
 
-    public Integer getxRotation() {
+    public Float getxRotation() {
         return xRotation;
     }
 
-    public void setxRotation(Integer xRotation) {
+    public void setxRotation(Float xRotation) {
         this.xRotation = xRotation;
     }
 
-    public Integer getyRotation() {
+    public Float getyRotation() {
         return yRotation;
     }
 
-    public void setyRotation(Integer yRotation) {
+    public void setyRotation(Float yRotation) {
         this.yRotation = yRotation;
     }
 
-    public Integer getzRotation() {
+    public Float getzRotation() {
         return zRotation;
     }
 
-    public void setzRotation(Integer zRotation) {
+    public void setzRotation(Float zRotation) {
         this.zRotation = zRotation;
     }
 
@@ -162,7 +162,7 @@ public class PLGround extends BaseTable {
     public PLGround() {
     }
 
-    public PLGround(Integer numRows, Integer numColumns, Integer xPosition,Integer yPosition,Integer zPosition,Integer xRotation,Integer yRotation ,Integer zRotation,
+    public PLGround(Integer numRows, Integer numColumns, Float xPosition,Float yPosition,Float zPosition,Float xRotation,Float yRotation ,Float zRotation,
                      Boolean zoom , Boolean pan,Boolean rotation,PuzzleLevel puzzleLevel, byte[] boardGraphic,Long version, String created, String updated, AppMember createdBy, AppMember updatedBy) {
         super(version, created, updated, createdBy, updatedBy);
         this.numRows = numRows;

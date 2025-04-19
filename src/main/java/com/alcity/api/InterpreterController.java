@@ -96,8 +96,8 @@ public class InterpreterController {
         if(puzzleLevelGroundOptional.isPresent()){
             plGround = puzzleLevelGroundOptional.get();
 
-            Position Position = new Position(plGround.getxPosition(), plGround.getyPosition(), plGround.getzPosition());
-            Position Rotation = new Position(plGround.getxRotation(),plGround.getyRotation(),plGround.getzRotation());
+            PLGroundPostion Position = new PLGroundPostion(plGround.getxPosition(), plGround.getyPosition(), plGround.getzPosition());
+            PLGroundPostion Rotation = new PLGroundPostion(plGround.getxRotation(),plGround.getyRotation(),plGround.getzRotation());
             Features features = new Features(plGround.getZoom(),plGround.getPan(),plGround.getRotation());
             CameraSetupData cameraSetupInterpreter = new CameraSetupData(Position,Rotation,features);
             puzzleLevelData.setCameraSetup(cameraSetupInterpreter);

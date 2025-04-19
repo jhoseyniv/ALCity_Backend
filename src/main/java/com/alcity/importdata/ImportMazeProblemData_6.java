@@ -170,8 +170,8 @@ public class ImportMazeProblemData_6 implements CommandLineRunner {
     @Autowired
     ObjectService alCityObjectService;
 
-   @Autowired
-   PGSkillLearningContentService puzzleSkillLearningContentService;
+    @Autowired
+    PGSkillLearningContentService puzzleSkillLearningContentService;
     private static final Logger log = LoggerFactory.getLogger(ObjectManagmentApplication.class);
 
     @Override
@@ -231,16 +231,18 @@ public class ImportMazeProblemData_6 implements CommandLineRunner {
         BinaryContent pg_maze_Game_learning_content = new BinaryContent(1L, now, now,admin_1 , admin_1,"Memory-Game", maze_image_LearningContent_Image_bytes.length, maze_image_LearningContent_Image_bytes,null,"tag1","","",BinaryContentType.Image);
         binaryContentService.save(pg_maze_Game_learning_content);
 
-        Integer xPos=3;
-        Integer yPos=3;
-        Integer zPos=3;
-        Integer xRotation=3;
+        Float xPos=2f;
+        Float yPos=0f;
+        Float zPos=2f;
+        Float xRotation=0f;
+        Float yRotation=0f;
+        Float zRotation=0f;
         Boolean zoom=true;
         Boolean pan=true;
         Boolean rotation=false;
 
         byte[] boardGraphic2 = ImageUtil.convertObjectToBytes(boardGraphic);
-        PLGround pl_Memory_Game_ground = new PLGround(21,21,xPos,yPos,zPos,xRotation,xRotation,xRotation,zoom,pan,rotation,maze_Game, boardGraphic2,1L,now,now,admin_1,admin_1);
+        PLGround pl_Memory_Game_ground = new PLGround(21,21,xPos,yPos,zPos,xRotation,yRotation,zRotation,zoom,pan,rotation,maze_Game, boardGraphic2,1L,now,now,admin_1,admin_1);
         puzzleLevelGroundService.save(pl_Memory_Game_ground);
 
         PermitedPlayer player_1_puzzleLevel_Maze = new PermitedPlayer(Alireza_Zare,maze_Game,1L,now,now,admin_1,admin_1);
@@ -1167,7 +1169,7 @@ public class ImportMazeProblemData_6 implements CommandLineRunner {
         ALCityInstanceInPL instance_img1504 = new ALCityInstanceInPL("instance_img1504",15,4,0,mazeGame_ImageObject,maze_Game,1L,now,now,admin_1,admin_1);
         pgObjectInstanceService.save(instance_img1504);
 
-         ALCityInstanceInPL instance_img1505 = new ALCityInstanceInPL("instance_img1505",15,5,0,mazeGame_ImageObject,maze_Game,1L,now,now,admin_1,admin_1);
+        ALCityInstanceInPL instance_img1505 = new ALCityInstanceInPL("instance_img1505",15,5,0,mazeGame_ImageObject,maze_Game,1L,now,now,admin_1,admin_1);
         pgObjectInstanceService.save(instance_img1505);
 
         ALCityInstanceInPL instance_img1507 = new ALCityInstanceInPL("instance_img1507",15,7,0,mazeGame_ImageObject,maze_Game,1L,now,now,admin_1,admin_1);

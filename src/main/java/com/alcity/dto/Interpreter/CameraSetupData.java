@@ -1,29 +1,30 @@
 package com.alcity.dto.Interpreter;
 
 import com.alcity.dto.Interpreter.object.Features;
+import com.alcity.dto.Interpreter.object.PLGroundPostion;
 import com.alcity.dto.Interpreter.object.Position;
 
 import java.io.Serializable;
 
 public class CameraSetupData implements Serializable {
 
-    Position Position;
-    Position Rotation;
+    PLGroundPostion Position;
+    PLGroundPostion Rotation;
     Features features;
 
-    public Position getPosition() {
+    public PLGroundPostion getPosition() {
         return Position;
     }
 
-    public void setPosition(Position position) {
+    public void setPosition(PLGroundPostion position) {
         Position = position;
     }
 
-    public Position getRotation() {
+    public PLGroundPostion getRotation() {
         return Rotation;
     }
 
-    public void setRotation(Position rotation) {
+    public void setRotation(PLGroundPostion rotation) {
         Rotation = rotation;
     }
 
@@ -38,7 +39,7 @@ public class CameraSetupData implements Serializable {
     public CameraSetupData() {
     }
 
-    public CameraSetupData(com.alcity.dto.Interpreter.object.Position position, com.alcity.dto.Interpreter.object.Position rotation, Features features) {
+    public CameraSetupData(com.alcity.dto.Interpreter.object.PLGroundPostion position, com.alcity.dto.Interpreter.object.PLGroundPostion rotation, Features features) {
         Position = position;
         Rotation = rotation;
         this.features = features;

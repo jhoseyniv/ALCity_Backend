@@ -16,12 +16,12 @@ public class PLGroundDTO  implements Serializable {
     private Integer numRows;
     private Integer numColumns;
 
-    private Integer xposition;
-    private Integer yposition;
-    private Integer zposition;
-    private Integer xrotation;
-    private Integer yrotation;
-    private Integer zrotation;
+    private Float xposition;
+    private Float yposition;
+    private Float zposition;
+    private Float xrotation;
+    private Float yrotation;
+    private Float zrotation;
 
     private Boolean zoom;
     private Boolean pan;
@@ -147,51 +147,51 @@ public class PLGroundDTO  implements Serializable {
         this.boardGraphicDTO = boardGraphicDTO;
     }
 
-    public Integer getXposition() {
+    public Float getXposition() {
         return xposition;
     }
 
-    public void setXposition(Integer xposition) {
+    public void setXposition(Float xposition) {
         this.xposition = xposition;
     }
 
-    public Integer getYposition() {
+    public Float getYposition() {
         return yposition;
     }
 
-    public void setYposition(Integer yposition) {
+    public void setYposition(Float yposition) {
         this.yposition = yposition;
     }
 
-    public Integer getZposition() {
+    public Float getZposition() {
         return zposition;
     }
 
-    public void setZposition(Integer zposition) {
+    public void setZposition(Float zposition) {
         this.zposition = zposition;
     }
 
-    public Integer getXrotation() {
+    public Float getXrotation() {
         return xrotation;
     }
 
-    public void setXrotation(Integer xrotation) {
+    public void setXrotation(Float xrotation) {
         this.xrotation = xrotation;
     }
 
-    public Integer getYrotation() {
+    public Float getYrotation() {
         return yrotation;
     }
 
-    public void setYrotation(Integer yrotation) {
+    public void setYrotation(Float yrotation) {
         this.yrotation = yrotation;
     }
 
-    public Integer getZrotation() {
+    public Float getZrotation() {
         return zrotation;
     }
 
-    public void setZrotation(Integer zrotation) {
+    public void setZrotation(Float zrotation) {
         this.zrotation = zrotation;
     }
 
@@ -200,7 +200,7 @@ public class PLGroundDTO  implements Serializable {
 
 
     public PLGroundDTO(Long id, Long version, String created, String updated, String createdBy, String updatedBy,
-                       Integer numRows, Integer numColumns, Integer xPosition,Integer yPosition,Integer zPosition,Integer xRotation,Integer yRotation ,Integer zRotation,
+                       Integer numRows, Integer numColumns, Float xPosition,Float yPosition,Float zPosition,Float xRotation,Float yRotation ,Float zRotation,
                        Long puzzleLevelId, //String puzzleLevelTitle,
                        BoardGraphicDTO boardGraphicDTO) {
         this.id = id;

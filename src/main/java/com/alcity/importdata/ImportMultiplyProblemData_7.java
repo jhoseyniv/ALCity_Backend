@@ -228,16 +228,18 @@ public class ImportMultiplyProblemData_7 implements CommandLineRunner {
         BinaryContent pg_maze_Game_learning_content = new BinaryContent(1L, now, now,admin_1 , admin_1,"Memory-Game", maze_image_LearningContent_Image_bytes.length, maze_image_LearningContent_Image_bytes,null,"tag1","","",BinaryContentType.Image);
         binaryContentService.save(pg_maze_Game_learning_content);
 
-        Integer xPos=3;
-        Integer yPos=3;
-        Integer zPos=3;
-        Integer xRotation=3;
+        Float xPos=2f;
+        Float yPos=0f;
+        Float zPos=2f;
+        Float xRotation=0f;
+        Float yRotation=0f;
+        Float zRotation=0f;
         Boolean zoom=true;
         Boolean pan=true;
         Boolean rotation=false;
 
         byte[] boardGraphic2 = ImageUtil.convertObjectToBytes(boardGraphic);
-        PLGround pl_Memory_Game_ground = new PLGround(4,5,xPos,yPos,zPos,xRotation,xRotation,xRotation,zoom,pan,rotation,Multiply_Game, boardGraphic2,1L,now,now,admin_1,admin_1);
+        PLGround pl_Memory_Game_ground = new PLGround(4,5,xPos,yPos,zPos,xRotation,yRotation,zRotation,zoom,pan,rotation,Multiply_Game, boardGraphic2,1L,now,now,admin_1,admin_1);
         puzzleLevelGroundService.save(pl_Memory_Game_ground);
 
         PermitedPlayer player_1_puzzleLevel_Maze = new PermitedPlayer(Alireza_Zare,Multiply_Game,1L,now,now,admin_1,admin_1);
@@ -331,26 +333,26 @@ public class ImportMultiplyProblemData_7 implements CommandLineRunner {
 
 
 
-        Optional<ALCityObject> textObject_in_multiply =alCityObjectService.findByTitle("TextObject");
-        Optional<ALCityObject> imageObject_in_multiply =alCityObjectService.findByTitle("ImageObject01");
+        Optional<ALCityObject> textObject =alCityObjectService.findByTitle("TextObject");
+        Optional<ALCityObject> imageObject =alCityObjectService.findByTitle("ImageObject01");
 
 
-        ALCityObjectInPG Multiply_textObject = new ALCityObjectInPG("text object in Multiply puzzlegroup Object","Multiply_Game_TextObject",puzzleGroup_Multiply.get(),textObject_in_multiply.get(),1L,now,now,admin_1,admin_1);
-        alCityObjectInPGService.save(Multiply_textObject);
+        ALCityObjectInPG textObject_in_Multiply = new ALCityObjectInPG("text object in Multiply puzzlegroup Object","Multiply_Game_TextObject",puzzleGroup_Multiply.get(),textObject.get(),1L,now,now,admin_1,admin_1);
+        alCityObjectInPGService.save(textObject_in_Multiply);
 
-        ALCityObjectInPG Multiply_imageobject = new ALCityObjectInPG("Image object in Multiply puzzlegroup Object","Multiply_Game_ImageObject",puzzleGroup_Multiply.get(),imageObject_in_multiply.get(),1L,now,now,admin_1,admin_1);
-        alCityObjectInPGService.save(Multiply_imageobject);
+        ALCityObjectInPG imageobject_in_Multiply = new ALCityObjectInPG("Image object in Multiply puzzlegroup Object","Multiply_Game_ImageObject",puzzleGroup_Multiply.get(),imageObject.get(),1L,now,now,admin_1,admin_1);
+        alCityObjectInPGService.save(imageobject_in_Multiply);
 
 
 
-        DTOUtil.copyActionFromTo(textObject_in_multiply.get().getId(), Multiply_textObject.getId(),AttributeOwnerType.Object_Action_Handler_Parameter,
+        DTOUtil.copyActionFromTo(textObject.get().getId(), textObject_in_Multiply.getId(),AttributeOwnerType.Object_Action_Handler_Parameter,
                 AttributeOwnerType.Puzzle_Group_Object_Action_Handler_Parameter,actionService,POActionOwnerType.Object,POActionOwnerType.Puzzle_Group_Object,attributeService,attributeValueService);
-        Collection<ObjectAction> actions = puzzleObjectActionService.findByOwnerObjectidAndPoActionOwnerType(Multiply_textObject.getId(), POActionOwnerType.Puzzle_Group_Object);
+        Collection<ObjectAction> actions = puzzleObjectActionService.findByOwnerObjectidAndPoActionOwnerType(textObject_in_Multiply.getId(), POActionOwnerType.Puzzle_Group_Object);
 
 
-        DTOUtil.copyActionFromTo(imageObject_in_multiply.get().getId(), Multiply_imageobject.getId(),AttributeOwnerType.Object_Action_Handler_Parameter,
+        DTOUtil.copyActionFromTo(imageObject.get().getId(), imageobject_in_Multiply.getId(),AttributeOwnerType.Object_Action_Handler_Parameter,
                 AttributeOwnerType.Puzzle_Group_Object_Action_Handler_Parameter,actionService,POActionOwnerType.Object,POActionOwnerType.Puzzle_Group_Object,attributeService,attributeValueService);
-        Collection<ObjectAction> actions_imageObject = puzzleObjectActionService.findByOwnerObjectidAndPoActionOwnerType(Multiply_imageobject.getId(), POActionOwnerType.Puzzle_Group_Object);
+        Collection<ObjectAction> actions_imageObject = puzzleObjectActionService.findByOwnerObjectidAndPoActionOwnerType(imageobject_in_Multiply.getId(), POActionOwnerType.Puzzle_Group_Object);
 
 
         Iterator<ObjectAction> actionIterator = actions.iterator();
@@ -375,25 +377,98 @@ public class ImportMultiplyProblemData_7 implements CommandLineRunner {
                  }
             }
         }
-        Attribute textObject_property_text =new Attribute("text",Multiply_textObject.getId(),AttributeOwnerType.Puzzle_Group_Object_Property,DataType.String,1L,now,now,admin_1,admin_1);
+        Attribute textObject_property_text =new Attribute("text",textObject_in_Multiply.getId(),AttributeOwnerType.Puzzle_Group_Object_Property,DataType.String,1L,now,now,admin_1,admin_1);
         attributeService.save(textObject_property_text);
-        AttributeValue  textObject_property_text_value= new AttributeValue(null,null,null,"",null,null,null,null,Boolean.FALSE,null,textObject_property_text,1L,now,now,admin_1,admin_1,Multiply_textObject.getId(),AttributeOwnerType.Puzzle_Group_Object_Property);
+        AttributeValue  textObject_property_text_value= new AttributeValue(null,null,null,"",null,null,null,null,Boolean.FALSE,null,textObject_property_text,1L,now,now,admin_1,admin_1,textObject_in_Multiply.getId(),AttributeOwnerType.Puzzle_Group_Object_Property);
         attributeValueService.save(textObject_property_text_value);
 
-        Attribute textObject_property_enabled =new Attribute("enabled",Multiply_textObject.getId(),AttributeOwnerType.Puzzle_Group_Object_Property,DataType.Boolean,1L,now,now,admin_1,admin_1);
+        Attribute textObject_property_enabled =new Attribute("enabled",textObject_in_Multiply.getId(),AttributeOwnerType.Puzzle_Group_Object_Property,DataType.Boolean,1L,now,now,admin_1,admin_1);
         attributeService.save(textObject_property_enabled);
-        AttributeValue  textObject_property_enabled_value= new AttributeValue(false,null,null,null,null,null,null,null,Boolean.FALSE,null,textObject_property_enabled,1L,now,now,admin_1,admin_1,Multiply_textObject.getId(),AttributeOwnerType.Puzzle_Group_Object_Property);
+        AttributeValue  textObject_property_enabled_value= new AttributeValue(false,null,null,null,null,null,null,null,Boolean.FALSE,null,textObject_property_enabled,1L,now,now,admin_1,admin_1,textObject_in_Multiply.getId(),AttributeOwnerType.Puzzle_Group_Object_Property);
         attributeValueService.save(textObject_property_enabled_value);
+
+        ALCityInstanceInPL ins_100202 = new ALCityInstanceInPL("100202",2,2,0,textObject_in_Multiply,Multiply_Game,1L,now,now,admin_1,admin_1);
+        pgObjectInstanceService.save(ins_100202);
+        AttributeValue  ins_100202_property_text_value= new AttributeValue(null,null,null,"Progress",null,null,null,null,Boolean.FALSE,null,textObject_property_text,1L,now,now,admin_1,admin_1,ins_100202.getId(),AttributeOwnerType.Instance_Puzzle_Group_Object_Property);
+        attributeValueService.save(ins_100202_property_text_value);
+
+        AttributeValue  ins_100202_property_enabled_value= new AttributeValue(true,null,null,null,null,null,null,null,Boolean.FALSE,null,textObject_property_enabled,1L,now,now,admin_1,admin_1,ins_100202.getId(),AttributeOwnerType.Instance_Puzzle_Group_Object_Property);
+        attributeValueService.save(ins_100202_property_enabled_value);
+
+        ALCityInstanceInPL ins_100203 = new ALCityInstanceInPL("100203",2,3,0,textObject_in_Multiply,Multiply_Game,1L,now,now,admin_1,admin_1);
+        pgObjectInstanceService.save(ins_100203);
+        AttributeValue  ins_100203_property_text_value= new AttributeValue(null,null,null,":",null,null,null,null,Boolean.FALSE,null,textObject_property_text,1L,now,now,admin_1,admin_1,ins_100203.getId(),AttributeOwnerType.Instance_Puzzle_Group_Object_Property);
+        attributeValueService.save(ins_100203_property_text_value);
+
+        AttributeValue  ins_100203_property_enabled_value= new AttributeValue(true,null,null,null,null,null,null,null,Boolean.FALSE,null,textObject_property_enabled,1L,now,now,admin_1,admin_1,ins_100203.getId(),AttributeOwnerType.Instance_Puzzle_Group_Object_Property);
+        attributeValueService.save(ins_100203_property_enabled_value);
+
+        ALCityInstanceInPL ins_100204 = new ALCityInstanceInPL("100204",2,4,0,textObject_in_Multiply,Multiply_Game,1L,now,now,admin_1,admin_1);
+        pgObjectInstanceService.save(ins_100204);
+        AttributeValue  ins_100204_property_text_value= new AttributeValue(null,null,null,"0%",null,null,null,null,Boolean.FALSE,null,textObject_property_text,1L,now,now,admin_1,admin_1,ins_100204.getId(),AttributeOwnerType.Instance_Puzzle_Group_Object_Property);
+        attributeValueService.save(ins_100204_property_text_value);
+
+        AttributeValue  ins_100204_property_enabled_value= new AttributeValue(true,null,null,null,null,null,null,null,Boolean.FALSE,null,textObject_property_enabled,1L,now,now,admin_1,admin_1,ins_100204.getId(),AttributeOwnerType.Instance_Puzzle_Group_Object_Property);
+        attributeValueService.save(ins_100204_property_enabled_value);
+
+        ALCityInstanceInPL ins_100302 = new ALCityInstanceInPL("100302",3,2,0,textObject_in_Multiply,Multiply_Game,1L,now,now,admin_1,admin_1);
+        pgObjectInstanceService.save(ins_100302);
+        AttributeValue  ins_100302_property_text_value= new AttributeValue(null,null,null,"Score",null,null,null,null,Boolean.FALSE,null,textObject_property_text,1L,now,now,admin_1,admin_1,ins_100302.getId(),AttributeOwnerType.Instance_Puzzle_Group_Object_Property);
+        attributeValueService.save(ins_100302_property_text_value);
+
+        AttributeValue  ins_100302_property_enabled_value= new AttributeValue(true,null,null,null,null,null,null,null,Boolean.FALSE,null,textObject_property_enabled,1L,now,now,admin_1,admin_1,ins_100302.getId(),AttributeOwnerType.Instance_Puzzle_Group_Object_Property);
+        attributeValueService.save(ins_100302_property_enabled_value);
+
+        ALCityInstanceInPL ins_100303 = new ALCityInstanceInPL("100303",3,3,0,textObject_in_Multiply,Multiply_Game,1L,now,now,admin_1,admin_1);
+        pgObjectInstanceService.save(ins_100303);
+        AttributeValue  ins_100303_property_text_value= new AttributeValue(null,null,null,":",null,null,null,null,Boolean.FALSE,null,textObject_property_text,1L,now,now,admin_1,admin_1,ins_100303.getId(),AttributeOwnerType.Instance_Puzzle_Group_Object_Property);
+        attributeValueService.save(ins_100303_property_text_value);
+
+        AttributeValue  ins_100303_property_enabled_value= new AttributeValue(true,null,null,null,null,null,null,null,Boolean.FALSE,null,textObject_property_enabled,1L,now,now,admin_1,admin_1,ins_100303.getId(),AttributeOwnerType.Instance_Puzzle_Group_Object_Property);
+        attributeValueService.save(ins_100303_property_enabled_value);
+
+        ALCityInstanceInPL ins_100304 = new ALCityInstanceInPL("100304",3,4,0,textObject_in_Multiply,Multiply_Game,1L,now,now,admin_1,admin_1);
+        pgObjectInstanceService.save(ins_100304);
+        AttributeValue  ins_100304_property_text_value= new AttributeValue(null,null,null,"0",null,null,null,null,Boolean.FALSE,null,textObject_property_text,1L,now,now,admin_1,admin_1,ins_100304.getId(),AttributeOwnerType.Instance_Puzzle_Group_Object_Property);
+        attributeValueService.save(ins_100304_property_text_value);
+
+        AttributeValue  ins_100304_property_enabled_value= new AttributeValue(true,null,null,null,null,null,null,null,Boolean.FALSE,null,textObject_property_enabled,1L,now,now,admin_1,admin_1,ins_100304.getId(),AttributeOwnerType.Instance_Puzzle_Group_Object_Property);
+        attributeValueService.save(ins_100304_property_enabled_value);
+
+        ALCityInstanceInPL ins_100502 = new ALCityInstanceInPL("100502",5,2,0,textObject_in_Multiply,Multiply_Game,1L,now,now,admin_1,admin_1);
+        pgObjectInstanceService.save(ins_100502);
+        AttributeValue  ins_100502_property_text_value= new AttributeValue(null,null,null,"0",null,null,null,null,Boolean.FALSE,null,textObject_property_text,1L,now,now,admin_1,admin_1,ins_100502.getId(),AttributeOwnerType.Instance_Puzzle_Group_Object_Property);
+        attributeValueService.save(ins_100502_property_text_value);
+
+        AttributeValue  ins_100502_property_enabled_value= new AttributeValue(true,null,null,null,null,null,null,null,Boolean.FALSE,null,textObject_property_enabled,1L,now,now,admin_1,admin_1,ins_100502.getId(),AttributeOwnerType.Instance_Puzzle_Group_Object_Property);
+        attributeValueService.save(ins_100502_property_enabled_value);
+
+        ALCityInstanceInPL ins_100504 = new ALCityInstanceInPL("100504",5,4,0,textObject_in_Multiply,Multiply_Game,1L,now,now,admin_1,admin_1);
+        pgObjectInstanceService.save(ins_100504);
+        AttributeValue  ins_100504_property_text_value= new AttributeValue(null,null,null,"0",null,null,null,null,Boolean.FALSE,null,textObject_property_text,1L,now,now,admin_1,admin_1,ins_100504.getId(),AttributeOwnerType.Instance_Puzzle_Group_Object_Property);
+        attributeValueService.save(ins_100504_property_text_value);
+
+        AttributeValue  ins_100504_property_enabled_value= new AttributeValue(true,null,null,null,null,null,null,null,Boolean.FALSE,null,textObject_property_enabled,1L,now,now,admin_1,admin_1,ins_100504.getId(),AttributeOwnerType.Instance_Puzzle_Group_Object_Property);
+        attributeValueService.save(ins_100504_property_enabled_value);
+
+
+
+
 
 
         byte[] Multiply_imageobject_bytes = ImageUtil.getImage("src/main/resources/images/Multiply_Game/","multyply_bg.png");
         BinaryContent Multiply_imageobject_bytes_content = new BinaryContent(1L, now, now,admin_1 , admin_1,"multyply_bg",Multiply_imageobject_bytes.length,Multiply_imageobject_bytes,null,"multyply_bg","","",BinaryContentType.Image);
         binaryContentService.save(Multiply_imageobject_bytes_content);
 
-        Attribute ImageObject01_property_bgImage =new Attribute("bgImage",Multiply_imageobject.getId(),AttributeOwnerType.Puzzle_Group_Object_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
+        Attribute ImageObject01_property_bgImage =new Attribute("bgImage",imageobject_in_Multiply.getId(),AttributeOwnerType.Puzzle_Group_Object_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(ImageObject01_property_bgImage);
-        AttributeValue  Image0object_variable_2_value= new AttributeValue(false,null,null,null,null,null,Multiply_imageobject_bytes_content.getId(),null,Boolean.FALSE,null,ImageObject01_property_bgImage,1L,now,now,admin_1,admin_1,Multiply_imageobject.getId(),AttributeOwnerType.Puzzle_Group_Object_Property);
+        AttributeValue  Image0object_variable_2_value= new AttributeValue(false,null,null,null,null,null,Multiply_imageobject_bytes_content.getId(),null,Boolean.FALSE,null,ImageObject01_property_bgImage,1L,now,now,admin_1,admin_1,imageobject_in_Multiply.getId(),AttributeOwnerType.Puzzle_Group_Object_Property);
         attributeValueService.save(Image0object_variable_2_value);
+
+
+
+
+
 
 /*
 

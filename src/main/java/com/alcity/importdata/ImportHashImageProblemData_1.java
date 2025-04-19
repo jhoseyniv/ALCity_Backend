@@ -231,8 +231,6 @@ public class ImportHashImageProblemData_1 implements CommandLineRunner {
         puzzleLevel_hashimage.setPicture(hashImage_pic);
         puzzleLevelService.save(puzzleLevel_hashimage);
 
-        Integer xPos=3;
-        Integer xRotation=3;
 
         byte[] image_0_hash = ImageUtil.getImage("src/main/resources/images/hashImage_Puzzle/","0.png");
         byte[] image_1_hash = ImageUtil.getImage("src/main/resources/images/hashImage_Puzzle/","1.png");
@@ -265,12 +263,19 @@ public class ImportHashImageProblemData_1 implements CommandLineRunner {
         binaryContentService.save(image_7_Instance_content);
         binaryContentService.save(image_8_Instance_content);
 
-        Boolean zoom=false;
-        Boolean pan=false;
+        Float xPos=2f;
+        Float yPos=0f;
+        Float zPos=2f;
+        Float xRotation=30f;
+        Float yRotation=63f;
+        Float zRotation=50f;
+
+        Boolean zoom=true;
+        Boolean pan=true;
         Boolean rotation=false;
 
         byte[] boardGraphic2 = ImageUtil.convertObjectToBytes(boardGraphic);
-        PLGround puzzleLevel_hashImage_ground = new PLGround(3,3,xPos,xPos,xPos,xRotation,xRotation,xRotation,
+        PLGround puzzleLevel_hashImage_ground = new PLGround(3,3,xPos,yPos,zPos,xRotation,yRotation,zRotation,
                 zoom,pan,rotation,puzzleLevel_hashimage, boardGraphic2,1L,now,now,admin_1,admin_1);
         puzzleLevelGroundService.save(puzzleLevel_hashImage_ground);
 
