@@ -239,7 +239,7 @@ public class ImportMazeProblemData_6 implements CommandLineRunner {
         Float zRotation=0f;
         Boolean zoom=true;
         Boolean pan=true;
-        Boolean rotation=false;
+        Boolean rotation=true;
 
         byte[] boardGraphic2 = ImageUtil.convertObjectToBytes(boardGraphic);
         PLGround pl_Memory_Game_ground = new PLGround(21,21,xPos,yPos,zPos,xRotation,yRotation,zRotation,zoom,pan,rotation,maze_Game, boardGraphic2,1L,now,now,admin_1,admin_1);
@@ -356,6 +356,9 @@ public class ImportMazeProblemData_6 implements CommandLineRunner {
 
         Attribute ImageObject01_property_bgImage =new Attribute("bgImage",mazeGame_ImageObject.getId(),AttributeOwnerType.Puzzle_Group_Object_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(ImageObject01_property_bgImage);
+        AttributeValue ImageObject01_property_bgImage_value = new AttributeValue(null,null,null,null,null,null, mazeGame_ImageObject.getId(),null,false,null,ImageObject01_property_bgImage,1L,now,now,admin_1,admin_1,mazeGame_ImageObject.getId(), AttributeOwnerType.Instance_Puzzle_Group_Object_Variable);
+        attributeValueService.save(ImageObject01_property_bgImage_value);
+
 //        Attribute attributeBGImage_Image_Object= null;
 //        Collection<Attribute> attributes = attributeService.findPropertiesForALCityObject(imageObject01.get().getId(),AttributeOwnerType.Object_Property);
 //        Iterator<Attribute> attributeIterator = attributes.iterator();
