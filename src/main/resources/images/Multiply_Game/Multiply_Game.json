@@ -1,7 +1,7 @@
 {   
       "settings": {
         "skyboxId": "dreamy_sky",
-        "environmentId": "city_area",
+        "environmentId": "desert_area",
         "startPosition": {
           "x": 3,
           "y": 0,
