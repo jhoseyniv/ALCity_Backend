@@ -361,16 +361,16 @@ public class ImportBaseData implements CommandLineRunner {
         puzzleGroupService.save(puzzleGroup_Maze);
         puzzleGroupService.save(puzzleGroup_Multiply);
 
-        byte[] walletItem_1_Icon = ImageUtil.getImage("src/main/resources/images/walletItem/","walletItem_1.jpeg");
-        byte[] walletItem_2_Icon = ImageUtil.getImage("src/main/resources/images/walletItem/","walletItem_2.jpeg");
-        byte[] walletItem_3_Icon = ImageUtil.getImage("src/main/resources/images/walletItem/","walletItem_3.jpeg");
+        byte[] walletItem_1_Icon = ImageUtil.getImage("src/main/resources/images/walletItem/","walletItem_1.png");
+        byte[] walletItem_2_Icon = ImageUtil.getImage("src/main/resources/images/walletItem/","walletItem_2.png");
+        byte[] walletItem_3_Icon = ImageUtil.getImage("src/main/resources/images/walletItem/","walletItem_3.png");
        // byte[] tetherIcon = ImageUtil.getImage("src/main/resources/images/","Tether.png");
       //  byte[] carIcon = ImageUtil.getImage("src/main/resources/images/","car.png");
      //   byte[]  carIcon_tumb = ImageUtil.getThumbnail(carIcon,"carIcon.png");
      //   byte[]  tetherIcon_tumb = ImageUtil.getThumbnail(tetherIcon,"Tether.png");
-        byte[]  walletItem_1_Icon_tumb = ImageUtil.getThumbnail(walletItem_1_Icon,"walletItem_1_Icon.jpeg");
-        byte[]  walletItem_2_Icon_tumb = ImageUtil.getThumbnail(walletItem_2_Icon,"walletItem_2_Icon.jpeg");
-        byte[]  walletItem_3_Icon_tumb = ImageUtil.getThumbnail(walletItem_3_Icon,"walletItem_3_Icon.jpeg");
+        byte[]  walletItem_1_Icon_tumb = ImageUtil.getThumbnail(walletItem_1_Icon,"walletItem_1_Icon.png");
+        byte[]  walletItem_2_Icon_tumb = ImageUtil.getThumbnail(walletItem_2_Icon,"walletItem_2_Icon.png");
+        byte[]  walletItem_3_Icon_tumb = ImageUtil.getThumbnail(walletItem_3_Icon,"walletItem_3_Icon.png");
 
         BinaryContent walletItem_1_Content = new BinaryContent(1L, now, now,admin_1 , admin_1,"walletItem_1 Icon",walletItem_1_Icon.length,walletItem_1_Icon,walletItem_1_Icon_tumb,"tag1","","",BinaryContentType.Image);
         binaryContentService.save(walletItem_1_Content);
@@ -579,8 +579,8 @@ public class ImportBaseData implements CommandLineRunner {
         journey_3.setButtonLockedIcon(image_journey_locked);
         journeyService.save(journey_3);
 
-        byte[] jouerny_1_roadMap_Image = ImageUtil.getImage("src/main/resources/images/","jouerny_1_roadMap_Image.jpeg");
-        byte[]  tumb_image_RoadMap1_journey_1 = ImageUtil.getThumbnail(jouerny_1_roadMap_Image,"roadmap_1_journey_1.jpeg");
+        byte[] jouerny_1_roadMap_Image = ImageUtil.getImage("src/main/resources/images/","jouerny_1_roadMap_Image.png");
+        byte[]  tumb_image_RoadMap1_journey_1 = ImageUtil.getThumbnail(jouerny_1_roadMap_Image,"roadmap_1_journey_1.png");
         BinaryContent image_RoadMap1_journey_1 = new BinaryContent(1L, now, now,admin_1 , admin_1,"jouerny_1_roadMap_Image",jouerny_1_roadMap_Image.length,jouerny_1_roadMap_Image,tumb_image_RoadMap1_journey_1,"tag1","","",BinaryContentType.Image);
         binaryContentService.save(image_RoadMap1_journey_1);
 
