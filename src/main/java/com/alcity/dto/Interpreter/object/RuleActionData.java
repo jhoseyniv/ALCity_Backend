@@ -13,6 +13,7 @@ public class RuleActionData implements Serializable {
     private StringBuffer valueExperssion;
     private String alertType;
     private String alertMessage;
+    private Long actionKey;
 
     private Collection<RecordData> parameters;
 
@@ -56,6 +57,14 @@ public class RuleActionData implements Serializable {
         this.parameters = parameters;
     }
 
+    public Long getActionKey() {
+        return actionKey;
+    }
+
+    public void setActionKey(Long actionKey) {
+        this.actionKey = actionKey;
+    }
+
     public RuleActionData() {
     }
 
@@ -91,7 +100,7 @@ public class RuleActionData implements Serializable {
         this.alertMessage = alertMessage;
     }
 
-    public RuleActionData(String actionType, Integer ordering, String objectId, String actionName, String variable, StringBuffer valueExperssion, String alertType, String alertMessage, Collection<RecordData> parameters) {
+    public RuleActionData(String actionType, Integer ordering, String objectId, String actionName, String variable, StringBuffer valueExperssion, String alertType, String alertMessage,Long actionKey, Collection<RecordData> parameters) {
         this.actionType = actionType;
         this.ordering = ordering;
         this.objectId = objectId;
@@ -100,6 +109,7 @@ public class RuleActionData implements Serializable {
         this.valueExperssion = valueExperssion;
         this.alertType = alertType;
         this.alertMessage = alertMessage;
+        this.actionKey = actionKey;
         this.parameters = parameters;
     }
 }

@@ -207,12 +207,12 @@ public class ImportXOProblemData_3 implements CommandLineRunner {
         puzzleLevelService.save(puzzleLevel);
 
 
-        Float xPos=2f;
-        Float yPos=0f;
-        Float zPos=2f;
-        Float xRotation=30f;
-        Float yRotation=63f;
-        Float zRotation=50f;
+        Float xPos=0f;
+        Float yPos=15f;
+        Float zPos=0f;
+        Float xRotation=90f;
+        Float yRotation=0f;
+        Float zRotation=0f;
         byte[] boardGraphic2 = ImageUtil.convertObjectToBytes(boardGraphic);
         Boolean zoom=false;
         Boolean pan=false;
@@ -315,7 +315,7 @@ public class ImportXOProblemData_3 implements CommandLineRunner {
         puzzleLevelRuleService.save(Click_NON_EMPTY_Cell_rule);
 
         PLRulePostAction Click_NON_EMPTY_Cell_rule_showMessage = new PLRulePostAction(Click_NON_EMPTY_Cell_rule,UserAlertAction.get(),0,"","",
-                "",new StringBuffer(""),"error","Cell is not empty!",1L ,now,now,admin_1,admin_1);
+                "",new StringBuffer(""),"error","Cell is not empty!",0L,1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(Click_NON_EMPTY_Cell_rule_showMessage);
 
         StringBuffer    X_Turn_condition = new StringBuffer("unequal(BoardVar(finished),true) & equal(BoardVar(turn),X)&equal(InstProp(InstByPos(EventParam(row), EventParam(col)), text),null)");
@@ -323,19 +323,19 @@ public class ImportXOProblemData_3 implements CommandLineRunner {
         puzzleLevelRuleService.save(X_Turn_rule);
 
         PLRulePostAction  X_Turn_post_Action_1 = new PLRulePostAction(X_Turn_rule,VariableAssignmentAction.get(),0,"","",
-                "InstProp(InstByPos(EventParam(row), EventParam(col)), text)",new StringBuffer("X"),"","",1L ,now,now,admin_1,admin_1);
+                "InstProp(InstByPos(EventParam(row), EventParam(col)), text)",new StringBuffer("X"),"","",0L,1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(X_Turn_post_Action_1);
 
         PLRulePostAction X_Turn_post_Action_2 = new PLRulePostAction(X_Turn_rule,CallObjectAction.get(),0,"show","InstByPos(EventParam(row), EventParam(col))",
-                "",new StringBuffer(""),"","",1L ,now,now,admin_1,admin_1);
+                "",new StringBuffer(""),"","",0L,1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(X_Turn_post_Action_2);
 
         PLRulePostAction X_Turn_post_Action_3 = new PLRulePostAction(X_Turn_rule,FireEventAction.get(),0,"","",
-                "",new StringBuffer(""),"","",1L ,now,now,admin_1,admin_1);
+                "",new StringBuffer(""),"","",0L,1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(X_Turn_post_Action_3);
 
         PLRulePostAction X_Turn_post_Action_4 = new PLRulePostAction(X_Turn_rule,VariableAssignmentAction.get(),0,"","",
-                "BoardVar(turn)",new StringBuffer("O"),"","",1L ,now,now,admin_1,admin_1);
+                "BoardVar(turn)",new StringBuffer("O"),"","",0L,1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(X_Turn_post_Action_4);
 
 
@@ -344,19 +344,19 @@ public class ImportXOProblemData_3 implements CommandLineRunner {
         puzzleLevelRuleService.save(O_Turn_rule);
 
         PLRulePostAction  O_Turn_post_Action_1 = new PLRulePostAction(O_Turn_rule,VariableAssignmentAction.get(),0,"","",
-                "InstProp(InstByPos(EventParam(row), EventParam(col)), text)",new StringBuffer("O"),"","",1L ,now,now,admin_1,admin_1);
+                "InstProp(InstByPos(EventParam(row), EventParam(col)), text)",new StringBuffer("O"),"","",0L,1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(O_Turn_post_Action_1);
 
         PLRulePostAction O_Turn_post_Action_2 = new PLRulePostAction(O_Turn_rule,CallObjectAction.get(),0,"show","InstByPos(EventParam(row), EventParam(col))",
-                "",new StringBuffer(""),"","",1L ,now,now,admin_1,admin_1);
+                "",new StringBuffer(""),"","",0L,1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(O_Turn_post_Action_2);
 
         PLRulePostAction O_Turn_post_Action_3 = new PLRulePostAction(O_Turn_rule,FireEventAction.get(),0,"","",
-                "",new StringBuffer(""),"","",1L ,now,now,admin_1,admin_1);
+                "",new StringBuffer(""),"","",0L,1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(O_Turn_post_Action_3);
 
         PLRulePostAction O_Turn_post_Action_4 = new PLRulePostAction(O_Turn_rule,VariableAssignmentAction.get(),0,"","",
-                "BoardVar(turn)",new StringBuffer("X"),"","",1L ,now,now,admin_1,admin_1);
+                "BoardVar(turn)",new StringBuffer("X"),"","",0L,1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(O_Turn_post_Action_4);
 
 
@@ -365,7 +365,7 @@ public class ImportXOProblemData_3 implements CommandLineRunner {
         puzzleLevelRuleService.save(Game_Finished_Error_rule);
 
         PLRulePostAction Game_Finished_Post_Action_1 = new PLRulePostAction(Game_Finished_Error_rule,UserAlertAction.get(),0,"","",
-                "",new StringBuffer(""),"info","Game has finished!",1L ,now,now,admin_1,admin_1);
+                "",new StringBuffer(""),"info","Game has finished!",0L,1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(Game_Finished_Post_Action_1);
 
 
@@ -374,11 +374,11 @@ public class ImportXOProblemData_3 implements CommandLineRunner {
         puzzleLevelRuleService.save(X_Win_Rule_rule);
 
         PLRulePostAction X_Win_Rule_rule_post_Action_1 = new PLRulePostAction(X_Win_Rule_rule,VariableAssignmentAction.get(),0,"","",
-                "BoardVar(finished)",new StringBuffer("true"),"","",1L ,now,now,admin_1,admin_1);
+                "BoardVar(finished)",new StringBuffer("true"),"","",0L,1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(X_Win_Rule_rule_post_Action_1);
 
         PLRulePostAction X_Win_Rule_rule_post_Action_2 = new PLRulePostAction(X_Win_Rule_rule,UserAlertAction.get(),0,"","",
-                "",new StringBuffer(""),"info","X won!",1L ,now,now,admin_1,admin_1);
+                "",new StringBuffer(""),"info","X won!",0L,1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(X_Win_Rule_rule_post_Action_2);
 
         StringBuffer    O_Win_Rule_condition = new StringBuffer("condition\": \"(equal(InstProp(InstByPos(2, 2),text),O) & ( (equal(InstProp(InstByPos(2, 1),text),O)&equal(InstProp(InstByPos(2, 3),text),O)) |  (equal(InstProp(InstByPos(1, 2),text),O)&equal(InstProp(InstByPos(3, 2),text),O)) |      (equal(InstProp(InstByPos(1, 1),text),O)&equal(InstProp(InstByPos(3, 3),text),O)) |(equal(InstProp(InstByPos(1, 3),text),O)&equal(InstProp(InstByPos(3, 1),text),O))))|(equal(InstProp(InstByPos(1, 1),text),O) & ((equal(InstProp(InstByPos(1, 2),text),O)&equal(InstProp(InstByPos(1, 3),text),O)) |(equal(InstProp(InstByPos(2, 1),text),O)&equal(InstProp(InstByPos(3, 1),text),O))))|(equal(InstProp(InstByPos(3, 3),text),O) & ((equal(InstProp(InstByPos(2, 3),text),O)&equal(InstProp(InstByPos(1, 3),text),O)) |(equal(InstProp(InstByPos(3, 1),text),O)&equal(InstProp(InstByPos(3, 2),text),O))))");
@@ -386,12 +386,12 @@ public class ImportXOProblemData_3 implements CommandLineRunner {
         puzzleLevelRuleService.save(O_Win_Rule_rule);
 
         PLRulePostAction O_Win_Rule_rule_post_Action_1 = new PLRulePostAction(O_Win_Rule_rule,VariableAssignmentAction.get(),0,"","",
-                "BoardVar(finished)",new StringBuffer("true"),"","",1L ,now,now,admin_1,admin_1);
+                "BoardVar(finished)",new StringBuffer("true"),"","",0L,1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(O_Win_Rule_rule_post_Action_1);
 
 
         PLRulePostAction O_Win_Rule_rule_post_Action_2 = new PLRulePostAction(O_Win_Rule_rule,UserAlertAction.get(),0,"","",
-                "",new StringBuffer(""),"info","O Won!",1L ,now,now,admin_1,admin_1);
+                "",new StringBuffer(""),"info","O Won!",0L,1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(O_Win_Rule_rule_post_Action_2);
 
 

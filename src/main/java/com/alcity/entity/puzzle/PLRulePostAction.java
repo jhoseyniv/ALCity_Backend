@@ -30,6 +30,8 @@ public class PLRulePostAction extends BaseTable implements Serializable {
 
     @Column(name="alertType")
     private String alertType;
+    @Column(name="actionKey")
+    private Long actionKey;
 
     @Column(name="alertMessage")
     private String alertMessage;
@@ -132,8 +134,16 @@ public class PLRulePostAction extends BaseTable implements Serializable {
     public PLRulePostAction() {
     }
 
+    public Long getActionKey() {
+        return actionKey;
+    }
+
+    public void setActionKey(Long actionKey) {
+        this.actionKey = actionKey;
+    }
+
     public PLRulePostAction(PLRule puzzleLevelRule , PLRulePostActionType plRulePostActionType, Integer ordering, String actionName, String objectId,
-                            String variable, StringBuffer valueExperssion, String alertType, String alertMessage ,
+                            String variable, StringBuffer valueExperssion, String alertType, String alertMessage , Long actionKey,
                             Long version, String created, String updated, AppMember createdBy, AppMember updatedBy) {
         super(version, created, updated, createdBy, updatedBy);
         this.valueExperssion = valueExperssion;
@@ -143,6 +153,7 @@ public class PLRulePostAction extends BaseTable implements Serializable {
         this.actionName = actionName;
         this.alertType = alertType;
         this.alertMessage = alertMessage;
+        this.actionKey = actionKey;
         this.plRulePostActionType = plRulePostActionType;
         this.puzzleLevelRule = puzzleLevelRule;
     }

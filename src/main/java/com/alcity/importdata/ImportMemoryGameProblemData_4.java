@@ -279,12 +279,12 @@ public class ImportMemoryGameProblemData_4 implements CommandLineRunner {
         BinaryContent pg_Memory_Game_learning_content = new BinaryContent(1L, now, now,admin_1 , admin_1,"Memory-Game", X_O_LearningContent_Image_bytes.length, X_O_LearningContent_Image_bytes,null,"tag1","","",BinaryContentType.Image);
         binaryContentService.save(pg_Memory_Game_learning_content);
 
-        Float xPos=3f;
-        Float yPos=0f;
-        Float zPos=2.5f;
-        Float xRotation=30f;
-        Float yRotation=62.5f;
-        Float zRotation=50f;
+        Float xPos=0f;
+        Float yPos=15f;
+        Float zPos=0f;
+        Float xRotation=90f;
+        Float yRotation=0f;
+        Float zRotation=0f;
         byte[] boardGraphic2 = ImageUtil.convertObjectToBytes(boardGraphic);
         Boolean zoom=false;
         Boolean pan=false;
@@ -668,15 +668,15 @@ public class ImportMemoryGameProblemData_4 implements CommandLineRunner {
         puzzleLevelRuleService.save(rule_for_FirstClick);
 
         PLRulePostAction VariableAssignmentAction_1 = new PLRulePostAction(rule_for_FirstClick,VariableAssignmentAction.get(),1,"","",
-                "BoardVar(firstSelectedObject)",new StringBuffer("InstProp(InstByPos(EventParam(row),EventParam(col)),objectId)"),"","",1L ,now,now,admin_1,admin_1);
+                "BoardVar(firstSelectedObject)",new StringBuffer("InstProp(InstByPos(EventParam(row),EventParam(col)),objectId)"),"","",0L,1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(VariableAssignmentAction_1);
 
         PLRulePostAction VariableAssignmentAction_2 = new PLRulePostAction(rule_for_FirstClick,VariableAssignmentAction.get(),2,"","",
-                "BoardVar(firstClick)",new StringBuffer("false"),"","",1L ,now,now,admin_1,admin_1);
+                "BoardVar(firstClick)",new StringBuffer("false"),"","",0L,1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(VariableAssignmentAction_2);
 
         PLRulePostAction CallObjectAction_3 = new PLRulePostAction(rule_for_FirstClick,CallObjectAction.get(),3,"Flip","BoardVar(firstSelectedObject)",
-                "",new StringBuffer(""),"","",1L ,now,now,admin_1,admin_1);
+                "",new StringBuffer(""),"","",0L,1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(CallObjectAction_3);
 
         Attribute CallObjectAction_3_param_1 =new Attribute("img",CallObjectAction_3.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action,DataType.Binary,1L,now,now,admin_1,admin_1);
@@ -692,15 +692,15 @@ public class ImportMemoryGameProblemData_4 implements CommandLineRunner {
 
 
         PLRulePostAction VariableAssignmentAction_1_SecondClickOnFirst = new PLRulePostAction(rule_for_SecondClickOnFirst,VariableAssignmentAction.get(),1,"","",
-                "BoardVar(firstClick)",new StringBuffer("true"),"","",1L ,now,now,admin_1,admin_1);
+                "BoardVar(firstClick)",new StringBuffer("true"),"","",0L,1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(VariableAssignmentAction_1_SecondClickOnFirst);
 
         PLRulePostAction VariableAssignmentAction_2_SecondClickOnFirst = new PLRulePostAction(rule_for_SecondClickOnFirst,VariableAssignmentAction.get(),2,"","",
-                "BoardVar(steps)",new StringBuffer("BoardVar(steps)+1"),"","",1L ,now,now,admin_1,admin_1);
+                "BoardVar(steps)",new StringBuffer("BoardVar(steps)+1"),"","",0L,1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(VariableAssignmentAction_2_SecondClickOnFirst);
 
         PLRulePostAction CallObjectAction_3_SecondClickOnFirst = new PLRulePostAction(rule_for_SecondClickOnFirst,CallObjectAction.get(),3,"flip","BoardVar(firstSelectedObject)",
-                "",new StringBuffer(""),"","",1L ,now,now,admin_1,admin_1);
+                "",new StringBuffer(""),"","",0L,1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(CallObjectAction_3_SecondClickOnFirst);
 
         Attribute CallObjectAction_3_SecondClickOnFirst_param_1 =new Attribute("img",CallObjectAction_3_SecondClickOnFirst.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action,DataType.Binary,1L,now,now,admin_1,admin_1);
@@ -715,19 +715,19 @@ public class ImportMemoryGameProblemData_4 implements CommandLineRunner {
         puzzleLevelRuleService.save(rule_for_SecondClickCorrect);
 
         PLRulePostAction VariableAssignmentAction_1_SecondClickCorrect = new PLRulePostAction(rule_for_SecondClickCorrect,VariableAssignmentAction.get(),1,"","",
-                "BoardVar(firstClick)",new StringBuffer("true"),"","",1L ,now,now,admin_1,admin_1);
+                "BoardVar(firstClick)",new StringBuffer("true"),"","",0L,1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(VariableAssignmentAction_1_SecondClickCorrect);
 
         PLRulePostAction VariableAssignmentAction_2_SecondClickCorrect = new PLRulePostAction(rule_for_SecondClickCorrect,VariableAssignmentAction.get(),2,"","",
-                "BoardVar(steps)",new StringBuffer("BoardVar(steps)+1"),"","",1L ,now,now,admin_1,admin_1);
+                "BoardVar(steps)",new StringBuffer("BoardVar(steps)+1"),"","",0L,1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(VariableAssignmentAction_2_SecondClickCorrect);
 
         PLRulePostAction VariableAssignmentAction_3_SecondClickCorrect = new PLRulePostAction(rule_for_SecondClickCorrect,VariableAssignmentAction.get(),3,"","",
-                "BoardVar(solved)",new StringBuffer("BoardVar(solved)+1"),"","",1L ,now,now,admin_1,admin_1);
+                "BoardVar(solved)",new StringBuffer("BoardVar(solved)+1"),"","",0L,1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(VariableAssignmentAction_3_SecondClickCorrect);
 
         PLRulePostAction CallObjectAction_4_SecondClickCorrect = new PLRulePostAction(rule_for_SecondClickCorrect,CallObjectAction.get(),4,"flip","InstProp(InstByPos(EventParam(row),EventParam(col)),objectId)",
-                "",new StringBuffer(""),"","",1L ,now,now,admin_1,admin_1);
+                "",new StringBuffer(""),"","",0L,1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(CallObjectAction_4_SecondClickCorrect);
 
         Attribute CallObjectAction_4_SecondClickCorrect_param_1 =new Attribute("img",CallObjectAction_4_SecondClickCorrect.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action,DataType.Binary,1L,now,now,admin_1,admin_1);
@@ -736,7 +736,7 @@ public class ImportMemoryGameProblemData_4 implements CommandLineRunner {
         attributeValueService.save(CallObjectAction_4_SecondClickCorrect_param_1_value);
 
         PLRulePostAction FireEventAction_5_SecondClickCorrect = new PLRulePostAction(rule_for_SecondClickCorrect,FireEventAction.get(),5,"","",
-                "",new StringBuffer(""),"","",1L ,now,now,admin_1,admin_1);
+                "",new StringBuffer(""),"","",0L,1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(FireEventAction_5_SecondClickCorrect);
 
 
@@ -748,15 +748,15 @@ public class ImportMemoryGameProblemData_4 implements CommandLineRunner {
         puzzleLevelRuleService.save(rule_for_SecondClickInCorrect);
 
         PLRulePostAction VariableAssignmentAction_1_SecondClickInCorrect = new PLRulePostAction(rule_for_SecondClickInCorrect,VariableAssignmentAction.get(),1,"","",
-                "BoardVar(firstClick)",new StringBuffer("true"),"","",1L ,now,now,admin_1,admin_1);
+                "BoardVar(firstClick)",new StringBuffer("true"),"","",0L,1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(VariableAssignmentAction_1_SecondClickInCorrect);
 
         PLRulePostAction VariableAssignmentAction_2_SecondClickInCorrect = new PLRulePostAction(rule_for_SecondClickInCorrect,VariableAssignmentAction.get(),2,"","",
-                "BoardVar(steps)",new StringBuffer("BoardVar(steps)+1"),"","",1L ,now,now,admin_1,admin_1);
+                "BoardVar(steps)",new StringBuffer("BoardVar(steps)+1"),"","",0L,1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(VariableAssignmentAction_2_SecondClickInCorrect);
 
         PLRulePostAction CallObjectAction_3_SecondClickInCorrect = new PLRulePostAction(rule_for_SecondClickInCorrect,CallObjectAction.get(),3,"flip","InstProp(InstByPos(EventParam(row),EventParam(col)),objectId)",
-                "",new StringBuffer(""),"","",1L ,now,now,admin_1,admin_1);
+                "",new StringBuffer(""),"","",0L,1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(CallObjectAction_3_SecondClickInCorrect);
         Attribute CallObjectAction_3_SecondClickInCorrect_param_1 =new Attribute("img",CallObjectAction_3_SecondClickInCorrect.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(CallObjectAction_3_SecondClickInCorrect_param_1);
@@ -764,7 +764,7 @@ public class ImportMemoryGameProblemData_4 implements CommandLineRunner {
         attributeValueService.save(CallObjectAction_3_SecondClickInCorrect_param_1_value);
 
         PLRulePostAction CallObjectAction_4_SecondClickInCorrect = new PLRulePostAction(rule_for_SecondClickInCorrect,CallObjectAction.get(),4,"flip","BoardVar(firstSelectedObject)",
-                "",new StringBuffer(""),"","",1L ,now,now,admin_1,admin_1);
+                "",new StringBuffer(""),"","",0L,1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(CallObjectAction_4_SecondClickInCorrect);
         Attribute CallObjectAction_4_SecondClickInCorrect_param_1 =new Attribute("img",CallObjectAction_4_SecondClickInCorrect.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(CallObjectAction_4_SecondClickInCorrect_param_1);
@@ -772,7 +772,7 @@ public class ImportMemoryGameProblemData_4 implements CommandLineRunner {
         attributeValueService.save(CallObjectAction_4_SecondClickInCorrect_param_1_value);
 
         PLRulePostAction CallObjectAction_5_SecondClickInCorrect = new PLRulePostAction(rule_for_SecondClickInCorrect,CallObjectAction.get(),5,"flip","InstProp(InstByPos(EventParam(row),EventParam(col)),objectId)",
-                "",new StringBuffer(""),"","",1L ,now,now,admin_1,admin_1);
+                "",new StringBuffer(""),"","",0L,1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(CallObjectAction_5_SecondClickInCorrect);
         Attribute CallObjectAction_5_SecondClickInCorrect_param_1 =new Attribute("img",CallObjectAction_5_SecondClickInCorrect.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(CallObjectAction_5_SecondClickInCorrect_param_1);
@@ -786,11 +786,11 @@ public class ImportMemoryGameProblemData_4 implements CommandLineRunner {
         puzzleLevelRuleService.save(rule_for_CheckCompletion);
 
         PLRulePostAction VariableAssignmentAction_1_CheckCompletion = new PLRulePostAction(rule_for_CheckCompletion,VariableAssignmentAction.get(),1,"","",
-                "BoardVar(finished)",new StringBuffer("true"),"","",1L ,now,now,admin_1,admin_1);
+                "BoardVar(finished)",new StringBuffer("true"),"","",0L,1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(VariableAssignmentAction_1_CheckCompletion);
 
         PLRulePostAction UserAlertAction_2_CheckCompletion = new PLRulePostAction(rule_for_CheckCompletion,UserAlertAction.get(),2,"","",
-                "BoardVar(finished)",new StringBuffer("true"),"info","mission completed!",1L ,now,now,admin_1,admin_1);
+                "BoardVar(finished)",new StringBuffer("true"),"info","mission completed!",0L,1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(UserAlertAction_2_CheckCompletion);
 
 

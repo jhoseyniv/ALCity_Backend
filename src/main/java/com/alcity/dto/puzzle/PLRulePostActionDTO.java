@@ -13,6 +13,8 @@ public class PLRulePostActionDTO {
     private String actionName;
     private String alertType;
     private String alertMessage;
+
+    private Long actionKey;
     private String plRulePostActionType;
 
     public Long getId() {
@@ -87,6 +89,14 @@ public class PLRulePostActionDTO {
         this.plRulePostActionType = plRulePostActionType;
     }
 
+    public Long getActionKey() {
+        return actionKey;
+    }
+
+    public void setActionKey(Long actionKey) {
+        this.actionKey = actionKey;
+    }
+
     public PLRulePostActionDTO() {
     }
 
@@ -99,7 +109,7 @@ public class PLRulePostActionDTO {
     }
 
     public PLRulePostActionDTO(Long id, StringBuffer valueExperssion, String variable, Integer ordering, String objectId,
-                               String actionName, String alertType, String alertMessage, String plRulePostActionType,Long puzzleLevelRuleId) {
+                               String actionName, String alertType, String alertMessage,Long actionKey, String plRulePostActionType,Long puzzleLevelRuleId) {
         this.id = id;
         this.valueExperssion = valueExperssion;
         this.variable = variable;
@@ -108,6 +118,7 @@ public class PLRulePostActionDTO {
         this.actionName = actionName;
         this.alertType = alertType;
         this.alertMessage = alertMessage;
+        this.actionKey = actionKey;
         this.plRulePostActionType = plRulePostActionType;
         this.puzzleLevelRuleId = puzzleLevelRuleId;
     }

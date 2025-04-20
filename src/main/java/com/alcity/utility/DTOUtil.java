@@ -1271,6 +1271,7 @@ public class DTOUtil {
             ruleActionData.setActionType(plRulePostAction.getPlRulePostActionType().getValue());
             ruleActionData.setAlertMessage(plRulePostAction.getAlertMessage());
             ruleActionData.setAlertType(plRulePostAction.getAlertType());
+            ruleActionData.setActionKey(plRulePostAction.getActionKey());
 
             parameters = getAttributeForOwnerById(attributeService , plRulePostAction.getId(), AttributeOwnerType.Puzzle_Level_Rule_Post_Action_Parameter);
             ruleActionData.setParameters(parameters);

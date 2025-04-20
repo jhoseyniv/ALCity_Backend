@@ -53,7 +53,7 @@ public class PLRulePostActionService implements PLRulePostActionRepository {
 
         if (code.equalsIgnoreCase("Save")) { //Save
             postAction = new PLRulePostAction(plRuleOptional.get(), plRulePostActionTypeOptional.get(), dto.getOrdering(), dto.getActionName(), dto.getObjectId(), dto.getVariable(),
-                                    dto.getValueExperssion(),dto.getAlertType(),dto.getAlertMessage(),1L, DateUtils.getNow(), DateUtils.getNow(), createdBy.get(), createdBy.get());
+                                    dto.getValueExperssion(),dto.getAlertType(),dto.getAlertMessage(), dto.getActionKey(), 1L, DateUtils.getNow(), DateUtils.getNow(), createdBy.get(), createdBy.get());
             plRulePostActionRepository.save(postAction);
         }else{//edit
             Optional<PLRulePostAction> plRulePostActionOptional= plRulePostActionRepository.findById(dto.getId());
@@ -67,6 +67,7 @@ public class PLRulePostActionService implements PLRulePostActionRepository {
                 postAction.setObjectId(dto.getObjectId());
                 postAction.setValueExperssion(dto.getValueExperssion());
                 postAction.setVariable(dto.getVariable());
+                postAction.setActionKey(dto.getActionKey());
                 postAction.setCreated(DateUtils.getNow());
                 postAction.setUpdated(DateUtils.getNow());
                 postAction.setCreatedBy(createdBy.get());
