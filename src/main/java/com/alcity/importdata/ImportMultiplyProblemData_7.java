@@ -323,12 +323,12 @@ public class ImportMultiplyProblemData_7 implements CommandLineRunner {
 
         Attribute pl_variable_ready =new Attribute("ready",Multiply_Game.getId(),AttributeOwnerType.Puzzle_Level_Variable,DataType.Boolean,1L,now,now,admin_1,admin_1);
         attributeService.save(pl_variable_ready);
-        AttributeValue pl_variable_ready_value= new AttributeValue(true,null,null,null,null,null,null,null,false,null,pl_variable_userSecondValue,1L,now,now,admin_1,admin_1,Multiply_Game.getId(),AttributeOwnerType.Puzzle_Level_Variable);
+        AttributeValue pl_variable_ready_value= new AttributeValue(true,null,null,null,null,null,null,null,false,null,pl_variable_ready,1L,now,now,admin_1,admin_1,Multiply_Game.getId(),AttributeOwnerType.Puzzle_Level_Variable);
         attributeValueService.save(pl_variable_ready_value);
 
         Attribute pl_variable_started =new Attribute("started",Multiply_Game.getId(),AttributeOwnerType.Puzzle_Level_Variable,DataType.Boolean,1L,now,now,admin_1,admin_1);
         attributeService.save(pl_variable_started);
-        AttributeValue pl_variable_ready_started= new AttributeValue(false,null,null,null,null,null,null,null,false,null,pl_variable_userSecondValue,1L,now,now,admin_1,admin_1,Multiply_Game.getId(),AttributeOwnerType.Puzzle_Level_Variable);
+        AttributeValue pl_variable_ready_started= new AttributeValue(false,null,null,null,null,null,null,null,false,null,pl_variable_started,1L,now,now,admin_1,admin_1,Multiply_Game.getId(),AttributeOwnerType.Puzzle_Level_Variable);
         attributeValueService.save(pl_variable_ready_started);
 
 
@@ -781,7 +781,7 @@ public class ImportMultiplyProblemData_7 implements CommandLineRunner {
                 "",new StringBuffer(""),"","",0L,1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(callobjectaction_2_Remained_1_Seconds);
 
-        Attribute callobjectaction_2_Remained_1_Seconds_param_1=new Attribute("bgColor",callobjectaction_2_Remained_2_Seconds.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action_Parameter,DataType.String,1L,now,now,admin_1,admin_1);
+        Attribute callobjectaction_2_Remained_1_Seconds_param_1=new Attribute("bgColor",callobjectaction_2_Remained_1_Seconds.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action_Parameter,DataType.String,1L,now,now,admin_1,admin_1);
         attributeService.save(callobjectaction_2_Remained_1_Seconds_param_1);
         AttributeValue  callobjectaction_2_Remained_1_Seconds_param_1_value= new AttributeValue(null,null,null,"red",null,null,null,null,Boolean.FALSE,null,callobjectaction_2_Remained_1_Seconds_param_1,1L,now,now,admin_1,admin_1,callobjectaction_2_Remained_1_Seconds.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action_Parameter);
         attributeValueService.save(callobjectaction_2_Remained_1_Seconds_param_1_value);
@@ -812,7 +812,7 @@ public class ImportMultiplyProblemData_7 implements CommandLineRunner {
         AttributeValue  callobjectaction_1_Finished_Timer_param_1_value= new AttributeValue(null,null,null,"white",null,null,null,null,Boolean.FALSE,null,callobjectaction_1_Finished_Timer_param_1,1L,now,now,admin_1,admin_1,callobjectaction_1_Finished_Timer.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action_Parameter);
         attributeValueService.save(callobjectaction_1_Finished_Timer_param_1_value);
 
-        PLRulePostAction fireEventAction_update = new PLRulePostAction(Finished_Timer_rule,CallObjectAction.get(),2,"","",
+        PLRulePostAction fireEventAction_update = new PLRulePostAction(Finished_Timer_rule,FireEventAction_update.get(),2,"","",
                 "",new StringBuffer(""),"","",0L,1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(fireEventAction_update);
         Attribute fireEventAction_update_param_1=new Attribute("correct",fireEventAction_update.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action_Parameter,DataType.Boolean,1L,now,now,admin_1,admin_1);
