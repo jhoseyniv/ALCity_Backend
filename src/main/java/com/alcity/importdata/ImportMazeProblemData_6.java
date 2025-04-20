@@ -356,7 +356,7 @@ public class ImportMazeProblemData_6 implements CommandLineRunner {
 
         Attribute ImageObject01_property_bgImage =new Attribute("bgImage",mazeGame_ImageObject.getId(),AttributeOwnerType.Puzzle_Group_Object_Property,DataType.Binary,1L,now,now,admin_1,admin_1);
         attributeService.save(ImageObject01_property_bgImage);
-        AttributeValue ImageObject01_property_bgImage_value = new AttributeValue(null,null,null,null,null,null, mazeGame_ImageObject.getId(),null,false,null,ImageObject01_property_bgImage,1L,now,now,admin_1,admin_1,mazeGame_ImageObject.getId(), AttributeOwnerType.Instance_Puzzle_Group_Object_Variable);
+        AttributeValue ImageObject01_property_bgImage_value = new AttributeValue(null,null,null,null,null,null,pg_maze_Game_learning_content.getId(),null,false,null,ImageObject01_property_bgImage,1L,now,now,admin_1,admin_1,mazeGame_ImageObject.getId(), AttributeOwnerType.Instance_Puzzle_Group_Object_Variable);
         attributeValueService.save(ImageObject01_property_bgImage_value);
 
 //        Attribute attributeBGImage_Image_Object= null;
