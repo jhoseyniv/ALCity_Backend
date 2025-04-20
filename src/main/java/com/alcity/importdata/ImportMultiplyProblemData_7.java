@@ -597,7 +597,7 @@ public class ImportMultiplyProblemData_7 implements CommandLineRunner {
         attributeValueService.save(instance_img0_property_text_value);
 
         byte[] instance_img0101_bytes = ImageUtil.getImage("src/main/resources/images/Multiply_Game/","instance_img0101.png");
-        BinaryContent instance_img0101_bytes_content = new BinaryContent(1L, now, now,admin_1 , admin_1,"instance_img0101",instance_img0101_bytes.length,instance_img0_bytes,null,"instance_img0101","","",BinaryContentType.Image);
+        BinaryContent instance_img0101_bytes_content = new BinaryContent(1L, now, now,admin_1 , admin_1,"instance_img0101",instance_img0101_bytes.length,instance_img0101_bytes,null,"instance_img0101","","",BinaryContentType.Image);
         binaryContentService.save(instance_img0101_bytes_content);
 
         ALCityInstanceInPL instance_img0101 = new ALCityInstanceInPL("instance_img0101",9,2,0,imageobject_in_Multiply,Multiply_Game,1L,now,now,admin_1,admin_1);
@@ -606,7 +606,7 @@ public class ImportMultiplyProblemData_7 implements CommandLineRunner {
         attributeValueService.save(instance_img0101_property_text_value);
 
         byte[] instance_img0102_bytes = ImageUtil.getImage("src/main/resources/images/Multiply_Game/","instance_img0102.png");
-        BinaryContent instance_img0102_bytes_content = new BinaryContent(1L, now, now,admin_1 , admin_1,"instance_img0102",instance_img0102_bytes.length,instance_img0_bytes,null,"instance_img0101","","",BinaryContentType.Image);
+        BinaryContent instance_img0102_bytes_content = new BinaryContent(1L, now, now,admin_1 , admin_1,"instance_img0102",instance_img0102_bytes.length,instance_img0102_bytes,null,"instance_img0101","","",BinaryContentType.Image);
         binaryContentService.save(instance_img0102_bytes_content);
 
         ALCityInstanceInPL instance_img0102 = new ALCityInstanceInPL("instance_img0102",9,4,0,imageobject_in_Multiply,Multiply_Game,1L,now,now,admin_1,admin_1);
