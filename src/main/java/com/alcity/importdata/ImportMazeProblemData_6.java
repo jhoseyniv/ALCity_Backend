@@ -231,11 +231,11 @@ public class ImportMazeProblemData_6 implements CommandLineRunner {
         BinaryContent pg_maze_Game_learning_content = new BinaryContent(1L, now, now,admin_1 , admin_1,"Memory-Game", maze_image_LearningContent_Image_bytes.length, maze_image_LearningContent_Image_bytes,null,"tag1","","",BinaryContentType.Image);
         binaryContentService.save(pg_maze_Game_learning_content);
 
-        Float xPos=0f;
+        Float xPos=15f;
         Float yPos=15f;
-        Float zPos=0f;
-        Float xRotation=90f;
-        Float yRotation=0f;
+        Float zPos=-15f;
+        Float xRotation=35f;
+        Float yRotation=-45f;
         Float zRotation=0f;
         Boolean zoom=true;
         Boolean pan=true;
