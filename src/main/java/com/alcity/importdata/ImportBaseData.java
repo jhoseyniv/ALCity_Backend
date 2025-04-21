@@ -259,11 +259,15 @@ public class ImportBaseData implements CommandLineRunner {
         PLRulePostActionType FireEventAction_Update = new PLRulePostActionType("FireEventAction:update","FireEventAction:update","",1L,now,now,admin_1,admin_1);
         plRulePostActionTypeService.save(FireEventAction_Update);
 
+        PLRulePostActionType FireEventAction_StartTimer = new PLRulePostActionType("FireEventAction:startTimer","FireEventAction:startTimer","",1L,now,now,admin_1,admin_1);
+        plRulePostActionTypeService.save(FireEventAction_StartTimer);
+
 
 
         PLRuleEvent click_ruleEvent = new PLRuleEvent("Click", PLRuleEventType.UserEvent, UserEvent.Click.ordinal(),1L,now,now,admin_1,admin_1);
         PLRuleEvent drag_ruleEvent = new PLRuleEvent("Drag", PLRuleEventType.UserEvent, UserEvent.Drag.ordinal(),1L,now,now,admin_1,admin_1);
         PLRuleEvent Internal_Event = new PLRuleEvent("internalevent", PLRuleEventType.SystemEvent, SystemEvent.internalEvent.ordinal(),1L,now,now,admin_1,admin_1);
+        PLRuleEvent Internal_Event_resetoutput = new PLRuleEvent("internalevent:resetoutput", PLRuleEventType.SystemEvent, SystemEvent.internalEvent.ordinal(),1L,now,now,admin_1,admin_1);
         PLRuleEvent internalevent_checkcell = new PLRuleEvent("internalevent:checkcell", PLRuleEventType.SystemEvent, SystemEvent.internalEvent.ordinal(),1L,now,now,admin_1,admin_1);
         PLRuleEvent internalevent_check = new PLRuleEvent("internalevent:check", PLRuleEventType.SystemEvent, SystemEvent.internalEvent.ordinal(),1L,now,now,admin_1,admin_1);
         PLRuleEvent internalevent_startTimer = new PLRuleEvent("internalevent:startTimer", PLRuleEventType.SystemEvent, SystemEvent.internalEvent.ordinal(),1L,now,now,admin_1,admin_1);
@@ -275,6 +279,7 @@ public class ImportBaseData implements CommandLineRunner {
         plRuleEventService.save(click_ruleEvent);
         plRuleEventService.save(drag_ruleEvent);
         plRuleEventService.save(Internal_Event);
+        plRuleEventService.save(Internal_Event_resetoutput);
         plRuleEventService.save(internalevent_check);
         plRuleEventService.save(internalevent_move);
         plRuleEventService.save(internalevent_checkcell);

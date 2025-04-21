@@ -650,6 +650,7 @@ public class ImportMemoryGameProblemData_4 implements CommandLineRunner {
         Optional<PLRuleEvent> drag_event = plRuleEventService.findByName("Drag");
         Optional<PLRuleEvent> click_event = plRuleEventService.findByName("Click");
         Optional<PLRuleEvent> internalevent_checkcell = plRuleEventService.findByName("internalevent:checkcell");
+        Optional<PLRuleEvent> Internal_Event_resetoutput = plRuleEventService.findByName("internalevent:resetoutput");
         Optional<PLRuleEvent> internalevent_check = plRuleEventService.findByName("internalevent:check");
         Optional<PLRuleEvent> internalEvent = plRuleEventService.findByName("internalevent");
 

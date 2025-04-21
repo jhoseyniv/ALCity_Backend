@@ -2,6 +2,7 @@ package com.alcity.service.Journey;
 
 import com.alcity.dto.journey.JourneyStepRecord;
 import com.alcity.dto.journey.RoadMapDTO;
+import com.alcity.dto.journey.RoadMapUpdatePos;
 import com.alcity.entity.appmember.AppMember;
 import com.alcity.entity.base.BinaryContent;
 import com.alcity.entity.journey.Journey;
@@ -17,7 +18,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.Optional;
 
 @Service
@@ -78,6 +81,21 @@ public class RoadMapService implements RoadMapRepository {
     public void deleteById(Long aLong) {
         roadMapRepository.deleteById(aLong);
     }
+    public Collection<RoadMap> updateAll(Collection<RoadMapUpdatePos> dtos) {
+        Collection<RoadMap> roadMaps = new ArrayList<>();
+        Iterator<RoadMapUpdatePos> iterator = dtos.iterator();
+        while(iterator.hasNext()){
+            RoadMapUpdatePos newRoadMap =  iterator.next();
+            Optional<RoadMap> roadMapOptional = roadMapRepository.findById(newRoadMap.getRoadMapId());
+            if(roadMapOptional.isEmpty()) return  null;
+            RoadMap roadMap = roadMapOptional.get();
+            roadMap.setYpos(newRoadMap.getNewPosY());
+            roadMapRepository.save(roadMap);
+            roadMaps.add(roadMap);
+        }
+        return roadMaps;
+    }
+
     public RoadMap save(RoadMapDTO dto, String code) {
         Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
         RoadMap roadMap=null;

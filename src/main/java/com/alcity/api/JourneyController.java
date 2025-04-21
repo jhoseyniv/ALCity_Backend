@@ -1,14 +1,11 @@
 package com.alcity.api;
 
-import com.alcity.dto.journey.JourneyStepRecord;
-import com.alcity.dto.journey.RoadMapDTO;
+import com.alcity.dto.journey.*;
 import com.alcity.entity.journey.RoadMap;
 import com.alcity.service.Journey.RoadMapService;
 import com.alcity.service.customexception.ALCityResponseObject;
 import com.alcity.service.customexception.UniqueConstraintException;
 import com.alcity.service.customexception.ViolateForeignKeyException;
-import com.alcity.dto.journey.JourneyDTO;
-import com.alcity.dto.journey.JourneyStepDTO;
 import com.alcity.entity.journey.Journey;
 import com.alcity.entity.journey.JourneyStep;
 import com.alcity.repository.appmember.AppMemberRepository;
@@ -130,6 +127,21 @@ public class JourneyController {
         else
             responseObject = new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", -1L, "Record Not Found!");
      return responseObject;
+    }
+
+    @Operation( summary = "Update all Road Map positions",  description = "update all Road Map position ")
+    @PostMapping("/update/all/road-maps")
+    @CrossOrigin(origins = "*")
+    public ALCityResponseObject updateRoadMaps(@RequestBody Collection<RoadMapUpdatePos> dtos) {
+        ALCityResponseObject responseObject = new ALCityResponseObject();
+       Collection<RoadMap> roadMaps = roadMapService.updateAll(dtos);
+       if(roadMaps == null || roadMaps.size() != dtos.size()) {
+           responseObject = new ALCityResponseObject(HttpStatus.OK.value(), "ok",-1L , "Records Not Update try again!");
+       }else {
+           responseObject = new ALCityResponseObject(HttpStatus.OK.value(), "ok",1L , "All Records Update Successfully!");
+
+       }
+        return responseObject;
     }
 
     @Operation( summary = "Save a  Road Map",  description = "save a Road Map and their data to data base")
