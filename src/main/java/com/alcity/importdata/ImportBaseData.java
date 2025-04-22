@@ -529,8 +529,8 @@ public class ImportBaseData implements CommandLineRunner {
         learningSkill_LearningTopicService.save(learningSkill_learningTopic_2);
 
 
-        byte[] jouerny_1_Image = ImageUtil.getImage("src/main/resources/images/","jouerny_1.jpeg");
-        byte[]  tumb_jouerny_1 = ImageUtil.getThumbnail(jouerny_1_Image,"jouerny_1.jpeg");
+        byte[] jouerny_1_Image = ImageUtil.getImage("src/main/resources/images/","jouerny_1.png");
+        byte[]  tumb_jouerny_1 = ImageUtil.getThumbnail(jouerny_1_Image,"jouerny_1.png");
 
         byte[] jouerny_2_Image = ImageUtil.getImage("src/main/resources/images/","desert.png");
         byte[]  tumb_jouerny_2 = ImageUtil.getThumbnail(jouerny_2_Image,"desert.png");
