@@ -24,6 +24,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import java.util.*;
 
 @Tag(name = "Application Member APIs", description = "Get Application Member and related entities as rest api")
@@ -103,12 +105,16 @@ public class AppMemberController {
     @ResponseBody
     @CrossOrigin(origins = "*")
     public AppMemberJourneyInfo getPuzzleLevelMappedStepInJourney(@PathVariable Long id, @PathVariable Long jid) {
+        long start_time = System.currentTimeMillis();
+
         Optional<AppMember> memberOptional = appMemberService.findById(id);
         Optional<Journey> journeyOptional = journeyService.findById(jid);
         AppMemberJourneyInfo journeyInfoWithScores =null;
         if(memberOptional.isEmpty()  || journeyOptional.isEmpty()) return  null;
         AppMemberJourneyInfo journeyInfo = appMemberService.getAppMemberJourneyInfo(memberOptional.get(),journeyOptional.get());
         journeyInfoWithScores =appMemberService.getAppMemberJourneyInfoWithScores(memberOptional.get(),journeyInfo);
+        long end_time = System.currentTimeMillis();
+        System.out.println("Milliseconds for running getPuzzleLevelMappedStepInJourney Method in MiliSec = " + (end_time - start_time));
         return journeyInfoWithScores;
     }
 
