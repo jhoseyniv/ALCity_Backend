@@ -650,18 +650,18 @@ public class ImportMultiplyProblemData_7 implements CommandLineRunner {
         AttributeValue  FireEventAction_ResetOutput_ClickOnNext_param_2_value= new AttributeValue(null,7,null,null,null,null,null,null,Boolean.FALSE,null,FireEventAction_ResetOutput_ClickOnNext_param_2,1L,now,now,admin_1,admin_1,FireEventAction_ClickOnNext.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action_Parameter);
         attributeValueService.save(FireEventAction_ResetOutput_ClickOnNext_param_2_value);
 
-        PLRulePostAction FireEventAction_2_ClickOnNext = new PLRulePostAction(rule_for_ClickOnNext,FireEventAction_resetoutput.get(),2,"","",
+        PLRulePostAction ireEventAction_ResetOutput_2_ClickOnNext = new PLRulePostAction(rule_for_ClickOnNext,FireEventAction_resetoutput.get(),2,"","",
                 "",new StringBuffer(""),"","",0L,1L ,now,now,admin_1,admin_1);
-        plRulePostActionService.save(FireEventAction_2_ClickOnNext);
+        plRulePostActionService.save(ireEventAction_ResetOutput_2_ClickOnNext);
 
         Attribute FireEventAction_2_ResetOutput_ClickOnNext_param_1=new Attribute("row",FireEventAction_ClickOnNext.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action_Parameter,DataType.Integer,1L,now,now,admin_1,admin_1);
         attributeService.save(FireEventAction_2_ResetOutput_ClickOnNext_param_1);
-        AttributeValue  FireEventAction_2_ResetOutput_ClickOnNext_param_1_value= new AttributeValue(null,1,null,null,null,null,null,null,Boolean.FALSE,null,FireEventAction_2_ResetOutput_ClickOnNext_param_1,1L,now,now,admin_1,admin_1,FireEventAction_2_ClickOnNext.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action_Parameter);
+        AttributeValue  FireEventAction_2_ResetOutput_ClickOnNext_param_1_value= new AttributeValue(null,1,null,null,null,null,null,null,Boolean.FALSE,null,FireEventAction_2_ResetOutput_ClickOnNext_param_1,1L,now,now,admin_1,admin_1,ireEventAction_ResetOutput_2_ClickOnNext.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action_Parameter);
         attributeValueService.save(FireEventAction_2_ResetOutput_ClickOnNext_param_1_value);
 
         Attribute FireEventAction_2_ResetOutput_ClickOnNext_param_2=new Attribute("col",FireEventAction_ClickOnNext.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action_Parameter,DataType.Integer,1L,now,now,admin_1,admin_1);
         attributeService.save(FireEventAction_2_ResetOutput_ClickOnNext_param_2);
-        AttributeValue  FireEventAction_2_ResetOutput_ClickOnNext_param_2_value= new AttributeValue(null,9,null,null,null,null,null,null,Boolean.FALSE,null,FireEventAction_2_ResetOutput_ClickOnNext_param_2,1L,now,now,admin_1,admin_1,FireEventAction_2_ClickOnNext.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action_Parameter);
+        AttributeValue  FireEventAction_2_ResetOutput_ClickOnNext_param_2_value= new AttributeValue(null,9,null,null,null,null,null,null,Boolean.FALSE,null,FireEventAction_2_ResetOutput_ClickOnNext_param_2,1L,now,now,admin_1,admin_1,ireEventAction_ResetOutput_2_ClickOnNext.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action_Parameter);
         attributeValueService.save(FireEventAction_2_ResetOutput_ClickOnNext_param_2_value);
 
 
@@ -694,7 +694,7 @@ public class ImportMultiplyProblemData_7 implements CommandLineRunner {
         plRulePostActionService.save(VariableAssignmentAction_5_ClickOnNext);
 
         PLRulePostAction VariableAssignmentAction_6_ClickOnNext = new PLRulePostAction(rule_for_ClickOnNext,VariableAssignmentAction.get(),9,"","",
-                "BoardVar(ready)",new StringBuffer("true"),"","",0L,1L ,now,now,admin_1,admin_1);
+                "BoardVar(ready)",new StringBuffer("false"),"","",0L,1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(VariableAssignmentAction_6_ClickOnNext);
 
         PLRulePostAction VariableAssignmentAction_7_ClickOnNext = new PLRulePostAction(rule_for_ClickOnNext,VariableAssignmentAction.get(),10,"","",
@@ -706,7 +706,7 @@ public class ImportMultiplyProblemData_7 implements CommandLineRunner {
         plRulePostActionService.save(VariableAssignmentAction_8_ClickOnNext);
 
         PLRulePostAction fireEvent_Action_ClickOnNext = new PLRulePostAction(rule_for_ClickOnNext,FireEventAction_startTimer.get(),12,"","",
-                "BoardVar(userSecondValue)",new StringBuffer("0"),"","",0L,1L ,now,now,admin_1,admin_1);
+                "",new StringBuffer("0"),"","",0L,1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(fireEvent_Action_ClickOnNext);
 
 
