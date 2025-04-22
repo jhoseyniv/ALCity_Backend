@@ -480,6 +480,9 @@ public class ImportMultiplyProblemData_7 implements CommandLineRunner {
         AttributeValue  ins_100107_property_text_value= new AttributeValue(null,null,null,"0",null,null,null,null,Boolean.FALSE,null,textObject_property_text,1L,now,now,admin_1,admin_1,ins_100107.getId(),AttributeOwnerType.Instance_Puzzle_Group_Object_Property);
         attributeValueService.save(ins_100107_property_text_value);
 
+        AttributeValue  ins_100107_property_enabled_value= new AttributeValue(false,null,null,null,null,null,null,null,Boolean.FALSE,null,textObject_property_enabled,1L,now,now,admin_1,admin_1,ins_100107.getId(),AttributeOwnerType.Instance_Puzzle_Group_Object_Property);
+        attributeValueService.save(ins_100107_property_enabled_value);
+
         ALCityInstanceInPL ins_100207 = new ALCityInstanceInPL("100207",2,7,0,textObject_in_Multiply,Multiply_Game,1L,now,now,admin_1,admin_1);
         pgObjectInstanceService.save(ins_100207);
         AttributeValue  ins_100207_property_text_value= new AttributeValue(null,null,null,"1",null,null,null,null,Boolean.FALSE,null,textObject_property_text,1L,now,now,admin_1,admin_1,ins_100207.getId(),AttributeOwnerType.Instance_Puzzle_Group_Object_Property);
@@ -673,39 +676,39 @@ public class ImportMultiplyProblemData_7 implements CommandLineRunner {
                 "InstProp(InstByPos(5, 2), text)",new StringBuffer("BoardVar(firstValue)"),"","",0L,1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(VariableAssignmentAction_2_ClickOnNext);
 
-        PLRulePostAction callObjectAction_1_ClickOnNext = new PLRulePostAction(rule_for_ClickOnNext,CallObjectAction.get(),4,"show","InstProp(InstByPos(5, 2), objectId)",
+        PLRulePostAction callObjectAction_1_ClickOnNext = new PLRulePostAction(rule_for_ClickOnNext,CallObjectAction.get(),5,"show","InstProp(InstByPos(5, 2), objectId)",
                 "",new StringBuffer(""),"","",0L,1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(callObjectAction_1_ClickOnNext);
 
-        PLRulePostAction VariableAssignmentAction_3_ClickOnNext = new PLRulePostAction(rule_for_ClickOnNext,VariableAssignmentAction.get(),5,"","",
+        PLRulePostAction VariableAssignmentAction_3_ClickOnNext = new PLRulePostAction(rule_for_ClickOnNext,VariableAssignmentAction.get(),6,"","",
                 "BoardVar(secondValue)",new StringBuffer("Random(1)"),"","",0L,1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(VariableAssignmentAction_3_ClickOnNext);
 
-        PLRulePostAction VariableAssignmentAction_4_ClickOnNext = new PLRulePostAction(rule_for_ClickOnNext,VariableAssignmentAction.get(),6,"","",
+        PLRulePostAction VariableAssignmentAction_4_ClickOnNext = new PLRulePostAction(rule_for_ClickOnNext,VariableAssignmentAction.get(),7,"","",
                 "InstProp(InstByPos(5, 4), text)",new StringBuffer("BoardVar(secondValue)"),"","",0L,1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(VariableAssignmentAction_4_ClickOnNext);
 
-        PLRulePostAction callObjectAction_2_ClickOnNext = new PLRulePostAction(rule_for_ClickOnNext,CallObjectAction.get(),7,"show","InstProp(InstByPos(5, 4), objectId)",
+        PLRulePostAction callObjectAction_2_ClickOnNext = new PLRulePostAction(rule_for_ClickOnNext,CallObjectAction.get(),8,"show","InstProp(InstByPos(5, 4), objectId)",
                 "",new StringBuffer(""),"","",0L,1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(callObjectAction_2_ClickOnNext);
 
-        PLRulePostAction VariableAssignmentAction_5_ClickOnNext = new PLRulePostAction(rule_for_ClickOnNext,VariableAssignmentAction.get(),8,"","",
+        PLRulePostAction VariableAssignmentAction_5_ClickOnNext = new PLRulePostAction(rule_for_ClickOnNext,VariableAssignmentAction.get(),9,"","",
                 "BoardVar(started)",new StringBuffer("true"),"","",0L,1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(VariableAssignmentAction_5_ClickOnNext);
 
-        PLRulePostAction VariableAssignmentAction_6_ClickOnNext = new PLRulePostAction(rule_for_ClickOnNext,VariableAssignmentAction.get(),9,"","",
+        PLRulePostAction VariableAssignmentAction_6_ClickOnNext = new PLRulePostAction(rule_for_ClickOnNext,VariableAssignmentAction.get(),10,"","",
                 "BoardVar(ready)",new StringBuffer("false"),"","",0L,1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(VariableAssignmentAction_6_ClickOnNext);
 
-        PLRulePostAction VariableAssignmentAction_7_ClickOnNext = new PLRulePostAction(rule_for_ClickOnNext,VariableAssignmentAction.get(),10,"","",
+        PLRulePostAction VariableAssignmentAction_7_ClickOnNext = new PLRulePostAction(rule_for_ClickOnNext,VariableAssignmentAction.get(),11,"","",
                 "BoardVar(userFirstValue)",new StringBuffer("0"),"","",0L,1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(VariableAssignmentAction_7_ClickOnNext);
 
-        PLRulePostAction VariableAssignmentAction_8_ClickOnNext = new PLRulePostAction(rule_for_ClickOnNext,VariableAssignmentAction.get(),11,"","",
+        PLRulePostAction VariableAssignmentAction_8_ClickOnNext = new PLRulePostAction(rule_for_ClickOnNext,VariableAssignmentAction.get(),12,"","",
                 "BoardVar(userSecondValue)",new StringBuffer("0"),"","",0L,1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(VariableAssignmentAction_8_ClickOnNext);
 
-        PLRulePostAction fireEvent_Action_ClickOnNext = new PLRulePostAction(rule_for_ClickOnNext,FireEventAction_startTimer.get(),12,"","",
+        PLRulePostAction fireEvent_Action_ClickOnNext = new PLRulePostAction(rule_for_ClickOnNext,FireEventAction_startTimer.get(),13,"","",
                 "",new StringBuffer("0"),"","",0L,1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(fireEvent_Action_ClickOnNext);
 
