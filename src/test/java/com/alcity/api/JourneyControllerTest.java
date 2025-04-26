@@ -23,7 +23,8 @@ public class JourneyControllerTest {
     private MockMvc mockMvc;
     @Test
     public void findOne() throws Exception {
-        ResultActions result = mockMvc.perform(get("/base/client-type/id/{id}", 5));
+
+        ResultActions result = mockMvc.perform(get("/base/pl-status/all", 5));
 
         result.andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
@@ -31,7 +32,5 @@ public class JourneyControllerTest {
                 .andExpect(jsonPath("$.label").value("mobile"))
                 .andExpect(jsonPath("$.value").value("mobile"))
                 .andExpect(jsonPath("$.version").value("1"));
-        //.andExpect(jsonPath("$.created").value(now))
-        //.andExpect(jsonPath("$.updated").value("mobile"));
     }
 }

@@ -908,7 +908,7 @@ public class ImportMultiplyProblemData_7 implements CommandLineRunner {
 
         Attribute callobjectaction_1_Finished_Step_param_1=new Attribute("text",callobjectaction_1_Finished_Step.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action_Parameter,DataType.String,1L,now,now,admin_1,admin_1);
         attributeService.save(callobjectaction_1_Finished_Step_param_1);
-        AttributeValue  callobjectaction_1_Finished_Step_param_1_value= new AttributeValue(null,null,null,null,null,null,null,"concat(BoardVar(progress),'%')",Boolean.TRUE,null,callobjectaction_1_Finished_Step_param_1,1L,now,now,admin_1,admin_1,callobjectaction_1_Finished_Step.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action_Parameter);
+        AttributeValue  callobjectaction_1_Finished_Step_param_1_value= new AttributeValue(null,null,null,null,null,null,null,"concat(BoardVar(progress),'percent')",Boolean.TRUE,null,callobjectaction_1_Finished_Step_param_1,1L,now,now,admin_1,admin_1,callobjectaction_1_Finished_Step.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action_Parameter);
         attributeValueService.save(callobjectaction_1_Finished_Step_param_1_value);
 
         PLRulePostAction VariableAssignmentAction_2_Finished_Step = new PLRulePostAction(Finished_Step_rule,VariableAssignmentAction.get(),3,"","",

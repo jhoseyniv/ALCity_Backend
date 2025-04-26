@@ -112,9 +112,9 @@ public class AppMemberController {
         AppMemberJourneyInfo journeyInfoWithScores =null;
         if(memberOptional.isEmpty()  || journeyOptional.isEmpty()) return  null;
         AppMemberJourneyInfo journeyInfo = appMemberService.getAppMemberJourneyInfo(memberOptional.get(),journeyOptional.get());
-        journeyInfoWithScores =appMemberService.getAppMemberJourneyInfoWithScores(memberOptional.get(),journeyInfo);
         long end_time = System.currentTimeMillis();
-        System.out.println("Milliseconds for running getPuzzleLevelMappedStepInJourney Method in MiliSec = " + (end_time - start_time));
+        journeyInfoWithScores =appMemberService.getAppMemberJourneyInfoWithScores(memberOptional.get(),journeyInfo);
+        System.out.println("Milliseconds for running getPuzzleLevelMappedStepInJourney Method = " + (end_time - start_time));
         return journeyInfoWithScores;
     }
 

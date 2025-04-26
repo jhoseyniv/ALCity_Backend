@@ -256,7 +256,6 @@ public class PuzzleLevelService implements PuzzleLevelRepository {
                Iterator<JourneyStep> itr = journeyStepCollection.iterator();
                if(itr.hasNext()) return itr.next();
            }
-
       return journeyStep;
     }
     }
