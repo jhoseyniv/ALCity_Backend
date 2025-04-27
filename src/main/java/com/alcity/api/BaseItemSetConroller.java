@@ -40,8 +40,8 @@ public class BaseItemSetConroller {
 
         return DTOUtil.getEnumByClass(UserGender.class);
     }
-    @Operation( summary = "Fetch all PL Rule Post Action Owner Type ",  description = "fetches all PL Rule Post Action Owner Type entities and their data from data source")
-    @GetMapping("/pl-rule-post-action/all")
+    @Operation( summary = "Fetch all PL Rule Post Action Owner Types ",  description = "fetches all PL Rule Post Action Owner Types entities and their data from data source")
+    @GetMapping("/pl-rule-post-action-type/all")
     @CrossOrigin(origins = "*")
     public Collection<EnumDTO> getPLRulePostActionOwnerType(Model model) {
         return DTOUtil.getEnumByClass(PLRulePostActionOwnerType.class);
