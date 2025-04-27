@@ -2,6 +2,8 @@ package com.alcity.service.puzzle;
 
 import com.alcity.dto.puzzle.PLRuleDTO;
 import com.alcity.dto.puzzle.PLRulePostActionDTO;
+import com.alcity.entity.alenum.PLRulePostActionOwnerType;
+import com.alcity.entity.alenum.UserGender;
 import com.alcity.entity.alobject.PLRulePostActionType;
 import com.alcity.entity.appmember.AppMember;
 import com.alcity.entity.puzzle.PLRule;
@@ -18,6 +20,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import org.springframework.transaction.annotation.Transactional;;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Optional;
 
@@ -46,13 +49,13 @@ public class PLRulePostActionService implements PLRulePostActionRepository {
     public PLRulePostAction save(PLRulePostActionDTO dto, String code) {
        Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
        PLRulePostAction postAction=null;
-        Optional<PLRule>  plRuleOptional = ruleRepository.findById(dto.getPuzzleLevelRuleId());
+        PLRulePostActionOwnerType ownerType = PLRulePostActionOwnerType.getByTitle(dto.getOwnerType());
         Optional<PLRulePostActionType>  plRulePostActionTypeOptional = plRulePostActionTypeRepository.findByValue(dto.getPlRulePostActionType());
 
-        if(plRuleOptional.isEmpty() || plRulePostActionTypeOptional.isEmpty()) return  null;
+        if(ownerType ==null || plRulePostActionTypeOptional.isEmpty()) return  null;
 
         if (code.equalsIgnoreCase("Save")) { //Save
-            postAction = new PLRulePostAction(plRuleOptional.get(), plRulePostActionTypeOptional.get(), dto.getOrdering(), dto.getActionName(), dto.getObjectId(), dto.getVariable(),
+            postAction = new PLRulePostAction(dto.getOwnerId(),ownerType, plRulePostActionTypeOptional.get(), dto.getOrdering(), dto.getActionName(), dto.getObjectId(), dto.getVariable(),
                                     dto.getValueExperssion(),dto.getAlertType(),dto.getAlertMessage(), dto.getActionKey(), 1L, DateUtils.getNow(), DateUtils.getNow(), createdBy.get(), createdBy.get());
             plRulePostActionRepository.save(postAction);
         }else{//edit
@@ -63,7 +66,8 @@ public class PLRulePostActionService implements PLRulePostActionRepository {
                 postAction.setPlRulePostActionType(plRulePostActionTypeOptional.get());
                 postAction.setAlertMessage(dto.getAlertMessage());
                 postAction.setOrdering(dto.getOrdering());
-                postAction.setPuzzleLevelRule(plRuleOptional.get());
+                postAction.setOwnerId(dto.getOwnerId());
+                postAction.setOwnerType(ownerType);
                 postAction.setObjectId(dto.getObjectId());
                 postAction.setValueExperssion(dto.getValueExperssion());
                 postAction.setVariable(dto.getVariable());
@@ -139,4 +143,9 @@ public class PLRulePostActionService implements PLRulePostActionRepository {
         return null;
     }
 
- }
+    @Override
+    public ArrayList<PLRulePostAction> findByOwnerId(Long ownerId) {
+        return plRulePostActionRepository.findByOwnerId(ownerId);
+    }
+
+}

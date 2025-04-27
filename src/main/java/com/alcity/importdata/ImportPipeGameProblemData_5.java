@@ -576,45 +576,43 @@ public class ImportPipeGameProblemData_5 implements CommandLineRunner {
                 ,click_rule_condition,ignoreRemaining,pipe_Game,click_event.get(),1L,now,now,admin_1,admin_1);
         puzzleLevelRuleService.save(rule_for_Click);
 
-        PLRulePostAction VariableAssignmentAction_1 = new PLRulePostAction(rule_for_Click,VariableAssignmentAction.get(),1,"","",
+        PLRulePostAction VariableAssignmentAction_1 = new PLRulePostAction(rule_for_Click.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,VariableAssignmentAction.get(),1,"","",
                 "BoardVar(steps)",new StringBuffer("BoardVar(steps)+1"),"","",0L,1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(VariableAssignmentAction_1);
 
-        PLRulePostAction VariableAssignmentAction_2 = new PLRulePostAction(rule_for_Click,VariableAssignmentAction.get(),2,"","",
+        PLRulePostAction VariableAssignmentAction_2 = new PLRulePostAction(rule_for_Click.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,VariableAssignmentAction.get(),2,"","",
                 "BoardVar(solved)",new StringBuffer("BoardVar(solved)-cond(equal(InstVar(InstByPos(EventParam(row), EventParam(col)), currentDir),InstVar(InstByPos(EventParam(row), EventParam(col)), correctDir)),1,0)"),"","",0L,1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(VariableAssignmentAction_2);
 
-        PLRulePostAction VariableAssignmentAction_3 = new PLRulePostAction(rule_for_Click,VariableAssignmentAction.get(),3,"","",
+        PLRulePostAction VariableAssignmentAction_3 = new PLRulePostAction(rule_for_Click.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,VariableAssignmentAction.get(),3,"","",
                 "InstVar(InstByPos(EventParam(row), EventParam(col)), currentDir)",new StringBuffer("(InstVar(InstByPos(EventParam(row), EventParam(col)), currentDir)+1) % InstVar(InstByPos(EventParam(row), EventParam(col)), possibleDirs)"),"","",0L,1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(VariableAssignmentAction_3);
 
-        PLRulePostAction VariableAssignmentAction_4 = new PLRulePostAction(rule_for_Click,VariableAssignmentAction.get(),4,"","",
+        PLRulePostAction VariableAssignmentAction_4 = new PLRulePostAction(rule_for_Click.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,VariableAssignmentAction.get(),4,"","",
                 "BoardVar(solved)",new StringBuffer("BoardVar(solved)+cond(equal(InstVar(InstByPos(EventParam(row), EventParam(col)), currentDir),InstVar(InstByPos(EventParam(row), EventParam(col)), correctDir)),1,0)"),"","",0L,1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(VariableAssignmentAction_4);
 
-        PLRulePostAction CallObjectAction_4_Click = new PLRulePostAction(rule_for_Click,CallObjectAction.get(),5,"Rotate","InstProp(InstByPos(EventParam(row),EventParam(col)),objectId)",
+        PLRulePostAction CallObjectAction_4_Click = new PLRulePostAction(rule_for_Click.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,CallObjectAction.get(),5,"Rotate","InstProp(InstByPos(EventParam(row),EventParam(col)),objectId)",
                 "",new StringBuffer(""),"","",0L,1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(CallObjectAction_4_Click);
 
-        PLRulePostAction FireEventAction_5_Click = new PLRulePostAction(rule_for_Click,FireEventAction.get(),6,"","",
+        PLRulePostAction FireEventAction_5_Click = new PLRulePostAction(rule_for_Click.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,FireEventAction.get(),6,"","",
                 "",new StringBuffer(""),"","",0L,1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(FireEventAction_5_Click);
 
-
-
-        StringBuffer   CheckCompletion_rule_condition = new StringBuffer("equal(BoardVar(solved),8)");
+       StringBuffer   CheckCompletion_rule_condition = new StringBuffer("equal(BoardVar(solved),8)");
         Boolean ignoreRemaining2 = false;
         PLRule rule_for_CheckCompletion = new PLRule("CheckCompletion",5
                 ,CheckCompletion_rule_condition,ignoreRemaining2,pipe_Game,internalEvent.get(),1L,now,now,admin_1,admin_1);
         puzzleLevelRuleService.save(rule_for_CheckCompletion);
 
 
-        PLRulePostAction VariableAssignmentAction_1_CheckCompletion = new PLRulePostAction(rule_for_CheckCompletion,VariableAssignmentAction.get(),1,"","",
+        PLRulePostAction VariableAssignmentAction_1_CheckCompletion = new PLRulePostAction(rule_for_CheckCompletion.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,VariableAssignmentAction.get(),1,"","",
                 "BoardVar(finished)",new StringBuffer("true"),"","",0L,1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(VariableAssignmentAction_1_CheckCompletion);
 
 
-        PLRulePostAction UserAlertAction_2_CheckCompletion = new PLRulePostAction(rule_for_CheckCompletion,UserAlertAction.get(),2,"","",
+        PLRulePostAction UserAlertAction_2_CheckCompletion = new PLRulePostAction(rule_for_CheckCompletion.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,UserAlertAction.get(),2,"","",
                 "",new StringBuffer(""),"info","mission completed!",0L,1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(UserAlertAction_2_CheckCompletion);
 

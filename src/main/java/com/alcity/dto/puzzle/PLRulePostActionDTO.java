@@ -5,7 +5,9 @@ import com.alcity.entity.alobject.PLRulePostActionType;
 public class PLRulePostActionDTO {
     private Long id;
 
-    private Long puzzleLevelRuleId;
+    private Long ownerId;
+
+    private String ownerType;
     private StringBuffer valueExperssion;
     private String variable;
     private Integer ordering;
@@ -97,19 +99,28 @@ public class PLRulePostActionDTO {
         this.actionKey = actionKey;
     }
 
+    public Long getOwnerId() {
+        return ownerId;
+    }
+
+    public void setOwnerId(Long ownerId) {
+        this.ownerId = ownerId;
+    }
+
+    public String getOwnerType() {
+        return ownerType;
+    }
+
+    public void setOwnerType(String ownerType) {
+        this.ownerType = ownerType;
+    }
+
     public PLRulePostActionDTO() {
     }
 
-    public Long getPuzzleLevelRuleId() {
-        return puzzleLevelRuleId;
-    }
-
-    public void setPuzzleLevelRuleId(Long puzzleLevelRuleId) {
-        this.puzzleLevelRuleId = puzzleLevelRuleId;
-    }
 
     public PLRulePostActionDTO(Long id, StringBuffer valueExperssion, String variable, Integer ordering, String objectId,
-                               String actionName, String alertType, String alertMessage,Long actionKey, String plRulePostActionType,Long puzzleLevelRuleId) {
+                               String actionName, String alertType, String alertMessage,Long actionKey, String plRulePostActionType,Long ownerId,String ownerType) {
         this.id = id;
         this.valueExperssion = valueExperssion;
         this.variable = variable;
@@ -120,6 +131,7 @@ public class PLRulePostActionDTO {
         this.alertMessage = alertMessage;
         this.actionKey = actionKey;
         this.plRulePostActionType = plRulePostActionType;
-        this.puzzleLevelRuleId = puzzleLevelRuleId;
+        this.ownerId = ownerId;
+        this.ownerType = ownerType;
     }
 }

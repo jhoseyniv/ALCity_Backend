@@ -14,6 +14,7 @@ import com.alcity.service.alobject.ActionService;
 import com.alcity.service.customexception.ALCityResponseObject;
 import com.alcity.service.puzzle.InstanceInPLService;
 import com.alcity.service.puzzle.PLGroundService;
+import com.alcity.service.puzzle.PLRulePostActionService;
 import com.alcity.service.puzzle.PuzzleLevelService;
 import com.alcity.utility.DTOUtil;
 import com.alcity.utility.ImageUtil;
@@ -45,6 +46,8 @@ public class InterpreterController {
 
     @Autowired
     AttributeService attributeService;
+    @Autowired
+    PLRulePostActionService plRulePostActionService;
 
     @Autowired
     InstanceInPLService pgObjectInstanceService;
@@ -112,7 +115,7 @@ public class InterpreterController {
             puzzleLevelData.setObjectives(plObjectiveDataCollection);
             PuzzleGroup pg = pl.getPuzzleGroup();
             Collection<POData> objects = getObjectsForPuzzleGroup(pg,pl);
-            Collection<RuleData> rules = DTOUtil.getRulesForPuzzleLevel(pl,attributeService);
+            Collection<RuleData> rules = DTOUtil.getRulesForPuzzleLevel(pl,attributeService,plRulePostActionService);
 
             puzzleLevelData.setCols(plGround.getNumColumns());
             puzzleLevelData.setRows(plGround.getNumRows());

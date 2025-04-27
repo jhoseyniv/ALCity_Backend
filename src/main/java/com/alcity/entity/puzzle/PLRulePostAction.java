@@ -1,5 +1,7 @@
 package com.alcity.entity.puzzle;
 
+import com.alcity.entity.alenum.PLRulePostActionOwnerType;
+import com.alcity.entity.alenum.UserGender;
 import com.alcity.entity.alobject.PLRulePostActionType;
 import com.alcity.entity.base.BaseTable;
 import com.alcity.entity.alobject.RulePostActionEvent;
@@ -77,12 +79,20 @@ public class PLRulePostAction extends BaseTable implements Serializable {
     @JsonIgnore
     private Collection<RulePostActionEvent> rulePostActionEventCollection;
 
-    public PLRule getPuzzleLevelRule() {
-        return puzzleLevelRule;
+    public Long getOwnerId() {
+        return ownerId;
     }
 
-    public void setPuzzleLevelRule(PLRule puzzleLevelRule) {
-        this.puzzleLevelRule = puzzleLevelRule;
+    public void setOwnerId(Long ownerId) {
+        this.ownerId = ownerId;
+    }
+
+    public PLRulePostActionOwnerType getOwnerType() {
+        return ownerType;
+    }
+
+    public void setOwnerType(PLRulePostActionOwnerType ownerType) {
+        this.ownerType = ownerType;
     }
 
     public String getObjectId() {
@@ -126,10 +136,15 @@ public class PLRulePostAction extends BaseTable implements Serializable {
         this.plRulePostActionType = plRulePostActionType;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "puzzle_Level_rule_id", nullable = false)
-    @JsonIgnore
-    private PLRule puzzleLevelRule;
+//    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+//    @JoinColumn(name = "puzzle_Level_rule_id", nullable = false)
+//    @JsonIgnore
+
+    private Long ownerId;
+
+    @Enumerated(EnumType.ORDINAL)
+    private PLRulePostActionOwnerType ownerType;
+
 
     public PLRulePostAction() {
     }
@@ -142,7 +157,7 @@ public class PLRulePostAction extends BaseTable implements Serializable {
         this.actionKey = actionKey;
     }
 
-    public PLRulePostAction(PLRule puzzleLevelRule , PLRulePostActionType plRulePostActionType, Integer ordering, String actionName, String objectId,
+    public PLRulePostAction(Long ownerId,PLRulePostActionOwnerType ownerType , PLRulePostActionType plRulePostActionType, Integer ordering, String actionName, String objectId,
                             String variable, StringBuffer valueExperssion, String alertType, String alertMessage , Long actionKey,
                             Long version, String created, String updated, AppMember createdBy, AppMember updatedBy) {
         super(version, created, updated, createdBy, updatedBy);
@@ -155,6 +170,7 @@ public class PLRulePostAction extends BaseTable implements Serializable {
         this.alertMessage = alertMessage;
         this.actionKey = actionKey;
         this.plRulePostActionType = plRulePostActionType;
-        this.puzzleLevelRule = puzzleLevelRule;
+        this.ownerId = ownerId;
+        this.ownerType = ownerType;
     }
 }

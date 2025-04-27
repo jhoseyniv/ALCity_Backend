@@ -80,7 +80,7 @@ public class PLRuleController {
         Optional<PLRule> plRuleOptional = plRuleService.findById(id);
         if(plRuleOptional.isPresent()) {
             PLRule rule = plRuleOptional.get();
-            Collection<PLRulePostAction> plRulePostActions = rule.getPlRulePostActions();
+            Collection<PLRulePostAction> plRulePostActions = DTOUtil.getPlRulePostActions(plRulePostActionService,rule);
             rulePostActionDTOS = DTOUtil.getPLRulePostActionDTOS(plRulePostActions);
         }
         return rulePostActionDTOS;

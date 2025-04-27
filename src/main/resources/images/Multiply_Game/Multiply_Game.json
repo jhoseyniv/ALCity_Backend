@@ -3,9 +3,9 @@
         "skyboxId": "dreamy_sky",
         "environmentId": "desert_area",
         "startPosition": {
-          "x": 7.5,
+          "x": 5.5,
           "y": 0,
-          "z": 1
+          "z": 5
         }
       },
       "rows": [

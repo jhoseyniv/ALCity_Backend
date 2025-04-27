@@ -33,6 +33,8 @@ import com.alcity.repository.alobject.AttributeValueRepository;
 import com.alcity.service.alobject.ActionService;
 import com.alcity.service.alobject.AttributeService;
 import com.alcity.service.alobject.AttributeValueService;
+import com.alcity.service.puzzle.PLRulePostActionService;
+import com.alcity.service.puzzle.PLRuleService;
 import org.json.JSONException;
 
 import java.io.ByteArrayInputStream;
@@ -1191,8 +1193,8 @@ public class DTOUtil {
         dto.setVariable(postAction.getVariable());
         dto.setValueExperssion(postAction.getValueExperssion());
         dto.setOrdering(postAction.getOrdering());
-        dto.setPuzzleLevelRuleId(postAction.getPuzzleLevelRule().getId());
-
+        dto.setOwnerId(postAction.getId());
+        dto.setOwnerType(postAction.getOwnerType().name());
         return  dto;
     }
 
@@ -1233,7 +1235,7 @@ public class DTOUtil {
         }
         return dtos;
     }
-    public static Collection<RuleData> getRulesForPuzzleLevel(PuzzleLevel pl, AttributeService attributeService){
+    public static Collection<RuleData> getRulesForPuzzleLevel(PuzzleLevel pl, AttributeService attributeService,PLRulePostActionService plRulePostActionService){
         Collection<RuleData> rules = new ArrayList<RuleData>();
         Collection<PLRule>  puzzleLevelRules = pl.getPuzzleLevelRuleCollection();
         Iterator<PLRule> iterator = puzzleLevelRules.iterator();
@@ -1245,7 +1247,7 @@ public class DTOUtil {
             rule.setConditions(puzzleLevelRule.getCondition());
             rule.setIgnoreRemaining(puzzleLevelRule.getIgnoreRemaining());
             rule.setEvent(puzzleLevelRule.getPlRuleEvent().getName());
-            Collection<RuleActionData> actions = getRuleActionData(attributeService, puzzleLevelRule);
+            Collection<RuleActionData> actions = getRuleActionData(plRulePostActionService ,attributeService, puzzleLevelRule);
             rule.setActions(actions);
 
             rules.add(rule);
@@ -1253,10 +1255,37 @@ public class DTOUtil {
 
         return rules;
     }
+    public static Collection<PLRulePostAction> getPlRulePostActions(PLRulePostActionService plRulePostActionService, PLRule plRule ){
+        Collection<PLRulePostAction>  postActions = plRulePostActionService.findByOwnerId(plRule.getId()) ;
+        Iterator<PLRulePostAction> iterator = postActions.iterator();
+        while(iterator.hasNext()) {
+            PLRulePostAction postAction = iterator.next();
+             inorder(plRulePostActionService , postAction);
+        }
 
-    public static Collection<RuleActionData> getRuleActionData(AttributeService attributeService , PLRule plRule){
+        return postActions;
+    }
+    static void inorder(PLRulePostActionService plRulePostActionService,PLRulePostAction postAction)
+    {
+        ArrayList<PLRulePostAction>  postActions = plRulePostActionService.findByOwnerId(postAction.getId()) ;
+        if (postAction == null || postActions.isEmpty())
+            return;
+
+        // Total children count
+
+         int total = postActions.size();
+        // All the children except the last
+        for (int i = 0; i < total - 1; i++)
+            inorder(plRulePostActionService,postActions.get(i));
+        // Print the current node's data
+        System.out.print("" + postAction.getActionName() + " ");
+
+        // Last child
+        inorder(plRulePostActionService,postActions.get(total - 1));
+    }
+    public static Collection<RuleActionData> getRuleActionData(PLRulePostActionService plRulePostActionService, AttributeService attributeService , PLRule plRule){
         Collection<RuleActionData> actions = new ArrayList<RuleActionData>();
-        Collection<PLRulePostAction> plRulePostActions = plRule.getPlRulePostActions();
+        Collection<PLRulePostAction> plRulePostActions = getPlRulePostActions(plRulePostActionService, plRule);
         Iterator<PLRulePostAction> iterator = plRulePostActions.iterator();
         while(iterator.hasNext()) {
             Collection<RecordData> parameters = new ArrayList<RecordData>();

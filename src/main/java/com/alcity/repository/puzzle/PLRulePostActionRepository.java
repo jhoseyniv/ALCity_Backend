@@ -3,6 +3,7 @@ package com.alcity.repository.puzzle;
 import com.alcity.entity.puzzle.PLRulePostAction;
 import org.springframework.data.repository.CrudRepository;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Optional;
 
@@ -10,4 +11,5 @@ public interface PLRulePostActionRepository extends CrudRepository<PLRulePostAct
     Optional<PLRulePostAction> findById(Long id);
     Collection<PLRulePostAction> findAll();
     Collection<PLRulePostAction> findByOrdering(Integer ordering);
+    ArrayList<PLRulePostAction> findByOwnerId(Long ownerId);
 }
