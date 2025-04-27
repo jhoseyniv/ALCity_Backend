@@ -40,6 +40,12 @@ public class BaseItemSetConroller {
 
         return DTOUtil.getEnumByClass(UserGender.class);
     }
+    @Operation( summary = "Fetch all PL Rule Post Action Owner Type ",  description = "fetches all PL Rule Post Action Owner Type entities and their data from data source")
+    @GetMapping("/pl-rule-post-action/all")
+    @CrossOrigin(origins = "*")
+    public Collection<EnumDTO> getPLRulePostActionOwnerType(Model model) {
+        return DTOUtil.getEnumByClass(PLRulePostActionOwnerType.class);
+    }
 
     @RequestMapping(value = "/gender/id/{id}", method = RequestMethod.GET)
     @ResponseBody
@@ -48,7 +54,7 @@ public class BaseItemSetConroller {
         return UserGender.getById(id);
     }
 
-    @Operation( summary = "Fetch all Wallet Item Types ",  description = "fetches all Wallet Item Types  entities and their data from data source")
+     @Operation( summary = "Fetch all Wallet Item Types ",  description = "fetches all Wallet Item Types  entities and their data from data source")
     @GetMapping("/wallet/type/all")
     @CrossOrigin(origins = "*")
     public Collection<EnumDTO> getWalletItemType(Model model) {
