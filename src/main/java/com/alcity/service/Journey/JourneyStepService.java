@@ -62,7 +62,7 @@ public class JourneyStepService implements JourneyStepRepository {
 
     @Override
     public void deleteById(Long aLong) {
-
+        journeyStepRepository.deleteById(aLong);
     }
     @Autowired
     AppMemberRepository appMemberRepository;

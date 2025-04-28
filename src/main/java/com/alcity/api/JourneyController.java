@@ -191,7 +191,7 @@ public class JourneyController {
         Optional<JourneyStep> existingRecord = journeyStepService.findById(id);
         if(existingRecord.isPresent()){
             try {
-                journeyService.deleteById(existingRecord.get().getId());
+                journeyStepService.deleteById(existingRecord.get().getId());
 
             }catch (Exception e )
             {
