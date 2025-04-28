@@ -85,6 +85,10 @@ public class JourneyStepService implements JourneyStepRepository {
             if(journeyStepOptional.isPresent()) {
                 journeyStep = journeyStepOptional.get();
                 journeyStep.setTitle(dto.getTitle());
+                journeyStep.setOrdering(dto.getOrdering());
+                journeyStep.setXpos(dto.getXpos());
+                journeyStep.setYpos(dto.getYpos());
+                journeyStep.setPuzzleGroup(puzzleGroup.get());
                 journeyStep.setVersion(journeyStep.getVersion()+1);
                 journeyStep.setUpdated(DateUtils.getNow());
                 journeyStep.setUpdatedBy(createdBy.get());
