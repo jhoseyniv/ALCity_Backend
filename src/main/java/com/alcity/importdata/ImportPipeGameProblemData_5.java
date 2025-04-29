@@ -230,9 +230,9 @@ public class ImportPipeGameProblemData_5 implements CommandLineRunner {
         BinaryContent pg_pipe_Game_learning_content = new BinaryContent(1L, now, now,admin_1 , admin_1,"Memory-Game", pipe_image_LearningContent_Image_bytes.length, pipe_image_LearningContent_Image_bytes,null,"tag1","","",BinaryContentType.Image);
         binaryContentService.save(pg_pipe_Game_learning_content);
 
-        Float xPos=775f;
-        Float yPos=670f;
-        Float zPos=0f;
+        Float xPos=15f;
+        Float yPos=15f;
+        Float zPos=-15f;
         Float xRotation=90f;
         Float yRotation=0f;
         Float zRotation=0f;

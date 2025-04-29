@@ -263,8 +263,8 @@ public class ImportHashImageProblemData_1 implements CommandLineRunner {
         binaryContentService.save(image_7_Instance_content);
         binaryContentService.save(image_8_Instance_content);
 
-        Float xPos=115f;
-        Float yPos=1600f;
+        Float xPos=0f;
+        Float yPos=15f;
         Float zPos=0f;
         Float xRotation=90f;
         Float yRotation=0f;
