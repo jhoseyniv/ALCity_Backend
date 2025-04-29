@@ -24,7 +24,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Optional;
 
-@Tag(name = "Al City Object used in different puzzle Level", description = "Al City Object used in different puzzle Level")
+@Tag(name = "Algoopia Object used in different puzzle Level", description = "Algoopia Object used in different puzzle Level")
 @CrossOrigin(origins = "*" ,maxAge = 3600)
 @RestController
 @RequestMapping("/co-pl")
@@ -67,7 +67,8 @@ public class InstanceInPLController {
 
         return responseObject;
     }
-    @Operation( summary = "Fetch an al city object that define in a puzzle level ",  description = "Fetch an al city object that defined in a puzzle level")
+
+    @Operation( summary = "Fetch an Algoopia object that define in a puzzle level ",  description = "Fetch an Algoopia object that defined in a puzzle level")
     @RequestMapping(value = "/id/{id}", method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin(origins = "*")
@@ -76,7 +77,7 @@ public class InstanceInPLController {
         CityObjectInPLDTO cityObjectInPLDTO = DTOUtil.getALCityObjectInPLDTO(alCityInstanceInPLOptional.get());
         return  cityObjectInPLDTO;
     }
-    @Operation( summary = "Fetch all actions for an alcity object instance in a puzzle level by instance Id ",  description = "Fetch all actions for an alcity object instance ")
+    @Operation( summary = "Fetch all actions for an Algoopia object instance in a puzzle level by instance Id ",  description = "Fetch all actions for an Algoopia object instance ")
     @RequestMapping(value = "/id/{id}/actions/all", method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin(origins = "*")

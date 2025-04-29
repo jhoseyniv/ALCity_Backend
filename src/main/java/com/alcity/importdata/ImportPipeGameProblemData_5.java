@@ -390,6 +390,7 @@ public class ImportPipeGameProblemData_5 implements CommandLineRunner {
         AttributeValue instance_img_1_4_canRotate_value1 = new AttributeValue(false,null,null,null,null,null,null,null,false,null,ImageObject01_variable_canRotate,1L,now,now,admin_1,admin_1,instance_img_1_4.getId(),AttributeOwnerType.Instance_Puzzle_Group_Object_Variable);
         attributeValueService.save(instance_img_1_4_canRotate_value1);
 
+
         ALCityInstanceInPL instance_img_1_5 = new ALCityInstanceInPL("instance_img1_5",1,5,0,imageObject_in_pipegame,pipe_Game,1L,now,now,admin_1,admin_1);
         pgObjectInstanceService.save(instance_img_1_5);
         AttributeValue instance_img_1_5_canRotate_value1 = new AttributeValue(false,null,null,null,null,null,null,null,false,null,ImageObject01_variable_canRotate,1L,now,now,admin_1,admin_1,instance_img_1_5.getId(),AttributeOwnerType.Instance_Puzzle_Group_Object_Variable);
