@@ -228,8 +228,8 @@ public class ImportMultiplyProblemData_7 implements CommandLineRunner {
         BinaryContent pg_maze_Game_learning_content = new BinaryContent(1L, now, now,admin_1 , admin_1,"Memory-Game", maze_image_LearningContent_Image_bytes.length, maze_image_LearningContent_Image_bytes,null,"tag1","","",BinaryContentType.Image);
         binaryContentService.save(pg_maze_Game_learning_content);
 
-        Float xPos=0f;
-        Float yPos=15f;
+        Float xPos=1210f;
+        Float yPos=1045f;
         Float zPos=0f;
         Float xRotation=90f;
         Float yRotation=0f;

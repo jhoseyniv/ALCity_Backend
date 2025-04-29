@@ -7,6 +7,8 @@ import com.alcity.dto.puzzle.CityObjectInPLDTO;
 import com.alcity.entity.alenum.POActionOwnerType;
 import com.alcity.entity.alobject.ObjectAction;
 import com.alcity.entity.puzzle.ALCityInstanceInPL;
+import com.alcity.entity.puzzle.PLGround;
+import com.alcity.entity.puzzle.PuzzleLevel;
 import com.alcity.service.alobject.ActionService;
 import com.alcity.service.alobject.AttributeService;
 import com.alcity.service.customexception.ALCityResponseObject;
@@ -24,7 +26,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Optional;
 
-@Tag(name = "Algoopia Object used in different puzzle Level", description = "Algoopia Object used in different puzzle Level")
+@Tag(name = "Algoopia Object instances used in different puzzle Level", description = "Algoopia Object instances used in different puzzle Level")
 @CrossOrigin(origins = "*" ,maxAge = 3600)
 @RestController
 @RequestMapping("/co-pl")
@@ -67,6 +69,22 @@ public class InstanceInPLController {
 
         return responseObject;
     }
+
+    @Operation( summary = "Copy an Instance to a other cells of a puzzle ",  description = "Copy an Instance to  other cells of a puzzle")
+    @RequestMapping(value = "/copy/instance/id/{id}", method = RequestMethod.GET)
+    @CrossOrigin(origins = "*")
+    public ALCityResponseObject copyInstanceToOtherCellsInPL(@PathVariable Long id) {
+        ALCityResponseObject responseObject = new ALCityResponseObject();
+        Optional<ALCityInstanceInPL> instanceOptional = service.findById(id);
+        if(instanceOptional.isEmpty()) return new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", -1L, "Instance Not Found!");
+        ALCityInstanceInPL instance = instanceOptional.get();
+        PuzzleLevel puzzleLevel = instance.getPuzzleLevel();
+        Collection<PLGround> plGrounds = puzzleLevel.getPlGrounds();
+        PLGround plGround = plGrounds.iterator().next();
+        service.copyAllInstances(instance,plGround);
+        return  responseObject;
+    }
+
 
     @Operation( summary = "Fetch an Algoopia object that define in a puzzle level ",  description = "Fetch an Algoopia object that defined in a puzzle level")
     @RequestMapping(value = "/id/{id}", method = RequestMethod.GET)

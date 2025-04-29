@@ -279,8 +279,8 @@ public class ImportMemoryGameProblemData_4 implements CommandLineRunner {
         BinaryContent pg_Memory_Game_learning_content = new BinaryContent(1L, now, now,admin_1 , admin_1,"Memory-Game", X_O_LearningContent_Image_bytes.length, X_O_LearningContent_Image_bytes,null,"tag1","","",BinaryContentType.Image);
         binaryContentService.save(pg_Memory_Game_learning_content);
 
-        Float xPos=0f;
-        Float yPos=15f;
+        Float xPos=230f;
+        Float yPos=725f;
         Float zPos=0f;
         Float xRotation=90f;
         Float yRotation=0f;

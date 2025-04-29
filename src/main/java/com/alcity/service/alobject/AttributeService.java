@@ -56,7 +56,7 @@ public class AttributeService implements AttributeRepository {
 
     @Override
     public <S extends Attribute> Iterable<S> saveAll(Iterable<S> entities) {
-        return null;
+        return attributeRepository.saveAll(entities);
     }
 
     @Override

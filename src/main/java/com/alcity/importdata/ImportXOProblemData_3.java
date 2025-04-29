@@ -207,8 +207,8 @@ public class ImportXOProblemData_3 implements CommandLineRunner {
         puzzleLevelService.save(puzzleLevel);
 
 
-        Float xPos=0f;
-        Float yPos=15f;
+        Float xPos=595f;
+        Float yPos=180f;
         Float zPos=0f;
         Float xRotation=90f;
         Float yRotation=0f;

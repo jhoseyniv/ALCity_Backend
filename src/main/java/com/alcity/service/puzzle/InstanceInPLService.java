@@ -1,13 +1,18 @@
 package com.alcity.service.puzzle;
 
 import com.alcity.dto.puzzle.CityObjectInPLDTO;
+import com.alcity.entity.alenum.AttributeOwnerType;
+import com.alcity.entity.alobject.Attribute;
 import com.alcity.entity.appmember.AppMember;
 import com.alcity.entity.puzzle.*;
 import com.alcity.repository.appmember.AppMemberRepository;
 import com.alcity.repository.puzzle.InstanceInPLRepository;
+import com.alcity.service.alobject.AttributeService;
+import com.alcity.service.customexception.ALCityResponseObject;
 import com.alcity.utility.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import org.springframework.transaction.annotation.Transactional;;
@@ -20,6 +25,8 @@ public class InstanceInPLService implements InstanceInPLRepository {
 
     @Autowired
     InstanceInPLRepository instanceInPLRepository;
+    @Autowired
+    private AttributeService attributeService;
 
     @Override
     public <S extends ALCityInstanceInPL> S save(S entity) {
@@ -58,6 +65,38 @@ public class InstanceInPLService implements InstanceInPLRepository {
         return instance;
     }
 
+    public ALCityResponseObject copyAllInstances(ALCityInstanceInPL instance, PLGround plGround) {
+        ALCityResponseObject responseObject = new ALCityResponseObject();
+        Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
+        Integer instanceXPos = instance.getRow();
+        Integer instanceYPos = instance.getCol();
+        Integer instanceZPos = instance.getzOrder();
+        Integer numOfRows = plGround.getNumRows();
+        Integer numOfCols = plGround.getNumColumns();
+        for(int height=1;height<=1;height++)
+        for(int row=1; row<=numOfRows;row++)
+            for(int col=1; col<=numOfCols;col++){
+                if(instanceYPos == col && instanceXPos == row && instanceZPos == height) {
+                    //do nothing
+                }else {
+                    //copy instance to this location
+                    ALCityInstanceInPL instanceCopy = new ALCityInstanceInPL("instance_img_"+row+"_"+col+"_"+height,row,col,height,instance.getAlCityObjectInPG(),instance.getPuzzleLevel(),1L,DateUtils.getNow(),DateUtils.getNow(),createdBy.get(),createdBy.get());
+                    instanceInPLRepository.save(instanceCopy);
+
+                    //copy variables for source instance to target
+                    Collection<Attribute> variables = attributeService.findByOwnerIdAndAttributeOwnerTypeNew(instance.getId(), AttributeOwnerType.Instance_Puzzle_Group_Object_Variable);
+                    attributeService.saveAll(variables);
+
+                    //copy properties for source instance to target
+                    Collection<Attribute> properties = attributeService.findByOwnerIdAndAttributeOwnerTypeNew(instance.getId(), AttributeOwnerType.Instance_Puzzle_Group_Object_Property);
+                    attributeService.saveAll(properties);
+
+                }
+            }
+
+        return  new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "Success", 0L, "ALL Instances are copied!");
+
+    }
 
     @Override
     public <S extends ALCityInstanceInPL> Iterable<S> saveAll(Iterable<S> entities) {
