@@ -128,8 +128,6 @@ public class ImportHashImageProblemData_1 implements CommandLineRunner {
 
     @Autowired
     PLRuleEventService plRuleEventService;
-    @Autowired
-    PLRulePostActionTypeService plRulePostActionTypeService;
 
     @Autowired
     PLRulePostActionService puzzleLevelRulePostActionService;
@@ -463,52 +461,52 @@ public class ImportHashImageProblemData_1 implements CommandLineRunner {
 
 
         Optional<PLRuleEvent> drag_event = plRuleEventService.findByName("Drag");
-        Optional<PLRuleEvent> internalevent_checkcell = plRuleEventService.findByName("internalevent:checkcell");
-        Optional<PLRuleEvent> internalevent_check = plRuleEventService.findByName("internalevent:check");
+       // Optional<PLRuleEvent> internalevent_checkcell = plRuleEventService.findByName("internalevent:checkcell");
+     //   Optional<PLRuleEvent> internalevent_check = plRuleEventService.findByName("internalevent:check");
 
-        Optional<PLRulePostActionType> CallObjectAction = plRulePostActionTypeService.findByValue("CallObjectAction");
-        Optional<PLRulePostActionType> UserAlertAction = plRulePostActionTypeService.findByValue("UserAlertAction");
-        Optional<PLRulePostActionType> VariableAssignmentAction = plRulePostActionTypeService.findByValue("VariableAssignmentAction");
-        Optional<PLRulePostActionType> FireEventAction = plRulePostActionTypeService.findByValue("FireEventAction");
-        Optional<PLRulePostActionType> FireEventAction_checkcell = plRulePostActionTypeService.findByValue("FireEventAction:checkcell");
-        Optional<PLRulePostActionType> FireEventAction_check = plRulePostActionTypeService.findByValue("FireEventAction:check");
-        Optional<PLRulePostActionType> internalevent_checkcel = plRulePostActionTypeService.findByValue("internalevent:checkcell");
+//        Optional<PLRulePostActionType> CallObjectAction = plRulePostActionTypeService.findByValue("CallObjectAction");
+//        Optional<PLRulePostActionType> UserAlertAction = plRulePostActionTypeService.findByValue("UserAlertAction");
+//        Optional<PLRulePostActionType> VariableAssignmentAction = plRulePostActionTypeService.findByValue("VariableAssignmentAction");
+//        Optional<PLRulePostActionType> FireEventAction = plRulePostActionTypeService.findByValue("FireEventAction");
+//        Optional<PLRulePostActionType> FireEventAction_checkcell = plRulePostActionTypeService.findByValue("FireEventAction:checkcell");
+//        Optional<PLRulePostActionType> FireEventAction_check = plRulePostActionTypeService.findByValue("FireEventAction:check");
+//        Optional<PLRulePostActionType> internalevent_checkcel = plRulePostActionTypeService.findByValue("internalevent:checkcell");
 
         StringBuffer    move_rule_condition = new StringBuffer("equal(1,1)");
         Boolean ignoreRemaining = true;
         PLRule rule_for_move = new PLRule("Move object by Drag",1
-                ,move_rule_condition,ignoreRemaining,puzzleLevel_hashimage,drag_event.get(),1L,now,now,admin_1,admin_1);
+                ,move_rule_condition,ignoreRemaining,puzzleLevel_hashimage,drag_event.get(),"",1L,now,now,admin_1,admin_1);
         puzzleLevelRuleService.save(rule_for_move);
 
 
-        PLRulePostAction move_rule_post_Action_1 = new PLRulePostAction(rule_for_move.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,VariableAssignmentAction.get(),1,"","",
-                "BoardVar(dragStartObject)",new StringBuffer("InstProp(InstByPos(EventParam(fromRow),EventParam(fromCol)),objectId)"),"","",0L,1L ,now,now,admin_1,admin_1);
+        PLRulePostAction move_rule_post_Action_1 = new PLRulePostAction(rule_for_move.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,PLRulePostActionType.VariableAssignmentAction,1,"","",
+                "BoardVar(dragStartObject)",new StringBuffer("InstProp(InstByPos(EventParam(fromRow),EventParam(fromCol)),objectId)"),"","","",0L,1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(move_rule_post_Action_1);
 
-        PLRulePostAction move_rule_post_Action_2 = new PLRulePostAction(rule_for_move.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,VariableAssignmentAction.get(),2,"","",
-                "BoardVar(dragTargetObject)",new StringBuffer("InstProp(InstByPos(EventParam(toRow),EventParam(toCol)),objectId)"),"","",0L,1L ,now,now,admin_1,admin_1);
+        PLRulePostAction move_rule_post_Action_2 = new PLRulePostAction(rule_for_move.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,PLRulePostActionType.VariableAssignmentAction,2,"","",
+                "BoardVar(dragTargetObject)",new StringBuffer("InstProp(InstByPos(EventParam(toRow),EventParam(toCol)),objectId)"),"","","",0L,1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(move_rule_post_Action_2);
 
-        PLRulePostAction move_rule_post_Action_3 = new PLRulePostAction(rule_for_move.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,VariableAssignmentAction.get(),3,"","",
-                "InstProp(InstById(BoardVar(dragTargetObject)), x)",new StringBuffer("EventParam(fromRow)"),"","",0L,1L ,now,now,admin_1,admin_1);
+        PLRulePostAction move_rule_post_Action_3 = new PLRulePostAction(rule_for_move.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,PLRulePostActionType.VariableAssignmentAction,3,"","",
+                "InstProp(InstById(BoardVar(dragTargetObject)), x)",new StringBuffer("EventParam(fromRow)"),"","","",0L,1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(move_rule_post_Action_3);
 
-        PLRulePostAction move_rule_post_Action_4 = new PLRulePostAction(rule_for_move.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,VariableAssignmentAction.get(),4,"","",
-                "InstProp(InstById(BoardVar(dragTargetObject)), y)",new StringBuffer("EventParam(fromCol)"),"","",0L,1L ,now,now,admin_1,admin_1);
+        PLRulePostAction move_rule_post_Action_4 = new PLRulePostAction(rule_for_move.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,PLRulePostActionType.VariableAssignmentAction,4,"","",
+                "InstProp(InstById(BoardVar(dragTargetObject)), y)",new StringBuffer("EventParam(fromCol)"),"","","",0L,1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(move_rule_post_Action_4);
 
 
-        PLRulePostAction move_rule_post_Action_5 = new PLRulePostAction(rule_for_move.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,VariableAssignmentAction.get(),5,"","",
-                "InstProp(InstById(BoardVar(dragStartObject)), x)",new StringBuffer("EventParam(toRow)"),"","",0L,1L ,now,now,admin_1,admin_1);
+        PLRulePostAction move_rule_post_Action_5 = new PLRulePostAction(rule_for_move.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,PLRulePostActionType.VariableAssignmentAction,5,"","",
+                "InstProp(InstById(BoardVar(dragStartObject)), x)",new StringBuffer("EventParam(toRow)"),"","","",0L,1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(move_rule_post_Action_5);
 
-        PLRulePostAction move_rule_post_Action_6 = new PLRulePostAction(rule_for_move.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,VariableAssignmentAction.get(),6,"","",
-                "InstProp(InstById(BoardVar(dragStartObject)), y)",new StringBuffer("EventParam(toCol)"),"","",0L,1L ,now,now,admin_1,admin_1);
+        PLRulePostAction move_rule_post_Action_6 = new PLRulePostAction(rule_for_move.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,PLRulePostActionType.VariableAssignmentAction,6,"","",
+                "InstProp(InstById(BoardVar(dragStartObject)), y)",new StringBuffer("EventParam(toCol)"),"","","",0L,1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(move_rule_post_Action_6);
 
 
-        PLRulePostAction move_rule_post_Action_7 = new PLRulePostAction(rule_for_move.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,CallObjectAction.get(),7,"move","BoardVar(dragStartObject)",
-                "",new StringBuffer(""),"","",0L,1L ,now,now,admin_1,admin_1);
+        PLRulePostAction move_rule_post_Action_7 = new PLRulePostAction(rule_for_move.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,PLRulePostActionType.CallObjectAction,7,"move","BoardVar(dragStartObject)",
+                "",new StringBuffer(""),"","","",0L,1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(move_rule_post_Action_7);
 
         Attribute move_rule_post_Action_7_param_1 =new Attribute("fromRow",move_rule_post_Action_7.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action_Parameter,DataType.Integer,1L,now,now,admin_1,admin_1);
@@ -532,8 +530,8 @@ public class ImportHashImageProblemData_1 implements CommandLineRunner {
         attributeValueService.save(rulePostAction_7_move_param_4_value);
 
 
-        PLRulePostAction move_rule_post_Action_8 = new PLRulePostAction(rule_for_move.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,CallObjectAction.get(),8,"move","BoardVar(dragTargetObject)",
-                "",new StringBuffer(""),"","",0L,1L ,now,now,admin_1,admin_1);
+        PLRulePostAction move_rule_post_Action_8 = new PLRulePostAction(rule_for_move.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,PLRulePostActionType.CallObjectAction,8,"move","BoardVar(dragTargetObject)",
+                "",new StringBuffer(""),"","","",0L,1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(move_rule_post_Action_8);
 
         Attribute rulePostAction_8_move_param_1 =new Attribute("fromRow",move_rule_post_Action_8.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action_Parameter,DataType.Integer,1L,now,now,admin_1,admin_1);
@@ -556,12 +554,12 @@ public class ImportHashImageProblemData_1 implements CommandLineRunner {
         AttributeValue rulePostAction_8_move_param_4_value= new AttributeValue(null,null,null,null,null,null,null,"EventParam(fromCol)",Boolean.TRUE,null,rulePostAction_8_move_param_4,1L,now,now,admin_1,admin_1,move_rule_post_Action_8.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action_Parameter);
         attributeValueService.save(rulePostAction_8_move_param_4_value);
 
-        PLRulePostAction move_rule_post_Action_9 = new PLRulePostAction(rule_for_move.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,VariableAssignmentAction.get(),9,"","",
-                "BoardVar(machedCount)",new StringBuffer("0"),"","",0L,1L ,now,now,admin_1,admin_1);
+        PLRulePostAction move_rule_post_Action_9 = new PLRulePostAction(rule_for_move.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,PLRulePostActionType.VariableAssignmentAction,9,"","",
+                "BoardVar(machedCount)",new StringBuffer("0"),"","","",0L,1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(move_rule_post_Action_9);
 
-        PLRulePostAction move_rule_post_Action_10 = new PLRulePostAction(rule_for_move.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,FireEventAction_checkcell.get(),10,"","",
-                "",new StringBuffer(""),"","",0L,1L ,now,now,admin_1,admin_1);
+        PLRulePostAction move_rule_post_Action_10 = new PLRulePostAction(rule_for_move.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,PLRulePostActionType.FireEventAction,10,"","",
+                "",new StringBuffer(""),"checkcell","","",0L,1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(move_rule_post_Action_10);
 
         Attribute rulePostAction_10_move_param_1 =new Attribute("row",move_rule_post_Action_10.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action_Parameter,DataType.Integer,1L,now,now,admin_1,admin_1);
@@ -574,8 +572,8 @@ public class ImportHashImageProblemData_1 implements CommandLineRunner {
         AttributeValue rulePostAction_10_move_param_2_value= new AttributeValue(null,1,null,null,null,null,null,null,Boolean.FALSE,null,rulePostAction_10_move_param_2,1L,now,now,admin_1,admin_1,move_rule_post_Action_10.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action_Parameter);
         attributeValueService.save(rulePostAction_10_move_param_2_value);
 
-        PLRulePostAction move_rule_post_Action_11 = new PLRulePostAction(rule_for_move.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,FireEventAction_checkcell.get(),11,"","",
-                "",new StringBuffer(""),"","",0L,1L ,now,now,admin_1,admin_1);
+        PLRulePostAction move_rule_post_Action_11 = new PLRulePostAction(rule_for_move.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,PLRulePostActionType.FireEventAction,11,"","",
+                "",new StringBuffer(""),"checkcell","","",0L,1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(move_rule_post_Action_11);
 
         Attribute rulePostAction_11_move_param_1 =new Attribute("row",move_rule_post_Action_11.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action_Parameter,DataType.Integer,1L,now,now,admin_1,admin_1);
@@ -588,8 +586,8 @@ public class ImportHashImageProblemData_1 implements CommandLineRunner {
         AttributeValue rulePostAction_11_move_param_2_value= new AttributeValue(null,2,null,null,null,null,null,null,Boolean.FALSE,null,rulePostAction_11_move_param_2,1L,now,now,admin_1,admin_1,move_rule_post_Action_11.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action_Parameter);
         attributeValueService.save(rulePostAction_11_move_param_2_value);
 
-        PLRulePostAction move_rule_post_Action_12 = new PLRulePostAction(rule_for_move.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,FireEventAction_checkcell.get(),12,"","",
-                "",new StringBuffer(""),"","",0L,1L ,now,now,admin_1,admin_1);
+        PLRulePostAction move_rule_post_Action_12 = new PLRulePostAction(rule_for_move.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,PLRulePostActionType.FireEventAction,12,"","",
+                "",new StringBuffer(""),"","","",0L,1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(move_rule_post_Action_12);
 
         Attribute rulePostAction_12_move_param_1 =new Attribute("row",move_rule_post_Action_12.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action_Parameter,DataType.Integer,1L,now,now,admin_1,admin_1);
@@ -602,8 +600,8 @@ public class ImportHashImageProblemData_1 implements CommandLineRunner {
         AttributeValue rulePostAction_12_move_param_2_value= new AttributeValue(null,3,null,null,null,null,null,null,Boolean.FALSE,null,rulePostAction_12_move_param_2,1L,now,now,admin_1,admin_1,move_rule_post_Action_12.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action_Parameter);
         attributeValueService.save(rulePostAction_12_move_param_2_value);
 
-        PLRulePostAction move_rule_post_Action_13 = new PLRulePostAction(rule_for_move.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,FireEventAction_checkcell.get(),13,"","",
-                "",new StringBuffer(""),"","",0L,1L ,now,now,admin_1,admin_1);
+        PLRulePostAction move_rule_post_Action_13 = new PLRulePostAction(rule_for_move.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,PLRulePostActionType.FireEventAction,13,"","",
+                "",new StringBuffer(""),"","","",0L,1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(move_rule_post_Action_13);
 
         Attribute rulePostAction_13_move_param_1 =new Attribute("row",move_rule_post_Action_13.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action_Parameter,DataType.Integer,1L,now,now,admin_1,admin_1);
@@ -616,8 +614,8 @@ public class ImportHashImageProblemData_1 implements CommandLineRunner {
         AttributeValue rulePostAction_13_move_param_2_value= new AttributeValue(null,1,null,null,null,null,null,null,Boolean.FALSE,null,rulePostAction_13_move_param_2,1L,now,now,admin_1,admin_1,move_rule_post_Action_13.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action_Parameter);
         attributeValueService.save(rulePostAction_13_move_param_2_value);
 
-        PLRulePostAction move_rule_post_Action_14 = new PLRulePostAction(rule_for_move.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,FireEventAction_checkcell.get(),14,"","",
-                "",new StringBuffer(""),"","",0L,1L ,now,now,admin_1,admin_1);
+        PLRulePostAction move_rule_post_Action_14 = new PLRulePostAction(rule_for_move.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,PLRulePostActionType.FireEventAction,14,"","",
+                "",new StringBuffer(""),"checkcell","","",0L,1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(move_rule_post_Action_14);
 
         Attribute rulePostAction_14_move_param_1 =new Attribute("row",move_rule_post_Action_14.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action_Parameter,DataType.Integer,1L,now,now,admin_1,admin_1);
@@ -630,8 +628,8 @@ public class ImportHashImageProblemData_1 implements CommandLineRunner {
         AttributeValue rulePostAction_14_move_param_2_value= new AttributeValue(null,2,null,null,null,null,null,null,Boolean.FALSE,null,rulePostAction_14_move_param_2,1L,now,now,admin_1,admin_1,move_rule_post_Action_14.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action_Parameter);
         attributeValueService.save(rulePostAction_14_move_param_2_value);
 
-        PLRulePostAction move_rule_post_Action_15 = new PLRulePostAction(rule_for_move.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,FireEventAction_checkcell.get(),15,"","",
-                "",new StringBuffer(""),"","",0L,1L ,now,now,admin_1,admin_1);
+        PLRulePostAction move_rule_post_Action_15 = new PLRulePostAction(rule_for_move.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,PLRulePostActionType.FireEventAction,15,"","",
+                "",new StringBuffer(""),"checkcell","","",0L,1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(move_rule_post_Action_15);
 
         Attribute rulePostAction_15_move_param_1 =new Attribute("row",move_rule_post_Action_15.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action_Parameter,DataType.Integer,1L,now,now,admin_1,admin_1);
@@ -644,8 +642,8 @@ public class ImportHashImageProblemData_1 implements CommandLineRunner {
         AttributeValue rulePostAction_15_move_param_2_value= new AttributeValue(null,3,null,null,null,null,null,null,Boolean.FALSE,null,rulePostAction_15_move_param_2,1L,now,now,admin_1,admin_1,move_rule_post_Action_15.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action_Parameter);
         attributeValueService.save(rulePostAction_15_move_param_2_value);
 
-        PLRulePostAction move_rule_post_Action_16 = new PLRulePostAction(rule_for_move.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,FireEventAction_checkcell.get(),16,"","",
-                "",new StringBuffer(""),"","",0L,1L ,now,now,admin_1,admin_1);
+        PLRulePostAction move_rule_post_Action_16 = new PLRulePostAction(rule_for_move.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,PLRulePostActionType.FireEventAction,16,"","",
+                "",new StringBuffer(""),"checkcell","","",0L,1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(move_rule_post_Action_16);
 
         Attribute rulePostAction_16_move_param_1 =new Attribute("row",move_rule_post_Action_16.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action_Parameter,DataType.Integer,1L,now,now,admin_1,admin_1);
@@ -658,8 +656,8 @@ public class ImportHashImageProblemData_1 implements CommandLineRunner {
         AttributeValue rulePostAction_16_move_param_2_value= new AttributeValue(null,1,null,null,null,null,null,null,Boolean.FALSE,null,rulePostAction_16_move_param_2,1L,now,now,admin_1,admin_1,move_rule_post_Action_16.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action_Parameter);
         attributeValueService.save(rulePostAction_16_move_param_2_value);
 
-        PLRulePostAction move_rule_post_Action_17 = new PLRulePostAction(rule_for_move.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,FireEventAction_checkcell.get(),17,"","",
-                "",new StringBuffer(""),"","",0L,1L ,now,now,admin_1,admin_1);
+        PLRulePostAction move_rule_post_Action_17 = new PLRulePostAction(rule_for_move.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,PLRulePostActionType.FireEventAction,17,"","",
+                "",new StringBuffer(""),"checkcell","","",0L,1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(move_rule_post_Action_17);
 
         Attribute rulePostAction_17_move_param_1 =new Attribute("row",move_rule_post_Action_17.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action_Parameter,DataType.Integer,1L,now,now,admin_1,admin_1);
@@ -672,8 +670,8 @@ public class ImportHashImageProblemData_1 implements CommandLineRunner {
         AttributeValue rulePostAction_17_move_param_2_value= new AttributeValue(null,2,null,null,null,null,null,null,Boolean.FALSE,null,rulePostAction_17_move_param_2,1L,now,now,admin_1,admin_1,move_rule_post_Action_17.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action_Parameter);
         attributeValueService.save(rulePostAction_17_move_param_2_value);
 
-        PLRulePostAction move_rule_post_Action_18 = new PLRulePostAction(rule_for_move.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,FireEventAction_checkcell.get(),18,"","",
-                "",new StringBuffer(""),"","",0L,1L ,now,now,admin_1,admin_1);
+        PLRulePostAction move_rule_post_Action_18 = new PLRulePostAction(rule_for_move.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,PLRulePostActionType.FireEventAction,18,"","",
+                "",new StringBuffer(""),"checkcell","","",0L,1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(move_rule_post_Action_18);
 
         Attribute rulePostAction_18_move_param_1 =new Attribute("row",move_rule_post_Action_18.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action_Parameter,DataType.Integer,1L,now,now,admin_1,admin_1);
@@ -686,31 +684,35 @@ public class ImportHashImageProblemData_1 implements CommandLineRunner {
         AttributeValue rulePostAction_18_move_param_2_value= new AttributeValue(null,3,null,null,null,null,null,null,Boolean.FALSE,null,rulePostAction_18_move_param_2,1L,now,now,admin_1,admin_1,move_rule_post_Action_18.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action_Parameter);
         attributeValueService.save(rulePostAction_18_move_param_2_value);
 
-        PLRulePostAction move_rule_post_Action_19 = new PLRulePostAction(rule_for_move.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,FireEventAction_check.get(),19,"","",
-                "",new StringBuffer(""),"","",0L,1L ,now,now,admin_1,admin_1);
+        PLRulePostAction move_rule_post_Action_19 = new PLRulePostAction(rule_for_move.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,PLRulePostActionType.FireEventAction,19,"","",
+                "",new StringBuffer(""),"check","","",0L,1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(move_rule_post_Action_19);
 
 
         StringBuffer    x_win_rule_condition = new StringBuffer("equal(InstProp(InstByPos(EventParam(row), EventParam(col)),x),InstVar(InstByPos(EventParam(row), EventParam(col)),targetX)) & equal(InstProp(InstByPos(EventParam(row), EventParam(col)),y),InstVar(InstByPos(EventParam(row), EventParam(col)),targetY))");
+
+        Optional<PLRuleEvent> internalevent = plRuleEventService.findByName("internalevent");
+
         PLRule x_win_rule = new PLRule("X Win Rule",2
-                ,x_win_rule_condition,ignoreRemaining,puzzleLevel_hashimage,internalevent_checkcell.get(),1L,now,now,admin_1,admin_1);
+                ,x_win_rule_condition,ignoreRemaining,puzzleLevel_hashimage,internalevent.get(),"checkcell",1L,now,now,admin_1,admin_1);
         puzzleLevelRuleService.save(x_win_rule);
 
-        PLRulePostAction x_win_rule_post_Action_1 = new PLRulePostAction(x_win_rule.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,VariableAssignmentAction.get(),1,"","",
-                "BoardVar(machedCount)",new StringBuffer("BoardVar(machedCount) + 1"),"","",0L,1L ,now,now,admin_1,admin_1);
+        PLRulePostAction x_win_rule_post_Action_1 = new PLRulePostAction(x_win_rule.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,PLRulePostActionType.VariableAssignmentAction,1,"","",
+                "BoardVar(machedCount)",new StringBuffer("BoardVar(machedCount) + 1"),"","","",0L,1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(x_win_rule_post_Action_1);
 
         StringBuffer    x_win_rule_condition_2 = new StringBuffer("equal(BoardVar(machedCount),9)");
+
         PLRule x_win_rule_2 = new PLRule("X Win Rule",3
-                ,x_win_rule_condition_2,ignoreRemaining,puzzleLevel_hashimage,internalevent_check.get(),1L,now,now,admin_1,admin_1);
+                ,x_win_rule_condition_2,ignoreRemaining,puzzleLevel_hashimage,internalevent.get(),"check",1L,now,now,admin_1,admin_1);
         puzzleLevelRuleService.save(x_win_rule_2);
 
-        PLRulePostAction x_win_rule_2_post_Action_1 = new PLRulePostAction(x_win_rule_2.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,VariableAssignmentAction.get(),1,"","",
-                "BoardVar(finished)",new StringBuffer("true"),"","",0L,1L ,now,now,admin_1,admin_1);
+        PLRulePostAction x_win_rule_2_post_Action_1 = new PLRulePostAction(x_win_rule_2.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,PLRulePostActionType.VariableAssignmentAction,1,"","",
+                "BoardVar(finished)",new StringBuffer("true"),"","","",0L,1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(x_win_rule_2_post_Action_1);
 
-        PLRulePostAction x_win_rule_2_post_Action_2 = new PLRulePostAction(x_win_rule_2.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,UserAlertAction.get(),2,"","",
-                "BoardVar(finished)",new StringBuffer("true"),"info","you won!",0L,1L ,now,now,admin_1,admin_1);
+        PLRulePostAction x_win_rule_2_post_Action_2 = new PLRulePostAction(x_win_rule_2.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,PLRulePostActionType.UserAlertAction,2,"","",
+                "BoardVar(finished)",new StringBuffer("true"),"","info","you won!",0L,1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(x_win_rule_2_post_Action_2);
 
 

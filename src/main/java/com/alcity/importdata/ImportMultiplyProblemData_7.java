@@ -114,8 +114,6 @@ public class ImportMultiplyProblemData_7 implements CommandLineRunner {
 
     @Autowired
     PLRuleEventService plRuleEventService;
-    @Autowired
-    PLRulePostActionTypeService plRulePostActionTypeService;
 
 
      @Autowired
@@ -619,27 +617,27 @@ public class ImportMultiplyProblemData_7 implements CommandLineRunner {
 
 
         Optional<PLRuleEvent> click_event = plRuleEventService.findByName("Click");
-        Optional<PLRulePostActionType> FireEventAction_resetoutput = plRulePostActionTypeService.findByValue("FireEventAction:resetoutput");
-        Optional<PLRulePostActionType> FireEventAction_update = plRulePostActionTypeService.findByValue("FireEventAction:update");
-        Optional<PLRulePostActionType> FireEventAction_startTimer = plRulePostActionTypeService.findByValue("FireEventAction:startTimer");
-        Optional<PLRulePostActionType> FireEventAction_check = plRulePostActionTypeService.findByValue("FireEventAction:check");
-        Optional<PLRulePostActionType> CallObjectAction = plRulePostActionTypeService.findByValue("CallObjectAction");
-        Optional<PLRulePostActionType> Callsystemaction = plRulePostActionTypeService.findByValue("callsystemaction");
-        Optional<PLRuleEvent> internalevent_startTimer = plRuleEventService.findByName("internalevent:startTimer");
-        Optional<PLRuleEvent> ActionComplete_Event = plRuleEventService.findByName("ActionComplete");
-        Optional<PLRuleEvent> Internal_Event_resetoutput = plRuleEventService.findByName("internalevent:resetoutput");
-        Optional<PLRuleEvent> internalevent_update = plRuleEventService.findByName("internalevent:update");
-        Optional<PLRuleEvent> internalevent_check = plRuleEventService.findByName("internalevent:check");
-        Optional<PLRulePostActionType> VariableAssignmentAction = plRulePostActionTypeService.findByValue("VariableAssignmentAction");
+//        Optional<PLRulePostActionType> FireEventAction_resetoutput = plRulePostActionTypeService.findByValue("FireEventAction:resetoutput");
+//        Optional<PLRulePostActionType> FireEventAction_update = plRulePostActionTypeService.findByValue("FireEventAction:update");
+//        Optional<PLRulePostActionType> FireEventAction_startTimer = plRulePostActionTypeService.findByValue("FireEventAction:startTimer");
+//        Optional<PLRulePostActionType> FireEventAction_check = plRulePostActionTypeService.findByValue("FireEventAction:check");
+//        Optional<PLRulePostActionType> CallObjectAction = plRulePostActionTypeService.findByValue("CallObjectAction");
+//        Optional<PLRulePostActionType> Callsystemaction = plRulePostActionTypeService.findByValue("callsystemaction");
+//        Optional<PLRuleEvent> internalevent_startTimer = plRuleEventService.findByName("internalevent:startTimer");
+//        Optional<PLRuleEvent> ActionComplete_Event = plRuleEventService.findByName("ActionComplete");
+//        Optional<PLRuleEvent> Internal_Event_resetoutput = plRuleEventService.findByName("internalevent:resetoutput");
+//        Optional<PLRuleEvent> internalevent_update = plRuleEventService.findByName("internalevent:update");
+//        Optional<PLRuleEvent> internalevent_check = plRuleEventService.findByName("internalevent:check");
+//        Optional<PLRulePostActionType> VariableAssignmentAction = plRulePostActionTypeService.findByValue("VariableAssignmentAction");
 
         StringBuffer    click_rule_condition = new StringBuffer("equal(BoardVar(ready),true) & equal(EventParam(row),9) & equal(EventParam(col),2)");
         Boolean ignoreRemaining = false;
         PLRule rule_for_ClickOnNext = new PLRule("ClickOnNext",1
-                ,click_rule_condition,ignoreRemaining,Multiply_Game,click_event.get(),1L,now,now,admin_1,admin_1);
+                ,click_rule_condition,ignoreRemaining,Multiply_Game,click_event.get(),"",1L,now,now,admin_1,admin_1);
         puzzleLevelRuleService.save(rule_for_ClickOnNext);
 
-        PLRulePostAction FireEventAction_ClickOnNext = new PLRulePostAction(rule_for_ClickOnNext.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,FireEventAction_resetoutput.get(),1,"","",
-                "",new StringBuffer(""),"","",0L,1L ,now,now,admin_1,admin_1);
+        PLRulePostAction FireEventAction_ClickOnNext = new PLRulePostAction(rule_for_ClickOnNext.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,PLRulePostActionType.FireEventAction,1,"","",
+                "",new StringBuffer(""),"resetoutput","","",0L,1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(FireEventAction_ClickOnNext);
 
 
@@ -653,8 +651,8 @@ public class ImportMultiplyProblemData_7 implements CommandLineRunner {
         AttributeValue  FireEventAction_ResetOutput_ClickOnNext_param_2_value= new AttributeValue(null,7,null,null,null,null,null,null,Boolean.FALSE,null,FireEventAction_ResetOutput_ClickOnNext_param_2,1L,now,now,admin_1,admin_1,FireEventAction_ClickOnNext.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action_Parameter);
         attributeValueService.save(FireEventAction_ResetOutput_ClickOnNext_param_2_value);
 
-        PLRulePostAction fireEventAction_ResetOutput_2_ClickOnNext = new PLRulePostAction(rule_for_ClickOnNext.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,FireEventAction_resetoutput.get(),2,"","",
-                "",new StringBuffer(""),"","",0L,1L ,now,now,admin_1,admin_1);
+        PLRulePostAction fireEventAction_ResetOutput_2_ClickOnNext = new PLRulePostAction(rule_for_ClickOnNext.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,PLRulePostActionType.FireEventAction,2,"","",
+                "",new StringBuffer(""),"resetouput","","",0L,1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(fireEventAction_ResetOutput_2_ClickOnNext);
 
         Attribute FireEventAction_2_ResetOutput_ClickOnNext_param_1=new Attribute("row",fireEventAction_ResetOutput_2_ClickOnNext.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action_Parameter,DataType.Integer,1L,now,now,admin_1,admin_1);
@@ -668,48 +666,48 @@ public class ImportMultiplyProblemData_7 implements CommandLineRunner {
         attributeValueService.save(FireEventAction_2_ResetOutput_ClickOnNext_param_2_value);
 
 
-        PLRulePostAction VariableAssignmentAction_1_ClickOnNext = new PLRulePostAction(rule_for_ClickOnNext.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,VariableAssignmentAction.get(),3,"","",
-                "BoardVar(firstValue)",new StringBuffer("Random(1)"),"","",0L,1L ,now,now,admin_1,admin_1);
+        PLRulePostAction VariableAssignmentAction_1_ClickOnNext = new PLRulePostAction(rule_for_ClickOnNext.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,PLRulePostActionType.VariableAssignmentAction,3,"","",
+                "BoardVar(firstValue)",new StringBuffer("Random(1)"),"","","",0L,1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(VariableAssignmentAction_1_ClickOnNext);
 
-        PLRulePostAction VariableAssignmentAction_2_ClickOnNext = new PLRulePostAction(rule_for_ClickOnNext.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,VariableAssignmentAction.get(),4,"","",
-                "InstProp(InstByPos(5, 2), text)",new StringBuffer("BoardVar(firstValue)"),"","",0L,1L ,now,now,admin_1,admin_1);
+        PLRulePostAction VariableAssignmentAction_2_ClickOnNext = new PLRulePostAction(rule_for_ClickOnNext.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,PLRulePostActionType.VariableAssignmentAction,4,"","",
+                "InstProp(InstByPos(5, 2), text)",new StringBuffer("BoardVar(firstValue)"),"","","",0L,1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(VariableAssignmentAction_2_ClickOnNext);
 
-        PLRulePostAction callObjectAction_1_ClickOnNext = new PLRulePostAction(rule_for_ClickOnNext.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,CallObjectAction.get(),5,"show","InstProp(InstByPos(5, 2), objectId)",
-                "",new StringBuffer(""),"","",0L,1L ,now,now,admin_1,admin_1);
+        PLRulePostAction callObjectAction_1_ClickOnNext = new PLRulePostAction(rule_for_ClickOnNext.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,PLRulePostActionType.CallObjectAction,5,"show","InstProp(InstByPos(5, 2), objectId)",
+                "",new StringBuffer(""),"","","",0L,1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(callObjectAction_1_ClickOnNext);
 
-        PLRulePostAction VariableAssignmentAction_3_ClickOnNext = new PLRulePostAction(rule_for_ClickOnNext.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,VariableAssignmentAction.get(),6,"","",
-                "BoardVar(secondValue)",new StringBuffer("Random(1)"),"","",0L,1L ,now,now,admin_1,admin_1);
+        PLRulePostAction VariableAssignmentAction_3_ClickOnNext = new PLRulePostAction(rule_for_ClickOnNext.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,PLRulePostActionType.VariableAssignmentAction,6,"","",
+                "BoardVar(secondValue)",new StringBuffer("Random(1)"),"","","",0L,1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(VariableAssignmentAction_3_ClickOnNext);
 
-        PLRulePostAction VariableAssignmentAction_4_ClickOnNext = new PLRulePostAction(rule_for_ClickOnNext.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,VariableAssignmentAction.get(),7,"","",
-                "InstProp(InstByPos(5, 4), text)",new StringBuffer("BoardVar(secondValue)"),"","",0L,1L ,now,now,admin_1,admin_1);
+        PLRulePostAction VariableAssignmentAction_4_ClickOnNext = new PLRulePostAction(rule_for_ClickOnNext.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,PLRulePostActionType.VariableAssignmentAction,7,"","",
+                "InstProp(InstByPos(5, 4), text)",new StringBuffer("BoardVar(secondValue)"),"","","",0L,1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(VariableAssignmentAction_4_ClickOnNext);
 
-        PLRulePostAction callObjectAction_2_ClickOnNext = new PLRulePostAction(rule_for_ClickOnNext.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,CallObjectAction.get(),8,"show","InstProp(InstByPos(5, 4), objectId)",
-                "",new StringBuffer(""),"","",0L,1L ,now,now,admin_1,admin_1);
+        PLRulePostAction callObjectAction_2_ClickOnNext = new PLRulePostAction(rule_for_ClickOnNext.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,PLRulePostActionType.CallObjectAction,8,"show","InstProp(InstByPos(5, 4), objectId)",
+                "",new StringBuffer(""),"","","",0L,1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(callObjectAction_2_ClickOnNext);
 
-        PLRulePostAction VariableAssignmentAction_5_ClickOnNext = new PLRulePostAction(rule_for_ClickOnNext.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,VariableAssignmentAction.get(),9,"","",
-                "BoardVar(started)",new StringBuffer("true"),"","",0L,1L ,now,now,admin_1,admin_1);
+        PLRulePostAction VariableAssignmentAction_5_ClickOnNext = new PLRulePostAction(rule_for_ClickOnNext.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,PLRulePostActionType.VariableAssignmentAction,9,"","",
+                "BoardVar(started)",new StringBuffer("true"),"","","",0L,1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(VariableAssignmentAction_5_ClickOnNext);
 
-        PLRulePostAction VariableAssignmentAction_6_ClickOnNext = new PLRulePostAction(rule_for_ClickOnNext.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,VariableAssignmentAction.get(),10,"","",
-                "BoardVar(ready)",new StringBuffer("false"),"","",0L,1L ,now,now,admin_1,admin_1);
+        PLRulePostAction VariableAssignmentAction_6_ClickOnNext = new PLRulePostAction(rule_for_ClickOnNext.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,PLRulePostActionType.VariableAssignmentAction,10,"","",
+                "BoardVar(ready)",new StringBuffer("false"),"","","",0L,1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(VariableAssignmentAction_6_ClickOnNext);
 
-        PLRulePostAction VariableAssignmentAction_7_ClickOnNext = new PLRulePostAction(rule_for_ClickOnNext.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,VariableAssignmentAction.get(),11,"","",
-                "BoardVar(userFirstValue)",new StringBuffer("0"),"","",0L,1L ,now,now,admin_1,admin_1);
+        PLRulePostAction VariableAssignmentAction_7_ClickOnNext = new PLRulePostAction(rule_for_ClickOnNext.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,PLRulePostActionType.VariableAssignmentAction,11,"","",
+                "BoardVar(userFirstValue)",new StringBuffer("0"),"","","",0L,1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(VariableAssignmentAction_7_ClickOnNext);
 
-        PLRulePostAction VariableAssignmentAction_8_ClickOnNext = new PLRulePostAction(rule_for_ClickOnNext.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,VariableAssignmentAction.get(),12,"","",
-                "BoardVar(userSecondValue)",new StringBuffer("0"),"","",0L,1L ,now,now,admin_1,admin_1);
+        PLRulePostAction VariableAssignmentAction_8_ClickOnNext = new PLRulePostAction(rule_for_ClickOnNext.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,PLRulePostActionType.VariableAssignmentAction,12,"","",
+                "BoardVar(userSecondValue)",new StringBuffer("0"),"","","",0L,1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(VariableAssignmentAction_8_ClickOnNext);
 
-        PLRulePostAction fireEvent_Action_ClickOnNext = new PLRulePostAction(rule_for_ClickOnNext.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,FireEventAction_startTimer.get(),13,"","",
-                "",new StringBuffer("0"),"","",0L,1L ,now,now,admin_1,admin_1);
+        PLRulePostAction fireEvent_Action_ClickOnNext = new PLRulePostAction(rule_for_ClickOnNext.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,PLRulePostActionType.FireEventAction,13,"","",
+                "",new StringBuffer("0"),"startTimer","","",0L,1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(fireEvent_Action_ClickOnNext);
 
 
@@ -717,16 +715,18 @@ public class ImportMultiplyProblemData_7 implements CommandLineRunner {
 
         StringBuffer    reset_user_values_condition = new StringBuffer("EventParam(row)<11");
         Boolean ignoreRemaining2 = false;
+        Optional<PLRuleEvent> Internal_Event = plRuleEventService.findByName("internalevent");
+
         PLRule reset_user_rule = new PLRule("reset user values",2
-                ,reset_user_values_condition,ignoreRemaining2,Multiply_Game,Internal_Event_resetoutput.get(),1L,now,now,admin_1,admin_1);
+                ,reset_user_values_condition,ignoreRemaining2,Multiply_Game,Internal_Event.get(),"resetoutput",1L,now,now,admin_1,admin_1);
         puzzleLevelRuleService.save(reset_user_rule);
 
-        PLRulePostAction callobjectaction_reset_user_rule = new PLRulePostAction(reset_user_rule.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,CallObjectAction.get(),1,"disable","InstProp(InstByPos(EventParam(row), EventParam(col)), objectId)",
-                "",new StringBuffer(""),"","",0L,1L ,now,now,admin_1,admin_1);
+        PLRulePostAction callobjectaction_reset_user_rule = new PLRulePostAction(reset_user_rule.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,PLRulePostActionType.CallObjectAction,1,"disable","InstProp(InstByPos(EventParam(row), EventParam(col)), objectId)",
+                "",new StringBuffer(""),"","","",0L,1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(callobjectaction_reset_user_rule);
 
-        PLRulePostAction FireEventAction_resetoutput_reset_user_rule = new PLRulePostAction(reset_user_rule.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,FireEventAction_resetoutput.get(),2,"","",
-                "",new StringBuffer(""),"","",0L,1L ,now,now,admin_1,admin_1);
+        PLRulePostAction FireEventAction_resetoutput_reset_user_rule = new PLRulePostAction(reset_user_rule.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,PLRulePostActionType.FireEventAction,2,"","",
+                "",new StringBuffer(""),"resetoutput","","",0L,1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(FireEventAction_resetoutput_reset_user_rule);
 
         Attribute FireEventAction_resetoutput_reset_user_rule_param_1=new Attribute("row",FireEventAction_resetoutput_reset_user_rule.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action_Parameter,DataType.Integer,1L,now,now,admin_1,admin_1);
@@ -745,12 +745,14 @@ public class ImportMultiplyProblemData_7 implements CommandLineRunner {
 
         StringBuffer    startTimer_condition = new StringBuffer("1 = 1");
         Boolean ignoreRemaining3 = false;
+        Optional<PLRuleEvent> internalevent = plRuleEventService.findByName("internalevent");
+
         PLRule startTimer_rule = new PLRule("startTimer",3
-                ,startTimer_condition,ignoreRemaining3,Multiply_Game,internalevent_startTimer.get(),1L,now,now,admin_1,admin_1);
+                ,startTimer_condition,ignoreRemaining3,Multiply_Game,internalevent.get(),"startTimer",1L,now,now,admin_1,admin_1);
         puzzleLevelRuleService.save(startTimer_rule);
 
-        PLRulePostAction callobjectaction_1_startTimer = new PLRulePostAction(startTimer_rule.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,CallObjectAction.get(),1,"show","InstProp(InstByPos(7, 2), objectId)",
-                "",new StringBuffer(""),"","",0L,1L ,now,now,admin_1,admin_1);
+        PLRulePostAction callobjectaction_1_startTimer = new PLRulePostAction(startTimer_rule.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,PLRulePostActionType.CallObjectAction,1,"show","InstProp(InstByPos(7, 2), objectId)",
+                "",new StringBuffer(""),"","","",0L,1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(callobjectaction_1_startTimer);
 
         Attribute callobjectaction_1_startTimer_param_1=new Attribute("bgColor",callobjectaction_1_startTimer.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action_Parameter,DataType.String,1L,now,now,admin_1,admin_1);
@@ -758,8 +760,8 @@ public class ImportMultiplyProblemData_7 implements CommandLineRunner {
         AttributeValue  callobjectaction_1_startTimer_param_1_value= new AttributeValue(null,null,null,"green",null,null,null,null,Boolean.FALSE,null,callobjectaction_1_startTimer_param_1,1L,now,now,admin_1,admin_1,callobjectaction_1_startTimer.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action_Parameter);
         attributeValueService.save(callobjectaction_1_startTimer_param_1_value);
 
-        PLRulePostAction callobjectaction_2_startTimer = new PLRulePostAction(startTimer_rule.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,CallObjectAction.get(),2,"show","InstProp(InstByPos(7, 3), objectId)",
-                "",new StringBuffer(""),"","",0L,1L ,now,now,admin_1,admin_1);
+        PLRulePostAction callobjectaction_2_startTimer = new PLRulePostAction(startTimer_rule.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,PLRulePostActionType.CallObjectAction,2,"show","InstProp(InstByPos(7, 3), objectId)",
+                "",new StringBuffer(""),"","","",0L,1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(callobjectaction_2_startTimer);
 
         Attribute callobjectaction_2_startTimer_param_1=new Attribute("bgColor",callobjectaction_2_startTimer.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action_Parameter,DataType.String,1L,now,now,admin_1,admin_1);
@@ -767,8 +769,8 @@ public class ImportMultiplyProblemData_7 implements CommandLineRunner {
         AttributeValue  callobjectaction_2_startTimer_param_1_value= new AttributeValue(null,null,null,"green",null,null,null,null,Boolean.FALSE,null,callobjectaction_2_startTimer_param_1,1L,now,now,admin_1,admin_1,callobjectaction_2_startTimer.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action_Parameter);
         attributeValueService.save(callobjectaction_2_startTimer_param_1_value);
 
-        PLRulePostAction callobjectaction_3_startTimer = new PLRulePostAction(startTimer_rule.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,CallObjectAction.get(),3,"show","InstProp(InstByPos(7, 4), objectId)",
-                "",new StringBuffer(""),"","",0L,1L ,now,now,admin_1,admin_1);
+        PLRulePostAction callobjectaction_3_startTimer = new PLRulePostAction(startTimer_rule.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,PLRulePostActionType.CallObjectAction,3,"show","InstProp(InstByPos(7, 4), objectId)",
+                "",new StringBuffer(""),"","","",0L,1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(callobjectaction_3_startTimer);
 
         Attribute callobjectaction_3_startTimer_param_1=new Attribute("bgColor",callobjectaction_3_startTimer.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action_Parameter,DataType.String,1L,now,now,admin_1,admin_1);
@@ -776,8 +778,8 @@ public class ImportMultiplyProblemData_7 implements CommandLineRunner {
         AttributeValue  callobjectaction_3_startTimer_param_1_value= new AttributeValue(null,null,null,"green",null,null,null,null,Boolean.FALSE,null,callobjectaction_3_startTimer_param_1,1L,now,now,admin_1,admin_1,callobjectaction_3_startTimer.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action_Parameter);
         attributeValueService.save(callobjectaction_3_startTimer_param_1_value);
 
-        PLRulePostAction callsystemaction_startTimer = new PLRulePostAction(startTimer_rule.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,Callsystemaction.get(),4,"StartTimer","",
-                "",new StringBuffer(""),"","",30L,1L ,now,now,admin_1,admin_1);
+        PLRulePostAction callsystemaction_startTimer = new PLRulePostAction(startTimer_rule.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,PLRulePostActionType.Callsystemaction,4,"StartTimer","",
+                "",new StringBuffer(""),"","","",30L,1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(callsystemaction_startTimer);
 
         Attribute callsystemaction_startTimer_param_1=new Attribute("duration",callsystemaction_startTimer.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action_Parameter,DataType.Integer,1L,now,now,admin_1,admin_1);
@@ -788,12 +790,14 @@ public class ImportMultiplyProblemData_7 implements CommandLineRunner {
 
         StringBuffer    Remained_2_Seconds_condition = new StringBuffer("equal(BoardVar(started), true) & equal(EventParam(actionId),30)");
         Boolean ignoreRemaining4 = false;
+        Optional<PLRuleEvent> ActionComplete_Event = plRuleEventService.findByName("ActionComplete");
+
         PLRule Remained_2_Seconds_rule = new PLRule("Remained 2 Seconds",4
-                ,Remained_2_Seconds_condition,ignoreRemaining4,Multiply_Game,ActionComplete_Event.get(),1L,now,now,admin_1,admin_1);
+                ,Remained_2_Seconds_condition,ignoreRemaining4,Multiply_Game,ActionComplete_Event.get(),"",1L,now,now,admin_1,admin_1);
         puzzleLevelRuleService.save(Remained_2_Seconds_rule);
 
-        PLRulePostAction callobjectaction_1_Remained_2_Seconds = new PLRulePostAction(Remained_2_Seconds_rule.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,CallObjectAction.get(),1,"show","InstProp(InstByPos(7, 2), objectId)",
-                "",new StringBuffer(""),"","",0L,1L ,now,now,admin_1,admin_1);
+        PLRulePostAction callobjectaction_1_Remained_2_Seconds = new PLRulePostAction(Remained_2_Seconds_rule.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,PLRulePostActionType.CallObjectAction,1,"show","InstProp(InstByPos(7, 2), objectId)",
+                "",new StringBuffer(""),"","","",0L,1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(callobjectaction_1_Remained_2_Seconds);
 
         Attribute callobjectaction_1_Remained_2_Seconds_param_1=new Attribute("bgColor",callobjectaction_1_Remained_2_Seconds.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action_Parameter,DataType.String,1L,now,now,admin_1,admin_1);
@@ -801,8 +805,8 @@ public class ImportMultiplyProblemData_7 implements CommandLineRunner {
         AttributeValue  callobjectaction_1_Remained_2_Seconds_param_1_value= new AttributeValue(null,null,null,"white",null,null,null,null,Boolean.FALSE,null,callobjectaction_1_Remained_2_Seconds_param_1,1L,now,now,admin_1,admin_1,callobjectaction_1_Remained_2_Seconds.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action_Parameter);
         attributeValueService.save(callobjectaction_1_Remained_2_Seconds_param_1_value);
 
-        PLRulePostAction callobjectaction_2_Remained_2_Seconds = new PLRulePostAction(Remained_2_Seconds_rule.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,CallObjectAction.get(),2,"show","InstProp(InstByPos(7, 3), objectId)",
-                "",new StringBuffer(""),"","",0L,1L ,now,now,admin_1,admin_1);
+        PLRulePostAction callobjectaction_2_Remained_2_Seconds = new PLRulePostAction(Remained_2_Seconds_rule.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,PLRulePostActionType.CallObjectAction,2,"show","InstProp(InstByPos(7, 3), objectId)",
+                "",new StringBuffer(""),"","","",0L,1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(callobjectaction_2_Remained_2_Seconds);
 
         Attribute callobjectaction_2_Remained_2_Seconds_param_1=new Attribute("bgColor",callobjectaction_2_Remained_2_Seconds.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action_Parameter,DataType.String,1L,now,now,admin_1,admin_1);
@@ -810,8 +814,8 @@ public class ImportMultiplyProblemData_7 implements CommandLineRunner {
         AttributeValue  callobjectaction_2_Remained_2_Seconds_param_1_value= new AttributeValue(null,null,null,"orange",null,null,null,null,Boolean.FALSE,null,callobjectaction_2_Remained_2_Seconds_param_1,1L,now,now,admin_1,admin_1,callobjectaction_2_Remained_2_Seconds.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action_Parameter);
         attributeValueService.save(callobjectaction_2_Remained_2_Seconds_param_1_value);
 
-        PLRulePostAction callobjectaction_3_Remained_2_Seconds = new PLRulePostAction(Remained_2_Seconds_rule.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,CallObjectAction.get(),2,"show","InstProp(InstByPos(7, 4), objectId)",
-                "",new StringBuffer(""),"","",0L,1L ,now,now,admin_1,admin_1);
+        PLRulePostAction callobjectaction_3_Remained_2_Seconds = new PLRulePostAction(Remained_2_Seconds_rule.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,PLRulePostActionType.CallObjectAction,2,"show","InstProp(InstByPos(7, 4), objectId)",
+                "",new StringBuffer(""),"","","",0L,1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(callobjectaction_3_Remained_2_Seconds);
 
         Attribute callobjectaction_3_Remained_2_Seconds_param_1=new Attribute("bgColor",callobjectaction_3_Remained_2_Seconds.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action_Parameter,DataType.String,1L,now,now,admin_1,admin_1);
@@ -819,8 +823,8 @@ public class ImportMultiplyProblemData_7 implements CommandLineRunner {
         AttributeValue  callobjectaction_3_Remained_2_Seconds_param_1_value= new AttributeValue(null,null,null,"orange",null,null,null,null,Boolean.FALSE,null,callobjectaction_3_Remained_2_Seconds_param_1,1L,now,now,admin_1,admin_1,callobjectaction_3_Remained_2_Seconds.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action_Parameter);
         attributeValueService.save(callobjectaction_3_Remained_2_Seconds_param_1_value);
 
-        PLRulePostAction callsystemaction_startTimer_2 = new PLRulePostAction(Remained_2_Seconds_rule.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,Callsystemaction.get(),4,"StartTimer","",
-                "",new StringBuffer(""),"","",20L,1L ,now,now,admin_1,admin_1);
+        PLRulePostAction callsystemaction_startTimer_2 = new PLRulePostAction(Remained_2_Seconds_rule.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,PLRulePostActionType.Callsystemaction,4,"StartTimer","",
+                "",new StringBuffer(""),"","","",20L,1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(callsystemaction_startTimer_2);
 
         Attribute callsystemaction_startTimer_2_param_1=new Attribute("duration",callsystemaction_startTimer_2.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action_Parameter,DataType.Integer,1L,now,now,admin_1,admin_1);
@@ -834,11 +838,11 @@ public class ImportMultiplyProblemData_7 implements CommandLineRunner {
         StringBuffer    Remained_1_Seconds_condition = new StringBuffer("equal(BoardVar(started), true) & equal(EventParam(actionId),20)");
         Boolean ignoreRemaining5 = false;
         PLRule Remained_1_Seconds_rule = new PLRule("Remained 1 Seconds",5
-                ,Remained_1_Seconds_condition,ignoreRemaining5,Multiply_Game,ActionComplete_Event.get(),1L,now,now,admin_1,admin_1);
+                ,Remained_1_Seconds_condition,ignoreRemaining5,Multiply_Game,ActionComplete_Event.get(),"",1L,now,now,admin_1,admin_1);
         puzzleLevelRuleService.save(Remained_1_Seconds_rule);
 
-        PLRulePostAction callobjectaction_1_Remained_1_Seconds = new PLRulePostAction(Remained_1_Seconds_rule.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,CallObjectAction.get(),1,"show","InstProp(InstByPos(7, 3), objectId)",
-                "",new StringBuffer(""),"","",0L,1L ,now,now,admin_1,admin_1);
+        PLRulePostAction callobjectaction_1_Remained_1_Seconds = new PLRulePostAction(Remained_1_Seconds_rule.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,PLRulePostActionType.CallObjectAction,1,"show","InstProp(InstByPos(7, 3), objectId)",
+                "",new StringBuffer(""),"","","",0L,1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(callobjectaction_1_Remained_1_Seconds);
 
         Attribute callobjectaction_1_Remained_1_Seconds_param_1=new Attribute("bgColor",callobjectaction_1_Remained_1_Seconds.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action_Parameter,DataType.String,1L,now,now,admin_1,admin_1);
@@ -846,8 +850,8 @@ public class ImportMultiplyProblemData_7 implements CommandLineRunner {
         AttributeValue  callobjectaction_1_Remained_1_Seconds_param_1_value= new AttributeValue(null,null,null,"white",null,null,null,null,Boolean.FALSE,null,callobjectaction_1_Remained_1_Seconds_param_1,1L,now,now,admin_1,admin_1,callobjectaction_1_Remained_1_Seconds.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action_Parameter);
         attributeValueService.save(callobjectaction_1_Remained_1_Seconds_param_1_value);
 
-        PLRulePostAction callobjectaction_2_Remained_1_Seconds = new PLRulePostAction(Remained_1_Seconds_rule.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,CallObjectAction.get(),2,"show","InstProp(InstByPos(7, 4), objectId)",
-                "",new StringBuffer(""),"","",0L,1L ,now,now,admin_1,admin_1);
+        PLRulePostAction callobjectaction_2_Remained_1_Seconds = new PLRulePostAction(Remained_1_Seconds_rule.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,PLRulePostActionType.CallObjectAction,2,"show","InstProp(InstByPos(7, 4), objectId)",
+                "",new StringBuffer(""),"","","",0L,1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(callobjectaction_2_Remained_1_Seconds);
 
         Attribute callobjectaction_2_Remained_1_Seconds_param_1=new Attribute("bgColor",callobjectaction_2_Remained_1_Seconds.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action_Parameter,DataType.String,1L,now,now,admin_1,admin_1);
@@ -855,8 +859,8 @@ public class ImportMultiplyProblemData_7 implements CommandLineRunner {
         AttributeValue  callobjectaction_2_Remained_1_Seconds_param_1_value= new AttributeValue(null,null,null,"red",null,null,null,null,Boolean.FALSE,null,callobjectaction_2_Remained_1_Seconds_param_1,1L,now,now,admin_1,admin_1,callobjectaction_2_Remained_1_Seconds.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action_Parameter);
         attributeValueService.save(callobjectaction_2_Remained_1_Seconds_param_1_value);
 
-        PLRulePostAction callsystemaction_startTimer_3 = new PLRulePostAction(Remained_1_Seconds_rule.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,Callsystemaction.get(),4,"StartTimer","",
-                "",new StringBuffer(""),"","",10L,1L ,now,now,admin_1,admin_1);
+        PLRulePostAction callsystemaction_startTimer_3 = new PLRulePostAction(Remained_1_Seconds_rule.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,PLRulePostActionType.Callsystemaction,4,"StartTimer","",
+                "",new StringBuffer(""),"","","",10L,1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(callsystemaction_startTimer_3);
 
         Attribute callsystemaction_startTimer_3_param_1=new Attribute("duration",callsystemaction_startTimer_3.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action_Parameter,DataType.Integer,1L,now,now,admin_1,admin_1);
@@ -869,11 +873,11 @@ public class ImportMultiplyProblemData_7 implements CommandLineRunner {
         StringBuffer    Finished_Timer_condition = new StringBuffer("equal(BoardVar(started), true) & equal(EventParam(actionId),10)");
         Boolean ignoreRemaining6 = false;
         PLRule Finished_Timer_rule = new PLRule("Finished Timer",6
-                ,Finished_Timer_condition,ignoreRemaining6,Multiply_Game,ActionComplete_Event.get(),1L,now,now,admin_1,admin_1);
+                ,Finished_Timer_condition,ignoreRemaining6,Multiply_Game,ActionComplete_Event.get(),"",1L,now,now,admin_1,admin_1);
         puzzleLevelRuleService.save(Finished_Timer_rule);
 
-        PLRulePostAction callobjectaction_1_Finished_Timer = new PLRulePostAction(Finished_Timer_rule.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,CallObjectAction.get(),1,"show","InstProp(InstByPos(7, 4), objectId)",
-                "",new StringBuffer(""),"","",0L,1L ,now,now,admin_1,admin_1);
+        PLRulePostAction callobjectaction_1_Finished_Timer = new PLRulePostAction(Finished_Timer_rule.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,PLRulePostActionType.CallObjectAction,1,"show","InstProp(InstByPos(7, 4), objectId)",
+                "",new StringBuffer(""),"","","",0L,1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(callobjectaction_1_Finished_Timer);
 
         Attribute callobjectaction_1_Finished_Timer_param_1=new Attribute("bgColor",callobjectaction_1_Finished_Timer.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action_Parameter,DataType.String,1L,now,now,admin_1,admin_1);
@@ -881,8 +885,8 @@ public class ImportMultiplyProblemData_7 implements CommandLineRunner {
         AttributeValue  callobjectaction_1_Finished_Timer_param_1_value= new AttributeValue(null,null,null,"white",null,null,null,null,Boolean.FALSE,null,callobjectaction_1_Finished_Timer_param_1,1L,now,now,admin_1,admin_1,callobjectaction_1_Finished_Timer.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action_Parameter);
         attributeValueService.save(callobjectaction_1_Finished_Timer_param_1_value);
 
-        PLRulePostAction fireEventAction_update = new PLRulePostAction(Finished_Timer_rule.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,FireEventAction_update.get(),2,"","",
-                "",new StringBuffer(""),"","",0L,1L ,now,now,admin_1,admin_1);
+        PLRulePostAction fireEventAction_update = new PLRulePostAction(Finished_Timer_rule.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,PLRulePostActionType.FireEventAction,2,"","",
+                "",new StringBuffer(""),"update","","",0L,1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(fireEventAction_update);
         Attribute fireEventAction_update_param_1=new Attribute("correct",fireEventAction_update.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action_Parameter,DataType.Boolean,1L,now,now,admin_1,admin_1);
         attributeService.save(fireEventAction_update_param_1);
@@ -892,18 +896,20 @@ public class ImportMultiplyProblemData_7 implements CommandLineRunner {
 
         StringBuffer    Finished_Step_condition = new StringBuffer("1=1");
         Boolean ignoreRemaining7 = false;
+        //Optional<PLRuleEvent> internalevent = plRuleEventService.findByName("internalevent");
+
         PLRule Finished_Step_rule = new PLRule("Finished Step",7
-                ,Finished_Step_condition,ignoreRemaining7,Multiply_Game,internalevent_update.get(),1L,now,now,admin_1,admin_1);
+                ,Finished_Step_condition,ignoreRemaining7,Multiply_Game,internalevent.get(),"update",1L,now,now,admin_1,admin_1);
         puzzleLevelRuleService.save(Finished_Step_rule);
 
 
-        PLRulePostAction VariableAssignmentAction_1_Finished_Step = new PLRulePostAction(Finished_Step_rule.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,VariableAssignmentAction.get(),1,"","",
-                "BoardVar(progress)",new StringBuffer("BoardVar(progress) + 10"),"","",0L,1L ,now,now,admin_1,admin_1);
+        PLRulePostAction VariableAssignmentAction_1_Finished_Step = new PLRulePostAction(Finished_Step_rule.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,PLRulePostActionType.VariableAssignmentAction,1,"","",
+                "BoardVar(progress)",new StringBuffer("BoardVar(progress) + 10"),"","","",0L,1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(VariableAssignmentAction_1_Finished_Step);
 
 
-        PLRulePostAction callobjectaction_1_Finished_Step = new PLRulePostAction(Finished_Step_rule.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,CallObjectAction.get(),2,"show","InstProp(InstByPos(2, 4), objectId)",
-                "",new StringBuffer(""),"","",0L,1L ,now,now,admin_1,admin_1);
+        PLRulePostAction callobjectaction_1_Finished_Step = new PLRulePostAction(Finished_Step_rule.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,PLRulePostActionType.CallObjectAction,2,"show","InstProp(InstByPos(2, 4), objectId)",
+                "",new StringBuffer(""),"","","",0L,1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(callobjectaction_1_Finished_Step);
 
         Attribute callobjectaction_1_Finished_Step_param_1=new Attribute("text",callobjectaction_1_Finished_Step.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action_Parameter,DataType.String,1L,now,now,admin_1,admin_1);
@@ -911,12 +917,12 @@ public class ImportMultiplyProblemData_7 implements CommandLineRunner {
         AttributeValue  callobjectaction_1_Finished_Step_param_1_value= new AttributeValue(null,null,null,null,null,null,null,"concat(BoardVar(progress),'percent')",Boolean.TRUE,null,callobjectaction_1_Finished_Step_param_1,1L,now,now,admin_1,admin_1,callobjectaction_1_Finished_Step.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action_Parameter);
         attributeValueService.save(callobjectaction_1_Finished_Step_param_1_value);
 
-        PLRulePostAction VariableAssignmentAction_2_Finished_Step = new PLRulePostAction(Finished_Step_rule.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,VariableAssignmentAction.get(),3,"","",
-                "BoardVar(score)",new StringBuffer("BoardVar(score) + cond(equal(EventParam(correct),1),10,0)"),"","",0L,1L ,now,now,admin_1,admin_1);
+        PLRulePostAction VariableAssignmentAction_2_Finished_Step = new PLRulePostAction(Finished_Step_rule.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,PLRulePostActionType.VariableAssignmentAction,3,"","",
+                "BoardVar(score)",new StringBuffer("BoardVar(score) + cond(equal(EventParam(correct),1),10,0)"),"","","",0L,1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(VariableAssignmentAction_2_Finished_Step);
 
-        PLRulePostAction callobjectaction_2_Finished_Step = new PLRulePostAction(Finished_Step_rule.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,CallObjectAction.get(),4,"show","InstProp(InstByPos(3, 4), objectId)",
-                "",new StringBuffer(""),"","",0L,1L ,now,now,admin_1,admin_1);
+        PLRulePostAction callobjectaction_2_Finished_Step = new PLRulePostAction(Finished_Step_rule.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,PLRulePostActionType.CallObjectAction,4,"show","InstProp(InstByPos(3, 4), objectId)",
+                "",new StringBuffer(""),"","","",0L,1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(callobjectaction_2_Finished_Step);
 
         Attribute callobjectaction_2_Finished_Step_param_1=new Attribute("text",callobjectaction_2_Finished_Step.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action_Parameter,DataType.String,1L,now,now,admin_1,admin_1);
@@ -924,27 +930,27 @@ public class ImportMultiplyProblemData_7 implements CommandLineRunner {
         AttributeValue  callobjectaction_2_Finished_Step_param_1_value= new AttributeValue(null,null,null,null,null,null,null,"BoardVar(score)",Boolean.TRUE,null,callobjectaction_2_Finished_Step_param_1,1L,now,now,admin_1,admin_1,callobjectaction_2_Finished_Step.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action_Parameter);
         attributeValueService.save(callobjectaction_2_Finished_Step_param_1_value);
 
-        PLRulePostAction VariableAssignmentAction_3_Finished_Step = new PLRulePostAction(Finished_Step_rule.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,VariableAssignmentAction.get(),5,"","",
-                "BoardVar(started)",new StringBuffer("false"),"","",0L,1L ,now,now,admin_1,admin_1);
+        PLRulePostAction VariableAssignmentAction_3_Finished_Step = new PLRulePostAction(Finished_Step_rule.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,PLRulePostActionType.VariableAssignmentAction,5,"","",
+                "BoardVar(started)",new StringBuffer("false"),"","","",0L,1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(VariableAssignmentAction_3_Finished_Step);
 
-        PLRulePostAction VariableAssignmentAction_4_Finished_Step = new PLRulePostAction(Finished_Step_rule.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,VariableAssignmentAction.get(),6,"","",
-                "BoardVar(ready)",new StringBuffer("true"),"","",0L,1L ,now,now,admin_1,admin_1);
+        PLRulePostAction VariableAssignmentAction_4_Finished_Step = new PLRulePostAction(Finished_Step_rule.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,PLRulePostActionType.VariableAssignmentAction,6,"","",
+                "BoardVar(ready)",new StringBuffer("true"),"","","",0L,1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(VariableAssignmentAction_4_Finished_Step);
 
-        PLRulePostAction FireEventAction_check_Finished_Step = new PLRulePostAction(Finished_Step_rule.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,FireEventAction_check.get(),7,"","",
-                "",new StringBuffer(""),"","",0L,1L ,now,now,admin_1,admin_1);
+        PLRulePostAction FireEventAction_check_Finished_Step = new PLRulePostAction(Finished_Step_rule.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,PLRulePostActionType.FireEventAction,7,"","",
+                "",new StringBuffer(""),"check","","",0L,1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(FireEventAction_check_Finished_Step);
 
 
         StringBuffer    ClickOnCheck_condition = new StringBuffer("equal(BoardVar(started),true) & equal(EventParam(row),9) & equal(EventParam(col),4)");
         Boolean ignoreRemaining8 = false;
         PLRule ClickOnCheck_rule = new PLRule("ClickOnCheck",8
-                ,ClickOnCheck_condition,ignoreRemaining8,Multiply_Game,click_event.get(),1L,now,now,admin_1,admin_1);
+                ,ClickOnCheck_condition,ignoreRemaining8,Multiply_Game,click_event.get(),"",1L,now,now,admin_1,admin_1);
         puzzleLevelRuleService.save(ClickOnCheck_rule);
 
-        PLRulePostAction FireEventAction_update_ClickOnCheck = new PLRulePostAction(ClickOnCheck_rule.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,FireEventAction_update.get(),1,"","",
-                "",new StringBuffer(""),"","",0L,1L ,now,now,admin_1,admin_1);
+        PLRulePostAction FireEventAction_update_ClickOnCheck = new PLRulePostAction(ClickOnCheck_rule.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,PLRulePostActionType.FireEventAction,1,"","",
+                "",new StringBuffer(""),"update","","",0L,1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(FireEventAction_update_ClickOnCheck);
 
         Attribute FireEventAction_update_ClickOnCheck_param_1=new Attribute("correct",FireEventAction_update_ClickOnCheck.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action_Parameter,DataType.Integer,1L,now,now,admin_1,admin_1);
@@ -955,19 +961,19 @@ public class ImportMultiplyProblemData_7 implements CommandLineRunner {
         StringBuffer    ClickOnFirstColumn_condition = new StringBuffer("equal(BoardVar(started),true) & equal(EventParam(col),7)");
         Boolean ignoreRemaining9 = false;
         PLRule ClickOnFirstColumn_rule = new PLRule("ClickOnFirstColumn",9
-                ,ClickOnFirstColumn_condition,ignoreRemaining9,Multiply_Game,click_event.get(),1L,now,now,admin_1,admin_1);
+                ,ClickOnFirstColumn_condition,ignoreRemaining9,Multiply_Game,click_event.get(),"",1L,now,now,admin_1,admin_1);
         puzzleLevelRuleService.save(ClickOnFirstColumn_rule);
 
-        PLRulePostAction callobjectaction_1_ClickOnFirstColumn = new PLRulePostAction(ClickOnFirstColumn_rule.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,CallObjectAction.get(),1,"disable","InstProp(InstByPos(BoardVar(userFirstValue)+1, 7), objectId)",
-                "",new StringBuffer(""),"","",0L,1L ,now,now,admin_1,admin_1);
+        PLRulePostAction callobjectaction_1_ClickOnFirstColumn = new PLRulePostAction(ClickOnFirstColumn_rule.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,PLRulePostActionType.CallObjectAction,1,"disable","InstProp(InstByPos(BoardVar(userFirstValue)+1, 7), objectId)",
+                "",new StringBuffer(""),"","","",0L,1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(callobjectaction_1_ClickOnFirstColumn);
 
-        PLRulePostAction VariableAssignmentAction_1_ClickOnFirstColumn = new PLRulePostAction(ClickOnFirstColumn_rule.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,VariableAssignmentAction.get(),2,"","",
-                "BoardVar(userFirstValue)",new StringBuffer("EventParam(row)-1"),"","",0L,1L ,now,now,admin_1,admin_1);
+        PLRulePostAction VariableAssignmentAction_1_ClickOnFirstColumn = new PLRulePostAction(ClickOnFirstColumn_rule.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,PLRulePostActionType.VariableAssignmentAction,2,"","",
+                "BoardVar(userFirstValue)",new StringBuffer("EventParam(row)-1"),"","","",0L,1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(VariableAssignmentAction_1_ClickOnFirstColumn);
 
-        PLRulePostAction callobjectaction_2_ClickOnFirstColumn = new PLRulePostAction(ClickOnFirstColumn_rule.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,CallObjectAction.get(),3,"enable","InstProp(InstByPos(EventParam(row), 7), objectId)",
-                "",new StringBuffer(""),"","",0L,1L ,now,now,admin_1,admin_1);
+        PLRulePostAction callobjectaction_2_ClickOnFirstColumn = new PLRulePostAction(ClickOnFirstColumn_rule.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,PLRulePostActionType.CallObjectAction,3,"enable","InstProp(InstByPos(EventParam(row), 7), objectId)",
+                "",new StringBuffer(""),"","","",0L,1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(callobjectaction_2_ClickOnFirstColumn);
 
 
@@ -975,29 +981,31 @@ public class ImportMultiplyProblemData_7 implements CommandLineRunner {
         StringBuffer    ClickOnSecondColumn_condition = new StringBuffer("equal(BoardVar(started),true) & equal(EventParam(col),9)");
         Boolean ignoreRemaining10 = false;
         PLRule ClickOnSecondColumn_rule = new PLRule("ClickOnSecondColumn",10
-                ,ClickOnSecondColumn_condition,ignoreRemaining10,Multiply_Game,click_event.get(),1L,now,now,admin_1,admin_1);
+                ,ClickOnSecondColumn_condition,ignoreRemaining10,Multiply_Game,click_event.get(),"",1L,now,now,admin_1,admin_1);
         puzzleLevelRuleService.save(ClickOnSecondColumn_rule);
 
-        PLRulePostAction callobjectaction_1_ClickOnSecondColumn = new PLRulePostAction(ClickOnSecondColumn_rule.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,CallObjectAction.get(),3,"disable","InstProp(InstByPos(BoardVar(userSecondValue)+1, 9), objectId)",
-                "",new StringBuffer(""),"","",0L,1L ,now,now,admin_1,admin_1);
+        PLRulePostAction callobjectaction_1_ClickOnSecondColumn = new PLRulePostAction(ClickOnSecondColumn_rule.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,PLRulePostActionType.CallObjectAction,3,"disable","InstProp(InstByPos(BoardVar(userSecondValue)+1, 9), objectId)",
+                "",new StringBuffer(""),"","","",0L,1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(callobjectaction_1_ClickOnSecondColumn);
 
-        PLRulePostAction VariableAssignmentAction_1_ClickOnSecondColumn = new PLRulePostAction(ClickOnSecondColumn_rule.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,VariableAssignmentAction.get(),2,"","",
-                "BoardVar(userSecondValue)",new StringBuffer("EventParam(row)-1"),"","",0L,1L ,now,now,admin_1,admin_1);
+        PLRulePostAction VariableAssignmentAction_1_ClickOnSecondColumn = new PLRulePostAction(ClickOnSecondColumn_rule.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,PLRulePostActionType.VariableAssignmentAction,2,"","",
+                "BoardVar(userSecondValue)",new StringBuffer("EventParam(row)-1"),"","","",0L,1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(VariableAssignmentAction_1_ClickOnSecondColumn);
 
-        PLRulePostAction callobjectaction_2_ClickOnSecondColumn = new PLRulePostAction(ClickOnSecondColumn_rule.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,CallObjectAction.get(),3,"enable","InstProp(InstByPos(EventParam(row), 9), objectId)",
-                "",new StringBuffer(""),"","",0L,1L ,now,now,admin_1,admin_1);
+        PLRulePostAction callobjectaction_2_ClickOnSecondColumn = new PLRulePostAction(ClickOnSecondColumn_rule.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,PLRulePostActionType.CallObjectAction,3,"enable","InstProp(InstByPos(EventParam(row), 9), objectId)",
+                "",new StringBuffer(""),"","","",0L,1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(callobjectaction_2_ClickOnSecondColumn);
 
         StringBuffer    ChekcCompletion_condition = new StringBuffer("equal(BoardVar(progress), 100)");
         Boolean ignoreRemaining11 = false;
+        //Optional<PLRuleEvent> internalevent = plRuleEventService.findByName("internalevent");
+
         PLRule ChekcCompletion_rule = new PLRule("CheckCompletion",11
-                ,ChekcCompletion_condition,ignoreRemaining11,Multiply_Game,internalevent_check.get(),1L,now,now,admin_1,admin_1);
+                ,ChekcCompletion_condition,ignoreRemaining11,Multiply_Game,internalevent.get(),"check",1L,now,now,admin_1,admin_1);
         puzzleLevelRuleService.save(ChekcCompletion_rule);
 
-        PLRulePostAction VariableAssignmentAction_1_ChekcCompletion = new PLRulePostAction(ChekcCompletion_rule.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,VariableAssignmentAction.get(),1,"","",
-                "BoardVar(finished)",new StringBuffer("true"),"","",0L,1L ,now,now,admin_1,admin_1);
+        PLRulePostAction VariableAssignmentAction_1_ChekcCompletion = new PLRulePostAction(ChekcCompletion_rule.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,PLRulePostActionType.VariableAssignmentAction,1,"","",
+                "BoardVar(finished)",new StringBuffer("true"),"","","",0L,1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(VariableAssignmentAction_1_ChekcCompletion);
 
 

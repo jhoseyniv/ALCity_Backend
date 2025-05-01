@@ -26,6 +26,18 @@ public class PLRule extends BaseTable implements Serializable {
 //    @Column(name="ruleEventid")
 //    private Integer ruleEventid;
 
+    @Column(name="subEvent" )
+    private String subEvent;
+
+
+    public String getSubEvent() {
+        return subEvent;
+    }
+
+    public void setSubEvent(String subEvent) {
+        this.subEvent = subEvent;
+    }
+
     public String getTitle() {
         return title;
     }
@@ -99,9 +111,10 @@ public class PLRule extends BaseTable implements Serializable {
     public PLRule() {
     }
 
-    public PLRule(String title, Integer ordering, StringBuffer condition,boolean ignoreRemaining,  PuzzleLevel puzzleLevel, PLRuleEvent plRuleEvent , Long version, String created, String updated, AppMember createdBy, AppMember updatedBy) {
+    public PLRule(String title ,Integer ordering, StringBuffer condition,boolean ignoreRemaining,  PuzzleLevel puzzleLevel, PLRuleEvent plRuleEvent,String subEvent , Long version, String created, String updated, AppMember createdBy, AppMember updatedBy) {
         super(version, created, updated, createdBy, updatedBy);
         this.title = title;
+        this.subEvent = subEvent;
         this.ordering = ordering;
         this.condition = condition;
         this.ignoreRemaining = ignoreRemaining;

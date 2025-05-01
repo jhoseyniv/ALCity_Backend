@@ -4,6 +4,7 @@ import com.alcity.entity.base.BaseTable;
 import com.alcity.entity.alenum.PLRuleEventType;
 import com.alcity.entity.appmember.AppMember;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import java.io.Serializable;
 
@@ -19,6 +20,7 @@ public class PLRuleEvent extends BaseTable implements Serializable {
 
     @Column(name="event_Id")
     private Integer eventId;
+
 
     public String getName() {
         return name;

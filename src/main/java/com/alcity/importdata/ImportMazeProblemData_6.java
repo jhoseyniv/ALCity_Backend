@@ -114,8 +114,6 @@ public class ImportMazeProblemData_6 implements CommandLineRunner {
 
     @Autowired
     PLRuleEventService plRuleEventService;
-    @Autowired
-    PLRulePostActionTypeService plRulePostActionTypeService;
 
 
      @Autowired
@@ -384,39 +382,30 @@ public class ImportMazeProblemData_6 implements CommandLineRunner {
 
         Optional<PLRuleEvent> click_event = plRuleEventService.findByName("Click");
         Optional<PLRuleEvent> internalEvent = plRuleEventService.findByName("internalevent");
-        Optional<PLRuleEvent> internalEvent_move = plRuleEventService.findByName("internalevent:move");
         Optional<PLRuleEvent> Swipe_event = plRuleEventService.findByName("Swipe");
-        Optional<PLRuleEvent> internalevent_Swipe = plRuleEventService.findByName("internalevent:swipe");
-        Optional<PLRuleEvent> internalevent_check = plRuleEventService.findByName("internalevent:check");
+        Optional<PLRuleEvent> internalevent = plRuleEventService.findByName("internalevent");
 
-        Optional<PLRulePostActionType> CallObjectAction = plRulePostActionTypeService.findByValue("CallObjectAction");
-        Optional<PLRulePostActionType> UserAlertAction = plRulePostActionTypeService.findByValue("UserAlertAction");
-        Optional<PLRulePostActionType> VariableAssignmentAction = plRulePostActionTypeService.findByValue("VariableAssignmentAction");
-        Optional<PLRulePostActionType> FireEventAction = plRulePostActionTypeService.findByValue("FireEventAction");
-        Optional<PLRulePostActionType> FireEventAction_Move = plRulePostActionTypeService.findByValue("FireEventAction:move");
-        Optional<PLRulePostActionType> FireEventAction_Swipe = plRulePostActionTypeService.findByValue("FireEventAction:swipe");
-        Optional<PLRulePostActionType> FireEventAction_Check = plRulePostActionTypeService.findByValue("FireEventAction:check");
 
         StringBuffer    click_rule_condition = new StringBuffer("equal(BoardVar(finished),false)");
         Boolean ignoreRemaining = false;
         PLRule rule_for_Click = new PLRule("Click",1
-                ,click_rule_condition,ignoreRemaining,maze_Game,click_event.get(),1L,now,now,admin_1,admin_1);
+                ,click_rule_condition,ignoreRemaining,maze_Game,click_event.get(),"",1L,now,now,admin_1,admin_1);
         puzzleLevelRuleService.save(rule_for_Click);
 
-        PLRulePostAction VariableAssignmentAction_1 = new PLRulePostAction(rule_for_Click.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,VariableAssignmentAction.get(),1,"","",
-                "BoardVar(steps)",new StringBuffer("BoardVar(steps)+1"),"","",0L,1L ,now,now,admin_1,admin_1);
+        PLRulePostAction VariableAssignmentAction_1 = new PLRulePostAction(rule_for_Click.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,PLRulePostActionType.VariableAssignmentAction,1,"","",
+                "BoardVar(steps)",new StringBuffer("BoardVar(steps)+1"),"","","",0L,1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(VariableAssignmentAction_1);
 
 
         StringBuffer   Click2Right_rule_condition = new StringBuffer("equal(BoardVar(finished),false) & equal(EventParam(row), BoardVar(objX)) & (EventParam(col) > BoardVar(objY)) & (BoardVar(objY)<21) & (equal(InstByPos(BoardVar(objX), BoardVar(objY)+1), null) | equal(InstVar(InstByPos(BoardVar(objX), BoardVar(objY)+1), isTarget),true))");
         Boolean ignoreRemaining2 = false;
         PLRule rule_for_Click2Right = new PLRule("Click2Right",2
-                ,Click2Right_rule_condition,ignoreRemaining2,maze_Game,click_event.get(),1L,now,now,admin_1,admin_1);
+                ,Click2Right_rule_condition,ignoreRemaining2,maze_Game,click_event.get(),"",1L,now,now,admin_1,admin_1);
         puzzleLevelRuleService.save(rule_for_Click2Right);
 
 
-        PLRulePostAction FireEventAction_Move_Click2Right = new PLRulePostAction(rule_for_Click2Right.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,FireEventAction_Move.get(),1,"","",
-                "",new StringBuffer(""),"","",0L,1L ,now,now,admin_1,admin_1);
+        PLRulePostAction FireEventAction_Move_Click2Right = new PLRulePostAction(rule_for_Click2Right.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,PLRulePostActionType.FireEventAction,1,"","",
+                "",new StringBuffer(""),"Move","","",0L,1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(FireEventAction_Move_Click2Right);
 
         Attribute FireEventAction_Move_Click2Right_param_1=new Attribute("row",FireEventAction_Move_Click2Right.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action_Parameter,DataType.Integer,1L,now,now,admin_1,admin_1);
@@ -429,16 +418,14 @@ public class ImportMazeProblemData_6 implements CommandLineRunner {
         AttributeValue  FireEventAction_Move_Click2Right_param_2_value= new AttributeValue(null,null,null,null,null,null,null,"BoardVar(objY)+1",Boolean.TRUE,null,FireEventAction_Move_Click2Right_param_2,1L,now,now,admin_1,admin_1,FireEventAction_Move_Click2Right.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action_Parameter);
         attributeValueService.save(FireEventAction_Move_Click2Right_param_2_value);
 
-
-
         StringBuffer   Click2Left_rule_condition = new StringBuffer("equal(BoardVar(finished),false) & equal(EventParam(row), BoardVar(objX)) & (EventParam(col) < BoardVar(objY)) & (BoardVar(objY)>1) & equal(InstByPos(BoardVar(objX), BoardVar(objY)-1), null)");
         Boolean ignoreRemaining3 = false;
         PLRule rule_for_Click2Left = new PLRule("Click2Left",3
-                ,Click2Left_rule_condition,ignoreRemaining3,maze_Game,click_event.get(),1L,now,now,admin_1,admin_1);
+                ,Click2Left_rule_condition,ignoreRemaining3,maze_Game,click_event.get(),"",1L,now,now,admin_1,admin_1);
         puzzleLevelRuleService.save(rule_for_Click2Left);
 
-        PLRulePostAction FireEventAction_Move_Click2Left = new PLRulePostAction(rule_for_Click2Left.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,FireEventAction_Move.get(),1,"","",
-                "",new StringBuffer(""),"","",0L,1L ,now,now,admin_1,admin_1);
+        PLRulePostAction FireEventAction_Move_Click2Left = new PLRulePostAction(rule_for_Click2Left.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,PLRulePostActionType.FireEventAction,1,"","",
+                "",new StringBuffer(""),"Move","","",0L,1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(FireEventAction_Move_Click2Left);
 
         Attribute FireEventAction_Move_Click2Left_param_1=new Attribute("row",FireEventAction_Move_Click2Left.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action_Parameter,DataType.Integer,1L,now,now,admin_1,admin_1);
@@ -451,15 +438,14 @@ public class ImportMazeProblemData_6 implements CommandLineRunner {
         AttributeValue  FireEventAction_Move_Click2Left_param_2_value= new AttributeValue(null,null,null,null,null,null,null,"BoardVar(objY)-1",Boolean.TRUE,null,FireEventAction_Move_Click2Left_param_2,1L,now,now,admin_1,admin_1,FireEventAction_Move_Click2Left.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action_Parameter);
         attributeValueService.save(FireEventAction_Move_Click2Left_param_2_value);
 
-
         StringBuffer   Click2Up_rule_condition = new StringBuffer("equal(BoardVar(finished),false) & equal(EventParam(col), BoardVar(objY)) & (EventParam(row) < BoardVar(objX)) & (BoardVar(objX)>1) & equal(InstByPos(BoardVar(objX)-1, BoardVar(objY)), null)");
         Boolean ignoreRemaining_Click2Up = false;
         PLRule rule_for_Click2Up = new PLRule("Click2Up",4
-                ,Click2Up_rule_condition,ignoreRemaining_Click2Up,maze_Game,click_event.get(),1L,now,now,admin_1,admin_1);
+                ,Click2Up_rule_condition,ignoreRemaining_Click2Up,maze_Game,click_event.get(),"",1L,now,now,admin_1,admin_1);
         puzzleLevelRuleService.save(rule_for_Click2Up);
 
-        PLRulePostAction FireEventAction_Move_Click2Up = new PLRulePostAction(rule_for_Click2Up.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,FireEventAction_Move.get(),1,"","",
-                "",new StringBuffer(""),"","",0L,1L ,now,now,admin_1,admin_1);
+        PLRulePostAction FireEventAction_Move_Click2Up = new PLRulePostAction(rule_for_Click2Up.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,PLRulePostActionType.FireEventAction,1,"","",
+                "",new StringBuffer(""),"Move","","",0L,1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(FireEventAction_Move_Click2Up);
 
         Attribute FireEventAction_Move_Click2Up_param_1=new Attribute("row",FireEventAction_Move_Click2Up.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action_Parameter,DataType.Integer,1L,now,now,admin_1,admin_1);
@@ -475,11 +461,11 @@ public class ImportMazeProblemData_6 implements CommandLineRunner {
         StringBuffer   Click2Down_rule_condition = new StringBuffer("equal(BoardVar(finished),false) & equal(EventParam(col), BoardVar(objY)) & (EventParam(row) > BoardVar(objX)) & (BoardVar(objX)<21) & equal(InstByPos(BoardVar(objX)+1, BoardVar(objY)), null)");
         Boolean ignoreRemaining_Click2Down = false;
         PLRule rule_for_Click2Down = new PLRule("Click2Down",5
-                ,Click2Down_rule_condition,ignoreRemaining_Click2Down,maze_Game,click_event.get(),1L,now,now,admin_1,admin_1);
+                ,Click2Down_rule_condition,ignoreRemaining_Click2Down,maze_Game,click_event.get(),"",1L,now,now,admin_1,admin_1);
         puzzleLevelRuleService.save(rule_for_Click2Down);
 
-        PLRulePostAction FireEventAction_Move_Click2Down = new PLRulePostAction(rule_for_Click2Down.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,FireEventAction_Move.get(),1,"","",
-                "",new StringBuffer(""),"","",0L,1L ,now,now,admin_1,admin_1);
+        PLRulePostAction FireEventAction_Move_Click2Down = new PLRulePostAction(rule_for_Click2Down.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,PLRulePostActionType.FireEventAction,1,"","",
+                "",new StringBuffer(""),"Move","","",0L,1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(FireEventAction_Move_Click2Down);
 
         Attribute FireEventAction_Move_Click2Down_param_1=new Attribute("row",FireEventAction_Move_Click2Down.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action_Parameter,DataType.Integer,1L,now,now,admin_1,admin_1);
@@ -495,22 +481,22 @@ public class ImportMazeProblemData_6 implements CommandLineRunner {
         StringBuffer   Swipe_rule_condition = new StringBuffer("equal(BoardVar(finished),false)");
         Boolean ignoreRemaining_Swipe = false;
         PLRule rule_for_Swipe = new PLRule("Swipe",6
-                ,Swipe_rule_condition,ignoreRemaining_Swipe,maze_Game,Swipe_event.get(),1L,now,now,admin_1,admin_1);
+                ,Swipe_rule_condition,ignoreRemaining_Swipe,maze_Game,Swipe_event.get(),"",1L,now,now,admin_1,admin_1);
         puzzleLevelRuleService.save(rule_for_Swipe);
 
-        PLRulePostAction VariableAssignmentAction_Swipe = new PLRulePostAction(rule_for_Swipe.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,VariableAssignmentAction.get(),1,"","",
-                "BoardVar(steps)",new StringBuffer("BoardVar(steps)+1"),"","",0L,1L ,now,now,admin_1,admin_1);
+        PLRulePostAction VariableAssignmentAction_Swipe = new PLRulePostAction(rule_for_Swipe.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,PLRulePostActionType.VariableAssignmentAction,1,"","",
+                "BoardVar(steps)",new StringBuffer("BoardVar(steps)+1"),"","","",0L,1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(VariableAssignmentAction_Swipe);
 
 
         StringBuffer   Swipe2Right_rule_condition = new StringBuffer("equal(BoardVar(finished),false) & equal(EventParam(dir), RIGHT) & (BoardVar(objY)<21) & (equal(InstByPos(BoardVar(objX), BoardVar(objY)+1), null) | equal(InstVar(InstByPos(BoardVar(objX), BoardVar(objY)+1), isTarget),true))");
         Boolean ignoreRemaining_Swipe2Right = false;
         PLRule rule_for_Swipe2Right = new PLRule("Swipe2Right",7
-                ,Swipe2Right_rule_condition,ignoreRemaining_Swipe2Right,maze_Game,Swipe_event.get(),1L,now,now,admin_1,admin_1);
+                ,Swipe2Right_rule_condition,ignoreRemaining_Swipe2Right,maze_Game,Swipe_event.get(),"",1L,now,now,admin_1,admin_1);
         puzzleLevelRuleService.save(rule_for_Swipe2Right);
 
-        PLRulePostAction FireEventAction_Swipe2Right_1 = new PLRulePostAction(rule_for_Swipe2Right.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,FireEventAction_Swipe.get(),1,"","",
-                "",new StringBuffer(""),"","",0L,1L ,now,now,admin_1,admin_1);
+        PLRulePostAction FireEventAction_Swipe2Right_1 = new PLRulePostAction(rule_for_Swipe2Right.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,PLRulePostActionType.FireEventAction,1,"","",
+                "",new StringBuffer(""),"Swipe","","",0L,1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(FireEventAction_Swipe2Right_1);
 
         Attribute FireEventAction_Swipe2Right_1_param_1=new Attribute("rowInc",FireEventAction_Swipe2Right_1.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action_Parameter,DataType.Integer,1L,now,now,admin_1,admin_1);
@@ -527,11 +513,11 @@ public class ImportMazeProblemData_6 implements CommandLineRunner {
         StringBuffer   Swipe2Left_rule_condition = new StringBuffer("equal(BoardVar(finished),false) & equal(EventParam(dir), LEFT) & (BoardVar(objY)>1) & equal(InstByPos(BoardVar(objX), BoardVar(objY)-1), null)");
         Boolean ignoreRemaining_Swipe2Left = false;
         PLRule rule_for_Swipe2Left = new PLRule("Swipe2Left",8
-                ,Swipe2Left_rule_condition,ignoreRemaining_Swipe2Left,maze_Game,Swipe_event.get(),1L,now,now,admin_1,admin_1);
+                ,Swipe2Left_rule_condition,ignoreRemaining_Swipe2Left,maze_Game,Swipe_event.get(),"",1L,now,now,admin_1,admin_1);
         puzzleLevelRuleService.save(rule_for_Swipe2Left);
 
-        PLRulePostAction FireEventAction_Swipe2Left_1 = new PLRulePostAction(rule_for_Swipe2Left.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,FireEventAction_Swipe.get(),1,"","",
-                "",new StringBuffer(""),"","",0L,1L ,now,now,admin_1,admin_1);
+        PLRulePostAction FireEventAction_Swipe2Left_1 = new PLRulePostAction(rule_for_Swipe2Left.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,PLRulePostActionType.FireEventAction,1,"","",
+                "",new StringBuffer(""),"Swipe","","",0L,1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(FireEventAction_Swipe2Left_1);
 
         Attribute FireEventAction_Swipe2Left_1_param_1=new Attribute("rowInc",FireEventAction_Swipe2Left_1.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action_Parameter,DataType.Integer,1L,now,now,admin_1,admin_1);
@@ -547,11 +533,11 @@ public class ImportMazeProblemData_6 implements CommandLineRunner {
         StringBuffer   Swipe2Up_rule_condition = new StringBuffer("equal(BoardVar(finished),false) & equal(EventParam(dir), UP) & (BoardVar(objX)>1) & equal(InstByPos(BoardVar(objX)-1, BoardVar(objY)), null)");
         Boolean ignoreRemaining_Swipe2Up = false;
         PLRule rule_for_Swipe2Up = new PLRule("Swipe2Up",9
-                ,Swipe2Up_rule_condition,ignoreRemaining_Swipe2Up,maze_Game,Swipe_event.get(),1L,now,now,admin_1,admin_1);
+                ,Swipe2Up_rule_condition,ignoreRemaining_Swipe2Up,maze_Game,Swipe_event.get(),"",1L,now,now,admin_1,admin_1);
         puzzleLevelRuleService.save(rule_for_Swipe2Up);
 
-        PLRulePostAction FireEventAction_Swipe2Up_1 = new PLRulePostAction(rule_for_Swipe2Up.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,FireEventAction_Swipe.get(),1,"","",
-                "",new StringBuffer(""),"","",0L,1L ,now,now,admin_1,admin_1);
+        PLRulePostAction FireEventAction_Swipe2Up_1 = new PLRulePostAction(rule_for_Swipe2Up.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,PLRulePostActionType.FireEventAction,1,"","",
+                "",new StringBuffer(""),"Swipe","","",0L,1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(FireEventAction_Swipe2Up_1);
 
         Attribute FireEventAction_Swipe2Up_1_param_1=new Attribute("rowInc",FireEventAction_Swipe2Up_1.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action_Parameter,DataType.Integer,1L,now,now,admin_1,admin_1);
@@ -567,11 +553,11 @@ public class ImportMazeProblemData_6 implements CommandLineRunner {
         StringBuffer   Swipe2Dowm_rule_condition = new StringBuffer("equal(BoardVar(finished),false) & equal(EventParam(dir), DOWN) & (BoardVar(objX)<21) & equal(InstByPos(BoardVar(objX)+1, BoardVar(objY)), null)");
         Boolean ignoreRemaining_Swipe2Dowm = false;
         PLRule rule_for_Swipe2Dowm = new PLRule("Swipe2Dowm",10
-                ,Swipe2Dowm_rule_condition,ignoreRemaining_Swipe2Dowm,maze_Game,Swipe_event.get(),1L,now,now,admin_1,admin_1);
+                ,Swipe2Dowm_rule_condition,ignoreRemaining_Swipe2Dowm,maze_Game,Swipe_event.get(),"",1L,now,now,admin_1,admin_1);
         puzzleLevelRuleService.save(rule_for_Swipe2Dowm);
 
-        PLRulePostAction FireEventAction_Swipe2Dowm_1 = new PLRulePostAction(rule_for_Swipe2Dowm.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,FireEventAction_Swipe.get(),1,"","",
-                "",new StringBuffer(""),"","",0L,1L ,now,now,admin_1,admin_1);
+        PLRulePostAction FireEventAction_Swipe2Dowm_1 = new PLRulePostAction(rule_for_Swipe2Dowm.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,PLRulePostActionType.FireEventAction,1,"","",
+                "",new StringBuffer(""),"Swipe","","",0L,1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(FireEventAction_Swipe2Dowm_1);
 
         Attribute FireEventAction_Swipe2Dowm_1_param_1=new Attribute("rowInc",FireEventAction_Swipe2Dowm_1.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action_Parameter,DataType.Integer,1L,now,now,admin_1,admin_1);
@@ -587,11 +573,11 @@ public class ImportMazeProblemData_6 implements CommandLineRunner {
         StringBuffer   Swipe_2_rule_condition = new StringBuffer("(BoardVar(objX)+EventParam(rowInc)<22) & (BoardVar(objX)+EventParam(rowInc)>0) & (BoardVar(objY)+EventParam(colInc)<22) & (BoardVar(objY)+EventParam(colInc)>0) & equal(InstByPos(BoardVar(objX)+EventParam(rowInc), BoardVar(objY)+EventParam(colInc)), null)");
         Boolean ignoreRemaining_Swipe_2 = false;
         PLRule rule_for_Swipe_2 = new PLRule("Swipe",10
-                ,Swipe_2_rule_condition,ignoreRemaining_Swipe_2,maze_Game,internalevent_Swipe.get(),1L,now,now,admin_1,admin_1);
+                ,Swipe_2_rule_condition,ignoreRemaining_Swipe_2,maze_Game,internalevent.get(),"swipe",1L,now,now,admin_1,admin_1);
         puzzleLevelRuleService.save(rule_for_Swipe_2);
 
-        PLRulePostAction FireEventAction_move2_Swipe_2_1 = new PLRulePostAction(rule_for_Swipe_2.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,FireEventAction_Move.get(),1,"","",
-                "",new StringBuffer(""),"","",0L,1L ,now,now,admin_1,admin_1);
+        PLRulePostAction FireEventAction_move2_Swipe_2_1 = new PLRulePostAction(rule_for_Swipe_2.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,PLRulePostActionType.FireEventAction,1,"","",
+                "",new StringBuffer(""),"Move","","",0L,1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(FireEventAction_move2_Swipe_2_1);
 
         Attribute FireEventAction_move2_Swipe_2_1_param_1=new Attribute("row",FireEventAction_move2_Swipe_2_1.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action_Parameter,DataType.Integer,1L,now,now,admin_1,admin_1);
@@ -604,8 +590,8 @@ public class ImportMazeProblemData_6 implements CommandLineRunner {
         AttributeValue  FireEventAction_move2_Swipe_2_1_param_2_value= new AttributeValue(null,null,null,null,null,null,null,"BoardVar(objY)+EventParam(colInc)",Boolean.TRUE,null,FireEventAction_move2_Swipe_2_1_param_2,1L,now,now,admin_1,admin_1,FireEventAction_move2_Swipe_2_1.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action_Parameter);
         attributeValueService.save(FireEventAction_move2_Swipe_2_1_param_2_value);
 
-        PLRulePostAction FireEventAction_Swipe2_Swipe_2_1 = new PLRulePostAction(rule_for_Swipe_2.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,FireEventAction_Swipe.get(),1,"","",
-                "",new StringBuffer(""),"","",0L,1L ,now,now,admin_1,admin_1);
+        PLRulePostAction FireEventAction_Swipe2_Swipe_2_1 = new PLRulePostAction(rule_for_Swipe_2.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,PLRulePostActionType.FireEventAction,1,"","",
+                "",new StringBuffer(""),"Swipe","","",0L,1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(FireEventAction_Swipe2_Swipe_2_1);
 
         Attribute FireEventAction_Swipe2_Swipe_2_1_param_1=new Attribute("rowInc",FireEventAction_Swipe2_Swipe_2_1.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action_Parameter,DataType.Integer,1L,now,now,admin_1,admin_1);
@@ -622,11 +608,11 @@ public class ImportMazeProblemData_6 implements CommandLineRunner {
         StringBuffer   rule_move_condition = new StringBuffer("equal(1,1)");
         Boolean ignoreRemaining_rule_move = false;
         PLRule rule_move = new PLRule("Move",10
-                ,rule_move_condition,ignoreRemaining_rule_move,maze_Game,internalEvent_move.get(),1L,now,now,admin_1,admin_1);
+                ,rule_move_condition,ignoreRemaining_rule_move,maze_Game,internalEvent.get(),"move",1L,now,now,admin_1,admin_1);
         puzzleLevelRuleService.save(rule_move);
 
-        PLRulePostAction rule_move_CallObjectAction_1 = new PLRulePostAction(rule_move.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,CallObjectAction.get(),6,"move","InstProp(InstByPos(BoardVar(objX),BoardVar(objY)),objectId)",
-                "",new StringBuffer(""),"","",0L,1L ,now,now,admin_1,admin_1);
+        PLRulePostAction rule_move_CallObjectAction_1 = new PLRulePostAction(rule_move.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,PLRulePostActionType.CallObjectAction,6,"move","InstProp(InstByPos(BoardVar(objX),BoardVar(objY)),objectId)",
+                "",new StringBuffer(""),"","","",0L,1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(rule_move_CallObjectAction_1);
 
         Attribute rule_move_CallObjectAction_1_param_1=new Attribute("fromRow",rule_move_CallObjectAction_1.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action_Parameter,DataType.Integer,1L,now,now,admin_1,admin_1);
@@ -649,38 +635,38 @@ public class ImportMazeProblemData_6 implements CommandLineRunner {
         AttributeValue  rule_move_CallObjectAction_1_param_4_value= new AttributeValue(null,null,null,null,null,null,null,"EventParam(col)",Boolean.TRUE,null,rule_move_CallObjectAction_1_param_4,1L,now,now,admin_1,admin_1,rule_move_CallObjectAction_1.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action_Parameter);
         attributeValueService.save(rule_move_CallObjectAction_1_param_4_value);
 
-        PLRulePostAction rule_move_VariableAssignmentAction_2 = new PLRulePostAction(rule_move.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,VariableAssignmentAction.get(),6,"","",
-                "InstProp(InstByPos(BoardVar(objX),BoardVar(objY)),x)",new StringBuffer("EventParam(row)"),"","",0L,1L ,now,now,admin_1,admin_1);
+        PLRulePostAction rule_move_VariableAssignmentAction_2 = new PLRulePostAction(rule_move.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,PLRulePostActionType.VariableAssignmentAction,6,"","",
+                "InstProp(InstByPos(BoardVar(objX),BoardVar(objY)),x)",new StringBuffer("EventParam(row)"),"","","",0L,1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(rule_move_VariableAssignmentAction_2);
 
-        PLRulePostAction rule_move_VariableAssignmentAction_3 = new PLRulePostAction(rule_move.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,VariableAssignmentAction.get(),6,"","",
-                "InstProp(InstByPos(BoardVar(objX),BoardVar(objY)),y)",new StringBuffer("EventParam(col)"),"","",0L,1L ,now,now,admin_1,admin_1);
+        PLRulePostAction rule_move_VariableAssignmentAction_3 = new PLRulePostAction(rule_move.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,PLRulePostActionType.VariableAssignmentAction,6,"","",
+                "InstProp(InstByPos(BoardVar(objX),BoardVar(objY)),y)",new StringBuffer("EventParam(col)"),"","","",0L,1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(rule_move_VariableAssignmentAction_3);
 
-        PLRulePostAction rule_move_VariableAssignmentAction_4 = new PLRulePostAction(rule_move.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,VariableAssignmentAction.get(),6,"","",
-                "BoardVar(objX)",new StringBuffer("EventParam(row)"),"","",0L,1L ,now,now,admin_1,admin_1);
+        PLRulePostAction rule_move_VariableAssignmentAction_4 = new PLRulePostAction(rule_move.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,PLRulePostActionType.VariableAssignmentAction,6,"","",
+                "BoardVar(objX)",new StringBuffer("EventParam(row)"),"","","",0L,1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(rule_move_VariableAssignmentAction_4);
 
-        PLRulePostAction rule_move_VariableAssignmentAction_5 = new PLRulePostAction(rule_move.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,VariableAssignmentAction.get(),6,"","",
-                "BoardVar(objY)",new StringBuffer("EventParam(col)"),"","",0L,1L ,now,now,admin_1,admin_1);
+        PLRulePostAction rule_move_VariableAssignmentAction_5 = new PLRulePostAction(rule_move.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,PLRulePostActionType.VariableAssignmentAction,6,"","",
+                "BoardVar(objY)",new StringBuffer("EventParam(col)"),"","","",0L,1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(rule_move_VariableAssignmentAction_5);
 
-        PLRulePostAction rule_move_FireEventAction_6 = new PLRulePostAction(rule_move.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,FireEventAction_Check.get(),6,"","",
-                "",new StringBuffer(""),"","",0L,1L ,now,now,admin_1,admin_1);
+        PLRulePostAction rule_move_FireEventAction_6 = new PLRulePostAction(rule_move.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,PLRulePostActionType.FireEventAction,6,"","",
+                "",new StringBuffer(""),"Check","","",0L,1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(rule_move_FireEventAction_6);
 
         StringBuffer    CheckCompletion_rule_condition = new StringBuffer("equal(BoardVar(objX),2) & equal(BoardVar(objY),21)");
         Boolean ignoreRemaining5 = false;
         PLRule rule_for_CheckCompletion = new PLRule("CheckCompletion",5
-                ,CheckCompletion_rule_condition,ignoreRemaining5,maze_Game,internalevent_check.get(),1L,now,now,admin_1,admin_1);
+                ,CheckCompletion_rule_condition,ignoreRemaining5,maze_Game,internalevent.get(),"check",1L,now,now,admin_1,admin_1);
         puzzleLevelRuleService.save(rule_for_CheckCompletion);
 
-        PLRulePostAction VariableAssignmentAction_1_CheckCompletion = new PLRulePostAction(rule_for_CheckCompletion.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,VariableAssignmentAction.get(),1,"","",
-                "BoardVar(finished)",new StringBuffer("true"),"","",0L,1L ,now,now,admin_1,admin_1);
+        PLRulePostAction VariableAssignmentAction_1_CheckCompletion = new PLRulePostAction(rule_for_CheckCompletion.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,PLRulePostActionType.VariableAssignmentAction,1,"","",
+                "BoardVar(finished)",new StringBuffer("true"),"","","",0L,1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(VariableAssignmentAction_1_CheckCompletion);
 
-        PLRulePostAction UserAlertAction_2_CheckCompletion = new PLRulePostAction(rule_for_CheckCompletion.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,UserAlertAction.get(),2,"","",
-                "",new StringBuffer(""),"info","mission completed!",0L,1L ,now,now,admin_1,admin_1);
+        PLRulePostAction UserAlertAction_2_CheckCompletion = new PLRulePostAction(rule_for_CheckCompletion.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,PLRulePostActionType.UserAlertAction,2,"","",
+                "",new StringBuffer(""),"","info","mission completed!",0L,1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(UserAlertAction_2_CheckCompletion);
 
         ALCityInstanceInPL instance_img2001 = new ALCityInstanceInPL("instance_img2001",20,1,0,mazeGame_ImageObject,maze_Game,1L,now,now,admin_1,admin_1);

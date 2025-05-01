@@ -1,16 +1,10 @@
 package com.alcity.service.puzzle;
 
-import com.alcity.dto.puzzle.PLRuleDTO;
 import com.alcity.dto.puzzle.PLRulePostActionDTO;
 import com.alcity.entity.alenum.PLRulePostActionOwnerType;
-import com.alcity.entity.alenum.UserGender;
-import com.alcity.entity.alobject.PLRulePostActionType;
+import com.alcity.entity.alenum.PLRulePostActionType;
 import com.alcity.entity.appmember.AppMember;
-import com.alcity.entity.puzzle.PLRule;
-import com.alcity.entity.puzzle.PLRuleEvent;
 import com.alcity.entity.puzzle.PLRulePostAction;
-import com.alcity.entity.puzzle.PuzzleLevel;
-import com.alcity.repository.alobject.PLRulePostActionTypeRepository;
 import com.alcity.repository.appmember.AppMemberRepository;
 import com.alcity.repository.puzzle.PLRulePostActionRepository;
 import com.alcity.repository.puzzle.PLRuleRepository;
@@ -38,9 +32,6 @@ public class PLRulePostActionService implements PLRulePostActionRepository {
     @Qualifier("PLRuleRepository")
     PLRuleRepository ruleRepository;
 
-    @Qualifier("PLRulePostActionTypeRepository")
-    @Autowired
-    PLRulePostActionTypeRepository plRulePostActionTypeRepository;
 
     @Override
     public <S extends PLRulePostAction> S save(S entity) {
@@ -50,26 +41,27 @@ public class PLRulePostActionService implements PLRulePostActionRepository {
        Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
        PLRulePostAction postAction=null;
         PLRulePostActionOwnerType ownerType = PLRulePostActionOwnerType.getByTitle(dto.getOwnerType());
-        Optional<PLRulePostActionType>  plRulePostActionTypeOptional = plRulePostActionTypeRepository.findByValue(dto.getPlRulePostActionType());
+        PLRulePostActionType  plRulePostActionType = PLRulePostActionType.getByTitle(dto.getPlRulePostActionType());
 
-        if(ownerType ==null || plRulePostActionTypeOptional.isEmpty()) return  null;
+        if(ownerType ==null ) return  null;
 
         if (code.equalsIgnoreCase("Save")) { //Save
-            postAction = new PLRulePostAction(dto.getOwnerId(),ownerType, plRulePostActionTypeOptional.get(), dto.getOrdering(), dto.getActionName(), dto.getObjectId(), dto.getVariable(),
-                                    dto.getValueExperssion(),dto.getAlertType(),dto.getAlertMessage(), dto.getActionKey(), 1L, DateUtils.getNow(), DateUtils.getNow(), createdBy.get(), createdBy.get());
+            postAction = new PLRulePostAction(dto.getOwnerId(),ownerType, plRulePostActionType, dto.getOrdering(), dto.getActionName(), dto.getObjectId(), dto.getVariable(),
+                                    dto.getValueExperssion(),dto.getSubAction(),dto.getAlertType(),dto.getAlertMessage(), dto.getActionKey(), 1L, DateUtils.getNow(), DateUtils.getNow(), createdBy.get(), createdBy.get());
             plRulePostActionRepository.save(postAction);
         }else{//edit
             Optional<PLRulePostAction> plRulePostActionOptional= plRulePostActionRepository.findById(dto.getId());
             if(plRulePostActionOptional.isPresent()) {
                 postAction = plRulePostActionOptional.get();
                 postAction.setActionName(dto.getActionName());
-                postAction.setPlRulePostActionType(plRulePostActionTypeOptional.get());
+                postAction.setPlRulePostActionType(plRulePostActionType);
                 postAction.setAlertMessage(dto.getAlertMessage());
                 postAction.setOrdering(dto.getOrdering());
                 postAction.setOwnerId(dto.getOwnerId());
                 postAction.setOwnerType(ownerType);
                 postAction.setObjectId(dto.getObjectId());
                 postAction.setValueExperssion(dto.getValueExperssion());
+                postAction.setSubAction(dto.getSubAction());
                 postAction.setVariable(dto.getVariable());
                 postAction.setActionKey(dto.getActionKey());
                 postAction.setCreated(DateUtils.getNow());

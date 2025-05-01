@@ -101,7 +101,7 @@ public class PLRuleService implements PLRuleRepository {
         Boolean ignoreRemaining = true;
         if (code.equalsIgnoreCase("Save")) { //Save
             plRule = new PLRule(dto.getTitle(), dto.getOrdering(), condition,ignoreRemaining,puzzleLevel,
-                    plRuleEvent,1L, DateUtils.getNow(), DateUtils.getNow(), createdBy.get(), createdBy.get());
+                    plRuleEvent,dto.getPLRuleSubEventName(),1L, DateUtils.getNow(), DateUtils.getNow(), createdBy.get(), createdBy.get());
             ruleRepository.save(plRule);
         }else{//edit
             Optional<PLRule> plRuleOptional= ruleRepository.findById(dto.getId());

@@ -1,8 +1,6 @@
 package com.alcity.api;
 
-import com.alcity.dto.alobject.PLRulePostActionTypeDTO;
-import com.alcity.entity.alobject.PLRulePostActionType;
-import com.alcity.service.alobject.PLRulePostActionTypeService;
+import com.alcity.entity.alenum.PLRulePostActionType;
 import com.alcity.service.customexception.ALCityResponseObject;
 import com.alcity.service.customexception.UniqueConstraintException;
 import com.alcity.service.customexception.ViolateForeignKeyException;
@@ -61,27 +59,21 @@ public class BaseItemSetConroller {
 
         return DTOUtil.getEnumByClass(WalletItemCategory.class);
     }
-
-    @Autowired
-    private PLRulePostActionTypeService plRulePostActionTypeService;
     @Operation( summary = "Fetch all pl rule post action Types ",  description = "fetches all pl rule post action type their data from data source")
     @GetMapping("/pl-rule/post-action-type/all")
     @CrossOrigin(origins = "*")
-    public Collection<PLRulePostActionTypeDTO> getPLRulePostActionTypes(Model model) {
-        Collection<PLRulePostActionTypeDTO> dtos = new ArrayList<>();
-        Collection<PLRulePostActionType> rulePostActionTypes = plRulePostActionTypeService.findAll();
-        dtos = DTOUtil.getPLRulePostActionTypeDTOS(rulePostActionTypes);
-        return dtos;
+    public Collection<EnumDTO> getPLRulePostActionTypes(Model model) {
+        return DTOUtil.getEnumByClass(PLRulePostActionType.class);
     }
 
-    @Operation( summary = "Fetch a pl rule post action Types ",  description = "fetch a pl rule post action type their data from data source")
-    @RequestMapping(value = "/pl-rule/post-action-type/id/{id}" , method = RequestMethod.GET)
-    @CrossOrigin(origins = "*")
-    public PLRulePostActionTypeDTO getPLRulePostActionType(@PathVariable Long id) {
-        Optional<PLRulePostActionType> rulePostActionType = plRulePostActionTypeService.findById(id);
-        if(rulePostActionType.isEmpty()) return null;
-        return DTOUtil.getPLRulePostActionTypeDTO(rulePostActionType.get());
-    }
+//    @Operation( summary = "Fetch a pl rule post action Types ",  description = "fetch a pl rule post action type their data from data source")
+//    @RequestMapping(value = "/pl-rule/post-action-type/id/{id}" , method = RequestMethod.GET)
+//    @CrossOrigin(origins = "*")
+//    public PLRulePostActionTypeDTO getPLRulePostActionType(@PathVariable Long id) {
+//        Optional<PLRulePostActionType> rulePostActionType = plRulePostActionTypeService.findById(id);
+//        if(rulePostActionType.isEmpty()) return null;
+//        return DTOUtil.getPLRulePostActionTypeDTO(rulePostActionType.get());
+//    }
 
 
 

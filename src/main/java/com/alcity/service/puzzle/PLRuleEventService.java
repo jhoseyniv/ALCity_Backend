@@ -15,9 +15,10 @@ import java.util.Optional;
 @Transactional
 public class PLRuleEventService implements PLRuleEventRepository {
 
-   @Autowired
-   @Qualifier("PLRuleEventRepository")
-   PLRuleEventRepository plRuleEventRepository ;
+    @Autowired
+    @Qualifier("PLRuleEventRepository")
+    PLRuleEventRepository plRuleEventRepository;
+
     @Override
     public <S extends PLRuleEvent> S save(S entity) {
         return plRuleEventRepository.save(entity);
@@ -83,4 +84,5 @@ public class PLRuleEventService implements PLRuleEventRepository {
     public Optional<PLRuleEvent> findByName(String name) {
         return plRuleEventRepository.findByName(name);
     }
+
 }

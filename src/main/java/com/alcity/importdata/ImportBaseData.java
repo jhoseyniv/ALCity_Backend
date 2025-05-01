@@ -55,8 +55,6 @@ public class ImportBaseData implements CommandLineRunner {
     @Autowired
     private AppMemberService appMemberService;
     @Autowired
-    private PLRulePostActionTypeService plRulePostActionTypeService;
-    @Autowired
     private AuthorityService authorityService;
     @Autowired
     private ClientTypeService clientTypeService;
@@ -221,73 +219,59 @@ public class ImportBaseData implements CommandLineRunner {
         appMemberService.save(alireza_zarei);
 
 
-        PLRulePostActionType CallObjectAction = new PLRulePostActionType("CallObjectAction","CallObjectAction","",1L,now,now,admin_1,admin_1);
-        plRulePostActionTypeService.save(CallObjectAction);
+//        PLRulePostActionType CallObjectAction = new PLRulePostActionType("CallObjectAction","CallObjectAction","",1L,now,now,admin_1,admin_1);
+//        plRulePostActionTypeService.save(CallObjectAction);
 
-        PLRulePostActionType callsystemaction = new PLRulePostActionType("callsystemaction","callsystemaction","",1L,now,now,admin_1,admin_1);
-        plRulePostActionTypeService.save(callsystemaction);
+//        PLRulePostActionType callsystemaction = new PLRulePostActionType("callsystemaction","callsystemaction","",1L,now,now,admin_1,admin_1);
+//        plRulePostActionTypeService.save(callsystemaction);
 
-        PLRulePostActionType UserAlertAction = new PLRulePostActionType("UserAlertAction","UserAlertAction","",1L,now,now,admin_1,admin_1);
-        plRulePostActionTypeService.save(UserAlertAction);
+//        PLRulePostActionType UserAlertAction = new PLRulePostActionType("UserAlertAction","UserAlertAction","",1L,now,now,admin_1,admin_1);
+//        plRulePostActionTypeService.save(UserAlertAction);
 
-        PLRulePostActionType VariableAssignmentAction = new PLRulePostActionType("VariableAssignmentAction","VariableAssignmentAction","",1L,now,now,admin_1,admin_1);
-        plRulePostActionTypeService.save(VariableAssignmentAction);
+//        PLRulePostActionType VariableAssignmentAction = new PLRulePostActionType("VariableAssignmentAction","VariableAssignmentAction","",1L,now,now,admin_1,admin_1);
+//        plRulePostActionTypeService.save(VariableAssignmentAction);
 
-        PLRulePostActionType FireEventAction = new PLRulePostActionType("FireEventAction","FireEventAction","",1L,now,now,admin_1,admin_1);
-        plRulePostActionTypeService.save(FireEventAction);
-        PLRulePostActionType FireEventAction_Move = new PLRulePostActionType("FireEventAction:move","FireEventAction:move","",1L,now,now,admin_1,admin_1);
-        plRulePostActionTypeService.save(FireEventAction_Move);
+//        PLRulePostActionType FireEventAction = new PLRulePostActionType(PLRulePostActionType.FireEventAction,"FireEventAction","",1L,now,now,admin_1,admin_1);
+//        plRulePostActionTypeService.save(FireEventAction);
+//        PLRulePostActionType FireEventAction_Move = new PLRulePostActionType("FireEventAction","FireEventAction","move",1L,now,now,admin_1,admin_1);
+//        plRulePostActionTypeService.save(FireEventAction_Move);
 
-        PLRulePostActionType FireEventAction_checkcell = new PLRulePostActionType("FireEventAction:checkcell","FireEventAction:checkcell","",1L,now,now,admin_1,admin_1);
-        plRulePostActionTypeService.save(FireEventAction_checkcell);
+//        PLRulePostActionType FireEventAction_checkcell = new PLRulePostActionType("FireEventAction","FireEventAction","checkcell",1L,now,now,admin_1,admin_1);
+//        plRulePostActionTypeService.save(FireEventAction_checkcell);
+//
+//        PLRulePostActionType FireEventAction_check = new PLRulePostActionType("FireEventAction","FireEventAction","check",1L,now,now,admin_1,admin_1);
+//        plRulePostActionTypeService.save(FireEventAction_check);
 
-        PLRulePostActionType FireEventAction_check = new PLRulePostActionType("FireEventAction:check","FireEventAction:check","",1L,now,now,admin_1,admin_1);
-        plRulePostActionTypeService.save(FireEventAction_check);
+//        PLRulePostActionType ShowMessage = new PLRulePostActionType("ShowMessage","ShowMessage","",1L,now,now,admin_1,admin_1);
+//        plRulePostActionTypeService.save(ShowMessage);
+//
+//        PLRulePostActionType ObjectActionList = new PLRulePostActionType("ObjectActionList","ObjectActionList","",1L,now,now,admin_1,admin_1);
+//        plRulePostActionTypeService.save(ObjectActionList);
 
-        PLRulePostActionType ShowMessage = new PLRulePostActionType("ShowMessage","ShowMessage","",1L,now,now,admin_1,admin_1);
-        plRulePostActionTypeService.save(ShowMessage);
-
-        PLRulePostActionType ObjectActionList = new PLRulePostActionType("ObjectActionList","ObjectActionList","",1L,now,now,admin_1,admin_1);
-        plRulePostActionTypeService.save(ObjectActionList);
-
-        PLRulePostActionType FireEventAction_Swipe = new PLRulePostActionType("FireEventAction:swipe","FireEventAction:swipe","",1L,now,now,admin_1,admin_1);
-        plRulePostActionTypeService.save(FireEventAction_Swipe);
-
-        PLRulePostActionType FireEventAction_ResetOutput = new PLRulePostActionType("FireEventAction:resetoutput","FireEventAction:resetoutput","",1L,now,now,admin_1,admin_1);
-        plRulePostActionTypeService.save(FireEventAction_ResetOutput);
-
-        PLRulePostActionType FireEventAction_Update = new PLRulePostActionType("FireEventAction:update","FireEventAction:update","",1L,now,now,admin_1,admin_1);
-        plRulePostActionTypeService.save(FireEventAction_Update);
-
-        PLRulePostActionType FireEventAction_StartTimer = new PLRulePostActionType("FireEventAction:startTimer","FireEventAction:startTimer","",1L,now,now,admin_1,admin_1);
-        plRulePostActionTypeService.save(FireEventAction_StartTimer);
+//        PLRulePostActionType FireEventAction_Swipe = new PLRulePostActionType("FireEventAction","FireEventAction","swipe",1L,now,now,admin_1,admin_1);
+//        plRulePostActionTypeService.save(FireEventAction_Swipe);
+//
+//        PLRulePostActionType FireEventAction_ResetOutput = new PLRulePostActionType("FireEventAction","FireEventAction","resetoutput",1L,now,now,admin_1,admin_1);
+//        plRulePostActionTypeService.save(FireEventAction_ResetOutput);
+//
+//        PLRulePostActionType FireEventAction_Update = new PLRulePostActionType("FireEventAction","FireEventAction","update",1L,now,now,admin_1,admin_1);
+//        plRulePostActionTypeService.save(FireEventAction_Update);
+//
+//        PLRulePostActionType FireEventAction_StartTimer = new PLRulePostActionType("FireEventAction","FireEventAction","startTimer",1L,now,now,admin_1,admin_1);
+//        plRulePostActionTypeService.save(FireEventAction_StartTimer);
 
 
 
-        PLRuleEvent click_ruleEvent = new PLRuleEvent("Click", PLRuleEventType.UserEvent, UserEvent.Click.ordinal(),1L,now,now,admin_1,admin_1);
         PLRuleEvent drag_ruleEvent = new PLRuleEvent("Drag", PLRuleEventType.UserEvent, UserEvent.Drag.ordinal(),1L,now,now,admin_1,admin_1);
         PLRuleEvent Internal_Event = new PLRuleEvent("internalevent", PLRuleEventType.SystemEvent, SystemEvent.internalEvent.ordinal(),1L,now,now,admin_1,admin_1);
-        PLRuleEvent Internal_Event_resetoutput = new PLRuleEvent("internalevent:resetoutput", PLRuleEventType.SystemEvent, SystemEvent.internalEvent.ordinal(),1L,now,now,admin_1,admin_1);
-        PLRuleEvent internalevent_checkcell = new PLRuleEvent("internalevent:checkcell", PLRuleEventType.SystemEvent, SystemEvent.internalEvent.ordinal(),1L,now,now,admin_1,admin_1);
-        PLRuleEvent internalevent_check = new PLRuleEvent("internalevent:check", PLRuleEventType.SystemEvent, SystemEvent.internalEvent.ordinal(),1L,now,now,admin_1,admin_1);
-        PLRuleEvent internalevent_startTimer = new PLRuleEvent("internalevent:startTimer", PLRuleEventType.SystemEvent, SystemEvent.internalEvent.ordinal(),1L,now,now,admin_1,admin_1);
+        PLRuleEvent Click_Event = new PLRuleEvent("Click", PLRuleEventType.SystemEvent, SystemEvent.internalEvent.ordinal(),1L,now,now,admin_1,admin_1);
         PLRuleEvent ActionComplete_event = new PLRuleEvent("ActionComplete", PLRuleEventType.SystemEvent, SystemEvent.internalEvent.ordinal(),1L,now,now,admin_1,admin_1);
-        PLRuleEvent internalevent_move = new PLRuleEvent("internalevent:move", PLRuleEventType.SystemEvent, SystemEvent.internalEvent.ordinal(),1L,now,now,admin_1,admin_1);
         PLRuleEvent Swipe = new PLRuleEvent("Swipe", PLRuleEventType.SystemEvent, SystemEvent.internalEvent.ordinal(),1L,now,now,admin_1,admin_1);
-        PLRuleEvent internalevent_Swipe = new PLRuleEvent("internalevent:swipe", PLRuleEventType.SystemEvent, SystemEvent.internalEvent.ordinal(),1L,now,now,admin_1,admin_1);
-        PLRuleEvent internalevent_update = new PLRuleEvent("internalevent:update", PLRuleEventType.SystemEvent, SystemEvent.internalEvent.ordinal(),1L,now,now,admin_1,admin_1);
-        plRuleEventService.save(click_ruleEvent);
-        plRuleEventService.save(drag_ruleEvent);
-        plRuleEventService.save(Internal_Event);
-        plRuleEventService.save(Internal_Event_resetoutput);
-        plRuleEventService.save(internalevent_check);
-        plRuleEventService.save(internalevent_move);
-        plRuleEventService.save(internalevent_checkcell);
-        plRuleEventService.save(internalevent_startTimer);
-        plRuleEventService.save(Swipe);
-        plRuleEventService.save(internalevent_Swipe);
+          plRuleEventService.save(drag_ruleEvent);
+          plRuleEventService.save(Internal_Event);
+          plRuleEventService.save(Click_Event);
+         plRuleEventService.save(Swipe);
         plRuleEventService.save(ActionComplete_event);
-        plRuleEventService.save(internalevent_update);
 
         Advertisement termsAndCondition = new Advertisement("this is a terms and Condtion",ADSType.TermAndCondition,1L,now,now,jalalHoseyni,jalalHoseyni);
         advertisementService.save(termsAndCondition);

@@ -100,7 +100,8 @@ public class RuleActionData implements Serializable {
         this.alertMessage = alertMessage;
     }
 
-    public RuleActionData(String actionType, Integer ordering, String objectId, String actionName, String variable, StringBuffer valueExperssion, String alertType, String alertMessage,Long actionKey, Collection<RecordData> parameters) {
+
+    public RuleActionData(String actionType, Integer ordering, String objectId, String actionName, String variable, StringBuffer valueExperssion ,String alertType, String alertMessage, Long actionKey, Collection<RecordData> parameters) {
         this.actionType = actionType;
         this.ordering = ordering;
         this.objectId = objectId;

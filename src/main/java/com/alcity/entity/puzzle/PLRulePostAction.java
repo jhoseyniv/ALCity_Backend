@@ -1,8 +1,8 @@
 package com.alcity.entity.puzzle;
 
+import com.alcity.entity.alenum.GameStatus;
 import com.alcity.entity.alenum.PLRulePostActionOwnerType;
-import com.alcity.entity.alenum.UserGender;
-import com.alcity.entity.alobject.PLRulePostActionType;
+import com.alcity.entity.alenum.PLRulePostActionType;
 import com.alcity.entity.base.BaseTable;
 import com.alcity.entity.alobject.RulePostActionEvent;
 import com.alcity.entity.appmember.AppMember;
@@ -14,6 +14,10 @@ import java.util.Collection;
 
 @Entity
 public class PLRulePostAction extends BaseTable implements Serializable {
+
+
+    @Column(name="subAction" )
+    private String subAction;
 
     @Column(name="valueExperssion")
     private StringBuffer valueExperssion;
@@ -70,9 +74,7 @@ public class PLRulePostAction extends BaseTable implements Serializable {
         this.alertMessage = alertMessage;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "pl_rule_post_action_type_id", nullable = false)
-    @JsonIgnore
+    @Enumerated(EnumType.ORDINAL)
     private PLRulePostActionType plRulePostActionType;
 
     @OneToMany(mappedBy = "plRulePostAction", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -119,6 +121,13 @@ public class PLRulePostAction extends BaseTable implements Serializable {
         this.rulePostActionEventCollection = rulePostActionEventCollection;
     }
 
+    public String getSubAction() {
+        return subAction;
+    }
+
+    public void setSubAction(String subAction) {
+        this.subAction = subAction;
+    }
 
     public Integer getOrdering() {
         return ordering;
@@ -158,10 +167,11 @@ public class PLRulePostAction extends BaseTable implements Serializable {
     }
 
     public PLRulePostAction(Long ownerId,PLRulePostActionOwnerType ownerType , PLRulePostActionType plRulePostActionType, Integer ordering, String actionName, String objectId,
-                            String variable, StringBuffer valueExperssion, String alertType, String alertMessage , Long actionKey,
+                            String variable, StringBuffer valueExperssion,String subAction, String alertType, String alertMessage , Long actionKey,
                             Long version, String created, String updated, AppMember createdBy, AppMember updatedBy) {
         super(version, created, updated, createdBy, updatedBy);
         this.valueExperssion = valueExperssion;
+        this.subAction = subAction;
         this.variable = variable;
         this.ordering = ordering;
         this.objectId = objectId;

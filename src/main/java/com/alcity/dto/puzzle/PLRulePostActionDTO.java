@@ -1,13 +1,13 @@
 package com.alcity.dto.puzzle;
 
-import com.alcity.entity.alobject.PLRulePostActionType;
-
 public class PLRulePostActionDTO {
     private Long id;
 
     private Long ownerId;
 
     private String ownerType;
+
+    private String subAction;
     private StringBuffer valueExperssion;
     private String variable;
     private Integer ordering;
@@ -91,6 +91,14 @@ public class PLRulePostActionDTO {
         this.plRulePostActionType = plRulePostActionType;
     }
 
+    public String getSubAction() {
+        return subAction;
+    }
+
+    public void setSubAction(String subAction) {
+        this.subAction = subAction;
+    }
+
     public Long getActionKey() {
         return actionKey;
     }
@@ -119,10 +127,11 @@ public class PLRulePostActionDTO {
     }
 
 
-    public PLRulePostActionDTO(Long id, StringBuffer valueExperssion, String variable, Integer ordering, String objectId,
+    public PLRulePostActionDTO(Long id, StringBuffer valueExperssion,String subAction, String variable, Integer ordering, String objectId,
                                String actionName, String alertType, String alertMessage,Long actionKey, String plRulePostActionType,Long ownerId,String ownerType) {
         this.id = id;
         this.valueExperssion = valueExperssion;
+        this.subAction = subAction;
         this.variable = variable;
         this.ordering = ordering;
         this.objectId = objectId;

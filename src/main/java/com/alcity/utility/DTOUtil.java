@@ -34,7 +34,6 @@ import com.alcity.service.alobject.ActionService;
 import com.alcity.service.alobject.AttributeService;
 import com.alcity.service.alobject.AttributeValueService;
 import com.alcity.service.puzzle.PLRulePostActionService;
-import com.alcity.service.puzzle.PLRuleService;
 import org.json.JSONException;
 
 import java.io.ByteArrayInputStream;
@@ -1148,23 +1147,23 @@ public class DTOUtil {
         }
         return dtos;
     }
-    public static PLRulePostActionTypeDTO getPLRulePostActionTypeDTO(PLRulePostActionType entity) {
-        PLRulePostActionTypeDTO dto = new PLRulePostActionTypeDTO(entity.getId(),entity.getLabel(),entity.getValue(),entity.getSubAction(),1L,entity.getCreated()
-        ,entity.getUpdated());
-
-        return dto;
-    }
-        public static Collection<PLRulePostActionTypeDTO> getPLRulePostActionTypeDTOS(Collection<PLRulePostActionType> rulePostActionTypes){
-        Collection<PLRulePostActionTypeDTO> dtos = new ArrayList<PLRulePostActionTypeDTO>();
-        Iterator<PLRulePostActionType> iterator = rulePostActionTypes.iterator();
-        while(iterator.hasNext()) {
-            PLRulePostActionType rulePostActionType = iterator.next();
-            PLRulePostActionTypeDTO dto = new PLRulePostActionTypeDTO();
-            dto = getPLRulePostActionTypeDTO(rulePostActionType);
-            dtos.add(dto);
-        }
-        return dtos;
-    }
+//    public static PLRulePostActionTypeDTO getPLRulePostActionTypeDTO(PLRulePostActionType entity) {
+//        PLRulePostActionTypeDTO dto = new PLRulePostActionTypeDTO(entity.getId(),entity.getLabel(),entity.getValue(),1L,entity.getCreated()
+//        ,entity.getUpdated());
+//
+//        return dto;
+//    }
+//        public static Collection<PLRulePostActionTypeDTO> getPLRulePostActionTypeDTOS(Collection<PLRulePostActionType> rulePostActionTypes){
+//        Collection<PLRulePostActionTypeDTO> dtos = new ArrayList<PLRulePostActionTypeDTO>();
+//        Iterator<PLRulePostActionType> iterator = rulePostActionTypes.iterator();
+//        while(iterator.hasNext()) {
+//            PLRulePostActionType rulePostActionType = iterator.next();
+//            PLRulePostActionTypeDTO dto = new PLRulePostActionTypeDTO();
+//            dto = getPLRulePostActionTypeDTO(rulePostActionType);
+//            dtos.add(dto);
+//        }
+//        return dtos;
+//    }
 
 
     public static RendererDTO getActionRendererDTO(Renderer actionRenderer){
@@ -1188,7 +1187,8 @@ public class DTOUtil {
         dto.setActionName(postAction.getActionName());
         dto.setAlertMessage(postAction.getAlertMessage());
         dto.setAlertType(postAction.getAlertType());
-        dto.setPlRulePostActionType(postAction.getPlRulePostActionType().getValue());
+        dto.setPlRulePostActionType(postAction.getPlRulePostActionType().name());
+        dto.setSubAction(postAction.getSubAction());
         dto.setObjectId(postAction.getObjectId());
         dto.setVariable(postAction.getVariable());
         dto.setValueExperssion(postAction.getValueExperssion());
@@ -1246,7 +1246,11 @@ public class DTOUtil {
             rule.setOrdering(puzzleLevelRule.getOrdering());
             rule.setConditions(puzzleLevelRule.getCondition());
             rule.setIgnoreRemaining(puzzleLevelRule.getIgnoreRemaining());
-            rule.setEvent(puzzleLevelRule.getPlRuleEvent().getName());
+            String event = puzzleLevelRule.getPlRuleEvent().getName();
+            String subEvent = puzzleLevelRule.getSubEvent();
+            if(!subEvent.equalsIgnoreCase(""))
+                event = event + ":" + subEvent;
+            rule.setEvent(event);
             Collection<RuleActionData> actions = getRuleActionData(plRulePostActionService ,attributeService, puzzleLevelRule);
             rule.setActions(actions);
 
@@ -1297,7 +1301,12 @@ public class DTOUtil {
             ruleActionData.setObjectId(plRulePostAction.getObjectId());
             ruleActionData.setVariable(plRulePostAction.getVariable());
             ruleActionData.setValueExperssion(plRulePostAction.getValueExperssion());
-            ruleActionData.setActionType(plRulePostAction.getPlRulePostActionType().getValue());
+            String subAction = plRulePostAction.getSubAction();
+            String actionType = plRulePostAction.getPlRulePostActionType().name();
+            if(!subAction.equalsIgnoreCase("") )
+                actionType = plRulePostAction.getPlRulePostActionType().name() + ":" + subAction;
+
+            ruleActionData.setActionType(actionType);
             ruleActionData.setAlertMessage(plRulePostAction.getAlertMessage());
             ruleActionData.setAlertType(plRulePostAction.getAlertType());
             ruleActionData.setActionKey(plRulePostAction.getActionKey());
