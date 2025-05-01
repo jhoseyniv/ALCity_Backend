@@ -2,6 +2,7 @@ package com.alcity.service.alobject;
 
 import com.alcity.dto.alobject.AttributeDTOSave;
 import com.alcity.dto.alobject.AttributeValueDTOSave;
+import com.alcity.dto.puzzle.PLDTO;
 import com.alcity.entity.alenum.DataType;
 import com.alcity.entity.alobject.Attribute;
 import com.alcity.entity.alenum.AttributeOwnerType;
@@ -58,7 +59,24 @@ public class AttributeService implements AttributeRepository {
     public <S extends Attribute> Iterable<S> saveAll(Iterable<S> entities) {
         return attributeRepository.saveAll(entities);
     }
+    public ALCityResponseObject copyAllAttributes(Collection<Attribute> attributes,Long fromOwner,Long toOwner,AttributeOwnerType attributeOwnerType){
+      ALCityResponseObject  responseObject = new ALCityResponseObject(HttpStatus.OK.value(), "ok", 1L, "ALL Attributes copied Saved Successfully!");
 
+      Iterator<Attribute> iterator = attributes.iterator();
+      while(iterator.hasNext()){
+          Attribute attribute = iterator.next();
+          Collection<AttributeValue> attributeValues = attributeValueRepository.findByAttributeId(attribute);
+          Optional<AttributeValue> attributeValueOptional = attributeValues.stream().filter(value -> value.getOwnerId().equals(fromOwner)).collect(Collectors.toList()).stream().findFirst();
+          if(attributeValueOptional.isPresent()) {
+               AttributeValue attributeValue = attributeValueOptional.get();
+               AttributeValue copyAttributeValue = attributeValue;
+               copyAttributeValue.setOwnerId(toOwner);
+               attributeValueRepository.save(copyAttributeValue);
+
+           }
+      }
+        return responseObject;
+    }
     @Override
     public Optional<Attribute> findById(Long id) {
         return attributeRepository.findById(id);

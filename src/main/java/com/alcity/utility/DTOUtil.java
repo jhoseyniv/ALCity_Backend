@@ -1219,6 +1219,7 @@ public class DTOUtil {
         dto.setPuzzleLeveTitle(plRule.getPuzzleLevel().getTitle());
         dto.setPLRuleEventId(plRule.getPlRuleEvent().getId());
         dto.setPLRuleEventName(plRule.getPlRuleEvent().getName());
+        dto.setPLRuleSubEventName(plRule.getSubEvent());
         dto.setPlRuleEventTypeId(plRule.getPlRuleEvent().getPlRuleEventType().ordinal());
         dto.setPlRuleEventTypeTitle(plRule.getPlRuleEvent().getPlRuleEventType().name());
         return dto;

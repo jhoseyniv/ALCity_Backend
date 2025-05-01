@@ -76,20 +76,22 @@ public class InstanceInPLService implements InstanceInPLRepository {
         for(int height=1;height<=1;height++)
         for(int row=1; row<=numOfRows;row++)
             for(int col=1; col<=numOfCols;col++){
+                System.out.println("row=" + row + " col=" + col + "height=" + height);
+
                 if(instanceYPos == col && instanceXPos == row && instanceZPos == height) {
                     //do nothing
                 }else {
                     //copy instance to this location
-                    ALCityInstanceInPL instanceCopy = new ALCityInstanceInPL("instance_img_"+row+"_"+col+"_"+height,row,col,height,instance.getAlCityObjectInPG(),instance.getPuzzleLevel(),1L,DateUtils.getNow(),DateUtils.getNow(),createdBy.get(),createdBy.get());
+                    ALCityInstanceInPL instanceCopy = new ALCityInstanceInPL("instance_img_" + row + "_" + col + "_"+ height , row ,col,height,instance.getAlCityObjectInPG(),instance.getPuzzleLevel(),1L,DateUtils.getNow(),DateUtils.getNow(),createdBy.get(),createdBy.get());
                     instanceInPLRepository.save(instanceCopy);
 
                     //copy variables for source instance to target
                     Collection<Attribute> variables = attributeService.findByOwnerIdAndAttributeOwnerTypeNew(instance.getId(), AttributeOwnerType.Instance_Puzzle_Group_Object_Variable);
-                    attributeService.saveAll(variables);
+                     attributeService.copyAllAttributes(variables,instance.getId(),instanceCopy.getId(),AttributeOwnerType.Instance_Puzzle_Group_Object_Variable);
 
                     //copy properties for source instance to target
                     Collection<Attribute> properties = attributeService.findByOwnerIdAndAttributeOwnerTypeNew(instance.getId(), AttributeOwnerType.Instance_Puzzle_Group_Object_Property);
-                    attributeService.saveAll(properties);
+                    attributeService.copyAllAttributes(properties,instance.getId(),instanceCopy.getId(),AttributeOwnerType.Instance_Puzzle_Group_Object_Property);
 
                 }
             }

@@ -351,6 +351,22 @@ public class ImportHashImageProblemData_1 implements CommandLineRunner {
         attributeValueService.save(ImageObject01_variable_2_value);
 
         ALCityInstanceInPL instance_img0 = new ALCityInstanceInPL("instance_img0",1,1,1,imageObject01_in_haseImage_puzzleGroup,puzzleLevel_hashimage,1L,now,now,admin_1,admin_1);
+        pgObjectInstanceService.save(instance_img0);
+
+        AttributeValue  instance_img0_targetX_value= new AttributeValue(null,3,null,null,null,null,null,null,Boolean.FALSE,null,ImageObject01_variable_1,1L,now,now,admin_1,admin_1,instance_img0.getId(),AttributeOwnerType.Instance_Puzzle_Group_Object_Variable);
+        attributeValueService.save(instance_img0_targetX_value);
+
+        AttributeValue  instance_img0_targetY_value= new AttributeValue(null,3,null,null,null,null,null,null,Boolean.FALSE,null,ImageObject01_variable_2,1L,now,now,admin_1,admin_1,instance_img0.getId(),AttributeOwnerType.Instance_Puzzle_Group_Object_Variable);
+        attributeValueService.save(instance_img0_targetY_value);
+
+        AttributeValue  instance_img0_property_1_value= new AttributeValue(null,null,null,null,null,null,image_0_Instance_content.getId(),null,Boolean.FALSE,null,ImageObject01_property_1,1L,now,now,admin_1,admin_1,instance_img0.getId(),AttributeOwnerType.Instance_Puzzle_Group_Object_Property);
+        attributeValueService.save(instance_img0_property_1_value);
+
+
+        pgObjectInstanceService.copyAllInstances(instance_img0,puzzleLevel_hashImage_ground);
+
+
+        /*
         ALCityInstanceInPL instance_img1 = new ALCityInstanceInPL("instance_img1",2,3,1,imageObject01_in_haseImage_puzzleGroup,puzzleLevel_hashimage,1L,now,now,admin_1,admin_1);
         ALCityInstanceInPL instance_img2 = new ALCityInstanceInPL("instance_img2",1,2,1,imageObject01_in_haseImage_puzzleGroup,puzzleLevel_hashimage,1L,now,now,admin_1,admin_1);
         ALCityInstanceInPL instance_img3 = new ALCityInstanceInPL("instance_img3",2,1,1,imageObject01_in_haseImage_puzzleGroup,puzzleLevel_hashimage,1L,now,now,admin_1,admin_1);
@@ -360,7 +376,6 @@ public class ImportHashImageProblemData_1 implements CommandLineRunner {
         ALCityInstanceInPL instance_img7 = new ALCityInstanceInPL("instance_img7",3,3,1,imageObject01_in_haseImage_puzzleGroup,puzzleLevel_hashimage,1L,now,now,admin_1,admin_1);
         ALCityInstanceInPL instance_img8 = new ALCityInstanceInPL("instance_img8",3,1,1,imageObject01_in_haseImage_puzzleGroup,puzzleLevel_hashimage,1L,now,now,admin_1,admin_1);
 
-        pgObjectInstanceService.save(instance_img0);
         pgObjectInstanceService.save(instance_img1);
         pgObjectInstanceService.save(instance_img2);
         pgObjectInstanceService.save(instance_img3);
@@ -371,8 +386,6 @@ public class ImportHashImageProblemData_1 implements CommandLineRunner {
         pgObjectInstanceService.save(instance_img8);
 
 
-        AttributeValue  instance_img0_property_1_value= new AttributeValue(null,null,null,null,null,null,image_0_Instance_content.getId(),null,Boolean.FALSE,null,ImageObject01_property_1,1L,now,now,admin_1,admin_1,instance_img0.getId(),AttributeOwnerType.Instance_Puzzle_Group_Object_Property);
-        attributeValueService.save(instance_img0_property_1_value);
 
         AttributeValue  instance_img1_property_1_value= new AttributeValue(null,null,null,null,null,null,image_1_Instance_content.getId(),null,Boolean.FALSE,null,ImageObject01_property_1,1L,now,now,admin_1,admin_1,instance_img1.getId(),AttributeOwnerType.Instance_Puzzle_Group_Object_Property);
         attributeValueService.save(instance_img1_property_1_value);
@@ -399,11 +412,6 @@ public class ImportHashImageProblemData_1 implements CommandLineRunner {
         attributeValueService.save(instance_img8_property_1_value);
 
 
-        AttributeValue  instance_img0_targetX_value= new AttributeValue(null,3,null,null,null,null,null,null,Boolean.FALSE,null,ImageObject01_variable_1,1L,now,now,admin_1,admin_1,instance_img0.getId(),AttributeOwnerType.Instance_Puzzle_Group_Object_Variable);
-        attributeValueService.save(instance_img0_targetX_value);
-
-        AttributeValue  instance_img0_targetY_value= new AttributeValue(null,3,null,null,null,null,null,null,Boolean.FALSE,null,ImageObject01_variable_2,1L,now,now,admin_1,admin_1,instance_img0.getId(),AttributeOwnerType.Instance_Puzzle_Group_Object_Variable);
-        attributeValueService.save(instance_img0_targetY_value);
 
         AttributeValue  instance_img1_targetX_value= new AttributeValue(null,3,null,null,null,null,null,null,Boolean.FALSE,null,ImageObject01_variable_1,1L,now,now,admin_1,admin_1,instance_img1.getId(),AttributeOwnerType.Instance_Puzzle_Group_Object_Variable);
         attributeValueService.save(instance_img1_targetX_value);
@@ -458,19 +466,8 @@ public class ImportHashImageProblemData_1 implements CommandLineRunner {
         AttributeValue  instance_img8_targetY_value= new AttributeValue(null,2,null,null,null,null,null,null,Boolean.FALSE,null,ImageObject01_variable_2,1L,now,now,admin_1,admin_1,instance_img8.getId(),AttributeOwnerType.Instance_Puzzle_Group_Object_Variable);
         attributeValueService.save(instance_img8_targetY_value);
 
-
-
+        */
         Optional<PLRuleEvent> drag_event = plRuleEventService.findByName("Drag");
-       // Optional<PLRuleEvent> internalevent_checkcell = plRuleEventService.findByName("internalevent:checkcell");
-     //   Optional<PLRuleEvent> internalevent_check = plRuleEventService.findByName("internalevent:check");
-
-//        Optional<PLRulePostActionType> CallObjectAction = plRulePostActionTypeService.findByValue("CallObjectAction");
-//        Optional<PLRulePostActionType> UserAlertAction = plRulePostActionTypeService.findByValue("UserAlertAction");
-//        Optional<PLRulePostActionType> VariableAssignmentAction = plRulePostActionTypeService.findByValue("VariableAssignmentAction");
-//        Optional<PLRulePostActionType> FireEventAction = plRulePostActionTypeService.findByValue("FireEventAction");
-//        Optional<PLRulePostActionType> FireEventAction_checkcell = plRulePostActionTypeService.findByValue("FireEventAction:checkcell");
-//        Optional<PLRulePostActionType> FireEventAction_check = plRulePostActionTypeService.findByValue("FireEventAction:check");
-//        Optional<PLRulePostActionType> internalevent_checkcel = plRulePostActionTypeService.findByValue("internalevent:checkcell");
 
         StringBuffer    move_rule_condition = new StringBuffer("equal(1,1)");
         Boolean ignoreRemaining = true;

@@ -110,6 +110,7 @@ public class PLRuleService implements PLRuleRepository {
                 plRule.setTitle(dto.getTitle());
                 plRule.setCondition(condition);
                 plRule.setPlRuleEvent(plRuleEvent);
+                plRule.setSubEvent(dto.getPLRuleSubEventName());
                 plRule.setOrdering(dto.getOrdering());
                 plRule.setPuzzleLevel(puzzleLevel);
                 plRule.setCreated(DateUtils.getNow());
