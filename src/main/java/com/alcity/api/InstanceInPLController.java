@@ -81,7 +81,7 @@ public class InstanceInPLController {
         PuzzleLevel puzzleLevel = instance.getPuzzleLevel();
         Collection<PLGround> plGrounds = puzzleLevel.getPlGrounds();
         PLGround plGround = plGrounds.iterator().next();
-        service.copyAllInstances(instance,plGround);
+        responseObject = service.copyAllInstances(instance,plGround);
         return  responseObject;
     }
 

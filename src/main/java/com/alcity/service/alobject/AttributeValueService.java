@@ -6,11 +6,18 @@ import com.alcity.entity.alobject.Attribute;
 import com.alcity.entity.alobject.AttributeValue;
 import com.alcity.repository.alobject.AttributeValueRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.repository.query.FluentQuery;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
+import java.util.function.Function;
 
 @Service
 @Transactional
@@ -23,10 +30,6 @@ public class AttributeValueService implements AttributeValueRepository {
         return attributeValueRepository.save(entity);
     }
 
-    @Override
-    public <S extends AttributeValue> Iterable<S> saveAll(Iterable<S> entities) {
-        return null;
-    }
 
     @Override
     public Optional<AttributeValue> findById(Long id) {
@@ -38,10 +41,6 @@ public class AttributeValueService implements AttributeValueRepository {
         return false;
     }
 
-    @Override
-    public Collection<AttributeValue> findAll() {
-        return null;
-    }
 
 
     @Override
@@ -65,10 +64,6 @@ public class AttributeValueService implements AttributeValueRepository {
     }
 
 
-    @Override
-    public Iterable<AttributeValue> findAllById(Iterable<Long> longs) {
-        return null;
-    }
 
     @Override
     public long count() {
@@ -98,5 +93,21 @@ public class AttributeValueService implements AttributeValueRepository {
     @Override
     public void deleteAll() {
 
+    }
+
+
+    @Override
+    public <S extends AttributeValue> List<S> saveAll(Iterable<S> entities) {
+        return null;
+    }
+
+    @Override
+    public List<AttributeValue> findAll() {
+        return null;
+    }
+
+    @Override
+    public List<AttributeValue> findAllById(Iterable<Long> longs) {
+        return null;
     }
 }

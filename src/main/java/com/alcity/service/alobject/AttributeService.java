@@ -59,23 +59,34 @@ public class AttributeService implements AttributeRepository {
     public <S extends Attribute> Iterable<S> saveAll(Iterable<S> entities) {
         return attributeRepository.saveAll(entities);
     }
-    public ALCityResponseObject copyAllAttributes(Collection<Attribute> attributes,Long fromOwner,Long toOwner,AttributeOwnerType attributeOwnerType){
-      ALCityResponseObject  responseObject = new ALCityResponseObject(HttpStatus.OK.value(), "ok", 1L, "ALL Attributes copied Saved Successfully!");
+    @Transactional
 
-      Iterator<Attribute> iterator = attributes.iterator();
-      while(iterator.hasNext()){
-          Attribute attribute = iterator.next();
-          Collection<AttributeValue> attributeValues = attributeValueRepository.findByAttributeId(attribute);
-          Optional<AttributeValue> attributeValueOptional = attributeValues.stream().filter(value -> value.getOwnerId().equals(fromOwner)).collect(Collectors.toList()).stream().findFirst();
-          if(attributeValueOptional.isPresent()) {
-               AttributeValue attributeValue = attributeValueOptional.get();
-               AttributeValue copyAttributeValue = attributeValue;
-               copyAttributeValue.setOwnerId(toOwner);
-               attributeValueRepository.save(copyAttributeValue);
+    public Collection<Attribute> copyAllAttributesFromTo(ALCityInstanceInPL from ,Collection<ALCityInstanceInPL> to,AttributeOwnerType ownerType){
+        Collection<Attribute>  copyAttributes = new ArrayList<>();
+        Collection<AttributeValue>  copyAttributeValues = new ArrayList<>();
+        Collection<Attribute> variables = findByOwnerIdAndAttributeOwnerTypeNew(from.getId(), ownerType);
 
-           }
+      Iterator<ALCityInstanceInPL> instanceIterator = to.iterator();
+      while(instanceIterator.hasNext()){
+          ALCityInstanceInPL instance = instanceIterator.next();
+          Iterator<Attribute> iterator = variables.iterator();
+          while(iterator.hasNext()) {
+              Attribute attribute = iterator.next();
+              Collection<AttributeValue> attributeValues = attributeValueRepository.findByAttributeId(attribute);
+              Optional<AttributeValue> attributeValueOptional = attributeValues.stream().filter(value -> value.getOwnerId().equals(from.getId())).collect(Collectors.toList()).stream().findFirst();
+              if(attributeValueOptional.isPresent()) {
+                  AttributeValue value = attributeValueOptional.get();
+                  AttributeValue newAttributeValue =new AttributeValue(value.getBooleanValue(),value.getIntValue(),value.getLongValue(), value.getStringValue(), value.getObjectValue(),
+                          value.getDoubleValue(),value.getBinaryContentId(),value.getExpressionValue(),value.getExpression(),value.getBindedAttributeId(),value.getAttributeId(), value.getVersion(),value.getCreated() ,value.getUpdated(),
+                          value.getCreatedBy(),value.getUpdatedBy(),instance.getId(),value.getOwnerType());
+                  copyAttributeValues.add(newAttributeValue);
+              }
+
+          }
       }
-        return responseObject;
+        attributeValueRepository.saveAll(copyAttributeValues);
+
+        return copyAttributes;
     }
     @Override
     public Optional<Attribute> findById(Long id) {

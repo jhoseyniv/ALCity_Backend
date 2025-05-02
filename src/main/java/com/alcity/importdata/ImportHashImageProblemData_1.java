@@ -20,6 +20,7 @@ import com.alcity.service.Journey.JourneyService;
 import com.alcity.service.Journey.JourneyStepService;
 import com.alcity.service.alobject.*;
 import com.alcity.service.base.*;
+import com.alcity.service.customexception.ALCityResponseObject;
 import com.alcity.service.learning.LearningContentService;
 import com.alcity.service.learning.LearningSkillService;
 import com.alcity.service.learning.LearningTopicService;
@@ -45,6 +46,7 @@ import javax.json.JsonReader;
 import java.io.FileReader;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Collection;
 import java.util.Optional;
 
 
@@ -363,10 +365,9 @@ public class ImportHashImageProblemData_1 implements CommandLineRunner {
         attributeValueService.save(instance_img0_property_1_value);
 
 
-        pgObjectInstanceService.copyAllInstances(instance_img0,puzzleLevel_hashImage_ground);
+     //   ALCityResponseObject response = pgObjectInstanceService.copyAllInstances(instance_img0,puzzleLevel_hashImage_ground);
 
 
-        /*
         ALCityInstanceInPL instance_img1 = new ALCityInstanceInPL("instance_img1",2,3,1,imageObject01_in_haseImage_puzzleGroup,puzzleLevel_hashimage,1L,now,now,admin_1,admin_1);
         ALCityInstanceInPL instance_img2 = new ALCityInstanceInPL("instance_img2",1,2,1,imageObject01_in_haseImage_puzzleGroup,puzzleLevel_hashimage,1L,now,now,admin_1,admin_1);
         ALCityInstanceInPL instance_img3 = new ALCityInstanceInPL("instance_img3",2,1,1,imageObject01_in_haseImage_puzzleGroup,puzzleLevel_hashimage,1L,now,now,admin_1,admin_1);
@@ -466,7 +467,7 @@ public class ImportHashImageProblemData_1 implements CommandLineRunner {
         AttributeValue  instance_img8_targetY_value= new AttributeValue(null,2,null,null,null,null,null,null,Boolean.FALSE,null,ImageObject01_variable_2,1L,now,now,admin_1,admin_1,instance_img8.getId(),AttributeOwnerType.Instance_Puzzle_Group_Object_Variable);
         attributeValueService.save(instance_img8_targetY_value);
 
-        */
+
         Optional<PLRuleEvent> drag_event = plRuleEventService.findByName("Drag");
 
         StringBuffer    move_rule_condition = new StringBuffer("equal(1,1)");

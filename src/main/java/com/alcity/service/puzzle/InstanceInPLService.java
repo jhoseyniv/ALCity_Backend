@@ -11,13 +11,20 @@ import com.alcity.service.alobject.AttributeService;
 import com.alcity.service.customexception.ALCityResponseObject;
 import com.alcity.utility.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.repository.query.FluentQuery;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import org.springframework.transaction.annotation.Transactional;;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
+import java.util.function.Function;
 
 @Service
 @Transactional
@@ -65,9 +72,32 @@ public class InstanceInPLService implements InstanceInPLRepository {
         return instance;
     }
 
+//    @Transactional
+//    public void copyAnInstances(ALCityInstanceInPL instance, int row, int col ,int height) {
+//        Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
+//        ALCityInstanceInPL instanceCopy = new ALCityInstanceInPL("instance_img_" + row + "_" + col + "_"+ height , row ,col,height,instance.getAlCityObjectInPG(),instance.getPuzzleLevel(),1L,DateUtils.getNow(),DateUtils.getNow(),createdBy.get(),createdBy.get());
+//        instanceInPLRepository.save(instanceCopy);
+//        Collection<Attribute> variables = attributeService.findByOwnerIdAndAttributeOwnerTypeNew(instance.getId(), AttributeOwnerType.Instance_Puzzle_Group_Object_Variable);
+//        attributeService.copyAllAttributesFromTo(variables,instance.getId(),instanceCopy.getId(),AttributeOwnerType.Instance_Puzzle_Group_Object_Variable);
+//
+//        //copy properties for source instance to target
+////                    Collection<Attribute> properties = attributeService.findByOwnerIdAndAttributeOwnerTypeNew(instance.getId(), AttributeOwnerType.Instance_Puzzle_Group_Object_Property);
+////                    attributeService.copyAllAttributes(properties,instance.getId(),instanceCopy.getId(),AttributeOwnerType.Instance_Puzzle_Group_Object_Property);
+//    }
+
+    @Transactional
     public ALCityResponseObject copyAllInstances(ALCityInstanceInPL instance, PLGround plGround) {
+        Collection<ALCityInstanceInPL> instances = copyInstances(instance,plGround);
+        Collection<Attribute> variables = attributeService.copyAllAttributesFromTo(instance ,instances,AttributeOwnerType.Instance_Puzzle_Group_Object_Variable);
+        Collection<Attribute> properties = attributeService.copyAllAttributesFromTo(instance ,instances,AttributeOwnerType.Instance_Puzzle_Group_Object_Property);
+
+        return new ALCityResponseObject(HttpStatus.OK.value(), "ok", 1L,"All Records Copied Successfully!");
+
+    }
+    public Collection<ALCityInstanceInPL> copyInstances(ALCityInstanceInPL instance, PLGround plGround) {
         ALCityResponseObject responseObject = new ALCityResponseObject();
         Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
+        Collection<ALCityInstanceInPL> instances = new ArrayList<>();
         Integer instanceXPos = instance.getRow();
         Integer instanceYPos = instance.getCol();
         Integer instanceZPos = instance.getzOrder();
@@ -83,27 +113,13 @@ public class InstanceInPLService implements InstanceInPLRepository {
                 }else {
                     //copy instance to this location
                     ALCityInstanceInPL instanceCopy = new ALCityInstanceInPL("instance_img_" + row + "_" + col + "_"+ height , row ,col,height,instance.getAlCityObjectInPG(),instance.getPuzzleLevel(),1L,DateUtils.getNow(),DateUtils.getNow(),createdBy.get(),createdBy.get());
-                    instanceInPLRepository.save(instanceCopy);
-
-                    //copy variables for source instance to target
-                    Collection<Attribute> variables = attributeService.findByOwnerIdAndAttributeOwnerTypeNew(instance.getId(), AttributeOwnerType.Instance_Puzzle_Group_Object_Variable);
-                     attributeService.copyAllAttributes(variables,instance.getId(),instanceCopy.getId(),AttributeOwnerType.Instance_Puzzle_Group_Object_Variable);
-
-                    //copy properties for source instance to target
-                    Collection<Attribute> properties = attributeService.findByOwnerIdAndAttributeOwnerTypeNew(instance.getId(), AttributeOwnerType.Instance_Puzzle_Group_Object_Property);
-                    attributeService.copyAllAttributes(properties,instance.getId(),instanceCopy.getId(),AttributeOwnerType.Instance_Puzzle_Group_Object_Property);
-
+                    instances.add(instanceCopy);
                 }
             }
-
-        return  new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "Success", 0L, "ALL Instances are copied!");
-
+        instanceInPLRepository.saveAll(instances);
+        return instances;
     }
 
-    @Override
-    public <S extends ALCityInstanceInPL> Iterable<S> saveAll(Iterable<S> entities) {
-        return null;
-    }
 
     @Override
     public Optional<ALCityInstanceInPL> findById(Long id) {
@@ -116,14 +132,20 @@ public class InstanceInPLService implements InstanceInPLRepository {
     }
 
     @Override
-    public Collection<ALCityInstanceInPL> findAll() {
+    public <S extends ALCityInstanceInPL> List<S> saveAll(Iterable<S> entities) {
         return null;
     }
 
     @Override
-    public Iterable<ALCityInstanceInPL> findAllById(Iterable<Long> longs) {
+    public List<ALCityInstanceInPL> findAll() {
         return null;
     }
+
+    @Override
+    public List<ALCityInstanceInPL> findAllById(Iterable<Long> longs) {
+        return null;
+    }
+
 
     @Override
     public long count() {
@@ -176,5 +198,4 @@ public class InstanceInPLService implements InstanceInPLRepository {
     }
 
 
-
- }
+}
