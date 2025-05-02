@@ -967,7 +967,9 @@ public class DTOUtil {
         dto.setXrotation(plGround.getxRotation());
         dto.setYrotation(plGround.getyRotation());
         dto.setZrotation(plGround.getzRotation());
-
+        dto.setZoom(plGround.getZoom());
+        dto.setPan(plGround.getPan());
+        dto.setRotation(plGround.getRotation());
       //  String s = new String(plGround.getBoardGraphic(), StandardCharsets.US_ASCII);
       //  JSONObject objJsonObject = new JSONObject(s);
         BoardGraphicDTO boardGraphicDTO = PLDTOUtil.getBoardGraphicJSON(plGround);
