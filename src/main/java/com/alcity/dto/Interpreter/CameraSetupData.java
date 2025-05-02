@@ -10,7 +10,7 @@ public class CameraSetupData implements Serializable {
 
     PLGroundPostion Position;
     PLGroundPostion Rotation;
-    Features Feature;
+    Features features;
 
     public PLGroundPostion getPosition() {
         return Position;
@@ -28,21 +28,20 @@ public class CameraSetupData implements Serializable {
         Rotation = rotation;
     }
 
-
-    public Features getFeature() {
-        return Feature;
+    public Features getFeatures() {
+        return features;
     }
 
-    public void setFeature(Features feature) {
-        Feature = feature;
+    public void setFeatures(Features features) {
+        this.features = features;
     }
 
     public CameraSetupData() {
     }
 
-    public CameraSetupData(com.alcity.dto.Interpreter.object.PLGroundPostion position, com.alcity.dto.Interpreter.object.PLGroundPostion rotation, Features feature) {
+    public CameraSetupData(com.alcity.dto.Interpreter.object.PLGroundPostion position, com.alcity.dto.Interpreter.object.PLGroundPostion rotation, Features features) {
         Position = position;
         Rotation = rotation;
-        Feature = feature;
+        features = features;
     }
 }
