@@ -4,8 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5930c325-0f2d-492f-8c8e-8494d79c6462" name="Changes" comment="change">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="5930c325-0f2d-492f-8c8e-8494d79c6462" name="Changes" comment="feature">
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/alcity/api/InterpreterController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/alcity/api/InterpreterController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/alcity/dto/Interpreter/CameraSetupData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/alcity/dto/Interpreter/CameraSetupData.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -262,14 +262,7 @@
       <workItem from="1746124800978" duration="8917000" />
       <workItem from="1746158358259" duration="5634000" />
       <workItem from="1746167422906" duration="4120000" />
-      <workItem from="1746179754335" duration="3138000" />
-    </task>
-    <task id="LOCAL-00148" summary="change maze game">
-      <created>1745061502974</created>
-      <option name="number" value="00148" />
-      <option name="presentableId" value="LOCAL-00148" />
-      <option name="project" value="LOCAL" />
-      <updated>1745061502974</updated>
+      <workItem from="1746179754335" duration="3301000" />
     </task>
     <task id="LOCAL-00149" summary="fix deletePuzzleLevelRulePostActionById">
       <created>1745079933851</created>
@@ -607,7 +600,14 @@
       <option name="project" value="LOCAL" />
       <updated>1746182800393</updated>
     </task>
-    <option name="localTasksCounter" value="197" />
+    <task id="LOCAL-00197" summary="feature">
+      <created>1746183059274</created>
+      <option name="number" value="00197" />
+      <option name="presentableId" value="LOCAL-00197" />
+      <option name="project" value="LOCAL" />
+      <updated>1746183059274</updated>
+    </task>
+    <option name="localTasksCounter" value="198" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -626,7 +626,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="change pip pictures" />
     <MESSAGE value="change memoery game" />
     <MESSAGE value="change maze game" />
     <MESSAGE value="fix deletePuzzleLevelRulePostActionById" />
@@ -651,7 +650,8 @@
     <MESSAGE value="remove imports" />
     <MESSAGE value="change zoom and pan and roatation" />
     <MESSAGE value="change" />
-    <option name="LAST_COMMIT_MESSAGE" value="change" />
+    <MESSAGE value="feature" />
+    <option name="LAST_COMMIT_MESSAGE" value="feature" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
