@@ -32,93 +32,6 @@ public class ObjectManagmentApplication {
 		SpringApplication.run(ObjectManagmentApplication.class, args);
 	}
 
-	@Autowired
-	private AppMemberService appMemberService;
-
-//	@Bean
-//	public BCryptPasswordEncoder bCryptPasswordEncoder() {
-//		return new BCryptPasswordEncoder();
-//	}
-
-	@Autowired
-	private  BinaryContentService  binaryContentService;
-
-
-
-
-
-	@Autowired
-	JourneyLearningSkillService journeyLearningSkillService;
-
-	@Autowired
-	LearningSkill_LearningTopicService learningSkill_LearningTopicService;
-
-
-	@Autowired
-	PLObjectiveService puzzleLevelObjectiveService;
-
-
-	@Autowired
-	PuzzleLevelService puzzleLevelService;
-
-	@Autowired
-    PLLearningTopicService puzzleLevelLearningTopicService;
-
-	@Autowired
-	PermitedPlayerRepository permitedPlayerRepository;
-
-	@Autowired
-	PlayHistoryService playHistoryService;
-
-	@Autowired
-	private PuzzleCategoryService puzzleCategoryService;
-
-	@Autowired
-    PLGroundService puzzleLevelGroundService;
-
-
-	@Autowired
-	PLGameInstanceService puzzleLevelGameInstanceService;
-
-
-	@Autowired
-	ObjectService puzzleObjectService;
-
-	@Autowired
-	ObjectInPGService puzzleGroup_PuzzleObjectService;
-
-
-	@Autowired
-    InstanceInPLService alCityInstanceService;
-
-	@Autowired
-    AttributeService alCityAttributeService;
-
-	@Autowired
-	AttributeValueService alCityAttributeValueService;
-
-
-	@Autowired
-	ObjectCategoryService objectCategoryService;
-
-	@Autowired
-    RendererService actionRendererService;
-	@Autowired
-    ActionService puzzleObject_ObjectActionService;
-
-	@Autowired
-    PLRuleService puzzleLevelRuleService;
-
-	@Autowired
-	PLRuleEventService puzzleLevelRuleEventService;
-
-
-	@Autowired
-	PLRulePostActionService puzzleLevelRulePostActionService;
-
-
-	@Autowired
-	private Environment environment;
 
 	private static final Logger log = LoggerFactory.getLogger(ObjectManagmentApplication.class);
 
@@ -132,9 +45,6 @@ public class ObjectManagmentApplication {
 			LocalDateTime current = LocalDateTime.now();
 			DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
 			String now = current.format(format);
-
-			//ApplicationMember admin_1 = applicationMemberService.findByUsername("admin");
-
 
 			System.out.println("All Things is OK!!!!");
 		};

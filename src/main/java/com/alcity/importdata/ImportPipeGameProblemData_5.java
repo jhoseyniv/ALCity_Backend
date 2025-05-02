@@ -52,7 +52,7 @@ import java.util.Iterator;
 import java.util.Optional;
 
 
-@Order(value=8)
+@Order(value=5)
 @Component
 public class ImportPipeGameProblemData_5 implements CommandLineRunner {
 
@@ -174,6 +174,7 @@ public class ImportPipeGameProblemData_5 implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
+        /*
         log.info("Start Application...Import Problem 3 X-O Probelm");
         System.out.println("...Import X-O Problem data");
         LocalDateTime current = LocalDateTime.now();
@@ -615,7 +616,7 @@ public class ImportPipeGameProblemData_5 implements CommandLineRunner {
                 "",new StringBuffer(""),"","info","mission completed!",0L,1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(UserAlertAction_2_CheckCompletion);
 
-
+*/
 
     }
 

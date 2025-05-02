@@ -48,7 +48,7 @@ import java.util.Optional;
 import static com.alcity.entity.alenum.PLRulePostActionType.UserAlertAction;
 
 
-@Order(value=6)
+@Order(value=3)
 @Component
 public class ImportXOProblemData_3 implements CommandLineRunner {
 
@@ -156,6 +156,8 @@ public class ImportXOProblemData_3 implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
+
+     /*
         log.info("Start Application...Import Problem 3 X-O Probelm");
         System.out.println("...Import X-O Problem data");
         LocalDateTime current = LocalDateTime.now();
@@ -394,7 +396,7 @@ public class ImportXOProblemData_3 implements CommandLineRunner {
                 "",new StringBuffer(""),"info","","O Won!",0L,1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(O_Win_Rule_rule_post_Action_2);
 
-
+*/
 
     }
 

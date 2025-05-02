@@ -52,7 +52,7 @@ import java.util.Iterator;
 import java.util.Optional;
 
 
-@Order(value=8)
+@Order(value=6)
 @Component
 public class ImportMazeProblemData_6 implements CommandLineRunner {
 
@@ -174,6 +174,8 @@ public class ImportMazeProblemData_6 implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
+
+        /*
         log.info("Start Application...Import Problem 3 X-O Probelm");
         System.out.println("...Import Maze game Problem data");
         LocalDateTime current = LocalDateTime.now();
@@ -1399,7 +1401,7 @@ public class ImportMazeProblemData_6 implements CommandLineRunner {
         ALCityInstanceInPL instance_img2121 = new ALCityInstanceInPL("instance_img2121",21,21,0,mazeGame_ImageObject,maze_Game,1L,now,now,admin_1,admin_1);
         pgObjectInstanceService.save(instance_img2121);
 
-
+*/
     }
 
 

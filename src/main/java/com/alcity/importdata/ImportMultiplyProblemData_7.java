@@ -52,7 +52,7 @@ import java.util.Iterator;
 import java.util.Optional;
 
 
-@Order(value=8)
+@Order(value=7)
 @Component
 public class ImportMultiplyProblemData_7 implements CommandLineRunner {
 
@@ -61,7 +61,6 @@ public class ImportMultiplyProblemData_7 implements CommandLineRunner {
 
     @Autowired
     private BinaryContentService binaryContentService;
-
 
     @Autowired
     PLGroundService puzzleLevelGroundService;
@@ -170,11 +169,10 @@ public class ImportMultiplyProblemData_7 implements CommandLineRunner {
 
    @Autowired
    PGSkillLearningContentService puzzleSkillLearningContentService;
-    private static final Logger log = LoggerFactory.getLogger(ObjectManagmentApplication.class);
 
     @Override
     public void run(String... args) throws Exception {
-        log.info("Start Application...Import Problem 7 Multiply Game ");
+        /*
         System.out.println("...Import Problem 7 Multiply Game Problem data");
         LocalDateTime current = LocalDateTime.now();
         DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
@@ -187,13 +185,11 @@ public class ImportMultiplyProblemData_7 implements CommandLineRunner {
         AppMember jalalHoseyni = jalalHoseyniOptional.get();
         AppMember Alireza_Zare = Alireza_ZareOptional.get();
 
-
         Optional<LearningTopic> Multiply_Game_Topic = learningTopicService.findByTitle("Multiply_Game");
 
         LearningSkill timeManagement = learningSkillService.findByValue("timeManagement");
         LearningSkill memory_booster = learningSkillService.findByValue("memory_booster");
         Optional<WalletItem> alCoin10WalletItem = walletItemService.findByValue("walletItem_1");
-
 
         JsonReader reader = Json.createReader(new FileReader("src/main/resources/images/Multiply_Game/Multiply_Game.json"));
         JsonObject jsonObject = reader.readObject();
@@ -221,7 +217,6 @@ public class ImportMultiplyProblemData_7 implements CommandLineRunner {
         Multiply_Game.setPicture(pl_pic_Multiply_Game_content);
         puzzleLevelService.save(Multiply_Game);
 
-
         byte[] maze_image_LearningContent_Image_bytes = ImageUtil.getImage("src/main/resources/images/Maze_Game/","MazeGame_icon.jpeg");
         BinaryContent pg_maze_Game_learning_content = new BinaryContent(1L, now, now,admin_1 , admin_1,"Memory-Game", maze_image_LearningContent_Image_bytes.length, maze_image_LearningContent_Image_bytes,null,"tag1","","",BinaryContentType.Image);
         binaryContentService.save(pg_maze_Game_learning_content);
@@ -245,7 +240,6 @@ public class ImportMultiplyProblemData_7 implements CommandLineRunner {
 
         LearningContent learningContent_memory=new LearningContent("help to Memory","this content is about pipe Games",pg_maze_Game_learning_content,1L,now,now,admin_1,admin_1);
         learningContentService.save(learningContent_memory);
-
 
         LearningTopicInPL pllLearningTopic_1 = new LearningTopicInPL(Multiply_Game,Multiply_Game_Topic.get(),learningContent_memory,1L,now,now,admin_1,admin_1);
         plLearningTopicService.save(pllLearningTopic_1);
@@ -329,18 +323,14 @@ public class ImportMultiplyProblemData_7 implements CommandLineRunner {
         AttributeValue pl_variable_ready_started= new AttributeValue(false,null,null,null,null,null,null,null,false,null,pl_variable_started,1L,now,now,admin_1,admin_1,Multiply_Game.getId(),AttributeOwnerType.Puzzle_Level_Variable);
         attributeValueService.save(pl_variable_ready_started);
 
-
-
         Optional<ALCityObject> textObject =alCityObjectService.findByTitle("TextObject");
         Optional<ALCityObject> imageObject =alCityObjectService.findByTitle("ImageObject01");
-
 
         ALCityObjectInPG textObject_in_Multiply = new ALCityObjectInPG("text object in Multiply puzzlegroup Object","Multiply_Game_TextObject",puzzleGroup_Multiply.get(),textObject.get(),1L,now,now,admin_1,admin_1);
         alCityObjectInPGService.save(textObject_in_Multiply);
 
         ALCityObjectInPG imageobject_in_Multiply = new ALCityObjectInPG("Image object in Multiply puzzlegroup Object","Multiply_Game_ImageObject",puzzleGroup_Multiply.get(),imageObject.get(),1L,now,now,admin_1,admin_1);
         alCityObjectInPGService.save(imageobject_in_Multiply);
-
 
 
         DTOUtil.copyActionFromTo(textObject.get().getId(), textObject_in_Multiply.getId(),AttributeOwnerType.Object_Action_Handler_Parameter,
@@ -1007,7 +997,7 @@ public class ImportMultiplyProblemData_7 implements CommandLineRunner {
         PLRulePostAction VariableAssignmentAction_1_ChekcCompletion = new PLRulePostAction(ChekcCompletion_rule.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,PLRulePostActionType.VariableAssignmentAction,1,"","",
                 "BoardVar(finished)",new StringBuffer("true"),"","","",0L,1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(VariableAssignmentAction_1_ChekcCompletion);
-
+*/
 
     }
 

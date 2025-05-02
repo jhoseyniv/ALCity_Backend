@@ -50,7 +50,7 @@ import java.util.Iterator;
 import java.util.Optional;
 
 
-@Order(value=7)
+@Order(value=4)
 @Component
 public class ImportMemoryGameProblemData_4 implements CommandLineRunner {
 
@@ -171,6 +171,8 @@ public class ImportMemoryGameProblemData_4 implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
+
+ /*
         log.info("Start Application...Import Problem 3 X-O Probelm");
         System.out.println("...Import X-O Problem data");
         LocalDateTime current = LocalDateTime.now();
@@ -785,6 +787,8 @@ public class ImportMemoryGameProblemData_4 implements CommandLineRunner {
         plRulePostActionService.save(UserAlertAction_2_CheckCompletion);
 
 
+
+  */
     }
 
 

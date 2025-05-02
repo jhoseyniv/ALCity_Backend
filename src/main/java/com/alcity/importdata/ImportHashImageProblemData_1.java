@@ -162,6 +162,8 @@ public class ImportHashImageProblemData_1 implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
+
+    /*
         log.info("Start Application...Import Problem 1");
         System.out.println("...Import Problem 1");
         LocalDateTime current = LocalDateTime.now();
@@ -467,7 +469,6 @@ public class ImportHashImageProblemData_1 implements CommandLineRunner {
         AttributeValue  instance_img8_targetY_value= new AttributeValue(null,2,null,null,null,null,null,null,Boolean.FALSE,null,ImageObject01_variable_2,1L,now,now,admin_1,admin_1,instance_img8.getId(),AttributeOwnerType.Instance_Puzzle_Group_Object_Variable);
         attributeValueService.save(instance_img8_targetY_value);
 
-
         Optional<PLRuleEvent> drag_event = plRuleEventService.findByName("Drag");
 
         StringBuffer    move_rule_condition = new StringBuffer("equal(1,1)");
@@ -713,7 +714,7 @@ public class ImportHashImageProblemData_1 implements CommandLineRunner {
                 "BoardVar(finished)",new StringBuffer("true"),"","info","you won!",0L,1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(x_win_rule_2_post_Action_2);
 
-
+*/
 
     }
 

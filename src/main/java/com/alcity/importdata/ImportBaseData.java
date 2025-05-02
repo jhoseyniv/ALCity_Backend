@@ -132,7 +132,7 @@ public class ImportBaseData implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-        log.info("Start Application...Import Problem 1");
+ /*       log.info("Start Application...Import Problem 1");
         System.out.println("...Import Problem 1");
 
 //        ZoneId zoneId = ZoneId.of("Europe/London").getRules().getOffset(Instant.now());
@@ -810,6 +810,7 @@ public class ImportBaseData implements CommandLineRunner {
 
         ALCityObject wheat = new ALCityObject(1L,now,now,jalalHoseyni,jalalHoseyni,"Wheat",objectCategory_cereal,wheat_Image_binary_content,wheat_Image_binary_content);
         alCityObjectService.save(wheat);
-
+*/
     }
+
 }
