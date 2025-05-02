@@ -55,7 +55,6 @@ public class PLGroundService implements PLGroundRepository {
         Optional<PuzzleLevel> puzzleLevelOptional =  puzzleLevelRepository.findById(dto.getPuzzleLevelId());
         if(puzzleLevelOptional.isPresent())
             puzzleLevel = puzzleLevelOptional.get();
-
         if (code.equalsIgnoreCase("Save")) { //Save
             plGround = new PLGround(dto.getNumRows(),dto.getNumColumns(),dto.getXposition(),dto.getYposition(),dto.getZposition(),
                       dto.getXrotation(),dto.getYrotation(),dto.getZrotation(),dto.getZoom(),dto.getPan(),dto.getRotation(),
@@ -75,6 +74,9 @@ public class PLGroundService implements PLGroundRepository {
                 plGround.setxRotation(dto.getXrotation());
                 plGround.setyRotation(dto.getYrotation());
                 plGround.setzRotation(dto.getZrotation());
+                plGround.setPan(dto.getPan());
+                plGround.setZoom(dto.getZoom());
+                plGround.setRotation(dto.getRotation());
                 plGround.setPuzzleLevel(puzzleLevel);
                 plGround.setVersion(plGround.getVersion()+1);
                 plGround.setUpdated(DateUtils.getNow());
