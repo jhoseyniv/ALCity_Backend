@@ -1213,8 +1213,7 @@ public class DTOUtil {
             PLRulePostActionDTO dto = getPLRulePostActionDTO(postAction);
             dtos.add(dto);
         }
-       // Collections.sort(dtos.stream().collect(Collectors.toList()), Comparator.reverseOrder());
-        dtos.stream().sorted(new PLRulePostActionComparator());
+        dtos.stream().sorted(Comparator.comparing(PLRulePostActionDTO::getOrdering));
 
         return  dtos;
     }
