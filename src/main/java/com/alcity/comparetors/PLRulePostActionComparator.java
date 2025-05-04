@@ -5,6 +5,6 @@ import com.alcity.dto.puzzle.PLRulePostActionDTO;
 public class PLRulePostActionComparator implements java.util.Comparator<PLRulePostActionDTO>{
     @Override
     public int compare(PLRulePostActionDTO a, PLRulePostActionDTO b) {
-        return a.getOrdering() - b.getOrdering();
+        return Integer.compare(a.getOrdering(), b.getOrdering());
     }
 }
