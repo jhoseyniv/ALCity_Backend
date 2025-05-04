@@ -46,6 +46,8 @@ import java.io.ObjectInputStream;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import static java.util.stream.Collectors.toList;
+
 public class DTOUtil {
 
     public static PLGameInstanceDTO getPLGameInstanceDTO(PLGameInstance gameInstance){
@@ -1207,15 +1209,19 @@ public class DTOUtil {
 
     public static Collection<PLRulePostActionDTO> getPLRulePostActionDTOS(Collection<PLRulePostAction> postActions) {
         Collection<PLRulePostActionDTO> dtos = new ArrayList<>();
+        Comparator actionOrderingComparetor = new PLRulePostActionComparator();
+
         Iterator<PLRulePostAction> itr = postActions.iterator();
         while(itr.hasNext()){
             PLRulePostAction postAction = itr.next();
             PLRulePostActionDTO dto = getPLRulePostActionDTO(postAction);
             dtos.add(dto);
         }
-        dtos.stream().sorted(Comparator.comparing(PLRulePostActionDTO::getOrdering));
+        List<PLRulePostActionDTO> sortedList =new ArrayList<PLRulePostActionDTO>();
+        sortedList = dtos.stream().collect(toList());
+        sortedList.sort(actionOrderingComparetor);
 
-        return  dtos;
+        return  sortedList;
     }
         public static PLRuleDTO getPLRuleDTO(PLRule plRule) {
         PLRuleDTO dto = new PLRuleDTO();
@@ -1243,8 +1249,11 @@ public class DTOUtil {
             dto = getPLRuleDTO(plRule);
             dtos.add(dto);
         }
-        Collections.sort(dtos.stream().collect(Collectors.toList()), new PLRuleComparator());
-        return dtos;
+        Comparator ruleOrderComparetor = new PLRuleComparator();
+        List<PLRuleDTO> sortedList =new ArrayList<PLRuleDTO>();
+        sortedList = dtos.stream().collect(toList());
+        sortedList.sort(ruleOrderComparetor);
+        return sortedList;
     }
     public static Collection<RuleData> getRulesForPuzzleLevel(PuzzleLevel pl, AttributeService attributeService,PLRulePostActionService plRulePostActionService){
         Collection<RuleData> rules = new ArrayList<RuleData>();
@@ -1264,14 +1273,22 @@ public class DTOUtil {
                 event = event + ":" + subEvent;
             rule.setEvent(event);
             Collection<RuleActionData> actions = getRuleActionData(plRulePostActionService ,attributeService, puzzleLevelRule);
-            Collections.sort(actions.stream().collect(Collectors.toList()), new RuleActionDataComparator());
-            rule.setActions(actions);
+
+            Comparator ruleActionComparetor = new RuleActionDataComparator();
+            List<RuleActionData> sortedAction =new ArrayList<RuleActionData>();
+            sortedAction = actions.stream().collect(toList());
+            sortedAction.sort(ruleActionComparetor);
+            rule.setActions(sortedAction);
 
             rules.add(rule);
         }
-        Collections.sort(rules.stream().collect(Collectors.toList()), new RuleDataComparator());
 
-        return rules;
+        Comparator ruleComparetor = new PLRuleComparator();
+        List<RuleData> sortedRules =new ArrayList<RuleData>();
+        sortedRules = rules.stream().collect(toList());
+        sortedRules.sort(ruleComparetor);
+
+        return sortedRules;
     }
     public static Collection<PLRulePostAction> getPlRulePostActions(PLRulePostActionService plRulePostActionService, PLRule plRule ){
         Collection<PLRulePostAction>  postActions = plRulePostActionService.findByOwnerId(plRule.getId()) ;
