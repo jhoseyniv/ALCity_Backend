@@ -40,6 +40,7 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class DTOUtil {
 
@@ -1208,6 +1209,9 @@ public class DTOUtil {
             PLRulePostActionDTO dto = getPLRulePostActionDTO(postAction);
             dtos.add(dto);
         }
+
+        Collections.sort(dtos.stream().collect(Collectors.toList()), new PLRulePostActionComparator());
+
         return  dtos;
     }
         public static PLRuleDTO getPLRuleDTO(PLRule plRule) {
