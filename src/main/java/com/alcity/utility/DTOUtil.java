@@ -1214,8 +1214,7 @@ public class DTOUtil {
             dtos.add(dto);
         }
        // Collections.sort(dtos.stream().collect(Collectors.toList()), Comparator.reverseOrder());
-
-        Collections.sort(dtos.stream().collect(Collectors.toList()), new PLRulePostActionComparator());
+        dtos.stream().sorted(new PLRulePostActionComparator());
 
         return  dtos;
     }
