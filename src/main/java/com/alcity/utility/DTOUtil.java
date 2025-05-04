@@ -1,5 +1,9 @@
 package com.alcity.utility;
 
+import com.alcity.comparetors.PLRuleComparator;
+import com.alcity.comparetors.PLRulePostActionComparator;
+import com.alcity.comparetors.RuleActionDataComparator;
+import com.alcity.comparetors.RuleDataComparator;
 import com.alcity.dto.Interpreter.PLObjectiveData;
 import com.alcity.dto.Interpreter.object.*;
 import com.alcity.dto.alenum.EnumDTO;
@@ -1240,6 +1244,7 @@ public class DTOUtil {
             dto = getPLRuleDTO(plRule);
             dtos.add(dto);
         }
+        Collections.sort(dtos.stream().collect(Collectors.toList()), new PLRuleComparator());
         return dtos;
     }
     public static Collection<RuleData> getRulesForPuzzleLevel(PuzzleLevel pl, AttributeService attributeService,PLRulePostActionService plRulePostActionService){
@@ -1260,10 +1265,12 @@ public class DTOUtil {
                 event = event + ":" + subEvent;
             rule.setEvent(event);
             Collection<RuleActionData> actions = getRuleActionData(plRulePostActionService ,attributeService, puzzleLevelRule);
+            Collections.sort(actions.stream().collect(Collectors.toList()), new RuleActionDataComparator());
             rule.setActions(actions);
 
             rules.add(rule);
         }
+        Collections.sort(rules.stream().collect(Collectors.toList()), new RuleDataComparator());
 
         return rules;
     }
@@ -1310,7 +1317,7 @@ public class DTOUtil {
             ruleActionData.setVariable(plRulePostAction.getVariable());
             ruleActionData.setValueExperssion(plRulePostAction.getValueExperssion());
             String subAction = plRulePostAction.getSubAction();
-            if(subAction==null) subAction="";
+            if(subAction == null) subAction="";
             String actionType = plRulePostAction.getPlRulePostActionType().name();
             if(!subAction.equalsIgnoreCase("") )
                 actionType = plRulePostAction.getPlRulePostActionType().name() + ":" + subAction;
@@ -1318,13 +1325,16 @@ public class DTOUtil {
             ruleActionData.setActionType(actionType);
             ruleActionData.setAlertMessage(plRulePostAction.getAlertMessage());
             ruleActionData.setAlertType(plRulePostAction.getAlertType());
-            ruleActionData.setActionKey(plRulePostAction.getActionKey());
+            Long actionKey = plRulePostAction.getActionKey();
+            if(actionKey == null)  actionKey=-1L;
+            ruleActionData.setActionKey(actionKey);
 
             parameters = getAttributeForOwnerById(attributeService , plRulePostAction.getId(), AttributeOwnerType.Puzzle_Level_Rule_Post_Action_Parameter);
             ruleActionData.setParameters(parameters);
 
             actions.add(ruleActionData);
         }
+
         return actions;
     }
     public static Collection<RecordData>  getActionParametersDTOS(Collection<Attribute>  attributes){
