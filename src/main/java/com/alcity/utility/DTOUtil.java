@@ -1283,7 +1283,7 @@ public class DTOUtil {
             rules.add(rule);
         }
 
-        Comparator ruleComparetor = new PLRuleComparator();
+        Comparator ruleComparetor = new RuleDataComparator();
         List<RuleData> sortedRules =new ArrayList<RuleData>();
         sortedRules = rules.stream().collect(toList());
         sortedRules.sort(ruleComparetor);

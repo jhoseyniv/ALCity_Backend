@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5930c325-0f2d-492f-8c8e-8494d79c6462" name="Changes" comment="feature">
+    <list default="true" id="5930c325-0f2d-492f-8c8e-8494d79c6462" name="Changes" comment="add sort rules">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/alcity/utility/DTOUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/alcity/utility/DTOUtil.java" afterDir="false" />
     </list>
@@ -18,8 +18,8 @@
       <list>
         <option value="Interface" />
         <option value="AnnotationType" />
-        <option value="Class" />
         <option value="Enum" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -64,12 +64,12 @@
     </key>
   </component>
   <component name="RunManager" selected="Spring Boot.ObjectManagmentApplication">
-    <configuration name="TestUtitlty" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.alcity.utility.TestUtitlty" />
+    <configuration name="GFG" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.alcity.GFG" />
       <module name="alcity_service" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.alcity.utility.*" />
+          <option name="PATTERN" value="com.alcity.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -137,10 +137,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="Spring Boot.ObjectManagmentApplication" />
+        <item itemvalue="Application.GFG" />
         <item itemvalue="JUnit.JourneyControllerTest" />
         <item itemvalue="JUnit.JourneyControllerTest.findOne" />
         <item itemvalue="Application.ToolBox" />
-        <item itemvalue="Application.TestUtitlty" />
       </list>
     </recent_temporary>
   </component>
@@ -263,56 +263,10 @@
       <workItem from="1746158358259" duration="5634000" />
       <workItem from="1746167422906" duration="4120000" />
       <workItem from="1746179754335" duration="4101000" />
-      <workItem from="1746212789811" duration="230000" />
-    </task>
-    <task id="LOCAL-00150" summary="fix update bug in plrulepost action">
-      <created>1745080317259</created>
-      <option name="number" value="00150" />
-      <option name="presentableId" value="LOCAL-00150" />
-      <option name="project" value="LOCAL" />
-      <updated>1745080317259</updated>
-    </task>
-    <task id="LOCAL-00151" summary="change start postioon">
-      <created>1745091044253</created>
-      <option name="number" value="00151" />
-      <option name="presentableId" value="LOCAL-00151" />
-      <option name="project" value="LOCAL" />
-      <updated>1745091044253</updated>
-    </task>
-    <task id="LOCAL-00152" summary="add multiply_Game definition&#10;and add actionkey field to PLRulePostAction.java">
-      <created>1745142351301</created>
-      <option name="number" value="00152" />
-      <option name="presentableId" value="LOCAL-00152" />
-      <option name="project" value="LOCAL" />
-      <updated>1745142351302</updated>
-    </task>
-    <task id="LOCAL-00153" summary="add multiply_Game definition&#10;and add actionkey field to PLRulePostAction.java">
-      <created>1745142797276</created>
-      <option name="number" value="00153" />
-      <option name="presentableId" value="LOCAL-00153" />
-      <option name="project" value="LOCAL" />
-      <updated>1745142797276</updated>
-    </task>
-    <task id="LOCAL-00154" summary="add image">
-      <created>1745144549326</created>
-      <option name="number" value="00154" />
-      <option name="presentableId" value="LOCAL-00154" />
-      <option name="project" value="LOCAL" />
-      <updated>1745144549326</updated>
-    </task>
-    <task id="LOCAL-00155" summary="add image">
-      <created>1745145431942</created>
-      <option name="number" value="00155" />
-      <option name="presentableId" value="LOCAL-00155" />
-      <option name="project" value="LOCAL" />
-      <updated>1745145431942</updated>
-    </task>
-    <task id="LOCAL-00156" summary="add image">
-      <created>1745145919578</created>
-      <option name="number" value="00156" />
-      <option name="presentableId" value="LOCAL-00156" />
-      <option name="project" value="LOCAL" />
-      <updated>1745145919578</updated>
+      <workItem from="1746212789811" duration="1130000" />
+      <workItem from="1746289606711" duration="504000" />
+      <workItem from="1746348115888" duration="9005000" />
+      <workItem from="1746377261022" duration="5598000" />
     </task>
     <task id="LOCAL-00157" summary="add image">
       <created>1745145985946</created>
@@ -608,7 +562,56 @@
       <option name="project" value="LOCAL" />
       <updated>1746183220850</updated>
     </task>
-    <option name="localTasksCounter" value="199" />
+    <task id="LOCAL-00199" summary="change plground dto">
+      <created>1746213058715</created>
+      <option name="number" value="00199" />
+      <option name="presentableId" value="LOCAL-00199" />
+      <option name="project" value="LOCAL" />
+      <updated>1746213058715</updated>
+    </task>
+    <task id="LOCAL-00200" summary="change load ordereing post rule action">
+      <created>1746367853878</created>
+      <option name="number" value="00200" />
+      <option name="presentableId" value="LOCAL-00200" />
+      <option name="project" value="LOCAL" />
+      <updated>1746367853878</updated>
+    </task>
+    <task id="LOCAL-00201" summary="add comparators">
+      <created>1746370106306</created>
+      <option name="number" value="00201" />
+      <option name="presentableId" value="LOCAL-00201" />
+      <option name="project" value="LOCAL" />
+      <updated>1746370106306</updated>
+    </task>
+    <task id="LOCAL-00202" summary="add comparators">
+      <created>1746371155169</created>
+      <option name="number" value="00202" />
+      <option name="presentableId" value="LOCAL-00202" />
+      <option name="project" value="LOCAL" />
+      <updated>1746371155169</updated>
+    </task>
+    <task id="LOCAL-00203" summary="add comparators">
+      <created>1746371591429</created>
+      <option name="number" value="00203" />
+      <option name="presentableId" value="LOCAL-00203" />
+      <option name="project" value="LOCAL" />
+      <updated>1746371591429</updated>
+    </task>
+    <task id="LOCAL-00204" summary="add comparators">
+      <created>1746372286775</created>
+      <option name="number" value="00204" />
+      <option name="presentableId" value="LOCAL-00204" />
+      <option name="project" value="LOCAL" />
+      <updated>1746372286775</updated>
+    </task>
+    <task id="LOCAL-00205" summary="add sort rules">
+      <created>1746381720701</created>
+      <option name="number" value="00205" />
+      <option name="presentableId" value="LOCAL-00205" />
+      <option name="project" value="LOCAL" />
+      <updated>1746381720702</updated>
+    </task>
+    <option name="localTasksCounter" value="206" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -627,10 +630,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="change memoery game" />
-    <MESSAGE value="change maze game" />
-    <MESSAGE value="fix deletePuzzleLevelRulePostActionById" />
-    <MESSAGE value="fix update bug in plrulepost action" />
     <MESSAGE value="change start postioon" />
     <MESSAGE value="add multiply_Game definition&#10;and add actionkey field to PLRulePostAction.java" />
     <MESSAGE value="add image" />
@@ -652,7 +651,11 @@
     <MESSAGE value="change zoom and pan and roatation" />
     <MESSAGE value="change" />
     <MESSAGE value="feature" />
-    <option name="LAST_COMMIT_MESSAGE" value="feature" />
+    <MESSAGE value="change plground dto" />
+    <MESSAGE value="change load ordereing post rule action" />
+    <MESSAGE value="add comparators" />
+    <MESSAGE value="add sort rules" />
+    <option name="LAST_COMMIT_MESSAGE" value="add sort rules" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -669,7 +672,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/alcity/utility/DTOUtil.java</url>
-          <line>227</line>
+          <line>234</line>
           <option name="timeStamp" value="23" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
@@ -684,12 +687,12 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/alcity/utility/DTOUtil.java</url>
-          <line>244</line>
+          <line>251</line>
           <option name="timeStamp" value="140" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/alcity/utility/DTOUtil.java</url>
-          <line>658</line>
+          <line>665</line>
           <option name="timeStamp" value="189" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
@@ -746,11 +749,6 @@
           <url>file://$PROJECT_DIR$/src/main/java/com/alcity/service/puzzle/PLGroundService.java</url>
           <line>48</line>
           <option name="timeStamp" value="266" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/alcity/utility/DTOUtil.java</url>
-          <line>974</line>
-          <option name="timeStamp" value="268" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/alcity/api/PGSkillLearningContentController.java</url>
