@@ -1,4 +1,6 @@
-package com.alcity.dto.puzzle;
+package com.alcity.comparetors;
+
+import com.alcity.dto.puzzle.PLRulePostActionDTO;
 
 public class PLRulePostActionComparator implements java.util.Comparator<PLRulePostActionDTO>{
     @Override
