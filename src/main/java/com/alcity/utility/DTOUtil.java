@@ -1268,7 +1268,7 @@ public class DTOUtil {
             rule.setIgnoreRemaining(puzzleLevelRule.getIgnoreRemaining());
             String event = puzzleLevelRule.getPlRuleEvent().getName();
             String subEvent = puzzleLevelRule.getSubEvent();
-            if(subEvent==null) subEvent="";
+            if(subEvent==null || subEvent.isBlank()) subEvent="";
             if(!subEvent.equalsIgnoreCase(""))
                 event = event + ":" + subEvent;
             rule.setEvent(event);
@@ -1333,8 +1333,10 @@ public class DTOUtil {
             ruleActionData.setVariable(plRulePostAction.getVariable());
             ruleActionData.setValueExperssion(plRulePostAction.getValueExperssion());
             String subAction = plRulePostAction.getSubAction();
-            if(subAction == null) subAction="";
+            if(subAction == null || subAction.isBlank()) subAction="";
+
             String actionType = plRulePostAction.getPlRulePostActionType().name();
+
             if(!subAction.equalsIgnoreCase("") )
                 actionType = plRulePostAction.getPlRulePostActionType().name() + ":" + subAction;
 
