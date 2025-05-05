@@ -157,7 +157,6 @@ public class ImportXOProblemData_3 implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-     /*
         log.info("Start Application...Import Problem 3 X-O Probelm");
         System.out.println("...Import X-O Problem data");
         LocalDateTime current = LocalDateTime.now();
@@ -304,12 +303,7 @@ public class ImportXOProblemData_3 implements CommandLineRunner {
 
 
         Optional<PLRuleEvent> click_event = plRuleEventService.findByName("Click");
-        Optional<PLRuleEvent> Internal_Event = plRuleEventService.findByName("internalevent");
-
-//        Optional<PLRulePostActionType> CallObjectAction = plRulePostActionTypeService.findByValue("CallObjectAction");
-//        Optional<PLRulePostActionType> UserAlertAction = plRulePostActionTypeService.findByValue("UserAlertAction");
-//        Optional<PLRulePostActionType> VariableAssignmentAction = plRulePostActionTypeService.findByValue("VariableAssignmentAction");
-//        Optional<PLRulePostActionType> FireEventAction = plRulePostActionTypeService.findByValue("FireEventAction");
+        Optional<PLRuleEvent> Internal_Event = plRuleEventService.findByName("InternalEvent");
 
         Boolean ignoreRemaining = true;
         StringBuffer    Click_NON_EMPTY_Cell_condition = new StringBuffer("unequal(InstProp(InstByPos(EventParam(row), EventParam(col)), text),null)");
@@ -395,8 +389,6 @@ public class ImportXOProblemData_3 implements CommandLineRunner {
         PLRulePostAction O_Win_Rule_rule_post_Action_2 = new PLRulePostAction(O_Win_Rule_rule.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,PLRulePostActionType.UserAlertAction,0,"","",
                 "",new StringBuffer(""),"info","","O Won!",0L,1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(O_Win_Rule_rule_post_Action_2);
-
-*/
 
     }
 

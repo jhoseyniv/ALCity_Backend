@@ -12,11 +12,17 @@ public enum PLRulePostActionType  {
 
     FireEventAction,
     CallObjectAction,
-    Callsystemaction,
+    CallSystemAction,
     UserAlertAction,
     VariableAssignmentAction,
     ShowMessage,
-    ObjectActionList;
+    ObjectActionList,
+    Condition,
+    Loop,
+    BreakLoop,
+    ContinueLoop,
+    EndRule
+    ;
     public static PLRulePostActionType getById(long id)
     {
         for (PLRulePostActionType e : PLRulePostActionType.values())

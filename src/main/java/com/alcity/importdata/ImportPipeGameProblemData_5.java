@@ -174,7 +174,7 @@ public class ImportPipeGameProblemData_5 implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        /*
+
         log.info("Start Application...Import Problem 3 X-O Probelm");
         System.out.println("...Import X-O Problem data");
         LocalDateTime current = LocalDateTime.now();
@@ -563,12 +563,8 @@ public class ImportPipeGameProblemData_5 implements CommandLineRunner {
         attributeValueService.save(instance_img_4_5_bgImage_value);
 
         Optional<PLRuleEvent> click_event = plRuleEventService.findByName("Click");
-        Optional<PLRuleEvent> internalEvent = plRuleEventService.findByName("internalevent");
+        Optional<PLRuleEvent> internalEvent = plRuleEventService.findByName("InternalEvent");
 
-//        Optional<PLRulePostActionType> CallObjectAction = plRulePostActionTypeService.findByValue("CallObjectAction");
-//        Optional<PLRulePostActionType> UserAlertAction = plRulePostActionTypeService.findByValue("UserAlertAction");
-//        Optional<PLRulePostActionType> VariableAssignmentAction = plRulePostActionTypeService.findByValue("VariableAssignmentAction");
-//        Optional<PLRulePostActionType> FireEventAction = plRulePostActionTypeService.findByValue("FireEventAction");
 
         StringBuffer    click_rule_condition = new StringBuffer("equal(BoardVar(finished),false) & unequal(InstByPos(EventParam(row), EventParam(col)), null) & equal(InstVar(InstByPos(EventParam(row), EventParam(col)), canRotate),true)");
         Boolean ignoreRemaining = false;
@@ -616,7 +612,7 @@ public class ImportPipeGameProblemData_5 implements CommandLineRunner {
                 "",new StringBuffer(""),"","info","mission completed!",0L,1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(UserAlertAction_2_CheckCompletion);
 
-*/
+
 
     }
 

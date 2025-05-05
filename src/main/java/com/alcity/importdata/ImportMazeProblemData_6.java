@@ -175,7 +175,7 @@ public class ImportMazeProblemData_6 implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-        /*
+
         log.info("Start Application...Import Problem 3 X-O Probelm");
         System.out.println("...Import Maze game Problem data");
         LocalDateTime current = LocalDateTime.now();
@@ -383,9 +383,8 @@ public class ImportMazeProblemData_6 implements CommandLineRunner {
         attributeValueService.save(Image0object_variable_2_value);
 
         Optional<PLRuleEvent> click_event = plRuleEventService.findByName("Click");
-        Optional<PLRuleEvent> internalEvent = plRuleEventService.findByName("internalevent");
         Optional<PLRuleEvent> Swipe_event = plRuleEventService.findByName("Swipe");
-        Optional<PLRuleEvent> internalevent = plRuleEventService.findByName("internalevent");
+        Optional<PLRuleEvent> internalevent = plRuleEventService.findByName("InternalEvent");
 
 
         StringBuffer    click_rule_condition = new StringBuffer("equal(BoardVar(finished),false)");
@@ -610,7 +609,7 @@ public class ImportMazeProblemData_6 implements CommandLineRunner {
         StringBuffer   rule_move_condition = new StringBuffer("equal(1,1)");
         Boolean ignoreRemaining_rule_move = false;
         PLRule rule_move = new PLRule("Move",10
-                ,rule_move_condition,ignoreRemaining_rule_move,maze_Game,internalEvent.get(),"move",1L,now,now,admin_1,admin_1);
+                ,rule_move_condition,ignoreRemaining_rule_move,maze_Game,internalevent.get(),"move",1L,now,now,admin_1,admin_1);
         puzzleLevelRuleService.save(rule_move);
 
         PLRulePostAction rule_move_CallObjectAction_1 = new PLRulePostAction(rule_move.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,PLRulePostActionType.CallObjectAction,6,"move","InstProp(InstByPos(BoardVar(objX),BoardVar(objY)),objectId)",
@@ -1401,7 +1400,7 @@ public class ImportMazeProblemData_6 implements CommandLineRunner {
         ALCityInstanceInPL instance_img2121 = new ALCityInstanceInPL("instance_img2121",21,21,0,mazeGame_ImageObject,maze_Game,1L,now,now,admin_1,admin_1);
         pgObjectInstanceService.save(instance_img2121);
 
-*/
+
     }
 
 

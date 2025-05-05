@@ -1,6 +1,6 @@
 package com.alcity.entity.alenum;
 
-public enum UserEvent  {
+public enum UserEvent_old {
     Click,
     DoubleClick,
     StartDrag,
