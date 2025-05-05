@@ -163,7 +163,7 @@ public class ImportHashImageProblemData_1 implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-    /*
+
         log.info("Start Application...Import Problem 1");
         System.out.println("...Import Problem 1");
         LocalDateTime current = LocalDateTime.now();
@@ -690,7 +690,7 @@ public class ImportHashImageProblemData_1 implements CommandLineRunner {
 
         StringBuffer    x_win_rule_condition = new StringBuffer("equal(InstProp(InstByPos(EventParam(row), EventParam(col)),x),InstVar(InstByPos(EventParam(row), EventParam(col)),targetX)) & equal(InstProp(InstByPos(EventParam(row), EventParam(col)),y),InstVar(InstByPos(EventParam(row), EventParam(col)),targetY))");
 
-        Optional<PLRuleEvent> internalevent = plRuleEventService.findByName("internalevent");
+        Optional<PLRuleEvent> internalevent = plRuleEventService.findByName("InternalEvent");
 
         PLRule x_win_rule = new PLRule("X Win Rule",2
                 ,x_win_rule_condition,ignoreRemaining,puzzleLevel_hashimage,internalevent.get(),"checkcell",1L,now,now,admin_1,admin_1);
@@ -714,7 +714,7 @@ public class ImportHashImageProblemData_1 implements CommandLineRunner {
                 "BoardVar(finished)",new StringBuffer("true"),"","info","you won!",0L,1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(x_win_rule_2_post_Action_2);
 
-*/
+
 
     }
 

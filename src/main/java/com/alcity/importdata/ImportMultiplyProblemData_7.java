@@ -172,7 +172,7 @@ public class ImportMultiplyProblemData_7 implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        /*
+
         System.out.println("...Import Problem 7 Multiply Game Problem data");
         LocalDateTime current = LocalDateTime.now();
         DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
@@ -705,7 +705,7 @@ public class ImportMultiplyProblemData_7 implements CommandLineRunner {
 
         StringBuffer    reset_user_values_condition = new StringBuffer("EventParam(row)<11");
         Boolean ignoreRemaining2 = false;
-        Optional<PLRuleEvent> Internal_Event = plRuleEventService.findByName("internalevent");
+        Optional<PLRuleEvent> Internal_Event = plRuleEventService.findByName("InternalEvent");
 
         PLRule reset_user_rule = new PLRule("reset user values",2
                 ,reset_user_values_condition,ignoreRemaining2,Multiply_Game,Internal_Event.get(),"resetoutput",1L,now,now,admin_1,admin_1);
@@ -730,12 +730,9 @@ public class ImportMultiplyProblemData_7 implements CommandLineRunner {
         attributeValueService.save(FireEventAction_resetoutput_reset_user_rule_param_2_value);
 
 
-
-
-
         StringBuffer    startTimer_condition = new StringBuffer("1 = 1");
         Boolean ignoreRemaining3 = false;
-        Optional<PLRuleEvent> internalevent = plRuleEventService.findByName("internalevent");
+        Optional<PLRuleEvent> internalevent = plRuleEventService.findByName("InternalEvent");
 
         PLRule startTimer_rule = new PLRule("startTimer",3
                 ,startTimer_condition,ignoreRemaining3,Multiply_Game,internalevent.get(),"startTimer",1L,now,now,admin_1,admin_1);
@@ -768,7 +765,7 @@ public class ImportMultiplyProblemData_7 implements CommandLineRunner {
         AttributeValue  callobjectaction_3_startTimer_param_1_value= new AttributeValue(null,null,null,"green",null,null,null,null,Boolean.FALSE,null,callobjectaction_3_startTimer_param_1,1L,now,now,admin_1,admin_1,callobjectaction_3_startTimer.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action_Parameter);
         attributeValueService.save(callobjectaction_3_startTimer_param_1_value);
 
-        PLRulePostAction callsystemaction_startTimer = new PLRulePostAction(startTimer_rule.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,PLRulePostActionType.Callsystemaction,4,"StartTimer","",
+        PLRulePostAction callsystemaction_startTimer = new PLRulePostAction(startTimer_rule.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,PLRulePostActionType.CallSystemAction,4,"StartTimer","",
                 "",new StringBuffer(""),"","","",30L,1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(callsystemaction_startTimer);
 
@@ -813,7 +810,7 @@ public class ImportMultiplyProblemData_7 implements CommandLineRunner {
         AttributeValue  callobjectaction_3_Remained_2_Seconds_param_1_value= new AttributeValue(null,null,null,"orange",null,null,null,null,Boolean.FALSE,null,callobjectaction_3_Remained_2_Seconds_param_1,1L,now,now,admin_1,admin_1,callobjectaction_3_Remained_2_Seconds.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action_Parameter);
         attributeValueService.save(callobjectaction_3_Remained_2_Seconds_param_1_value);
 
-        PLRulePostAction callsystemaction_startTimer_2 = new PLRulePostAction(Remained_2_Seconds_rule.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,PLRulePostActionType.Callsystemaction,4,"StartTimer","",
+        PLRulePostAction callsystemaction_startTimer_2 = new PLRulePostAction(Remained_2_Seconds_rule.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,PLRulePostActionType.CallSystemAction,4,"StartTimer","",
                 "",new StringBuffer(""),"","","",20L,1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(callsystemaction_startTimer_2);
 
@@ -849,7 +846,7 @@ public class ImportMultiplyProblemData_7 implements CommandLineRunner {
         AttributeValue  callobjectaction_2_Remained_1_Seconds_param_1_value= new AttributeValue(null,null,null,"red",null,null,null,null,Boolean.FALSE,null,callobjectaction_2_Remained_1_Seconds_param_1,1L,now,now,admin_1,admin_1,callobjectaction_2_Remained_1_Seconds.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action_Parameter);
         attributeValueService.save(callobjectaction_2_Remained_1_Seconds_param_1_value);
 
-        PLRulePostAction callsystemaction_startTimer_3 = new PLRulePostAction(Remained_1_Seconds_rule.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,PLRulePostActionType.Callsystemaction,4,"StartTimer","",
+        PLRulePostAction callsystemaction_startTimer_3 = new PLRulePostAction(Remained_1_Seconds_rule.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,PLRulePostActionType.CallSystemAction,4,"StartTimer","",
                 "",new StringBuffer(""),"","","",10L,1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(callsystemaction_startTimer_3);
 
@@ -997,7 +994,7 @@ public class ImportMultiplyProblemData_7 implements CommandLineRunner {
         PLRulePostAction VariableAssignmentAction_1_ChekcCompletion = new PLRulePostAction(ChekcCompletion_rule.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,PLRulePostActionType.VariableAssignmentAction,1,"","",
                 "BoardVar(finished)",new StringBuffer("true"),"","","",0L,1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(VariableAssignmentAction_1_ChekcCompletion);
-*/
+
 
     }
 

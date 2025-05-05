@@ -132,7 +132,7 @@ public class ImportBaseData implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
- /*       log.info("Start Application...Import Problem 1");
+       log.info("Start Application...Import Problem 1");
         System.out.println("...Import Problem 1");
 
 //        ZoneId zoneId = ZoneId.of("Europe/London").getRules().getOffset(Instant.now());
@@ -219,61 +219,66 @@ public class ImportBaseData implements CommandLineRunner {
         appMemberService.save(alireza_zarei);
 
 
-//        PLRulePostActionType CallObjectAction = new PLRulePostActionType("CallObjectAction","CallObjectAction","",1L,now,now,admin_1,admin_1);
-//        plRulePostActionTypeService.save(CallObjectAction);
 
-//        PLRulePostActionType callsystemaction = new PLRulePostActionType("callsystemaction","callsystemaction","",1L,now,now,admin_1,admin_1);
-//        plRulePostActionTypeService.save(callsystemaction);
+     PLRuleEvent drag_ruleEvent = new PLRuleEvent("Drag", PLRuleEventType.UserEvent, PLRuleEventType.UserEvent.ordinal(),1L,now,now,admin_1,admin_1);
+     plRuleEventService.save(drag_ruleEvent);
 
-//        PLRulePostActionType UserAlertAction = new PLRulePostActionType("UserAlertAction","UserAlertAction","",1L,now,now,admin_1,admin_1);
-//        plRulePostActionTypeService.save(UserAlertAction);
+     PLRuleEvent Internal_ruleEvent = new PLRuleEvent("InternalEvent", PLRuleEventType.SystemEvent, PLRuleEventType.SystemEvent.ordinal(),1L,now,now,admin_1,admin_1);
+     plRuleEventService.save(Internal_ruleEvent);
 
-//        PLRulePostActionType VariableAssignmentAction = new PLRulePostActionType("VariableAssignmentAction","VariableAssignmentAction","",1L,now,now,admin_1,admin_1);
-//        plRulePostActionTypeService.save(VariableAssignmentAction);
+     PLRuleEvent ExitGame_ruleEvent = new PLRuleEvent("ExitGame", PLRuleEventType.UserEvent, PLRuleEventType.UserEvent.ordinal(),1L,now,now,admin_1,admin_1);
+     plRuleEventService.save(ExitGame_ruleEvent);
 
-//        PLRulePostActionType FireEventAction = new PLRulePostActionType(PLRulePostActionType.FireEventAction,"FireEventAction","",1L,now,now,admin_1,admin_1);
-//        plRulePostActionTypeService.save(FireEventAction);
-//        PLRulePostActionType FireEventAction_Move = new PLRulePostActionType("FireEventAction","FireEventAction","move",1L,now,now,admin_1,admin_1);
-//        plRulePostActionTypeService.save(FireEventAction_Move);
+     PLRuleEvent CellEnter_ruleEvent = new PLRuleEvent("CellEnter", PLRuleEventType.UserEvent, PLRuleEventType.UserEvent.ordinal(),1L,now,now,admin_1,admin_1);
+     plRuleEventService.save(CellEnter_ruleEvent);
 
-//        PLRulePostActionType FireEventAction_checkcell = new PLRulePostActionType("FireEventAction","FireEventAction","checkcell",1L,now,now,admin_1,admin_1);
-//        plRulePostActionTypeService.save(FireEventAction_checkcell);
-//
-//        PLRulePostActionType FireEventAction_check = new PLRulePostActionType("FireEventAction","FireEventAction","check",1L,now,now,admin_1,admin_1);
-//        plRulePostActionTypeService.save(FireEventAction_check);
+     PLRuleEvent CellExit_ruleEvent = new PLRuleEvent("CellExit", PLRuleEventType.UserEvent, PLRuleEventType.UserEvent.ordinal(),1L,now,now,admin_1,admin_1);
+     plRuleEventService.save(CellExit_ruleEvent);
 
-//        PLRulePostActionType ShowMessage = new PLRulePostActionType("ShowMessage","ShowMessage","",1L,now,now,admin_1,admin_1);
-//        plRulePostActionTypeService.save(ShowMessage);
-//
-//        PLRulePostActionType ObjectActionList = new PLRulePostActionType("ObjectActionList","ObjectActionList","",1L,now,now,admin_1,admin_1);
-//        plRulePostActionTypeService.save(ObjectActionList);
+     PLRuleEvent ClickDown_ruleEvent = new PLRuleEvent("ClickDown", PLRuleEventType.UserEvent, PLRuleEventType.UserEvent.ordinal(),1L,now,now,admin_1,admin_1);
+     plRuleEventService.save(ClickDown_ruleEvent);
 
-//        PLRulePostActionType FireEventAction_Swipe = new PLRulePostActionType("FireEventAction","FireEventAction","swipe",1L,now,now,admin_1,admin_1);
-//        plRulePostActionTypeService.save(FireEventAction_Swipe);
-//
-//        PLRulePostActionType FireEventAction_ResetOutput = new PLRulePostActionType("FireEventAction","FireEventAction","resetoutput",1L,now,now,admin_1,admin_1);
-//        plRulePostActionTypeService.save(FireEventAction_ResetOutput);
-//
-//        PLRulePostActionType FireEventAction_Update = new PLRulePostActionType("FireEventAction","FireEventAction","update",1L,now,now,admin_1,admin_1);
-//        plRulePostActionTypeService.save(FireEventAction_Update);
-//
-//        PLRulePostActionType FireEventAction_StartTimer = new PLRulePostActionType("FireEventAction","FireEventAction","startTimer",1L,now,now,admin_1,admin_1);
-//        plRulePostActionTypeService.save(FireEventAction_StartTimer);
+     PLRuleEvent ClickUp_ruleEvent = new PLRuleEvent("ClickUp", PLRuleEventType.UserEvent, PLRuleEventType.UserEvent.ordinal(),1L,now,now,admin_1,admin_1);
+     plRuleEventService.save(ClickUp_ruleEvent);
+
+     PLRuleEvent Click_ruleEvent = new PLRuleEvent("Click", PLRuleEventType.UserEvent, PLRuleEventType.UserEvent.ordinal(),1L,now,now,admin_1,admin_1);
+     plRuleEventService.save(Click_ruleEvent);
+
+     PLRuleEvent DoubleClick_ruleEvent = new PLRuleEvent("DoubleClick", PLRuleEventType.UserEvent, PLRuleEventType.UserEvent.ordinal(),1L,now,now,admin_1,admin_1);
+     plRuleEventService.save(DoubleClick_ruleEvent);
+
+     PLRuleEvent LongPress_ruleEvent = new PLRuleEvent("LongPress", PLRuleEventType.UserEvent, PLRuleEventType.UserEvent.ordinal(),1L,now,now,admin_1,admin_1);
+     plRuleEventService.save(LongPress_ruleEvent);
+
+     PLRuleEvent Pan_ruleEvent = new PLRuleEvent("Pan", PLRuleEventType.UserEvent, PLRuleEventType.UserEvent.ordinal(),1L,now,now,admin_1,admin_1);
+     plRuleEventService.save(Pan_ruleEvent);
+
+     PLRuleEvent Rotate_ruleEvent = new PLRuleEvent("Rotate", PLRuleEventType.UserEvent, PLRuleEventType.UserEvent.ordinal(),1L,now,now,admin_1,admin_1);
+     plRuleEventService.save(Rotate_ruleEvent);
+
+     PLRuleEvent ZoomIn_ruleEvent = new PLRuleEvent("ZoomIn", PLRuleEventType.UserEvent, PLRuleEventType.UserEvent.ordinal(),1L,now,now,admin_1,admin_1);
+     plRuleEventService.save(ZoomIn_ruleEvent);
+
+     PLRuleEvent ZoomOut_ruleEvent = new PLRuleEvent("ZoomOut", PLRuleEventType.UserEvent, PLRuleEventType.UserEvent.ordinal(),1L,now,now,admin_1,admin_1);
+     plRuleEventService.save(ZoomOut_ruleEvent);
+
+        PLRuleEvent Scroll_ruleEvent = new PLRuleEvent("Scroll", PLRuleEventType.UserEvent, PLRuleEventType.UserEvent.ordinal(),1L,now,now,admin_1,admin_1);
+     plRuleEventService.save(Scroll_ruleEvent);
+
+        PLRuleEvent Swipe_ruleEvent = new PLRuleEvent("Swipe", PLRuleEventType.UserEvent, PLRuleEventType.UserEvent.ordinal(),1L,now,now,admin_1,admin_1);
+     plRuleEventService.save(Swipe_ruleEvent);
+
+     PLRuleEvent BeginDrag_ruleEvent = new PLRuleEvent("BeginDrag", PLRuleEventType.UserEvent, PLRuleEventType.UserEvent.ordinal(),1L,now,now,admin_1,admin_1);
+         plRuleEventService.save(BeginDrag_ruleEvent);
+
+       PLRuleEvent ActionComplete_ruleEvent = new PLRuleEvent("ActionComplete", PLRuleEventType.ObjectActionEvent, PLRuleEventType.ObjectActionEvent.ordinal(),1L,now,now,admin_1,admin_1);
+        plRuleEventService.save(ActionComplete_ruleEvent);
+
+       PLRuleEvent SelectAction_ruleEvent = new PLRuleEvent("SelectAction", PLRuleEventType.ObjectActionEvent, PLRuleEventType.ObjectActionEvent.ordinal(),1L,now,now,admin_1,admin_1);
+         plRuleEventService.save(SelectAction_ruleEvent);
 
 
-
-        PLRuleEvent drag_ruleEvent = new PLRuleEvent("Drag", PLRuleEventType.UserEvent, UserEvent.Drag.ordinal(),1L,now,now,admin_1,admin_1);
-        PLRuleEvent Internal_Event = new PLRuleEvent("internalevent", PLRuleEventType.SystemEvent, SystemEvent.internalEvent.ordinal(),1L,now,now,admin_1,admin_1);
-        PLRuleEvent Click_Event = new PLRuleEvent("Click", PLRuleEventType.SystemEvent, SystemEvent.internalEvent.ordinal(),1L,now,now,admin_1,admin_1);
-        PLRuleEvent ActionComplete_event = new PLRuleEvent("ActionComplete", PLRuleEventType.SystemEvent, SystemEvent.internalEvent.ordinal(),1L,now,now,admin_1,admin_1);
-        PLRuleEvent Swipe = new PLRuleEvent("Swipe", PLRuleEventType.SystemEvent, SystemEvent.internalEvent.ordinal(),1L,now,now,admin_1,admin_1);
-          plRuleEventService.save(drag_ruleEvent);
-          plRuleEventService.save(Internal_Event);
-          plRuleEventService.save(Click_Event);
-         plRuleEventService.save(Swipe);
-        plRuleEventService.save(ActionComplete_event);
-
-        Advertisement termsAndCondition = new Advertisement("this is a terms and Condtion",ADSType.TermAndCondition,1L,now,now,jalalHoseyni,jalalHoseyni);
+        Advertisement termsAndCondition = new Advertisement("this is a terms and Condition",ADSType.TermAndCondition,1L,now,now,jalalHoseyni,jalalHoseyni);
         advertisementService.save(termsAndCondition);
 
         //update some fileds
@@ -353,11 +358,7 @@ public class ImportBaseData implements CommandLineRunner {
         byte[] walletItem_1_Icon = ImageUtil.getImage("src/main/resources/images/walletItem/","walletItem_1.png");
         byte[] walletItem_2_Icon = ImageUtil.getImage("src/main/resources/images/walletItem/","walletItem_2.png");
         byte[] walletItem_3_Icon = ImageUtil.getImage("src/main/resources/images/walletItem/","walletItem_3.png");
-       // byte[] tetherIcon = ImageUtil.getImage("src/main/resources/images/","Tether.png");
-      //  byte[] carIcon = ImageUtil.getImage("src/main/resources/images/","car.png");
-     //   byte[]  carIcon_tumb = ImageUtil.getThumbnail(carIcon,"carIcon.png");
-     //   byte[]  tetherIcon_tumb = ImageUtil.getThumbnail(tetherIcon,"Tether.png");
-        byte[]  walletItem_1_Icon_tumb = ImageUtil.getThumbnail(walletItem_1_Icon,"walletItem_1_Icon.png");
+         byte[]  walletItem_1_Icon_tumb = ImageUtil.getThumbnail(walletItem_1_Icon,"walletItem_1_Icon.png");
         byte[]  walletItem_2_Icon_tumb = ImageUtil.getThumbnail(walletItem_2_Icon,"walletItem_2_Icon.png");
         byte[]  walletItem_3_Icon_tumb = ImageUtil.getThumbnail(walletItem_3_Icon,"walletItem_3_Icon.png");
 
@@ -687,7 +688,29 @@ public class ImportBaseData implements CommandLineRunner {
         AttributeValue moveImage_ActionRenderer_param_5_value= new AttributeValue(Boolean.TRUE,null,null,null,null,null,null,null,Boolean.FALSE,null,moveImage_Renderer_param_5,1L,now,now,admin_1,admin_1,moveImage_Renderer.getId(),AttributeOwnerType.Action_Handler_Parameter);
         attributeValueService.save(moveImage_ActionRenderer_param_5_value);
 
-        Renderer move_Renderer = new Renderer("Move",mobile, ObjectActionType.Move,1L,now,now,admin_1,admin_1);
+
+     Renderer ApplyProperty_Renderer = new Renderer("ApplyImageProperty",mobile, ObjectActionType.ApplyProperty,1L,now,now,admin_1,admin_1);
+     actionRendererService.save(ApplyProperty_Renderer);
+
+     Attribute ApplyProperty_Renderer_param_1 =new Attribute("img",ApplyProperty_Renderer.getId(),AttributeOwnerType.Action_Handler_Parameter,DataType.Binary,1L,now,now,admin_1,admin_1);
+     attributeService.save(ApplyProperty_Renderer_param_1);
+     AttributeValue ApplyProperty_Renderer_param_1_value= new AttributeValue(null,null,null,null,null,null,null,"InstProp(CurrentInst(), image)",Boolean.TRUE,null,ApplyProperty_Renderer_param_1,1L,now,now,admin_1,admin_1,ApplyProperty_Renderer.getId(),AttributeOwnerType.Action_Handler_Parameter);
+     attributeValueService.save(ApplyProperty_Renderer_param_1_value);
+
+     Attribute ApplyProperty_Renderer_param_2 =new Attribute("withNext",ApplyProperty_Renderer.getId(),AttributeOwnerType.Action_Handler_Parameter,DataType.Boolean,1L,now,now,admin_1,admin_1);
+     attributeService.save(ApplyProperty_Renderer_param_2);
+     AttributeValue ApplyProperty_ActionRenderer_param_2_value= new AttributeValue(true,null,null,null,null,null,null,null,Boolean.FALSE,null,ApplyProperty_Renderer_param_2,1L,now,now,admin_1,admin_1,ApplyProperty_Renderer.getId(),AttributeOwnerType.Action_Handler_Parameter);
+     attributeValueService.save(ApplyProperty_ActionRenderer_param_2_value);
+
+     Attribute ApplyProperty_Renderer_param_3 =new Attribute("actionEffect",ApplyProperty_Renderer.getId(),AttributeOwnerType.Action_Handler_Parameter,DataType.String,1L,now,now,admin_1,admin_1);
+     attributeService.save(ApplyProperty_Renderer_param_3);
+     AttributeValue ApplyProperty_ActionRenderer_param_3_value= new AttributeValue(null,null,null,"FLIP_VERTICAL",null,null,null,null,Boolean.FALSE,null,ApplyProperty_Renderer_param_3,1L,now,now,admin_1,admin_1,ApplyProperty_Renderer.getId(),AttributeOwnerType.Action_Handler_Parameter);
+     attributeValueService.save(ApplyProperty_ActionRenderer_param_3_value);
+
+
+
+
+     Renderer move_Renderer = new Renderer("Move",mobile, ObjectActionType.Move,1L,now,now,admin_1,admin_1);
         actionRendererService.save(move_Renderer);
 
         //add parameters and default values
@@ -795,11 +818,14 @@ public class ImportBaseData implements CommandLineRunner {
         ObjectAction imageObject01_flipImage_Action = new ObjectAction(POActionOwnerType.Object,imageObject01.getId(), ObjectActionType.Flip,flipImage_Renderer,1L,now,now,admin_1,admin_1);
         puzzleObjectActionService.save(imageObject01_flipImage_Action);
 
-        ObjectAction imageObject01_rotateImage_Action = new ObjectAction(POActionOwnerType.Object,imageObject01.getId(), ObjectActionType.Rotate,rotateImage_Renderer,1L,now,now,admin_1,admin_1);
-        puzzleObjectActionService.save(imageObject01_rotateImage_Action);
+     ObjectAction imageObject01_rotateImage_Action = new ObjectAction(POActionOwnerType.Object,imageObject01.getId(), ObjectActionType.Rotate,rotateImage_Renderer,1L,now,now,admin_1,admin_1);
+     puzzleObjectActionService.save(imageObject01_rotateImage_Action);
+
+     ObjectAction imageObject01_ApplyProperty_Action = new ObjectAction(POActionOwnerType.Object,imageObject01.getId(), ObjectActionType.ApplyProperty,ApplyProperty_Renderer,1L,now,now,admin_1,admin_1);
+     puzzleObjectActionService.save(imageObject01_ApplyProperty_Action);
 
 
-        ALCityObject eagle = new ALCityObject(1L,now,now,jalalHoseyni,jalalHoseyni,"eagle",objectCategory_bird,eagle_Image_binary_content,eagle_Image_binary_content);
+     ALCityObject eagle = new ALCityObject(1L,now,now,jalalHoseyni,jalalHoseyni,"eagle",objectCategory_bird,eagle_Image_binary_content,eagle_Image_binary_content);
         alCityObjectService.save(eagle);
 
         ALCityObject goose = new ALCityObject(1L,now,now,jalalHoseyni,jalalHoseyni,"Goose",objectCategory_bird,goose_Image_binary_content,goose_Image_binary_content);
@@ -810,7 +836,7 @@ public class ImportBaseData implements CommandLineRunner {
 
         ALCityObject wheat = new ALCityObject(1L,now,now,jalalHoseyni,jalalHoseyni,"Wheat",objectCategory_cereal,wheat_Image_binary_content,wheat_Image_binary_content);
         alCityObjectService.save(wheat);
-*/
+
     }
 
 }
