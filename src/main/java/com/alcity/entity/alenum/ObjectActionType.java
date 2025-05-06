@@ -16,7 +16,6 @@ public enum ObjectActionType {
     CreateTimer,
     StopTimer,
     Gamefinished,
-    Flip,
     ShowMessage,
     StopAction,
     ObjectActionList,
