@@ -214,19 +214,6 @@ public class AppMemberService implements AppMemberRepository, CustomizedUserRepo
         return  dto;
     }
 
-
-/*
-    public AppMemberJourneyDetailDTO getAppMemberJourneyByScore(AppMember member, Journey journey) {
-        AppMemberJourneyDetailDTO dto = new AppMemberJourneyDetailDTO();
-        Collection<JourneyStep> steps = journey.getJourneyStepCollection();
-        Collection<PlayHistory>  histories= member.getPlayHistories();
-        Collection<PlayHistoryDTO> historyDTOS = DTOUtil.getPlayHistoryDTOS(histories);
-
-        return  dto;
-    }
-
-
- */
     public AppMember_WalletItem chargeOrDeChargeAppMemberWallet(AppMemberWalletDTO dto, String code) {
         Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
         Optional<WalletItem> walletItemOptional = walletItemRespository.findById(dto.getWalletItemId());
@@ -290,6 +277,7 @@ public class AppMemberService implements AppMemberRepository, CustomizedUserRepo
 
         return appMember;
     }
+
     public AppMember save(AppMemberDTO dto, String code) {
         Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
         MemberType memberType = memberTypeRepository.findByValue(dto.getMemberType()).get();
