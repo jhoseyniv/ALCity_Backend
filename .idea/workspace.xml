@@ -4,21 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5930c325-0f2d-492f-8c8e-8494d79c6462" name="Changes" comment="change sort">
+    <list default="true" id="5930c325-0f2d-492f-8c8e-8494d79c6462" name="Changes" comment="remove flip image">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/alcity/entity/alenum/ObjectActionType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/alcity/entity/alenum/ObjectActionType.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/alcity/entity/alenum/PLRuleEventType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/alcity/entity/alenum/PLRuleEventType.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/alcity/entity/alenum/PLRulePostActionType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/alcity/entity/alenum/PLRulePostActionType.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/alcity/entity/alenum/SystemEvent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/alcity/entity/alenum/SystemEvent_old.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/alcity/entity/alenum/UserEvent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/alcity/entity/alenum/UserEvent_old.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/alcity/importdata/ImportBaseData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/alcity/importdata/ImportBaseData.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/alcity/importdata/ImportHashImageProblemData_1.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/alcity/importdata/ImportHashImageProblemData_1.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/alcity/importdata/ImportMazeProblemData_6.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/alcity/importdata/ImportMazeProblemData_6.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/alcity/importdata/ImportMemoryGameProblemData_4.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/alcity/importdata/ImportMemoryGameProblemData_4.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/alcity/importdata/ImportMultiplyProblemData_7.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/alcity/importdata/ImportMultiplyProblemData_7.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/alcity/importdata/ImportPipeGameProblemData_5.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/alcity/importdata/ImportPipeGameProblemData_5.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/alcity/importdata/ImportXOProblemData_3.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/alcity/importdata/ImportXOProblemData_3.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -280,21 +269,8 @@
       <workItem from="1746348115888" duration="9005000" />
       <workItem from="1746377261022" duration="6312000" />
       <workItem from="1746390544230" duration="777000" />
-      <workItem from="1746464994375" duration="6031000" />
-    </task>
-    <task id="LOCAL-00158" summary="add image">
-      <created>1745146284475</created>
-      <option name="number" value="00158" />
-      <option name="presentableId" value="LOCAL-00158" />
-      <option name="project" value="LOCAL" />
-      <updated>1745146284475</updated>
-    </task>
-    <task id="LOCAL-00159" summary="add image">
-      <created>1745148596713</created>
-      <option name="number" value="00159" />
-      <option name="presentableId" value="LOCAL-00159" />
-      <option name="project" value="LOCAL" />
-      <updated>1745148596713</updated>
+      <workItem from="1746464994375" duration="6996000" />
+      <workItem from="1746526971476" duration="7174000" />
     </task>
     <task id="LOCAL-00160" summary="add image">
       <created>1745148785304</created>
@@ -625,7 +601,21 @@
       <option name="project" value="LOCAL" />
       <updated>1746386266814</updated>
     </task>
-    <option name="localTasksCounter" value="207" />
+    <task id="LOCAL-00207" summary="change in action types">
+      <created>1746472450594</created>
+      <option name="number" value="00207" />
+      <option name="presentableId" value="LOCAL-00207" />
+      <option name="project" value="LOCAL" />
+      <updated>1746472450594</updated>
+    </task>
+    <task id="LOCAL-00208" summary="remove flip image">
+      <created>1746530834163</created>
+      <option name="number" value="00208" />
+      <option name="presentableId" value="LOCAL-00208" />
+      <option name="project" value="LOCAL" />
+      <updated>1746530834163</updated>
+    </task>
+    <option name="localTasksCounter" value="209" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -644,8 +634,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="add multiply_Game definition&#10;and add actionkey field to PLRulePostAction.java" />
-    <MESSAGE value="add image" />
     <MESSAGE value="change multiply" />
     <MESSAGE value="add api" />
     <MESSAGE value="change multiply game" />
@@ -669,7 +657,9 @@
     <MESSAGE value="add comparators" />
     <MESSAGE value="add sort rules" />
     <MESSAGE value="change sort" />
-    <option name="LAST_COMMIT_MESSAGE" value="change sort" />
+    <MESSAGE value="change in action types" />
+    <MESSAGE value="remove flip image" />
+    <option name="LAST_COMMIT_MESSAGE" value="remove flip image" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -728,11 +718,6 @@
           <url>file://$PROJECT_DIR$/src/main/java/com/alcity/api/AppMemberController.java</url>
           <line>109</line>
           <option name="timeStamp" value="255" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/alcity/service/puzzle/PuzzleLevelService.java</url>
-          <line>242</line>
-          <option name="timeStamp" value="257" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/alcity/api/PLController.java</url>
@@ -834,11 +819,6 @@
           <line>76</line>
           <option name="timeStamp" value="321" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/alcity/importdata/ImportMultiplyProblemData_7.java</url>
-          <line>175</line>
-          <option name="timeStamp" value="326" />
-        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
     <pin-to-top-manager>
@@ -851,6 +831,7 @@
         <PinnedItemInfo parentTag="com.alcity.entity.alobject.Attribute" memberName="attributeValues" />
         <PinnedItemInfo parentTag="com.alcity.dto.Interpreter.PLData" memberName="variables" />
         <PinnedItemInfo parentTag="com.alcity.entity.alobject.Attribute" memberName="name" />
+        <PinnedItemInfo parentTag="java.util.ArrayList$Itr" memberName="expectedModCount" />
       </pinned-members>
     </pin-to-top-manager>
     <watches-manager>

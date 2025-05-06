@@ -694,7 +694,7 @@ public class ImportBaseData implements CommandLineRunner {
 
      Attribute ApplyProperty_Renderer_param_1 =new Attribute("img",ApplyProperty_Renderer.getId(),AttributeOwnerType.Action_Handler_Parameter,DataType.Binary,1L,now,now,admin_1,admin_1);
      attributeService.save(ApplyProperty_Renderer_param_1);
-     AttributeValue ApplyProperty_Renderer_param_1_value= new AttributeValue(null,null,null,null,null,null,null,"InstProp(CurrentInst(), image)",Boolean.TRUE,null,ApplyProperty_Renderer_param_1,1L,now,now,admin_1,admin_1,ApplyProperty_Renderer.getId(),AttributeOwnerType.Action_Handler_Parameter);
+     AttributeValue ApplyProperty_Renderer_param_1_value= new AttributeValue(null,null,null,null,null,null,null,"InstProp(CurrentInst(), bgimage)",Boolean.TRUE,null,ApplyProperty_Renderer_param_1,1L,now,now,admin_1,admin_1,ApplyProperty_Renderer.getId(),AttributeOwnerType.Action_Handler_Parameter);
      attributeValueService.save(ApplyProperty_Renderer_param_1_value);
 
      Attribute ApplyProperty_Renderer_param_2 =new Attribute("withNext",ApplyProperty_Renderer.getId(),AttributeOwnerType.Action_Handler_Parameter,DataType.Boolean,1L,now,now,admin_1,admin_1);
@@ -754,18 +754,6 @@ public class ImportBaseData implements CommandLineRunner {
         AttributeValue  move_ActionRenderer_param_moveType_value= new AttributeValue(null,null,null,"jump",null,null,null,null,Boolean.FALSE,null,move_ActionRenderer_param_8,1L,now,now,admin_1,admin_1,move_Renderer.getId(),AttributeOwnerType.Action_Handler_Parameter);
         attributeValueService.save(move_ActionRenderer_param_moveType_value);
 
-//        Renderer flipImage_Renderer = new Renderer("FlipImage",mobile, ObjectActionType.Flip,1L,now,now,admin_1,admin_1);
-//        actionRendererService.save(flipImage_Renderer);
-//
-//        Attribute flipImage_Renderer_param_1 =new Attribute("img",flipImage_Renderer.getId(),AttributeOwnerType.Action_Handler_Parameter,DataType.Binary,1L,now,now,admin_1,admin_1);
-//        attributeService.save(flipImage_Renderer_param_1);
-//        AttributeValue flipImage_ActionRenderer_param_1_value= new AttributeValue(null,null,null,null,null,null,null,"InstProp(CurrentInst(), bgimage)",Boolean.TRUE,null,flipImage_Renderer_param_1,1L,now,now,admin_1,admin_1,flipImage_Renderer.getId(),AttributeOwnerType.Action_Handler_Parameter);
-//        attributeValueService.save(flipImage_ActionRenderer_param_1_value);
-//
-//        Attribute withNext_Renderer_param_1 =new Attribute("withNext", flipImage_Renderer.getId(),AttributeOwnerType.Action_Handler_Parameter,DataType.Boolean,1L,now,now,admin_1,admin_1);
-//        attributeService.save(withNext_Renderer_param_1);
-//        AttributeValue withNext_ActionRenderer_param_1_value= new AttributeValue(true,null,null,null,null,null,null,null,Boolean.FALSE,null,withNext_Renderer_param_1,1L,now,now,admin_1,admin_1,flipImage_Renderer.getId(),AttributeOwnerType.Action_Handler_Parameter);
-//        attributeValueService.save(withNext_ActionRenderer_param_1_value);
 
         Renderer rotateImage_Renderer = new Renderer("RotateImage",mobile, ObjectActionType.Rotate,1L,now,now,admin_1,admin_1);
         actionRendererService.save(rotateImage_Renderer);
