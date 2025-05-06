@@ -400,7 +400,7 @@ public class ImportXOProblemData_3 implements CommandLineRunner {
         attributeValueService.save(UserAlertAction_2_X_win_param_3_value);
 
         PLRulePostAction UserAlertAction_2_O_win = new PLRulePostAction(O_Win_Rule_rule.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,PLRulePostActionType.CallSystemAction,2,"ShowMessage","",
-                "BoardVar(finished)",new StringBuffer("true"),"","","",0L,1L ,now,now,admin_1,admin_1);
+                "",new StringBuffer(""),"","","",0L,1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(UserAlertAction_2_O_win);
 
         Attribute UserAlertAction_2_CheckCompletion_param_1=new Attribute("text",UserAlertAction_2_O_win.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action_Parameter,DataType.String,1L,now,now,admin_1,admin_1);
