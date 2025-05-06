@@ -381,29 +381,43 @@ public class ImportXOProblemData_3 implements CommandLineRunner {
         PLRule O_Win_Rule_rule = new PLRule("O Win Rule",1 ,O_Win_Rule_condition,ignoreRemaining,puzzleLevel,Internal_Event.get(),"",1L,now,now,admin_1,admin_1);
         puzzleLevelRuleService.save(O_Win_Rule_rule);
 
-        PLRulePostAction O_Win_Rule_rule_post_Action_1 = new PLRulePostAction(O_Win_Rule_rule.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,PLRulePostActionType.VariableAssignmentAction,0,"","",
+        PLRulePostAction UserAlertAction_2_X_win = new PLRulePostAction(O_Win_Rule_rule.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,PLRulePostActionType.VariableAssignmentAction,0,"ShowMessage","",
                 "BoardVar(finished)",new StringBuffer("true"),"","","",0L,1L ,now,now,admin_1,admin_1);
-        plRulePostActionService.save(O_Win_Rule_rule_post_Action_1);
+        plRulePostActionService.save(UserAlertAction_2_X_win);
+        Attribute UserAlertAction_2_X_win_param_1=new Attribute("text",UserAlertAction_2_X_win.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action_Parameter,DataType.String,1L,now,now,admin_1,admin_1);
+        attributeService.save(UserAlertAction_2_X_win_param_1);
+        AttributeValue  UserAlertAction_2_X_win_param_1_value= new AttributeValue(null,null,null,"X Won!!",null,null,null,null,Boolean.FALSE,null,UserAlertAction_2_X_win_param_1,1L,now,now,admin_1,admin_1,UserAlertAction_2_X_win.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action_Parameter);
+        attributeValueService.save(UserAlertAction_2_X_win_param_1_value);
+
+        Attribute UserAlertAction_2_X_win_param_2=new Attribute("dialogType",UserAlertAction_2_X_win.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action_Parameter,DataType.String,1L,now,now,admin_1,admin_1);
+        attributeService.save(UserAlertAction_2_X_win_param_2);
+        AttributeValue  UserAlertAction_2_X_win_param_2_value= new AttributeValue(null,null,null,"DIALOG",null,null,null,null,Boolean.FALSE,null,UserAlertAction_2_X_win_param_2,1L,now,now,admin_1,admin_1,UserAlertAction_2_X_win.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action_Parameter);
+        attributeValueService.save(UserAlertAction_2_X_win_param_2_value);
+
+        Attribute UserAlertAction_2_X_win_param_3=new Attribute("messageType",UserAlertAction_2_X_win.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action_Parameter,DataType.String,1L,now,now,admin_1,admin_1);
+        attributeService.save(UserAlertAction_2_X_win_param_3);
+        AttributeValue  UserAlertAction_2_X_win_param_3_value= new AttributeValue(null,null,null,"INFO",null,null,null,null,Boolean.FALSE,null,UserAlertAction_2_X_win_param_3,1L,now,now,admin_1,admin_1,UserAlertAction_2_X_win.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action_Parameter);
+        attributeValueService.save(UserAlertAction_2_X_win_param_3_value);
 
 
 
-        PLRulePostAction UserAlertAction_2_CheckCompletion = new PLRulePostAction(O_Win_Rule_rule.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,PLRulePostActionType.CallSystemAction,2,"ShowMessage","",
+        PLRulePostAction UserAlertAction_2_O_win = new PLRulePostAction(O_Win_Rule_rule.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,PLRulePostActionType.CallSystemAction,2,"ShowMessage","",
                 "BoardVar(finished)",new StringBuffer("true"),"","","",0L,1L ,now,now,admin_1,admin_1);
-        plRulePostActionService.save(UserAlertAction_2_CheckCompletion);
+        plRulePostActionService.save(UserAlertAction_2_O_win);
 
-        Attribute UserAlertAction_2_CheckCompletion_param_1=new Attribute("text",UserAlertAction_2_CheckCompletion.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action_Parameter,DataType.String,1L,now,now,admin_1,admin_1);
+        Attribute UserAlertAction_2_CheckCompletion_param_1=new Attribute("text",UserAlertAction_2_O_win.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action_Parameter,DataType.String,1L,now,now,admin_1,admin_1);
         attributeService.save(UserAlertAction_2_CheckCompletion_param_1);
-        AttributeValue  callobjectaction_2_startTimer_param_1_value= new AttributeValue(null,null,null,"O Won!!",null,null,null,null,Boolean.FALSE,null,UserAlertAction_2_CheckCompletion_param_1,1L,now,now,admin_1,admin_1,UserAlertAction_2_CheckCompletion.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action_Parameter);
+        AttributeValue  callobjectaction_2_startTimer_param_1_value= new AttributeValue(null,null,null,"O Won!!",null,null,null,null,Boolean.FALSE,null,UserAlertAction_2_CheckCompletion_param_1,1L,now,now,admin_1,admin_1,UserAlertAction_2_O_win.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action_Parameter);
         attributeValueService.save(callobjectaction_2_startTimer_param_1_value);
 
-        Attribute UserAlertAction_2_CheckCompletion_param_2=new Attribute("dialogType",UserAlertAction_2_CheckCompletion.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action_Parameter,DataType.String,1L,now,now,admin_1,admin_1);
+        Attribute UserAlertAction_2_CheckCompletion_param_2=new Attribute("dialogType",UserAlertAction_2_O_win.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action_Parameter,DataType.String,1L,now,now,admin_1,admin_1);
         attributeService.save(UserAlertAction_2_CheckCompletion_param_2);
-        AttributeValue  callobjectaction_2_startTimer_param_2_value= new AttributeValue(null,null,null,"DIALOG",null,null,null,null,Boolean.FALSE,null,UserAlertAction_2_CheckCompletion_param_2,1L,now,now,admin_1,admin_1,UserAlertAction_2_CheckCompletion.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action_Parameter);
+        AttributeValue  callobjectaction_2_startTimer_param_2_value= new AttributeValue(null,null,null,"DIALOG",null,null,null,null,Boolean.FALSE,null,UserAlertAction_2_CheckCompletion_param_2,1L,now,now,admin_1,admin_1,UserAlertAction_2_O_win.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action_Parameter);
         attributeValueService.save(callobjectaction_2_startTimer_param_2_value);
 
-        Attribute UserAlertAction_2_CheckCompletion_param_3=new Attribute("messageType",UserAlertAction_2_CheckCompletion.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action_Parameter,DataType.String,1L,now,now,admin_1,admin_1);
+        Attribute UserAlertAction_2_CheckCompletion_param_3=new Attribute("messageType",UserAlertAction_2_O_win.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action_Parameter,DataType.String,1L,now,now,admin_1,admin_1);
         attributeService.save(UserAlertAction_2_CheckCompletion_param_3);
-        AttributeValue  callobjectaction_2_startTimer_param_3_value= new AttributeValue(null,null,null,"INFO",null,null,null,null,Boolean.FALSE,null,UserAlertAction_2_CheckCompletion_param_3,1L,now,now,admin_1,admin_1,UserAlertAction_2_CheckCompletion.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action_Parameter);
+        AttributeValue  callobjectaction_2_startTimer_param_3_value= new AttributeValue(null,null,null,"INFO",null,null,null,null,Boolean.FALSE,null,UserAlertAction_2_CheckCompletion_param_3,1L,now,now,admin_1,admin_1,UserAlertAction_2_O_win.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action_Parameter);
         attributeValueService.save(callobjectaction_2_startTimer_param_3_value);
 
 
