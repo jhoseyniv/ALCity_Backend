@@ -169,14 +169,13 @@ public class ImportHashImageProblemData_1 implements CommandLineRunner {
         LocalDateTime current = LocalDateTime.now();
         DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
         String now = current.format(format);
-        // byte[] avatar = getImage("src/main/resources/images/","avatar.png");
 
         Optional<AppMember> admin_1Optional = applicationMemberService.findByUsername("admin");
         Optional<AppMember> jalalHoseyniOptional = applicationMemberService.findByUsername("jalal");
         Optional<LearningTopic> hashImage_Topic = learningTopicService.findByTitle("Hash Image");
-          AppMember  admin_1=admin_1Optional.get();
-          AppMember jalalHoseyni = jalalHoseyniOptional.get();
-         LearningSkill timeManagement = learningSkillService.findByValue("timeManagement");
+        AppMember  admin_1=admin_1Optional.get();
+        AppMember jalalHoseyni = jalalHoseyniOptional.get();
+        LearningSkill timeManagement = learningSkillService.findByValue("timeManagement");
         LearningSkill division = learningSkillService.findByValue("division");
         Optional<WalletItem> alCoin10WalletItem = walletItemService.findByValue("walletItem_1");
 
@@ -190,18 +189,12 @@ public class ImportHashImageProblemData_1 implements CommandLineRunner {
         ObjectMapper objectMapper = new ObjectMapper();
         BoardGraphicDTO boardGraphic = objectMapper.readValue(jsonObject.toString(), BoardGraphicDTO.class);
 
-      //  BinaryContent puzzle_ground_binary_content_1 = new BinaryContent(1L, now, now,admin_1 , admin_1,"puzzle ground for hash image",puzzle_Ground_Image_1.length,puzzle_Ground_Image_1,null,"tag1","","",BinaryContentType.Image);
-       // binaryContentService.save(puzzle_ground_binary_content_1);
-
-       // byte[] hashImage_icon_byte = ImageUtil.getImage("src/main/resources/images/hashImage_Puzzle/","hashImage_icon.png");
         BinaryContent hashImage_icon = new BinaryContent(1L, now, now,admin_1 , admin_1,"hash image icon",puzzle_Ground_Image_1.length,puzzle_Ground_Image_1,null,"tag1","","",BinaryContentType.Image);
         binaryContentService.save(hashImage_icon);
 
         byte[] hashImage_pic_byte = ImageUtil.getImage("src/main/resources/images/hashImage_Puzzle/","hashImage_pic.png");
         BinaryContent hashImage_pic = new BinaryContent(1L, now, now,admin_1 , admin_1,"hash image picture",puzzle_Ground_Image_1.length,hashImage_pic_byte,null,"tag1","","",BinaryContentType.Image);
         binaryContentService.save(hashImage_pic);
-
-       // PuzzleCategory mathematic = puzzleCategoryService.findByValue("mathematic");
 
         Optional<PuzzleGroup> puzzleGroup_HashImage = puzzleGroupService.findByTitle("Hash Image - Puzzle Group 1");
         Optional<PuzzleGroup> puzzleGroup_IQ = puzzleGroupService.findByTitle("IQ Puzzle Group");
@@ -709,7 +702,6 @@ public class ImportHashImageProblemData_1 implements CommandLineRunner {
         PLRulePostAction x_win_rule_2_post_Action_1 = new PLRulePostAction(x_win_rule_2.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,PLRulePostActionType.VariableAssignmentAction,1,"","",
                 "BoardVar(finished)",new StringBuffer("true"),"","","",0L,1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(x_win_rule_2_post_Action_1);
-
 
         PLRulePostAction UserAlertAction_2_CheckCompletion = new PLRulePostAction(x_win_rule_2.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,PLRulePostActionType.CallSystemAction,2,"ShowMessage","",
                 "",new StringBuffer(""),"","","",0L,1L ,now,now,admin_1,admin_1);

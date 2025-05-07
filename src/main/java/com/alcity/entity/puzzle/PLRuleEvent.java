@@ -7,6 +7,7 @@ import com.alcity.entity.appmember.AppMember;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import java.io.Serializable;
+import java.util.Collection;
 
 @Entity
 public class PLRuleEvent extends BaseTable implements Serializable {
@@ -21,6 +22,17 @@ public class PLRuleEvent extends BaseTable implements Serializable {
     @Column(name="event_Id")
     private Integer eventId;
 
+    @OneToMany(mappedBy = "plRuleEvent", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JsonIgnore
+    private Collection<PLRule> plRules;
+
+    public Collection<PLRule> getPlRules() {
+        return plRules;
+    }
+
+    public void setPlRules(Collection<PLRule> plRules) {
+        this.plRules = plRules;
+    }
 
     public String getName() {
         return name;
