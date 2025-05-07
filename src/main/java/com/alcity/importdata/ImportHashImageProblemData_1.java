@@ -586,7 +586,7 @@ public class ImportHashImageProblemData_1 implements CommandLineRunner {
         attributeValueService.save(rulePostAction_11_move_param_2_value);
 
         PLRulePostAction move_rule_post_Action_12 = new PLRulePostAction(rule_for_move.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,PLRulePostActionType.FireEventAction,12,"","",
-                "",new StringBuffer(""),"","","",0L,1L ,now,now,admin_1,admin_1);
+                "",new StringBuffer(""),"checkcell","","",0L,1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(move_rule_post_Action_12);
 
         Attribute rulePostAction_12_move_param_1 =new Attribute("row",move_rule_post_Action_12.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action_Parameter,DataType.Integer,1L,now,now,admin_1,admin_1);
@@ -600,7 +600,7 @@ public class ImportHashImageProblemData_1 implements CommandLineRunner {
         attributeValueService.save(rulePostAction_12_move_param_2_value);
 
         PLRulePostAction move_rule_post_Action_13 = new PLRulePostAction(rule_for_move.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,PLRulePostActionType.FireEventAction,13,"","",
-                "",new StringBuffer(""),"","","",0L,1L ,now,now,admin_1,admin_1);
+                "",new StringBuffer(""),"checkcell","","",0L,1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(move_rule_post_Action_13);
 
         Attribute rulePostAction_13_move_param_1 =new Attribute("row",move_rule_post_Action_13.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action_Parameter,DataType.Integer,1L,now,now,admin_1,admin_1);
