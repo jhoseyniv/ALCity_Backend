@@ -710,7 +710,6 @@ public class ImportHashImageProblemData_1 implements CommandLineRunner {
                 "BoardVar(finished)",new StringBuffer("true"),"","","",0L,1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(x_win_rule_2_post_Action_1);
 
-
         PLRulePostAction UserAlertAction_2_CheckCompletion = new PLRulePostAction(x_win_rule_2.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,PLRulePostActionType.CallSystemAction,2,"ShowMessage","",
                 "",new StringBuffer(""),"","","",0L,1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(UserAlertAction_2_CheckCompletion);
