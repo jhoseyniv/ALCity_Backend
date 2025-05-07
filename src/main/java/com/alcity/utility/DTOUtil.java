@@ -50,6 +50,21 @@ import static java.util.stream.Collectors.toList;
 
 public class DTOUtil {
 
+    public static PLRuleEventDTO getPLRuleEventDTO(PLRuleEvent event){
+        PLRuleEventDTO dto= new PLRuleEventDTO(event.getId(),event.getName(), event.getPlRuleEventType().name(), event.getEventId());
+        return dto;
+    }
+
+    public static Collection<PLRuleEventDTO> getPLRuleEventDTOS(Collection<PLRuleEvent> plRuleEvents){
+        Iterator<PLRuleEvent> itr = plRuleEvents.iterator();
+        Collection<PLRuleEventDTO> dtos = new ArrayList<>();
+        while (itr.hasNext()) {
+            PLRuleEventDTO dto = getPLRuleEventDTO(itr.next());
+            dtos.add(dto);
+        }
+        return  dtos;
+
+    }
     public static PLGameInstanceDTO getPLGameInstanceDTO(PLGameInstance gameInstance){
         PLGameInstanceDTO dto = new PLGameInstanceDTO();
         dto.setId(gameInstance.getId());
