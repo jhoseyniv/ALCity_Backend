@@ -131,16 +131,10 @@ public class ImportBaseData implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-
+/*
        log.info("Start Application...Import Problem 1");
         System.out.println("...Import Problem 1");
 
-//        ZoneId zoneId = ZoneId.of("Europe/London").getRules().getOffset(Instant.now());
-//        ZonedDateTime startDate = ZonedDateTime.now();
-//        ZonedDateTime endDate = ZonedDateTime.of(2022, 3, 30, 23, 45, 59, 1234, zoneId);
-
-//        ZonedDateTime  createdDate= ZonedDateTime.now();
-//        Long now = createdDate.toEpochSecond();
         LocalDateTime current = LocalDateTime.now();
         DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
         String now = current.format(format);
@@ -821,7 +815,7 @@ public class ImportBaseData implements CommandLineRunner {
 
         ALCityObject wheat = new ALCityObject(1L,now,now,jalalHoseyni,jalalHoseyni,"Wheat",objectCategory_cereal,wheat_Image_binary_content,wheat_Image_binary_content);
         alCityObjectService.save(wheat);
-
+*/
     }
 
 }

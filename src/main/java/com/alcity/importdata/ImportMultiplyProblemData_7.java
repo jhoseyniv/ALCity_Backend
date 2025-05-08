@@ -172,7 +172,7 @@ public class ImportMultiplyProblemData_7 implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-
+/*
         System.out.println("...Import Problem 7 Multiply Game Problem data");
         LocalDateTime current = LocalDateTime.now();
         DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
@@ -990,9 +990,6 @@ public class ImportMultiplyProblemData_7 implements CommandLineRunner {
                 ,ChekcCompletion_condition,ignoreRemaining11,Multiply_Game,internalevent.get(),"check",1L,now,now,admin_1,admin_1);
         puzzleLevelRuleService.save(ChekcCompletion_rule);
 
-//        PLRulePostAction VariableAssignmentAction_1_ChekcCompletion = new PLRulePostAction(ChekcCompletion_rule.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,PLRulePostActionType.VariableAssignmentAction,1,"","",
-//                "BoardVar(finished)",new StringBuffer("true"),"","","",0L,1L ,now,now,admin_1,admin_1);
-//        plRulePostActionService.save(VariableAssignmentAction_1_ChekcCompletion);
 
         PLRulePostAction UserAlertAction_2_CheckCompletion = new PLRulePostAction(ChekcCompletion_rule.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,PLRulePostActionType.CallSystemAction,2,"ShowMessage","",
                 "",new StringBuffer(""),"","","",0L,1L ,now,now,admin_1,admin_1);
@@ -1013,7 +1010,7 @@ public class ImportMultiplyProblemData_7 implements CommandLineRunner {
         AttributeValue  callobjectaction_2_startTimer_param_3_value= new AttributeValue(null,null,null,"INFO",null,null,null,null,Boolean.FALSE,null,UserAlertAction_2_CheckCompletion_param_3,1L,now,now,admin_1,admin_1,UserAlertAction_2_CheckCompletion.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action_Parameter);
         attributeValueService.save(callobjectaction_2_startTimer_param_3_value);
 
-
+*/
 
     }
 
