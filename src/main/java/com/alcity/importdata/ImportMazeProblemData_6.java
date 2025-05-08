@@ -175,7 +175,7 @@ public class ImportMazeProblemData_6 implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-
+/*
         log.info("Start Application...Import Problem 3 X-O Probelm");
         System.out.println("...Import Maze game Problem data");
         LocalDateTime current = LocalDateTime.now();
@@ -666,9 +666,6 @@ public class ImportMazeProblemData_6 implements CommandLineRunner {
                 "BoardVar(finished)",new StringBuffer("true"),"","","",0L,1L ,now,now,admin_1,admin_1);
         plRulePostActionService.save(VariableAssignmentAction_1_CheckCompletion);
 
-//        PLRulePostAction UserAlertAction_2_CheckCompletion = new PLRulePostAction(rule_for_CheckCompletion.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,PLRulePostActionType.UserAlertAction,2,"","",
-//                "",new StringBuffer(""),"","info","mission completed!",0L,1L ,now,now,admin_1,admin_1);
-//        plRulePostActionService.save(UserAlertAction_2_CheckCompletion);
 
 
         PLRulePostAction UserAlertAction_2_CheckCompletion = new PLRulePostAction(rule_for_CheckCompletion.getId(),PLRulePostActionOwnerType.Puzzle_Level_Rule,PLRulePostActionType.CallSystemAction,2,"ShowMessage","",
@@ -1424,7 +1421,7 @@ public class ImportMazeProblemData_6 implements CommandLineRunner {
 
         ALCityInstanceInPL instance_img2121 = new ALCityInstanceInPL("instance_img2121",21,21,0,mazeGame_ImageObject,maze_Game,1L,now,now,admin_1,admin_1);
         pgObjectInstanceService.save(instance_img2121);
-
+*/
 
     }
 

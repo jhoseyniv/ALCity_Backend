@@ -4,10 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5930c325-0f2d-492f-8c8e-8494d79c6462" name="Changes" comment="remove flip image">
+    <list default="true" id="5930c325-0f2d-492f-8c8e-8494d79c6462" name="Changes" comment="add PLRuleEventController and save +getall + delete method">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/alcity/importdata/ImportBaseData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/alcity/importdata/ImportBaseData.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/alcity/importdata/ImportHashImageProblemData_1.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/alcity/importdata/ImportHashImageProblemData_1.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/alcity/importdata/ImportMazeProblemData_6.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/alcity/importdata/ImportMazeProblemData_6.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/alcity/importdata/ImportMemoryGameProblemData_4.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/alcity/importdata/ImportMemoryGameProblemData_4.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/alcity/importdata/ImportMultiplyProblemData_7.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/alcity/importdata/ImportMultiplyProblemData_7.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/alcity/importdata/ImportPipeGameProblemData_5.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/alcity/importdata/ImportPipeGameProblemData_5.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/alcity/importdata/ImportXOProblemData_3.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/alcity/importdata/ImportXOProblemData_3.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -270,84 +276,10 @@
       <workItem from="1746377261022" duration="6312000" />
       <workItem from="1746390544230" duration="777000" />
       <workItem from="1746464994375" duration="6996000" />
-      <workItem from="1746526971476" duration="7174000" />
-    </task>
-    <task id="LOCAL-00160" summary="add image">
-      <created>1745148785304</created>
-      <option name="number" value="00160" />
-      <option name="presentableId" value="LOCAL-00160" />
-      <option name="project" value="LOCAL" />
-      <updated>1745148785304</updated>
-    </task>
-    <task id="LOCAL-00161" summary="add image">
-      <created>1745155753986</created>
-      <option name="number" value="00161" />
-      <option name="presentableId" value="LOCAL-00161" />
-      <option name="project" value="LOCAL" />
-      <updated>1745155753986</updated>
-    </task>
-    <task id="LOCAL-00162" summary="add image">
-      <created>1745156793462</created>
-      <option name="number" value="00162" />
-      <option name="presentableId" value="LOCAL-00162" />
-      <option name="project" value="LOCAL" />
-      <updated>1745156793462</updated>
-    </task>
-    <task id="LOCAL-00163" summary="add image">
-      <created>1745158243943</created>
-      <option name="number" value="00163" />
-      <option name="presentableId" value="LOCAL-00163" />
-      <option name="project" value="LOCAL" />
-      <updated>1745158243943</updated>
-    </task>
-    <task id="LOCAL-00164" summary="change multiply">
-      <created>1745159761174</created>
-      <option name="number" value="00164" />
-      <option name="presentableId" value="LOCAL-00164" />
-      <option name="project" value="LOCAL" />
-      <updated>1745159761174</updated>
-    </task>
-    <task id="LOCAL-00165" summary="add api">
-      <created>1745254639490</created>
-      <option name="number" value="00165" />
-      <option name="presentableId" value="LOCAL-00165" />
-      <option name="project" value="LOCAL" />
-      <updated>1745254639491</updated>
-    </task>
-    <task id="LOCAL-00166" summary="add api">
-      <created>1745307014687</created>
-      <option name="number" value="00166" />
-      <option name="presentableId" value="LOCAL-00166" />
-      <option name="project" value="LOCAL" />
-      <updated>1745307014688</updated>
-    </task>
-    <task id="LOCAL-00167" summary="change multiply game">
-      <created>1745312322970</created>
-      <option name="number" value="00167" />
-      <option name="presentableId" value="LOCAL-00167" />
-      <option name="project" value="LOCAL" />
-      <updated>1745312322970</updated>
-    </task>
-    <task id="LOCAL-00168" summary="change multiply game">
-      <created>1745316319353</created>
-      <option name="number" value="00168" />
-      <option name="presentableId" value="LOCAL-00168" />
-      <option name="project" value="LOCAL" />
-      <updated>1745316319353</updated>
-    </task>
-    <task id="LOCAL-00169" summary="change multiply game">
-      <created>1745316785014</created>
-      <option name="number" value="00169" />
-      <option name="presentableId" value="LOCAL-00169" />
-      <option name="project" value="LOCAL" />
-      <updated>1745316785014</updated>
-    </task>
-    <task id="LOCAL-00170" summary="change multiply game">
-      <created>1745316945823</created>
-      <option name="number" value="00170" />
-      <option name="presentableId" value="LOCAL-00170" />
-      <option name="project" value="LOCAL" />
-      <updated>1745316945823</updated>
+      <workItem from="1746526971476" duration="12839000" />
+      <workItem from="1746602584657" duration="3968000" />
+      <workItem from="1746636887799" duration="5413000" />
+      <workItem from="1746692903676" duration="284000" />
     </task>
     <task id="LOCAL-00171" summary="add time duration in AppMemberController">
       <created>1745344314240</created>
@@ -615,7 +547,84 @@
       <option name="project" value="LOCAL" />
       <updated>1746530834163</updated>
     </task>
-    <option name="localTasksCounter" value="209" />
+    <task id="LOCAL-00209" summary="remove flip image">
+      <created>1746537061670</created>
+      <option name="number" value="00209" />
+      <option name="presentableId" value="LOCAL-00209" />
+      <option name="project" value="LOCAL" />
+      <updated>1746537061670</updated>
+    </task>
+    <task id="LOCAL-00210" summary="remove flip image">
+      <created>1746538914931</created>
+      <option name="number" value="00210" />
+      <option name="presentableId" value="LOCAL-00210" />
+      <option name="project" value="LOCAL" />
+      <updated>1746538914931</updated>
+    </task>
+    <task id="LOCAL-00211" summary="change x-o">
+      <created>1746539563959</created>
+      <option name="number" value="00211" />
+      <option name="presentableId" value="LOCAL-00211" />
+      <option name="project" value="LOCAL" />
+      <updated>1746539563959</updated>
+    </task>
+    <task id="LOCAL-00212" summary="change x-o">
+      <created>1746540122941</created>
+      <option name="number" value="00212" />
+      <option name="presentableId" value="LOCAL-00212" />
+      <option name="project" value="LOCAL" />
+      <updated>1746540122941</updated>
+    </task>
+    <task id="LOCAL-00213" summary="change x-o">
+      <created>1746541793028</created>
+      <option name="number" value="00213" />
+      <option name="presentableId" value="LOCAL-00213" />
+      <option name="project" value="LOCAL" />
+      <updated>1746541793028</updated>
+    </task>
+    <task id="LOCAL-00214" summary="change x-o">
+      <created>1746542556823</created>
+      <option name="number" value="00214" />
+      <option name="presentableId" value="LOCAL-00214" />
+      <option name="project" value="LOCAL" />
+      <updated>1746542556823</updated>
+    </task>
+    <task id="LOCAL-00215" summary="fix mission complete message">
+      <created>1746604056578</created>
+      <option name="number" value="00215" />
+      <option name="presentableId" value="LOCAL-00215" />
+      <option name="project" value="LOCAL" />
+      <updated>1746604056579</updated>
+    </task>
+    <task id="LOCAL-00216" summary="fix mission complete message">
+      <created>1746610506832</created>
+      <option name="number" value="00216" />
+      <option name="presentableId" value="LOCAL-00216" />
+      <option name="project" value="LOCAL" />
+      <updated>1746610506832</updated>
+    </task>
+    <task id="LOCAL-00217" summary="fix mission complete message">
+      <created>1746637095861</created>
+      <option name="number" value="00217" />
+      <option name="presentableId" value="LOCAL-00217" />
+      <option name="project" value="LOCAL" />
+      <updated>1746637095861</updated>
+    </task>
+    <task id="LOCAL-00218" summary="hash image">
+      <created>1746640971596</created>
+      <option name="number" value="00218" />
+      <option name="presentableId" value="LOCAL-00218" />
+      <option name="project" value="LOCAL" />
+      <updated>1746640971596</updated>
+    </task>
+    <task id="LOCAL-00219" summary="add PLRuleEventController and save +getall + delete method">
+      <created>1746646127769</created>
+      <option name="number" value="00219" />
+      <option name="presentableId" value="LOCAL-00219" />
+      <option name="project" value="LOCAL" />
+      <updated>1746646127769</updated>
+    </task>
+    <option name="localTasksCounter" value="220" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -634,10 +643,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="change multiply" />
-    <MESSAGE value="add api" />
-    <MESSAGE value="change multiply game" />
-    <MESSAGE value="add time duration in AppMemberController" />
     <MESSAGE value="change % to percent" />
     <MESSAGE value="add if/else / loop to rule post action" />
     <MESSAGE value="pl-rule-post-action" />
@@ -659,7 +664,11 @@
     <MESSAGE value="change sort" />
     <MESSAGE value="change in action types" />
     <MESSAGE value="remove flip image" />
-    <option name="LAST_COMMIT_MESSAGE" value="remove flip image" />
+    <MESSAGE value="change x-o" />
+    <MESSAGE value="fix mission complete message" />
+    <MESSAGE value="hash image" />
+    <MESSAGE value="add PLRuleEventController and save +getall + delete method" />
+    <option name="LAST_COMMIT_MESSAGE" value="add PLRuleEventController and save +getall + delete method" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -676,7 +685,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/alcity/utility/DTOUtil.java</url>
-          <line>234</line>
+          <line>249</line>
           <option name="timeStamp" value="23" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
@@ -691,12 +700,12 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/alcity/utility/DTOUtil.java</url>
-          <line>251</line>
+          <line>266</line>
           <option name="timeStamp" value="140" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/alcity/utility/DTOUtil.java</url>
-          <line>665</line>
+          <line>680</line>
           <option name="timeStamp" value="189" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">

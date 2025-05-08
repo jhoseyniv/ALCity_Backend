@@ -162,7 +162,7 @@ public class ImportHashImageProblemData_1 implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-
+/*
 
         log.info("Start Application...Import Problem 1");
         System.out.println("...Import Problem 1");
@@ -722,7 +722,7 @@ public class ImportHashImageProblemData_1 implements CommandLineRunner {
         AttributeValue  UserAlertAction_2_CheckCompletion_param_3_value= new AttributeValue(null,null,null,"INFO",null,null,null,null,Boolean.FALSE,null,UserAlertAction_2_CheckCompletion_param_3,1L,now,now,admin_1,admin_1,UserAlertAction_2_CheckCompletion.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action_Parameter);
         attributeValueService.save(UserAlertAction_2_CheckCompletion_param_3_value);
 
-
+*/
     }
 
 

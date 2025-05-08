@@ -156,7 +156,7 @@ public class ImportXOProblemData_3 implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-
+/*
         log.info("Start Application...Import Problem 3 X-O Probelm");
         System.out.println("...Import X-O Problem data");
         LocalDateTime current = LocalDateTime.now();
@@ -417,7 +417,7 @@ public class ImportXOProblemData_3 implements CommandLineRunner {
         attributeService.save(UserAlertAction_2_CheckCompletion_param_3);
         AttributeValue  callobjectaction_2_startTimer_param_3_value= new AttributeValue(null,null,null,"INFO",null,null,null,null,Boolean.FALSE,null,UserAlertAction_2_CheckCompletion_param_3,1L,now,now,admin_1,admin_1,UserAlertAction_2_O_win.getId(),AttributeOwnerType.Puzzle_Level_Rule_Post_Action_Parameter);
         attributeValueService.save(callobjectaction_2_startTimer_param_3_value);
-
+*/
 
 
     }
