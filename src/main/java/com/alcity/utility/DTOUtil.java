@@ -1218,6 +1218,7 @@ public class DTOUtil {
         dto.setValueExperssion(postAction.getValueExperssion());
         dto.setOrdering(postAction.getOrdering());
         dto.setOwnerId(postAction.getId());
+        dto.setActionKey(postAction.getActionKey());
         dto.setOwnerType(postAction.getOwnerType().name());
         return  dto;
     }
