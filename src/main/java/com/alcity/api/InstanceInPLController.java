@@ -47,7 +47,7 @@ public class InstanceInPLController {
     public ALCityResponseObject saveALCityObjectInPL(@RequestBody CityObjectInPLDTO dto)  {
         ALCityInstanceInPL savedRecord = null;
         ALCityResponseObject responseObject = new ALCityResponseObject();
-
+        if (dto.getName()==null) dto.setName("instance_"+dto.getRow()+"_"+dto.getCol()+"_"+dto.getZorder()+"_puzzle_id"+dto.getPuzzleLevelId());
         if (dto.getId() == null || dto.getId() <= 0L) { //save
             try {
                 savedRecord = service.save(dto,"Save");
