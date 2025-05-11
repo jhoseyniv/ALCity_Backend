@@ -4,10 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5930c325-0f2d-492f-8c8e-8494d79c6462" name="Changes" comment="disable database creation in JPA">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/d7da89e5-6f58-4aac-8cf4-01c7353c1162.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/d7da89e5-6f58-4aac-8cf4-01c7353c1162.xml" afterDir="false" />
+    <list default="true" id="5930c325-0f2d-492f-8c8e-8494d79c6462" name="Changes" comment="new web ui files added">
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/static/js/main.b9ba8390.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/static/js/main.b9ba8390.js.LICENSE.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/static/js/main.b9ba8390.js.map" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/alcity/importdata/ImportBaseData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/alcity/importdata/ImportBaseData.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -278,13 +279,7 @@
       <workItem from="1746724815223" duration="734000" />
       <workItem from="1746814427249" duration="728000" />
       <workItem from="1746942157870" duration="683000" />
-    </task>
-    <task id="LOCAL-00173" summary="add if/else / loop to rule post action">
-      <created>1745762539227</created>
-      <option name="number" value="00173" />
-      <option name="presentableId" value="LOCAL-00173" />
-      <option name="project" value="LOCAL" />
-      <updated>1745762539228</updated>
+      <workItem from="1746957031344" duration="966000" />
     </task>
     <task id="LOCAL-00174" summary="pl-rule-post-action">
       <created>1745778548926</created>
@@ -622,7 +617,14 @@
       <option name="project" value="LOCAL" />
       <updated>1746715333726</updated>
     </task>
-    <option name="localTasksCounter" value="222" />
+    <task id="LOCAL-00222" summary="new web ui files added">
+      <created>1746957253703</created>
+      <option name="number" value="00222" />
+      <option name="presentableId" value="LOCAL-00222" />
+      <option name="project" value="LOCAL" />
+      <updated>1746957253704</updated>
+    </task>
+    <option name="localTasksCounter" value="223" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -641,7 +643,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="add if/else / loop to rule post action" />
     <MESSAGE value="pl-rule-post-action" />
     <MESSAGE value="fix JourneyStepService edit bug" />
     <MESSAGE value="delete step journey fix bug" />
@@ -666,7 +667,8 @@
     <MESSAGE value="hash image" />
     <MESSAGE value="add PLRuleEventController and save +getall + delete method" />
     <MESSAGE value="disable database creation in JPA" />
-    <option name="LAST_COMMIT_MESSAGE" value="disable database creation in JPA" />
+    <MESSAGE value="new web ui files added" />
+    <option name="LAST_COMMIT_MESSAGE" value="new web ui files added" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -713,7 +715,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/alcity/service/alobject/AttributeService.java</url>
-          <line>801</line>
+          <line>804</line>
           <option name="timeStamp" value="250" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
