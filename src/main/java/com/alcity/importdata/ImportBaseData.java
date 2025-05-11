@@ -718,10 +718,10 @@ public class ImportBaseData implements CommandLineRunner {
         AttributeValue  move_ActionRenderer_param_aSync_value= new AttributeValue(false,null,null,null,null,null,null,null,Boolean.FALSE,null,move_Renderer_param_2,1L,now,now,admin_1,admin_1,move_Renderer.getId(),AttributeOwnerType.Action_Handler_Parameter);
         attributeValueService.save(move_ActionRenderer_param_aSync_value);
 
-        Attribute move_ActionRenderer_param_3 =new Attribute("formRow",move_Renderer.getId(),AttributeOwnerType.Action_Handler_Parameter,DataType.Integer,1L,now,now,admin_1,admin_1);
+        Attribute move_ActionRenderer_param_3 =new Attribute("fromRow",move_Renderer.getId(),AttributeOwnerType.Action_Handler_Parameter,DataType.Integer,1L,now,now,admin_1,admin_1);
         attributeService.save(move_ActionRenderer_param_3);
-        AttributeValue  move_ActionRenderer_param_formRow_value= new AttributeValue(null,0,null,null,null,null,null,null,Boolean.FALSE,null,move_ActionRenderer_param_3,1L,now,now,admin_1,admin_1,move_Renderer.getId(),AttributeOwnerType.Action_Handler_Parameter);
-        attributeValueService.save(move_ActionRenderer_param_formRow_value);
+        AttributeValue  move_ActionRenderer_param_fromRow_value= new AttributeValue(null,0,null,null,null,null,null,null,Boolean.FALSE,null,move_ActionRenderer_param_3,1L,now,now,admin_1,admin_1,move_Renderer.getId(),AttributeOwnerType.Action_Handler_Parameter);
+        attributeValueService.save(move_ActionRenderer_param_fromRow_value);
 
         Attribute move_ActionRenderer_param_4 =new Attribute("toRow",move_Renderer.getId(),AttributeOwnerType.Action_Handler_Parameter,DataType.Integer,1L,now,now,admin_1,admin_1);
         attributeService.save(move_ActionRenderer_param_4);

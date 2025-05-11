@@ -4,16 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5930c325-0f2d-492f-8c8e-8494d79c6462" name="Changes" comment="add PLRuleEventController and save +getall + delete method">
+    <list default="true" id="5930c325-0f2d-492f-8c8e-8494d79c6462" name="Changes" comment="disable database creation in JPA">
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/d7da89e5-6f58-4aac-8cf4-01c7353c1162.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/d7da89e5-6f58-4aac-8cf4-01c7353c1162.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/alcity/importdata/ImportBaseData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/alcity/importdata/ImportBaseData.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/alcity/importdata/ImportHashImageProblemData_1.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/alcity/importdata/ImportHashImageProblemData_1.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/alcity/importdata/ImportMazeProblemData_6.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/alcity/importdata/ImportMazeProblemData_6.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/alcity/importdata/ImportMemoryGameProblemData_4.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/alcity/importdata/ImportMemoryGameProblemData_4.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/alcity/importdata/ImportMultiplyProblemData_7.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/alcity/importdata/ImportMultiplyProblemData_7.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/alcity/importdata/ImportPipeGameProblemData_5.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/alcity/importdata/ImportPipeGameProblemData_5.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/alcity/importdata/ImportXOProblemData_3.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/alcity/importdata/ImportXOProblemData_3.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -279,21 +273,11 @@
       <workItem from="1746526971476" duration="12839000" />
       <workItem from="1746602584657" duration="3968000" />
       <workItem from="1746636887799" duration="5413000" />
-      <workItem from="1746692903676" duration="284000" />
-    </task>
-    <task id="LOCAL-00171" summary="add time duration in AppMemberController">
-      <created>1745344314240</created>
-      <option name="number" value="00171" />
-      <option name="presentableId" value="LOCAL-00171" />
-      <option name="project" value="LOCAL" />
-      <updated>1745344314240</updated>
-    </task>
-    <task id="LOCAL-00172" summary="change % to percent">
-      <created>1745659367871</created>
-      <option name="number" value="00172" />
-      <option name="presentableId" value="LOCAL-00172" />
-      <option name="project" value="LOCAL" />
-      <updated>1745659367871</updated>
+      <workItem from="1746692903676" duration="2990000" />
+      <workItem from="1746715279304" duration="423000" />
+      <workItem from="1746724815223" duration="734000" />
+      <workItem from="1746814427249" duration="728000" />
+      <workItem from="1746942157870" duration="683000" />
     </task>
     <task id="LOCAL-00173" summary="add if/else / loop to rule post action">
       <created>1745762539227</created>
@@ -624,7 +608,21 @@
       <option name="project" value="LOCAL" />
       <updated>1746646127769</updated>
     </task>
-    <option name="localTasksCounter" value="220" />
+    <task id="LOCAL-00220" summary="disable database creation in JPA">
+      <created>1746693315071</created>
+      <option name="number" value="00220" />
+      <option name="presentableId" value="LOCAL-00220" />
+      <option name="project" value="LOCAL" />
+      <updated>1746693315071</updated>
+    </task>
+    <task id="LOCAL-00221" summary="disable database creation in JPA">
+      <created>1746715333725</created>
+      <option name="number" value="00221" />
+      <option name="presentableId" value="LOCAL-00221" />
+      <option name="project" value="LOCAL" />
+      <updated>1746715333726</updated>
+    </task>
+    <option name="localTasksCounter" value="222" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -643,7 +641,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="change % to percent" />
     <MESSAGE value="add if/else / loop to rule post action" />
     <MESSAGE value="pl-rule-post-action" />
     <MESSAGE value="fix JourneyStepService edit bug" />
@@ -668,7 +665,8 @@
     <MESSAGE value="fix mission complete message" />
     <MESSAGE value="hash image" />
     <MESSAGE value="add PLRuleEventController and save +getall + delete method" />
-    <option name="LAST_COMMIT_MESSAGE" value="add PLRuleEventController and save +getall + delete method" />
+    <MESSAGE value="disable database creation in JPA" />
+    <option name="LAST_COMMIT_MESSAGE" value="disable database creation in JPA" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -725,7 +723,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/alcity/api/AppMemberController.java</url>
-          <line>109</line>
+          <line>107</line>
           <option name="timeStamp" value="255" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
@@ -765,7 +763,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/alcity/api/AppMemberController.java</url>
-          <line>125</line>
+          <line>123</line>
           <option name="timeStamp" value="272" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
@@ -827,6 +825,16 @@
           <url>file://$PROJECT_DIR$/src/main/java/com/alcity/service/puzzle/InstanceInPLService.java</url>
           <line>76</line>
           <option name="timeStamp" value="321" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/alcity/service/puzzle/InstanceInPLService.java</url>
+          <line>89</line>
+          <option name="timeStamp" value="323" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/alcity/service/alobject/AttributeService.java</url>
+          <line>86</line>
+          <option name="timeStamp" value="325" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
