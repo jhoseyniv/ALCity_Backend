@@ -78,6 +78,16 @@ public class AttributeService implements AttributeRepository {
         Attribute newAttribute = new Attribute(attribute.getName(),toOwner,newOwnerType,attribute.getDataType(),attribute.getVersion(),attribute.getCreated(),attribute.getUpdated(),
                 attribute.getCreatedBy(),attribute.getUpdatedBy());
         attributeRepository.save(newAttribute);
+        AttributeValue newValue =null;
+        Collection<AttributeValue> values = attribute.getAttributeValues();
+        Optional<AttributeValue> valueOptional = values.stream().findFirst();
+        if(valueOptional.isPresent()) {
+            AttributeValue value = valueOptional.get();
+            newValue =new AttributeValue(value.getBooleanValue(),value.getIntValue(),value.getLongValue(), value.getStringValue(), value.getObjectValue(),
+                    value.getDoubleValue(),value.getBinaryContentId(),value.getExpressionValue(),value.getExpression(),value.getBindedAttributeId(),value.getAttributeId(), value.getVersion(),value.getCreated() ,value.getUpdated(),
+                    value.getCreatedBy(),value.getUpdatedBy(),toOwner,newOwnerType);
+            attributeValueRepository.save(newValue);
+        }
         return newAttribute;
     }
 
