@@ -121,6 +121,21 @@ public class AttributeService implements AttributeRepository {
       }
         return copyAttributes;
     }
+    public Collection<Attribute> copyAllPropertiesFromTo(ALCityInstanceInPL from ,Collection<ALCityInstanceInPL> to){
+        Collection<Attribute>  copyAttributes = new ArrayList<>();
+        Collection<Attribute> properties = findByOwnerIdAndAttributeOwnerTypeNew(from.getId(), AttributeOwnerType.Instance_Puzzle_Group_Object_Property);
+        Iterator<ALCityInstanceInPL> instanceIterator = to.iterator();
+        while(instanceIterator.hasNext()){
+            ALCityInstanceInPL targetTnstance = instanceIterator.next();
+            Iterator<Attribute> iterator = properties.iterator();
+            while(iterator.hasNext()) {
+                Attribute attribute = iterator.next();
+                copyAttributesFromTo(from,targetTnstance,attribute);
+            }
+        }
+        return copyAttributes;
+    }
+
     @Override
     public Optional<Attribute> findById(Long id) {
         return attributeRepository.findById(id);
