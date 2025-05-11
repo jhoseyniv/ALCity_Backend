@@ -492,18 +492,21 @@ public class AttributeService implements AttributeRepository {
             objectInPGId = alCityInstanceInPLOptional.get().getAlCityObjectInPG().getId();
         return  objectInPGId;
     }
+
     public Collection<Attribute> defined_variables_in_pog(Collection<Attribute> variables,Long instanceId,long pgo_id) {
         Collection<Attribute> defined_variables_in_a_pg_object = new ArrayList<>();
         Iterator<Attribute> itr = variables.iterator();
         while(itr.hasNext()){
             Attribute attribute = itr.next();
-            Collection<AttributeValue> attributeValues = attribute.getAttributeValues();
-            if(attributeValues.size()>1){   // mean that attribute is defined in pog but  re-init in instance
-                attributeValues = attributeValues.stream().filter(attributeValue -> attributeValue.getOwnerId().equals(instanceId)).collect(Collectors.toList());
-                attribute.setAttributeValues(attributeValues);
+            Collection<AttributeValue> attributeValuesByInstances = attribute.getAttributeValues();
+            Collection<AttributeValue> attributeValuesByPOG = attribute.getAttributeValues();
+            attributeValuesByInstances = attributeValuesByInstances.stream().filter(attributeValue -> attributeValue.getOwnerId().equals(instanceId)).collect(Collectors.toList());
+
+            if(!attributeValuesByInstances.isEmpty()){   // mean that attribute is defined in pog but  re-init in instance
+                attribute.setAttributeValues(attributeValuesByInstances);
             }else { // mean that attribute is defined and init in pog only
-                attributeValues = attributeValues.stream().filter(attributeValue -> attributeValue.getOwnerId().equals(pgo_id)).collect(Collectors.toList());
-                attribute.setAttributeValues(attributeValues);
+                attributeValuesByPOG = attributeValuesByPOG.stream().filter(attributeValue -> attributeValue.getOwnerId().equals(pgo_id)).collect(Collectors.toList());
+                attribute.setAttributeValues(attributeValuesByPOG);
             }
             defined_variables_in_a_pg_object.add(attribute);
         }
