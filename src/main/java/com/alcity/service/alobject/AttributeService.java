@@ -77,6 +77,7 @@ public class AttributeService implements AttributeRepository {
     Attribute copyAnAttribute(Attribute attribute,Long toOwner,AttributeOwnerType newOwnerType){
         Attribute newAttribute = new Attribute(attribute.getName(),toOwner,newOwnerType,attribute.getDataType(),attribute.getVersion(),attribute.getCreated(),attribute.getUpdated(),
                 attribute.getCreatedBy(),attribute.getUpdatedBy());
+        attributeRepository.save(newAttribute);
         AttributeValue newValue =null;
         Collection<AttributeValue> newValues =new ArrayList<>();
         Collection<AttributeValue> values = attribute.getAttributeValues();
@@ -84,12 +85,10 @@ public class AttributeService implements AttributeRepository {
         if(valueOptional.isPresent()) {
             AttributeValue value = valueOptional.get();
             newValue =new AttributeValue(value.getBooleanValue(),value.getIntValue(),value.getLongValue(), value.getStringValue(), value.getObjectValue(),
-                    value.getDoubleValue(),value.getBinaryContentId(),value.getExpressionValue(),value.getExpression(),value.getBindedAttributeId(),value.getAttributeId(), value.getVersion(),value.getCreated() ,value.getUpdated(),
+                    value.getDoubleValue(),value.getBinaryContentId(),value.getExpressionValue(),value.getExpression(),value.getBindedAttributeId(),newAttribute, value.getVersion(),value.getCreated() ,value.getUpdated(),
                     value.getCreatedBy(),value.getUpdatedBy(),toOwner,newOwnerType);
-        newValues.add(value);
+        newValues.add(newValue);
         }
-        newAttribute.setAttributeValues(newValues);
-        attributeRepository.save(newAttribute);
         return newAttribute;
     }
 
