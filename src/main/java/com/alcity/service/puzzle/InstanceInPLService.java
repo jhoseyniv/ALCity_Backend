@@ -88,8 +88,8 @@ public class InstanceInPLService implements InstanceInPLRepository {
     @Transactional
     public ALCityResponseObject copyAllInstances(ALCityInstanceInPL instance, PLGround plGround) {
         Collection<ALCityInstanceInPL> instances = copyInstances(instance,plGround);
-        Collection<Attribute> variables = attributeService.copyAllAttributesFromTo(instance ,instances,AttributeOwnerType.Instance_Puzzle_Group_Object_Variable);
-        Collection<Attribute> properties = attributeService.copyAllAttributesFromTo(instance ,instances,AttributeOwnerType.Instance_Puzzle_Group_Object_Property);
+        Collection<Attribute> variables = attributeService.copyAllVariablesFromTo(instance ,instances);
+        //Collection<Attribute> properties = attributeService.copyAllAttributesFromTo(instance ,instances,AttributeOwnerType.Instance_Puzzle_Group_Object_Property);
 
         return new ALCityResponseObject(HttpStatus.OK.value(), "ok", 1L,"All Records Copied Successfully!");
 

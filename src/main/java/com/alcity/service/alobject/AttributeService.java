@@ -60,32 +60,54 @@ public class AttributeService implements AttributeRepository {
         return attributeRepository.saveAll(entities);
     }
     @Transactional
+    AttributeValue copyAnAttributeValue(Attribute attribute,Long fromOwner,Long toOwner,AttributeOwnerType newOwnerType){
+        Collection<AttributeValue> values = attribute.getAttributeValues();
+        AttributeValue newAttributeValue=null;
+         Optional<AttributeValue> attributeValueOptional = values.stream().filter(value -> value.getOwnerId().equals(fromOwner)).collect(Collectors.toList()).stream().findFirst();
+              if(attributeValueOptional.isPresent()) {
+                  AttributeValue value = attributeValueOptional.get();
+                   newAttributeValue =new AttributeValue(value.getBooleanValue(),value.getIntValue(),value.getLongValue(), value.getStringValue(), value.getObjectValue(),
+                          value.getDoubleValue(),value.getBinaryContentId(),value.getExpressionValue(),value.getExpression(),value.getBindedAttributeId(),value.getAttributeId(), value.getVersion(),value.getCreated() ,value.getUpdated(),
+                          value.getCreatedBy(),value.getUpdatedBy(),toOwner,newOwnerType);
+              }
+        attributeValueRepository.save(newAttributeValue);
+        return newAttributeValue;
+    }
+    @Transactional
+    Attribute copyAnAttribute(Attribute attribute,Long toOwner,AttributeOwnerType newOwnerType){
+        Attribute newAttribute = new Attribute(attribute.getName(),toOwner,newOwnerType,attribute.getDataType(),attribute.getVersion(),attribute.getCreated(),attribute.getUpdated(),
+                attribute.getCreatedBy(),attribute.getUpdatedBy());
+        attributeRepository.save(newAttribute);
+        return newAttribute;
+    }
 
-    public Collection<Attribute> copyAllAttributesFromTo(ALCityInstanceInPL from ,Collection<ALCityInstanceInPL> to,AttributeOwnerType ownerType){
-        Collection<Attribute>  copyAttributes = new ArrayList<>();
-        Collection<AttributeValue>  copyAttributeValues = new ArrayList<>();
-        Collection<Attribute> variables = findByOwnerIdAndAttributeOwnerTypeNew(from.getId(), ownerType);
+    @Transactional
+    public void copyAttributesFromTo(ALCityInstanceInPL from ,ALCityInstanceInPL to,Attribute attribute) {
+        if(attribute.getOwnerId().equals(from.getId())) { // attribute is for instance
+            //copy attribute and values
+            copyAnAttribute(attribute, to.getId(), attribute.getAttributeOwnerType());
+        }else {
+            Long pgo = from.getAlCityObjectInPG().getId();
+            if (attribute.getOwnerId().equals(pgo)) { // attribute is belong to puzzle group object
+                //copy attributes only
+              copyAnAttributeValue(attribute, pgo, to.getId(), AttributeOwnerType.Instance_Puzzle_Group_Object_Variable);
+            }
+        }
+    }
+
+    public Collection<Attribute> copyAllVariablesFromTo(ALCityInstanceInPL from ,Collection<ALCityInstanceInPL> to){
+      Collection<Attribute>  copyAttributes = new ArrayList<>();
+      Collection<Attribute> variables = findByOwnerIdAndAttributeOwnerTypeNew(from.getId(), AttributeOwnerType.Instance_Puzzle_Group_Object_Variable);
 
       Iterator<ALCityInstanceInPL> instanceIterator = to.iterator();
       while(instanceIterator.hasNext()){
-          ALCityInstanceInPL instance = instanceIterator.next();
+          ALCityInstanceInPL targetTnstance = instanceIterator.next();
           Iterator<Attribute> iterator = variables.iterator();
           while(iterator.hasNext()) {
               Attribute attribute = iterator.next();
-              Collection<AttributeValue> attributeValues = attributeValueRepository.findByAttributeId(attribute);
-              Optional<AttributeValue> attributeValueOptional = attributeValues.stream().filter(value -> value.getOwnerId().equals(from.getId())).collect(Collectors.toList()).stream().findFirst();
-              if(attributeValueOptional.isPresent()) {
-                  AttributeValue value = attributeValueOptional.get();
-                  AttributeValue newAttributeValue =new AttributeValue(value.getBooleanValue(),value.getIntValue(),value.getLongValue(), value.getStringValue(), value.getObjectValue(),
-                          value.getDoubleValue(),value.getBinaryContentId(),value.getExpressionValue(),value.getExpression(),value.getBindedAttributeId(),value.getAttributeId(), value.getVersion(),value.getCreated() ,value.getUpdated(),
-                          value.getCreatedBy(),value.getUpdatedBy(),instance.getId(),value.getOwnerType());
-                  copyAttributeValues.add(newAttributeValue);
-              }
-
+              copyAttributesFromTo(from,targetTnstance,attribute);
           }
       }
-        attributeValueRepository.saveAll(copyAttributeValues);
-
         return copyAttributes;
     }
     @Override
