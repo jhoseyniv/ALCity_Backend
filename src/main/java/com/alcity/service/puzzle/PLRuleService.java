@@ -3,24 +3,25 @@ package com.alcity.service.puzzle;
 
 import com.alcity.dto.puzzle.PLObjectiveDTO;
 import com.alcity.dto.puzzle.PLRuleDTO;
+import com.alcity.entity.alenum.AttributeOwnerType;
+import com.alcity.entity.alobject.Attribute;
 import com.alcity.entity.appmember.AppMember;
 import com.alcity.entity.appmember.WalletItem;
 import com.alcity.entity.learning.LearningSkill;
-import com.alcity.entity.puzzle.PLObjective;
-import com.alcity.entity.puzzle.PLRule;
-import com.alcity.entity.puzzle.PLRuleEvent;
-import com.alcity.entity.puzzle.PuzzleLevel;
+import com.alcity.entity.puzzle.*;
 import com.alcity.repository.appmember.AppMemberRepository;
 import com.alcity.repository.puzzle.PLRuleEventRepository;
 import com.alcity.repository.puzzle.PLRuleRepository;
 import com.alcity.repository.puzzle.PuzzleLevelRepository;
 import com.alcity.service.appmember.AppMemberService;
+import com.alcity.utility.DTOUtil;
 import com.alcity.utility.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import org.springframework.transaction.annotation.Transactional;;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Optional;
 
@@ -31,6 +32,8 @@ public class PLRuleService implements PLRuleRepository {
     @Autowired
     @Qualifier("PLRuleRepository")
     PLRuleRepository ruleRepository;
+    @Autowired
+    PLRulePostActionService plRulePostActionService;
 
     @Override
     public <S extends PLRule> S save(S entity) {
@@ -83,6 +86,16 @@ public class PLRuleService implements PLRuleRepository {
     @Autowired
     PLRuleEventRepository PLRuleEventRepository;
 
+    public PLRule copy(PLRule rule) {
+        Collection<PLRulePostAction> postActions = DTOUtil.getPlRulePostActions(plRulePostActionService,rule);
+
+        PLRule newRule = new PLRule("Copy Of Rule "+rule.getTitle(),rule.getOrdering()+1,
+                rule.getCondition(),rule.getIgnoreRemaining(),rule.getPuzzleLevel(),rule.getPlRuleEvent(),rule.getSubEvent(),
+                rule.getVersion(),rule.getCreated(),rule.getUpdated(),rule.getCreatedBy(),rule.getUpdatedBy());
+        ruleRepository.save(newRule);
+        plRulePostActionService.copyAll(postActions,newRule.getId());
+        return newRule;
+    }
 
     public PLRule save(PLRuleDTO dto, String code) {
         Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");

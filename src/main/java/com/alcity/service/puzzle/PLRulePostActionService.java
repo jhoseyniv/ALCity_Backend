@@ -16,9 +16,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import org.springframework.transaction.IllegalTransactionStateException;
 import org.springframework.transaction.annotation.Transactional;;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.Optional;
 
 @Service
@@ -43,8 +45,19 @@ public class PLRulePostActionService implements PLRulePostActionRepository {
         return plRulePostActionRepository.save(entity);
     }
 
-    public PLRulePostAction copy(PLRulePostAction postAction) {
-        PLRulePostAction newPostAction = new PLRulePostAction(postAction.getOwnerId(),postAction.getOwnerType(),postAction.getPlRulePostActionType(),
+    public Collection<PLRulePostAction> copyAll(Collection<PLRulePostAction> postActions,Long newOwner) {
+        Collection<PLRulePostAction> copiedPostActions = new ArrayList<>();
+        Iterator<PLRulePostAction> iterator = postActions.iterator();
+        while(iterator.hasNext()){
+            PLRulePostAction postAction = iterator.next();
+            PLRulePostAction copiedPostAction = copy(postAction,newOwner);
+            copiedPostActions.add(copiedPostAction);
+        }
+        return copiedPostActions;
+    }
+
+    public PLRulePostAction copy(PLRulePostAction postAction,Long newOwner) {
+        PLRulePostAction newPostAction = new PLRulePostAction(newOwner,postAction.getOwnerType(),postAction.getPlRulePostActionType(),
                 postAction.getOrdering()+1,postAction.getActionName(), postAction.getObjectId(), postAction.getVariable(), postAction.getValueExperssion(),
                 postAction.getSubAction(), postAction.getAlertType(), postAction.getAlertMessage(), postAction.getActionKey(),
                 postAction.getVersion(), postAction.getCreated(), postAction.getUpdated(), postAction.getCreatedBy(),postAction.getUpdatedBy());
@@ -53,6 +66,7 @@ public class PLRulePostActionService implements PLRulePostActionRepository {
         attributeService.copyAttributes(parameters, newPostAction.getId(), AttributeOwnerType.Puzzle_Level_Rule_Post_Action);
         return newPostAction;
     }
+
     public PLRulePostAction save(PLRulePostActionDTO dto, String code) {
        Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
        PLRulePostAction postAction=null;

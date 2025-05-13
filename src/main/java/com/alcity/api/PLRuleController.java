@@ -92,14 +92,26 @@ public class PLRuleController {
     @Operation( summary = "Copy a  Post Action in puzzle level rule  ",  description = "Copy a  Post Action in puzzle level rule ")
     @PostMapping("/copy/post-action/id/{id}")
     @CrossOrigin(origins = "*")
-    public ALCityResponseObject copyInstanceToOtherCellsInPL(@PathVariable Long id) {
+    public ALCityResponseObject copyPostAction(@PathVariable Long id) {
         Optional<PLRulePostAction> postActionOptional = plRulePostActionService.findById(id);
         PLRulePostAction copiedAction = null;
         if(postActionOptional.isEmpty())
             return  new ALCityResponseObject(HttpStatus.OK.value(), "error",id , "post action not found !");
         PLRulePostAction postAction = postActionOptional.get();
-        copiedAction = plRulePostActionService.copy(postAction);
+        copiedAction = plRulePostActionService.copy(postAction,postAction.getOwnerId());
         return new ALCityResponseObject(HttpStatus.OK.value(), "ok", copiedAction.getId(), "Post Action is Copied Successfully!");
+    }
+    @Operation( summary = "Copy a  Rule in a puzzle level by rule id ",  description = "Copy a  Rule in puzzle level by rule id ")
+    @PostMapping("/copy/rule/id/{id}")
+    @CrossOrigin(origins = "*")
+    public ALCityResponseObject copyRule(@PathVariable Long id) {
+        Optional<PLRule> ruleOptional = plRuleService.findById(id);
+        PLRule copiedRule = null;
+        if(ruleOptional.isEmpty())
+            return  new ALCityResponseObject(HttpStatus.OK.value(), "error",id , "post action not found !");
+        PLRule rule = ruleOptional.get();
+        copiedRule = plRuleService.copy(rule);
+        return new ALCityResponseObject(HttpStatus.OK.value(), "ok", copiedRule.getId(), "PL Rule is Copied Successfully!");
     }
 
     @Operation( summary = "Save a puzzle level  Rule Post Action ",  description = "Save a puzzle level  Rule Post Action entity and their data to data base")
