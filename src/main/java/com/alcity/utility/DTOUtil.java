@@ -1205,7 +1205,7 @@ public class DTOUtil {
         dto.setHandler(actionRenderer.getHandler());
            return dto;
    }
-    public static PLRulePostActionDTO getPLRulePostActionDTO(PLRulePostAction postAction) {
+    public static PLRulePostActionDTO getPLRulePostActionDTO(PLRulePostAction postAction,AttributeService attributeService) {
         PLRulePostActionDTO dto = new PLRulePostActionDTO();
         dto.setId(postAction.getId());
         dto.setActionName(postAction.getActionName());
@@ -1217,20 +1217,22 @@ public class DTOUtil {
         dto.setVariable(postAction.getVariable());
         dto.setValueExperssion(postAction.getValueExperssion());
         dto.setOrdering(postAction.getOrdering());
-        dto.setOwnerId(postAction.getId());
+        dto.setOwnerId(postAction.getOwnerId());
         dto.setActionKey(postAction.getActionKey());
         dto.setOwnerType(postAction.getOwnerType().name());
+        Collection<Attribute> parameters = attributeService.findByOwnerIdAndAttributeOwnerTypeNew(postAction.getId(), AttributeOwnerType.Puzzle_Level_Rule_Post_Action);
+        dto.setParameters(parameters);
         return  dto;
     }
 
-    public static Collection<PLRulePostActionDTO> getPLRulePostActionDTOS(Collection<PLRulePostAction> postActions) {
+    public static Collection<PLRulePostActionDTO> getPLRulePostActionDTOS(Collection<PLRulePostAction> postActions,AttributeService attributeService) {
         Collection<PLRulePostActionDTO> dtos = new ArrayList<>();
         Comparator actionOrderingComparetor = new PLRulePostActionComparator();
 
         Iterator<PLRulePostAction> itr = postActions.iterator();
         while(itr.hasNext()){
             PLRulePostAction postAction = itr.next();
-            PLRulePostActionDTO dto = getPLRulePostActionDTO(postAction);
+            PLRulePostActionDTO dto = getPLRulePostActionDTO(postAction,attributeService);
             dtos.add(dto);
         }
         List<PLRulePostActionDTO> sortedList =new ArrayList<PLRulePostActionDTO>();

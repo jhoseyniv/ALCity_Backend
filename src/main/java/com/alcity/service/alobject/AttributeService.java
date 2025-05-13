@@ -60,7 +60,7 @@ public class AttributeService implements AttributeRepository {
         return attributeRepository.saveAll(entities);
     }
     @Transactional
-    AttributeValue copyAnAttributeValue(Attribute attribute,Long fromOwner,Long toOwner,AttributeOwnerType newOwnerType){
+    public AttributeValue copyAnAttributeValue(Attribute attribute,Long fromOwner,Long toOwner,AttributeOwnerType newOwnerType){
         Collection<AttributeValue> values = attribute.getAttributeValues();
         AttributeValue newAttributeValue=null;
          Optional<AttributeValue> attributeValueOptional = values.stream().filter(value -> value.getOwnerId().equals(fromOwner)).collect(Collectors.toList()).stream().findFirst();
@@ -73,8 +73,20 @@ public class AttributeService implements AttributeRepository {
         attributeValueRepository.save(newAttributeValue);
         return newAttributeValue;
     }
-    @Transactional
-    Attribute copyAnAttribute(Attribute attribute,Long toOwner,AttributeOwnerType newOwnerType){
+
+    public  Collection<Attribute> copyAttributes(Collection<Attribute> attributes,Long toOwner,AttributeOwnerType newOwnerType) {
+        Collection<Attribute> copyAttributes = new ArrayList<>();
+        Iterator<Attribute> iterator = attributes.iterator();
+        while(iterator.hasNext()){
+            Attribute attribute = iterator.next();
+            Attribute newAttribute = copyAnAttribute(attribute,toOwner,newOwnerType);
+            copyAttributes.add(newAttribute);
+        }
+        return  copyAttributes;
+    }
+
+        @Transactional
+    public  Attribute copyAnAttribute(Attribute attribute,Long toOwner,AttributeOwnerType newOwnerType){
         Attribute newAttribute = new Attribute(attribute.getName(),toOwner,newOwnerType,attribute.getDataType(),attribute.getVersion(),attribute.getCreated(),attribute.getUpdated(),
                 attribute.getCreatedBy(),attribute.getUpdatedBy());
         AttributeValue newValue =null;

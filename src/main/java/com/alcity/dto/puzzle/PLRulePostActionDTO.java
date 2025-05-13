@@ -1,5 +1,9 @@
 package com.alcity.dto.puzzle;
 
+import com.alcity.entity.alobject.Attribute;
+
+import java.util.Collection;
+
 public class PLRulePostActionDTO {
     private Long id;
 
@@ -18,6 +22,8 @@ public class PLRulePostActionDTO {
 
     private Long actionKey;
     private String plRulePostActionType;
+
+    private Collection<Attribute> parameters ;
 
     public Long getId() {
         return id;
@@ -121,6 +127,14 @@ public class PLRulePostActionDTO {
 
     public void setOwnerType(String ownerType) {
         this.ownerType = ownerType;
+    }
+
+    public Collection<Attribute> getParameters() {
+        return parameters;
+    }
+
+    public void setParameters(Collection<Attribute> parameters) {
+        this.parameters = parameters;
     }
 
     public PLRulePostActionDTO() {

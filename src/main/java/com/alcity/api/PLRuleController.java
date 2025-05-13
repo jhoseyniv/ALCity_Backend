@@ -1,7 +1,9 @@
 package com.alcity.api;
 
 import com.alcity.dto.puzzle.PLRulePostActionDTO;
+import com.alcity.entity.alobject.Attribute;
 import com.alcity.entity.puzzle.PLRulePostAction;
+import com.alcity.service.alobject.AttributeService;
 import com.alcity.service.customexception.ALCityResponseObject;
 import com.alcity.service.customexception.UniqueConstraintException;
 import com.alcity.service.customexception.ViolateForeignKeyException;
@@ -30,6 +32,8 @@ public class PLRuleController {
 
     @Autowired
     PLRulePostActionService plRulePostActionService;
+    @Autowired
+    AttributeService attributeService;
 
     @Operation( summary = "Save a puzzle level  Rule  ",  description = "Save a puzzle level  Rule entity and their data to data base")
     @PostMapping("/save")
@@ -81,10 +85,23 @@ public class PLRuleController {
         if(plRuleOptional.isPresent()) {
             PLRule rule = plRuleOptional.get();
             Collection<PLRulePostAction> plRulePostActions = DTOUtil.getPlRulePostActions(plRulePostActionService,rule);
-            rulePostActionDTOS = DTOUtil.getPLRulePostActionDTOS(plRulePostActions);
+            rulePostActionDTOS = DTOUtil.getPLRulePostActionDTOS(plRulePostActions,attributeService);
         }
         return rulePostActionDTOS;
     }
+    @Operation( summary = "Copy a  Post Action in puzzle level rule  ",  description = "Copy a  Post Action in puzzle level rule ")
+    @PostMapping("/copy/post-action/id/{id}")
+    @CrossOrigin(origins = "*")
+    public ALCityResponseObject copyInstanceToOtherCellsInPL(@PathVariable Long id) {
+        Optional<PLRulePostAction> postActionOptional = plRulePostActionService.findById(id);
+        PLRulePostAction copiedAction = null;
+        if(postActionOptional.isEmpty())
+            return  new ALCityResponseObject(HttpStatus.OK.value(), "error",id , "post action not found !");
+        PLRulePostAction postAction = postActionOptional.get();
+        copiedAction = plRulePostActionService.copy(postAction);
+        return new ALCityResponseObject(HttpStatus.OK.value(), "ok", copiedAction.getId(), "Post Action is Copied Successfully!");
+    }
+
     @Operation( summary = "Save a puzzle level  Rule Post Action ",  description = "Save a puzzle level  Rule Post Action entity and their data to data base")
     @PostMapping("/save/post-action")
     @CrossOrigin(origins = "*")

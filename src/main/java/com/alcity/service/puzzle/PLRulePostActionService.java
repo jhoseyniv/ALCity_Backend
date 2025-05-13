@@ -1,13 +1,16 @@
 package com.alcity.service.puzzle;
 
 import com.alcity.dto.puzzle.PLRulePostActionDTO;
+import com.alcity.entity.alenum.AttributeOwnerType;
 import com.alcity.entity.alenum.PLRulePostActionOwnerType;
 import com.alcity.entity.alenum.PLRulePostActionType;
+import com.alcity.entity.alobject.Attribute;
 import com.alcity.entity.appmember.AppMember;
 import com.alcity.entity.puzzle.PLRulePostAction;
 import com.alcity.repository.appmember.AppMemberRepository;
 import com.alcity.repository.puzzle.PLRulePostActionRepository;
 import com.alcity.repository.puzzle.PLRuleRepository;
+import com.alcity.service.alobject.AttributeService;
 import com.alcity.utility.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -32,10 +35,23 @@ public class PLRulePostActionService implements PLRulePostActionRepository {
     @Qualifier("PLRuleRepository")
     PLRuleRepository ruleRepository;
 
+    @Autowired
+    private AttributeService attributeService;
 
     @Override
     public <S extends PLRulePostAction> S save(S entity) {
         return plRulePostActionRepository.save(entity);
+    }
+
+    public PLRulePostAction copy(PLRulePostAction postAction) {
+        PLRulePostAction newPostAction = new PLRulePostAction(postAction.getOwnerId(),postAction.getOwnerType(),postAction.getPlRulePostActionType(),
+                postAction.getOrdering()+1,postAction.getActionName(), postAction.getObjectId(), postAction.getVariable(), postAction.getValueExperssion(),
+                postAction.getSubAction(), postAction.getAlertType(), postAction.getAlertMessage(), postAction.getActionKey(),
+                postAction.getVersion(), postAction.getCreated(), postAction.getUpdated(), postAction.getCreatedBy(),postAction.getUpdatedBy());
+         plRulePostActionRepository.save(newPostAction);
+        Collection<Attribute> parameters = attributeService.findByOwnerIdAndAttributeOwnerTypeNew(postAction.getId(), AttributeOwnerType.Puzzle_Level_Rule_Post_Action);
+        attributeService.copyAttributes(parameters, newPostAction.getId(), AttributeOwnerType.Puzzle_Level_Rule_Post_Action);
+        return newPostAction;
     }
     public PLRulePostAction save(PLRulePostActionDTO dto, String code) {
        Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
