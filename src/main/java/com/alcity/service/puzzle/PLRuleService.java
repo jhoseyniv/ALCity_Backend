@@ -87,7 +87,7 @@ public class PLRuleService implements PLRuleRepository {
     PLRuleEventRepository PLRuleEventRepository;
 
     public PLRule copy(PLRule rule) {
-        Collection<PLRulePostAction> postActions = DTOUtil.getPlRulePostActions(plRulePostActionService,rule);
+        Collection<PLRulePostAction> postActions = DTOUtil.getPlRulePostActions(plRulePostActionService,rule.getId());
 
         PLRule newRule = new PLRule("Copy Of Rule "+rule.getTitle(),rule.getOrdering()+1,
                 rule.getCondition(),rule.getIgnoreRemaining(),rule.getPuzzleLevel(),rule.getPlRuleEvent(),rule.getSubEvent(),
