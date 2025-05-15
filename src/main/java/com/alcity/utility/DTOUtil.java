@@ -1308,6 +1308,7 @@ public class DTOUtil {
 
         return sortedRules;
     }
+
     public static Collection<PLRulePostAction> getPlRulePostActions(PLRulePostActionService plRulePostActionService, Long ownerId ){
         Collection<PLRulePostAction>  postActions = plRulePostActionService.findByOwnerId(ownerId) ;
         Iterator<PLRulePostAction> iterator = postActions.iterator();
@@ -1315,9 +1316,9 @@ public class DTOUtil {
             PLRulePostAction postAction = iterator.next();
             inorder(plRulePostActionService , postAction);
         }
-
         return postActions;
     }
+
     public static void inorder(PLRulePostActionService plRulePostActionService,PLRulePostAction postAction)
     {
         ArrayList<PLRulePostAction>  postActions = plRulePostActionService.findByOwnerId(postAction.getId()) ;

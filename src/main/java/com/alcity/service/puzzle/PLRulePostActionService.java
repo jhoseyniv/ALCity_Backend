@@ -11,6 +11,7 @@ import com.alcity.repository.appmember.AppMemberRepository;
 import com.alcity.repository.puzzle.PLRulePostActionRepository;
 import com.alcity.repository.puzzle.PLRuleRepository;
 import com.alcity.service.alobject.AttributeService;
+import com.alcity.utility.DTOUtil;
 import com.alcity.utility.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -61,7 +62,19 @@ public class PLRulePostActionService implements PLRulePostActionRepository {
                 postAction.getOrdering()+1,postAction.getActionName(), postAction.getObjectId(), postAction.getVariable(), postAction.getValueExperssion(),
                 postAction.getSubAction(), postAction.getAlertType(), postAction.getAlertMessage(), postAction.getActionKey(),
                 postAction.getVersion(), postAction.getCreated(), postAction.getUpdated(), postAction.getCreatedBy(),postAction.getUpdatedBy());
-         plRulePostActionRepository.save(newPostAction);
+        plRulePostActionRepository.save(newPostAction);
+        Collection<Attribute> parameters = attributeService.findByOwnerIdAndAttributeOwnerTypeNew(postAction.getId(), AttributeOwnerType.Puzzle_Level_Rule_Post_Action);
+        attributeService.copyAttributes(parameters, newPostAction.getId(), AttributeOwnerType.Puzzle_Level_Rule_Post_Action);
+        return newPostAction;
+    }
+    public PLRulePostAction copyActionTree(PLRulePostAction postAction,Long newOwner) {
+        Collection<PLRulePostAction> plRulePostActions = DTOUtil.getPlRulePostActions(this,postAction.getId());
+
+        PLRulePostAction newPostAction = new PLRulePostAction(newOwner,postAction.getOwnerType(),postAction.getPlRulePostActionType(),
+                postAction.getOrdering()+1,postAction.getActionName(), postAction.getObjectId(), postAction.getVariable(), postAction.getValueExperssion(),
+                postAction.getSubAction(), postAction.getAlertType(), postAction.getAlertMessage(), postAction.getActionKey(),
+                postAction.getVersion(), postAction.getCreated(), postAction.getUpdated(), postAction.getCreatedBy(),postAction.getUpdatedBy());
+        plRulePostActionRepository.save(newPostAction);
         Collection<Attribute> parameters = attributeService.findByOwnerIdAndAttributeOwnerTypeNew(postAction.getId(), AttributeOwnerType.Puzzle_Level_Rule_Post_Action);
         attributeService.copyAttributes(parameters, newPostAction.getId(), AttributeOwnerType.Puzzle_Level_Rule_Post_Action);
         return newPostAction;
