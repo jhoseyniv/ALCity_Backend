@@ -84,11 +84,26 @@ public class PLRuleController {
         Optional<PLRule> plRuleOptional = plRuleService.findById(id);
         if(plRuleOptional.isPresent()) {
             PLRule rule = plRuleOptional.get();
-            Collection<PLRulePostAction> plRulePostActions = DTOUtil.getPlRulePostActions(plRulePostActionService,rule);
+            Collection<PLRulePostAction> plRulePostActions = DTOUtil.getPlRulePostActions(plRulePostActionService,rule.getId());
             rulePostActionDTOS = DTOUtil.getPLRulePostActionDTOS(plRulePostActions,attributeService);
         }
         return rulePostActionDTOS;
     }
+    @Operation( summary = "Fetch all Post Actions as child actions for a post action by Id ",  description = "Fetch all Post Actions as child actions for a post action by Id ")
+    @RequestMapping(value = "/pid/{pid}/child-post-actions/all", method = RequestMethod.GET)
+    @ResponseBody
+    @CrossOrigin(origins = "*")
+    public Collection<PLRulePostActionDTO> getChildPostActionsForAnotherPostActionId(@PathVariable Long pid) {
+        Collection<PLRulePostActionDTO> rulePostActionDTOS = new ArrayList<>();
+        Optional<PLRulePostAction> postActionOptional = plRulePostActionService.findById(pid);
+        if(postActionOptional.isPresent()) {
+            PLRulePostAction action = postActionOptional.get();
+            Collection<PLRulePostAction> plRulePostActions = DTOUtil.getPlRulePostActions(plRulePostActionService,action.getId());
+            rulePostActionDTOS = DTOUtil.getPLRulePostActionDTOS(plRulePostActions,attributeService);
+        }
+        return rulePostActionDTOS;
+    }
+
     @Operation( summary = "Copy a  Post Action in puzzle level rule  ",  description = "Copy a  Post Action in puzzle level rule ")
     @PostMapping("/copy/post-action/id/{id}")
     @CrossOrigin(origins = "*")

@@ -1308,17 +1308,17 @@ public class DTOUtil {
 
         return sortedRules;
     }
-    public static Collection<PLRulePostAction> getPlRulePostActions(PLRulePostActionService plRulePostActionService, PLRule plRule ){
-        Collection<PLRulePostAction>  postActions = plRulePostActionService.findByOwnerId(plRule.getId()) ;
+    public static Collection<PLRulePostAction> getPlRulePostActions(PLRulePostActionService plRulePostActionService, Long ownerId ){
+        Collection<PLRulePostAction>  postActions = plRulePostActionService.findByOwnerId(ownerId) ;
         Iterator<PLRulePostAction> iterator = postActions.iterator();
         while(iterator.hasNext()) {
             PLRulePostAction postAction = iterator.next();
-             inorder(plRulePostActionService , postAction);
+            inorder(plRulePostActionService , postAction);
         }
 
         return postActions;
     }
-    static void inorder(PLRulePostActionService plRulePostActionService,PLRulePostAction postAction)
+    public static void inorder(PLRulePostActionService plRulePostActionService,PLRulePostAction postAction)
     {
         ArrayList<PLRulePostAction>  postActions = plRulePostActionService.findByOwnerId(postAction.getId()) ;
         if (postAction == null || postActions.isEmpty())
@@ -1338,7 +1338,7 @@ public class DTOUtil {
     }
     public static Collection<RuleActionData> getRuleActionData(PLRulePostActionService plRulePostActionService, AttributeService attributeService , PLRule plRule){
         Collection<RuleActionData> actions = new ArrayList<RuleActionData>();
-        Collection<PLRulePostAction> plRulePostActions = getPlRulePostActions(plRulePostActionService, plRule);
+        Collection<PLRulePostAction> plRulePostActions = getPlRulePostActions(plRulePostActionService, plRule.getId());
         Iterator<PLRulePostAction> iterator = plRulePostActions.iterator();
         while(iterator.hasNext()) {
             Collection<RecordData> parameters = new ArrayList<RecordData>();
