@@ -215,8 +215,34 @@ public class PLController {
             plRuleDTOS = DTOUtil.getRulesForPuzzleLevel(puzzleLevelOptional.get());
         return plRuleDTOS;
     }
-
-    @Operation( summary = "Save a puzzle level  ",  description = "Save a puzzle level  entity and their data to data base")
+    @Operation( summary = "Copy a puzzle level by id  ",  description = "copy a puzzle level  entity and their data")
+    @PostMapping("/copy")
+    @CrossOrigin(origins = "*")
+    public ALCityResponseObject copyPuzzleLevel(@RequestBody PLCopyDTO dto) {
+        /*copy memory game with id
+        {
+          "title": "copy of memory game",
+          "code": "4800",
+          "fromAge": 16,
+          "toAge": 19,
+          "puzzleLevelId": 461 ,
+          "rules": true,
+          "variables": true,
+          "objectives": true,
+          "instances": true,
+          "learningTopics": true,
+          "plground": true
+        }
+        *
+        */
+        ALCityResponseObject responseObject = new ALCityResponseObject();
+        Optional<PuzzleLevel> puzzleLevelOptional = puzzleLevelService.findById(dto.getPuzzleLevelId());
+        if(puzzleLevelOptional.isEmpty()) return  new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", -1L, "Puzzle Level id not found!");
+        PuzzleLevel puzzleLevel = puzzleLevelOptional.get();
+        PuzzleLevel copyPuzzleLevel =puzzleLevelService.copy(puzzleLevel,dto);
+        return new ALCityResponseObject(HttpStatus.OK.value(), "ok", copyPuzzleLevel.getId(), "Puzzle Level Copied Successfully!");
+    }
+        @Operation( summary = "Save a puzzle level  ",  description = "Save a puzzle level  entity and their data to data base")
     @PostMapping("/save")
     @CrossOrigin(origins = "*")
     public ALCityResponseObject savePuzzleLevel(@RequestBody PLDTO dto)  {

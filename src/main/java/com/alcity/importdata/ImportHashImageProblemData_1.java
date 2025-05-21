@@ -162,8 +162,8 @@ public class ImportHashImageProblemData_1 implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-/*
 
+/*
         log.info("Start Application...Import Problem 1");
         System.out.println("...Import Problem 1");
         LocalDateTime current = LocalDateTime.now();

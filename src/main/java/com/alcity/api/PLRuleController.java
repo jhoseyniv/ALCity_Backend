@@ -125,7 +125,7 @@ public class PLRuleController {
         if(ruleOptional.isEmpty())
             return  new ALCityResponseObject(HttpStatus.OK.value(), "error",id , "post action not found !");
         PLRule rule = ruleOptional.get();
-        copiedRule = plRuleService.copy(rule);
+        copiedRule = plRuleService.copy(rule,rule.getPuzzleLevel());
         return new ALCityResponseObject(HttpStatus.OK.value(), "ok", copiedRule.getId(), "PL Rule is Copied Successfully!");
     }
 

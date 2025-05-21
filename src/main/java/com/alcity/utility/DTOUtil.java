@@ -1212,7 +1212,10 @@ public class DTOUtil {
         dto.setAlertMessage(postAction.getAlertMessage());
         dto.setAlertType(postAction.getAlertType());
         dto.setPlRulePostActionType(postAction.getPlRulePostActionType().name());
-        dto.setSubAction(postAction.getSubAction());
+        if(postAction.getSubAction()==null)
+            dto.setSubAction("");
+        else
+            dto.setSubAction(postAction.getSubAction());
         dto.setObjectId(postAction.getObjectId());
         dto.setVariable(postAction.getVariable());
         dto.setValueExperssion(postAction.getValueExperssion());

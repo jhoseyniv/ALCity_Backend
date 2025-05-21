@@ -18,7 +18,9 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import org.springframework.transaction.annotation.Transactional;;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.Optional;
 
 
@@ -119,7 +121,25 @@ public class PLObjectiveService implements PLObjectiveRepository {
     @Autowired
     private AppMemberRepository appMemberRepository;
 
-    public PLObjective save(PLObjectiveDTO dto, String code) {
+    public Collection<PLObjective> copyObjectives(Collection<PLObjective> objectives,PuzzleLevel puzzleLevel){
+        Collection<PLObjective> copiedObjectives = new ArrayList<>();
+        Iterator<PLObjective> iterator = objectives.iterator();;
+        while(iterator.hasNext()){
+            PLObjective objective = iterator.next();
+            PLObjective copyObjective = copy(objective,puzzleLevel);
+            copiedObjectives.add(copyObjective);
+        }
+        return copiedObjectives;
+    }
+    public PLObjective copy(PLObjective objective,PuzzleLevel copyPuzzleLevel) {
+        PLObjective plObjective = new PLObjective(objective.getTitle(), objective.getDescription(), objective.getSkillAmount(),objective.getRewardAmount(),
+                objective.getCondition(),objective.getLearningSkill(),objective.getWalletItem(),
+                copyPuzzleLevel,1L, DateUtils.getNow(), DateUtils.getNow(),objective.getCreatedBy(), objective.getUpdatedBy());
+        objectiveRepository.save(plObjective);
+        return plObjective;
+    }
+
+        public PLObjective save(PLObjectiveDTO dto, String code) {
         Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
         PLObjective plObjective=null;
         Optional<LearningSkill> learningSkillOptional =  learningSkillRepository.findById(dto.getSkillId());

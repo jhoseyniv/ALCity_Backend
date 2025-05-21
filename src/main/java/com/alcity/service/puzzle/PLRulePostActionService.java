@@ -63,10 +63,12 @@ public class PLRulePostActionService implements PLRulePostActionRepository {
                 postAction.getSubAction(), postAction.getAlertType(), postAction.getAlertMessage(), postAction.getActionKey(),
                 postAction.getVersion(), postAction.getCreated(), postAction.getUpdated(), postAction.getCreatedBy(),postAction.getUpdatedBy());
         plRulePostActionRepository.save(newPostAction);
-        Collection<Attribute> parameters = attributeService.findByOwnerIdAndAttributeOwnerTypeNew(postAction.getId(), AttributeOwnerType.Puzzle_Level_Rule_Post_Action);
-        attributeService.copyAttributes(parameters, newPostAction.getId(), AttributeOwnerType.Puzzle_Level_Rule_Post_Action);
+        Collection<Attribute> parameters = attributeService.findByOwnerIdAndAttributeOwnerTypeNew(postAction.getId(), AttributeOwnerType.Puzzle_Level_Rule_Post_Action_Parameter);
+        attributeService.copyAttributes(parameters, newPostAction.getId(), AttributeOwnerType.Puzzle_Level_Rule_Post_Action_Parameter);
         return newPostAction;
     }
+
+    /*
     public PLRulePostAction copyActionTree(PLRulePostAction postAction,Long newOwner) {
         Collection<PLRulePostAction> plRulePostActions = DTOUtil.getPlRulePostActions(this,postAction.getId());
 
@@ -79,7 +81,7 @@ public class PLRulePostActionService implements PLRulePostActionRepository {
         attributeService.copyAttributes(parameters, newPostAction.getId(), AttributeOwnerType.Puzzle_Level_Rule_Post_Action);
         return newPostAction;
     }
-
+*/
     public PLRulePostAction save(PLRulePostActionDTO dto, String code) {
        Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
        PLRulePostAction postAction=null;

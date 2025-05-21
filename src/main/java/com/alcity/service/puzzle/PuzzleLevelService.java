@@ -1,27 +1,32 @@
 package com.alcity.service.puzzle;
 
 import com.alcity.dto.importjson.PLDataImport;
+import com.alcity.dto.puzzle.PLCopyDTO;
 import com.alcity.dto.puzzle.PLDTO;
 import com.alcity.dto.puzzle.PuzzleLevelStepMappingDTO;
+import com.alcity.entity.alenum.AttributeOwnerType;
 import com.alcity.entity.alenum.PLDifficulty;
 import com.alcity.entity.alenum.PLStatus;
+import com.alcity.entity.alobject.Attribute;
 import com.alcity.entity.base.BinaryContent;
 import com.alcity.entity.base.PLPrivacy;
 import com.alcity.entity.journey.JourneyStep;
-import com.alcity.entity.puzzle.PuzzleGroup;
-import com.alcity.entity.puzzle.PuzzleLevel;
+import com.alcity.entity.puzzle.*;
 import com.alcity.entity.appmember.AppMember;
 import com.alcity.repository.base.PLPrivacyRepository;
 import com.alcity.repository.journey.JourneyStepRepository;
 import com.alcity.repository.puzzle.PGRepository;
 import com.alcity.repository.puzzle.PuzzleLevelRepository;
 import com.alcity.repository.appmember.AppMemberRepository;
+import com.alcity.service.alobject.AttributeService;
 import com.alcity.service.appmember.AppMemberService;
 import com.alcity.service.base.BinaryContentService;
 import com.alcity.utility.DTOUtil;
 import com.alcity.utility.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import org.springframework.transaction.annotation.Transactional;;
@@ -175,6 +180,22 @@ public class PuzzleLevelService implements PuzzleLevelRepository {
     @Autowired
     private AppMemberService appMemberService;
 
+    @Autowired
+    private PLGroundService plGroundService;
+
+    @Autowired
+    private AttributeService attributeService;
+    @Autowired
+    private PLObjectiveService plObjectiveService;
+    @Autowired
+    private PLRuleService plRuleService;
+    @Autowired
+    PLLearningTopicService plLearningTopicService;
+
+    @Autowired
+    @Lazy
+    private InstanceInPLService instanceInPLService;
+
     public PuzzleLevel getPuzzleLevelFromJson(PLDataImport plData) {
         Optional<AppMember> creatorOptional = appMemberService.findByUsername("admin");
        PuzzleLevel puzzleLevel = new PuzzleLevel();
@@ -192,7 +213,46 @@ public class PuzzleLevelService implements PuzzleLevelRepository {
     }
 
 
-        public PuzzleLevel save(PLDTO dto, String code) {
+    public PuzzleLevel copy(PuzzleLevel puzzleLevel,PLCopyDTO dto) {
+        // copy puzzle level header
+        PuzzleLevel copyPuzzleLevel = new PuzzleLevel(puzzleLevel.getCreator(),puzzleLevel.getApproveDate(), puzzleLevel.getOrdering(),
+               dto.getTitle(),dto.getCode(),dto.getFromAge(),dto.getToAge(),
+               puzzleLevel.getMaxScore(), puzzleLevel.getFirstStarScore(), puzzleLevel.getSecondStarScore(), puzzleLevel.getThirdStartScore(),
+               puzzleLevel.getPuzzleGroup(),puzzleLevel.getPuzzleDifficulty(),puzzleLevel.getPuzzleLevelStatus(),puzzleLevel.getPuzzleLevelPrivacy(),
+               puzzleLevel.getPicture(),puzzleLevel.getIcon() , 1L, DateUtils.getNow(), DateUtils.getNow(), puzzleLevel.getCreatedBy(), puzzleLevel.getUpdatedBy());
+        puzzleLevelRepository.save(copyPuzzleLevel);
+
+        // copy puzzle level ground
+        PLGround plGround = puzzleLevel.getPlGrounds().iterator().next();
+        PLGround copyPLGround = new PLGround(plGround.getNumRows(),plGround.getNumColumns(),
+                plGround.getxPosition(),plGround.getyPosition(),plGround.getzPosition(),
+                plGround.getxRotation(),plGround.getyRotation(),plGround.getzRotation(),
+                plGround.getZoom(),plGround.getPan(),plGround.getRotation(),
+                copyPuzzleLevel,plGround.getBoardGraphic()
+                , 1L, DateUtils.getNow(), DateUtils.getNow(), plGround.getCreatedBy(), plGround.getUpdatedBy());
+        plGroundService.save(copyPLGround);
+
+        //copy puzzle level objectives
+        Collection<PLObjective> objectives =  puzzleLevel.getPlObjectives();
+        Collection<PLObjective> copiedObjectives =plObjectiveService.copyObjectives(objectives,copyPuzzleLevel);
+
+        Collection<ALCityInstanceInPL> copiedInstances = instanceInPLService.copyInstancesFromSourcePLToTargetPL(puzzleLevel,copyPuzzleLevel);
+
+        //copy puzzle level variables
+        Collection<Attribute> variables = attributeService.findByOwnerIdAndAttributeOwnerTypeNew(puzzleLevel.getId(), AttributeOwnerType.Puzzle_Level_Variable);
+        Collection<Attribute> copiedAttributes = attributeService.copyALLAttributesFromPLToPL(variables,puzzleLevel,copyPuzzleLevel,AttributeOwnerType.Puzzle_Level_Variable);
+
+        //copy puzzle level rules
+        Collection<PLRule> rules = puzzleLevel.getPuzzleLevelRuleCollection();
+        Collection<PLRule> copiedRules = plRuleService.copyAll(rules,copyPuzzleLevel);
+
+        Collection<LearningTopicInPL> topics = puzzleLevel.getLearningTopicInPLCollection();
+        Collection<LearningTopicInPL> copyTopics = plLearningTopicService.copyAll(topics,copyPuzzleLevel);
+
+        return puzzleLevel;
+    }
+
+    public PuzzleLevel save(PLDTO dto, String code) {
         Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
         PuzzleLevel puzzleLevel=null;
         PLDifficulty plDifficulty =  PLDifficulty.getByTitle(dto.getPuzzleLevelDifficulty());

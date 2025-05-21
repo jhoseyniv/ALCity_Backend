@@ -12,6 +12,7 @@ import com.alcity.entity.alobject.Renderer;
 import com.alcity.entity.appmember.AppMember;
 import com.alcity.entity.puzzle.ALCityInstanceInPL;
 import com.alcity.entity.puzzle.ALCityObjectInPG;
+import com.alcity.entity.puzzle.PuzzleLevel;
 import com.alcity.repository.alobject.ActionRepository;
 import com.alcity.repository.alobject.AttributeRepository;
 import com.alcity.repository.alobject.AttributeValueRepository;
@@ -64,12 +65,12 @@ public class AttributeService implements AttributeRepository {
         Collection<AttributeValue> values = attribute.getAttributeValues();
         AttributeValue newAttributeValue=null;
          Optional<AttributeValue> attributeValueOptional = values.stream().filter(value -> value.getOwnerId().equals(fromOwner)).collect(Collectors.toList()).stream().findFirst();
-              if(attributeValueOptional.isPresent()) {
+   //           if(attributeValueOptional.isPresent()) {
                   AttributeValue value = attributeValueOptional.get();
                    newAttributeValue =new AttributeValue(value.getBooleanValue(),value.getIntValue(),value.getLongValue(), value.getStringValue(), value.getObjectValue(),
                           value.getDoubleValue(),value.getBinaryContentId(),value.getExpressionValue(),value.getExpression(),value.getBindedAttributeId(),value.getAttributeId(), value.getVersion(),value.getCreated() ,value.getUpdated(),
                           value.getCreatedBy(),value.getUpdatedBy(),toOwner,newOwnerType);
-              }
+          //    }
         attributeValueRepository.save(newAttributeValue);
         return newAttributeValue;
     }
@@ -106,48 +107,57 @@ public class AttributeService implements AttributeRepository {
     }
 
     @Transactional
-    public void copyAttributesFromTo(ALCityInstanceInPL from ,ALCityInstanceInPL to,Attribute attribute) {
+    public void copyOneAttributeFromInstanceToInstance(Attribute attribute , ALCityInstanceInPL from ,ALCityInstanceInPL to,AttributeOwnerType ownerType) {
         if(attribute.getOwnerId().equals(from.getId())) { // attribute is for instance
             //copy attribute and values
-            copyAnAttribute(attribute, to.getId(), attribute.getAttributeOwnerType());
+            Attribute copiedAttribute = copyAnAttribute(attribute, to.getId(), attribute.getAttributeOwnerType());
         }else {
             Long pgo = from.getAlCityObjectInPG().getId();
             if (attribute.getOwnerId().equals(pgo)) { // attribute is belong to puzzle group object
-                //copy attributes only
-              copyAnAttributeValue(attribute, pgo, to.getId(), AttributeOwnerType.Instance_Puzzle_Group_Object_Variable);
+                Collection<AttributeValue> values = attribute.getAttributeValues();
+                Optional<AttributeValue> isValueOverWiteByInstance = values.stream().filter(value -> value.getOwnerId().equals(from.getId())).collect(Collectors.toList()).stream().findFirst();
+                Long newOwnerOfValue = 0L;
+                if(isValueOverWiteByInstance.isPresent())
+                    newOwnerOfValue = from.getId();
+                else {
+                    newOwnerOfValue=pgo;
+                }
+                //copy attribute value only and so owner of attribute value is the instance yet
+              copyAnAttributeValue(attribute, newOwnerOfValue, to.getId(),ownerType);
             }
         }
     }
 
-    public Collection<Attribute> copyAllVariablesFromTo(ALCityInstanceInPL from ,Collection<ALCityInstanceInPL> to){
-      Collection<Attribute>  copyAttributes = new ArrayList<>();
-      Collection<Attribute> variables = findByOwnerIdAndAttributeOwnerTypeNew(from.getId(), AttributeOwnerType.Instance_Puzzle_Group_Object_Variable);
 
-      Iterator<ALCityInstanceInPL> instanceIterator = to.iterator();
-      while(instanceIterator.hasNext()){
-          ALCityInstanceInPL targetTnstance = instanceIterator.next();
-          Iterator<Attribute> iterator = variables.iterator();
-          while(iterator.hasNext()) {
-              Attribute attribute = iterator.next();
-              copyAttributesFromTo(from,targetTnstance,attribute);
-          }
-      }
-        return copyAttributes;
-    }
-    public Collection<Attribute> copyAllPropertiesFromTo(ALCityInstanceInPL from ,Collection<ALCityInstanceInPL> to){
+    public Collection<Attribute> copyALLAttributesFromInstanceToInstance(Collection<Attribute> attributes,ALCityInstanceInPL from ,ALCityInstanceInPL to,AttributeOwnerType ownerType){
         Collection<Attribute>  copyAttributes = new ArrayList<>();
-        Collection<Attribute> properties = findByOwnerIdAndAttributeOwnerTypeNew(from.getId(), AttributeOwnerType.Instance_Puzzle_Group_Object_Property);
-        Iterator<ALCityInstanceInPL> instanceIterator = to.iterator();
-        while(instanceIterator.hasNext()){
-            ALCityInstanceInPL targetTnstance = instanceIterator.next();
-            Iterator<Attribute> iterator = properties.iterator();
-            while(iterator.hasNext()) {
+
+        Iterator<Attribute> iterator =attributes.iterator();
+        while(iterator.hasNext()) {
                 Attribute attribute = iterator.next();
-                copyAttributesFromTo(from,targetTnstance,attribute);
-            }
+            copyOneAttributeFromInstanceToInstance(attribute,from,to,ownerType);
+         }
+
+        return copyAttributes;
+    }
+    @Transactional
+    public Attribute copyOneAttributesFromPLToPL(Attribute attribute , PuzzleLevel source ,PuzzleLevel target,AttributeOwnerType ownerType) {
+            //copy attribute and values
+            Attribute copiedAttribute = copyAnAttribute(attribute, target.getId(), attribute.getAttributeOwnerType());
+            return copiedAttribute;
+     }
+
+    public Collection<Attribute> copyALLAttributesFromPLToPL(Collection<Attribute> attributes, PuzzleLevel source , PuzzleLevel target, AttributeOwnerType ownerType){
+        Collection<Attribute>  copyAttributes = new ArrayList<>();
+
+        Iterator<Attribute> iterator =attributes.iterator();
+        while(iterator.hasNext()) {
+            Attribute attribute = iterator.next();
+            copyOneAttributesFromPLToPL(attribute,source,target,ownerType);
         }
         return copyAttributes;
     }
+
 
     @Override
     public Optional<Attribute> findById(Long id) {

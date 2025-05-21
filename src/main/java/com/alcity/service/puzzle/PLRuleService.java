@@ -23,6 +23,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.Optional;
 
 @Service
@@ -86,11 +87,23 @@ public class PLRuleService implements PLRuleRepository {
     @Autowired
     PLRuleEventRepository PLRuleEventRepository;
 
-    public PLRule copy(PLRule rule) {
+    public Collection<PLRule> copyAll(Collection<PLRule> rules,PuzzleLevel puzzleLevel) {
+        Collection<PLRule> copiedRules = new ArrayList<>();
+        Iterator<PLRule> iterator = rules.iterator();
+        while(iterator.hasNext()){
+            PLRule rule = iterator.next();
+            PLRule copyRule = copy(rule,puzzleLevel);
+            copiedRules.add(copyRule);
+        }
+
+        return copiedRules;
+    }
+
+    public PLRule copy(PLRule rule,PuzzleLevel puzzleLevel) {
         Collection<PLRulePostAction> postActions = DTOUtil.getPlRulePostActions(plRulePostActionService,rule.getId());
 
         PLRule newRule = new PLRule("Copy Of Rule "+rule.getTitle(),rule.getOrdering()+1,
-                rule.getCondition(),rule.getIgnoreRemaining(),rule.getPuzzleLevel(),rule.getPlRuleEvent(),rule.getSubEvent(),
+                rule.getCondition(),rule.getIgnoreRemaining(),puzzleLevel,rule.getPlRuleEvent(),rule.getSubEvent(),
                 rule.getVersion(),rule.getCreated(),rule.getUpdated(),rule.getCreatedBy(),rule.getUpdatedBy());
         ruleRepository.save(newRule);
         plRulePostActionService.copyAll(postActions,newRule.getId());

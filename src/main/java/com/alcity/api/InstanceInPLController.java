@@ -81,8 +81,9 @@ public class InstanceInPLController {
         PuzzleLevel puzzleLevel = instance.getPuzzleLevel();
         Collection<PLGround> plGrounds = puzzleLevel.getPlGrounds();
         PLGround plGround = plGrounds.iterator().next();
-        responseObject = service.copyAllInstances(instance,plGround);
-        return  responseObject;
+        Collection<ALCityInstanceInPL> copiedInstances = service.copyOneInstanceToOthers(instance,plGround);
+
+        return  new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "Success", -1L, "Instances copied Successfully!");
     }
 
 

@@ -10,6 +10,7 @@ import com.alcity.entity.base.PLPrivacy;
 import com.alcity.entity.learning.LearningContent;
 import com.alcity.entity.learning.LearningTopic;
 import com.alcity.entity.puzzle.LearningTopicInPL;
+import com.alcity.entity.puzzle.PLRule;
 import com.alcity.entity.puzzle.PuzzleGroup;
 import com.alcity.entity.puzzle.PuzzleLevel;
 import com.alcity.repository.appmember.AppMemberRepository;
@@ -26,7 +27,9 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import org.springframework.transaction.annotation.Transactional;;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.Optional;
 
 @Service
@@ -54,8 +57,28 @@ public class PLLearningTopicService implements PLLearningTopicRepository {
     public <S extends LearningTopicInPL> S save(S entity) {
         return plLearningTopicRepository.save(entity);
     }
+
+
+
+    public Collection<LearningTopicInPL> copyAll(Collection<LearningTopicInPL> topics, PuzzleLevel puzzleLevel) {
+        Collection<LearningTopicInPL> copiedTopics = new ArrayList<>();
+        Iterator<LearningTopicInPL> iterator = topics.iterator();
+        while(iterator.hasNext()){
+            LearningTopicInPL topic = iterator.next();
+            LearningTopicInPL copyTopic = copy(topic,puzzleLevel);
+            copiedTopics.add(copyTopic);
+        }
+        return copiedTopics;
+    }
+    public LearningTopicInPL copy(LearningTopicInPL learningTopic, PuzzleLevel puzzleLevel) {
+        LearningTopicInPL copyLearningTopicInPL = new LearningTopicInPL(puzzleLevel, learningTopic.getLearningTopic(), learningTopic.getLearningContent()
+                , 1L, DateUtils.getNow(), DateUtils.getNow(), learningTopic.getCreatedBy(), learningTopic.getUpdatedBy());
+        plLearningTopicRepository.save(copyLearningTopicInPL);
+        return copyLearningTopicInPL;
+    }
+
     public LearningTopicInPL save(PlLearningTopicDTO dto, String code) {
-        Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
+            Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
         LearningTopicInPL learningTopicInPL=null;
         Optional<LearningContent> learningContentOptional = learningContentService.findById(dto.getLearningContentId());
         Optional<LearningTopic> learningTopicOptional = learningTopicService.findById(dto.getLearningTopicId());
