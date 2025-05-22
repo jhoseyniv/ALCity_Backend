@@ -215,6 +215,7 @@ public class PuzzleLevelService implements PuzzleLevelRepository {
 
     public PuzzleLevel copy(PuzzleLevel puzzleLevel,PLCopyDTO dto) {
         // copy puzzle level header
+
         PuzzleLevel copyPuzzleLevel = new PuzzleLevel(puzzleLevel.getCreator(),puzzleLevel.getApproveDate(), puzzleLevel.getOrdering(),
                dto.getTitle(),dto.getCode(),dto.getFromAge(),dto.getToAge(),
                puzzleLevel.getMaxScore(), puzzleLevel.getFirstStarScore(), puzzleLevel.getSecondStarScore(), puzzleLevel.getThirdStartScore(),
@@ -223,32 +224,42 @@ public class PuzzleLevelService implements PuzzleLevelRepository {
         puzzleLevelRepository.save(copyPuzzleLevel);
 
         // copy puzzle level ground
-        PLGround plGround = puzzleLevel.getPlGrounds().iterator().next();
-        PLGround copyPLGround = new PLGround(plGround.getNumRows(),plGround.getNumColumns(),
-                plGround.getxPosition(),plGround.getyPosition(),plGround.getzPosition(),
-                plGround.getxRotation(),plGround.getyRotation(),plGround.getzRotation(),
-                plGround.getZoom(),plGround.getPan(),plGround.getRotation(),
-                copyPuzzleLevel,plGround.getBoardGraphic()
-                , 1L, DateUtils.getNow(), DateUtils.getNow(), plGround.getCreatedBy(), plGround.getUpdatedBy());
-        plGroundService.save(copyPLGround);
-
+        if(dto.getPLGround()) {
+            PLGround plGround = puzzleLevel.getPlGrounds().iterator().next();
+            PLGround copyPLGround = new PLGround(plGround.getNumRows(), plGround.getNumColumns(),
+                    plGround.getxPosition(), plGround.getyPosition(), plGround.getzPosition(),
+                    plGround.getxRotation(), plGround.getyRotation(), plGround.getzRotation(),
+                    plGround.getZoom(), plGround.getPan(), plGround.getRotation(),
+                    copyPuzzleLevel, plGround.getBoardGraphic()
+                    , 1L, DateUtils.getNow(), DateUtils.getNow(), plGround.getCreatedBy(), plGround.getUpdatedBy());
+            plGroundService.save(copyPLGround);
+        }
         //copy puzzle level objectives
-        Collection<PLObjective> objectives =  puzzleLevel.getPlObjectives();
-        Collection<PLObjective> copiedObjectives =plObjectiveService.copyObjectives(objectives,copyPuzzleLevel);
+        if(dto.getObjectives()) {
+            Collection<PLObjective> objectives = puzzleLevel.getPlObjectives();
+            Collection<PLObjective> copiedObjectives = plObjectiveService.copyObjectives(objectives, copyPuzzleLevel);
+        }
 
-        Collection<ALCityInstanceInPL> copiedInstances = instanceInPLService.copyInstancesFromSourcePLToTargetPL(puzzleLevel,copyPuzzleLevel);
+        //copy puzzle level instances
+        if(dto.getInstances()) {
+            Collection<ALCityInstanceInPL> copiedInstances = instanceInPLService.copyInstancesFromSourcePLToTargetPL(puzzleLevel, copyPuzzleLevel);
+        }
 
         //copy puzzle level variables
-        Collection<Attribute> variables = attributeService.findByOwnerIdAndAttributeOwnerTypeNew(puzzleLevel.getId(), AttributeOwnerType.Puzzle_Level_Variable);
-        Collection<Attribute> copiedAttributes = attributeService.copyALLAttributesFromPLToPL(variables,puzzleLevel,copyPuzzleLevel,AttributeOwnerType.Puzzle_Level_Variable);
+        if(dto.getVariables()) {
+            Collection<Attribute> variables = attributeService.findByOwnerIdAndAttributeOwnerTypeNew(puzzleLevel.getId(), AttributeOwnerType.Puzzle_Level_Variable);
+            Collection<Attribute> copiedAttributes = attributeService.copyALLAttributesFromPLToPL(variables, puzzleLevel, copyPuzzleLevel, AttributeOwnerType.Puzzle_Level_Variable);
+        }
 
         //copy puzzle level rules
-        Collection<PLRule> rules = puzzleLevel.getPuzzleLevelRuleCollection();
-        Collection<PLRule> copiedRules = plRuleService.copyAll(rules,copyPuzzleLevel);
-
-        Collection<LearningTopicInPL> topics = puzzleLevel.getLearningTopicInPLCollection();
-        Collection<LearningTopicInPL> copyTopics = plLearningTopicService.copyAll(topics,copyPuzzleLevel);
-
+        if(dto.getRules()) {
+            Collection<PLRule> rules = puzzleLevel.getPuzzleLevelRuleCollection();
+            Collection<PLRule> copiedRules = plRuleService.copyAll(rules, copyPuzzleLevel);
+        }
+        if(dto.getLearningTopics()) {
+            Collection<LearningTopicInPL> topics = puzzleLevel.getLearningTopicInPLCollection();
+            Collection<LearningTopicInPL> copyTopics = plLearningTopicService.copyAll(topics, copyPuzzleLevel);
+        }
         return puzzleLevel;
     }
 
