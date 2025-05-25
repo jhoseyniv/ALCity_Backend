@@ -235,14 +235,15 @@ public class PLController {
         }
         *
         */
-        ALCityResponseObject responseObject = new ALCityResponseObject();
+    ALCityResponseObject responseObject = new ALCityResponseObject();
         Optional<PuzzleLevel> puzzleLevelOptional = puzzleLevelService.findById(dto.getPuzzleLevelId());
         if(puzzleLevelOptional.isEmpty()) return  new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", -1L, "Puzzle Level id not found!");
         PuzzleLevel puzzleLevel = puzzleLevelOptional.get();
         PuzzleLevel copyPuzzleLevel =puzzleLevelService.copy(puzzleLevel,dto);
         return new ALCityResponseObject(HttpStatus.OK.value(), "ok", copyPuzzleLevel.getId(), "Puzzle Level Copied Successfully!");
     }
-        @Operation( summary = "Save a puzzle level  ",  description = "Save a puzzle level  entity and their data to data base")
+
+    @Operation( summary = "Save a puzzle level  ",  description = "Save a puzzle level  entity and their data to data base")
     @PostMapping("/save")
     @CrossOrigin(origins = "*")
     public ALCityResponseObject savePuzzleLevel(@RequestBody PLDTO dto)  {

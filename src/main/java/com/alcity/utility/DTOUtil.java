@@ -50,6 +50,21 @@ import static java.util.stream.Collectors.toList;
 
 public class DTOUtil {
 
+    public static PLTemplateDTO getPLTemplateDTO(PLTemplate template){
+        PLTemplateDTO dto= new PLTemplateDTO(template.getId(),template.getTitle(), template.getUrl(), template.getContent());
+        return dto;
+    }
+
+    public static Collection<PLTemplateDTO> getPuzzleLevelTemplateDTOS(Collection<PLTemplate> templates){
+        Iterator<PLTemplate> itr = templates.iterator();
+        Collection<PLTemplateDTO> dtos = new ArrayList<>();
+        while (itr.hasNext()) {
+            PLTemplateDTO dto = getPLTemplateDTO(itr.next());
+            dtos.add(dto);
+        }
+        return  dtos;
+    }
+
     public static PLRuleEventDTO getPLRuleEventDTO(PLRuleEvent event){
         PLRuleEventDTO dto= new PLRuleEventDTO(event.getId(),event.getName(), event.getPlRuleEventType().name(), event.getEventId());
         return dto;

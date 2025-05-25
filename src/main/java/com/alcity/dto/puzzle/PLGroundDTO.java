@@ -29,9 +29,6 @@ public class PLGroundDTO  implements Serializable {
 
     private Long puzzleLevelId;
 
-  //  private String puzzleLevelTitle;
-
-
     private BoardGraphicDTO boardGraphicDTO;
 
     public Integer getNumRows() {
