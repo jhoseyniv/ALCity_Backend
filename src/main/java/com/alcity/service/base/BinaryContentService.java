@@ -227,7 +227,9 @@ public class BinaryContentService implements BinaryContentRepository , BinaryCon
         if (code.equalsIgnoreCase("Save")) { // save
             byte[]  tumb = ImageUtil.getThumbnail(dto.getContent(),dto.getFileName());
             binaryContent = new BinaryContent(1L, DateUtils.getNow(), DateUtils.getNow(),createdBy.get() , createdBy.get(),dto.getFileName(),
-                    dto.getSize(), dto.getContent(), tumb, dto.getTag1(), dto.getTag2(), dto.getTag3(), BinaryContentType.getByTitle(dto.getContentType()));
+                    dto.getSize(), dto.getContent(), tumb,dto.getIs3dContent(),
+                    dto.getIos3Dcontent(), dto.getAndriod3Dcontent(), dto.getWeb3Dcontent(),
+                    dto.getTag1(), dto.getTag2(), dto.getTag3(), BinaryContentType.getByTitle(dto.getContentType()));
             binaryContentRepository.save(binaryContent);
         }else{//edit
             Optional<BinaryContent> binaryContentOptional= binaryContentRepository.findById(dto.getId());
@@ -238,6 +240,10 @@ public class BinaryContentService implements BinaryContentRepository , BinaryCon
                 binaryContent.setTag1(dto.getTag1());
                 binaryContent.setTag2(dto.getTag2());
                 binaryContent.setTag3(dto.getTag3());
+                binaryContent.setIs3dContent(dto.getIs3dContent());
+                binaryContent.setIos3Dcontent(dto.getIos3Dcontent());
+                binaryContent.setAndriod3Dcontent(dto.getAndriod3Dcontent());
+                binaryContent.setWeb3Dcontent(dto.getWeb3Dcontent());
                 binaryContent.setFileName(dto.getFileName());
                 binaryContent.setVersion(binaryContent.getVersion()+1);
                 binaryContentRepository.save(binaryContent);

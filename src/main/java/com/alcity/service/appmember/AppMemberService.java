@@ -58,43 +58,6 @@ public class AppMemberService implements AppMemberRepository, CustomizedUserRepo
     @Autowired
     private PuzzleLevelService puzzleLevelService;
 
-/*
-    public Collection<AppMemberJourneyStepDTO>  getJourneyStepsScore(Collection<PlayHistory> histories, Journey journey){
-        Collection<AppMemberJourneyStepDTO> dtos = new ArrayList<>();
-        Iterator<PlayHistory> itr = histories.iterator();
-        while(itr.hasNext()){
-            PlayHistory playHistory = itr.next();
-            JourneyStep journeyStep = puzzleLevelService.getJourneyStepIdMappedWithPuzzleLevel(journey,playHistory.getPuzzleLevel());
-            if(journeyStep.getJourney().getId() == journey.getId()) {
-                AppMemberJourneyStepDTO dto = new AppMemberJourneyStepDTO();
-                dto.setStepId(journeyStep.getId());
-                dto.setXpos(journeyStep.getXpos());
-                dto.setYpos(journeyStep.getYpos());
-                dto.setPuzzleLevelId(playHistory.getPuzzleLevel().getId());
-                dto.setStars(playHistory.getStars());
-                dto.setCompleted(Boolean.TRUE);
-                dtos.add(dto);
-            }
-        }
-        return dtos;
-    }
-
-    /*
-    public AppMemberJourneyDetailDTO getAppMemberJourneyDetailByScores(AppMember member, Journey journey) {
-        Integer age= member.getAge();
-        Collection<PlayHistory> histories = member.getPlayHistories();
-        Collection<PlayHistoryDTO> playHistoryDTOS = DTOUtil.getPlayHistoryDTOS(histories);
-        Collection<PlayHistoryDTO> filtredPlayHistoryDTOS = playHistoryDTOS.stream().filter(PlayHistoryDTO -> PlayHistoryDTO.getPlFromAge() <= age && age <= PlayHistoryDTO.getPlToAge()).collect(Collectors.toList());
-        AppMemberJourneyDetailDTO journeyDetailDTO = new AppMemberJourneyDetailDTO();
-        Collection<JourneyStepDTO> journeyStepDTOS = DTOUtil.getJorneyStepsDTOS(journey.getJourneyStepCollection());
-        journeyDetailDTO = DTOUtil.getAppMemberJourneyDetailDTO(filtredPlayHistoryDTOS,journeyStepDTOS);
-        Collection<RoadMapDTO> roadMapDTOS = DTOUtil.getJourneyRoadMapsDTOS(journey.getRoadMaps());
-        journeyDetailDTO.setRoadMapDTOS(roadMapDTOS);
-        journeyDetailDTO.setId(journey.getId());
-        journeyDetailDTO.setTitle(journey.getTitle());
-        return  journeyDetailDTO;
-    }
-*/
     public  Collection<PLDTO> getPublicPuzzleLevels(AppMember appMember){
         Collection<PLDTO>  pldtos= new ArrayList<PLDTO>();
         Collection<PuzzleLevel> puzzleLevels = puzzleLevelService.getPublicPuzzleLevelByAppMember(appMember);

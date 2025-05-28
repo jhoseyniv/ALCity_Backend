@@ -725,7 +725,8 @@ public class DTOUtil {
 
     public static BinaryContentDTO getBinaryContentDTOWithoutContent(BinaryContent content){
         BinaryContentDTO binaryContentDTO = new BinaryContentDTO(content.getId(), content.getVersion(), content.getCreated(), content.getUpdated(), content.getCreatedBy().getUsername(), content.getUpdatedBy().getUsername(),
-                content.getFileName(), content.getSize(), null, content.getThumbnail(), content.getContentType().name(),
+                content.getFileName(), content.getSize(), null, content.getThumbnail(),content.getIos3Dcontent(),content.getAndriod3Dcontent(),content.getWeb3Dcontent(),
+                content.getContentType().name(),content.getIs3dContent(),
                 content.getTag1(), content.getTag2(), content.getTag3());
         return binaryContentDTO;
     }

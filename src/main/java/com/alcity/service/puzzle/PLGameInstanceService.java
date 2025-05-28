@@ -50,12 +50,6 @@ public class PLGameInstanceService implements PLGameInstanceRepository {
         return instanceDTO;
     }
 
-//    public PLGameInstanceDTO startGameInstance(AppMember appMember, PuzzleLevel puzzleLevel, GameStatus gameStatus) {
-//        PLGameInstance  gameInstance = new PLGameInstance(appMember,puzzleLevel, DateUtils.getNow(),null,gameStatus,1L,DateUtils.getNow(),DateUtils.getNow(),appMember,appMember);
-//        plGameInstanceRepository.save(gameInstance);
-//        PLGameInstanceDTO instanceDTO = DTOUtil.getPLGameInstanceDTO(gameInstance);
-//        return  instanceDTO;
-//    }
 
     public PLGameInstanceDTO updateGameInstanceStatus(PLEventDTO plEventDTO) {
         Optional<AppMember> appMemberOptional = appMemberService.findById(plEventDTO.getAppMemberId());

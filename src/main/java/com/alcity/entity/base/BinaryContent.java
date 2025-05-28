@@ -28,7 +28,22 @@ public class BinaryContent extends BaseTable implements Serializable {
 
     @Lob
     @Basic(fetch = FetchType.LAZY)
+    private byte[] ios3Dcontent;
+
+    @Lob
+    @Basic(fetch = FetchType.LAZY)
+    private byte[] andriod3Dcontent;
+
+    @Lob
+    @Basic(fetch = FetchType.LAZY)
+    private byte[] web3Dcontent;
+
+    @Lob
+    @Basic(fetch = FetchType.LAZY)
     private byte[] thumbnail;
+
+    @Column(name="is3dContent")
+    private Boolean is3dContent;
 
     @Column(name="tag1")
     private String tag1;
@@ -45,7 +60,29 @@ public class BinaryContent extends BaseTable implements Serializable {
     @OneToMany(mappedBy = "binaryContent", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<LearningContent> learningContentSet;
 
+    public byte[] getIos3Dcontent() {
+        return ios3Dcontent;
+    }
 
+    public void setIos3Dcontent(byte[] ios3Dcontent) {
+        this.ios3Dcontent = ios3Dcontent;
+    }
+
+    public byte[] getAndriod3Dcontent() {
+        return andriod3Dcontent;
+    }
+
+    public void setAndriod3Dcontent(byte[] andriod3Dcontent) {
+        this.andriod3Dcontent = andriod3Dcontent;
+    }
+
+    public byte[] getWeb3Dcontent() {
+        return web3Dcontent;
+    }
+
+    public void setWeb3Dcontent(byte[] web3Dcontent) {
+        this.web3Dcontent = web3Dcontent;
+    }
 
     public Set<LearningContent> getLearningContentSet() {
         return learningContentSet;
@@ -134,26 +171,27 @@ public class BinaryContent extends BaseTable implements Serializable {
         this.tag3 = tag3;
     }
 
-//    public BinaryContent(String fileName, Integer size, byte[] content,
-//                         byte[] thumbnail, String tag1, String tag2, String tag3, BinaryContentType contentType,Long version,) {
-//        this.fileName = fileName;
-//        this.size = size;
-//        this.content = content;
-//        this.thumbnail = thumbnail;
-//        this.tag1 = tag1;
-//        this.tag2 = tag2;
-//        this.tag3 = tag3;
-//        this.contentType = contentType;
-//
-//    }
+    public Boolean getIs3dContent() {
+        return is3dContent;
+    }
 
+    public void setIs3dContent(Boolean is3dContent) {
+        this.is3dContent = is3dContent;
+    }
 
-    public BinaryContent(Long version, String created, String updated, AppMember createdBy, AppMember updatedBy, String fileName, Integer size, byte[] content, byte[] thumbnail, String tag1, String tag2, String tag3, BinaryContentType contentType) {
+    public BinaryContent(Long version, String created, String updated, AppMember createdBy, AppMember updatedBy,
+                         String fileName, Integer size, byte[] content, byte[] thumbnail, Boolean is3dContent ,
+                         byte[] ios3Dcontent , byte[] andriod3Dcontent , byte[] web3Dcontent,
+                         String tag1, String tag2, String tag3, BinaryContentType contentType) {
         super(version, created, updated, createdBy, updatedBy);
         this.fileName = fileName;
         this.size = size;
         this.content = content;
         this.thumbnail = thumbnail;
+        this.is3dContent = is3dContent;
+        this.ios3Dcontent = ios3Dcontent;
+        this.andriod3Dcontent = andriod3Dcontent;
+        this.web3Dcontent = web3Dcontent;
         this.tag1 = tag1;
         this.tag2 = tag2;
         this.tag3 = tag3;
