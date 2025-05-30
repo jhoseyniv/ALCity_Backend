@@ -33,6 +33,16 @@ public class ALCityObject extends BaseTable implements Serializable {
     @JsonIgnore
     private BinaryContent icon;
 
+    @Column(name="is3dObject")
+    private Boolean is3dObject;
+
+    public Boolean getIs3dObject() {
+        return is3dObject;
+    }
+
+    public void setIs3dObject(Boolean is3dObject) {
+        this.is3dObject = is3dObject;
+    }
 
     @OneToMany(mappedBy = "alCityObject", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JsonIgnore
@@ -82,9 +92,11 @@ public class ALCityObject extends BaseTable implements Serializable {
     public ALCityObject() {
     }
 
-    public ALCityObject(Long version, String created, String updated, AppMember createdBy, AppMember updatedBy, String title, ObjectCategory objectCategory, BinaryContent pic, BinaryContent icon) {
+    public ALCityObject(Long version, String created, String updated, AppMember createdBy, AppMember updatedBy,
+                        String title, ObjectCategory objectCategory,Boolean is3dObject , BinaryContent pic, BinaryContent icon) {
         super(version, created, updated, createdBy, updatedBy);
         this.title = title;
+        this.is3dObject = is3dObject;
         this.objectCategory = objectCategory;
         this.pic = pic;
         this.icon = icon;

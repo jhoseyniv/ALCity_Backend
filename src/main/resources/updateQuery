@@ -1,1 +1,2 @@
 UPDATE binary_content SET is3d_content = false WHERE 1 = 1;
+UPDATE alcity_object SET is3d_object = false WHERE 1 = 1;

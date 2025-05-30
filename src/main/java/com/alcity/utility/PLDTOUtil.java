@@ -51,7 +51,7 @@ public class PLDTOUtil {
         properties = getPropertyDTOS(attributes);
         actions =getActionDTOS(objectActions);
         CityObjectDTO dto= new CityObjectDTO(co.getId(), co.getTitle(), co.getObjectCategory().getId(),
-                co.getObjectCategory().getLabel(),co.getPic().getId(),co.getIcon().getId(),properties,actions,
+                co.getObjectCategory().getLabel(),co.getIs3dObject(),co.getPic().getId(),co.getIcon().getId(),properties,actions,
                 co.getVersion(),co.getCreated(), co.getUpdated(),
                 co.getCreatedBy().getUsername(),co.getCreatedBy().getUsername());
 

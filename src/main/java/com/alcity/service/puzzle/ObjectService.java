@@ -273,7 +273,8 @@ public class ObjectService implements ObjectRepository {
         ObjectCategory objectCategory =  objectCategoryRepository.findByValue(dto.getCategory());
         ALCityObject alCityObject=null;
         if (code.equalsIgnoreCase("Save")) { //Save
-            alCityObject = new ALCityObject(1L, DateUtils.getNow(), DateUtils.getNow(), createdBy.get(), createdBy.get(),dto.getTitle(), objectCategory,pic.get(),icon.get());
+            alCityObject = new ALCityObject(1L, DateUtils.getNow(), DateUtils.getNow(), createdBy.get(), createdBy.get(),
+                    dto.getTitle(), objectCategory,dto.getIs3dObject(),pic.get(),icon.get());
             try {
                 objectRepository.save(alCityObject);
             }

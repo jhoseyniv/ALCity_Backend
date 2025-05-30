@@ -1,13 +1,16 @@
 package com.alcity.api;
 
 import com.alcity.dto.appmember.AppMemberJourneyDTO;
+import com.alcity.dto.appmember.WalletItemTransactionDTO;
 import com.alcity.dto.player.PlayHistoryDTO;
 import com.alcity.dto.puzzle.PLDTO;
 import com.alcity.entity.appmember.AppMemberJourneyInfo;
+import com.alcity.entity.appmember.WalletTransaction;
 import com.alcity.entity.journey.Journey;
 import com.alcity.entity.play.PlayHistory;
 import com.alcity.service.Journey.JourneyService;
 import com.alcity.o3rdparty.ALCityAcessRight;
+import com.alcity.service.appmember.WalletTransactionService;
 import com.alcity.service.customexception.ALCityResponseObject;
 import com.alcity.service.customexception.UniqueConstraintException;
 import com.alcity.service.customexception.ViolateForeignKeyException;
@@ -34,8 +37,11 @@ public class AppMemberController {
 
     @Autowired
     private AppMemberService appMemberService;
+
     @Autowired
     private JourneyService journeyService;
+    @Autowired
+    private WalletTransactionService walletTransactionService;
 
     @GetMapping("/all")
     @CrossOrigin(origins = "*")
@@ -205,6 +211,42 @@ public class AppMemberController {
             responseObject = new ALCityResponseObject(HttpStatus.OK.value(), "ok", savedRecord.getId(), "Wallet Saved Successfully!");
         } else if (dto.getId() > 0L ) {//edit
             savedRecord = appMemberService.chargeOrDeChargeAppMemberWallet(dto, "Edit");
+            if(savedRecord !=null)
+                responseObject = new ALCityResponseObject(HttpStatus.OK.value(), "ok", savedRecord.getId(), "Wallet Updated Successfully!");
+            else
+                responseObject = new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", dto.getId(), "Record Not Found!");
+        }
+        else if (savedRecord==null)
+            responseObject = new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", -1L, "Record Not Found!");
+        else
+            responseObject = new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", -1L, "Record Not Found!");
+
+        return responseObject;
+    }
+
+    public boolean checkPLRewardConstraint(WalletItemTransactionDTO dto){
+       return true;
+    }
+
+    @Operation( summary = "Apply Reward specific  Member after playing puzzles ",  description = "Apply Reward specific  Member after playing puzzles")
+    @PostMapping("/id/{id}/wallet/appReward")
+    @CrossOrigin(origins = "*")
+    public ALCityResponseObject applyReward(@RequestBody WalletItemTransactionDTO dto)  {
+        WalletTransaction savedRecord = null;
+        ALCityResponseObject responseObject = new ALCityResponseObject();
+        checkPLRewardConstraint(dto);
+        if (dto.getId() == null || dto.getId() <= 0L) { //save
+            try {
+                if(checkPLRewardConstraint(dto) == false)
+                    return new ALCityResponseObject(HttpStatus.OK.value(), "error", savedRecord.getId(), "The user got this a reward before!");
+
+                savedRecord = walletTransactionService.save(dto,"Save");
+            } catch (RuntimeException e) {
+                throw new UniqueConstraintException(dto.getDescription(), dto.getId(), "title must be Unique");
+            }
+            responseObject = new ALCityResponseObject(HttpStatus.OK.value(), "ok", savedRecord.getId(), "Wallet Saved Successfully!");
+        } else if (dto.getId() > 0L ) {//edit
+            savedRecord = walletTransactionService.save(dto, "Edit");
             if(savedRecord !=null)
                 responseObject = new ALCityResponseObject(HttpStatus.OK.value(), "ok", savedRecord.getId(), "Wallet Updated Successfully!");
             else

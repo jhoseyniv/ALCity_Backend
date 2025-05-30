@@ -730,14 +730,8 @@ public class DTOUtil {
                 content.getTag1(), content.getTag2(), content.getTag3());
         return binaryContentDTO;
     }
-   /*
-    public static BinaryContentDTO getBinaryContentDTO(BinaryContent content){
-        BinaryContentDTO dto = new BinaryContentDTO(content.getId(), content.getVersion(), content.getCreated(), content.getUpdated(), content.getCreatedBy().getUsername(), content.getUpdatedBy().getUsername(),
-                content.getFileName(), content.getSize(), content.getContent(), content.getThumbnail(), content.getContentType().name(),
-                content.getTag1(), content.getTag2(), content.getTag3());
-        return dto;
-    }
-*/
+
+
     public static AppMemberDTO getAppMemberDTO(AppMember member){
         String userName="admin";
         if(member.getCreatedBy() == null || member.getCreatedBy() == null)

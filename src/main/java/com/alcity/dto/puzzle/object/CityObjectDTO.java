@@ -10,6 +10,8 @@ public class CityObjectDTO {
     private Long categoryId;
     private String category;
 
+    private Boolean is3dObject;
+
     private Long pictureId;
     private Long iconId;
 
@@ -85,12 +87,21 @@ public class CityObjectDTO {
         this.actions = actions;
     }
 
-    public CityObjectDTO(Long id, String title, Long categoryId, String category, Long pictureId, Long iconId, Collection<PropertyDTO> properties,
-                         Collection<ActionDTO> actions,
+    public Boolean getIs3dObject() {
+        return is3dObject;
+    }
+
+    public void setIs3dObject(Boolean is3dObject) {
+        this.is3dObject = is3dObject;
+    }
+
+    public CityObjectDTO(Long id, String title, Long categoryId, String category,Boolean is3dObject , Long pictureId, Long iconId,
+                         Collection<PropertyDTO> properties, Collection<ActionDTO> actions,
                          Long version, String created, String updated, String createdBy, String updatedBy) {
         this.id = id;
         this.title = title;
         this.categoryId = categoryId;
+        this.is3dObject = is3dObject;
         this.category = category;
         this.pictureId = pictureId;
         this.iconId = iconId;
