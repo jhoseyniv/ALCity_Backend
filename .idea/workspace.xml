@@ -4,10 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5930c325-0f2d-492f-8c8e-8494d79c6462" name="Changes" comment="new web ui files added">
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/static/js/main.b9ba8390.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/static/js/main.b9ba8390.js.LICENSE.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/static/js/main.b9ba8390.js.map" afterDir="false" />
+    <list default="true" id="5930c325-0f2d-492f-8c8e-8494d79c6462" name="Changes" comment="change wallet item">
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/d7da89e5-6f58-4aac-8cf4-01c7353c1162.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/d7da89e5-6f58-4aac-8cf4-01c7353c1162.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/d7da89e5-6f58-4aac-8cf4-01c7353c1162/storage_v2/_src_/database/alcity_management_db.kfmbAA/schema/public.abK9xQ.meta" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/d7da89e5-6f58-4aac-8cf4-01c7353c1162/storage_v2/_src_/database/alcity_management_db.kfmbAA/schema/public.abK9xQ.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -18,9 +17,9 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Interface" />
         <option value="AnnotationType" />
         <option value="Enum" />
+        <option value="Interface" />
         <option value="Class" />
       </list>
     </option>
@@ -51,6 +50,11 @@
     &quot;ToolWindowDatabase.ShowToolbar&quot;: &quot;false&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
     &quot;spring.configuration.checksum&quot;: &quot;8acde023819479cb2df3e6c6706edfb7&quot;
+  },
+  &quot;keyToStringList&quot;: {
+    &quot;RunConfigurationTargetLRU&quot;: [
+      &quot;59743039-038c-44f2-bc99-6081f58a1507&quot;
+    ]
   }
 }</component>
   <component name="Push.Settings">
@@ -65,7 +69,7 @@
       <recent name="com.alcity.dto.alobject" />
     </key>
   </component>
-  <component name="RunManager" selected="Spring Boot.ObjectManagmentApplication">
+  <component name="RunManager" selected="Database Script.alcity_object.sql (1)">
     <configuration name="GFG" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.alcity.GFG" />
       <module name="alcity_service" />
@@ -79,51 +83,22 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ToolBox" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.alcity.utility.ToolBox" />
-      <module name="alcity_service" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.alcity.utility.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
+    <configuration name="alcity_object.sql (1)" type="DatabaseScript" editBeforeRun="true" temporary="true" nameIsGenerated="true">
+      <script-mode>FILE</script-mode>
+      <data-source id="59743039-038c-44f2-bc99-6081f58a1507" />
+      <method v="2" />
     </configuration>
-    <configuration name="JourneyControllerTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="alcity_service" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.alcity.api.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.alcity.api" />
-      <option name="MAIN_CLASS_NAME" value="com.alcity.api.JourneyControllerTest" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
+    <configuration name="alcity_object.sql" type="DatabaseScript" editBeforeRun="true" temporary="true" nameIsGenerated="true">
+      <script-mode>FILE</script-mode>
+      <method v="2" />
     </configuration>
-    <configuration name="JourneyControllerTest.findOne" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="alcity_service" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.alcity.api.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.alcity.api" />
-      <option name="MAIN_CLASS_NAME" value="com.alcity.api.JourneyControllerTest" />
-      <option name="METHOD_NAME" value="findOne" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
+    <configuration name="binary_content.sql" type="DatabaseScript" editBeforeRun="true" temporary="true" nameIsGenerated="true">
+      <script-mode>FILE</script-mode>
+      <data-source id="59743039-038c-44f2-bc99-6081f58a1507" />
+      <method v="2" />
     </configuration>
     <configuration name="ObjectManagmentApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
+      <option name="ACTIVE_PROFILES" />
       <module name="alcity_service" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.alcity.ObjectManagmentApplication" />
       <extension name="coverage">
@@ -136,13 +111,20 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <list>
+      <item itemvalue="Application.GFG" />
+      <item itemvalue="Database Script.alcity_object.sql" />
+      <item itemvalue="Database Script.alcity_object.sql (1)" />
+      <item itemvalue="Database Script.binary_content.sql" />
+      <item itemvalue="Spring Boot.ObjectManagmentApplication" />
+    </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Database Script.alcity_object.sql (1)" />
+        <item itemvalue="Database Script.alcity_object.sql" />
         <item itemvalue="Spring Boot.ObjectManagmentApplication" />
+        <item itemvalue="Database Script.binary_content.sql" />
         <item itemvalue="Application.GFG" />
-        <item itemvalue="JUnit.JourneyControllerTest" />
-        <item itemvalue="JUnit.JourneyControllerTest.findOne" />
-        <item itemvalue="Application.ToolBox" />
       </list>
     </recent_temporary>
   </component>
@@ -279,112 +261,30 @@
       <workItem from="1746724815223" duration="734000" />
       <workItem from="1746814427249" duration="728000" />
       <workItem from="1746942157870" duration="683000" />
-      <workItem from="1746957031344" duration="966000" />
-    </task>
-    <task id="LOCAL-00174" summary="pl-rule-post-action">
-      <created>1745778548926</created>
-      <option name="number" value="00174" />
-      <option name="presentableId" value="LOCAL-00174" />
-      <option name="project" value="LOCAL" />
-      <updated>1745778548927</updated>
-    </task>
-    <task id="LOCAL-00175" summary="pl-rule-post-action">
-      <created>1745778680206</created>
-      <option name="number" value="00175" />
-      <option name="presentableId" value="LOCAL-00175" />
-      <option name="project" value="LOCAL" />
-      <updated>1745778680207</updated>
-    </task>
-    <task id="LOCAL-00176" summary="fix JourneyStepService edit bug">
-      <created>1745842461061</created>
-      <option name="number" value="00176" />
-      <option name="presentableId" value="LOCAL-00176" />
-      <option name="project" value="LOCAL" />
-      <updated>1745842461062</updated>
-    </task>
-    <task id="LOCAL-00177" summary="fix JourneyStepService edit bug">
-      <created>1745842622534</created>
-      <option name="number" value="00177" />
-      <option name="presentableId" value="LOCAL-00177" />
-      <option name="project" value="LOCAL" />
-      <updated>1745842622534</updated>
-    </task>
-    <task id="LOCAL-00178" summary="delete step journey fix bug">
-      <created>1745858653717</created>
-      <option name="number" value="00178" />
-      <option name="presentableId" value="LOCAL-00178" />
-      <option name="project" value="LOCAL" />
-      <updated>1745858653718</updated>
-    </task>
-    <task id="LOCAL-00179" summary="delete step journey fix bug">
-      <created>1745861751278</created>
-      <option name="number" value="00179" />
-      <option name="presentableId" value="LOCAL-00179" />
-      <option name="project" value="LOCAL" />
-      <updated>1745861751278</updated>
-    </task>
-    <task id="LOCAL-00180" summary="new web ui">
-      <created>1745864165160</created>
-      <option name="number" value="00180" />
-      <option name="presentableId" value="LOCAL-00180" />
-      <option name="project" value="LOCAL" />
-      <updated>1745864165160</updated>
-    </task>
-    <task id="LOCAL-00181" summary="new web ui">
-      <created>1745865652357</created>
-      <option name="number" value="00181" />
-      <option name="presentableId" value="LOCAL-00181" />
-      <option name="project" value="LOCAL" />
-      <updated>1745865652357</updated>
-    </task>
-    <task id="LOCAL-00182" summary="new web ui">
-      <created>1745906480042</created>
-      <option name="number" value="00182" />
-      <option name="presentableId" value="LOCAL-00182" />
-      <option name="project" value="LOCAL" />
-      <updated>1745906480042</updated>
-    </task>
-    <task id="LOCAL-00183" summary="new web ui">
-      <created>1745925431210</created>
-      <option name="number" value="00183" />
-      <option name="presentableId" value="LOCAL-00183" />
-      <option name="project" value="LOCAL" />
-      <updated>1745925431210</updated>
-    </task>
-    <task id="LOCAL-00184" summary="copy instances in the new cell in a puzzle">
-      <created>1745928274910</created>
-      <option name="number" value="00184" />
-      <option name="presentableId" value="LOCAL-00184" />
-      <option name="project" value="LOCAL" />
-      <updated>1745928274910</updated>
-    </task>
-    <task id="LOCAL-00185" summary="copy instances in the new cell in a puzzle">
-      <created>1745931552416</created>
-      <option name="number" value="00185" />
-      <option name="presentableId" value="LOCAL-00185" />
-      <option name="project" value="LOCAL" />
-      <updated>1745931552416</updated>
-    </task>
-    <task id="LOCAL-00186" summary="change subaction and sub event">
-      <created>1746082070179</created>
-      <option name="number" value="00186" />
-      <option name="presentableId" value="LOCAL-00186" />
-      <option name="project" value="LOCAL" />
-      <updated>1746082070179</updated>
-    </task>
-    <task id="LOCAL-00187" summary="change subevent in plrule">
-      <created>1746124323019</created>
-      <option name="number" value="00187" />
-      <option name="presentableId" value="LOCAL-00187" />
-      <option name="project" value="LOCAL" />
-      <updated>1746124323019</updated>
-    </task>
-    <task id="LOCAL-00188" summary="copy instances">
-      <created>1746161102952</created>
-      <option name="number" value="00188" />
-      <option name="presentableId" value="LOCAL-00188" />
-      <option name="project" value="LOCAL" />
-      <updated>1746161102953</updated>
+      <workItem from="1746957031344" duration="10263000" />
+      <workItem from="1746978306414" duration="1510000" />
+      <workItem from="1746983346327" duration="836000" />
+      <workItem from="1747070981568" duration="1381000" />
+      <workItem from="1747123989327" duration="13581000" />
+      <workItem from="1747152740506" duration="1125000" />
+      <workItem from="1747296754436" duration="1647000" />
+      <workItem from="1747303197572" duration="2010000" />
+      <workItem from="1747323053884" duration="6312000" />
+      <workItem from="1747565465525" duration="3608000" />
+      <workItem from="1747646559155" duration="9460000" />
+      <workItem from="1747731298681" duration="9187000" />
+      <workItem from="1747757527821" duration="12246000" />
+      <workItem from="1747846414913" duration="5281000" />
+      <workItem from="1747892477744" duration="3192000" />
+      <workItem from="1748017869124" duration="16000" />
+      <workItem from="1748163638802" duration="9559000" />
+      <workItem from="1748329955526" duration="4953000" />
+      <workItem from="1748352458076" duration="552000" />
+      <workItem from="1748371676894" duration="1994000" />
+      <workItem from="1748419888591" duration="2400000" />
+      <workItem from="1748461934680" duration="2041000" />
+      <workItem from="1748531577907" duration="7866000" />
+      <workItem from="1748586777617" duration="3096000" />
     </task>
     <task id="LOCAL-00189" summary="remove imports">
       <created>1746165432143</created>
@@ -624,7 +524,112 @@
       <option name="project" value="LOCAL" />
       <updated>1746957253704</updated>
     </task>
-    <option name="localTasksCounter" value="223" />
+    <task id="LOCAL-00223" summary="new web ui files added">
+      <created>1746962124085</created>
+      <option name="number" value="00223" />
+      <option name="presentableId" value="LOCAL-00223" />
+      <option name="project" value="LOCAL" />
+      <updated>1746962124086</updated>
+    </task>
+    <task id="LOCAL-00224" summary="copy AttributeService">
+      <created>1746970527631</created>
+      <option name="number" value="00224" />
+      <option name="presentableId" value="LOCAL-00224" />
+      <option name="project" value="LOCAL" />
+      <updated>1746970527632</updated>
+    </task>
+    <task id="LOCAL-00225" summary="copy AttributeService fix bug">
+      <created>1746972459956</created>
+      <option name="number" value="00225" />
+      <option name="presentableId" value="LOCAL-00225" />
+      <option name="project" value="LOCAL" />
+      <updated>1746972459956</updated>
+    </task>
+    <task id="LOCAL-00226" summary="copy AttributeService">
+      <created>1746979651028</created>
+      <option name="number" value="00226" />
+      <option name="presentableId" value="LOCAL-00226" />
+      <option name="project" value="LOCAL" />
+      <updated>1746979651028</updated>
+    </task>
+    <task id="LOCAL-00227" summary="add action key to get all rule post action">
+      <created>1746983522810</created>
+      <option name="number" value="00227" />
+      <option name="presentableId" value="LOCAL-00227" />
+      <option name="project" value="LOCAL" />
+      <updated>1746983522810</updated>
+    </task>
+    <task id="LOCAL-00228" summary="copy post action rule added">
+      <created>1747130991388</created>
+      <option name="number" value="00228" />
+      <option name="presentableId" value="LOCAL-00228" />
+      <option name="project" value="LOCAL" />
+      <updated>1747130991389</updated>
+    </task>
+    <task id="LOCAL-00229" summary="copy rule added">
+      <created>1747141075949</created>
+      <option name="number" value="00229" />
+      <option name="presentableId" value="LOCAL-00229" />
+      <option name="project" value="LOCAL" />
+      <updated>1747141075949</updated>
+    </task>
+    <task id="LOCAL-00230" summary="add child-post-actions/all api">
+      <created>1747303959117</created>
+      <option name="number" value="00230" />
+      <option name="presentableId" value="LOCAL-00230" />
+      <option name="project" value="LOCAL" />
+      <updated>1747303959118</updated>
+    </task>
+    <task id="LOCAL-00231" summary="add child-post-actions/all api">
+      <created>1747304126263</created>
+      <option name="number" value="00231" />
+      <option name="presentableId" value="LOCAL-00231" />
+      <option name="project" value="LOCAL" />
+      <updated>1747304126263</updated>
+    </task>
+    <task id="LOCAL-00232" summary="new web ui added to project">
+      <created>1747329072359</created>
+      <option name="number" value="00232" />
+      <option name="presentableId" value="LOCAL-00232" />
+      <option name="project" value="LOCAL" />
+      <updated>1747329072359</updated>
+    </task>
+    <task id="LOCAL-00233" summary="copy puzzle level">
+      <created>1747852012432</created>
+      <option name="number" value="00233" />
+      <option name="presentableId" value="LOCAL-00233" />
+      <option name="project" value="LOCAL" />
+      <updated>1747852012432</updated>
+    </task>
+    <task id="LOCAL-00234" summary="copy puzzle level with selection beetween which parts">
+      <created>1747894373640</created>
+      <option name="number" value="00234" />
+      <option name="presentableId" value="LOCAL-00234" />
+      <option name="project" value="LOCAL" />
+      <updated>1747894373641</updated>
+    </task>
+    <task id="LOCAL-00235" summary="add PLTemplate and PLTemplateDTO added">
+      <created>1748175625094</created>
+      <option name="number" value="00235" />
+      <option name="presentableId" value="LOCAL-00235" />
+      <option name="project" value="LOCAL" />
+      <updated>1748175625094</updated>
+    </task>
+    <task id="LOCAL-00236" summary="add some columns to binary content">
+      <created>1748420257216</created>
+      <option name="number" value="00236" />
+      <option name="presentableId" value="LOCAL-00236" />
+      <option name="project" value="LOCAL" />
+      <updated>1748420257217</updated>
+    </task>
+    <task id="LOCAL-00237" summary="change wallet item">
+      <created>1748590012258</created>
+      <option name="number" value="00237" />
+      <option name="presentableId" value="LOCAL-00237" />
+      <option name="project" value="LOCAL" />
+      <updated>1748590012259</updated>
+    </task>
+    <option name="localTasksCounter" value="238" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -643,18 +648,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="pl-rule-post-action" />
-    <MESSAGE value="fix JourneyStepService edit bug" />
-    <MESSAGE value="delete step journey fix bug" />
-    <MESSAGE value="new web ui" />
-    <MESSAGE value="copy instances in the new cell in a puzzle" />
-    <MESSAGE value="change subaction and sub event" />
-    <MESSAGE value="change subevent in plrule" />
-    <MESSAGE value="copy instances" />
-    <MESSAGE value="remove imports" />
-    <MESSAGE value="change zoom and pan and roatation" />
-    <MESSAGE value="change" />
-    <MESSAGE value="feature" />
     <MESSAGE value="change plground dto" />
     <MESSAGE value="change load ordereing post rule action" />
     <MESSAGE value="add comparators" />
@@ -668,65 +661,57 @@
     <MESSAGE value="add PLRuleEventController and save +getall + delete method" />
     <MESSAGE value="disable database creation in JPA" />
     <MESSAGE value="new web ui files added" />
-    <option name="LAST_COMMIT_MESSAGE" value="new web ui files added" />
+    <MESSAGE value="copy AttributeService fix bug" />
+    <MESSAGE value="copy AttributeService" />
+    <MESSAGE value="add action key to get all rule post action" />
+    <MESSAGE value="copy post action rule added" />
+    <MESSAGE value="copy rule added" />
+    <MESSAGE value="add child-post-actions/all api" />
+    <MESSAGE value="new web ui added to project" />
+    <MESSAGE value="copy puzzle level" />
+    <MESSAGE value="copy puzzle level with selection beetween which parts" />
+    <MESSAGE value="add PLTemplate and PLTemplateDTO added" />
+    <MESSAGE value="add some columns to binary content" />
+    <MESSAGE value="change wallet item" />
+    <option name="LAST_COMMIT_MESSAGE" value="change wallet item" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/alcity/service/appmember/AppMemberService.java</url>
-          <line>131</line>
+          <line>94</line>
           <option name="timeStamp" value="2" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/alcity/api/ObjectActionController.java</url>
-          <line>82</line>
-          <option name="timeStamp" value="17" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/alcity/utility/DTOUtil.java</url>
-          <line>249</line>
+          <line>264</line>
           <option name="timeStamp" value="23" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/alcity/service/alobject/AttributeService.java</url>
-          <line>301</line>
+          <line>372</line>
           <option name="timeStamp" value="124" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/alcity/service/alobject/AttributeService.java</url>
-          <line>302</line>
+          <line>373</line>
           <option name="timeStamp" value="125" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/alcity/utility/DTOUtil.java</url>
-          <line>266</line>
+          <line>281</line>
           <option name="timeStamp" value="140" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/alcity/utility/DTOUtil.java</url>
-          <line>680</line>
+          <line>695</line>
           <option name="timeStamp" value="189" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/alcity/api/PLGroundController.java</url>
           <line>49</line>
           <option name="timeStamp" value="199" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/alcity/service/alobject/AttributeService.java</url>
-          <line>804</line>
-          <option name="timeStamp" value="250" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/alcity/service/puzzle/PLGroundService.java</url>
-          <line>45</line>
-          <option name="timeStamp" value="254" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/alcity/api/AppMemberController.java</url>
-          <line>107</line>
-          <option name="timeStamp" value="255" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/alcity/api/PLController.java</url>
@@ -740,11 +725,6 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/alcity/utility/PLDTOUtil.java</url>
-          <line>125</line>
-          <option name="timeStamp" value="262" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/alcity/utility/PLDTOUtil.java</url>
           <line>135</line>
           <option name="timeStamp" value="264" />
         </line-breakpoint>
@@ -754,39 +734,19 @@
           <option name="timeStamp" value="265" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/alcity/service/puzzle/PLGroundService.java</url>
-          <line>48</line>
-          <option name="timeStamp" value="266" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/alcity/api/PGSkillLearningContentController.java</url>
           <line>79</line>
           <option name="timeStamp" value="271" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/alcity/api/AppMemberController.java</url>
-          <line>123</line>
-          <option name="timeStamp" value="272" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/alcity/service/appmember/AppMemberService.java</url>
-          <line>117</line>
+          <line>80</line>
           <option name="timeStamp" value="273" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/alcity/service/appmember/AppMemberService.java</url>
-          <line>192</line>
+          <line>155</line>
           <option name="timeStamp" value="275" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/alcity/service/puzzle/PuzzleLevelService.java</url>
-          <line>190</line>
-          <option name="timeStamp" value="277" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/alcity/service/puzzle/PuzzleLevelService.java</url>
-          <line>179</line>
-          <option name="timeStamp" value="278" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/alcity/service/Journey/JourneyService.java</url>
@@ -794,19 +754,9 @@
           <option name="timeStamp" value="280" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/alcity/api/PLController.java</url>
-          <line>157</line>
-          <option name="timeStamp" value="281" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/alcity/api/PLRuleController.java</url>
-          <line>121</line>
+          <line>165</line>
           <option name="timeStamp" value="284" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/alcity/service/puzzle/PLRulePostActionService.java</url>
-          <line>40</line>
-          <option name="timeStamp" value="285" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/java/com/alcity/api/JourneyControllerTest.java</url>
@@ -819,24 +769,20 @@
           <option name="timeStamp" value="289" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/alcity/api/PLController.java</url>
-          <line>251</line>
-          <option name="timeStamp" value="291" />
+          <url>file://$PROJECT_DIR$/src/main/java/com/alcity/api/PLRuleController.java</url>
+          <line>122</line>
+          <option name="timeStamp" value="331" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/alcity/service/puzzle/InstanceInPLService.java</url>
-          <line>76</line>
-          <option name="timeStamp" value="321" />
+          <url>file://$PROJECT_DIR$/src/main/java/com/alcity/service/puzzle/PLRulePostActionService.java</url>
+          <line>78</line>
+          <option name="timeStamp" value="347" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/alcity/service/puzzle/InstanceInPLService.java</url>
-          <line>89</line>
-          <option name="timeStamp" value="323" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/alcity/service/alobject/AttributeService.java</url>
-          <line>86</line>
-          <option name="timeStamp" value="325" />
+        <line-breakpoint enabled="true" type="java-field">
+          <url>file://$PROJECT_DIR$/src/main/java/com/alcity/service/puzzle/PLRuleService.java</url>
+          <line>83</line>
+          <properties field="appMemberRepository" class="com.alcity.service.puzzle.PLRuleService" />
+          <option name="timeStamp" value="330" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

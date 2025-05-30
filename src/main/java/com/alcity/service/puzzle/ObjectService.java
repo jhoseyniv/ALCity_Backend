@@ -286,6 +286,7 @@ public class ObjectService implements ObjectRepository {
             if(alCityObjectOptional.isPresent()) {
                 alCityObject = alCityObjectOptional.get();
                 alCityObject.setObjectCategory(objectCategory);
+                alCityObject.setIs3dObject(dto.getIs3dObject());
                 alCityObject.setTitle(dto.getTitle());
                 alCityObject.setPic(pic.get());
                 alCityObject.setIcon(icon.get());
