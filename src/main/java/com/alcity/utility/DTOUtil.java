@@ -598,6 +598,7 @@ public class DTOUtil {
         pcDTO.setId(pc.getId());
         pcDTO.setLabel(pc.getLabel());
         pcDTO.setValue(pc.getValue());
+        pcDTO.setTemplateEditor(pc.getTemplateEditor());
         pcDTO.setVersion(pc.getVersion());
         pcDTO.setCreated(pc.getCreated());
         pcDTO.setCreatedBy(pc.getCreatedBy().getUsername());

@@ -27,7 +27,7 @@ public class PuzzleCategoryService implements PuzzleCategoryRepository {
         Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
         PuzzleCategory puzzleCategory=null;
         if (code.equalsIgnoreCase("Save")) { // save
-            puzzleCategory = new PuzzleCategory(dto.getLabel(), dto.getValue(), 1L, "1714379790", "1714379790", createdBy.get(), createdBy.get());
+            puzzleCategory = new PuzzleCategory(dto.getLabel(), dto.getValue(),dto.getTemplateEditor() ,1L, "1714379790", "1714379790", createdBy.get(), createdBy.get());
             puzzleCategoryRepository.save(puzzleCategory);
          }else{//edit
             Optional<PuzzleCategory> puzzleCategoryOptional= puzzleCategoryRepository.findById(dto.getId());
@@ -35,6 +35,7 @@ public class PuzzleCategoryService implements PuzzleCategoryRepository {
                 puzzleCategory = puzzleCategoryOptional.get();
                 puzzleCategory.setLabel(dto.getLabel());
                 puzzleCategory.setValue(dto.getValue());
+                puzzleCategory.setTemplateEditor(dto.getTemplateEditor());
                 puzzleCategory.setVersion(puzzleCategory.getVersion()+1);
                 puzzleCategoryRepository.save(puzzleCategory);
             }

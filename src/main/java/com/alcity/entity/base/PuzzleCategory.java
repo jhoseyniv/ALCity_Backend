@@ -10,11 +10,23 @@ import java.util.Collection;
 @Entity
 public class PuzzleCategory extends BaseItemSet implements Serializable {
 
+    @Column(name="templateEditor")
+    private String templateEditor="";
+
+
     @OneToMany(mappedBy = "puzzleCategory", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Collection<PuzzleGroup> puzzleGroupCollection;
 
     public Collection<PuzzleGroup> getPuzzleGroupCollection() {
         return puzzleGroupCollection;
+    }
+
+    public String getTemplateEditor() {
+        return templateEditor;
+    }
+
+    public void setTemplateEditor(String templateEditor) {
+        this.templateEditor = templateEditor;
     }
 
     public void setPuzzleGroupCollection(Collection<PuzzleGroup> puzzleGroupCollection) {
@@ -24,7 +36,8 @@ public class PuzzleCategory extends BaseItemSet implements Serializable {
     public PuzzleCategory() {
     }
 
-    public PuzzleCategory(String label, String value, Long version, String created, String updated, AppMember createdBy, AppMember updatedBy) {
+    public PuzzleCategory(String label, String value,String templateEditor , Long version, String created, String updated, AppMember createdBy, AppMember updatedBy) {
         super(label, value, version, created, updated, createdBy,updatedBy);
+        this.templateEditor = templateEditor;
     }
 }

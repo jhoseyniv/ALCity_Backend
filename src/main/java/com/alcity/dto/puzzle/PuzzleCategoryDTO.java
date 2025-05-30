@@ -10,6 +10,8 @@ public class PuzzleCategoryDTO {
     private String label;
     private String value;
 
+    private String templateEditor;
+
     private Long version;
     private String created;
     private String updated;
@@ -100,14 +102,23 @@ public class PuzzleCategoryDTO {
         this.createdById = createdById;
     }
 
+    public String getTemplateEditor() {
+        return templateEditor;
+    }
+
+    public void setTemplateEditor(String templateEditor) {
+        this.templateEditor = templateEditor;
+    }
+
     public PuzzleCategoryDTO() {
     }
 
-    public PuzzleCategoryDTO(Long id, String label, String value, Long version,
+    public PuzzleCategoryDTO(Long id, String label, String value,String templateEditor ,Long version,
                              String created, String updated, String createdBy, String updatedBy, Long updatedById, Long getCreatedById) {
         this.id = id;
         this.label = label;
         this.value = value;
+        this.templateEditor = templateEditor;
         this.version = version;
         this.created = created;
         this.updated = updated;
