@@ -4,8 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5930c325-0f2d-492f-8c8e-8494d79c6462" name="Changes" comment="fix edit alcity objectse">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="5930c325-0f2d-492f-8c8e-8494d79c6462" name="Changes" comment="fix 3dcontent bug">
       <change beforePath="$PROJECT_DIR$/src/main/java/com/alcity/service/base/BinaryContentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/alcity/service/base/BinaryContentService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -283,14 +282,7 @@
       <workItem from="1748419888591" duration="2400000" />
       <workItem from="1748461934680" duration="2041000" />
       <workItem from="1748531577907" duration="7866000" />
-      <workItem from="1748586777617" duration="5580000" />
-    </task>
-    <task id="LOCAL-00190" summary="change zoom and pan and roatation">
-      <created>1746178677660</created>
-      <option name="number" value="00190" />
-      <option name="presentableId" value="LOCAL-00190" />
-      <option name="project" value="LOCAL" />
-      <updated>1746178677661</updated>
+      <workItem from="1748586777617" duration="6292000" />
     </task>
     <task id="LOCAL-00191" summary="change">
       <created>1746180546487</created>
@@ -628,7 +620,14 @@
       <option name="project" value="LOCAL" />
       <updated>1748591501835</updated>
     </task>
-    <option name="localTasksCounter" value="239" />
+    <task id="LOCAL-00239" summary="fix 3dcontent bug">
+      <created>1748600082274</created>
+      <option name="number" value="00239" />
+      <option name="presentableId" value="LOCAL-00239" />
+      <option name="project" value="LOCAL" />
+      <updated>1748600082274</updated>
+    </task>
+    <option name="localTasksCounter" value="240" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -647,7 +646,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="change load ordereing post rule action" />
     <MESSAGE value="add comparators" />
     <MESSAGE value="add sort rules" />
     <MESSAGE value="change sort" />
@@ -672,7 +670,8 @@
     <MESSAGE value="add some columns to binary content" />
     <MESSAGE value="change wallet item" />
     <MESSAGE value="fix edit alcity objectse" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix edit alcity objectse" />
+    <MESSAGE value="fix 3dcontent bug" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix 3dcontent bug" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
