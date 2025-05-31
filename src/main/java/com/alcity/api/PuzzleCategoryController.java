@@ -1,5 +1,6 @@
 package com.alcity.api;
 
+import com.alcity.dto.puzzle.PLDTO;
 import com.alcity.service.customexception.ALCityResponseObject;
 import com.alcity.service.customexception.UniqueConstraintException;
 import com.alcity.service.customexception.ViolateForeignKeyException;
@@ -54,6 +55,18 @@ public class PuzzleCategoryController {
             pgdtos = DTOUtil.getPuzzleGroupDTOS(puzzleGroups);
         }
         return pgdtos;
+    }
+    @Operation( summary = "Get all Puzzle Levels for a puzzle Category by age order ",  description = "Get all Puzzle Levels for a puzzle Category by age order")
+    @GetMapping("/id/{id}/pl/all")
+    @CrossOrigin(origins = "*")
+    public Collection<PLDTO> a(@PathVariable Long id) {
+        Collection<PLDTO> pldtos = new ArrayList<PLDTO>();
+        Optional<PuzzleCategory> puzzleCategoryOptional = puzzleCategoryService.findById(id);
+        if(puzzleCategoryOptional.isPresent()) {
+            Collection<PuzzleGroup> puzzleGroups = puzzleCategoryOptional.get().getPuzzleGroupCollection();
+            pldtos = DTOUtil.getPuzzleLevelsDTOS(puzzleGroups);
+        }
+        return pldtos;
     }
 
     @Operation( summary = "get a Puzzle Category by id ",  description = "get a Puzzle Category by id")

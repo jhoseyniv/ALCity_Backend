@@ -15,9 +15,9 @@ public class PLDTO {
     private Long createdById;
     private Long updatedById;
 
-    private Long creatorId;
+   // private Long creatorId;
 
-    private String creator;
+  //  private String creator;
     private String approveDate;
     private Long ordering;
     private String title;
@@ -34,21 +34,21 @@ public class PLDTO {
 
     private Long plGroundId;
 
-    public Long getCreatorId() {
-        return creatorId;
-    }
-
-    public void setCreatorId(Long creatorId) {
-        this.creatorId = creatorId;
-    }
-
-    public String getCreator() {
-        return creator;
-    }
-
-    public void setCreator(String creator) {
-        this.creator = creator;
-    }
+//    public Long getCreatorId() {
+//        return creatorId;
+//    }
+//
+//    public void setCreatorId(Long creatorId) {
+//        this.creatorId = creatorId;
+//    }
+//
+//    public String getCreator() {
+//        return creator;
+//    }
+//
+//    public void setCreator(String creator) {
+//        this.creator = creator;
+//    }
 
     public String getPuzzleGroupTitle() {
         return puzzleGroupTitle;
@@ -273,7 +273,7 @@ public class PLDTO {
     }
 
     public PLDTO(Long id, Long version, String created, String updated, String createdBy, String updatedBy, Long createdById, Long updatedById,
-                 Long creatorId, String creator,String approveDate,Long plGroundId,Long puzzleGroupId,String puzzleGroupTitle, Long ordering, String title, String code, Integer fromAge, Integer toAge, Float maxScore,Float firstStarScore ,Float secondStarScore,Float thirdStarScore,String puzzleLevelStatus, String puzzleLevelPrivacy, String puzzleLevelDifficulty) {
+                 String approveDate,Long plGroundId,Long puzzleGroupId,String puzzleGroupTitle, Long ordering, String title, String code, Integer fromAge, Integer toAge, Float maxScore,Float firstStarScore ,Float secondStarScore,Float thirdStarScore,String puzzleLevelStatus, String puzzleLevelPrivacy, String puzzleLevelDifficulty) {
         this.id = id;
         this.version = version;
         this.created = created;
@@ -282,8 +282,6 @@ public class PLDTO {
         this.updatedBy = updatedBy;
         this.createdById = createdById;
         this.updatedById = updatedById;
-        this.creatorId = creatorId;
-        this.creator = creator;
         this.approveDate = approveDate;
         this.ordering = ordering;
         this.title = title;

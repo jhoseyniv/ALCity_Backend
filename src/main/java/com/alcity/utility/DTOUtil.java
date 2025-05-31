@@ -1,9 +1,6 @@
 package com.alcity.utility;
 
-import com.alcity.comparetors.PLRuleComparator;
-import com.alcity.comparetors.PLRulePostActionComparator;
-import com.alcity.comparetors.RuleActionDataComparator;
-import com.alcity.comparetors.RuleDataComparator;
+import com.alcity.comparetors.*;
 import com.alcity.dto.Interpreter.PLObjectiveData;
 import com.alcity.dto.Interpreter.object.*;
 import com.alcity.dto.alenum.EnumDTO;
@@ -551,6 +548,28 @@ public class DTOUtil {
             dtos.add(dto);
         }
         return dtos;
+    }
+
+    public static Collection<PLDTO> getPuzzleLevelsByPuzzleGroup(PuzzleGroup input) {
+       Collection<PLDTO> dtos = new ArrayList<PLDTO>();
+       dtos = getPuzzleLevelDTOS(input.getPuzzleLevels());
+
+        Comparator plComparetorByFromAge = new PLComparatorByFromAge();
+        List<PLDTO> sortedList =new ArrayList<PLDTO>();
+        sortedList = dtos.stream().collect(toList());
+        sortedList.sort(plComparetorByFromAge);
+        return sortedList;
+    }
+
+    public static Collection<PLDTO> getPuzzleLevelsDTOS(Collection<PuzzleGroup> inputs) {
+        Collection<PLDTO> outputs = new ArrayList<PLDTO>();
+        Iterator<PuzzleGroup> itr = inputs.iterator();
+        while (itr.hasNext()) {
+            Collection<PLDTO> dtos = new ArrayList<PLDTO>();
+            dtos = getPuzzleLevelsByPuzzleGroup(itr.next());
+            outputs.addAll(dtos);
+        }
+        return outputs;
     }
 
     public static Collection<PGDTO> getPuzzleGroupDTOS(Collection<PuzzleGroup> input) {
