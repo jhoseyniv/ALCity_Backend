@@ -40,10 +40,15 @@ public class WalletTransactionService implements WalletTransactionRepository {
 
   public WalletTransaction save(WalletItemTransactionDTO dto, String code) {
     Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
+    Optional<AppMember> appMemberOptional = appMemberRepository.findById(dto.getAppMemberId());
+    if(appMemberOptional.isEmpty()) return  null;
+
     WalletTransactionType transactionType = WalletTransactionType.getByTitle(dto.getWalletTransactionType());
     Optional<WalletItem> walletItem = walletItemRespository.findById(dto.getWalletItemId());
-    WalletTransaction transaction = new WalletTransaction(DateUtils.getNow(), dto.getAmount(), dto.getIncTransaction(),dto.getDescription(),walletItem.get(),
-            dto.getCounterpartyId(), transactionType,1L,DateUtils.getNow(),DateUtils.getNow(),createdBy.get(),createdBy.get());
+
+    WalletTransaction transaction = new WalletTransaction(DateUtils.getNow(), dto.getAmount(), dto.getIncTransaction(),dto.getDescription(),
+            appMemberOptional.get(),walletItem.get(),dto.getCounterpartyId(), transactionType,
+            1L,DateUtils.getNow(),DateUtils.getNow(),createdBy.get(),createdBy.get());
     walletTransactionRepository.save(transaction);
     return  transaction;
   }

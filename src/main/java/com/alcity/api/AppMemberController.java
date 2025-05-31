@@ -228,35 +228,20 @@ public class AppMemberController {
        return true;
     }
 
-    @Operation( summary = "Apply Reward specific  Member after playing puzzles ",  description = "Apply Reward specific  Member after playing puzzles")
-    @PostMapping("/id/{id}/wallet/appReward")
+    @Operation( summary = "Apply Reward for specific  Member after playing puzzles ",  description = "Apply Reward for specific  Member after playing puzzles")
+    @PostMapping("/apply-reward")
     @CrossOrigin(origins = "*")
     public ALCityResponseObject applyReward(@RequestBody WalletItemTransactionDTO dto)  {
         WalletTransaction savedRecord = null;
         ALCityResponseObject responseObject = new ALCityResponseObject();
-        checkPLRewardConstraint(dto);
-        if (dto.getId() == null || dto.getId() <= 0L) { //save
-            try {
-                if(checkPLRewardConstraint(dto) == false)
+        boolean checkIsRewardBefore = checkPLRewardConstraint(dto);
+
+        if(checkIsRewardBefore == false)
                     return new ALCityResponseObject(HttpStatus.OK.value(), "error", savedRecord.getId(), "The user got this a reward before!");
-
-                savedRecord = walletTransactionService.save(dto,"Save");
-            } catch (RuntimeException e) {
-                throw new UniqueConstraintException(dto.getDescription(), dto.getId(), "title must be Unique");
-            }
-            responseObject = new ALCityResponseObject(HttpStatus.OK.value(), "ok", savedRecord.getId(), "Wallet Saved Successfully!");
-        } else if (dto.getId() > 0L ) {//edit
-            savedRecord = walletTransactionService.save(dto, "Edit");
-            if(savedRecord !=null)
-                responseObject = new ALCityResponseObject(HttpStatus.OK.value(), "ok", savedRecord.getId(), "Wallet Updated Successfully!");
-            else
-                responseObject = new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", dto.getId(), "Record Not Found!");
+        else {
+            savedRecord = walletTransactionService.save(dto, "Save");
+            responseObject = new ALCityResponseObject(HttpStatus.OK.value(), "ok", savedRecord.getId(), "Transaction Saved Successfully!");
         }
-        else if (savedRecord==null)
-            responseObject = new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", -1L, "Record Not Found!");
-        else
-            responseObject = new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", -1L, "Record Not Found!");
-
         return responseObject;
     }
 

@@ -1,18 +1,15 @@
 package com.alcity.dto.appmember;
 
-import com.alcity.entity.alenum.WalletTransactionType;
-import com.alcity.entity.appmember.AppMember;
 
 public class WalletItemTransactionDTO {
 
-    private Long id;
-    private String transactionDate;
     private Float amount;
 
     private Long walletItemId;
 
     private Long counterpartyId;
-    private Long appMemberWalletItemId;
+
+    private Long appMemberId;
 
     private String walletTransactionType;
 
@@ -20,13 +17,6 @@ public class WalletItemTransactionDTO {
         return walletItemId;
     }
 
-    public String getTransactionDate() {
-        return transactionDate;
-    }
-
-    public void setTransactionDate(String transactionDate) {
-        this.transactionDate = transactionDate;
-    }
 
     public Long getCounterpartyId() {
         return counterpartyId;
@@ -49,24 +39,9 @@ public class WalletItemTransactionDTO {
     }
 
 
-    public Long getAppMemberWalletItemId() {
-        return appMemberWalletItemId;
-    }
-
-    public void setAppMemberWalletItemId(Long appMemberWalletItemId) {
-        this.appMemberWalletItemId = appMemberWalletItemId;
-    }
 
     private Boolean incTransaction;
     private String description;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public Float getAmount() {
         return amount;
@@ -84,6 +59,14 @@ public class WalletItemTransactionDTO {
         this.incTransaction = incTransaction;
     }
 
+    public Long getAppMemberId() {
+        return appMemberId;
+    }
+
+    public void setAppMemberId(Long appMemberId) {
+        this.appMemberId = appMemberId;
+    }
+
     public String getDescription() {
         return description;
     }
@@ -95,15 +78,13 @@ public class WalletItemTransactionDTO {
     public WalletItemTransactionDTO() {
     }
 
-    public WalletItemTransactionDTO(Long id,String transactionDate, Float amount, Long walletItemId, Long counterpartyId,
-                                    Long appMemberWalletItemId, String walletTransactionType, Boolean incTransaction, String description) {
-        this.id =id;
-        this.transactionDate = transactionDate;
+    public WalletItemTransactionDTO(String walletTransactionType, Long counterpartyId,Long appMemberId,
+                                    Float amount, Long walletItemId,Boolean incTransaction, String description) {
+        this.walletTransactionType = walletTransactionType;
+        this.counterpartyId = counterpartyId;
+        this.appMemberId = appMemberId;
         this.amount = amount;
         this.walletItemId = walletItemId;
-        this.counterpartyId = counterpartyId;
-        this.appMemberWalletItemId = appMemberWalletItemId;
-        this.walletTransactionType = walletTransactionType;
         this.incTransaction = incTransaction;
         this.description = description;
     }

@@ -28,13 +28,12 @@ public class WalletTransaction extends BaseTable implements Serializable {
     private String description;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "applicationMember_WalletItem", nullable = false)
+    @JoinColumn(name = "applicationMember_id", nullable = false)
     @JsonIgnore
-    private AppMember_WalletItem applicationMember_WalletItem;
+    private AppMember appMember;
 
     @Enumerated(EnumType.ORDINAL)
     private WalletTransactionType walletTransactionType;
-
 
     @Column(name="counterparty_id")
     private Long counterpartyId;
@@ -52,12 +51,12 @@ public class WalletTransaction extends BaseTable implements Serializable {
         this.counterpartyId = counterpartyId;
     }
 
-    public AppMember_WalletItem getApplicationMember_WalletItem() {
-        return applicationMember_WalletItem;
+    public AppMember getAppMember() {
+        return appMember;
     }
 
-    public void setApplicationMember_WalletItem(AppMember_WalletItem applicationMember_WalletItem) {
-        this.applicationMember_WalletItem = applicationMember_WalletItem;
+    public void setAppMember(AppMember appMember) {
+        this.appMember = appMember;
     }
 
     public WalletTransactionType getWalletTransactionType() {
@@ -111,7 +110,7 @@ public class WalletTransaction extends BaseTable implements Serializable {
     public WalletTransaction() {
     }
 
-    public WalletTransaction(String transactionDate, Float amount, Boolean incTransaction, String description,
+    public WalletTransaction(String transactionDate, Float amount, Boolean incTransaction, String description,AppMember appMember,
                              WalletItem walletItem,Long counterpartyId,WalletTransactionType transactionType,
                              Long version, String created, String updated, AppMember createdBy, AppMember updatedBy) {
         super(version, created, updated, createdBy, updatedBy);
@@ -120,6 +119,7 @@ public class WalletTransaction extends BaseTable implements Serializable {
         this.incTransaction = incTransaction;
         this.description = description;
         this.walletItem = walletItem;
+        this.appMember = appMember;
         this.counterpartyId = counterpartyId;
         this.walletTransactionType = transactionType;
     }

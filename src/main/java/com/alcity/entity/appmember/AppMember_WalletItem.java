@@ -50,16 +50,6 @@ public class AppMember_WalletItem extends BaseTable implements Serializable {
         this.walletItem = walletItem;
     }
 
-    @OneToMany(mappedBy = "applicationMember_WalletItem", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Set<WalletTransaction>  walletTransactionSet;
-
-    public Set<WalletTransaction> getWalletTransactionSet() {
-        return walletTransactionSet;
-    }
-
-    public void setWalletTransactionSet(Set<WalletTransaction> walletTransactionSet) {
-        this.walletTransactionSet = walletTransactionSet;
-    }
 
     public AppMember_WalletItem() {
     }
