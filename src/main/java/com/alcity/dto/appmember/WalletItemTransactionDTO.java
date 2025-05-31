@@ -1,52 +1,53 @@
 package com.alcity.dto.appmember;
 
+import com.alcity.entity.alenum.WalletTransactionType;
 import com.alcity.entity.appmember.AppMember;
 
 public class WalletItemTransactionDTO {
 
     private Long id;
-   // private String transactionDate;
+    private String transactionDate;
     private Float amount;
 
     private Long walletItemId;
 
-    private Long plObjectiveId;
+    private Long counterpartyId;
     private Long appMemberWalletItemId;
 
-    private Long sourceUserId;
-    private Long destinationUserId;
+    private String walletTransactionType;
 
     public Long getWalletItemId() {
         return walletItemId;
     }
 
-    public Long getSourceUserId() {
-        return sourceUserId;
+    public String getTransactionDate() {
+        return transactionDate;
     }
 
-    public void setSourceUserId(Long sourceUserId) {
-        this.sourceUserId = sourceUserId;
+    public void setTransactionDate(String transactionDate) {
+        this.transactionDate = transactionDate;
     }
 
-    public Long getDestinationUserId() {
-        return destinationUserId;
+    public Long getCounterpartyId() {
+        return counterpartyId;
     }
 
-    public void setDestinationUserId(Long destinationUserId) {
-        this.destinationUserId = destinationUserId;
+    public void setCounterpartyId(Long counterpartyId) {
+        this.counterpartyId = counterpartyId;
+    }
+
+    public String getWalletTransactionType() {
+        return walletTransactionType;
+    }
+
+    public void setWalletTransactionType(String walletTransactionType) {
+        this.walletTransactionType = walletTransactionType;
     }
 
     public void setWalletItemId(Long walletItemId) {
         this.walletItemId = walletItemId;
     }
 
-    public Long getPlObjectiveId() {
-        return plObjectiveId;
-    }
-
-    public void setPlObjectiveId(Long plObjectiveId) {
-        this.plObjectiveId = plObjectiveId;
-    }
 
     public Long getAppMemberWalletItemId() {
         return appMemberWalletItemId;
@@ -66,18 +67,6 @@ public class WalletItemTransactionDTO {
     public void setId(Long id) {
         this.id = id;
     }
-
-    public WalletItemTransactionDTO() {
-    }
-
-
-//    public String getTransactionDate() {
-//        return transactionDate;
-//    }
-//
-//    public void setTransactionDate(String transactionDate) {
-//        this.transactionDate = transactionDate;
-//    }
 
     public Float getAmount() {
         return amount;
@@ -103,17 +92,19 @@ public class WalletItemTransactionDTO {
         this.description = description;
     }
 
-    public WalletItemTransactionDTO(Long id,  Float amount, Long walletItemId, Long plObjectiveId,
-                                    Long appMemberWalletItemId, Boolean incTransaction, String description,Long sourceUserId,Long destinationUserId) {
-        this.id = id;
-       // this.transactionDate = transactionDate;
+    public WalletItemTransactionDTO() {
+    }
+
+    public WalletItemTransactionDTO(Long id,String transactionDate, Float amount, Long walletItemId, Long counterpartyId,
+                                    Long appMemberWalletItemId, String walletTransactionType, Boolean incTransaction, String description) {
+        this.id =id;
+        this.transactionDate = transactionDate;
         this.amount = amount;
         this.walletItemId = walletItemId;
-        this.plObjectiveId = plObjectiveId;
+        this.counterpartyId = counterpartyId;
         this.appMemberWalletItemId = appMemberWalletItemId;
+        this.walletTransactionType = walletTransactionType;
         this.incTransaction = incTransaction;
         this.description = description;
-        this.destinationUserId = destinationUserId;
-        this.sourceUserId = sourceUserId;
     }
 }

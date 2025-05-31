@@ -243,6 +243,11 @@ public class BaseItemSetConroller {
     public Collection<EnumDTO> getGameStatus(Model model) {
         return DTOUtil.getEnumByClass(GameStatus.class);
     }
+    @GetMapping("/wallet-transaction-type/all")
+    @CrossOrigin(origins = "*")
+    public Collection<EnumDTO> getWalletTransactionType(Model model) {
+        return DTOUtil.getEnumByClass(WalletTransactionType.class);
+    }
 
     @Autowired
     private PLPrivacyService plPrivacyService;

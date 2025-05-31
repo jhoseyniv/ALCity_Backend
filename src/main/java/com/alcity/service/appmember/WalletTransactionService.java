@@ -3,6 +3,7 @@ package com.alcity.service.appmember;
 
 import com.alcity.dto.appmember.AppMemberDTO;
 import com.alcity.dto.appmember.WalletItemTransactionDTO;
+import com.alcity.entity.alenum.WalletTransactionType;
 import com.alcity.entity.appmember.AppMember;
 import com.alcity.entity.appmember.WalletItem;
 import com.alcity.entity.appmember.WalletTransaction;
@@ -39,12 +40,10 @@ public class WalletTransactionService implements WalletTransactionRepository {
 
   public WalletTransaction save(WalletItemTransactionDTO dto, String code) {
     Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
-    Optional<AppMember> sourceUser = appMemberRepository.findById(dto.getSourceUserId());
-    Optional<AppMember> destinationUser = appMemberRepository.findById(dto.getDestinationUserId());
-
+    WalletTransactionType transactionType = WalletTransactionType.getByTitle(dto.getWalletTransactionType());
     Optional<WalletItem> walletItem = walletItemRespository.findById(dto.getWalletItemId());
     WalletTransaction transaction = new WalletTransaction(DateUtils.getNow(), dto.getAmount(), dto.getIncTransaction(),dto.getDescription(),walletItem.get(),
-            sourceUser.get(),destinationUser.get(),1L,DateUtils.getNow(),DateUtils.getNow(),createdBy.get(),createdBy.get());
+            dto.getCounterpartyId(), transactionType,1L,DateUtils.getNow(),DateUtils.getNow(),createdBy.get(),createdBy.get());
     walletTransactionRepository.save(transaction);
     return  transaction;
   }

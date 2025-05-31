@@ -6,6 +6,7 @@ import com.alcity.entity.base.PuzzleCategory;
 import com.alcity.entity.appmember.AppMember;
 import com.alcity.repository.base.PuzzleCategoryRepository;
 import com.alcity.repository.appmember.AppMemberRepository;
+import com.alcity.utility.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
@@ -27,7 +28,7 @@ public class PuzzleCategoryService implements PuzzleCategoryRepository {
         Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
         PuzzleCategory puzzleCategory=null;
         if (code.equalsIgnoreCase("Save")) { // save
-            puzzleCategory = new PuzzleCategory(dto.getLabel(), dto.getValue(),dto.getTemplateEditor() ,1L, "1714379790", "1714379790", createdBy.get(), createdBy.get());
+            puzzleCategory = new PuzzleCategory(dto.getLabel(), dto.getValue(),dto.getTemplateEditor() ,1L, DateUtils.getNow(), DateUtils.getNow(), createdBy.get(), createdBy.get());
             puzzleCategoryRepository.save(puzzleCategory);
          }else{//edit
             Optional<PuzzleCategory> puzzleCategoryOptional= puzzleCategoryRepository.findById(dto.getId());

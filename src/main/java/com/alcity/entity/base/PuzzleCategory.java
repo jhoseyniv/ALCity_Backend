@@ -4,6 +4,8 @@ import com.alcity.entity.puzzle.PuzzleGroup;
 import com.alcity.entity.appmember.AppMember;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.ColumnDefault;
+
 import java.io.Serializable;
 import java.util.Collection;
 
@@ -11,7 +13,7 @@ import java.util.Collection;
 public class PuzzleCategory extends BaseItemSet implements Serializable {
 
     @Column(name="templateEditor")
-    private String templateEditor="";
+    private String templateEditor;
 
 
     @OneToMany(mappedBy = "puzzleCategory", fetch = FetchType.LAZY, cascade = CascadeType.ALL)

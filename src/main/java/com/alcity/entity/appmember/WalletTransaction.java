@@ -1,13 +1,12 @@
 package com.alcity.entity.appmember;
 
+import com.alcity.entity.alenum.PLStatus;
+import com.alcity.entity.alenum.WalletTransactionType;
 import com.alcity.entity.base.BaseTable;
 import com.alcity.entity.puzzle.PLObjective;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.Entity;
+import jakarta.persistence.*;
 
-import jakarta.persistence.FetchType;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.NotNull;
 
 import java.io.Serializable;
@@ -33,40 +32,24 @@ public class WalletTransaction extends BaseTable implements Serializable {
     @JsonIgnore
     private AppMember_WalletItem applicationMember_WalletItem;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "plObjective_id", nullable = true)
-    @JsonIgnore
-    private PLObjective plObjective;
+    @Enumerated(EnumType.ORDINAL)
+    private WalletTransactionType walletTransactionType;
+
+
+    @Column(name="counterparty_id")
+    private Long counterpartyId;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "walletItem_id", nullable = false)
     @JsonIgnore
     private WalletItem walletItem;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "source_appMember_id", nullable = false)
-    @JsonIgnore
-    private AppMember sourceUser;
-
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "destination_appMember_id", nullable = false)
-    @JsonIgnore
-    private AppMember destinationUser;
-
-    public AppMember getSourceUser() {
-        return sourceUser;
+    public Long getCounterpartyId() {
+        return counterpartyId;
     }
 
-    public void setSourceUser(AppMember sourceUser) {
-        this.sourceUser = sourceUser;
-    }
-
-    public AppMember getDestinationUser() {
-        return destinationUser;
-    }
-
-    public void setDestinationUser(AppMember destinationUser) {
-        this.destinationUser = destinationUser;
+    public void setCounterpartyId(Long counterpartyId) {
+        this.counterpartyId = counterpartyId;
     }
 
     public AppMember_WalletItem getApplicationMember_WalletItem() {
@@ -77,12 +60,12 @@ public class WalletTransaction extends BaseTable implements Serializable {
         this.applicationMember_WalletItem = applicationMember_WalletItem;
     }
 
-    public PLObjective getPlObjective() {
-        return plObjective;
+    public WalletTransactionType getWalletTransactionType() {
+        return walletTransactionType;
     }
 
-    public void setPlObjective(PLObjective plObjective) {
-        this.plObjective = plObjective;
+    public void setWalletTransactionType(WalletTransactionType walletTransactionType) {
+        this.walletTransactionType = walletTransactionType;
     }
 
     public WalletItem getWalletItem() {
@@ -129,7 +112,7 @@ public class WalletTransaction extends BaseTable implements Serializable {
     }
 
     public WalletTransaction(String transactionDate, Float amount, Boolean incTransaction, String description,
-                             WalletItem walletItem,AppMember sourceUser,AppMember destinationUser,
+                             WalletItem walletItem,Long counterpartyId,WalletTransactionType transactionType,
                              Long version, String created, String updated, AppMember createdBy, AppMember updatedBy) {
         super(version, created, updated, createdBy, updatedBy);
         this.transactionDate = transactionDate;
@@ -137,7 +120,7 @@ public class WalletTransaction extends BaseTable implements Serializable {
         this.incTransaction = incTransaction;
         this.description = description;
         this.walletItem = walletItem;
-        this.sourceUser = sourceUser;
-        this.destinationUser = destinationUser;
+        this.counterpartyId = counterpartyId;
+        this.walletTransactionType = transactionType;
     }
 }
