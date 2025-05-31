@@ -1,11 +1,9 @@
 package com.alcity.api;
 
-import com.alcity.dto.appmember.AppMemberJourneyDTO;
-import com.alcity.dto.appmember.WalletItemTransactionDTO;
+import com.alcity.dto.appmember.*;
 import com.alcity.dto.player.PlayHistoryDTO;
 import com.alcity.dto.puzzle.PLDTO;
-import com.alcity.entity.appmember.AppMemberJourneyInfo;
-import com.alcity.entity.appmember.WalletTransaction;
+import com.alcity.entity.appmember.*;
 import com.alcity.entity.journey.Journey;
 import com.alcity.entity.play.PlayHistory;
 import com.alcity.service.Journey.JourneyService;
@@ -14,10 +12,6 @@ import com.alcity.service.appmember.WalletTransactionService;
 import com.alcity.service.customexception.ALCityResponseObject;
 import com.alcity.service.customexception.UniqueConstraintException;
 import com.alcity.service.customexception.ViolateForeignKeyException;
-import com.alcity.dto.appmember.AppMemberDTO;
-import com.alcity.dto.appmember.AppMemberWalletDTO;
-import com.alcity.entity.appmember.AppMember;
-import com.alcity.entity.appmember.AppMember_WalletItem;
 import com.alcity.service.appmember.AppMemberService;
 import com.alcity.utility.DTOUtil;
 import io.swagger.v3.oas.annotations.Operation;
@@ -225,7 +219,10 @@ public class AppMemberController {
     }
 
     public boolean checkPLRewardConstraint(WalletItemTransactionDTO dto){
-       return true;
+        return true;
+    }
+    public boolean checkPLSkillConstraint(LearningSkillTransactionDTO dto){
+        return true;
     }
 
     @Operation( summary = "Apply Reward for specific  Member after playing puzzles ",  description = "Apply Reward for specific  Member after playing puzzles")
@@ -237,10 +234,26 @@ public class AppMemberController {
         boolean checkIsRewardBefore = checkPLRewardConstraint(dto);
 
         if(checkIsRewardBefore == false)
-                    return new ALCityResponseObject(HttpStatus.OK.value(), "error", savedRecord.getId(), "The user got this a reward before!");
+            return new ALCityResponseObject(HttpStatus.OK.value(), "error", savedRecord.getId(), "The user got this a reward before!");
         else {
             savedRecord = walletTransactionService.save(dto, "Save");
             responseObject = new ALCityResponseObject(HttpStatus.OK.value(), "ok", savedRecord.getId(), "Transaction Saved Successfully!");
+        }
+        return responseObject;
+    }
+    @Operation( summary = "Apply Skill for specific  Member after playing puzzles ",  description = "Apply Skill for specific  Member after playing puzzles")
+    @PostMapping("/apply-skill")
+    @CrossOrigin(origins = "*")
+    public ALCityResponseObject applySkill(@RequestBody LearningSkillTransactionDTO dto)  {
+        WalletTransaction savedRecord = null;
+        ALCityResponseObject responseObject = new ALCityResponseObject();
+        boolean checkIsRewardBefore = checkPLSkillConstraint(dto);
+
+        if(checkIsRewardBefore == false)
+            return new ALCityResponseObject(HttpStatus.OK.value(), "error", savedRecord.getId(), "The user got this a learning skill before!");
+        else {
+           // savedRecord = walletTransactionService.save(dto, "Save");
+            responseObject = new ALCityResponseObject(HttpStatus.OK.value(), "ok", savedRecord.getId(), "Skill Learning Transaction Saved Successfully!");
         }
         return responseObject;
     }

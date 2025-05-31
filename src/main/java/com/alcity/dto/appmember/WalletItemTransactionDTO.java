@@ -1,7 +1,9 @@
 package com.alcity.dto.appmember;
 
 
-public class WalletItemTransactionDTO {
+import java.io.Serializable;
+
+public class WalletItemTransactionDTO implements Serializable {
 
     private Float amount;
 
