@@ -1,9 +1,20 @@
 package com.alcity.service.appmember;
 
 
+import com.alcity.dto.appmember.LearningSkillTransactionDTO;
+import com.alcity.dto.appmember.WalletItemTransactionDTO;
+import com.alcity.entity.alenum.WalletTransactionType;
+import com.alcity.entity.appmember.AppMember;
 import com.alcity.entity.appmember.LearningSkillTransaction;
 import com.alcity.entity.appmember.WalletItem;
+import com.alcity.entity.appmember.WalletTransaction;
+import com.alcity.entity.learning.LearningSkill;
+import com.alcity.repository.appmember.AppMemberRepository;
 import com.alcity.repository.appmember.LearningSkillTransactionRepository;
+import com.alcity.repository.appmember.WalletTransactionRepository;
+import com.alcity.repository.learning.LearningSkillRepository;
+import com.alcity.utility.DateUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,9 +24,30 @@ import java.util.Optional;
 @Service
 @Transactional
 public class LearningSkillTransactionService implements LearningSkillTransactionRepository {
+
+    @Autowired
+    private AppMemberRepository appMemberRepository;
+
+    @Autowired
+    LearningSkillTransactionRepository learningSkillTransactionRepository;
+    @Autowired
+    LearningSkillRepository learningSkillRepository;
+
     @Override
     public <S extends LearningSkillTransaction> S save(S entity) {
         return null;
+    }
+    public LearningSkillTransaction save(LearningSkillTransactionDTO dto, String code) {
+        Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
+        Optional<AppMember> appMemberOptional = appMemberRepository.findById(dto.getAppMemberId());
+        if(appMemberOptional.isEmpty()) return  null;
+
+        Optional<LearningSkill> learningSkillOptional = learningSkillRepository.findById(dto.getLearningSkillId());
+
+        LearningSkillTransaction transaction = new LearningSkillTransaction(DateUtils.getNow(),appMemberOptional.get(),
+                dto.getAmount() ,dto.getDescription(),learningSkillOptional.get());
+        learningSkillTransactionRepository.save(transaction);
+        return  transaction;
     }
 
     @Override

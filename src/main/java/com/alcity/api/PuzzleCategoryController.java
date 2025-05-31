@@ -56,6 +56,7 @@ public class PuzzleCategoryController {
         }
         return pgdtos;
     }
+
     @Operation( summary = "Get all Puzzle Levels for a puzzle Category by age order ",  description = "Get all Puzzle Levels for a puzzle Category by age order")
     @GetMapping("/id/{id}/pl/all")
     @CrossOrigin(origins = "*")

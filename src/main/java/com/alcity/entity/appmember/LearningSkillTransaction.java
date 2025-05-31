@@ -28,6 +28,11 @@ public class LearningSkillTransaction   extends BaseTable implements Serializabl
     @JsonIgnore
     private LearningSkill learningSkill;
 
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "applicationMember_id", nullable = false)
+    @JsonIgnore
+    private AppMember appMember;
+
 
     public String getTransactionDate() {
         return transactionDate;
@@ -64,7 +69,8 @@ public class LearningSkillTransaction   extends BaseTable implements Serializabl
     public LearningSkillTransaction() {
     }
 
-    public LearningSkillTransaction(String transactionDate, Float amount, String description, LearningSkill learningSkill) {
+    public LearningSkillTransaction(String transactionDate,AppMember appMember, Float amount, String description, LearningSkill learningSkill) {
+        this.appMember =appMember;
         this.transactionDate = transactionDate;
         this.amount = amount;
         this.description = description;

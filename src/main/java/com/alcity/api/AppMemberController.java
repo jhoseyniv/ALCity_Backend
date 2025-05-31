@@ -8,6 +8,7 @@ import com.alcity.entity.journey.Journey;
 import com.alcity.entity.play.PlayHistory;
 import com.alcity.service.Journey.JourneyService;
 import com.alcity.o3rdparty.ALCityAcessRight;
+import com.alcity.service.appmember.LearningSkillTransactionService;
 import com.alcity.service.appmember.WalletTransactionService;
 import com.alcity.service.customexception.ALCityResponseObject;
 import com.alcity.service.customexception.UniqueConstraintException;
@@ -34,8 +35,12 @@ public class AppMemberController {
 
     @Autowired
     private JourneyService journeyService;
+
     @Autowired
     private WalletTransactionService walletTransactionService;
+
+    @Autowired
+    private LearningSkillTransactionService learningSkillTransactionService;
 
     @GetMapping("/all")
     @CrossOrigin(origins = "*")
@@ -241,18 +246,19 @@ public class AppMemberController {
         }
         return responseObject;
     }
+
     @Operation( summary = "Apply Skill for specific  Member after playing puzzles ",  description = "Apply Skill for specific  Member after playing puzzles")
     @PostMapping("/apply-skill")
     @CrossOrigin(origins = "*")
     public ALCityResponseObject applySkill(@RequestBody LearningSkillTransactionDTO dto)  {
-        WalletTransaction savedRecord = null;
+        LearningSkillTransaction savedRecord = null;
         ALCityResponseObject responseObject = new ALCityResponseObject();
         boolean checkIsRewardBefore = checkPLSkillConstraint(dto);
 
         if(checkIsRewardBefore == false)
             return new ALCityResponseObject(HttpStatus.OK.value(), "error", savedRecord.getId(), "The user got this a learning skill before!");
         else {
-           // savedRecord = walletTransactionService.save(dto, "Save");
+            savedRecord = learningSkillTransactionService.save(dto, "Save");
             responseObject = new ALCityResponseObject(HttpStatus.OK.value(), "ok", savedRecord.getId(), "Skill Learning Transaction Saved Successfully!");
         }
         return responseObject;
