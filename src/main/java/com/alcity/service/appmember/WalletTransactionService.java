@@ -8,6 +8,7 @@ import com.alcity.entity.appmember.AppMember;
 import com.alcity.entity.appmember.WalletItem;
 import com.alcity.entity.appmember.WalletTransaction;
 import com.alcity.entity.base.MemberType;
+import com.alcity.entity.puzzle.PLObjective;
 import com.alcity.repository.appmember.AppMemberRepository;
 import com.alcity.repository.appmember.WalletItemRespository;
 import com.alcity.repository.appmember.WalletTransactionRepository;
@@ -116,5 +117,10 @@ public class WalletTransactionService implements WalletTransactionRepository {
   @Override
   public Collection<WalletTransaction> findByAmount(Float amount) {
     return null;
+  }
+
+  @Override
+  public Optional<WalletTransaction> findByAppMemberAndCounterpartyId(AppMember appMember, PLObjective plObjective) {
+    return walletTransactionRepository.findByAppMemberAndCounterpartyId(appMember,plObjective);
   }
 }

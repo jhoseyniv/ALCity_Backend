@@ -6,6 +6,7 @@ import com.alcity.dto.puzzle.PLDTO;
 import com.alcity.entity.appmember.*;
 import com.alcity.entity.journey.Journey;
 import com.alcity.entity.play.PlayHistory;
+import com.alcity.entity.puzzle.PLObjective;
 import com.alcity.service.Journey.JourneyService;
 import com.alcity.o3rdparty.ALCityAcessRight;
 import com.alcity.service.appmember.LearningSkillTransactionService;
@@ -14,6 +15,7 @@ import com.alcity.service.customexception.ALCityResponseObject;
 import com.alcity.service.customexception.UniqueConstraintException;
 import com.alcity.service.customexception.ViolateForeignKeyException;
 import com.alcity.service.appmember.AppMemberService;
+import com.alcity.service.puzzle.PLObjectiveService;
 import com.alcity.utility.DTOUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -32,6 +34,8 @@ public class AppMemberController {
 
     @Autowired
     private AppMemberService appMemberService;
+    @Autowired
+    private PLObjectiveService plObjectiveService;
 
     @Autowired
     private JourneyService journeyService;
@@ -224,6 +228,16 @@ public class AppMemberController {
     }
 
     public boolean checkPLRewardConstraint(WalletItemTransactionDTO dto){
+        Long objectiveId = dto.getCounterpartyId();
+        Long appMemberId = dto.getAppMemberId();
+        Optional<AppMember> appMemberOptional = appMemberService.findById(appMemberId);
+        Optional<PLObjective> plObjectiveOptional = plObjectiveService.findById(objectiveId);
+
+        if(appMemberOptional.isEmpty() || plObjectiveOptional.isEmpty() ) return false;
+
+        Optional<WalletTransaction> transactionOptional = walletTransactionService.findByAppMemberAndCounterpartyId(appMemberOptional.get(),plObjectiveOptional.get());
+        if(transactionOptional.isPresent()) return false;
+
         return true;
     }
     public boolean checkPLSkillConstraint(LearningSkillTransactionDTO dto){
