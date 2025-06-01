@@ -15,10 +15,7 @@ public class PLDTO {
     private Long createdById;
     private Long updatedById;
 
-   // private Long creatorId;
-
-  //  private String creator;
-    private String approveDate;
+     private String approveDate;
     private Long ordering;
     private String title;
     private String code;
@@ -34,21 +31,6 @@ public class PLDTO {
 
     private Long plGroundId;
 
-//    public Long getCreatorId() {
-//        return creatorId;
-//    }
-//
-//    public void setCreatorId(Long creatorId) {
-//        this.creatorId = creatorId;
-//    }
-//
-//    public String getCreator() {
-//        return creator;
-//    }
-//
-//    public void setCreator(String creator) {
-//        this.creator = creator;
-//    }
 
     public String getPuzzleGroupTitle() {
         return puzzleGroupTitle;
@@ -187,8 +169,6 @@ public class PLDTO {
         this.thirdStartScore = thirdStartScore;
     }
 
-
-
     public String getPuzzleLevelStatus() {
         return puzzleLevelStatus;
     }
@@ -286,7 +266,7 @@ public class PLDTO {
         this.ordering = ordering;
         this.title = title;
         this.approveDate =approveDate;
-        this.puzzleGroupId = plGroundId;
+        this.plGroundId = plGroundId;
         this.puzzleGroupId = puzzleGroupId;
         this.puzzleGroupTitle = puzzleGroupTitle;
         this.code = code;

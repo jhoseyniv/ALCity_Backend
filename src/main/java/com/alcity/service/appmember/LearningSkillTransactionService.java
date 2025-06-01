@@ -57,7 +57,7 @@ public class LearningSkillTransactionService implements LearningSkillTransaction
 
     @Override
     public Optional<LearningSkillTransaction> findById(Long aLong) {
-        return Optional.empty();
+        return learningSkillTransactionRepository.findById(aLong);
     }
 
     @Override
