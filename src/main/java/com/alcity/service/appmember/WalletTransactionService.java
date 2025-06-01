@@ -1,13 +1,11 @@
 package com.alcity.service.appmember;
 
 
-import com.alcity.dto.appmember.AppMemberDTO;
 import com.alcity.dto.appmember.WalletItemTransactionDTO;
 import com.alcity.entity.alenum.WalletTransactionType;
 import com.alcity.entity.appmember.AppMember;
 import com.alcity.entity.appmember.WalletItem;
 import com.alcity.entity.appmember.WalletTransaction;
-import com.alcity.entity.base.MemberType;
 import com.alcity.entity.puzzle.PLObjective;
 import com.alcity.repository.appmember.AppMemberRepository;
 import com.alcity.repository.appmember.WalletItemRespository;
@@ -15,7 +13,6 @@ import com.alcity.repository.appmember.WalletTransactionRepository;
 import com.alcity.utility.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import org.springframework.transaction.annotation.Transactional;;
 import java.util.Collection;
 import java.util.Optional;
@@ -61,7 +58,7 @@ public class WalletTransactionService implements WalletTransactionRepository {
 
   @Override
   public Optional<WalletTransaction> findById(Long id) {
-    return Optional.empty();
+    return walletTransactionRepository.findById(id);
   }
 
   @Override

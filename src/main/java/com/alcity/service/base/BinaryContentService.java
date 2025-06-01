@@ -137,31 +137,11 @@ public class BinaryContentService implements BinaryContentRepository , BinaryCon
         if(dto.getLastIndex() < 0L ) dto.setLastIndex(0L);
         if(dto.getPageSize() <= 0 ) dto.setPageSize(1);
         Collection<BinaryContent> page = SlicedStream.getSliceOfStream(binaryContentStream,dto.getLastIndex() ,dto.getLastIndex()  + dto.getPageSize() -1 ).toList();
-
         return page;
-
     }
 
     @Autowired
     private AppMemberRepository appMemberRepository;
-
-
-//    @Override
-//    public BinaryContent save(String fileName, MultipartFile uploadedFile) throws IOException {
-//        LocalDateTime current = LocalDateTime.now();
-//        DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
-//        String now = current.format(format);
-//        AppMember createdBy = appMemberRepository.findByUsername("admin");
-//        BinaryContentType binaryContentType = ImageUtil.getBinaryContentType(uploadedFile.getContentType());
-//        File file= new File("src/main/resources/images/image-utility/",uploadedFile.getName());
-//        uploadedFile.transferTo(file);
-//        byte[] tubmnile = ImageUtil.getThumbnail(file);
-//        BinaryContent binaryContent = new BinaryContent(fileName,uploadedFile.getSize(),uploadedFile.getBytes(),tubmnile ,
-//                ,uploadedFile., binaryContentType,1L,now,now,createdBy,createdBy);
-//        binaryContentRepository.save(binaryContent);
-//
-//        return binaryContent;
-//    }
 
     @Override
     public void removeForeignKeys(Long id) throws IOException {
@@ -217,7 +197,6 @@ public class BinaryContentService implements BinaryContentRepository , BinaryCon
             walletItem.setIcon(null);
             walletItemRespository.save(walletItem);
         }
-
     }
 
     public BinaryContent save(BinaryContentDTO dto, String code) throws IOException {

@@ -1,9 +1,13 @@
 package com.alcity.api;
 
 import com.alcity.dto.appmember.*;
+import com.alcity.dto.base.BinaryContentDTO;
 import com.alcity.dto.player.PlayHistoryDTO;
 import com.alcity.dto.puzzle.PLDTO;
+import com.alcity.dto.search.AppMemberSearchCriteriaDTO;
+import com.alcity.dto.search.ContentSearchCriteriaDTO;
 import com.alcity.entity.appmember.*;
+import com.alcity.entity.base.BinaryContent;
 import com.alcity.entity.journey.Journey;
 import com.alcity.entity.play.PlayHistory;
 import com.alcity.entity.puzzle.PLObjective;
@@ -96,6 +100,13 @@ public class AppMemberController {
     }
 
 
+    @PostMapping("/search")
+    @ResponseBody
+    @CrossOrigin(origins = "*")
+    public Collection<AppMemberDTO> getBinaryContentBySearchCriteria(@RequestBody AppMemberSearchCriteriaDTO criteriaDTO ) {
+        Collection<AppMember> appMembers = appMemberService.findByCriteria(criteriaDTO);
+        return DTOUtil.getAppMemberDTOS(appMembers);
+    }
 
     @Operation( summary = "Get all history for an Application Member",  description = "get all play history for an Application Member ...")
     @RequestMapping(value = "/id/{id}/playhistory", method = RequestMethod.GET)
@@ -153,7 +164,6 @@ public class AppMemberController {
     }
 
     @Operation( summary = "Update Avatar for an App Member ",  description = "Update Avatar for an App Member")
-  //  @PostMapping("/update-avatar")
     @RequestMapping(value ="/update-avatar/memberId/{memId}/avatarId/{avatarId}", method = RequestMethod.GET)
     @CrossOrigin(origins = "*")
     public ALCityResponseObject getPuzzleLevel(@PathVariable Long memId,@PathVariable Long avatarId) {

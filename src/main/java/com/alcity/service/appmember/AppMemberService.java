@@ -6,6 +6,9 @@ import com.alcity.dto.journey.RoadMapDTO;
 import com.alcity.dto.player.PlayHistoryDTO;
 import com.alcity.dto.puzzle.PLDTO;
 import com.alcity.dto.puzzle.PuzzleLevelStepMappingDTO;
+import com.alcity.dto.search.AppMemberSearchCriteriaDTO;
+import com.alcity.dto.search.ContentSearchCriteriaDTO;
+import com.alcity.entity.alenum.BinaryContentType;
 import com.alcity.entity.appmember.AppMemberJourneyInfo;
 import com.alcity.entity.appmember.AppMemberStepInfo;
 import com.alcity.entity.journey.Journey;
@@ -29,6 +32,7 @@ import com.alcity.repository.base.MemberTypeRepository;
 import com.alcity.service.puzzle.PuzzleLevelService;
 import com.alcity.utility.DTOUtil;
 import com.alcity.utility.DateUtils;
+import com.alcity.utility.SlicedStream;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -37,6 +41,7 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 @Transactional
@@ -57,6 +62,19 @@ public class AppMemberService implements AppMemberRepository, CustomizedUserRepo
 
     @Autowired
     private PuzzleLevelService puzzleLevelService;
+
+
+    public Collection<AppMember> findByCriteria(AppMemberSearchCriteriaDTO dto) {
+        Integer age =dto.getAge();
+        Collection<AppMember> appMembers = appMemberRepository.findByUsernameContainingIgnoreCaseOrNicknameContainingIgnoreCaseOrEmailIsContainingIgnoreCase(dto.getCriteria(), dto.getCriteria(), dto.getCriteria());
+        Collection<AppMember> matchValues = appMembers.stream().filter(appMember ->  appMember.getAge().equals(age)).toList();
+        Stream<AppMember> appMemberStream = matchValues.stream();
+        if(dto.getLastIndex() < 0L ) dto.setLastIndex(0L);
+        if(dto.getPageSize() <= 0 ) dto.setPageSize(1);
+        Collection<AppMember> page = SlicedStream.getSliceOfStream(appMemberStream,dto.getLastIndex() ,dto.getLastIndex()  + dto.getPageSize() -1 ).toList();
+        return page;
+    }
+
 
     public  Collection<PLDTO> getPublicPuzzleLevels(AppMember appMember){
         Collection<PLDTO>  pldtos= new ArrayList<PLDTO>();
@@ -390,6 +408,11 @@ public class AppMemberService implements AppMemberRepository, CustomizedUserRepo
     @Override
     public AppMember findByEmail(String email) {
         return null;
+    }
+
+    @Override
+    public Collection<AppMember> findByUsernameContainingIgnoreCaseOrNicknameContainingIgnoreCaseOrEmailIsContainingIgnoreCase(String userName, String nickName, String email) {
+        return appMemberRepository.findByUsernameContainingIgnoreCaseOrNicknameContainingIgnoreCaseOrEmailIsContainingIgnoreCase(userName,nickName,email);
     }
 
     public ALCityResponseObject login(String username, String password) {
