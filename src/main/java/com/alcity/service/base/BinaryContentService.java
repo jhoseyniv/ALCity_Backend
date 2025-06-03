@@ -207,7 +207,7 @@ public class BinaryContentService implements BinaryContentRepository , BinaryCon
             byte[]  tumb = ImageUtil.getThumbnail(dto.getContent(),dto.getFileName());
             binaryContent = new BinaryContent(1L, DateUtils.getNow(), DateUtils.getNow(),createdBy.get() , createdBy.get(),dto.getFileName(),
                     dto.getSize(), dto.getContent(), tumb,dto.getIs3dContent(),
-                    dto.getIos3Dcontent(), dto.getAndriod3Dcontent(), dto.getWeb3Dcontent(),
+                    dto.getIos3Dcontent(), dto.getAndroid3Dcontent(), dto.getWeb3Dcontent(),
                     dto.getTag1(), dto.getTag2(), dto.getTag3(), BinaryContentType.getByTitle(dto.getContentType()));
             binaryContentRepository.save(binaryContent);
         }else{//edit
@@ -226,8 +226,8 @@ public class BinaryContentService implements BinaryContentRepository , BinaryCon
                 if(dto.getIos3Dcontent().length > 0 && dto.getIos3Dcontent()!=null )
                      binaryContent.setIos3Dcontent(dto.getIos3Dcontent());
 
-                if(dto.getAndriod3Dcontent().length > 0 && dto.getAndriod3Dcontent() !=null)
-                     binaryContent.setAndriod3Dcontent(dto.getAndriod3Dcontent());
+                if(dto.getAndroid3Dcontent().length > 0 && dto.getAndroid3Dcontent() !=null)
+                     binaryContent.setAndriod3Dcontent(dto.getAndroid3Dcontent());
 
                 if(dto.getWeb3Dcontent().length > 0  && dto.getWeb3Dcontent() !=null)
                     binaryContent.setWeb3Dcontent(dto.getWeb3Dcontent());

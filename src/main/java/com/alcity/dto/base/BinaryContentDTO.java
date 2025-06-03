@@ -15,7 +15,7 @@ public class BinaryContentDTO {
     private Integer size;
     private byte[] content;
     private byte[] ios3Dcontent;
-    private byte[] andriod3Dcontent;
+    private byte[] android3Dcontent;
     private byte[] web3Dcontent;
     private byte[] thumbnail;
 
@@ -127,12 +127,12 @@ public class BinaryContentDTO {
         this.ios3Dcontent = ios3Dcontent;
     }
 
-    public byte[] getAndriod3Dcontent() {
-        return andriod3Dcontent;
+    public byte[] getAndroid3Dcontent() {
+        return android3Dcontent;
     }
 
-    public void setAndriod3Dcontent(byte[] andriod3Dcontent) {
-        this.andriod3Dcontent = andriod3Dcontent;
+    public void setAndroid3Dcontent(byte[] android3Dcontent) {
+        this.android3Dcontent = android3Dcontent;
     }
 
     public byte[] getWeb3Dcontent() {
@@ -145,7 +145,7 @@ public class BinaryContentDTO {
 
     public BinaryContentDTO(Long id, Long version, String created, String updated, String createdBy, String updatedBy,
                             String fileName, Integer size, byte[] content, byte[] thumbnail,
-                            byte[] ios3Dcontent , byte[] andriod3Dcontent , byte[] web3Dcontent,
+                            byte[] ios3Dcontent , byte[] android3Dcontent , byte[] web3Dcontent,
                             String contentType, Boolean is3dContent, String tag1, String tag2, String tag3) {
         this.id = id;
         this.version = version;
@@ -153,7 +153,7 @@ public class BinaryContentDTO {
         this.size = size;
         this.content = content;
         this.ios3Dcontent = ios3Dcontent;
-        this.andriod3Dcontent =andriod3Dcontent;
+        this.android3Dcontent =android3Dcontent;
         this.web3Dcontent = web3Dcontent;
         this.thumbnail = thumbnail;
         this.contentType = contentType;

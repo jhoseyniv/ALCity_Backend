@@ -49,7 +49,7 @@ public class Renderer extends BaseTable implements Serializable {
     @Enumerated(EnumType.ORDINAL)
     private ObjectActionType objectAction;
 
-    @OneToMany(mappedBy = "actionRenderer", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "actionRenderer", fetch = FetchType.EAGER)
     @JsonIgnore
     private Collection<ObjectAction> puzzleObjectActions;
 

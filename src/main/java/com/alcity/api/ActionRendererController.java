@@ -49,7 +49,7 @@ public class ActionRendererController {
     @Operation( summary = "Save a Action Render Object  ",  description = "Save a Action Render  entity and their data to data base")
     @PostMapping("/save")
     @CrossOrigin(origins = "*")
-    public ALCityResponseObject saveActionRenders(@RequestBody RendererDTO dto)  {
+    public ALCityResponseObject saveActionRenders(@RequestBody RendererDTO dto) throws Exception  {
         Renderer savedRecord = null;
         ALCityResponseObject responseObject = new ALCityResponseObject();
 
@@ -57,7 +57,7 @@ public class ActionRendererController {
             try {
                 savedRecord = service.save(dto,"Save");
             } catch (RuntimeException e) {
-                throw new UniqueConstraintException(dto.getHandler(), dto.getId(), "Handler Must be Unique");
+                throw new UniqueConstraintException(dto.getHandler(), dto.getId(), "Handler Must Be Unique");
             }
             responseObject = new ALCityResponseObject(HttpStatus.OK.value(), "ok", savedRecord.getId(), "Record Saved Successfully!");
         } else if (dto.getId() > 0L ) {//edit

@@ -99,7 +99,7 @@ public class ALObjectController {
     @Operation( summary = "Save an Object Category ",  description = "Save an Object Category ")
     @PostMapping("/cat/save")
     @CrossOrigin(origins = "*")
-    public ALCityResponseObject saveObjectCategory(@RequestBody ObjectCategoryDTO dto)  {
+    public ALCityResponseObject saveObjectCategory(@RequestBody ObjectCategoryDTO dto) throws Exception  {
         ObjectCategory savedRecord = null;
         ALCityResponseObject responseObject = new ALCityResponseObject();
 

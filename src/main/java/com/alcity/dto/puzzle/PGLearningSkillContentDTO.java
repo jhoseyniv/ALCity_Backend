@@ -2,7 +2,6 @@ package com.alcity.dto.puzzle;
 
 public class PGLearningSkillContentDTO {
 
-
     private Long id;
 
     private String learningSkillTitle;

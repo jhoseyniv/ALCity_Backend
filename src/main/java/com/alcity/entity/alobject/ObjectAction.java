@@ -44,7 +44,7 @@ public class ObjectAction extends BaseTable implements Serializable {
         this.objectAction = objectAction;
     }
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.REMOVE, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "action_renderer_id", nullable = false)
     @JsonIgnore
     private Renderer actionRenderer;
