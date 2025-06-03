@@ -1,13 +1,10 @@
 package com.alcity.api;
 
 import com.alcity.dto.appmember.*;
-import com.alcity.dto.base.BinaryContentDTO;
 import com.alcity.dto.player.PlayHistoryDTO;
 import com.alcity.dto.puzzle.PLDTO;
 import com.alcity.dto.search.AppMemberSearchCriteriaDTO;
-import com.alcity.dto.search.ContentSearchCriteriaDTO;
 import com.alcity.entity.appmember.*;
-import com.alcity.entity.base.BinaryContent;
 import com.alcity.entity.journey.Journey;
 import com.alcity.entity.play.PlayHistory;
 import com.alcity.entity.puzzle.PLObjective;

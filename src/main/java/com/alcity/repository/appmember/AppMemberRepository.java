@@ -1,7 +1,6 @@
 package com.alcity.repository.appmember;
 
 import com.alcity.entity.appmember.AppMember;
-import com.alcity.entity.base.BinaryContent;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.Collection;

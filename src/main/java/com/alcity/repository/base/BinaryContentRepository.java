@@ -1,6 +1,5 @@
 package com.alcity.repository.base;
 
-import com.alcity.entity.alenum.BinaryContentType;
 import com.alcity.entity.base.BinaryContent;
 import org.springframework.data.repository.CrudRepository;
 

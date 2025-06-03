@@ -7,8 +7,6 @@ import com.alcity.dto.player.PlayHistoryDTO;
 import com.alcity.dto.puzzle.PLDTO;
 import com.alcity.dto.puzzle.PuzzleLevelStepMappingDTO;
 import com.alcity.dto.search.AppMemberSearchCriteriaDTO;
-import com.alcity.dto.search.ContentSearchCriteriaDTO;
-import com.alcity.entity.alenum.BinaryContentType;
 import com.alcity.entity.appmember.AppMemberJourneyInfo;
 import com.alcity.entity.appmember.AppMemberStepInfo;
 import com.alcity.entity.journey.Journey;
@@ -67,8 +65,8 @@ public class AppMemberService implements AppMemberRepository, CustomizedUserRepo
     public Collection<AppMember> findByCriteria(AppMemberSearchCriteriaDTO dto) {
         Integer age =dto.getAge();
         Collection<AppMember> appMembers = appMemberRepository.findByUsernameContainingIgnoreCaseOrNicknameContainingIgnoreCaseOrEmailIsContainingIgnoreCase(dto.getCriteria(), dto.getCriteria(), dto.getCriteria());
-        Collection<AppMember> matchValues = appMembers.stream().filter(appMember ->  appMember.getAge().equals(age)).toList();
-        Stream<AppMember> appMemberStream = matchValues.stream();
+      //  Collection<AppMember> matchValues = appMembers.stream().filter(appMember ->  appMember.getAge().equals(age)).toList();
+        Stream<AppMember> appMemberStream = appMembers.stream();
         if(dto.getLastIndex() < 0L ) dto.setLastIndex(0L);
         if(dto.getPageSize() <= 0 ) dto.setPageSize(1);
         Collection<AppMember> page = SlicedStream.getSliceOfStream(appMemberStream,dto.getLastIndex() ,dto.getLastIndex()  + dto.getPageSize() -1 ).toList();
