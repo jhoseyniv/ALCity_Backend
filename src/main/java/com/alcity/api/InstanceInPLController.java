@@ -8,6 +8,7 @@ import com.alcity.entity.alenum.POActionOwnerType;
 import com.alcity.entity.alobject.ObjectAction;
 import com.alcity.entity.puzzle.ALCityInstanceInPL;
 import com.alcity.entity.puzzle.PLGround;
+import com.alcity.entity.puzzle.PLRuleEvent;
 import com.alcity.entity.puzzle.PuzzleLevel;
 import com.alcity.service.alobject.ActionService;
 import com.alcity.service.alobject.AttributeService;
@@ -52,7 +53,7 @@ public class InstanceInPLController {
             try {
                 savedRecord = service.save(dto,"Save");
             } catch (RuntimeException e) {
-                throw new UniqueConstraintException(dto.getName(), dto.getId(), "title must be Unique");
+                throw new UniqueConstraintException(-1,"Unique Constraint in" + ALCityInstanceInPL.class , "Error",savedRecord.getId() );
             }
             responseObject = new ALCityResponseObject(HttpStatus.OK.value(), "ok", savedRecord.getId(), "Record Saved Successfully!");
         } else if (dto.getId() > 0L ) {//edit
@@ -136,7 +137,7 @@ public class InstanceInPLController {
                 service.deleteById(existingRecord.get().getId());
             }catch (Exception e )
             {
-                throw new ViolateForeignKeyException(existingRecord.get().getName(), existingRecord.get().getId(), CityObjectInPGDTO.class.toString());
+                throw new ViolateForeignKeyException(-1, "error", ALCityInstanceInPL.class.toString(),existingRecord.get().getId());
             }
             return new ALCityResponseObject(HttpStatus.OK.value(), "ok", id,"Record deleted Successfully!");
         }

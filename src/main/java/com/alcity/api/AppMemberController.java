@@ -7,6 +7,7 @@ import com.alcity.dto.search.AppMemberSearchCriteriaDTO;
 import com.alcity.entity.appmember.*;
 import com.alcity.entity.journey.Journey;
 import com.alcity.entity.play.PlayHistory;
+import com.alcity.entity.puzzle.ALCityObjectInPG;
 import com.alcity.entity.puzzle.PLObjective;
 import com.alcity.service.Journey.JourneyService;
 import com.alcity.o3rdparty.ALCityAcessRight;
@@ -153,7 +154,7 @@ public class AppMemberController {
                 appMemberService.deleteById(existingRecord.get().getId());
             }catch (Exception e )
             {
-                throw new ViolateForeignKeyException(existingRecord.get().getUsername(), existingRecord.get().getId(), AppMember.class.toString());
+                throw new ViolateForeignKeyException(-1, "error", AppMember.class.toString(),existingRecord.get().getId());
             }
             return new ALCityResponseObject(HttpStatus.OK.value(), "ok", id,"Record deleted Successfully!");
         }
@@ -188,7 +189,7 @@ public class AppMemberController {
             try {
                 savedRecord = appMemberService.save(dto,"Save");
             } catch (RuntimeException e) {
-                throw new UniqueConstraintException(dto.getUsername(), dto.getId(), "title must be Unique");
+                throw new UniqueConstraintException(-1,"Unique Constraint in" + AppMember.class , "Error",savedRecord.getId() );
             }
             responseObject = new ALCityResponseObject(HttpStatus.OK.value(), "ok", savedRecord.getId(), "Record Saved Successfully!");
         } else if (dto.getId() > 0L ) {//edit
@@ -216,7 +217,7 @@ public class AppMemberController {
             try {
                 savedRecord = appMemberService.chargeOrDeChargeAppMemberWallet(dto,"Save");
             } catch (RuntimeException e) {
-                throw new UniqueConstraintException(dto.getAppMemberUsername(), dto.getId(), "title must be Unique");
+                throw new UniqueConstraintException(-1,"Unique Constraint in" + AppMember_WalletItem.class , "Error",savedRecord.getId() );
             }
             responseObject = new ALCityResponseObject(HttpStatus.OK.value(), "ok", savedRecord.getId(), "Wallet Saved Successfully!");
         } else if (dto.getId() > 0L ) {//edit
@@ -296,7 +297,7 @@ public class AppMemberController {
             try {
                 savedRecord = appMemberService.saveGuestUser(byear);
             } catch (RuntimeException e) {
-                throw new UniqueConstraintException("dto.getUsername()", -1L, "user name must be Unique");
+                throw new UniqueConstraintException(-1,"Unique Constraint in" + AppMember.class , "Error",savedRecord.getId() );
             }
             appMemberDTO =  DTOUtil.getAppMemberDTO(savedRecord);
         return appMemberDTO;

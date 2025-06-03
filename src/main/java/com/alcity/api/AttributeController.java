@@ -1,6 +1,7 @@
 package com.alcity.api;
 
 import com.alcity.dto.alobject.AttributeDTOSave;
+import com.alcity.entity.puzzle.PLGround;
 import com.alcity.service.customexception.ALCityResponseObject;
 import com.alcity.service.customexception.UniqueConstraintException;
 import com.alcity.service.customexception.ViolateForeignKeyException;
@@ -51,7 +52,7 @@ public class AttributeController {
             try {
                 savedRecord = attributeService.save(dto,"Save");
             } catch (RuntimeException e) {
-                throw new UniqueConstraintException(dto.getName(), dto.getId(), "title must be Unique");
+                throw new UniqueConstraintException(-1,"Unique Constraint in" + Attribute.class , "Error",savedRecord.getId() );
             }
             responseObject = new ALCityResponseObject(HttpStatus.OK.value(), "ok", savedRecord.getId(), "Record Saved Successfully!");
         } else if (dto.getId() > 0L ) {//edit
@@ -88,7 +89,7 @@ public class AttributeController {
                 attributeService.deleteById(existingRecord.get().getId());
             }catch (Exception e )
             {
-                throw new ViolateForeignKeyException(existingRecord.get().getName(), existingRecord.get().getId(), Attribute.class.toString());
+                throw new ViolateForeignKeyException(-1, "error", Attribute.class.toString(),existingRecord.get().getId());
             }
             return new ALCityResponseObject(HttpStatus.OK.value(), "ok", id,"Record deleted Successfully!");
         }

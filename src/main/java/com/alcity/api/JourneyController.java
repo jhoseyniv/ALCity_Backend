@@ -1,7 +1,9 @@
 package com.alcity.api;
 
 import com.alcity.dto.journey.*;
+import com.alcity.entity.base.PuzzleCategory;
 import com.alcity.entity.journey.RoadMap;
+import com.alcity.entity.puzzle.PLGround;
 import com.alcity.service.Journey.RoadMapService;
 import com.alcity.service.customexception.ALCityResponseObject;
 import com.alcity.service.customexception.UniqueConstraintException;
@@ -84,7 +86,7 @@ public class JourneyController {
             try {
                 savedRecord = journeyService.save(dto,"Save");
             } catch (RuntimeException e) {
-                throw new UniqueConstraintException(dto.getTitle(), dto.getId(), "Value and Lable Must be Unique");
+                throw new UniqueConstraintException(-1,"Unique Constraint in" + Journey.class , "Error",savedRecord.getId() );
             }
             responseObject = new ALCityResponseObject(HttpStatus.OK.value(), "ok", savedRecord.getId(), "Record Saved Successfully!");
         } else if (dto.getId() > 0L ) {//edit
@@ -112,7 +114,7 @@ public class JourneyController {
             try {
                 savedRecord = journeyStepService.save(dto,"Save");
             } catch (RuntimeException e) {
-                throw new UniqueConstraintException(dto.getTitle(), dto.getId(), "Value and Lable Must be Unique");
+                throw new UniqueConstraintException(-1,"Unique Constraint in" + JourneyStep.class , "Error",savedRecord.getId() );
             }
             responseObject = new ALCityResponseObject(HttpStatus.OK.value(), "ok", savedRecord.getId(), "Record Saved Successfully!");
         } else if (dto.getId() > 0L ) {//edit
@@ -154,7 +156,7 @@ public class JourneyController {
             try {
                 savedRecord = roadMapService.save(dto,"Save");
             } catch (RuntimeException e) {
-                throw new UniqueConstraintException("Road Map", dto.getId(), "Must be Unique");
+                throw new UniqueConstraintException(-1,"Unique Constraint in" + RoadMap.class , "Error",savedRecord.getId() );
             }
             responseObject = new ALCityResponseObject(HttpStatus.OK.value(), "ok", savedRecord.getId(), "Record Saved Successfully!");
         } else if (dto.getId() > 0L ) {//edit
@@ -180,7 +182,7 @@ public class JourneyController {
 
             }catch (Exception e )
             {
-                throw new ViolateForeignKeyException("Road Map  With Id not deleted", existingRecord.get().getId(), RoadMap.class.toString());
+                throw new ViolateForeignKeyException(-1, "error", RoadMap.class.toString(),existingRecord.get().getId());
             }
             return new ResponseEntity<>("Record deleted Successfully!", HttpStatus.OK);
         }
@@ -195,7 +197,7 @@ public class JourneyController {
 
             }catch (Exception e )
             {
-                throw new ViolateForeignKeyException(existingRecord.get().getTitle(), existingRecord.get().getId(), JourneyStep.class.toString());
+                throw new ViolateForeignKeyException(-1, "error", JourneyStep.class.toString(),existingRecord.get().getId());
             }
             return new ResponseEntity<>("Record deleted Successfully!", HttpStatus.OK);
         }
@@ -211,7 +213,7 @@ public class JourneyController {
 
             }catch (Exception e )
             {
-                throw new ViolateForeignKeyException(existingRecord.get().getTitle(), existingRecord.get().getId(), Journey.class.toString());
+                throw new ViolateForeignKeyException(-1, "error", Journey.class.toString(),existingRecord.get().getId());
             }
             return new ResponseEntity<>("Record deleted Successfully!", HttpStatus.OK);
         }

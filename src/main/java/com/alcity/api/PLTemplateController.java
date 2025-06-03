@@ -2,6 +2,7 @@ package com.alcity.api;
 
 import com.alcity.dto.puzzle.PLDTO;
 import com.alcity.dto.puzzle.PLTemplateDTO;
+import com.alcity.entity.base.PuzzleCategory;
 import com.alcity.entity.puzzle.PLTemplate;
 import com.alcity.entity.puzzle.PuzzleLevel;
 import com.alcity.service.customexception.ALCityResponseObject;
@@ -64,7 +65,7 @@ public class PLTemplateController {
             try {
                 savedRecord = plTemplateService.save(dto,"Save");
             } catch (RuntimeException e) {
-                throw new UniqueConstraintException(dto.getTitle(), dto.getId(), "Code Must be Unique");
+                throw new UniqueConstraintException(-1,"Unique Constraint in" + PLTemplate.class , "Error",dto.getId() );
             }
             responseObject = new ALCityResponseObject(HttpStatus.OK.value(), "ok", savedRecord.getId(), "Record Saved Successfully!");
         } else if (dto.getId() > 0L ) {//edit

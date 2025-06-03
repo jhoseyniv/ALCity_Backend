@@ -14,7 +14,7 @@ import java.util.Collection;
 public class ObjectCategory extends BaseItemSet implements Serializable {
 
 
-    @OneToMany(mappedBy = "objectCategory", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "objectCategory", fetch = FetchType.EAGER)
     @JsonIgnore
     private Collection<ALCityObject> puzzleObjectCollection;
 

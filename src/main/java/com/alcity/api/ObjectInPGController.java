@@ -1,5 +1,6 @@
 package com.alcity.api;
 
+import com.alcity.entity.puzzle.PLRulePostAction;
 import com.alcity.service.alobject.AttributeService;
 import com.alcity.service.alobject.AttributeValueService;
 import com.alcity.service.customexception.ALCityResponseObject;
@@ -80,7 +81,7 @@ public class ObjectInPGController {
 //                DTOUtil.copyVariableFromTo(dto.getAlCityObjectId(),savedRecord.getId(),AttributeOwnerType.Object_Variable,AttributeOwnerType.Puzzle_Group_Object_Variable,attributeService,attributeValueService);
 
             } catch (RuntimeException e) {
-                throw new UniqueConstraintException(dto.getTitle(), dto.getId(), "title must be Unique");
+                throw new UniqueConstraintException(-1,"Unique Constraint in" + ALCityObjectInPG.class , "Error",savedRecord.getId() );
             }
             responseObject = new ALCityResponseObject(HttpStatus.OK.value(), "ok", savedRecord.getId(), "Record Saved Successfully!");
         } else if (dto.getId() > 0L ) {//edit
@@ -107,7 +108,7 @@ public class ObjectInPGController {
                 alCityObjectInPGService.deleteById(existingRecord.get().getId());
             }catch (Exception e )
             {
-                throw new ViolateForeignKeyException(existingRecord.get().getTitle(), existingRecord.get().getId(), CityObjectInPGDTO.class.toString());
+                throw new ViolateForeignKeyException(-1, "error", ALCityObjectInPG.class.toString(),existingRecord.get().getId());
             }
             return new ALCityResponseObject(HttpStatus.OK.value(), "ok", id,"Record deleted Successfully!");
         }

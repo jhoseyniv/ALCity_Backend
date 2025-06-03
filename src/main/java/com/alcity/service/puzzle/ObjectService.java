@@ -2,6 +2,7 @@ package com.alcity.service.puzzle;
 
 import com.alcity.dto.search.ObjectSearchCriteriaDTO;
 import com.alcity.dto.search.SearchResultCityObjectDTO;
+import com.alcity.entity.appmember.WalletItem;
 import com.alcity.entity.puzzle.ALCityObjectInPG;
 import com.alcity.entity.puzzle.PuzzleGroup;
 import com.alcity.service.customexception.UniqueConstraintException;
@@ -226,7 +227,7 @@ public class ObjectService implements ObjectRepository {
             objectRepository.delete(object);
         }catch (Exception e )
         {
-            throw new ViolateForeignKeyException(object.getTitle(), object.getId(), ALCityObject.class.toString());
+            throw new ViolateForeignKeyException(-1, "error", ALCityObject.class.toString(),object.getId());
         }
 
     }
@@ -279,7 +280,7 @@ public class ObjectService implements ObjectRepository {
                 objectRepository.save(alCityObject);
             }
             catch (RuntimeException e) {
-                    throw new UniqueConstraintException(dto.getTitle(), dto.getId(), "title must be Unique");
+                throw new UniqueConstraintException(-1,"Unique Constraint in" + ALCityObject.class , "Error",dto.getId() );
             }
         }else{//edit
             Optional<ALCityObject> alCityObjectOptional= objectRepository.findById(dto.getId());

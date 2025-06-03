@@ -46,7 +46,7 @@ public class PLRuleController {
             try {
                 savedRecord = plRuleService.save(dto,"Save");
             } catch (RuntimeException e) {
-                throw new UniqueConstraintException(dto.getTitle(), dto.getId(), PLRule.class.toString());
+                throw new UniqueConstraintException(-1,"Unique Constraint in" + PLRule.class , "Error",savedRecord.getId() );
             }
             responseObject = new ALCityResponseObject(HttpStatus.OK.value(), "ok", savedRecord.getId(), "Record Saved Successfully!");
         } else if (dto.getId() > 0L ) {//edit
@@ -140,7 +140,7 @@ public class PLRuleController {
             try {
                 savedRecord = plRulePostActionService.save(dto,"Save");
             } catch (RuntimeException e) {
-                throw new UniqueConstraintException(dto.getActionName(), dto.getId(), PLRulePostAction.class.toString());
+                throw new UniqueConstraintException(-1,"Unique Constraint in" + PLRulePostAction.class , "Error",savedRecord.getId() );
             }
             responseObject = new ALCityResponseObject(HttpStatus.OK.value(), "ok", savedRecord.getId(), "Record Saved Successfully!");
         } else if (dto.getId() > 0L ) {//edit
@@ -169,7 +169,7 @@ public class PLRuleController {
                 plRulePostActionService.deleteById(existingRecord.get().getId());
             }catch (Exception e )
             {
-                throw new ViolateForeignKeyException(existingRecord.get().getActionName(), existingRecord.get().getId(), PLRule.class.toString());
+                throw new ViolateForeignKeyException(-1, "error", PLRulePostAction.class.toString(),existingRecord.get().getId());
             }
             return new ALCityResponseObject(HttpStatus.OK.value(), "ok", id,"Record deleted Successfully!");
         }
@@ -186,7 +186,7 @@ public class PLRuleController {
                 plRuleService.deleteById(existingRecord.get().getId());
             }catch (Exception e )
             {
-                throw new ViolateForeignKeyException(existingRecord.get().getTitle(), existingRecord.get().getId(), PLRule.class.toString());
+                throw new ViolateForeignKeyException(-1, "error", PLRule.class.toString(),existingRecord.get().getId());
             }
             return new ALCityResponseObject(HttpStatus.OK.value(), "ok", id,"Record deleted Successfully!");
         }

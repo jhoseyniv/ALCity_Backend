@@ -6,7 +6,9 @@ import com.alcity.dto.puzzle.CameraSetupDTO;
 import com.alcity.dto.puzzle.PLGroundDTO;
 import com.alcity.dto.puzzle.boardgraphic.BoardGraphicDTO;
 import com.alcity.entity.base.BinaryContent;
+import com.alcity.entity.base.PuzzleCategory;
 import com.alcity.entity.puzzle.PLGround;
+import com.alcity.entity.puzzle.PuzzleGroup;
 import com.alcity.entity.puzzle.PuzzleLevel;
 import com.alcity.service.base.BinaryContentService;
 import com.alcity.service.customexception.ALCityResponseObject;
@@ -60,8 +62,8 @@ public class PLGroundController {
             try {
                 savedRecord = plGroundService.save(dto,"Save");
             } catch (RuntimeException e) {
-                throw new UniqueConstraintException("PL", dto.getId(), "Code Must be Unique");
-           }
+                throw new UniqueConstraintException(-1,"Unique Constraint in" + PLGround.class , "Error",savedRecord.getId() );
+            }
             responseObject = new ALCityResponseObject(HttpStatus.OK.value(), "ok", savedRecord.getId(), "Record Saved Successfully!");
         } else if (dto.getId() > 0L ) {//edit
             savedRecord = plGroundService.save(dto, "Edit");
@@ -174,7 +176,7 @@ public class PLGroundController {
                 plGroundService.deleteById(existingRecord.get().getId());
             }catch (Exception e )
             {
-                throw new ViolateForeignKeyException("PLGround", existingRecord.get().getId(), PuzzleLevel.class.toString());
+                throw new ViolateForeignKeyException(-1, "error", PLGround.class.toString(),existingRecord.get().getId());
             }
             return new ALCityResponseObject(HttpStatus.OK.value(), "ok", id,"Record deleted Successfully!");
         }

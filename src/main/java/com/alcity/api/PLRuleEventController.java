@@ -4,6 +4,7 @@ package com.alcity.api;
 import com.alcity.dto.puzzle.PLEventDTO;
 import com.alcity.dto.puzzle.PLRuleEventDTO;
 import com.alcity.dto.puzzle.PLRulePostActionDTO;
+import com.alcity.entity.alobject.ObjectCategory;
 import com.alcity.entity.base.PLPrivacy;
 import com.alcity.entity.puzzle.PLRule;
 import com.alcity.entity.puzzle.PLRuleEvent;
@@ -55,7 +56,7 @@ public class PLRuleEventController {
             try {
                 savedRecord = plRuleEventService.save(dto,"Save");
             } catch (RuntimeException e) {
-                throw new UniqueConstraintException(dto.getName(), dto.getId(), PLRuleEvent.class.toString());
+                throw new UniqueConstraintException(-1,"Unique Constraint in" + PLRuleEvent.class , "Error",savedRecord.getId() );
             }
             responseObject = new ALCityResponseObject(HttpStatus.OK.value(), "ok", savedRecord.getId(), "Record Saved Successfully!");
         } else if (dto.getId() > 0L ) {//edit
@@ -84,7 +85,7 @@ public class PLRuleEventController {
                 plRuleEventService.deleteById(existingRecord.get().getId());
             }catch (Exception e )
             {
-                throw new ViolateForeignKeyException(existingRecord.get().getName(), existingRecord.get().getId(), PLRule.class.toString());
+                throw new ViolateForeignKeyException(-1, "error", PLRuleEvent.class.toString(),existingRecord.get().getId());
             }
             return new ALCityResponseObject(HttpStatus.OK.value(), "ok", id,"Record deleted Successfully!");
         }

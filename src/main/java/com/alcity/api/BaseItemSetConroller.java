@@ -1,6 +1,8 @@
 package com.alcity.api;
 
 import com.alcity.entity.alenum.PLRulePostActionType;
+import com.alcity.entity.alobject.ObjectAction;
+import com.alcity.entity.puzzle.PGLearningSkillContent;
 import com.alcity.service.customexception.ALCityResponseObject;
 import com.alcity.service.customexception.UniqueConstraintException;
 import com.alcity.service.customexception.ViolateForeignKeyException;
@@ -110,7 +112,7 @@ public class BaseItemSetConroller {
             try {
                 savedRecord = clientTypeService.save(dto,"Save");
             } catch (RuntimeException e) {
-                throw new UniqueConstraintException(dto.getValue(), dto.getId(), "Value and Label Must be Unique");
+                throw new UniqueConstraintException(-1,"Unique Constraint in" + ClientType.class , "Error",savedRecord.getId() );
             }
             responseObject = new ALCityResponseObject(HttpStatus.OK.value(), "ok", savedRecord.getId(), "Record Saved Successfully!");
         } else if (dto.getId() > 0L ) {//edit
@@ -138,7 +140,7 @@ public class BaseItemSetConroller {
             try {
                 savedRecord = plPrivacyService.save(dto,"Save");
             } catch (RuntimeException e) {
-                throw new UniqueConstraintException(dto.getValue(), dto.getId(), "Value and Label Must be Unique");
+                throw new UniqueConstraintException(-1,"Unique Constraint in" + PLPrivacy.class , "Error",savedRecord.getId() );
             }
             responseObject = new ALCityResponseObject(HttpStatus.OK.value(), "ok", savedRecord.getId(), "Record Saved Successfully!");
         } else if (dto.getId() > 0L ) {//edit
@@ -200,7 +202,7 @@ public class BaseItemSetConroller {
             try {
                 savedRecord = memberTypeService.save(dto,"Save");
             } catch (RuntimeException e) {
-                throw new UniqueConstraintException(dto.getValue(), dto.getId(), "Value and Lable Must be Unique");
+                throw new UniqueConstraintException(-1,"Unique Constraint in" + MemberType.class , "Error",savedRecord.getId() );
             }
             responseObject = new ALCityResponseObject(HttpStatus.OK.value(), "ok", savedRecord.getId(), "Record Saved Successfully!");
         } else if (dto.getId() > 0L ) {//edit
@@ -284,7 +286,7 @@ public class BaseItemSetConroller {
                 plPrivacyService.deleteById(existingRecord.get().getId());
             }catch (Exception e )
             {
-                throw new ViolateForeignKeyException(existingRecord.get().getValue(), existingRecord.get().getId(), PLPrivacy.class.toString());
+                throw new ViolateForeignKeyException(-1, "error", PLPrivacy.class.toString(),existingRecord.get().getId());
             }
             return new ResponseEntity<>("Record deleted Successfully!", HttpStatus.OK);
         }
@@ -300,7 +302,7 @@ public class BaseItemSetConroller {
                 clientTypeService.deleteById(existingRecord.get().getId());
             }catch (Exception e )
             {
-                throw new ViolateForeignKeyException(existingRecord.get().getValue(), existingRecord.get().getId(), ClientType.class.toString());
+                throw new ViolateForeignKeyException(-1, "error", ClientType.class.toString(),existingRecord.get().getId());
             }
             return new ResponseEntity<>("Record deleted Successfully!", HttpStatus.OK);
         }
@@ -315,7 +317,7 @@ public class BaseItemSetConroller {
                 memberTypeService.deleteById(existingRecord.get().getId());
             }catch (Exception e )
             {
-                throw new ViolateForeignKeyException(existingRecord.get().getValue(), existingRecord.get().getId(), MemberType.class.toString());
+                throw new ViolateForeignKeyException(-1, "error", MemberType.class.toString(),existingRecord.get().getId());
             }
             return new ResponseEntity<>("Record deleted Successfully!", HttpStatus.OK);
         }

@@ -2,9 +2,11 @@ package com.alcity.api;
 
 import com.alcity.dto.puzzle.PLDTO;
 import com.alcity.dto.puzzle.PlLearningTopicDTO;
+import com.alcity.entity.base.PuzzleCategory;
 import com.alcity.entity.learning.LearningContent;
 import com.alcity.entity.learning.LearningTopic;
 import com.alcity.entity.puzzle.LearningTopicInPL;
+import com.alcity.entity.puzzle.PuzzleGroup;
 import com.alcity.entity.puzzle.PuzzleLevel;
 import com.alcity.repository.puzzle.PLLearningTopicRepository;
 import com.alcity.service.customexception.ALCityResponseObject;
@@ -65,7 +67,7 @@ public class PlLearningTopicController {
             try {
                 savedRecord = plLearningTopicService.save(dto,"Save");
             } catch (RuntimeException e) {
-                throw new UniqueConstraintException(dto.getLearningTopicTitle(), dto.getId(), "Code Must be Unique");
+                throw new UniqueConstraintException(-1,"Unique Constraint in" + LearningTopicInPL.class , "Error",savedRecord.getId() );
             }
             responseObject = new ALCityResponseObject(HttpStatus.OK.value(), "ok", savedRecord.getId(), "Record Saved Successfully!");
         } else if (dto.getId() > 0L ) {//edit
@@ -93,7 +95,7 @@ public class PlLearningTopicController {
                 plLearningTopicService.deleteById(existingRecord.get().getId());
             }catch (Exception e )
             {
-                throw new ViolateForeignKeyException(existingRecord.get().getLearningTopic().getTitle(), existingRecord.get().getId(), LearningTopicInPL.class.toString());
+                throw new ViolateForeignKeyException(-1, "error", LearningTopicInPL.class.toString(),existingRecord.get().getId());
             }
             return new ALCityResponseObject(HttpStatus.OK.value(), "ok", id,"Record deleted Successfully!");
         }

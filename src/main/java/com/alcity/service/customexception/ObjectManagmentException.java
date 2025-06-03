@@ -30,23 +30,21 @@ public class ObjectManagmentException extends ResponseEntityExceptionHandler {
     public ResponseEntity<Object> handleUniqueConstraintException(UniqueConstraintException ex, WebRequest request) {
 
         Map<String, Object> body = new LinkedHashMap<>();
-        body.put("timestamp:", LocalDateTime.now());
-        body.put("message ", "This record Id and Value is Already exist, Unique constraint...." );
-        body.put("Record Value ", ex.getRecordData() );
-        body.put("Record Id ", ex.getRecordId() );
-        body.put("Object Name ", ex.getDatabaseEntity() );
-        return new ResponseEntity<>(body, HttpStatus.NOT_FOUND);
+        body.put("code ", "This record Id and Value is Already exist, Unique constraint...." );
+        body.put("status ", ex.getStatus() );
+        body.put("message ", ex.getMessage() );
+        body.put("recordId ", ex.getRecordId() );
+        return new ResponseEntity<>(body, HttpStatus.CONFLICT);
     }
     @ExceptionHandler(ViolateForeignKeyException.class)
     public ResponseEntity<Object> handleViolateForeignKeyException(ViolateForeignKeyException ex, WebRequest request) {
 
         Map<String, Object> body = new LinkedHashMap<>();
-        body.put("timestamp:", LocalDateTime.now());
-        body.put("message ", "This record Id has a many related data in databes , violates foreign key constraint...." );
-        body.put("Record Value ", ex.getRecordData() );
-        body.put("Record Id ", ex.getRecordId() );
-        body.put("Object Name ", ex.getDatabaseEntity() );
-        return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
+        body.put("code ", "This record Id has a many related data in databes , violates foreign key constraint...." );
+        body.put("status ", ex.getStatus() );
+        body.put("message ", ex.getMessage() );
+        body.put("recordId ", ex.getRecordId() );
+        return new ResponseEntity<>(body, HttpStatus.CONFLICT);
     }
     @ExceptionHandler(NotNullConstraintException.class)
     public ResponseEntity<Object> handleNotNullConstraintExceptionn(NotNullConstraintException ex, WebRequest request) {

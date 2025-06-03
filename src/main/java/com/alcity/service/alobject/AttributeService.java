@@ -922,14 +922,14 @@ public class AttributeService implements AttributeRepository {
                 try {
                     savedRecord  = save(dto,"Save");
                 } catch (RuntimeException e) {
-                    throw new UniqueConstraintException(dto.getName(), dto.getId(), "title must be Unique");
+                    throw new UniqueConstraintException(-1,"Unique Constraint in" + Attribute.class , "Error",savedRecord.getId() );
                 }
                 responseObject = new ALCityResponseObject(HttpStatus.OK.value(), "ok", savedRecord.getId(), "Record Saved Successfully!");
             }else{
                 try {
                     savedRecord  = save(dto,"Edit");
                 } catch (RuntimeException e) {
-                    throw new UniqueConstraintException(dto.getName(), dto.getId(), "title must be Unique");
+                    throw new UniqueConstraintException(-1,"Unique Constraint in" + Attribute.class , "Error",savedRecord.getId() );
                 }
                 responseObject = new ALCityResponseObject(HttpStatus.OK.value(), "ok", savedRecord.getId(), "Record Saved Successfully!");
 

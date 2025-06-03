@@ -1,6 +1,8 @@
 package com.alcity.api;
 
 
+import com.alcity.entity.base.PuzzleCategory;
+import com.alcity.entity.puzzle.PuzzleGroup;
 import com.alcity.service.customexception.ALCityResponseObject;
 import com.alcity.service.customexception.UniqueConstraintException;
 import com.alcity.service.customexception.ViolateForeignKeyException;
@@ -76,7 +78,7 @@ public class BinaryContentController {
             try {
                 savedBinaryContent = binaryContentService.save(dto,"Save");
             } catch (RuntimeException e) {
-                throw new UniqueConstraintException(dto.getFileName(), dto.getId(), BinaryContent.class.toString());
+                throw new UniqueConstraintException(-1,"Unique Constraint in" + BinaryContent.class , "Error",dto.getId() );
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -102,7 +104,7 @@ public class BinaryContentController {
                 binaryContentService.deleteById(existingRecord.get().getId());
             }catch (Exception e )
             {
-                throw new ViolateForeignKeyException(existingRecord.get().getFileName(), existingRecord.get().getId(), BinaryContent.class.toString());
+                throw new ViolateForeignKeyException(-1, "error", BinaryContent.class.toString(),existingRecord.get().getId());
             }
             return new ALCityResponseObject(HttpStatus.OK.value(), "ok", id,"Record deleted Successfully!");
         }

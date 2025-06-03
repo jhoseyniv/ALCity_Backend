@@ -1,6 +1,7 @@
 package com.alcity.api;
 
 import com.alcity.dto.Interpreter.object.RecordData;
+import com.alcity.entity.puzzle.PLRule;
 import com.alcity.service.customexception.ALCityResponseObject;
 import com.alcity.service.customexception.UniqueConstraintException;
 import com.alcity.service.customexception.ViolateForeignKeyException;
@@ -57,7 +58,7 @@ public class ActionRendererController {
             try {
                 savedRecord = service.save(dto,"Save");
             } catch (RuntimeException e) {
-                throw new UniqueConstraintException(dto.getHandler(), dto.getId(), "Handler Must Be Unique");
+                throw new UniqueConstraintException(-1,"Unique Constraint in" +Renderer.class , "Error",savedRecord.getId() );
             }
             responseObject = new ALCityResponseObject(HttpStatus.OK.value(), "ok", savedRecord.getId(), "Record Saved Successfully!");
         } else if (dto.getId() > 0L ) {//edit
@@ -96,7 +97,7 @@ public class ActionRendererController {
                 service.deleteById(existingRecord.get().getId());
             }catch (Exception e )
             {
-                throw new ViolateForeignKeyException(existingRecord.get().getHandler(), existingRecord.get().getId(), Renderer.class.toString());
+                throw new ViolateForeignKeyException(-1, "error", Renderer.class.toString(),existingRecord.get().getId());
             }
             return new ALCityResponseObject(HttpStatus.OK.value(), "ok", id,"Record deleted Successfully!");
         }

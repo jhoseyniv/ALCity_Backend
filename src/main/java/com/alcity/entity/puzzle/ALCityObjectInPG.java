@@ -30,7 +30,7 @@ public class ALCityObjectInPG extends BaseTable implements Serializable {
     @JsonIgnore
     private ALCityObject alCityObject;
 
-    @OneToMany(mappedBy = "alCityObjectInPG", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "alCityObjectInPG", fetch = FetchType.LAZY)
     @JsonIgnore
     private Collection<ALCityInstanceInPL> alCityInstanceInPLCollection;
 

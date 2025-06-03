@@ -108,7 +108,7 @@ public class PuzzleCategoryController {
             try {
                 savedPuzzleCategory = puzzleCategoryService.save(dto,"Save");
             } catch (RuntimeException e) {
-                throw new UniqueConstraintException(dto.getLabel(), dto.getId(), PuzzleCategory.class.toString());
+                throw new UniqueConstraintException(-1,"Unique Constraint in" + PuzzleCategory.class , "Error",dto.getId() );
             }
             responseObject = new ALCityResponseObject(HttpStatus.OK.value(), "ok", savedPuzzleCategory.getId(), "Record Saved Successfully!");
         } else if (dto.getId() > 0L ) {//edit
@@ -132,7 +132,7 @@ public class PuzzleCategoryController {
 
             }catch (Exception e )
         {
-            throw new ViolateForeignKeyException(existingRecord.get().getLabel(), existingRecord.get().getId(), PuzzleCategory.class.toString());
+            throw new ViolateForeignKeyException(-1, "error", PuzzleCategory.class.toString(),existingRecord.get().getId());
         }
             return new ALCityResponseObject(HttpStatus.OK.value(), "ok", id,"Record deleted Successfully!");
         }

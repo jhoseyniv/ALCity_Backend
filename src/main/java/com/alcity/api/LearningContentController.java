@@ -1,5 +1,7 @@
 package com.alcity.api;
 
+import com.alcity.entity.journey.Journey;
+import com.alcity.entity.puzzle.PLGround;
 import com.alcity.service.customexception.ALCityResponseObject;
 import com.alcity.service.customexception.UniqueConstraintException;
 import com.alcity.service.customexception.ViolateForeignKeyException;
@@ -54,7 +56,7 @@ public class LearningContentController {
             try {
                 savedRecord = learningContentService.save(dto,"Save");
             } catch (RuntimeException e) {
-                throw new UniqueConstraintException(dto.getDescText(), dto.getId(), "title must be Unique");
+                throw new UniqueConstraintException(-1,"Unique Constraint in" + LearningContent.class , "Error",savedRecord.getId() );
             }
             responseObject = new ALCityResponseObject(HttpStatus.OK.value(), "ok", savedRecord.getId(), "Record Saved Successfully!");
         } else if (dto.getId() > 0L ) {//edit
@@ -81,7 +83,7 @@ public class LearningContentController {
                 learningContentService.deleteById(existingRecord.get().getId());
             }catch (Exception e )
             {
-                throw new ViolateForeignKeyException(existingRecord.get().getDescText(), existingRecord.get().getId(), PuzzleGroup.class.toString());
+                throw new ViolateForeignKeyException(-1, "error", LearningContent.class.toString(),existingRecord.get().getId());
             }
             return new ALCityResponseObject(HttpStatus.OK.value(), "ok", id,"Record deleted Successfully!");
         }

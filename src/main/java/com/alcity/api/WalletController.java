@@ -1,6 +1,8 @@
 package com.alcity.api;
 
 
+import com.alcity.entity.alobject.Attribute;
+import com.alcity.entity.alobject.ObjectAction;
 import com.alcity.service.customexception.ALCityResponseObject;
 import com.alcity.service.customexception.UniqueConstraintException;
 import com.alcity.service.customexception.ViolateForeignKeyException;
@@ -73,7 +75,7 @@ public class WalletController {
             try {
                 savedRecord = walletItemTypeService.save(dto,"Save");
             } catch (RuntimeException e) {
-                throw new UniqueConstraintException(dto.getValue(), dto.getId(), "Value and Lable Must be Unique");
+                throw new UniqueConstraintException(-1,"Unique Constraint in" + WalletItemType.class , "Error",savedRecord.getId() );
             }
             responseObject = new ALCityResponseObject(HttpStatus.OK.value(), "ok", savedRecord.getId(), "Record Saved Successfully!");
         } else if (dto.getId() > 0L ) {//edit
@@ -102,7 +104,7 @@ public class WalletController {
             try {
                 savedRecord = walletItemService.save(dto,"Save");
             } catch (RuntimeException e) {
-                throw new UniqueConstraintException(dto.getValue(), dto.getId(), "Value and Lable Must be Unique");
+                throw new UniqueConstraintException(-1,"Unique Constraint in" + WalletItem.class , "Error",savedRecord.getId() );
             }
             responseObject = new ALCityResponseObject(HttpStatus.OK.value(), "ok", savedRecord.getId(), "Record Saved Successfully!");
         } else if (dto.getId() > 0L ) {//edit
@@ -130,7 +132,7 @@ public class WalletController {
                 walletItemTypeService.deleteById(existingRecord.get().getId());
             }catch (Exception e )
             {
-                throw new ViolateForeignKeyException(existingRecord.get().getValue(), existingRecord.get().getId(), WalletItemType.class.toString());
+                throw new ViolateForeignKeyException(-1, "error", WalletItemType.class.toString(),existingRecord.get().getId());
             }
             return new ALCityResponseObject(HttpStatus.OK.value(), "ok", id,"Record deleted Successfully!");
         }
@@ -147,7 +149,7 @@ public class WalletController {
                 walletItemService.deleteById(existingRecord.get().getId());
             }catch (Exception e )
             {
-                throw new ViolateForeignKeyException(existingRecord.get().getValue(), existingRecord.get().getId(), WalletItemType.class.toString());
+                throw new ViolateForeignKeyException(-1, "error", WalletItem.class.toString(),existingRecord.get().getId());
             }
             return new ALCityResponseObject(HttpStatus.OK.value(), "ok", id,"Record deleted Successfully!");
         }
