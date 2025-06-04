@@ -1,5 +1,6 @@
 package com.alcity.service.alobject;
 
+import com.alcity.dto.pgimport.PGObjectActionImportDTO;
 import com.alcity.dto.puzzle.object.ActionDTO;
 import com.alcity.entity.alenum.ObjectActionType;
 import com.alcity.entity.alenum.POActionOwnerType;
@@ -16,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.Optional;
 
 @Service
@@ -40,6 +42,29 @@ public class ActionService implements ActionRepository {
     public <S extends ObjectAction> S save(S entity) {
         return actionRepository.save(entity);
     }
+    public  Collection<ObjectAction> importActions(Collection<PGObjectActionImportDTO> dtos,Long pgId) {
+        Collection<ObjectAction> actions = new ArrayList<>();
+        Iterator<PGObjectActionImportDTO> iterator = dtos.iterator();
+        while(iterator.hasNext()){
+            PGObjectActionImportDTO dto = iterator.next();
+            ObjectAction objectAction = importAction(dto,pgId);
+            actions.add(objectAction);
+        }
+       return  actions;
+    }
+    public ObjectAction importAction(PGObjectActionImportDTO dto,Long pgId) {
+        ObjectAction pgObjectAction=null;
+        Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
+        Optional<Renderer> rendererOptional = rendererService.findById(dto.getActionId());
+        ObjectActionType objectActionType = ObjectActionType.getByTitle(dto.getActionName());
+
+        pgObjectAction = new ObjectAction(POActionOwnerType.Puzzle_Group_Object, pgId, objectActionType,rendererOptional.get(),
+                1L,DateUtils.getNow(),DateUtils.getNow(),createdBy.get(), createdBy.get());
+        actionRepository.save(pgObjectAction);
+
+        return pgObjectAction;
+    }
+
     public ObjectAction save(ActionDTO dto, String code) {
         Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
         //Optional<ALCityObject> cityObjectOptional = alCityObjectService.findById(dto.getOwnerObjectid());

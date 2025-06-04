@@ -117,7 +117,7 @@ public class WalletTransactionService implements WalletTransactionRepository {
   }
 
   @Override
-  public Optional<WalletTransaction> findByAppMemberAndCounterpartyId(AppMember appMember, PLObjective plObjective) {
-    return walletTransactionRepository.findByAppMemberAndCounterpartyId(appMember,plObjective);
+  public Optional<WalletTransaction> findByAppMemberAndCounterpartyId(AppMember appMember, Long plObjectiveId) {
+    return walletTransactionRepository.findByAppMemberAndCounterpartyId(appMember,plObjectiveId);
   }
 }

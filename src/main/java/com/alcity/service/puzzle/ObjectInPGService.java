@@ -1,6 +1,10 @@
 package com.alcity.service.puzzle;
 
+import com.alcity.dto.alobject.AttributeDTOSave;
+import com.alcity.dto.pgimport.PGObjectImportDTO;
+import com.alcity.dto.pgimport.PGObjectVariableImportDTO;
 import com.alcity.dto.puzzle.CityObjectInPGDTO;
+import com.alcity.entity.alobject.ObjectAction;
 import com.alcity.entity.puzzle.ALCityObject;
 import com.alcity.entity.puzzle.ALCityObjectInPG;
 import com.alcity.entity.puzzle.PuzzleGroup;
@@ -12,6 +16,7 @@ import com.alcity.service.alobject.RendererService;
 import com.alcity.service.alobject.AttributeService;
 import com.alcity.service.alobject.AttributeValueService;
 import com.alcity.service.alobject.ActionService;
+import com.alcity.utility.DTOUtil;
 import com.alcity.utility.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -32,6 +37,9 @@ public class ObjectInPGService implements ObjectInPGRepository {
 
     @Autowired
     ActionService puzzleObjectActionService;
+
+    @Autowired
+    ActionService objectActionService;
 
     @Autowired
     @Qualifier("PGRepository")
@@ -137,7 +145,24 @@ public class ObjectInPGService implements ObjectInPGRepository {
 
     @Autowired
     private AppMemberRepository appMemberRepository;
-    public ALCityObjectInPG save(CityObjectInPGDTO dto, String code) {
+
+
+
+    public ALCityObjectInPG importObjInPG(PGObjectImportDTO dto,PuzzleGroup puzzleGroup) {
+        Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
+        Optional<ALCityObject> alCityObjectOptional = objectService.findById(dto.getObjectId());
+        ALCityObjectInPG  alCityObjectInPG=null;
+        alCityObjectInPG = new ALCityObjectInPG(dto.getTitle(), dto.getCode(),puzzleGroup,alCityObjectOptional.get(),
+                1L, DateUtils.getNow(), DateUtils.getNow(), createdBy.get(), createdBy.get());
+        objectInPGRepository.save(alCityObjectInPG);
+        Collection<PGObjectVariableImportDTO> variableImportDTOS = dto.getProperties();
+        attributeService.importPGVariables(variableImportDTOS,puzzleGroup);
+        objectActionService.importActions(dto.getActions(),puzzleGroup.getId());
+
+
+        return alCityObjectInPG;
+    }
+        public ALCityObjectInPG save(CityObjectInPGDTO dto, String code) {
         Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
         Optional<PuzzleGroup> puzzleGroupOptional =  pgRepository.findByTitle(dto.getPuzzleGroup());
         Optional<ALCityObject> alCityObjectOptional =  objectService.findById(dto.getAlCityObjectId());

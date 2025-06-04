@@ -1,8 +1,6 @@
-package com.alcity.dto.puzzle.pgimport;
+package com.alcity.dto.pgimport;
 
-import com.alcity.dto.journey.JourneyStepDTO;
 import com.alcity.dto.puzzle.PGLearningSkillContentDTO;
-import com.alcity.dto.puzzle.object.CityObjectDTO;
 
 import java.util.Collection;
 
@@ -11,7 +9,9 @@ public class PGImportDTO {
     private String title;
     private Long iconInfo;
     private Long picInfo;
-    private Collection<CityObjectDTO> objects;
+
+    private Long puzzleCategoryId;
+    private Collection<PGObjectImportDTO> objects;
     private Collection<PGLearningSkillContentDTO> skills;
 
     public Long getId() {
@@ -46,11 +46,11 @@ public class PGImportDTO {
         this.picInfo = picInfo;
     }
 
-    public Collection<CityObjectDTO> getObjects() {
+    public Collection<PGObjectImportDTO> getObjects() {
         return objects;
     }
 
-    public void setObjects(Collection<CityObjectDTO> objects) {
+    public void setObjects(Collection<PGObjectImportDTO> objects) {
         this.objects = objects;
     }
 
@@ -62,14 +62,23 @@ public class PGImportDTO {
         this.skills = skills;
     }
 
+    public Long getPuzzleCategoryId() {
+        return puzzleCategoryId;
+    }
+
+    public void setPuzzleCategoryId(Long puzzleCategoryId) {
+        this.puzzleCategoryId = puzzleCategoryId;
+    }
+
     public PGImportDTO() {
     }
 
-    public PGImportDTO(Long id, String title, Long iconInfo, Long picInfo,
-                       Collection<CityObjectDTO> objects, Collection<PGLearningSkillContentDTO> skills) {
+    public PGImportDTO(Long id, String title, Long iconInfo, Long picInfo,Long puzzleCategoryId,
+                       Collection<PGObjectImportDTO> objects, Collection<PGLearningSkillContentDTO> skills) {
         this.id = id;
         this.title = title;
         this.iconInfo = iconInfo;
+        this.puzzleCategoryId = puzzleCategoryId;
         this.picInfo = picInfo;
         this.objects = objects;
         this.skills = skills;

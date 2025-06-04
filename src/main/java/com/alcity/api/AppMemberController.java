@@ -243,7 +243,7 @@ public class AppMemberController {
 
         if(appMemberOptional.isEmpty() || plObjectiveOptional.isEmpty() ) return false;
 
-        Optional<WalletTransaction> transactionOptional = walletTransactionService.findByAppMemberAndCounterpartyId(appMemberOptional.get(),plObjectiveOptional.get());
+        Optional<WalletTransaction> transactionOptional = walletTransactionService.findByAppMemberAndCounterpartyId(appMemberOptional.get(),plObjectiveOptional.get().getId());
         if(transactionOptional.isPresent()) return false;
 
         return true;

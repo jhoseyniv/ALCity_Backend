@@ -2,6 +2,7 @@ package com.alcity.service.alobject;
 
 import com.alcity.dto.alobject.AttributeDTOSave;
 import com.alcity.dto.alobject.AttributeValueDTOSave;
+import com.alcity.dto.pgimport.PGObjectVariableImportDTO;
 import com.alcity.dto.puzzle.PLDTO;
 import com.alcity.entity.alenum.DataType;
 import com.alcity.entity.alobject.Attribute;
@@ -12,6 +13,7 @@ import com.alcity.entity.alobject.Renderer;
 import com.alcity.entity.appmember.AppMember;
 import com.alcity.entity.puzzle.ALCityInstanceInPL;
 import com.alcity.entity.puzzle.ALCityObjectInPG;
+import com.alcity.entity.puzzle.PuzzleGroup;
 import com.alcity.entity.puzzle.PuzzleLevel;
 import com.alcity.repository.alobject.ActionRepository;
 import com.alcity.repository.alobject.AttributeRepository;
@@ -882,8 +884,7 @@ public class AttributeService implements AttributeRepository {
         if (code.equalsIgnoreCase("Save")) { //Save
             attribute = new Attribute(newValue.getName(), newValue.getOwnerId(),attributeOwnerType,dataType ,
                     1L, DateUtils.getNow(), DateUtils.getNow(), createdBy.get(), createdBy.get());
-
-            attributeRepository.save(attribute);
+           attributeRepository.save(attribute);
             AttributeValueDTOSave valueDTO = newValue.getAttributeValueDTOSave();
             Optional<Attribute> bindedAttributeOptional =  attributeRepository.findById(valueDTO.getAttributeId());
             Attribute bindedAttribute=null;
@@ -935,6 +936,31 @@ public class AttributeService implements AttributeRepository {
 
             }
             responseObjects.add(responseObject);
+        }
+        return responseObjects;
+    }
+    public Collection<ALCityResponseObject> importPGVariables(Collection<PGObjectVariableImportDTO> dtos, PuzzleGroup puzzleGroup) {
+        Collection<ALCityResponseObject> responseObjects = new ArrayList<>();
+        Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
+        Attribute savedRecord = new Attribute();
+        Iterator<PGObjectVariableImportDTO> itr = dtos.iterator();
+        while(itr.hasNext()) {
+            PGObjectVariableImportDTO dto = itr.next();
+            ALCityResponseObject responseObject = new ALCityResponseObject();
+            if (dto.getId() == null || dto.getId() <= 0L) { //save
+                try {
+                    Attribute attribute=null;
+                    DataType dataType =  DataType.getByTitle(dto.getDataType());
+                    attribute = new Attribute(dto.getName(), puzzleGroup.getId(),AttributeOwnerType.Puzzle_Group_Object_Variable,
+                            dataType ,1L, DateUtils.getNow(), DateUtils.getNow(), createdBy.get(), createdBy.get());
+                    attributeRepository.save(attribute);
+                            AttributeValue  attributeValue = DTOUtil.getAttributeValueFromVariableImport(dto,attribute,createdBy.get());
+                    attributeValueRepository.save(attributeValue);
+                } catch (RuntimeException e) {
+                    throw new UniqueConstraintException(-1, "Unique Constraint in" + Attribute.class, "Error", savedRecord.getId());
+                }
+                responseObject = new ALCityResponseObject(HttpStatus.OK.value(), "ok", savedRecord.getId(), "Record Saved Successfully!");
+            }
         }
         return responseObjects;
     }

@@ -1,4 +1,23 @@
 
+
+{
+  "amount": 1.5,
+  "appMemberId": 56,
+  "learningSkillId": 37,
+  "description": ""
+}
+
+{
+  "amount": 2,
+  "walletItemId": 18,
+  "counterpartyId": 398,
+  "appMemberId": 57,
+  "walletTransactionType": "Puzzle_Objective",
+  "incTransaction": true,
+  "description": "Reward Applied"
+}
+
+
  {
     "id": 117,
     "version": 1,

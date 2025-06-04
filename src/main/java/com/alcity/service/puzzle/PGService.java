@@ -1,6 +1,11 @@
 package com.alcity.service.puzzle;
 
+import com.alcity.dto.pgimport.PGLearningSkillContentImportDTO;
+import com.alcity.dto.pgimport.PGObjectImportDTO;
+import com.alcity.dto.puzzle.CityObjectInPGDTO;
 import com.alcity.dto.puzzle.PGDTO;
+import com.alcity.dto.puzzle.PGLearningSkillContentDTO;
+import com.alcity.dto.pgimport.PGImportDTO;
 import com.alcity.entity.base.BinaryContent;
 import com.alcity.entity.base.PuzzleCategory;
 import com.alcity.entity.puzzle.PuzzleGroup;
@@ -9,12 +14,15 @@ import com.alcity.repository.base.BinaryContentRepository;
 import com.alcity.repository.base.PuzzleCategoryRepository;
 import com.alcity.repository.puzzle.PGRepository;
 import com.alcity.repository.appmember.AppMemberRepository;
+import com.alcity.service.alobject.AttributeService;
+import com.alcity.utility.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import org.springframework.transaction.annotation.Transactional;;
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.Optional;
 
 @Service
@@ -27,6 +35,8 @@ public class PGService implements PGRepository {
 
     @Autowired
     BinaryContentRepository binaryContentRepository;
+
+    PGSkillLearningContentService pgSkillLearningContentService;
 
     @Override
     public <S extends PuzzleGroup> S save(S entity) {
@@ -79,6 +89,37 @@ public class PGService implements PGRepository {
     @Autowired
     private PuzzleCategoryRepository puzzleCategoryRepository;
 
+    @Autowired
+    private ObjectInPGService objectInPGService;
+
+    @Autowired
+    private AttributeService attributeService;
+
+    public PuzzleGroup importPG(PGImportDTO dto) {
+        Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
+        PuzzleGroup puzzleGroup=null;
+        Optional<BinaryContent> iconOptional = binaryContentRepository.findById(dto.getIconInfo());
+        Optional<BinaryContent> picOptional = binaryContentRepository.findById(dto.getPicInfo());
+        Optional<PuzzleCategory>  puzzleCategoryOptional = puzzleCategoryRepository.findById(dto.getPuzzleCategoryId());
+        if(puzzleCategoryOptional.isEmpty()) return null;
+        puzzleGroup = new PuzzleGroup(dto.getTitle(),puzzleCategoryOptional.get(),iconOptional.get(),picOptional.get(), 1L, DateUtils.getNow(), DateUtils.getNow(), createdBy.get(), createdBy.get());
+        pgRepository.save(puzzleGroup);
+        Collection<PGObjectImportDTO> cityObjectInPGS = dto.getObjects();
+
+        Iterator<PGObjectImportDTO> objectIterator = cityObjectInPGS.iterator();
+        while(objectIterator.hasNext()) {
+            PGObjectImportDTO objectImportDTO = objectIterator.next();
+            objectInPGService.importObjInPG(objectImportDTO,puzzleGroup);
+        }
+
+        Collection<PGLearningSkillContentDTO> learningSkills = dto.getSkills();
+        Iterator<PGLearningSkillContentDTO> iterator = learningSkills.iterator();
+        while(iterator.hasNext()){
+            PGLearningSkillContentDTO learningSkillDTO=iterator.next();
+            pgSkillLearningContentService.save(learningSkillDTO,"Save");
+        }
+        return puzzleGroup;
+    }
     public PuzzleGroup save(PGDTO dto, String code) {
         Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
         PuzzleGroup puzzleGroup=null;

@@ -1,6 +1,6 @@
 package com.alcity.api;
 
-import com.alcity.entity.base.WalletItemType;
+import com.alcity.dto.pgimport.PGImportDTO;
 import com.alcity.service.customexception.ALCityResponseObject;
 import com.alcity.service.customexception.UniqueConstraintException;
 import com.alcity.service.customexception.ViolateForeignKeyException;
@@ -102,6 +102,24 @@ public class PGController {
         Collection<PGLearningSkillContentDTO> dtos = new ArrayList<PGLearningSkillContentDTO>();
         if(puzzleGroup.isPresent())  dtos = DTOUtil.getPGLearningSkillContentDTOS(puzzleGroup.get().getLearningSkillContents());
         return  dtos;
+    }
+
+    @Operation( summary = "Import a Puzzle Group ",  description = "Import a Puzzle Group entity to database")
+    @PostMapping("/import")
+    @CrossOrigin(origins = "*")
+    public ALCityResponseObject importPuzzleGroup(@RequestBody PGImportDTO dto) {
+        PuzzleGroup savedRecord = null;
+        ALCityResponseObject responseObject = new ALCityResponseObject();
+
+        if (dto.getId() == null || dto.getId() <= 0L) { //save
+            try {
+                savedRecord = pgService.importPG(dto);
+            } catch (RuntimeException e) {
+                throw new UniqueConstraintException(-1,"Unique Constraint in" + PuzzleCategory.class , "Error",savedRecord.getId() );
+            }
+            responseObject = new ALCityResponseObject(HttpStatus.OK.value(), "ok", savedRecord.getId(), "Record Saved Successfully!");
+        }
+        return responseObject;
     }
 
     @Operation( summary = "Save a Puzzle Group ",  description = "save a Puzzle Group entity to database")

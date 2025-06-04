@@ -39,8 +39,8 @@ public class LearningSkillTransactionService implements LearningSkillTransaction
 
         Optional<LearningSkill> learningSkillOptional = learningSkillRepository.findById(dto.getLearningSkillId());
 
-        LearningSkillTransaction transaction = new LearningSkillTransaction(DateUtils.getNow(),appMemberOptional.get(),
-                dto.getAmount() ,dto.getDescription(),learningSkillOptional.get());
+        LearningSkillTransaction transaction = new LearningSkillTransaction(1L,DateUtils.getNow(),DateUtils.getNow(),createdBy.get(),createdBy.get()
+                ,DateUtils.getNow(),dto.getAmount() ,dto.getDescription(),learningSkillOptional.get(),appMemberOptional.get());
         learningSkillTransactionRepository.save(transaction);
         return  transaction;
     }

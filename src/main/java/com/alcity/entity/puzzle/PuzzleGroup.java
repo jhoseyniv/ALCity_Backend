@@ -18,7 +18,6 @@ public class PuzzleGroup extends BaseTable implements Serializable {
     @Column(name="title" ,unique = true)
     private String title;
 
-
     @OneToMany(mappedBy = "puzzleGroup", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JsonIgnore
     private Collection<JourneyStep> journeyStepCollection;
@@ -39,7 +38,7 @@ public class PuzzleGroup extends BaseTable implements Serializable {
     private BinaryContent pic;
 
 
-    @OneToMany(mappedBy = "puzzleGroup", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "puzzleGroup", fetch = FetchType.LAZY)
     @JsonIgnore
     private Collection<ALCityObjectInPG> alCityObjectInPGS;
 

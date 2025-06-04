@@ -12,6 +12,7 @@ import com.alcity.dto.journey.JourneyStepDTO;
 import com.alcity.dto.journey.RoadMapDTO;
 import com.alcity.dto.learning.LearningContentDTO;
 import com.alcity.dto.learning.LearningTopicDTO;
+import com.alcity.dto.pgimport.PGObjectVariableImportDTO;
 import com.alcity.dto.player.PlayHistoryDTO;
 import com.alcity.dto.puzzle.*;
 import com.alcity.dto.puzzle.boardgraphic.BoardGraphicDTO;
@@ -162,9 +163,37 @@ public class DTOUtil {
                 value.getStringValue(),value.getObjectValue(),value.getAttributeId().getId(),bindedAttribute, value.getOwnerId(), value.getOwnerType().name());
         return valueDTO;
     }
+    public static AttributeValue getAttributeValueFromVariableImport(PGObjectVariableImportDTO dto,Attribute attribute,AppMember createdBy){
+        Attribute bindedAttribute =null;
+        DataType dataType =  DataType.getByTitle(dto.getDataType());
+        Boolean booleanValue=null;
+        Long longValue=null;
+        Float floatValue=null;
+        Integer intValue=null;
+        Long binaryContentId=null;
+        Boolean isExpressionValue=false;
+        String expressionValue=null;
+        String objectValue=null;
+        String stringValue=null;
+        if(dataType.equals(DataType.Boolean))     booleanValue=Boolean.valueOf(dto.getValue());
+        if(dataType.equals(DataType.Long))     longValue=Long.valueOf(dto.getValue());
+        if(dataType.equals(DataType.Float))     floatValue=Float.valueOf(dto.getValue());
+        if(dataType.equals(DataType.Integer))     intValue=Integer.valueOf(dto.getValue());
+        if(dataType.equals(DataType.Binary))     binaryContentId=Long.valueOf(dto.getValue());
+        if(dataType.equals(DataType.String))     stringValue=dto.getValue();
+        if(dto.getExpression())    {
+            isExpressionValue=Boolean.TRUE;
+            expressionValue = dto.getExpressionValue();
+        }
+
+        AttributeValue  attributeValue = new AttributeValue(booleanValue,intValue,longValue,stringValue,
+                objectValue,floatValue,binaryContentId, expressionValue,isExpressionValue,bindedAttribute ,attribute,
+                1L,DateUtils.getNow(),DateUtils.getNow(),createdBy,createdBy,attribute.getOwnerId(),attribute.getAttributeOwnerType());
+        return attributeValue;
+    }
 
 
-   public static PuzzleLevelStepMappingDTO puzzleLevelJourneyStepMapping(PuzzleLevel pl, JourneyStep step) {
+    public static PuzzleLevelStepMappingDTO puzzleLevelJourneyStepMapping(PuzzleLevel pl, JourneyStep step) {
         PuzzleLevelStepMappingDTO dto = new PuzzleLevelStepMappingDTO();
         dto.setPlId(pl.getId());
         dto.setPlTitle(pl.getTitle());
@@ -214,6 +243,24 @@ public class DTOUtil {
            return dto;
     }
 
+    public static AttributeDTOSave mapAttributesDTO(PGObjectVariableImportDTO variableImportDTO) {
+        AttributeDTOSave attributeDTOSave= new AttributeDTOSave();
+
+        return  attributeDTOSave;
+    }
+
+    public static Collection<AttributeDTOSave> mapAttributesDTOS(Collection<PGObjectVariableImportDTO> variableImportDTOS) {
+        Collection<AttributeDTOSave> dtos = new ArrayList<AttributeDTOSave>();
+        Iterator<PGObjectVariableImportDTO> itr = variableImportDTOS.iterator();
+        while(itr.hasNext()){
+            PGObjectVariableImportDTO importDTO = itr.next();
+            AttributeDTOSave attributeDTOSave= new AttributeDTOSave();
+
+        }
+
+        return dtos;
+
+    }
     public static Collection<AttributeDTO> getAttributesDTOS(Collection<Attribute> attributes) {
         Collection<AttributeDTO> dtos = new ArrayList<AttributeDTO>();
         Iterator<Attribute> itr = attributes.iterator();

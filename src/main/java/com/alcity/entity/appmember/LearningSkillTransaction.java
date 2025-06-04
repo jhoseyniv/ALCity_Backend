@@ -69,12 +69,13 @@ public class LearningSkillTransaction   extends BaseTable implements Serializabl
     public LearningSkillTransaction() {
     }
 
-    public LearningSkillTransaction(String transactionDate,AppMember appMember, Float amount, String description, LearningSkill learningSkill) {
-        this.appMember =appMember;
+    public LearningSkillTransaction(Long version, String created, String updated, AppMember createdBy, AppMember updatedBy,
+                                    String transactionDate, Float amount, String description, LearningSkill learningSkill, AppMember appMember) {
+        super(version, created, updated, createdBy, updatedBy);
         this.transactionDate = transactionDate;
         this.amount = amount;
         this.description = description;
         this.learningSkill = learningSkill;
+        this.appMember = appMember;
     }
-
 }
