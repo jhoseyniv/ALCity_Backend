@@ -113,14 +113,15 @@ public class PGService implements PGRepository {
             objectInPGService.importObjInPG(objectImportDTO,puzzleGroup);
         }
 
-        Collection<PGLearningSkillContentDTO> learningSkills = dto.getSkills();
-        Iterator<PGLearningSkillContentDTO> iterator = learningSkills.iterator();
+        Collection<PGLearningSkillContentImportDTO> learningSkills = dto.getSkills();
+        Iterator<PGLearningSkillContentImportDTO> iterator = learningSkills.iterator();
         while(iterator.hasNext()){
-            PGLearningSkillContentDTO learningSkillDTO=iterator.next();
-            pgSkillLearningContentService.save(learningSkillDTO,"Save");
+            PGLearningSkillContentImportDTO learningSkillDTO=iterator.next();
+            pgSkillLearningContentService.importPGLearningSkill(learningSkillDTO,puzzleGroup);
         }
         return puzzleGroup;
     }
+
     public PuzzleGroup save(PGDTO dto, String code) {
         Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
         PuzzleGroup puzzleGroup=null;

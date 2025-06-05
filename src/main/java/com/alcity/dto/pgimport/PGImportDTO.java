@@ -11,7 +11,7 @@ public class PGImportDTO {
     private Long picInfo;
     private Long puzzleCategoryId;
     private Collection<PGObjectImportDTO> objects;
-    private Collection<PGLearningSkillContentDTO> skills;
+    private Collection<PGLearningSkillContentImportDTO> skills;
 
     public Long getId() {
         return id;
@@ -53,11 +53,11 @@ public class PGImportDTO {
         this.objects = objects;
     }
 
-    public Collection<PGLearningSkillContentDTO> getSkills() {
+    public Collection<PGLearningSkillContentImportDTO> getSkills() {
         return skills;
     }
 
-    public void setSkills(Collection<PGLearningSkillContentDTO> skills) {
+    public void setSkills(Collection<PGLearningSkillContentImportDTO> skills) {
         this.skills = skills;
     }
 
@@ -73,7 +73,7 @@ public class PGImportDTO {
     }
 
     public PGImportDTO(Long id, String title, Long iconInfo, Long picInfo,Long puzzleCategoryId,
-                       Collection<PGObjectImportDTO> objects, Collection<PGLearningSkillContentDTO> skills) {
+                       Collection<PGObjectImportDTO> objects, Collection<PGLearningSkillContentImportDTO> skills) {
         this.id = id;
         this.title = title;
         this.iconInfo = iconInfo;

@@ -1,5 +1,6 @@
 package com.alcity.service.puzzle;
 
+import com.alcity.dto.pgimport.PGLearningSkillContentImportDTO;
 import com.alcity.dto.puzzle.PGLearningSkillContentDTO;
 import com.alcity.dto.puzzle.PlLearningTopicDTO;
 import com.alcity.entity.appmember.AppMember;
@@ -44,6 +45,21 @@ public class PGSkillLearningContentService implements PGSkillLearningContentRepo
     public <S extends PGLearningSkillContent> S save(S entity) {
         return pgSkillLearningContentRepository.save(entity);
     }
+    public PGLearningSkillContent importPGLearningSkill(PGLearningSkillContentImportDTO dto,PuzzleGroup puzzleGroup) {
+        Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
+        PGLearningSkillContent pgLearningSkillContent=null;
+        Optional<LearningContent> learningContentOptional = learningContentService.findById(dto.getLearningContentId());
+        Optional<LearningSkill> learningSkillOptional = learningSkillService.findById(dto.getLearningSkillId());
+
+        if(learningContentOptional.isEmpty() || learningSkillOptional.isEmpty() || puzzleGroup==null) return  null;
+        pgLearningSkillContent = new PGLearningSkillContent(learningSkillOptional.get(), puzzleGroup, learningContentOptional.get()
+                    , 1L, DateUtils.getNow(), DateUtils.getNow(), createdBy.get(), createdBy.get());
+            pgSkillLearningContentRepository.save(pgLearningSkillContent);
+
+        return pgLearningSkillContent;
+    }
+
+
     public PGLearningSkillContent save(PGLearningSkillContentDTO dto, String code) {
         Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
         PGLearningSkillContent pgLearningSkillContent=null;
@@ -68,7 +84,6 @@ public class PGSkillLearningContentService implements PGSkillLearningContentRepo
         }
         return pgLearningSkillContent;
     }
-
     @Override
     public <S extends PGLearningSkillContent> Iterable<S> saveAll(Iterable<S> entities) {
         return null;
