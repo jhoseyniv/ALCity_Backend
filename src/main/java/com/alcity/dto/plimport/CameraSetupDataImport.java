@@ -1,7 +1,7 @@
-package com.alcity.dto.importjson;
+package com.alcity.dto.plimport;
 
 
-import com.alcity.dto.importjson.importobject.PositionImport;
+import com.alcity.dto.plimport.importobject.PositionImport;
 
 import java.io.Serializable;
 

@@ -1,7 +1,7 @@
-package com.alcity.dto.importjson;
+package com.alcity.dto.plimport;
 
-import com.alcity.dto.importjson.importobject.RecordDataImport;
-import com.alcity.dto.importjson.importobject.RuleDataImport;
+import com.alcity.dto.plimport.importobject.RecordDataImport;
+import com.alcity.dto.plimport.importobject.RuleDataImport;
 
 import java.io.Serializable;
 import java.util.Collection;

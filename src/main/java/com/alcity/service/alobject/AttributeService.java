@@ -939,7 +939,7 @@ public class AttributeService implements AttributeRepository {
         }
         return responseObjects;
     }
-    public Collection<ALCityResponseObject> importPGVariables(Collection<PGObjectVariableImportDTO> dtos, PuzzleGroup puzzleGroup) {
+    public Collection<ALCityResponseObject> importPGObjectVariables(Collection<PGObjectVariableImportDTO> dtos, Long pgObjectId) {
         Collection<ALCityResponseObject> responseObjects = new ArrayList<>();
         Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
         Attribute savedRecord = new Attribute();
@@ -947,11 +947,10 @@ public class AttributeService implements AttributeRepository {
         while(itr.hasNext()) {
             PGObjectVariableImportDTO dto = itr.next();
             ALCityResponseObject responseObject = new ALCityResponseObject();
-            if (dto.getId() == null || dto.getId() <= 0L) { //save
                 try {
                     Attribute attribute=null;
                     DataType dataType =  DataType.getByTitle(dto.getDataType());
-                    attribute = new Attribute(dto.getName(), puzzleGroup.getId(),AttributeOwnerType.Puzzle_Group_Object_Variable,
+                    attribute = new Attribute(dto.getName(), pgObjectId,AttributeOwnerType.Puzzle_Group_Object_Variable,
                             dataType ,1L, DateUtils.getNow(), DateUtils.getNow(), createdBy.get(), createdBy.get());
                     attributeRepository.save(attribute);
                             AttributeValue  attributeValue = DTOUtil.getAttributeValueFromVariableImport(dto,attribute,createdBy.get());
@@ -960,7 +959,7 @@ public class AttributeService implements AttributeRepository {
                     throw new UniqueConstraintException(-1, "Unique Constraint in" + Attribute.class, "Error", savedRecord.getId());
                 }
                 responseObject = new ALCityResponseObject(HttpStatus.OK.value(), "ok", savedRecord.getId(), "Record Saved Successfully!");
-            }
+
         }
         return responseObjects;
     }

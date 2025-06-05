@@ -36,6 +36,7 @@ public class PGService implements PGRepository {
     @Autowired
     BinaryContentRepository binaryContentRepository;
 
+    @Autowired
     PGSkillLearningContentService pgSkillLearningContentService;
 
     @Override

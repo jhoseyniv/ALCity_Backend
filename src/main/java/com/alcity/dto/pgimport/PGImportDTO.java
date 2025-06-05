@@ -9,7 +9,6 @@ public class PGImportDTO {
     private String title;
     private Long iconInfo;
     private Long picInfo;
-
     private Long puzzleCategoryId;
     private Collection<PGObjectImportDTO> objects;
     private Collection<PGLearningSkillContentDTO> skills;

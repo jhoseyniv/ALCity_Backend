@@ -9,7 +9,7 @@ public class PGObjectImportDTO {
     private String code;
     private String title;
 
-    private Collection<PGObjectVariableImportDTO> properties;
+    private Collection<PGObjectVariableImportDTO> variables;
     private Collection<PGObjectActionImportDTO> actions;
 
     public Long getId() {
@@ -44,12 +44,12 @@ public class PGObjectImportDTO {
         this.title = title;
     }
 
-    public Collection<PGObjectVariableImportDTO> getProperties() {
-        return properties;
+    public Collection<PGObjectVariableImportDTO> getVariables() {
+        return variables;
     }
 
-    public void setProperties(Collection<PGObjectVariableImportDTO> properties) {
-        this.properties = properties;
+    public void setVariables(Collection<PGObjectVariableImportDTO> variables) {
+        this.variables = variables;
     }
 
     public Collection<PGObjectActionImportDTO> getActions() {
@@ -64,12 +64,12 @@ public class PGObjectImportDTO {
     }
 
     public PGObjectImportDTO(Long id, Long objectId, String code, String title,
-                             Collection<PGObjectVariableImportDTO> properties, Collection<PGObjectActionImportDTO> actions) {
+                             Collection<PGObjectVariableImportDTO> variables, Collection<PGObjectActionImportDTO> actions) {
         this.id = id;
         this.objectId = objectId;
         this.code = code;
         this.title = title;
-        this.properties = properties;
+        this.variables = variables;
         this.actions = actions;
     }
 }

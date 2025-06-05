@@ -3,7 +3,7 @@ package com.alcity.api;
 
 import com.alcity.dto.Interpreter.*;
 import com.alcity.dto.Interpreter.object.*;
-import com.alcity.dto.importjson.PLDataImport;
+import com.alcity.dto.plimport.PLDataImport;
 import com.alcity.entity.alenum.AttributeOwnerType;
 import com.alcity.entity.alenum.ObjectActionType;
 import com.alcity.entity.alobject.*;

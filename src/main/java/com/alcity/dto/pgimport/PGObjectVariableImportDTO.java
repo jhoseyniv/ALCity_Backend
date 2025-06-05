@@ -1,7 +1,6 @@
 package com.alcity.dto.pgimport;
 
 public class PGObjectVariableImportDTO {
-    private  Long id;
     private String name;
     private String dataType;
     private String value;
@@ -9,13 +8,6 @@ public class PGObjectVariableImportDTO {
     private String expressionValue;
 
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;
@@ -60,8 +52,7 @@ public class PGObjectVariableImportDTO {
     public PGObjectVariableImportDTO() {
     }
 
-    public PGObjectVariableImportDTO(Long id, String name, String dataType, String value, Boolean expression, String expressionValue) {
-        this.id = id;
+    public PGObjectVariableImportDTO( String name, String dataType, String value, Boolean expression, String expressionValue) {
         this.name = name;
         this.dataType = dataType;
         this.value = value;

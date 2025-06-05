@@ -1,6 +1,6 @@
 package com.alcity.service.puzzle;
 
-import com.alcity.dto.importjson.PLDataImport;
+import com.alcity.dto.plimport.PLDataImport;
 import com.alcity.dto.puzzle.PLCopyDTO;
 import com.alcity.dto.puzzle.PLDTO;
 import com.alcity.dto.puzzle.PuzzleLevelStepMappingDTO;
@@ -26,7 +26,6 @@ import com.alcity.utility.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Lazy;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import org.springframework.transaction.annotation.Transactional;;

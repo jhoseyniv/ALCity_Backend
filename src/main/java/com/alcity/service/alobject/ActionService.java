@@ -42,23 +42,23 @@ public class ActionService implements ActionRepository {
     public <S extends ObjectAction> S save(S entity) {
         return actionRepository.save(entity);
     }
-    public  Collection<ObjectAction> importActions(Collection<PGObjectActionImportDTO> dtos,Long pgId) {
+    public  Collection<ObjectAction> importPGObjectActions(Collection<PGObjectActionImportDTO> dtos,Long pgObjectId) {
         Collection<ObjectAction> actions = new ArrayList<>();
         Iterator<PGObjectActionImportDTO> iterator = dtos.iterator();
         while(iterator.hasNext()){
             PGObjectActionImportDTO dto = iterator.next();
-            ObjectAction objectAction = importAction(dto,pgId);
+            ObjectAction objectAction = importPGObjectAction(dto,pgObjectId);
             actions.add(objectAction);
         }
        return  actions;
     }
-    public ObjectAction importAction(PGObjectActionImportDTO dto,Long pgId) {
+    public ObjectAction importPGObjectAction(PGObjectActionImportDTO dto,Long pgObjectId) {
         ObjectAction pgObjectAction=null;
         Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
         Optional<Renderer> rendererOptional = rendererService.findById(dto.getActionId());
-        ObjectActionType objectActionType = ObjectActionType.getByTitle(dto.getActionName());
+        //ObjectActionType objectActionType = ObjectActionType.getByTitle(dto.getActionName());
 
-        pgObjectAction = new ObjectAction(POActionOwnerType.Puzzle_Group_Object, pgId, objectActionType,rendererOptional.get(),
+        pgObjectAction = new ObjectAction(POActionOwnerType.Puzzle_Group_Object, pgObjectId, rendererOptional.get().getObjectAction(),rendererOptional.get(),
                 1L,DateUtils.getNow(),DateUtils.getNow(),createdBy.get(), createdBy.get());
         actionRepository.save(pgObjectAction);
 

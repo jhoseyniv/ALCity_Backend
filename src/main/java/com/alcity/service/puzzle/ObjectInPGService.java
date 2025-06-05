@@ -155,9 +155,9 @@ public class ObjectInPGService implements ObjectInPGRepository {
         alCityObjectInPG = new ALCityObjectInPG(dto.getTitle(), dto.getCode(),puzzleGroup,alCityObjectOptional.get(),
                 1L, DateUtils.getNow(), DateUtils.getNow(), createdBy.get(), createdBy.get());
         objectInPGRepository.save(alCityObjectInPG);
-        Collection<PGObjectVariableImportDTO> variableImportDTOS = dto.getProperties();
-        attributeService.importPGVariables(variableImportDTOS,puzzleGroup);
-        objectActionService.importActions(dto.getActions(),puzzleGroup.getId());
+        Collection<PGObjectVariableImportDTO> variableImportDTOS = dto.getVariables();
+        attributeService.importPGObjectVariables(variableImportDTOS,alCityObjectInPG.getId());
+        objectActionService.importPGObjectActions(dto.getActions(),alCityObjectInPG.getId());
 
 
         return alCityObjectInPG;
