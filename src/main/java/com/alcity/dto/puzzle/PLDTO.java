@@ -21,6 +21,10 @@ public class PLDTO {
     private String code;
     private Integer fromAge;
     private Integer toAge;
+
+    private Integer row;
+
+    private Integer col;
     private Float maxScore;
     private Float firstStarScore;
     private Float secondStarScore;
@@ -252,8 +256,24 @@ public class PLDTO {
         this.updatedBy = updatedBy;
     }
 
+    public Integer getRow() {
+        return row;
+    }
+
+    public void setRow(Integer row) {
+        this.row = row;
+    }
+
+    public Integer getCol() {
+        return col;
+    }
+
+    public void setCol(Integer col) {
+        this.col = col;
+    }
+
     public PLDTO(Long id, Long version, String created, String updated, String createdBy, String updatedBy, Long createdById, Long updatedById,
-                 String approveDate,Long plGroundId,Long puzzleGroupId,String puzzleGroupTitle, Long ordering, String title, String code, Integer fromAge, Integer toAge, Float maxScore,Float firstStarScore ,Float secondStarScore,Float thirdStarScore,String puzzleLevelStatus, String puzzleLevelPrivacy, String puzzleLevelDifficulty) {
+                 String approveDate, Long plGroundId, Long puzzleGroupId, String puzzleGroupTitle, Long ordering, String title, String code, Integer fromAge, Integer toAge, Float maxScore, Float firstStarScore , Float secondStarScore, Float thirdStarScore, String puzzleLevelStatus, String puzzleLevelPrivacy, String puzzleLevelDifficulty) {
         this.id = id;
         this.version = version;
         this.created = created;
