@@ -1,6 +1,7 @@
 package com.alcity.api;
 
 import com.alcity.dto.Interpreter.PLData;
+import com.alcity.dto.plimport.PLImportDTO;
 import com.alcity.entity.alenum.AttributeOwnerType;
 import com.alcity.entity.alenum.DataType;
 import com.alcity.entity.alobject.Attribute;
@@ -246,29 +247,19 @@ public class PLController {
     @Operation( summary = "Import a puzzle level",  description = "Import a puzzle level  entity and their data")
     @PostMapping("/import")
     @CrossOrigin(origins = "*")
-    public ALCityResponseObject importPuzzleLevel(@RequestBody PLCopyDTO dto) {
-        /*copy memory game with id
-        {
-          "title": "copy of memory game",
-          "code": "4800",
-          "fromAge": 16,
-          "toAge": 19,
-          "puzzleLevelId": 461 ,
-          "rules": true,
-          "variables": true,
-          "objectives": true,
-          "instances": true,
-          "learningTopics": true,
-          "plground": true
-        }
-        *
-        */
+    public ALCityResponseObject importPuzzleLevel(@RequestBody PLImportDTO dto) {
+        PuzzleLevel importedPuzzleLevel=null;
         ALCityResponseObject responseObject = new ALCityResponseObject();
-        Optional<PuzzleLevel> puzzleLevelOptional = puzzleLevelService.findById(dto.getPuzzleLevelId());
-        if(puzzleLevelOptional.isEmpty()) return  new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", -1L, "Puzzle Level id not found!");
-        PuzzleLevel puzzleLevel = puzzleLevelOptional.get();
-        PuzzleLevel copyPuzzleLevel =puzzleLevelService.copy(puzzleLevel,dto);
-        return new ALCityResponseObject(HttpStatus.OK.value(), "ok", copyPuzzleLevel.getId(), "Puzzle Level Copied Successfully!");
+        Optional<PuzzleLevel> puzzleLevelOptional = puzzleLevelService.findById(dto.getId());
+        if(puzzleLevelOptional.isEmpty()){
+            importedPuzzleLevel =  puzzleLevelService.importPuzzleLevel(dto);
+        }else{
+            //first delete exist puzzle level and then add new pl
+            puzzleLevelService.deletePuzzleLevel(puzzleLevelOptional.get());
+            importedPuzzleLevel =  puzzleLevelService.importPuzzleLevel(dto);
+        }
+
+        return new ALCityResponseObject(HttpStatus.OK.value(), "ok", importedPuzzleLevel.getId(), "Puzzle Level Imported Successfully!");
     }
 
     @Operation( summary = "Save a puzzle level  ",  description = "Save a puzzle level  entity and their data to data base")

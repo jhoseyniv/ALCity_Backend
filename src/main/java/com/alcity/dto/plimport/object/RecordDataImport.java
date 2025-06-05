@@ -1,4 +1,4 @@
-package com.alcity.dto.plimport.importobject;
+package com.alcity.dto.plimport.object;
 
 import java.io.Serializable;
 

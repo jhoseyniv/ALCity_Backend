@@ -1,12 +1,13 @@
 package com.alcity.dto.plimport;
 
-import com.alcity.dto.plimport.importobject.RecordDataImport;
-import com.alcity.dto.plimport.importobject.RuleDataImport;
+import com.alcity.dto.plimport.object.RecordDataImport;
+import com.alcity.dto.plimport.object.RuleDataImport;
 
 import java.io.Serializable;
 import java.util.Collection;
 
-public class PLDataImport implements Serializable {
+public class PLImportDTO implements Serializable {
+    private Long id;
     private String code;
     private String name;
 
@@ -14,14 +15,21 @@ public class PLDataImport implements Serializable {
 
     private Integer cols;
     private Integer rows;
-    private CameraSetupDataImport cameraSetup;
-    private Collection<PLObjectiveDataImport> objectives;
+    private CameraSetupImport cameraSetup;
+    private Collection<PLObjectiveImport> objectives;
 
     private Collection<RecordDataImport> variables;
 
-    private Collection<PODataImport> objects;
+    private Collection<PLObjectImport> objects;
     private Collection<RuleDataImport> rules;
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public Collection<RecordDataImport> getVariables() {
         return variables;
@@ -32,11 +40,11 @@ public class PLDataImport implements Serializable {
     }
 
 
-    public Collection<PLObjectiveDataImport> getObjectives() {
+    public Collection<PLObjectiveImport> getObjectives() {
         return objectives;
     }
 
-    public void setObjectives(Collection<PLObjectiveDataImport> objectives) {
+    public void setObjectives(Collection<PLObjectiveImport> objectives) {
         this.objectives = objectives;
     }
 
@@ -73,11 +81,11 @@ public class PLDataImport implements Serializable {
     }
 
 
-    public CameraSetupDataImport getCameraSetup() {
+    public CameraSetupImport getCameraSetup() {
         return cameraSetup;
     }
 
-    public void setCameraSetup(CameraSetupDataImport cameraSetup) {
+    public void setCameraSetup(CameraSetupImport cameraSetup) {
         this.cameraSetup = cameraSetup;
     }
 
@@ -89,15 +97,22 @@ public class PLDataImport implements Serializable {
         this.rules = rules;
     }
 
-    public Collection<PODataImport> getObjects() {
+    public Collection<PLObjectImport> getObjects() {
         return objects;
     }
 
-    public void setObjects(Collection<PODataImport> objects) {
+    public void setObjects(Collection<PLObjectImport> objects) {
         this.objects = objects;
     }
 
-    public PLDataImport() {
+    public PLImportDTO() {
     }
 
+    public PLImportDTO(Long id, String code, String name, Integer cols, Integer rows) {
+        this.id = id;
+        this.code = code;
+        this.name = name;
+        this.cols = cols;
+        this.rows = rows;
+    }
 }

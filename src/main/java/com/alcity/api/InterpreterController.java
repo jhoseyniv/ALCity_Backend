@@ -3,7 +3,6 @@ package com.alcity.api;
 
 import com.alcity.dto.Interpreter.*;
 import com.alcity.dto.Interpreter.object.*;
-import com.alcity.dto.plimport.PLDataImport;
 import com.alcity.entity.alenum.AttributeOwnerType;
 import com.alcity.entity.alenum.ObjectActionType;
 import com.alcity.entity.alobject.*;
@@ -80,16 +79,6 @@ public class InterpreterController {
         }
         return plData;
     }
-    @Operation( summary = "Import a Json file as Puzzle Level Structure and save in database ",  description = "Save a puzzle level  entity and their data to data base from a json")
-    @PostMapping("/import-json")
-    @CrossOrigin(origins = "*")
-    public ALCityResponseObject savePuzzleLevel(@RequestBody PLDataImport json) {
-        ALCityResponseObject responseObject = new ALCityResponseObject();
-        PLDataImport plData = json;
-        puzzleLevelService.saveJsonInDatabase(plData);
-        return responseObject;
-    }
-
 
     public PLData getJsonFile(Long puzzleLevelId) {
         PLData puzzleLevelData= new PLData();

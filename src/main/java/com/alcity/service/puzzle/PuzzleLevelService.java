@@ -1,6 +1,6 @@
 package com.alcity.service.puzzle;
 
-import com.alcity.dto.plimport.PLDataImport;
+import com.alcity.dto.plimport.PLImportDTO;
 import com.alcity.dto.puzzle.PLCopyDTO;
 import com.alcity.dto.puzzle.PLDTO;
 import com.alcity.dto.puzzle.PuzzleLevelStepMappingDTO;
@@ -195,7 +195,7 @@ public class PuzzleLevelService implements PuzzleLevelRepository {
     @Lazy
     private InstanceInPLService instanceInPLService;
 
-    public PuzzleLevel getPuzzleLevelFromJson(PLDataImport plData) {
+    public PuzzleLevel getPuzzleLevelFromJson(PLImportDTO plData) {
         Optional<AppMember> creatorOptional = appMemberService.findByUsername("admin");
        PuzzleLevel puzzleLevel = new PuzzleLevel();
 
@@ -206,9 +206,17 @@ public class PuzzleLevelService implements PuzzleLevelRepository {
         return puzzleLevel;
     }
 
+    public PuzzleLevel importPuzzleLevel(PLImportDTO dto) {
+        PuzzleLevel puzzleLevel=null;
+        return puzzleLevel;
+    }
+    public PuzzleLevel deletePuzzleLevel(PuzzleLevel puzzleLevel) {
 
-    public void saveJsonInDatabase(PLDataImport plData) {
-        PuzzleLevel puzzleLevel = getPuzzleLevelFromJson(plData);
+
+        //delete puzzle level and related entities
+
+
+        return puzzleLevel;
     }
 
 

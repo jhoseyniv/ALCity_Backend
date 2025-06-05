@@ -1,13 +1,13 @@
 package com.alcity.dto.plimport;
 
-import com.alcity.dto.plimport.importobject.ActionDataImport;
-import com.alcity.dto.plimport.importobject.InstanceDataImport;
-import com.alcity.dto.plimport.importobject.RecordDataImport;
+import com.alcity.dto.plimport.object.ActionDataImport;
+import com.alcity.dto.plimport.object.InstanceDataImport;
+import com.alcity.dto.plimport.object.RecordDataImport;
 
 import java.io.Serializable;
 import java.util.Collection;
 
-public class PODataImport implements Serializable {
+public class PLObjectImport implements Serializable {
     private Long id;
     private Long version;
     private String title;
@@ -101,10 +101,10 @@ public class PODataImport implements Serializable {
         this.instances = instances;
     }
 
-    public PODataImport() {
+    public PLObjectImport() {
     }
 
-    public PODataImport(Long id, Long version, String title, String code, Long iconGraphicId, Long imageGraphicId, Collection<ActionDataImport> actions) {
+    public PLObjectImport(Long id, Long version, String title, String code, Long iconGraphicId, Long imageGraphicId, Collection<ActionDataImport> actions) {
         this.id = id;
         this.version=version;
         this.title = title;
