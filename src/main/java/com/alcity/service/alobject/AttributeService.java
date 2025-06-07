@@ -3,6 +3,7 @@ package com.alcity.service.alobject;
 import com.alcity.dto.alobject.AttributeDTOSave;
 import com.alcity.dto.alobject.AttributeValueDTOSave;
 import com.alcity.dto.pgimport.PGObjectVariableImportDTO;
+import com.alcity.dto.plimport.object.RecordDataImport;
 import com.alcity.dto.puzzle.PLDTO;
 import com.alcity.entity.alenum.DataType;
 import com.alcity.entity.alobject.Attribute;
@@ -161,6 +162,41 @@ public class AttributeService implements AttributeRepository {
     }
 
 
+    @Transactional
+    public Attribute importVariables(RecordDataImport variableImport,  Long ownerId,AttributeOwnerType ownerType) {
+        //import attribute and values
+        DataType dataType =  DataType.getByTitle(variableImport.getType());
+        Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
+
+        Attribute importedAttribute = new Attribute(variableImport.getName(),ownerId,ownerType,dataType,
+                1L,DateUtils.getNow(),DateUtils.getNow(),createdBy.get(),createdBy.get());
+        attributeRepository.save(importedAttribute);
+        AttributeValue  attributeValue = DTOUtil.getAttributeValueFromPLVariableImport(variableImport,importedAttribute,createdBy.get());
+        attributeValueRepository.save(attributeValue);
+
+        return importedAttribute;
+    }
+
+    public Collection<Attribute> importPLVariables(Collection<RecordDataImport> variables, PuzzleLevel puzzleLevel, AttributeOwnerType ownerType){
+        Collection<Attribute>  importedAttributes = new ArrayList<>();
+        Iterator<RecordDataImport> iterator =variables.iterator();
+        while(iterator.hasNext()) {
+            RecordDataImport variableImport = iterator.next();
+            Attribute attribute = importVariables(variableImport,puzzleLevel.getId(),ownerType);
+            importedAttributes.add(attribute);
+        }
+        return importedAttributes;
+    }
+    public Collection<Attribute> importPLInstanceVariables(Collection<RecordDataImport> variables, ALCityInstanceInPL instance, AttributeOwnerType ownerType){
+        Collection<Attribute>  importedAttributes = new ArrayList<>();
+        Iterator<RecordDataImport> iterator =variables.iterator();
+        while(iterator.hasNext()) {
+            RecordDataImport variableImport = iterator.next();
+            Attribute attribute = importVariables(variableImport,instance.getId(),ownerType);
+            importedAttributes.add(attribute);
+        }
+        return importedAttributes;
+    }
     @Override
     public Optional<Attribute> findById(Long id) {
         return attributeRepository.findById(id);
@@ -939,7 +975,7 @@ public class AttributeService implements AttributeRepository {
         }
         return responseObjects;
     }
-    public Collection<ALCityResponseObject> importPGObjectVariables(Collection<PGObjectVariableImportDTO> dtos, Long pgObjectId) {
+    public Collection<ALCityResponseObject> importPGObjectVariables(Collection<PGObjectVariableImportDTO> dtos, Long ownerId,AttributeOwnerType ownerType) {
         Collection<ALCityResponseObject> responseObjects = new ArrayList<>();
         Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
         Attribute savedRecord = new Attribute();
@@ -950,10 +986,10 @@ public class AttributeService implements AttributeRepository {
                 try {
                     Attribute attribute=null;
                     DataType dataType =  DataType.getByTitle(dto.getDataType());
-                    attribute = new Attribute(dto.getName(), pgObjectId,AttributeOwnerType.Puzzle_Group_Object_Variable,
+                    attribute = new Attribute(dto.getName(), ownerId,ownerType,
                             dataType ,1L, DateUtils.getNow(), DateUtils.getNow(), createdBy.get(), createdBy.get());
                     attributeRepository.save(attribute);
-                            AttributeValue  attributeValue = DTOUtil.getAttributeValueFromVariableImport(dto,attribute,createdBy.get());
+                            AttributeValue  attributeValue = DTOUtil.getAttributeValueFromPGVariableImport(dto,attribute,createdBy.get());
                     attributeValueRepository.save(attributeValue);
                 } catch (RuntimeException e) {
                     throw new UniqueConstraintException(-1, "Unique Constraint in" + Attribute.class, "Error", savedRecord.getId());

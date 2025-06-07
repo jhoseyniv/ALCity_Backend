@@ -3,13 +3,14 @@ package com.alcity.dto.plimport.object;
 import java.io.Serializable;
 import java.util.Collection;
 
-public class RuleDataImport implements Serializable {
+public class PLRuleImport implements Serializable {
     private String title;
     private Integer ordering;
     private String event;
+    private String subEvent;
     private StringBuffer condition;
     private Boolean ignoreRemaining;
-    private Collection<RuleActionDataImport> actions;
+    private Collection<PostActionTreeImport> actionTreesImport;
 
     public String getTitle() {
         return title;
@@ -35,6 +36,18 @@ public class RuleDataImport implements Serializable {
         this.event = event;
     }
 
+    public String getSubEvent() {
+        return subEvent;
+    }
+
+    public void setSubEvent(String subEvent) {
+        this.subEvent = subEvent;
+    }
+
+    public void setCondition(StringBuffer condition) {
+        this.condition = condition;
+    }
+
     public StringBuffer getCondition() {
         return condition;
     }
@@ -43,9 +56,6 @@ public class RuleDataImport implements Serializable {
         this.condition = condition;
     }
 
-    public Collection<RuleActionDataImport> getActions() {
-        return actions;
-    }
 
     public Boolean getIgnoreRemaining() {
         return ignoreRemaining;
@@ -55,20 +65,23 @@ public class RuleDataImport implements Serializable {
         this.ignoreRemaining = ignoreRemaining;
     }
 
-    public void setActions(Collection<RuleActionDataImport> actions) {
-        this.actions = actions;
-
+    public Collection<PostActionTreeImport> getActionTreesImport() {
+        return actionTreesImport;
     }
 
-    public RuleDataImport() {
+    public void setActionTreesImport(Collection<PostActionTreeImport> actionTreesImport) {
+        this.actionTreesImport = actionTreesImport;
     }
 
-    public RuleDataImport(String title, Integer ordering, String event, Boolean ignoreRemaining, StringBuffer condition, Collection<RuleActionDataImport> actions) {
+    public PLRuleImport() {
+    }
+
+    public PLRuleImport(String title, Integer ordering, String event, Boolean ignoreRemaining, StringBuffer condition, Collection<PostActionTreeImport> actionTreesImport) {
         this.title = title;
         this.ordering = ordering;
         this.event = event;
         this.ignoreRemaining = ignoreRemaining;
         this.condition = condition;
-        this.actions = actions;
+        this.actionTreesImport = actionTreesImport;
     }
 }

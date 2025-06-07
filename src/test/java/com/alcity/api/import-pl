@@ -1,0 +1,179 @@
+{
+  "puzzleGroupId": 2102,
+  "id": 0,
+  "code": "1403-03-17",
+  "title": "import-pl1404-03-16",
+  "ordering": 1,
+  "fromAge": 10,
+  "toAge": 20,
+  "maxScore": 10,
+  "firstStarScore": 3,
+  "secondStarScore": 5,
+  "thirdStartScore": 7,
+  "iconId": 81,
+  "picId": 81,
+  "cols": 5,
+  "rows": 5,
+  "puzzleDifficulty": "Medium",
+  "puzzleLevelStatus": "Active",
+  "puzzleLevelPrivacy": "Public",
+  "approveDate": "21-05-2025 22:48:52",
+  "cameraSetup": {
+    "features": {
+      "zoom": true,
+      "pan": true,
+      "rotation": true
+    },
+    "position": {
+      "x": 0,
+      "z": 0,
+      "y": 15
+    },
+    "rotation": {
+      "x": 90,
+      "z": 0,
+      "y": 0
+    }
+  },
+  "boardGraphic": []
+  ,
+  "objectives": [
+    {
+      "id": 1694,
+      "title": "detect filled cells",
+      "description": "detect filled cells",
+      "skillAmount": 3,
+      "skillId": 38,
+      "rewardAmount": 10,
+      "rewardId": 18,
+      "condition": "equal(BoardVar(matchcount), 6)"
+    }
+
+  ],
+  "variables": [
+   {
+      "id": 0,
+      "name": "finished",
+      "value": "false",
+      "type": "Boolean",
+      "expression": false,
+      "expressionValue": ""
+    },
+    {
+          "id": 0,
+          "name": "matchcount",
+          "value": "10",
+          "type": "Integer",
+          "expression": false,
+         "expressionValue": ""
+        }
+
+  ],
+  "objects": [
+    {
+      "id": 2103,
+      "version": 0,
+      "title": "ImageObject01-in-Memory game by timer",
+      "code": "code333-1",
+      "iconGraphicId": 141,
+      "imageGraphicId": 141,
+      "actions":
+      [
+        {
+          "id": 0,
+          "actionName": "Create",
+          "handler": "ShowImage",
+          "parameters": [
+            {
+              "id": 0,
+              "name": "img",
+              "value": "161",
+              "type": "Binary",
+              "expression": true,
+              "expressionValue": "InstProp(CurrentInst(), bgImage)"
+            }
+              ]
+            }
+        ],
+      "variables": [
+         {
+          "id": 0,
+          "name": "isEmpty",
+          "value": "true",
+          "type": "Boolean",
+          "expression": false,
+          "expressionValue": ""
+        },
+         {
+                  "id": 0,
+                  "name": "isShown",
+                  "value": "false",
+                  "type": "Boolean",
+                  "expression": false,
+                  "expressionValue": ""
+                }
+      ],
+      "properties": [
+        {
+          "id": 0,
+          "name": "bgImage",
+          "value": "1657",
+          "type": "Binary",
+          "expression": false,
+          "expressionValue": ""
+        }
+      ],
+      "instances": [
+        {
+          "id": 0,
+          "name": "instance 1",
+          "pgoId": 2103,
+          "position": {
+            "x": 1,
+            "z": 0,
+            "y": 1
+          },
+          "properties": [
+            {
+              "id": 1658,
+              "name": "bgImage",
+              "value": "1657",
+              "type": "Binary",
+             "expression": false,
+              "expressionValue": ""
+            }
+          ],
+          "variables": [
+           {
+              "id": 1660,
+              "name": "isEmpty",
+              "value": "true",
+              "type": "Boolean",
+               "expression": false,
+              "expressionValue": ""
+          },
+            {
+              "id": 1662,
+              "name": "isShown",
+              "value": "false",
+              "type": "Boolean",
+              "expression": false,
+              "expressionValue": ""
+           }
+          ]
+        }
+      ]
+    }
+  ],
+  "rules": [{
+
+  }
+         ],
+  "learningTopics": [
+    {
+      "id": 0,
+      "title": "Memory_Game",
+      "learningContentId": 121
+    }
+  ]
+}

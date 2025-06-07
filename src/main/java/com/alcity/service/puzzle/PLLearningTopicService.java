@@ -1,5 +1,6 @@
 package com.alcity.service.puzzle;
 
+import com.alcity.dto.plimport.PLLearningTopicImport;
 import com.alcity.dto.puzzle.PLDTO;
 import com.alcity.dto.puzzle.PlLearningTopicDTO;
 import com.alcity.entity.alenum.PLDifficulty;
@@ -59,6 +60,27 @@ public class PLLearningTopicService implements PLLearningTopicRepository {
     }
 
 
+    public LearningTopicInPL importLearningTopic(PLLearningTopicImport topicImport, PuzzleLevel puzzleLevel) {
+        Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
+        Optional<LearningTopic> learningTopicOptional = learningTopicService.findById(topicImport.getId());
+        Optional<LearningContent> learningContentOptional = learningContentService.findById(topicImport.getLearningContentId());
+
+        LearningTopicInPL importedLearningTopicInPL = new LearningTopicInPL(puzzleLevel, learningTopicOptional.get(), learningContentOptional.get()
+                , 1L, DateUtils.getNow(), DateUtils.getNow(), createdBy.get(), createdBy.get());
+        plLearningTopicRepository.save(importedLearningTopicInPL);
+        return importedLearningTopicInPL;
+    }
+
+    public Collection<LearningTopicInPL> importLearningTopics(Collection<PLLearningTopicImport> importTopics, PuzzleLevel puzzleLevel) {
+        Collection<LearningTopicInPL> importedTopics = new ArrayList<>();
+        Iterator<PLLearningTopicImport> iterator = importTopics.iterator();
+        while(iterator.hasNext()){
+            PLLearningTopicImport importTopic = iterator.next();
+            LearningTopicInPL importedTopic = importLearningTopic(importTopic,puzzleLevel);
+            importedTopics.add(importedTopic);
+        }
+        return importedTopics;
+    }
 
     public Collection<LearningTopicInPL> copyAll(Collection<LearningTopicInPL> topics, PuzzleLevel puzzleLevel) {
         Collection<LearningTopicInPL> copiedTopics = new ArrayList<>();
@@ -78,7 +100,7 @@ public class PLLearningTopicService implements PLLearningTopicRepository {
     }
 
     public LearningTopicInPL save(PlLearningTopicDTO dto, String code) {
-            Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
+        Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
         LearningTopicInPL learningTopicInPL=null;
         Optional<LearningContent> learningContentOptional = learningContentService.findById(dto.getLearningContentId());
         Optional<LearningTopic> learningTopicOptional = learningTopicService.findById(dto.getLearningTopicId());

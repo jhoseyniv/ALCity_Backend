@@ -1,5 +1,7 @@
 package com.alcity.service.puzzle;
 
+import com.alcity.dto.plimport.object.PLRulePostActionImport;
+import com.alcity.dto.plimport.object.PostActionTreeImport;
 import com.alcity.dto.puzzle.PLRulePostActionDTO;
 import com.alcity.entity.alenum.AttributeOwnerType;
 import com.alcity.entity.alenum.PLRulePostActionOwnerType;
@@ -46,6 +48,36 @@ public class PLRulePostActionService implements PLRulePostActionRepository {
         return plRulePostActionRepository.save(entity);
     }
 
+    public PLRulePostAction importPostAction(PLRulePostActionImport dto,Long newOwner) {
+        Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
+        PLRulePostActionOwnerType ownerType = PLRulePostActionOwnerType.getByTitle(dto.getPostActionOwnerType());
+        PLRulePostActionType plRulePostActionType = PLRulePostActionType.getByTitle(dto.getPostActionType());
+        PLRulePostAction importedPostAction = new PLRulePostAction(newOwner,ownerType,plRulePostActionType,
+                dto.getOrdering(),dto.getActionName(), dto.getObjectId(), dto.getVariable(), dto.getValueExpression(),
+                dto.getSubAction(), dto.getAlertType(), dto.getAlertMessage(), dto.getActionKey(),
+                1L, DateUtils.getNow(), DateUtils.getNow(), createdBy.get(),createdBy.get());
+        plRulePostActionRepository.save(importedPostAction);
+        return importedPostAction;
+    }
+    public PLRulePostAction importPLRulePostActionTree(PostActionTreeImport root,Long ruleId) {
+        Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
+        PLRulePostAction newPostAction =null;
+        DTOUtil.preOrderTraversal(this,root,ruleId);
+        return newPostAction;
+    }
+
+    public Collection<PLRulePostAction> importPLRulePostActionsTrees(Collection<PostActionTreeImport> postActionTreeImports, Long ruleId) {
+        Collection<PLRulePostAction> importedPostActions = new ArrayList<>();
+        Iterator<PostActionTreeImport> iterator = postActionTreeImports.iterator();
+        while(iterator.hasNext()){
+            PostActionTreeImport postActionTreeImport = iterator.next();
+            // for root of trees- owner_id will be Rule_id
+            PLRulePostAction importedPostAction = importPLRulePostActionTree(postActionTreeImport,ruleId);
+            importedPostActions.add(importedPostAction);
+        }
+        return importedPostActions;
+    }
+
     public Collection<PLRulePostAction> copyAll(Collection<PLRulePostAction> postActions,Long newOwner) {
         Collection<PLRulePostAction> copiedPostActions = new ArrayList<>();
         Iterator<PLRulePostAction> iterator = postActions.iterator();
@@ -68,20 +100,7 @@ public class PLRulePostActionService implements PLRulePostActionRepository {
         return newPostAction;
     }
 
-    /*
-    public PLRulePostAction copyActionTree(PLRulePostAction postAction,Long newOwner) {
-        Collection<PLRulePostAction> plRulePostActions = DTOUtil.getPlRulePostActions(this,postAction.getId());
 
-        PLRulePostAction newPostAction = new PLRulePostAction(newOwner,postAction.getOwnerType(),postAction.getPlRulePostActionType(),
-                postAction.getOrdering()+1,postAction.getActionName(), postAction.getObjectId(), postAction.getVariable(), postAction.getValueExperssion(),
-                postAction.getSubAction(), postAction.getAlertType(), postAction.getAlertMessage(), postAction.getActionKey(),
-                postAction.getVersion(), postAction.getCreated(), postAction.getUpdated(), postAction.getCreatedBy(),postAction.getUpdatedBy());
-        plRulePostActionRepository.save(newPostAction);
-        Collection<Attribute> parameters = attributeService.findByOwnerIdAndAttributeOwnerTypeNew(postAction.getId(), AttributeOwnerType.Puzzle_Level_Rule_Post_Action);
-        attributeService.copyAttributes(parameters, newPostAction.getId(), AttributeOwnerType.Puzzle_Level_Rule_Post_Action);
-        return newPostAction;
-    }
-*/
     public PLRulePostAction save(PLRulePostActionDTO dto, String code) {
        Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
        PLRulePostAction postAction=null;

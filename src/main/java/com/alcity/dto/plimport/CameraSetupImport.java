@@ -1,36 +1,48 @@
 package com.alcity.dto.plimport;
 
 
+import com.alcity.dto.plimport.object.FeatureImport;
+import com.alcity.dto.plimport.object.PLGroundPositionImport;
 import com.alcity.dto.plimport.object.PositionImport;
 
 import java.io.Serializable;
 
 public class CameraSetupImport implements Serializable {
 
-    PositionImport Position;
-    PositionImport Rotation;
+    PLGroundPositionImport Position;
+    PLGroundPositionImport Rotation;
+    FeatureImport features;
 
-    public PositionImport getPosition() {
+    public PLGroundPositionImport getPosition() {
         return Position;
     }
 
-    public void setPosition(PositionImport position) {
+    public void setPosition(PLGroundPositionImport position) {
         Position = position;
     }
 
-    public PositionImport getRotation() {
+    public PLGroundPositionImport getRotation() {
         return Rotation;
     }
 
-    public void setRotation(PositionImport rotation) {
+    public void setRotation(PLGroundPositionImport rotation) {
         Rotation = rotation;
+    }
+
+    public FeatureImport getFeatures() {
+        return features;
+    }
+
+    public void setFeatures(FeatureImport features) {
+        this.features = features;
     }
 
     public CameraSetupImport() {
     }
 
-    public CameraSetupImport(PositionImport Position, PositionImport Rotation) {
-       this.Position= Position;
-       this.Rotation = Rotation;
+    public CameraSetupImport(PLGroundPositionImport position, PLGroundPositionImport rotation, FeatureImport features) {
+        Position = position;
+        Rotation = rotation;
+        this.features = features;
     }
 }

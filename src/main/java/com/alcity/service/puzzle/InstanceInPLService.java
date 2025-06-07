@@ -1,5 +1,8 @@
 package com.alcity.service.puzzle;
 
+import com.alcity.dto.plimport.PLObjectImport;
+import com.alcity.dto.plimport.object.InstanceDataImport;
+import com.alcity.dto.plimport.object.PositionImport;
 import com.alcity.dto.puzzle.CityObjectInPLDTO;
 import com.alcity.entity.alenum.AttributeOwnerType;
 import com.alcity.entity.alobject.Attribute;
@@ -42,6 +45,8 @@ public class InstanceInPLService implements InstanceInPLRepository {
     private PuzzleLevelService puzzleLevelService;
     @Autowired
     private ObjectInPGService objectInPGService;
+
+
     public ALCityInstanceInPL save(CityObjectInPLDTO dto, String code) {
         Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
         Optional<PuzzleLevel> puzzleLevelOptional =  puzzleLevelService.findById(dto.getPuzzleLevelId());
@@ -88,6 +93,35 @@ public class InstanceInPLService implements InstanceInPLRepository {
         return instanceCopy;
     }
 
+    public Collection<ALCityInstanceInPL> importObjects(Collection<PLObjectImport> objectImports , PuzzleLevel importedPL) {
+        Collection<ALCityInstanceInPL> importedInstances = new ArrayList<>();
+        Iterator<PLObjectImport> iterator = objectImports.iterator();
+        while(iterator.hasNext()) {
+           PLObjectImport objectImport = iterator.next();
+            Collection<ALCityInstanceInPL> instances = importInstances(objectImport.getInstances(),importedPL);
+            importedInstances.addAll(instances);
+        }
+        return importedInstances;
+    }
+    public Collection<ALCityInstanceInPL> importInstances(Collection<InstanceDataImport> instanceDataImports , PuzzleLevel importedPL) {
+        Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
+        Collection<ALCityInstanceInPL> importedInstances = new ArrayList<>();
+        Iterator<InstanceDataImport> iterator = instanceDataImports.iterator();
+        ALCityInstanceInPL importedInstance = null;
+        while(iterator.hasNext()) {
+            InstanceDataImport instanceDataImport = iterator.next();
+            Optional<ALCityObjectInPG> alCityObjectInPGOptional = objectInPGService.findById(instanceDataImport.getPgoId());
+            PositionImport position = instanceDataImport.getPosition();
+            importedInstance = new ALCityInstanceInPL(instanceDataImport.getName(),position.getX(),position.getY(),position.getZ(),
+                    alCityObjectInPGOptional.get(),importedPL,1L,DateUtils.getNow(),DateUtils.getNow(),createdBy.get(),createdBy.get());
+            instanceInPLRepository.save(importedInstance);
+            attributeService.importPLInstanceVariables(instanceDataImport.getVariables(),importedInstance,AttributeOwnerType.Instance_Puzzle_Group_Object_Variable);
+            attributeService.importPLInstanceVariables(instanceDataImport.getProperties(),importedInstance,AttributeOwnerType.Instance_Puzzle_Group_Object_Property);
+
+            importedInstances.add(importedInstance);
+        }
+        return importedInstances;
+    }
 
 
     public Collection<ALCityInstanceInPL> copyInstancesFromSourcePLToTargetPL(PuzzleLevel source ,PuzzleLevel target) {

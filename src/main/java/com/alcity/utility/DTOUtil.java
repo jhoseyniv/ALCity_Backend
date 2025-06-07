@@ -14,6 +14,8 @@ import com.alcity.dto.learning.LearningContentDTO;
 import com.alcity.dto.learning.LearningTopicDTO;
 import com.alcity.dto.pgimport.PGObjectVariableImportDTO;
 import com.alcity.dto.player.PlayHistoryDTO;
+import com.alcity.dto.plimport.object.PostActionTreeImport;
+import com.alcity.dto.plimport.object.RecordDataImport;
 import com.alcity.dto.puzzle.*;
 import com.alcity.dto.puzzle.boardgraphic.BoardGraphicDTO;
 import com.alcity.entity.alenum.*;
@@ -165,7 +167,7 @@ public class DTOUtil {
                 value.getStringValue(),value.getObjectValue(),value.getAttributeId().getId(),bindedAttribute, value.getOwnerId(), value.getOwnerType().name());
         return valueDTO;
     }
-    public static AttributeValue getAttributeValueFromVariableImport(PGObjectVariableImportDTO dto,Attribute attribute,AppMember createdBy){
+    public static AttributeValue getAttributeValueFromPGVariableImport(PGObjectVariableImportDTO dto,Attribute attribute,AppMember createdBy){
         Attribute bindedAttribute =null;
         DataType dataType =  DataType.getByTitle(dto.getDataType());
         Boolean booleanValue=null;
@@ -193,7 +195,34 @@ public class DTOUtil {
                 1L,DateUtils.getNow(),DateUtils.getNow(),createdBy,createdBy,attribute.getOwnerId(),attribute.getAttributeOwnerType());
         return attributeValue;
     }
+    public static AttributeValue getAttributeValueFromPLVariableImport(RecordDataImport dto, Attribute attribute, AppMember createdBy){
+        Attribute bindedAttribute =null;
+        DataType dataType =  DataType.getByTitle(dto.getType());
+        Boolean booleanValue=null;
+        Long longValue=null;
+        Float floatValue=null;
+        Integer intValue=null;
+        Long binaryContentId=null;
+        Boolean isExpressionValue=false;
+        String expressionValue=null;
+        String objectValue=null;
+        String stringValue=null;
+        if(dataType.equals(DataType.Boolean))     booleanValue=Boolean.valueOf(dto.getValue());
+        if(dataType.equals(DataType.Long))     longValue=Long.valueOf(dto.getValue());
+        if(dataType.equals(DataType.Float))     floatValue=Float.valueOf(dto.getValue());
+        if(dataType.equals(DataType.Integer))     intValue=Integer.valueOf(dto.getValue());
+        if(dataType.equals(DataType.Binary))     binaryContentId=Long.valueOf(dto.getValue());
+        if(dataType.equals(DataType.String))     stringValue=dto.getValue();
+        if(dto.getExpression())    {
+            isExpressionValue=Boolean.TRUE;
+            expressionValue = dto.getExpressionValue();
+        }
 
+        AttributeValue  attributeValue = new AttributeValue(booleanValue,intValue,longValue,stringValue,
+                objectValue,floatValue,binaryContentId, expressionValue,isExpressionValue,bindedAttribute ,attribute,
+                1L,DateUtils.getNow(),DateUtils.getNow(),createdBy,createdBy,attribute.getOwnerId(),attribute.getAttributeOwnerType());
+        return attributeValue;
+    }
 
     public static PuzzleLevelStepMappingDTO puzzleLevelJourneyStepMapping(PuzzleLevel pl, JourneyStep step) {
         PuzzleLevelStepMappingDTO dto = new PuzzleLevelStepMappingDTO();
@@ -1390,6 +1419,15 @@ public class DTOUtil {
 
         return sortedRules;
     }
+    public static <PLRulePostActionImport> void preOrderTraversal(PLRulePostActionService plRulePostActionService,PostActionTreeImport<PLRulePostActionImport> node,Long ownerId) {
+        if (node == null) return;
+
+        System.out.println(node.postAction.getActionName() + " ");
+        PLRulePostAction postAction = plRulePostActionService.importPostAction(node.postAction,ownerId);
+        for (PostActionTreeImport<com.alcity.dto.plimport.object.PLRulePostActionImport> child : node.children) {
+            preOrderTraversal(plRulePostActionService,child,postAction.getId());
+        }
+    }
 
     public static Collection<PLRulePostAction> getPlRulePostActions(PLRulePostActionService plRulePostActionService, Long ownerId ){
         Collection<PLRulePostAction>  postActions = plRulePostActionService.findByOwnerId(ownerId) ;
@@ -1406,9 +1444,7 @@ public class DTOUtil {
         ArrayList<PLRulePostAction>  postActions = plRulePostActionService.findByOwnerId(postAction.getId()) ;
         if (postAction == null || postActions.isEmpty())
             return;
-
         // Total children count
-
          int total = postActions.size();
         // All the children except the last
         for (int i = 0; i < total - 1; i++)
@@ -1419,6 +1455,7 @@ public class DTOUtil {
         // Last child
         inorder(plRulePostActionService,postActions.get(total - 1));
     }
+
     public static Collection<RuleActionData> getRuleActionData(PLRulePostActionService plRulePostActionService, AttributeService attributeService , PLRule plRule){
         Collection<RuleActionData> actions = new ArrayList<RuleActionData>();
         Collection<PLRulePostAction> plRulePostActions = getPlRulePostActions(plRulePostActionService, plRule.getId());

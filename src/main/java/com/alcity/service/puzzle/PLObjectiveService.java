@@ -1,5 +1,6 @@
 package com.alcity.service.puzzle;
 
+import com.alcity.dto.plimport.PLObjectiveImport;
 import com.alcity.dto.puzzle.PLObjectiveDTO;
 import com.alcity.entity.learning.LearningSkill;
 import com.alcity.entity.puzzle.PLObjective;
@@ -131,6 +132,17 @@ public class PLObjectiveService implements PLObjectiveRepository {
         }
         return copiedObjectives;
     }
+
+    public Collection<PLObjective> importObjectives(Collection<PLObjectiveImport> objectives, PuzzleLevel puzzleLevel){
+        Collection<PLObjective> copiedObjectives = new ArrayList<>();
+        Iterator<PLObjectiveImport> iterator = objectives.iterator();;
+        while(iterator.hasNext()){
+            PLObjectiveImport objective = iterator.next();
+            PLObjective copyObjective = importObjective(objective,puzzleLevel);
+            copiedObjectives.add(copyObjective);
+        }
+        return copiedObjectives;
+    }
     public PLObjective copy(PLObjective objective,PuzzleLevel copyPuzzleLevel) {
         PLObjective plObjective = new PLObjective(objective.getTitle(), objective.getDescription(), objective.getSkillAmount(),objective.getRewardAmount(),
                 objective.getCondition(),objective.getLearningSkill(),objective.getWalletItem(),
@@ -139,7 +151,19 @@ public class PLObjectiveService implements PLObjectiveRepository {
         return plObjective;
     }
 
-        public PLObjective save(PLObjectiveDTO dto, String code) {
+    public PLObjective importObjective(PLObjectiveImport objective,PuzzleLevel importedPuzzleLevel) {
+        Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
+        Optional<LearningSkill> learningSkillOptional =  learningSkillRepository.findById(objective.getSkillId());
+        Optional<WalletItem> walletItemOptional =  walletItemRespository.findById(objective.getRewardId());
+
+        PLObjective plObjective = new PLObjective(objective.getTitle(), objective.getDescription(), objective.getSkillAmount(),objective.getRewardAmount(),
+                objective.getCondition(),learningSkillOptional.get(),walletItemOptional.get(),importedPuzzleLevel,
+                1L, DateUtils.getNow(), DateUtils.getNow(),createdBy.get(), createdBy.get());
+        objectiveRepository.save(plObjective);
+        return plObjective;
+    }
+
+    public PLObjective save(PLObjectiveDTO dto, String code) {
         Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
         PLObjective plObjective=null;
         Optional<LearningSkill> learningSkillOptional =  learningSkillRepository.findById(dto.getSkillId());

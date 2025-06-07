@@ -1,6 +1,10 @@
 package com.alcity.service.puzzle;
 
+import com.alcity.dto.plimport.CameraSetupImport;
 import com.alcity.dto.plimport.PLImportDTO;
+import com.alcity.dto.plimport.PLLearningTopicImport;
+import com.alcity.dto.plimport.PLObjectiveImport;
+import com.alcity.dto.plimport.object.*;
 import com.alcity.dto.puzzle.PLCopyDTO;
 import com.alcity.dto.puzzle.PLDTO;
 import com.alcity.dto.puzzle.PuzzleLevelStepMappingDTO;
@@ -13,6 +17,7 @@ import com.alcity.entity.base.PLPrivacy;
 import com.alcity.entity.journey.JourneyStep;
 import com.alcity.entity.puzzle.*;
 import com.alcity.entity.appmember.AppMember;
+import com.alcity.repository.base.BinaryContentRepository;
 import com.alcity.repository.base.PLPrivacyRepository;
 import com.alcity.repository.journey.JourneyStepRepository;
 import com.alcity.repository.puzzle.PGRepository;
@@ -190,6 +195,8 @@ public class PuzzleLevelService implements PuzzleLevelRepository {
     private PLRuleService plRuleService;
     @Autowired
     PLLearningTopicService plLearningTopicService;
+    @Autowired
+    BinaryContentRepository binaryContentRepository;
 
     @Autowired
     @Lazy
@@ -207,8 +214,55 @@ public class PuzzleLevelService implements PuzzleLevelRepository {
     }
 
     public PuzzleLevel importPuzzleLevel(PLImportDTO dto) {
-        PuzzleLevel puzzleLevel=null;
-        return puzzleLevel;
+        // import puzzle level header
+        Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
+        Optional<BinaryContent> iconOptional = binaryContentRepository.findById(dto.getIconId());
+        Optional<BinaryContent> picOptional = binaryContentRepository.findById(dto.getPicId());
+        PLDifficulty plDifficulty =  PLDifficulty.getByTitle(dto.getPuzzleDifficulty());
+        PLStatus  plStatus =  PLStatus.getByTitle(dto.getPuzzleLevelStatus());
+        PLPrivacy plPrivacy =  plPrivacyRepository.findByValue(dto.getPuzzleLevelPrivacy());
+        Optional<PuzzleGroup>  puzzleGroupOptional = pgRepository.findById(dto.getPuzzleGroupId());
+
+        PuzzleLevel importedPuzzleLevel = new PuzzleLevel(createdBy.get(),dto.getApproveDate(), dto.getOrdering(),
+                dto.getTitle(),dto.getCode(),dto.getFromAge(),dto.getToAge(),
+                dto.getMaxScore(), dto.getFirstStarScore(), dto.getSecondStarScore(), dto.getThirdStartScore(),
+                puzzleGroupOptional.get(),plDifficulty,plStatus,plPrivacy, iconOptional.get(),picOptional.get() ,
+                1L, DateUtils.getNow(), DateUtils.getNow(), createdBy.get(), createdBy.get());
+        puzzleLevelRepository.save(importedPuzzleLevel);
+
+        // import puzzle level ground
+        CameraSetupImport cameraSetupImport = dto.getCameraSetup();
+        PLGroundPositionImport position = cameraSetupImport.getPosition();
+        PLGroundPositionImport rotation = cameraSetupImport.getRotation();
+        FeatureImport features = cameraSetupImport.getFeatures();
+
+        PLGround importPLGround = new PLGround(dto.getRows(), dto.getCols(),
+                position.getX(), position.getY(), position.getZ(), rotation.getX(), rotation.getY(), rotation.getZ(),
+                features.getZoom(), features.getPan(), features.getRotation(),importedPuzzleLevel, dto.getBoardGraphic()
+                    , 1L, DateUtils.getNow(), DateUtils.getNow(), createdBy.get(), createdBy.get());
+        plGroundService.save(importPLGround);
+
+        //import puzzle level objectives
+        Collection<PLObjectiveImport> objectives = dto.getObjectives();
+        Collection<PLObjective> importedObjectives = plObjectiveService.importObjectives(objectives, importedPuzzleLevel);
+
+
+        //import puzzle level variables
+        Collection<RecordDataImport> variables = dto.getVariables();
+        Collection<Attribute> copiedAttributes = attributeService.importPLVariables(variables, importedPuzzleLevel, AttributeOwnerType.Puzzle_Level_Variable);
+
+        //import puzzle level instances
+         Collection<ALCityInstanceInPL> importInstances = instanceInPLService.importObjects(dto.getObjects(), importedPuzzleLevel);
+
+        //import puzzle level rules
+        Collection<PLRuleImport> rules = dto.getRules();
+        Collection<PLRule> importedRules = plRuleService.importRules(rules, importedPuzzleLevel);
+
+        //import puzzle learning topics
+        Collection<PLLearningTopicImport> topics = dto.getLearningTopics();
+        Collection<LearningTopicInPL> importedTopics = plLearningTopicService.importLearningTopics(topics, importedPuzzleLevel);
+
+        return importedPuzzleLevel;
     }
     public PuzzleLevel deletePuzzleLevel(PuzzleLevel puzzleLevel) {
 
@@ -241,6 +295,7 @@ public class PuzzleLevelService implements PuzzleLevelRepository {
                     , 1L, DateUtils.getNow(), DateUtils.getNow(), plGround.getCreatedBy(), plGround.getUpdatedBy());
             plGroundService.save(copyPLGround);
         }
+
         //copy puzzle level objectives
         if(dto.getObjectives()) {
             Collection<PLObjective> objectives = puzzleLevel.getPlObjectives();
@@ -275,9 +330,9 @@ public class PuzzleLevelService implements PuzzleLevelRepository {
         PuzzleLevel puzzleLevel=null;
         PLDifficulty plDifficulty =  PLDifficulty.getByTitle(dto.getPuzzleLevelDifficulty());
         PLStatus  plStatus =  PLStatus.getByTitle(dto.getPuzzleLevelStatus());
-            PLPrivacy plPrivacy =  plPrivacyRepository.findByValue(dto.getPuzzleLevelPrivacy());
-            Optional<BinaryContent> pictureOptional =  binaryContentService.findById(dto.getPicId());
-            Optional<BinaryContent> iconOptional =  binaryContentService.findById(dto.getIconId());
+        PLPrivacy plPrivacy =  plPrivacyRepository.findByValue(dto.getPuzzleLevelPrivacy());
+        Optional<BinaryContent> pictureOptional =  binaryContentService.findById(dto.getPicId());
+        Optional<BinaryContent> iconOptional =  binaryContentService.findById(dto.getIconId());
         PuzzleGroup puzzleGroup = null;
         Optional<PuzzleGroup>  puzzleGroupOptional = pgRepository.findById(dto.getPuzzleGroupId());
         if(puzzleGroupOptional.isPresent())

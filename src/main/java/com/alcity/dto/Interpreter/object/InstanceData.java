@@ -6,12 +6,12 @@ import java.util.Collection;
 public class InstanceData implements Serializable {
 
     private Long id;
+    private Long pgoId;
     private String name;
 
     private Position position;
     private Collection<RecordData> properties;
     private Collection<RecordData> variables;
-   // private Collection<ActionData> actionsParameters;
 
     public Long getId() {
         return id;
@@ -53,23 +53,23 @@ public class InstanceData implements Serializable {
         this.properties = properties;
     }
 
-   // public Collection<ActionData> getActionsParameters() {
-   //     return actionsParameters;
-  //  }
+    public Long getPgoId() {
+        return pgoId;
+    }
 
-  //  public void setActionsParameters(Collection<ActionData> actionsParameters) {
-   //     this.actionsParameters = actionsParameters;
-  //  }
+    public void setPgoId(Long pgoId) {
+        this.pgoId = pgoId;
+    }
 
     public InstanceData() {
     }
 
-    public InstanceData(Long id, String name, Position position, Collection<RecordData> properties) {
+    public InstanceData(Long id, String name,Long pgoId, Position position, Collection<RecordData> properties) {
         this.id = id;
         this.name = name;
+        this.pgoId = pgoId;
         this.position = position;
         this.properties = properties;
-     //   this.actionsParameters = actionsParameters;
     }
 
 }

@@ -4,6 +4,7 @@ import com.alcity.dto.alobject.AttributeDTOSave;
 import com.alcity.dto.pgimport.PGObjectImportDTO;
 import com.alcity.dto.pgimport.PGObjectVariableImportDTO;
 import com.alcity.dto.puzzle.CityObjectInPGDTO;
+import com.alcity.entity.alenum.AttributeOwnerType;
 import com.alcity.entity.alobject.ObjectAction;
 import com.alcity.entity.puzzle.ALCityObject;
 import com.alcity.entity.puzzle.ALCityObjectInPG;
@@ -156,7 +157,7 @@ public class ObjectInPGService implements ObjectInPGRepository {
                 1L, DateUtils.getNow(), DateUtils.getNow(), createdBy.get(), createdBy.get());
         objectInPGRepository.save(alCityObjectInPG);
         Collection<PGObjectVariableImportDTO> variableImportDTOS = dto.getVariables();
-        attributeService.importPGObjectVariables(variableImportDTOS,alCityObjectInPG.getId());
+        attributeService.importPGObjectVariables(variableImportDTOS,alCityObjectInPG.getId(), AttributeOwnerType.Puzzle_Group_Object_Variable);
         objectActionService.importPGObjectActions(dto.getActions(),alCityObjectInPG.getId());
 
 

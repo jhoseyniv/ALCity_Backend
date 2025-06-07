@@ -1,6 +1,9 @@
 package com.alcity.service.puzzle;
 
 
+import com.alcity.dto.plimport.object.PLRuleImport;
+import com.alcity.dto.plimport.object.PLRulePostActionImport;
+import com.alcity.dto.plimport.object.PostActionTreeImport;
 import com.alcity.dto.puzzle.PLObjectiveDTO;
 import com.alcity.dto.puzzle.PLRuleDTO;
 import com.alcity.entity.alenum.AttributeOwnerType;
@@ -85,7 +88,34 @@ public class PLRuleService implements PLRuleRepository {
     @Autowired
     PuzzleLevelRepository puzzleLevelRepository;
     @Autowired
-    PLRuleEventRepository PLRuleEventRepository;
+    PLRuleEventService plRuleEventService;
+
+
+    public PLRule importRule(PLRuleImport importRule,PuzzleLevel puzzleLevel) {
+        Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
+
+        Collection<PostActionTreeImport> postActionTreeImports = importRule.getActionTreesImport();
+        Optional<PLRuleEvent> plRuleEvent = plRuleEventService.findByName(importRule.getEvent());
+        PLRule newRule = new PLRule(importRule.getTitle(),importRule.getOrdering(),
+                importRule.getCondition(),importRule.getIgnoreRemaining(),puzzleLevel,plRuleEvent.get(),importRule.getSubEvent(),
+                1L,DateUtils.getNow(),DateUtils.getNow(),createdBy.get(),createdBy.get());
+        ruleRepository.save(newRule);
+        plRulePostActionService.importPLRulePostActionsTrees(postActionTreeImports,newRule.getId());
+        return newRule;
+    }
+
+    public Collection<PLRule> importRules(Collection<PLRuleImport> plRuleImports, PuzzleLevel puzzleLevel) {
+        Collection<PLRule> importedRules = new ArrayList<>();
+        Iterator<PLRuleImport> iterator = plRuleImports.iterator();
+        while(iterator.hasNext()){
+            PLRuleImport plRuleImport = iterator.next();
+            PLRule importedRule = importRule(plRuleImport,puzzleLevel);
+            importedRules.add(importedRule);
+        }
+        return importedRules;
+    }
+
+
 
     public Collection<PLRule> copyAll(Collection<PLRule> rules,PuzzleLevel puzzleLevel) {
         Collection<PLRule> copiedRules = new ArrayList<>();
@@ -119,7 +149,7 @@ public class PLRuleService implements PLRuleRepository {
             puzzleLevel = puzzleLevelOptional.get();
 
         PLRuleEvent plRuleEvent = null;
-        Optional<PLRuleEvent>  plRuleEventOptional = PLRuleEventRepository.findById(dto.getPLRuleEventId());
+        Optional<PLRuleEvent>  plRuleEventOptional = plRuleEventService.findById(dto.getPLRuleEventId());
         if(plRuleEventOptional.isPresent())
             plRuleEvent = plRuleEventOptional.get();
         StringBuffer condition = new StringBuffer(dto.getCondition());

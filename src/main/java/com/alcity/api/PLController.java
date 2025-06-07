@@ -2,6 +2,7 @@ package com.alcity.api;
 
 import com.alcity.dto.Interpreter.PLData;
 import com.alcity.dto.plimport.PLImportDTO;
+import com.alcity.dto.plimport.object.PostActionTreeImport;
 import com.alcity.entity.alenum.AttributeOwnerType;
 import com.alcity.entity.alenum.DataType;
 import com.alcity.entity.alobject.Attribute;
@@ -244,6 +245,17 @@ public class PLController {
         PuzzleLevel copyPuzzleLevel =puzzleLevelService.copy(puzzleLevel,dto);
         return new ALCityResponseObject(HttpStatus.OK.value(), "ok", copyPuzzleLevel.getId(), "Puzzle Level Copied Successfully!");
     }
+ /*   @Operation( summary = "Import a tree level",  description = "Import a puzzle level  entity and their data")
+    @PostMapping("/import-tree")
+    @CrossOrigin(origins = "*")
+    public ALCityResponseObject importtree(@RequestBody PostActionTreeImport dto) {
+        PuzzleLevel importedPuzzleLevel=null;
+        ALCityResponseObject responseObject = new ALCityResponseObject();
+        System.out.println(dto.postAction);
+
+        return new ALCityResponseObject(HttpStatus.OK.value(), "ok", importedPuzzleLevel.getId(), "Puzzle Level Imported Successfully!");
+    }
+*/
     @Operation( summary = "Import a puzzle level",  description = "Import a puzzle level  entity and their data")
     @PostMapping("/import")
     @CrossOrigin(origins = "*")

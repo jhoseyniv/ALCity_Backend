@@ -134,6 +134,7 @@ public class InterpreterController {
             InstanceData instanceDTO = new InstanceData();
             instanceDTO.setId(alCityInstanceInPL.getId());
             instanceDTO.setName(alCityInstanceInPL.getName());
+            instanceDTO.setPgoId(pgo.getId());
             Position instancePostion = new Position(alCityInstanceInPL.getRow() , alCityInstanceInPL.getCol(),zorder);
             instanceDTO.setPosition(instancePostion);
 

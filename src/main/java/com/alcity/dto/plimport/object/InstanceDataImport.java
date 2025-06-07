@@ -8,10 +8,11 @@ public class InstanceDataImport implements Serializable {
     private Long id;
     private String name;
 
+    private Long pgoId;
+
     private PositionImport position;
     private Collection<RecordDataImport> properties;
     private Collection<RecordDataImport> variables;
-   // private Collection<ActionData> actionsParameters;
 
     public Long getId() {
         return id;
@@ -53,23 +54,23 @@ public class InstanceDataImport implements Serializable {
         this.properties = properties;
     }
 
-   // public Collection<ActionData> getActionsParameters() {
-   //     return actionsParameters;
-  //  }
+    public Long getPgoId() {
+        return pgoId;
+    }
 
-  //  public void setActionsParameters(Collection<ActionData> actionsParameters) {
-   //     this.actionsParameters = actionsParameters;
-  //  }
+    public void setPgoId(Long pgoId) {
+        this.pgoId = pgoId;
+    }
 
     public InstanceDataImport() {
     }
 
-    public InstanceDataImport(Long id, String name, PositionImport position, Collection<RecordDataImport> properties) {
+    public InstanceDataImport(Long id, String name,Long pgoId, PositionImport position, Collection<RecordDataImport> properties) {
         this.id = id;
         this.name = name;
         this.position = position;
         this.properties = properties;
-     //   this.actionsParameters = actionsParameters;
+        this.pgoId = pgoId;
     }
 
 }

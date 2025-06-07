@@ -4,25 +4,36 @@ package com.alcity.dto.plimport.object;
 import java.io.Serializable;
 import java.util.Collection;
 
-public class RuleActionDataImport implements Serializable {
-    private String actionType;
+public class PLRulePostActionImport implements Serializable {
+    private String  postActionType;
+    private String  postActionOwnerType;
     private Integer ordering;
     private String objectId;
     private String actionName;
+    private String subAction;
+
+    private Long actionKey;
 
     private String variable;
-    private StringBuffer valueExperssion;
+    private StringBuffer valueExpression;
     private String alertType;
     private String alertMessage;
     private Collection<RecordDataImport> parameters;
 
-
-    public String getActionType() {
-        return actionType;
+    public String getPostActionType() {
+        return postActionType;
     }
 
-    public void setActionType(String actionType) {
-        this.actionType = actionType;
+    public void setPostActionType(String postActionType) {
+        this.postActionType = postActionType;
+    }
+
+    public StringBuffer getValueExpression() {
+        return valueExpression;
+    }
+
+    public void setValueExpression(StringBuffer valueExpression) {
+        this.valueExpression = valueExpression;
     }
 
     public Integer getOrdering() {
@@ -57,7 +68,7 @@ public class RuleActionDataImport implements Serializable {
         this.parameters = parameters;
     }
 
-    public RuleActionDataImport() {
+    public PLRulePostActionImport() {
     }
 
     public String getVariable() {
@@ -68,13 +79,6 @@ public class RuleActionDataImport implements Serializable {
         this.variable = variable;
     }
 
-    public StringBuffer getValueExperssion() {
-        return valueExperssion;
-    }
-
-    public void setValueExperssion(StringBuffer valueExperssion) {
-        this.valueExperssion = valueExperssion;
-    }
 
     public String getAlertType() {
         return alertType;
@@ -92,15 +96,42 @@ public class RuleActionDataImport implements Serializable {
         this.alertMessage = alertMessage;
     }
 
-    public RuleActionDataImport(String actionType, Integer ordering, String objectId, String actionName, String variable, StringBuffer valueExperssion, String alertType, String alertMessage, Collection<RecordDataImport> parameters) {
-        this.actionType = actionType;
+    public String getPostActionOwnerType() {
+        return postActionOwnerType;
+    }
+
+    public void setPostActionOwnerType(String postActionOwnerType) {
+        this.postActionOwnerType = postActionOwnerType;
+    }
+
+    public String getSubAction() {
+        return subAction;
+    }
+
+    public void setSubAction(String subAction) {
+        this.subAction = subAction;
+    }
+
+    public Long getActionKey() {
+        return actionKey;
+    }
+
+    public void setActionKey(Long actionKey) {
+        this.actionKey = actionKey;
+    }
+
+    public PLRulePostActionImport(String postActionType, String postActionOwnerType, Integer ordering, String objectId, String actionName,String subAction,Long actionKey,
+                                  String variable, StringBuffer valueExpression, String alertType, String alertMessage) {
+        this.postActionOwnerType = postActionOwnerType;
+        this.postActionType = postActionType;
         this.ordering = ordering;
         this.objectId = objectId;
         this.actionName = actionName;
+        this.subAction = subAction;
+        this.actionKey = actionKey;
         this.variable = variable;
-        this.valueExperssion = valueExperssion;
+        this.valueExpression = valueExpression;
         this.alertType = alertType;
         this.alertMessage = alertMessage;
-        this.parameters = parameters;
     }
 }
