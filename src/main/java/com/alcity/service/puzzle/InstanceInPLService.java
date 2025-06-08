@@ -98,19 +98,19 @@ public class InstanceInPLService implements InstanceInPLRepository {
         Iterator<PLObjectImport> iterator = objectImports.iterator();
         while(iterator.hasNext()) {
            PLObjectImport objectImport = iterator.next();
-            Collection<ALCityInstanceInPL> instances = importInstances(objectImport.getInstances(),importedPL);
+            Collection<ALCityInstanceInPL> instances = importInstances(objectImport.getId(),objectImport.getInstances(),importedPL);
             importedInstances.addAll(instances);
         }
         return importedInstances;
     }
-    public Collection<ALCityInstanceInPL> importInstances(Collection<InstanceDataImport> instanceDataImports , PuzzleLevel importedPL) {
+    public Collection<ALCityInstanceInPL> importInstances(Long pogId,Collection<InstanceDataImport> instanceDataImports , PuzzleLevel importedPL) {
         Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
         Collection<ALCityInstanceInPL> importedInstances = new ArrayList<>();
         Iterator<InstanceDataImport> iterator = instanceDataImports.iterator();
+        Optional<ALCityObjectInPG> alCityObjectInPGOptional = objectInPGService.findById(pogId);
         ALCityInstanceInPL importedInstance = null;
         while(iterator.hasNext()) {
             InstanceDataImport instanceDataImport = iterator.next();
-            Optional<ALCityObjectInPG> alCityObjectInPGOptional = objectInPGService.findById(instanceDataImport.getPgoId());
             PositionImport position = instanceDataImport.getPosition();
             importedInstance = new ALCityInstanceInPL(instanceDataImport.getName(),position.getX(),position.getY(),position.getZ(),
                     alCityObjectInPGOptional.get(),importedPL,1L,DateUtils.getNow(),DateUtils.getNow(),createdBy.get(),createdBy.get());
