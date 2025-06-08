@@ -219,7 +219,7 @@ public class PuzzleLevelService implements PuzzleLevelRepository {
         Optional<BinaryContent> iconOptional = binaryContentRepository.findById(dto.getIconId());
         Optional<BinaryContent> picOptional = binaryContentRepository.findById(dto.getPicId());
         Optional<BinaryContent> boardGraphicOptional = binaryContentRepository.findById(dto.getPicId());
-        PLDifficulty plDifficulty =  PLDifficulty.getByTitle(dto.getPuzzleDifficulty());
+        PLDifficulty plDifficulty =  PLDifficulty.getByTitle(dto.getPuzzleLevelDifficulty());
         PLStatus  plStatus =  PLStatus.getByTitle(dto.getPuzzleLevelStatus());
         PLPrivacy plPrivacy =  plPrivacyRepository.findByValue(dto.getPuzzleLevelPrivacy());
         Optional<PuzzleGroup>  puzzleGroupOptional = pgRepository.findById(dto.getPuzzleGroupId());

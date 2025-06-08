@@ -29,7 +29,7 @@ public class PLImportDTO implements Serializable {
     private Integer cols;
     private Integer rows;
 
-    private String puzzleDifficulty;
+    private String puzzleLevelDifficulty;
 
     private String puzzleLevelStatus;
 
@@ -185,12 +185,12 @@ public class PLImportDTO implements Serializable {
         this.picId = picId;
     }
 
-    public String getPuzzleDifficulty() {
-        return puzzleDifficulty;
+    public String getPuzzleLevelDifficulty() {
+        return puzzleLevelDifficulty;
     }
 
-    public void setPuzzleDifficulty(String puzzleDifficulty) {
-        this.puzzleDifficulty = puzzleDifficulty;
+    public void setPuzzleLevelDifficulty(String puzzleLevelDifficulty) {
+        this.puzzleLevelDifficulty = puzzleLevelDifficulty;
     }
 
     public String getPuzzleLevelStatus() {
@@ -263,7 +263,7 @@ public class PLImportDTO implements Serializable {
     public PLImportDTO(Long puzzleGroupId, Long id, String code, String title, Long ordering, Integer fromAge, Integer toAge,
                        Float maxScore, Float firstStarScore, Float secondStarScore, Float thirdStartScore, Long iconId, Long picId,
                        Integer cols, Integer rows,Long boardGraphicId,
-                       String puzzleDifficulty, String puzzleLevelStatus, String puzzleLevelPrivacy, String approveDate) {
+                       String puzzleLevelDifficulty, String puzzleLevelStatus, String puzzleLevelPrivacy, String approveDate) {
         this.puzzleGroupId = puzzleGroupId;
         this.id = id;
         this.code = code;
@@ -280,7 +280,7 @@ public class PLImportDTO implements Serializable {
         this.cols = cols;
         this.rows = rows;
         this.boardGraphicId =boardGraphicId;
-        this.puzzleDifficulty = puzzleDifficulty;
+        this.puzzleLevelDifficulty = puzzleLevelDifficulty;
         this.puzzleLevelStatus = puzzleLevelStatus;
         this.puzzleLevelPrivacy = puzzleLevelPrivacy;
         this.approveDate = approveDate;
