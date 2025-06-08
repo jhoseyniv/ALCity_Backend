@@ -132,6 +132,11 @@ public class PuzzleLevel extends BaseTable implements Serializable {
     @JsonIgnore
     private BinaryContent picture;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "boardGraphic_id")
+    @JsonIgnore
+    private BinaryContent boardGraphic;
+
     @ManyToOne(fetch = FetchType.LAZY )
     @JoinColumn(name = "icon_id")
     @JsonIgnore
@@ -238,6 +243,14 @@ public class PuzzleLevel extends BaseTable implements Serializable {
         this.puzzleLevelRuleCollection = puzzleLevelRuleCollection;
     }
 
+    public BinaryContent getBoardGraphic() {
+        return boardGraphic;
+    }
+
+    public void setBoardGraphic(BinaryContent boardGraphic) {
+        this.boardGraphic = boardGraphic;
+    }
+
     public AppMember getCreator() {
         return creator;
     }
@@ -298,7 +311,7 @@ public class PuzzleLevel extends BaseTable implements Serializable {
     }
 
     public PuzzleLevel(AppMember creator,String approveDate, Long ordering, String title, String code, Integer fromAge, Integer toAge, Float maxScore,Float firstStarScore,Float secondStarScore,Float thirdStartScore,
-                        PuzzleGroup puzzleGroup, PLDifficulty puzzleDifficulty, PLStatus puzzleLevelStatus, PLPrivacy puzzleLevelPrivacy,BinaryContent picture ,BinaryContent icon,
+                        PuzzleGroup puzzleGroup, PLDifficulty puzzleDifficulty, PLStatus puzzleLevelStatus, PLPrivacy puzzleLevelPrivacy,BinaryContent picture ,BinaryContent icon,BinaryContent boardGraphic,
                        Long version, String created, String updated, AppMember createdBy, AppMember updatedBy) {
         super(version, created, updated, createdBy, updatedBy);
         this.creator = creator;
@@ -318,5 +331,6 @@ public class PuzzleLevel extends BaseTable implements Serializable {
         this.puzzleLevelPrivacy = puzzleLevelPrivacy;
         this.picture = picture;
         this.icon = icon;
+        this.boardGraphic = boardGraphic;
     }
 }

@@ -218,6 +218,7 @@ public class PuzzleLevelService implements PuzzleLevelRepository {
         Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
         Optional<BinaryContent> iconOptional = binaryContentRepository.findById(dto.getIconId());
         Optional<BinaryContent> picOptional = binaryContentRepository.findById(dto.getPicId());
+        Optional<BinaryContent> boardGraphicOptional = binaryContentRepository.findById(dto.getPicId());
         PLDifficulty plDifficulty =  PLDifficulty.getByTitle(dto.getPuzzleDifficulty());
         PLStatus  plStatus =  PLStatus.getByTitle(dto.getPuzzleLevelStatus());
         PLPrivacy plPrivacy =  plPrivacyRepository.findByValue(dto.getPuzzleLevelPrivacy());
@@ -226,7 +227,7 @@ public class PuzzleLevelService implements PuzzleLevelRepository {
         PuzzleLevel importedPuzzleLevel = new PuzzleLevel(createdBy.get(),dto.getApproveDate(), dto.getOrdering(),
                 dto.getTitle(),dto.getCode(),dto.getFromAge(),dto.getToAge(),
                 dto.getMaxScore(), dto.getFirstStarScore(), dto.getSecondStarScore(), dto.getThirdStartScore(),
-                puzzleGroupOptional.get(),plDifficulty,plStatus,plPrivacy, iconOptional.get(),picOptional.get() ,
+                puzzleGroupOptional.get(),plDifficulty,plStatus,plPrivacy, iconOptional.get(),picOptional.get() ,boardGraphicOptional.get(),
                 1L, DateUtils.getNow(), DateUtils.getNow(), createdBy.get(), createdBy.get());
         puzzleLevelRepository.save(importedPuzzleLevel);
 
@@ -235,10 +236,10 @@ public class PuzzleLevelService implements PuzzleLevelRepository {
         PLGroundPositionImport position = cameraSetupImport.getPosition();
         PLGroundPositionImport rotation = cameraSetupImport.getRotation();
         FeatureImport features = cameraSetupImport.getFeatures();
-
+        byte[] boardGraphic=new byte[1];
         PLGround importPLGround = new PLGround(dto.getRows(), dto.getCols(),
                 position.getX(), position.getY(), position.getZ(), rotation.getX(), rotation.getY(), rotation.getZ(),
-                features.getZoom(), features.getPan(), features.getRotation(),importedPuzzleLevel, dto.getBoardGraphic()
+                features.getZoom(), features.getPan(), features.getRotation(),importedPuzzleLevel, boardGraphic
                     , 1L, DateUtils.getNow(), DateUtils.getNow(), createdBy.get(), createdBy.get());
         plGroundService.save(importPLGround);
 
@@ -281,7 +282,8 @@ public class PuzzleLevelService implements PuzzleLevelRepository {
                dto.getTitle(),dto.getCode(),dto.getFromAge(),dto.getToAge(),
                puzzleLevel.getMaxScore(), puzzleLevel.getFirstStarScore(), puzzleLevel.getSecondStarScore(), puzzleLevel.getThirdStartScore(),
                puzzleLevel.getPuzzleGroup(),puzzleLevel.getPuzzleDifficulty(),puzzleLevel.getPuzzleLevelStatus(),puzzleLevel.getPuzzleLevelPrivacy(),
-               puzzleLevel.getPicture(),puzzleLevel.getIcon() , 1L, DateUtils.getNow(), DateUtils.getNow(), puzzleLevel.getCreatedBy(), puzzleLevel.getUpdatedBy());
+               puzzleLevel.getPicture(),puzzleLevel.getIcon() ,puzzleLevel.getBoardGraphic(),
+                1L, DateUtils.getNow(), DateUtils.getNow(), puzzleLevel.getCreatedBy(), puzzleLevel.getUpdatedBy());
         puzzleLevelRepository.save(copyPuzzleLevel);
 
         // copy puzzle level ground
@@ -333,6 +335,8 @@ public class PuzzleLevelService implements PuzzleLevelRepository {
         PLPrivacy plPrivacy =  plPrivacyRepository.findByValue(dto.getPuzzleLevelPrivacy());
         Optional<BinaryContent> pictureOptional =  binaryContentService.findById(dto.getPicId());
         Optional<BinaryContent> iconOptional =  binaryContentService.findById(dto.getIconId());
+        Optional<BinaryContent> boardGraphicOptional = binaryContentRepository.findById(dto.getPicId());
+
         PuzzleGroup puzzleGroup = null;
         Optional<PuzzleGroup>  puzzleGroupOptional = pgRepository.findById(dto.getPuzzleGroupId());
         if(puzzleGroupOptional.isPresent())
@@ -340,7 +344,7 @@ public class PuzzleLevelService implements PuzzleLevelRepository {
         if (code.equalsIgnoreCase("Save")) { //Save
             puzzleLevel = new PuzzleLevel(createdBy.get(),dto.getApproveDate(), dto.getOrdering(), dto.getTitle(),dto.getCode(),dto.getFromAge(),dto.getToAge(),
                                 dto.getMaxScore(), dto.getFirstStarScore(), dto.getSecondStarScore(), dto.getThirdStartScore(), puzzleGroup,plDifficulty,plStatus,plPrivacy,
-                    pictureOptional.get(),iconOptional.get() , 1L, DateUtils.getNow(), DateUtils.getNow(), createdBy.get(), createdBy.get());
+                    pictureOptional.get(),iconOptional.get(),boardGraphicOptional.get() , 1L, DateUtils.getNow(), DateUtils.getNow(), createdBy.get(), createdBy.get());
             puzzleLevelRepository.save(puzzleLevel);
         }else{//edit
             Optional<PuzzleLevel> puzzleLevelOptional= puzzleLevelRepository.findById(dto.getId());

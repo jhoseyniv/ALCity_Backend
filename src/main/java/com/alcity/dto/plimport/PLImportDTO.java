@@ -39,7 +39,7 @@ public class PLImportDTO implements Serializable {
 
     private CameraSetupImport cameraSetup;
 
-    private byte[] boardGraphic;
+    private Long boardGraphicId;
     private Collection<PLObjectiveImport> objectives;
 
     private Collection<RecordDataImport> variables;
@@ -241,12 +241,12 @@ public class PLImportDTO implements Serializable {
         this.objects = objects;
     }
 
-    public byte[] getBoardGraphic() {
-        return boardGraphic;
+    public Long getBoardGraphicId() {
+        return boardGraphicId;
     }
 
-    public void setBoardGraphic(byte[] boardGraphic) {
-        this.boardGraphic = boardGraphic;
+    public void setBoardGraphicId(Long boardGraphicId) {
+        this.boardGraphicId = boardGraphicId;
     }
 
     public Collection<PLLearningTopicImport> getLearningTopics() {
@@ -262,7 +262,7 @@ public class PLImportDTO implements Serializable {
 
     public PLImportDTO(Long puzzleGroupId, Long id, String code, String title, Long ordering, Integer fromAge, Integer toAge,
                        Float maxScore, Float firstStarScore, Float secondStarScore, Float thirdStartScore, Long iconId, Long picId,
-                       Integer cols, Integer rows,byte[] boardGraphic,
+                       Integer cols, Integer rows,Long boardGraphicId,
                        String puzzleDifficulty, String puzzleLevelStatus, String puzzleLevelPrivacy, String approveDate) {
         this.puzzleGroupId = puzzleGroupId;
         this.id = id;
@@ -279,7 +279,7 @@ public class PLImportDTO implements Serializable {
         this.picId = picId;
         this.cols = cols;
         this.rows = rows;
-        this.boardGraphic =boardGraphic;
+        this.boardGraphicId =boardGraphicId;
         this.puzzleDifficulty = puzzleDifficulty;
         this.puzzleLevelStatus = puzzleLevelStatus;
         this.puzzleLevelPrivacy = puzzleLevelPrivacy;
