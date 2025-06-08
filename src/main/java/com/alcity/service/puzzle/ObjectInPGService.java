@@ -5,6 +5,7 @@ import com.alcity.dto.pgimport.PGObjectImportDTO;
 import com.alcity.dto.pgimport.PGObjectVariableImportDTO;
 import com.alcity.dto.puzzle.CityObjectInPGDTO;
 import com.alcity.entity.alenum.AttributeOwnerType;
+import com.alcity.entity.alobject.AttributeValue;
 import com.alcity.entity.alobject.ObjectAction;
 import com.alcity.entity.puzzle.ALCityObject;
 import com.alcity.entity.puzzle.ALCityObjectInPG;
@@ -144,9 +145,11 @@ public class ObjectInPGService implements ObjectInPGRepository {
         return objectInPGRepository.findByPuzzleGroup(puzzleGroup);
     }
 
-    @Override
-    public Optional<ALCityObjectInPG> findByPuzzleGroupAndAlCityObject(PuzzleGroup puzzleGroup, ALCityObject cityObject) {
-        return findByPuzzleGroupAndAlCityObject(puzzleGroup,cityObject);
+    public Optional<ALCityObjectInPG> findByPuzzleGroupAndAlCityObject(PuzzleGroup puzzleGroup, Long cityObjectId) {
+        Collection<ALCityObjectInPG> objectInPGS = objectInPGRepository.findByPuzzleGroup(puzzleGroup);
+        Optional<ALCityObjectInPG> matchValueOptional = objectInPGS.stream().filter(alCityObjectInPG -> alCityObjectInPG.getAlCityObject().getId()==cityObjectId).findFirst();
+
+        return matchValueOptional;
     }
 
     @Autowired

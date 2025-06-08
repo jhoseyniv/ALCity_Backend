@@ -17,6 +17,5 @@ public interface ObjectInPGRepository extends CrudRepository<ALCityObjectInPG,Lo
     Optional<ALCityObjectInPG> findByCodeAndTitle(String code,String title);
     Collection<ALCityObjectInPG> findByalCityObject(ALCityObject cityObject);
     Collection<ALCityObjectInPG> findByPuzzleGroup(PuzzleGroup puzzleGroup);
-    Optional<ALCityObjectInPG> findByPuzzleGroupAndAlCityObject(PuzzleGroup puzzleGroup,ALCityObject cityObject);
 
 }

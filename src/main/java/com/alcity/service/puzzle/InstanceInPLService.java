@@ -101,7 +101,7 @@ public class InstanceInPLService implements InstanceInPLRepository {
         while(iterator.hasNext()) {
            PLObjectImport objectImport = iterator.next();
            Optional<ALCityObject> cityObjectOptional = objectService.findById(objectImport.getId());
-           Optional<ALCityObjectInPG> alCityObjectInPGOptional = objectInPGService.findByPuzzleGroupAndAlCityObject(importedPL.getPuzzleGroup(),cityObjectOptional.get());
+           Optional<ALCityObjectInPG> alCityObjectInPGOptional = objectInPGService.findByPuzzleGroupAndAlCityObject(importedPL.getPuzzleGroup(),cityObjectOptional.get().getId());
 
             Collection<ALCityInstanceInPL> instances = importInstances(alCityObjectInPGOptional.get(),objectImport.getInstances(),importedPL);
             importedInstances.addAll(instances);
