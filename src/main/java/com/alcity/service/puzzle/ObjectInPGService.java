@@ -144,6 +144,11 @@ public class ObjectInPGService implements ObjectInPGRepository {
         return objectInPGRepository.findByPuzzleGroup(puzzleGroup);
     }
 
+    @Override
+    public Optional<ALCityObjectInPG> findByPuzzleGroupAndAlCityObject(PuzzleGroup puzzleGroup, ALCityObject cityObject) {
+        return findByPuzzleGroupAndAlCityObject(puzzleGroup,cityObject);
+    }
+
     @Autowired
     private AppMemberRepository appMemberRepository;
 
