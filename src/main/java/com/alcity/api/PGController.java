@@ -107,7 +107,7 @@ public class PGController {
     @Operation( summary = "Import a Puzzle Group ",  description = "Import a Puzzle Group entity to database")
     @PostMapping("/import")
     @CrossOrigin(origins = "*")
-    public ALCityResponseObject importPuzzleGroup(@RequestBody PGImportDTO dto) {
+    public ALCityResponseObject importPuzzleGroup(@RequestBody PGImportDTO dto) throws UniqueConstraintException {
         PuzzleGroup savedRecord = null;
         ALCityResponseObject responseObject = new ALCityResponseObject();
 
@@ -115,7 +115,7 @@ public class PGController {
             try {
                 savedRecord = pgService.importPG(dto);
             } catch (RuntimeException e) {
-                throw new UniqueConstraintException(-1,"Unique Constraint in" + PuzzleCategory.class , "Error",savedRecord.getId() );
+                throw new UniqueConstraintException(-1,"Unique Constraint in" + PuzzleGroup.class , "Error",savedRecord.getId() );
             }
             responseObject = new ALCityResponseObject(HttpStatus.OK.value(), "ok", savedRecord.getId(), "Record Saved Successfully!");
         }
