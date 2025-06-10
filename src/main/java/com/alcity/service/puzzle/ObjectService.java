@@ -145,6 +145,7 @@ public class ObjectService implements ObjectRepository {
 
         return matchValues;
     }
+
     public Collection<SearchResultCityObjectDTO> searchCityObjectInPGByCriteria(ObjectSearchCriteriaDTO criteria) {
         Optional<ObjectCategory> categoryOptional = objectCategoryRepository.findById(criteria.getObjectCategoryId());
         Optional<PuzzleGroup> puzzleGroupOptional = pgService.findById(criteria.getPuzzleGroupdId());

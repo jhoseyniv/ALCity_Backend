@@ -7,12 +7,14 @@ import com.alcity.entity.alenum.AttributeOwnerType;
 import com.alcity.entity.alenum.PLRulePostActionOwnerType;
 import com.alcity.entity.alenum.PLRulePostActionType;
 import com.alcity.entity.alobject.Attribute;
+import com.alcity.entity.alobject.AttributeValue;
 import com.alcity.entity.appmember.AppMember;
 import com.alcity.entity.puzzle.PLRulePostAction;
 import com.alcity.repository.appmember.AppMemberRepository;
 import com.alcity.repository.puzzle.PLRulePostActionRepository;
 import com.alcity.repository.puzzle.PLRuleRepository;
 import com.alcity.service.alobject.AttributeService;
+import com.alcity.service.alobject.AttributeValueService;
 import com.alcity.utility.DTOUtil;
 import com.alcity.utility.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +44,9 @@ public class PLRulePostActionService implements PLRulePostActionRepository {
 
     @Autowired
     private AttributeService attributeService;
+
+    @Autowired
+    private AttributeValueService attributeValueService;
 
     @Override
     public <S extends PLRulePostAction> S save(S entity) {
@@ -199,6 +204,8 @@ public class PLRulePostActionService implements PLRulePostActionRepository {
             deleteChildren(childPostAction.getId());
             // Delete the child node
             plRulePostActionRepository.deleteById(childPostAction.getId());
+            Collection<AttributeValue>  attributeValues= attributeValueService.findByOwnerId(childPostAction.getId());
+            attributeValueService.deleteAll(attributeValues);
             Collection<Attribute> attributes = attributeService.findByOwnerId(childPostAction.getId());
             attributeService.deleteAll(attributes);
         }

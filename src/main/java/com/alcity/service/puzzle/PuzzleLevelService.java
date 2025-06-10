@@ -12,6 +12,7 @@ import com.alcity.entity.alenum.AttributeOwnerType;
 import com.alcity.entity.alenum.PLDifficulty;
 import com.alcity.entity.alenum.PLStatus;
 import com.alcity.entity.alobject.Attribute;
+import com.alcity.entity.alobject.AttributeValue;
 import com.alcity.entity.base.BinaryContent;
 import com.alcity.entity.base.PLPrivacy;
 import com.alcity.entity.journey.JourneyStep;
@@ -24,13 +25,16 @@ import com.alcity.repository.puzzle.PGRepository;
 import com.alcity.repository.puzzle.PuzzleLevelRepository;
 import com.alcity.repository.appmember.AppMemberRepository;
 import com.alcity.service.alobject.AttributeService;
+import com.alcity.service.alobject.AttributeValueService;
 import com.alcity.service.appmember.AppMemberService;
 import com.alcity.service.base.BinaryContentService;
+import com.alcity.service.customexception.ALCityResponseObject;
 import com.alcity.utility.DTOUtil;
 import com.alcity.utility.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import org.springframework.transaction.annotation.Transactional;;
@@ -189,6 +193,10 @@ public class PuzzleLevelService implements PuzzleLevelRepository {
 
     @Autowired
     private AttributeService attributeService;
+
+    @Autowired
+    private AttributeValueService attributeValueService;
+
     @Autowired
     private PLObjectiveService plObjectiveService;
     @Autowired
@@ -265,22 +273,36 @@ public class PuzzleLevelService implements PuzzleLevelRepository {
 
         return importedPuzzleLevel;
     }
-    public PuzzleLevel deletePuzzleLevel(PuzzleLevel puzzleLevel) {
 
-
-        //delete puzzle level instances
-       // Collection<ALCityInstanceInPL> importInstances = instanceInPLService.importObjects(dto.getObjects(), importedPuzzleLevel);
+    public void deletePuzzleLevel(PuzzleLevel puzzleLevel) {
 
         //delete puzzle learning topics
         Collection<LearningTopicInPL> learningTopicInPLS = puzzleLevel.getLearningTopicInPLCollection();
         plLearningTopicService.deleteAll(learningTopicInPLS);
-        //delete puzzle level and related entities
 
         //delete puzzle level rules
         Collection<PLRule> rules = puzzleLevel.getPuzzleLevelRuleCollection();
-         plRuleService.deleteAllPlRules(rules);
+        plRuleService.deleteAllPlRules(rules);
 
-        return puzzleLevel;
+        //delete puzzle level instances
+        instanceInPLService.deleteInstances(puzzleLevel);
+
+        //delete puzzle level variables
+        Collection<AttributeValue>  attributeValues= attributeValueService.findByOwnerId(puzzleLevel.getId());
+        attributeValueService.deleteAll(attributeValues);
+        Collection<Attribute> attributes = attributeService.findByOwnerId(puzzleLevel.getId());
+        attributeService.deleteAll(attributes);
+
+        //delete puzzle level objectives
+        Collection<PLObjective> objectives = puzzleLevel.getPlObjectives();
+        plObjectiveService.deleteAll(objectives);
+
+        //delete puzzle level Grounds
+        plGroundService.deleteAll(puzzleLevel.getPlGrounds());
+
+        //delete puzzle level
+        puzzleLevelRepository.deleteById(puzzleLevel.getId());
+
     }
 
 

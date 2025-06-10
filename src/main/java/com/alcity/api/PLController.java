@@ -265,13 +265,15 @@ public class PLController {
         Optional<PuzzleLevel> puzzleLevelOptional = puzzleLevelService.findById(dto.getId());
         if(puzzleLevelOptional.isEmpty()){
             importedPuzzleLevel =  puzzleLevelService.importPuzzleLevel(dto);
+            responseObject = new ALCityResponseObject(HttpStatus.OK.value(), "ok", importedPuzzleLevel.getId(), "Puzzle Level Imported Successfully!");
         }else{
             //first delete exist puzzle level and then add new pl
             puzzleLevelService.deletePuzzleLevel(puzzleLevelOptional.get());
             importedPuzzleLevel =  puzzleLevelService.importPuzzleLevel(dto);
+            responseObject = new ALCityResponseObject(HttpStatus.OK.value(), "ok", importedPuzzleLevel.getId(), "Puzzle Level Edited and Imported Successfully!");
         }
 
-        return new ALCityResponseObject(HttpStatus.OK.value(), "ok", importedPuzzleLevel.getId(), "Puzzle Level Imported Successfully!");
+        return responseObject;
     }
 
     @Operation( summary = "Save a puzzle level  ",  description = "Save a puzzle level  entity and their data to data base")

@@ -59,6 +59,11 @@ public class AttributeValueService implements AttributeValueRepository {
     }
 
     @Override
+    public Collection<AttributeValue> findByOwnerId(Long ownerId) {
+        return attributeValueRepository.findByOwnerId(ownerId);
+    }
+
+    @Override
     public Optional<AttributeValue> findByAttributeIdAndOwnerIdAndOwnerType(Attribute attribute, Long ownerId, AttributeOwnerType ownerType) {
         return attributeValueRepository.findByAttributeIdAndOwnerIdAndOwnerType(attribute,ownerId,ownerType);
     }
@@ -87,7 +92,7 @@ public class AttributeValueService implements AttributeValueRepository {
 
     @Override
     public void deleteAll(Iterable<? extends AttributeValue> entities) {
-
+        attributeValueRepository.deleteAll();
     }
 
     @Override

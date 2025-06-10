@@ -101,8 +101,8 @@ public class PLObjectiveService implements PLObjectiveRepository {
     }
 
     @Override
-    public void deleteAll(Iterable<? extends PLObjective> entities) {
-
+    public void deleteAll(Iterable<? extends PLObjective> objectives) {
+        objectiveRepository.deleteAll(objectives);
     }
 
     @Override
@@ -143,6 +143,7 @@ public class PLObjectiveService implements PLObjectiveRepository {
         }
         return copiedObjectives;
     }
+
     public PLObjective copy(PLObjective objective,PuzzleLevel copyPuzzleLevel) {
         PLObjective plObjective = new PLObjective(objective.getTitle(), objective.getDescription(), objective.getSkillAmount(),objective.getRewardAmount(),
                 objective.getCondition(),objective.getLearningSkill(),objective.getWalletItem(),

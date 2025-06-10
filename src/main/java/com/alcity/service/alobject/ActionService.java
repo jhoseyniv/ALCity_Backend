@@ -33,8 +33,6 @@ public class ActionService implements ActionRepository {
     @Autowired
     private AppMemberRepository appMemberRepository;
 
-//    @Autowired
-//    private ALCityObjectService alCityObjectService;
     @Autowired
     private RendererService rendererService;
 
@@ -76,10 +74,6 @@ public class ActionService implements ActionRepository {
            puzzleObjectAction = new ObjectAction(actionOwnerType, dto.getOwnerObjectid(), objectActionType,rendererOptional.get(),
                      1L,DateUtils.getNow(),DateUtils.getNow(),createdBy.get(), createdBy.get());
             actionRepository.save(puzzleObjectAction);
-//            DTOUtil.copyActionParametersFromTo(dto.getActionRenderId(), puzzleObjectAction.getId(),AttributeOwnerType.Action_Handler_Parameter,AttributeOwnerType.Object_Action_Handler_Parameter,
-//                    attributeService,attributeValueService);
-
-      //      copyParametersFromActionToALCityObjectAction(dto.getActionRenderId(), dto.getObjectActionId() );
 
        }else{//edit
             Optional<ObjectAction> puzzleObjectActionOptional= actionRepository.findById(dto.getId());
@@ -176,34 +170,10 @@ public class ActionService implements ActionRepository {
     }
 
     public Collection<ObjectAction> findActionsForALCityObjectInPG(ALCityObjectInPG alCityObjectInPG) {
-       // Collection<PuzzleObjectAction> actionsForAlCityObject = new ArrayList<PuzzleObjectAction>();
         Collection<ObjectAction> actionsForPuzzleGroupObject = new ArrayList<ObjectAction>();
         actionsForPuzzleGroupObject = actionRepository.findByOwnerObjectid(alCityObjectInPG.getId());
-       // actionsForAlCityObject = puzzleObjectActionRepository.findByOwnerObjectid(alCityObjectInPG.getAlCityObject().getId());
-      //  actionsForPuzzleGroupObject.addAll(actionsForAlCityObject);
 
         return actionsForPuzzleGroupObject;
     }
-
- //   public void copyParametersFromActionToALCityObjectAction(Long actionId , Long puzzleObjectActionId){
-
-      //  Collection<RecordData> parameters =  DTOUtil.getAttributeForOwnerById(attributeService,actionId, AttributeOwnerType.Action_Handler_Parameter);;
-//        Collection<PuzzleObjectAction> actions = alCityObjectService.findAllActions(alCityObject);
-//
-//        Iterator<PuzzleObjectAction> itr = actions.iterator();
-//        while(itr.hasNext()){
-//            PuzzleObjectAction action = new PuzzleObjectAction();
-//            action = itr.next();
-//            PuzzleObjectAction newAction = new PuzzleObjectAction(POActionOwnerType.Puzzle_Group_Object,alCityObjectInPG.getId(), action.getObjectAction(),action.getActionRenderer(),1L,action.getCreated(),
-//                    action.getUpdated(),action.getCreatedBy(),action.getUpdatedBy());
-//            puzzleObjectActionService.save(newAction);
-//
-//            DTOUtil.copyAttributesActionFromTo(action.getId(),newAction.getId(), AttributeOwnerType.AlCity_Object,AttributeOwnerType.ALCity_Object_In_Puzzle_Group,
-//                    attributeService,attributeValueService);
-//        }
-
- //   }
-
-
 
 }

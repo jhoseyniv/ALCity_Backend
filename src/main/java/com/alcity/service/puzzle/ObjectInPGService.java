@@ -7,6 +7,7 @@ import com.alcity.dto.puzzle.CityObjectInPGDTO;
 import com.alcity.entity.alenum.AttributeOwnerType;
 import com.alcity.entity.alobject.AttributeValue;
 import com.alcity.entity.alobject.ObjectAction;
+import com.alcity.entity.puzzle.ALCityInstanceInPL;
 import com.alcity.entity.puzzle.ALCityObject;
 import com.alcity.entity.puzzle.ALCityObjectInPG;
 import com.alcity.entity.puzzle.PuzzleGroup;

@@ -14,5 +14,6 @@ public interface AttributeValueRepository extends CrudRepository<AttributeValue,
     Collection<AttributeValue> findByAttributeId(Attribute attribute);
     Optional<AttributeValue> findByAttributeIdAndOwnerId(Attribute attribute,Long ownerId);
     Collection<AttributeValue> findByOwnerIdAndOwnerType(Long ownerId,AttributeOwnerType ownerType);
+    Collection<AttributeValue> findByOwnerId(Long ownerId);
     Optional<AttributeValue> findByAttributeIdAndOwnerIdAndOwnerType(Attribute attribute, Long ownerId, AttributeOwnerType ownerType);
 }

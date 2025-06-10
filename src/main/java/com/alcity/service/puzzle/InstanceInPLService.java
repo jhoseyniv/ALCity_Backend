@@ -5,12 +5,17 @@ import com.alcity.dto.plimport.object.InstanceDataImport;
 import com.alcity.dto.plimport.object.PositionImport;
 import com.alcity.dto.puzzle.CityObjectInPLDTO;
 import com.alcity.entity.alenum.AttributeOwnerType;
+import com.alcity.entity.alenum.POActionOwnerType;
 import com.alcity.entity.alobject.Attribute;
+import com.alcity.entity.alobject.AttributeValue;
+import com.alcity.entity.alobject.ObjectAction;
 import com.alcity.entity.appmember.AppMember;
 import com.alcity.entity.puzzle.*;
 import com.alcity.repository.appmember.AppMemberRepository;
 import com.alcity.repository.puzzle.InstanceInPLRepository;
+import com.alcity.service.alobject.ActionService;
 import com.alcity.service.alobject.AttributeService;
+import com.alcity.service.alobject.AttributeValueService;
 import com.alcity.service.customexception.ALCityResponseObject;
 import com.alcity.utility.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,6 +53,11 @@ public class InstanceInPLService implements InstanceInPLRepository {
     @Autowired
     private ObjectService objectService;
 
+    @Autowired
+    ActionService actionService;
+
+    @Autowired
+    private AttributeValueService attributeValueService;
 
     public ALCityInstanceInPL save(CityObjectInPLDTO dto, String code) {
         Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
@@ -108,19 +118,29 @@ public class InstanceInPLService implements InstanceInPLRepository {
         }
         return importedInstances;
     }
-    public Collection<ALCityInstanceInPL> deleteInstances(Collection<PLObjectImport> objectImports , PuzzleLevel importedPL) {
-        Collection<ALCityInstanceInPL> importedInstances = new ArrayList<>();
-        Iterator<PLObjectImport> iterator = objectImports.iterator();
-        while(iterator.hasNext()) {
-            PLObjectImport objectImport = iterator.next();
-            Optional<ALCityObject> cityObjectOptional = objectService.findById(objectImport.getId());
-            Optional<ALCityObjectInPG> alCityObjectInPGOptional = objectInPGService.findByPuzzleGroupAndAlCityObject(importedPL.getPuzzleGroup(),cityObjectOptional.get().getId());
+    public void deleteAnInstance(ALCityInstanceInPL instance) {
 
-            Collection<ALCityInstanceInPL> instances = importInstances(alCityObjectInPGOptional.get(),objectImport.getInstances(),importedPL);
-            importedInstances.addAll(instances);
-        }
-        return importedInstances;
+        Collection<ObjectAction> actions = actionService.findByOwnerObjectidAndPoActionOwnerType(instance.getId(), POActionOwnerType.Puzzle_Level_Instance);
+        actionService.deleteAll(actions);
+
+        //delete variables and properties for an instance
+        Collection<AttributeValue>  attributeValues= attributeValueService.findByOwnerId(instance.getId());
+        attributeValueService.deleteAll(attributeValues);
+
+        Collection<Attribute> attributes = attributeService.findByOwnerId(instance.getId());
+        attributeService.deleteAll(attributes);
+
+
     }
+
+    public void deleteInstances(PuzzleLevel importedPL) {
+        Collection<ALCityInstanceInPL> importedInstances = importedPL.getPuzzleGroupObjectInstanceCollection();
+        Iterator<ALCityInstanceInPL> iterator = importedInstances.iterator();
+        while(iterator.hasNext()) {
+            ALCityInstanceInPL instance = iterator.next();
+            deleteAnInstance(instance);
+        }
+   }
     public Collection<ALCityInstanceInPL> importInstances(ALCityObjectInPG alCityObjectInPG,Collection<InstanceDataImport> instanceDataImports , PuzzleLevel importedPL) {
         Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
         Collection<ALCityInstanceInPL> importedInstances = new ArrayList<>();
