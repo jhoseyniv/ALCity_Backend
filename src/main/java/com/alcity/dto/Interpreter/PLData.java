@@ -8,6 +8,7 @@ import java.io.Serializable;
 import java.util.Collection;
 
 public class PLData implements Serializable {
+    private static final long serialVersionUID = 6529685098267757690L;
     private String code;
     private String name;
 

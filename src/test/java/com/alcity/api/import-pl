@@ -1,57 +1,55 @@
 {
-  "puzzleGroupId": 2102,
   "id": 0,
-  "code": "1403-03-17",
-  "title": "import-pl1404-03-16",
-  "ordering": 1,
-  "fromAge": 10,
-  "toAge": 20,
-  "maxScore": 10,
-  "firstStarScore": 3,
-  "secondStarScore": 5,
-  "thirdStartScore": 7,
-  "iconId": 81,
-  "picId": 81,
+  "puzzleGroupId": 5792,
+  "code": "448700609",
+  "title": "random memory game 2, Age 4-6",
+  "ordering": "0",
+  "fromAge": 4,
+  "toAge": 6,
+  "maxScore": 4,
+  "firstStarScore": 1,
+  "secondStarScore": 2,
+  "thirdStartScore": 3,
+  "iconId": 82,
+  "picId": 82,
   "cols": 5,
   "rows": 5,
-  "puzzleDifficulty": "Medium",
-  "puzzleLevelStatus": "Active",
+  "puzzleLevelDifficulty": "Medium",
   "puzzleLevelPrivacy": "Public",
-  "approveDate": "21-05-2025 22:48:52",
+  "puzzleLevelStatus": "Active",
+  "approveDate": "",
+  "boardGraphicId": 81,
   "cameraSetup": {
     "features": {
       "zoom": true,
       "pan": true,
-      "rotation": true
+      "rotation": false
     },
     "position": {
+      "y": 15,
       "x": 0,
-      "z": 0,
-      "y": 15
+      "z": 0
     },
     "rotation": {
+      "y": 0,
       "x": 90,
-      "z": 0,
-      "y": 0
+      "z": 0
     }
   },
-  "boardGraphic": []
-  ,
   "objectives": [
     {
-      "id": 1694,
+      "id": 0,
       "title": "detect filled cells",
-      "description": "detect filled cells",
+      "description": "",
       "skillAmount": 3,
       "skillId": 38,
-      "rewardAmount": 10,
+      "rewardAmount": 4,
       "rewardId": 18,
       "condition": "equal(BoardVar(matchcount), 6)"
     }
-
   ],
   "variables": [
-   {
+    {
       "id": 0,
       "name": "finished",
       "value": "false",
@@ -60,64 +58,190 @@
       "expressionValue": ""
     },
     {
-          "id": 0,
-          "name": "matchcount",
-          "value": "10",
-          "type": "Integer",
-          "expression": false,
-         "expressionValue": ""
-        }
-
+      "id": 0,
+      "name": "matchcount",
+      "value": "0",
+      "type": "Integer",
+      "expression": false,
+      "expressionValue": ""
+    },
+    {
+      "id": 0,
+      "name": "latestShownObject",
+      "value": "0",
+      "type": "Integer",
+      "expression": false,
+      "expressionValue": ""
+    },
+    {
+      "id": 0,
+      "name": "latestFilledRow",
+      "value": "0",
+      "type": "Integer",
+      "expression": false,
+      "expressionValue": ""
+    },
+    {
+      "id": 0,
+      "name": "latestFilledCol",
+      "value": "0",
+      "type": "Integer",
+      "expression": false,
+      "expressionValue": ""
+    },
+    {
+      "id": 0,
+      "name": "initialShowing",
+      "value": "true",
+      "type": "Boolean",
+      "expression": false,
+      "expressionValue": ""
+    },
+    {
+      "id": 0,
+      "name": "shownStep",
+      "value": "0",
+      "type": "Integer",
+      "expression": false,
+      "expressionValue": ""
+    },
+    {
+      "id": 0,
+      "name": "lastRowIndex",
+      "value": "5",
+      "type": "Integer",
+      "expression": false,
+      "expressionValue": ""
+    },
+    {
+      "id": 0,
+      "name": "matrixRows",
+      "value": "4",
+      "type": "Integer",
+      "expression": false,
+      "expressionValue": ""
+    },
+    {
+      "id": 0,
+      "name": "matrixCols",
+      "value": "5",
+      "type": "Integer",
+      "expression": false,
+      "expressionValue": ""
+    },
+    {
+      "id": 0,
+      "name": "emptyCellIcon",
+      "value": "3303",
+      "type": "Binary",
+      "expression": false,
+      "expressionValue": ""
+    },
+    {
+      "id": 0,
+      "name": "filledCellIcon",
+      "value": "3302",
+      "type": "Binary",
+      "expression": false,
+      "expressionValue": ""
+    },
+    {
+      "id": 0,
+      "name": "filledCellsNumber",
+      "value": "3",
+      "type": "Integer",
+      "expression": false,
+      "expressionValue": ""
+    },
+    {
+      "id": 0,
+      "name": "displayTime",
+      "value": "2",
+      "type": "Integer",
+      "expression": false,
+      "expressionValue": ""
+    },
+    {
+      "id": 0,
+      "name": "firstFilledRow",
+      "value": "0",
+      "type": "Integer",
+      "expression": false,
+      "expressionValue": ""
+    },
+    {
+      "id": 0,
+      "name": "firstFilledCol",
+      "value": "0",
+      "type": "Integer",
+      "expression": false,
+      "expressionValue": ""
+    }
   ],
   "objects": [
     {
-      "id": 2103,
-      "version": 0,
-      "title": "ImageObject01-in-Memory game by timer",
-      "code": "code333-1",
-      "iconGraphicId": 141,
-      "imageGraphicId": 141,
-      "actions":
-      [
+      "id": 3505,
+      "version": 1,
+      "title": "algImage-in-Random memory",
+      "code": "3505",
+      "iconGraphicId": 81,
+      "imageGraphicId": 81,
+      "actions": [
         {
-          "id": 0,
+          "id": 4042,
           "actionName": "Create",
-          "handler": "ShowImage",
+          "handler": "CreateImage",
           "parameters": [
             {
               "id": 0,
               "name": "img",
-              "value": "161",
+              "value": "InstProp(CurrentInst(), bgImage)",
               "type": "Binary",
-              "expression": true,
-              "expressionValue": "InstProp(CurrentInst(), bgImage)"
+              "expression": false,
+              "expressionValue": ""
             }
-              ]
+          ]
+        },
+        {
+          "id": 1656,
+          "actionName": "ApplyProperty",
+          "handler": "ApplyPropertyImage",
+          "parameters": [
+            {
+              "id": 0,
+              "name": "img",
+              "value": "InstProp(CurrentInst(), bgimage)",
+              "type": "Binary",
+              "expression": false,
+              "expressionValue": ""
             }
-        ],
+          ]
+        }
+      ],
       "variables": [
-         {
+        {
           "id": 0,
           "name": "isEmpty",
+          "valueId": 0,
           "value": "true",
           "type": "Boolean",
           "expression": false,
           "expressionValue": ""
         },
-         {
-                  "id": 0,
-                  "name": "isShown",
-                  "value": "false",
-                  "type": "Boolean",
-                  "expression": false,
-                  "expressionValue": ""
-                }
+        {
+          "id": 0,
+          "name": "isShown",
+          "value": "false",
+          "type": "Boolean",
+          "expression": false,
+          "expressionValue": ""
+        }
       ],
       "properties": [
         {
           "id": 0,
-          "name": "bgImage",
-          "value": "1657",
+          "name": "img",
+          "value": "0",
           "type": "Binary",
           "expression": false,
           "expressionValue": ""
@@ -125,55 +249,2060 @@
       ],
       "instances": [
         {
-          "id": 0,
-          "name": "instance 1",
-          "pgoId": 2103,
+          "id": 101,
+          "name": "inst_101",
           "position": {
             "x": 1,
-            "z": 0,
-            "y": 1
+            "y": 1,
+            "z": 1
           },
           "properties": [
             {
-              "id": 1658,
-              "name": "bgImage",
-              "value": "1657",
+              "id": 0,
+              "name": "img",
+              "value": "3303",
               "type": "Binary",
-             "expression": false,
+              "expression": false,
               "expressionValue": ""
             }
           ],
           "variables": [
-           {
-              "id": 1660,
+            {
+              "id": 0,
               "name": "isEmpty",
               "value": "true",
               "type": "Boolean",
-               "expression": false,
+              "expression": false,
               "expressionValue": ""
-          },
+            },
             {
-              "id": 1662,
+              "id": 0,
               "name": "isShown",
               "value": "false",
               "type": "Boolean",
               "expression": false,
               "expressionValue": ""
-           }
+            },
+            {
+              "id": 0,
+              "name": "nextFilledRow",
+              "value": "0",
+              "type": "Integer",
+              "expression": false,
+              "expressionValue": ""
+            },
+            {
+              "id": 0,
+              "name": "nextFilledCol",
+              "value": "0",
+              "type": "Integer",
+              "expression": false,
+              "expressionValue": ""
+            }
           ]
+        },
+        {
+          "id": 102,
+          "name": "inst_102",
+          "position": {
+            "x": 1,
+            "y": 2,
+            "z": 1
+          },
+          "properties": [
+            {
+              "id": 0,
+              "name": "img",
+              "value": "3303",
+              "type": "Binary",
+              "expression": false,
+              "expressionValue": ""
+            }
+          ],
+          "variables": [
+            {
+              "id": 0,
+              "name": "isEmpty",
+              "value": "true",
+              "type": "Boolean",
+              "expression": false,
+              "expressionValue": ""
+            },
+            {
+              "id": 0,
+              "name": "isShown",
+              "value": "false",
+              "type": "Boolean",
+              "expression": false,
+              "expressionValue": ""
+            },
+            {
+              "id": 0,
+              "name": "nextFilledRow",
+              "value": "0",
+              "type": "Integer",
+              "expression": false,
+              "expressionValue": ""
+            },
+            {
+              "id": 0,
+              "name": "nextFilledCol",
+              "value": "0",
+              "type": "Integer",
+              "expression": false,
+              "expressionValue": ""
+            }
+          ]
+        },
+        {
+          "id": 103,
+          "name": "inst_103",
+          "position": {
+            "x": 1,
+            "y": 3,
+            "z": 1
+          },
+          "properties": [
+            {
+              "id": 0,
+              "name": "img",
+              "value": "3303",
+              "type": "Binary",
+              "expression": false,
+              "expressionValue": ""
+            }
+          ],
+          "variables": [
+            {
+              "id": 0,
+              "name": "isEmpty",
+              "value": "true",
+              "type": "Boolean",
+              "expression": false,
+              "expressionValue": ""
+            },
+            {
+              "id": 0,
+              "name": "isShown",
+              "value": "false",
+              "type": "Boolean",
+              "expression": false,
+              "expressionValue": ""
+            },
+            {
+              "id": 0,
+              "name": "nextFilledRow",
+              "value": "0",
+              "type": "Integer",
+              "expression": false,
+              "expressionValue": ""
+            },
+            {
+              "id": 0,
+              "name": "nextFilledCol",
+              "value": "0",
+              "type": "Integer",
+              "expression": false,
+              "expressionValue": ""
+            }
+          ]
+        },
+        {
+          "id": 104,
+          "name": "inst_104",
+          "position": {
+            "x": 1,
+            "y": 4,
+            "z": 1
+          },
+          "properties": [
+            {
+              "id": 0,
+              "name": "img",
+              "value": "3303",
+              "type": "Binary",
+              "expression": false,
+              "expressionValue": ""
+            }
+          ],
+          "variables": [
+            {
+              "id": 0,
+              "name": "isEmpty",
+              "value": "true",
+              "type": "Boolean",
+              "expression": false,
+              "expressionValue": ""
+            },
+            {
+              "id": 0,
+              "name": "isShown",
+              "value": "false",
+              "type": "Boolean",
+              "expression": false,
+              "expressionValue": ""
+            },
+            {
+              "id": 0,
+              "name": "nextFilledRow",
+              "value": "0",
+              "type": "Integer",
+              "expression": false,
+              "expressionValue": ""
+            },
+            {
+              "id": 0,
+              "name": "nextFilledCol",
+              "value": "0",
+              "type": "Integer",
+              "expression": false,
+              "expressionValue": ""
+            }
+          ]
+        },
+        {
+          "id": 105,
+          "name": "inst_105",
+          "position": {
+            "x": 1,
+            "y": 5,
+            "z": 1
+          },
+          "properties": [
+            {
+              "id": 0,
+              "name": "img",
+              "value": "3303",
+              "type": "Binary",
+              "expression": false,
+              "expressionValue": ""
+            }
+          ],
+          "variables": [
+            {
+              "id": 0,
+              "name": "isEmpty",
+              "value": "true",
+              "type": "Boolean",
+              "expression": false,
+              "expressionValue": ""
+            },
+            {
+              "id": 0,
+              "name": "isShown",
+              "value": "false",
+              "type": "Boolean",
+              "expression": false,
+              "expressionValue": ""
+            },
+            {
+              "id": 0,
+              "name": "nextFilledRow",
+              "value": "0",
+              "type": "Integer",
+              "expression": false,
+              "expressionValue": ""
+            },
+            {
+              "id": 0,
+              "name": "nextFilledCol",
+              "value": "0",
+              "type": "Integer",
+              "expression": false,
+              "expressionValue": ""
+            }
+          ]
+        },
+        {
+          "id": 201,
+          "name": "inst_201",
+          "position": {
+            "x": 2,
+            "y": 1,
+            "z": 1
+          },
+          "properties": [
+            {
+              "id": 0,
+              "name": "img",
+              "value": "3303",
+              "type": "Binary",
+              "expression": false,
+              "expressionValue": ""
+            }
+          ],
+          "variables": [
+            {
+              "id": 0,
+              "name": "isEmpty",
+              "value": "true",
+              "type": "Boolean",
+              "expression": false,
+              "expressionValue": ""
+            },
+            {
+              "id": 0,
+              "name": "isShown",
+              "value": "false",
+              "type": "Boolean",
+              "expression": false,
+              "expressionValue": ""
+            },
+            {
+              "id": 0,
+              "name": "nextFilledRow",
+              "value": "0",
+              "type": "Integer",
+              "expression": false,
+              "expressionValue": ""
+            },
+            {
+              "id": 0,
+              "name": "nextFilledCol",
+              "value": "0",
+              "type": "Integer",
+              "expression": false,
+              "expressionValue": ""
+            }
+          ]
+        },
+        {
+          "id": 202,
+          "name": "inst_202",
+          "position": {
+            "x": 2,
+            "y": 2,
+            "z": 1
+          },
+          "properties": [
+            {
+              "id": 0,
+              "name": "img",
+              "value": "3303",
+              "type": "Binary",
+              "expression": false,
+              "expressionValue": ""
+            }
+          ],
+          "variables": [
+            {
+              "id": 0,
+              "name": "isEmpty",
+              "value": "true",
+              "type": "Boolean",
+              "expression": false,
+              "expressionValue": ""
+            },
+            {
+              "id": 0,
+              "name": "isShown",
+              "value": "false",
+              "type": "Boolean",
+              "expression": false,
+              "expressionValue": ""
+            },
+            {
+              "id": 0,
+              "name": "nextFilledRow",
+              "value": "0",
+              "type": "Integer",
+              "expression": false,
+              "expressionValue": ""
+            },
+            {
+              "id": 0,
+              "name": "nextFilledCol",
+              "value": "0",
+              "type": "Integer",
+              "expression": false,
+              "expressionValue": ""
+            }
+          ]
+        },
+        {
+          "id": 203,
+          "name": "inst_203",
+          "position": {
+            "x": 2,
+            "y": 3,
+            "z": 1
+          },
+          "properties": [
+            {
+              "id": 0,
+              "name": "img",
+              "value": "3303",
+              "type": "Binary",
+              "expression": false,
+              "expressionValue": ""
+            }
+          ],
+          "variables": [
+            {
+              "id": 0,
+              "name": "isEmpty",
+              "value": "true",
+              "type": "Boolean",
+              "expression": false,
+              "expressionValue": ""
+            },
+            {
+              "id": 0,
+              "name": "isShown",
+              "value": "false",
+              "type": "Boolean",
+              "expression": false,
+              "expressionValue": ""
+            },
+            {
+              "id": 0,
+              "name": "nextFilledRow",
+              "value": "0",
+              "type": "Integer",
+              "expression": false,
+              "expressionValue": ""
+            },
+            {
+              "id": 0,
+              "name": "nextFilledCol",
+              "value": "0",
+              "type": "Integer",
+              "expression": false,
+              "expressionValue": ""
+            }
+          ]
+        },
+        {
+          "id": 204,
+          "name": "inst_204",
+          "position": {
+            "x": 2,
+            "y": 4,
+            "z": 1
+          },
+          "properties": [
+            {
+              "id": 0,
+              "name": "img",
+              "value": "3303",
+              "type": "Binary",
+              "expression": false,
+              "expressionValue": ""
+            }
+          ],
+          "variables": [
+            {
+              "id": 0,
+              "name": "isEmpty",
+              "value": "true",
+              "type": "Boolean",
+              "expression": false,
+              "expressionValue": ""
+            },
+            {
+              "id": 0,
+              "name": "isShown",
+              "value": "false",
+              "type": "Boolean",
+              "expression": false,
+              "expressionValue": ""
+            },
+            {
+              "id": 0,
+              "name": "nextFilledRow",
+              "value": "0",
+              "type": "Integer",
+              "expression": false,
+              "expressionValue": ""
+            },
+            {
+              "id": 0,
+              "name": "nextFilledCol",
+              "value": "0",
+              "type": "Integer",
+              "expression": false,
+              "expressionValue": ""
+            }
+          ]
+        },
+        {
+          "id": 205,
+          "name": "inst_205",
+          "position": {
+            "x": 2,
+            "y": 5,
+            "z": 1
+          },
+          "properties": [
+            {
+              "id": 0,
+              "name": "img",
+              "value": "3303",
+              "type": "Binary",
+              "expression": false,
+              "expressionValue": ""
+            }
+          ],
+          "variables": [
+            {
+              "id": 0,
+              "name": "isEmpty",
+              "value": "true",
+              "type": "Boolean",
+              "expression": false,
+              "expressionValue": ""
+            },
+            {
+              "id": 0,
+              "name": "isShown",
+              "value": "false",
+              "type": "Boolean",
+              "expression": false,
+              "expressionValue": ""
+            },
+            {
+              "id": 0,
+              "name": "nextFilledRow",
+              "value": "0",
+              "type": "Integer",
+              "expression": false,
+              "expressionValue": ""
+            },
+            {
+              "id": 0,
+              "name": "nextFilledCol",
+              "value": "0",
+              "type": "Integer",
+              "expression": false,
+              "expressionValue": ""
+            }
+          ]
+        },
+        {
+          "id": 301,
+          "name": "inst_301",
+          "position": {
+            "x": 3,
+            "y": 1,
+            "z": 1
+          },
+          "properties": [
+            {
+              "id": 0,
+              "name": "img",
+              "value": "3303",
+              "type": "Binary",
+              "expression": false,
+              "expressionValue": ""
+            }
+          ],
+          "variables": [
+            {
+              "id": 0,
+              "name": "isEmpty",
+              "value": "true",
+              "type": "Boolean",
+              "expression": false,
+              "expressionValue": ""
+            },
+            {
+              "id": 0,
+              "name": "isShown",
+              "value": "false",
+              "type": "Boolean",
+              "expression": false,
+              "expressionValue": ""
+            },
+            {
+              "id": 0,
+              "name": "nextFilledRow",
+              "value": "0",
+              "type": "Integer",
+              "expression": false,
+              "expressionValue": ""
+            },
+            {
+              "id": 0,
+              "name": "nextFilledCol",
+              "value": "0",
+              "type": "Integer",
+              "expression": false,
+              "expressionValue": ""
+            }
+          ]
+        },
+        {
+          "id": 302,
+          "name": "inst_302",
+          "position": {
+            "x": 3,
+            "y": 2,
+            "z": 1
+          },
+          "properties": [
+            {
+              "id": 0,
+              "name": "img",
+              "value": "3303",
+              "type": "Binary",
+              "expression": false,
+              "expressionValue": ""
+            }
+          ],
+          "variables": [
+            {
+              "id": 0,
+              "name": "isEmpty",
+              "value": "true",
+              "type": "Boolean",
+              "expression": false,
+              "expressionValue": ""
+            },
+            {
+              "id": 0,
+              "name": "isShown",
+              "value": "false",
+              "type": "Boolean",
+              "expression": false,
+              "expressionValue": ""
+            },
+            {
+              "id": 0,
+              "name": "nextFilledRow",
+              "value": "0",
+              "type": "Integer",
+              "expression": false,
+              "expressionValue": ""
+            },
+            {
+              "id": 0,
+              "name": "nextFilledCol",
+              "value": "0",
+              "type": "Integer",
+              "expression": false,
+              "expressionValue": ""
+            }
+          ]
+        },
+        {
+          "id": 303,
+          "name": "inst_303",
+          "position": {
+            "x": 3,
+            "y": 3,
+            "z": 1
+          },
+          "properties": [
+            {
+              "id": 0,
+              "name": "img",
+              "value": "3303",
+              "type": "Binary",
+              "expression": false,
+              "expressionValue": ""
+            }
+          ],
+          "variables": [
+            {
+              "id": 0,
+              "name": "isEmpty",
+              "value": "true",
+              "type": "Boolean",
+              "expression": false,
+              "expressionValue": ""
+            },
+            {
+              "id": 0,
+              "name": "isShown",
+              "value": "false",
+              "type": "Boolean",
+              "expression": false,
+              "expressionValue": ""
+            },
+            {
+              "id": 0,
+              "name": "nextFilledRow",
+              "value": "0",
+              "type": "Integer",
+              "expression": false,
+              "expressionValue": ""
+            },
+            {
+              "id": 0,
+              "name": "nextFilledCol",
+              "value": "0",
+              "type": "Integer",
+              "expression": false,
+              "expressionValue": ""
+            }
+          ]
+        },
+        {
+          "id": 304,
+          "name": "inst_304",
+          "position": {
+            "x": 3,
+            "y": 4,
+            "z": 1
+          },
+          "properties": [
+            {
+              "id": 0,
+              "name": "img",
+              "value": "3303",
+              "type": "Binary",
+              "expression": false,
+              "expressionValue": ""
+            }
+          ],
+          "variables": [
+            {
+              "id": 0,
+              "name": "isEmpty",
+              "value": "true",
+              "type": "Boolean",
+              "expression": false,
+              "expressionValue": ""
+            },
+            {
+              "id": 0,
+              "name": "isShown",
+              "value": "false",
+              "type": "Boolean",
+              "expression": false,
+              "expressionValue": ""
+            },
+            {
+              "id": 0,
+              "name": "nextFilledRow",
+              "value": "0",
+              "type": "Integer",
+              "expression": false,
+              "expressionValue": ""
+            },
+            {
+              "id": 0,
+              "name": "nextFilledCol",
+              "value": "0",
+              "type": "Integer",
+              "expression": false,
+              "expressionValue": ""
+            }
+          ]
+        },
+        {
+          "id": 305,
+          "name": "inst_305",
+          "position": {
+            "x": 3,
+            "y": 5,
+            "z": 1
+          },
+          "properties": [
+            {
+              "id": 0,
+              "name": "img",
+              "value": "3303",
+              "type": "Binary",
+              "expression": false,
+              "expressionValue": ""
+            }
+          ],
+          "variables": [
+            {
+              "id": 0,
+              "name": "isEmpty",
+              "value": "true",
+              "type": "Boolean",
+              "expression": false,
+              "expressionValue": ""
+            },
+            {
+              "id": 0,
+              "name": "isShown",
+              "value": "false",
+              "type": "Boolean",
+              "expression": false,
+              "expressionValue": ""
+            },
+            {
+              "id": 0,
+              "name": "nextFilledRow",
+              "value": "0",
+              "type": "Integer",
+              "expression": false,
+              "expressionValue": ""
+            },
+            {
+              "id": 0,
+              "name": "nextFilledCol",
+              "value": "0",
+              "type": "Integer",
+              "expression": false,
+              "expressionValue": ""
+            }
+          ]
+        },
+        {
+          "id": 401,
+          "name": "inst_401",
+          "position": {
+            "x": 4,
+            "y": 1,
+            "z": 1
+          },
+          "properties": [
+            {
+              "id": 0,
+              "name": "img",
+              "value": "3303",
+              "type": "Binary",
+              "expression": false,
+              "expressionValue": ""
+            }
+          ],
+          "variables": [
+            {
+              "id": 0,
+              "name": "isEmpty",
+              "value": "true",
+              "type": "Boolean",
+              "expression": false,
+              "expressionValue": ""
+            },
+            {
+              "id": 0,
+              "name": "isShown",
+              "value": "false",
+              "type": "Boolean",
+              "expression": false,
+              "expressionValue": ""
+            },
+            {
+              "id": 0,
+              "name": "nextFilledRow",
+              "value": "0",
+              "type": "Integer",
+              "expression": false,
+              "expressionValue": ""
+            },
+            {
+              "id": 0,
+              "name": "nextFilledCol",
+              "value": "0",
+              "type": "Integer",
+              "expression": false,
+              "expressionValue": ""
+            }
+          ]
+        },
+        {
+          "id": 402,
+          "name": "inst_402",
+          "position": {
+            "x": 4,
+            "y": 2,
+            "z": 1
+          },
+          "properties": [
+            {
+              "id": 0,
+              "name": "img",
+              "value": "3303",
+              "type": "Binary",
+              "expression": false,
+              "expressionValue": ""
+            }
+          ],
+          "variables": [
+            {
+              "id": 0,
+              "name": "isEmpty",
+              "value": "true",
+              "type": "Boolean",
+              "expression": false,
+              "expressionValue": ""
+            },
+            {
+              "id": 0,
+              "name": "isShown",
+              "value": "false",
+              "type": "Boolean",
+              "expression": false,
+              "expressionValue": ""
+            },
+            {
+              "id": 0,
+              "name": "nextFilledRow",
+              "value": "0",
+              "type": "Integer",
+              "expression": false,
+              "expressionValue": ""
+            },
+            {
+              "id": 0,
+              "name": "nextFilledCol",
+              "value": "0",
+              "type": "Integer",
+              "expression": false,
+              "expressionValue": ""
+            }
+          ]
+        },
+        {
+          "id": 403,
+          "name": "inst_403",
+          "position": {
+            "x": 4,
+            "y": 3,
+            "z": 1
+          },
+          "properties": [
+            {
+              "id": 0,
+              "name": "img",
+              "value": "3303",
+              "type": "Binary",
+              "expression": false,
+              "expressionValue": ""
+            }
+          ],
+          "variables": [
+            {
+              "id": 0,
+              "name": "isEmpty",
+              "value": "true",
+              "type": "Boolean",
+              "expression": false,
+              "expressionValue": ""
+            },
+            {
+              "id": 0,
+              "name": "isShown",
+              "value": "false",
+              "type": "Boolean",
+              "expression": false,
+              "expressionValue": ""
+            },
+            {
+              "id": 0,
+              "name": "nextFilledRow",
+              "value": "0",
+              "type": "Integer",
+              "expression": false,
+              "expressionValue": ""
+            },
+            {
+              "id": 0,
+              "name": "nextFilledCol",
+              "value": "0",
+              "type": "Integer",
+              "expression": false,
+              "expressionValue": ""
+            }
+          ]
+        },
+        {
+          "id": 404,
+          "name": "inst_404",
+          "position": {
+            "x": 4,
+            "y": 4,
+            "z": 1
+          },
+          "properties": [
+            {
+              "id": 0,
+              "name": "img",
+              "value": "3303",
+              "type": "Binary",
+              "expression": false,
+              "expressionValue": ""
+            }
+          ],
+          "variables": [
+            {
+              "id": 0,
+              "name": "isEmpty",
+              "value": "true",
+              "type": "Boolean",
+              "expression": false,
+              "expressionValue": ""
+            },
+            {
+              "id": 0,
+              "name": "isShown",
+              "value": "false",
+              "type": "Boolean",
+              "expression": false,
+              "expressionValue": ""
+            },
+            {
+              "id": 0,
+              "name": "nextFilledRow",
+              "value": "0",
+              "type": "Integer",
+              "expression": false,
+              "expressionValue": ""
+            },
+            {
+              "id": 0,
+              "name": "nextFilledCol",
+              "value": "0",
+              "type": "Integer",
+              "expression": false,
+              "expressionValue": ""
+            }
+          ]
+        },
+        {
+          "id": 405,
+          "name": "inst_405",
+          "position": {
+            "x": 4,
+            "y": 5,
+            "z": 1
+          },
+          "properties": [
+            {
+              "id": 0,
+              "name": "img",
+              "value": "3303",
+              "type": "Binary",
+              "expression": false,
+              "expressionValue": ""
+            }
+          ],
+          "variables": [
+            {
+              "id": 0,
+              "name": "isEmpty",
+              "value": "true",
+              "type": "Boolean",
+              "expression": false,
+              "expressionValue": ""
+            },
+            {
+              "id": 0,
+              "name": "isShown",
+              "value": "false",
+              "type": "Boolean",
+              "expression": false,
+              "expressionValue": ""
+            },
+            {
+              "id": 0,
+              "name": "nextFilledRow",
+              "value": "0",
+              "type": "Integer",
+              "expression": false,
+              "expressionValue": ""
+            },
+            {
+              "id": 0,
+              "name": "nextFilledCol",
+              "value": "0",
+              "type": "Integer",
+              "expression": false,
+              "expressionValue": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 3506,
+      "version": 1,
+      "title": "algText-in-Random memory",
+      "code": "3506",
+      "iconGraphicId": 81,
+      "imageGraphicId": 81,
+      "actions": [
+        {
+          "id": 4034,
+          "actionName": "Create",
+          "handler": "CreateText",
+          "parameters": [
+            {
+              "id": 0,
+              "name": "text",
+              "value": "InstProp(CurrentInst(), text)",
+              "type": "String",
+              "expression": false,
+              "expressionValue": ""
+            }
+          ]
+        }
+      ],
+      "variables": [],
+      "properties": [
+        {
+          "id": 0,
+          "name": "text",
+          "value": "",
+          "type": "String",
+          "expression": false,
+          "expressionValue": ""
+        }
+      ],
+      "instances": [
+        {
+          "id": 501,
+          "name": "inst_501",
+          "position": {
+            "x": 5,
+            "y": 1,
+            "z": 1
+          },
+          "properties": [
+            {
+              "id": 0,
+              "name": "text",
+              "value": "Start",
+              "type": "String",
+              "expression": false,
+              "expressionValue": ""
+            }
+          ],
+          "variables": []
+        },
+        {
+          "id": 502,
+          "name": "inst_502",
+          "position": {
+            "x": 5,
+            "y": 2,
+            "z": 1
+          },
+          "properties": [
+            {
+              "id": 0,
+              "name": "text",
+              "value": "-",
+              "type": "String",
+              "expression": false,
+              "expressionValue": ""
+            }
+          ],
+          "variables": []
+        },
+        {
+          "id": 503,
+          "name": "inst_503",
+          "position": {
+            "x": 5,
+            "y": 3,
+            "z": 1
+          },
+          "properties": [
+            {
+              "id": 0,
+              "name": "text",
+              "value": "-",
+              "type": "String",
+              "expression": false,
+              "expressionValue": ""
+            }
+          ],
+          "variables": []
+        },
+        {
+          "id": 504,
+          "name": "inst_504",
+          "position": {
+            "x": 5,
+            "y": 4,
+            "z": 1
+          },
+          "properties": [
+            {
+              "id": 0,
+              "name": "text",
+              "value": "-",
+              "type": "String",
+              "expression": false,
+              "expressionValue": ""
+            }
+          ],
+          "variables": []
+        },
+        {
+          "id": 505,
+          "name": "inst_505",
+          "position": {
+            "x": 5,
+            "y": 5,
+            "z": 1
+          },
+          "properties": [
+            {
+              "id": 0,
+              "name": "text",
+              "value": "-",
+              "type": "String",
+              "expression": false,
+              "expressionValue": ""
+            }
+          ],
+          "variables": []
         }
       ]
     }
   ],
-  "rules": [{
-
-  }
-         ],
+  "rules": [
+    {
+      "title": "fill first cell",
+      "ordering": 1,
+      "event": "InternalEvent",
+      "subEvent": "init",
+      "condition": "equal(1, 1)",
+      "ignoreRemaining": false,
+      "actionTreesImport": [
+        {
+          "postAction": {
+            "postActionType": "VariableAssignmentAction",
+            "postActionOwnerType": "Puzzle_Level_Rule",
+            "subAction": "",
+            "ordering": 1,
+            "objectId": "",
+            "actionName": "",
+            "variable": "BoardVar(firstFilledRow)",
+            "valueExperssion": "Random(1,BoardVar(matrixRows))",
+            "alertType": "",
+            "alertMessage": "",
+            "actionKey": -1,
+            "parameters": []
+          },
+          "children": []
+        },
+        {
+          "postAction": {
+            "postActionType": "VariableAssignmentAction",
+            "postActionOwnerType": "Puzzle_Level_Rule",
+            "subAction": "",
+            "ordering": 2,
+            "objectId": "",
+            "actionName": "",
+            "variable": "BoardVar(firstFilledCol)",
+            "valueExperssion": "Random(1,BoardVar(matrixCols))",
+            "alertType": "",
+            "alertMessage": "",
+            "actionKey": -1,
+            "parameters": []
+          },
+          "children": []
+        },
+        {
+          "postAction": {
+            "postActionType": "VariableAssignmentAction",
+            "postActionOwnerType": "Puzzle_Level_Rule",
+            "subAction": "",
+            "ordering": 3,
+            "objectId": "",
+            "actionName": "",
+            "variable": "BoardVar(latestFilledRow)",
+            "valueExperssion": "BoardVar(firstFilledRow)",
+            "alertType": "",
+            "alertMessage": "",
+            "actionKey": -1,
+            "parameters": []
+          },
+          "children": []
+        },
+        {
+          "postAction": {
+            "postActionType": "VariableAssignmentAction",
+            "postActionOwnerType": "Puzzle_Level_Rule",
+            "subAction": "",
+            "ordering": 4,
+            "objectId": "",
+            "actionName": "",
+            "variable": "BoardVar(latestFilledCol)",
+            "valueExperssion": "BoardVar(firstFilledCol)",
+            "alertType": "",
+            "alertMessage": "",
+            "actionKey": -1,
+            "parameters": []
+          },
+          "children": []
+        }
+      ]
+    },
+    {
+      "title": "fill other cells",
+      "ordering": 2,
+      "event": "InternalEvent",
+      "subEvent": "init",
+      "condition": "equal(1,1)",
+      "ignoreRemaining": false,
+      "actionTreesImport": [
+        {
+          "postAction": {
+            "postActionType": "VariableAssignmentAction",
+            "postActionOwnerType": "Puzzle_Level_Rule",
+            "subAction": "",
+            "ordering": 1,
+            "objectId": "",
+            "actionName": "",
+            "variable": "LocalVar(i:integer)",
+            "valueExperssion": "1",
+            "alertType": "",
+            "alertMessage": "",
+            "actionKey": -1,
+            "parameters": []
+          },
+          "children": []
+        },
+        {
+          "postAction": {
+            "postActionType": "loop",
+            "postActionOwnerType": "Puzzle_Level_Rule",
+            "subAction": "",
+            "ordering": 1,
+            "objectId": "",
+            "actionName": "",
+            "variable": "",
+            "valueExperssion": "LocalVar(i) < BoardVar(filledCellsNumber)",
+            "alertType": "",
+            "alertMessage": "",
+            "actionKey": -1,
+            "parameters": []
+          },
+          "children": [
+            {
+              "postAction": {
+                "postActionType": "VariableAssignmentAction",
+                "postActionOwnerType": "Inner_Rule_Post_Action",
+                "subAction": "",
+                "ordering": 1,
+                "objectId": "",
+                "actionName": "",
+                "variable": "LocalVar(r:integer)",
+                "valueExperssion": "Random(1,BoardVar(matrixRows))",
+                "alertType": "",
+                "alertMessage": "",
+                "actionKey": -1,
+                "parameters": []
+              },
+              "children": []
+            },
+            {
+              "postAction": {
+                "postActionType": "VariableAssignmentAction",
+                "postActionOwnerType": "Inner_Rule_Post_Action",
+                "subAction": "",
+                "ordering": 1,
+                "objectId": "",
+                "actionName": "",
+                "variable": "LocalVar(c:integer)",
+                "valueExperssion": "Random(1,BoardVar(matrixCols))",
+                "alertType": "",
+                "alertMessage": "",
+                "actionKey": -1,
+                "parameters": []
+              },
+              "children": []
+            },
+            {
+              "postAction": {
+                "postActionType": "condition",
+                "postActionOwnerType": "Inner_Rule_Post_Action",
+                "subAction": "",
+                "ordering": 1,
+                "objectId": "",
+                "actionName": "",
+                "variable": "",
+                "valueExperssion": "equal(true,InstVar(InstByPos(LocalVar(r),LocalVar(c)),isEmpty))",
+                "alertType": "",
+                "alertMessage": "",
+                "actionKey": -1,
+                "parameters": []
+              },
+              "children": [
+                {
+                  "postAction": {
+                    "postActionType": "VariableAssignmentAction",
+                    "postActionOwnerType": "Inner_Rule_Post_Action",
+                    "subAction": "",
+                    "ordering": 1,
+                    "objectId": "",
+                    "actionName": "",
+                    "variable": "InstVar(InstByPos(LocalVar(r),LocalVar(c)),isEmpty)",
+                    "valueExperssion": "true",
+                    "alertType": "",
+                    "alertMessage": "",
+                    "actionKey": -1,
+                    "parameters": []
+                  },
+                  "children": []
+                },
+                {
+                  "postAction": {
+                    "postActionType": "VariableAssignmentAction",
+                    "postActionOwnerType": "Inner_Rule_Post_Action",
+                    "subAction": "",
+                    "ordering": 2,
+                    "objectId": "",
+                    "actionName": "",
+                    "variable": "InstVar(InstByPos(BoardVar(latestFilledRow),BoardVar(latestFilledCol)),nextFilledRow)",
+                    "valueExperssion": "LocalVar(r)",
+                    "alertType": "",
+                    "alertMessage": "",
+                    "actionKey": -1,
+                    "parameters": []
+                  },
+                  "children": []
+                },
+                {
+                  "postAction": {
+                    "postActionType": "VariableAssignmentAction",
+                    "postActionOwnerType": "Inner_Rule_Post_Action",
+                    "subAction": "",
+                    "ordering": 3,
+                    "objectId": "",
+                    "actionName": "",
+                    "variable": "InstVar(InstByPos(BoardVar(latestFilledRow),BoardVar(latestFilledCol)),nextFilledCol)",
+                    "valueExperssion": "LocalVar(c)",
+                    "alertType": "",
+                    "alertMessage": "",
+                    "actionKey": -1,
+                    "parameters": []
+                  },
+                  "children": []
+                },
+                {
+                  "postAction": {
+                    "postActionType": "VariableAssignmentAction",
+                    "postActionOwnerType": "Inner_Rule_Post_Action",
+                    "subAction": "",
+                    "ordering": 4,
+                    "objectId": "",
+                    "actionName": "",
+                    "variable": "BoardVar(latestFilledRow)",
+                    "valueExperssion": "LocalVar(r)",
+                    "alertType": "",
+                    "alertMessage": "",
+                    "actionKey": -1,
+                    "parameters": []
+                  },
+                  "children": []
+                },
+                {
+                  "postAction": {
+                    "postActionType": "VariableAssignmentAction",
+                    "postActionOwnerType": "Inner_Rule_Post_Action",
+                    "subAction": "",
+                    "ordering": 5,
+                    "objectId": "",
+                    "actionName": "",
+                    "variable": "BoardVar(latestFilledCol)",
+                    "valueExperssion": "LocalVar(c)",
+                    "alertType": "",
+                    "alertMessage": "",
+                    "actionKey": -1,
+                    "parameters": []
+                  },
+                  "children": []
+                },
+                {
+                  "postAction": {
+                    "postActionType": "VariableAssignmentAction",
+                    "postActionOwnerType": "Inner_Rule_Post_Action",
+                    "subAction": "",
+                    "ordering": 6,
+                    "objectId": "",
+                    "actionName": "",
+                    "variable": "LocalVar(i)",
+                    "valueExperssion": "LocalVar(i)+1",
+                    "alertType": "",
+                    "alertMessage": "",
+                    "actionKey": -1,
+                    "parameters": []
+                  },
+                  "children": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "show first filled cell",
+      "ordering": 3,
+      "event": "Click",
+      "subEvent": "",
+      "condition": "equal(BoardVar(shownStep), 0)&equal(EventParam(row), BoardVar(lastRowIndex))&equal(EventParam(col), 1)",
+      "ignoreRemaining": false,
+      "actionTreesImport": [
+        {
+          "postAction": {
+            "postActionType": "VariableAssignmentAction",
+            "postActionOwnerType": "Puzzle_Level_Rule",
+            "subAction": "",
+            "ordering": 1,
+            "objectId": "",
+            "actionName": "",
+            "variable": "BoardVar(latestShownObject)",
+            "valueExperssion": "InstProp(InstByPos(BoardVar(firstFilledRow),BoardVar(firstFilledCol)),objectId)",
+            "alertType": "",
+            "alertMessage": "",
+            "actionKey": -1,
+            "parameters": []
+          },
+          "children": []
+        },
+        {
+          "postAction": {
+            "postActionType": "VariableAssignmentAction",
+            "postActionOwnerType": "Puzzle_Level_Rule",
+            "subAction": "",
+            "ordering": 2,
+            "objectId": "",
+            "actionName": "",
+            "variable": "InstProp(InstById(BoardVar(latestShownObject)),img)",
+            "valueExperssion": "BoardVar(filledCellIcon)",
+            "alertType": "",
+            "alertMessage": "",
+            "actionKey": -1,
+            "parameters": []
+          },
+          "children": []
+        },
+        {
+          "postAction": {
+            "postActionType": "CallObjectAction",
+            "postActionOwnerType": "Puzzle_Level_Rule",
+            "subAction": "",
+            "ordering": 3,
+            "objectId": "InstProp(InstById(BoardVar(latestShownObject)),objectId)",
+            "actionName": "ApplyProperty",
+            "variable": "",
+            "valueExperssion": "",
+            "alertType": "",
+            "alertMessage": "",
+            "actionKey": -1,
+            "parameters": []
+          },
+          "children": []
+        },
+        {
+          "postAction": {
+            "postActionType": "CallSystemAction",
+            "postActionOwnerType": "Puzzle_Level_Rule",
+            "subAction": "",
+            "ordering": 4,
+            "objectId": "",
+            "actionName": "CreateTimer",
+            "variable": "",
+            "valueExperssion": "",
+            "alertType": "",
+            "alertMessage": "",
+            "actionKey": 144,
+            "parameters": [
+              {
+                "id": 0,
+                "name": "2000",
+                "value": "2000",
+                "type": "Integer",
+                "expression": false,
+                "expressionValue": ""
+              }
+            ]
+          },
+          "children": []
+        },
+        {
+          "postAction": {
+            "postActionType": "VariableAssignmentAction",
+            "postActionOwnerType": "Puzzle_Level_Rule",
+            "subAction": "",
+            "ordering": 5,
+            "objectId": "",
+            "actionName": "",
+            "variable": "BoardVar(shownStep)",
+            "valueExperssion": "BoardVar(shownStep)+1",
+            "alertType": "",
+            "alertMessage": "",
+            "actionKey": -1,
+            "parameters": []
+          },
+          "children": []
+        }
+      ]
+    },
+    {
+      "title": "show next filled cell",
+      "ordering": 4,
+      "event": "ActionComplete",
+      "subEvent": "",
+      "condition": "BoardVar(shownStep)<=BoardVar(filledCellsNumber)",
+      "ignoreRemaining": true,
+      "actionTreesImport": [
+        {
+          "postAction": {
+            "postActionType": "VariableAssignmentAction",
+            "postActionOwnerType": "Puzzle_Level_Rule",
+            "subAction": "",
+            "ordering": 1,
+            "objectId": "",
+            "actionName": "",
+            "variable": "InstProp(InstById(BoardVar(latestShownObject)),img)",
+            "valueExperssion": "BoardVar(emptyCellIcon)",
+            "alertType": "",
+            "alertMessage": "",
+            "actionKey": -1,
+            "parameters": []
+          },
+          "children": []
+        },
+        {
+          "postAction": {
+            "postActionType": "CallObjectAction",
+            "postActionOwnerType": "Puzzle_Level_Rule",
+            "subAction": "",
+            "ordering": 2,
+            "objectId": "InstById(BoardVar(latestShownObject))",
+            "actionName": "ApplyProperty",
+            "variable": "",
+            "valueExperssion": "",
+            "alertType": "",
+            "alertMessage": "",
+            "actionKey": -1,
+            "parameters": []
+          },
+          "children": []
+        },
+        {
+          "postAction": {
+            "postActionType": "VariableAssignmentAction",
+            "postActionOwnerType": "Puzzle_Level_Rule",
+            "subAction": "",
+            "ordering": 3,
+            "objectId": "",
+            "actionName": "",
+            "variable": "BoardVar(latestShownObject)",
+            "valueExperssion": "InstProp(InstByPos(InstVar(InstById(BoardVar(latestShownObject)), nextFilledRow),InstVar(InstById(BoardVar(latestShownObject)), nextFilledCol)),objectId)",
+            "alertType": "",
+            "alertMessage": "",
+            "actionKey": -1,
+            "parameters": []
+          },
+          "children": []
+        },
+        {
+          "postAction": {
+            "postActionType": "VariableAssignmentAction",
+            "postActionOwnerType": "Puzzle_Level_Rule",
+            "subAction": "",
+            "ordering": 4,
+            "objectId": "",
+            "actionName": "",
+            "variable": "InstProp(InstById(BoardVar(latestShownObject)),img)",
+            "valueExperssion": "BoardVar(filledCellIcon)",
+            "alertType": "",
+            "alertMessage": "",
+            "actionKey": -1,
+            "parameters": []
+          },
+          "children": []
+        },
+        {
+          "postAction": {
+            "postActionType": "CallObjectAction",
+            "postActionOwnerType": "Puzzle_Level_Rule",
+            "subAction": "",
+            "ordering": 5,
+            "objectId": "InstProp(InstById(BoardVar(latestShownObject)),objectId)",
+            "actionName": "ApplyProperty",
+            "variable": "",
+            "valueExperssion": "",
+            "alertType": "",
+            "alertMessage": "",
+            "actionKey": -1,
+            "parameters": []
+          },
+          "children": []
+        },
+        {
+          "postAction": {
+            "postActionType": "CallSystemAction",
+            "postActionOwnerType": "Puzzle_Level_Rule",
+            "subAction": "",
+            "ordering": 6,
+            "objectId": "",
+            "actionName": "CreateTimer",
+            "variable": "",
+            "valueExperssion": "",
+            "alertType": "",
+            "alertMessage": "",
+            "actionKey": 144,
+            "parameters": [
+              {
+                "id": 0,
+                "name": "2000",
+                "value": "2000",
+                "type": "Integer",
+                "expression": false,
+                "expressionValue": ""
+              }
+            ]
+          },
+          "children": []
+        },
+        {
+          "postAction": {
+            "postActionType": "VariableAssignmentAction",
+            "postActionOwnerType": "Puzzle_Level_Rule",
+            "subAction": "",
+            "ordering": 7,
+            "objectId": "",
+            "actionName": "",
+            "variable": "BoardVar(shownStep)",
+            "valueExperssion": "BoardVar(shownStep)+1",
+            "alertType": "",
+            "alertMessage": "",
+            "actionKey": -1,
+            "parameters": []
+          },
+          "children": []
+        }
+      ]
+    },
+    {
+      "title": "Finish showing last filled cell",
+      "ordering": 5,
+      "event": "ActionComplete",
+      "subEvent": "",
+      "condition": "equal(BoardVar(matchcount), 0)&equal(BoardVar(shownStep), BoardVar(filledCellsNumber))",
+      "ignoreRemaining": false,
+      "actionTreesImport": [
+        {
+          "postAction": {
+            "postActionType": "VariableAssignmentAction",
+            "postActionOwnerType": "Puzzle_Level_Rule",
+            "subAction": "",
+            "ordering": 1,
+            "objectId": "",
+            "actionName": "",
+            "variable": "BoardVar(initialShowing)",
+            "valueExperssion": "false",
+            "alertType": "",
+            "alertMessage": "",
+            "actionKey": -1,
+            "parameters": []
+          },
+          "children": []
+        },
+        {
+          "postAction": {
+            "postActionType": "VariableAssignmentAction",
+            "postActionOwnerType": "Puzzle_Level_Rule",
+            "subAction": "",
+            "ordering": 2,
+            "objectId": "",
+            "actionName": "",
+            "variable": "InstProp(InstById(BoardVar(latestShownObject)),bgImage)",
+            "valueExperssion": "BoardVar(emptyCellIcon)",
+            "alertType": "",
+            "alertMessage": "",
+            "actionKey": -1,
+            "parameters": []
+          },
+          "children": []
+        },
+        {
+          "postAction": {
+            "postActionType": "CallObjectAction",
+            "postActionOwnerType": "Puzzle_Level_Rule",
+            "subAction": "",
+            "ordering": 3,
+            "objectId": "InstById(BoardVar(latestShownObject))",
+            "actionName": "ApplyProperty",
+            "variable": "",
+            "valueExperssion": "",
+            "alertType": "",
+            "alertMessage": "",
+            "actionKey": -1,
+            "parameters": []
+          },
+          "children": []
+        }
+      ]
+    },
+    {
+      "title": "Correct clicked",
+      "ordering": 6,
+      "event": "Click",
+      "subEvent": "",
+      "condition": "equal(BoardVar(initialShowing),false)&equal(BoardVar(finished), false)&equal(InstVar(InstByPos(EventParam(row),EventParam(col)), isEmpty), false)&equal(InstVar(InstByPos(EventParam(row),EventParam(col)), isShown), false)",
+      "ignoreRemaining": false,
+      "actionTreesImport": [
+        {
+          "postAction": {
+            "postActionType": "VariableAssignmentAction",
+            "postActionOwnerType": "Puzzle_Level_Rule",
+            "subAction": "",
+            "ordering": 1,
+            "objectId": "",
+            "actionName": "",
+            "variable": "InstVar(InstByPos(EventParam(row),EventParam(col)), isShown)",
+            "valueExperssion": "true",
+            "alertType": "",
+            "alertMessage": "",
+            "actionKey": -1,
+            "parameters": []
+          },
+          "children": []
+        },
+        {
+          "postAction": {
+            "postActionType": "VariableAssignmentAction",
+            "postActionOwnerType": "Puzzle_Level_Rule",
+            "subAction": "",
+            "ordering": 2,
+            "objectId": "",
+            "actionName": "",
+            "variable": "BoardVar(matchcount)",
+            "valueExperssion": "BoardVar(matchcount)+1",
+            "alertType": "",
+            "alertMessage": "",
+            "actionKey": -1,
+            "parameters": []
+          },
+          "children": []
+        },
+        {
+          "postAction": {
+            "postActionType": "VariableAssignmentAction",
+            "postActionOwnerType": "Puzzle_Level_Rule",
+            "subAction": "",
+            "ordering": 3,
+            "objectId": "",
+            "actionName": "",
+            "variable": "InstProp(InstByPos(EventParam(row),EventParam(col)),img)",
+            "valueExperssion": "BoardVar(filledCellIcon)",
+            "alertType": "",
+            "alertMessage": "",
+            "actionKey": -1,
+            "parameters": []
+          },
+          "children": []
+        },
+        {
+          "postAction": {
+            "postActionType": "CallObjectAction",
+            "postActionOwnerType": "Puzzle_Level_Rule",
+            "subAction": "",
+            "ordering": 4,
+            "objectId": "InstByPos(EventParam(row),EventParam(col))",
+            "actionName": "ApplyProperty",
+            "variable": "",
+            "valueExperssion": "",
+            "alertType": "",
+            "alertMessage": "",
+            "actionKey": -1,
+            "parameters": []
+          },
+          "children": []
+        },
+        {
+          "postAction": {
+            "postActionType": "FireEventAction",
+            "postActionOwnerType": "Puzzle_Level_Rule",
+            "subAction": "checkwin",
+            "ordering": 5,
+            "objectId": "",
+            "actionName": "",
+            "variable": "",
+            "valueExperssion": "",
+            "alertType": "",
+            "alertMessage": "",
+            "actionKey": -1,
+            "parameters": []
+          },
+          "children": []
+        }
+      ]
+    },
+    {
+      "title": "Incorrect clicked",
+      "ordering": 7,
+      "event": "Click",
+      "subEvent": "",
+      "condition": "equal(BoardVar(initialShowing),false)&equal(BoardVar(finished), false)&equal(InstVar(InstByPos(EventParam(row),EventParam(col)), isEmpty), true)",
+      "ignoreRemaining": false,
+      "actionTreesImport": [
+        {
+          "postAction": {
+            "postActionType": "VariableAssignmentAction",
+            "postActionOwnerType": "Puzzle_Level_Rule",
+            "subAction": "",
+            "ordering": 1,
+            "objectId": "",
+            "actionName": "",
+            "variable": "BoardVar(finished)",
+            "valueExperssion": "true",
+            "alertType": "",
+            "alertMessage": "",
+            "actionKey": -1,
+            "parameters": []
+          },
+          "children": []
+        },
+        {
+          "postAction": {
+            "postActionType": "CallSystemAction",
+            "postActionOwnerType": "Puzzle_Level_Rule",
+            "subAction": "",
+            "ordering": 2,
+            "objectId": "",
+            "actionName": "ShowMessage",
+            "variable": "",
+            "valueExperssion": "",
+            "alertType": "",
+            "alertMessage": "",
+            "actionKey": -1,
+            "parameters": [
+              {
+                "id": 0,
+                "name": "text",
+                "value": "you lost",
+                "type": "String",
+                "expression": false,
+                "expressionValue": ""
+              },
+              {
+                "id": 0,
+                "name": "dialogType",
+                "value": "DIALOG",
+                "type": "String",
+                "expression": false,
+                "expressionValue": ""
+              },
+              {
+                "id": 0,
+                "name": "messageType",
+                "value": "INFO",
+                "type": "String",
+                "expression": false,
+                "expressionValue": ""
+              }
+            ]
+          },
+          "children": []
+        },
+        {
+          "postAction": {
+            "postActionType": "CallSystemAction",
+            "postActionOwnerType": "Puzzle_Level_Rule",
+            "subAction": "",
+            "ordering": 3,
+            "objectId": "",
+            "actionName": "GameFinished",
+            "variable": "",
+            "valueExperssion": "",
+            "alertType": "",
+            "alertMessage": "",
+            "actionKey": -1,
+            "parameters": []
+          },
+          "children": []
+        }
+      ]
+    },
+    {
+      "title": "check win",
+      "ordering": 8,
+      "event": "InternalEvent",
+      "subEvent": "checkwin",
+      "condition": "equal(BoardVar(matchcount), BoardVar(filledCellsNumber))",
+      "ignoreRemaining": false,
+      "actionTreesImport": [
+        {
+          "postAction": {
+            "postActionType": "VariableAssignmentAction",
+            "postActionOwnerType": "Puzzle_Level_Rule",
+            "subAction": "",
+            "ordering": 1,
+            "objectId": "",
+            "actionName": "",
+            "variable": "BoardVar(finished)",
+            "valueExperssion": "true",
+            "alertType": "",
+            "alertMessage": "",
+            "actionKey": -1,
+            "parameters": []
+          },
+          "children": []
+        },
+        {
+          "postAction": {
+            "postActionType": "CallSystemAction",
+            "postActionOwnerType": "Puzzle_Level_Rule",
+            "subAction": "",
+            "ordering": 2,
+            "objectId": "",
+            "actionName": "ShowMessage",
+            "variable": "",
+            "valueExperssion": "",
+            "alertType": "",
+            "alertMessage": "",
+            "actionKey": -1,
+            "parameters": [
+              {
+                "id": 0,
+                "name": "text",
+                "value": "you won",
+                "type": "String",
+                "expression": false,
+                "expressionValue": ""
+              },
+              {
+                "id": 0,
+                "name": "dialogType",
+                "value": "DIALOG",
+                "type": "String",
+                "expression": false,
+                "expressionValue": ""
+              },
+              {
+                "id": 0,
+                "name": "messageType",
+                "value": "INFO",
+                "type": "String",
+                "expression": false,
+                "expressionValue": ""
+              }
+            ]
+          },
+          "children": []
+        },
+        {
+          "postAction": {
+            "postActionType": "CallSystemAction",
+            "postActionOwnerType": "Puzzle_Level_Rule",
+            "subAction": "",
+            "ordering": 3,
+            "objectId": "",
+            "actionName": "GameFinished",
+            "variable": "",
+            "valueExperssion": "",
+            "alertType": "",
+            "alertMessage": "",
+            "actionKey": -1,
+            "parameters": []
+          },
+          "children": []
+        }
+      ]
+    }
+  ],
   "learningTopics": [
     {
-      "id": 0,
+      "id": 121,
       "title": "Memory_Game",
-      "learningContentId": 121
+      "learningContentId": 604
     }
   ]
 }
