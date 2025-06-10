@@ -155,19 +155,22 @@ public class PGController {
     @Operation( summary = "Delete a  Puzzle Group ",  description = "Delete a Puzzle group entity and their data to data base")
     @DeleteMapping("/del/id/{id}")
     @CrossOrigin(origins = "*")
-    public ALCityResponseObject deletePuzzleGroupById(@PathVariable Long id) {
-        Optional<PuzzleGroup> existingRecord = pgService.findById(id);
-        if(existingRecord.isPresent()){
-            try {
-                pgService.delete(existingRecord.get());
-
-            }catch (Exception e )
-            {
-                throw new ViolateForeignKeyException(-1, "error", PuzzleGroup.class.toString(),existingRecord.get().getId());
+    public ALCityResponseObject deletePuzzleGroupById(@PathVariable Long id) throws Exception {
+        Optional<PuzzleGroup> puzzleGroupOptional = pgService.findById(id);
+        ALCityResponseObject responseObject=null;
+        if(puzzleGroupOptional.isPresent()) {
+            Collection<PuzzleLevel> puzzleLevels = puzzleGroupOptional.get().getPuzzleLevels();
+            if (puzzleLevels.isEmpty()) {
+                pgService.delete(puzzleGroupOptional.get());
+                responseObject = new ALCityResponseObject(HttpStatus.OK.value(), "ok", id, "Record deleted Successfully!");
+            } else {
+                responseObject = new ALCityResponseObject(HttpStatus.OK.value(), "Warning", id, "Puzzle Group has Puzzle Level , you can delete that");
             }
-            return new ALCityResponseObject(HttpStatus.OK.value(), "ok", id,"Record deleted Successfully!");
         }
-        return  new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", id,"Record not found!");
+        else {
+                responseObject = new ALCityResponseObject(HttpStatus.OK.value(), "ok", id,"Record deleted Successfully!");
+            }
+        return  responseObject;
     }
 
 

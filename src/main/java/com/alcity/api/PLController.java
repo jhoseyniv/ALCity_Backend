@@ -312,12 +312,12 @@ public class PLController {
         Optional<PuzzleLevel> existingRecord = puzzleLevelService.findById(id);
         if(existingRecord.isPresent()){
             try {
-                puzzleLevelService.deleteById(existingRecord.get().getId());
+                puzzleLevelService.deletePuzzleLevel(existingRecord.get());
             }catch (Exception e )
             {
                 throw new ViolateForeignKeyException(-1, "error", PuzzleLevel.class.toString(),existingRecord.get().getId());
             }
-            return new ALCityResponseObject(HttpStatus.OK.value(), "ok", id,"Record deleted Successfully!");
+            return new ALCityResponseObject(HttpStatus.OK.value(), "ok", id,"Puzzle Level deleted Successfully!");
         }
         return  new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", id,"Record not found!");
     }
