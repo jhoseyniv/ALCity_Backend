@@ -77,6 +77,23 @@ public class PLRuleService implements PLRuleRepository {
     @Override
     public void deleteById(Long aLong) {
         ruleRepository.deleteById(aLong);
+
+    }
+    public void deletePlRule( PLRule rule) {
+        Collection<PLRulePostAction>  postActions = plRulePostActionService.findByOwnerId(rule.getId()) ;
+        Iterator<PLRulePostAction> iterator = postActions.iterator();
+        while(iterator.hasNext()) {
+            PLRulePostAction postAction = iterator.next();
+            plRulePostActionService.deletePostActionWithChilds(postAction);
+        }
+    }
+
+    public void deleteAllPlRules( Collection<PLRule> rules) {
+        Iterator<PLRule> iterator = rules.iterator();
+        while (iterator.hasNext()){
+            deletePlRule(iterator.next());
+        }
+
     }
 
     @Override

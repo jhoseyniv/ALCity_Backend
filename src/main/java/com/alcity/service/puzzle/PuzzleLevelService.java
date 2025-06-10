@@ -227,7 +227,7 @@ public class PuzzleLevelService implements PuzzleLevelRepository {
         PuzzleLevel importedPuzzleLevel = new PuzzleLevel(createdBy.get(),dto.getApproveDate(), dto.getOrdering(),
                 dto.getTitle(),dto.getCode(),dto.getFromAge(),dto.getToAge(),
                 dto.getMaxScore(), dto.getFirstStarScore(), dto.getSecondStarScore(), dto.getThirdStartScore(),
-                puzzleGroupOptional.get(),plDifficulty,plStatus,plPrivacy, iconOptional.get(),picOptional.get() ,boardGraphicOptional.get(),
+                puzzleGroupOptional.get(),plDifficulty,plStatus,plPrivacy, iconOptional.get(),picOptional.get() ,
                 1L, DateUtils.getNow(), DateUtils.getNow(), createdBy.get(), createdBy.get());
         puzzleLevelRepository.save(importedPuzzleLevel);
 
@@ -268,8 +268,17 @@ public class PuzzleLevelService implements PuzzleLevelRepository {
     public PuzzleLevel deletePuzzleLevel(PuzzleLevel puzzleLevel) {
 
 
+        //delete puzzle level instances
+       // Collection<ALCityInstanceInPL> importInstances = instanceInPLService.importObjects(dto.getObjects(), importedPuzzleLevel);
+
+        //delete puzzle learning topics
+        Collection<LearningTopicInPL> learningTopicInPLS = puzzleLevel.getLearningTopicInPLCollection();
+        plLearningTopicService.deleteAll(learningTopicInPLS);
         //delete puzzle level and related entities
 
+        //delete puzzle level rules
+        Collection<PLRule> rules = puzzleLevel.getPuzzleLevelRuleCollection();
+         plRuleService.deleteAllPlRules(rules);
 
         return puzzleLevel;
     }
@@ -282,7 +291,7 @@ public class PuzzleLevelService implements PuzzleLevelRepository {
                dto.getTitle(),dto.getCode(),dto.getFromAge(),dto.getToAge(),
                puzzleLevel.getMaxScore(), puzzleLevel.getFirstStarScore(), puzzleLevel.getSecondStarScore(), puzzleLevel.getThirdStartScore(),
                puzzleLevel.getPuzzleGroup(),puzzleLevel.getPuzzleDifficulty(),puzzleLevel.getPuzzleLevelStatus(),puzzleLevel.getPuzzleLevelPrivacy(),
-               puzzleLevel.getPicture(),puzzleLevel.getIcon() ,puzzleLevel.getBoardGraphic(),
+               puzzleLevel.getPicture(),puzzleLevel.getIcon() ,
                 1L, DateUtils.getNow(), DateUtils.getNow(), puzzleLevel.getCreatedBy(), puzzleLevel.getUpdatedBy());
         puzzleLevelRepository.save(copyPuzzleLevel);
 
@@ -335,7 +344,7 @@ public class PuzzleLevelService implements PuzzleLevelRepository {
         PLPrivacy plPrivacy =  plPrivacyRepository.findByValue(dto.getPuzzleLevelPrivacy());
         Optional<BinaryContent> pictureOptional =  binaryContentService.findById(dto.getPicId());
         Optional<BinaryContent> iconOptional =  binaryContentService.findById(dto.getIconId());
-        Optional<BinaryContent> boardGraphicOptional = binaryContentRepository.findById(dto.getPicId());
+        //Optional<BinaryContent> boardGraphicOptional = binaryContentRepository.findById(dto.getPicId());
 
         PuzzleGroup puzzleGroup = null;
         Optional<PuzzleGroup>  puzzleGroupOptional = pgRepository.findById(dto.getPuzzleGroupId());
@@ -344,7 +353,7 @@ public class PuzzleLevelService implements PuzzleLevelRepository {
         if (code.equalsIgnoreCase("Save")) { //Save
             puzzleLevel = new PuzzleLevel(createdBy.get(),dto.getApproveDate(), dto.getOrdering(), dto.getTitle(),dto.getCode(),dto.getFromAge(),dto.getToAge(),
                                 dto.getMaxScore(), dto.getFirstStarScore(), dto.getSecondStarScore(), dto.getThirdStartScore(), puzzleGroup,plDifficulty,plStatus,plPrivacy,
-                    pictureOptional.get(),iconOptional.get(),boardGraphicOptional.get() , 1L, DateUtils.getNow(), DateUtils.getNow(), createdBy.get(), createdBy.get());
+                    pictureOptional.get(),iconOptional.get(), 1L, DateUtils.getNow(), DateUtils.getNow(), createdBy.get(), createdBy.get());
             puzzleLevelRepository.save(puzzleLevel);
         }else{//edit
             Optional<PuzzleLevel> puzzleLevelOptional= puzzleLevelRepository.findById(dto.getId());

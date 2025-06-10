@@ -12,7 +12,7 @@ public class PLData implements Serializable {
     private String code;
     private String name;
 
-    private Long boardGraphicId;
+   // private Long boardGraphicId;
 
     private Integer cols;
     private Integer rows;
@@ -99,13 +99,13 @@ public class PLData implements Serializable {
         this.objects = objects;
     }
 
-    public Long getBoardGraphicId() {
-        return boardGraphicId;
-    }
-
-    public void setBoardGraphicId(Long boardGraphicId) {
-        this.boardGraphicId = boardGraphicId;
-    }
+//    public Long getBoardGraphicId() {
+//        return boardGraphicId;
+//    }
+//
+//    public void setBoardGraphicId(Long boardGraphicId) {
+//        this.boardGraphicId = boardGraphicId;
+//    }
 
     public PLData() {
     }

@@ -175,7 +175,7 @@ public class PLLearningTopicService implements PLLearningTopicRepository {
 
     @Override
     public void deleteAll(Iterable<? extends LearningTopicInPL> entities) {
-
+        plLearningTopicRepository.deleteAll(entities);
     }
 
     @Override

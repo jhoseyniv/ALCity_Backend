@@ -239,7 +239,7 @@ public class AttributeService implements AttributeRepository {
 
     @Override
     public void deleteAll(Iterable<? extends Attribute> entities) {
-
+        attributeRepository.deleteAll(entities);
     }
 
     @Override
