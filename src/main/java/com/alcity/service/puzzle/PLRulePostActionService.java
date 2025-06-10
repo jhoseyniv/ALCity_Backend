@@ -174,6 +174,36 @@ public class PLRulePostActionService implements PLRulePostActionRepository {
         plRulePostActionRepository.deleteById(aLong);
     }
 
+    private void deleteChildren(Long parentId)  {
+        // Find all children of the parent node
+        Collection<PLRulePostAction> childs = plRulePostActionRepository.findByOwnerId(parentId);
+        Iterator<PLRulePostAction>  iterator = childs.iterator();
+        while (iterator.hasNext()) {
+                    PLRulePostAction childPostAction = iterator.next();
+                    // Recursively delete children of this child
+                    deleteChildren(childPostAction.getId());
+                    // Delete the child node
+                    plRulePostActionRepository.deleteById(childPostAction.getId());
+                    }
+    }
+
+
+
+    public void deletePostActionWithChilds(PLRulePostAction postAction) {
+        // Find all children of the parent node
+        Collection<PLRulePostAction> childs = plRulePostActionRepository.findByOwnerId(postAction.getId());
+        Iterator<PLRulePostAction>  iterator = childs.iterator();
+        while (iterator.hasNext()) {
+            PLRulePostAction childPostAction = iterator.next();
+            // Recursively delete children of this child
+            deleteChildren(childPostAction.getId());
+            // Delete the child node
+            plRulePostActionRepository.deleteById(childPostAction.getId());
+            Collection<Attribute> attributes = attributeService.findByOwnerId(childPostAction.getId());
+            attributeService.deleteAll(attributes);
+        }
+    }
+
     @Override
     public void delete(PLRulePostAction entity) {
 
