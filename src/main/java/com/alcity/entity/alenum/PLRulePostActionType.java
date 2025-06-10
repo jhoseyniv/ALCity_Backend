@@ -37,7 +37,7 @@ public enum PLRulePostActionType  {
         {
             if (title.equalsIgnoreCase(e.name())) return e;
         }
-        throw new IllegalArgumentException("no");
+        throw new IllegalArgumentException("no----- "+title);
     }
 
 }

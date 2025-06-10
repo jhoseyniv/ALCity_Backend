@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Collection;
 
 public class InstanceData implements Serializable {
+    private static final long serialVersionUID = 1184949731931955686L;
 
     private Long id;
     private Long pgoId;

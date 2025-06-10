@@ -3,6 +3,7 @@ package com.alcity.dto.Interpreter.object;
 import java.io.Serializable;
 
 public class Features implements Serializable {
+    private static final long serialVersionUID = 7109690793922608760L;
     private Boolean zoom;
     private Boolean pan;
     private Boolean rotation;

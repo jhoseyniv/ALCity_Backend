@@ -6,6 +6,7 @@ import java.io.Serializable;
 import java.util.Collection;
 
 public class ActionData implements Serializable {
+    private static final long serialVersionUID = -4477809924195151524L;
     private Long id;
     private ObjectActionType actionName;
 

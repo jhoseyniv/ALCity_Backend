@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 public class PLGroundPostion implements Serializable {
 
+    private static final long serialVersionUID = 5475773041002282988L;
     private Float X;
     private Float Y;
     private Float Z;
