@@ -106,8 +106,8 @@ public class DTOUtil {
         dto.setTitle(entity.getTitle());
         dto.setToAge(entity.getToAge());
         dto.setFromAge(entity.getFromAge());
-        dto.setCol(dto.getCol());
-        dto.setRow(dto.getRow());
+        dto.setCol(plGround.getNumColumns());
+        dto.setRow(plGround.getNumRows());
         dto.setOrdering(entity.getOrdering());
         dto.setPuzzleGroupId(entity.getPuzzleGroup().getId());
         dto.setPuzzleGroupTitle(entity.getPuzzleGroup().getTitle());
