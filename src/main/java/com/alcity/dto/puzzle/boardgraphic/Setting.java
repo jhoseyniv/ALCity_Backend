@@ -3,6 +3,8 @@ package com.alcity.dto.puzzle.boardgraphic;
 import java.io.Serializable;
 
 public class Setting implements Serializable {
+
+    private static final long serialVersionUID = 8733467217846277362L;
     private Long skyboxId;
     private Long environmentId;
     private StartPosition startPosition;
