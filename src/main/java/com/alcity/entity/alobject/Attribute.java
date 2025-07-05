@@ -64,7 +64,7 @@ public class Attribute extends BaseTable implements Serializable {
         this.dataType = dataType;
     }
 
-    @OneToMany(mappedBy = "attributeId", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "attributeId", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Collection<AttributeValue> attributeValues;
 
 

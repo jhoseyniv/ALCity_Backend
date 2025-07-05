@@ -1,6 +1,7 @@
 package com.alcity.entity.appmember;
 
 
+import com.alcity.entity.alenum.AppMemberStatus;
 import com.alcity.entity.alenum.UserGender;
 import com.alcity.entity.base.*;
 import com.alcity.entity.play.PermitedPlayer;
@@ -170,6 +171,9 @@ public class AppMember extends BaseTable implements Serializable {
     @Enumerated(EnumType.ORDINAL)
     private UserGender gender;
 
+    @Enumerated(EnumType.ORDINAL)
+    private AppMemberStatus status;
+
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "member_type_id", nullable = false)
@@ -212,6 +216,14 @@ public class AppMember extends BaseTable implements Serializable {
 
     public void setPuzzleLevels(Collection<PuzzleLevel> puzzleLevels) {
         this.puzzleLevels = puzzleLevels;
+    }
+
+    public AppMemberStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(AppMemberStatus status) {
+        this.status = status;
     }
 
     public AppMember() {

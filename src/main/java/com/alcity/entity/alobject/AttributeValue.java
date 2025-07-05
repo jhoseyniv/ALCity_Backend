@@ -113,8 +113,8 @@ public class AttributeValue extends BaseTable implements Serializable {
         this.binaryContentId = binaryContentId;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = true)
-    @JoinColumn(name = "binded_attribute_id", nullable = true)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "binded_attribute_id", nullable = false)
     @JsonIgnore
     private Attribute bindedAttributeId;
 

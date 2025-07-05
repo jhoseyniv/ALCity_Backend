@@ -1,7 +1,7 @@
 {   
       "settings": {
-        "skyboxId": "dreamy_sky",
-        "environmentId": "rural_area",
+        "skyboxId": 80,
+        "environmentId": 81,
         "startPosition": {
           "x": 2,
           "y": 0,

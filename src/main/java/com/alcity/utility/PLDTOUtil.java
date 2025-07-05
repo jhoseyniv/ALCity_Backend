@@ -109,7 +109,6 @@ public class PLDTOUtil {
                             action.getActionRenderer().getHandler(),
                                 action.getActionRenderer().getId(),
                                     action.getPoActionOwnerType().name());
-
         return dto;
     }
     public static PLData getInterpreterJSON(PuzzleLevel pl) throws IOException, ClassNotFoundException {
