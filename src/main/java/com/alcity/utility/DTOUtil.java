@@ -54,6 +54,11 @@ public class DTOUtil {
         PLTemplateDTO dto= new PLTemplateDTO(template.getId(),template.getTitle(), template.getUrl(), template.getContent());
         return dto;
     }
+    public static PLTemplateDraftDTO getPLTemplateDraftDTO(PLTemplateDraft draft){
+        PLTemplateDraftDTO dto= new PLTemplateDraftDTO(draft.getId(),draft.getTitle(), draft.getJsonTemplate(), draft.getPuzzleLevelId());
+        return dto;
+    }
+
 
     public static Collection<PLTemplateDTO> getPuzzleLevelTemplateDTOS(Collection<PLTemplate> templates){
         Iterator<PLTemplate> itr = templates.iterator();

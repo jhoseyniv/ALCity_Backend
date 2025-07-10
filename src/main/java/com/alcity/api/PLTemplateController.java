@@ -45,7 +45,7 @@ public class PLTemplateController {
     @RequestMapping(value = "/id/{id}", method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin(origins = "*")
-    public PLTemplateDTO getPLTempelateById(@PathVariable Long id) {
+    public PLTemplateDTO getPLTemplateById(@PathVariable Long id) {
         PLTemplateDTO   dto= new PLTemplateDTO();
         Optional<PLTemplate> plTemplateOptional = plTemplateService.findById(id);
         if(plTemplateOptional.isEmpty()) return null;
