@@ -661,15 +661,6 @@ public class DTOUtil {
         }
         return dtos;
     }
-    public static Collection<PLTemplateDTO> getPLTemplateDTOS(Collection<PLTemplate> input) {
-        Collection<PLTemplateDTO> dtos = new ArrayList<PLTemplateDTO>();
-        Iterator<PLTemplate> itr = input.iterator();
-        while (itr.hasNext()) {
-            PLTemplateDTO dto = getPLTemplateDTO(itr.next());
-            dtos.add(dto);
-        }
-        return dtos;
-    }
 
     public static PGDTO getPuzzleGroupDTO(PuzzleGroup input) {
         PGDTO dto = new PGDTO();
@@ -688,14 +679,6 @@ public class DTOUtil {
 
         return dto;
     }
-//    public static PLTemplateDTO getPLTemplateDTO(PLTemplate input) {
-//        PLTemplateDTO dto = new PLTemplateDTO();
-//        dto.setId(input.getId());
-//        dto.setTitle(input.getTitle());
-//        dto.setPuzzleCategoryId(input.getPuzzleCategory().getId());
-//        dto.setContent(input.getContent());
-//        return dto;
-//    }
 
     public static Collection<PuzzleCategoryDTO> getPuzzleCategoryDTOS(Collection<PuzzleCategory> input) {
         Collection<PuzzleCategoryDTO> output = new ArrayList<PuzzleCategoryDTO>();
@@ -853,10 +836,8 @@ public class DTOUtil {
         String userName="admin";
         if(member.getCreatedBy() == null || member.getCreatedBy() == null)
             userName="admin";
-        Language language = member.getLanguage();
-        if(member.getLanguage() == null)
-            language = Language.English;
-        AppMemberDTO dto = new AppMemberDTO(member.getId(),member.getAge(),language.name(),
+
+        AppMemberDTO dto = new AppMemberDTO(member.getId(),member.getAge(),member.getLanguage().name(),
                 member.getUsername(),member.getPassword(),member.getIcon().getThumbnail(),member.getIcon().getId(), member.getNickname(),
                 member.getMobile(), member.getEmail(),member.getGender().name(),member.getMemberType().getValue(),
                 member.getVersion(), member.getCreated(), member.getUpdated(), userName, userName);
