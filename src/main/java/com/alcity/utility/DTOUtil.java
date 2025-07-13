@@ -839,8 +839,10 @@ public class DTOUtil {
         String userName="admin";
         if(member.getCreatedBy() == null || member.getCreatedBy() == null)
             userName="admin";
-
-        AppMemberDTO dto = new AppMemberDTO(member.getId(),member.getAge(),member.getLanguage().name(),
+        Language language = member.getLanguage();
+        if(member.getLanguage() == null)
+            language = Language.English;
+        AppMemberDTO dto = new AppMemberDTO(member.getId(),member.getAge(),language.name(),
                 member.getUsername(),member.getPassword(),member.getIcon().getThumbnail(),member.getIcon().getId(), member.getNickname(),
                 member.getMobile(), member.getEmail(),member.getGender().name(),member.getMemberType().getValue(),
                 member.getVersion(), member.getCreated(), member.getUpdated(), userName, userName);
