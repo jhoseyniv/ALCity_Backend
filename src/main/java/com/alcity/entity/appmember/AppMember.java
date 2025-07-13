@@ -2,6 +2,7 @@ package com.alcity.entity.appmember;
 
 
 import com.alcity.entity.alenum.AppMemberStatus;
+import com.alcity.entity.alenum.Language;
 import com.alcity.entity.alenum.UserGender;
 import com.alcity.entity.base.*;
 import com.alcity.entity.play.PermitedPlayer;
@@ -174,6 +175,8 @@ public class AppMember extends BaseTable implements Serializable {
     @Enumerated(EnumType.ORDINAL)
     private AppMemberStatus status;
 
+    @Enumerated(EnumType.ORDINAL)
+    private Language language;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "member_type_id", nullable = false)
@@ -226,12 +229,21 @@ public class AppMember extends BaseTable implements Serializable {
         this.status = status;
     }
 
+    public Language getLanguage() {
+        return language;
+    }
+
+    public void setLanguage(Language language) {
+        this.language = language;
+    }
+
     public AppMember() {
     }
 
-    public AppMember(Integer age, String username, String password, String nickname, String mobile, String email,BinaryContent icon, UserGender gender, MemberType memberType, Long version, String created, String updated, AppMember createdBy, AppMember updatedBy) {
+    public AppMember(Integer age,Language language ,String username, String password, String nickname, String mobile, String email,BinaryContent icon, UserGender gender, MemberType memberType, Long version, String created, String updated, AppMember createdBy, AppMember updatedBy) {
         super(version, created, updated, createdBy, updatedBy);
         this.age = age;
+        this.language = language;
         this.username = username;
         this.password = password;
         this.nickname = nickname;

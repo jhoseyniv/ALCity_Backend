@@ -5,6 +5,8 @@ public class AppMemberDTO {
 
     private Long id;
     private Integer age;
+
+    private String language;
     private String username;
     private String password;
     private String nickname;
@@ -81,8 +83,13 @@ public class AppMemberDTO {
         this.email = email;
     }
 
+    public String getLanguage() {
+        return language;
+    }
 
-
+    public void setLanguage(String language) {
+        this.language = language;
+    }
 
     public Long getIconId() {
         return iconId;
@@ -160,10 +167,11 @@ public class AppMemberDTO {
         this.thumbnail = thumbnail;
     }
 
-    public AppMemberDTO(Long id, Integer age, String username, String password,byte[] thumbnail,Long iconId, String nickname, String mobile, String email, String gender, String memberType ,
+    public AppMemberDTO(Long id, Integer age,String language, String username, String password,byte[] thumbnail,Long iconId, String nickname, String mobile, String email, String gender, String memberType ,
                         Long version, String created, String updated, String createdBy, String updatedBy) {
         this.id = id;
         this.age = age;
+        this.language=language;
         this.username = username;
         this.password = password;
         this.thumbnail = thumbnail;

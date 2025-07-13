@@ -7,6 +7,7 @@ import com.alcity.dto.player.PlayHistoryDTO;
 import com.alcity.dto.puzzle.PLDTO;
 import com.alcity.dto.puzzle.PuzzleLevelStepMappingDTO;
 import com.alcity.dto.search.AppMemberSearchCriteriaDTO;
+import com.alcity.entity.alenum.Language;
 import com.alcity.entity.appmember.AppMemberJourneyInfo;
 import com.alcity.entity.appmember.AppMemberStepInfo;
 import com.alcity.entity.journey.Journey;
@@ -261,6 +262,7 @@ public class AppMemberService implements AppMemberRepository, CustomizedUserRepo
         Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
         MemberType memberType = memberTypeRepository.findByValue(dto.getMemberType()).get();
         UserGender gender = UserGender.getByTitle(dto.getGender());
+        Language language = Language.getByTitle(dto.getLanguage());
         BinaryContent icon=null;
         if(dto.getIconId() == null || dto.getIconId() ==0)
                 icon = binaryContentRepository.findByfileName("no_photo_avatar");
@@ -269,7 +271,7 @@ public class AppMemberService implements AppMemberRepository, CustomizedUserRepo
 
         AppMember appMember=null;
         if (code.equalsIgnoreCase("Save")) { //Save
-            appMember = new AppMember(dto.getAge(),dto.getUsername(), dto.getPassword(), dto.getNickname(), dto.getMobile(),dto.getEmail(),icon,gender ,memberType
+            appMember = new AppMember(dto.getAge(),language,dto.getUsername(), dto.getPassword(), dto.getNickname(), dto.getMobile(),dto.getEmail(),icon,gender ,memberType
                     ,1L, DateUtils.getNow(), DateUtils.getNow(), createdBy.get(), createdBy.get());
             appMemberRepository.save(appMember);
         }else{//edit
@@ -297,11 +299,12 @@ public class AppMemberService implements AppMemberRepository, CustomizedUserRepo
     public AppMember saveGuestUser(Integer bornYear) {
         Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
         MemberType memberType = memberTypeRepository.findByValue("Guest").get();
+
         BinaryContent icon=null;
         AppMember guest=null;
         Integer age = DateUtils.calculateAgeFromJalali(bornYear);
         icon = binaryContentRepository.findByfileName("no_photo_avatar");
-        guest = new AppMember(age,"Guest", "Guest", "Guest", "","",icon,UserGender.Unknow ,memberType
+        guest = new AppMember(age,Language.English,"Guest", "Guest", "Guest", "","",icon,UserGender.Unknow ,memberType
                 ,1L, DateUtils.getNow(), DateUtils.getNow(), createdBy.get(), createdBy.get());
         appMemberRepository.save(guest);
         String UniqueUserName= guest.getUsername() + guest.getId();
@@ -324,7 +327,7 @@ public class AppMemberService implements AppMemberRepository, CustomizedUserRepo
         AppMember guest=null;
         Integer age = DateUtils.calculateAgeFromJalali(accessDTO.getBirthYear());
         icon = binaryContentRepository.findByfileName("no_photo_avatar");
-        guest = new AppMember(age,accessDTO.getRemoteHost() + "-" + accessDTO.getRemoteUserName(), "Guest", "Guest", "","",icon,UserGender.Unknow ,memberType
+        guest = new AppMember(age,Language.English,accessDTO.getRemoteHost() + "-" + accessDTO.getRemoteUserName(), "Guest", "Guest", "","",icon,UserGender.Unknow ,memberType
                 ,1L, DateUtils.getNow(), DateUtils.getNow(), createdBy.get(), createdBy.get());
         appMemberRepository.save(guest);
         String UniqueUserName= guest.getUsername() + guest.getId();
