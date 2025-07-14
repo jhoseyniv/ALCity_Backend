@@ -2,8 +2,9 @@ package com.alcity.entity.puzzle;
 
 import com.alcity.entity.appmember.AppMember;
 import com.alcity.entity.base.BaseTable;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
+import com.alcity.entity.base.PuzzleCategory;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
 
 import java.io.Serializable;
 
@@ -13,8 +14,10 @@ public class PLTemplate extends BaseTable implements Serializable {
     @Column(name="title" ,unique = true)
     private String title;
 
-    @Column(name="url" ,unique = true)
-    private String url;
+    @ManyToOne(fetch = FetchType.LAZY, optional = true)
+    @JoinColumn(name = "puzzle_category_id", nullable = true)
+    @JsonIgnore
+    private PuzzleCategory puzzleCategory;
 
     @Column(name="content")
     private StringBuffer content;
@@ -27,12 +30,12 @@ public class PLTemplate extends BaseTable implements Serializable {
         this.title = title;
     }
 
-    public String getUrl() {
-        return url;
+    public PuzzleCategory getPuzzleCategory() {
+        return puzzleCategory;
     }
 
-    public void setUrl(String url) {
-        this.url = url;
+    public void setPuzzleCategory(PuzzleCategory puzzleCategory) {
+        this.puzzleCategory = puzzleCategory;
     }
 
     public StringBuffer getContent() {
@@ -46,10 +49,10 @@ public class PLTemplate extends BaseTable implements Serializable {
     public PLTemplate() {
     }
 
-    public PLTemplate(String title, String url, StringBuffer content ,Long version, String created, String updated, AppMember createdBy, AppMember updatedBy) {
+    public PLTemplate(String title, PuzzleCategory puzzleCategory, StringBuffer content ,Long version, String created, String updated, AppMember createdBy, AppMember updatedBy) {
         super(version, created, updated, createdBy, updatedBy);
         this.title = title;
-        this.url = url;
+        this.puzzleCategory = puzzleCategory;
         this.content = content;
     }
 }

@@ -1,6 +1,8 @@
 package com.alcity.api;
 
 import com.alcity.dto.puzzle.PLDTO;
+import com.alcity.dto.puzzle.PLTemplateDTO;
+import com.alcity.entity.puzzle.PLTemplate;
 import com.alcity.service.customexception.ALCityResponseObject;
 import com.alcity.service.customexception.UniqueConstraintException;
 import com.alcity.service.customexception.ViolateForeignKeyException;
@@ -47,7 +49,7 @@ public class PuzzleCategoryController {
     @Operation( summary = "Get all Puzzle Group for a puzzle Category ",  description = "Get all Puzzle Category")
     @GetMapping("/id/{id}/pg/all")
     @CrossOrigin(origins = "*")
-    public Collection<PGDTO> getRelatedPuzzleGroupsWithACategory(@PathVariable Long id) {
+    public Collection<PGDTO> getRelatedPuzzleGroupsOfACategory(@PathVariable Long id) {
         Collection<PGDTO> pgdtos = new ArrayList<PGDTO>();
         Optional<PuzzleCategory> puzzleCategoryOptional = puzzleCategoryService.findById(id);
         if(puzzleCategoryOptional.isPresent()) {
@@ -55,6 +57,19 @@ public class PuzzleCategoryController {
             pgdtos = DTOUtil.getPuzzleGroupDTOS(puzzleGroups);
         }
         return pgdtos;
+    }
+
+    @Operation( summary = "Get all Puzzle Level Templates by a puzzle Category id ",  description = "Get all Puzzle Level Templates")
+    @GetMapping("/id/{id}/plt/all")
+    @CrossOrigin(origins = "*")
+    public Collection<PLTemplateDTO> getRelatedPuzzleLevelTemplatesOfACategory(@PathVariable Long id) {
+        Collection<PLTemplateDTO> plTemplateDTOS = new ArrayList<PLTemplateDTO>();
+        Optional<PuzzleCategory> puzzleCategoryOptional = puzzleCategoryService.findById(id);
+        if(puzzleCategoryOptional.isPresent()) {
+            Collection<PLTemplate> templates = puzzleCategoryOptional.get().getPlTemplates();
+            plTemplateDTOS = DTOUtil.getPLTemplateDTOS(templates);
+        }
+        return plTemplateDTOS;
     }
 
     @Operation( summary = "Get all Puzzle Levels for a puzzle Category by age order ",  description = "Get all Puzzle Levels for a puzzle Category by age order")

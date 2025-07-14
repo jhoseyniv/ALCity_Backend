@@ -4,7 +4,8 @@ public class PLTemplateDTO {
 
     private Long id;
     private String title;
-    private String url;
+
+    private Long puzzleCategoryId;
     private StringBuffer content;
 
     public Long getId() {
@@ -23,12 +24,12 @@ public class PLTemplateDTO {
         this.title = title;
     }
 
-    public String getUrl() {
-        return url;
+    public Long getPuzzleCategoryId() {
+        return puzzleCategoryId;
     }
 
-    public void setUrl(String url) {
-        this.url = url;
+    public void setPuzzleCategoryId(Long puzzleCategoryId) {
+        this.puzzleCategoryId = puzzleCategoryId;
     }
 
     public StringBuffer getContent() {
@@ -42,10 +43,10 @@ public class PLTemplateDTO {
     public PLTemplateDTO() {
     }
 
-    public PLTemplateDTO(Long id, String title, String url, StringBuffer content) {
+    public PLTemplateDTO(Long id, String title, Long puzzleCategoryId, StringBuffer content) {
         this.id = id;
         this.title = title;
-        this.url = url;
+        this.puzzleCategoryId = puzzleCategoryId;
         this.content = content;
     }
 }

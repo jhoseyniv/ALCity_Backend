@@ -7,10 +7,12 @@ import com.alcity.entity.alenum.PLStatus;
 import com.alcity.entity.appmember.AppMember;
 import com.alcity.entity.base.BinaryContent;
 import com.alcity.entity.base.PLPrivacy;
+import com.alcity.entity.base.PuzzleCategory;
 import com.alcity.entity.puzzle.PLTemplate;
 import com.alcity.entity.puzzle.PuzzleGroup;
 import com.alcity.entity.puzzle.PuzzleLevel;
 import com.alcity.repository.appmember.AppMemberRepository;
+import com.alcity.repository.base.PuzzleCategoryRepository;
 import com.alcity.repository.puzzle.PLRuleRepository;
 import com.alcity.repository.puzzle.PLTemplateRepository;
 import com.alcity.utility.DateUtils;
@@ -31,6 +33,8 @@ public class PLTemplateService  implements PLTemplateRepository {
     PLTemplateRepository templateRepository;
     @Autowired
     private AppMemberRepository appMemberRepository;
+    @Autowired
+    private PuzzleCategoryRepository puzzleCategoryRepository;
 
     @Override
     public <S extends PLTemplate> S save(S entity) {
@@ -39,9 +43,10 @@ public class PLTemplateService  implements PLTemplateRepository {
 
     public PLTemplate save(PLTemplateDTO dto, String code) {
         Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
+        Optional<PuzzleCategory> puzzleCategoryOptional = puzzleCategoryRepository.findById(dto.getPuzzleCategoryId());
         PLTemplate template=null;
         if (code.equalsIgnoreCase("Save")) { //Save
-            template = new PLTemplate(dto.getTitle(),dto.getUrl(),dto.getContent() ,
+            template = new PLTemplate(dto.getTitle(),puzzleCategoryOptional.get(),dto.getContent() ,
                     1L, DateUtils.getNow(), DateUtils.getNow(), createdBy.get(), createdBy.get());
             templateRepository.save(template);
         }else{//edit
@@ -49,7 +54,7 @@ public class PLTemplateService  implements PLTemplateRepository {
             if(plTemplateOptional.isPresent()) {
                 template = plTemplateOptional.get();
                 template.setContent(dto.getContent());
-                template.setUrl(dto.getUrl());
+                template.setPuzzleCategory(puzzleCategoryOptional.get());
                 template.setTitle(dto.getTitle());
                 template.setUpdated(DateUtils.getNow());
                 template.setVersion(template.getVersion()+1);

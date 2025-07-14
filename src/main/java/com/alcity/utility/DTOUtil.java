@@ -51,7 +51,7 @@ import static java.util.stream.Collectors.toList;
 public class DTOUtil {
 
     public static PLTemplateDTO getPLTemplateDTO(PLTemplate template){
-        PLTemplateDTO dto= new PLTemplateDTO(template.getId(),template.getTitle(), template.getUrl(), template.getContent());
+        PLTemplateDTO dto= new PLTemplateDTO(template.getId(),template.getTitle(), template.getPuzzleCategory().getId(), template.getContent());
         return dto;
     }
     public static PLTemplateDraftDTO getPLTemplateDraftDTO(PLTemplateDraft draft){
@@ -664,6 +664,15 @@ public class DTOUtil {
         }
         return dtos;
     }
+    public static Collection<PLTemplateDTO> getPLTemplateDTOS(Collection<PLTemplate> input) {
+        Collection<PLTemplateDTO> dtos = new ArrayList<PLTemplateDTO>();
+        Iterator<PLTemplate> itr = input.iterator();
+        while (itr.hasNext()) {
+            PLTemplateDTO dto = getPLTemplateDTO(itr.next());
+            dtos.add(dto);
+        }
+        return dtos;
+    }
 
     public static PGDTO getPuzzleGroupDTO(PuzzleGroup input) {
         PGDTO dto = new PGDTO();
@@ -682,6 +691,14 @@ public class DTOUtil {
 
         return dto;
     }
+//    public static PLTemplateDTO getPLTemplateDTO(PLTemplate input) {
+//        PLTemplateDTO dto = new PLTemplateDTO();
+//        dto.setId(input.getId());
+//        dto.setTitle(input.getTitle());
+//        dto.setPuzzleCategoryId(input.getPuzzleCategory().getId());
+//        dto.setContent(input.getContent());
+//        return dto;
+//    }
 
     public static Collection<PuzzleCategoryDTO> getPuzzleCategoryDTOS(Collection<PuzzleCategory> input) {
         Collection<PuzzleCategoryDTO> output = new ArrayList<PuzzleCategoryDTO>();
