@@ -51,11 +51,7 @@ import static java.util.stream.Collectors.toList;
 public class DTOUtil {
 
     public static PLTemplateDTO getPLTemplateDTO(PLTemplate template){
-        PLTemplateDTO dto= new PLTemplateDTO(template.getId(),template.getTitle(), template.getPuzzleCategory().getId(), template.getContent());
-        return dto;
-    }
-    public static PLTemplateDraftDTO getPLTemplateDraftDTO(PLTemplateDraft draft){
-        PLTemplateDraftDTO dto= new PLTemplateDraftDTO(draft.getId(),draft.getTitle(), draft.getJsonTemplate(), draft.getPuzzleLevelId());
+        PLTemplateDTO dto= new PLTemplateDTO(template.getId(),template.getTitle(), template.getFromAge(), template.getToAge(), template.getPuzzleCategory().getId(), template.getContent());
         return dto;
     }
 

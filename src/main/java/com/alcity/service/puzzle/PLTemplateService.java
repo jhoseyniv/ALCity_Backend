@@ -46,7 +46,7 @@ public class PLTemplateService  implements PLTemplateRepository {
         Optional<PuzzleCategory> puzzleCategoryOptional = puzzleCategoryRepository.findById(dto.getPuzzleCategoryId());
         PLTemplate template=null;
         if (code.equalsIgnoreCase("Save")) { //Save
-            template = new PLTemplate(dto.getTitle(),puzzleCategoryOptional.get(),dto.getContent() ,
+            template = new PLTemplate(dto.getTitle(),dto.getFromAge(),dto.getToAge(),puzzleCategoryOptional.get(),dto.getContent() ,
                     1L, DateUtils.getNow(), DateUtils.getNow(), createdBy.get(), createdBy.get());
             templateRepository.save(template);
         }else{//edit

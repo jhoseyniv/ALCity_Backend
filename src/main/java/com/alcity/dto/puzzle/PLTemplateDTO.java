@@ -4,6 +4,8 @@ public class PLTemplateDTO {
 
     private Long id;
     private String title;
+    private Integer fromAge;
+    private Integer toAge;
 
     private Long puzzleCategoryId;
     private StringBuffer content;
@@ -18,6 +20,22 @@ public class PLTemplateDTO {
 
     public String getTitle() {
         return title;
+    }
+
+    public Integer getFromAge() {
+        return fromAge;
+    }
+
+    public void setFromAge(Integer fromAge) {
+        this.fromAge = fromAge;
+    }
+
+    public Integer getToAge() {
+        return toAge;
+    }
+
+    public void setToAge(Integer toAge) {
+        this.toAge = toAge;
     }
 
     public void setTitle(String title) {
@@ -43,9 +61,11 @@ public class PLTemplateDTO {
     public PLTemplateDTO() {
     }
 
-    public PLTemplateDTO(Long id, String title, Long puzzleCategoryId, StringBuffer content) {
+    public PLTemplateDTO(Long id, String title,Integer fromAge,Integer toAge, Long puzzleCategoryId, StringBuffer content) {
         this.id = id;
         this.title = title;
+        this.fromAge = fromAge;
+        this.toAge = toAge;
         this.puzzleCategoryId = puzzleCategoryId;
         this.content = content;
     }

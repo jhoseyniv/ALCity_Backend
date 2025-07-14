@@ -14,6 +14,28 @@ public class PLTemplate extends BaseTable implements Serializable {
     @Column(name="title" ,unique = true)
     private String title;
 
+    @Column(name="fromAge" ,unique = false)
+    private Integer fromAge;
+
+    @Column(name="toAge" ,unique = false)
+    private Integer toAge;
+
+    public Integer getFromAge() {
+        return fromAge;
+    }
+
+    public void setFromAge(Integer fromAge) {
+        this.fromAge = fromAge;
+    }
+
+    public Integer getToAge() {
+        return toAge;
+    }
+
+    public void setToAge(Integer toAge) {
+        this.toAge = toAge;
+    }
+
     @ManyToOne(fetch = FetchType.LAZY, optional = true)
     @JoinColumn(name = "puzzle_category_id", nullable = true)
     @JsonIgnore
@@ -49,9 +71,11 @@ public class PLTemplate extends BaseTable implements Serializable {
     public PLTemplate() {
     }
 
-    public PLTemplate(String title, PuzzleCategory puzzleCategory, StringBuffer content ,Long version, String created, String updated, AppMember createdBy, AppMember updatedBy) {
+    public PLTemplate(String title,Integer fromAge,Integer toAge, PuzzleCategory puzzleCategory, StringBuffer content ,Long version, String created, String updated, AppMember createdBy, AppMember updatedBy) {
         super(version, created, updated, createdBy, updatedBy);
         this.title = title;
+        this.fromAge =fromAge;
+        this.toAge = toAge;
         this.puzzleCategory = puzzleCategory;
         this.content = content;
     }
