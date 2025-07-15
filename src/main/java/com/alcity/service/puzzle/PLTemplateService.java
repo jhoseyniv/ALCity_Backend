@@ -13,8 +13,10 @@ import com.alcity.entity.puzzle.PuzzleGroup;
 import com.alcity.entity.puzzle.PuzzleLevel;
 import com.alcity.repository.appmember.AppMemberRepository;
 import com.alcity.repository.base.PuzzleCategoryRepository;
+import com.alcity.repository.puzzle.PGRepository;
 import com.alcity.repository.puzzle.PLRuleRepository;
 import com.alcity.repository.puzzle.PLTemplateRepository;
+import com.alcity.repository.puzzle.PuzzleLevelRepository;
 import com.alcity.utility.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -36,6 +38,13 @@ public class PLTemplateService  implements PLTemplateRepository {
     @Autowired
     private PuzzleCategoryRepository puzzleCategoryRepository;
 
+    @Qualifier("PGRepository")
+    @Autowired
+    private PGRepository pgRepository;
+
+    @Autowired
+    private PuzzleLevelRepository puzzleLevelRepository;
+
     @Override
     public <S extends PLTemplate> S save(S entity) {
         return null;
@@ -44,9 +53,12 @@ public class PLTemplateService  implements PLTemplateRepository {
     public PLTemplate save(PLTemplateDTO dto, String code) {
         Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
         Optional<PuzzleCategory> puzzleCategoryOptional = puzzleCategoryRepository.findById(dto.getPuzzleCategoryId());
+        Optional<PuzzleGroup> puzzleGroupOptional = pgRepository.findById(dto.getPuzzleGroupId());
+        Optional<PuzzleLevel> puzzleLevelOptional = puzzleLevelRepository.findById(dto.getPuzzleLevelId());
         PLTemplate template=null;
         if (code.equalsIgnoreCase("Save")) { //Save
-            template = new PLTemplate(dto.getTitle(),dto.getFromAge(),dto.getToAge(),puzzleCategoryOptional.get(),dto.getContent() ,
+            template = new PLTemplate(dto.getTitle(),dto.getFromAge(),dto.getToAge(),puzzleCategoryOptional.get(),
+                    puzzleGroupOptional.get(),puzzleLevelOptional.get(),dto.getContent() ,
                     1L, DateUtils.getNow(), DateUtils.getNow(), createdBy.get(), createdBy.get());
             templateRepository.save(template);
         }else{//edit

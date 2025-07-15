@@ -8,6 +8,8 @@ public class PLTemplateDTO {
     private Integer toAge;
 
     private Long puzzleCategoryId;
+    private Long puzzleGroupId;
+    private Long puzzleLevelId;
     private StringBuffer content;
 
     public Long getId() {
@@ -58,15 +60,33 @@ public class PLTemplateDTO {
         this.content = content;
     }
 
+    public Long getPuzzleGroupId() {
+        return puzzleGroupId;
+    }
+
+    public void setPuzzleGroupId(Long puzzleGroupId) {
+        this.puzzleGroupId = puzzleGroupId;
+    }
+
+    public Long getPuzzleLevelId() {
+        return puzzleLevelId;
+    }
+
+    public void setPuzzleLevelId(Long puzzleLevelId) {
+        this.puzzleLevelId = puzzleLevelId;
+    }
+
     public PLTemplateDTO() {
     }
 
-    public PLTemplateDTO(Long id, String title,Integer fromAge,Integer toAge, Long puzzleCategoryId, StringBuffer content) {
+    public PLTemplateDTO(Long id, String title,Integer fromAge,Integer toAge, Long puzzleCategoryId,Long puzzleGroupId,Long puzzleLevelId, StringBuffer content) {
         this.id = id;
         this.title = title;
         this.fromAge = fromAge;
         this.toAge = toAge;
         this.puzzleCategoryId = puzzleCategoryId;
+        this.puzzleGroupId = puzzleGroupId;
+        this.puzzleLevelId = puzzleLevelId;
         this.content = content;
     }
 }
