@@ -41,34 +41,57 @@ public class PLTemplate extends BaseTable implements Serializable {
     @JsonIgnore
     private PuzzleCategory puzzleCategory;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = true)
-    @JoinColumn(name = "puzzle_group_id", nullable = true)
-    @JsonIgnore
-    private PuzzleGroup puzzleGroup;
+//    @ManyToOne(fetch = FetchType.LAZY, optional = true)
+//    @JoinColumn(name = "puzzle_group_id", nullable = true)
+//    @JsonIgnore
+//    private PuzzleGroup puzzleGroup;
+//
+//    @ManyToOne(fetch = FetchType.LAZY, optional = true)
+//    @JoinColumn(name = "puzzle_level_id", nullable = true)
+//    @JsonIgnore
+//    private PuzzleLevel puzzleLevel;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = true)
-    @JoinColumn(name = "puzzle_level_id", nullable = true)
-    @JsonIgnore
-    private PuzzleLevel puzzleLevel;
-
-    public PuzzleGroup getPuzzleGroup() {
-        return puzzleGroup;
-    }
-
-    public void setPuzzleGroup(PuzzleGroup puzzleGroup) {
-        this.puzzleGroup = puzzleGroup;
-    }
-
-    public PuzzleLevel getPuzzleLevel() {
-        return puzzleLevel;
-    }
-
-    public void setPuzzleLevel(PuzzleLevel puzzleLevel) {
-        this.puzzleLevel = puzzleLevel;
-    }
+//    public PuzzleGroup getPuzzleGroup() {
+//        return puzzleGroup;
+//    }
+//
+//    public void setPuzzleGroup(PuzzleGroup puzzleGroup) {
+//        this.puzzleGroup = puzzleGroup;
+//    }
+//
+//    public PuzzleLevel getPuzzleLevel() {
+//        return puzzleLevel;
+//    }
+//
+//    public void setPuzzleLevel(PuzzleLevel puzzleLevel) {
+//        this.puzzleLevel = puzzleLevel;
+//    }
 
     @Column(name="content")
     private StringBuffer content;
+
+
+    @Column(name="puzzle_Level_Id")
+    private Long puzzleLevelId;
+
+    @Column(name="puzzle_group_Id")
+    private Long puzzleGroupId;
+
+    public Long getPuzzleLevelId() {
+        return puzzleLevelId;
+    }
+
+    public void setPuzzleLevelId(Long puzzleLevelId) {
+        this.puzzleLevelId = puzzleLevelId;
+    }
+
+    public Long getPuzzleGroupId() {
+        return puzzleGroupId;
+    }
+
+    public void setPuzzleGroupId(Long puzzleGroupId) {
+        this.puzzleGroupId = puzzleGroupId;
+    }
 
     public String getTitle() {
         return title;
@@ -97,14 +120,14 @@ public class PLTemplate extends BaseTable implements Serializable {
     public PLTemplate() {
     }
 
-    public PLTemplate(String title,Integer fromAge,Integer toAge, PuzzleCategory puzzleCategory,PuzzleGroup puzzleGroup , PuzzleLevel puzzleLevel, StringBuffer content ,Long version, String created, String updated, AppMember createdBy, AppMember updatedBy) {
+    public PLTemplate(String title,Integer fromAge,Integer toAge, PuzzleCategory puzzleCategory,Long puzzleGroupId , Long puzzleLevelId, StringBuffer content ,Long version, String created, String updated, AppMember createdBy, AppMember updatedBy) {
         super(version, created, updated, createdBy, updatedBy);
         this.title = title;
         this.fromAge =fromAge;
         this.toAge = toAge;
         this.puzzleCategory = puzzleCategory;
-        this.puzzleGroup = puzzleGroup;
-        this.puzzleLevel = puzzleLevel;
+        this.puzzleGroupId = puzzleGroupId;
+        this.puzzleLevelId = puzzleLevelId;
         this.content = content;
     }
 }

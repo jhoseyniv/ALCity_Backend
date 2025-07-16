@@ -52,7 +52,7 @@ public class DTOUtil {
 
     public static PLTemplateDTO getPLTemplateDTO(PLTemplate template){
         PLTemplateDTO dto= new PLTemplateDTO(template.getId(),template.getTitle(), template.getFromAge(), template.getToAge(), template.getPuzzleCategory().getId(),
-                 template.getPuzzleGroup().getId(),template.getPuzzleLevel().getId(), template.getContent());
+                 template.getPuzzleGroupId(),template.getPuzzleLevelId(), template.getContent());
         return dto;
     }
 

@@ -53,12 +53,12 @@ public class PLTemplateService  implements PLTemplateRepository {
     public PLTemplate save(PLTemplateDTO dto, String code) {
         Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
         Optional<PuzzleCategory> puzzleCategoryOptional = puzzleCategoryRepository.findById(dto.getPuzzleCategoryId());
-        Optional<PuzzleGroup> puzzleGroupOptional = pgRepository.findById(dto.getPuzzleGroupId());
-        Optional<PuzzleLevel> puzzleLevelOptional = puzzleLevelRepository.findById(dto.getPuzzleLevelId());
+        //Optional<PuzzleGroup> puzzleGroupOptional = pgRepository.findById(dto.getPuzzleGroupId());
+       // Optional<PuzzleLevel> puzzleLevelOptional = puzzleLevelRepository.findById(dto.getPuzzleLevelId());
         PLTemplate template=null;
         if (code.equalsIgnoreCase("Save")) { //Save
             template = new PLTemplate(dto.getTitle(),dto.getFromAge(),dto.getToAge(),puzzleCategoryOptional.get(),
-                    puzzleGroupOptional.get(),puzzleLevelOptional.get(),dto.getContent() ,
+                    dto.getPuzzleGroupId(), dto.getPuzzleLevelId(),dto.getContent() ,
                     1L, DateUtils.getNow(), DateUtils.getNow(), createdBy.get(), createdBy.get());
             templateRepository.save(template);
         }else{//edit
