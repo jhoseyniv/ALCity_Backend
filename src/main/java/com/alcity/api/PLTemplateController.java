@@ -7,6 +7,7 @@ import com.alcity.entity.puzzle.PLTemplate;
 import com.alcity.entity.puzzle.PuzzleLevel;
 import com.alcity.service.customexception.ALCityResponseObject;
 import com.alcity.service.customexception.UniqueConstraintException;
+import com.alcity.service.customexception.ViolateForeignKeyException;
 import com.alcity.service.puzzle.PLTemplateService;
 import com.alcity.service.puzzle.PuzzleLevelService;
 import com.alcity.utility.DTOUtil;
@@ -83,4 +84,22 @@ public class PLTemplateController {
 
         return responseObject;
     }
+    @Operation( summary = "delete a  Puzzle Level  Template",  description = "delete a Puzzle Level template")
+    @DeleteMapping("/del/{id}")
+    @CrossOrigin(origins = "*")
+    public ALCityResponseObject deletePuzzleLevelTemplateById(@PathVariable Long id) {
+        Optional<PLTemplate> existingRecord = plTemplateService.findById(id);
+        if(existingRecord.isPresent()){
+            try {
+                plTemplateService.delete(existingRecord.get());
+            }catch (Exception e )
+            {
+                throw new ViolateForeignKeyException(-1, "error", PuzzleLevel.class.toString(),existingRecord.get().getId());
+            }
+            return new ALCityResponseObject(HttpStatus.OK.value(), "ok", id,"Puzzle Level template deleted Successfully!");
+        }
+        return  new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", id,"Record not found!");
+    }
+
+
 }

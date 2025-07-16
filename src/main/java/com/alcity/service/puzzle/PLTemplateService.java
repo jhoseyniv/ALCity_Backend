@@ -112,7 +112,7 @@ public class PLTemplateService  implements PLTemplateRepository {
 
     @Override
     public void delete(PLTemplate entity) {
-
+        templateRepository.delete(entity);
     }
 
     @Override
