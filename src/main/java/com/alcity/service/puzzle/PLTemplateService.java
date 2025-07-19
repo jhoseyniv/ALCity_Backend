@@ -50,28 +50,46 @@ public class PLTemplateService  implements PLTemplateRepository {
         return null;
     }
 
-    public PLTemplate save(PLTemplateDTO dto, String code) {
+    public PLTemplate saveNew(PLTemplateDTO dto) {
         Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
         Optional<PuzzleCategory> puzzleCategoryOptional = puzzleCategoryRepository.findById(dto.getPuzzleCategoryId());
-        //Optional<PuzzleGroup> puzzleGroupOptional = pgRepository.findById(dto.getPuzzleGroupId());
-       // Optional<PuzzleLevel> puzzleLevelOptional = puzzleLevelRepository.findById(dto.getPuzzleLevelId());
         PLTemplate template=null;
-        if (code.equalsIgnoreCase("Save")) { //Save
+
             template = new PLTemplate(dto.getTitle(),dto.getFromAge(),dto.getToAge(),puzzleCategoryOptional.get(),
                     dto.getPuzzleGroupId(), dto.getPuzzleLevelId(),dto.getContent() ,
                     1L, DateUtils.getNow(), DateUtils.getNow(), createdBy.get(), createdBy.get());
             templateRepository.save(template);
-        }else{//edit
-            Optional<PLTemplate> plTemplateOptional= templateRepository.findById(dto.getId());
+
+        return template;
+    }
+    public PLTemplate editContent(PLTemplateDTO dto) {
+        Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
+        Optional<PuzzleCategory> puzzleCategoryOptional = puzzleCategoryRepository.findById(dto.getPuzzleCategoryId());
+        PLTemplate template=null;
+        Optional<PLTemplate> plTemplateOptional= templateRepository.findById(dto.getId());
             if(plTemplateOptional.isPresent()) {
                 template = plTemplateOptional.get();
                 template.setContent(dto.getContent());
-                template.setPuzzleCategory(puzzleCategoryOptional.get());
-                template.setTitle(dto.getTitle());
                 template.setUpdated(DateUtils.getNow());
                 template.setVersion(template.getVersion()+1);
                 templateRepository.save(template);
             }
+         return template;
+    }
+    public PLTemplate noEditContent(PLTemplateDTO dto) {
+        Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
+        Optional<PuzzleCategory> puzzleCategoryOptional = puzzleCategoryRepository.findById(dto.getPuzzleCategoryId());
+        PLTemplate template=null;
+        Optional<PLTemplate> plTemplateOptional= templateRepository.findById(dto.getId());
+        if(plTemplateOptional.isPresent()) {
+            template = plTemplateOptional.get();
+            template.setPuzzleCategory(puzzleCategoryOptional.get());
+            template.setTitle(dto.getTitle());
+            template.setFromAge(dto.getFromAge());
+            template.setToAge(dto.getToAge());
+            template.setUpdated(DateUtils.getNow());
+            template.setVersion(template.getVersion()+1);
+            templateRepository.save(template);
         }
         return template;
     }

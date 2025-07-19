@@ -56,24 +56,62 @@ public class PLTemplateController {
 
 
     @Operation( summary = "Save a puzzle level Template  ",  description = "Save a puzzle level Template  entity and their data to data base")
-    @PostMapping("/save")
+    @PostMapping("/new")
     @CrossOrigin(origins = "*")
-    public ALCityResponseObject savePuzzleLevelTemplate(@RequestBody PLTemplateDTO dto)  {
+    public ALCityResponseObject saveNewPuzzleLevelTemplate(@RequestBody PLTemplateDTO dto)  {
         PLTemplate savedRecord = null;
         ALCityResponseObject responseObject = new ALCityResponseObject();
 
         if (dto.getId() == null || dto.getId() <= 0L) { //save
             try {
-                savedRecord = plTemplateService.save(dto,"Save");
+                savedRecord = plTemplateService.saveNew(dto);
             } catch (RuntimeException e) {
                 throw new UniqueConstraintException(-1,"Unique Constraint in" + PLTemplate.class , "Error",dto.getId() );
             }
             responseObject = new ALCityResponseObject(HttpStatus.OK.value(), "ok", savedRecord.getId(), "Record Saved Successfully!");
-        } else if (dto.getId() > 0L ) {//edit
+        }
+
+        if (savedRecord==null)
+            responseObject = new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", -1L, "Record Not Found!");
+        else
+            responseObject = new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", -1L, "Record Not Found!");
+
+        return responseObject;
+    }
+    @Operation( summary = "edit a puzzle level Template content only  ",  description = "edit a puzzle level Template content  only")
+    @PostMapping("/edit-content")
+    @CrossOrigin(origins = "*")
+    public ALCityResponseObject editContentOnPuzzleLevelTemplate(@RequestBody PLTemplateDTO dto)  {
+        PLTemplate savedRecord = null;
+        ALCityResponseObject responseObject = new ALCityResponseObject();
+
+       if (dto.getId() > 0L ) {//edit
             //Optional<PuzzleGroup>  puzzleGroupOptional = pgService.findById(dto.getId());
-            savedRecord = plTemplateService.save(dto, "Edit");
+            savedRecord = plTemplateService.editContent(dto);
             if(savedRecord !=null)
-                responseObject = new ALCityResponseObject(HttpStatus.OK.value(), "ok", savedRecord.getId(), "Record Updated Successfully!");
+                responseObject = new ALCityResponseObject(HttpStatus.OK.value(), "ok", savedRecord.getId(), "Template content only Updated Successfully!");
+            else
+                responseObject = new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", dto.getId(), "Record Not Found!");
+        }
+        else if (savedRecord==null)
+            responseObject = new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", -1L, "Record Not Found!");
+        else
+            responseObject = new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", -1L, "Record Not Found!");
+
+        return responseObject;
+    }
+    @Operation( summary = "edit a puzzle level Template except content   ",  description = "edit a puzzle level Template except content  only")
+    @PostMapping("/no-edit-content")
+    @CrossOrigin(origins = "*")
+    public ALCityResponseObject noEditContentOnPuzzleLevelTemplate(@RequestBody PLTemplateDTO dto)  {
+        PLTemplate savedRecord = null;
+        ALCityResponseObject responseObject = new ALCityResponseObject();
+
+        if (dto.getId() > 0L ) {//edit
+            //Optional<PuzzleGroup>  puzzleGroupOptional = pgService.findById(dto.getId());
+            savedRecord = plTemplateService.noEditContent(dto);
+            if(savedRecord !=null)
+                responseObject = new ALCityResponseObject(HttpStatus.OK.value(), "ok", savedRecord.getId(), "Template updated Successfully except content!");
             else
                 responseObject = new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", dto.getId(), "Record Not Found!");
         }
@@ -85,7 +123,7 @@ public class PLTemplateController {
         return responseObject;
     }
     @Operation( summary = "delete a  Puzzle Level  Template",  description = "delete a Puzzle Level template")
-    @DeleteMapping("/del/{id}")
+    @DeleteMapping("/del/id/{id}")
     @CrossOrigin(origins = "*")
     public ALCityResponseObject deletePuzzleLevelTemplateById(@PathVariable Long id) {
         Optional<PLTemplate> existingRecord = plTemplateService.findById(id);
