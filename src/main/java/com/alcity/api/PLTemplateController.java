@@ -37,7 +37,7 @@ public class PLTemplateController {
     public Collection<PLTemplateDTO> getPLTemplates(Model model) {
         Collection<PLTemplateDTO> templateDTOS = new ArrayList<PLTemplateDTO>();
         Collection<PLTemplate> templates = plTemplateService.findAll();
-        templateDTOS = DTOUtil.getPuzzleLevelTemplateDTOS(templates);
+        templateDTOS = DTOUtil.getPLTemplateDTOS(templates);
 
         return templateDTOS;
     }

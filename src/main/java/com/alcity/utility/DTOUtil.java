@@ -57,7 +57,7 @@ public class DTOUtil {
     }
 
 
-    public static Collection<PLTemplateDTO> getPuzzleLevelTemplateDTOS(Collection<PLTemplate> templates){
+    public static Collection<PLTemplateDTO> getPLTemplateDTOS(Collection<PLTemplate> templates){
         Iterator<PLTemplate> itr = templates.iterator();
         Collection<PLTemplateDTO> dtos = new ArrayList<>();
         while (itr.hasNext()) {
