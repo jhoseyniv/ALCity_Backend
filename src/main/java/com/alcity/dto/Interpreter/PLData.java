@@ -3,7 +3,6 @@ package com.alcity.dto.Interpreter;
 
 import com.alcity.dto.Interpreter.object.RecordData;
 import com.alcity.dto.Interpreter.object.RuleData;
-
 import java.io.Serializable;
 import java.util.Collection;
 
@@ -22,6 +21,9 @@ public class PLData implements Serializable {
     private Collection<RecordData> variables;
 
     private Collection<POData> objects;
+
+    private Collection<PLCellData> cells;
+
     private Collection<RuleData> rules;
 
 
@@ -99,13 +101,13 @@ public class PLData implements Serializable {
         this.objects = objects;
     }
 
-//    public Long getBoardGraphicId() {
-//        return boardGraphicId;
-//    }
-//
-//    public void setBoardGraphicId(Long boardGraphicId) {
-//        this.boardGraphicId = boardGraphicId;
-//    }
+    public Collection<PLCellData> getCells() {
+        return cells;
+    }
+
+    public void setCells(Collection<PLCellData> cells) {
+        this.cells = cells;
+    }
 
     public PLData() {
     }

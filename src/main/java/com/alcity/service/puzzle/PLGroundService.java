@@ -2,6 +2,7 @@ package com.alcity.service.puzzle;
 
 import com.alcity.dto.puzzle.PLGroundDTO;
 import com.alcity.entity.appmember.AppMember;
+import com.alcity.entity.puzzle.PLCell;
 import com.alcity.entity.puzzle.PLGround;
 import com.alcity.entity.puzzle.PuzzleLevel;
 import com.alcity.repository.appmember.AppMemberRepository;
@@ -20,6 +21,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import org.springframework.transaction.annotation.Transactional;;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Optional;
 
@@ -33,6 +35,10 @@ public class PLGroundService implements PLGroundRepository {
 
     @Autowired
     private AppMemberRepository appMemberRepository;
+
+    @Autowired
+    private PLCellService plCellService;
+
     @Autowired
     PuzzleLevelRepository puzzleLevelRepository;
     @Autowired
@@ -42,6 +48,23 @@ public class PLGroundService implements PLGroundRepository {
     public <S extends PLGround> S save(S entity) {
         return groundRepository.save(entity);
     }
+
+    public Collection<PLCell> savePLCells(Integer row,Integer col, Integer zorder,PLGround plGround ){
+        Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
+
+        Collection<PLCell> cells = new ArrayList<>();
+        for(Integer i = 1; i<=row; i++)
+            for (Integer j = 1; j <= row; j++)
+                for (Integer k = 1; k <= zorder; k++) {
+                    PLCell cell = new PLCell(1L, DateUtils.getNow(), DateUtils.getNow(), createdBy.get(), createdBy.get(),
+                            i, j, k, plGround);
+                    plCellService.save(cell);
+                    cells.add(cell);
+                }
+
+        return  cells;
+    }
+
     public PLGround save(PLGroundDTO  dto, String code)  {
         Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
         PLGround plGround=null;
@@ -61,6 +84,10 @@ public class PLGroundService implements PLGroundRepository {
                     puzzleLevel,boardGraphic
                                  , 1L, DateUtils.getNow(), DateUtils.getNow(), createdBy.get(), createdBy.get());
             groundRepository.save(plGround);
+
+
+
+
         }else{//edit
             Optional<PLGround> plGroundOptional =  groundRepository.findById(dto.getId());
             if(plGroundOptional.isPresent()) {

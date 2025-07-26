@@ -1,6 +1,7 @@
 package com.alcity.utility;
 
 import com.alcity.comparetors.*;
+import com.alcity.dto.Interpreter.PLCellData;
 import com.alcity.dto.Interpreter.PLObjectiveData;
 import com.alcity.dto.Interpreter.object.*;
 import com.alcity.dto.alenum.EnumDTO;
@@ -44,7 +45,6 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.util.*;
-import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.toList;
 
@@ -1386,7 +1386,36 @@ public class DTOUtil {
         sortedList.sort(ruleOrderComparetor);
         return sortedList;
     }
-    public static Collection<RuleData> getRulesForPuzzleLevel(PuzzleLevel pl, AttributeService attributeService,PLRulePostActionService plRulePostActionService){
+    public static Collection<PLCellDTO> getPLCellDTOS(Collection<PLCell> cells) {
+        Collection<PLCellDTO> dtos = new ArrayList<PLCellDTO>();
+        Iterator<PLCell> iterator = cells.iterator();
+        while(iterator.hasNext()) {
+            PLCell cell = iterator.next();
+            PLCellDTO dto = new PLCellDTO(cell.getId(), cell.getRow(), cell.getCol(), cell.getzOrder(),cell.getPlGround().getId());
+            dtos.add(dto);
+        }
+        return dtos;
+    }
+    public static PLCellDTO getPLCellDTO(PLCell cell) {
+            PLCellDTO dto = new PLCellDTO(cell.getId(), cell.getRow(), cell.getCol(), cell.getzOrder(),cell.getPlGround().getId());
+        return dto;
+    }
+
+    public static Collection<PLCellData> getPLCellDTOS(Collection<PLCell> cells, AttributeService attributeService) {
+        Collection<PLCellData> dtos = new ArrayList<PLCellData>();
+        Iterator<PLCell> iterator = cells.iterator();
+        while(iterator.hasNext()) {
+            PLCell cell = iterator.next();
+            Position position = new Position(cell.getRow(), cell.getCol(), cell.getzOrder());
+            Collection<RecordData>  cellProperties = DTOUtil.getAttributeForOwnerById(attributeService,cell.getId(),AttributeOwnerType.Puzzle_Level_Cell_Property);
+            Collection<RecordData>  cellVariables = DTOUtil.getAttributeForOwnerById(attributeService,cell.getId(),AttributeOwnerType.Puzzle_Level_Cell_Variable);
+            PLCellData dto = new PLCellData(cell.getId(),position,cellProperties,cellVariables);
+            dtos.add(dto);
+        }
+        return dtos;
+    }
+
+        public static Collection<RuleData> getRulesForPuzzleLevel(PuzzleLevel pl, AttributeService attributeService,PLRulePostActionService plRulePostActionService){
         Collection<RuleData> rules = new ArrayList<RuleData>();
         Collection<PLRule>  puzzleLevelRules = pl.getPuzzleLevelRuleCollection();
         Iterator<PLRule> iterator = puzzleLevelRules.iterator();

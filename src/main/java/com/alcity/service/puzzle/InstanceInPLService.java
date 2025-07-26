@@ -1,5 +1,6 @@
 package com.alcity.service.puzzle;
 
+import com.alcity.dto.plimport.PLCellImport;
 import com.alcity.dto.plimport.PLObjectImport;
 import com.alcity.dto.plimport.object.InstanceDataImport;
 import com.alcity.dto.plimport.object.PositionImport;
@@ -30,6 +31,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;;
 import java.util.*;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -39,6 +41,7 @@ public class InstanceInPLService implements InstanceInPLRepository {
     InstanceInPLRepository instanceInPLRepository;
     @Autowired
     private AttributeService attributeService;
+
 
     @Override
     public <S extends ALCityInstanceInPL> S save(S entity) {
@@ -59,15 +62,28 @@ public class InstanceInPLService implements InstanceInPLRepository {
     @Autowired
     private AttributeValueService attributeValueService;
 
+    @Autowired
+    private PLCellService plCellService;
+
+
+    public PLCell getCell(Optional<PuzzleLevel> puzzleLevelOptional,Integer x,Integer y ,Integer z) {
+        PLGround plGround = puzzleLevelOptional.get().getPlGrounds().iterator().next();
+        Collection<PLCell> plCells=plGround.getPlCells();
+        PLCell cell =  getPLCellFromGroundByPosition(plCells,x,y,z);
+         return cell;
+    }
+
     public ALCityInstanceInPL save(CityObjectInPLDTO dto, String code) {
         Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
         Optional<PuzzleLevel> puzzleLevelOptional =  puzzleLevelService.findById(dto.getPuzzleLevelId());
         Optional<ALCityObjectInPG> alCityObjectInPGOptional =  objectInPGService.findById(dto.getAlCityObjectInPGId());
+        PLCell cell = getCell(puzzleLevelOptional,dto.getRow(),dto.getCol(),dto.getZorder());
         if(puzzleLevelOptional.isEmpty() || alCityObjectInPGOptional.isEmpty()) return null;
+
 
         ALCityInstanceInPL instance=null;
             if (code.equalsIgnoreCase("Save")) { //Save
-                instance = new ALCityInstanceInPL(dto.getName(), dto.getRow(),dto.getCol(),dto.getZorder(),alCityObjectInPGOptional.get(),
+                instance = new ALCityInstanceInPL(dto.getName(), dto.getRow(),dto.getCol(),dto.getZorder(),cell,alCityObjectInPGOptional.get(),
                         puzzleLevelOptional.get(), 1L, DateUtils.getNow(), DateUtils.getNow(), createdBy.get(), createdBy.get());
                 instanceInPLRepository.save(instance);
             }else{//edit
@@ -88,9 +104,9 @@ public class InstanceInPLService implements InstanceInPLRepository {
 
 
     @Transactional
-    public ALCityInstanceInPL copyInstanceByPosition(ALCityInstanceInPL source ,PuzzleLevel target , Integer x, Integer y,Integer z) {
+    public ALCityInstanceInPL copyInstanceByPosition(ALCityInstanceInPL source ,PuzzleLevel target ,PLCell cell, Integer x, Integer y,Integer z) {
         //create a copy from instance only
-        ALCityInstanceInPL instanceCopy = new ALCityInstanceInPL("instance_img_" + x + "_" + y + "_"+ z , x ,y,z,source.getAlCityObjectInPG(),target,
+        ALCityInstanceInPL instanceCopy = new ALCityInstanceInPL("instance_img_" + x + "_" + y + "_"+ z , x ,y,z,cell,source.getAlCityObjectInPG(),target,
                 1L,DateUtils.getNow(),DateUtils.getNow(),source.getCreatedBy(),source.getUpdatedBy());
         instanceInPLRepository.save(instanceCopy);
 
@@ -105,6 +121,27 @@ public class InstanceInPLService implements InstanceInPLRepository {
         return instanceCopy;
     }
 
+    public Collection<PLCell> importCells(Collection<PLCellImport> cellImports , PuzzleLevel importedPL) {
+        Collection<PLCell> importedCells = new ArrayList<>();
+        Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
+
+        Iterator<PLCellImport> iterator = cellImports.iterator();
+        while(iterator.hasNext()) {
+            PLCellImport cellImport = iterator.next();
+
+            PLCell importedPLCell = new PLCell(1L,DateUtils.getNow(),DateUtils.getNow(),createdBy.get(),createdBy.get(),cellImport.getPosition().getX(),
+                    cellImport.getPosition().getY(),cellImport.getPosition().getZ(),importedPL.getPlGrounds().iterator().next());
+            plCellService.save(importedPLCell);
+            attributeService.importPLCellVariables(cellImport.getVariables(),importedPLCell,AttributeOwnerType.Puzzle_Level_Cell_Variable);
+            attributeService.importPLCellVariables(cellImport.getProperties(),importedPLCell,AttributeOwnerType.Puzzle_Level_Cell_Property);
+
+
+            importedCells.add(importedPLCell);
+
+        }
+        return importedCells;
+    }
+
     public Collection<ALCityInstanceInPL> importObjects(Collection<PLObjectImport> objectImports , PuzzleLevel importedPL) {
         Collection<ALCityInstanceInPL> importedInstances = new ArrayList<>();
         Iterator<PLObjectImport> iterator = objectImports.iterator();
@@ -112,8 +149,9 @@ public class InstanceInPLService implements InstanceInPLRepository {
             PLObjectImport objectImport = iterator.next();
             Optional<ALCityObject> cityObjectOptional = objectService.findById(objectImport.getId());
             Optional<ALCityObjectInPG> alCityObjectInPGOptional = objectInPGService.findByPuzzleGroupAndAlCityObject(importedPL.getPuzzleGroup(),cityObjectOptional.get().getId());
-
-            Collection<ALCityInstanceInPL> instances = importInstances(alCityObjectInPGOptional.get(),objectImport.getInstances(),importedPL);
+            PLGround  plGround = importedPL.getPlGrounds().iterator().next();
+            Collection<PLCell> cells = plGround.getPlCells();
+            Collection<ALCityInstanceInPL> instances = importInstances(alCityObjectInPGOptional.get(),objectImport.getInstances(),cells,importedPL);
             importedInstances.addAll(instances);
         }
         return importedInstances;
@@ -141,7 +179,7 @@ public class InstanceInPLService implements InstanceInPLRepository {
             deleteAnInstance(instance);
         }
    }
-    public Collection<ALCityInstanceInPL> importInstances(ALCityObjectInPG alCityObjectInPG,Collection<InstanceDataImport> instanceDataImports , PuzzleLevel importedPL) {
+    public Collection<ALCityInstanceInPL> importInstances(ALCityObjectInPG alCityObjectInPG,Collection<InstanceDataImport> instanceDataImports,Collection<PLCell> cells , PuzzleLevel importedPL) {
         Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
         Collection<ALCityInstanceInPL> importedInstances = new ArrayList<>();
         Iterator<InstanceDataImport> iterator = instanceDataImports.iterator();
@@ -149,7 +187,12 @@ public class InstanceInPLService implements InstanceInPLRepository {
         while(iterator.hasNext()) {
             InstanceDataImport instanceDataImport = iterator.next();
             PositionImport position = instanceDataImport.getPosition();
-            importedInstance = new ALCityInstanceInPL(instanceDataImport.getName(),position.getX(),position.getY(),position.getZ(),
+//            Collection<PLCell> matchValueOptional_row = cells.stream().filter(cell -> cell.getRow().equals(position.getX())).collect(Collectors.toList());
+//            Collection<PLCell> matchValueOptional_col = matchValueOptional_row.stream().filter(cell -> cell.getCol().equals(position.getY())).collect(Collectors.toList());
+//            Collection<PLCell> matchValueOptional_zorder = matchValueOptional_col.stream().filter(cell -> cell.getzOrder().equals(position.getZ())).collect(Collectors.toList());
+//            Optional<PLCell> cell = matchValueOptional_zorder.stream().findFirst();
+             PLCell cell = getPLCellFromGroundByPosition(cells, position.getX(), position.getY(), position.getZ());
+            importedInstance = new ALCityInstanceInPL(instanceDataImport.getName(),position.getX(),position.getY(),position.getZ(),cell,
                     alCityObjectInPG,importedPL,1L,DateUtils.getNow(),DateUtils.getNow(),createdBy.get(),createdBy.get());
             instanceInPLRepository.save(importedInstance);
             attributeService.importPLInstanceVariables(instanceDataImport.getVariables(),importedInstance,AttributeOwnerType.Instance_Puzzle_Group_Object_Variable);
@@ -160,15 +203,24 @@ public class InstanceInPLService implements InstanceInPLRepository {
         return importedInstances;
     }
 
-
+    public PLCell getPLCellFromGroundByPosition( Collection<PLCell> cells , Integer x,Integer y, Integer z){
+        Collection<PLCell> matchValueOptional_row = cells.stream().filter(cell -> cell.getRow().equals(x)).collect(Collectors.toList());
+        Collection<PLCell> matchValueOptional_col = matchValueOptional_row.stream().filter(cell -> cell.getCol().equals(y)).collect(Collectors.toList());
+        Collection<PLCell> matchValueOptional_zorder = matchValueOptional_col.stream().filter(cell -> cell.getzOrder().equals(z)).collect(Collectors.toList());
+        Optional<PLCell> cell = matchValueOptional_zorder.stream().findFirst();
+        return cell.get();
+    }
     public Collection<ALCityInstanceInPL> copyInstancesFromSourcePLToTargetPL(PuzzleLevel source ,PuzzleLevel target) {
         Collection<ALCityInstanceInPL> copiedInstances = new ArrayList<>();
         Collection<ALCityInstanceInPL> sourceInstances = source.getPuzzleGroupObjectInstanceCollection();
         Iterator<ALCityInstanceInPL> iterator = sourceInstances.iterator();
+        Collection<PLGround> plGrounds = source.getPlGrounds();
+        PLGround plGround = plGrounds.iterator().next();
 
         while(iterator.hasNext()) {
             ALCityInstanceInPL instance = iterator.next();
-            copyInstanceByPosition(instance,target,instance.getRow(),instance.getCol(),instance.getzOrder());
+            PLCell  plCell = getPLCellFromGroundByPosition(plGround.getPlCells(), instance.getRow(), instance.getCol(),instance.getzOrder());
+            copyInstanceByPosition(instance,target,plCell,instance.getRow(),instance.getCol(),instance.getzOrder());
         }
         return copiedInstances;
     }
@@ -183,6 +235,7 @@ public class InstanceInPLService implements InstanceInPLRepository {
         Integer instanceZPos = instance.getzOrder();
         Integer numOfRows = plGround.getNumRows();
         Integer numOfCols = plGround.getNumColumns();
+        Collection<PLCell> cells = plGround.getPlCells();
         for(int height=1;height<=1;height++)
         for(int row=1; row<=numOfRows;row++)
             for(int col=1; col<=numOfCols;col++){
@@ -192,7 +245,8 @@ public class InstanceInPLService implements InstanceInPLRepository {
                     //do nothing
                 }else {
                     //copy instance to this location
-                    ALCityInstanceInPL instanceCopy = copyInstanceByPosition(instance,plGround.getPuzzleLevel(),row,col,height);
+                    PLCell plCell = getPLCellFromGroundByPosition(cells,row,col,height);
+                    ALCityInstanceInPL instanceCopy = copyInstanceByPosition(instance,plGround.getPuzzleLevel(),plCell,row,col,height);
                     copiedInstances.add(instanceCopy);
                 }
             }

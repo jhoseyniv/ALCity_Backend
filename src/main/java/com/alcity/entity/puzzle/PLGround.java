@@ -7,6 +7,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.*;
 
+import java.util.Collection;
+
 @Entity
 public class PLGround extends BaseTable {
 
@@ -43,6 +45,19 @@ public class PLGround extends BaseTable {
     @Column(name="rotation")
     private Boolean rotation;
 
+
+    @OneToMany(mappedBy = "plGround", fetch = FetchType.LAZY)
+    @JsonIgnore
+    private Collection<PLCell> plCells;
+
+
+    public Collection<PLCell> getPlCells() {
+        return plCells;
+    }
+
+    public void setPlCells(Collection<PLCell> plCells) {
+        this.plCells = plCells;
+    }
 
 
     public Integer getNumRows() {

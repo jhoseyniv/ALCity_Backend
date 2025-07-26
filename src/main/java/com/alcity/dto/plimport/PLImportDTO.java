@@ -45,6 +45,8 @@ public class PLImportDTO implements Serializable {
     private Collection<RecordDataImport> variables;
 
     private Collection<PLObjectImport> objects;
+
+    private Collection<PLCellImport> cells;
     private Collection<PLRuleImport> rules;
     private Collection<PLLearningTopicImport> learningTopics;
 
@@ -72,6 +74,13 @@ public class PLImportDTO implements Serializable {
         this.variables = variables;
     }
 
+    public Collection<PLCellImport> getCells() {
+        return cells;
+    }
+
+    public void setCells(Collection<PLCellImport> cells) {
+        this.cells = cells;
+    }
 
     public Collection<PLObjectiveImport> getObjectives() {
         return objectives;

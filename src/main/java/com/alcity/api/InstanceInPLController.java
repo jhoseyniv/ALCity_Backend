@@ -6,16 +6,14 @@ import com.alcity.dto.puzzle.CityObjectInPGDTO;
 import com.alcity.dto.puzzle.CityObjectInPLDTO;
 import com.alcity.entity.alenum.POActionOwnerType;
 import com.alcity.entity.alobject.ObjectAction;
-import com.alcity.entity.puzzle.ALCityInstanceInPL;
-import com.alcity.entity.puzzle.PLGround;
-import com.alcity.entity.puzzle.PLRuleEvent;
-import com.alcity.entity.puzzle.PuzzleLevel;
+import com.alcity.entity.puzzle.*;
 import com.alcity.service.alobject.ActionService;
 import com.alcity.service.alobject.AttributeService;
 import com.alcity.service.customexception.ALCityResponseObject;
 import com.alcity.service.customexception.UniqueConstraintException;
 import com.alcity.service.customexception.ViolateForeignKeyException;
 import com.alcity.service.puzzle.InstanceInPLService;
+import com.alcity.service.puzzle.PLCellService;
 import com.alcity.utility.DTOUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -38,6 +36,10 @@ public class InstanceInPLController {
 
     @Autowired
     private AttributeService attributeService;
+
+    @Autowired
+    private PLCellService plCellService;
+
 
     @Autowired
     ActionService actionService;
@@ -68,6 +70,23 @@ public class InstanceInPLController {
         else
             responseObject = new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", -1L, "Record Not Found!");
 
+        return responseObject;
+    }
+    @Operation( summary = "Add an Instance to a PL Cell ",  description = "Add an Instance to a PL Cell ")
+    @PostMapping("/{iid}/iid/add-to-cell/{cid}/cid")
+    @CrossOrigin(origins = "*")
+    public ALCityResponseObject addInstanceToPLCell(@PathVariable Long iid,@PathVariable Long cid)  {
+        ALCityInstanceInPL savedRecord = null;
+        ALCityResponseObject responseObject = new ALCityResponseObject();
+        Optional<ALCityInstanceInPL> alCityInstanceInPLOptional = service.findById(iid);
+        Optional<PLCell> plCellOptional = plCellService.findById(iid);
+
+        if(plCellOptional.isEmpty() || alCityInstanceInPLOptional.isEmpty())
+            return  new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "Error", -1L, "Instance id or cell id not found!");
+
+        ALCityInstanceInPL instance = alCityInstanceInPLOptional.get();
+        instance.setPlCell(plCellOptional.get());
+        service.save(instance);
         return responseObject;
     }
 

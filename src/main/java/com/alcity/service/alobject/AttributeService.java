@@ -12,10 +12,7 @@ import com.alcity.entity.alobject.AttributeValue;
 import com.alcity.entity.alobject.ObjectAction;
 import com.alcity.entity.alobject.Renderer;
 import com.alcity.entity.appmember.AppMember;
-import com.alcity.entity.puzzle.ALCityInstanceInPL;
-import com.alcity.entity.puzzle.ALCityObjectInPG;
-import com.alcity.entity.puzzle.PuzzleGroup;
-import com.alcity.entity.puzzle.PuzzleLevel;
+import com.alcity.entity.puzzle.*;
 import com.alcity.repository.alobject.ActionRepository;
 import com.alcity.repository.alobject.AttributeRepository;
 import com.alcity.repository.alobject.AttributeValueRepository;
@@ -193,6 +190,16 @@ public class AttributeService implements AttributeRepository {
         while(iterator.hasNext()) {
             RecordDataImport variableImport = iterator.next();
             Attribute attribute = importVariables(variableImport,instance.getId(),ownerType);
+            importedAttributes.add(attribute);
+        }
+        return importedAttributes;
+    }
+    public Collection<Attribute> importPLCellVariables(Collection<RecordDataImport> variables, PLCell plCell, AttributeOwnerType ownerType){
+        Collection<Attribute>  importedAttributes = new ArrayList<>();
+        Iterator<RecordDataImport> iterator =variables.iterator();
+        while(iterator.hasNext()) {
+            RecordDataImport variableImport = iterator.next();
+            Attribute attribute = importVariables(variableImport,plCell.getId(),ownerType);
             importedAttributes.add(attribute);
         }
         return importedAttributes;

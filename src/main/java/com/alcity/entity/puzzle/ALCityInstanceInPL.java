@@ -35,6 +35,19 @@ public class ALCityInstanceInPL extends BaseTable implements Serializable {
         this.alCityObjectInPG = alCityObjectInPG;
     }
 
+    @ManyToOne(fetch = FetchType.LAZY, optional = true)
+    @JoinColumn(name = "pl_cell_id", nullable = true)
+    @JsonIgnore
+    private PLCell plCell;
+
+    public PLCell getPlCell() {
+        return plCell;
+    }
+
+    public void setPlCell(PLCell plCell) {
+        this.plCell = plCell;
+    }
+
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "puzzle_Level_id", nullable = false)
     @JsonIgnore
@@ -83,9 +96,10 @@ public class ALCityInstanceInPL extends BaseTable implements Serializable {
     public ALCityInstanceInPL() {
     }
 
-    public ALCityInstanceInPL(String name, Integer row, Integer col, Integer zOrder, ALCityObjectInPG alCityObjectInPG, PuzzleLevel puzzleLevel, Long version, String created, String updated, AppMember createdBy, AppMember updatedBy) {
+    public ALCityInstanceInPL(String name, Integer row, Integer col, Integer zOrder,PLCell plCell, ALCityObjectInPG alCityObjectInPG, PuzzleLevel puzzleLevel, Long version, String created, String updated, AppMember createdBy, AppMember updatedBy) {
         super(version, created, updated, createdBy, updatedBy);
         this.name = name;
+        this.plCell = plCell;
         this.row = row;
         this.col = col;
         this.zOrder = zOrder;

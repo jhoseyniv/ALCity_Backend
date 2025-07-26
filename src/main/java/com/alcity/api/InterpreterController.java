@@ -8,6 +8,7 @@ import com.alcity.entity.alenum.ObjectActionType;
 import com.alcity.entity.alobject.*;
 import com.alcity.entity.base.BinaryContent;
 import com.alcity.entity.puzzle.*;
+import com.alcity.entity.puzzle.PLCell;
 import com.alcity.service.alobject.AttributeService;
 import com.alcity.service.alobject.ActionService;
 import com.alcity.service.customexception.ALCityResponseObject;
@@ -71,11 +72,11 @@ public class InterpreterController {
         PLData plData = new PLData();
         if(puzzleLevelOptional.isPresent()){
             PuzzleLevel puzzleLevel = puzzleLevelOptional.get();
-            if(puzzleLevel.getInterpreterFile()!=null)
-                plData = PLDTOUtil.getInterpreterJSON(puzzleLevel);
-            else {
+         //   if(puzzleLevel.getInterpreterFile()!=null)
+         //       plData = PLDTOUtil.getInterpreterJSON(puzzleLevel);
+         //   else {
                 plData = getJsonFile(id);
-            }
+           // }
         }
         return plData;
     }
@@ -106,12 +107,16 @@ public class InterpreterController {
             puzzleLevelData.setObjectives(plObjectiveDataCollection);
             PuzzleGroup pg = pl.getPuzzleGroup();
             Collection<POData> objects = getObjectsForPuzzleGroup(pg,pl);
+            Collection<PLCell> cells = plGround.getPlCells();
+
+            Collection<PLCellData> cellDTOS = DTOUtil.getPLCellDTOS(cells,attributeService);
             Collection<RuleData> rules = DTOUtil.getRulesForPuzzleLevel(pl,attributeService,plRulePostActionService);
 
             puzzleLevelData.setCols(plGround.getNumColumns());
             puzzleLevelData.setRows(plGround.getNumRows());
             puzzleLevelData.setVariables(puzzleLevelVariables);
             puzzleLevelData.setObjects(objects);
+            puzzleLevelData.setCells(cellDTOS);
             puzzleLevelData.setRules(rules);
             byte[] bytes = ImageUtil.convertObjectToBytes(puzzleLevelData);
             pl.setInterpreterFile(bytes);

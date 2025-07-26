@@ -3,10 +3,12 @@ package com.alcity.api;
 
 import com.alcity.dto.base.BinaryContentDTO;
 import com.alcity.dto.puzzle.CameraSetupDTO;
+import com.alcity.dto.puzzle.PLCellDTO;
 import com.alcity.dto.puzzle.PLGroundDTO;
 import com.alcity.dto.puzzle.boardgraphic.BoardGraphicDTO;
 import com.alcity.entity.base.BinaryContent;
 import com.alcity.entity.base.PuzzleCategory;
+import com.alcity.entity.puzzle.PLCell;
 import com.alcity.entity.puzzle.PLGround;
 import com.alcity.entity.puzzle.PuzzleGroup;
 import com.alcity.entity.puzzle.PuzzleLevel;
@@ -14,6 +16,7 @@ import com.alcity.service.base.BinaryContentService;
 import com.alcity.service.customexception.ALCityResponseObject;
 import com.alcity.service.customexception.UniqueConstraintException;
 import com.alcity.service.customexception.ViolateForeignKeyException;
+import com.alcity.service.puzzle.PLCellService;
 import com.alcity.service.puzzle.PLGroundService;
 import com.alcity.utility.DTOUtil;
 import com.alcity.utility.PLDTOUtil;
@@ -26,7 +29,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Optional;
 
 @Tag(name = "Puzzle Level Ground API ", description = "Get Puzzle Levels Ground Format for other systems...")
@@ -37,6 +42,9 @@ public class PLGroundController {
 
     @Autowired
     private PLGroundService plGroundService;
+
+    @Autowired
+    private PLCellService plCellService;
 
      @Autowired
     private BinaryContentService binaryContentService;
@@ -79,77 +87,6 @@ public class PLGroundController {
 
         return responseObject;
     }
-/*
-    @Operation( summary = "Save a Camera Setup information for a PL ground ",  description = "Save a Camera Setup information for a PL ground")
-    @PostMapping("/id/{id}/save/camera-setup")
-    @CrossOrigin(origins = "*")
-    public ALCityResponseObject saveCameraSetupPLGround(@RequestBody CameraSetupDTO dto,@PathVariable Long id)  {
-        CameraSetup_old savedRecord = null;
-        PLGround plGround = null;
-                ALCityResponseObject responseObject = new ALCityResponseObject();
-        Optional<PLGround> plGroundOptional = plGroundService.findById(id);
-        if(plGroundOptional.isPresent())
-                 plGround =  plGroundOptional.get();
-        if (dto.getId() == null || dto.getId() <= 0L) { //save
-            try {
-                savedRecord = cameraSetupService.save(dto,"Save");
-             } catch (RuntimeException e) {
-                throw new UniqueConstraintException(dto.getTitle(), dto.getId(), "Code Must be Unique");
-            }
-            responseObject = new ALCityResponseObject(HttpStatus.OK.value(), "ok", savedRecord.getId(), "CameraSetup Saved Successfully!");
-        } else if (dto.getId() > 0L ) {//edit
-            savedRecord = cameraSetupService.save(dto, "Edit");
-            if(savedRecord !=null)
-                responseObject = new ALCityResponseObject(HttpStatus.OK.value(), "ok", savedRecord.getId(), "CameraSetup Updated Successfully!");
-            else
-                responseObject = new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", dto.getId(), "CameraSetup Not Found!");
-        }
-        else if (savedRecord==null)
-            responseObject = new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", -1L, "CameraSetup Not Found!");
-        else
-            responseObject = new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", -1L, "CameraSetup Not Found!");
-        plGround.setCameraSetup(savedRecord);
-        plGroundService.save(plGround);
-
-        return responseObject;
-    }
-    @Operation( summary = "Save a Board Graphic information for a PL ground ",  description = "Save a Board Graphic information for a PL ground")
-    @PostMapping("/id/{id}/save/board-graphic")
-    @CrossOrigin(origins = "*")
-    public ALCityResponseObject saveBoardGraphicPLGround(@RequestBody BinaryContentDTO dto,@PathVariable Long id) throws IOException {
-        BinaryContent savedRecord = null;
-        PLGround plGround = null;
-        ALCityResponseObject responseObject = new ALCityResponseObject();
-        Optional<PLGround> plGroundOptional = plGroundService.findById(id);
-        if(plGroundOptional.isPresent())
-            plGround =  plGroundOptional.get();
-        if (dto.getId() == null || dto.getId() <= 0L) { //save
-            try {
-                savedRecord = binaryContentService.save(dto,"Save");
-            } catch (RuntimeException e) {
-                throw new UniqueConstraintException("PL", dto.getId(), "Code Must be Unique");
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-            responseObject = new ALCityResponseObject(HttpStatus.OK.value(), "ok", savedRecord.getId(), "Record Saved Successfully!");
-        } else if (dto.getId() > 0L ) {//edit
-            savedRecord = binaryContentService.save(dto, "Edit");
-            if(savedRecord !=null)
-                responseObject = new ALCityResponseObject(HttpStatus.OK.value(), "ok", savedRecord.getId(), "Record Updated Successfully!");
-            else
-                responseObject = new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", dto.getId(), "Record Not Found!");
-        }
-        else if (savedRecord==null)
-            responseObject = new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", -1L, "Record Not Found!");
-        else
-            responseObject = new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", -1L, "Record Not Found!");
-     //   plGround.setBoardGraphic(savedRecord);
-        plGroundService.save(plGround);
-
-        return responseObject;
-    }
-
- */
     @Operation( summary = "Fetch board graphic for a puzzle level by  Id ",  description = "Fetch board graphic for a puzzle level by  Id")
     @RequestMapping(value = "/id/{id}/boardgraphic", method = RequestMethod.GET)
     @ResponseBody
@@ -163,8 +100,6 @@ public class PLGroundController {
         }
         return boardGraphicDTO;
     }
-
-
 
     @Operation( summary = "delete a  PL Ground ",  description = "delete a PL ground")
     @DeleteMapping("/del/{id}")
@@ -182,5 +117,19 @@ public class PLGroundController {
         }
         return  new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", id,"Record not found!");
     }
+
+    @Operation( summary = "Fetch puzzle level cells for a PL Ground by a Id ",  description = "Fetch puzzle level cells for a PL Ground by a Id ")
+    @RequestMapping(value = "/id/{id}/cells", method = RequestMethod.GET)
+    @ResponseBody
+    @CrossOrigin(origins = "*")
+    public Collection<PLCellDTO> getPLCellsById(@PathVariable Long id) throws IOException, ClassNotFoundException, JSONException {
+        Collection<PLCell> cells = new ArrayList<>();
+        Collection<PLCellDTO> dtos = new ArrayList<>();
+        Optional<PLGround> plGroundOptional = plGroundService.findById(id);
+        cells = plGroundOptional.get().getPlCells();
+        dtos = DTOUtil.getPLCellDTOS(cells);
+        return dtos;
+    }
+
 
 }

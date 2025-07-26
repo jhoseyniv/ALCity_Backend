@@ -283,6 +283,7 @@ public class PuzzleLevel extends BaseTable implements Serializable {
         this.puzzleGroupObjectInstanceCollection = puzzleGroupObjectInstanceCollection;
     }
 
+
     public Float getFirstStarScore() {
         return firstStarScore;
     }
