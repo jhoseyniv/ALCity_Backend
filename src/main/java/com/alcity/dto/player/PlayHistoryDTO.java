@@ -32,6 +32,7 @@ public class PlayHistoryDTO {
 
     private  String stepTitle;
 
+    private  StringBuffer analyticalData;
 
 
     public Long getId() {
@@ -155,6 +156,14 @@ public class PlayHistoryDTO {
         this.stepTitle = stepTitle;
     }
 
+    public StringBuffer getAnalyticalData() {
+        return analyticalData;
+    }
+
+    public void setAnalyticalData(StringBuffer analyticalData) {
+        this.analyticalData = analyticalData;
+    }
+
     public PlayHistoryDTO() {
     }
 
@@ -199,7 +208,7 @@ public class PlayHistoryDTO {
     }
 
     public PlayHistoryDTO(Long id, String startPlayTime, String endPlayTime, Long playDuration, Float playScore, Integer stars, Long playerId, String playerUsername, Long plId, String plTitle, String plCode, Integer plFromAge, Integer plToAge, Float plMaxScore, Long pgId, String pgTitle,
-                          Long journeyId, String journeyTitle, Long stepId, String stepTitle) {
+                          Long journeyId, String journeyTitle, Long stepId, String stepTitle,StringBuffer analyticalData) {
         this.id = id;
         this.startPlayTime = startPlayTime;
         this.endPlayTime = endPlayTime;
@@ -220,5 +229,6 @@ public class PlayHistoryDTO {
         this.journeyTitle = journeyTitle;
         this.stepId = stepId;
         this.stepTitle = stepTitle;
+        this.analyticalData = analyticalData;
     }
 }

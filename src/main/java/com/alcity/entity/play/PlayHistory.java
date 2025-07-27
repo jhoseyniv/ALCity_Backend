@@ -34,6 +34,10 @@ public class PlayHistory extends BaseTable {
     @Column(name="stars")
     private Integer stars;
 
+    @Lob
+    @Basic(fetch = FetchType.LAZY)
+    private byte[] analyticalData;
+
     public AppMember getPlayer() {
         return player;
     }
@@ -90,10 +94,18 @@ public class PlayHistory extends BaseTable {
         this.stars = stars;
     }
 
+    public byte[] getAnalyticalData() {
+        return analyticalData;
+    }
+
+    public void setAnalyticalData(byte[] analyticalData) {
+        this.analyticalData = analyticalData;
+    }
+
     public PlayHistory() {
     }
 
-    public PlayHistory(AppMember player, PuzzleLevel puzzleLevel, String startPlayTime,String endPlayTime,Long playDuration , Float playScore,Integer stars, Long version, String created, String updated, AppMember createdBy, AppMember updatedBy) {
+    public PlayHistory(AppMember player, PuzzleLevel puzzleLevel, String startPlayTime,String endPlayTime,Long playDuration , Float playScore,Integer stars,byte[] analyticalData, Long version, String created, String updated, AppMember createdBy, AppMember updatedBy) {
         super(version, created, updated, createdBy, updatedBy);
         this.player = player;
         this.puzzleLevel = puzzleLevel;
@@ -102,5 +114,6 @@ public class PlayHistory extends BaseTable {
         this.playDuration = playDuration;
         this.playScore = playScore;
         this.stars = stars;
+        this.analyticalData=analyticalData;
     }
 }

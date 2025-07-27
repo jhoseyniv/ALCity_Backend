@@ -81,7 +81,7 @@ public class BinaryContentController {
 //        return responseObject;
 //    }
 
-    @Operation( summary = "Save a Binary Content to database by DTO ",  description = "Save a  Binary Content entity and their data to data base")
+    @Operation( summary = "Save a Binary Content to database by DTO ",  description = "Save a Binary Content entity and their data to data base")
     @PostMapping("/save")
     @CrossOrigin(origins = "*")
     public ALCityResponseObject saveBinaryContentByDTO(@RequestBody BinaryContentDTO dto ) throws IOException {
