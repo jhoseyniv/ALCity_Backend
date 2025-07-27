@@ -15,7 +15,9 @@ import com.alcity.utility.DTOUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
@@ -43,6 +45,17 @@ public class BinaryContentController {
         if(binaryContentOptional.isPresent())
             return binaryContentOptional.get();
         return null;
+    }
+
+    @GetMapping("/get-file/{id}")
+    @CrossOrigin(origins = "*")
+    public ResponseEntity<byte[]> getFile(@PathVariable Long id) {
+       Optional<BinaryContent>  binaryContentOptional= binaryContentService.findById(id);
+       if(binaryContentOptional.isEmpty()) return  null;
+       BinaryContent binaryContent = binaryContentOptional.get();
+        return ResponseEntity.ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + binaryContent.getFileName()+"."+binaryContent.getContentType() + "\"")
+                .body(binaryContent.getContent());
     }
     @PostMapping("/search")
     @ResponseBody

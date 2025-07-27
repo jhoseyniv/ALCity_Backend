@@ -123,10 +123,16 @@ public class BinaryContentService implements BinaryContentRepository , BinaryCon
     }
 
     @Override
-    public Collection<BinaryContent> findByFileNameContainsIgnoreCaseOrTag1ContainsIgnoreCaseOrTag2ContainsIgnoreCaseOrTag3ContainsIgnoreCase(String fileName,String tag1, String tag2, String tag3) {
-        return binaryContentRepository.findByFileNameContainsIgnoreCaseOrTag1ContainsIgnoreCaseOrTag2ContainsIgnoreCaseOrTag3ContainsIgnoreCase(fileName,tag1,tag2,tag3);
+    public Collection<BinaryContent> findByFileNameContainsIgnoreCaseOrTag1ContainsIgnoreCaseOrTag2ContainsIgnoreCaseOrTag3ContainsIgnoreCase(String fileName, String tag1, String tag2, String tag3) {
+        return binaryContentRepository.findByFileNameContainsIgnoreCaseOrTag1ContainsIgnoreCaseOrTag2ContainsIgnoreCaseOrTag3ContainsIgnoreCase(fileName, tag1, tag2, tag3);
     }
 
+    public byte[] getFile(Long id){
+       Optional<BinaryContent> binaryContentOptional = binaryContentRepository.findById(id);
+       if(binaryContentOptional.isPresent())
+           return binaryContentOptional.get().getContent();
+       return null;
+    }
 
     public Collection<BinaryContent> findByCriteria(ContentSearchCriteriaDTO dto) {
         BinaryContentType contentType =BinaryContentType.getById(dto.getContentTypeId());
