@@ -54,7 +54,7 @@ public class BinaryContentController {
        if(binaryContentOptional.isEmpty()) return  null;
        BinaryContent binaryContent = binaryContentOptional.get();
         return ResponseEntity.ok()
-                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + binaryContent.getFileName()+"."+binaryContent.getContentType() + "\"")
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + binaryContent.getFileName() + "\"")
                 .body(binaryContent.getContent());
     }
     @PostMapping("/search")
