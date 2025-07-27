@@ -446,6 +446,12 @@ public class AttributeService implements AttributeRepository {
         Collection<Attribute> parameters = attributeRepository.findByOwnerIdAndAttributeOwnerType(ownerId,ownerType);
         return parameters;
     }
+    public Collection<Attribute> findPuzzleLevelCellVariable(Long ownerId,AttributeOwnerType ownerType) {
+        Collection<Attribute> outputAttributes = new ArrayList<Attribute>();
+        //fetch RulePostAction parameters
+        Collection<Attribute> parameters = attributeRepository.findByOwnerIdAndAttributeOwnerType(ownerId,ownerType);
+        return parameters;
+    }
     public Collection<Attribute> findPuzzleLevelVariable(Long ownerId,AttributeOwnerType ownerType) {
         Collection<Attribute> outputAttributes = new ArrayList<Attribute>();
         //fetch variables for a pl
@@ -831,6 +837,13 @@ public class AttributeService implements AttributeRepository {
         if(ownerType == AttributeOwnerType.Puzzle_Level_Rule_Post_Action_Parameter) {
             outputAttributes = findPuzzleLevelRulePostActionParameters(ownerId,ownerType);
         }
+        if(ownerType == AttributeOwnerType.Puzzle_Level_Cell_Variable) {
+            outputAttributes = findPuzzleLevelCellVariable(ownerId,ownerType);
+        }
+        if(ownerType == AttributeOwnerType.Puzzle_Level_Cell_Property) {
+            outputAttributes = findPuzzleLevelCellVariable(ownerId,ownerType);
+        }
+
         return outputAttributes;
         }
 /*
