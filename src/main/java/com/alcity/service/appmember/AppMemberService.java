@@ -1,5 +1,7 @@
 package com.alcity.service.appmember;
 
+import com.alcity.comparetors.JourneyStepComparator;
+import com.alcity.comparetors.PLComparatorByFromAge;
 import com.alcity.dto.RemoteAccess.RemoteRequestDTO;
 import com.alcity.dto.appmember.*;
 import com.alcity.dto.journey.RoadMapDTO;
@@ -35,12 +37,12 @@ import com.alcity.utility.SlicedStream;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.Optional;
+
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
+import static java.util.stream.Collectors.toList;
 
 @Service
 @Transactional
@@ -125,13 +127,18 @@ public class AppMemberService implements AppMemberRepository, CustomizedUserRepo
             JourneyStep journeyStep = puzzleLevelService.getPuzzleLevelMappedStep(pldto.getId());
             if(journeyStep!=null){
                 if(journeyStep.getJourney().getId() == journey.getId()) {
-                    AppMemberStepInfo dto = new AppMemberStepInfo(journeyStep.getId(), journeyStep.getTitle(),journeyStep.getXpos(),journeyStep.getYpos(),
+                    AppMemberStepInfo dto = new AppMemberStepInfo(journeyStep.getId(), journeyStep.getTitle(),journeyStep.getXpos(),journeyStep.getYpos(),journeyStep.getOrdering(),
                         pldto.getId(), pldto.getTitle(), pldto.getPuzzleGroupId(), pldto.getPuzzleGroupTitle(),0,Boolean.FALSE);
                     stepInfos.add(dto);
                 }
             }
         }
-        journeyInfo.setSteps(stepInfos);
+        Comparator journeyStepComparator = new JourneyStepComparator();
+        List<AppMemberStepInfo> sortedList =new ArrayList<AppMemberStepInfo>();
+        sortedList = stepInfos.stream().collect(toList());
+        sortedList.sort(journeyStepComparator);
+
+        journeyInfo.setSteps(sortedList);
         return journeyInfo;
     }
     public AppMemberJourneyInfo getAppMemberJourneyInfoWithScores(AppMember member, AppMemberJourneyInfo journeyInfo) {
