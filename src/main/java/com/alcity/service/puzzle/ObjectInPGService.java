@@ -29,6 +29,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;;
 import java.util.Collection;
 import java.util.Optional;
+import java.util.Random;
 
 
 @Service
@@ -162,7 +163,10 @@ public class ObjectInPGService implements ObjectInPGRepository {
         Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
         Optional<ALCityObject> alCityObjectOptional = objectService.findById(dto.getObjectId());
         ALCityObjectInPG  alCityObjectInPG=null;
-        alCityObjectInPG = new ALCityObjectInPG(dto.getTitle(), dto.getCode(),puzzleGroup,alCityObjectOptional.get(),
+        Random random = new Random(); // Create a Random object
+        long generatedLong = random.nextLong(); // Generate a random long
+        String code= dto.getTitle() + String.valueOf(generatedLong);
+        alCityObjectInPG = new ALCityObjectInPG(dto.getTitle(), code,puzzleGroup,alCityObjectOptional.get(),
                 1L, DateUtils.getNow(), DateUtils.getNow(), createdBy.get(), createdBy.get());
         objectInPGRepository.save(alCityObjectInPG);
         Collection<PGObjectVariableImportDTO> variableImportDTOS = dto.getVariables();
