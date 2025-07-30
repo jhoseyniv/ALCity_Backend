@@ -165,7 +165,7 @@ public class PLGroundService implements PLGroundRepository {
 
     @Override
     public void deleteAll(Iterable<? extends PLGround> entities) {
-
+        groundRepository.deleteAll(entities);
     }
 
     @Override
