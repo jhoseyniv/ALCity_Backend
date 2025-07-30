@@ -47,7 +47,7 @@ public class PLTemplateService  implements PLTemplateRepository {
 
     @Override
     public <S extends PLTemplate> S save(S entity) {
-        return null;
+        return templateRepository.save(entity);
     }
 
     public PLTemplate saveNew(PLTemplateDTO dto) {

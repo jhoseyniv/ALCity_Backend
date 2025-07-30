@@ -10,6 +10,7 @@ import com.alcity.entity.base.PuzzleCategory;
 import com.alcity.entity.journey.JourneyStep;
 import com.alcity.entity.puzzle.*;
 import com.alcity.service.puzzle.PGService;
+import com.alcity.service.puzzle.PLTemplateService;
 import com.alcity.utility.DTOUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -31,6 +32,8 @@ public class PGController {
 
     @Autowired
     private PGService pgService;
+    @Autowired
+    private PLTemplateService plTemplateService;
 
     @Operation( summary = "Fetch all AL City Object for that define in a puzzle group ",  description = "Fetch all Al city object for an puzzle group")
     @RequestMapping(value = "/id/{id}/objects/all", method = RequestMethod.GET)
@@ -114,6 +117,11 @@ public class PGController {
         if (dto.getId() == null || dto.getId() <= 0L) { //save
             try {
                 savedRecord = pgService.importPG(dto);
+                Optional<PLTemplate> plTemplateOptional = plTemplateService.findById(dto.getPuzzleTemplateId());
+                PLTemplate plTemplate = plTemplateOptional.get();
+                plTemplate.setPuzzleGroupId(savedRecord.getId());
+                plTemplateService.save(plTemplate);
+
             } catch (RuntimeException e) {
                 throw new UniqueConstraintException(-1,"Unique Constraint in" + PuzzleGroup.class , "Error",savedRecord.getId() );
             }

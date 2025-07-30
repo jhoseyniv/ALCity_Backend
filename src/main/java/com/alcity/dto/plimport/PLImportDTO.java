@@ -9,6 +9,7 @@ import java.util.Collection;
 public class PLImportDTO implements Serializable {
 
     private Long puzzleGroupId;
+    private Long puzzleTemplateId;
     private Long id;
 
     private String code;
@@ -266,14 +267,23 @@ public class PLImportDTO implements Serializable {
         this.learningTopics = learningTopics;
     }
 
+    public Long getPuzzleTemplateId() {
+        return puzzleTemplateId;
+    }
+
+    public void setPuzzleTemplateId(Long puzzleTemplateId) {
+        this.puzzleTemplateId = puzzleTemplateId;
+    }
+
     public PLImportDTO() {
     }
 
-    public PLImportDTO(Long puzzleGroupId, Long id, String code, String title, Long ordering, Integer fromAge, Integer toAge,
+    public PLImportDTO(Long puzzleGroupId,Long puzzleTemplateId, Long id, String code, String title, Long ordering, Integer fromAge, Integer toAge,
                        Float maxScore, Float firstStarScore, Float secondStarScore, Float thirdStartScore, Long iconId, Long picId,
                        Integer cols, Integer rows,Long boardGraphicId,
                        String puzzleLevelDifficulty, String puzzleLevelStatus, String puzzleLevelPrivacy, String approveDate) {
         this.puzzleGroupId = puzzleGroupId;
+        this.puzzleTemplateId = puzzleTemplateId;
         this.id = id;
         this.code = code;
         this.title = title;

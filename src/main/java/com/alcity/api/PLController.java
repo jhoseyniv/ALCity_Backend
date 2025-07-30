@@ -17,6 +17,7 @@ import com.alcity.dto.puzzle.*;
 import com.alcity.entity.puzzle.*;
 import com.alcity.service.puzzle.PLGameInstanceService;
 import com.alcity.service.puzzle.PLGroundService;
+import com.alcity.service.puzzle.PLTemplateService;
 import com.alcity.service.puzzle.PuzzleLevelService;
 import com.alcity.utility.DTOUtil;
 import com.alcity.utility.PLDTOUtil;
@@ -44,6 +45,9 @@ public class PLController {
     private AppMemberService appMemberService;
     @Autowired
     private PLGroundService plGroundService;
+
+    @Autowired
+    private PLTemplateService plTemplateService;
 
     @Autowired
     private PLGameInstanceService plGameInstanceService;
@@ -256,6 +260,7 @@ public class PLController {
         return new ALCityResponseObject(HttpStatus.OK.value(), "ok", importedPuzzleLevel.getId(), "Puzzle Level Imported Successfully!");
     }
 */
+
     @Operation( summary = "Import a puzzle level",  description = "Import a puzzle level  entity and their data")
     @PostMapping("/import")
     @CrossOrigin(origins = "*")
@@ -266,6 +271,10 @@ public class PLController {
         if(puzzleLevelOptional.isEmpty()){
             importedPuzzleLevel =  puzzleLevelService.importPuzzleLevel(dto);
             responseObject = new ALCityResponseObject(HttpStatus.OK.value(), "ok", importedPuzzleLevel.getId(), "Puzzle Level Imported Successfully!");
+            Optional<PLTemplate> plTemplateOptional = plTemplateService.findById(dto.getPuzzleTemplateId());
+            PLTemplate plTemplate = plTemplateOptional.get();
+            plTemplate.setPuzzleLevelId(importedPuzzleLevel.getId());
+            plTemplateService.save(plTemplate);
         }else{
             //first delete exist puzzle level and then add new pl
             puzzleLevelService.deletePuzzleLevel(puzzleLevelOptional.get());
