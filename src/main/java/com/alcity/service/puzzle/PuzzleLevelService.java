@@ -1,5 +1,10 @@
 package com.alcity.service.puzzle;
 
+import com.alcity.dto.Interpreter.*;
+import com.alcity.dto.Interpreter.object.Features;
+import com.alcity.dto.Interpreter.object.PLGroundPostion;
+import com.alcity.dto.Interpreter.object.RecordData;
+import com.alcity.dto.Interpreter.object.RuleData;
 import com.alcity.dto.plimport.*;
 import com.alcity.dto.plimport.object.*;
 import com.alcity.dto.puzzle.PLCopyDTO;
@@ -28,6 +33,7 @@ import com.alcity.service.base.BinaryContentService;
 import com.alcity.service.customexception.ALCityResponseObject;
 import com.alcity.utility.DTOUtil;
 import com.alcity.utility.DateUtils;
+import com.alcity.utility.ImageUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Lazy;
@@ -189,6 +195,9 @@ public class PuzzleLevelService implements PuzzleLevelRepository {
     private PLGroundService plGroundService;
 
     @Autowired
+    private PLCellService plCellService;
+
+    @Autowired
     private AttributeService attributeService;
 
     @Autowired
@@ -202,6 +211,9 @@ public class PuzzleLevelService implements PuzzleLevelRepository {
     PLLearningTopicService plLearningTopicService;
     @Autowired
     BinaryContentRepository binaryContentRepository;
+
+    @Autowired
+    PLRulePostActionService plRulePostActionService;
 
     @Autowired
     @Lazy
@@ -269,7 +281,6 @@ public class PuzzleLevelService implements PuzzleLevelRepository {
         //import puzzle level instances
          Collection<ALCityInstanceInPL> importInstances = instanceInPLService.importObjects(dto.getObjects(), importedPuzzleLevel);
 
-
         //import puzzle level rules
         Collection<PLRuleImport> rules = dto.getRules();
         Collection<PLRule> importedRules = plRuleService.importRules(rules, importedPuzzleLevel);
@@ -282,6 +293,7 @@ public class PuzzleLevelService implements PuzzleLevelRepository {
 
         return importedPuzzleLevel;
     }
+
 
     public void deletePuzzleLevel(PuzzleLevel puzzleLevel) {
 
@@ -305,6 +317,11 @@ public class PuzzleLevelService implements PuzzleLevelRepository {
         //delete puzzle level objectives
         Collection<PLObjective> objectives = puzzleLevel.getPlObjectives();
         plObjectiveService.deleteAll(objectives);
+
+        //delete puzzle cells
+        PLGround plGround = puzzleLevel.getPlGrounds().iterator().next();
+        plCellService.deleteAll(plGround.getPlCells());
+
 
         //delete puzzle level Grounds
         plGroundService.deleteAll(puzzleLevel.getPlGrounds());

@@ -110,7 +110,7 @@ public class PLCellService  implements PLCellRepository {
 
     @Override
     public void deleteAll(Iterable<? extends PLCell> entities) {
-
+        plCellRepository.deleteAll(entities);
     }
 
     @Override
