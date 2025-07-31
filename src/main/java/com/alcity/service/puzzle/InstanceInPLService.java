@@ -302,7 +302,7 @@ public class InstanceInPLService implements InstanceInPLRepository {
 
     @Override
     public void deleteAll(Iterable<? extends ALCityInstanceInPL> entities) {
-
+        instanceInPLRepository.deleteAll(entities);
     }
 
     @Override
