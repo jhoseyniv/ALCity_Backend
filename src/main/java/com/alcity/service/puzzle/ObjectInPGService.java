@@ -157,8 +157,6 @@ public class ObjectInPGService implements ObjectInPGRepository {
     @Autowired
     private AppMemberRepository appMemberRepository;
 
-
-
     public ALCityObjectInPG importObjInPG(PGObjectImportDTO dto,PuzzleGroup puzzleGroup) {
         Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
         Optional<ALCityObject> alCityObjectOptional = objectService.findById(dto.getObjectId());

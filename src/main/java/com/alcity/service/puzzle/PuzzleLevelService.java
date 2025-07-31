@@ -223,7 +223,7 @@ public class PuzzleLevelService implements PuzzleLevelRepository {
         Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
         Optional<BinaryContent> iconOptional = binaryContentRepository.findById(dto.getIconId());
         Optional<BinaryContent> picOptional = binaryContentRepository.findById(dto.getPicId());
-        Optional<BinaryContent> boardGraphicOptional = binaryContentRepository.findById(dto.getPicId());
+        Optional<BinaryContent> boardGraphicOptional = binaryContentRepository.findById(dto.getBoardGraphicId());
         PLDifficulty plDifficulty =  PLDifficulty.getByTitle(dto.getPuzzleLevelDifficulty());
         PLStatus  plStatus =  PLStatus.getByTitle(dto.getPuzzleLevelStatus());
         PLPrivacy plPrivacy =  plPrivacyRepository.findByValue(dto.getPuzzleLevelPrivacy());
@@ -241,7 +241,7 @@ public class PuzzleLevelService implements PuzzleLevelRepository {
         PLGroundPositionImport position = cameraSetupImport.getPosition();
         PLGroundPositionImport rotation = cameraSetupImport.getRotation();
         FeatureImport features = cameraSetupImport.getFeatures();
-        byte[] boardGraphic=new byte[1];
+        byte[] boardGraphic=boardGraphicOptional.get().getContent();
         PLGround importPLGround = new PLGround(dto.getRows(), dto.getCols(),
                 position.getX(), position.getY(), position.getZ(), rotation.getX(), rotation.getY(), rotation.getZ(),
                 features.getZoom(), features.getPan(), features.getRotation(),importedPuzzleLevel, boardGraphic
