@@ -85,8 +85,8 @@ public class PLRuleService implements PLRuleRepository {
         while(iterator.hasNext()) {
             PLRulePostAction postAction = iterator.next();
             plRulePostActionService.deletePostActionWithChilds(postAction);
-            ruleRepository.delete(rule);
         }
+        ruleRepository.delete(rule);
     }
 
     public void deleteAllPlRules( Collection<PLRule> rules) {
