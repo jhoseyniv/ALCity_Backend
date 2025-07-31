@@ -248,10 +248,14 @@ public class PuzzleLevelService implements PuzzleLevelRepository {
                     , 1L, DateUtils.getNow(), DateUtils.getNow(), createdBy.get(), createdBy.get());
         plGroundService.save(importPLGround);
 
+        Collection<PLGround> plGrounds = new ArrayList<>();
+        plGrounds.add(importPLGround);
+
+        importedPuzzleLevel.setPlGrounds(plGrounds);
         //import puzzle level objectives
         Collection<PLObjectiveImport> objectives = dto.getObjectives();
         Collection<PLObjective> importedObjectives = plObjectiveService.importObjectives(objectives, importedPuzzleLevel);
-
+        importedPuzzleLevel.setPlObjectives(importedObjectives);
 
         //import puzzle level variables
         Collection<RecordDataImport> variables = dto.getVariables();
@@ -263,14 +267,17 @@ public class PuzzleLevelService implements PuzzleLevelRepository {
         //import puzzle level cells
         Collection<PLCellImport> cells = dto.getCells();
         Collection<PLCell> importedCells = instanceInPLService.importCells(cells, importedPuzzleLevel);
+        importPLGround.setPlCells(importedCells);
 
         //import puzzle level rules
         Collection<PLRuleImport> rules = dto.getRules();
         Collection<PLRule> importedRules = plRuleService.importRules(rules, importedPuzzleLevel);
+        importedPuzzleLevel.setPuzzleLevelRuleCollection(importedRules);
 
         //import puzzle learning topics
         Collection<PLLearningTopicImport> topics = dto.getLearningTopics();
         Collection<LearningTopicInPL> importedTopics = plLearningTopicService.importLearningTopics(topics, importedPuzzleLevel);
+        importedPuzzleLevel.setLearningTopicInPLCollection(importedTopics);
 
         return importedPuzzleLevel;
     }
