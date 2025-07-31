@@ -322,7 +322,7 @@ public class PuzzleLevelService implements PuzzleLevelRepository {
         Collection<ALCityInstanceInPL> instances = puzzleLevel.getPuzzleGroupObjectInstanceCollection();
         instanceInPLService.deleteAll(instances);
 
-
+        // this is ...........
         //delete puzzle cells
         PLGround plGround = puzzleLevel.getPlGrounds().iterator().next();
         plCellService.deleteAll(plGround.getPlCells());
