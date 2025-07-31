@@ -261,13 +261,14 @@ public class PuzzleLevelService implements PuzzleLevelRepository {
         Collection<RecordDataImport> variables = dto.getVariables();
         Collection<Attribute> copiedAttributes = attributeService.importPLVariables(variables, importedPuzzleLevel, AttributeOwnerType.Puzzle_Level_Variable);
 
-        //import puzzle level instances
-         Collection<ALCityInstanceInPL> importInstances = instanceInPLService.importObjects(dto.getObjects(), importedPuzzleLevel);
-
         //import puzzle level cells
         Collection<PLCellImport> cells = dto.getCells();
         Collection<PLCell> importedCells = instanceInPLService.importCells(cells, importedPuzzleLevel);
         importPLGround.setPlCells(importedCells);
+
+        //import puzzle level instances
+         Collection<ALCityInstanceInPL> importInstances = instanceInPLService.importObjects(dto.getObjects(), importedPuzzleLevel);
+
 
         //import puzzle level rules
         Collection<PLRuleImport> rules = dto.getRules();
