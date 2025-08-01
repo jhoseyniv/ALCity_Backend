@@ -11,6 +11,11 @@ import jakarta.persistence.*;
 import java.io.Serializable;
 import java.util.Collection;
 
+
+@Table(uniqueConstraints={
+        @UniqueConstraint(columnNames = {"title", "code","puzzle_group_id"})
+})
+
 @Entity
 public class PuzzleLevel extends BaseTable implements Serializable {
 
@@ -20,10 +25,10 @@ public class PuzzleLevel extends BaseTable implements Serializable {
     @Column(name="ordering")
     private Long ordering;
 
-    @Column(name="title",unique = true)
+    @Column(name="title")
     private String title;
 
-    @Column(name="code",unique = true)
+    @Column(name="code")
     private String code;
 
 
