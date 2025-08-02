@@ -268,12 +268,12 @@ public class DTOUtil {
         return null;
     }
     public static AttributeDTO getAttributeDTO(Attribute att){
-            Collection<AttributeValueDTO> valueDTOS = getAttributesValueDTOS(att.getAttributeValues()) ;
-            AttributeValueDTO valueDTO = getFirstAttributeValueDTO(valueDTOS);
-            AttributeDTO dto = new AttributeDTO(att.getId(), att.getName(),
-                                    att.getOwnerId(), att.getAttributeOwnerType().name(),
-                                     att.getDataType().name(),valueDTO);
-           return dto;
+        Collection<AttributeValueDTO> valueDTOS = getAttributesValueDTOS(att.getAttributeValues()) ;
+        AttributeValueDTO valueDTO = getFirstAttributeValueDTO(valueDTOS);
+        AttributeDTO dto = new AttributeDTO(att.getId(), att.getName(),
+                att.getOwnerId(), att.getAttributeOwnerType().name(),
+                att.getDataType().name(),valueDTO);
+        return dto;
     }
 
     public static AttributeDTOSave mapAttributesDTO(PGObjectVariableImportDTO variableImportDTO) {
@@ -294,6 +294,16 @@ public class DTOUtil {
         return dtos;
 
     }
+
+    public static AttributeDTO getAttributeDTOSave(Attribute att){
+        Collection<AttributeValueDTO> valueDTOS = getAttributesValueDTOS(att.getAttributeValues()) ;
+        AttributeValueDTO valueDTO = getFirstAttributeValueDTO(valueDTOS);
+        AttributeDTO dto = new AttributeDTO(att.getId(), att.getName(),
+                att.getOwnerId(), att.getAttributeOwnerType().name(),
+                att.getDataType().name(),valueDTO);
+        return dto;
+    }
+
     public static Collection<AttributeDTO> getAttributesDTOS(Collection<Attribute> attributes) {
         Collection<AttributeDTO> dtos = new ArrayList<AttributeDTO>();
         Iterator<Attribute> itr = attributes.iterator();
@@ -304,6 +314,23 @@ public class DTOUtil {
         }
         return dtos;
     }
+
+//    public static Collection<AttributeDTOSave> saveAttributesDTOSFromImport(Collection<RecordDataImport> imports,AttributeService attributeService) {
+//        Collection<AttributeDTOSave> dtos = new ArrayList<AttributeDTOSave>();
+//        Iterator<RecordDataImport> itr = imports.iterator();
+//        while (itr.hasNext()) {
+//            RecordDataImport dataImport = itr.next();
+//            if(dataImport.getId()>0){  //attribute is exist and should be load
+//                Optional<Attribute> attributeOptional = attributeService.findById(dataImport.getId());
+//                if(attributeOptional.isPresent()){
+// //                   AttributeValue attributeValue =
+//                }
+//            }
+//            AttributeDTOSave dto = null;
+//            dtos.add(dto);
+//        }
+//        return dtos;
+//    }
     public static Set<Long> getBinaryContentFromAttributeDTOS(Collection<Attribute> attributes) {
         Set<Long> dtos = new HashSet<>();
         Iterator<Attribute> itr = attributes.iterator();
@@ -1372,7 +1399,7 @@ public class DTOUtil {
     }
     public static Collection<PLRuleDTO> getRulesForPuzzleLevel(PuzzleLevel pl){
         Collection<PLRuleDTO> dtos = new ArrayList<PLRuleDTO>();
-        Collection<PLRule>  puzzleLevelRules = pl.getPuzzleLevelRuleCollection();
+        Collection<PLRule>  puzzleLevelRules = pl.getRules();
         Iterator<PLRule> iterator = puzzleLevelRules.iterator();
         while(iterator.hasNext()) {
             PLRule plRule = iterator.next();
@@ -1416,36 +1443,36 @@ public class DTOUtil {
     }
 
         public static Collection<RuleData> getRulesForPuzzleLevel(PuzzleLevel pl, AttributeService attributeService,PLRulePostActionService plRulePostActionService){
-        Collection<RuleData> rules = new ArrayList<RuleData>();
-        Collection<PLRule>  puzzleLevelRules = pl.getPuzzleLevelRuleCollection();
-        Iterator<PLRule> iterator = puzzleLevelRules.iterator();
+        Collection<RuleData> rulesData = new ArrayList<RuleData>();
+        Collection<PLRule>  rules = pl.getRules();
+        Iterator<PLRule> iterator = rules.iterator();
         while(iterator.hasNext()) {
-            PLRule puzzleLevelRule = iterator.next();
-            RuleData rule = new RuleData();
-            rule.setTitle(puzzleLevelRule.getTitle());
-            rule.setOrdering(puzzleLevelRule.getOrdering());
-            rule.setConditions(puzzleLevelRule.getCondition());
-            rule.setIgnoreRemaining(puzzleLevelRule.getIgnoreRemaining());
-            String event = puzzleLevelRule.getPlRuleEvent().getName();
-            String subEvent = puzzleLevelRule.getSubEvent();
+            PLRule rule = iterator.next();
+            RuleData ruleData = new RuleData();
+            ruleData.setTitle(rule.getTitle());
+            ruleData.setOrdering(rule.getOrdering());
+            ruleData.setConditions(rule.getCondition());
+            ruleData.setIgnoreRemaining(rule.getIgnoreRemaining());
+            String event = rule.getPlRuleEvent().getName();
+            String subEvent = rule.getSubEvent();
             if(subEvent==null || subEvent.isBlank()) subEvent="";
             if(!subEvent.equalsIgnoreCase(""))
                 event = event + ":" + subEvent;
-            rule.setEvent(event);
-            Collection<PostActionTreeExport> actions = getActionTreeExport(plRulePostActionService ,attributeService, puzzleLevelRule);
+            ruleData.setEvent(event);
+            Collection<PostActionTreeExport> actions = getActionsTrees(plRulePostActionService ,attributeService, rule);
+            ruleData.setActionTreeExports(actions);
+//            Comparator ruleActionComparetor = new RuleActionDataComparator();
+//            List<PostActionTreeExport> sortedAction =new ArrayList<PostActionTreeExport>();
+//            sortedAction = actions.stream().collect(toList());
+//            sortedAction.sort(ruleActionComparetor);
+//            ruleData.setActionTreeExports(sortedAction);
 
-            Comparator ruleActionComparetor = new RuleActionDataComparator();
-            List<PostActionTreeExport> sortedAction =new ArrayList<PostActionTreeExport>();
-            sortedAction = actions.stream().collect(toList());
-            sortedAction.sort(ruleActionComparetor);
-            rule.setActionTreeExports(sortedAction);
-
-            rules.add(rule);
+            rulesData.add(ruleData);
         }
 
         Comparator ruleComparetor = new RuleDataComparator();
         List<RuleData> sortedRules =new ArrayList<RuleData>();
-        sortedRules = rules.stream().collect(toList());
+        sortedRules = rulesData.stream().collect(toList());
         sortedRules.sort(ruleComparetor);
 
         return sortedRules;
@@ -1487,23 +1514,47 @@ public class DTOUtil {
         inorder(plRulePostActionService,postActions.get(total - 1));
     }
 
-    public static PostActionTreeExport  getPostActionTree(PLRulePostActionService plRulePostActionService, AttributeService attributeService ,PLRulePostAction plRulePostAction){
-        PostActionTreeExport postActionTreeExport = new PostActionTreeExport();
+    public static <PLRulePostActionImport> PostActionTreeExport preOrderTraversal(PostActionTreeExport treeExport , PLRulePostActionService plRulePostActionService,AttributeService attributeService ,PLRulePostAction root) {
+        Collection<PLRulePostAction> children = plRulePostActionService.findByOwnerId(root.getId());
+        Collection<RecordData> parameters = new ArrayList<RecordData>();
+        if (root == null)  return treeExport;
+
+        System.out.println("Post Action id = "+root.getId());
+        parameters = getAttributeForOwnerById(attributeService , root.getId(), AttributeOwnerType.Puzzle_Level_Rule_Post_Action_Parameter);
+
+        RuleActionData dto = new RuleActionData(root.getPlRulePostActionType().name(), root.getOrdering(), root.getObjectId(),root.getActionName(),root.getVariable(),root.getValueExperssion(),
+                    root.getAlertType(), root.getAlertMessage(), root.getActionKey(),parameters);
+        treeExport.setPostAction(dto);
+        Iterator<PLRulePostAction> childIterator = children.iterator();
+        while(childIterator.hasNext()){
+            PLRulePostAction child = childIterator.next();
+            RuleActionData childDTO = new RuleActionData(child.getPlRulePostActionType().name(), child.getOrdering(), child.getObjectId(),child.getActionName(),
+                    child.getVariable(),child.getValueExperssion(),child.getAlertType(), child.getAlertMessage(), child.getActionKey(),null);
+            PostActionTreeExport<RuleActionData> subTree=treeExport.getChild(new PostActionTreeExport<>(childDTO));
+            preOrderTraversal(subTree,plRulePostActionService,attributeService,child) ;
+        }
+        return treeExport;
+     }
 
 
+    public static PostActionTreeExport  getPostActionTree(PLRulePostActionService plRulePostActionService, AttributeService attributeService ,PLRulePostAction root){
+        PostActionTreeExport postActionTreeExport = new PostActionTreeExport<>();
+        postActionTreeExport =  preOrderTraversal(postActionTreeExport,plRulePostActionService,attributeService ,root);
         return postActionTreeExport;
     }
 
-    public static Collection<PostActionTreeExport> getActionTreeExport(PLRulePostActionService plRulePostActionService, AttributeService attributeService , PLRule plRule){
+
+
+    public static Collection<PostActionTreeExport> getActionsTrees(PLRulePostActionService plRulePostActionService, AttributeService attributeService , PLRule plRule){
         Collection<PostActionTreeExport> actions = new ArrayList<PostActionTreeExport>();
         Collection<PLRulePostAction> plRulePostActions = getPlRulePostActions(plRulePostActionService, plRule.getId());
         Iterator<PLRulePostAction> iterator = plRulePostActions.iterator();
         while(iterator.hasNext()) {
-            Collection<RecordData> parameters = new ArrayList<RecordData>();
 
-            PLRulePostAction plRulePostAction =iterator.next();
+            PLRulePostAction postAction =iterator.next();
             PostActionTreeExport postActionTreeExport = new PostActionTreeExport();
-            postActionTreeExport = getPostActionTree(plRulePostActionService,attributeService,plRulePostAction);
+            postActionTreeExport = getPostActionTree(plRulePostActionService,attributeService,postAction);
+
 //            ruleActionData.setOrdering(plRulePostAction.getOrdering());
 //            ruleActionData.setActionName(plRulePostAction.getActionName());
 //            ruleActionData.setObjectId(plRulePostAction.getObjectId());
@@ -1524,8 +1575,6 @@ public class DTOUtil {
 //            if(actionKey == null)  actionKey=-1L;
 //            ruleActionData.setActionKey(actionKey);
 //
-//            parameters = getAttributeForOwnerById(attributeService , plRulePostAction.getId(), AttributeOwnerType.Puzzle_Level_Rule_Post_Action_Parameter);
-//            ruleActionData.setParameters(parameters);
 
             actions.add(postActionTreeExport);
         }

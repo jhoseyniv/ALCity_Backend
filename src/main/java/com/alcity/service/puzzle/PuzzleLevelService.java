@@ -284,7 +284,7 @@ public class PuzzleLevelService implements PuzzleLevelRepository {
         //import puzzle level rules
         Collection<PLRuleImport> rules = dto.getRules();
         Collection<PLRule> importedRules = plRuleService.importRules(rules, importedPuzzleLevel);
-        importedPuzzleLevel.setPuzzleLevelRuleCollection(importedRules);
+        importedPuzzleLevel.setRules(importedRules);
 
         //import puzzle learning topics
         Collection<PLLearningTopicImport> topics = dto.getLearningTopics();
@@ -302,7 +302,7 @@ public class PuzzleLevelService implements PuzzleLevelRepository {
         plLearningTopicService.deleteAll(learningTopicInPLS);
 
         //delete puzzle level rules
-        Collection<PLRule> rules = puzzleLevel.getPuzzleLevelRuleCollection();
+        Collection<PLRule> rules = puzzleLevel.getRules();
         plRuleService.deleteAllPlRules(rules);
 
         //delete puzzle level instances
@@ -379,7 +379,7 @@ public class PuzzleLevelService implements PuzzleLevelRepository {
 
         //copy puzzle level rules
         if(dto.getRules()) {
-            Collection<PLRule> rules = puzzleLevel.getPuzzleLevelRuleCollection();
+            Collection<PLRule> rules = puzzleLevel.getRules();
             Collection<PLRule> copiedRules = plRuleService.copyAll(rules, copyPuzzleLevel);
         }
         if(dto.getLearningTopics()) {

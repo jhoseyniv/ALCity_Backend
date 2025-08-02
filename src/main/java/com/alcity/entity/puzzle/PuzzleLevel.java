@@ -154,7 +154,7 @@ public class PuzzleLevel extends BaseTable implements Serializable {
 
     @OneToMany(mappedBy = "puzzleLevel", fetch = FetchType.LAZY)
     @JsonIgnore
-    private Collection<PLRule> puzzleLevelRuleCollection;
+    private Collection<PLRule> rules;
 
     @OneToMany(mappedBy = "puzzleLevel", fetch = FetchType.LAZY)
     @JsonIgnore
@@ -240,21 +240,13 @@ public class PuzzleLevel extends BaseTable implements Serializable {
         this.icon = icon;
     }
 
-    public Collection<PLRule> getPuzzleLevelRuleCollection() {
-        return puzzleLevelRuleCollection;
+    public Collection<PLRule> getRules() {
+        return rules;
     }
 
-    public void setPuzzleLevelRuleCollection(Collection<PLRule> puzzleLevelRuleCollection) {
-        this.puzzleLevelRuleCollection = puzzleLevelRuleCollection;
+    public void setRules(Collection<PLRule> rules) {
+        this.rules = rules;
     }
-
-//    public BinaryContent getBoardGraphic() {
-//        return boardGraphic;
-//    }
-//
-//    public void setBoardGraphic(BinaryContent boardGraphic) {
-//        this.boardGraphic = boardGraphic;
-//    }
 
     public AppMember getCreator() {
         return creator;

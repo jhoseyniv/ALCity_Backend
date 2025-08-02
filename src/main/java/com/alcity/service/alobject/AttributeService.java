@@ -164,13 +164,19 @@ public class AttributeService implements AttributeRepository {
         //import attribute and values
         DataType dataType =  DataType.getByTitle(variableImport.getType());
         Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
-
-        Attribute importedAttribute = new Attribute(variableImport.getName(),ownerId,ownerType,dataType,
-                1L,DateUtils.getNow(),DateUtils.getNow(),createdBy.get(),createdBy.get());
-        attributeRepository.save(importedAttribute);
-        AttributeValue  attributeValue = DTOUtil.getAttributeValueFromPLVariableImport(variableImport,importedAttribute,createdBy.get());
-        attributeValueRepository.save(attributeValue);
-
+        Attribute importedAttribute = null;
+        Optional<Attribute> attributeOptional =  attributeRepository.findById(variableImport.getId());
+       if(attributeOptional.isEmpty() ) {  // attribute is new
+           importedAttribute = new Attribute(variableImport.getName(), ownerId, ownerType, dataType,
+                   1L, DateUtils.getNow(), DateUtils.getNow(), createdBy.get(), createdBy.get());
+           attributeRepository.save(importedAttribute);
+           AttributeValue attributeValue = DTOUtil.getAttributeValueFromPLVariableImport(variableImport, importedAttribute, createdBy.get());
+           attributeValueRepository.save(attributeValue);
+       } else { // attribute is exist and value must be saved only
+           importedAttribute = attributeOptional.get();
+           AttributeValue attributeValue = DTOUtil.getAttributeValueFromPLVariableImport(variableImport, importedAttribute, createdBy.get());
+           attributeValueRepository.save(attributeValue);
+       }
         return importedAttribute;
     }
 
@@ -204,6 +210,17 @@ public class AttributeService implements AttributeRepository {
         }
         return importedAttributes;
     }
+    public Collection<Attribute> importPLRulePostActionParam(Collection<RecordDataImport> parameter, PLRulePostAction postAction, AttributeOwnerType ownerType){
+        Collection<Attribute>  importedAttributes = new ArrayList<>();
+        Iterator<RecordDataImport> iterator =parameter.iterator();
+        while(iterator.hasNext()) {
+            RecordDataImport variableImport = iterator.next();
+            Attribute attribute = importVariables(variableImport,postAction.getId(),ownerType);
+            importedAttributes.add(attribute);
+        }
+        return importedAttributes;
+    }
+
     @Override
     public Optional<Attribute> findById(Long id) {
         return attributeRepository.findById(id);

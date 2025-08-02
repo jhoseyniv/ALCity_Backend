@@ -5,7 +5,6 @@ import java.io.Serializable;
 public class RecordDataImport implements Serializable {
     private Long id;
     private String name;
-
     private String value;
     private String type;
 

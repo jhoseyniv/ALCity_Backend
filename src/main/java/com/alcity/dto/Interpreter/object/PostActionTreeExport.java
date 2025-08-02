@@ -29,6 +29,7 @@ public class PostActionTreeExport<P> implements Serializable {
     }
 
     public PostActionTreeExport() {
+        this.children = new ArrayList<>();
     }
 
     public PostActionTreeExport(RuleActionData postAction, List<PostActionTreeExport<RuleActionData>> children) {
@@ -42,6 +43,10 @@ public class PostActionTreeExport<P> implements Serializable {
     // Optional: add a method to add a child
     public void addChild(PostActionTreeExport<RuleActionData> child) {
         children.add(child);
+    }
+    public PostActionTreeExport<RuleActionData> getChild(PostActionTreeExport<RuleActionData> child) {
+        children.add(child);
+        return child;
     }
 
     // Optional: enforce a maximum of N children
