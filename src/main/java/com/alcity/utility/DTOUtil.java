@@ -1432,13 +1432,13 @@ public class DTOUtil {
             if(!subEvent.equalsIgnoreCase(""))
                 event = event + ":" + subEvent;
             rule.setEvent(event);
-            Collection<RuleActionData> actions = getRuleActionData(plRulePostActionService ,attributeService, puzzleLevelRule);
+            Collection<PostActionTreeExport> actions = getActionTreeExport(plRulePostActionService ,attributeService, puzzleLevelRule);
 
             Comparator ruleActionComparetor = new RuleActionDataComparator();
-            List<RuleActionData> sortedAction =new ArrayList<RuleActionData>();
+            List<PostActionTreeExport> sortedAction =new ArrayList<PostActionTreeExport>();
             sortedAction = actions.stream().collect(toList());
             sortedAction.sort(ruleActionComparetor);
-            rule.setActions(sortedAction);
+            rule.setActionTreeExports(sortedAction);
 
             rules.add(rule);
         }
@@ -1487,39 +1487,47 @@ public class DTOUtil {
         inorder(plRulePostActionService,postActions.get(total - 1));
     }
 
-    public static Collection<RuleActionData> getRuleActionData(PLRulePostActionService plRulePostActionService, AttributeService attributeService , PLRule plRule){
-        Collection<RuleActionData> actions = new ArrayList<RuleActionData>();
+    public static PostActionTreeExport  getPostActionTree(PLRulePostActionService plRulePostActionService, AttributeService attributeService ,PLRulePostAction plRulePostAction){
+        PostActionTreeExport postActionTreeExport = new PostActionTreeExport();
+
+
+        return postActionTreeExport;
+    }
+
+    public static Collection<PostActionTreeExport> getActionTreeExport(PLRulePostActionService plRulePostActionService, AttributeService attributeService , PLRule plRule){
+        Collection<PostActionTreeExport> actions = new ArrayList<PostActionTreeExport>();
         Collection<PLRulePostAction> plRulePostActions = getPlRulePostActions(plRulePostActionService, plRule.getId());
         Iterator<PLRulePostAction> iterator = plRulePostActions.iterator();
         while(iterator.hasNext()) {
             Collection<RecordData> parameters = new ArrayList<RecordData>();
 
             PLRulePostAction plRulePostAction =iterator.next();
-            RuleActionData ruleActionData = new RuleActionData();
-            ruleActionData.setOrdering(plRulePostAction.getOrdering());
-            ruleActionData.setActionName(plRulePostAction.getActionName());
-            ruleActionData.setObjectId(plRulePostAction.getObjectId());
-            ruleActionData.setVariable(plRulePostAction.getVariable());
-            ruleActionData.setValueExperssion(plRulePostAction.getValueExperssion());
-            String subAction = plRulePostAction.getSubAction();
-            if(subAction == null || subAction.isBlank()) subAction="";
+            PostActionTreeExport postActionTreeExport = new PostActionTreeExport();
+            postActionTreeExport = getPostActionTree(plRulePostActionService,attributeService,plRulePostAction);
+//            ruleActionData.setOrdering(plRulePostAction.getOrdering());
+//            ruleActionData.setActionName(plRulePostAction.getActionName());
+//            ruleActionData.setObjectId(plRulePostAction.getObjectId());
+//            ruleActionData.setVariable(plRulePostAction.getVariable());
+//            ruleActionData.setValueExperssion(plRulePostAction.getValueExperssion());
+//            String subAction = plRulePostAction.getSubAction();
+//            if(subAction == null || subAction.isBlank()) subAction="";
+//
+//            String actionType = plRulePostAction.getPlRulePostActionType().name();
+//
+//            if(!subAction.equalsIgnoreCase("") )
+//                actionType = plRulePostAction.getPlRulePostActionType().name() + ":" + subAction;
+//
+//            ruleActionData.setActionType(actionType);
+//            ruleActionData.setAlertMessage(plRulePostAction.getAlertMessage());
+//            ruleActionData.setAlertType(plRulePostAction.getAlertType());
+//            Long actionKey = plRulePostAction.getActionKey();
+//            if(actionKey == null)  actionKey=-1L;
+//            ruleActionData.setActionKey(actionKey);
+//
+//            parameters = getAttributeForOwnerById(attributeService , plRulePostAction.getId(), AttributeOwnerType.Puzzle_Level_Rule_Post_Action_Parameter);
+//            ruleActionData.setParameters(parameters);
 
-            String actionType = plRulePostAction.getPlRulePostActionType().name();
-
-            if(!subAction.equalsIgnoreCase("") )
-                actionType = plRulePostAction.getPlRulePostActionType().name() + ":" + subAction;
-
-            ruleActionData.setActionType(actionType);
-            ruleActionData.setAlertMessage(plRulePostAction.getAlertMessage());
-            ruleActionData.setAlertType(plRulePostAction.getAlertType());
-            Long actionKey = plRulePostAction.getActionKey();
-            if(actionKey == null)  actionKey=-1L;
-            ruleActionData.setActionKey(actionKey);
-
-            parameters = getAttributeForOwnerById(attributeService , plRulePostAction.getId(), AttributeOwnerType.Puzzle_Level_Rule_Post_Action_Parameter);
-            ruleActionData.setParameters(parameters);
-
-            actions.add(ruleActionData);
+            actions.add(postActionTreeExport);
         }
 
         return actions;
