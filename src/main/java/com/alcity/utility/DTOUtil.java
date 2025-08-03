@@ -863,6 +863,7 @@ public class DTOUtil {
         String userName="admin";
         if(member.getCreatedBy() == null || member.getCreatedBy() == null)
             userName="admin";
+        if(member.getLanguage() ==null) member.setLanguage(Language.English);
 
         AppMemberDTO dto = new AppMemberDTO(member.getId(),member.getAge(),member.getLanguage().name(),
                 member.getUsername(),member.getPassword(),member.getIcon().getThumbnail(),member.getIcon().getId(), member.getNickname(),
@@ -1461,19 +1462,20 @@ public class DTOUtil {
             ruleData.setEvent(event);
             Collection<PostActionTreeExport> actions = getActionsTrees(plRulePostActionService ,attributeService, rule);
             ruleData.setActionTreeExports(actions);
-//            Comparator ruleActionComparetor = new RuleActionDataComparator();
+
+//            Comparator ruleActionComparator = new RuleActionDataComparator();
 //            List<PostActionTreeExport> sortedAction =new ArrayList<PostActionTreeExport>();
 //            sortedAction = actions.stream().collect(toList());
-//            sortedAction.sort(ruleActionComparetor);
+//            sortedAction.sort(ruleActionComparator);
 //            ruleData.setActionTreeExports(sortedAction);
 
             rulesData.add(ruleData);
         }
 
-        Comparator ruleComparetor = new RuleDataComparator();
+        Comparator ruleComparator = new RuleDataComparator();
         List<RuleData> sortedRules =new ArrayList<RuleData>();
         sortedRules = rulesData.stream().collect(toList());
-        sortedRules.sort(ruleComparetor);
+        sortedRules.sort(ruleComparator);
 
         return sortedRules;
     }
@@ -1546,14 +1548,14 @@ public class DTOUtil {
 
 
     public static Collection<PostActionTreeExport> getActionsTrees(PLRulePostActionService plRulePostActionService, AttributeService attributeService , PLRule plRule){
-        Collection<PostActionTreeExport> actions = new ArrayList<PostActionTreeExport>();
-        Collection<PLRulePostAction> plRulePostActions = getPlRulePostActions(plRulePostActionService, plRule.getId());
-        Iterator<PLRulePostAction> iterator = plRulePostActions.iterator();
-        while(iterator.hasNext()) {
+        Collection<PostActionTreeExport> actionTrees = new ArrayList<PostActionTreeExport>();
+        Collection<PLRulePostAction>  postActions = plRulePostActionService.findByOwnerId(plRule.getId()) ;
 
+        Iterator<PLRulePostAction> iterator = postActions.iterator();
+        while(iterator.hasNext()) {
             PLRulePostAction postAction =iterator.next();
-            PostActionTreeExport postActionTreeExport = new PostActionTreeExport();
-            postActionTreeExport = getPostActionTree(plRulePostActionService,attributeService,postAction);
+            PostActionTreeExport tree = new PostActionTreeExport();
+            tree =  preOrderTraversal(tree,plRulePostActionService,attributeService ,postAction);
 
 //            ruleActionData.setOrdering(plRulePostAction.getOrdering());
 //            ruleActionData.setActionName(plRulePostAction.getActionName());
@@ -1576,10 +1578,10 @@ public class DTOUtil {
 //            ruleActionData.setActionKey(actionKey);
 //
 
-            actions.add(postActionTreeExport);
+            actionTrees.add(tree);
         }
 
-        return actions;
+        return actionTrees;
     }
     public static Collection<RecordData>  getActionParametersDTOS(Collection<Attribute>  attributes){
         Collection<RecordData> records = new ArrayList<RecordData>();

@@ -74,7 +74,7 @@ public class PLTemplateController {
         if (savedRecord==null)
             responseObject = new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", -1L, "Record Not Found!");
         else
-            responseObject = new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", -1L, "Record Not Found!");
+            responseObject = new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "OK", savedRecord.getId(), "Record Saved Successfully!");
 
         return responseObject;
     }
