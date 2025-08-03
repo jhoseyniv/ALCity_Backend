@@ -1461,7 +1461,7 @@ public class DTOUtil {
                 event = event + ":" + subEvent;
             ruleData.setEvent(event);
             Collection<PostActionTreeExport> actions = getActionsTrees(plRulePostActionService ,attributeService, rule);
-            ruleData.setActionTreeExports(actions);
+            ruleData.setActions(actions);
 
 //            Comparator ruleActionComparator = new RuleActionDataComparator();
 //            List<PostActionTreeExport> sortedAction =new ArrayList<PostActionTreeExport>();
