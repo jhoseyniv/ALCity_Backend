@@ -1524,15 +1524,15 @@ public class DTOUtil {
         System.out.println("Post Action id = "+root.getId());
         parameters = getAttributeForOwnerById(attributeService , root.getId(), AttributeOwnerType.Puzzle_Level_Rule_Post_Action_Parameter);
 
-        RuleActionData dto = new RuleActionData(root.getPlRulePostActionType().name(), root.getOrdering(), root.getObjectId(),root.getActionName(),root.getVariable(),root.getValueExperssion(),
-                    root.getAlertType(), root.getAlertMessage(), root.getActionKey(),parameters);
-        treeExport.setPostAction(dto);
+        RuleActionData dto = new RuleActionData();
+        treeExport.setFiedlds(root.getPlRulePostActionType().name(), root.getOrdering(), root.getObjectId(),root.getActionName(),root.getVariable(),root.getValueExperssion(),
+                root.getAlertType(), root.getAlertMessage(), root.getActionKey(),parameters);
         Iterator<PLRulePostAction> childIterator = children.iterator();
         while(childIterator.hasNext()){
             PLRulePostAction child = childIterator.next();
-            RuleActionData childDTO = new RuleActionData(child.getPlRulePostActionType().name(), child.getOrdering(), child.getObjectId(),child.getActionName(),
-                    child.getVariable(),child.getValueExperssion(),child.getAlertType(), child.getAlertMessage(), child.getActionKey(),null);
-            PostActionTreeExport<RuleActionData> subTree=treeExport.getChild(new PostActionTreeExport<>(childDTO));
+            RuleActionData childDTO = new RuleActionData();
+            PostActionTreeExport<RuleActionData> subTree=treeExport.getChild(new PostActionTreeExport<>(child.getPlRulePostActionType().name(), child.getOrdering(), child.getObjectId(),child.getActionName(),
+                    child.getVariable(),child.getValueExperssion(),child.getAlertType(), child.getAlertMessage(), child.getActionKey(),null));
             preOrderTraversal(subTree,plRulePostActionService,attributeService,child) ;
         }
         return treeExport;

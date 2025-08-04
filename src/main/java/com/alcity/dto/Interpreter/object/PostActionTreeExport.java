@@ -5,54 +5,164 @@ import com.alcity.dto.plimport.object.PostActionTreeImport;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 public class PostActionTreeExport<P> implements Serializable {
 
-    public RuleActionData postAction;
-    public List<PostActionTreeExport<RuleActionData>> children;
+    private String actionType;
+    private Integer ordering;
+    private String objectId;
+    private String actionName;
 
-    public RuleActionData getPostAction() {
-        return postAction;
+    private String variable;
+    private StringBuffer valueExperssion;
+    private String alertType;
+    private String alertMessage;
+    private Long actionKey;
+
+    private Collection<RecordData> parameters;
+
+    public List<PostActionTreeExport<PostActionTreeExport>> innerActions;
+   // public List<PostActionTreeExport<PostActionTreeExport>> elseActions;
+
+    public String getActionType() {
+        return actionType;
     }
 
-    public void setPostAction(RuleActionData postAction) {
-        this.postAction = postAction;
+    public void setActionType(String actionType) {
+        this.actionType = actionType;
     }
 
-    public List<PostActionTreeExport<RuleActionData>> getChildren() {
-        return children;
+    public Integer getOrdering() {
+        return ordering;
     }
 
-    public void setChildren(List<PostActionTreeExport<RuleActionData>> children) {
-        this.children = children;
+    public void setOrdering(Integer ordering) {
+        this.ordering = ordering;
     }
+
+    public String getObjectId() {
+        return objectId;
+    }
+
+    public void setObjectId(String objectId) {
+        this.objectId = objectId;
+    }
+
+    public String getActionName() {
+        return actionName;
+    }
+
+    public void setActionName(String actionName) {
+        this.actionName = actionName;
+    }
+
+    public Collection<RecordData> getParameters() {
+        return parameters;
+    }
+
+    public void setParameters(Collection<RecordData> parameters) {
+        this.parameters = parameters;
+    }
+
+    public Long getActionKey() {
+        return actionKey;
+    }
+
+    public void setActionKey(Long actionKey) {
+        this.actionKey = actionKey;
+    }
+
+   public String getVariable() {
+        return variable;
+    }
+
+    public void setVariable(String variable) {
+        this.variable = variable;
+    }
+
+    public StringBuffer getValueExperssion() {
+        return valueExperssion;
+    }
+
+    public void setValueExperssion(StringBuffer valueExperssion) {
+        this.valueExperssion = valueExperssion;
+    }
+
+    public String getAlertType() {
+        return alertType;
+    }
+
+    public void setAlertType(String alertType) {
+        this.alertType = alertType;
+    }
+
+    public String getAlertMessage() {
+        return alertMessage;
+    }
+
+    public void setAlertMessage(String alertMessage) {
+        this.alertMessage = alertMessage;
+    }
+
+
+    public List<PostActionTreeExport<PostActionTreeExport>> getInnerActions() {
+        return innerActions;
+    }
+
+    public void setInnerActions(List<PostActionTreeExport<PostActionTreeExport>> innerActions) {
+        this.innerActions = innerActions;
+    }
+
+
 
     public PostActionTreeExport() {
-        this.children = new ArrayList<>();
+        this.innerActions = new ArrayList<>();
     }
 
-    public PostActionTreeExport(RuleActionData postAction, List<PostActionTreeExport<RuleActionData>> children) {
-        this.postAction = postAction;
-        this.children = children;
+    public PostActionTreeExport(String actionType,Integer ordering ,String objectId,String actionName,String variable,
+                                StringBuffer valueExperssion,String alertType,String alertMessage,Long actionKey,
+                                List<PostActionTreeExport<PostActionTreeExport>> innerActions) {
+        this.actionType = actionType;
+        this.ordering = ordering;
+        this.objectId = objectId;
+        this.actionName = actionName;
+        this.variable = variable;
+        this.valueExperssion = valueExperssion;
+        this.alertType = alertType;
+        this.alertMessage = alertMessage;
+        this.actionKey = actionKey;
+
+        this.innerActions = innerActions;
     }
-    public PostActionTreeExport(RuleActionData value) {
-        this.postAction = value;
-        this.children = new ArrayList<>();
+    public void setFiedlds(String actionType,Integer ordering ,String objectId,String actionName,String variable,
+                                StringBuffer valueExperssion,String alertType,String alertMessage,Long actionKey,Collection<RecordData> parameters) {
+        this.actionType = actionType;
+        this.ordering = ordering;
+        this.objectId = objectId;
+        this.actionName = actionName;
+        this.variable = variable;
+        this.valueExperssion = valueExperssion;
+        this.alertType = alertType;
+        this.alertMessage = alertMessage;
+        this.actionKey = actionKey;
+        this.parameters =parameters;
+        this.innerActions = new ArrayList<>();
     }
     // Optional: add a method to add a child
-    public void addChild(PostActionTreeExport<RuleActionData> child) {
-        children.add(child);
+    public void addChild(PostActionTreeExport<PostActionTreeExport> child) {
+        innerActions.add(child);
     }
-    public PostActionTreeExport<RuleActionData> getChild(PostActionTreeExport<RuleActionData> child) {
-        children.add(child);
+    public PostActionTreeExport<PostActionTreeExport> getChild(PostActionTreeExport<PostActionTreeExport> child) {
+        innerActions.add(child);
         return child;
     }
 
     // Optional: enforce a maximum of N children
-    public void addChild(PostActionTreeExport<RuleActionData> child, int maxChildren) {
-        if (children.size() < maxChildren) {
-            children.add(child);
+    public void addChild(PostActionTreeExport<PostActionTreeExport> child, int maxChildren) {
+        if (innerActions.size() < maxChildren) {
+            innerActions.add(child);
         } else {
             throw new IllegalStateException("Maximum number of children (" + maxChildren + ") exceeded");
         }
