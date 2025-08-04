@@ -240,9 +240,12 @@ public class PuzzleLevelService implements PuzzleLevelRepository {
         PLStatus  plStatus =  PLStatus.getByTitle(dto.getPuzzleLevelStatus());
         PLPrivacy plPrivacy =  plPrivacyRepository.findByValue(dto.getPuzzleLevelPrivacy());
         Optional<PuzzleGroup>  puzzleGroupOptional = pgRepository.findById(dto.getPuzzleGroupId());
+        Random random = new Random(); // Create a Random object
+        long generatedLong = random.nextLong(); // Generate a random long
+        String pcode= dto.getCode() + String.valueOf(generatedLong);
 
         PuzzleLevel importedPuzzleLevel = new PuzzleLevel(createdBy.get(),dto.getApproveDate(), dto.getOrdering(),
-                dto.getTitle(),dto.getCode(),dto.getFromAge(),dto.getToAge(),
+                dto.getTitle(),pcode,dto.getFromAge(),dto.getToAge(),
                 dto.getMaxScore(), dto.getFirstStarScore(), dto.getSecondStarScore(), dto.getThirdStartScore(),
                 puzzleGroupOptional.get(),plDifficulty,plStatus,plPrivacy, iconOptional.get(),picOptional.get() ,
                 1L, DateUtils.getNow(), DateUtils.getNow(), createdBy.get(), createdBy.get());
