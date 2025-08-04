@@ -24,7 +24,7 @@ public class PostActionTreeExport<P> implements Serializable {
     private Collection<RecordData> parameters;
 
     public List<PostActionTreeExport<PostActionTreeExport>> innerActions;
-   // public List<PostActionTreeExport<PostActionTreeExport>> elseActions;
+    public List<PostActionTreeExport<PostActionTreeExport>> elseActions;
 
     public String getActionType() {
         return actionType;
@@ -115,7 +115,13 @@ public class PostActionTreeExport<P> implements Serializable {
         this.innerActions = innerActions;
     }
 
+    public List<PostActionTreeExport<PostActionTreeExport>> getElseActions() {
+        return elseActions;
+    }
 
+    public void setElseActions(List<PostActionTreeExport<PostActionTreeExport>> elseActions) {
+        this.elseActions = elseActions;
+    }
 
     public PostActionTreeExport() {
         this.innerActions = new ArrayList<>();
@@ -123,7 +129,7 @@ public class PostActionTreeExport<P> implements Serializable {
 
     public PostActionTreeExport(String actionType,Integer ordering ,String objectId,String actionName,String variable,
                                 StringBuffer valueExperssion,String alertType,String alertMessage,Long actionKey,
-                                List<PostActionTreeExport<PostActionTreeExport>> innerActions) {
+                                List<PostActionTreeExport<PostActionTreeExport>> innerActions,List<PostActionTreeExport<PostActionTreeExport>> elseActions) {
         this.actionType = actionType;
         this.ordering = ordering;
         this.objectId = objectId;
@@ -133,7 +139,7 @@ public class PostActionTreeExport<P> implements Serializable {
         this.alertType = alertType;
         this.alertMessage = alertMessage;
         this.actionKey = actionKey;
-
+        this.elseActions = elseActions;
         this.innerActions = innerActions;
     }
     public void setFiedlds(String actionType,Integer ordering ,String objectId,String actionName,String variable,
@@ -149,6 +155,7 @@ public class PostActionTreeExport<P> implements Serializable {
         this.actionKey = actionKey;
         this.parameters =parameters;
         this.innerActions = new ArrayList<>();
+        this.elseActions = new ArrayList<>();
     }
     // Optional: add a method to add a child
     public void addChild(PostActionTreeExport<PostActionTreeExport> child) {
@@ -163,6 +170,11 @@ public class PostActionTreeExport<P> implements Serializable {
     public void addChild(PostActionTreeExport<PostActionTreeExport> child, int maxChildren) {
         if (innerActions.size() < maxChildren) {
             innerActions.add(child);
+        } else {
+            throw new IllegalStateException("Maximum number of children (" + maxChildren + ") exceeded");
+        }
+        if (elseActions.size() < maxChildren) {
+            elseActions.add(child);
         } else {
             throw new IllegalStateException("Maximum number of children (" + maxChildren + ") exceeded");
         }

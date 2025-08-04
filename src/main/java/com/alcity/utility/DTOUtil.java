@@ -1518,21 +1518,23 @@ public class DTOUtil {
 
     public static <PLRulePostActionImport> PostActionTreeExport preOrderTraversal(PostActionTreeExport treeExport , PLRulePostActionService plRulePostActionService,AttributeService attributeService ,PLRulePostAction root) {
         Collection<PLRulePostAction> children = plRulePostActionService.findByOwnerId(root.getId());
-        Collection<RecordData> parameters = new ArrayList<RecordData>();
+        Collection<Attribute> parameters = new ArrayList<Attribute>();
         if (root == null)  return treeExport;
 
-        System.out.println("Post Action id = "+root.getId());
-        parameters = getAttributeForOwnerById(attributeService , root.getId(), AttributeOwnerType.Puzzle_Level_Rule_Post_Action_Parameter);
+        if(root.getId()==17251L) {
+            System.out.println("Post Action id = "+root.getId());
+        }
+        parameters = attributeService.findPostActionParameters(root.getId(), AttributeOwnerType.Puzzle_Level_Rule_Post_Action_Parameter);
+        Collection<RecordData> parametersData = DTOUtil.getPropertiesDTOForPGObject(parameters);
 
-        RuleActionData dto = new RuleActionData();
+
         treeExport.setFiedlds(root.getPlRulePostActionType().name(), root.getOrdering(), root.getObjectId(),root.getActionName(),root.getVariable(),root.getValueExperssion(),
-                root.getAlertType(), root.getAlertMessage(), root.getActionKey(),parameters);
+                root.getAlertType(), root.getAlertMessage(), root.getActionKey(),parametersData);
         Iterator<PLRulePostAction> childIterator = children.iterator();
         while(childIterator.hasNext()){
             PLRulePostAction child = childIterator.next();
-            RuleActionData childDTO = new RuleActionData();
             PostActionTreeExport<RuleActionData> subTree=treeExport.getChild(new PostActionTreeExport<>(child.getPlRulePostActionType().name(), child.getOrdering(), child.getObjectId(),child.getActionName(),
-                    child.getVariable(),child.getValueExperssion(),child.getAlertType(), child.getAlertMessage(), child.getActionKey(),null));
+                    child.getVariable(),child.getValueExperssion(),child.getAlertType(), child.getAlertMessage(), child.getActionKey(),null,null));
             preOrderTraversal(subTree,plRulePostActionService,attributeService,child) ;
         }
         return treeExport;

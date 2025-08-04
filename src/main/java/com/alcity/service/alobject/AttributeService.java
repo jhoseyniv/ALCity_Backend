@@ -175,6 +175,9 @@ public class AttributeService implements AttributeRepository {
        } else { // attribute is exist and value must be saved only
            importedAttribute = attributeOptional.get();
            AttributeValue attributeValue = DTOUtil.getAttributeValueFromPLVariableImport(variableImport, importedAttribute, createdBy.get());
+           attributeValue.setOwnerType(ownerType);
+           attributeValue.setOwnerId(ownerId);
+
            attributeValueRepository.save(attributeValue);
        }
         return importedAttribute;
@@ -760,56 +763,36 @@ public class AttributeService implements AttributeRepository {
         }
 
         return  outputs;
-    }public Collection<Attribute> findInstanceProperties(Long instanceId,AttributeOwnerType ownerType){
+    }
+    public Collection<Attribute> findInstanceProperties(Long instanceId,AttributeOwnerType ownerType){
        //     Collection<Attribute> outputAttributes = new ArrayList<Attribute>();
             Collection<Attribute> definedAttributes = new ArrayList<Attribute>();
 
-   /*     //check is_defined_and_init_in_instance_only ?
-        Collection<Attribute> properties_for_instance = attributeRepository.findByOwnerIdAndAttributeOwnerType(instanceId,ownerType);
-        // state 1 : if properties_for_instance is not empty mean that properties is_defined_and_init_in_instance_only
-        outputAttributes = properties_for_instance;
-
-        // check is_defined_in_pgo_and_reinit_in_instance ?
-        // find pgo - get pg object id for this instance
-        Long pgo_id = getPGOForThisInstance(instanceId);
-        //fetch properties for a pg object of this instance
-
-        Collection<Attribute> temp_Bug_properties_in_a_pg_object = new ArrayList<>();
-        Collection<Attribute> properties_in_a_pg_object = attributeRepository.findByOwnerId(pgo_id);
-        properties_in_a_pg_object = properties_in_a_pg_object.stream().filter(attribute -> attribute.getAttributeOwnerType().equals(AttributeOwnerType.Puzzle_Group_Object_Property)).collect(Collectors.toList());
-        Iterator<Attribute> iterator = properties_in_a_pg_object.iterator();
-        while(iterator.hasNext()){
-            Attribute attribute = iterator.next();
-            Collection<AttributeValue> values = attributeValueRepository.findByAttributeId(attribute);
-            System.out.println(values.size());
-            attribute.setAttributeValues(values);
-            temp_Bug_properties_in_a_pg_object.add(attribute);
-        }
-        outputAttributes.addAll(temp_Bug_properties_in_a_pg_object);
-
-        Collection<Attribute> temp_Bug_properties_in_a_object = new ArrayList<>();
-        Long object_id = getObjectForThisPOG(pgo_id);
-        Collection<Attribute> properties_in_a_object = attributeRepository.findByOwnerId(object_id);
-        properties_in_a_object = properties_in_a_object.stream().filter(attribute -> attribute.getAttributeOwnerType().equals(AttributeOwnerType.Object_Property)).collect(Collectors.toList());
-        Iterator<Attribute> iterator_object = properties_in_a_object.iterator();
-
-        while(iterator_object.hasNext()){
-            Attribute attribute = iterator_object.next();
-            Collection<AttributeValue> values = attributeValueRepository.findByAttributeId(attribute);
-            System.out.println(values.size());
-            attribute.setAttributeValues(values);
-            temp_Bug_properties_in_a_object.add(attribute);
-        }
-        outputAttributes.addAll(temp_Bug_properties_in_a_object);
-*/
         Long pgo_id = getPGOForThisInstance(instanceId);
         Long object_id = getObjectForThisPOG(pgo_id);
 
         definedAttributes = defined_properties_in_instance(instanceId,pgo_id,object_id);
         return definedAttributes;
-
-
      }
+
+     public Collection<Attribute> findPostActionParameters(Long postActionId,AttributeOwnerType ownerType){
+        Collection<Attribute> definedAttributes = new ArrayList<Attribute>();
+        //find attribute values for this postAction by ownerId
+         Collection<AttributeValue> values = attributeValueRepository.findByOwnerId(postActionId);
+         Iterator<AttributeValue> iterator = values.iterator();
+         while(iterator.hasNext()){
+             AttributeValue attributeValue = iterator.next();
+             Optional<Attribute> attributeOptional = attributeRepository.findById(attributeValue.getAttributeId().getId());
+             if(attributeOptional.isPresent()){
+                 Attribute attribute = attributeOptional.get();
+                 attribute.setAttributeValues(values);
+                 definedAttributes.add(attributeOptional.get());
+             }
+         }
+        return definedAttributes;
+    }
+
+
 
     public Collection<Attribute> findByOwnerIdAndAttributeOwnerTypeNew(Long ownerId, AttributeOwnerType ownerType) {
 
