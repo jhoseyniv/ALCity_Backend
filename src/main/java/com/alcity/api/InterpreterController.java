@@ -12,13 +12,12 @@ import com.alcity.entity.puzzle.PLCell;
 import com.alcity.service.alobject.AttributeService;
 import com.alcity.service.alobject.ActionService;
 import com.alcity.service.customexception.ALCityResponseObject;
-import com.alcity.service.puzzle.InstanceInPLService;
+import com.alcity.service.puzzle.InstanceService;
 import com.alcity.service.puzzle.PLGroundService;
 import com.alcity.service.puzzle.PLRulePostActionService;
 import com.alcity.service.puzzle.PuzzleLevelService;
 import com.alcity.utility.DTOUtil;
 import com.alcity.utility.ImageUtil;
-import com.alcity.utility.PLDTOUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,7 +49,7 @@ public class InterpreterController {
     PLRulePostActionService plRulePostActionService;
 
     @Autowired
-    InstanceInPLService pgObjectInstanceService;
+    InstanceService pgObjectInstanceService;
 
     @Operation( summary = "Create  json File ",  description = "Create Json file for a puzzle level structure and rules")
     @RequestMapping(value = "/create-json/id/{id}", method = RequestMethod.GET)
@@ -130,11 +129,11 @@ public class InterpreterController {
 
     public Collection<InstanceData> getInstanceData(ALCityObjectInPG pgo, PuzzleLevel  pl) {
         Collection<InstanceData> instanceDTOS = new ArrayList<InstanceData>();
-        Collection<ALCityInstanceInPL> instances = pgObjectInstanceService.findByAlCityObjectInPGAndPuzzleLevel(pgo,pl);
-        Iterator<ALCityInstanceInPL> iterator = instances.iterator();
+        Collection<Instance> instances = pgObjectInstanceService.findByAlCityObjectInPGAndPuzzleLevel(pgo,pl);
+        Iterator<Instance> iterator = instances.iterator();
         Integer zorder =1;
         while(iterator.hasNext()) {
-            ALCityInstanceInPL alCityInstanceInPL = iterator.next();
+            Instance alCityInstanceInPL = iterator.next();
 
             if( alCityInstanceInPL.getzOrder()!=0 &&  alCityInstanceInPL.getzOrder()!=null)
                 zorder = alCityInstanceInPL.getzOrder();

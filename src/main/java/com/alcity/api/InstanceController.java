@@ -2,7 +2,6 @@ package com.alcity.api;
 
 
 import com.alcity.dto.Interpreter.object.ActionData;
-import com.alcity.dto.puzzle.CityObjectInPGDTO;
 import com.alcity.dto.puzzle.CityObjectInPLDTO;
 import com.alcity.entity.alenum.POActionOwnerType;
 import com.alcity.entity.alobject.ObjectAction;
@@ -12,7 +11,7 @@ import com.alcity.service.alobject.AttributeService;
 import com.alcity.service.customexception.ALCityResponseObject;
 import com.alcity.service.customexception.UniqueConstraintException;
 import com.alcity.service.customexception.ViolateForeignKeyException;
-import com.alcity.service.puzzle.InstanceInPLService;
+import com.alcity.service.puzzle.InstanceService;
 import com.alcity.service.puzzle.PLCellService;
 import com.alcity.utility.DTOUtil;
 import io.swagger.v3.oas.annotations.Operation;
@@ -29,13 +28,13 @@ import java.util.Optional;
 @CrossOrigin(origins = "*" ,maxAge = 3600)
 @RestController
 @RequestMapping("/co-pl")
-public class InstanceInPLController {
+public class InstanceController {
 
     @Autowired
-    private InstanceInPLService service;
+    private InstanceService service;
 
-    @Autowired
-    private AttributeService attributeService;
+//    @Autowired
+//    private AttributeService attributeService;
 
     @Autowired
     private PLCellService plCellService;
@@ -47,25 +46,25 @@ public class InstanceInPLController {
     @Operation( summary = "Add a Object Instance to a Puzzle Level ",  description = "Add a Object Instance to a Puzzle Level ")
     @PostMapping("/save")
     @CrossOrigin(origins = "*")
-    public ALCityResponseObject saveALCityObjectInPL(@RequestBody CityObjectInPLDTO dto)  {
-        ALCityInstanceInPL savedRecord = null;
+    public ALCityResponseObject saveInstance(@RequestBody CityObjectInPLDTO dto)  {
+        Instance instance = null;
         ALCityResponseObject responseObject = new ALCityResponseObject();
         if (dto.getName()==null) dto.setName("instance_"+dto.getRow()+"_"+dto.getCol()+"_"+dto.getZorder()+"_puzzle_id"+dto.getPuzzleLevelId());
         if (dto.getId() == null || dto.getId() <= 0L) { //save
             try {
-                savedRecord = service.save(dto,"Save");
+                instance = service.save(dto,"Save");
             } catch (RuntimeException e) {
-                throw new UniqueConstraintException(-1,"Unique Constraint in" + ALCityInstanceInPL.class , "Error",savedRecord.getId() );
+                throw new UniqueConstraintException(-1,"Unique Constraint in" + Instance.class , "Error",instance.getId() );
             }
-            responseObject = new ALCityResponseObject(HttpStatus.OK.value(), "ok", savedRecord.getId(), "Record Saved Successfully!");
+            responseObject = new ALCityResponseObject(HttpStatus.OK.value(), "ok", instance.getId(), "Record Saved Successfully!");
         } else if (dto.getId() > 0L ) {//edit
-            savedRecord = service.save(dto, "Edit");
-            if(savedRecord !=null)
-                responseObject = new ALCityResponseObject(HttpStatus.OK.value(), "ok", savedRecord.getId(), "Record Updated Successfully!");
+            instance = service.save(dto, "Edit");
+            if(instance !=null)
+                responseObject = new ALCityResponseObject(HttpStatus.OK.value(), "ok", instance.getId(), "Record Updated Successfully!");
             else
                 responseObject = new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", dto.getId(), "Record Not Found!");
         }
-        else if (savedRecord==null)
+        else if (instance==null)
             responseObject = new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", -1L, "Record Not Found!");
         else
             responseObject = new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", -1L, "Record Not Found!");
@@ -75,16 +74,16 @@ public class InstanceInPLController {
     @Operation( summary = "Add an Instance to a PL Cell ",  description = "Add an Instance to a PL Cell ")
     @PostMapping("/{iid}/iid/add-to-cell/{cid}/cid")
     @CrossOrigin(origins = "*")
-    public ALCityResponseObject addInstanceToPLCell(@PathVariable Long iid,@PathVariable Long cid)  {
-        ALCityInstanceInPL savedRecord = null;
+    public ALCityResponseObject addInstanceToCell(@PathVariable Long iid,@PathVariable Long cid)  {
+        Instance savedRecord = null;
         ALCityResponseObject responseObject = new ALCityResponseObject();
-        Optional<ALCityInstanceInPL> alCityInstanceInPLOptional = service.findById(iid);
+        Optional<Instance> instanceOptional = service.findById(iid);
         Optional<PLCell> plCellOptional = plCellService.findById(iid);
 
-        if(plCellOptional.isEmpty() || alCityInstanceInPLOptional.isEmpty())
+        if(plCellOptional.isEmpty() || instanceOptional.isEmpty())
             return  new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "Error", -1L, "Instance id or cell id not found!");
 
-        ALCityInstanceInPL instance = alCityInstanceInPLOptional.get();
+        Instance instance = instanceOptional.get();
         instance.setPlCell(plCellOptional.get());
         service.save(instance);
         return responseObject;
@@ -95,13 +94,13 @@ public class InstanceInPLController {
     @CrossOrigin(origins = "*")
     public ALCityResponseObject copyInstanceToOtherCellsInPL(@PathVariable Long id) {
         ALCityResponseObject responseObject = new ALCityResponseObject();
-        Optional<ALCityInstanceInPL> instanceOptional = service.findById(id);
+        Optional<Instance> instanceOptional = service.findById(id);
         if(instanceOptional.isEmpty()) return new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", -1L, "Instance Not Found!");
-        ALCityInstanceInPL instance = instanceOptional.get();
+        Instance instance = instanceOptional.get();
         PuzzleLevel puzzleLevel = instance.getPuzzleLevel();
         Collection<PLGround> plGrounds = puzzleLevel.getPlGrounds();
         PLGround plGround = plGrounds.iterator().next();
-        Collection<ALCityInstanceInPL> copiedInstances = service.copyOneInstanceToOthers(instance,plGround);
+        Collection<Instance> copiedInstances = service.copyOneInstanceToOthers(instance,plGround);
 
         return  new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "Success", -1L, "Instances copied Successfully!");
     }
@@ -112,7 +111,7 @@ public class InstanceInPLController {
     @ResponseBody
     @CrossOrigin(origins = "*")
     public CityObjectInPLDTO getAnAObjectInPLDTO(@PathVariable Long id) {
-        Optional<ALCityInstanceInPL> alCityInstanceInPLOptional = service.findById(id);
+        Optional<Instance> alCityInstanceInPLOptional = service.findById(id);
         CityObjectInPLDTO cityObjectInPLDTO = DTOUtil.getALCityObjectInPLDTO(alCityInstanceInPLOptional.get());
         return  cityObjectInPLDTO;
     }
@@ -150,13 +149,13 @@ public class InstanceInPLController {
     @DeleteMapping("/del/id/{id}")
     @CrossOrigin(origins = "*")
     public ALCityResponseObject deleteALCityObjectInPLById(@PathVariable Long id) {
-        Optional<ALCityInstanceInPL> existingRecord = service.findById(id);
+        Optional<Instance> existingRecord = service.findById(id);
         if(existingRecord.isPresent()){
             try {
                 service.deleteById(existingRecord.get().getId());
             }catch (Exception e )
             {
-                throw new ViolateForeignKeyException(-1, "error", ALCityInstanceInPL.class.toString(),existingRecord.get().getId());
+                throw new ViolateForeignKeyException(-1, "error", Instance.class.toString(),existingRecord.get().getId());
             }
             return new ALCityResponseObject(HttpStatus.OK.value(), "ok", id,"Record deleted Successfully!");
         }

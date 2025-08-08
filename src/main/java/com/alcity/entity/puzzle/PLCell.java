@@ -28,7 +28,7 @@ public class PLCell extends BaseTable implements Serializable {
 
     @OneToMany(mappedBy = "plCell", fetch = FetchType.LAZY)
     @JsonIgnore
-    private Collection<ALCityInstanceInPL> instances;
+    private Collection<Instance> instances;
 
     public Integer getRow() {
         return row;
@@ -62,11 +62,11 @@ public class PLCell extends BaseTable implements Serializable {
         this.plGround = plGround;
     }
 
-    public Collection<ALCityInstanceInPL> getInstances() {
+    public Collection<Instance> getInstances() {
         return instances;
     }
 
-    public void setInstances(Collection<ALCityInstanceInPL> instances) {
+    public void setInstances(Collection<Instance> instances) {
         this.instances = instances;
     }
 

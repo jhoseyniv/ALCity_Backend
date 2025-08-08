@@ -2,15 +2,12 @@ package com.alcity.api;
 
 
 import com.alcity.dto.puzzle.PLCellDTO;
-import com.alcity.dto.puzzle.PLGroundDTO;
-import com.alcity.entity.puzzle.ALCityInstanceInPL;
 import com.alcity.entity.puzzle.PLCell;
 import com.alcity.entity.puzzle.PLGround;
 import com.alcity.service.customexception.ALCityResponseObject;
 import com.alcity.service.customexception.UniqueConstraintException;
 import com.alcity.service.customexception.ViolateForeignKeyException;
 import com.alcity.service.puzzle.PLCellService;
-import com.alcity.service.puzzle.PLGroundService;
 import com.alcity.utility.DTOUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -20,8 +17,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Optional;
 
 @Tag(name = "Puzzle Level Cell API ", description = "Get Puzzle Levels Cell ...")

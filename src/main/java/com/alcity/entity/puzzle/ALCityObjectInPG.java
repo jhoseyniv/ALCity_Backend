@@ -32,13 +32,13 @@ public class ALCityObjectInPG extends BaseTable implements Serializable {
 
     @OneToMany(mappedBy = "alCityObjectInPG", fetch = FetchType.LAZY)
     @JsonIgnore
-    private Collection<ALCityInstanceInPL> alCityInstanceInPLCollection;
+    private Collection<Instance> alCityInstanceInPLCollection;
 
-    public Collection<ALCityInstanceInPL> getAlCityInstanceInPLCollection() {
+    public Collection<Instance> getAlCityInstanceInPLCollection() {
         return alCityInstanceInPLCollection;
     }
 
-    public void setAlCityInstanceInPLCollection(Collection<ALCityInstanceInPL> alCityInstanceInPLCollection) {
+    public void setAlCityInstanceInPLCollection(Collection<Instance> alCityInstanceInPLCollection) {
         this.alCityInstanceInPLCollection = alCityInstanceInPLCollection;
     }
 

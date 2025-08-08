@@ -8,7 +8,7 @@ import jakarta.persistence.*;
 import java.io.Serializable;
 
 @Entity
-public class ALCityInstanceInPL extends BaseTable implements Serializable {
+public class Instance extends BaseTable implements Serializable {
 
     @Column(name="name")
     private String name;
@@ -93,10 +93,10 @@ public class ALCityInstanceInPL extends BaseTable implements Serializable {
         this.name = name;
     }
 
-    public ALCityInstanceInPL() {
+    public Instance() {
     }
 
-    public ALCityInstanceInPL(String name, Integer row, Integer col, Integer zOrder,PLCell plCell, ALCityObjectInPG alCityObjectInPG, PuzzleLevel puzzleLevel, Long version, String created, String updated, AppMember createdBy, AppMember updatedBy) {
+    public Instance(String name, Integer row, Integer col, Integer zOrder, PLCell plCell, ALCityObjectInPG alCityObjectInPG, PuzzleLevel puzzleLevel, Long version, String created, String updated, AppMember createdBy, AppMember updatedBy) {
         super(version, created, updated, createdBy, updatedBy);
         this.name = name;
         this.plCell = plCell;

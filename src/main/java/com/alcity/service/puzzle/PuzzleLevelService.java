@@ -1,10 +1,5 @@
 package com.alcity.service.puzzle;
 
-import com.alcity.dto.Interpreter.*;
-import com.alcity.dto.Interpreter.object.Features;
-import com.alcity.dto.Interpreter.object.PLGroundPostion;
-import com.alcity.dto.Interpreter.object.RecordData;
-import com.alcity.dto.Interpreter.object.RuleData;
 import com.alcity.dto.plimport.*;
 import com.alcity.dto.plimport.object.*;
 import com.alcity.dto.puzzle.PLCopyDTO;
@@ -31,7 +26,6 @@ import com.alcity.service.alobject.AttributeService;
 import com.alcity.service.alobject.AttributeValueService;
 import com.alcity.service.appmember.AppMemberService;
 import com.alcity.service.base.BinaryContentService;
-import com.alcity.service.customexception.ALCityResponseObject;
 import com.alcity.utility.DTOUtil;
 import com.alcity.utility.DateUtils;
 import com.alcity.utility.ImageUtil;
@@ -39,7 +33,6 @@ import com.alcity.utility.PLDTOUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Lazy;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import org.springframework.transaction.annotation.Transactional;;
@@ -220,7 +213,7 @@ public class PuzzleLevelService implements PuzzleLevelRepository {
 
     @Autowired
     @Lazy
-    private InstanceInPLService instanceInPLService;
+    private InstanceService instanceInPLService;
 
     public PuzzleLevel getPuzzleLevelFromJson(PLImportDTO plData) {
         Optional<AppMember> creatorOptional = appMemberService.findByUsername("admin");
@@ -290,7 +283,7 @@ public class PuzzleLevelService implements PuzzleLevelRepository {
         importPLGround.setPlCells(importedCells);
 
         //import puzzle level instances
-         Collection<ALCityInstanceInPL> importInstances = instanceInPLService.importObjects(dto.getObjects(), importedPuzzleLevel);
+         Collection<Instance> importInstances = instanceInPLService.importObjects(dto.getObjects(), importedPuzzleLevel);
 
         //import puzzle level rules
         Collection<PLRuleImport> rules = dto.getRules();
@@ -318,7 +311,7 @@ public class PuzzleLevelService implements PuzzleLevelRepository {
          plRuleService.deleteRules(rules);
 
         //delete puzzle level instances
-        Collection<ALCityInstanceInPL> instances = puzzleLevel.getPuzzleGroupObjectInstanceCollection();
+        Collection<Instance> instances = puzzleLevel.getPuzzleGroupObjectInstanceCollection();
         instanceInPLService.deleteInstances(instances);
 
         //delete puzzle level instances
@@ -383,7 +376,7 @@ public class PuzzleLevelService implements PuzzleLevelRepository {
 
         //copy puzzle level instances
         if(dto.getInstances()) {
-            Collection<ALCityInstanceInPL> copiedInstances = instanceInPLService.copyInstancesFromSourcePLToTargetPL(puzzleLevel, copyPuzzleLevel);
+            Collection<Instance> copiedInstances = instanceInPLService.copyInstancesFromSourcePLToTargetPL(puzzleLevel, copyPuzzleLevel);
         }
 
         //copy puzzle level variables

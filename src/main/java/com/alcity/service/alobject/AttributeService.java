@@ -4,7 +4,6 @@ import com.alcity.dto.alobject.AttributeDTOSave;
 import com.alcity.dto.alobject.AttributeValueDTOSave;
 import com.alcity.dto.pgimport.PGObjectVariableImportDTO;
 import com.alcity.dto.plimport.object.RecordDataImport;
-import com.alcity.dto.puzzle.PLDTO;
 import com.alcity.entity.alenum.DataType;
 import com.alcity.entity.alobject.Attribute;
 import com.alcity.entity.alenum.AttributeOwnerType;
@@ -19,9 +18,8 @@ import com.alcity.repository.alobject.AttributeValueRepository;
 import com.alcity.repository.appmember.AppMemberRepository;
 import com.alcity.service.customexception.ALCityResponseObject;
 import com.alcity.service.customexception.UniqueConstraintException;
-import com.alcity.service.puzzle.InstanceInPLService;
+import com.alcity.service.puzzle.InstanceService;
 import com.alcity.service.puzzle.ObjectInPGService;
-import com.alcity.service.puzzle.ObjectService;
 import com.alcity.utility.DTOUtil;
 import com.alcity.utility.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,7 +41,7 @@ public class AttributeService implements AttributeRepository {
     @Autowired
     private ObjectInPGService alCityObjectInPGService;
     @Autowired
-    private InstanceInPLService aLCityInstanceInPLService;
+    private InstanceService aLCityInstanceInPLService;
 
     @Autowired
     AttributeValueRepository attributeValueRepository;
@@ -107,7 +105,7 @@ public class AttributeService implements AttributeRepository {
     }
 
     @Transactional
-    public void copyOneAttributeFromInstanceToInstance(Attribute attribute , ALCityInstanceInPL from ,ALCityInstanceInPL to,AttributeOwnerType ownerType) {
+    public void copyOneAttributeFromInstanceToInstance(Attribute attribute , Instance from , Instance to, AttributeOwnerType ownerType) {
         if(attribute.getOwnerId().equals(from.getId())) { // attribute is for instance
             //copy attribute and values
             Attribute copiedAttribute = copyAnAttribute(attribute, to.getId(), attribute.getAttributeOwnerType());
@@ -129,7 +127,7 @@ public class AttributeService implements AttributeRepository {
     }
 
 
-    public Collection<Attribute> copyALLAttributesFromInstanceToInstance(Collection<Attribute> attributes,ALCityInstanceInPL from ,ALCityInstanceInPL to,AttributeOwnerType ownerType){
+    public Collection<Attribute> copyALLAttributesFromInstanceToInstance(Collection<Attribute> attributes, Instance from , Instance to, AttributeOwnerType ownerType){
         Collection<Attribute>  copyAttributes = new ArrayList<>();
 
         Iterator<Attribute> iterator =attributes.iterator();
@@ -199,7 +197,7 @@ public class AttributeService implements AttributeRepository {
         }
         return importedAttributes;
     }
-    public Collection<Attribute> importPLInstanceVariables(Collection<RecordDataImport> variables, ALCityInstanceInPL instance, AttributeOwnerType ownerType){
+    public Collection<Attribute> importPLInstanceVariables(Collection<RecordDataImport> variables, Instance instance, AttributeOwnerType ownerType){
         Collection<Attribute>  importedAttributes = new ArrayList<>();
         Iterator<RecordDataImport> iterator =variables.iterator();
         while(iterator.hasNext()) {
@@ -670,7 +668,7 @@ public class AttributeService implements AttributeRepository {
     public Long getPGOForThisInstance(Long instanceId) {
         // return pgo id for an instance
         Long objectInPGId=-1L;
-        Optional<ALCityInstanceInPL> alCityInstanceInPLOptional = aLCityInstanceInPLService.findById(instanceId);
+        Optional<Instance> alCityInstanceInPLOptional = aLCityInstanceInPLService.findById(instanceId);
         if(alCityInstanceInPLOptional.isPresent())
             objectInPGId = alCityInstanceInPLOptional.get().getAlCityObjectInPG().getId();
         return  objectInPGId;

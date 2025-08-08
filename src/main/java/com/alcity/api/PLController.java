@@ -2,12 +2,10 @@ package com.alcity.api;
 
 import com.alcity.dto.Interpreter.PLData;
 import com.alcity.dto.plimport.PLImportDTO;
-import com.alcity.dto.plimport.object.PostActionTreeImport;
 import com.alcity.entity.alenum.AttributeOwnerType;
 import com.alcity.entity.alenum.DataType;
 import com.alcity.entity.alobject.Attribute;
 import com.alcity.entity.appmember.AppMember;
-import com.alcity.entity.learning.LearningSkill;
 import com.alcity.service.alobject.AttributeService;
 import com.alcity.service.appmember.AppMemberService;
 import com.alcity.service.customexception.ALCityResponseObject;
@@ -98,13 +96,13 @@ public class PLController {
         if(puzzleLevelOptional.isEmpty()) return null;
 
         PuzzleLevel puzzleLevel = puzzleLevelOptional.get();
-        Collection<ALCityInstanceInPL> instances = puzzleLevel.getPuzzleGroupObjectInstanceCollection();
-        Iterator<ALCityInstanceInPL> itr = instances.iterator();
+        Collection<Instance> instances = puzzleLevel.getPuzzleGroupObjectInstanceCollection();
+        Iterator<Instance> itr = instances.iterator();
 
         while(itr.hasNext()) {
             Set<Long> properties = new HashSet<>();
             Set<Long> variables = new HashSet<>();
-            ALCityInstanceInPL instance = itr.next();
+            Instance instance = itr.next();
 
             //find contents for pl instances properties
             Collection<Attribute> instance_properties = attributeService.findInstanceProperties(instance.getId(), AttributeOwnerType.Instance_Puzzle_Group_Object_Property);

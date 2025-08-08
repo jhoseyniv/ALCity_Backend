@@ -1,19 +1,6 @@
 package com.alcity.importdata;
 
 import com.alcity.ObjectManagmentApplication;
-import com.alcity.dto.puzzle.boardgraphic.BoardGraphicDTO;
-import com.alcity.entity.alenum.*;
-import com.alcity.entity.alobject.*;
-import com.alcity.entity.appmember.AppMember;
-import com.alcity.entity.appmember.WalletItem;
-import com.alcity.entity.base.BinaryContent;
-import com.alcity.entity.base.PLPrivacy;
-import com.alcity.entity.learning.LearningContent;
-import com.alcity.entity.learning.LearningSkill;
-import com.alcity.entity.learning.LearningTopic;
-import com.alcity.entity.play.PermitedPlayer;
-import com.alcity.entity.play.PlayHistory;
-import com.alcity.entity.puzzle.*;
 import com.alcity.repository.play.PermitedPlayerRepository;
 import com.alcity.service.Journey.JourneyService;
 import com.alcity.service.Journey.JourneyStepService;
@@ -30,26 +17,12 @@ import com.alcity.service.learning.LearningSkillService;
 import com.alcity.service.learning.LearningTopicService;
 import com.alcity.service.play.PlayHistoryService;
 import com.alcity.service.puzzle.*;
-import com.alcity.utility.DTOUtil;
-import com.alcity.utility.ImageUtil;
-import com.alcity.utility.ToolBox;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
-
-import javax.json.Json;
-import javax.json.JsonObject;
-import javax.json.JsonReader;
-import java.io.FileReader;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.Optional;
 
 
 @Order(value=6)
@@ -106,7 +79,7 @@ public class ImportMazeProblemData_6 implements CommandLineRunner {
     ObjectService puzzleObjectService;
 
     @Autowired
-    InstanceInPLService pgObjectInstanceService;
+    InstanceService pgObjectInstanceService;
 
 
     @Autowired
