@@ -1,7 +1,6 @@
 package com.alcity.dto.plimport;
 
-import com.alcity.dto.Interpreter.object.Position;
-import com.alcity.dto.Interpreter.object.RecordData;
+import com.alcity.dto.plexport.object.Position;
 import com.alcity.dto.plimport.object.RecordDataImport;
 
 import java.io.Serializable;

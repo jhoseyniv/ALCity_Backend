@@ -1,8 +1,6 @@
 package com.alcity.comparetors;
 
-import com.alcity.dto.Interpreter.object.RuleData;
-import com.alcity.dto.puzzle.PLRuleDTO;
-import com.alcity.dto.puzzle.PLRulePostActionDTO;
+import com.alcity.dto.plexport.object.RuleData;
 
 public class RuleDataComparator implements java.util.Comparator<RuleData>{
     @Override

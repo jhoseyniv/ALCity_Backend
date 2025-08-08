@@ -1,9 +1,5 @@
 package com.alcity.service.puzzle;
 
-import com.alcity.dto.Interpreter.object.PostActionTreeExport;
-import com.alcity.dto.Interpreter.object.RecordData;
-import com.alcity.dto.Interpreter.object.RuleActionData;
-import com.alcity.dto.alobject.AttributeDTOSave;
 import com.alcity.dto.plimport.object.PLRulePostActionImport;
 import com.alcity.dto.plimport.object.PostActionTreeImport;
 import com.alcity.dto.plimport.object.RecordDataImport;
@@ -26,7 +22,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
-import org.springframework.transaction.IllegalTransactionStateException;
 import org.springframework.transaction.annotation.Transactional;;
 import java.util.ArrayList;
 import java.util.Collection;

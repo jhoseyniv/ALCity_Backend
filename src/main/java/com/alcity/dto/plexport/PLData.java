@@ -1,8 +1,8 @@
-package com.alcity.dto.Interpreter;
+package com.alcity.dto.plexport;
 
 
-import com.alcity.dto.Interpreter.object.RecordData;
-import com.alcity.dto.Interpreter.object.RuleData;
+import com.alcity.dto.plexport.object.RecordData;
+import com.alcity.dto.plexport.object.RuleData;
 import java.io.Serializable;
 import java.util.Collection;
 

@@ -1,4 +1,4 @@
-package com.alcity.dto.Interpreter;
+package com.alcity.dto.plexport;
 
 import java.io.Serializable;
 

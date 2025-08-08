@@ -1,8 +1,8 @@
 package com.alcity.api;
 
 
-import com.alcity.dto.Interpreter.*;
-import com.alcity.dto.Interpreter.object.*;
+import com.alcity.dto.plexport.*;
+import com.alcity.dto.plexport.object.*;
 import com.alcity.entity.alenum.AttributeOwnerType;
 import com.alcity.entity.alenum.ObjectActionType;
 import com.alcity.entity.alobject.*;
@@ -80,10 +80,10 @@ public class InterpreterController {
         return plData;
     }
 
-    public PLData getJsonFile(Long puzzleLevelId) {
+    public PLData getJsonFile(Long plID) {
         PLData plData= new PLData();
 
-        Optional<PLGround> plGroundOptional = plGroundService.findByPuzzleLevelId(puzzleLevelId);
+        Optional<PLGround> plGroundOptional = plGroundService.findByPuzzleLevelId(plID);
         PLGround plGround = new PLGround();
         if(plGroundOptional.isPresent()){
             plGround = plGroundOptional.get();
@@ -101,7 +101,7 @@ public class InterpreterController {
 
             Collection<RecordData>  variables = DTOUtil.getAttributeForOwnerById(attributeService,pl.getId(),AttributeOwnerType.Puzzle_Level_Variable);
 
-            Collection<PLObjectiveData> objectives = DTOUtil.getPuzzleLevelObjectiveData(pl);
+            Collection<PLObjectiveData> objectives = DTOUtil.getPLObjectiveData(pl);
             plData.setObjectives(objectives);
 
             Collection<POData> objects = getObjectsForPuzzleGroup(pl);
@@ -109,7 +109,7 @@ public class InterpreterController {
 
             Collection<PLCellData> cellDTOS = DTOUtil.getPLCellDTOS(cells,attributeService);
 
-            Collection<RuleData> rules = DTOUtil.getRulesForPuzzleLevel(pl,attributeService,plRulePostActionService);
+            Collection<RuleData> rules = DTOUtil.getPLRules(pl,attributeService,plRulePostActionService);
 
             plData.setCols(plGround.getNumColumns());
             plData.setRows(plGround.getNumRows());

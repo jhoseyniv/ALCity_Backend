@@ -1,9 +1,6 @@
 package com.alcity.comparetors;
 
-import com.alcity.dto.Interpreter.object.PostActionTreeExport;
-import com.alcity.dto.Interpreter.object.RuleActionData;
-import com.alcity.dto.Interpreter.object.RuleData;
-import com.alcity.dto.puzzle.PLRulePostActionDTO;
+import com.alcity.dto.plexport.object.PostActionTreeExport;
 
 public class RuleActionDataComparator implements java.util.Comparator<PostActionTreeExport>{
     @Override

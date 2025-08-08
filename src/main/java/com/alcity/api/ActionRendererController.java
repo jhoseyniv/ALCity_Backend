@@ -1,7 +1,6 @@
 package com.alcity.api;
 
-import com.alcity.dto.Interpreter.object.RecordData;
-import com.alcity.entity.puzzle.PLRule;
+import com.alcity.dto.plexport.object.RecordData;
 import com.alcity.service.customexception.ALCityResponseObject;
 import com.alcity.service.customexception.UniqueConstraintException;
 import com.alcity.service.customexception.ViolateForeignKeyException;

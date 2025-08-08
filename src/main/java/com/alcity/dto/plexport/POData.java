@@ -1,6 +1,6 @@
-package com.alcity.dto.Interpreter;
+package com.alcity.dto.plexport;
 
-import com.alcity.dto.Interpreter.object.*;
+import com.alcity.dto.plexport.object.*;
 
 import java.io.Serializable;
 import java.util.Collection;

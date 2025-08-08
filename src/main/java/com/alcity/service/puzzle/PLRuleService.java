@@ -1,24 +1,14 @@
 package com.alcity.service.puzzle;
 
 
-import com.alcity.dto.Interpreter.object.PostActionTreeExport;
-import com.alcity.dto.Interpreter.object.RuleActionData;
 import com.alcity.dto.plimport.object.PLRuleImport;
-import com.alcity.dto.plimport.object.PLRulePostActionImport;
 import com.alcity.dto.plimport.object.PostActionTreeImport;
-import com.alcity.dto.puzzle.PLObjectiveDTO;
 import com.alcity.dto.puzzle.PLRuleDTO;
-import com.alcity.entity.alenum.AttributeOwnerType;
-import com.alcity.entity.alobject.Attribute;
 import com.alcity.entity.appmember.AppMember;
-import com.alcity.entity.appmember.WalletItem;
-import com.alcity.entity.learning.LearningSkill;
 import com.alcity.entity.puzzle.*;
 import com.alcity.repository.appmember.AppMemberRepository;
-import com.alcity.repository.puzzle.PLRuleEventRepository;
 import com.alcity.repository.puzzle.PLRuleRepository;
 import com.alcity.repository.puzzle.PuzzleLevelRepository;
-import com.alcity.service.appmember.AppMemberService;
 import com.alcity.utility.DTOUtil;
 import com.alcity.utility.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;

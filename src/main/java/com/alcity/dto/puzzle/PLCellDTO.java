@@ -1,7 +1,5 @@
 package com.alcity.dto.puzzle;
 
-import com.alcity.dto.Interpreter.object.Position;
-
 import java.io.Serializable;
 
 public class PLCellDTO  implements Serializable {

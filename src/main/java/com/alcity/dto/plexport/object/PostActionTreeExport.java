@@ -1,7 +1,4 @@
-package com.alcity.dto.Interpreter.object;
-
-import com.alcity.dto.plimport.object.PLRulePostActionImport;
-import com.alcity.dto.plimport.object.PostActionTreeImport;
+package com.alcity.dto.plexport.object;
 
 import java.io.Serializable;
 import java.util.ArrayList;

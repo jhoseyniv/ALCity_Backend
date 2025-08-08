@@ -1,9 +1,9 @@
 package com.alcity.utility;
 
 import com.alcity.comparetors.*;
-import com.alcity.dto.Interpreter.PLCellData;
-import com.alcity.dto.Interpreter.PLObjectiveData;
-import com.alcity.dto.Interpreter.object.*;
+import com.alcity.dto.plexport.PLCellData;
+import com.alcity.dto.plexport.PLObjectiveData;
+import com.alcity.dto.plexport.object.*;
 import com.alcity.dto.alenum.EnumDTO;
 import com.alcity.dto.alobject.*;
 import com.alcity.dto.appmember.*;
@@ -775,7 +775,7 @@ public class DTOUtil {
 
 
     //this method used for create Interpreter json
-    public static Collection<PLObjectiveData> getPuzzleLevelObjectiveData(PuzzleLevel input) {
+    public static Collection<PLObjectiveData> getPLObjectiveData(PuzzleLevel input) {
         Collection<PLObjectiveData> output = new ArrayList<PLObjectiveData>();
         Collection<PLObjective> puzzleLevelObjectiveCollection = input.getPlObjectives();
 
@@ -1444,7 +1444,7 @@ public class DTOUtil {
         return dtos;
     }
 
-        public static Collection<RuleData> getRulesForPuzzleLevel(PuzzleLevel pl, AttributeService attributeService,PLRulePostActionService plRulePostActionService){
+        public static Collection<RuleData> getPLRules(PuzzleLevel pl, AttributeService attributeService,PLRulePostActionService plRulePostActionService){
         Collection<RuleData> rulesData = new ArrayList<RuleData>();
         Collection<PLRule>  rules = pl.getRules();
         Iterator<PLRule> iterator = rules.iterator();
@@ -1542,11 +1542,11 @@ public class DTOUtil {
      }
 
 
-    public static PostActionTreeExport  getPostActionTree(PLRulePostActionService plRulePostActionService, AttributeService attributeService ,PLRulePostAction root){
-        PostActionTreeExport postActionTreeExport = new PostActionTreeExport<>();
-        postActionTreeExport =  preOrderTraversal(postActionTreeExport,plRulePostActionService,attributeService ,root);
-        return postActionTreeExport;
-    }
+//    public static PostActionTreeExport  getPostActionTree(PLRulePostActionService plRulePostActionService, AttributeService attributeService ,PLRulePostAction root){
+//        PostActionTreeExport postActionTreeExport = new PostActionTreeExport<>();
+//        postActionTreeExport =  preOrderTraversal(postActionTreeExport,plRulePostActionService,attributeService ,root);
+//        return postActionTreeExport;
+//    }
 
 
 

@@ -1,13 +1,12 @@
 package com.alcity.api;
 
 
-import com.alcity.dto.Interpreter.object.ActionData;
+import com.alcity.dto.plexport.object.ActionData;
 import com.alcity.dto.puzzle.CityObjectInPLDTO;
 import com.alcity.entity.alenum.POActionOwnerType;
 import com.alcity.entity.alobject.ObjectAction;
 import com.alcity.entity.puzzle.*;
 import com.alcity.service.alobject.ActionService;
-import com.alcity.service.alobject.AttributeService;
 import com.alcity.service.customexception.ALCityResponseObject;
 import com.alcity.service.customexception.UniqueConstraintException;
 import com.alcity.service.customexception.ViolateForeignKeyException;

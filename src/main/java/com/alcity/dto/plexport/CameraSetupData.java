@@ -1,8 +1,7 @@
-package com.alcity.dto.Interpreter;
+package com.alcity.dto.plexport;
 
-import com.alcity.dto.Interpreter.object.Features;
-import com.alcity.dto.Interpreter.object.PLGroundPostion;
-import com.alcity.dto.Interpreter.object.Position;
+import com.alcity.dto.plexport.object.Features;
+import com.alcity.dto.plexport.object.PLGroundPostion;
 
 import java.io.Serializable;
 
@@ -39,7 +38,7 @@ public class CameraSetupData implements Serializable {
     public CameraSetupData() {
     }
 
-    public CameraSetupData(com.alcity.dto.Interpreter.object.PLGroundPostion position, com.alcity.dto.Interpreter.object.PLGroundPostion rotation, Features features) {
+    public CameraSetupData(com.alcity.dto.plexport.object.PLGroundPostion position, com.alcity.dto.plexport.object.PLGroundPostion rotation, Features features) {
         Position = position;
         Rotation = rotation;
         features = features;

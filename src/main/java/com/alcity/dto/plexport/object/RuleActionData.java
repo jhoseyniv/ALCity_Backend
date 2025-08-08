@@ -1,7 +1,6 @@
-package com.alcity.dto.Interpreter.object;
+package com.alcity.dto.plexport.object;
 
 import java.io.Serializable;
-import java.util.Collection;
 
 public class RuleActionData implements Serializable {
 //    private String actionType;
