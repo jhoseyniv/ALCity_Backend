@@ -408,6 +408,10 @@ public class AttributeService implements AttributeRepository {
                 outputValues.add(isObjectActionHasValue.get());
             else if (isActionHasValue.isPresent())
                 outputValues.add(isActionHasValue.get());
+            else {
+                AttributeValue value= setDefaultValue(parameter);
+                attributeValueRepository.save(value);
+            }
 
             parameter.setAttributeValues(outputValues);
             outputAttributes.add(parameter);
@@ -972,36 +976,59 @@ public class AttributeService implements AttributeRepository {
 
     public Attribute save(AttributeDTOSave newValue, String code) {
         Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
+        AttributeValueDTOSave valueDTO = newValue.getAttributeValueDTOSave();
         Optional<Attribute> attributeOptional =  attributeRepository.findById(newValue.getId());
         AttributeOwnerType attributeOwnerType =  AttributeOwnerType.getByTitle(newValue.getOwnerType());
+        AttributeOwnerType attributeValueOwnerType =  AttributeOwnerType.getByTitle(valueDTO.getOwnerType());
         DataType dataType =  DataType.getByTitle(newValue.getDataType());
+        Optional<Attribute> bindedAttributeOptional =  attributeRepository.findById(valueDTO.getAttributeId());
+        Attribute bindedAttribute=bindedAttributeOptional.get();
         Attribute attribute=null;
         AttributeValue attributeValue=null;
         if (code.equalsIgnoreCase("Save")) { //Save
             attribute = new Attribute(newValue.getName(), newValue.getOwnerId(),attributeOwnerType,dataType ,
                     1L, DateUtils.getNow(), DateUtils.getNow(), createdBy.get(), createdBy.get());
            attributeRepository.save(attribute);
-            AttributeValueDTOSave valueDTO = newValue.getAttributeValueDTOSave();
-            Optional<Attribute> bindedAttributeOptional =  attributeRepository.findById(valueDTO.getAttributeId());
-            Attribute bindedAttribute=null;
             if(bindedAttributeOptional.isPresent())
-                bindedAttribute =bindedAttributeOptional.get();
-            attributeValue = new AttributeValue(valueDTO.getBooleanValue(),valueDTO.getIntValue(),valueDTO.getLongValue(),valueDTO.getStringValue(),
+                attributeValue = new AttributeValue(valueDTO.getBooleanValue(),valueDTO.getIntValue(),valueDTO.getLongValue(),valueDTO.getStringValue(),
                     valueDTO.getObjectValue(),valueDTO.getDoubleValue(),valueDTO.getBinaryContentId(), valueDTO.getExpressionValue(),valueDTO.getExpression(),bindedAttribute ,attribute,
                     1L,DateUtils.getNow(),DateUtils.getNow(),createdBy.get(),createdBy.get(),attribute.getOwnerId(),attribute.getAttributeOwnerType());
             attributeValueRepository.save(attributeValue);
         }else{//edit
             if(attributeOptional.isPresent()) {
                 attribute = attributeOptional.get();
-                DTOUtil.saveNewAttributeValue(attribute,newValue,attributeRepository,attributeValueRepository);
-                   // attribute.setAttributeOwnerType(attributeOwnerType);
-                  //  attribute.setDataType(dataType);
-                    attribute.setName(newValue.getName());
-                    attribute.setVersion(attribute.getVersion()+1);
-                    attribute.setCreated(DateUtils.getNow());
-                    attribute.setUpdated(DateUtils.getNow());
-                    attribute.setUpdatedBy(createdBy.get());
-                    attributeRepository.save(attribute);
+                if(valueDTO.getId() == 0) { // save new value by owner id
+                    attributeValue = new AttributeValue(valueDTO.getBooleanValue(),valueDTO.getIntValue(),valueDTO.getLongValue(),valueDTO.getStringValue(),
+                            valueDTO.getObjectValue(),valueDTO.getDoubleValue(),valueDTO.getBinaryContentId(), valueDTO.getExpressionValue(),valueDTO.getExpression(),bindedAttribute ,attribute,
+                            1L,DateUtils.getNow(),DateUtils.getNow(),createdBy.get(),createdBy.get(),attribute.getOwnerId(),attribute.getAttributeOwnerType());
+                    attributeValueRepository.save(attributeValue);
+
+                }else{ //edit value
+                   Optional<AttributeValue> valueOptional = attributeValueRepository.findById(valueDTO.getId()) ;
+                    AttributeValue value =valueOptional.get();
+                    value.setOwnerId(valueDTO.getOwnerId());
+                    value.setOwnerType(attributeValueOwnerType);
+                    value.setExpressionValue(value.getExpressionValue());
+                    value.setStringValue(value.getStringValue());
+                    value.setDoubleValue(value.getDoubleValue());
+                    value.setBooleanValue(value.getBooleanValue());
+                    value.setIntValue(value.getIntValue());
+                    value.setObjectValue(value.getObjectValue());
+                    value.setBindedAttributeId(value.getBindedAttributeId());
+                    value.setBinaryContentId(value.getBinaryContentId());
+                    value.setExpression(value.getExpression());
+                    value.setLongValue(valueDTO.getLongValue());
+                    attributeValueRepository.save(value);
+                }
+//                DTOUtil.saveNewAttributeValue(attribute,newValue,attributeRepository,attributeValueRepository);
+//                   // attribute.setAttributeOwnerType(attributeOwnerType);
+//                  //  attribute.setDataType(dataType);
+//                    attribute.setName(newValue.getName());
+//                    attribute.setVersion(attribute.getVersion()+1);
+//                    attribute.setCreated(DateUtils.getNow());
+//                    attribute.setUpdated(DateUtils.getNow());
+//                    attribute.setUpdatedBy(createdBy.get());
+//                    attributeRepository.save(attribute);
 
             }
 
