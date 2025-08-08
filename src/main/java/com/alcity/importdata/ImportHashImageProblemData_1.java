@@ -33,7 +33,7 @@ public class ImportHashImageProblemData_1 implements CommandLineRunner {
     private BinaryContentService binaryContentService;
 
     @Autowired
-    ObjectService alCityObjectService;
+    BaseObjectService alCityObjectService;
 
     @Autowired
     PLGroundService puzzleLevelGroundService;
@@ -92,7 +92,7 @@ public class ImportHashImageProblemData_1 implements CommandLineRunner {
     ActionService actionService;
 
     @Autowired
-    ObjectInPGService alCityObjectInPGService;
+    PGObjectService alCityObjectInPGService;
 
     @Autowired
     PLRuleService puzzleLevelRuleService;

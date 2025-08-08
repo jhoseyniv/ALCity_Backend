@@ -17,12 +17,12 @@ import com.alcity.dto.puzzle.object.CityObjectDTO;
 import com.alcity.entity.alenum.POActionOwnerType;
 import com.alcity.entity.alobject.ObjectCategory;
 import com.alcity.entity.alobject.ObjectAction;
-import com.alcity.entity.puzzle.ALCityObject;
-import com.alcity.entity.puzzle.ALCityObjectInPG;
+import com.alcity.entity.puzzle.BaseObject;
+import com.alcity.entity.puzzle.PGObject;
 import com.alcity.service.alobject.ObjectCategoryService;
 import com.alcity.service.alobject.ActionService;
-import com.alcity.service.puzzle.ObjectInPGService;
-import com.alcity.service.puzzle.ObjectService;
+import com.alcity.service.puzzle.PGObjectService;
+import com.alcity.service.puzzle.BaseObjectService;
 import com.alcity.utility.DTOUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -43,7 +43,7 @@ import java.util.stream.Collectors;
 public class ObjectController {
 
     @Autowired
-    private ObjectService service;
+    private BaseObjectService service;
     @Autowired
     private ObjectCategoryService objectCategoryService;
     @Autowired
@@ -52,7 +52,7 @@ public class ObjectController {
     private AttributeService attributeService;
 
     @Autowired
-    private ObjectInPGService alCityObjectInPGService;
+    private PGObjectService alCityObjectInPGService;
 
     @Operation( summary = "Fetch an AL City Object  by id ",  description = "Fetch an AL City Object  by id  ")
     @RequestMapping(value = "/id/{id}", method = RequestMethod.GET)
@@ -60,9 +60,9 @@ public class ObjectController {
     @ResponseBody
     public CityObjectDTO getALCityObject(@PathVariable Long id) {
         CityObjectDTO dto= new CityObjectDTO();
-        Optional<ALCityObject> objectOptional = service.findById(id);
+        Optional<BaseObject> objectOptional = service.findById(id);
         if(objectOptional.isPresent()) {
-            ALCityObject object = objectOptional.get();
+            BaseObject object = objectOptional.get();
             dto = PLDTOUtil.getCityObjectDTO(object,actionService,attributeService);
         }
         return  dto;
@@ -71,7 +71,7 @@ public class ObjectController {
     @GetMapping("/all")
     @CrossOrigin(origins = "*")
     public Collection<CityObjectDTO> getALCityObjects(Model model) {
-        Collection<ALCityObject> objects = service.findAll();
+        Collection<BaseObject> objects = service.findAll();
         Collection<CityObjectDTO> dtos = new ArrayList<CityObjectDTO>();
         dtos =PLDTOUtil.getCityObjectsDTOS(objects,actionService,attributeService);
         return dtos;
@@ -82,7 +82,7 @@ public class ObjectController {
     @CrossOrigin(origins = "*")
     public Collection<CityObjectDTO> getALCityObjectsByCategory(@PathVariable Long id) {
         Optional<ObjectCategory> category = objectCategoryService.findById(id);
-        Collection<ALCityObject> objects = service.findALCityObjectByObjectCategory(category.get());
+        Collection<BaseObject> objects = service.findALCityObjectByObjectCategory(category.get());
         Collection<CityObjectDTO> objectDTOS = new ArrayList<CityObjectDTO>();
         objectDTOS =PLDTOUtil.getCityObjectsDTOS(objects,actionService,attributeService);
         return objectDTOS;
@@ -91,7 +91,7 @@ public class ObjectController {
     @PostMapping("/search")
     @CrossOrigin(origins = "*")
     public Collection<CityObjectDTO> getALCityObjectsByCriteria(@RequestBody ObjectSearchCriteriaDTO criteriaDTO) {
-        Collection<ALCityObject> objects = service.searchCityObjectSByCriteria(criteriaDTO);
+        Collection<BaseObject> objects = service.searchCityObjectSByCriteria(criteriaDTO);
         Collection<CityObjectDTO> objectDTOS = new ArrayList<CityObjectDTO>();
         objectDTOS =PLDTOUtil.getCityObjectsDTOS(objects,actionService,attributeService);
         return objectDTOS;
@@ -110,9 +110,9 @@ public class ObjectController {
     @CrossOrigin(origins = "*")
     public Collection<CityObjectInPGDTO> getPuzzleGroupsForALCityObject(@PathVariable Long id) {
         Collection<CityObjectInPGDTO> alCityObjectInPGDTOS = new ArrayList<CityObjectInPGDTO>();
-        Optional<ALCityObject> alCityObjectOptional = service.findById(id);
+        Optional<BaseObject> alCityObjectOptional = service.findById(id);
         if(alCityObjectOptional.isPresent()) {
-            Collection<ALCityObjectInPG> alCityObjects = alCityObjectInPGService.findByalCityObject(alCityObjectOptional.get());
+            Collection<PGObject> alCityObjects = alCityObjectInPGService.findByalCityObject(alCityObjectOptional.get());
             alCityObjectInPGDTOS = DTOUtil.getALCityObjectInPGDTOS(alCityObjects);
         }
         else throw new RecordNotFoundException(id,"alicty object","not found");
@@ -123,7 +123,7 @@ public class ObjectController {
     @PostMapping("/save")
     @CrossOrigin(origins = "*")
     public ALCityResponseObject saveALCityObject(@RequestBody CityObjectDTO dto)  {
-        ALCityObject savedRecord = null;
+        BaseObject savedRecord = null;
         ALCityResponseObject responseObject = new ALCityResponseObject();
 
         if (dto.getId() == null || dto.getId() <= 0L) { //save
@@ -149,7 +149,7 @@ public class ObjectController {
     @DeleteMapping("/del/{id}")
     @CrossOrigin(origins = "*")
     public ALCityResponseObject deleteALCityObjectById(@PathVariable Long id) {
-        Optional<ALCityObject> existingRecord = service.findById(id);
+        Optional<BaseObject> existingRecord = service.findById(id);
         if(existingRecord.isPresent()){
             service.delete(existingRecord.get());
             return new ALCityResponseObject(HttpStatus.OK.value(), "ok", id,"Record deleted Successfully!");
@@ -197,7 +197,7 @@ public class ObjectController {
     @CrossOrigin(origins = "*")
     public Collection<CityObjectInPGDTO> getPuzzleGroupForALCityObject(@PathVariable Long id) {
         Collection<CityObjectInPGDTO> dtos = new ArrayList<CityObjectInPGDTO>();
-        Optional<ALCityObject> alCityObjectOptional = service.findById(id);
+        Optional<BaseObject> alCityObjectOptional = service.findById(id);
         if(alCityObjectOptional.isEmpty()) return dtos;
 
         dtos = DTOUtil.getALCityObjectInPGDTOS(alCityObjectOptional.get().getAlCityObjectInPGCollection());

@@ -127,7 +127,7 @@ public class InterpreterController {
 
     }
 
-    public Collection<InstanceData> getInstanceData(ALCityObjectInPG pgo, PuzzleLevel  pl) {
+    public Collection<InstanceData> getInstanceData(PGObject pgo, PuzzleLevel  pl) {
         Collection<InstanceData> instanceDTOS = new ArrayList<InstanceData>();
         Collection<Instance> instances = pgObjectInstanceService.findByAlCityObjectInPGAndPuzzleLevel(pgo,pl);
         Iterator<Instance> iterator = instances.iterator();
@@ -158,7 +158,7 @@ public class InterpreterController {
         return instanceDTOS;
      }
 
-   public POData getPGObjectData(ALCityObjectInPG alCityObjectInPG, PuzzleLevel pl){
+   public POData getPGObjectData(PGObject alCityObjectInPG, PuzzleLevel pl){
        POData poData = new POData();
 
        poData.setId(alCityObjectInPG.getId());
@@ -194,11 +194,11 @@ public class InterpreterController {
     public Collection<POData> getObjectsForPuzzleGroup(PuzzleLevel pl) {
         PuzzleGroup pg = pl.getPuzzleGroup();
         Collection<POData> objectData = new ArrayList<POData>();
-        Collection<ALCityObjectInPG> objects = new ArrayList<>();
+        Collection<PGObject> objects = new ArrayList<>();
         objects = pg.getAlCityObjectInPGS();
-        Iterator<ALCityObjectInPG> iterator = objects.iterator();
+        Iterator<PGObject> iterator = objects.iterator();
         while(iterator.hasNext()) {
-            ALCityObjectInPG object = iterator.next();
+            PGObject object = iterator.next();
             //fetch puzzle object that used in a pl including instances properties , vriables , ...
             POData poData =getPGObjectData(object,pl);
             objectData.add(poData);
@@ -208,7 +208,7 @@ public class InterpreterController {
 
     @Autowired
     ActionService actionService;
-    public Collection<ActionData> getActionsDTOForALCityObjectInPG(ALCityObjectInPG alCityObjectInPG){
+    public Collection<ActionData> getActionsDTOForALCityObjectInPG(PGObject alCityObjectInPG){
         Collection<ActionData> actionsData = new ArrayList<ActionData>();
         Collection<ObjectAction> actions = new ArrayList<ObjectAction>();
         actions = actionService.findActionsForALCityObjectInPG(alCityObjectInPG);

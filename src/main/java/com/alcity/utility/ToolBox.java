@@ -1,10 +1,6 @@
 package com.alcity.utility;
 
 import com.alcity.entity.alenum.ADSType;
-import com.alcity.entity.puzzle.ALCityObject;
-
-import java.io.File;
-import java.util.Optional;
 
 public class ToolBox {
     public static Class getEnumById(Class object,long id) {

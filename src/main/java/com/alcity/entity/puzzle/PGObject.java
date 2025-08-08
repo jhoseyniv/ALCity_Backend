@@ -8,11 +8,11 @@ import jakarta.persistence.*;
 import java.io.Serializable;
 import java.util.Collection;
 
-@Table(uniqueConstraints={
+@Table(name = "alcity_object_inpg" ,uniqueConstraints={
         @UniqueConstraint(columnNames = {"title", "code"})
 })
 @Entity
-public class ALCityObjectInPG extends BaseTable implements Serializable {
+public class PGObject extends BaseTable implements Serializable {
 
     @Column(name="title")
     private String title;
@@ -28,7 +28,7 @@ public class ALCityObjectInPG extends BaseTable implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "alcity_object_id", nullable = false)
     @JsonIgnore
-    private ALCityObject alCityObject;
+    private BaseObject alCityObject;
 
     @OneToMany(mappedBy = "alCityObjectInPG", fetch = FetchType.LAZY)
     @JsonIgnore
@@ -42,7 +42,7 @@ public class ALCityObjectInPG extends BaseTable implements Serializable {
         this.alCityInstanceInPLCollection = alCityInstanceInPLCollection;
     }
 
-    public ALCityObjectInPG() {
+    public PGObject() {
     }
 
     public String getTitle() {
@@ -69,15 +69,15 @@ public class ALCityObjectInPG extends BaseTable implements Serializable {
         this.puzzleGroup = puzzleGroup;
     }
 
-    public ALCityObject getAlCityObject() {
+    public BaseObject getAlCityObject() {
         return alCityObject;
     }
 
-    public void setAlCityObject(ALCityObject alCityObject) {
+    public void setAlCityObject(BaseObject alCityObject) {
         this.alCityObject = alCityObject;
     }
 
-    public ALCityObjectInPG(String title, String code, PuzzleGroup puzzleGroup, ALCityObject alCityObject, Long version, String created, String updated, AppMember createdBy, AppMember updatedBy) {
+    public PGObject(String title, String code, PuzzleGroup puzzleGroup, BaseObject alCityObject, Long version, String created, String updated, AppMember createdBy, AppMember updatedBy) {
         super(version, created, updated, createdBy, updatedBy);
         this.title = title;
         this.code = code;

@@ -1,6 +1,5 @@
 package com.alcity.api;
 
-import com.alcity.entity.puzzle.ALCityObjectInPG;
 import com.alcity.service.customexception.ALCityResponseObject;
 import com.alcity.service.customexception.UniqueConstraintException;
 import com.alcity.service.customexception.ViolateForeignKeyException;

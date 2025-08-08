@@ -1,8 +1,5 @@
 package com.alcity.api;
 
-import com.alcity.entity.puzzle.PLRulePostAction;
-import com.alcity.service.alobject.AttributeService;
-import com.alcity.service.alobject.AttributeValueService;
 import com.alcity.service.customexception.ALCityResponseObject;
 import com.alcity.service.customexception.UniqueConstraintException;
 import com.alcity.service.customexception.ViolateForeignKeyException;
@@ -10,9 +7,9 @@ import com.alcity.dto.puzzle.CityObjectInPGDTO;
 import com.alcity.dto.puzzle.object.ActionDTO;
 import com.alcity.entity.alenum.POActionOwnerType;
 import com.alcity.entity.alobject.ObjectAction;
-import com.alcity.entity.puzzle.ALCityObjectInPG;
+import com.alcity.entity.puzzle.PGObject;
 import com.alcity.service.alobject.ActionService;
-import com.alcity.service.puzzle.ObjectInPGService;
+import com.alcity.service.puzzle.PGObjectService;
 import com.alcity.utility.DTOUtil;
 import com.alcity.utility.PLDTOUtil;
 import io.swagger.v3.oas.annotations.Operation;
@@ -30,17 +27,17 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/opg")
 
-public class ObjectInPGController {
+public class PGObjectController {
 
     @Autowired
     private ActionService actionService;
     @Autowired
-    private ObjectInPGService alCityObjectInPGService;
+    private PGObjectService alCityObjectInPGService;
 
-    @Autowired
-    private AttributeService attributeService;
-    @Autowired
-    private AttributeValueService attributeValueService;
+//    @Autowired
+//    private AttributeService attributeService;
+//    @Autowired
+//    private AttributeValueService attributeValueService;
 
 
     @Operation( summary = "Fetch all actions for an al city object that define in a puzzle group ",  description = "Fetch all actions for an al city object")
@@ -59,7 +56,7 @@ public class ObjectInPGController {
     @ResponseBody
     @CrossOrigin(origins = "*")
     public CityObjectInPGDTO getAnAObjectInPGDTO(@PathVariable Long id) {
-        Optional<ALCityObjectInPG> alCityObjectInPGOptional = alCityObjectInPGService.findById(id);
+        Optional<PGObject> alCityObjectInPGOptional = alCityObjectInPGService.findById(id);
         CityObjectInPGDTO alCityObjectInPGDTO = DTOUtil.getALCityObjectInPGDTO(alCityObjectInPGOptional.get());
         return  alCityObjectInPGDTO;
     }
@@ -68,7 +65,7 @@ public class ObjectInPGController {
     @PostMapping("/save")
     @CrossOrigin(origins = "*")
     public ALCityResponseObject saveALCityObjectInPG(@RequestBody CityObjectInPGDTO dto)  {
-        ALCityObjectInPG savedRecord = null;
+        PGObject savedRecord = null;
         ALCityResponseObject responseObject = new ALCityResponseObject();
 
         if (dto.getId() == null || dto.getId() <= 0L) { //save
@@ -81,7 +78,7 @@ public class ObjectInPGController {
 //                DTOUtil.copyVariableFromTo(dto.getAlCityObjectId(),savedRecord.getId(),AttributeOwnerType.Object_Variable,AttributeOwnerType.Puzzle_Group_Object_Variable,attributeService,attributeValueService);
 
             } catch (RuntimeException e) {
-                throw new UniqueConstraintException(-1,"Unique Constraint in" + ALCityObjectInPG.class , "Error",savedRecord.getId() );
+                throw new UniqueConstraintException(-1,"Unique Constraint in" + PGObject.class , "Error",savedRecord.getId() );
             }
             responseObject = new ALCityResponseObject(HttpStatus.OK.value(), "ok", savedRecord.getId(), "Record Saved Successfully!");
         } else if (dto.getId() > 0L ) {//edit
@@ -102,13 +99,13 @@ public class ObjectInPGController {
     @DeleteMapping("/del/id/{id}")
     @CrossOrigin(origins = "*")
     public ALCityResponseObject deleteALCityObjectInPGById(@PathVariable Long id) {
-        Optional<ALCityObjectInPG> existingRecord = alCityObjectInPGService.findById(id);
+        Optional<PGObject> existingRecord = alCityObjectInPGService.findById(id);
         if(existingRecord.isPresent()){
             try {
                 alCityObjectInPGService.deleteById(existingRecord.get().getId());
             }catch (Exception e )
             {
-                throw new ViolateForeignKeyException(-1, "error", ALCityObjectInPG.class.toString(),existingRecord.get().getId());
+                throw new ViolateForeignKeyException(-1, "error", PGObject.class.toString(),existingRecord.get().getId());
             }
             return new ALCityResponseObject(HttpStatus.OK.value(), "ok", id,"Record deleted Successfully!");
         }

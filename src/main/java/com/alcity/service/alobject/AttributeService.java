@@ -19,7 +19,7 @@ import com.alcity.repository.appmember.AppMemberRepository;
 import com.alcity.service.customexception.ALCityResponseObject;
 import com.alcity.service.customexception.UniqueConstraintException;
 import com.alcity.service.puzzle.InstanceService;
-import com.alcity.service.puzzle.ObjectInPGService;
+import com.alcity.service.puzzle.PGObjectService;
 import com.alcity.utility.DTOUtil;
 import com.alcity.utility.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +39,7 @@ public class AttributeService implements AttributeRepository {
 
 
     @Autowired
-    private ObjectInPGService alCityObjectInPGService;
+    private PGObjectService alCityObjectInPGService;
     @Autowired
     private InstanceService aLCityInstanceInPLService;
 
@@ -539,7 +539,7 @@ public class AttributeService implements AttributeRepository {
     public Long getObjectForThisPOG(Long pgo_id) {
         // return pgo id for an instance
         Long objectId=-1L;
-        Optional<ALCityObjectInPG> objectInPGOptional = alCityObjectInPGService.findById(pgo_id);
+        Optional<PGObject> objectInPGOptional = alCityObjectInPGService.findById(pgo_id);
         if(objectInPGOptional.isPresent())
             objectId = objectInPGOptional.get().getAlCityObject().getId();
         return  objectId;

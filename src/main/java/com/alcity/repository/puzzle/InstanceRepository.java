@@ -1,7 +1,7 @@
 package com.alcity.repository.puzzle;
 
 import com.alcity.entity.puzzle.Instance;
-import com.alcity.entity.puzzle.ALCityObjectInPG;
+import com.alcity.entity.puzzle.PGObject;
 import com.alcity.entity.puzzle.PuzzleLevel;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
@@ -16,5 +16,5 @@ public interface InstanceRepository extends CrudRepository<Instance,Long> {
     Collection<Instance> findByRow(Integer row);
     Collection<Instance> findByCol(Integer col);
     Collection<Instance> findByzOrder(Integer zOrder);
-    Collection<Instance> findByAlCityObjectInPGAndPuzzleLevel(ALCityObjectInPG pgObject, PuzzleLevel pl);
+    Collection<Instance> findByAlCityObjectInPGAndPuzzleLevel(PGObject pgObject, PuzzleLevel pl);
 }

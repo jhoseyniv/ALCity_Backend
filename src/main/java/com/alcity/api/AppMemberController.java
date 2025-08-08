@@ -7,7 +7,6 @@ import com.alcity.dto.search.AppMemberSearchCriteriaDTO;
 import com.alcity.entity.appmember.*;
 import com.alcity.entity.journey.Journey;
 import com.alcity.entity.play.PlayHistory;
-import com.alcity.entity.puzzle.ALCityObjectInPG;
 import com.alcity.entity.puzzle.PLObjective;
 import com.alcity.service.Journey.JourneyService;
 import com.alcity.o3rdparty.ALCityAcessRight;

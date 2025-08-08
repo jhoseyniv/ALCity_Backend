@@ -76,7 +76,7 @@ public class ImportMazeProblemData_6 implements CommandLineRunner {
     ObjectCategoryService objectCategoryService;
 
     @Autowired
-    ObjectService puzzleObjectService;
+    BaseObjectService puzzleObjectService;
 
     @Autowired
     InstanceService pgObjectInstanceService;
@@ -100,7 +100,7 @@ public class ImportMazeProblemData_6 implements CommandLineRunner {
     ActionService puzzleObject_ObjectActionService;
 
     @Autowired
-    ObjectInPGService alCityObjectInPGService;
+    PGObjectService alCityObjectInPGService;
     @Autowired
     ActionService actionService;
 
@@ -139,7 +139,7 @@ public class ImportMazeProblemData_6 implements CommandLineRunner {
     private AppMember_WalletItemService applicationMember_walletItemService;
 
     @Autowired
-    ObjectService alCityObjectService;
+    BaseObjectService alCityObjectService;
 
     @Autowired
     PGSkillLearningContentService puzzleSkillLearningContentService;

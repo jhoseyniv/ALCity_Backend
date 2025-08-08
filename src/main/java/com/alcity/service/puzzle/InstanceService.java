@@ -45,9 +45,9 @@ public class InstanceService implements InstanceRepository {
     @Autowired
     private PuzzleLevelService puzzleLevelService;
     @Autowired
-    private ObjectInPGService objectInPGService;
+    private PGObjectService objectInPGService;
     @Autowired
-    private ObjectService objectService;
+    private BaseObjectService objectService;
 
     @Autowired
     ActionService actionService;
@@ -69,7 +69,7 @@ public class InstanceService implements InstanceRepository {
     public Instance save(CityObjectInPLDTO dto, String code) {
         Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
         Optional<PuzzleLevel> puzzleLevelOptional =  puzzleLevelService.findById(dto.getPuzzleLevelId());
-        Optional<ALCityObjectInPG> alCityObjectInPGOptional =  objectInPGService.findById(dto.getAlCityObjectInPGId());
+        Optional<PGObject> alCityObjectInPGOptional =  objectInPGService.findById(dto.getAlCityObjectInPGId());
         PLCell cell = getCell(puzzleLevelOptional,dto.getRow(),dto.getCol(),dto.getZorder());
         if(puzzleLevelOptional.isEmpty() || alCityObjectInPGOptional.isEmpty()) return null;
 
@@ -140,8 +140,8 @@ public class InstanceService implements InstanceRepository {
         Iterator<PLObjectImport> iterator = objectImports.iterator();
         while(iterator.hasNext()) {
             PLObjectImport objectImport = iterator.next();
-            Optional<ALCityObject> cityObjectOptional = objectService.findById(objectImport.getId());
-            Optional<ALCityObjectInPG> alCityObjectInPGOptional = objectInPGService.findByPuzzleGroupAndAlCityObject(importedPL.getPuzzleGroup(),cityObjectOptional.get().getId());
+            Optional<BaseObject> cityObjectOptional = objectService.findById(objectImport.getId());
+            Optional<PGObject> alCityObjectInPGOptional = objectInPGService.findByPuzzleGroupAndAlCityObject(importedPL.getPuzzleGroup(),cityObjectOptional.get().getId());
             PLGround  plGround = importedPL.getPlGrounds().iterator().next();
             Collection<PLCell> cells = plGround.getPlCells();
             Collection<Instance> instances = importInstances(alCityObjectInPGOptional.get(),objectImport.getInstances(),cells,importedPL);
@@ -172,7 +172,7 @@ public class InstanceService implements InstanceRepository {
             deleteAnInstance(instance);
         }
    }
-    public Collection<Instance> importInstances(ALCityObjectInPG alCityObjectInPG, Collection<InstanceDataImport> instanceDataImports, Collection<PLCell> cells , PuzzleLevel importedPL) {
+    public Collection<Instance> importInstances(PGObject alCityObjectInPG, Collection<InstanceDataImport> instanceDataImports, Collection<PLCell> cells , PuzzleLevel importedPL) {
         Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
         Collection<Instance> importedInstances = new ArrayList<>();
         Iterator<InstanceDataImport> iterator = instanceDataImports.iterator();
@@ -319,7 +319,7 @@ public class InstanceService implements InstanceRepository {
     }
 
     @Override
-    public Collection<Instance> findByAlCityObjectInPGAndPuzzleLevel(ALCityObjectInPG pgObject, PuzzleLevel pl) {
+    public Collection<Instance> findByAlCityObjectInPGAndPuzzleLevel(PGObject pgObject, PuzzleLevel pl) {
         return instanceInPLRepository.findByAlCityObjectInPGAndPuzzleLevel(pgObject,pl);
     }
 

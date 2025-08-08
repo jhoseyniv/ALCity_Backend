@@ -9,7 +9,7 @@ import com.alcity.entity.alobject.AttributeValue;
 import com.alcity.entity.alobject.ObjectAction;
 import com.alcity.entity.alobject.Renderer;
 import com.alcity.entity.appmember.AppMember;
-import com.alcity.entity.puzzle.ALCityObjectInPG;
+import com.alcity.entity.puzzle.PGObject;
 import com.alcity.repository.alobject.ActionRepository;
 import com.alcity.repository.appmember.AppMemberRepository;
 import com.alcity.utility.DateUtils;
@@ -187,7 +187,7 @@ public class ActionService implements ActionRepository {
         return actionRepository.findByOwnerObjectidAndPoActionOwnerType(ownerId,ownerType);
     }
 
-    public Collection<ObjectAction> findActionsForALCityObjectInPG(ALCityObjectInPG alCityObjectInPG) {
+    public Collection<ObjectAction> findActionsForALCityObjectInPG(PGObject alCityObjectInPG) {
         Collection<ObjectAction> actionsForPuzzleGroupObject = new ArrayList<ObjectAction>();
         actionsForPuzzleGroupObject = actionRepository.findByOwnerObjectid(alCityObjectInPG.getId());
 

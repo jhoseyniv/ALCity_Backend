@@ -3,7 +3,6 @@ package com.alcity.api;
 import com.alcity.dto.pgimport.PGImportDTO;
 import com.alcity.service.customexception.ALCityResponseObject;
 import com.alcity.service.customexception.UniqueConstraintException;
-import com.alcity.service.customexception.ViolateForeignKeyException;
 import com.alcity.dto.journey.JourneyStepDTO;
 import com.alcity.dto.puzzle.*;
 import com.alcity.entity.base.PuzzleCategory;
@@ -40,7 +39,7 @@ public class PGController {
     @ResponseBody
     public Collection<CityObjectInPGDTO> getObjectsForAPG(@PathVariable Long id) {
         Collection<CityObjectInPGDTO> alCityObjectInPGDTOS = new ArrayList<CityObjectInPGDTO>();
-        Collection<ALCityObjectInPG> alCityObjectInPGS = new ArrayList<ALCityObjectInPG>();
+        Collection<PGObject> alCityObjectInPGS = new ArrayList<PGObject>();
         Optional<PuzzleGroup> puzzleGroup = pgService.findById(id);
         if(puzzleGroup.isPresent()) {
             alCityObjectInPGS = puzzleGroup.get().getAlCityObjectInPGS();

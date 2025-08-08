@@ -2,13 +2,11 @@ package com.alcity.service.puzzle;
 
 import com.alcity.dto.pgimport.PGLearningSkillContentImportDTO;
 import com.alcity.dto.pgimport.PGObjectImportDTO;
-import com.alcity.dto.puzzle.CityObjectInPGDTO;
 import com.alcity.dto.puzzle.PGDTO;
-import com.alcity.dto.puzzle.PGLearningSkillContentDTO;
 import com.alcity.dto.pgimport.PGImportDTO;
 import com.alcity.entity.base.BinaryContent;
 import com.alcity.entity.base.PuzzleCategory;
-import com.alcity.entity.puzzle.ALCityObjectInPG;
+import com.alcity.entity.puzzle.PGObject;
 import com.alcity.entity.puzzle.PGLearningSkillContent;
 import com.alcity.entity.puzzle.PuzzleGroup;
 import com.alcity.entity.appmember.AppMember;
@@ -42,7 +40,7 @@ public class PGService implements PGRepository {
     PGSkillLearningContentService pgSkillLearningContentService;
 
     @Autowired
-    ObjectInPGService objectInPGService;
+    PGObjectService objectInPGService;
 
     @Override
     public <S extends PuzzleGroup> S save(S entity) {
@@ -154,7 +152,7 @@ public class PGService implements PGRepository {
         Collection<PGLearningSkillContent> learningSkillContents = entity.getLearningSkillContents();
         pgSkillLearningContentService.deleteAll(learningSkillContents);
 
-        Collection<ALCityObjectInPG> alCityObjectInPGS = entity.getAlCityObjectInPGS();
+        Collection<PGObject> alCityObjectInPGS = entity.getAlCityObjectInPGS();
         //first must delete attribute values defined for this objects
 
         objectInPGService.deleteAll(alCityObjectInPGS);

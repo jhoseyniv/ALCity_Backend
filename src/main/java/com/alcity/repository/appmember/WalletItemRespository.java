@@ -2,7 +2,6 @@ package com.alcity.repository.appmember;
 
 import com.alcity.entity.appmember.WalletItem;
 import com.alcity.entity.base.BinaryContent;
-import com.alcity.entity.puzzle.ALCityObject;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.Collection;

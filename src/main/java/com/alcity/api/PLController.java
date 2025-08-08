@@ -325,15 +325,15 @@ public class PLController {
     @ResponseBody
     public Collection<CityObjectInPGDTO> getObjectsForAPG(@PathVariable Long id) {
         Collection<CityObjectInPGDTO> dtos = new ArrayList<CityObjectInPGDTO>();
-        Collection<ALCityObjectInPG> alCityObjectInPGS = new ArrayList<ALCityObjectInPG>();
+        Collection<PGObject> alCityObjectInPGS = new ArrayList<PGObject>();
         Optional<PuzzleLevel> puzzleLevelOptional = puzzleLevelService.findById(id);
         PuzzleGroup puzzleGroup =puzzleLevelOptional.get().getPuzzleGroup();
         if(puzzleGroup != null) {
             alCityObjectInPGS = puzzleGroup.getAlCityObjectInPGS();
-            Iterator<ALCityObjectInPG> itr = alCityObjectInPGS.iterator();
+            Iterator<PGObject> itr = alCityObjectInPGS.iterator();
             while(itr.hasNext()) {
                 CityObjectInPGDTO dto = new CityObjectInPGDTO();
-                ALCityObjectInPG entity = itr.next();
+                PGObject entity = itr.next();
                 dto = DTOUtil.getALCityObjectInPGDTO(entity);
                 //Collection<Attribute> attributes = attributeService.findByOwnerIdAndAttributeOwnerType(entity.getId(), AttributeOwnerType.Object_In_Puzzle_Group);
                 dtos.add(dto);

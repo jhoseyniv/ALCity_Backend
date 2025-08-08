@@ -75,7 +75,7 @@ public class InstanceController {
     @PostMapping("/{iid}/iid/add-to-cell/{cid}/cid")
     @CrossOrigin(origins = "*")
     public ALCityResponseObject addInstanceToCell(@PathVariable Long iid,@PathVariable Long cid)  {
-        Instance savedRecord = null;
+        //Instance instance = null;
         ALCityResponseObject responseObject = new ALCityResponseObject();
         Optional<Instance> instanceOptional = service.findById(iid);
         Optional<PLCell> plCellOptional = plCellService.findById(iid);
@@ -111,8 +111,8 @@ public class InstanceController {
     @ResponseBody
     @CrossOrigin(origins = "*")
     public CityObjectInPLDTO getAnAObjectInPLDTO(@PathVariable Long id) {
-        Optional<Instance> alCityInstanceInPLOptional = service.findById(id);
-        CityObjectInPLDTO cityObjectInPLDTO = DTOUtil.getALCityObjectInPLDTO(alCityInstanceInPLOptional.get());
+        Optional<Instance> instanceOptional = service.findById(id);
+        CityObjectInPLDTO cityObjectInPLDTO = DTOUtil.getALCityObjectInPLDTO(instanceOptional.get());
         return  cityObjectInPLDTO;
     }
     @Operation( summary = "Fetch all actions for an Algoopia object instance in a puzzle level by instance Id ",  description = "Fetch all actions for an Algoopia object instance ")
@@ -145,17 +145,17 @@ public class InstanceController {
     }
 */
 
-    @Operation( summary = "Remove a City Object Instance From a Puzzle Level",  description = "Remove an  AL City Object  Instance From a Puzzle Level")
+    @Operation( summary = "Remove an Instance From a Puzzle Level",  description = "Remove an  AL City Object  Instance From a Puzzle Level")
     @DeleteMapping("/del/id/{id}")
     @CrossOrigin(origins = "*")
-    public ALCityResponseObject deleteALCityObjectInPLById(@PathVariable Long id) {
-        Optional<Instance> existingRecord = service.findById(id);
-        if(existingRecord.isPresent()){
+    public ALCityResponseObject deleteInstance(@PathVariable Long id) {
+        Optional<Instance> instance = service.findById(id);
+        if(instance.isPresent()){
             try {
-                service.deleteById(existingRecord.get().getId());
+                service.deleteById(instance.get().getId());
             }catch (Exception e )
             {
-                throw new ViolateForeignKeyException(-1, "error", Instance.class.toString(),existingRecord.get().getId());
+                throw new ViolateForeignKeyException(-1, "error", Instance.class.toString(),instance.get().getId());
             }
             return new ALCityResponseObject(HttpStatus.OK.value(), "ok", id,"Record deleted Successfully!");
         }

@@ -43,7 +43,7 @@ public class PLDTOUtil {
         }
         return dtos;
     }
-    public static CityObjectDTO getCityObjectDTO(ALCityObject co, ActionService actionService, AttributeService attributeService){
+    public static CityObjectDTO getCityObjectDTO(BaseObject co, ActionService actionService, AttributeService attributeService){
         Collection<PropertyDTO>  properties = new ArrayList<PropertyDTO>();
         Collection<ActionDTO>  actions = new ArrayList<ActionDTO>();
         Collection<Attribute>  attributes = attributeService.findByOwnerIdAndAttributeOwnerType(co.getId(), AttributeOwnerType.Object_Property);
@@ -57,8 +57,8 @@ public class PLDTOUtil {
 
         return dto;
     }
-    public static SearchResultCityObjectDTO getSearchResultCityObjectDTO(ALCityObjectInPG alCityObjectInPG){
-        ALCityObject alCityObject = alCityObjectInPG.getAlCityObject();
+    public static SearchResultCityObjectDTO getSearchResultCityObjectDTO(PGObject alCityObjectInPG){
+        BaseObject alCityObject = alCityObjectInPG.getAlCityObject();
         PuzzleGroup puzzleGroup = alCityObjectInPG.getPuzzleGroup();
         ObjectCategory  objectCategory= alCityObject.getObjectCategory();
 
@@ -67,24 +67,24 @@ public class PLDTOUtil {
 
         return dto;
     }
-    public static  Collection<SearchResultCityObjectDTO> getSearchResultCityObjectsInPGDTOS(Collection<ALCityObjectInPG> objects){
+    public static  Collection<SearchResultCityObjectDTO> getSearchResultCityObjectsInPGDTOS(Collection<PGObject> objects){
         Collection<SearchResultCityObjectDTO> dtos = new ArrayList<SearchResultCityObjectDTO>();
-        Iterator<ALCityObjectInPG> iterator = objects.iterator();
+        Iterator<PGObject> iterator = objects.iterator();
         while (iterator.hasNext()) {
             SearchResultCityObjectDTO dto = new SearchResultCityObjectDTO();
-            ALCityObjectInPG object = iterator.next();
+            PGObject object = iterator.next();
             dto = getSearchResultCityObjectDTO(object);
             dtos.add(dto);
         }
 
         return dtos;
     }
-    public static  Collection<CityObjectDTO> getCityObjectsDTOS(Collection<ALCityObject> objects, ActionService actionService, AttributeService attributeService){
+    public static  Collection<CityObjectDTO> getCityObjectsDTOS(Collection<BaseObject> objects, ActionService actionService, AttributeService attributeService){
         Collection<CityObjectDTO> dtos = new ArrayList<CityObjectDTO>();
-        Iterator<ALCityObject> iterator = objects.iterator();
+        Iterator<BaseObject> iterator = objects.iterator();
         while (iterator.hasNext()) {
             CityObjectDTO dto = new CityObjectDTO();
-            ALCityObject object = iterator.next();
+            BaseObject object = iterator.next();
             dto = getCityObjectDTO(object,actionService,attributeService);
             dtos.add(dto);
         }

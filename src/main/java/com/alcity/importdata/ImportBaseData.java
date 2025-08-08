@@ -1,21 +1,6 @@
 package com.alcity.importdata;
 
 
-import com.alcity.entity.alenum.*;
-import com.alcity.entity.alobject.*;
-import com.alcity.entity.alobject.ObjectAction;
-import com.alcity.entity.appmember.*;
-import com.alcity.entity.base.*;
-import com.alcity.entity.journey.Journey;
-import com.alcity.entity.journey.JourneyLearningSkill;
-import com.alcity.entity.journey.RoadMap;
-import com.alcity.entity.learning.LearningContent;
-import com.alcity.entity.learning.LearningSkill;
-import com.alcity.entity.learning.LearningSkillTopic;
-import com.alcity.entity.learning.LearningTopic;
-import com.alcity.entity.puzzle.ALCityObject;
-import com.alcity.entity.puzzle.PLRuleEvent;
-import com.alcity.entity.puzzle.PuzzleGroup;
 import com.alcity.service.Journey.JourneyLearningSkillService;
 import com.alcity.service.Journey.JourneyService;
 import com.alcity.service.Journey.RoadMapService;
@@ -26,24 +11,16 @@ import com.alcity.service.learning.LearningContentService;
 import com.alcity.service.learning.LearningSkillService;
 import com.alcity.service.learning.LearningSkill_LearningTopicService;
 import com.alcity.service.learning.LearningTopicService;
-import com.alcity.service.puzzle.ObjectService;
+import com.alcity.service.puzzle.BaseObjectService;
 import com.alcity.service.puzzle.PGService;
 import com.alcity.service.puzzle.PLRuleEventService;
 import com.alcity.service.puzzle.PGSkillLearningContentService;
-import com.alcity.utility.ImageUtil;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
-
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
 
 
 @Order(value=1)
@@ -89,7 +66,7 @@ public class ImportBaseData implements CommandLineRunner {
     private PLPrivacyService puzzleLevelPrivacyService;
 
     @Autowired
-    ObjectService alCityObjectService;
+    BaseObjectService alCityObjectService;
 
     @Autowired
     ActionService puzzleObjectActionService;

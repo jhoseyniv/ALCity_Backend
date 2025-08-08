@@ -87,7 +87,7 @@ public class ImportXOProblemData_3 implements CommandLineRunner {
     RendererService actionRendererService;
 
     @Autowired
-    ObjectInPGService objectInPGService;
+    PGObjectService objectInPGService;
 
     @Autowired
     AttributeService attributeService;
@@ -96,7 +96,7 @@ public class ImportXOProblemData_3 implements CommandLineRunner {
     AttributeValueService attributeValueService;
 
     @Autowired
-    ObjectService objectService;
+    BaseObjectService objectService;
 
     @Autowired
     PLRuleService puzzleLevelRuleService;

@@ -592,7 +592,7 @@ public class DTOUtil {
         }
         return output;
     }
-    public static CityObjectInPGDTO getALCityObjectInPGDTO(ALCityObjectInPG alCityObjectInPG) {
+    public static CityObjectInPGDTO getALCityObjectInPGDTO(PGObject alCityObjectInPG) {
         CityObjectInPGDTO dto = new CityObjectInPGDTO();
         dto.setId(alCityObjectInPG.getId());
         dto.setCode(alCityObjectInPG.getCode());
@@ -629,11 +629,11 @@ public class DTOUtil {
 
         return  dto;
     }
-    public static Collection<CityObjectInPGDTO> getALCityObjectInPGDTOS(Collection<ALCityObjectInPG> input) {
+    public static Collection<CityObjectInPGDTO> getALCityObjectInPGDTOS(Collection<PGObject> input) {
         Collection<CityObjectInPGDTO> dtos = new ArrayList<CityObjectInPGDTO>();
-        Iterator<ALCityObjectInPG> itr = input.iterator();
+        Iterator<PGObject> itr = input.iterator();
         while (itr.hasNext()) {
-            ALCityObjectInPG alCityObjectInPG = itr.next();
+            PGObject alCityObjectInPG = itr.next();
             CityObjectInPGDTO dto = getALCityObjectInPGDTO(alCityObjectInPG);
             dtos.add(dto);
         }

@@ -6,11 +6,11 @@ import com.alcity.dto.puzzle.CityObjectInPGDTO;
 import com.alcity.entity.alobject.Attribute;
 import com.alcity.entity.alobject.AttributeValue;
 import com.alcity.entity.alobject.ObjectAction;
-import com.alcity.entity.puzzle.ALCityObject;
-import com.alcity.entity.puzzle.ALCityObjectInPG;
+import com.alcity.entity.puzzle.BaseObject;
+import com.alcity.entity.puzzle.PGObject;
 import com.alcity.entity.puzzle.PuzzleGroup;
 import com.alcity.entity.appmember.AppMember;
-import com.alcity.repository.puzzle.ObjectInPGRepository;
+import com.alcity.repository.puzzle.PGObjectRepository;
 import com.alcity.repository.puzzle.PGRepository;
 import com.alcity.repository.appmember.AppMemberRepository;
 import com.alcity.service.alobject.RendererService;
@@ -31,10 +31,10 @@ import java.util.Random;
 
 @Service
 @Transactional
-public class ObjectInPGService implements ObjectInPGRepository {
+public class PGObjectService implements PGObjectRepository {
 
     @Autowired
-    ObjectInPGRepository objectInPGRepository;
+    PGObjectRepository objectInPGRepository;
 
     @Autowired
     ActionService puzzleObjectActionService;
@@ -48,7 +48,7 @@ public class ObjectInPGService implements ObjectInPGRepository {
 
     @Lazy
     @Autowired
-    ObjectService objectService;
+    BaseObjectService objectService;
 
     @Autowired
     RendererService actionRendererService;
@@ -63,17 +63,17 @@ public class ObjectInPGService implements ObjectInPGRepository {
     AttributeValueService attributeValueService;
 
     @Override
-    public <S extends ALCityObjectInPG> S save(S entity) {
+    public <S extends PGObject> S save(S entity) {
         return objectInPGRepository.save(entity);
     }
 
     @Override
-    public <S extends ALCityObjectInPG> Iterable<S> saveAll(Iterable<S> entities) {
+    public <S extends PGObject> Iterable<S> saveAll(Iterable<S> entities) {
         return null;
     }
 
     @Override
-    public Optional<ALCityObjectInPG> findById(Long id) {
+    public Optional<PGObject> findById(Long id) {
         return objectInPGRepository.findById(id);
     }
 
@@ -83,12 +83,12 @@ public class ObjectInPGService implements ObjectInPGRepository {
     }
 
     @Override
-    public Collection<ALCityObjectInPG> findAll() {
+    public Collection<PGObject> findAll() {
         return null;
     }
 
     @Override
-    public Iterable<ALCityObjectInPG> findAllById(Iterable<Long> longs) {
+    public Iterable<PGObject> findAllById(Iterable<Long> longs) {
         return null;
     }
 
@@ -114,7 +114,7 @@ public class ObjectInPGService implements ObjectInPGRepository {
     }
 
     @Override
-    public void delete(ALCityObjectInPG entity) {
+    public void delete(PGObject entity) {
 
     }
 
@@ -124,7 +124,7 @@ public class ObjectInPGService implements ObjectInPGRepository {
     }
 
     @Override
-    public void deleteAll(Iterable<? extends ALCityObjectInPG> entities) {
+    public void deleteAll(Iterable<? extends PGObject> entities) {
         objectInPGRepository.deleteAll(entities);
     }
 
@@ -134,33 +134,33 @@ public class ObjectInPGService implements ObjectInPGRepository {
     }
 
     @Override
-    public Collection<ALCityObjectInPG> findByTitle(String title) {
+    public Collection<PGObject> findByTitle(String title) {
         return null;
     }
 
     @Override
-    public Collection<ALCityObjectInPG> findByCode(String code) {
+    public Collection<PGObject> findByCode(String code) {
         return objectInPGRepository.findByCode(code);
     }
 
     @Override
-    public Optional<ALCityObjectInPG> findByCodeAndTitle(String code, String title) {
+    public Optional<PGObject> findByCodeAndTitle(String code, String title) {
         return objectInPGRepository.findByCodeAndTitle(code,title);
     }
 
     @Override
-    public Collection<ALCityObjectInPG> findByalCityObject(ALCityObject cityObject) {
+    public Collection<PGObject> findByalCityObject(BaseObject cityObject) {
         return objectInPGRepository.findByalCityObject(cityObject);
     }
 
     @Override
-    public Collection<ALCityObjectInPG> findByPuzzleGroup(PuzzleGroup puzzleGroup) {
+    public Collection<PGObject> findByPuzzleGroup(PuzzleGroup puzzleGroup) {
         return objectInPGRepository.findByPuzzleGroup(puzzleGroup);
     }
 
-    public Optional<ALCityObjectInPG> findByPuzzleGroupAndAlCityObject(PuzzleGroup puzzleGroup, Long cityObjectId) {
-        Collection<ALCityObjectInPG> objectInPGS = objectInPGRepository.findByPuzzleGroup(puzzleGroup);
-        Optional<ALCityObjectInPG> matchValueOptional = objectInPGS.stream().filter(alCityObjectInPG -> alCityObjectInPG.getAlCityObject().getId()==cityObjectId).findFirst();
+    public Optional<PGObject> findByPuzzleGroupAndAlCityObject(PuzzleGroup puzzleGroup, Long cityObjectId) {
+        Collection<PGObject> objectInPGS = objectInPGRepository.findByPuzzleGroup(puzzleGroup);
+        Optional<PGObject> matchValueOptional = objectInPGS.stream().filter(alCityObjectInPG -> alCityObjectInPG.getAlCityObject().getId()==cityObjectId).findFirst();
 
         return matchValueOptional;
     }
@@ -168,14 +168,14 @@ public class ObjectInPGService implements ObjectInPGRepository {
     @Autowired
     private AppMemberRepository appMemberRepository;
 
-    public ALCityObjectInPG importObjInPG(PGObjectImportDTO dto,PuzzleGroup puzzleGroup) {
+    public PGObject importObjInPG(PGObjectImportDTO dto, PuzzleGroup puzzleGroup) {
         Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
-        Optional<ALCityObject> alCityObjectOptional = objectService.findById(dto.getObjectId());
-        ALCityObjectInPG  alCityObjectInPG=null;
+        Optional<BaseObject> alCityObjectOptional = objectService.findById(dto.getObjectId());
+        PGObject alCityObjectInPG=null;
         Random random = new Random(); // Create a Random object
         long generatedLong = random.nextLong(); // Generate a random long
         String code= dto.getTitle() + String.valueOf(generatedLong);
-        alCityObjectInPG = new ALCityObjectInPG(dto.getTitle(), code,puzzleGroup,alCityObjectOptional.get(),
+        alCityObjectInPG = new PGObject(dto.getTitle(), code,puzzleGroup,alCityObjectOptional.get(),
                 1L, DateUtils.getNow(), DateUtils.getNow(), createdBy.get(), createdBy.get());
         objectInPGRepository.save(alCityObjectInPG);
         Collection<PGObjectVariableImportDTO> variableImportDTOS = dto.getVariables();
@@ -185,18 +185,18 @@ public class ObjectInPGService implements ObjectInPGRepository {
 
         return alCityObjectInPG;
     }
-        public ALCityObjectInPG save(CityObjectInPGDTO dto, String code) {
+        public PGObject save(CityObjectInPGDTO dto, String code) {
         Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
         Optional<PuzzleGroup> puzzleGroupOptional =  pgRepository.findByTitle(dto.getPuzzleGroup());
-        Optional<ALCityObject> alCityObjectOptional =  objectService.findById(dto.getAlCityObjectId());
-        ALCityObjectInPG alCityObjectInPG=null;
+        Optional<BaseObject> alCityObjectOptional =  objectService.findById(dto.getAlCityObjectId());
+        PGObject alCityObjectInPG=null;
         if(puzzleGroupOptional.isPresent())
         if (code.equalsIgnoreCase("Save")) { //Save
-            alCityObjectInPG = new ALCityObjectInPG(dto.getTitle(), dto.getCode(),puzzleGroupOptional.get(),alCityObjectOptional.get(),
+            alCityObjectInPG = new PGObject(dto.getTitle(), dto.getCode(),puzzleGroupOptional.get(),alCityObjectOptional.get(),
                     1L, DateUtils.getNow(), DateUtils.getNow(), createdBy.get(), createdBy.get());
             objectInPGRepository.save(alCityObjectInPG);
         }else{//edit
-            Optional<ALCityObjectInPG> alCityObjectInPGOptional= objectInPGRepository.findById(dto.getId());
+            Optional<PGObject> alCityObjectInPGOptional= objectInPGRepository.findById(dto.getId());
             if(alCityObjectInPGOptional.isPresent()) {
                 alCityObjectInPG = alCityObjectInPGOptional.get();
                 alCityObjectInPG.setCode(dto.getCode());

@@ -6,14 +6,14 @@ import com.alcity.entity.alenum.BinaryContentType;
 import com.alcity.entity.appmember.WalletItem;
 import com.alcity.entity.base.BinaryContent;
 import com.alcity.entity.learning.LearningContent;
-import com.alcity.entity.puzzle.ALCityObject;
+import com.alcity.entity.puzzle.BaseObject;
 import com.alcity.entity.puzzle.PuzzleGroup;
 import com.alcity.entity.puzzle.PuzzleLevel;
 import com.alcity.entity.appmember.AppMember;
 import com.alcity.repository.appmember.WalletItemRespository;
 import com.alcity.repository.base.BinaryContentCustom;
 import com.alcity.repository.base.BinaryContentRepository;
-import com.alcity.repository.puzzle.ObjectRepository;
+import com.alcity.repository.puzzle.BaseObjectRepository;
 import com.alcity.repository.puzzle.PuzzleLevelRepository;
 import com.alcity.repository.appmember.AppMemberRepository;
 import com.alcity.service.learning.LearningContentService;
@@ -46,7 +46,7 @@ public class BinaryContentService implements BinaryContentRepository , BinaryCon
     private PuzzleLevelRepository puzzleLevelRepository;
 
     @Autowired
-    private ObjectRepository objectRepository;
+    private BaseObjectRepository baseObjectRepository;
 
     @Autowired
     @Qualifier("walletItemRespository")
@@ -184,17 +184,17 @@ public class BinaryContentService implements BinaryContentRepository , BinaryCon
             puzzleLevel.setPicture(null);
             puzzleLevelRepository.save(puzzleLevel);
         }
-        Optional<ALCityObject> alCityObjectOptional = objectRepository.findByIcon(binaryContentOptional.get());
+        Optional<BaseObject> alCityObjectOptional = baseObjectRepository.findByIcon(binaryContentOptional.get());
         if(alCityObjectOptional.isPresent()){
-            ALCityObject alCityObject = alCityObjectOptional.get();
+            BaseObject alCityObject = alCityObjectOptional.get();
             alCityObject.setIcon(null);
-            objectRepository.save(alCityObject);
+            baseObjectRepository.save(alCityObject);
         }
-        alCityObjectOptional = objectRepository.findByPic(binaryContentOptional.get());
+        alCityObjectOptional = baseObjectRepository.findByPic(binaryContentOptional.get());
         if(alCityObjectOptional.isPresent()){
-            ALCityObject alCityObject = alCityObjectOptional.get();
+            BaseObject alCityObject = alCityObjectOptional.get();
             alCityObject.setPic(null);
-            objectRepository.save(alCityObject);
+            baseObjectRepository.save(alCityObject);
         }
 
         Optional<WalletItem> walletItemRespositoryOptional = walletItemRespository.findByIcon(binaryContentOptional.get());

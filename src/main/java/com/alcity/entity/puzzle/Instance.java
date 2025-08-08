@@ -7,6 +7,10 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import java.io.Serializable;
 
+
+
+@Table(name = "alcity_instance_inpl")
+
 @Entity
 public class Instance extends BaseTable implements Serializable {
 
@@ -25,13 +29,13 @@ public class Instance extends BaseTable implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "alcity_Object_In_PG_id", nullable = false)
     @JsonIgnore
-    private ALCityObjectInPG alCityObjectInPG;
+    private PGObject alCityObjectInPG;
 
-    public ALCityObjectInPG getAlCityObjectInPG() {
+    public PGObject getAlCityObjectInPG() {
         return alCityObjectInPG;
     }
 
-    public void setAlCityObjectInPG(ALCityObjectInPG alCityObjectInPG) {
+    public void setAlCityObjectInPG(PGObject alCityObjectInPG) {
         this.alCityObjectInPG = alCityObjectInPG;
     }
 
@@ -96,7 +100,7 @@ public class Instance extends BaseTable implements Serializable {
     public Instance() {
     }
 
-    public Instance(String name, Integer row, Integer col, Integer zOrder, PLCell plCell, ALCityObjectInPG alCityObjectInPG, PuzzleLevel puzzleLevel, Long version, String created, String updated, AppMember createdBy, AppMember updatedBy) {
+    public Instance(String name, Integer row, Integer col, Integer zOrder, PLCell plCell, PGObject alCityObjectInPG, PuzzleLevel puzzleLevel, Long version, String created, String updated, AppMember createdBy, AppMember updatedBy) {
         super(version, created, updated, createdBy, updatedBy);
         this.name = name;
         this.plCell = plCell;

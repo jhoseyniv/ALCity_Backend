@@ -11,8 +11,10 @@ import jakarta.persistence.*;
 import java.io.Serializable;
 import java.util.Collection;
 
+
+@Table(name = "alcity_object")
 @Entity
-public class ALCityObject extends BaseTable implements Serializable {
+public class BaseObject extends BaseTable implements Serializable {
 
     @Column(name="title",unique = true)
     private String title;
@@ -46,14 +48,14 @@ public class ALCityObject extends BaseTable implements Serializable {
 
     @OneToMany(mappedBy = "alCityObject", fetch = FetchType.LAZY)
     @JsonIgnore
-    private Collection<ALCityObjectInPG> alCityObjectInPGCollection;
+    private Collection<PGObject> alCityObjectInPGCollection;
 
 
-    public Collection<ALCityObjectInPG> getAlCityObjectInPGCollection() {
+    public Collection<PGObject> getAlCityObjectInPGCollection() {
         return alCityObjectInPGCollection;
     }
 
-    public void setAlCityObjectInPGCollection(Collection<ALCityObjectInPG> alCityObjectInPGCollection) {
+    public void setAlCityObjectInPGCollection(Collection<PGObject> alCityObjectInPGCollection) {
         this.alCityObjectInPGCollection = alCityObjectInPGCollection;
     }
 
@@ -89,11 +91,11 @@ public class ALCityObject extends BaseTable implements Serializable {
         this.icon = icon;
     }
 
-    public ALCityObject() {
+    public BaseObject() {
     }
 
-    public ALCityObject(Long version, String created, String updated, AppMember createdBy, AppMember updatedBy,
-                        String title, ObjectCategory objectCategory,Boolean is3dObject , BinaryContent pic, BinaryContent icon) {
+    public BaseObject(Long version, String created, String updated, AppMember createdBy, AppMember updatedBy,
+                      String title, ObjectCategory objectCategory, Boolean is3dObject , BinaryContent pic, BinaryContent icon) {
         super(version, created, updated, createdBy, updatedBy);
         this.title = title;
         this.is3dObject = is3dObject;
