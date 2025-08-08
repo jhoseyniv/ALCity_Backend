@@ -82,51 +82,53 @@ public class InterpreterController {
     }
 
     public PLData getJsonFile(Long puzzleLevelId) {
-        PLData puzzleLevelData= new PLData();
+        PLData plData= new PLData();
 
-        Optional<PLGround> puzzleLevelGroundOptional = plGroundService.findByPuzzleLevelId(puzzleLevelId);
+        Optional<PLGround> plGroundOptional = plGroundService.findByPuzzleLevelId(puzzleLevelId);
         PLGround plGround = new PLGround();
-        if(puzzleLevelGroundOptional.isPresent()){
-            plGround = puzzleLevelGroundOptional.get();
+        if(plGroundOptional.isPresent()){
+            plGround = plGroundOptional.get();
 
             PLGroundPostion Position = new PLGroundPostion(plGround.getxPosition(), plGround.getyPosition(), plGround.getzPosition());
             PLGroundPostion Rotation = new PLGroundPostion(plGround.getxRotation(),plGround.getyRotation(),plGround.getzRotation());
             Features features = new Features(plGround.getZoom(),plGround.getPan(),plGround.getRotation());
-            CameraSetupData cameraSetupInterpreter = new CameraSetupData(Position,Rotation,features);
-            cameraSetupInterpreter.setFeatures(features);
-            puzzleLevelData.setCameraSetup(cameraSetupInterpreter);
+            CameraSetupData cameraSetupData = new CameraSetupData(Position,Rotation,features);
+            cameraSetupData.setFeatures(features);
+            plData.setCameraSetup(cameraSetupData);
 
             PuzzleLevel pl = plGround.getPuzzleLevel();
-            puzzleLevelData.setCode(pl.getCode());
-            puzzleLevelData.setName(pl.getTitle());
-            //puzzleLevelData.setBoardGraphicId(pl.getBoardGraphic().getId());
+            plData.setCode(pl.getCode());
+            plData.setName(pl.getTitle());
 
-            Collection<RecordData>  puzzleLevelVariables = DTOUtil.getAttributeForOwnerById(attributeService,pl.getId(),AttributeOwnerType.Puzzle_Level_Variable);
+            Collection<RecordData>  variables = DTOUtil.getAttributeForOwnerById(attributeService,pl.getId(),AttributeOwnerType.Puzzle_Level_Variable);
 
-            Collection<PLObjectiveData> plObjectiveDataCollection = DTOUtil.getPuzzleLevelObjectiveData(pl);
-            puzzleLevelData.setObjectives(plObjectiveDataCollection);
-            PuzzleGroup pg = pl.getPuzzleGroup();
-            Collection<POData> objects = getObjectsForPuzzleGroup(pg,pl);
+            Collection<PLObjectiveData> objectives = DTOUtil.getPuzzleLevelObjectiveData(pl);
+            plData.setObjectives(objectives);
+
+            Collection<POData> objects = getObjectsForPuzzleGroup(pl);
             Collection<PLCell> cells = plGround.getPlCells();
 
             Collection<PLCellData> cellDTOS = DTOUtil.getPLCellDTOS(cells,attributeService);
+
             Collection<RuleData> rules = DTOUtil.getRulesForPuzzleLevel(pl,attributeService,plRulePostActionService);
 
-            puzzleLevelData.setCols(plGround.getNumColumns());
-            puzzleLevelData.setRows(plGround.getNumRows());
-            puzzleLevelData.setVariables(puzzleLevelVariables);
-            puzzleLevelData.setObjects(objects);
-            puzzleLevelData.setCells(cellDTOS);
-            puzzleLevelData.setRules(rules);
-            byte[] bytes = ImageUtil.convertObjectToBytes(puzzleLevelData);
-            pl.setInterpreterFile(bytes);
+            plData.setCols(plGround.getNumColumns());
+            plData.setRows(plGround.getNumRows());
+            plData.setVariables(variables);
+            plData.setObjects(objects);
+            plData.setCells(cellDTOS);
+            plData.setRules(rules);
+
+            byte[] jsonBytes = ImageUtil.convertObjectToBytes(plData);
+            pl.setInterpreterFile(jsonBytes);
+
             puzzleLevelService.save(pl);
         }
-        return puzzleLevelData;
+        return plData;
 
     }
 
-    public Collection<InstanceData> getInstancesDTOForAnObject(ALCityObjectInPG pgo, PuzzleLevel  pl) {
+    public Collection<InstanceData> getInstanceData(ALCityObjectInPG pgo, PuzzleLevel  pl) {
         Collection<InstanceData> instanceDTOS = new ArrayList<InstanceData>();
         Collection<ALCityInstanceInPL> instances = pgObjectInstanceService.findByAlCityObjectInPGAndPuzzleLevel(pgo,pl);
         Iterator<ALCityInstanceInPL> iterator = instances.iterator();
@@ -154,7 +156,6 @@ public class InterpreterController {
 
             instanceDTOS.add(instanceDTO);
         }
-
         return instanceDTOS;
      }
 
@@ -182,8 +183,8 @@ public class InterpreterController {
        Collection<Attribute> properties = attributeService.findPropertiesForPuzzleGroupObject(alCityObjectInPG.getId(),AttributeOwnerType.Puzzle_Group_Object_Property);
        Collection<RecordData> propertiesDTO = DTOUtil.getPropertiesDTOForPGObject(properties);
        poData.setProperties(propertiesDTO);
-
-       Collection<InstanceData> instances = getInstancesDTOForAnObject(alCityObjectInPG,pl);
+        //get instances  for an object that define in PG and used in a puzzle level
+       Collection<InstanceData> instances = getInstanceData(alCityObjectInPG,pl);
        poData.setInstances(instances);
 
        poData.setVersion(alCityObjectInPG.getVersion());
@@ -191,26 +192,27 @@ public class InterpreterController {
        return  poData;
    }
 
-    public Collection<POData> getObjectsForPuzzleGroup(PuzzleGroup pg, PuzzleLevel pl) {
-        Collection<POData> pObjectsData = new ArrayList<POData>();
-
+    public Collection<POData> getObjectsForPuzzleGroup(PuzzleLevel pl) {
+        PuzzleGroup pg = pl.getPuzzleGroup();
+        Collection<POData> objectData = new ArrayList<POData>();
         Collection<ALCityObjectInPG> objects = new ArrayList<>();
         objects = pg.getAlCityObjectInPGS();
         Iterator<ALCityObjectInPG> iterator = objects.iterator();
         while(iterator.hasNext()) {
             ALCityObjectInPG object = iterator.next();
+            //fetch puzzle object that used in a pl including instances properties , vriables , ...
             POData poData =getPGObjectData(object,pl);
-            pObjectsData.add(poData);
+            objectData.add(poData);
         }
-        return pObjectsData;
+        return objectData;
     }
 
     @Autowired
-    ActionService puzzleObjectActionService;
+    ActionService actionService;
     public Collection<ActionData> getActionsDTOForALCityObjectInPG(ALCityObjectInPG alCityObjectInPG){
         Collection<ActionData> actionsData = new ArrayList<ActionData>();
         Collection<ObjectAction> actions = new ArrayList<ObjectAction>();
-        actions = puzzleObjectActionService.findActionsForALCityObjectInPG(alCityObjectInPG);
+        actions = actionService.findActionsForALCityObjectInPG(alCityObjectInPG);
 
         Iterator<ObjectAction> iterator = actions.iterator();
         while(iterator.hasNext()) {

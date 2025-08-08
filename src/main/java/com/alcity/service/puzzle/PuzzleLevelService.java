@@ -10,6 +10,7 @@ import com.alcity.dto.plimport.object.*;
 import com.alcity.dto.puzzle.PLCopyDTO;
 import com.alcity.dto.puzzle.PLDTO;
 import com.alcity.dto.puzzle.PuzzleLevelStepMappingDTO;
+import com.alcity.dto.puzzle.boardgraphic.BoardGraphicDTO;
 import com.alcity.entity.alenum.AttributeOwnerType;
 import com.alcity.entity.alenum.PLDifficulty;
 import com.alcity.entity.alenum.PLStatus;
@@ -34,6 +35,7 @@ import com.alcity.service.customexception.ALCityResponseObject;
 import com.alcity.utility.DTOUtil;
 import com.alcity.utility.DateUtils;
 import com.alcity.utility.ImageUtil;
+import com.alcity.utility.PLDTOUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Lazy;
@@ -41,6 +43,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import org.springframework.transaction.annotation.Transactional;;
+import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -230,12 +233,17 @@ public class PuzzleLevelService implements PuzzleLevelRepository {
         return puzzleLevel;
     }
 
-    public PuzzleLevel importPuzzleLevel(PLImportDTO dto) {
+    public PuzzleLevel importPuzzleLevel(PLImportDTO dto) throws IOException, ClassNotFoundException {
         // import puzzle level header
         Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
         Optional<BinaryContent> iconOptional = binaryContentRepository.findById(dto.getIconId());
         Optional<BinaryContent> picOptional = binaryContentRepository.findById(dto.getPicId());
         Optional<BinaryContent> boardGraphicOptional = binaryContentRepository.findById(dto.getBoardGraphicId());
+
+        Optional<PLGround> plGroundOptional = plGroundService.findById(238L);
+        BoardGraphicDTO boardGraphicDTO = PLDTOUtil.getBoardGraphicJSON(plGroundOptional.get());
+        byte[] boardGraphic = ImageUtil.convertObjectToBytes(boardGraphicDTO);
+
         PLDifficulty plDifficulty =  PLDifficulty.getByTitle(dto.getPuzzleLevelDifficulty());
         PLStatus  plStatus =  PLStatus.getByTitle(dto.getPuzzleLevelStatus());
         PLPrivacy plPrivacy =  plPrivacyRepository.findByValue(dto.getPuzzleLevelPrivacy());
@@ -256,7 +264,7 @@ public class PuzzleLevelService implements PuzzleLevelRepository {
         PLGroundPositionImport position = cameraSetupImport.getPosition();
         PLGroundPositionImport rotation = cameraSetupImport.getRotation();
         FeatureImport features = cameraSetupImport.getFeatures();
-        byte[] boardGraphic=boardGraphicOptional.get().getContent();
+        //byte[] boardGraphic=boardGraphicOptional.get().getContent();
         PLGround importPLGround = new PLGround(dto.getRows(), dto.getCols(),
                 position.getX(), position.getY(), position.getZ(), rotation.getX(), rotation.getY(), rotation.getZ(),
                 features.getZoom(), features.getPan(), features.getRotation(),importedPuzzleLevel, boardGraphic
@@ -306,10 +314,17 @@ public class PuzzleLevelService implements PuzzleLevelRepository {
 
         //delete puzzle level rules
         Collection<PLRule> rules = puzzleLevel.getRules();
-        plRuleService.deleteAllPlRules(rules);
+
+         plRuleService.deleteRules(rules);
 
         //delete puzzle level instances
-        instanceInPLService.deleteInstances(puzzleLevel);
+        Collection<ALCityInstanceInPL> instances = puzzleLevel.getPuzzleGroupObjectInstanceCollection();
+        instanceInPLService.deleteInstances(instances);
+
+        //delete puzzle level instances
+//        Collection<ALCityInstanceInPL> instances = puzzleLevel.getPuzzleGroupObjectInstanceCollection();
+//        instanceInPLService.deleteAll(instances);
+
 
         //delete puzzle level variables
         Collection<AttributeValue>  attributeValues= attributeValueService.findByOwnerId(puzzleLevel.getId());
@@ -321,9 +336,6 @@ public class PuzzleLevelService implements PuzzleLevelRepository {
         Collection<PLObjective> objectives = puzzleLevel.getPlObjectives();
         plObjectiveService.deleteAll(objectives);
 
-        //delete puzzle level instances
-        Collection<ALCityInstanceInPL> instances = puzzleLevel.getPuzzleGroupObjectInstanceCollection();
-        instanceInPLService.deleteAll(instances);
 
         // this is ...........
         //delete puzzle cells

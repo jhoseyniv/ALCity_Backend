@@ -168,12 +168,12 @@ public class InstanceInPLService implements InstanceInPLRepository {
         Collection<Attribute> attributes = attributeService.findByOwnerId(instance.getId());
         attributeService.deleteAll(attributes);
 
+        instanceInPLRepository.delete(instance);
 
     }
 
-    public void deleteInstances(PuzzleLevel importedPL) {
-        Collection<ALCityInstanceInPL> importedInstances = importedPL.getPuzzleGroupObjectInstanceCollection();
-        Iterator<ALCityInstanceInPL> iterator = importedInstances.iterator();
+    public void deleteInstances(Collection<ALCityInstanceInPL> instances) {
+        Iterator<ALCityInstanceInPL> iterator = instances.iterator();
         while(iterator.hasNext()) {
             ALCityInstanceInPL instance = iterator.next();
             deleteAnInstance(instance);

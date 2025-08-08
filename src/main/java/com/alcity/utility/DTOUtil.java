@@ -197,7 +197,7 @@ public class DTOUtil {
                 1L,DateUtils.getNow(),DateUtils.getNow(),createdBy,createdBy,attribute.getOwnerId(),attribute.getAttributeOwnerType());
         return attributeValue;
     }
-    public static AttributeValue getAttributeValueFromPLVariableImport(RecordDataImport dto, Attribute attribute, AppMember createdBy){
+    public static AttributeValue getAttributeValueFromPLVariableImport(RecordDataImport dto, Attribute attribute, AppMember createdBy,Long ownerId,AttributeOwnerType ownerType){
         Attribute bindedAttribute =null;
         DataType dataType =  DataType.getByTitle(dto.getType());
         Boolean booleanValue=null;
@@ -222,7 +222,7 @@ public class DTOUtil {
 
         AttributeValue  attributeValue = new AttributeValue(booleanValue,intValue,longValue,stringValue,
                 objectValue,floatValue,binaryContentId, expressionValue,isExpressionValue,bindedAttribute ,attribute,
-                1L,DateUtils.getNow(),DateUtils.getNow(),createdBy,createdBy,attribute.getOwnerId(),attribute.getAttributeOwnerType());
+                1L,DateUtils.getNow(),DateUtils.getNow(),createdBy,createdBy,ownerId,ownerType);
         return attributeValue;
     }
 
@@ -273,6 +273,7 @@ public class DTOUtil {
         AttributeDTO dto = new AttributeDTO(att.getId(), att.getName(),
                 att.getOwnerId(), att.getAttributeOwnerType().name(),
                 att.getDataType().name(),valueDTO);
+        dto.setAttributeValueDTO(valueDTO);
         return dto;
     }
 
@@ -1521,7 +1522,7 @@ public class DTOUtil {
         Collection<Attribute> parameters = new ArrayList<Attribute>();
         if (root == null)  return treeExport;
 
-        if(root.getId()==17251L) {
+        if(root.getId()==19776L) {
             System.out.println("Post Action id = "+root.getId());
         }
         parameters = attributeService.findPostActionParameters(root.getId(), AttributeOwnerType.Puzzle_Level_Rule_Post_Action_Parameter);
@@ -1558,28 +1559,6 @@ public class DTOUtil {
             PLRulePostAction postAction =iterator.next();
             PostActionTreeExport tree = new PostActionTreeExport();
             tree =  preOrderTraversal(tree,plRulePostActionService,attributeService ,postAction);
-
-//            ruleActionData.setOrdering(plRulePostAction.getOrdering());
-//            ruleActionData.setActionName(plRulePostAction.getActionName());
-//            ruleActionData.setObjectId(plRulePostAction.getObjectId());
-//            ruleActionData.setVariable(plRulePostAction.getVariable());
-//            ruleActionData.setValueExperssion(plRulePostAction.getValueExperssion());
-//            String subAction = plRulePostAction.getSubAction();
-//            if(subAction == null || subAction.isBlank()) subAction="";
-//
-//            String actionType = plRulePostAction.getPlRulePostActionType().name();
-//
-//            if(!subAction.equalsIgnoreCase("") )
-//                actionType = plRulePostAction.getPlRulePostActionType().name() + ":" + subAction;
-//
-//            ruleActionData.setActionType(actionType);
-//            ruleActionData.setAlertMessage(plRulePostAction.getAlertMessage());
-//            ruleActionData.setAlertType(plRulePostAction.getAlertType());
-//            Long actionKey = plRulePostAction.getActionKey();
-//            if(actionKey == null)  actionKey=-1L;
-//            ruleActionData.setActionKey(actionKey);
-//
-
             actionTrees.add(tree);
         }
 
@@ -1659,6 +1638,7 @@ public class DTOUtil {
     }
     public static String getDataValue(AttributeValue value){
         if(value == null)  return "Attribute Value is Null";
+        if (value.getExpressionValue()!=null )     return value.getExpressionValue();
         if (value.getBooleanValue()!=null )  return value.getBooleanValue().toString();
 
         if (value.getDoubleValue()!=null )    return value.getDoubleValue().toString();
@@ -1670,7 +1650,6 @@ public class DTOUtil {
         if (value.getBinaryContentId()!=null )  return value.getBinaryContentId().toString();
 
         if (value.getStringValue()!=null )     return value.getStringValue();
-        if (value.getExpressionValue()!=null )     return value.getExpressionValue();
         if (value.getBindedAttributeId()!=null )     return value.getBindedAttributeId().getId().toString();
         if (value.getObjectValue()!=null )     return value.getStringValue();
 

@@ -1,6 +1,8 @@
 package com.alcity.service.puzzle;
 
 
+import com.alcity.dto.Interpreter.object.PostActionTreeExport;
+import com.alcity.dto.Interpreter.object.RuleActionData;
 import com.alcity.dto.plimport.object.PLRuleImport;
 import com.alcity.dto.plimport.object.PLRulePostActionImport;
 import com.alcity.dto.plimport.object.PostActionTreeImport;
@@ -79,23 +81,45 @@ public class PLRuleService implements PLRuleRepository {
         ruleRepository.deleteById(aLong);
 
     }
-    public void deletePlRule( PLRule rule) {
-        Collection<PLRulePostAction>  postActions = plRulePostActionService.findByOwnerId(rule.getId()) ;
+
+//    public void deletePlRule( PLRule rule) {
+//        Collection<PLRulePostAction>  postActions = plRulePostActionService.findByOwnerId(rule.getId()) ;
+//        Iterator<PLRulePostAction> iterator = postActions.iterator();
+//        while(iterator.hasNext()) {
+//            PLRulePostAction postAction = iterator.next();
+//            plRulePostActionService.deletePostActionWithChilds(postAction);
+//        }
+//        ruleRepository.delete(rule);
+//    }
+//    public void deleteAllPlRules( Collection<PLRule> rules) {
+//        Iterator<PLRule> iterator = rules.iterator();
+//        while (iterator.hasNext()){
+//            deletePlRule(iterator.next());
+//        }
+//
+//    }
+    public void deleteRule(PLRule rule) {
+
+        Collection<PLRulePostAction> postActions = plRulePostActionService.findByOwnerId(rule.getId());
         Iterator<PLRulePostAction> iterator = postActions.iterator();
-        while(iterator.hasNext()) {
-            PLRulePostAction postAction = iterator.next();
-            plRulePostActionService.deletePostActionWithChilds(postAction);
+        while(iterator.hasNext()){
+            plRulePostActionService.deleteActionTree(iterator.next());
         }
         ruleRepository.delete(rule);
+
     }
 
-    public void deleteAllPlRules( Collection<PLRule> rules) {
+
+    public void deleteRules(Collection<PLRule> rules) {
         Iterator<PLRule> iterator = rules.iterator();
-        while (iterator.hasNext()){
-            deletePlRule(iterator.next());
+        while(iterator.hasNext()){
+            PLRule rule = iterator.next();
+             deleteRule(rule);
         }
-
     }
+
+
+
 
     @Override
     public void delete(PLRule entity) {

@@ -249,22 +249,11 @@ public class PLController {
         PuzzleLevel copyPuzzleLevel =puzzleLevelService.copy(puzzleLevel,dto);
         return new ALCityResponseObject(HttpStatus.OK.value(), "ok", copyPuzzleLevel.getId(), "Puzzle Level Copied Successfully!");
     }
- /*   @Operation( summary = "Import a tree level",  description = "Import a puzzle level  entity and their data")
-    @PostMapping("/import-tree")
-    @CrossOrigin(origins = "*")
-    public ALCityResponseObject importtree(@RequestBody PostActionTreeImport dto) {
-        PuzzleLevel importedPuzzleLevel=null;
-        ALCityResponseObject responseObject = new ALCityResponseObject();
-        System.out.println(dto.postAction);
-
-        return new ALCityResponseObject(HttpStatus.OK.value(), "ok", importedPuzzleLevel.getId(), "Puzzle Level Imported Successfully!");
-    }
-*/
 
     @Operation( summary = "Import a puzzle level",  description = "Import a puzzle level  entity and their data")
     @PostMapping("/import")
     @CrossOrigin(origins = "*")
-    public ALCityResponseObject importPuzzleLevel(@RequestBody PLImportDTO dto) {
+    public ALCityResponseObject importPuzzleLevel(@RequestBody PLImportDTO dto) throws IOException, ClassNotFoundException {
         PuzzleLevel importedPuzzleLevel=null;
         ALCityResponseObject responseObject = new ALCityResponseObject();
         Optional<PuzzleLevel> puzzleLevelOptional = puzzleLevelService.findById(dto.getId());

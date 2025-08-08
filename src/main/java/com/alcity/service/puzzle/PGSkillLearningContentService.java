@@ -131,7 +131,7 @@ public class PGSkillLearningContentService implements PGSkillLearningContentRepo
 
     @Override
     public void deleteAll(Iterable<? extends PGLearningSkillContent> entities) {
-
+        pgSkillLearningContentRepository.deleteAll(entities);
     }
 
     @Override

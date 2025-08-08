@@ -4,6 +4,8 @@ import com.alcity.dto.pgimport.PGObjectActionImportDTO;
 import com.alcity.dto.puzzle.object.ActionDTO;
 import com.alcity.entity.alenum.ObjectActionType;
 import com.alcity.entity.alenum.POActionOwnerType;
+import com.alcity.entity.alobject.Attribute;
+import com.alcity.entity.alobject.AttributeValue;
 import com.alcity.entity.alobject.ObjectAction;
 import com.alcity.entity.alobject.Renderer;
 import com.alcity.entity.appmember.AppMember;
@@ -144,6 +146,22 @@ public class ActionService implements ActionRepository {
 
     }
 
+    public void deleteAllActions(Collection<ObjectAction> actions) {
+        Iterator<ObjectAction> iterator = actions.iterator();
+        while(iterator.hasNext()){
+            //find and remove properties
+            ObjectAction action = iterator.next();
+            Collection<AttributeValue> attributeValues = attributeValueService.findByOwnerId(action.getOwnerObjectid());
+            attributeValueService.deleteAll(attributeValues);
+
+            Collection<Attribute> attributes = attributeService.findByOwnerId(action.getOwnerObjectid());
+            attributeService.deleteAll(attributes);
+
+            //delete action
+            actionRepository.delete(action);
+        }
+    }
+
     @Override
     public void deleteAll() {
 
@@ -161,7 +179,7 @@ public class ActionService implements ActionRepository {
 
     @Override
     public Collection<ObjectAction> findByOwnerObjectid(Long ownerId) {
-        return null;
+        return actionRepository.findByOwnerObjectid(ownerId);
     }
 
     @Override

@@ -168,10 +168,11 @@ public class PGController {
         ALCityResponseObject responseObject=null;
         if(puzzleGroupOptional.isPresent()) {
             Collection<PuzzleLevel> puzzleLevels = puzzleGroupOptional.get().getPuzzleLevels();
-            if (puzzleLevels.isEmpty()) {
+            if (puzzleLevels.isEmpty()) {  // if no puzzle level present
                 pgService.delete(puzzleGroupOptional.get());
                 responseObject = new ALCityResponseObject(HttpStatus.OK.value(), "ok", id, "Record deleted Successfully!");
             } else {
+
                 responseObject = new ALCityResponseObject(HttpStatus.OK.value(), "Warning", id, "Puzzle Group has Puzzle Level , you can delete that");
             }
         }

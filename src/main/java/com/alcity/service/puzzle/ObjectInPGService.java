@@ -5,6 +5,7 @@ import com.alcity.dto.pgimport.PGObjectImportDTO;
 import com.alcity.dto.pgimport.PGObjectVariableImportDTO;
 import com.alcity.dto.puzzle.CityObjectInPGDTO;
 import com.alcity.entity.alenum.AttributeOwnerType;
+import com.alcity.entity.alobject.Attribute;
 import com.alcity.entity.alobject.AttributeValue;
 import com.alcity.entity.alobject.ObjectAction;
 import com.alcity.entity.puzzle.ALCityInstanceInPL;
@@ -28,6 +29,7 @@ import org.springframework.stereotype.Service;
 
 import org.springframework.transaction.annotation.Transactional;;
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.Optional;
 import java.util.Random;
 
@@ -55,6 +57,9 @@ public class ObjectInPGService implements ObjectInPGRepository {
 
     @Autowired
     RendererService actionRendererService;
+
+    @Autowired
+    private ActionService actionService;
 
     @Autowired
     AttributeService attributeService;
@@ -98,8 +103,19 @@ public class ObjectInPGService implements ObjectInPGRepository {
     }
 
     @Override
-    public void deleteById(Long aLong) {
-        objectInPGRepository.deleteById(aLong);
+    public void deleteById(Long objInPG) {
+        //find  actions defined for this object
+        Collection<ObjectAction> actionsInPG = actionService.findByOwnerObjectid(objInPG);
+        actionService.deleteAllActions(actionsInPG);
+
+        //find and remove attributes (variables and properties for this object)
+        Collection<AttributeValue> attributeValues = attributeValueService.findByOwnerId(objInPG);
+        attributeValueService.deleteAll(attributeValues);
+
+        Collection<Attribute> attributes = attributeService.findByOwnerId(objInPG);
+        attributeService.deleteAll(attributes);
+
+        objectInPGRepository.deleteById(objInPG);
     }
 
     @Override
@@ -114,7 +130,7 @@ public class ObjectInPGService implements ObjectInPGRepository {
 
     @Override
     public void deleteAll(Iterable<? extends ALCityObjectInPG> entities) {
-
+        objectInPGRepository.deleteAll(entities);
     }
 
     @Override
@@ -168,7 +184,7 @@ public class ObjectInPGService implements ObjectInPGRepository {
                 1L, DateUtils.getNow(), DateUtils.getNow(), createdBy.get(), createdBy.get());
         objectInPGRepository.save(alCityObjectInPG);
         Collection<PGObjectVariableImportDTO> variableImportDTOS = dto.getVariables();
-        attributeService.importPGObjectVariables(variableImportDTOS,alCityObjectInPG.getId(), AttributeOwnerType.Puzzle_Group_Object_Variable);
+       // attributeService.importPGObjectVariables(variableImportDTOS,alCityObjectInPG.getId(), AttributeOwnerType.Puzzle_Group_Object_Variable);
         objectActionService.importPGObjectActions(dto.getActions(),alCityObjectInPG.getId());
 
 

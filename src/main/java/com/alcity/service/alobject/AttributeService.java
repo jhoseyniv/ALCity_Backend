@@ -161,26 +161,32 @@ public class AttributeService implements AttributeRepository {
 
     @Transactional
     public Attribute importVariables(RecordDataImport variableImport,  Long ownerId,AttributeOwnerType ownerType) {
-        //import attribute and values
         DataType dataType =  DataType.getByTitle(variableImport.getType());
         Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
-        Attribute importedAttribute = null;
         Optional<Attribute> attributeOptional =  attributeRepository.findById(variableImport.getId());
-       if(attributeOptional.isEmpty() ) {  // attribute is new
-           importedAttribute = new Attribute(variableImport.getName(), ownerId, ownerType, dataType,
-                   1L, DateUtils.getNow(), DateUtils.getNow(), createdBy.get(), createdBy.get());
-           attributeRepository.save(importedAttribute);
-           AttributeValue attributeValue = DTOUtil.getAttributeValueFromPLVariableImport(variableImport, importedAttribute, createdBy.get());
-           attributeValueRepository.save(attributeValue);
-       } else { // attribute is exist and value must be saved only
-           importedAttribute = attributeOptional.get();
-           AttributeValue attributeValue = DTOUtil.getAttributeValueFromPLVariableImport(variableImport, importedAttribute, createdBy.get());
-           attributeValue.setOwnerType(ownerType);
-           attributeValue.setOwnerId(ownerId);
 
-           attributeValueRepository.save(attributeValue);
-       }
-        return importedAttribute;
+        if(attributeOptional.isPresent()){ // attribute is exist and only value must be import
+            Attribute attribute = attributeOptional.get();
+            Collection<AttributeValue> values = attribute.getAttributeValues();
+            AttributeValue attributeValue = DTOUtil.getAttributeValueFromPLVariableImport(variableImport, attribute, createdBy.get(),ownerId,AttributeOwnerType.Puzzle_Level_Rule_Post_Action_Parameter);
+            attributeValueRepository.save(attributeValue);
+            values.add(attributeValue);
+            attribute.setAttributeValues(values);
+            attributeRepository.save(attribute);
+            return attribute;
+        }else{
+            Attribute importedAttribute = new Attribute();
+            importedAttribute = new Attribute(variableImport.getName(), ownerId, ownerType, dataType,
+                    1L, DateUtils.getNow(), DateUtils.getNow(), createdBy.get(), createdBy.get());
+            attributeRepository.save(importedAttribute);
+            AttributeValue attributeValue = DTOUtil.getAttributeValueFromPLVariableImport(variableImport, importedAttribute, createdBy.get(),ownerId,AttributeOwnerType.Puzzle_Level_Rule_Post_Action_Parameter);
+            attributeValueRepository.save(attributeValue);
+            Collection<AttributeValue> values = new ArrayList<>();
+            values.add(attributeValue);
+            importedAttribute.setAttributeValues(values);
+
+            return importedAttribute;
+        }
     }
 
     public Collection<Attribute> importPLVariables(Collection<RecordDataImport> variables, PuzzleLevel puzzleLevel, AttributeOwnerType ownerType){
@@ -304,13 +310,48 @@ public class AttributeService implements AttributeRepository {
 
             if (isActionHasValue.isPresent())
                 outputValues.add(isActionHasValue.get());
-
+            else {
+               AttributeValue defaultValue = setDefaultValue(parameter);
+                outputValues.add(defaultValue);
+            }
             parameter.setAttributeValues(outputValues);
             outputAttributes.add(parameter);
         }
         return outputAttributes;
     }
+    public AttributeValue setDefaultValue(Attribute attribute){
+        Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
 
+        AttributeValue value = null;
+        if(attribute.getDataType().equals(DataType.String) ){
+            value = new AttributeValue(null,null,null,"value",null,null,null,null,false,null,attribute,1L,
+                    DateUtils.getNow(),DateUtils.getNow(),createdBy.get(),createdBy.get(),attribute.getOwnerId(),attribute.getAttributeOwnerType());
+        }
+        if(attribute.getDataType().equals(DataType.Boolean) ){
+            value = new AttributeValue(true,null,null,null,null,null,null,null,false,null,attribute,1L,
+                    DateUtils.getNow(),DateUtils.getNow(),createdBy.get(),createdBy.get(),attribute.getOwnerId(),attribute.getAttributeOwnerType());
+        }
+        if(attribute.getDataType().equals(DataType.Integer) ){
+            value = new AttributeValue(null,1,null,null,null,null,null,null,false,null,attribute,1L,
+                    DateUtils.getNow(),DateUtils.getNow(),createdBy.get(),createdBy.get(),attribute.getOwnerId(),attribute.getAttributeOwnerType());
+        }
+        if(attribute.getDataType().equals(DataType.Long) ){
+            value = new AttributeValue(null,null,1L,null,null,null,null,null,false,null,attribute,1L,
+                    DateUtils.getNow(),DateUtils.getNow(),createdBy.get(),createdBy.get(),attribute.getOwnerId(),attribute.getAttributeOwnerType());
+        }
+        if(attribute.getDataType().equals(DataType.Binary) ){
+            value = new AttributeValue(null,null,null,null,null,null,1L,null,false,null,attribute,1L,
+                    DateUtils.getNow(),DateUtils.getNow(),createdBy.get(),createdBy.get(),attribute.getOwnerId(),attribute.getAttributeOwnerType());
+        }
+        if(attribute.getDataType().equals(DataType.Float) ){
+            value = new AttributeValue(null,null,null,null,null,1f,null,null,false,null,attribute,1L,
+                    DateUtils.getNow(),DateUtils.getNow(),createdBy.get(),createdBy.get(),attribute.getOwnerId(),attribute.getAttributeOwnerType());
+        }
+
+
+
+        return value;
+    }
     public Collection<Attribute> findAttributesForObjectActionHandler(Long ownerId) {
         Collection<Attribute> outputAttributes = new ArrayList<Attribute>();
         //find object action from database
@@ -688,6 +729,7 @@ public class AttributeService implements AttributeRepository {
 
         return outputAttributes;
     }
+
     public Collection<Attribute> UnownBuginLoad_values(Collection<Attribute> inputs){
         Collection<Attribute> outputs= new ArrayList<>();
         Iterator<Attribute> iterator = inputs.iterator();

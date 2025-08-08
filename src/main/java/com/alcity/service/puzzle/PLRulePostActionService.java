@@ -1,5 +1,8 @@
 package com.alcity.service.puzzle;
 
+import com.alcity.dto.Interpreter.object.PostActionTreeExport;
+import com.alcity.dto.Interpreter.object.RecordData;
+import com.alcity.dto.Interpreter.object.RuleActionData;
 import com.alcity.dto.alobject.AttributeDTOSave;
 import com.alcity.dto.plimport.object.PLRulePostActionImport;
 import com.alcity.dto.plimport.object.PostActionTreeImport;
@@ -189,40 +192,72 @@ public class PLRulePostActionService implements PLRulePostActionRepository {
         plRulePostActionRepository.deleteById(aLong);
     }
 
+    @Override
+    public void delete(PLRulePostAction entity) {
+
+    }
+
     private void deleteChildren(Long parentId)  {
         // Find all children of the parent node
         Collection<PLRulePostAction> childs = plRulePostActionRepository.findByOwnerId(parentId);
         Iterator<PLRulePostAction>  iterator = childs.iterator();
-        while (iterator.hasNext()) {
-                    PLRulePostAction childPostAction = iterator.next();
-                    // Recursively delete children of this child
-                    deleteChildren(childPostAction.getId());
-                    // Delete the child node
-                    plRulePostActionRepository.deleteById(childPostAction.getId());
-                    }
-    }
-
-
-
-    public void deletePostActionWithChilds(PLRulePostAction postAction) {
-        // Find all children of the parent node
-        Collection<PLRulePostAction> childs = plRulePostActionRepository.findByOwnerId(postAction.getId());
-        Iterator<PLRulePostAction>  iterator = childs.iterator();
-        while (iterator.hasNext()) {
-            PLRulePostAction childPostAction = iterator.next();
-            // Recursively delete children of this child
-            deleteChildren(childPostAction.getId());
-            // Delete the child node
-            plRulePostActionRepository.deleteById(childPostAction.getId());
-            Collection<AttributeValue>  attributeValues= attributeValueService.findByOwnerId(childPostAction.getId());
-            attributeValueService.deleteAll(attributeValues);
-            Collection<Attribute> attributes = attributeService.findByOwnerId(childPostAction.getId());
-            attributeService.deleteAll(attributes);
+        while (iterator.hasNext())
+        {
+              PLRulePostAction childPostAction = iterator.next();
+              // Recursively delete children of this child
+              deleteChildren(childPostAction.getId());
+              // Delete the child node
+             plRulePostActionRepository.deleteById(childPostAction.getId());
         }
     }
 
-    @Override
-    public void delete(PLRulePostAction entity) {
+
+
+//    public void deletePostActionWithChilds(PLRulePostAction postAction) {
+//        // Find all children of the parent node
+//        Collection<PLRulePostAction> childs = plRulePostActionRepository.findByOwnerId(postAction.getId());
+//        Iterator<PLRulePostAction>  iterator = childs.iterator();
+//        while (iterator.hasNext()) {
+//            PLRulePostAction childPostAction = iterator.next();
+//            // Recursively delete children of this child
+//            deleteChildren(childPostAction.getId());
+//            // Delete the child node
+//            plRulePostActionRepository.deleteById(childPostAction.getId());
+//            Collection<AttributeValue>  attributeValues= attributeValueService.findByOwnerId(childPostAction.getId());
+//            attributeValueService.deleteAll(attributeValues);
+//            Collection<Attribute> attributes = attributeService.findByOwnerId(childPostAction.getId());
+//            attributeService.deleteAll(attributes);
+//        }
+//    }
+    public void preOrderTraversal(PLRulePostAction node) {
+        Collection<PLRulePostAction> children = plRulePostActionRepository.findByOwnerId(node.getId());
+        Iterator<PLRulePostAction> childIterator = children.iterator();
+        PLRulePostAction child = new PLRulePostAction();
+        while(childIterator.hasNext()){
+            child = childIterator.next();
+            preOrderTraversal(child) ;
+        }
+        plRulePostActionRepository.deleteById(node.getId());
+        Collection<Attribute> attributes = new ArrayList<Attribute>();
+        attributes = attributeService.findByOwnerId(node.getId());
+        attributeService.deleteAll(attributes);
+
+        Collection<AttributeValue> attributeValues = new ArrayList<AttributeValue>();
+        attributeValues = attributeValueService.findByOwnerId(node.getId());
+        attributeValueService.deleteAll(attributeValues);
+
+    }
+
+
+    public void deleteActionTree(PLRulePostAction root) {
+        Collection<PLRulePostAction> childs = plRulePostActionRepository.findByOwnerId(root.getId());
+        Iterator<PLRulePostAction> iterator = childs.iterator();
+
+        while(iterator.hasNext()){
+            PLRulePostAction child = iterator.next();
+            preOrderTraversal(child) ;
+        }
+        plRulePostActionRepository.delete(root);
 
     }
 

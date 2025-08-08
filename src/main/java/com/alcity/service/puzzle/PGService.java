@@ -8,6 +8,8 @@ import com.alcity.dto.puzzle.PGLearningSkillContentDTO;
 import com.alcity.dto.pgimport.PGImportDTO;
 import com.alcity.entity.base.BinaryContent;
 import com.alcity.entity.base.PuzzleCategory;
+import com.alcity.entity.puzzle.ALCityObjectInPG;
+import com.alcity.entity.puzzle.PGLearningSkillContent;
 import com.alcity.entity.puzzle.PuzzleGroup;
 import com.alcity.entity.appmember.AppMember;
 import com.alcity.repository.base.BinaryContentRepository;
@@ -38,6 +40,9 @@ public class PGService implements PGRepository {
 
     @Autowired
     PGSkillLearningContentService pgSkillLearningContentService;
+
+    @Autowired
+    ObjectInPGService objectInPGService;
 
     @Override
     public <S extends PuzzleGroup> S save(S entity) {
@@ -90,8 +95,6 @@ public class PGService implements PGRepository {
     @Autowired
     private PuzzleCategoryRepository puzzleCategoryRepository;
 
-    @Autowired
-    private ObjectInPGService objectInPGService;
 
     @Autowired
     private AttributeService attributeService;
@@ -148,8 +151,16 @@ public class PGService implements PGRepository {
 
     @Override
     public void delete(PuzzleGroup entity) {
-       // binaryContentRepository.delete(entity.getIcon());
-      //  binaryContentRepository.delete(entity.getPic());
+        Collection<PGLearningSkillContent> learningSkillContents = entity.getLearningSkillContents();
+        pgSkillLearningContentService.deleteAll(learningSkillContents);
+
+        Collection<ALCityObjectInPG> alCityObjectInPGS = entity.getAlCityObjectInPGS();
+        //first must delete attribute values defined for this objects
+
+        objectInPGService.deleteAll(alCityObjectInPGS);
+
+
+
         pgRepository.delete(entity);
 
     }
