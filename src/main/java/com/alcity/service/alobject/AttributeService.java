@@ -981,7 +981,12 @@ public class AttributeService implements AttributeRepository {
         AttributeOwnerType attributeOwnerType =  AttributeOwnerType.getByTitle(newValue.getOwnerType());
         AttributeOwnerType attributeValueOwnerType =  AttributeOwnerType.getByTitle(valueDTO.getOwnerType());
         DataType dataType =  DataType.getByTitle(newValue.getDataType());
-        Optional<Attribute> bindedAttributeOptional =  attributeRepository.findById(valueDTO.getBindedAttributeId());
+        Attribute bindAttribute=null;
+        if(valueDTO.getBindedAttributeId() != null ) {
+            Optional<Attribute> bindedAttributeOptional =  attributeRepository.findById(valueDTO.getBindedAttributeId());
+            bindAttribute =bindedAttributeOptional.get();
+        }
+
 
         Attribute attribute=null;
         AttributeValue attributeValue=null;
@@ -990,7 +995,7 @@ public class AttributeService implements AttributeRepository {
                     1L, DateUtils.getNow(), DateUtils.getNow(), createdBy.get(), createdBy.get());
            attributeRepository.save(attribute);
                 attributeValue = new AttributeValue(valueDTO.getBooleanValue(),valueDTO.getIntValue(),valueDTO.getLongValue(),valueDTO.getStringValue(),
-                    valueDTO.getObjectValue(),valueDTO.getDoubleValue(),valueDTO.getBinaryContentId(), valueDTO.getExpressionValue(),valueDTO.getExpression(),bindedAttributeOptional.get() ,attribute,
+                    valueDTO.getObjectValue(),valueDTO.getDoubleValue(),valueDTO.getBinaryContentId(), valueDTO.getExpressionValue(),valueDTO.getExpression(),bindAttribute ,attribute,
                     1L,DateUtils.getNow(),DateUtils.getNow(),createdBy.get(),createdBy.get(),attribute.getOwnerId(),attribute.getAttributeOwnerType());
             attributeValueRepository.save(attributeValue);
         }else{//edit
@@ -998,7 +1003,7 @@ public class AttributeService implements AttributeRepository {
                 attribute = attributeOptional.get();
                 if(valueDTO.getId() == 0) { // save new value by owner id
                     attributeValue = new AttributeValue(valueDTO.getBooleanValue(),valueDTO.getIntValue(),valueDTO.getLongValue(),valueDTO.getStringValue(),
-                            valueDTO.getObjectValue(),valueDTO.getDoubleValue(),valueDTO.getBinaryContentId(), valueDTO.getExpressionValue(),valueDTO.getExpression(),bindedAttributeOptional.get() ,attribute,
+                            valueDTO.getObjectValue(),valueDTO.getDoubleValue(),valueDTO.getBinaryContentId(), valueDTO.getExpressionValue(),valueDTO.getExpression(),bindAttribute ,attribute,
                             1L,DateUtils.getNow(),DateUtils.getNow(),createdBy.get(),createdBy.get(),attribute.getOwnerId(),attribute.getAttributeOwnerType());
                     attributeValueRepository.save(attributeValue);
 
