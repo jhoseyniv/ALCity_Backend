@@ -1012,15 +1012,15 @@ public class AttributeService implements AttributeRepository {
                     AttributeValue value =valueOptional.get();
                     value.setOwnerId(valueDTO.getOwnerId());
                     value.setOwnerType(attributeValueOwnerType);
-                    value.setExpressionValue(value.getExpressionValue());
-                    value.setStringValue(value.getStringValue());
-                    value.setDoubleValue(value.getDoubleValue());
-                    value.setBooleanValue(value.getBooleanValue());
-                    value.setIntValue(value.getIntValue());
-                    value.setObjectValue(value.getObjectValue());
-                    value.setBindedAttributeId(value.getBindedAttributeId());
-                    value.setBinaryContentId(value.getBinaryContentId());
-                    value.setExpression(value.getExpression());
+                    value.setExpressionValue(valueDTO.getExpressionValue());
+                    value.setStringValue(valueDTO.getStringValue());
+                    value.setDoubleValue(valueDTO.getDoubleValue());
+                    value.setBooleanValue(valueDTO.getBooleanValue());
+                    value.setIntValue(valueDTO.getIntValue());
+                    value.setObjectValue(valueDTO.getObjectValue());
+                    value.setBindedAttributeId(bindAttribute);
+                    value.setBinaryContentId(valueDTO.getBinaryContentId());
+                    value.setExpression(valueDTO.getExpression());
                     value.setLongValue(valueDTO.getLongValue());
                     attributeValueRepository.save(value);
                 }
