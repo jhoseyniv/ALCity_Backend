@@ -92,7 +92,7 @@ public class AttributeValueService implements AttributeValueRepository {
 
     @Override
     public void deleteAll(Iterable<? extends AttributeValue> entities) {
-        attributeValueRepository.deleteAll();
+        attributeValueRepository.deleteAll(entities);
     }
 
     @Override

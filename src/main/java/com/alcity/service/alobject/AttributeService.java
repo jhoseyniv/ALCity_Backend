@@ -600,7 +600,7 @@ public class AttributeService implements AttributeRepository {
         return outputAttributes;
     }
     public Collection<Attribute> findPropertiesForPuzzleGroupObject(Long pgo_Id,AttributeOwnerType ownerType){
-        //find properties for a object as parent of pgo + find properties for a pgo
+        //find properties for an object as parent of pgo + find properties for a pgo
 
         Collection<Attribute> outputAttributes = new ArrayList<Attribute>();
         Collection<Attribute> temp_Bug_properties_in_an_object = new ArrayList<>();

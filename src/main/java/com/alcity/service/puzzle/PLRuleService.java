@@ -89,7 +89,9 @@ public class PLRuleService implements PLRuleRepository {
 //
 //    }
     public void deleteRule(PLRule rule) {
-
+        if(rule.getTitle().equalsIgnoreCase("show first filled cell")){
+            System.out.println("this is here");
+        }
         Collection<PLRulePostAction> postActions = plRulePostActionService.findByOwnerId(rule.getId());
         Iterator<PLRulePostAction> iterator = postActions.iterator();
         while(iterator.hasNext()){
