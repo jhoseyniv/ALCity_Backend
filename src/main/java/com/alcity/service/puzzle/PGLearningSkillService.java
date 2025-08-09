@@ -2,17 +2,13 @@ package com.alcity.service.puzzle;
 
 import com.alcity.dto.pgimport.PGLearningSkillContentImportDTO;
 import com.alcity.dto.puzzle.PGLearningSkillContentDTO;
-import com.alcity.dto.puzzle.PlLearningTopicDTO;
 import com.alcity.entity.appmember.AppMember;
 import com.alcity.entity.learning.LearningContent;
 import com.alcity.entity.learning.LearningSkill;
-import com.alcity.entity.learning.LearningTopic;
-import com.alcity.entity.puzzle.LearningTopicInPL;
-import com.alcity.entity.puzzle.PGLearningSkillContent;
+import com.alcity.entity.puzzle.PGLearningSkill;
 import com.alcity.entity.puzzle.PuzzleGroup;
-import com.alcity.entity.puzzle.PuzzleLevel;
 import com.alcity.repository.appmember.AppMemberRepository;
-import com.alcity.repository.puzzle.PGSkillLearningContentRepository;
+import com.alcity.repository.puzzle.PGLearningSkillRepository;
 import com.alcity.service.learning.LearningContentService;
 import com.alcity.service.learning.LearningSkillService;
 import com.alcity.utility.DateUtils;
@@ -27,11 +23,11 @@ import java.util.Optional;
 
 @Service
 @Transactional
-public class PGSkillLearningContentService implements PGSkillLearningContentRepository {
+public class PGLearningSkillService implements PGLearningSkillRepository {
 
-    @Qualifier("PGSkillLearningContentRepository")
+    @Qualifier("PGLearningSkillRepository")
     @Autowired
-    PGSkillLearningContentRepository pgSkillLearningContentRepository;
+    PGLearningSkillRepository pgLearningSkillRepository;
     @Autowired
     private AppMemberRepository appMemberRepository;
     @Autowired
@@ -42,56 +38,56 @@ public class PGSkillLearningContentService implements PGSkillLearningContentRepo
     private PGService pgService;
 
     @Override
-    public <S extends PGLearningSkillContent> S save(S entity) {
-        return pgSkillLearningContentRepository.save(entity);
+    public <S extends PGLearningSkill> S save(S entity) {
+        return pgLearningSkillRepository.save(entity);
     }
-    public PGLearningSkillContent importPGLearningSkill(PGLearningSkillContentImportDTO dto,PuzzleGroup puzzleGroup) {
+    public PGLearningSkill importPGLearningSkill(PGLearningSkillContentImportDTO dto, PuzzleGroup puzzleGroup) {
         Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
-        PGLearningSkillContent pgLearningSkillContent=null;
+        PGLearningSkill pgLearningSkillContent=null;
         Optional<LearningContent> learningContentOptional = learningContentService.findById(dto.getLearningContentId());
         Optional<LearningSkill> learningSkillOptional = learningSkillService.findById(dto.getLearningSkillId());
 
         if(learningContentOptional.isEmpty() || learningSkillOptional.isEmpty() || puzzleGroup==null) return  null;
-        pgLearningSkillContent = new PGLearningSkillContent(learningSkillOptional.get(), puzzleGroup, learningContentOptional.get()
+        pgLearningSkillContent = new PGLearningSkill(learningSkillOptional.get(), puzzleGroup, learningContentOptional.get()
                     , 1L, DateUtils.getNow(), DateUtils.getNow(), createdBy.get(), createdBy.get());
-            pgSkillLearningContentRepository.save(pgLearningSkillContent);
+        pgLearningSkillRepository.save(pgLearningSkillContent);
 
         return pgLearningSkillContent;
     }
 
 
-    public PGLearningSkillContent save(PGLearningSkillContentDTO dto, String code) {
+    public PGLearningSkill save(PGLearningSkillContentDTO dto, String code) {
         Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
-        PGLearningSkillContent pgLearningSkillContent=null;
+        PGLearningSkill pgLearningSkillContent=null;
         Optional<LearningContent> learningContentOptional = learningContentService.findById(dto.getLearningContentId());
         Optional<LearningSkill> learningSkillOptional = learningSkillService.findById(dto.getLearningSkillId());
         Optional<PuzzleGroup> puzzleGroupOptional = pgService.findById(dto.getPuzzleGroupId());
 
         if(learningContentOptional.isEmpty() || learningSkillOptional.isEmpty() || puzzleGroupOptional.isEmpty()) return  null;
         if (code.equalsIgnoreCase("Save")) { //Save
-            pgLearningSkillContent = new PGLearningSkillContent(learningSkillOptional.get(), puzzleGroupOptional.get(), learningContentOptional.get()
+            pgLearningSkillContent = new PGLearningSkill(learningSkillOptional.get(), puzzleGroupOptional.get(), learningContentOptional.get()
                     , 1L, DateUtils.getNow(), DateUtils.getNow(), createdBy.get(), createdBy.get());
-            pgSkillLearningContentRepository.save(pgLearningSkillContent);
+            pgLearningSkillRepository.save(pgLearningSkillContent);
         }else{//edit
-            Optional<PGLearningSkillContent> pgLearningSkillContentOptional= pgSkillLearningContentRepository.findById(dto.getId());
+            Optional<PGLearningSkill> pgLearningSkillContentOptional= pgLearningSkillRepository.findById(dto.getId());
             if(pgLearningSkillContentOptional.isPresent()) {
                 pgLearningSkillContent = pgLearningSkillContentOptional.get();
                 pgLearningSkillContent.setLearningContent(learningContentOptional.get());
                 pgLearningSkillContent.setLearningSkill(learningSkillOptional.get());
                 pgLearningSkillContent.setPuzzleGroup(puzzleGroupOptional.get());
-                pgSkillLearningContentRepository.save(pgLearningSkillContent);
+                pgLearningSkillRepository.save(pgLearningSkillContent);
             }
         }
         return pgLearningSkillContent;
     }
     @Override
-    public <S extends PGLearningSkillContent> Iterable<S> saveAll(Iterable<S> entities) {
+    public <S extends PGLearningSkill> Iterable<S> saveAll(Iterable<S> entities) {
         return null;
     }
 
     @Override
-    public Optional<PGLearningSkillContent> findById(Long id) {
-        return pgSkillLearningContentRepository.findById(id);
+    public Optional<PGLearningSkill> findById(Long id) {
+        return pgLearningSkillRepository.findById(id);
     }
 
     @Override
@@ -100,12 +96,12 @@ public class PGSkillLearningContentService implements PGSkillLearningContentRepo
     }
 
     @Override
-    public Collection<PGLearningSkillContent> findAll() {
+    public Collection<PGLearningSkill> findAll() {
         return null;
     }
 
     @Override
-    public Iterable<PGLearningSkillContent> findAllById(Iterable<Long> longs) {
+    public Iterable<PGLearningSkill> findAllById(Iterable<Long> longs) {
         return null;
     }
 
@@ -116,11 +112,11 @@ public class PGSkillLearningContentService implements PGSkillLearningContentRepo
 
     @Override
     public void deleteById(Long aLong) {
-        pgSkillLearningContentRepository.deleteById(aLong);
+        pgLearningSkillRepository.deleteById(aLong);
     }
 
     @Override
-    public void delete(PGLearningSkillContent entity) {
+    public void delete(PGLearningSkill entity) {
 
     }
 
@@ -130,8 +126,8 @@ public class PGSkillLearningContentService implements PGSkillLearningContentRepo
     }
 
     @Override
-    public void deleteAll(Iterable<? extends PGLearningSkillContent> entities) {
-        pgSkillLearningContentRepository.deleteAll(entities);
+    public void deleteAll(Iterable<? extends PGLearningSkill> entities) {
+        pgLearningSkillRepository.deleteAll(entities);
     }
 
     @Override

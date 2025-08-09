@@ -7,7 +7,7 @@ import com.alcity.dto.pgimport.PGImportDTO;
 import com.alcity.entity.base.BinaryContent;
 import com.alcity.entity.base.PuzzleCategory;
 import com.alcity.entity.puzzle.PGObject;
-import com.alcity.entity.puzzle.PGLearningSkillContent;
+import com.alcity.entity.puzzle.PGLearningSkill;
 import com.alcity.entity.puzzle.PuzzleGroup;
 import com.alcity.entity.appmember.AppMember;
 import com.alcity.repository.base.BinaryContentRepository;
@@ -37,7 +37,7 @@ public class PGService implements PGRepository {
     BinaryContentRepository binaryContentRepository;
 
     @Autowired
-    PGSkillLearningContentService pgSkillLearningContentService;
+    PGLearningSkillService pgSkillLearningContentService;
 
     @Autowired
     PGObjectService objectInPGService;
@@ -149,7 +149,7 @@ public class PGService implements PGRepository {
 
     @Override
     public void delete(PuzzleGroup entity) {
-        Collection<PGLearningSkillContent> learningSkillContents = entity.getLearningSkillContents();
+        Collection<PGLearningSkill> learningSkillContents = entity.getLearningSkillContents();
         pgSkillLearningContentService.deleteAll(learningSkillContents);
 
         Collection<PGObject> alCityObjectInPGS = entity.getAlCityObjectInPGS();

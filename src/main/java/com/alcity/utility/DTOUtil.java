@@ -574,12 +574,12 @@ public class DTOUtil {
         return enumDTOS;
     }
 
-    public static Collection<PGLearningSkillContentDTO> getPGLearningSkillContentDTOS(Collection<PGLearningSkillContent> input) {
+    public static Collection<PGLearningSkillContentDTO> getPGLearningSkillContentDTOS(Collection<PGLearningSkill> input) {
         Collection<PGLearningSkillContentDTO> output = new ArrayList<PGLearningSkillContentDTO>();
-        Iterator<PGLearningSkillContent> itr = input.iterator();
+        Iterator<PGLearningSkill> itr = input.iterator();
         while (itr.hasNext()) {
             PGLearningSkillContentDTO dto = new PGLearningSkillContentDTO();
-            PGLearningSkillContent lsc = itr.next();
+            PGLearningSkill lsc = itr.next();
 
             dto.setId(lsc.getId());
             dto.setLearningSkillId(lsc.getLearningSkill().getId());
@@ -797,7 +797,7 @@ public class DTOUtil {
         }
         return output;
     }
-  public static PlLearningTopicDTO getPl_LearningTopicDTO(LearningTopicInPL entity){
+  public static PlLearningTopicDTO getPl_LearningTopicDTO(PLLearningTopic entity){
         PlLearningTopicDTO dto = new PlLearningTopicDTO();
         PuzzleLevel puzzleLevel = entity.getPuzzleLevel();
         LearningTopic learningTopic = entity.getLearningTopic();
@@ -828,11 +828,11 @@ public class DTOUtil {
     }
     public static Collection<PlLearningTopicDTO> getPl_LearningTopicDTOS(PuzzleLevel puzzleLevel) {
         Collection<PlLearningTopicDTO> dtos = new ArrayList<PlLearningTopicDTO>();
-        Collection<LearningTopicInPL> pl_learningTopicCollection = puzzleLevel.getLearningTopicInPLCollection();
-        Iterator<LearningTopicInPL> itr = pl_learningTopicCollection.iterator();
+        Collection<PLLearningTopic> learningTopics = puzzleLevel.getLearningTopics();
+        Iterator<PLLearningTopic> itr = learningTopics.iterator();
         PlLearningTopicDTO dto = new PlLearningTopicDTO();
         while(itr.hasNext()) {
-            LearningTopicInPL pl_learningTopic = itr.next();
+            PLLearningTopic pl_learningTopic = itr.next();
             dto = getPl_LearningTopicDTO(pl_learningTopic);
             dtos.add(dto);
         }

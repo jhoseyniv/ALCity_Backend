@@ -129,7 +129,7 @@ public class ImportHashImageProblemData_1 implements CommandLineRunner {
 
 
     @Autowired
-    PGSkillLearningContentService puzzleSkillLearningContentService;
+    PGLearningSkillService puzzleSkillLearningContentService;
     private static final Logger log = LoggerFactory.getLogger(ObjectManagmentApplication.class);
 
     @Override

@@ -14,7 +14,7 @@ import com.alcity.service.learning.LearningTopicService;
 import com.alcity.service.puzzle.BaseObjectService;
 import com.alcity.service.puzzle.PGService;
 import com.alcity.service.puzzle.PLRuleEventService;
-import com.alcity.service.puzzle.PGSkillLearningContentService;
+import com.alcity.service.puzzle.PGLearningSkillService;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -71,7 +71,7 @@ public class ImportBaseData implements CommandLineRunner {
     @Autowired
     ActionService puzzleObjectActionService;
     @Autowired
-    PGSkillLearningContentService puzzleSkillLearningContentService;
+    PGLearningSkillService puzzleSkillLearningContentService;
     @Autowired
     LearningContentService learningContentService;
 

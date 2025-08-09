@@ -1,18 +1,14 @@
 package com.alcity.api;
 
 
-import com.alcity.entity.learning.LearningSkill;
-import com.alcity.entity.puzzle.PGLearningSkillContent;
 import com.alcity.service.customexception.ALCityResponseObject;
 import com.alcity.service.customexception.UniqueConstraintException;
 import com.alcity.service.customexception.ViolateForeignKeyException;
 import com.alcity.dto.alobject.AttributeDTO;
 import com.alcity.dto.puzzle.object.ActionDTO;
-import com.alcity.entity.alenum.AttributeOwnerType;
 import com.alcity.entity.alenum.POActionOwnerType;
 import com.alcity.entity.alobject.Attribute;
 import com.alcity.entity.alobject.ObjectAction;
-import com.alcity.entity.puzzle.PuzzleGroup;
 import com.alcity.service.alobject.AttributeService;
 import com.alcity.service.alobject.ActionService;
 import com.alcity.utility.DTOUtil;

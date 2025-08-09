@@ -52,13 +52,13 @@ public class PuzzleGroup extends BaseTable implements Serializable {
 
     @OneToMany(mappedBy = "puzzleGroup", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JsonIgnore
-    private Collection<PGLearningSkillContent> learningSkillContents;
+    private Collection<PGLearningSkill> learningSkillContents;
 
-    public Collection<PGLearningSkillContent> getLearningSkillContents() {
+    public Collection<PGLearningSkill> getLearningSkillContents() {
         return learningSkillContents;
     }
 
-    public void setLearningSkillContents(Collection<PGLearningSkillContent> learningSkillContents) {
+    public void setLearningSkillContents(Collection<PGLearningSkill> learningSkillContents) {
         this.learningSkillContents = learningSkillContents;
     }
 

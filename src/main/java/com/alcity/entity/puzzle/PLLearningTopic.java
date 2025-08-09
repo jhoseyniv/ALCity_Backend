@@ -8,8 +8,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.*;
 
+@Table(name = "learning_topic_inpl")
 @Entity
-public class LearningTopicInPL extends BaseTable {
+public class PLLearningTopic extends BaseTable {
 
 
     @ManyToOne(fetch = FetchType.LAZY, optional = true)
@@ -51,10 +52,10 @@ public class LearningTopicInPL extends BaseTable {
         this.puzzleLevel = puzzleLevel;
     }
 
-    public LearningTopicInPL() {
+    public PLLearningTopic() {
     }
 
-    public LearningTopicInPL(PuzzleLevel puzzleLevel, LearningTopic learningTopic, LearningContent learningContent, Long version, String created, String updated, AppMember createdBy, AppMember updatedBy) {
+    public PLLearningTopic(PuzzleLevel puzzleLevel, LearningTopic learningTopic, LearningContent learningContent, Long version, String created, String updated, AppMember createdBy, AppMember updatedBy) {
         super(version, created, updated, createdBy, updatedBy);
         this.puzzleLevel = puzzleLevel;
         this.learningTopic = learningTopic;

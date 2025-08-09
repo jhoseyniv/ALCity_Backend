@@ -1,14 +1,8 @@
 package com.alcity.api;
 
-import com.alcity.dto.puzzle.PLDTO;
 import com.alcity.dto.puzzle.PlLearningTopicDTO;
-import com.alcity.entity.base.PuzzleCategory;
-import com.alcity.entity.learning.LearningContent;
-import com.alcity.entity.learning.LearningTopic;
-import com.alcity.entity.puzzle.LearningTopicInPL;
-import com.alcity.entity.puzzle.PuzzleGroup;
+import com.alcity.entity.puzzle.PLLearningTopic;
 import com.alcity.entity.puzzle.PuzzleLevel;
-import com.alcity.repository.puzzle.PLLearningTopicRepository;
 import com.alcity.service.customexception.ALCityResponseObject;
 import com.alcity.service.customexception.UniqueConstraintException;
 import com.alcity.service.customexception.ViolateForeignKeyException;
@@ -20,7 +14,6 @@ import com.alcity.utility.DTOUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -60,14 +53,14 @@ public class PlLearningTopicController {
     @PostMapping("/add")
     @CrossOrigin(origins = "*")
     public ALCityResponseObject savePLLearningTopic(@RequestBody PlLearningTopicDTO dto)  {
-        LearningTopicInPL savedRecord = null;
+        PLLearningTopic savedRecord = null;
         ALCityResponseObject responseObject = new ALCityResponseObject();
 
         if (dto.getId() == null || dto.getId() <= 0L) { //save
             try {
                 savedRecord = plLearningTopicService.save(dto,"Save");
             } catch (RuntimeException e) {
-                throw new UniqueConstraintException(-1,"Unique Constraint in" + LearningTopicInPL.class , "Error",savedRecord.getId() );
+                throw new UniqueConstraintException(-1,"Unique Constraint in" + PLLearningTopic.class , "Error",savedRecord.getId() );
             }
             responseObject = new ALCityResponseObject(HttpStatus.OK.value(), "ok", savedRecord.getId(), "Record Saved Successfully!");
         } else if (dto.getId() > 0L ) {//edit
@@ -89,13 +82,13 @@ public class PlLearningTopicController {
     @DeleteMapping("/del/id/{id}")
     @CrossOrigin(origins = "*")
     public ALCityResponseObject deleteAPuzzleLevelLearningTopicById(@PathVariable Long id) {
-        Optional<LearningTopicInPL> existingRecord = plLearningTopicService.findById(id);
+        Optional<PLLearningTopic> existingRecord = plLearningTopicService.findById(id);
         if(existingRecord.isPresent()){
             try {
                 plLearningTopicService.deleteById(existingRecord.get().getId());
             }catch (Exception e )
             {
-                throw new ViolateForeignKeyException(-1, "error", LearningTopicInPL.class.toString(),existingRecord.get().getId());
+                throw new ViolateForeignKeyException(-1, "error", PLLearningTopic.class.toString(),existingRecord.get().getId());
             }
             return new ALCityResponseObject(HttpStatus.OK.value(), "ok", id,"Record deleted Successfully!");
         }

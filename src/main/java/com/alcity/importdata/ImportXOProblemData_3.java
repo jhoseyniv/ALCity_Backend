@@ -125,7 +125,7 @@ public class ImportXOProblemData_3 implements CommandLineRunner {
 
 
    @Autowired
-   PGSkillLearningContentService puzzleSkillLearningContentService;
+   PGLearningSkillService puzzleSkillLearningContentService;
     private static final Logger log = LoggerFactory.getLogger(ObjectManagmentApplication.class);
 
     @Override

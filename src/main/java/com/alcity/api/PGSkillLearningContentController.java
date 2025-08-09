@@ -1,16 +1,13 @@
 package com.alcity.api;
 
 import com.alcity.dto.puzzle.PGLearningSkillContentDTO;
-import com.alcity.entity.alobject.Renderer;
-import com.alcity.entity.base.ClientType;
-import com.alcity.entity.puzzle.LearningTopicInPL;
-import com.alcity.entity.puzzle.PGLearningSkillContent;
+import com.alcity.entity.puzzle.PGLearningSkill;
 import com.alcity.entity.puzzle.PuzzleGroup;
 import com.alcity.service.customexception.ALCityResponseObject;
 import com.alcity.service.customexception.UniqueConstraintException;
 import com.alcity.service.customexception.ViolateForeignKeyException;
 import com.alcity.service.puzzle.PGService;
-import com.alcity.service.puzzle.PGSkillLearningContentService;
+import com.alcity.service.puzzle.PGLearningSkillService;
 import com.alcity.utility.DTOUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -30,7 +27,7 @@ import java.util.Optional;
 public class PGSkillLearningContentController {
 
     @Autowired
-    private PGSkillLearningContentService pgSkillLearningContentService;
+    private PGLearningSkillService pgSkillLearningContentService;
     @Autowired
     private PGService pgService;
 
@@ -50,14 +47,14 @@ public class PGSkillLearningContentController {
     @PostMapping("/add")
     @CrossOrigin(origins = "*")
     public ALCityResponseObject savePGLearningSkillContent(@RequestBody PGLearningSkillContentDTO dto)  {
-        PGLearningSkillContent savedRecord = null;
+        PGLearningSkill savedRecord = null;
         ALCityResponseObject responseObject = new ALCityResponseObject();
 
         if (dto.getId() == null || dto.getId() <= 0L) { //save
             try {
                 savedRecord = pgSkillLearningContentService.save(dto,"Save");
             } catch (RuntimeException e) {
-                throw new UniqueConstraintException(-1,"Unique Constraint in" + PGLearningSkillContent.class , "Error",savedRecord.getId() );
+                throw new UniqueConstraintException(-1,"Unique Constraint in" + PGLearningSkill.class , "Error",savedRecord.getId() );
             }
             responseObject = new ALCityResponseObject(HttpStatus.OK.value(), "ok", savedRecord.getId(), "Record Saved Successfully!");
         } else if (dto.getId() > 0L ) {//edit
@@ -79,13 +76,13 @@ public class PGSkillLearningContentController {
     @DeleteMapping("/del/id/{id}")
     @CrossOrigin(origins = "*")
     public ALCityResponseObject deleteAPuzzleLevelLearningTopicById(@PathVariable Long id) {
-        Optional<PGLearningSkillContent> existingRecord = pgSkillLearningContentService.findById(id);
+        Optional<PGLearningSkill> existingRecord = pgSkillLearningContentService.findById(id);
         if(existingRecord.isPresent()){
             try {
                 pgSkillLearningContentService.deleteById(existingRecord.get().getId());
             }catch (Exception e )
             {
-                throw new ViolateForeignKeyException(-1, "error", PGLearningSkillContent.class.toString(),existingRecord.get().getId());
+                throw new ViolateForeignKeyException(-1, "error", PGLearningSkill.class.toString(),existingRecord.get().getId());
             }
             return new ALCityResponseObject(HttpStatus.OK.value(), "ok", id,"Record deleted Successfully!");
         }

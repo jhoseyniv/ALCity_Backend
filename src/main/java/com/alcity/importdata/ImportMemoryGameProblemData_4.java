@@ -138,7 +138,7 @@ public class ImportMemoryGameProblemData_4 implements CommandLineRunner {
     BaseObjectService alCityObjectService;
 
    @Autowired
-   PGSkillLearningContentService puzzleSkillLearningContentService;
+   PGLearningSkillService puzzleSkillLearningContentService;
     private static final Logger log = LoggerFactory.getLogger(ObjectManagmentApplication.class);
 
     @Override

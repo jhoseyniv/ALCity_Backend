@@ -138,7 +138,7 @@ public class ImportMultiplyProblemData_7 implements CommandLineRunner {
     BaseObjectService alCityObjectService;
 
    @Autowired
-   PGSkillLearningContentService puzzleSkillLearningContentService;
+   PGLearningSkillService puzzleSkillLearningContentService;
 
     @Override
     public void run(String... args) throws Exception {

@@ -1,8 +1,6 @@
 package com.alcity.api;
 
 import com.alcity.entity.alenum.PLRulePostActionType;
-import com.alcity.entity.alobject.ObjectAction;
-import com.alcity.entity.puzzle.PGLearningSkillContent;
 import com.alcity.service.customexception.ALCityResponseObject;
 import com.alcity.service.customexception.UniqueConstraintException;
 import com.alcity.service.customexception.ViolateForeignKeyException;

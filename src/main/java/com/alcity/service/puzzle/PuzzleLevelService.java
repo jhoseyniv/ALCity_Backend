@@ -292,8 +292,8 @@ public class PuzzleLevelService implements PuzzleLevelRepository {
 
         //import puzzle learning topics
         Collection<PLLearningTopicImport> topics = dto.getLearningTopics();
-        Collection<LearningTopicInPL> importedTopics = plLearningTopicService.importLearningTopics(topics, importedPuzzleLevel);
-        importedPuzzleLevel.setLearningTopicInPLCollection(importedTopics);
+        Collection<PLLearningTopic> importedTopics = plLearningTopicService.importLearningTopics(topics, importedPuzzleLevel);
+        importedPuzzleLevel.setLearningTopics(importedTopics);
 
         return importedPuzzleLevel;
     }
@@ -302,8 +302,8 @@ public class PuzzleLevelService implements PuzzleLevelRepository {
     public void deletePuzzleLevel(PuzzleLevel puzzleLevel) {
 
         //delete puzzle learning topics
-        Collection<LearningTopicInPL> learningTopicInPLS = puzzleLevel.getLearningTopicInPLCollection();
-        plLearningTopicService.deleteAll(learningTopicInPLS);
+        Collection<PLLearningTopic> learningTopics = puzzleLevel.getLearningTopics();
+        plLearningTopicService.deleteAll(learningTopics);
 
         //delete puzzle level rules
         Collection<PLRule> rules = puzzleLevel.getRules();
@@ -391,8 +391,8 @@ public class PuzzleLevelService implements PuzzleLevelRepository {
             Collection<PLRule> copiedRules = plRuleService.copyAll(rules, copyPuzzleLevel);
         }
         if(dto.getLearningTopics()) {
-            Collection<LearningTopicInPL> topics = puzzleLevel.getLearningTopicInPLCollection();
-            Collection<LearningTopicInPL> copyTopics = plLearningTopicService.copyAll(topics, copyPuzzleLevel);
+            Collection<PLLearningTopic> topics = puzzleLevel.getLearningTopics();
+            Collection<PLLearningTopic> copyTopics = plLearningTopicService.copyAll(topics, copyPuzzleLevel);
         }
         return puzzleLevel;
     }

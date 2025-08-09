@@ -258,14 +258,15 @@ public class PuzzleLevel extends BaseTable implements Serializable {
 
     @OneToMany(mappedBy = "puzzleLevel", fetch = FetchType.LAZY)
     @JsonIgnore
-    private Collection<LearningTopicInPL> learningTopicInPLCollection;
+    private Collection<PLLearningTopic> learningTopics;
 
-    public Collection<LearningTopicInPL> getLearningTopicInPLCollection() {
-        return learningTopicInPLCollection;
+
+    public Collection<PLLearningTopic> getLearningTopics() {
+        return learningTopics;
     }
 
-    public void setLearningTopicInPLCollection(Collection<LearningTopicInPL> learningTopicInPLCollection) {
-        this.learningTopicInPLCollection = learningTopicInPLCollection;
+    public void setLearningTopics(Collection<PLLearningTopic> learningTopics) {
+        this.learningTopics = learningTopics;
     }
 
     @OneToMany(mappedBy = "puzzleLevel", fetch = FetchType.LAZY)

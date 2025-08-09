@@ -1,25 +1,14 @@
 package com.alcity.service.puzzle;
 
 import com.alcity.dto.plimport.PLLearningTopicImport;
-import com.alcity.dto.puzzle.PLDTO;
 import com.alcity.dto.puzzle.PlLearningTopicDTO;
-import com.alcity.entity.alenum.PLDifficulty;
-import com.alcity.entity.alenum.PLStatus;
 import com.alcity.entity.appmember.AppMember;
-import com.alcity.entity.base.BinaryContent;
-import com.alcity.entity.base.PLPrivacy;
 import com.alcity.entity.learning.LearningContent;
 import com.alcity.entity.learning.LearningTopic;
-import com.alcity.entity.puzzle.LearningTopicInPL;
-import com.alcity.entity.puzzle.PLRule;
-import com.alcity.entity.puzzle.PuzzleGroup;
+import com.alcity.entity.puzzle.PLLearningTopic;
 import com.alcity.entity.puzzle.PuzzleLevel;
 import com.alcity.repository.appmember.AppMemberRepository;
-import com.alcity.repository.base.BinaryContentRepository;
-import com.alcity.repository.learning.LearningContentRepository;
-import com.alcity.repository.learning.LearningTopicRepository;
 import com.alcity.repository.puzzle.PLLearningTopicRepository;
-import com.alcity.repository.puzzle.PuzzleLevelRepository;
 import com.alcity.service.learning.LearningContentService;
 import com.alcity.service.learning.LearningTopicService;
 import com.alcity.utility.DateUtils;
@@ -55,63 +44,63 @@ public class PLLearningTopicService implements PLLearningTopicRepository {
 
 
     @Override
-    public <S extends LearningTopicInPL> S save(S entity) {
+    public <S extends PLLearningTopic> S save(S entity) {
         return plLearningTopicRepository.save(entity);
     }
 
 
-    public LearningTopicInPL importLearningTopic(PLLearningTopicImport topicImport, PuzzleLevel puzzleLevel) {
+    public PLLearningTopic importLearningTopic(PLLearningTopicImport topicImport, PuzzleLevel puzzleLevel) {
         Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
         Optional<LearningTopic> learningTopicOptional = learningTopicService.findById(topicImport.getId());
         Optional<LearningContent> learningContentOptional = learningContentService.findById(topicImport.getLearningContentId());
 
-        LearningTopicInPL importedLearningTopicInPL = new LearningTopicInPL(puzzleLevel, learningTopicOptional.get(), learningContentOptional.get()
+        PLLearningTopic importedLearningTopicInPL = new PLLearningTopic(puzzleLevel, learningTopicOptional.get(), learningContentOptional.get()
                 , 1L, DateUtils.getNow(), DateUtils.getNow(), createdBy.get(), createdBy.get());
         plLearningTopicRepository.save(importedLearningTopicInPL);
         return importedLearningTopicInPL;
     }
 
-    public Collection<LearningTopicInPL> importLearningTopics(Collection<PLLearningTopicImport> importTopics, PuzzleLevel puzzleLevel) {
-        Collection<LearningTopicInPL> importedTopics = new ArrayList<>();
+    public Collection<PLLearningTopic> importLearningTopics(Collection<PLLearningTopicImport> importTopics, PuzzleLevel puzzleLevel) {
+        Collection<PLLearningTopic> importedTopics = new ArrayList<>();
         Iterator<PLLearningTopicImport> iterator = importTopics.iterator();
         while(iterator.hasNext()){
             PLLearningTopicImport importTopic = iterator.next();
-            LearningTopicInPL importedTopic = importLearningTopic(importTopic,puzzleLevel);
+            PLLearningTopic importedTopic = importLearningTopic(importTopic,puzzleLevel);
             importedTopics.add(importedTopic);
         }
         return importedTopics;
     }
 
-    public Collection<LearningTopicInPL> copyAll(Collection<LearningTopicInPL> topics, PuzzleLevel puzzleLevel) {
-        Collection<LearningTopicInPL> copiedTopics = new ArrayList<>();
-        Iterator<LearningTopicInPL> iterator = topics.iterator();
+    public Collection<PLLearningTopic> copyAll(Collection<PLLearningTopic> topics, PuzzleLevel puzzleLevel) {
+        Collection<PLLearningTopic> copiedTopics = new ArrayList<>();
+        Iterator<PLLearningTopic> iterator = topics.iterator();
         while(iterator.hasNext()){
-            LearningTopicInPL topic = iterator.next();
-            LearningTopicInPL copyTopic = copy(topic,puzzleLevel);
+            PLLearningTopic topic = iterator.next();
+            PLLearningTopic copyTopic = copy(topic,puzzleLevel);
             copiedTopics.add(copyTopic);
         }
         return copiedTopics;
     }
-    public LearningTopicInPL copy(LearningTopicInPL learningTopic, PuzzleLevel puzzleLevel) {
-        LearningTopicInPL copyLearningTopicInPL = new LearningTopicInPL(puzzleLevel, learningTopic.getLearningTopic(), learningTopic.getLearningContent()
+    public PLLearningTopic copy(PLLearningTopic learningTopic, PuzzleLevel puzzleLevel) {
+        PLLearningTopic copyLearningTopicInPL = new PLLearningTopic(puzzleLevel, learningTopic.getLearningTopic(), learningTopic.getLearningContent()
                 , 1L, DateUtils.getNow(), DateUtils.getNow(), learningTopic.getCreatedBy(), learningTopic.getUpdatedBy());
         plLearningTopicRepository.save(copyLearningTopicInPL);
         return copyLearningTopicInPL;
     }
 
-    public LearningTopicInPL save(PlLearningTopicDTO dto, String code) {
+    public PLLearningTopic save(PlLearningTopicDTO dto, String code) {
         Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
-        LearningTopicInPL learningTopicInPL=null;
+        PLLearningTopic learningTopicInPL=null;
         Optional<LearningContent> learningContentOptional = learningContentService.findById(dto.getLearningContentId());
         Optional<LearningTopic> learningTopicOptional = learningTopicService.findById(dto.getLearningTopicId());
         Optional<PuzzleLevel> puzzleLevelOptional = puzzleLevelService.findById(dto.getPuzzleLevelId());
         if(learningContentOptional.isEmpty() || learningTopicOptional.isEmpty() || puzzleLevelOptional.isEmpty()) return  null;
          if (code.equalsIgnoreCase("Save")) { //Save
-             learningTopicInPL = new LearningTopicInPL(puzzleLevelOptional.get(), learningTopicOptional.get(), learningContentOptional.get()
+             learningTopicInPL = new PLLearningTopic(puzzleLevelOptional.get(), learningTopicOptional.get(), learningContentOptional.get()
                     , 1L, DateUtils.getNow(), DateUtils.getNow(), createdBy.get(), createdBy.get());
              plLearningTopicRepository.save(learningTopicInPL);
         }else{//edit
-            Optional<LearningTopicInPL> learningTopicInPLOptional= plLearningTopicRepository.findById(dto.getId());
+            Optional<PLLearningTopic> learningTopicInPLOptional= plLearningTopicRepository.findById(dto.getId());
             if(learningTopicInPLOptional.isPresent()) {
                 learningTopicInPL = learningTopicInPLOptional.get();
                 learningTopicInPL.setLearningContent(learningContentOptional.get());
@@ -124,17 +113,17 @@ public class PLLearningTopicService implements PLLearningTopicRepository {
         return learningTopicInPL;
     }
     @Override
-    public <S extends LearningTopicInPL> Iterable<S> saveAll(Iterable<S> entities) {
+    public <S extends PLLearningTopic> Iterable<S> saveAll(Iterable<S> entities) {
         return null;
     }
 
     @Override
-    public Optional<LearningTopicInPL> findById(Long id) {
+    public Optional<PLLearningTopic> findById(Long id) {
         return plLearningTopicRepository.findById(id);
     }
 
     @Override
-    public Optional<LearningTopicInPL> findByLearningTopicAndAndLearningContent(LearningTopic learningTopic, LearningContent learningContent) {
+    public Optional<PLLearningTopic> findByLearningTopicAndAndLearningContent(LearningTopic learningTopic, LearningContent learningContent) {
         return plLearningTopicRepository.findByLearningTopicAndAndLearningContent(learningTopic,learningContent);
     }
 
@@ -144,12 +133,12 @@ public class PLLearningTopicService implements PLLearningTopicRepository {
     }
 
     @Override
-    public Collection<LearningTopicInPL> findAll() {
+    public Collection<PLLearningTopic> findAll() {
         return null;
     }
 
     @Override
-    public Iterable<LearningTopicInPL> findAllById(Iterable<Long> longs) {
+    public Iterable<PLLearningTopic> findAllById(Iterable<Long> longs) {
         return null;
     }
 
@@ -164,7 +153,7 @@ public class PLLearningTopicService implements PLLearningTopicRepository {
     }
 
     @Override
-    public void delete(LearningTopicInPL entity) {
+    public void delete(PLLearningTopic entity) {
 
     }
 
@@ -174,7 +163,7 @@ public class PLLearningTopicService implements PLLearningTopicRepository {
     }
 
     @Override
-    public void deleteAll(Iterable<? extends LearningTopicInPL> entities) {
+    public void deleteAll(Iterable<? extends PLLearningTopic> entities) {
         plLearningTopicRepository.deleteAll(entities);
     }
 
