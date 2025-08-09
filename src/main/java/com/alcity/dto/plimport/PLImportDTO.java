@@ -1,6 +1,10 @@
 package com.alcity.dto.plimport;
 
-import com.alcity.dto.plimport.object.RecordDataImport;
+import com.alcity.dto.pl.CameraSetupData;
+import com.alcity.dto.pl.PLCellImport;
+import com.alcity.dto.pl.PLLearningTopicData;
+import com.alcity.dto.pl.PLObjectiveData;
+import com.alcity.dto.pl.pimport.RecordDataImport;
 import com.alcity.dto.plimport.object.PLRuleImport;
 
 import java.io.Serializable;
@@ -38,10 +42,10 @@ public class PLImportDTO implements Serializable {
 
     private String approveDate;
 
-    private CameraSetupImport cameraSetup;
+    private CameraSetupData cameraSetup;
 
     private Long boardGraphicId;
-    private Collection<PLObjectiveImport> objectives;
+    private Collection<PLObjectiveData> objectives;
 
     private Collection<RecordDataImport> variables;
 
@@ -49,7 +53,7 @@ public class PLImportDTO implements Serializable {
 
     private Collection<PLCellImport> cells;
     private Collection<PLRuleImport> rules;
-    private Collection<PLLearningTopicImport> learningTopics;
+    private Collection<PLLearningTopicData> learningTopics;
 
     public Long getId() {
         return id;
@@ -83,11 +87,11 @@ public class PLImportDTO implements Serializable {
         this.cells = cells;
     }
 
-    public Collection<PLObjectiveImport> getObjectives() {
+    public Collection<PLObjectiveData> getObjectives() {
         return objectives;
     }
 
-    public void setObjectives(Collection<PLObjectiveImport> objectives) {
+    public void setObjectives(Collection<PLObjectiveData> objectives) {
         this.objectives = objectives;
     }
 
@@ -227,11 +231,11 @@ public class PLImportDTO implements Serializable {
         this.approveDate = approveDate;
     }
 
-    public CameraSetupImport getCameraSetup() {
+    public CameraSetupData getCameraSetup() {
         return cameraSetup;
     }
 
-    public void setCameraSetup(CameraSetupImport cameraSetup) {
+    public void setCameraSetup(CameraSetupData cameraSetup) {
         this.cameraSetup = cameraSetup;
     }
 
@@ -259,11 +263,11 @@ public class PLImportDTO implements Serializable {
         this.boardGraphicId = boardGraphicId;
     }
 
-    public Collection<PLLearningTopicImport> getLearningTopics() {
+    public Collection<PLLearningTopicData> getLearningTopics() {
         return learningTopics;
     }
 
-    public void setLearningTopics(Collection<PLLearningTopicImport> learningTopics) {
+    public void setLearningTopics(Collection<PLLearningTopicData> learningTopics) {
         this.learningTopics = learningTopics;
     }
 

@@ -1,5 +1,7 @@
 package com.alcity.service.puzzle;
 
+import com.alcity.dto.pl.*;
+import com.alcity.dto.pl.pimport.RecordDataImport;
 import com.alcity.dto.plimport.*;
 import com.alcity.dto.plimport.object.*;
 import com.alcity.dto.puzzle.PLCopyDTO;
@@ -253,10 +255,10 @@ public class PuzzleLevelService implements PuzzleLevelRepository {
         puzzleLevelRepository.save(importedPuzzleLevel);
 
         // import puzzle level ground
-        CameraSetupImport cameraSetupImport = dto.getCameraSetup();
-        PLGroundPositionImport position = cameraSetupImport.getPosition();
-        PLGroundPositionImport rotation = cameraSetupImport.getRotation();
-        FeatureImport features = cameraSetupImport.getFeatures();
+        CameraSetupData cameraSetupImport = dto.getCameraSetup();
+        PositionDTO position = cameraSetupImport.getPosition();
+        PositionDTO rotation = cameraSetupImport.getRotation();
+        FeaturesData features = cameraSetupImport.getFeatures();
         //byte[] boardGraphic=boardGraphicOptional.get().getContent();
         PLGround importPLGround = new PLGround(dto.getRows(), dto.getCols(),
                 position.getX(), position.getY(), position.getZ(), rotation.getX(), rotation.getY(), rotation.getZ(),
@@ -269,7 +271,7 @@ public class PuzzleLevelService implements PuzzleLevelRepository {
 
         importedPuzzleLevel.setPlGrounds(plGrounds);
         //import puzzle level objectives
-        Collection<PLObjectiveImport> objectives = dto.getObjectives();
+        Collection<PLObjectiveData> objectives = dto.getObjectives();
         Collection<PLObjective> importedObjectives = plObjectiveService.importObjectives(objectives, importedPuzzleLevel);
         importedPuzzleLevel.setPlObjectives(importedObjectives);
 
@@ -291,7 +293,7 @@ public class PuzzleLevelService implements PuzzleLevelRepository {
         importedPuzzleLevel.setRules(importedRules);
 
         //import puzzle learning topics
-        Collection<PLLearningTopicImport> topics = dto.getLearningTopics();
+        Collection<PLLearningTopicData> topics = dto.getLearningTopics();
         Collection<PLLearningTopic> importedTopics = plLearningTopicService.importLearningTopics(topics, importedPuzzleLevel);
         importedPuzzleLevel.setLearningTopics(importedTopics);
 

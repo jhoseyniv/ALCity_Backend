@@ -1,4 +1,4 @@
-package com.alcity.dto.plimport.object;
+package com.alcity.dto.pl.pimport;
 
 import java.io.Serializable;
 
@@ -7,7 +7,6 @@ public class RecordDataImport implements Serializable {
     private String name;
     private String value;
     private String type;
-
     private Boolean expression;
     private String expressionValue;
 

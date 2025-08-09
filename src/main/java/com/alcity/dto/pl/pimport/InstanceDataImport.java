@@ -1,4 +1,7 @@
-package com.alcity.dto.plimport.object;
+package com.alcity.dto.pl.pimport;
+
+import com.alcity.dto.pl.PositionDTO;
+import com.alcity.dto.pl.pimport.RecordDataImport;
 
 import java.io.Serializable;
 import java.util.Collection;
@@ -10,7 +13,7 @@ public class InstanceDataImport implements Serializable {
 
     //private Long pgoId;
 
-    private PositionImport position;
+    private PositionDTO position;
     private Collection<RecordDataImport> properties;
     private Collection<RecordDataImport> variables;
 
@@ -30,11 +33,11 @@ public class InstanceDataImport implements Serializable {
         this.name = name;
     }
 
-    public PositionImport getPosition() {
+    public PositionDTO getPosition() {
         return position;
     }
 
-    public void setPosition(PositionImport position) {
+    public void setPosition(PositionDTO position) {
         this.position = position;
     }
 
@@ -65,7 +68,7 @@ public class InstanceDataImport implements Serializable {
     public InstanceDataImport() {
     }
 
-    public InstanceDataImport(Long id, String name, PositionImport position, Collection<RecordDataImport> properties) {
+    public InstanceDataImport(Long id, String name, PositionDTO position, Collection<RecordDataImport> properties) {
         this.id = id;
         this.name = name;
         this.position = position;

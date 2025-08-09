@@ -1,8 +1,11 @@
 package com.alcity.utility;
 
 import com.alcity.comparetors.*;
-import com.alcity.dto.plexport.PLCellData;
-import com.alcity.dto.plexport.PLObjectiveData;
+import com.alcity.dto.pl.PLCellData;
+import com.alcity.dto.pl.PositionDTO;
+import com.alcity.dto.pl.pexport.RecordData;
+import com.alcity.dto.pl.PLObjectiveData;
+import com.alcity.dto.pl.rule.ActionData;
 import com.alcity.dto.plexport.object.*;
 import com.alcity.dto.alenum.EnumDTO;
 import com.alcity.dto.alobject.*;
@@ -16,7 +19,7 @@ import com.alcity.dto.learning.LearningTopicDTO;
 import com.alcity.dto.pgimport.PGObjectVariableImportDTO;
 import com.alcity.dto.player.PlayHistoryDTO;
 import com.alcity.dto.plimport.object.PostActionTreeImport;
-import com.alcity.dto.plimport.object.RecordDataImport;
+import com.alcity.dto.pl.pimport.RecordDataImport;
 import com.alcity.dto.puzzle.*;
 import com.alcity.dto.puzzle.boardgraphic.BoardGraphicDTO;
 import com.alcity.entity.alenum.*;
@@ -1435,7 +1438,7 @@ public class DTOUtil {
         Iterator<PLCell> iterator = cells.iterator();
         while(iterator.hasNext()) {
             PLCell cell = iterator.next();
-            Position position = new Position(cell.getRow(), cell.getCol(), cell.getzOrder());
+            PositionDTO position = new PositionDTO(cell.getRow().floatValue(), cell.getCol().floatValue(), cell.getzOrder().floatValue());
             Collection<RecordData>  cellProperties = DTOUtil.getAttributeForOwnerById(attributeService,cell.getId(),AttributeOwnerType.Puzzle_Level_Cell_Property);
             Collection<RecordData>  cellVariables = DTOUtil.getAttributeForOwnerById(attributeService,cell.getId(),AttributeOwnerType.Puzzle_Level_Cell_Variable);
             PLCellData dto = new PLCellData(cell.getId(),position,cellProperties,cellVariables);
@@ -1534,21 +1537,12 @@ public class DTOUtil {
         Iterator<PLRulePostAction> childIterator = children.iterator();
         while(childIterator.hasNext()){
             PLRulePostAction child = childIterator.next();
-            PostActionTreeExport<RuleActionData> subTree=treeExport.getChild(new PostActionTreeExport<>(child.getPlRulePostActionType().name(), child.getOrdering(), child.getObjectId(),child.getActionName(),
+            PostActionTreeExport<PostActionTreeExport> subTree=treeExport.getChild(new PostActionTreeExport<>(child.getPlRulePostActionType().name(), child.getOrdering(), child.getObjectId(),child.getActionName(),
                     child.getVariable(),child.getValueExperssion(),child.getAlertType(), child.getAlertMessage(), child.getActionKey(),null,null));
             preOrderTraversal(subTree,plRulePostActionService,attributeService,child) ;
         }
         return treeExport;
      }
-
-
-//    public static PostActionTreeExport  getPostActionTree(PLRulePostActionService plRulePostActionService, AttributeService attributeService ,PLRulePostAction root){
-//        PostActionTreeExport postActionTreeExport = new PostActionTreeExport<>();
-//        postActionTreeExport =  preOrderTraversal(postActionTreeExport,plRulePostActionService,attributeService ,root);
-//        return postActionTreeExport;
-//    }
-
-
 
     public static Collection<PostActionTreeExport> getActionsTrees(PLRulePostActionService plRulePostActionService, AttributeService attributeService , PLRule plRule){
         Collection<PostActionTreeExport> actionTrees = new ArrayList<PostActionTreeExport>();

@@ -1,8 +1,8 @@
-package com.alcity.dto.plimport;
+package com.alcity.dto.pl;
 
 import java.io.Serializable;
 
-public class PLObjectiveImport implements Serializable {
+public class PLObjectiveData implements Serializable {
     private Long id;
     private String title;
     private String description;
@@ -69,7 +69,7 @@ public class PLObjectiveImport implements Serializable {
         this.rewardId = rewardId;
     }
 
-    public PLObjectiveImport() {
+    public PLObjectiveData() {
     }
 
     public Long getSkillId() {
@@ -80,7 +80,7 @@ public class PLObjectiveImport implements Serializable {
         this.skillId = skillId;
     }
 
-    public PLObjectiveImport(Long  id , String title, String description, Long skillId, Float skillAmount, Long rewardId, Float rewardAmount, StringBuffer condition) {
+    public PLObjectiveData(Long  id , String title, String description,Long skillId, Float skillAmount, Long rewardId, Float rewardAmount, StringBuffer condition) {
         this.title = title;
         this.description = description;
         this.skillId = skillId;

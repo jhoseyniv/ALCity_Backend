@@ -1,6 +1,6 @@
 package com.alcity.service.puzzle;
 
-import com.alcity.dto.plimport.PLLearningTopicImport;
+import com.alcity.dto.pl.PLLearningTopicData;
 import com.alcity.dto.puzzle.PlLearningTopicDTO;
 import com.alcity.entity.appmember.AppMember;
 import com.alcity.entity.learning.LearningContent;
@@ -49,7 +49,7 @@ public class PLLearningTopicService implements PLLearningTopicRepository {
     }
 
 
-    public PLLearningTopic importLearningTopic(PLLearningTopicImport topicImport, PuzzleLevel puzzleLevel) {
+    public PLLearningTopic importLearningTopic(PLLearningTopicData topicImport, PuzzleLevel puzzleLevel) {
         Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
         Optional<LearningTopic> learningTopicOptional = learningTopicService.findById(topicImport.getId());
         Optional<LearningContent> learningContentOptional = learningContentService.findById(topicImport.getLearningContentId());
@@ -60,11 +60,11 @@ public class PLLearningTopicService implements PLLearningTopicRepository {
         return importedLearningTopicInPL;
     }
 
-    public Collection<PLLearningTopic> importLearningTopics(Collection<PLLearningTopicImport> importTopics, PuzzleLevel puzzleLevel) {
+    public Collection<PLLearningTopic> importLearningTopics(Collection<PLLearningTopicData> importTopics, PuzzleLevel puzzleLevel) {
         Collection<PLLearningTopic> importedTopics = new ArrayList<>();
-        Iterator<PLLearningTopicImport> iterator = importTopics.iterator();
+        Iterator<PLLearningTopicData> iterator = importTopics.iterator();
         while(iterator.hasNext()){
-            PLLearningTopicImport importTopic = iterator.next();
+            PLLearningTopicData importTopic = iterator.next();
             PLLearningTopic importedTopic = importLearningTopic(importTopic,puzzleLevel);
             importedTopics.add(importedTopic);
         }

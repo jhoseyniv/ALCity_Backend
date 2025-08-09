@@ -1,6 +1,6 @@
 package com.alcity.api;
 
-import com.alcity.dto.plexport.object.RecordData;
+import com.alcity.dto.pl.pexport.RecordData;
 import com.alcity.service.customexception.ALCityResponseObject;
 import com.alcity.service.customexception.UniqueConstraintException;
 import com.alcity.service.customexception.ViolateForeignKeyException;

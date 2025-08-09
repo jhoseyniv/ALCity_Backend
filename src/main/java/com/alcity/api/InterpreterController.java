@@ -1,6 +1,10 @@
 package com.alcity.api;
 
 
+import com.alcity.dto.pl.*;
+import com.alcity.dto.pl.pexport.InstanceData;
+import com.alcity.dto.pl.pexport.RecordData;
+import com.alcity.dto.pl.rule.ActionData;
 import com.alcity.dto.plexport.*;
 import com.alcity.dto.plexport.object.*;
 import com.alcity.entity.alenum.AttributeOwnerType;
@@ -88,9 +92,9 @@ public class InterpreterController {
         if(plGroundOptional.isPresent()){
             plGround = plGroundOptional.get();
 
-            PLGroundPostion Position = new PLGroundPostion(plGround.getxPosition(), plGround.getyPosition(), plGround.getzPosition());
-            PLGroundPostion Rotation = new PLGroundPostion(plGround.getxRotation(),plGround.getyRotation(),plGround.getzRotation());
-            Features features = new Features(plGround.getZoom(),plGround.getPan(),plGround.getRotation());
+            PositionDTO Position = new PositionDTO(plGround.getxPosition(), plGround.getyPosition(), plGround.getzPosition());
+            PositionDTO Rotation = new PositionDTO(plGround.getxRotation(),plGround.getyRotation(),plGround.getzRotation());
+            FeaturesData features = new FeaturesData(plGround.getZoom(),plGround.getPan(),plGround.getRotation());
             CameraSetupData cameraSetupData = new CameraSetupData(Position,Rotation,features);
             cameraSetupData.setFeatures(features);
             plData.setCameraSetup(cameraSetupData);
@@ -142,8 +146,8 @@ public class InterpreterController {
             instanceDTO.setId(alCityInstanceInPL.getId());
             instanceDTO.setName(alCityInstanceInPL.getName());
             instanceDTO.setPgoId(pgo.getId());
-            Position instancePostion = new Position(alCityInstanceInPL.getRow() , alCityInstanceInPL.getCol(),zorder);
-            instanceDTO.setPosition(instancePostion);
+            PositionDTO instancePosition = new PositionDTO(alCityInstanceInPL.getRow().floatValue() , alCityInstanceInPL.getCol().floatValue(),zorder.floatValue());
+            instanceDTO.setPosition(instancePosition);
 
             Collection<Attribute> variables = attributeService.findInstanceVariables(alCityInstanceInPL.getId(),AttributeOwnerType.Instance_Puzzle_Group_Object_Variable);
             Collection<RecordData> variableDTOS = DTOUtil.getVariablesDTOForPGObject(variables);

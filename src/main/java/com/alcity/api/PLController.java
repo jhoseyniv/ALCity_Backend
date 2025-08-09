@@ -38,7 +38,7 @@ import java.util.stream.Collectors;
 @RequestMapping("/pl")
 public class PLController {
     @Autowired
-    private PuzzleLevelService puzzleLevelService;
+    private PuzzleLevelService plService;
     @Autowired
     private AppMemberService appMemberService;
     @Autowired
@@ -55,7 +55,7 @@ public class PLController {
     @CrossOrigin(origins = "*")
     public Collection<PLDTO> getPuzzleLevels(Model model) {
         Collection<PLDTO> pldtos = new ArrayList<PLDTO>();
-        Collection<PuzzleLevel> puzzleLevels = puzzleLevelService.findAll();
+        Collection<PuzzleLevel> puzzleLevels = plService.findAll();
         Iterator<PuzzleLevel> itr = puzzleLevels.iterator();
         while(itr.hasNext()){
             PLDTO pldto = DTOUtil.getPuzzleLevelDTO(itr.next());
@@ -70,7 +70,7 @@ public class PLController {
     @CrossOrigin(origins = "*")
     public PLDTO getPuzzleLevelById(@PathVariable Long id) {
         PLDTO   pldto= new PLDTO();
-        Optional<PuzzleLevel> puzzleLevelOptional = puzzleLevelService.findById(id);
+        Optional<PuzzleLevel> puzzleLevelOptional = plService.findById(id);
         pldto = DTOUtil.getPuzzleLevelDTO(puzzleLevelOptional);
         return pldto;
     }
@@ -80,7 +80,7 @@ public class PLController {
     @ResponseBody
     @CrossOrigin(origins = "*")
     public PLData getPuzzleLevelJsonById(@PathVariable Long id) throws IOException, ClassNotFoundException {
-        Optional<PuzzleLevel> puzzleLevelOptional = puzzleLevelService.findById(id);
+        Optional<PuzzleLevel> puzzleLevelOptional = plService.findById(id);
         PLData plData = PLDTOUtil.getInterpreterJSON(puzzleLevelOptional.get());
         return plData;
     }
@@ -91,7 +91,7 @@ public class PLController {
     @CrossOrigin(origins = "*")
     public Collection<Long> getPuzzleLevelContentsIdById(@PathVariable Long id) {
         Set<Long> attributeDTOS = new HashSet<>();
-        Optional<PuzzleLevel> puzzleLevelOptional = puzzleLevelService.findById(id);
+        Optional<PuzzleLevel> puzzleLevelOptional = plService.findById(id);
 
         if(puzzleLevelOptional.isEmpty()) return null;
 
@@ -127,7 +127,7 @@ public class PLController {
     @CrossOrigin(origins = "*")
     public Collection<PLDTO> getPuzzleLevelsForAUserByAge(@PathVariable Integer age) {
         Collection<PLDTO> dtos= new ArrayList<>();
-        Collection<PuzzleLevel> matchesToAge = puzzleLevelService.findAllMatchesToAge(age);
+        Collection<PuzzleLevel> matchesToAge = plService.findAllMatchesToAge(age);
         dtos = DTOUtil.getPuzzleLevelDTOS(matchesToAge);
         return dtos;
     }
@@ -138,9 +138,9 @@ public class PLController {
     @CrossOrigin(origins = "*")
     public Collection<PuzzleLevelStepMappingDTO> getJourneyStepsMatchWithPuzzleLvels(@PathVariable Long id) {
         Optional<AppMember > memberOptional = appMemberService.findById(id);
-        Collection<PuzzleLevel> matchesToAge = puzzleLevelService.findAllMatchesToAge(memberOptional.get().getAge());
+        Collection<PuzzleLevel> matchesToAge = plService.findAllMatchesToAge(memberOptional.get().getAge());
 
-        Collection<PuzzleLevelStepMappingDTO> dtos = puzzleLevelService.getJourneyStepsMatchWithPuzzleLvels(matchesToAge);
+        Collection<PuzzleLevelStepMappingDTO> dtos = plService.getJourneyStepsMatchWithPuzzleLvels(matchesToAge);
         return dtos;
     }
 
@@ -150,7 +150,7 @@ public class PLController {
     @CrossOrigin(origins = "*")
     public Collection<PLObjectiveDTO> getAllObjectivesForPuzzleLevelById(@PathVariable Long id) {
         Collection<PLObjectiveDTO> plObjectiveDTOCollection= new ArrayList<PLObjectiveDTO>();
-        Optional<PuzzleLevel> puzzleLevelOptional = puzzleLevelService.findById(id);
+        Optional<PuzzleLevel> puzzleLevelOptional = plService.findById(id);
         if(puzzleLevelOptional.isPresent())
             plObjectiveDTOCollection = DTOUtil.getPuzzleLevelObjectiveDTOS(puzzleLevelOptional.get());
         return plObjectiveDTOCollection;
@@ -161,7 +161,7 @@ public class PLController {
     @CrossOrigin(origins = "*")
     public PLGroundDTO getGroundForPuzzleLevelById(@PathVariable Long id) throws IOException, ClassNotFoundException, JSONException {
         PLGroundDTO groundDTO= new PLGroundDTO();
-        Optional<PuzzleLevel> puzzleLevelOptional = puzzleLevelService.findById(id);
+        Optional<PuzzleLevel> puzzleLevelOptional = plService.findById(id);
         if(puzzleLevelOptional.isPresent()) {
             Optional<PLGround> plGroundOptional = plGroundService.findByPuzzleLevelId(puzzleLevelOptional.get().getId());
             if(plGroundOptional.isPresent())      groundDTO = DTOUtil.getPLGroundDTO(plGroundOptional.get());
@@ -175,7 +175,7 @@ public class PLController {
     @ResponseBody
     @CrossOrigin(origins = "*")
     public Collection<PlLearningTopicDTO> getAllLearningTopicsForPuzzleLevelById(@PathVariable Long id) {
-        Optional<PuzzleLevel> puzzleLevelOptional = puzzleLevelService.findById(id);
+        Optional<PuzzleLevel> puzzleLevelOptional = plService.findById(id);
         if(puzzleLevelOptional.isEmpty()) return  null;
         PuzzleLevel puzzleLevel = puzzleLevelOptional.get();
         Collection<PlLearningTopicDTO>  plLearningTopicDTOS = DTOUtil.getPl_LearningTopicDTOS(puzzleLevel);
@@ -188,7 +188,7 @@ public class PLController {
     @CrossOrigin(origins = "*")
     public Collection<ALCityObjectInstanceInPLDTO> getAllInstancesForPuzzleLevelById(@PathVariable Long id) {
         Collection<ALCityObjectInstanceInPLDTO> plInstancesDTOS= new ArrayList<ALCityObjectInstanceInPLDTO>();
-        Optional<PuzzleLevel> puzzleLevelOptional = puzzleLevelService.findById(id);
+        Optional<PuzzleLevel> puzzleLevelOptional = plService.findById(id);
         if(puzzleLevelOptional.isPresent())
             plInstancesDTOS = DTOUtil.getPuzzleLevelInstance(puzzleLevelOptional.get());
         return plInstancesDTOS;
@@ -215,7 +215,7 @@ public class PLController {
     @CrossOrigin(origins = "*")
     public Collection<PLRuleDTO> getAllRulesForPuzzleLevelById(@PathVariable Long id) {
         Collection<PLRuleDTO> plRuleDTOS= new ArrayList<PLRuleDTO>();
-        Optional<PuzzleLevel> puzzleLevelOptional = puzzleLevelService.findById(id);
+        Optional<PuzzleLevel> puzzleLevelOptional = plService.findById(id);
         if(puzzleLevelOptional.isPresent())
             plRuleDTOS = DTOUtil.getRulesForPuzzleLevel(puzzleLevelOptional.get());
         return plRuleDTOS;
@@ -241,10 +241,10 @@ public class PLController {
         *
         */
         ALCityResponseObject responseObject = new ALCityResponseObject();
-        Optional<PuzzleLevel> puzzleLevelOptional = puzzleLevelService.findById(dto.getPuzzleLevelId());
+        Optional<PuzzleLevel> puzzleLevelOptional = plService.findById(dto.getPuzzleLevelId());
         if(puzzleLevelOptional.isEmpty()) return  new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", -1L, "Puzzle Level id not found!");
         PuzzleLevel puzzleLevel = puzzleLevelOptional.get();
-        PuzzleLevel copyPuzzleLevel =puzzleLevelService.copy(puzzleLevel,dto);
+        PuzzleLevel copyPuzzleLevel =plService.copy(puzzleLevel,dto);
         return new ALCityResponseObject(HttpStatus.OK.value(), "ok", copyPuzzleLevel.getId(), "Puzzle Level Copied Successfully!");
     }
 
@@ -254,9 +254,9 @@ public class PLController {
     public ALCityResponseObject importPuzzleLevel(@RequestBody PLImportDTO dto) throws IOException, ClassNotFoundException {
         PuzzleLevel importedPuzzleLevel=null;
         ALCityResponseObject responseObject = new ALCityResponseObject();
-        Optional<PuzzleLevel> puzzleLevelOptional = puzzleLevelService.findById(dto.getId());
+        Optional<PuzzleLevel> puzzleLevelOptional = plService.findById(dto.getId());
         if(puzzleLevelOptional.isEmpty()){
-            importedPuzzleLevel =  puzzleLevelService.importPuzzleLevel(dto);
+            importedPuzzleLevel =  plService.importPuzzleLevel(dto);
             responseObject = new ALCityResponseObject(HttpStatus.OK.value(), "ok", importedPuzzleLevel.getId(), "Puzzle Level Imported Successfully!");
             Optional<PLTemplate> plTemplateOptional = plTemplateService.findById(dto.getPuzzleTemplateId());
             PLTemplate plTemplate = plTemplateOptional.get();
@@ -264,8 +264,8 @@ public class PLController {
             plTemplateService.save(plTemplate);
         }else{
             //first delete exist puzzle level and then add new pl
-            puzzleLevelService.deletePuzzleLevel(puzzleLevelOptional.get());
-            importedPuzzleLevel =  puzzleLevelService.importPuzzleLevel(dto);
+            plService.deletePuzzleLevel(puzzleLevelOptional.get());
+            importedPuzzleLevel =  plService.importPuzzleLevel(dto);
             responseObject = new ALCityResponseObject(HttpStatus.OK.value(), "ok", importedPuzzleLevel.getId(), "Puzzle Level Edited and Imported Successfully!");
         }
 
@@ -281,14 +281,14 @@ public class PLController {
 
         if (dto.getId() == null || dto.getId() <= 0L) { //save
             try {
-                savedRecord = puzzleLevelService.save(dto,"Save");
+                savedRecord = plService.save(dto,"Save");
             } catch (RuntimeException e) {
                 throw new UniqueConstraintException(-1,"Unique Constraint in" + PuzzleLevel.class , "Error",savedRecord.getId() );
             }
             responseObject = new ALCityResponseObject(HttpStatus.OK.value(), "ok", savedRecord.getId(), "Record Saved Successfully!");
         } else if (dto.getId() > 0L ) {//edit
             //Optional<PuzzleGroup>  puzzleGroupOptional = pgService.findById(dto.getId());
-            savedRecord = puzzleLevelService.save(dto, "Edit");
+            savedRecord = plService.save(dto, "Edit");
             if(savedRecord !=null)
                 responseObject = new ALCityResponseObject(HttpStatus.OK.value(), "ok", savedRecord.getId(), "Record Updated Successfully!");
             else
@@ -305,10 +305,10 @@ public class PLController {
     @DeleteMapping("/del/{id}")
     @CrossOrigin(origins = "*")
     public ALCityResponseObject deletePuzzleLevelById(@PathVariable Long id) {
-        Optional<PuzzleLevel> existingRecord = puzzleLevelService.findById(id);
+        Optional<PuzzleLevel> existingRecord = plService.findById(id);
         if(existingRecord.isPresent()){
             try {
-                puzzleLevelService.deletePuzzleLevel(existingRecord.get());
+                plService.deletePuzzleLevel(existingRecord.get());
             }catch (Exception e )
             {
                 throw new ViolateForeignKeyException(-1, "error", PuzzleLevel.class.toString(),existingRecord.get().getId());
@@ -326,7 +326,7 @@ public class PLController {
     public Collection<CityObjectInPGDTO> getObjectsForAPG(@PathVariable Long id) {
         Collection<CityObjectInPGDTO> dtos = new ArrayList<CityObjectInPGDTO>();
         Collection<PGObject> alCityObjectInPGS = new ArrayList<PGObject>();
-        Optional<PuzzleLevel> puzzleLevelOptional = puzzleLevelService.findById(id);
+        Optional<PuzzleLevel> puzzleLevelOptional = plService.findById(id);
         PuzzleGroup puzzleGroup =puzzleLevelOptional.get().getPuzzleGroup();
         if(puzzleGroup != null) {
             alCityObjectInPGS = puzzleGroup.getAlCityObjectInPGS();

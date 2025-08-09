@@ -1,8 +1,9 @@
-package com.alcity.dto.plimport.object;
+package com.alcity.dto.pl;
 
 import java.io.Serializable;
 
-public class FeatureImport implements Serializable {
+public class FeaturesData implements Serializable {
+    private static final long serialVersionUID = 7109690793922608760L;
     private Boolean zoom;
     private Boolean pan;
     private Boolean rotation;
@@ -31,10 +32,10 @@ public class FeatureImport implements Serializable {
         this.rotation = rotation;
     }
 
-    public FeatureImport() {
+    public FeaturesData() {
     }
 
-    public FeatureImport(Boolean zoom, Boolean pan, Boolean rotation) {
+    public FeaturesData(Boolean zoom, Boolean pan, Boolean rotation) {
         this.zoom = zoom;
         this.pan = pan;
         this.rotation = rotation;

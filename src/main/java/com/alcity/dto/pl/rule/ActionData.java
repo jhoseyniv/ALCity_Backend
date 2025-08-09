@@ -1,17 +1,19 @@
-package com.alcity.dto.plimport.object;
+package com.alcity.dto.pl.rule;
 
+import com.alcity.dto.pl.pexport.RecordData;
 import com.alcity.entity.alenum.ObjectActionType;
 
 import java.io.Serializable;
 import java.util.Collection;
 
-public class ActionDataImport implements Serializable {
+public class ActionData implements Serializable {
+    private static final long serialVersionUID = -4477809924195151524L;
     private Long id;
     private ObjectActionType actionName;
 
     private String handler;
 
-    private Collection<RecordDataImport> parameters;
+    private Collection<RecordData> parameters;
     public Long getId() {
         return id;
     }
@@ -28,11 +30,11 @@ public class ActionDataImport implements Serializable {
         return handler;
     }
 
-    public Collection<RecordDataImport> getParameters() {
+    public Collection<RecordData> getParameters() {
         return parameters;
     }
 
-    public void setParameters(Collection<RecordDataImport> parameters) {
+    public void setParameters(Collection<RecordData> parameters) {
         this.parameters = parameters;
     }
 
@@ -44,10 +46,10 @@ public class ActionDataImport implements Serializable {
         this.actionName = actionName;
     }
 
-    public ActionDataImport() {
+    public ActionData() {
     }
 
-    public ActionDataImport(Long id, ObjectActionType actionName, String handler, Collection<RecordDataImport> parameters) {
+    public ActionData(Long id, ObjectActionType actionName, String handler, Collection<RecordData> parameters) {
         this.id = id;
         this.actionName = actionName;
         this.handler = handler;

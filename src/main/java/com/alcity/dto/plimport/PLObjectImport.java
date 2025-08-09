@@ -1,8 +1,8 @@
 package com.alcity.dto.plimport;
 
-import com.alcity.dto.plimport.object.ActionDataImport;
-import com.alcity.dto.plimport.object.InstanceDataImport;
-import com.alcity.dto.plimport.object.RecordDataImport;
+import com.alcity.dto.pl.rule.ActionData;
+import com.alcity.dto.pl.pimport.InstanceDataImport;
+import com.alcity.dto.pl.pimport.RecordDataImport;
 
 import java.io.Serializable;
 import java.util.Collection;
@@ -14,7 +14,7 @@ public class PLObjectImport implements Serializable {
     private String code;
     private Long iconGraphicId;
     private Long imageGraphicId;
-    private Collection<ActionDataImport> actions;
+    private Collection<ActionData> actions;
     private Collection<RecordDataImport> variables;
     private Collection<RecordDataImport> properties;
 
@@ -69,11 +69,11 @@ public class PLObjectImport implements Serializable {
         this.imageGraphicId = imageGraphicId;
     }
 
-    public Collection<ActionDataImport> getActions() {
+    public Collection<ActionData> getActions() {
         return actions;
     }
 
-    public void setActions(Collection<ActionDataImport> actions) {
+    public void setActions(Collection<ActionData> actions) {
         this.actions = actions;
     }
 
@@ -104,7 +104,7 @@ public class PLObjectImport implements Serializable {
     public PLObjectImport() {
     }
 
-    public PLObjectImport(Long id, Long version, String title, String code, Long iconGraphicId, Long imageGraphicId, Collection<ActionDataImport> actions) {
+    public PLObjectImport(Long id, Long version, String title, String code, Long iconGraphicId, Long imageGraphicId, Collection<ActionData> actions) {
         this.id = id;
         this.version=version;
         this.title = title;

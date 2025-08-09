@@ -1,10 +1,8 @@
-package com.alcity.dto.plimport;
-
-import com.alcity.entity.learning.LearningTopic;
+package com.alcity.dto.pl;
 
 import java.io.Serializable;
 
-public class PLLearningTopicImport implements Serializable {
+public class PLLearningTopicData implements Serializable {
     private Long id;
     private String title;
 
@@ -34,7 +32,7 @@ public class PLLearningTopicImport implements Serializable {
         this.learningContentId = learningContentId;
     }
 
-    public PLLearningTopicImport(Long id, String title, Long learningContentId) {
+    public PLLearningTopicData(Long id, String title, Long learningContentId) {
         this.id = id;
         this.title = title;
         this.learningContentId = learningContentId;

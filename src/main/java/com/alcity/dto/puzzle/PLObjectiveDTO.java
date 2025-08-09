@@ -1,26 +1,20 @@
 package com.alcity.dto.puzzle;
 
 public class PLObjectiveDTO {
-
-
     private Long id;
     private Long version;
     private String created;
     private String updated;
     private String createdBy;
-
     private String updatedBy;
     private Long createdById;
-
     private Long updatedById;
     private String title;
     private String description;
     private Float skillAmount;
-
     private Long skillId;
     private String skillLable;
     private String skillValue;
-
     private Long puzzleLevelId;
     private Float rewardAmount;
     private Long walletItemId;

@@ -3,7 +3,7 @@ package com.alcity.service.alobject;
 import com.alcity.dto.alobject.AttributeDTOSave;
 import com.alcity.dto.alobject.AttributeValueDTOSave;
 import com.alcity.dto.pgimport.PGObjectVariableImportDTO;
-import com.alcity.dto.plimport.object.RecordDataImport;
+import com.alcity.dto.pl.pimport.RecordDataImport;
 import com.alcity.entity.alenum.DataType;
 import com.alcity.entity.alobject.Attribute;
 import com.alcity.entity.alenum.AttributeOwnerType;
@@ -981,17 +981,16 @@ public class AttributeService implements AttributeRepository {
         AttributeOwnerType attributeOwnerType =  AttributeOwnerType.getByTitle(newValue.getOwnerType());
         AttributeOwnerType attributeValueOwnerType =  AttributeOwnerType.getByTitle(valueDTO.getOwnerType());
         DataType dataType =  DataType.getByTitle(newValue.getDataType());
-        Optional<Attribute> bindedAttributeOptional =  attributeRepository.findById(valueDTO.getAttributeId());
-        Attribute bindedAttribute=bindedAttributeOptional.get();
+        Optional<Attribute> bindedAttributeOptional =  attributeRepository.findById(valueDTO.getBindedAttributeId());
+
         Attribute attribute=null;
         AttributeValue attributeValue=null;
         if (code.equalsIgnoreCase("Save")) { //Save
             attribute = new Attribute(newValue.getName(), newValue.getOwnerId(),attributeOwnerType,dataType ,
                     1L, DateUtils.getNow(), DateUtils.getNow(), createdBy.get(), createdBy.get());
            attributeRepository.save(attribute);
-            if(bindedAttributeOptional.isPresent())
                 attributeValue = new AttributeValue(valueDTO.getBooleanValue(),valueDTO.getIntValue(),valueDTO.getLongValue(),valueDTO.getStringValue(),
-                    valueDTO.getObjectValue(),valueDTO.getDoubleValue(),valueDTO.getBinaryContentId(), valueDTO.getExpressionValue(),valueDTO.getExpression(),bindedAttribute ,attribute,
+                    valueDTO.getObjectValue(),valueDTO.getDoubleValue(),valueDTO.getBinaryContentId(), valueDTO.getExpressionValue(),valueDTO.getExpression(),bindedAttributeOptional.get() ,attribute,
                     1L,DateUtils.getNow(),DateUtils.getNow(),createdBy.get(),createdBy.get(),attribute.getOwnerId(),attribute.getAttributeOwnerType());
             attributeValueRepository.save(attributeValue);
         }else{//edit
@@ -999,7 +998,7 @@ public class AttributeService implements AttributeRepository {
                 attribute = attributeOptional.get();
                 if(valueDTO.getId() == 0) { // save new value by owner id
                     attributeValue = new AttributeValue(valueDTO.getBooleanValue(),valueDTO.getIntValue(),valueDTO.getLongValue(),valueDTO.getStringValue(),
-                            valueDTO.getObjectValue(),valueDTO.getDoubleValue(),valueDTO.getBinaryContentId(), valueDTO.getExpressionValue(),valueDTO.getExpression(),bindedAttribute ,attribute,
+                            valueDTO.getObjectValue(),valueDTO.getDoubleValue(),valueDTO.getBinaryContentId(), valueDTO.getExpressionValue(),valueDTO.getExpression(),bindedAttributeOptional.get() ,attribute,
                             1L,DateUtils.getNow(),DateUtils.getNow(),createdBy.get(),createdBy.get(),attribute.getOwnerId(),attribute.getAttributeOwnerType());
                     attributeValueRepository.save(attributeValue);
 

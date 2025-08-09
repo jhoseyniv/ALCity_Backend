@@ -1,6 +1,6 @@
 package com.alcity.service.puzzle;
 
-import com.alcity.dto.plimport.PLObjectiveImport;
+import com.alcity.dto.pl.PLObjectiveData;
 import com.alcity.dto.puzzle.PLObjectiveDTO;
 import com.alcity.entity.learning.LearningSkill;
 import com.alcity.entity.puzzle.PLObjective;
@@ -133,11 +133,11 @@ public class PLObjectiveService implements PLObjectiveRepository {
         return copiedObjectives;
     }
 
-    public Collection<PLObjective> importObjectives(Collection<PLObjectiveImport> objectives, PuzzleLevel puzzleLevel){
+    public Collection<PLObjective> importObjectives(Collection<PLObjectiveData> objectives, PuzzleLevel puzzleLevel){
         Collection<PLObjective> copiedObjectives = new ArrayList<>();
-        Iterator<PLObjectiveImport> iterator = objectives.iterator();;
+        Iterator<PLObjectiveData> iterator = objectives.iterator();;
         while(iterator.hasNext()){
-            PLObjectiveImport objective = iterator.next();
+            PLObjectiveData objective = iterator.next();
             PLObjective copyObjective = importObjective(objective,puzzleLevel);
             copiedObjectives.add(copyObjective);
         }
@@ -152,7 +152,7 @@ public class PLObjectiveService implements PLObjectiveRepository {
         return plObjective;
     }
 
-    public PLObjective importObjective(PLObjectiveImport objective,PuzzleLevel importedPuzzleLevel) {
+    public PLObjective importObjective(PLObjectiveData objective,PuzzleLevel importedPuzzleLevel) {
         Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
         Optional<LearningSkill> learningSkillOptional =  learningSkillRepository.findById(objective.getSkillId());
         Optional<WalletItem> walletItemOptional =  walletItemRespository.findById(objective.getRewardId());

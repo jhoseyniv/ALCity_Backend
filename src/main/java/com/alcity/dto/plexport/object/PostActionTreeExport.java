@@ -1,5 +1,7 @@
 package com.alcity.dto.plexport.object;
 
+import com.alcity.dto.pl.pexport.RecordData;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;

@@ -1,14 +1,13 @@
-package com.alcity.dto.plimport;
+package com.alcity.dto.pl;
 
-import com.alcity.dto.plexport.object.Position;
-import com.alcity.dto.plimport.object.RecordDataImport;
+import com.alcity.dto.pl.pimport.RecordDataImport;
 
 import java.io.Serializable;
 import java.util.Collection;
 
 public class PLCellImport implements Serializable {
     private Long id;
-    private Position position;
+    private PositionDTO position;
     private Collection<RecordDataImport> properties;
     private Collection<RecordDataImport> variables;
 
@@ -20,11 +19,11 @@ public class PLCellImport implements Serializable {
         this.id = id;
     }
 
-    public Position getPosition() {
+    public PositionDTO getPosition() {
         return position;
     }
 
-    public void setPosition(Position position) {
+    public void setPosition(PositionDTO position) {
         this.position = position;
     }
 
@@ -47,7 +46,7 @@ public class PLCellImport implements Serializable {
     public PLCellImport() {
     }
 
-    public PLCellImport(Long id, Position position, Collection<RecordDataImport> properties, Collection<RecordDataImport> variables) {
+    public PLCellImport(Long id, PositionDTO position, Collection<RecordDataImport> properties, Collection<RecordDataImport> variables) {
         this.id = id;
         this.position = position;
         this.properties = properties;

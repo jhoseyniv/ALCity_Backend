@@ -1,6 +1,8 @@
 package com.alcity.dto.plimport.object;
 
 
+import com.alcity.dto.pl.pimport.RecordDataImport;
+
 import java.io.Serializable;
 import java.util.Collection;
 

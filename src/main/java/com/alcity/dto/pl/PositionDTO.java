@@ -1,6 +1,10 @@
-package com.alcity.dto.plimport.object;
+package com.alcity.dto.pl;
 
-public class PLGroundPositionImport {
+import java.io.Serializable;
+
+public class PositionDTO implements Serializable {
+
+    private static final long serialVersionUID = 5475773041002282988L;
     private Float X;
     private Float Y;
     private Float Z;
@@ -29,7 +33,10 @@ public class PLGroundPositionImport {
         Z = z;
     }
 
-    public PLGroundPositionImport(Float x, Float y, Float z) {
+    public PositionDTO() {
+    }
+
+    public PositionDTO(Float x, Float y, Float z) {
         X = x;
         Y = y;
         Z = z;

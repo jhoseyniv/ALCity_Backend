@@ -2,7 +2,7 @@ package com.alcity.service.puzzle;
 
 import com.alcity.dto.plimport.object.PLRulePostActionImport;
 import com.alcity.dto.plimport.object.PostActionTreeImport;
-import com.alcity.dto.plimport.object.RecordDataImport;
+import com.alcity.dto.pl.pimport.RecordDataImport;
 import com.alcity.dto.puzzle.PLRulePostActionDTO;
 import com.alcity.entity.alenum.AttributeOwnerType;
 import com.alcity.entity.alenum.PLRulePostActionOwnerType;

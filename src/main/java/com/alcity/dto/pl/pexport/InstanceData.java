@@ -1,4 +1,7 @@
-package com.alcity.dto.plexport.object;
+package com.alcity.dto.pl.pexport;
+
+import com.alcity.dto.pl.PositionDTO;
+import com.alcity.dto.pl.pexport.RecordData;
 
 import java.io.Serializable;
 import java.util.Collection;
@@ -10,7 +13,7 @@ public class InstanceData implements Serializable {
     private Long pgoId;
     private String name;
 
-    private Position position;
+    private PositionDTO position;
     private Collection<RecordData> properties;
     private Collection<RecordData> variables;
 
@@ -30,11 +33,11 @@ public class InstanceData implements Serializable {
         this.name = name;
     }
 
-    public Position getPosition() {
+    public PositionDTO getPosition() {
         return position;
     }
 
-    public void setPosition(Position position) {
+    public void setPosition(PositionDTO position) {
         this.position = position;
     }
 
@@ -65,7 +68,7 @@ public class InstanceData implements Serializable {
     public InstanceData() {
     }
 
-    public InstanceData(Long id, String name,Long pgoId, Position position, Collection<RecordData> properties) {
+    public InstanceData(Long id, String name, Long pgoId, PositionDTO position, Collection<RecordData> properties) {
         this.id = id;
         this.name = name;
         this.pgoId = pgoId;

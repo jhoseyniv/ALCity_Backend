@@ -24,7 +24,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/pg-skill-learning-content")
 
-public class PGSkillLearningContentController {
+public class PGSkillLearningController {
 
     @Autowired
     private PGLearningSkillService pgSkillLearningContentService;
