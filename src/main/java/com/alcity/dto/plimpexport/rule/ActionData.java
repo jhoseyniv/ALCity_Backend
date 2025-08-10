@@ -1,6 +1,6 @@
-package com.alcity.dto.pl.rule;
+package com.alcity.dto.plimpexport.rule;
 
-import com.alcity.dto.pl.pexport.RecordData;
+import com.alcity.dto.plimpexport.AttributeData;
 import com.alcity.entity.alenum.ObjectActionType;
 
 import java.io.Serializable;
@@ -13,7 +13,7 @@ public class ActionData implements Serializable {
 
     private String handler;
 
-    private Collection<RecordData> parameters;
+    private Collection<AttributeData> parameters;
     public Long getId() {
         return id;
     }
@@ -30,11 +30,11 @@ public class ActionData implements Serializable {
         return handler;
     }
 
-    public Collection<RecordData> getParameters() {
+    public Collection<AttributeData> getParameters() {
         return parameters;
     }
 
-    public void setParameters(Collection<RecordData> parameters) {
+    public void setParameters(Collection<AttributeData> parameters) {
         this.parameters = parameters;
     }
 
@@ -49,7 +49,7 @@ public class ActionData implements Serializable {
     public ActionData() {
     }
 
-    public ActionData(Long id, ObjectActionType actionName, String handler, Collection<RecordData> parameters) {
+    public ActionData(Long id, ObjectActionType actionName, String handler, Collection<AttributeData> parameters) {
         this.id = id;
         this.actionName = actionName;
         this.handler = handler;

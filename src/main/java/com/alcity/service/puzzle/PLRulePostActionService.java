@@ -1,8 +1,8 @@
 package com.alcity.service.puzzle;
 
-import com.alcity.dto.plimport.object.PLRulePostActionImport;
-import com.alcity.dto.plimport.object.PostActionTreeImport;
-import com.alcity.dto.pl.pimport.RecordDataImport;
+import com.alcity.dto.plimpexport.AttributeData;
+import com.alcity.dto.plimpexport.pimport.PLRulePostActionImport;
+import com.alcity.dto.plimpexport.pimport.PostActionTreeImport;
 import com.alcity.dto.puzzle.PLRulePostActionDTO;
 import com.alcity.entity.alenum.AttributeOwnerType;
 import com.alcity.entity.alenum.PLRulePostActionOwnerType;
@@ -65,7 +65,7 @@ public class PLRulePostActionService implements PLRulePostActionRepository {
 
         if(dto.getParameters().size()>0){
             System.out.println("parameter is defined.............");
-            Collection<RecordDataImport> recordDataImports = dto.getParameters();
+            Collection<AttributeData> recordDataImports = dto.getParameters();
             //Collection<AttributeDTOSave> dtos = new ArrayList<>();
             attributeService.importPLRulePostActionParam(recordDataImports,importedPostAction,AttributeOwnerType.Puzzle_Level_Rule_Post_Action_Parameter);
         }

@@ -1,7 +1,7 @@
-package com.alcity.dto.plimport.object;
+package com.alcity.dto.plimpexport.pimport;
 
 
-import com.alcity.dto.pl.pimport.RecordDataImport;
+import com.alcity.dto.plimpexport.AttributeData;
 
 import java.io.Serializable;
 import java.util.Collection;
@@ -20,7 +20,7 @@ public class PLRulePostActionImport implements Serializable {
     private StringBuffer valueExpression;
     private String alertType;
     private String alertMessage;
-    private Collection<RecordDataImport> parameters;
+    private Collection<AttributeData> parameters;
 
     public String getPostActionType() {
         return postActionType;
@@ -62,11 +62,11 @@ public class PLRulePostActionImport implements Serializable {
         this.actionName = actionName;
     }
 
-    public Collection<RecordDataImport> getParameters() {
+    public Collection<AttributeData> getParameters() {
         return parameters;
     }
 
-    public void setParameters(Collection<RecordDataImport> parameters) {
+    public void setParameters(Collection<AttributeData> parameters) {
         this.parameters = parameters;
     }
 

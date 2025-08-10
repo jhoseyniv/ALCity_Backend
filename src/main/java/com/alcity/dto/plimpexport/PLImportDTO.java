@@ -1,11 +1,6 @@
-package com.alcity.dto.plimport;
+package com.alcity.dto.plimpexport;
 
-import com.alcity.dto.pl.CameraSetupData;
-import com.alcity.dto.pl.PLCellImport;
-import com.alcity.dto.pl.PLLearningTopicData;
-import com.alcity.dto.pl.PLObjectiveData;
-import com.alcity.dto.pl.pimport.RecordDataImport;
-import com.alcity.dto.plimport.object.PLRuleImport;
+import com.alcity.dto.plimpexport.pimport.PLRuleImport;
 
 import java.io.Serializable;
 import java.util.Collection;
@@ -47,9 +42,9 @@ public class PLImportDTO implements Serializable {
     private Long boardGraphicId;
     private Collection<PLObjectiveData> objectives;
 
-    private Collection<RecordDataImport> variables;
+    private Collection<AttributeData> variables;
 
-    private Collection<PLObjectImport> objects;
+    private Collection<PGObjectData> objects;
 
     private Collection<PLCellImport> cells;
     private Collection<PLRuleImport> rules;
@@ -71,11 +66,11 @@ public class PLImportDTO implements Serializable {
         this.puzzleGroupId = puzzleGroupId;
     }
 
-    public Collection<RecordDataImport> getVariables() {
+    public Collection<AttributeData> getVariables() {
         return variables;
     }
 
-    public void setVariables(Collection<RecordDataImport> variables) {
+    public void setVariables(Collection<AttributeData> variables) {
         this.variables = variables;
     }
 
@@ -247,11 +242,11 @@ public class PLImportDTO implements Serializable {
         this.rules = rules;
     }
 
-    public Collection<PLObjectImport> getObjects() {
+    public Collection<PGObjectData> getObjects() {
         return objects;
     }
 
-    public void setObjects(Collection<PLObjectImport> objects) {
+    public void setObjects(Collection<PGObjectData> objects) {
         this.objects = objects;
     }
 

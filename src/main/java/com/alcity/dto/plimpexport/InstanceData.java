@@ -1,7 +1,4 @@
-package com.alcity.dto.pl.pexport;
-
-import com.alcity.dto.pl.PositionDTO;
-import com.alcity.dto.pl.pexport.RecordData;
+package com.alcity.dto.plimpexport;
 
 import java.io.Serializable;
 import java.util.Collection;
@@ -14,8 +11,8 @@ public class InstanceData implements Serializable {
     private String name;
 
     private PositionDTO position;
-    private Collection<RecordData> properties;
-    private Collection<RecordData> variables;
+    private Collection<AttributeData> properties;
+    private Collection<AttributeData> variables;
 
     public Long getId() {
         return id;
@@ -41,19 +38,19 @@ public class InstanceData implements Serializable {
         this.position = position;
     }
 
-    public Collection<RecordData> getVariables() {
+    public Collection<AttributeData> getVariables() {
         return variables;
     }
 
-    public void setVariables(Collection<RecordData> variables) {
+    public void setVariables(Collection<AttributeData> variables) {
         this.variables = variables;
     }
 
-    public Collection<RecordData> getProperties() {
+    public Collection<AttributeData> getProperties() {
         return properties;
     }
 
-    public void setProperties(Collection<RecordData> properties) {
+    public void setProperties(Collection<AttributeData> properties) {
         this.properties = properties;
     }
 
@@ -68,7 +65,7 @@ public class InstanceData implements Serializable {
     public InstanceData() {
     }
 
-    public InstanceData(Long id, String name, Long pgoId, PositionDTO position, Collection<RecordData> properties) {
+    public InstanceData(Long id, String name, Long pgoId, PositionDTO position, Collection<AttributeData> properties) {
         this.id = id;
         this.name = name;
         this.pgoId = pgoId;

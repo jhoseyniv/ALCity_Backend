@@ -1,16 +1,13 @@
-package com.alcity.dto.pl;
-
-import com.alcity.dto.pl.pexport.RecordData;
+package com.alcity.dto.plimpexport;
 
 import java.io.Serializable;
 import java.util.Collection;
 
-public class PLCellData implements Serializable {
+public class PLCellImport implements Serializable {
     private Long id;
     private PositionDTO position;
-    private Collection<RecordData> properties;
-
-    private Collection<RecordData> variables;
+    private Collection<AttributeData> properties;
+    private Collection<AttributeData> variables;
 
     public Long getId() {
         return id;
@@ -28,29 +25,30 @@ public class PLCellData implements Serializable {
         this.position = position;
     }
 
-    public Collection<RecordData> getProperties() {
+    public Collection<AttributeData> getProperties() {
         return properties;
     }
 
-    public void setProperties(Collection<RecordData> properties) {
+    public void setProperties(Collection<AttributeData> properties) {
         this.properties = properties;
     }
 
-    public Collection<RecordData> getVariables() {
+    public Collection<AttributeData> getVariables() {
         return variables;
     }
 
-    public void setVariables(Collection<RecordData> variables) {
+    public void setVariables(Collection<AttributeData> variables) {
         this.variables = variables;
     }
 
-    public PLCellData() {
+    public PLCellImport() {
     }
 
-    public PLCellData(Long id, PositionDTO position, Collection<RecordData> properties, Collection<RecordData> variables) {
+    public PLCellImport(Long id, PositionDTO position, Collection<AttributeData> properties, Collection<AttributeData> variables) {
         this.id = id;
         this.position = position;
         this.properties = properties;
         this.variables = variables;
     }
+
 }

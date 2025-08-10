@@ -1,6 +1,6 @@
 package com.alcity.utility;
 
-import com.alcity.dto.plexport.PLData;
+import com.alcity.dto.plimpexport.PLData;
 import com.alcity.dto.puzzle.boardgraphic.BoardGraphicDTO;
 import com.alcity.dto.puzzle.object.ActionDTO;
 import com.alcity.dto.puzzle.object.CityObjectDTO;

@@ -3,7 +3,7 @@ package com.alcity.service.alobject;
 import com.alcity.dto.alobject.AttributeDTOSave;
 import com.alcity.dto.alobject.AttributeValueDTOSave;
 import com.alcity.dto.pgimport.PGObjectVariableImportDTO;
-import com.alcity.dto.pl.pimport.RecordDataImport;
+import com.alcity.dto.plimpexport.AttributeData;
 import com.alcity.entity.alenum.DataType;
 import com.alcity.entity.alobject.Attribute;
 import com.alcity.entity.alenum.AttributeOwnerType;
@@ -158,7 +158,7 @@ public class AttributeService implements AttributeRepository {
 
 
     @Transactional
-    public Attribute importVariables(RecordDataImport variableImport,  Long ownerId,AttributeOwnerType ownerType) {
+    public Attribute importVariables(AttributeData variableImport, Long ownerId, AttributeOwnerType ownerType) {
         DataType dataType =  DataType.getByTitle(variableImport.getType());
         Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
         Optional<Attribute> attributeOptional =  attributeRepository.findById(variableImport.getId());
@@ -187,41 +187,41 @@ public class AttributeService implements AttributeRepository {
         }
     }
 
-    public Collection<Attribute> importPLVariables(Collection<RecordDataImport> variables, PuzzleLevel puzzleLevel, AttributeOwnerType ownerType){
+    public Collection<Attribute> importPLVariables(Collection<AttributeData> variables, PuzzleLevel puzzleLevel, AttributeOwnerType ownerType){
         Collection<Attribute>  importedAttributes = new ArrayList<>();
-        Iterator<RecordDataImport> iterator =variables.iterator();
+        Iterator<AttributeData> iterator =variables.iterator();
         while(iterator.hasNext()) {
-            RecordDataImport variableImport = iterator.next();
+            AttributeData variableImport = iterator.next();
             Attribute attribute = importVariables(variableImport,puzzleLevel.getId(),ownerType);
             importedAttributes.add(attribute);
         }
         return importedAttributes;
     }
-    public Collection<Attribute> importPLInstanceVariables(Collection<RecordDataImport> variables, Instance instance, AttributeOwnerType ownerType){
+    public Collection<Attribute> importPLInstanceVariables(Collection<AttributeData> variables, Instance instance, AttributeOwnerType ownerType){
         Collection<Attribute>  importedAttributes = new ArrayList<>();
-        Iterator<RecordDataImport> iterator =variables.iterator();
+        Iterator<AttributeData> iterator =variables.iterator();
         while(iterator.hasNext()) {
-            RecordDataImport variableImport = iterator.next();
+            AttributeData variableImport = iterator.next();
             Attribute attribute = importVariables(variableImport,instance.getId(),ownerType);
             importedAttributes.add(attribute);
         }
         return importedAttributes;
     }
-    public Collection<Attribute> importPLCellVariables(Collection<RecordDataImport> variables, PLCell plCell, AttributeOwnerType ownerType){
+    public Collection<Attribute> importPLCellVariables(Collection<AttributeData> variables, PLCell plCell, AttributeOwnerType ownerType){
         Collection<Attribute>  importedAttributes = new ArrayList<>();
-        Iterator<RecordDataImport> iterator =variables.iterator();
+        Iterator<AttributeData> iterator =variables.iterator();
         while(iterator.hasNext()) {
-            RecordDataImport variableImport = iterator.next();
+            AttributeData variableImport = iterator.next();
             Attribute attribute = importVariables(variableImport,plCell.getId(),ownerType);
             importedAttributes.add(attribute);
         }
         return importedAttributes;
     }
-    public Collection<Attribute> importPLRulePostActionParam(Collection<RecordDataImport> parameter, PLRulePostAction postAction, AttributeOwnerType ownerType){
+    public Collection<Attribute> importPLRulePostActionParam(Collection<AttributeData> parameter, PLRulePostAction postAction, AttributeOwnerType ownerType){
         Collection<Attribute>  importedAttributes = new ArrayList<>();
-        Iterator<RecordDataImport> iterator =parameter.iterator();
+        Iterator<AttributeData> iterator =parameter.iterator();
         while(iterator.hasNext()) {
-            RecordDataImport variableImport = iterator.next();
+            AttributeData variableImport = iterator.next();
             Attribute attribute = importVariables(variableImport,postAction.getId(),ownerType);
             importedAttributes.add(attribute);
         }

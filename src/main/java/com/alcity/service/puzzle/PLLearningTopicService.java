@@ -1,6 +1,6 @@
 package com.alcity.service.puzzle;
 
-import com.alcity.dto.pl.PLLearningTopicData;
+import com.alcity.dto.plimpexport.PLLearningTopicData;
 import com.alcity.dto.puzzle.PlLearningTopicDTO;
 import com.alcity.entity.appmember.AppMember;
 import com.alcity.entity.learning.LearningContent;

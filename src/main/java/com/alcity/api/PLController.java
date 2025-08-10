@@ -1,7 +1,7 @@
 package com.alcity.api;
 
-import com.alcity.dto.plexport.PLData;
-import com.alcity.dto.plimport.PLImportDTO;
+import com.alcity.dto.plimpexport.PLData;
+import com.alcity.dto.plimpexport.PLImportDTO;
 import com.alcity.entity.alenum.AttributeOwnerType;
 import com.alcity.entity.alenum.DataType;
 import com.alcity.entity.alobject.Attribute;

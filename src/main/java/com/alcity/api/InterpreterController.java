@@ -1,12 +1,12 @@
 package com.alcity.api;
 
 
-import com.alcity.dto.pl.*;
-import com.alcity.dto.pl.pexport.InstanceData;
-import com.alcity.dto.pl.pexport.RecordData;
-import com.alcity.dto.pl.rule.ActionData;
-import com.alcity.dto.plexport.*;
-import com.alcity.dto.plexport.object.*;
+import com.alcity.dto.plimpexport.*;
+import com.alcity.dto.plimpexport.InstanceData;
+import com.alcity.dto.plimpexport.AttributeData;
+import com.alcity.dto.plimpexport.PGObjectData;
+import com.alcity.dto.plimpexport.pexport.RuleData;
+import com.alcity.dto.plimpexport.rule.ActionData;
 import com.alcity.entity.alenum.AttributeOwnerType;
 import com.alcity.entity.alenum.ObjectActionType;
 import com.alcity.entity.alobject.*;
@@ -15,6 +15,7 @@ import com.alcity.entity.puzzle.*;
 import com.alcity.entity.puzzle.PLCell;
 import com.alcity.service.alobject.AttributeService;
 import com.alcity.service.alobject.ActionService;
+import com.alcity.service.alobject.AttributeValueService;
 import com.alcity.service.customexception.ALCityResponseObject;
 import com.alcity.service.puzzle.InstanceService;
 import com.alcity.service.puzzle.PLGroundService;
@@ -49,6 +50,8 @@ public class InterpreterController {
 
     @Autowired
     AttributeService attributeService;
+    @Autowired
+    AttributeValueService attributeValueService;
     @Autowired
     PLRulePostActionService plRulePostActionService;
 
@@ -103,17 +106,17 @@ public class InterpreterController {
             plData.setCode(pl.getCode());
             plData.setName(pl.getTitle());
 
-            Collection<RecordData>  variables = DTOUtil.getAttributeForOwnerById(attributeService,pl.getId(),AttributeOwnerType.Puzzle_Level_Variable);
+            Collection<AttributeData>  variables = DTOUtil.getAttributeForOwnerById(attributeService,pl.getId(),AttributeOwnerType.Puzzle_Level_Variable);
 
             Collection<PLObjectiveData> objectives = DTOUtil.getPLObjectiveData(pl);
             plData.setObjectives(objectives);
 
-            Collection<POData> objects = getObjectsForPuzzleGroup(pl);
+            Collection<PGObjectData> objects = getObjectsForPuzzleGroup(pl);
             Collection<PLCell> cells = plGround.getPlCells();
 
             Collection<PLCellData> cellDTOS = DTOUtil.getPLCellDTOS(cells,attributeService);
 
-            Collection<RuleData> rules = DTOUtil.getPLRules(pl,attributeService,plRulePostActionService);
+            Collection<RuleData> rules = DTOUtil.getPLRules(pl,attributeService,attributeValueService,plRulePostActionService);
 
             plData.setCols(plGround.getNumColumns());
             plData.setRows(plGround.getNumRows());
@@ -150,11 +153,11 @@ public class InterpreterController {
             instanceDTO.setPosition(instancePosition);
 
             Collection<Attribute> variables = attributeService.findInstanceVariables(alCityInstanceInPL.getId(),AttributeOwnerType.Instance_Puzzle_Group_Object_Variable);
-            Collection<RecordData> variableDTOS = DTOUtil.getVariablesDTOForPGObject(variables);
+            Collection<AttributeData> variableDTOS = DTOUtil.getVariablesDTOForPGObject(variables);
             instanceDTO.setVariables(variableDTOS);
 
             Collection<Attribute> properties = attributeService.findInstanceProperties(alCityInstanceInPL.getId(),AttributeOwnerType.Instance_Puzzle_Group_Object_Property);
-            Collection<RecordData> propertyDTOS = DTOUtil.getPropertiesDTOForPGObject(properties);
+            Collection<AttributeData> propertyDTOS = DTOUtil.getPropertiesDTOForPGObject(properties);
             instanceDTO.setProperties(propertyDTOS);
 
             instanceDTOS.add(instanceDTO);
@@ -162,8 +165,8 @@ public class InterpreterController {
         return instanceDTOS;
      }
 
-   public POData getPGObjectData(PGObject alCityObjectInPG, PuzzleLevel pl){
-       POData poData = new POData();
+   public PGObjectData getPGObjectData(PGObject alCityObjectInPG, PuzzleLevel pl){
+       PGObjectData poData = new PGObjectData();
 
        poData.setId(alCityObjectInPG.getId());
        poData.setTitle(alCityObjectInPG.getTitle());
@@ -179,12 +182,12 @@ public class InterpreterController {
        poData.setActions(actions);
 
        Collection<Attribute> variables = attributeService.findVariablesForPuzzleGroupObject(alCityObjectInPG.getId(),AttributeOwnerType.Puzzle_Group_Object_Variable);
-       Collection<RecordData> variablesDTO = DTOUtil.getVariablesDTOForPGObject(variables);
+       Collection<AttributeData> variablesDTO = DTOUtil.getVariablesDTOForPGObject(variables);
 
        poData.setVariables(variablesDTO);
 
        Collection<Attribute> properties = attributeService.findPropertiesForPuzzleGroupObject(alCityObjectInPG.getId(),AttributeOwnerType.Puzzle_Group_Object_Property);
-       Collection<RecordData> propertiesDTO = DTOUtil.getPropertiesDTOForPGObject(properties);
+       Collection<AttributeData> propertiesDTO = DTOUtil.getPropertiesDTOForPGObject(properties);
        poData.setProperties(propertiesDTO);
         //get instances  for an object that define in PG and used in a puzzle level
        Collection<InstanceData> instances = getInstanceData(alCityObjectInPG,pl);
@@ -195,16 +198,16 @@ public class InterpreterController {
        return  poData;
    }
 
-    public Collection<POData> getObjectsForPuzzleGroup(PuzzleLevel pl) {
+    public Collection<PGObjectData> getObjectsForPuzzleGroup(PuzzleLevel pl) {
         PuzzleGroup pg = pl.getPuzzleGroup();
-        Collection<POData> objectData = new ArrayList<POData>();
+        Collection<PGObjectData> objectData = new ArrayList<PGObjectData>();
         Collection<PGObject> objects = new ArrayList<>();
         objects = pg.getAlCityObjectInPGS();
         Iterator<PGObject> iterator = objects.iterator();
         while(iterator.hasNext()) {
             PGObject object = iterator.next();
             //fetch puzzle object that used in a pl including instances properties , vriables , ...
-            POData poData =getPGObjectData(object,pl);
+            PGObjectData poData =getPGObjectData(object,pl);
             objectData.add(poData);
         }
         return objectData;
@@ -223,7 +226,7 @@ public class InterpreterController {
             ObjectActionType objectAction = puzzleObjectAction.getObjectAction();
             Collection<Attribute> actionParameters = attributeService.findAttributesForPuzzleGroupObjectActionHandler(puzzleObjectAction.getId());
 
-            Collection<RecordData> parametersData = DTOUtil.getActionParametersDTOS(actionParameters);
+            Collection<AttributeData> parametersData = DTOUtil.getActionParametersDTOS(actionParameters);
 
             ActionData objectActionData = new ActionData();
             objectActionData.setActionName(objectAction);

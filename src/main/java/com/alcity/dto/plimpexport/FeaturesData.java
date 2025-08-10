@@ -1,4 +1,4 @@
-package com.alcity.dto.pl;
+package com.alcity.dto.plimpexport;
 
 import java.io.Serializable;
 

@@ -1,9 +1,8 @@
 package com.alcity.service.puzzle;
 
-import com.alcity.dto.pl.*;
-import com.alcity.dto.pl.pimport.RecordDataImport;
-import com.alcity.dto.plimport.*;
-import com.alcity.dto.plimport.object.*;
+import com.alcity.dto.plimpexport.*;
+import com.alcity.dto.plimpexport.AttributeData;
+import com.alcity.dto.plimpexport.pimport.PLRuleImport;
 import com.alcity.dto.puzzle.PLCopyDTO;
 import com.alcity.dto.puzzle.PLDTO;
 import com.alcity.dto.puzzle.PuzzleLevelStepMappingDTO;
@@ -276,7 +275,7 @@ public class PuzzleLevelService implements PuzzleLevelRepository {
         importedPuzzleLevel.setPlObjectives(importedObjectives);
 
         //import puzzle level variables
-        Collection<RecordDataImport> variables = dto.getVariables();
+        Collection<AttributeData> variables = dto.getVariables();
         Collection<Attribute> copiedAttributes = attributeService.importPLVariables(variables, importedPuzzleLevel, AttributeOwnerType.Puzzle_Level_Variable);
 
         //import puzzle level cells

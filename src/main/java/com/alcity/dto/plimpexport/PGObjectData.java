@@ -1,13 +1,11 @@
-package com.alcity.dto.plexport;
+package com.alcity.dto.plimpexport;
 
-import com.alcity.dto.pl.pexport.InstanceData;
-import com.alcity.dto.pl.pexport.RecordData;
-import com.alcity.dto.pl.rule.ActionData;
+import com.alcity.dto.plimpexport.rule.ActionData;
 
 import java.io.Serializable;
 import java.util.Collection;
 
-public class POData implements Serializable {
+public class PGObjectData implements Serializable {
     private Long id;
     private Long version;
     private String title;
@@ -15,8 +13,8 @@ public class POData implements Serializable {
     private Long iconGraphicId;
     private Long imageGraphicId;
     private Collection<ActionData> actions;
-    private Collection<RecordData> variables;
-    private Collection<RecordData> properties;
+    private Collection<AttributeData> variables;
+    private Collection<AttributeData> properties;
 
     private  Collection<InstanceData> instances;
 
@@ -77,19 +75,19 @@ public class POData implements Serializable {
         this.actions = actions;
     }
 
-    public Collection<RecordData> getVariables() {
+    public Collection<AttributeData> getVariables() {
         return variables;
     }
 
-    public void setVariables(Collection<RecordData> variables) {
+    public void setVariables(Collection<AttributeData> variables) {
         this.variables = variables;
     }
 
-    public Collection<RecordData> getProperties() {
+    public Collection<AttributeData> getProperties() {
         return properties;
     }
 
-    public void setProperties(Collection<RecordData> properties) {
+    public void setProperties(Collection<AttributeData> properties) {
         this.properties = properties;
     }
 
@@ -101,10 +99,10 @@ public class POData implements Serializable {
         this.instances = instances;
     }
 
-    public POData() {
+    public PGObjectData() {
     }
 
-    public POData(Long id, Long version, String title, String code, Long iconGraphicId, Long imageGraphicId, Collection<ActionData> actions) {
+    public PGObjectData(Long id, Long version, String title, String code, Long iconGraphicId, Long imageGraphicId, Collection<ActionData> actions) {
         this.id = id;
         this.version=version;
         this.title = title;

@@ -1,6 +1,6 @@
 package com.alcity.service.puzzle;
 
-import com.alcity.dto.pl.PLObjectiveData;
+import com.alcity.dto.plimpexport.PLObjectiveData;
 import com.alcity.dto.puzzle.PLObjectiveDTO;
 import com.alcity.entity.learning.LearningSkill;
 import com.alcity.entity.puzzle.PLObjective;

@@ -1,6 +1,6 @@
-package com.alcity.dto.plexport.object;
+package com.alcity.dto.plimpexport.pexport;
 
-import com.alcity.dto.pl.pexport.RecordData;
+import com.alcity.dto.plimpexport.AttributeData;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -20,7 +20,7 @@ public class PostActionTreeExport<P> implements Serializable {
     private String alertMessage;
     private Long actionKey;
 
-    private Collection<RecordData> parameters;
+    private Collection<AttributeData> parameters;
 
     public List<PostActionTreeExport<PostActionTreeExport>> innerActions;
     public List<PostActionTreeExport<PostActionTreeExport>> elseActions;
@@ -57,11 +57,11 @@ public class PostActionTreeExport<P> implements Serializable {
         this.actionName = actionName;
     }
 
-    public Collection<RecordData> getParameters() {
+    public Collection<AttributeData> getParameters() {
         return parameters;
     }
 
-    public void setParameters(Collection<RecordData> parameters) {
+    public void setParameters(Collection<AttributeData> parameters) {
         this.parameters = parameters;
     }
 
@@ -142,7 +142,7 @@ public class PostActionTreeExport<P> implements Serializable {
         this.innerActions = innerActions;
     }
     public void setFiedlds(String actionType,Integer ordering ,String objectId,String actionName,String variable,
-                                StringBuffer valueExperssion,String alertType,String alertMessage,Long actionKey,Collection<RecordData> parameters) {
+                                StringBuffer valueExperssion,String alertType,String alertMessage,Long actionKey,Collection<AttributeData> parameters) {
         this.actionType = actionType;
         this.ordering = ordering;
         this.objectId = objectId;

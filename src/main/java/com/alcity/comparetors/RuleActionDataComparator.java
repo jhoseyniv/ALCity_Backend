@@ -1,6 +1,6 @@
 package com.alcity.comparetors;
 
-import com.alcity.dto.plexport.object.PostActionTreeExport;
+import com.alcity.dto.plimpexport.pexport.PostActionTreeExport;
 
 public class RuleActionDataComparator implements java.util.Comparator<PostActionTreeExport>{
     @Override

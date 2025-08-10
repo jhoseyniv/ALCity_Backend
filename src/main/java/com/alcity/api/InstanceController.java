@@ -1,7 +1,7 @@
 package com.alcity.api;
 
 
-import com.alcity.dto.pl.rule.ActionData;
+import com.alcity.dto.plimpexport.rule.ActionData;
 import com.alcity.dto.puzzle.CityObjectInPLDTO;
 import com.alcity.entity.alenum.POActionOwnerType;
 import com.alcity.entity.alobject.ObjectAction;

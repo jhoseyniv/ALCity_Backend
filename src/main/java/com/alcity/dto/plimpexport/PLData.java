@@ -1,11 +1,7 @@
-package com.alcity.dto.plexport;
+package com.alcity.dto.plimpexport;
 
 
-import com.alcity.dto.pl.CameraSetupData;
-import com.alcity.dto.pl.PLCellData;
-import com.alcity.dto.pl.PLObjectiveData;
-import com.alcity.dto.pl.pexport.RecordData;
-import com.alcity.dto.plexport.object.RuleData;
+import com.alcity.dto.plimpexport.pexport.RuleData;
 import java.io.Serializable;
 import java.util.Collection;
 
@@ -21,20 +17,20 @@ public class PLData implements Serializable {
     private CameraSetupData cameraSetup;
     private Collection<PLObjectiveData> objectives;
 
-    private Collection<RecordData> variables;
+    private Collection<AttributeData> variables;
 
-    private Collection<POData> objects;
+    private Collection<PGObjectData> objects;
 
     private Collection<PLCellData> cells;
 
     private Collection<RuleData> rules;
 
 
-    public Collection<RecordData> getVariables() {
+    public Collection<AttributeData> getVariables() {
         return variables;
     }
 
-    public void setVariables(Collection<RecordData> variables) {
+    public void setVariables(Collection<AttributeData> variables) {
         this.variables = variables;
     }
 
@@ -96,11 +92,11 @@ public class PLData implements Serializable {
         this.rules = rules;
     }
 
-    public Collection<POData> getObjects() {
+    public Collection<PGObjectData> getObjects() {
         return objects;
     }
 
-    public void setObjects(Collection<POData> objects) {
+    public void setObjects(Collection<PGObjectData> objects) {
         this.objects = objects;
     }
 
