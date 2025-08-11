@@ -1,7 +1,7 @@
 package com.alcity.service.puzzle;
 
 import com.alcity.dto.pgimport.PGLearningSkillContentImportDTO;
-import com.alcity.dto.puzzle.PGLearningSkillContentDTO;
+import com.alcity.dto.puzzle.PGLearningSkillDTO;
 import com.alcity.entity.appmember.AppMember;
 import com.alcity.entity.learning.LearningContent;
 import com.alcity.entity.learning.LearningSkill;
@@ -56,7 +56,7 @@ public class PGLearningSkillService implements PGLearningSkillRepository {
     }
 
 
-    public PGLearningSkill save(PGLearningSkillContentDTO dto, String code) {
+    public PGLearningSkill save(PGLearningSkillDTO dto, String code) {
         Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
         PGLearningSkill pgLearningSkillContent=null;
         Optional<LearningContent> learningContentOptional = learningContentService.findById(dto.getLearningContentId());

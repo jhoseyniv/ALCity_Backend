@@ -1,8 +1,8 @@
 package com.alcity.service.puzzle;
 
 
-import com.alcity.dto.plimpexport.pimport.PLRuleImport;
-import com.alcity.dto.plimpexport.pimport.PostActionTreeImport;
+import com.alcity.dto.plimpexport.rulemport.PLRuleImport;
+import com.alcity.dto.plimpexport.rulemport.PostActionTreeImport;
 import com.alcity.dto.puzzle.PLRuleDTO;
 import com.alcity.entity.appmember.AppMember;
 import com.alcity.entity.puzzle.*;

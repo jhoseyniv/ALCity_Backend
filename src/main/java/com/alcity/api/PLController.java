@@ -96,7 +96,7 @@ public class PLController {
         if(puzzleLevelOptional.isEmpty()) return null;
 
         PuzzleLevel puzzleLevel = puzzleLevelOptional.get();
-        Collection<Instance> instances = puzzleLevel.getPuzzleGroupObjectInstanceCollection();
+        Collection<Instance> instances = puzzleLevel.getInstances();
         Iterator<Instance> itr = instances.iterator();
 
         while(itr.hasNext()) {
@@ -186,8 +186,8 @@ public class PLController {
     @RequestMapping(value = "/id/{id}/instances/all", method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin(origins = "*")
-    public Collection<ALCityObjectInstanceInPLDTO> getAllInstancesForPuzzleLevelById(@PathVariable Long id) {
-        Collection<ALCityObjectInstanceInPLDTO> plInstancesDTOS= new ArrayList<ALCityObjectInstanceInPLDTO>();
+    public Collection<InstanceDTO> getAllInstancesForPuzzleLevelById(@PathVariable Long id) {
+        Collection<InstanceDTO> plInstancesDTOS= new ArrayList<InstanceDTO>();
         Optional<PuzzleLevel> puzzleLevelOptional = plService.findById(id);
         if(puzzleLevelOptional.isPresent())
             plInstancesDTOS = DTOUtil.getPuzzleLevelInstance(puzzleLevelOptional.get());
@@ -323,8 +323,8 @@ public class PLController {
     @Operation( summary = "Fetch all AL City Object for that define in a puzzle group ",  description = "Fetch all Al city object for an puzzle group")
     @RequestMapping(value = "/id/{id}/objects/all", method = RequestMethod.GET)
     @ResponseBody
-    public Collection<CityObjectInPGDTO> getObjectsForAPG(@PathVariable Long id) {
-        Collection<CityObjectInPGDTO> dtos = new ArrayList<CityObjectInPGDTO>();
+    public Collection<PGObjectDTO> getObjectsForAPG(@PathVariable Long id) {
+        Collection<PGObjectDTO> dtos = new ArrayList<PGObjectDTO>();
         Collection<PGObject> alCityObjectInPGS = new ArrayList<PGObject>();
         Optional<PuzzleLevel> puzzleLevelOptional = plService.findById(id);
         PuzzleGroup puzzleGroup =puzzleLevelOptional.get().getPuzzleGroup();
@@ -332,7 +332,7 @@ public class PLController {
             alCityObjectInPGS = puzzleGroup.getAlCityObjectInPGS();
             Iterator<PGObject> itr = alCityObjectInPGS.iterator();
             while(itr.hasNext()) {
-                CityObjectInPGDTO dto = new CityObjectInPGDTO();
+                PGObjectDTO dto = new PGObjectDTO();
                 PGObject entity = itr.next();
                 dto = DTOUtil.getALCityObjectInPGDTO(entity);
                 //Collection<Attribute> attributes = attributeService.findByOwnerIdAndAttributeOwnerType(entity.getId(), AttributeOwnerType.Object_In_Puzzle_Group);

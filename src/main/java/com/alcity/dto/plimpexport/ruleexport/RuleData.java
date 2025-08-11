@@ -1,16 +1,17 @@
-package com.alcity.dto.plimpexport.pimport;
+package com.alcity.dto.plimpexport.ruleexport;
 
 import java.io.Serializable;
 import java.util.Collection;
 
-public class PLRuleImport implements Serializable {
+public class RuleData implements Serializable {
+    private static final long serialVersionUID = 2696512588478032947L;
+
     private String title;
     private Integer ordering;
     private String event;
-    private String subEvent;
     private StringBuffer condition;
     private Boolean ignoreRemaining;
-    private Collection<PostActionTreeImport> actionTreesImport;
+    private Collection<PostActionTreeExport> actions;
 
     public String getTitle() {
         return title;
@@ -36,18 +37,6 @@ public class PLRuleImport implements Serializable {
         this.event = event;
     }
 
-    public String getSubEvent() {
-        return subEvent;
-    }
-
-    public void setSubEvent(String subEvent) {
-        this.subEvent = subEvent;
-    }
-
-    public void setCondition(StringBuffer condition) {
-        this.condition = condition;
-    }
-
     public StringBuffer getCondition() {
         return condition;
     }
@@ -56,6 +45,17 @@ public class PLRuleImport implements Serializable {
         this.condition = condition;
     }
 
+    public void setCondition(StringBuffer condition) {
+        this.condition = condition;
+    }
+
+    public Collection<PostActionTreeExport> getActions() {
+        return actions;
+    }
+
+    public void setActions(Collection<PostActionTreeExport> actions) {
+        this.actions = actions;
+    }
 
     public Boolean getIgnoreRemaining() {
         return ignoreRemaining;
@@ -65,23 +65,17 @@ public class PLRuleImport implements Serializable {
         this.ignoreRemaining = ignoreRemaining;
     }
 
-    public Collection<PostActionTreeImport> getActionTreesImport() {
-        return actionTreesImport;
+
+
+    public RuleData() {
     }
 
-    public void setActionTreesImport(Collection<PostActionTreeImport> actionTreesImport) {
-        this.actionTreesImport = actionTreesImport;
-    }
-
-    public PLRuleImport() {
-    }
-
-    public PLRuleImport(String title, Integer ordering, String event, Boolean ignoreRemaining, StringBuffer condition, Collection<PostActionTreeImport> actionTreesImport) {
+    public RuleData(String title, Integer ordering, String event,Boolean ignoreRemaining, StringBuffer condition, Collection<PostActionTreeExport> actions) {
         this.title = title;
         this.ordering = ordering;
         this.event = event;
         this.ignoreRemaining = ignoreRemaining;
         this.condition = condition;
-        this.actionTreesImport = actionTreesImport;
+        this.actions = actions;
     }
 }

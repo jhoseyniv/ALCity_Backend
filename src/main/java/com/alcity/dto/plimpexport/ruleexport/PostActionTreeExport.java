@@ -1,4 +1,4 @@
-package com.alcity.dto.plimpexport.pexport;
+package com.alcity.dto.plimpexport.ruleexport;
 
 import com.alcity.dto.plimpexport.AttributeData;
 

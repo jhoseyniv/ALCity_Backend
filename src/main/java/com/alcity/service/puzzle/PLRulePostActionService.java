@@ -1,8 +1,8 @@
 package com.alcity.service.puzzle;
 
 import com.alcity.dto.plimpexport.AttributeData;
-import com.alcity.dto.plimpexport.pimport.PLRulePostActionImport;
-import com.alcity.dto.plimpexport.pimport.PostActionTreeImport;
+import com.alcity.dto.plimpexport.rulemport.PLRulePostActionImport;
+import com.alcity.dto.plimpexport.rulemport.PostActionTreeImport;
 import com.alcity.dto.puzzle.PLRulePostActionDTO;
 import com.alcity.entity.alenum.AttributeOwnerType;
 import com.alcity.entity.alenum.PLRulePostActionOwnerType;

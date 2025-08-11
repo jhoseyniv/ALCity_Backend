@@ -271,16 +271,16 @@ public class PuzzleLevel extends BaseTable implements Serializable {
 
     @OneToMany(mappedBy = "puzzleLevel", fetch = FetchType.LAZY)
     @JsonIgnore
-    private Collection<Instance> puzzleGroupObjectInstanceCollection;
+    private Collection<Instance> instances;
 
-    public Collection<Instance> getPuzzleGroupObjectInstanceCollection() {
-        return puzzleGroupObjectInstanceCollection;
+
+    public Collection<Instance> getInstances() {
+        return instances;
     }
 
-    public void setPuzzleGroupObjectInstanceCollection(Collection<Instance> puzzleGroupObjectInstanceCollection) {
-        this.puzzleGroupObjectInstanceCollection = puzzleGroupObjectInstanceCollection;
+    public void setInstances(Collection<Instance> instances) {
+        this.instances = instances;
     }
-
 
     public Float getFirstStarScore() {
         return firstStarScore;

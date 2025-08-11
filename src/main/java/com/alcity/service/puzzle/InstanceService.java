@@ -4,7 +4,7 @@ import com.alcity.dto.plimpexport.PLCellImport;
 import com.alcity.dto.plimpexport.PositionDTO;
 import com.alcity.dto.plimpexport.InstanceData;
 import com.alcity.dto.plimpexport.PGObjectData;
-import com.alcity.dto.puzzle.CityObjectInPLDTO;
+import com.alcity.dto.puzzle.InstanceDTO;
 import com.alcity.entity.alenum.AttributeOwnerType;
 import com.alcity.entity.alenum.POActionOwnerType;
 import com.alcity.entity.alobject.Attribute;
@@ -66,17 +66,17 @@ public class InstanceService implements InstanceRepository {
          return cell;
     }
 
-    public Instance save(CityObjectInPLDTO dto, String code) {
+    public Instance save(InstanceDTO dto, String code) {
         Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
         Optional<PuzzleLevel> puzzleLevelOptional =  puzzleLevelService.findById(dto.getPuzzleLevelId());
-        Optional<PGObject> alCityObjectInPGOptional =  objectInPGService.findById(dto.getAlCityObjectInPGId());
-        PLCell cell = getCell(puzzleLevelOptional,dto.getRow(),dto.getCol(),dto.getZorder());
-        if(puzzleLevelOptional.isEmpty() || alCityObjectInPGOptional.isEmpty()) return null;
+        Optional<PGObject> pgObjectOptional =  objectInPGService.findById(dto.getPGObjectId());
+        PLCell cell = getCell(puzzleLevelOptional,dto.getRow(),dto.getCol(),dto.getzOrder());
+        if(puzzleLevelOptional.isEmpty() || pgObjectOptional.isEmpty()) return null;
 
 
         Instance instance=null;
             if (code.equalsIgnoreCase("Save")) { //Save
-                instance = new Instance(dto.getName(), dto.getRow(),dto.getCol(),dto.getZorder(),cell,alCityObjectInPGOptional.get(),
+                instance = new Instance(dto.getName(), dto.getRow(),dto.getCol(),dto.getzOrder(),cell,pgObjectOptional.get(),
                         puzzleLevelOptional.get(), 1L, DateUtils.getNow(), DateUtils.getNow(), createdBy.get(), createdBy.get());
                 instanceRepository.save(instance);
             }else{//edit
@@ -86,8 +86,8 @@ public class InstanceService implements InstanceRepository {
                     instance.setName(dto.getName());
                     instance.setRow(dto.getRow());
                     instance.setCol(dto.getCol());
-                    instance.setzOrder(dto.getZorder());
-                    instance.setAlCityObjectInPG(alCityObjectInPGOptional.get());
+                    instance.setzOrder(dto.getzOrder());
+                    instance.setAlCityObjectInPG(pgObjectOptional.get());
                     instance.setPuzzleLevel(puzzleLevelOptional.get());
                     instanceRepository.save(instance);
                 }
@@ -205,7 +205,7 @@ public class InstanceService implements InstanceRepository {
     }
     public Collection<Instance> copyInstancesFromSourcePLToTargetPL(PuzzleLevel source , PuzzleLevel target) {
         Collection<Instance> copiedInstances = new ArrayList<>();
-        Collection<Instance> sourceInstances = source.getPuzzleGroupObjectInstanceCollection();
+        Collection<Instance> sourceInstances = source.getInstances();
         Iterator<Instance> iterator = sourceInstances.iterator();
         Collection<PLGround> plGrounds = source.getPlGrounds();
         PLGround plGround = plGrounds.iterator().next();

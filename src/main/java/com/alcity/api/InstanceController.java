@@ -1,8 +1,8 @@
 package com.alcity.api;
 
 
-import com.alcity.dto.plimpexport.rule.ActionData;
-import com.alcity.dto.puzzle.CityObjectInPLDTO;
+import com.alcity.dto.plimpexport.ActionData;
+import com.alcity.dto.puzzle.InstanceDTO;
 import com.alcity.entity.alenum.POActionOwnerType;
 import com.alcity.entity.alobject.ObjectAction;
 import com.alcity.entity.puzzle.*;
@@ -45,10 +45,10 @@ public class InstanceController {
     @Operation( summary = "Add a Object Instance to a Puzzle Level ",  description = "Add a Object Instance to a Puzzle Level ")
     @PostMapping("/save")
     @CrossOrigin(origins = "*")
-    public ALCityResponseObject saveInstance(@RequestBody CityObjectInPLDTO dto)  {
+    public ALCityResponseObject saveInstance(@RequestBody InstanceDTO dto)  {
         Instance instance = null;
         ALCityResponseObject responseObject = new ALCityResponseObject();
-        if (dto.getName()==null) dto.setName("instance_"+dto.getRow()+"_"+dto.getCol()+"_"+dto.getZorder()+"_puzzle_id"+dto.getPuzzleLevelId());
+        if (dto.getName()==null) dto.setName("instance_"+dto.getRow()+"_"+dto.getCol()+"_"+dto.getzOrder()+"_puzzle_id"+dto.getPuzzleLevelId());
         if (dto.getId() == null || dto.getId() <= 0L) { //save
             try {
                 instance = service.save(dto,"Save");
@@ -109,10 +109,11 @@ public class InstanceController {
     @RequestMapping(value = "/id/{id}", method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin(origins = "*")
-    public CityObjectInPLDTO getAnAObjectInPLDTO(@PathVariable Long id) {
+    public InstanceDTO getAnAObjectInPLDTO(@PathVariable Long id) {
         Optional<Instance> instanceOptional = service.findById(id);
-        CityObjectInPLDTO cityObjectInPLDTO = DTOUtil.getALCityObjectInPLDTO(instanceOptional.get());
-        return  cityObjectInPLDTO;
+        if(instanceOptional.isEmpty()) return null;
+        InstanceDTO instanceDTO = DTOUtil.getALCityObjectInPLDTO(instanceOptional.get());
+        return  instanceDTO;
     }
     @Operation( summary = "Fetch all actions for an Algoopia object instance in a puzzle level by instance Id ",  description = "Fetch all actions for an Algoopia object instance ")
     @RequestMapping(value = "/id/{id}/actions/all", method = RequestMethod.GET)

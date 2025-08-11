@@ -21,9 +21,9 @@ public class PGDTO  {
     private Collection<JourneyStepDTO> journeyStepDTOCollection;
     private Collection<PLDTO> puzzleLevelDTOCollection;
 
-    private Collection<CityObjectInPGDTO> puzzleGroup_puzzleObjectDTOCollection;
+    private Collection<PGObjectDTO> puzzleGroup_puzzleObjectDTOCollection;
 
-    private Collection<PGLearningSkillContentDTO> puzzleSkillLearningContentDTOCollection;
+    private Collection<PGLearningSkillDTO> puzzleSkillLearningContentDTOCollection;
 
     public String getTitle() {
         return title;
@@ -65,11 +65,11 @@ public class PGDTO  {
         this.puzzleLevelDTOCollection = puzzleLevelDTOCollection;
     }
 
-    public Collection<PGLearningSkillContentDTO> getPuzzleSkillLearningContentDTOCollection() {
+    public Collection<PGLearningSkillDTO> getPuzzleSkillLearningContentDTOCollection() {
         return puzzleSkillLearningContentDTOCollection;
     }
 
-    public void setPuzzleSkillLearningContentDTOCollection(Collection<PGLearningSkillContentDTO> puzzleSkillLearningContentDTOCollection) {
+    public void setPuzzleSkillLearningContentDTOCollection(Collection<PGLearningSkillDTO> puzzleSkillLearningContentDTOCollection) {
         this.puzzleSkillLearningContentDTOCollection = puzzleSkillLearningContentDTOCollection;
     }
 
@@ -124,11 +124,11 @@ public class PGDTO  {
     public PGDTO() {
     }
 
-    public Collection<CityObjectInPGDTO> getPuzzleGroup_puzzleObjectDTOCollection() {
+    public Collection<PGObjectDTO> getPuzzleGroup_puzzleObjectDTOCollection() {
         return puzzleGroup_puzzleObjectDTOCollection;
     }
 
-    public void setPuzzleGroup_puzzleObjectDTOCollection(Collection<CityObjectInPGDTO> puzzleGroup_puzzleObjectDTOCollection) {
+    public void setPuzzleGroup_puzzleObjectDTOCollection(Collection<PGObjectDTO> puzzleGroup_puzzleObjectDTOCollection) {
         this.puzzleGroup_puzzleObjectDTOCollection = puzzleGroup_puzzleObjectDTOCollection;
     }
 

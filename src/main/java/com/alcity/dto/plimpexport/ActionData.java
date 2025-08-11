@@ -1,4 +1,4 @@
-package com.alcity.dto.plimpexport.rule;
+package com.alcity.dto.plimpexport;
 
 import com.alcity.dto.plimpexport.AttributeData;
 import com.alcity.entity.alenum.ObjectActionType;

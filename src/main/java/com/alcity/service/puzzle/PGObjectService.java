@@ -2,7 +2,7 @@ package com.alcity.service.puzzle;
 
 import com.alcity.dto.pgimport.PGObjectImportDTO;
 import com.alcity.dto.pgimport.PGObjectVariableImportDTO;
-import com.alcity.dto.puzzle.CityObjectInPGDTO;
+import com.alcity.dto.puzzle.PGObjectDTO;
 import com.alcity.entity.alobject.Attribute;
 import com.alcity.entity.alobject.AttributeValue;
 import com.alcity.entity.alobject.ObjectAction;
@@ -185,7 +185,7 @@ public class PGObjectService implements PGObjectRepository {
 
         return alCityObjectInPG;
     }
-        public PGObject save(CityObjectInPGDTO dto, String code) {
+        public PGObject save(PGObjectDTO dto, String code) {
         Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
         Optional<PuzzleGroup> puzzleGroupOptional =  pgRepository.findByTitle(dto.getPuzzleGroup());
         Optional<BaseObject> alCityObjectOptional =  objectService.findById(dto.getAlCityObjectId());

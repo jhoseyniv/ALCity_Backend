@@ -5,9 +5,9 @@ import com.alcity.dto.plimpexport.PLCellData;
 import com.alcity.dto.plimpexport.PositionDTO;
 import com.alcity.dto.plimpexport.AttributeData;
 import com.alcity.dto.plimpexport.PLObjectiveData;
-import com.alcity.dto.plimpexport.pexport.PostActionTreeExport;
-import com.alcity.dto.plimpexport.pexport.RuleData;
-import com.alcity.dto.plimpexport.rule.ActionData;
+import com.alcity.dto.plimpexport.ruleexport.PostActionTreeExport;
+import com.alcity.dto.plimpexport.ruleexport.RuleData;
+import com.alcity.dto.plimpexport.ActionData;
 import com.alcity.dto.alenum.EnumDTO;
 import com.alcity.dto.alobject.*;
 import com.alcity.dto.appmember.*;
@@ -19,7 +19,7 @@ import com.alcity.dto.learning.LearningContentDTO;
 import com.alcity.dto.learning.LearningTopicDTO;
 import com.alcity.dto.pgimport.PGObjectVariableImportDTO;
 import com.alcity.dto.player.PlayHistoryDTO;
-import com.alcity.dto.plimpexport.pimport.PostActionTreeImport;
+import com.alcity.dto.plimpexport.rulemport.PostActionTreeImport;
 import com.alcity.dto.puzzle.*;
 import com.alcity.dto.puzzle.boardgraphic.BoardGraphicDTO;
 import com.alcity.entity.alenum.*;
@@ -577,11 +577,11 @@ public class DTOUtil {
         return enumDTOS;
     }
 
-    public static Collection<PGLearningSkillContentDTO> getPGLearningSkillContentDTOS(Collection<PGLearningSkill> input) {
-        Collection<PGLearningSkillContentDTO> output = new ArrayList<PGLearningSkillContentDTO>();
+    public static Collection<PGLearningSkillDTO> getPGLearningSkillContentDTOS(Collection<PGLearningSkill> input) {
+        Collection<PGLearningSkillDTO> output = new ArrayList<PGLearningSkillDTO>();
         Iterator<PGLearningSkill> itr = input.iterator();
         while (itr.hasNext()) {
-            PGLearningSkillContentDTO dto = new PGLearningSkillContentDTO();
+            PGLearningSkillDTO dto = new PGLearningSkillDTO();
             PGLearningSkill lsc = itr.next();
 
             dto.setId(lsc.getId());
@@ -595,8 +595,8 @@ public class DTOUtil {
         }
         return output;
     }
-    public static CityObjectInPGDTO getALCityObjectInPGDTO(PGObject alCityObjectInPG) {
-        CityObjectInPGDTO dto = new CityObjectInPGDTO();
+    public static PGObjectDTO getALCityObjectInPGDTO(PGObject alCityObjectInPG) {
+        PGObjectDTO dto = new PGObjectDTO();
         dto.setId(alCityObjectInPG.getId());
         dto.setCode(alCityObjectInPG.getCode());
         dto.setTitle(alCityObjectInPG.getTitle());
@@ -613,16 +613,16 @@ public class DTOUtil {
 
         return  dto;
     }
-    public static CityObjectInPLDTO getALCityObjectInPLDTO(Instance alCityInstanceInPL) {
-        CityObjectInPLDTO dto = new CityObjectInPLDTO();
-        dto.setId(alCityInstanceInPL.getId());
-        dto.setName(alCityInstanceInPL.getName());
-        dto.setCol(alCityInstanceInPL.getCol());
-        dto.setRow(alCityInstanceInPL.getRow());
+    public static InstanceDTO getALCityObjectInPLDTO(Instance instance) {
+        InstanceDTO dto = new InstanceDTO();
+        dto.setId(instance.getId());
+        dto.setPGObjectTitle(instance.getName());
+        dto.setCol(instance.getCol());
+        dto.setRow(instance.getRow());
 
-        dto.setZorder(alCityInstanceInPL.getzOrder());
-        dto.setAlCityObjectInPGId(alCityInstanceInPL.getAlCityObjectInPG().getId());
-        dto.setPuzzleLevelId(alCityInstanceInPL.getPuzzleLevel().getId());
+        dto.setzOrder(instance.getzOrder());
+        dto.setPGObjectId(instance.getAlCityObjectInPG().getId());
+        dto.setPuzzleLevelId(instance.getPuzzleLevel().getId());
 
 //        dto.setVersion(alCityObjectInPG.getVersion());
 //        dto.setCreated(alCityObjectInPG.getCreated());
@@ -632,12 +632,12 @@ public class DTOUtil {
 
         return  dto;
     }
-    public static Collection<CityObjectInPGDTO> getALCityObjectInPGDTOS(Collection<PGObject> input) {
-        Collection<CityObjectInPGDTO> dtos = new ArrayList<CityObjectInPGDTO>();
+    public static Collection<PGObjectDTO> getALCityObjectInPGDTOS(Collection<PGObject> input) {
+        Collection<PGObjectDTO> dtos = new ArrayList<PGObjectDTO>();
         Iterator<PGObject> itr = input.iterator();
         while (itr.hasNext()) {
             PGObject alCityObjectInPG = itr.next();
-            CityObjectInPGDTO dto = getALCityObjectInPGDTO(alCityObjectInPG);
+            PGObjectDTO dto = getALCityObjectInPGDTO(alCityObjectInPG);
             dtos.add(dto);
         }
         return dtos;
@@ -1250,28 +1250,28 @@ public class DTOUtil {
 
  */
 
-    public static Collection<ALCityObjectInstanceInPLDTO>  getPuzzleLevelInstance(PuzzleLevel puzzleLevel){
-        Collection<ALCityObjectInstanceInPLDTO> dtos = new ArrayList<ALCityObjectInstanceInPLDTO>();
-        Collection<Instance> alCityInstanceInPLCollection = puzzleLevel.getPuzzleGroupObjectInstanceCollection();
-        Iterator<Instance> itr = alCityInstanceInPLCollection.iterator();
+    public static Collection<InstanceDTO>  getPuzzleLevelInstance(PuzzleLevel puzzleLevel){
+        Collection<InstanceDTO> dtos = new ArrayList<InstanceDTO>();
+        Collection<Instance> instances = puzzleLevel.getInstances();
+        Iterator<Instance> itr = instances.iterator();
 
         while(itr.hasNext()){
-            Instance pgObjectInstance = itr.next();
-            ALCityObjectInstanceInPLDTO dto = new ALCityObjectInstanceInPLDTO();
-            dto.setId(pgObjectInstance.getId());
-            dto.setVersion(pgObjectInstance.getVersion());
-            dto.setCol(pgObjectInstance.getCol());
-            dto.setRow(pgObjectInstance.getRow());
-            dto.setzOrder(pgObjectInstance.getzOrder());
-            dto.setCreated(pgObjectInstance.getCreated());
-            dto.setUpdated(pgObjectInstance.getUpdated());
-            dto.setCreatedById(pgObjectInstance.getCreatedBy().getId());
-            dto.setUpdatedByID(pgObjectInstance.getUpdatedBy().getId());
-            dto.setUpdatedBy(pgObjectInstance.getUpdatedBy().getUsername());
-            dto.setCreatedBy(pgObjectInstance.getCreatedBy().getUsername());
-            dto.setAlCityObjectinPGId(pgObjectInstance.getAlCityObjectInPG().getId());
-            dto.setAlCityObjectinPGCode(pgObjectInstance.getAlCityObjectInPG().getCode());
-            dto.setAlCityObjectinPGTitle(pgObjectInstance.getAlCityObjectInPG().getTitle());
+            Instance instance = itr.next();
+            InstanceDTO dto = new InstanceDTO();
+            dto.setId(instance.getId());
+            dto.setVersion(instance.getVersion());
+            dto.setCol(instance.getCol());
+            dto.setRow(instance.getRow());
+            dto.setzOrder(instance.getzOrder());
+            dto.setCreated(instance.getCreated());
+            dto.setUpdated(instance.getUpdated());
+            dto.setCreatedById(instance.getCreatedBy().getId());
+            dto.setUpdatedByID(instance.getUpdatedBy().getId());
+            dto.setUpdatedBy(instance.getUpdatedBy().getUsername());
+            dto.setCreatedBy(instance.getCreatedBy().getUsername());
+            dto.setPGObjectId(instance.getAlCityObjectInPG().getId());
+            dto.setPGObjectCode(instance.getAlCityObjectInPG().getCode());
+            dto.setPGObjectTitle(instance.getAlCityObjectInPG().getTitle());
 
             dtos.add(dto);
         }
@@ -1488,7 +1488,7 @@ public class DTOUtil {
 
         System.out.println(node.postAction.getActionName() + " ");
         PLRulePostAction postAction = plRulePostActionService.importPostAction(node.postAction,ownerId);
-        for (PostActionTreeImport<com.alcity.dto.plimpexport.pimport.PLRulePostActionImport> child : node.children) {
+        for (PostActionTreeImport<com.alcity.dto.plimpexport.rulemport.PLRulePostActionImport> child : node.children) {
             preOrderTraversal(plRulePostActionService,child,postAction.getId());
         }
     }

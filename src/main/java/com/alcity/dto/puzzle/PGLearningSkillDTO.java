@@ -1,6 +1,6 @@
 package com.alcity.dto.puzzle;
 
-public class PGLearningSkillContentDTO {
+public class PGLearningSkillDTO {
 
     private Long id;
 
@@ -62,7 +62,7 @@ public class PGLearningSkillContentDTO {
         this.learningContentId = learningContentId;
     }
 
-    public PGLearningSkillContentDTO() {
+    public PGLearningSkillDTO() {
     }
 
     public String getLearningContentDescText() {
@@ -73,8 +73,8 @@ public class PGLearningSkillContentDTO {
         this.learningContentDescText = learningContentDescText;
     }
 
-    public PGLearningSkillContentDTO(Long id , String learningSkillTitle,
-                                     Long learningSkillId, String puzzleGroupTitle, Long puzzleGroupId, Long learningContentId,String learningContentDescText) {
+    public PGLearningSkillDTO(Long id , String learningSkillTitle,
+                              Long learningSkillId, String puzzleGroupTitle, Long puzzleGroupId, Long learningContentId, String learningContentDescText) {
         this.id = id;
         this.learningSkillTitle = learningSkillTitle;
         this.learningSkillId = learningSkillId;

@@ -2,7 +2,7 @@ package com.alcity.service.puzzle;
 
 import com.alcity.dto.plimpexport.*;
 import com.alcity.dto.plimpexport.AttributeData;
-import com.alcity.dto.plimpexport.pimport.PLRuleImport;
+import com.alcity.dto.plimpexport.rulemport.PLRuleImport;
 import com.alcity.dto.puzzle.PLCopyDTO;
 import com.alcity.dto.puzzle.PLDTO;
 import com.alcity.dto.puzzle.PuzzleLevelStepMappingDTO;
@@ -312,7 +312,7 @@ public class PuzzleLevelService implements PuzzleLevelRepository {
          plRuleService.deleteRules(rules);
 
         //delete puzzle level instances
-        Collection<Instance> instances = puzzleLevel.getPuzzleGroupObjectInstanceCollection();
+        Collection<Instance> instances = puzzleLevel.getInstances();
         instanceInPLService.deleteInstances(instances);
 
         //delete puzzle level instances

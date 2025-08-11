@@ -3,7 +3,7 @@ package com.alcity.api;
 import com.alcity.service.customexception.ALCityResponseObject;
 import com.alcity.service.customexception.UniqueConstraintException;
 import com.alcity.service.customexception.ViolateForeignKeyException;
-import com.alcity.dto.puzzle.CityObjectInPGDTO;
+import com.alcity.dto.puzzle.PGObjectDTO;
 import com.alcity.dto.puzzle.object.ActionDTO;
 import com.alcity.entity.alenum.POActionOwnerType;
 import com.alcity.entity.alobject.ObjectAction;
@@ -55,16 +55,16 @@ public class PGObjectController {
     @RequestMapping(value = "/id/{id}", method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin(origins = "*")
-    public CityObjectInPGDTO getAnAObjectInPGDTO(@PathVariable Long id) {
+    public PGObjectDTO getAnAObjectInPGDTO(@PathVariable Long id) {
         Optional<PGObject> alCityObjectInPGOptional = alCityObjectInPGService.findById(id);
-        CityObjectInPGDTO alCityObjectInPGDTO = DTOUtil.getALCityObjectInPGDTO(alCityObjectInPGOptional.get());
+        PGObjectDTO alCityObjectInPGDTO = DTOUtil.getALCityObjectInPGDTO(alCityObjectInPGOptional.get());
         return  alCityObjectInPGDTO;
     }
 
     @Operation( summary = "Add a Object to a Puzzle Group ",  description = "Add a Object to a Puzzle Group ")
     @PostMapping("/save")
     @CrossOrigin(origins = "*")
-    public ALCityResponseObject saveALCityObjectInPG(@RequestBody CityObjectInPGDTO dto)  {
+    public ALCityResponseObject saveALCityObjectInPG(@RequestBody PGObjectDTO dto)  {
         PGObject savedRecord = null;
         ALCityResponseObject responseObject = new ALCityResponseObject();
 

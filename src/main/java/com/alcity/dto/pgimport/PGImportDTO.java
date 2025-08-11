@@ -1,7 +1,5 @@
 package com.alcity.dto.pgimport;
 
-import com.alcity.dto.puzzle.PGLearningSkillContentDTO;
-
 import java.util.Collection;
 
 public class PGImportDTO {

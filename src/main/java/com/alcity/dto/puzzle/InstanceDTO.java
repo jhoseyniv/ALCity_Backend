@@ -1,6 +1,6 @@
 package com.alcity.dto.puzzle;
 
-public class ALCityObjectInstanceInPLDTO {
+public class InstanceDTO {
 
     private Long id;
     private Long version;
@@ -13,35 +13,54 @@ public class ALCityObjectInstanceInPLDTO {
 
     private Long updatedByID;
 
+    private String name;
+
     private Integer row;
     private Integer col;
     private Integer zOrder;
-    private Long alCityObjectinPGId;
-    private String alCityObjectinPGTitle;
-    private String alCityObjectinPGCode ;
+    private Long PGObjectId;
+    private String PGObjectTitle;
+    private String PGObjectCode ;
+    private Long puzzleLevelId;
 
-    public Long getAlCityObjectinPGId() {
-        return alCityObjectinPGId;
+    public String getName() {
+        return name;
     }
 
-    public void setAlCityObjectinPGId(Long alCityObjectinPGId) {
-        this.alCityObjectinPGId = alCityObjectinPGId;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getAlCityObjectinPGTitle() {
-        return alCityObjectinPGTitle;
+    public Long getPGObjectId() {
+        return PGObjectId;
     }
 
-    public void setAlCityObjectinPGTitle(String alCityObjectinPGTitle) {
-        this.alCityObjectinPGTitle = alCityObjectinPGTitle;
+    public void setPGObjectId(Long PGObjectId) {
+        this.PGObjectId = PGObjectId;
     }
 
-    public String getAlCityObjectinPGCode() {
-        return alCityObjectinPGCode;
+    public String getPGObjectTitle() {
+        return PGObjectTitle;
     }
 
-    public void setAlCityObjectinPGCode(String alCityObjectinPGCode) {
-        this.alCityObjectinPGCode = alCityObjectinPGCode;
+    public void setPGObjectTitle(String PGObjectTitle) {
+        this.PGObjectTitle = PGObjectTitle;
+    }
+
+    public String getPGObjectCode() {
+        return PGObjectCode;
+    }
+
+    public void setPGObjectCode(String PGObjectCode) {
+        this.PGObjectCode = PGObjectCode;
+    }
+
+    public Long getPuzzleLevelId() {
+        return puzzleLevelId;
+    }
+
+    public void setPuzzleLevelId(Long puzzleLevelId) {
+        this.puzzleLevelId = puzzleLevelId;
     }
 
     public Integer getRow() {
@@ -117,7 +136,7 @@ public class ALCityObjectInstanceInPLDTO {
         this.updatedBy = updatedBy;
     }
 
-    public ALCityObjectInstanceInPLDTO() {
+    public InstanceDTO() {
     }
 
     public Long getCreatedById() {
@@ -136,9 +155,10 @@ public class ALCityObjectInstanceInPLDTO {
         this.updatedByID = updatedByID;
     }
 
-    public ALCityObjectInstanceInPLDTO(Long id, Long version, String created, String updated, String createdBy, String updatedBy, Long createdById, Long updatedByID,
-                                       Integer row, Integer col, Integer zOrder, Long alCityObjectinPGId, String alCityObjectinPGTitle, String alCityObjectinPGCode) {
+    public InstanceDTO(Long id,String name, Integer row, Integer col, Integer zOrder, Long PGObjectId, String PGObjectTitle, String PGObjectCode, Long puzzleLevelId,
+                         Long version, String created, String updated, String createdBy, String updatedBy, Long createdById, Long updatedByID) {
         this.id = id;
+        this.name = name;
         this.version = version;
         this.created = created;
         this.updated = updated;
@@ -149,8 +169,9 @@ public class ALCityObjectInstanceInPLDTO {
         this.row = row;
         this.col = col;
         this.zOrder = zOrder;
-        this.alCityObjectinPGId = alCityObjectinPGId;
-        this.alCityObjectinPGTitle = alCityObjectinPGTitle;
-        this.alCityObjectinPGCode = alCityObjectinPGCode;
+        this.PGObjectId = PGObjectId;
+        this.PGObjectTitle = PGObjectTitle;
+        this.PGObjectCode = PGObjectCode;
+        this.puzzleLevelId = puzzleLevelId;
     }
 }

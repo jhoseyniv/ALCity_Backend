@@ -37,8 +37,8 @@ public class PGController {
     @Operation( summary = "Fetch all AL City Object for that define in a puzzle group ",  description = "Fetch all Al city object for an puzzle group")
     @RequestMapping(value = "/id/{id}/objects/all", method = RequestMethod.GET)
     @ResponseBody
-    public Collection<CityObjectInPGDTO> getObjectsForAPG(@PathVariable Long id) {
-        Collection<CityObjectInPGDTO> alCityObjectInPGDTOS = new ArrayList<CityObjectInPGDTO>();
+    public Collection<PGObjectDTO> getObjectsForAPG(@PathVariable Long id) {
+        Collection<PGObjectDTO> alCityObjectInPGDTOS = new ArrayList<PGObjectDTO>();
         Collection<PGObject> alCityObjectInPGS = new ArrayList<PGObject>();
         Optional<PuzzleGroup> puzzleGroup = pgService.findById(id);
         if(puzzleGroup.isPresent()) {
@@ -99,9 +99,9 @@ public class PGController {
     @Operation( summary = "get all learning skill content for  a Puzzle Group ",  description = "get all learning skill for  a Puzzle Group")
     @RequestMapping(value = "/id/{id}/skills/all", method = RequestMethod.GET)
     @ResponseBody
-    public Collection<PGLearningSkillContentDTO> getLearningSKillsForPuzzleGroupById(@PathVariable Long id) {
+    public Collection<PGLearningSkillDTO> getLearningSKillsForPuzzleGroupById(@PathVariable Long id) {
         Optional<PuzzleGroup> puzzleGroup = pgService.findById(id);
-        Collection<PGLearningSkillContentDTO> dtos = new ArrayList<PGLearningSkillContentDTO>();
+        Collection<PGLearningSkillDTO> dtos = new ArrayList<PGLearningSkillDTO>();
         if(puzzleGroup.isPresent())  dtos = DTOUtil.getPGLearningSkillContentDTOS(puzzleGroup.get().getLearningSkillContents());
         return  dtos;
     }

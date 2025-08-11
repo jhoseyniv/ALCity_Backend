@@ -1,6 +1,6 @@
 package com.alcity.comparetors;
 
-import com.alcity.dto.plimpexport.pexport.RuleData;
+import com.alcity.dto.plimpexport.ruleexport.RuleData;
 
 public class RuleDataComparator implements java.util.Comparator<RuleData>{
     @Override

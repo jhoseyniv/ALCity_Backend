@@ -1,5 +1,6 @@
 package com.alcity.service.alobject;
 
+import com.alcity.dto.alobject.AttributeDTO;
 import com.alcity.dto.alobject.AttributeDTOSave;
 import com.alcity.dto.alobject.AttributeValueDTOSave;
 import com.alcity.dto.pgimport.PGObjectVariableImportDTO;
@@ -1001,6 +1002,10 @@ public class AttributeService implements AttributeRepository {
         }else{//edit
             if(attributeOptional.isPresent()) {
                 attribute = attributeOptional.get();
+                attribute.setName(newValue.getName());
+                attribute.setDataType(dataType);
+                attribute.setOwnerId(newValue.getOwnerId());
+                attributeRepository.save(attribute);
                 if(valueDTO.getId() == 0) { // save new value by owner id
                     attributeValue = new AttributeValue(valueDTO.getBooleanValue(),valueDTO.getIntValue(),valueDTO.getLongValue(),valueDTO.getStringValue(),
                             valueDTO.getObjectValue(),valueDTO.getDoubleValue(),valueDTO.getBinaryContentId(), valueDTO.getExpressionValue(),valueDTO.getExpression(),bindAttribute ,attribute,
@@ -1024,16 +1029,6 @@ public class AttributeService implements AttributeRepository {
                     value.setLongValue(valueDTO.getLongValue());
                     attributeValueRepository.save(value);
                 }
-//                DTOUtil.saveNewAttributeValue(attribute,newValue,attributeRepository,attributeValueRepository);
-//                   // attribute.setAttributeOwnerType(attributeOwnerType);
-//                  //  attribute.setDataType(dataType);
-//                    attribute.setName(newValue.getName());
-//                    attribute.setVersion(attribute.getVersion()+1);
-//                    attribute.setCreated(DateUtils.getNow());
-//                    attribute.setUpdated(DateUtils.getNow());
-//                    attribute.setUpdatedBy(createdBy.get());
-//                    attributeRepository.save(attribute);
-
             }
 
         }

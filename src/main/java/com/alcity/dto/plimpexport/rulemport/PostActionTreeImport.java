@@ -1,4 +1,4 @@
-package com.alcity.dto.plimpexport.pimport;
+package com.alcity.dto.plimpexport.rulemport;
 
 
 import java.io.Serializable;

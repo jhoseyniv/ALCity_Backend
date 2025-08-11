@@ -11,7 +11,7 @@ import com.alcity.entity.alobject.Attribute;
 import com.alcity.service.alobject.AttributeService;
 import com.alcity.service.customexception.ALCityResponseObject;
 import com.alcity.service.customexception.RecordNotFoundException;
-import com.alcity.dto.puzzle.CityObjectInPGDTO;
+import com.alcity.dto.puzzle.PGObjectDTO;
 import com.alcity.dto.puzzle.object.ActionDTO;
 import com.alcity.dto.puzzle.object.CityObjectDTO;
 import com.alcity.entity.alenum.POActionOwnerType;
@@ -108,8 +108,8 @@ public class ObjectController {
     @Operation( summary = "Fetch all Puzzle Groups that this Object are in them ",  description = "Fetch all Puzzle Groups that this Object are in them ")
     @RequestMapping(value = "/id/{id}/pg", method = RequestMethod.GET)
     @CrossOrigin(origins = "*")
-    public Collection<CityObjectInPGDTO> getPuzzleGroupsForALCityObject(@PathVariable Long id) {
-        Collection<CityObjectInPGDTO> alCityObjectInPGDTOS = new ArrayList<CityObjectInPGDTO>();
+    public Collection<PGObjectDTO> getPuzzleGroupsForALCityObject(@PathVariable Long id) {
+        Collection<PGObjectDTO> alCityObjectInPGDTOS = new ArrayList<PGObjectDTO>();
         Optional<BaseObject> alCityObjectOptional = service.findById(id);
         if(alCityObjectOptional.isPresent()) {
             Collection<PGObject> alCityObjects = alCityObjectInPGService.findByalCityObject(alCityObjectOptional.get());
@@ -195,8 +195,8 @@ public class ObjectController {
     @RequestMapping(value = "/id/{id}/pg/all", method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin(origins = "*")
-    public Collection<CityObjectInPGDTO> getPuzzleGroupForALCityObject(@PathVariable Long id) {
-        Collection<CityObjectInPGDTO> dtos = new ArrayList<CityObjectInPGDTO>();
+    public Collection<PGObjectDTO> getPuzzleGroupForALCityObject(@PathVariable Long id) {
+        Collection<PGObjectDTO> dtos = new ArrayList<PGObjectDTO>();
         Optional<BaseObject> alCityObjectOptional = service.findById(id);
         if(alCityObjectOptional.isEmpty()) return dtos;
 

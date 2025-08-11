@@ -1,7 +1,5 @@
 package com.alcity.dto.plimpexport;
 
-import com.alcity.dto.plimpexport.rule.ActionData;
-
 import java.io.Serializable;
 import java.util.Collection;
 

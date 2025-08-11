@@ -1,10 +1,6 @@
 package com.alcity.dto.puzzle;
 
-import com.alcity.dto.puzzle.object.PropertyDTO;
-
-import java.util.Collection;
-
-public class CityObjectInPGDTO {
+public class PGObjectDTO {
 
     private Long id;
     private String title;
@@ -68,7 +64,7 @@ public class CityObjectInPGDTO {
         this.puzzleGroupId = puzzleGroupId;
     }
 
-    public CityObjectInPGDTO() {
+    public PGObjectDTO() {
     }
 
 
@@ -81,7 +77,7 @@ public class CityObjectInPGDTO {
     }
 
 
-    public CityObjectInPGDTO(Long id, String title, String code, String puzzleGroup, Long puzzleGroupId, Long alCityObjectId,String alCityObjectTitle
+    public PGObjectDTO(Long id, String title, String code, String puzzleGroup, Long puzzleGroupId, Long alCityObjectId, String alCityObjectTitle
                              ) {
         this.id = id;
         this.title = title;

@@ -1,6 +1,6 @@
 package com.alcity.dto.plimpexport;
 
-import com.alcity.dto.plimpexport.pimport.PLRuleImport;
+import com.alcity.dto.plimpexport.rulemport.PLRuleImport;
 
 import java.io.Serializable;
 import java.util.Collection;

@@ -1,6 +1,6 @@
 package com.alcity.api;
 
-import com.alcity.dto.puzzle.PGLearningSkillContentDTO;
+import com.alcity.dto.puzzle.PGLearningSkillDTO;
 import com.alcity.entity.puzzle.PGLearningSkill;
 import com.alcity.entity.puzzle.PuzzleGroup;
 import com.alcity.service.customexception.ALCityResponseObject;
@@ -35,18 +35,18 @@ public class PGSkillLearningController {
     @RequestMapping(value = "/id/{id}/all", method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin(origins = "*")
-    public Collection<PGLearningSkillContentDTO> getAllPuzzleSkillLearningForPuzzleGroupById(@PathVariable Long id) {
+    public Collection<PGLearningSkillDTO> getAllPuzzleSkillLearningForPuzzleGroupById(@PathVariable Long id) {
         Optional<PuzzleGroup> puzzleGroupOptional = pgService.findById(id);
         if(puzzleGroupOptional.isEmpty()) return  null;
         PuzzleGroup puzzleGroup = puzzleGroupOptional.get();
-        Collection<PGLearningSkillContentDTO> dtos = new ArrayList<PGLearningSkillContentDTO>();
+        Collection<PGLearningSkillDTO> dtos = new ArrayList<PGLearningSkillDTO>();
         dtos = DTOUtil.getPGLearningSkillContentDTOS(puzzleGroup.getLearningSkillContents());
         return  dtos;
     }
     @Operation( summary = "add a  learning skill  to puzzle group ",  description = "add a  learning skill  to puzzle group")
     @PostMapping("/add")
     @CrossOrigin(origins = "*")
-    public ALCityResponseObject savePGLearningSkillContent(@RequestBody PGLearningSkillContentDTO dto)  {
+    public ALCityResponseObject savePGLearningSkillContent(@RequestBody PGLearningSkillDTO dto)  {
         PGLearningSkill savedRecord = null;
         ALCityResponseObject responseObject = new ALCityResponseObject();
 
