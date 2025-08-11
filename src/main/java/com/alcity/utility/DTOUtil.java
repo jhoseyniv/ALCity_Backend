@@ -190,6 +190,7 @@ public class DTOUtil {
         if(dataType.equals(DataType.Integer))     intValue=Integer.valueOf(dto.getValue());
         if(dataType.equals(DataType.Binary))     binaryContentId=Long.valueOf(dto.getValue());
         if(dataType.equals(DataType.String))     stringValue=dto.getValue();
+        System.out.println("test");
         if(dto.getExpression()==null ){
             isExpressionValue=Boolean.FALSE;
             expressionValue = null;
