@@ -311,7 +311,7 @@ public class PLController {
                 plService.deletePuzzleLevel(existingRecord.get());
             }catch (Exception e )
             {
-                throw new ViolateForeignKeyException(-1, "error", PuzzleLevel.class.toString(),existingRecord.get().getId());
+                return new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", id,"Violation Probelm");
             }
             return new ALCityResponseObject(HttpStatus.OK.value(), "ok", id,"Puzzle Level deleted Successfully!");
         }

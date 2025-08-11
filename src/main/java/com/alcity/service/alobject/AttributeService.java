@@ -162,6 +162,7 @@ public class AttributeService implements AttributeRepository {
     public Attribute importVariables(AttributeData variableImport, Long ownerId, AttributeOwnerType ownerType) {
         DataType dataType =  DataType.getByTitle(variableImport.getType());
         Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
+        if(variableImport == null) variableImport.setId(0L);
         Optional<Attribute> attributeOptional =  attributeRepository.findById(variableImport.getId());
 
         if(attributeOptional.isPresent()){ // attribute is exist and only value must be import

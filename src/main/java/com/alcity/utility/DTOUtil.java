@@ -190,8 +190,12 @@ public class DTOUtil {
         if(dataType.equals(DataType.Integer))     intValue=Integer.valueOf(dto.getValue());
         if(dataType.equals(DataType.Binary))     binaryContentId=Long.valueOf(dto.getValue());
         if(dataType.equals(DataType.String))     stringValue=dto.getValue();
-        if(dto.getExpression())    {
-            isExpressionValue=Boolean.TRUE;
+        if(dto.getExpression()==null ){
+            isExpressionValue=Boolean.FALSE;
+            expressionValue = null;
+        }
+        else {
+            isExpressionValue=dto.getExpression();
             expressionValue = dto.getExpressionValue();
         }
 
