@@ -219,12 +219,13 @@ public class DTOUtil {
         if(dataType.equals(DataType.Integer))     intValue=Integer.valueOf(dto.getValue());
         if(dataType.equals(DataType.Binary))     binaryContentId=Long.valueOf(dto.getValue());
         if(dataType.equals(DataType.String))     stringValue=dto.getValue();
-        if(dto.getExpression()==null ){
+        if(dto.getExpression()==null || !dto.getExpression()){
+            System.out.println("here");
             isExpressionValue=Boolean.FALSE;
             expressionValue = null;
         }
-        else {
-            isExpressionValue=dto.getExpression();
+        else if(dto.getExpression()) {
+            isExpressionValue=Boolean.TRUE;
             expressionValue = dto.getExpressionValue();
         }
         AttributeValue  attributeValue = new AttributeValue(booleanValue,intValue,longValue,stringValue,
