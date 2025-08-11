@@ -191,12 +191,8 @@ public class DTOUtil {
         if(dataType.equals(DataType.Binary))     binaryContentId=Long.valueOf(dto.getValue());
         if(dataType.equals(DataType.String))     stringValue=dto.getValue();
         System.out.println("test");
-        if(dto.getExpression()==null ){
-            isExpressionValue=Boolean.FALSE;
-            expressionValue = null;
-        }
-        else {
-            isExpressionValue=dto.getExpression();
+        if(dto.getExpression())    {
+            isExpressionValue=Boolean.TRUE;
             expressionValue = dto.getExpressionValue();
         }
 
@@ -223,7 +219,6 @@ public class DTOUtil {
         if(dataType.equals(DataType.Integer))     intValue=Integer.valueOf(dto.getValue());
         if(dataType.equals(DataType.Binary))     binaryContentId=Long.valueOf(dto.getValue());
         if(dataType.equals(DataType.String))     stringValue=dto.getValue();
-        System.out.println("test");
         if(dto.getExpression()==null ){
             isExpressionValue=Boolean.FALSE;
             expressionValue = null;
@@ -232,8 +227,6 @@ public class DTOUtil {
             isExpressionValue=dto.getExpression();
             expressionValue = dto.getExpressionValue();
         }
-
-
         AttributeValue  attributeValue = new AttributeValue(booleanValue,intValue,longValue,stringValue,
                 objectValue,floatValue,binaryContentId, expressionValue,isExpressionValue,bindedAttribute ,attribute,
                 1L,DateUtils.getNow(),DateUtils.getNow(),createdBy,createdBy,ownerId,ownerType);
