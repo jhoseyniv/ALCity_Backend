@@ -223,10 +223,16 @@ public class DTOUtil {
         if(dataType.equals(DataType.Integer))     intValue=Integer.valueOf(dto.getValue());
         if(dataType.equals(DataType.Binary))     binaryContentId=Long.valueOf(dto.getValue());
         if(dataType.equals(DataType.String))     stringValue=dto.getValue();
-        if(dto.getExpression())    {
-            isExpressionValue=Boolean.TRUE;
+        System.out.println("test");
+        if(dto.getExpression()==null ){
+            isExpressionValue=Boolean.FALSE;
+            expressionValue = null;
+        }
+        else {
+            isExpressionValue=dto.getExpression();
             expressionValue = dto.getExpressionValue();
         }
+
 
         AttributeValue  attributeValue = new AttributeValue(booleanValue,intValue,longValue,stringValue,
                 objectValue,floatValue,binaryContentId, expressionValue,isExpressionValue,bindedAttribute ,attribute,
