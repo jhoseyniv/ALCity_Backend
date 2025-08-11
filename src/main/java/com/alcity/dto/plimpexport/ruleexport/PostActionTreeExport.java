@@ -14,6 +14,8 @@ public class PostActionTreeExport<P> implements Serializable {
     private String objectId;
     private String actionName;
 
+    private String subAction;
+
     private String variable;
     private StringBuffer valueExperssion;
     private String alertType;
@@ -122,12 +124,20 @@ public class PostActionTreeExport<P> implements Serializable {
         this.elseActions = elseActions;
     }
 
+    public String getSubAction() {
+        return subAction;
+    }
+
+    public void setSubAction(String subAction) {
+        this.subAction = subAction;
+    }
+
     public PostActionTreeExport() {
         this.innerActions = new ArrayList<>();
     }
 
     public PostActionTreeExport(String actionType,Integer ordering ,String objectId,String actionName,String variable,
-                                StringBuffer valueExperssion,String alertType,String alertMessage,Long actionKey,
+                                StringBuffer valueExperssion,String subAction,String alertType,String alertMessage,Long actionKey,
                                 List<PostActionTreeExport<PostActionTreeExport>> innerActions,List<PostActionTreeExport<PostActionTreeExport>> elseActions) {
         this.actionType = actionType;
         this.ordering = ordering;
@@ -135,6 +145,7 @@ public class PostActionTreeExport<P> implements Serializable {
         this.actionName = actionName;
         this.variable = variable;
         this.valueExperssion = valueExperssion;
+        this.subAction =subAction;
         this.alertType = alertType;
         this.alertMessage = alertMessage;
         this.actionKey = actionKey;
@@ -142,13 +153,14 @@ public class PostActionTreeExport<P> implements Serializable {
         this.innerActions = innerActions;
     }
     public void setFiedlds(String actionType,Integer ordering ,String objectId,String actionName,String variable,
-                                StringBuffer valueExperssion,String alertType,String alertMessage,Long actionKey,Collection<AttributeData> parameters) {
+                                StringBuffer valueExperssion,String subAction,String alertType,String alertMessage,Long actionKey,Collection<AttributeData> parameters) {
         this.actionType = actionType;
         this.ordering = ordering;
         this.objectId = objectId;
         this.actionName = actionName;
         this.variable = variable;
         this.valueExperssion = valueExperssion;
+        this.subAction =subAction;
         this.alertType = alertType;
         this.alertMessage = alertMessage;
         this.actionKey = actionKey;

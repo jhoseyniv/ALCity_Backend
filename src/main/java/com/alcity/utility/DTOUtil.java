@@ -1529,13 +1529,13 @@ public class DTOUtil {
         Collection<AttributeData> parametersData = DTOUtil.getAttributesForRuleAction(root.getId(),parameters,attributeValueService);
 
 
-        treeExport.setFiedlds(root.getPlRulePostActionType().name(), root.getOrdering(), root.getObjectId(),root.getActionName(),root.getVariable(),root.getValueExperssion(),
+        treeExport.setFiedlds(root.getPlRulePostActionType().name(), root.getOrdering(), root.getObjectId(),root.getActionName(),root.getVariable(),root.getValueExperssion(),root.getSubAction(),
                 root.getAlertType(), root.getAlertMessage(), root.getActionKey(),parametersData);
         Iterator<PLRulePostAction> childIterator = children.iterator();
         while(childIterator.hasNext()){
             PLRulePostAction child = childIterator.next();
             PostActionTreeExport<PostActionTreeExport> subTree=treeExport.getChild(new PostActionTreeExport<>(child.getPlRulePostActionType().name(), child.getOrdering(), child.getObjectId(),child.getActionName(),
-                    child.getVariable(),child.getValueExperssion(),child.getAlertType(), child.getAlertMessage(), child.getActionKey(),null,null));
+                    child.getVariable(),child.getValueExperssion(),child.getSubAction(),child.getAlertType(), child.getAlertMessage(), child.getActionKey(),null,null));
             preOrderTraversal(subTree,plRulePostActionService,attributeService,attributeValueService,child) ;
         }
         return treeExport;
