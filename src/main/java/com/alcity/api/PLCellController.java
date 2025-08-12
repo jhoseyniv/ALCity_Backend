@@ -2,18 +2,21 @@ package com.alcity.api;
 
 
 import com.alcity.dto.puzzle.PLCellDTO;
+import com.alcity.entity.alenum.ActionStatus;
+import com.alcity.entity.alenum.ErrorType;
+import com.alcity.entity.alenum.SystemMessage;
+import com.alcity.entity.alobject.ObjectAction;
 import com.alcity.entity.puzzle.PLCell;
 import com.alcity.entity.puzzle.PLGround;
-import com.alcity.service.customexception.ALCityResponseObject;
-import com.alcity.service.customexception.UniqueConstraintException;
-import com.alcity.service.customexception.ViolateForeignKeyException;
+import com.alcity.customexception.ResponseObject;
+import com.alcity.customexception.UniqueConstraintException;
+import com.alcity.customexception.ViolateForeignKeyException;
 import com.alcity.service.puzzle.PLCellService;
 import com.alcity.utility.DTOUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.json.JSONException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
@@ -43,27 +46,27 @@ public class PLCellController {
     @Operation( summary = "Save a PL Cell information ",  description = "Save a puzzle level Cell entity and their data to data base")
     @PostMapping("/save")
     @CrossOrigin(origins = "*")
-    public ALCityResponseObject savePLCell(@RequestBody PLCellDTO dto) {
+    public ResponseObject savePLCell(@RequestBody PLCellDTO dto) {
         PLCell savedRecord = null;
-        ALCityResponseObject responseObject = new ALCityResponseObject();
+        ResponseObject responseObject = new ResponseObject();
         if (dto.getId() == null || dto.getId() <= 0L) { //save
             try {
                 savedRecord = plCellService.save(dto,"Save");
             } catch (RuntimeException e) {
                 throw new UniqueConstraintException(-1,"Unique Constraint in" + PLGround.class , "Error",savedRecord.getId() );
             }
-            responseObject = new ALCityResponseObject(HttpStatus.OK.value(), "ok", savedRecord.getId(), "Record Saved Successfully!");
+            responseObject = new ResponseObject(ErrorType.SaveSuccess, ObjectAction.class.getSimpleName() , ActionStatus.OK, savedRecord.getId(), SystemMessage.SaveOrEditMessage_Success);
         } else if (dto.getId() > 0L ) {//edit
             savedRecord = plCellService.save(dto, "Edit");
             if(savedRecord !=null)
-                responseObject = new ALCityResponseObject(HttpStatus.OK.value(), "ok", savedRecord.getId(), "Record Updated Successfully!");
+                responseObject = new ResponseObject(ErrorType.SaveSuccess, ObjectAction.class.getSimpleName() , ActionStatus.OK, savedRecord.getId(), SystemMessage.SaveOrEditMessage_Success);
             else
-                responseObject = new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", dto.getId(), "Record not Found!");
+                responseObject = new ResponseObject(ErrorType.RecordNotFound, ObjectAction.class.getSimpleName(), ActionStatus.Error, dto.getId(),SystemMessage.RecordNotFound);
         }
         else if (savedRecord==null)
-            responseObject = new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", -1L, "Record not Found!");
+            responseObject = new ResponseObject(ErrorType.RecordNotFound, ObjectAction.class.getSimpleName(), ActionStatus.Error, dto.getId(),SystemMessage.RecordNotFound);
         else
-            responseObject = new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", -1L, "Record not Found!");
+            responseObject = new ResponseObject(ErrorType.RecordNotFound, ObjectAction.class.getSimpleName(), ActionStatus.Error, dto.getId(),SystemMessage.RecordNotFound);
 
         return responseObject;
     }
@@ -74,7 +77,7 @@ public class PLCellController {
     @Operation( summary = "delete a  PL Cell ",  description = "Delete a PL Cell")
     @DeleteMapping("/del/{id}")
     @CrossOrigin(origins = "*")
-    public ALCityResponseObject deletePLCellById(@PathVariable Long id) {
+    public ResponseObject deletePLCellById(@PathVariable Long id) {
         Optional<PLCell> existingRecord = plCellService.findById(id);
         if(existingRecord.isPresent()){
             try {
@@ -83,9 +86,9 @@ public class PLCellController {
             {
                 throw new ViolateForeignKeyException(-1, "error", PLGround.class.toString(),existingRecord.get().getId());
             }
-            return new ALCityResponseObject(HttpStatus.OK.value(), "ok", id,"Record deleted Successfully!");
+            return new ResponseObject(ErrorType.DeleteSuccess, ObjectAction.class.getSimpleName(), ActionStatus.Error, id,SystemMessage.DeleteMessage);
         }
-        return  new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", id,"Record not found!");
+        return new ResponseObject(ErrorType.RecordNotFound, ObjectAction.class.getSimpleName(), ActionStatus.Error, id,SystemMessage.RecordNotFound);
     }
 
 

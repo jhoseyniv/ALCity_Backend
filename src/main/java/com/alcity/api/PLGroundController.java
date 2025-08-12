@@ -1,36 +1,31 @@
 package com.alcity.api;
 
 
-import com.alcity.dto.base.BinaryContentDTO;
-import com.alcity.dto.puzzle.CameraSetupDTO;
 import com.alcity.dto.puzzle.PLCellDTO;
 import com.alcity.dto.puzzle.PLGroundDTO;
 import com.alcity.dto.puzzle.boardgraphic.BoardGraphicDTO;
-import com.alcity.entity.base.BinaryContent;
-import com.alcity.entity.base.PuzzleCategory;
+import com.alcity.entity.alenum.ActionStatus;
+import com.alcity.entity.alenum.ErrorType;
+import com.alcity.entity.alenum.SystemMessage;
+import com.alcity.entity.alobject.ObjectAction;
 import com.alcity.entity.puzzle.PLCell;
 import com.alcity.entity.puzzle.PLGround;
-import com.alcity.entity.puzzle.PuzzleGroup;
-import com.alcity.entity.puzzle.PuzzleLevel;
 import com.alcity.service.base.BinaryContentService;
-import com.alcity.service.customexception.ALCityResponseObject;
-import com.alcity.service.customexception.UniqueConstraintException;
-import com.alcity.service.customexception.ViolateForeignKeyException;
+import com.alcity.customexception.ResponseObject;
+import com.alcity.customexception.UniqueConstraintException;
+import com.alcity.customexception.ViolateForeignKeyException;
 import com.alcity.service.puzzle.PLCellService;
 import com.alcity.service.puzzle.PLGroundService;
 import com.alcity.utility.DTOUtil;
 import com.alcity.utility.PLDTOUtil;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.json.JSONException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Optional;
 
@@ -63,27 +58,27 @@ public class PLGroundController {
     @Operation( summary = "Save a PL Ground information ",  description = "Save a puzzle level ground entity and their data to data base")
     @PostMapping("/save")
     @CrossOrigin(origins = "*")
-    public ALCityResponseObject savePLGround(@RequestBody PLGroundDTO dto) {
+    public ResponseObject savePLGround(@RequestBody PLGroundDTO dto) {
         PLGround savedRecord = null;
-        ALCityResponseObject responseObject = new ALCityResponseObject();
+        ResponseObject responseObject = new ResponseObject();
         if (dto.getId() == null || dto.getId() <= 0L) { //save
             try {
                 savedRecord = plGroundService.save(dto,"Save");
             } catch (RuntimeException e) {
                 throw new UniqueConstraintException(-1,"Unique Constraint in" + PLGround.class , "Error",savedRecord.getId() );
             }
-            responseObject = new ALCityResponseObject(HttpStatus.OK.value(), "ok", savedRecord.getId(), "Record Saved Successfully!");
+            responseObject = new ResponseObject(ErrorType.SaveSuccess, ObjectAction.class.getSimpleName() , ActionStatus.OK, savedRecord.getId(), SystemMessage.SaveOrEditMessage_Success);
         } else if (dto.getId() > 0L ) {//edit
             savedRecord = plGroundService.save(dto, "Edit");
             if(savedRecord !=null)
-                responseObject = new ALCityResponseObject(HttpStatus.OK.value(), "ok", savedRecord.getId(), "Record Updated Successfully!");
+                responseObject = new ResponseObject(ErrorType.SaveSuccess, ObjectAction.class.getSimpleName() , ActionStatus.OK, savedRecord.getId(), SystemMessage.SaveOrEditMessage_Success);
             else
-                responseObject = new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", dto.getId(), "Record not Found!");
+                responseObject = new ResponseObject(ErrorType.RecordNotFound, ObjectAction.class.getSimpleName(), ActionStatus.Error, dto.getId(),SystemMessage.RecordNotFound);
         }
         else if (savedRecord==null)
-            responseObject = new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", -1L, "Record not Found!");
+            responseObject = new ResponseObject(ErrorType.RecordNotFound, ObjectAction.class.getSimpleName(), ActionStatus.Error, dto.getId(),SystemMessage.RecordNotFound);
         else
-            responseObject = new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", -1L, "Record not Found!");
+            responseObject = new ResponseObject(ErrorType.RecordNotFound, ObjectAction.class.getSimpleName(), ActionStatus.Error, dto.getId(),SystemMessage.RecordNotFound);
 
         return responseObject;
     }
@@ -104,7 +99,7 @@ public class PLGroundController {
     @Operation( summary = "delete a  PL Ground ",  description = "delete a PL ground")
     @DeleteMapping("/del/{id}")
     @CrossOrigin(origins = "*")
-    public ALCityResponseObject deletePLGroundById(@PathVariable Long id) {
+    public ResponseObject deletePLGroundById(@PathVariable Long id) {
         Optional<PLGround> existingRecord = plGroundService.findById(id);
         if(existingRecord.isPresent()){
             try {
@@ -113,9 +108,9 @@ public class PLGroundController {
             {
                 throw new ViolateForeignKeyException(-1, "error", PLGround.class.toString(),existingRecord.get().getId());
             }
-            return new ALCityResponseObject(HttpStatus.OK.value(), "ok", id,"Record deleted Successfully!");
+            return new ResponseObject(ErrorType.DeleteSuccess, ObjectAction.class.getSimpleName(), ActionStatus.Error, id,SystemMessage.DeleteMessage);
         }
-        return  new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", id,"Record not found!");
+        return new ResponseObject(ErrorType.RecordNotFound, ObjectAction.class.getSimpleName(), ActionStatus.Error, id,SystemMessage.RecordNotFound);
     }
 
     @Operation( summary = "Fetch puzzle level cells for a PL Ground by a Id ",  description = "Fetch puzzle level cells for a PL Ground by a Id ")

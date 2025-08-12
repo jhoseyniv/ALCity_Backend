@@ -1,7 +1,7 @@
 package com.alcity.repository.appmember;
 
-import com.alcity.service.customexception.ALCityResponseObject;
+import com.alcity.customexception.ResponseObject;
 
 public interface CustomizedUserRepository {
-    ALCityResponseObject login(String username, String password);
+    ResponseObject login(String username, String password);
 }

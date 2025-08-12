@@ -1,12 +1,16 @@
 package com.alcity.api;
 
 import com.alcity.dto.puzzle.PLRulePostActionDTO;
-import com.alcity.entity.alobject.Attribute;
+import com.alcity.entity.alenum.ActionStatus;
+import com.alcity.entity.alenum.ErrorType;
+import com.alcity.entity.alenum.SystemMessage;
+import com.alcity.entity.alobject.ObjectAction;
+import com.alcity.entity.base.WalletItemType;
 import com.alcity.entity.puzzle.PLRulePostAction;
 import com.alcity.service.alobject.AttributeService;
-import com.alcity.service.customexception.ALCityResponseObject;
-import com.alcity.service.customexception.UniqueConstraintException;
-import com.alcity.service.customexception.ViolateForeignKeyException;
+import com.alcity.customexception.ResponseObject;
+import com.alcity.customexception.UniqueConstraintException;
+import com.alcity.customexception.ViolateForeignKeyException;
 import com.alcity.dto.puzzle.PLRuleDTO;
 import com.alcity.entity.puzzle.PLRule;
 import com.alcity.service.puzzle.PLRulePostActionService;
@@ -15,7 +19,6 @@ import com.alcity.utility.DTOUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -38,9 +41,9 @@ public class PLRuleController {
     @Operation( summary = "Save a puzzle level  Rule  ",  description = "Save a puzzle level  Rule entity and their data to data base")
     @PostMapping("/save")
     @CrossOrigin(origins = "*")
-    public ALCityResponseObject savePLRule(@RequestBody PLRuleDTO dto)  {
+    public ResponseObject savePLRule(@RequestBody PLRuleDTO dto)  {
         PLRule savedRecord = null;
-        ALCityResponseObject responseObject = new ALCityResponseObject();
+        ResponseObject responseObject = new ResponseObject();
 
         if (dto.getId() == null || dto.getId() <= 0L) { //save
             try {
@@ -48,19 +51,19 @@ public class PLRuleController {
             } catch (RuntimeException e) {
                 throw new UniqueConstraintException(-1,"Unique Constraint in" + PLRule.class , "Error",savedRecord.getId() );
             }
-            responseObject = new ALCityResponseObject(HttpStatus.OK.value(), "ok", savedRecord.getId(), "Record Saved Successfully!");
+            responseObject = new ResponseObject(ErrorType.SaveSuccess, WalletItemType.class.getSimpleName() , ActionStatus.OK, savedRecord.getId(), SystemMessage.SaveOrEditMessage_Success);
         } else if (dto.getId() > 0L ) {//edit
             //Optional<PuzzleGroup>  puzzleGroupOptional = pgService.findById(dto.getId());
             savedRecord = plRuleService.save(dto, "Edit");
             if(savedRecord !=null)
-                responseObject = new ALCityResponseObject(HttpStatus.OK.value(), "ok", savedRecord.getId(), "Record Updated Successfully!");
+                responseObject = new ResponseObject(ErrorType.SaveSuccess, WalletItemType.class.getSimpleName() , ActionStatus.OK, savedRecord.getId(), SystemMessage.SaveOrEditMessage_Success);
             else
-                responseObject = new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", dto.getId(), "Record Not Found!");
+                responseObject = new ResponseObject(ErrorType.RecordNotFound, ObjectAction.class.getSimpleName(), ActionStatus.Error, dto.getId(),SystemMessage.RecordNotFound);
         }
         else if (savedRecord==null)
-            responseObject = new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", -1L, "Record Not Found!");
+            responseObject = new ResponseObject(ErrorType.RecordNotFound, ObjectAction.class.getSimpleName(), ActionStatus.Error, dto.getId(),SystemMessage.RecordNotFound);
         else
-            responseObject = new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", -1L, "Record Not Found!");
+            responseObject = new ResponseObject(ErrorType.RecordNotFound, ObjectAction.class.getSimpleName(), ActionStatus.Error, dto.getId(),SystemMessage.RecordNotFound);
 
         return responseObject;
     }
@@ -107,34 +110,35 @@ public class PLRuleController {
     @Operation( summary = "Copy a  Post Action in puzzle level rule  ",  description = "Copy a  Post Action in puzzle level rule ")
     @PostMapping("/copy/post-action/id/{id}")
     @CrossOrigin(origins = "*")
-    public ALCityResponseObject copyPostAction(@PathVariable Long id) {
+    public ResponseObject copyPostAction(@PathVariable Long id) {
         Optional<PLRulePostAction> postActionOptional = plRulePostActionService.findById(id);
         PLRulePostAction copiedAction = null;
         if(postActionOptional.isEmpty())
-            return  new ALCityResponseObject(HttpStatus.OK.value(), "error",id , "post action not found !");
+           return new ResponseObject(ErrorType.RecordNotFound, ObjectAction.class.getSimpleName(), ActionStatus.Error, id,SystemMessage.RecordNotFound);
         PLRulePostAction postAction = postActionOptional.get();
         copiedAction = plRulePostActionService.copy(postAction,postAction.getOwnerId());
-        return new ALCityResponseObject(HttpStatus.OK.value(), "ok", copiedAction.getId(), "Post Action is Copied Successfully!");
+        return  new ResponseObject(ErrorType.SaveSuccess, WalletItemType.class.getSimpleName() , ActionStatus.OK, postAction.getId(), SystemMessage.SaveOrEditMessage_Success);
     }
     @Operation( summary = "Copy a  Rule in a puzzle level by rule id ",  description = "Copy a  Rule in puzzle level by rule id ")
     @PostMapping("/copy/rule/id/{id}")
     @CrossOrigin(origins = "*")
-    public ALCityResponseObject copyRule(@PathVariable Long id) {
+    public ResponseObject copyRule(@PathVariable Long id) {
         Optional<PLRule> ruleOptional = plRuleService.findById(id);
         PLRule copiedRule = null;
         if(ruleOptional.isEmpty())
-            return  new ALCityResponseObject(HttpStatus.OK.value(), "error",id , "post action not found !");
+            return
+                     new ResponseObject(ErrorType.RecordNotFound, ObjectAction.class.getSimpleName(), ActionStatus.Error, id,SystemMessage.RecordNotFound);
         PLRule rule = ruleOptional.get();
         copiedRule = plRuleService.copy(rule,rule.getPuzzleLevel());
-        return new ALCityResponseObject(HttpStatus.OK.value(), "ok", copiedRule.getId(), "PL Rule is Copied Successfully!");
+        return  new ResponseObject(ErrorType.SaveSuccess, PLRule.class.getSimpleName() , ActionStatus.OK, rule.getId(), SystemMessage.SaveOrEditMessage_Success);
     }
 
     @Operation( summary = "Save a puzzle level  Rule Post Action ",  description = "Save a puzzle level  Rule Post Action entity and their data to data base")
     @PostMapping("/save/post-action")
     @CrossOrigin(origins = "*")
-    public ALCityResponseObject savePLRulePostAtion(@RequestBody PLRulePostActionDTO dto)  {
+    public ResponseObject savePLRulePostAtion(@RequestBody PLRulePostActionDTO dto)  {
         PLRulePostAction savedRecord = null;
-        ALCityResponseObject responseObject = new ALCityResponseObject();
+        ResponseObject responseObject = new ResponseObject();
 
         if (dto.getId() == null || dto.getId() <= 0L) { //save
             try {
@@ -142,19 +146,19 @@ public class PLRuleController {
             } catch (RuntimeException e) {
                 throw new UniqueConstraintException(-1,"Unique Constraint in" + PLRulePostAction.class , "Error",savedRecord.getId() );
             }
-            responseObject = new ALCityResponseObject(HttpStatus.OK.value(), "ok", savedRecord.getId(), "Record Saved Successfully!");
+            responseObject = new ResponseObject(ErrorType.SaveSuccess, WalletItemType.class.getSimpleName() , ActionStatus.OK, savedRecord.getId(), SystemMessage.SaveOrEditMessage_Success);
         } else if (dto.getId() > 0L ) {//edit
             //Optional<PuzzleGroup>  puzzleGroupOptional = pgService.findById(dto.getId());
             savedRecord = plRulePostActionService.save(dto, "Edit");
             if(savedRecord !=null)
-                responseObject = new ALCityResponseObject(HttpStatus.OK.value(), "ok", savedRecord.getId(), "Record Updated Successfully!");
+                responseObject = new ResponseObject(ErrorType.SaveSuccess, WalletItemType.class.getSimpleName() , ActionStatus.OK, savedRecord.getId(), SystemMessage.SaveOrEditMessage_Success);
             else
-                responseObject = new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", dto.getId(), "Record Not Found!");
+                responseObject = new ResponseObject(ErrorType.RecordNotFound, ObjectAction.class.getSimpleName(), ActionStatus.Error, dto.getId(),SystemMessage.RecordNotFound);
         }
         else if (savedRecord==null)
-            responseObject = new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", -1L, "Record Not Found!");
+            responseObject = new ResponseObject(ErrorType.RecordNotFound, ObjectAction.class.getSimpleName(), ActionStatus.Error, dto.getId(),SystemMessage.RecordNotFound);
         else
-            responseObject = new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", -1L, "Record Not Found!");
+            responseObject = new ResponseObject(ErrorType.RecordNotFound, ObjectAction.class.getSimpleName(), ActionStatus.Error, dto.getId(),SystemMessage.RecordNotFound);
 
         return responseObject;
     }
@@ -162,7 +166,7 @@ public class PLRuleController {
     @Operation( summary = "Delete a  Puzzle Level Rule Post Action",  description = "Delete a Puzzle Level Rule Post Action")
     @DeleteMapping("/del/post-action/id/{id}")
     @CrossOrigin(origins = "*")
-    public ALCityResponseObject deletePuzzleLevelRulePostActionById(@PathVariable Long id) {
+    public ResponseObject deletePuzzleLevelRulePostActionById(@PathVariable Long id) {
         Optional<PLRulePostAction> existingRecord = plRulePostActionService.findById(id);
         if(existingRecord.isPresent()){
             try {
@@ -171,15 +175,16 @@ public class PLRuleController {
             {
                 throw new ViolateForeignKeyException(-1, "error", PLRulePostAction.class.toString(),existingRecord.get().getId());
             }
-            return new ALCityResponseObject(HttpStatus.OK.value(), "ok", id,"Record deleted Successfully!");
+
+            return new ResponseObject(ErrorType.DeleteSuccess, ObjectAction.class.getSimpleName(), ActionStatus.OK, existingRecord.get().getId(),SystemMessage.DeleteMessage);
         }
-        return  new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", id,"Record not found!");
+       return new ResponseObject(ErrorType.RecordNotFound, ObjectAction.class.getSimpleName(), ActionStatus.Error, existingRecord.get().getId(),SystemMessage.RecordNotFound);
     }
 
     @Operation( summary = "Delete a  Puzzle Level Rule",  description = "Delete a Puzzle Level Rule")
     @DeleteMapping("/del/id/{id}")
     @CrossOrigin(origins = "*")
-    public ALCityResponseObject deletePuzzleLevelRuleById(@PathVariable Long id) {
+    public ResponseObject deletePuzzleLevelRuleById(@PathVariable Long id) {
         Optional<PLRule> existingRecord = plRuleService.findById(id);
         if(existingRecord.isPresent()){
             try {
@@ -188,9 +193,9 @@ public class PLRuleController {
             {
                 throw new ViolateForeignKeyException(-1, "error", PLRule.class.toString(),existingRecord.get().getId());
             }
-            return new ALCityResponseObject(HttpStatus.OK.value(), "ok", id,"Record deleted Successfully!");
+            return new ResponseObject(ErrorType.DeleteSuccess, PLRule.class.getSimpleName(), ActionStatus.OK, existingRecord.get().getId(),SystemMessage.DeleteMessage);
         }
-        return  new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", id,"Record not found!");
+        return new ResponseObject(ErrorType.RecordNotFound, PLRule.class.getSimpleName(), ActionStatus.Error, existingRecord.get().getId(),SystemMessage.RecordNotFound);
     }
 
 

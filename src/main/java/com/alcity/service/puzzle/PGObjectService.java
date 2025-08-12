@@ -33,6 +33,7 @@ import java.util.Random;
 @Transactional
 public class PGObjectService implements PGObjectRepository {
 
+    @Qualifier("PGObjectRepository")
     @Autowired
     PGObjectRepository objectInPGRepository;
 

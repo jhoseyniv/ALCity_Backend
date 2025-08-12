@@ -1,16 +1,19 @@
 package com.alcity.api;
 
-import com.alcity.service.customexception.ALCityResponseObject;
-import com.alcity.service.customexception.UniqueConstraintException;
-import com.alcity.service.customexception.ViolateForeignKeyException;
+import com.alcity.customexception.ResponseObject;
+import com.alcity.customexception.UniqueConstraintException;
+import com.alcity.customexception.ViolateForeignKeyException;
 import com.alcity.dto.puzzle.PLObjectiveDTO;
+import com.alcity.entity.alenum.ActionStatus;
+import com.alcity.entity.alenum.ErrorType;
+import com.alcity.entity.alenum.SystemMessage;
+import com.alcity.entity.alobject.ObjectAction;
 import com.alcity.entity.puzzle.PLObjective;
 import com.alcity.service.puzzle.PLObjectiveService;
 import com.alcity.utility.DTOUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
@@ -44,7 +47,7 @@ public class PLObjectiveController {
     @Operation( summary = "delete a  Puzzle Level Objective",  description = "delete a Puzzle Level Objective")
     @DeleteMapping("/del/{id}")
     @CrossOrigin(origins = "*")
-    public ALCityResponseObject deletePuzzleLevelObjectiveById(@PathVariable Long id) {
+    public ResponseObject deletePuzzleLevelObjectiveById(@PathVariable Long id) {
         Optional<PLObjective> existingRecord = plObjectiveService.findById(id);
         if(existingRecord.isPresent()){
             try {
@@ -53,9 +56,9 @@ public class PLObjectiveController {
             {
                 throw new ViolateForeignKeyException(-1, "error", PLObjective.class.toString(),existingRecord.get().getId());
             }
-            return new ALCityResponseObject(HttpStatus.OK.value(), "ok", id,"Record deleted Successfully!");
+            return new ResponseObject(ErrorType.DeleteSuccess, ObjectAction.class.getSimpleName(), ActionStatus.Error, id,SystemMessage.DeleteMessage);
         }
-        return  new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", id,"Record not found!");
+        return new ResponseObject(ErrorType.RecordNotFound, ObjectAction.class.getSimpleName(), ActionStatus.Error, id, SystemMessage.RecordNotFound);
     }
 
     @Operation( summary = "Fetch a objective by a Id ",  description = "fetches all data for a objectives")
@@ -73,9 +76,9 @@ public class PLObjectiveController {
     @Operation( summary = "Save a puzzle level  Objective  ",  description = "Save a puzzle level  objective entity and their data to data base")
     @PostMapping("/save")
     @CrossOrigin(origins = "*")
-    public ALCityResponseObject savePLObjective(@RequestBody PLObjectiveDTO dto)  {
+    public ResponseObject savePLObjective(@RequestBody PLObjectiveDTO dto)  {
         PLObjective savedRecord = null;
-        ALCityResponseObject responseObject = new ALCityResponseObject();
+        ResponseObject responseObject = new ResponseObject();
 
         if (dto.getId() == null || dto.getId() <= 0L) { //save
             try {
@@ -83,19 +86,19 @@ public class PLObjectiveController {
             } catch (RuntimeException e) {
                 throw new UniqueConstraintException(-1,"Unique Constraint in" + PLObjective.class , "Error",savedRecord.getId() );
             }
-            responseObject = new ALCityResponseObject(HttpStatus.OK.value(), "ok", savedRecord.getId(), "Record Saved Successfully!");
+            responseObject = new ResponseObject(ErrorType.SaveSuccess, ObjectAction.class.getSimpleName() , ActionStatus.OK, savedRecord.getId(), SystemMessage.SaveOrEditMessage_Success);
         } else if (dto.getId() > 0L ) {//edit
             //Optional<PuzzleGroup>  puzzleGroupOptional = pgService.findById(dto.getId());
             savedRecord = plObjectiveService.save(dto, "Edit");
             if(savedRecord !=null)
-                responseObject = new ALCityResponseObject(HttpStatus.OK.value(), "ok", savedRecord.getId(), "Record Updated Successfully!");
+                responseObject = new ResponseObject(ErrorType.SaveSuccess, ObjectAction.class.getSimpleName() , ActionStatus.OK, savedRecord.getId(), SystemMessage.SaveOrEditMessage_Success);
             else
-                responseObject = new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", dto.getId(), "Record Not Found!");
+                responseObject = new ResponseObject(ErrorType.RecordNotFound, ObjectAction.class.getSimpleName(), ActionStatus.Error, dto.getId(),SystemMessage.RecordNotFound);
         }
         else if (savedRecord==null)
-            responseObject = new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", -1L, "Record Not Found!");
+            responseObject = new ResponseObject(ErrorType.RecordNotFound, ObjectAction.class.getSimpleName(), ActionStatus.Error, dto.getId(),SystemMessage.RecordNotFound);
         else
-            responseObject = new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", -1L, "Record Not Found!");
+            responseObject = new ResponseObject(ErrorType.RecordNotFound, ObjectAction.class.getSimpleName(), ActionStatus.Error, dto.getId(),SystemMessage.RecordNotFound);
 
         return responseObject;
     }

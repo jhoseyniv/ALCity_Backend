@@ -1,4 +1,4 @@
-package com.alcity.service.customexception;
+package com.alcity.customexception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,7 +13,7 @@ import java.util.Map;
 
 
 @ControllerAdvice
-public class ObjectManagmentException extends ResponseEntityExceptionHandler {
+public class ObjectManagementException extends ResponseEntityExceptionHandler {
 
 
     @ExceptionHandler(RecordNotFoundException.class)
@@ -26,18 +26,18 @@ public class ObjectManagmentException extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(body, HttpStatus.NOT_FOUND);
     }
 
-    @ExceptionHandler(UniqueConstraintException.class)
-    public ResponseEntity<Object> handleUniqueConstraintException(UniqueConstraintException ex, WebRequest request) {
+    @ExceptionHandler(ResponseObject.class)
+    public ResponseEntity<Object> handleUniqueConstraintException(ResponseObject ex, WebRequest request) {
 
         Map<String, Object> body = new LinkedHashMap<>();
-        body.put("code ", "This record Id and Value is Already exist, Unique constraint...." );
+        body.put("code ", ex.getType() );
         body.put("status ", ex.getStatus() );
         body.put("message ", ex.getMessage() );
         body.put("recordId ", ex.getRecordId() );
         return new ResponseEntity<>(body, HttpStatus.CONFLICT);
     }
     @ExceptionHandler(ViolateForeignKeyException.class)
-    public ResponseEntity<Object> handleViolateForeignKeyException(ViolateForeignKeyException ex, WebRequest request) {
+    public ResponseEntity<Object> handleViolateForeignKeyException(ResponseObject ex, WebRequest request) {
 
         Map<String, Object> body = new LinkedHashMap<>();
         body.put("code ", "This record Id has a many related data in databes , violates foreign key constraint...." );

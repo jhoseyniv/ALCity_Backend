@@ -1,13 +1,15 @@
 package com.alcity.api;
 
 
-import com.alcity.entity.base.PuzzleCategory;
-import com.alcity.entity.puzzle.PuzzleGroup;
-import com.alcity.service.customexception.ALCityResponseObject;
-import com.alcity.service.customexception.UniqueConstraintException;
-import com.alcity.service.customexception.ViolateForeignKeyException;
+import com.alcity.customexception.ResponseObject;
+import com.alcity.customexception.UniqueConstraintException;
+import com.alcity.customexception.ViolateForeignKeyException;
 import com.alcity.dto.base.BinaryContentDTO;
 import com.alcity.dto.search.ContentSearchCriteriaDTO;
+import com.alcity.entity.alenum.ActionStatus;
+import com.alcity.entity.alenum.ErrorType;
+import com.alcity.entity.alenum.SystemMessage;
+import com.alcity.entity.alobject.ObjectAction;
 import com.alcity.entity.base.BinaryContent;
 import com.alcity.service.base.BinaryContentService;
 import com.alcity.service.puzzle.PGService;
@@ -16,7 +18,6 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -84,9 +85,9 @@ public class BinaryContentController {
     @Operation( summary = "Save a Binary Content to database by DTO ",  description = "Save a Binary Content entity and their data to data base")
     @PostMapping("/save")
     @CrossOrigin(origins = "*")
-    public ALCityResponseObject saveBinaryContentByDTO(@RequestBody BinaryContentDTO dto ) throws IOException {
+    public ResponseObject saveBinaryContentByDTO(@RequestBody BinaryContentDTO dto ) throws IOException {
         BinaryContent savedBinaryContent = null;
-        ALCityResponseObject responseObject = null;
+        ResponseObject responseObject = null;
         if (dto.getId() == null || dto.getId() <= 0L) { //save
             try {
                 savedBinaryContent = binaryContentService.save(dto,"Save");
@@ -95,21 +96,21 @@ public class BinaryContentController {
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
-            responseObject = new ALCityResponseObject(HttpStatus.OK.value(), "ok", savedBinaryContent.getId(), "Record Saved Successfully!");
+            responseObject = new ResponseObject(ErrorType.SaveSuccess, ObjectAction.class.getSimpleName() , ActionStatus.OK, savedBinaryContent.getId(), SystemMessage.SaveOrEditMessage_Success);
         } else if (dto.getId() > 0L ) {//edit
             Optional<BinaryContent>  binaryContentOptional = binaryContentService.findById(dto.getId());
             savedBinaryContent = binaryContentService.save(dto, "Edit");
-            responseObject = new ALCityResponseObject(HttpStatus.OK.value(), "ok", savedBinaryContent.getId(), "Record Updated Successfully!");
+            responseObject = new ResponseObject(ErrorType.SaveSuccess, ObjectAction.class.getSimpleName() , ActionStatus.OK, savedBinaryContent.getId(), SystemMessage.SaveOrEditMessage_Success);
         }
         else
-            responseObject = new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", savedBinaryContent.getId(), "Record Not Found!");
+            responseObject = new ResponseObject(ErrorType.RecordNotFound, ObjectAction.class.getSimpleName(), ActionStatus.Error, dto.getId(),SystemMessage.RecordNotFound);
 
         return responseObject;
     }
     @Operation( summary = "Delete a  Binary Content ",  description = "Delete a Binary Content")
     @DeleteMapping("/del/{id}")
     @CrossOrigin(origins = "*")
-    public ALCityResponseObject deleteById(@PathVariable Long id) {
+    public ResponseObject deleteById(@PathVariable Long id) {
         Optional<BinaryContent> existingRecord = this.binaryContentService.findById(id);
         if(existingRecord.isPresent()){
             try {
@@ -119,9 +120,9 @@ public class BinaryContentController {
             {
                 throw new ViolateForeignKeyException(-1, "error", BinaryContent.class.toString(),existingRecord.get().getId());
             }
-            return new ALCityResponseObject(HttpStatus.OK.value(), "ok", id,"Record deleted Successfully!");
+            return new ResponseObject(ErrorType.DeleteSuccess, ObjectAction.class.getSimpleName(), ActionStatus.Error, id,SystemMessage.DeleteMessage);
         }
-        return  new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", id,"Record not found!");
+        return new ResponseObject(ErrorType.RecordNotFound, ObjectAction.class.getSimpleName(), ActionStatus.Error, id,SystemMessage.RecordNotFound);
     }
 
 }

@@ -1,13 +1,16 @@
 package com.alcity.api;
 
 import com.alcity.dto.journey.*;
-import com.alcity.entity.base.PuzzleCategory;
+import com.alcity.entity.alenum.ActionStatus;
+import com.alcity.entity.alenum.ErrorType;
+import com.alcity.entity.alenum.SystemMessage;
+import com.alcity.entity.alobject.ObjectAction;
 import com.alcity.entity.journey.RoadMap;
-import com.alcity.entity.puzzle.PLGround;
+import com.alcity.entity.puzzle.BaseObject;
 import com.alcity.service.Journey.RoadMapService;
-import com.alcity.service.customexception.ALCityResponseObject;
-import com.alcity.service.customexception.UniqueConstraintException;
-import com.alcity.service.customexception.ViolateForeignKeyException;
+import com.alcity.customexception.ResponseObject;
+import com.alcity.customexception.UniqueConstraintException;
+import com.alcity.customexception.ViolateForeignKeyException;
 import com.alcity.entity.journey.Journey;
 import com.alcity.entity.journey.JourneyStep;
 import com.alcity.repository.appmember.AppMemberRepository;
@@ -35,7 +38,7 @@ import java.util.Optional;
 public class JourneyController {
 
     @Autowired
-    private JourneyService journeyService;
+    private JourneyService service;
     @Autowired
     private JourneyStepService journeyStepService;
     @Autowired
@@ -49,14 +52,14 @@ public class JourneyController {
 
     @GetMapping("/all")
     public Collection<JourneyDTO> getJourneis(Model model) {
-        Collection<JourneyDTO> journeyDTOCollection = DTOUtil.getJourneyDTOS(journeyService.findAll());
+        Collection<JourneyDTO> journeyDTOCollection = DTOUtil.getJourneyDTOS(service.findAll());
         return journeyDTOCollection;
     }
 
     @RequestMapping(value = "/id/{id}", method = RequestMethod.GET)
     @ResponseBody
     public JourneyDTO getJourneyById(@PathVariable Long id) {
-        Optional<Journey> journey = journeyService.findById(id);
+        Optional<Journey> journey = service.findById(id);
         JourneyDTO journeyDTO = DTOUtil.getJourneyDTO(journey.get());
         return journeyDTO;
     }
@@ -64,7 +67,7 @@ public class JourneyController {
     @RequestMapping(value = "/cond/{criteria}", method = RequestMethod.GET)
     @ResponseBody
     public Collection<JourneyDTO> getJourneyByCriteria(@PathVariable String criteria) {
-        Collection<Journey> journeyCollection = journeyService.findByTitleContains(criteria);
+        Collection<Journey> journeyCollection = service.findByTitleContains(criteria);
         Collection<JourneyDTO>  journeyDTOCollection = new ArrayList<JourneyDTO>();
         Iterator<Journey> itr = journeyCollection.iterator();
 
@@ -79,145 +82,130 @@ public class JourneyController {
     @Operation( summary = "Save a  Journey ",  description = "save a Journey entity and their data to data base")
     @PostMapping("/save")
     @CrossOrigin(origins = "*")
-    public ALCityResponseObject saveOrEditJourney(@RequestBody JourneyDTO dto)  {
+    public ResponseObject save(@RequestBody JourneyDTO dto)  {
         Journey savedRecord = null;
-        ALCityResponseObject responseObject = new ALCityResponseObject();
-        if (dto.getId() == null || dto.getId() <= 0L) { //save
-            try {
-                savedRecord = journeyService.save(dto,"Save");
-            } catch (RuntimeException e) {
-                throw new UniqueConstraintException(-1,"Unique Constraint in" + Journey.class , "Error",savedRecord.getId() );
-            }
-            responseObject = new ALCityResponseObject(HttpStatus.OK.value(), "ok", savedRecord.getId(), "Record Saved Successfully!");
-        } else if (dto.getId() > 0L ) {//edit
-            savedRecord = journeyService.save(dto, "Edit");
-            if(savedRecord !=null)
-                responseObject = new ALCityResponseObject(HttpStatus.OK.value(), "ok", savedRecord.getId(), "Record Updated Successfully!");
+        ResponseObject response = new ResponseObject();
+        Optional<Journey> journeyOptional = service.findById(dto.getId());
+        try{
+            if (journeyOptional.isEmpty())
+                savedRecord = service.save(dto,"Save");
             else
-                responseObject = new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", dto.getId(), "Record Not Found!");
+                savedRecord = service.save(dto, "Edit");
         }
-        else if (savedRecord==null)
-            responseObject = new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", -1L, "Record Not Found!");
-        else
-            responseObject = new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", -1L, "Record Not Found!");
+        catch (Exception e) {
+            throw new ResponseObject(ErrorType.UniquenessViolation, Journey.class.getSimpleName() ,ActionStatus.Error , -1L ,e.getCause().getMessage());
+        }
 
-        return responseObject;
+        if(savedRecord !=null)
+            response = new ResponseObject(ErrorType.SaveSuccess, Journey.class.getSimpleName() ,ActionStatus.OK, savedRecord.getId(), SystemMessage.SaveOrEditMessage_Success);
+        else
+            response = new ResponseObject(ErrorType.SaveFail, Journey.class.getSimpleName() ,ActionStatus.Error, -1L, SystemMessage.SaveOrEditMessage_Fail);
+        return response;
     }
 
     @Operation( summary = "Save a  Journey Step",  description = "save a Journey Step and their data to data base")
     @PostMapping("/save/step")
     @CrossOrigin(origins = "*")
-    public ALCityResponseObject saveOrEditJourneyStep(@RequestBody JourneyStepRecord dto)  {
+    public ResponseObject saveOrEditJourneyStep(@RequestBody JourneyStepRecord dto)  {
         JourneyStep savedRecord = null;
-        ALCityResponseObject responseObject = new ALCityResponseObject();
-        if (dto.getId() == null || dto.getId() <= 0L) { //save
-            try {
+        ResponseObject response = new ResponseObject();
+        Optional<JourneyStep> journeyStepOptional = journeyStepService.findById(dto.getId());
+        try{
+            if (journeyStepOptional.isEmpty())
                 savedRecord = journeyStepService.save(dto,"Save");
-            } catch (RuntimeException e) {
-                throw new UniqueConstraintException(-1,"Unique Constraint in" + JourneyStep.class , "Error",savedRecord.getId() );
-            }
-            responseObject = new ALCityResponseObject(HttpStatus.OK.value(), "ok", savedRecord.getId(), "Record Saved Successfully!");
-        } else if (dto.getId() > 0L ) {//edit
-            savedRecord = journeyStepService.save(dto, "Edit");
-            if(savedRecord !=null)
-                responseObject = new ALCityResponseObject(HttpStatus.OK.value(), "ok", savedRecord.getId(), "Record Updated Successfully!");
             else
-                responseObject = new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", dto.getId(), "Record Not Found!");
+                savedRecord = journeyStepService.save(dto, "Edit");
         }
-        else if (savedRecord==null)
-            responseObject = new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", -1L, "Record Not Found!");
+        catch (Exception e) {
+            throw new ResponseObject(ErrorType.UniquenessViolation, JourneyStep.class.getSimpleName() ,ActionStatus.Error , -1L ,e.getCause().getMessage());
+        }
+        if(savedRecord !=null)
+            response = new ResponseObject(ErrorType.SaveSuccess, JourneyStep.class.getSimpleName() ,ActionStatus.OK, savedRecord.getId(), SystemMessage.SaveOrEditMessage_Success);
         else
-            responseObject = new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", -1L, "Record Not Found!");
-     return responseObject;
+            response = new ResponseObject(ErrorType.SaveFail, JourneyStep.class.getSimpleName() ,ActionStatus.Error, -1L, SystemMessage.SaveOrEditMessage_Fail);
+     return response;
     }
 
     @Operation( summary = "Update all Road Map positions",  description = "update all Road Map position ")
     @PostMapping("/update/all/road-maps")
     @CrossOrigin(origins = "*")
-    public ALCityResponseObject updateRoadMaps(@RequestBody Collection<RoadMapUpdatePos> dtos) {
-        ALCityResponseObject responseObject = new ALCityResponseObject();
+    public ResponseObject updateRoadMaps(@RequestBody Collection<RoadMapUpdatePos> dtos) {
+        ResponseObject response = new ResponseObject();
        Collection<RoadMap> roadMaps = roadMapService.updateAll(dtos);
        if(roadMaps == null || roadMaps.size() != dtos.size()) {
-           responseObject = new ALCityResponseObject(HttpStatus.OK.value(), "ok",-1L , "Records Not Update try again!");
+           response = new ResponseObject(ErrorType.SaveFail, JourneyStep.class.getSimpleName() , ActionStatus.OK, 1L, SystemMessage.SaveOrEditMessage_Fail);
        }else {
-           responseObject = new ALCityResponseObject(HttpStatus.OK.value(), "ok",1L , "All Records Update Successfully!");
-
+           response = new ResponseObject(ErrorType.SaveSuccess, JourneyStep.class.getSimpleName() , ActionStatus.OK, 1L, SystemMessage.SaveOrEditMessage_Success);
        }
-        return responseObject;
+        return response;
     }
 
     @Operation( summary = "Save a  Road Map",  description = "save a Road Map and their data to data base")
     @PostMapping("/save/road-map")
     @CrossOrigin(origins = "*")
-    public ALCityResponseObject saveOrEditRoadMap(@RequestBody RoadMapDTO dto)  {
+    public ResponseObject saveOrEditRoadMap(@RequestBody RoadMapDTO dto)  {
         RoadMap savedRecord = null;
-        ALCityResponseObject responseObject = new ALCityResponseObject();
-        if (dto.getId() == null || dto.getId() <= 0L) { //save
-            try {
+        ResponseObject response = new ResponseObject();
+        Optional<RoadMap> journeyStepOptional = roadMapService.findById(dto.getId());
+        try{
+            if (journeyStepOptional.isEmpty())
                 savedRecord = roadMapService.save(dto,"Save");
-            } catch (RuntimeException e) {
-                throw new UniqueConstraintException(-1,"Unique Constraint in" + RoadMap.class , "Error",savedRecord.getId() );
-            }
-            responseObject = new ALCityResponseObject(HttpStatus.OK.value(), "ok", savedRecord.getId(), "Record Saved Successfully!");
-        } else if (dto.getId() > 0L ) {//edit
-            savedRecord = roadMapService.save(dto, "Edit");
-            if(savedRecord !=null)
-                responseObject = new ALCityResponseObject(HttpStatus.OK.value(), "ok", savedRecord.getId(), "Record Updated Successfully!");
             else
-                responseObject = new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", dto.getId(), "Record Not Found!");
+                savedRecord = roadMapService.save(dto, "Edit");
         }
-        else if (savedRecord==null)
-            responseObject = new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", -1L, "Record Not Found!");
+        catch (Exception e) {
+            throw new ResponseObject(ErrorType.UniquenessViolation, RoadMap.class.getSimpleName() ,ActionStatus.Error , -1L ,e.getCause().getMessage());
+        }
+        if(savedRecord !=null)
+            response = new ResponseObject(ErrorType.SaveSuccess, RoadMap.class.getSimpleName() ,ActionStatus.OK, savedRecord.getId(), SystemMessage.SaveOrEditMessage_Success);
         else
-            responseObject = new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", -1L, "Record Not Found!");
-        return responseObject;
+            response = new ResponseObject(ErrorType.SaveFail, RoadMap.class.getSimpleName() ,ActionStatus.Error, -1L, SystemMessage.SaveOrEditMessage_Fail);
+        return response;
     }
 
     @DeleteMapping("/del/road-map/id/{id}")
-    public ResponseEntity<String> deleteJourneyRoadMapById(@PathVariable Long id) {
+    public ResponseObject deleteJourneyRoadMapById(@PathVariable Long id) {
         Optional<RoadMap> existingRecord = roadMapService.findById(id);
         if(existingRecord.isPresent()){
             try {
-                roadMapService.deleteById(existingRecord.get().getId());
-
-            }catch (Exception e )
-            {
-                throw new ViolateForeignKeyException(-1, "error", RoadMap.class.toString(),existingRecord.get().getId());
+                roadMapService.delete(existingRecord.get());
             }
-            return new ResponseEntity<>("Record deleted Successfully!", HttpStatus.OK);
+            catch (Exception e) {
+                return new ResponseObject(ErrorType.ForeignKeyViolation, RoadMap.class.getSimpleName(),ActionStatus.Error, id,e.getCause().getMessage());
+            }
+            return new ResponseObject(ErrorType.SaveSuccess, BaseObject.class.getSimpleName(),ActionStatus.OK, id,SystemMessage.DeleteMessage);
         }
-        return ResponseEntity.notFound().build();
+        return  new ResponseObject(ErrorType.RecordNotFound,BaseObject.class.getSimpleName(), ActionStatus.Error, id,SystemMessage.RecordNotFound);
     }
+
     @DeleteMapping("/del/step/id/{id}")
-    public ResponseEntity<String> deleteJourneyStepById(@PathVariable Long id) {
+    public ResponseObject deleteJourneyStepById(@PathVariable Long id) {
         Optional<JourneyStep> existingRecord = journeyStepService.findById(id);
         if(existingRecord.isPresent()){
             try {
-                journeyStepService.deleteById(existingRecord.get().getId());
-
-            }catch (Exception e )
-            {
-                throw new ViolateForeignKeyException(-1, "error", JourneyStep.class.toString(),existingRecord.get().getId());
+                journeyStepService.delete(existingRecord.get());
             }
-            return new ResponseEntity<>("Record deleted Successfully!", HttpStatus.OK);
+            catch (Exception e) {
+                return new ResponseObject(ErrorType.ForeignKeyViolation, JourneyStep.class.getSimpleName(),ActionStatus.Error, id,e.getCause().getMessage());
+            }
+            return new ResponseObject(ErrorType.SaveSuccess, BaseObject.class.getSimpleName(),ActionStatus.OK, id,SystemMessage.DeleteMessage);
         }
-        return ResponseEntity.notFound().build();
+        return  new ResponseObject(ErrorType.RecordNotFound,BaseObject.class.getSimpleName(), ActionStatus.Error, id,SystemMessage.RecordNotFound);
     }
 
     @DeleteMapping("/del/{id}")
-    public ResponseEntity<String> deleteJourneyById(@PathVariable Long id) {
-        Optional<Journey> existingRecord = journeyService.findById(id);
-        if(existingRecord.isPresent()){
-            try {
-                journeyService.deleteById(existingRecord.get().getId());
-
-            }catch (Exception e )
-            {
-                throw new ViolateForeignKeyException(-1, "error", Journey.class.toString(),existingRecord.get().getId());
-            }
-            return new ResponseEntity<>("Record deleted Successfully!", HttpStatus.OK);
+    public ResponseObject deleteJourneyById(@PathVariable Long id) {
+        Optional<Journey> requestedRecord = service.findById(id);
+         if(requestedRecord.isPresent()){
+             try {
+                 service.delete(requestedRecord.get());
+             }
+             catch (Exception e) {
+                 return new ResponseObject(ErrorType.ForeignKeyViolation, Journey.class.getSimpleName(),ActionStatus.Error, id,e.getCause().getMessage());
+             }
+            return new ResponseObject(ErrorType.SaveSuccess, BaseObject.class.getSimpleName(),ActionStatus.OK, id,SystemMessage.DeleteMessage);
         }
-        return ResponseEntity.notFound().build();
+        return  new ResponseObject(ErrorType.RecordNotFound,BaseObject.class.getSimpleName(), ActionStatus.Error, id,SystemMessage.RecordNotFound);
     }
 
     @Operation( summary = "Get all steps for a Journey ",  description = "Get all steps")
@@ -225,7 +213,7 @@ public class JourneyController {
     @ResponseBody
     @CrossOrigin(origins = "*")
     public Collection<JourneyStepDTO> getJourneyStepsById(@PathVariable Long id) {
-        Optional<Journey> journey = journeyService.findById(id);
+        Optional<Journey> journey = service.findById(id);
         Collection<JourneyStep> steps = journey.get().getJourneyStepCollection();
         Collection<JourneyStepDTO> dtos = DTOUtil.getJorneyStepsDTOS(steps);
         return dtos;
@@ -236,7 +224,7 @@ public class JourneyController {
     @ResponseBody
     @CrossOrigin(origins = "*")
     public Collection<RoadMapDTO> getJourneyRoadMapsById(@PathVariable Long id) {
-        Optional<Journey> journeyOptional = journeyService.findById(id);
+        Optional<Journey> journeyOptional = service.findById(id);
         Collection<RoadMap> roadMaps = journeyOptional.get().getRoadMaps();
         Collection<RoadMapDTO> dtos = DTOUtil.getJourneyRoadMapsDTOS(roadMaps);
         return dtos;

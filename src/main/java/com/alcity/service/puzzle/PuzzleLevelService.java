@@ -63,7 +63,7 @@ public class PuzzleLevelService implements PuzzleLevelRepository {
 
     @Override
     public Optional<PuzzleLevel> findById(Long aLong) {
-
+        if(aLong == null) return Optional.empty();
         return puzzleLevelRepository.findById(aLong);
     }
 

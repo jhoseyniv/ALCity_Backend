@@ -1,19 +1,24 @@
 package com.alcity.api;
 
 import com.alcity.dto.alobject.AttributeDTOSave;
-import com.alcity.entity.puzzle.PLGround;
-import com.alcity.service.customexception.ALCityResponseObject;
-import com.alcity.service.customexception.UniqueConstraintException;
-import com.alcity.service.customexception.ViolateForeignKeyException;
+import com.alcity.customexception.ResponseObject;
+import com.alcity.customexception.UniqueConstraintException;
+import com.alcity.customexception.ViolateForeignKeyException;
 import com.alcity.dto.alobject.AttributeDTO;
+import com.alcity.entity.alenum.ActionStatus;
 import com.alcity.entity.alenum.AttributeOwnerType;
+import com.alcity.entity.alenum.ErrorType;
+import com.alcity.entity.alenum.SystemMessage;
 import com.alcity.entity.alobject.Attribute;
+import com.alcity.entity.alobject.ObjectAction;
+import com.alcity.entity.alobject.Renderer;
+import com.alcity.entity.base.WalletItemType;
+import com.alcity.entity.puzzle.BaseObject;
 import com.alcity.service.alobject.AttributeService;
 import com.alcity.utility.DTOUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -27,7 +32,7 @@ import java.util.Optional;
 public class AttributeController {
 
     @Autowired
-    private AttributeService attributeService;
+    private AttributeService service;
 
     @Operation( summary = "Fetch an Attribute data by a Id ",  description = "fetches all data for a Attribute")
     @RequestMapping(value = "/id/{id}", method = RequestMethod.GET)
@@ -35,7 +40,7 @@ public class AttributeController {
     @CrossOrigin(origins = "*")
     public AttributeDTO getAttributeById(@PathVariable Long id) {
         AttributeDTO attributeDTO= new AttributeDTO();
-        Optional<Attribute> attributeOptional = attributeService.findById(id);
+        Optional<Attribute> attributeOptional = service.findById(id);
         if(attributeOptional.isEmpty()) return null;
         attributeDTO = DTOUtil.getAttributeDTO(attributeOptional.get());
         return attributeDTO;
@@ -44,56 +49,52 @@ public class AttributeController {
     @Operation( summary = "Save an Attribute Entity ",  description = "Save an Attribute Entity...")
     @PostMapping("/save")
     @CrossOrigin(origins = "*")
-    public ALCityResponseObject saveAttribute(@RequestBody AttributeDTOSave dto)  {
+    public ResponseObject saveAttribute(@RequestBody AttributeDTOSave dto)  {
         Attribute savedRecord = null;
-        ALCityResponseObject responseObject = new ALCityResponseObject();
-
-        if (dto.getId() == null || dto.getId() <= 0L) { //save
-            try {
-                savedRecord = attributeService.save(dto,"Save");
-            } catch (RuntimeException e) {
-                throw new UniqueConstraintException(-1,"Unique Constraint in" + Attribute.class , "Error",savedRecord.getId() );
-            }
-            responseObject = new ALCityResponseObject(HttpStatus.OK.value(), "ok", savedRecord.getId(), "Record Saved Successfully!");
-        } else if (dto.getId() > 0L ) {//edit
-            savedRecord = attributeService.save(dto, "Edit");
-            if(savedRecord !=null)
-                responseObject = new ALCityResponseObject(HttpStatus.OK.value(), "ok", savedRecord.getId(), "Record Updated Successfully!");
+        ResponseObject response = new ResponseObject();
+        Optional<Attribute> attributeOptional = service.findById(dto.getId());
+        try{
+            if (attributeOptional.isEmpty())
+                savedRecord = service.save(dto,"Save");
             else
-                responseObject = new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", dto.getId(), "Record Not Found!");
+                savedRecord = service.save(dto, "Edit");
         }
-        else if (savedRecord==null)
-            responseObject = new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", -1L, "Record Not Found!");
+        catch (Exception e) {
+            throw new ResponseObject(ErrorType.UniquenessViolation, Attribute.class.getSimpleName() ,ActionStatus.Error , -1L ,e.getCause().getMessage());
+        }
+        if(savedRecord !=null)
+            response = new ResponseObject(ErrorType.SaveSuccess, Attribute.class.getSimpleName() ,ActionStatus.OK, savedRecord.getId(), SystemMessage.SaveOrEditMessage_Success);
         else
-            responseObject = new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", -1L, "Record Not Found!");
+            response = new ResponseObject(ErrorType.SaveFail, Attribute.class.getSimpleName() ,ActionStatus.Error, -1L, SystemMessage.SaveOrEditMessage_Fail);
 
-        return responseObject;
+        return response;
+
     }
 
     @Operation( summary = "Save an Attribute Collection ",  description = "Save an Attribute collection Entity...")
     @PostMapping("/save/all")
     @CrossOrigin(origins = "*")
-    public Collection<ALCityResponseObject> saveAllAttribute(@RequestBody Collection<AttributeDTOSave> dtos)  {
-        Collection<ALCityResponseObject> responseObject = new ArrayList<>();
-        Collection<ALCityResponseObject> responseObjects = attributeService.saveAll(dtos);
+    public Collection<ResponseObject> saveAllAttribute(@RequestBody Collection<AttributeDTOSave> dtos)  {
+        Collection<ResponseObject> responseObject = new ArrayList<>();
+        Collection<ResponseObject> responseObjects = service.saveAll(dtos);
         return responseObjects;
     }
 
     @Operation( summary = "delete an Attribute with all values",  description = "delete an Attribute with all values from database")
     @DeleteMapping("/del/{id}")
     @CrossOrigin(origins = "*")
-    public ALCityResponseObject deleteAttributeById(@PathVariable Long id) {
-        Optional<Attribute> existingRecord = attributeService.findById(id);
-        if(existingRecord.isPresent()){
+    public ResponseObject deleteAttributeById(@PathVariable Long id) {
+        Optional<Attribute>  requestedRecord = service.findById(id);
+        if(requestedRecord.isPresent()){
             try {
-                attributeService.deleteById(existingRecord.get().getId());
-            }catch (Exception e )
-            {
-                throw new ViolateForeignKeyException(-1, "error", Attribute.class.toString(),existingRecord.get().getId());
+                service.delete(requestedRecord.get());
             }
-            return new ALCityResponseObject(HttpStatus.OK.value(), "ok", id,"Record deleted Successfully!");
+            catch (Exception e) {
+                return new ResponseObject(ErrorType.ForeignKeyViolation, Attribute.class.getSimpleName(),ActionStatus.Error, id,e.getCause().getMessage());
+            }
+            return new ResponseObject(ErrorType.DeleteSuccess, Attribute.class.getSimpleName(),ActionStatus.OK, id,SystemMessage.DeleteMessage);
         }
-        return  new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", id,"Record not found!");
+        return  new ResponseObject(ErrorType.RecordNotFound,Attribute.class.getSimpleName(), ActionStatus.Error, id,SystemMessage.RecordNotFound);
     }
 
 
@@ -102,7 +103,7 @@ public class AttributeController {
   @ResponseBody
   @CrossOrigin(origins = "*")
   public Collection<AttributeDTO> getAttributesByOwnerIdAndOwnerType(@PathVariable Long id,@PathVariable String type) {
-      Collection<Attribute> attributes = attributeService.findByOwnerIdAndAttributeOwnerTypeNew(id,AttributeOwnerType.getByTitle(type));
+      Collection<Attribute> attributes = service.findByOwnerIdAndAttributeOwnerTypeNew(id,AttributeOwnerType.getByTitle(type));
       Collection<AttributeDTO> dtos = new ArrayList<AttributeDTO>();
       dtos = DTOUtil.getAttributesDTOS(attributes);
       return  dtos;

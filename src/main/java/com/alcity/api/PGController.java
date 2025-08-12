@@ -1,10 +1,14 @@
 package com.alcity.api;
 
 import com.alcity.dto.pgimport.PGImportDTO;
-import com.alcity.service.customexception.ALCityResponseObject;
-import com.alcity.service.customexception.UniqueConstraintException;
+import com.alcity.customexception.ResponseObject;
+import com.alcity.customexception.UniqueConstraintException;
 import com.alcity.dto.journey.JourneyStepDTO;
 import com.alcity.dto.puzzle.*;
+import com.alcity.entity.alenum.ActionStatus;
+import com.alcity.entity.alenum.ErrorType;
+import com.alcity.entity.alenum.SystemMessage;
+import com.alcity.entity.alobject.ObjectAction;
 import com.alcity.entity.base.PuzzleCategory;
 import com.alcity.entity.journey.JourneyStep;
 import com.alcity.entity.puzzle.*;
@@ -14,7 +18,6 @@ import com.alcity.utility.DTOUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
@@ -86,13 +89,14 @@ public class PGController {
         return puzzleGroupDTOCollection;
     }
 
-    @Operation( summary = "get all learning skill for  a Puzzle Group ",  description = "get all learning skill for  a Puzzle Group")
+    @Operation( summary = "get a Puzzle Group by id",  description = "get all  a Puzzle Group")
     @RequestMapping(value = "/id/{id}", method = RequestMethod.GET)
     @ResponseBody
     public PGDTO getPuzzleGroupById(@PathVariable Long id) {
-        Optional<PuzzleGroup> puzzleGroup = pgService.findById(id);
+          Optional<PuzzleGroup> puzzleGroup = pgService.findById(id);
         PGDTO puzzleGroupDTO = new PGDTO();
         if(puzzleGroup.isPresent())  puzzleGroupDTO = DTOUtil.getPuzzleGroupDTO(puzzleGroup.get());
+
         return  puzzleGroupDTO;
     }
 
@@ -109,9 +113,9 @@ public class PGController {
     @Operation( summary = "Import a Puzzle Group ",  description = "Import a Puzzle Group entity to database")
     @PostMapping("/import")
     @CrossOrigin(origins = "*")
-    public ALCityResponseObject importPuzzleGroup(@RequestBody PGImportDTO dto) throws UniqueConstraintException {
+    public ResponseObject importPuzzleGroup(@RequestBody PGImportDTO dto) throws UniqueConstraintException {
         PuzzleGroup savedRecord = null;
-        ALCityResponseObject responseObject = new ALCityResponseObject();
+        ResponseObject responseObject = new ResponseObject();
 
         if (dto.getId() == null || dto.getId() <= 0L) { //save
             try {
@@ -124,7 +128,7 @@ public class PGController {
             } catch (RuntimeException e) {
                 throw new UniqueConstraintException(-1,"Unique Constraint in" + PuzzleGroup.class , "Error",savedRecord.getId() );
             }
-            responseObject = new ALCityResponseObject(HttpStatus.OK.value(), "ok", savedRecord.getId(), "Record Saved Successfully!");
+            responseObject = new ResponseObject(ErrorType.SaveSuccess, ObjectAction.class.getSimpleName() , ActionStatus.OK, savedRecord.getId(), SystemMessage.SaveOrEditMessage_Success);
         }
         return responseObject;
     }
@@ -132,9 +136,9 @@ public class PGController {
     @Operation( summary = "Save a Puzzle Group ",  description = "save a Puzzle Group entity to database")
     @PostMapping("/save")
     @CrossOrigin(origins = "*")
-    public ALCityResponseObject savePuzzleGroup(@RequestBody PGDTO dto) {
+    public ResponseObject savePuzzleGroup(@RequestBody PGDTO dto) {
         PuzzleGroup savedRecord = null;
-        ALCityResponseObject responseObject = new ALCityResponseObject();
+        ResponseObject responseObject = new ResponseObject();
 
         if (dto.getId() == null || dto.getId() <= 0L) { //save
             try {
@@ -142,19 +146,19 @@ public class PGController {
             } catch (RuntimeException e) {
                 throw new UniqueConstraintException(-1,"Unique Constraint in" + PuzzleCategory.class , "Error",savedRecord.getId() );
             }
-            responseObject = new ALCityResponseObject(HttpStatus.OK.value(), "ok", savedRecord.getId(), "Record Saved Successfully!");
+            responseObject = new ResponseObject(ErrorType.SaveSuccess, ObjectAction.class.getSimpleName() , ActionStatus.OK, savedRecord.getId(), SystemMessage.SaveOrEditMessage_Success);
         } else if (dto.getId() > 0L ) {//edit
             //Optional<PuzzleGroup>  puzzleGroupOptional = pgService.findById(dto.getId());
             savedRecord = pgService.save(dto, "Edit");
             if(savedRecord !=null)
-                responseObject = new ALCityResponseObject(HttpStatus.OK.value(), "ok", savedRecord.getId(), "Record Updated Successfully!");
+                responseObject = new ResponseObject(ErrorType.SaveSuccess, ObjectAction.class.getSimpleName() , ActionStatus.OK, savedRecord.getId(), SystemMessage.SaveOrEditMessage_Success);
             else
-                responseObject = new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", dto.getId(), "Record Not Found!");
+                responseObject = new ResponseObject(ErrorType.RecordNotFound, ObjectAction.class.getSimpleName(), ActionStatus.Error, dto.getId(),SystemMessage.RecordNotFound);
         }
         else if (savedRecord==null)
-            responseObject = new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", -1L, "Record Not Found!");
+            responseObject = new ResponseObject(ErrorType.RecordNotFound, ObjectAction.class.getSimpleName(), ActionStatus.Error, dto.getId(),SystemMessage.RecordNotFound);
         else
-            responseObject = new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", -1L, "Record Not Found!");
+            responseObject = new ResponseObject(ErrorType.RecordNotFound, ObjectAction.class.getSimpleName(), ActionStatus.Error, dto.getId(),SystemMessage.RecordNotFound);
 
         return responseObject;
     }
@@ -162,22 +166,23 @@ public class PGController {
     @Operation( summary = "Delete a  Puzzle Group ",  description = "Delete a Puzzle group entity and their data to data base")
     @DeleteMapping("/del/id/{id}")
     @CrossOrigin(origins = "*")
-    public ALCityResponseObject deletePuzzleGroupById(@PathVariable Long id) throws Exception {
+    public ResponseObject deletePuzzleGroupById(@PathVariable Long id) throws Exception {
         Optional<PuzzleGroup> puzzleGroupOptional = pgService.findById(id);
-        ALCityResponseObject responseObject=null;
+        ResponseObject responseObject=null;
         if(puzzleGroupOptional.isPresent()) {
             Collection<PuzzleLevel> puzzleLevels = puzzleGroupOptional.get().getPuzzleLevels();
             if (puzzleLevels.isEmpty()) {  // if no puzzle level present
                 pgService.delete(puzzleGroupOptional.get());
-                responseObject = new ALCityResponseObject(HttpStatus.OK.value(), "ok", id, "Record deleted Successfully!");
+                responseObject = new ResponseObject(ErrorType.DeleteSuccess, ObjectAction.class.getSimpleName(), ActionStatus.Error, id,SystemMessage.DeleteMessage);
             } else {
+                responseObject = new ResponseObject(ErrorType.SaveSuccess, ObjectAction.class.getSimpleName() , ActionStatus.OK, id, SystemMessage.SaveOrEditMessage_Success);
 
-                responseObject = new ALCityResponseObject(HttpStatus.OK.value(), "Warning", id, "Puzzle Group has Puzzle Level , you can delete that");
             }
         }
         else {
-                responseObject = new ALCityResponseObject(HttpStatus.OK.value(), "ok", id,"Record deleted Successfully!");
-            }
+                responseObject = new ResponseObject(ErrorType.DeleteSuccess, ObjectAction.class.getSimpleName(), ActionStatus.Error, id,SystemMessage.DeleteMessage);
+        }
+
         return  responseObject;
     }
 

@@ -1,7 +1,8 @@
-package com.alcity.service.customexception;
+package com.alcity.customexception;
 
 public class RecordNotFoundException extends  RuntimeException {
 
+    private Integer code;
     private Long recordId;
     private String  message;
     private String  recordTitle;

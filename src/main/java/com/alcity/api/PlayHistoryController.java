@@ -1,22 +1,18 @@
 package com.alcity.api;
 
 import com.alcity.dto.player.PlayHistoryDTO;
-import com.alcity.dto.puzzle.PLDTO;
-import com.alcity.entity.appmember.AppMember;
+import com.alcity.entity.alenum.ActionStatus;
+import com.alcity.entity.alenum.ErrorType;
+import com.alcity.entity.alenum.SystemMessage;
 import com.alcity.entity.play.PlayHistory;
-import com.alcity.entity.puzzle.PuzzleLevel;
-import com.alcity.service.appmember.AppMemberService;
-import com.alcity.service.customexception.ALCityResponseObject;
-import com.alcity.service.customexception.UniqueConstraintException;
+import com.alcity.entity.puzzle.BaseObject;
+import com.alcity.customexception.ResponseObject;
 import com.alcity.service.play.PlayHistoryService;
-import com.alcity.utility.DTOUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Collection;
 import java.util.Optional;
 
 @Tag(name = "Play History APIs", description = "Get Play history and related entities as rest api")
@@ -40,29 +36,24 @@ public class PlayHistoryController {
     @Operation( summary = "Save a play history for an Application Member + puzzle level",  description = "Save a play history for an Application Member + puzzle level ...")
     @PostMapping("/save")
     @CrossOrigin(origins = "*")
-    public ALCityResponseObject savePlayHistory(@RequestBody PlayHistoryDTO dto)  {
+    public ResponseObject savePlayHistory(@RequestBody PlayHistoryDTO dto)  {
         PlayHistory savedRecord = null;
-        ALCityResponseObject responseObject = new ALCityResponseObject();
+        ResponseObject responseObject = new ResponseObject();
+        Optional<PlayHistory> playHistoryOptional = playHistoryService.findById(dto.getId());
 
-        if (dto.getId() == null || dto.getId() <= 0L) { //save
-            try {
+        try {
+            if (playHistoryOptional.isEmpty())
                 savedRecord = playHistoryService.save(dto,"Save");
-            } catch (RuntimeException e) {
-                throw new UniqueConstraintException(-1,"Unique Constraint in" + PuzzleLevel.class , "Error",savedRecord.getId() );
-            }
-            responseObject = new ALCityResponseObject(HttpStatus.OK.value(), "ok", savedRecord.getId(), "Record Saved Successfully!");
-        } else if (dto.getId() > 0L ) {//edit
-            //Optional<PuzzleGroup>  puzzleGroupOptional = pgService.findById(dto.getId());
-            savedRecord = playHistoryService.save(dto, "Edit");
-            if(savedRecord !=null)
-                responseObject = new ALCityResponseObject(HttpStatus.OK.value(), "ok", savedRecord.getId(), "Record Updated Successfully!");
             else
-                responseObject = new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", dto.getId(), "Record Not Found!");
+                savedRecord = playHistoryService.save(dto, "Edit");
         }
-        else if (savedRecord==null)
-            responseObject = new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", -1L, "Record Not Found!");
-        else
-            responseObject = new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", -1L, "Record Not Found!");
+        catch (Exception e) {
+
+            throw new ResponseObject(ErrorType.UniquenessViolation, PlayHistory.class.getSimpleName() , ActionStatus.Error , -1L ,e.getCause().getMessage());
+        }
+        if(savedRecord !=null)
+            responseObject = new ResponseObject(ErrorType.SaveSuccess, BaseObject.class.getSimpleName() ,ActionStatus.OK, savedRecord.getId(), SystemMessage.DeleteMessage);
+
 
         return responseObject;
     }

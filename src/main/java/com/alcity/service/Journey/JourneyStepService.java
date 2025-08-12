@@ -37,6 +37,7 @@ public class JourneyStepService implements JourneyStepRepository {
 
     @Override
     public Optional<JourneyStep> findById(Long id) {
+        if(id==null) return Optional.empty();
         return journeyStepRepository.findById(id);
     }
 

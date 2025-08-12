@@ -1,6 +1,7 @@
-package com.alcity.service.customexception;
+package com.alcity.customexception;
 
 public class ViolateForeignKeyException extends  RuntimeException{
+
     private Integer code;
     private String status; //ok or error
     private String  message;

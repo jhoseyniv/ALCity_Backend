@@ -1,7 +1,6 @@
 package com.alcity.service.appmember;
 
 import com.alcity.comparetors.JourneyStepComparator;
-import com.alcity.comparetors.PLComparatorByFromAge;
 import com.alcity.dto.RemoteAccess.RemoteRequestDTO;
 import com.alcity.dto.appmember.*;
 import com.alcity.dto.journey.RoadMapDTO;
@@ -17,7 +16,7 @@ import com.alcity.entity.journey.JourneyStep;
 import com.alcity.entity.play.PlayHistory;
 import com.alcity.entity.puzzle.PuzzleLevel;
 import com.alcity.o3rdparty.ALCityAcessRight;
-import com.alcity.service.customexception.ALCityResponseObject;
+import com.alcity.customexception.ResponseObject;
 import com.alcity.entity.alenum.UserGender;
 import com.alcity.entity.appmember.AppMember;
 import com.alcity.entity.appmember.AppMember_WalletItem;
@@ -423,7 +422,7 @@ public class AppMemberService implements AppMemberRepository, CustomizedUserRepo
         return appMemberRepository.findByUsernameContainingIgnoreCaseOrNicknameContainingIgnoreCaseOrEmailIsContainingIgnoreCase(userName,nickName,email);
     }
 
-    public ALCityResponseObject login(String username, String password) {
+    public ResponseObject login(String username, String password) {
         return null;
     }
 }

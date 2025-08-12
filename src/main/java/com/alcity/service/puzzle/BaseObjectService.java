@@ -4,8 +4,8 @@ import com.alcity.dto.search.ObjectSearchCriteriaDTO;
 import com.alcity.dto.search.SearchResultCityObjectDTO;
 import com.alcity.entity.puzzle.PGObject;
 import com.alcity.entity.puzzle.PuzzleGroup;
-import com.alcity.service.customexception.UniqueConstraintException;
-import com.alcity.service.customexception.ViolateForeignKeyException;
+import com.alcity.customexception.RecordNotFoundException;
+import com.alcity.customexception.ViolateForeignKeyException;
 import com.alcity.dto.puzzle.object.CityObjectDTO;
 import com.alcity.entity.alenum.POActionOwnerType;
 import com.alcity.entity.alobject.ObjectCategory;
@@ -56,6 +56,7 @@ public class BaseObjectService implements BaseObjectRepository {
 
     @Override
     public Optional<BaseObject> findById(Long id) {
+        if(id==null) return Optional.empty();
         return baseObjectRepository.findById(id);
     }
 
@@ -266,39 +267,39 @@ public class BaseObjectService implements BaseObjectRepository {
     @Autowired
     private BinaryContentRepository binaryContentRepository;
 
-    public BaseObject save(CityObjectDTO dto, String code) {
+    public BaseObject save(CityObjectDTO dto, String code) throws Exception {
         Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
         Optional<BinaryContent> icon = binaryContentRepository.findById(dto.getIconId());
         Optional<BinaryContent> pic = binaryContentRepository.findById(dto.getPictureId());
         ObjectCategory objectCategory =  objectCategoryRepository.findByValue(dto.getCategory());
-        BaseObject alCityObject=null;
+        BaseObject baseObject=null;
         if (code.equalsIgnoreCase("Save")) { //Save
-            alCityObject = new BaseObject(1L, DateUtils.getNow(), DateUtils.getNow(), createdBy.get(), createdBy.get(),
-                    dto.getTitle(), objectCategory,dto.getIs3dObject(),pic.get(),icon.get());
             try {
-                baseObjectRepository.save(alCityObject);
+                baseObject = new BaseObject(1L, DateUtils.getNow(), DateUtils.getNow(), createdBy.get(), createdBy.get(),
+                    dto.getTitle(), objectCategory,dto.getIs3dObject(),pic.get(),icon.get());
             }
-            catch (RuntimeException e) {
-                throw new UniqueConstraintException(-1,"Unique Constraint in" + BaseObject.class , "Error",dto.getId() );
+            catch (Exception e) {
+                throw new RecordNotFoundException(dto.getId(),"Some Records not found  pic id , icon id" + BaseObject.class , e.getMessage());
             }
         }else{//edit
-            Optional<BaseObject> alCityObjectOptional= baseObjectRepository.findById(dto.getId());
-            if(alCityObjectOptional.isPresent()) {
-                alCityObject = alCityObjectOptional.get();
-                alCityObject.setObjectCategory(objectCategory);
-                alCityObject.setIs3dObject(dto.getIs3dObject());
-                alCityObject.setTitle(dto.getTitle());
-                alCityObject.setPic(pic.get());
-                alCityObject.setIcon(icon.get());
-                alCityObject.setVersion(alCityObject.getVersion()+1);
-                alCityObject.setCreated(DateUtils.getNow());
-                alCityObject.setUpdated(DateUtils.getNow());
-                alCityObject.setCreatedBy(createdBy.get());
-                alCityObject.setUpdatedBy(createdBy.get());
-                baseObjectRepository.save(alCityObject);
+            Optional<BaseObject> baseObjectOptional= baseObjectRepository.findById(dto.getId());
+            if(baseObjectOptional.isPresent()) {
+                baseObject = baseObjectOptional.get();
+                baseObject.setObjectCategory(objectCategory);
+                baseObject.setIs3dObject(dto.getIs3dObject());
+                baseObject.setTitle(dto.getTitle());
+                baseObject.setPic(pic.get());
+                baseObject.setIcon(icon.get());
+                baseObject.setVersion(baseObject.getVersion()+1);
+                baseObject.setCreated(DateUtils.getNow());
+                baseObject.setUpdated(DateUtils.getNow());
+                baseObject.setCreatedBy(createdBy.get());
+                baseObject.setUpdatedBy(createdBy.get());
             }
         }
-        return alCityObject;
+        baseObjectRepository.save(baseObject);
+
+        return baseObject;
     }
 
 }

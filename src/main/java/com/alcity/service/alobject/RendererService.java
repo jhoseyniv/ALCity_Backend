@@ -66,8 +66,8 @@ public class RendererService implements RendererRepository {
 
     @Override
     public Optional<Renderer> findById(Long id) {
-        return
-                rendererRepository.findById(id);
+        if(id == null) return Optional.empty();
+        return rendererRepository.findById(id);
     }
 
     @Override

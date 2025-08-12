@@ -2,15 +2,14 @@ package com.alcity.api;
 
 import com.alcity.dto.plimpexport.PLData;
 import com.alcity.dto.plimpexport.PLImportDTO;
-import com.alcity.entity.alenum.AttributeOwnerType;
-import com.alcity.entity.alenum.DataType;
+import com.alcity.entity.alenum.*;
 import com.alcity.entity.alobject.Attribute;
+import com.alcity.entity.alobject.ObjectAction;
 import com.alcity.entity.appmember.AppMember;
 import com.alcity.service.alobject.AttributeService;
 import com.alcity.service.appmember.AppMemberService;
-import com.alcity.service.customexception.ALCityResponseObject;
-import com.alcity.service.customexception.UniqueConstraintException;
-import com.alcity.service.customexception.ViolateForeignKeyException;
+import com.alcity.customexception.ResponseObject;
+import com.alcity.customexception.UniqueConstraintException;
 import com.alcity.dto.puzzle.*;
 import com.alcity.entity.puzzle.*;
 import com.alcity.service.puzzle.PLGameInstanceService;
@@ -23,7 +22,6 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.json.JSONException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
@@ -223,7 +221,7 @@ public class PLController {
     @Operation( summary = "Copy a puzzle level by id  ",  description = "copy a puzzle level  entity and their data")
     @PostMapping("/copy")
     @CrossOrigin(origins = "*")
-    public ALCityResponseObject copyPuzzleLevel(@RequestBody PLCopyDTO dto) {
+    public ResponseObject copyPuzzleLevel(@RequestBody PLCopyDTO dto) {
         /*copy memory game with id
         {
           "title": "copy of memory game",
@@ -240,24 +238,27 @@ public class PLController {
         }
         *
         */
-        ALCityResponseObject responseObject = new ALCityResponseObject();
+        ResponseObject responseObject = new ResponseObject();
         Optional<PuzzleLevel> puzzleLevelOptional = plService.findById(dto.getPuzzleLevelId());
-        if(puzzleLevelOptional.isEmpty()) return  new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", -1L, "Puzzle Level id not found!");
+        if(puzzleLevelOptional.isEmpty())
+        return new ResponseObject(ErrorType.RecordNotFound, ObjectAction.class.getSimpleName(), ActionStatus.Error, puzzleLevelOptional.get().getId(), SystemMessage.RecordNotFound);
         PuzzleLevel puzzleLevel = puzzleLevelOptional.get();
         PuzzleLevel copyPuzzleLevel =plService.copy(puzzleLevel,dto);
-        return new ALCityResponseObject(HttpStatus.OK.value(), "ok", copyPuzzleLevel.getId(), "Puzzle Level Copied Successfully!");
+        return
+               new ResponseObject(ErrorType.CopySuccess, ObjectAction.class.getSimpleName() , ActionStatus.OK, copyPuzzleLevel.getId(), SystemMessage.SaveOrEditMessage_Success);
+
     }
 
     @Operation( summary = "Import a puzzle level",  description = "Import a puzzle level  entity and their data")
     @PostMapping("/import")
     @CrossOrigin(origins = "*")
-    public ALCityResponseObject importPuzzleLevel(@RequestBody PLImportDTO dto) throws IOException, ClassNotFoundException {
+    public ResponseObject importPuzzleLevel(@RequestBody PLImportDTO dto) throws IOException, ClassNotFoundException {
         PuzzleLevel importedPuzzleLevel=null;
-        ALCityResponseObject responseObject = new ALCityResponseObject();
+        ResponseObject responseObject = new ResponseObject();
         Optional<PuzzleLevel> puzzleLevelOptional = plService.findById(dto.getId());
         if(puzzleLevelOptional.isEmpty()){
             importedPuzzleLevel =  plService.importPuzzleLevel(dto);
-            responseObject = new ALCityResponseObject(HttpStatus.OK.value(), "ok", importedPuzzleLevel.getId(), "Puzzle Level Imported Successfully!");
+            responseObject = new ResponseObject(ErrorType.ImportSuccess, PuzzleLevel.class.getSimpleName() , ActionStatus.OK, importedPuzzleLevel.getId(), SystemMessage.SaveOrEditMessage_Success);
             Optional<PLTemplate> plTemplateOptional = plTemplateService.findById(dto.getPuzzleTemplateId());
             PLTemplate plTemplate = plTemplateOptional.get();
             plTemplate.setPuzzleLevelId(importedPuzzleLevel.getId());
@@ -266,7 +267,7 @@ public class PLController {
             //first delete exist puzzle level and then add new pl
             plService.deletePuzzleLevel(puzzleLevelOptional.get());
             importedPuzzleLevel =  plService.importPuzzleLevel(dto);
-            responseObject = new ALCityResponseObject(HttpStatus.OK.value(), "ok", importedPuzzleLevel.getId(), "Puzzle Level Edited and Imported Successfully!");
+            responseObject = new ResponseObject(ErrorType.ImportSuccess, PuzzleLevel.class.getSimpleName() , ActionStatus.OK, importedPuzzleLevel.getId(), SystemMessage.SaveOrEditMessage_Success);
         }
 
         return responseObject;
@@ -275,9 +276,9 @@ public class PLController {
     @Operation( summary = "Save a puzzle level  ",  description = "Save a puzzle level  entity and their data to data base")
     @PostMapping("/save")
     @CrossOrigin(origins = "*")
-    public ALCityResponseObject savePuzzleLevel(@RequestBody PLDTO dto)  {
+    public ResponseObject savePuzzleLevel(@RequestBody PLDTO dto)  {
         PuzzleLevel savedRecord = null;
-        ALCityResponseObject responseObject = new ALCityResponseObject();
+        ResponseObject responseObject = new ResponseObject();
 
         if (dto.getId() == null || dto.getId() <= 0L) { //save
             try {
@@ -285,37 +286,37 @@ public class PLController {
             } catch (RuntimeException e) {
                 throw new UniqueConstraintException(-1,"Unique Constraint in" + PuzzleLevel.class , "Error",savedRecord.getId() );
             }
-            responseObject = new ALCityResponseObject(HttpStatus.OK.value(), "ok", savedRecord.getId(), "Record Saved Successfully!");
+            responseObject = new ResponseObject(ErrorType.SaveSuccess, ObjectAction.class.getSimpleName() , ActionStatus.OK, savedRecord.getId(), SystemMessage.SaveOrEditMessage_Success);
         } else if (dto.getId() > 0L ) {//edit
             //Optional<PuzzleGroup>  puzzleGroupOptional = pgService.findById(dto.getId());
             savedRecord = plService.save(dto, "Edit");
             if(savedRecord !=null)
-                responseObject = new ALCityResponseObject(HttpStatus.OK.value(), "ok", savedRecord.getId(), "Record Updated Successfully!");
+                responseObject = new ResponseObject(ErrorType.SaveSuccess, ObjectAction.class.getSimpleName() , ActionStatus.OK, savedRecord.getId(), SystemMessage.SaveOrEditMessage_Success);
             else
-                responseObject = new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", dto.getId(), "Record Not Found!");
+                responseObject = new ResponseObject(ErrorType.RecordNotFound, ObjectAction.class.getSimpleName(), ActionStatus.Error, dto.getId(),SystemMessage.RecordNotFound);
         }
         else if (savedRecord==null)
-            responseObject = new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", -1L, "Record Not Found!");
+            responseObject = new ResponseObject(ErrorType.RecordNotFound, ObjectAction.class.getSimpleName(), ActionStatus.Error, dto.getId(),SystemMessage.RecordNotFound);
         else
-            responseObject = new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", -1L, "Record Not Found!");
+            responseObject = new ResponseObject(ErrorType.RecordNotFound, ObjectAction.class.getSimpleName(), ActionStatus.Error, dto.getId(),SystemMessage.RecordNotFound);
 
         return responseObject;
     }
     @Operation( summary = "delete a  Puzzle Level ",  description = "delete a Puzzle Level ")
     @DeleteMapping("/del/{id}")
     @CrossOrigin(origins = "*")
-    public ALCityResponseObject deletePuzzleLevelById(@PathVariable Long id) {
+    public ResponseObject deletePuzzleLevelById(@PathVariable Long id) {
         Optional<PuzzleLevel> existingRecord = plService.findById(id);
         if(existingRecord.isPresent()){
             try {
                 plService.deletePuzzleLevel(existingRecord.get());
             }catch (Exception e )
             {
-                return new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", id,"Violation Probelm");
+                return new ResponseObject(ErrorType.RecordNotFound, ObjectAction.class.getSimpleName(), ActionStatus.Error, existingRecord.get().getId(),SystemMessage.RecordNotFound);
             }
-            return new ALCityResponseObject(HttpStatus.OK.value(), "ok", id,"Puzzle Level deleted Successfully!");
+            return new ResponseObject(ErrorType.DeleteSuccess, ObjectAction.class.getSimpleName(), ActionStatus.Error, existingRecord.get().getId(),SystemMessage.DeleteMessage);
         }
-        return  new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", id,"Record not found!");
+        return new ResponseObject(ErrorType.RecordNotFound, ObjectAction.class.getSimpleName(), ActionStatus.Error, existingRecord.get().getId(),SystemMessage.RecordNotFound);
     }
     @Autowired
     private AttributeService attributeService;

@@ -1,13 +1,11 @@
 package com.alcity.service.alobject;
 
-import com.alcity.dto.alobject.AttributeDTO;
 import com.alcity.dto.alobject.AttributeDTOSave;
 import com.alcity.dto.alobject.AttributeValueDTOSave;
 import com.alcity.dto.pgimport.PGObjectVariableImportDTO;
 import com.alcity.dto.plimpexport.AttributeData;
-import com.alcity.entity.alenum.DataType;
+import com.alcity.entity.alenum.*;
 import com.alcity.entity.alobject.Attribute;
-import com.alcity.entity.alenum.AttributeOwnerType;
 import com.alcity.entity.alobject.AttributeValue;
 import com.alcity.entity.alobject.ObjectAction;
 import com.alcity.entity.alobject.Renderer;
@@ -17,14 +15,13 @@ import com.alcity.repository.alobject.ActionRepository;
 import com.alcity.repository.alobject.AttributeRepository;
 import com.alcity.repository.alobject.AttributeValueRepository;
 import com.alcity.repository.appmember.AppMemberRepository;
-import com.alcity.service.customexception.ALCityResponseObject;
-import com.alcity.service.customexception.UniqueConstraintException;
+import com.alcity.customexception.ResponseObject;
+import com.alcity.customexception.UniqueConstraintException;
 import com.alcity.service.puzzle.InstanceService;
 import com.alcity.service.puzzle.PGObjectService;
 import com.alcity.utility.DTOUtil;
 import com.alcity.utility.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -232,6 +229,7 @@ public class AttributeService implements AttributeRepository {
 
     @Override
     public Optional<Attribute> findById(Long id) {
+        if(id == null) return Optional.empty();
         return attributeRepository.findById(id);
     }
 
@@ -988,8 +986,6 @@ public class AttributeService implements AttributeRepository {
             Optional<Attribute> bindedAttributeOptional =  attributeRepository.findById(valueDTO.getBindedAttributeId());
             bindAttribute =bindedAttributeOptional.get();
         }
-
-
         Attribute attribute=null;
         AttributeValue attributeValue=null;
         if (code.equalsIgnoreCase("Save")) { //Save
@@ -1035,41 +1031,43 @@ public class AttributeService implements AttributeRepository {
         }
         return attribute;
     }
-    public Collection<ALCityResponseObject> saveAll(Collection<AttributeDTOSave> dtos) {
-        Collection<ALCityResponseObject> responseObjects = new ArrayList<>();
+    public Collection<ResponseObject> saveAll(Collection<AttributeDTOSave> dtos) {
+        Collection<ResponseObject> responseObjects = new ArrayList<>();
         Attribute savedRecord = new Attribute();
         Iterator<AttributeDTOSave> itr = dtos.iterator();
         while(itr.hasNext()){
             AttributeDTOSave dto = itr.next();
-            ALCityResponseObject responseObject = new ALCityResponseObject();
+            ResponseObject response = new ResponseObject();
             if (dto.getId() == null || dto.getId() <= 0L) { //save
                 try {
                     savedRecord  = save(dto,"Save");
                 } catch (RuntimeException e) {
                     throw new UniqueConstraintException(-1,"Unique Constraint in" + Attribute.class , "Error",savedRecord.getId() );
                 }
-                responseObject = new ALCityResponseObject(HttpStatus.OK.value(), "ok", savedRecord.getId(), "Record Saved Successfully!");
+                response = new ResponseObject(ErrorType.SaveSuccess, Attribute.class.getSimpleName() , ActionStatus.OK, savedRecord.getId(), SystemMessage.SaveOrEditMessage_Success);
+
             }else{
                 try {
                     savedRecord  = save(dto,"Edit");
                 } catch (RuntimeException e) {
                     throw new UniqueConstraintException(-1,"Unique Constraint in" + Attribute.class , "Error",savedRecord.getId() );
                 }
-                responseObject = new ALCityResponseObject(HttpStatus.OK.value(), "ok", savedRecord.getId(), "Record Saved Successfully!");
+                response = new ResponseObject(ErrorType.SaveSuccess, Attribute.class.getSimpleName() , ActionStatus.OK, savedRecord.getId(), SystemMessage.SaveOrEditMessage_Success);
+
 
             }
-            responseObjects.add(responseObject);
+            responseObjects.add(response);
         }
         return responseObjects;
     }
-    public Collection<ALCityResponseObject> importPGObjectVariables(Collection<PGObjectVariableImportDTO> dtos, Long ownerId,AttributeOwnerType ownerType) {
-        Collection<ALCityResponseObject> responseObjects = new ArrayList<>();
+    public Collection<ResponseObject> importPGObjectVariables(Collection<PGObjectVariableImportDTO> dtos, Long ownerId, AttributeOwnerType ownerType) {
+        Collection<ResponseObject> responseObjects = new ArrayList<>();
         Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
         Attribute savedRecord = new Attribute();
         Iterator<PGObjectVariableImportDTO> itr = dtos.iterator();
         while(itr.hasNext()) {
             PGObjectVariableImportDTO dto = itr.next();
-            ALCityResponseObject responseObject = new ALCityResponseObject();
+            ResponseObject responseObject = new ResponseObject();
                 try {
                     Attribute attribute=null;
                     DataType dataType =  DataType.getByTitle(dto.getDataType());
@@ -1081,7 +1079,7 @@ public class AttributeService implements AttributeRepository {
                 } catch (RuntimeException e) {
                     throw new UniqueConstraintException(-1, "Unique Constraint in" + Attribute.class, "Error", savedRecord.getId());
                 }
-                responseObject = new ALCityResponseObject(HttpStatus.OK.value(), "ok", savedRecord.getId(), "Record Saved Successfully!");
+            responseObject = new ResponseObject(ErrorType.SaveSuccess, Attribute.class.getSimpleName() , ActionStatus.OK, savedRecord.getId(), SystemMessage.SaveOrEditMessage_Success);
 
         }
         return responseObjects;

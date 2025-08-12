@@ -49,6 +49,7 @@ public class RoadMapService implements RoadMapRepository {
 
     @Override
     public Optional<RoadMap> findById(Long id) {
+        if(id==null) return Optional.empty();
         return roadMapRepository.findById(id);
     }
 

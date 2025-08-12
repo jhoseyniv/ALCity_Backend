@@ -1,6 +1,6 @@
 package com.alcity.service.Journey;
 
-import com.alcity.service.customexception.UniqueConstraintException;
+import com.alcity.customexception.UniqueConstraintException;
 import com.alcity.dto.journey.JourneyDTO;
 import com.alcity.entity.base.BinaryContent;
 import com.alcity.entity.journey.Journey;
@@ -70,6 +70,7 @@ public class JourneyService implements JourneyRepository {
 
     @Override
     public Optional<Journey> findById(Long id) {
+        if(id==null) return Optional.empty();
         return journeyRepository.findById(id);
     }
 

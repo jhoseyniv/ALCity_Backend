@@ -1,4 +1,4 @@
-package com.alcity.service.customexception;
+package com.alcity.customexception;
 
 public class UniqueConstraintException extends  RuntimeException{
 

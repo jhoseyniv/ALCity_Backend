@@ -3,20 +3,23 @@ package com.alcity.api;
 
 import com.alcity.dto.plimpexport.ActionData;
 import com.alcity.dto.puzzle.InstanceDTO;
+import com.alcity.entity.alenum.ActionStatus;
+import com.alcity.entity.alenum.ErrorType;
 import com.alcity.entity.alenum.POActionOwnerType;
+import com.alcity.entity.alenum.SystemMessage;
 import com.alcity.entity.alobject.ObjectAction;
+import com.alcity.entity.base.WalletItemType;
 import com.alcity.entity.puzzle.*;
 import com.alcity.service.alobject.ActionService;
-import com.alcity.service.customexception.ALCityResponseObject;
-import com.alcity.service.customexception.UniqueConstraintException;
-import com.alcity.service.customexception.ViolateForeignKeyException;
+import com.alcity.customexception.ResponseObject;
+import com.alcity.customexception.UniqueConstraintException;
+import com.alcity.customexception.ViolateForeignKeyException;
 import com.alcity.service.puzzle.InstanceService;
 import com.alcity.service.puzzle.PLCellService;
 import com.alcity.utility.DTOUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -45,9 +48,9 @@ public class InstanceController {
     @Operation( summary = "Add a Object Instance to a Puzzle Level ",  description = "Add a Object Instance to a Puzzle Level ")
     @PostMapping("/save")
     @CrossOrigin(origins = "*")
-    public ALCityResponseObject saveInstance(@RequestBody InstanceDTO dto)  {
+    public ResponseObject saveInstance(@RequestBody InstanceDTO dto)  {
         Instance instance = null;
-        ALCityResponseObject responseObject = new ALCityResponseObject();
+        ResponseObject responseObject = new ResponseObject();
         if (dto.getName()==null) dto.setName("instance_"+dto.getRow()+"_"+dto.getCol()+"_"+dto.getzOrder()+"_puzzle_id"+dto.getPuzzleLevelId());
         if (dto.getId() == null || dto.getId() <= 0L) { //save
             try {
@@ -55,32 +58,32 @@ public class InstanceController {
             } catch (RuntimeException e) {
                 throw new UniqueConstraintException(-1,"Unique Constraint in" + Instance.class , "Error",instance.getId() );
             }
-            responseObject = new ALCityResponseObject(HttpStatus.OK.value(), "ok", instance.getId(), "Record Saved Successfully!");
+            responseObject = new ResponseObject(ErrorType.SaveSuccess, WalletItemType.class.getSimpleName() , ActionStatus.OK, instance.getId(), SystemMessage.SaveOrEditMessage_Success);
         } else if (dto.getId() > 0L ) {//edit
             instance = service.save(dto, "Edit");
             if(instance !=null)
-                responseObject = new ALCityResponseObject(HttpStatus.OK.value(), "ok", instance.getId(), "Record Updated Successfully!");
+                responseObject = new ResponseObject(ErrorType.SaveSuccess, WalletItemType.class.getSimpleName() , ActionStatus.OK, instance.getId(), SystemMessage.SaveOrEditMessage_Success);
             else
-                responseObject = new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", dto.getId(), "Record Not Found!");
+                responseObject = new ResponseObject(ErrorType.RecordNotFound, ObjectAction.class.getSimpleName(), ActionStatus.Error, dto.getId(),SystemMessage.RecordNotFound);
         }
         else if (instance==null)
-            responseObject = new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", -1L, "Record Not Found!");
+            responseObject = new ResponseObject(ErrorType.RecordNotFound, ObjectAction.class.getSimpleName(), ActionStatus.Error, dto.getId(),SystemMessage.RecordNotFound);
         else
-            responseObject = new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", -1L, "Record Not Found!");
+            responseObject = new ResponseObject(ErrorType.RecordNotFound, ObjectAction.class.getSimpleName(), ActionStatus.Error, dto.getId(),SystemMessage.RecordNotFound);
 
         return responseObject;
     }
     @Operation( summary = "Add an Instance to a PL Cell ",  description = "Add an Instance to a PL Cell ")
     @PostMapping("/{iid}/iid/add-to-cell/{cid}/cid")
     @CrossOrigin(origins = "*")
-    public ALCityResponseObject addInstanceToCell(@PathVariable Long iid,@PathVariable Long cid)  {
+    public ResponseObject addInstanceToCell(@PathVariable Long iid, @PathVariable Long cid)  {
         //Instance instance = null;
-        ALCityResponseObject responseObject = new ALCityResponseObject();
+        ResponseObject responseObject = new ResponseObject();
         Optional<Instance> instanceOptional = service.findById(iid);
         Optional<PLCell> plCellOptional = plCellService.findById(iid);
 
         if(plCellOptional.isEmpty() || instanceOptional.isEmpty())
-            return  new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "Error", -1L, "Instance id or cell id not found!");
+            return new ResponseObject(ErrorType.RecordNotFound, ObjectAction.class.getSimpleName(), ActionStatus.Error,cid,SystemMessage.RecordNotFound);
 
         Instance instance = instanceOptional.get();
         instance.setPlCell(plCellOptional.get());
@@ -91,17 +94,20 @@ public class InstanceController {
     @Operation( summary = "Copy an Instance to a other cells of a puzzle ",  description = "Copy an Instance to  other cells of a puzzle")
     @RequestMapping(value = "/copy/instance/id/{id}", method = RequestMethod.GET)
     @CrossOrigin(origins = "*")
-    public ALCityResponseObject copyInstanceToOtherCellsInPL(@PathVariable Long id) {
-        ALCityResponseObject responseObject = new ALCityResponseObject();
+    public ResponseObject copyInstanceToOtherCellsInPL(@PathVariable Long id) {
+        ResponseObject responseObject = new ResponseObject();
         Optional<Instance> instanceOptional = service.findById(id);
-        if(instanceOptional.isEmpty()) return new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", -1L, "Instance Not Found!");
+        if(instanceOptional.isEmpty()) return
+                 new ResponseObject(ErrorType.RecordNotFound, ObjectAction.class.getSimpleName(), ActionStatus.Error, id,SystemMessage.RecordNotFound);
+
         Instance instance = instanceOptional.get();
         PuzzleLevel puzzleLevel = instance.getPuzzleLevel();
         Collection<PLGround> plGrounds = puzzleLevel.getPlGrounds();
         PLGround plGround = plGrounds.iterator().next();
         Collection<Instance> copiedInstances = service.copyOneInstanceToOthers(instance,plGround);
 
-        return  new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "Success", -1L, "Instances copied Successfully!");
+        return
+                new ResponseObject(ErrorType.RecordNotFound, ObjectAction.class.getSimpleName(), ActionStatus.Error, id,SystemMessage.RecordNotFound);
     }
 
 
@@ -148,7 +154,7 @@ public class InstanceController {
     @Operation( summary = "Remove an Instance From a Puzzle Level",  description = "Remove an  AL City Object  Instance From a Puzzle Level")
     @DeleteMapping("/del/id/{id}")
     @CrossOrigin(origins = "*")
-    public ALCityResponseObject deleteInstance(@PathVariable Long id) {
+    public ResponseObject deleteInstance(@PathVariable Long id) {
         Optional<Instance> instance = service.findById(id);
         if(instance.isPresent()){
             try {
@@ -157,9 +163,9 @@ public class InstanceController {
             {
                 throw new ViolateForeignKeyException(-1, "error", Instance.class.toString(),instance.get().getId());
             }
-            return new ALCityResponseObject(HttpStatus.OK.value(), "ok", id,"Record deleted Successfully!");
+            return new ResponseObject(ErrorType.DeleteSuccess, ObjectAction.class.getSimpleName(), ActionStatus.OK, instance.get().getId(),SystemMessage.DeleteMessage);
         }
-        return  new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", id,"Record not found!");
+        return new ResponseObject(ErrorType.RecordNotFound, ObjectAction.class.getSimpleName(), ActionStatus.Error, instance.get().getId(),SystemMessage.RecordNotFound);
     }
 
 

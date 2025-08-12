@@ -1,12 +1,16 @@
 package com.alcity.api;
 
-import com.alcity.service.customexception.ALCityResponseObject;
-import com.alcity.service.customexception.UniqueConstraintException;
-import com.alcity.service.customexception.ViolateForeignKeyException;
+import com.alcity.customexception.ResponseObject;
+import com.alcity.customexception.UniqueConstraintException;
+import com.alcity.customexception.ViolateForeignKeyException;
 import com.alcity.dto.puzzle.PGObjectDTO;
 import com.alcity.dto.puzzle.object.ActionDTO;
+import com.alcity.entity.alenum.ActionStatus;
+import com.alcity.entity.alenum.ErrorType;
 import com.alcity.entity.alenum.POActionOwnerType;
+import com.alcity.entity.alenum.SystemMessage;
 import com.alcity.entity.alobject.ObjectAction;
+import com.alcity.entity.base.WalletItemType;
 import com.alcity.entity.puzzle.PGObject;
 import com.alcity.service.alobject.ActionService;
 import com.alcity.service.puzzle.PGObjectService;
@@ -15,7 +19,6 @@ import com.alcity.utility.PLDTOUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -64,9 +67,9 @@ public class PGObjectController {
     @Operation( summary = "Add a Object to a Puzzle Group ",  description = "Add a Object to a Puzzle Group ")
     @PostMapping("/save")
     @CrossOrigin(origins = "*")
-    public ALCityResponseObject saveALCityObjectInPG(@RequestBody PGObjectDTO dto)  {
+    public ResponseObject saveALCityObjectInPG(@RequestBody PGObjectDTO dto)  {
         PGObject savedRecord = null;
-        ALCityResponseObject responseObject = new ALCityResponseObject();
+        ResponseObject responseObject = new ResponseObject();
 
         if (dto.getId() == null || dto.getId() <= 0L) { //save
             try {
@@ -80,25 +83,25 @@ public class PGObjectController {
             } catch (RuntimeException e) {
                 throw new UniqueConstraintException(-1,"Unique Constraint in" + PGObject.class , "Error",savedRecord.getId() );
             }
-            responseObject = new ALCityResponseObject(HttpStatus.OK.value(), "ok", savedRecord.getId(), "Record Saved Successfully!");
+            responseObject = new ResponseObject(ErrorType.SaveSuccess, WalletItemType.class.getSimpleName() , ActionStatus.OK, savedRecord.getId(), SystemMessage.SaveOrEditMessage_Success);
         } else if (dto.getId() > 0L ) {//edit
             savedRecord = alCityObjectInPGService.save(dto, "Edit");
             if(savedRecord !=null)
-                responseObject = new ALCityResponseObject(HttpStatus.OK.value(), "ok", savedRecord.getId(), "Record Updated Successfully!");
+                responseObject = new ResponseObject(ErrorType.SaveSuccess, WalletItemType.class.getSimpleName() , ActionStatus.OK, savedRecord.getId(), SystemMessage.SaveOrEditMessage_Success);
             else
-                responseObject = new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", dto.getId(), "Record Not Found!");
+                responseObject = new ResponseObject(ErrorType.RecordNotFound, ObjectAction.class.getSimpleName(), ActionStatus.Error, dto.getId(),SystemMessage.RecordNotFound);
         }
         else if (savedRecord==null)
-            responseObject = new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", -1L, "Record Not Found!");
+            responseObject = new ResponseObject(ErrorType.RecordNotFound, ObjectAction.class.getSimpleName(), ActionStatus.Error, dto.getId(),SystemMessage.RecordNotFound);
         else
-            responseObject = new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", -1L, "Record Not Found!");
+            responseObject = new ResponseObject(ErrorType.RecordNotFound, ObjectAction.class.getSimpleName(), ActionStatus.Error, dto.getId(),SystemMessage.RecordNotFound);
 
         return responseObject;
     }
     @Operation( summary = "Remove a Object From a Puzzle Group",  description = "Remove an  AL City Object From a Puzzle Group")
     @DeleteMapping("/del/id/{id}")
     @CrossOrigin(origins = "*")
-    public ALCityResponseObject deleteALCityObjectInPGById(@PathVariable Long id) {
+    public ResponseObject deleteALCityObjectInPGById(@PathVariable Long id) {
         Optional<PGObject> existingRecord = alCityObjectInPGService.findById(id);
         if(existingRecord.isPresent()){
             try {
@@ -107,9 +110,9 @@ public class PGObjectController {
             {
                 throw new ViolateForeignKeyException(-1, "error", PGObject.class.toString(),existingRecord.get().getId());
             }
-            return new ALCityResponseObject(HttpStatus.OK.value(), "ok", id,"Record deleted Successfully!");
+            return new ResponseObject(ErrorType.DeleteSuccess, ObjectAction.class.getSimpleName(), ActionStatus.OK, existingRecord.get().getId(),SystemMessage.DeleteMessage);
         }
-        return  new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", id,"Record not found!");
+        return new ResponseObject(ErrorType.RecordNotFound, ObjectAction.class.getSimpleName(), ActionStatus.Error, existingRecord.get().getId(),SystemMessage.RecordNotFound);
     }
 
 

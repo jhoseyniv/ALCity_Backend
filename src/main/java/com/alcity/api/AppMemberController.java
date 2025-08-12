@@ -4,24 +4,27 @@ import com.alcity.dto.appmember.*;
 import com.alcity.dto.player.PlayHistoryDTO;
 import com.alcity.dto.puzzle.PLDTO;
 import com.alcity.dto.search.AppMemberSearchCriteriaDTO;
+import com.alcity.entity.alenum.ActionStatus;
+import com.alcity.entity.alenum.ErrorType;
+import com.alcity.entity.alenum.SystemMessage;
 import com.alcity.entity.appmember.*;
 import com.alcity.entity.journey.Journey;
 import com.alcity.entity.play.PlayHistory;
+import com.alcity.entity.puzzle.BaseObject;
 import com.alcity.entity.puzzle.PLObjective;
 import com.alcity.service.Journey.JourneyService;
 import com.alcity.o3rdparty.ALCityAcessRight;
 import com.alcity.service.appmember.LearningSkillTransactionService;
 import com.alcity.service.appmember.WalletTransactionService;
-import com.alcity.service.customexception.ALCityResponseObject;
-import com.alcity.service.customexception.UniqueConstraintException;
-import com.alcity.service.customexception.ViolateForeignKeyException;
+import com.alcity.customexception.ResponseObject;
+import com.alcity.customexception.UniqueConstraintException;
+import com.alcity.customexception.ViolateForeignKeyException;
 import com.alcity.service.appmember.AppMemberService;
 import com.alcity.service.puzzle.PLObjectiveService;
 import com.alcity.utility.DTOUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
@@ -146,7 +149,7 @@ public class AppMemberController {
     @Operation( summary = "delete an  Application Member ",  description = "delete an Application Member .....")
     @DeleteMapping("/del/id/{id}")
     @CrossOrigin(origins = "*")
-    public ALCityResponseObject deleteWalletItemById(@PathVariable Long id) {
+    public ResponseObject deleteWalletItemById(@PathVariable Long id) {
         Optional<AppMember> existingRecord = appMemberService.findById(id);
         if(existingRecord.isPresent()){
             try {
@@ -155,23 +158,23 @@ public class AppMemberController {
             {
                 throw new ViolateForeignKeyException(-1, "error", AppMember.class.toString(),existingRecord.get().getId());
             }
-            return new ALCityResponseObject(HttpStatus.OK.value(), "ok", id,"Record deleted Successfully!");
+            return new ResponseObject(ErrorType.SaveSuccess, BaseObject.class.getSimpleName(),ActionStatus.OK, id,SystemMessage.DeleteMessage);
         }
-        return  new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", id,"Record not found!");
+        return new ResponseObject(ErrorType.RecordNotFound, BaseObject.class.getSimpleName() ,ActionStatus.Error , -1L ,"e.getCause().getMessage()");
     }
 
     @Operation( summary = "Update Avatar for an App Member ",  description = "Update Avatar for an App Member")
     @RequestMapping(value ="/update-avatar/memberId/{memId}/avatarId/{avatarId}", method = RequestMethod.GET)
     @CrossOrigin(origins = "*")
-    public ALCityResponseObject getPuzzleLevel(@PathVariable Long memId,@PathVariable Long avatarId) {
+    public ResponseObject getPuzzleLevel(@PathVariable Long memId, @PathVariable Long avatarId) {
         AppMember updatedRecord = null;
-        ALCityResponseObject responseObject = new ALCityResponseObject();
+        ResponseObject responseObject = new ResponseObject();
 
         updatedRecord = appMemberService.updateAvatar(memId, avatarId);
             if(updatedRecord !=null)
-                responseObject = new ALCityResponseObject(HttpStatus.OK.value(), "ok", updatedRecord.getId(), "Record Updated Successfully!");
+                responseObject = new ResponseObject(ErrorType.SaveSuccess, BaseObject.class.getSimpleName() ,ActionStatus.OK, updatedRecord.getId(), SystemMessage.SaveOrEditMessage_Success);
             else
-            responseObject = new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", -1L, "Record Not Found!");
+                responseObject = new ResponseObject(ErrorType.RecordNotFound, BaseObject.class.getSimpleName() ,ActionStatus.Error , -1L ,"e.getCause().getMessage()");
 
         return responseObject;
     }
@@ -180,9 +183,9 @@ public class AppMemberController {
     @Operation( summary = "Save an App Member ",  description = "Save an App Member ")
     @PostMapping("/save")
     @CrossOrigin(origins = "*")
-    public ALCityResponseObject saveAppMember(@RequestBody AppMemberDTO dto)  {
+    public ResponseObject saveAppMember(@RequestBody AppMemberDTO dto)  {
         AppMember savedRecord = null;
-        ALCityResponseObject responseObject = new ALCityResponseObject();
+        ResponseObject responseObject = new ResponseObject();
 
         if (dto.getId() == null || dto.getId() <= 0L) { //save
             try {
@@ -190,18 +193,18 @@ public class AppMemberController {
             } catch (RuntimeException e) {
                 throw new UniqueConstraintException(-1,"Unique Constraint in" + AppMember.class , "Error",savedRecord.getId() );
             }
-            responseObject = new ALCityResponseObject(HttpStatus.OK.value(), "ok", savedRecord.getId(), "Record Saved Successfully!");
+            responseObject = new ResponseObject(ErrorType.SaveSuccess, BaseObject.class.getSimpleName() , ActionStatus.OK, savedRecord.getId(), SystemMessage.SaveOrEditMessage_Success);
         } else if (dto.getId() > 0L ) {//edit
             savedRecord = appMemberService.save(dto, "Edit");
             if(savedRecord !=null)
-                responseObject = new ALCityResponseObject(HttpStatus.OK.value(), "ok", savedRecord.getId(), "Record Updated Successfully!");
+                responseObject = new ResponseObject(ErrorType.SaveSuccess, AppMember_WalletItem.class.getSimpleName() ,ActionStatus.OK, savedRecord.getId(), SystemMessage.SaveOrEditMessage_Success);
             else
-                responseObject = new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", dto.getId(), "Record Not Found!");
+                responseObject = new ResponseObject(ErrorType.RecordNotFound, AppMember_WalletItem.class.getSimpleName() ,ActionStatus.Error , -1L ,"e.getCause().getMessage()");
         }
         else if (savedRecord==null)
-            responseObject = new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", -1L, "Record Not Found!");
+            responseObject = new ResponseObject(ErrorType.RecordNotFound, AppMember_WalletItem.class.getSimpleName() ,ActionStatus.Error , -1L ,"e.getCause().getMessage()");
         else
-            responseObject = new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", -1L, "Record Not Found!");
+            responseObject = new ResponseObject(ErrorType.RecordNotFound, AppMember_WalletItem.class.getSimpleName() ,ActionStatus.Error , -1L ,"e.getCause().getMessage()");
 
         return responseObject;
     }
@@ -209,27 +212,27 @@ public class AppMemberController {
     @Operation( summary = "Charge or Decharge a wallet for specific  Member ",  description = "Save a record in APPMember_WalletItem Table : application member wallet management ")
     @PostMapping("/id/{id}/wallet/charge")
     @CrossOrigin(origins = "*")
-    public ALCityResponseObject chargeOrDechargeAppMemberWallet(@RequestBody AppMemberWalletDTO dto)  {
+    public ResponseObject chargeOrDechargeAppMemberWallet(@RequestBody AppMemberWalletDTO dto)  {
         AppMember_WalletItem savedRecord = null;
-        ALCityResponseObject responseObject = new ALCityResponseObject();
+        ResponseObject responseObject = new ResponseObject();
         if (dto.getId() == null || dto.getId() <= 0L) { //save
             try {
                 savedRecord = appMemberService.chargeOrDeChargeAppMemberWallet(dto,"Save");
             } catch (RuntimeException e) {
                 throw new UniqueConstraintException(-1,"Unique Constraint in" + AppMember_WalletItem.class , "Error",savedRecord.getId() );
             }
-            responseObject = new ALCityResponseObject(HttpStatus.OK.value(), "ok", savedRecord.getId(), "Wallet Saved Successfully!");
+            responseObject = new ResponseObject(ErrorType.SaveSuccess, AppMember_WalletItem.class.getSimpleName() ,ActionStatus.OK, savedRecord.getId(), SystemMessage.SaveOrEditMessage_Success);
         } else if (dto.getId() > 0L ) {//edit
             savedRecord = appMemberService.chargeOrDeChargeAppMemberWallet(dto, "Edit");
             if(savedRecord !=null)
-                responseObject = new ALCityResponseObject(HttpStatus.OK.value(), "ok", savedRecord.getId(), "Wallet Updated Successfully!");
+                responseObject = new ResponseObject(ErrorType.SaveSuccess, AppMember_WalletItem.class.getSimpleName() ,ActionStatus.OK, savedRecord.getId(), SystemMessage.SaveOrEditMessage_Success);
             else
-                responseObject = new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", dto.getId(), "Record Not Found!");
+                responseObject = new ResponseObject(ErrorType.RecordNotFound, AppMember_WalletItem.class.getSimpleName() ,ActionStatus.Error , -1L ,"e.getCause().getMessage()");
         }
         else if (savedRecord==null)
-            responseObject = new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", -1L, "Record Not Found!");
+            responseObject = new ResponseObject(ErrorType.RecordNotFound, AppMember_WalletItem.class.getSimpleName() ,ActionStatus.Error , -1L ,"e.getCause().getMessage()");
         else
-            responseObject = new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", -1L, "Record Not Found!");
+            responseObject = new ResponseObject(ErrorType.RecordNotFound, AppMember_WalletItem.class.getSimpleName() ,ActionStatus.Error , -1L ,"e.getCause().getMessage()");
 
         return responseObject;
     }
@@ -254,16 +257,18 @@ public class AppMemberController {
     @Operation( summary = "Apply Reward for specific  Member after playing puzzles ",  description = "Apply Reward for specific  Member after playing puzzles")
     @PostMapping("/apply-reward")
     @CrossOrigin(origins = "*")
-    public ALCityResponseObject applyReward(@RequestBody WalletItemTransactionDTO dto)  {
+    public ResponseObject applyReward(@RequestBody WalletItemTransactionDTO dto)  {
         WalletTransaction savedRecord = null;
-        ALCityResponseObject responseObject = new ALCityResponseObject();
+        ResponseObject responseObject = new ResponseObject();
         boolean checkIsRewardBefore = checkPLRewardConstraint(dto);
 
         if(checkIsRewardBefore == false)
-            return new ALCityResponseObject(HttpStatus.OK.value(), "error", savedRecord.getId(), "The user got this a reward before!");
+        responseObject = new ResponseObject(ErrorType.UniquenessViolation, WalletTransaction.class.getSimpleName() ,ActionStatus.OK, savedRecord.getId(), "The user got this a reward before!");
+
         else {
             savedRecord = walletTransactionService.save(dto, "Save");
-            responseObject = new ALCityResponseObject(HttpStatus.OK.value(), "ok", savedRecord.getId(), "Transaction Saved Successfully!");
+            responseObject = new ResponseObject(ErrorType.SaveSuccess, WalletTransaction.class.getSimpleName() ,ActionStatus.OK, savedRecord.getId(), SystemMessage.SaveOrEditMessage_Success);
+
         }
         return responseObject;
     }
@@ -271,16 +276,16 @@ public class AppMemberController {
     @Operation( summary = "Apply Skill for specific  Member after playing puzzles ",  description = "Apply Skill for specific  Member after playing puzzles")
     @PostMapping("/apply-skill")
     @CrossOrigin(origins = "*")
-    public ALCityResponseObject applySkill(@RequestBody LearningSkillTransactionDTO dto)  {
+    public ResponseObject applySkill(@RequestBody LearningSkillTransactionDTO dto)  {
         LearningSkillTransaction savedRecord = null;
-        ALCityResponseObject responseObject = new ALCityResponseObject();
+        ResponseObject responseObject = new ResponseObject();
         boolean checkIsRewardBefore = checkPLSkillConstraint(dto);
 
         if(checkIsRewardBefore == false)
-            return new ALCityResponseObject(HttpStatus.OK.value(), "error", savedRecord.getId(), "The user got this a learning skill before!");
-        else {
+            return new ResponseObject(ErrorType.UniquenessViolation, LearningSkillTransaction.class.getSimpleName() ,ActionStatus.OK, savedRecord.getId(), "The user got this a learning skill before");
+       else {
             savedRecord = learningSkillTransactionService.save(dto, "Save");
-            responseObject = new ALCityResponseObject(HttpStatus.OK.value(), "ok", savedRecord.getId(), "Skill Learning Transaction Saved Successfully!");
+            responseObject = new ResponseObject(ErrorType.SaveSuccess, AppMember_WalletItem.class.getSimpleName() ,ActionStatus.OK, savedRecord.getId(), SystemMessage.SaveOrEditMessage_Success);
         }
         return responseObject;
     }

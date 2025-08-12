@@ -2,10 +2,14 @@ package com.alcity.api;
 
 import com.alcity.dto.puzzle.PLDTO;
 import com.alcity.dto.puzzle.PLTemplateDTO;
+import com.alcity.entity.alenum.ActionStatus;
+import com.alcity.entity.alenum.ErrorType;
+import com.alcity.entity.alenum.SystemMessage;
+import com.alcity.entity.alobject.ObjectAction;
 import com.alcity.entity.puzzle.PLTemplate;
-import com.alcity.service.customexception.ALCityResponseObject;
-import com.alcity.service.customexception.UniqueConstraintException;
-import com.alcity.service.customexception.ViolateForeignKeyException;
+import com.alcity.customexception.ResponseObject;
+import com.alcity.customexception.UniqueConstraintException;
+import com.alcity.customexception.ViolateForeignKeyException;
 import com.alcity.dto.puzzle.PGDTO;
 import com.alcity.dto.puzzle.PuzzleCategoryDTO;
 import com.alcity.entity.base.PuzzleCategory;
@@ -18,7 +22,6 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
-import org.springframework.http.HttpStatus;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
@@ -115,9 +118,9 @@ public class PuzzleCategoryController {
     @Operation( summary = "Save a  Puzzle Category ",  description = "save a Puzzle Category entity to database")
     @PostMapping("/save")
     @CrossOrigin(origins = "*")
-    public ALCityResponseObject savePuzzleCategory(@RequestBody PuzzleCategoryDTO dto) {
+    public ResponseObject savePuzzleCategory(@RequestBody PuzzleCategoryDTO dto) {
         PuzzleCategory savedPuzzleCategory = null;
-        ALCityResponseObject responseObject = new ALCityResponseObject();
+        ResponseObject responseObject = new ResponseObject();
 
         if (dto.getId() == null || dto.getId() <= 0L) { //save
             try {
@@ -125,21 +128,21 @@ public class PuzzleCategoryController {
             } catch (RuntimeException e) {
                 throw new UniqueConstraintException(-1,"Unique Constraint in" + PuzzleCategory.class , "Error",dto.getId() );
             }
-            responseObject = new ALCityResponseObject(HttpStatus.OK.value(), "ok", savedPuzzleCategory.getId(), "Record Saved Successfully!");
+            responseObject = new ResponseObject(ErrorType.SaveSuccess, ObjectAction.class.getSimpleName() , ActionStatus.OK, savedPuzzleCategory.getId(), SystemMessage.SaveOrEditMessage_Success);
         } else if (dto.getId() > 0L ) {//edit
                 Optional<PuzzleCategory>  puzzleCategoryOptional = puzzleCategoryService.findById(dto.getId());
                 savedPuzzleCategory = puzzleCategoryService.save(dto, "Edit");
-                responseObject = new ALCityResponseObject(HttpStatus.OK.value(), "ok", savedPuzzleCategory.getId(), "Record Updated Successfully!");
+            responseObject = new ResponseObject(ErrorType.SaveSuccess, ObjectAction.class.getSimpleName() , ActionStatus.OK, savedPuzzleCategory.getId(), SystemMessage.SaveOrEditMessage_Success);
         }
             else
-                responseObject = new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", savedPuzzleCategory.getId(), "Record Not Found!");
+            responseObject = new ResponseObject(ErrorType.RecordNotFound, ObjectAction.class.getSimpleName(), ActionStatus.Error, dto.getId(),SystemMessage.RecordNotFound);
 
         return responseObject;
     }
 
     @Operation( summary = "delete a  Puzzle Category ",  description = "delete a Puzzle Category entity and their data to data base")
     @DeleteMapping("/del/{id}")
-    public ALCityResponseObject deletePuzzleCategoryById(@PathVariable Long id) {
+    public ResponseObject deletePuzzleCategoryById(@PathVariable Long id) {
         Optional<PuzzleCategory> existingRecord = this.puzzleCategoryService.findById(id);
         if(existingRecord.isPresent()){
             try {
@@ -149,9 +152,9 @@ public class PuzzleCategoryController {
         {
             throw new ViolateForeignKeyException(-1, "error", PuzzleCategory.class.toString(),existingRecord.get().getId());
         }
-            return new ALCityResponseObject(HttpStatus.OK.value(), "ok", id,"Record deleted Successfully!");
+            return new ResponseObject(ErrorType.DeleteSuccess, ObjectAction.class.getSimpleName(), ActionStatus.Error, id,SystemMessage.DeleteMessage);
         }
-        return  new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", id,"Record not found!");
+        return new ResponseObject(ErrorType.RecordNotFound, ObjectAction.class.getSimpleName(), ActionStatus.Error, id,SystemMessage.RecordNotFound);
     }
 
 }

@@ -7,8 +7,7 @@ import com.alcity.dto.plimpexport.AttributeData;
 import com.alcity.dto.plimpexport.PGObjectData;
 import com.alcity.dto.plimpexport.ruleexport.RuleData;
 import com.alcity.dto.plimpexport.ActionData;
-import com.alcity.entity.alenum.AttributeOwnerType;
-import com.alcity.entity.alenum.ObjectActionType;
+import com.alcity.entity.alenum.*;
 import com.alcity.entity.alobject.*;
 import com.alcity.entity.base.BinaryContent;
 import com.alcity.entity.puzzle.*;
@@ -16,7 +15,7 @@ import com.alcity.entity.puzzle.PLCell;
 import com.alcity.service.alobject.AttributeService;
 import com.alcity.service.alobject.ActionService;
 import com.alcity.service.alobject.AttributeValueService;
-import com.alcity.service.customexception.ALCityResponseObject;
+import com.alcity.customexception.ResponseObject;
 import com.alcity.service.puzzle.InstanceService;
 import com.alcity.service.puzzle.PLGroundService;
 import com.alcity.service.puzzle.PLRulePostActionService;
@@ -26,7 +25,6 @@ import com.alcity.utility.ImageUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
@@ -61,13 +59,13 @@ public class InterpreterController {
     @Operation( summary = "Create  json File ",  description = "Create Json file for a puzzle level structure and rules")
     @RequestMapping(value = "/create-json/id/{id}", method = RequestMethod.GET)
     @ResponseBody
-    public ALCityResponseObject createJsonFile(@PathVariable Long id) throws IOException, ClassNotFoundException {
+    public ResponseObject createJsonFile(@PathVariable Long id) throws IOException, ClassNotFoundException {
         Optional<PuzzleLevel> puzzleLevelOptional = puzzleLevelService.findById(id);
         PLData plData = new PLData();
         if(puzzleLevelOptional.isPresent()){
             plData = getJsonFile(id);
         }
-        return new ALCityResponseObject(HttpStatus.OK.value(), "ok",id, "Json Created /Updated Successfully!");
+        return new ResponseObject(ErrorType.SaveSuccess, ObjectAction.class.getSimpleName() , ActionStatus.OK, id, SystemMessage.SaveOrEditMessage_Success);
     }
 
     @Operation( summary = "Fetch a json ",  description = "Fetches all data that need to Interpret a puzzle level structure and rules")

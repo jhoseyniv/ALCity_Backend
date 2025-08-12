@@ -4,17 +4,15 @@ package com.alcity.api;
 import com.alcity.dto.alobject.AttributeDTO;
 import com.alcity.dto.search.ObjectSearchCriteriaDTO;
 import com.alcity.dto.search.SearchResultCityObjectDTO;
-import com.alcity.entity.alenum.DataType;
+import com.alcity.entity.alenum.*;
 import com.alcity.utility.PLDTOUtil;
-import com.alcity.entity.alenum.AttributeOwnerType;
 import com.alcity.entity.alobject.Attribute;
 import com.alcity.service.alobject.AttributeService;
-import com.alcity.service.customexception.ALCityResponseObject;
-import com.alcity.service.customexception.RecordNotFoundException;
+import com.alcity.customexception.ResponseObject;
+import com.alcity.customexception.RecordNotFoundException;
 import com.alcity.dto.puzzle.PGObjectDTO;
 import com.alcity.dto.puzzle.object.ActionDTO;
 import com.alcity.dto.puzzle.object.CityObjectDTO;
-import com.alcity.entity.alenum.POActionOwnerType;
 import com.alcity.entity.alobject.ObjectCategory;
 import com.alcity.entity.alobject.ObjectAction;
 import com.alcity.entity.puzzle.BaseObject;
@@ -27,7 +25,6 @@ import com.alcity.utility.DTOUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
@@ -119,42 +116,45 @@ public class ObjectController {
 
         return alCityObjectInPGDTOS;
     }
-    @Operation( summary = "Save an AL City Object ",  description = "Save an AL City Object")
+    @Operation( summary = "Save an Algoopia Object ",  description = "Save an Algoopia Object")
     @PostMapping("/save")
     @CrossOrigin(origins = "*")
-    public ALCityResponseObject saveALCityObject(@RequestBody CityObjectDTO dto)  {
+    public ResponseObject save(@RequestBody CityObjectDTO dto)  {
         BaseObject savedRecord = null;
-        ALCityResponseObject responseObject = new ALCityResponseObject();
-
-        if (dto.getId() == null || dto.getId() <= 0L) { //save
-
-                savedRecord = service.save(dto,"Save");
-
-            responseObject = new ALCityResponseObject(HttpStatus.OK.value(), "ok", savedRecord.getId(), "Record Saved Successfully!");
-        } else if (dto.getId() > 0L ) {//edit
-            savedRecord = service.save(dto, "Edit");
-            if(savedRecord !=null)
-                responseObject = new ALCityResponseObject(HttpStatus.OK.value(), "ok", savedRecord.getId(), "Record Updated Successfully!");
-            else
-                responseObject = new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", dto.getId(), "Record Not Found!");
+        ResponseObject response = new ResponseObject();
+        Optional<BaseObject> baseObjectOptional = service.findById(dto.getId());
+        try{
+               if (baseObjectOptional.isEmpty())
+                   savedRecord = service.save(dto,"Save");
+               else
+                   savedRecord = service.save(dto, "Edit");
         }
-        else if (savedRecord==null)
-            responseObject = new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", -1L, "Record Not Found!");
+        catch (Exception e) {
+            throw new ResponseObject(ErrorType.UniquenessViolation, BaseObject.class.getSimpleName() ,ActionStatus.Error , -1L ,e.getCause().getMessage());
+        }
+        if(savedRecord !=null)
+            response = new ResponseObject(ErrorType.SaveSuccess, BaseObject.class.getSimpleName() ,ActionStatus.OK, savedRecord.getId(), SystemMessage.SaveOrEditMessage_Success);
         else
-            responseObject = new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", -1L, "Record Not Found!");
+            response = new ResponseObject(ErrorType.SaveFail, BaseObject.class.getSimpleName() ,ActionStatus.Error, -1L, SystemMessage.SaveOrEditMessage_Fail);
 
-        return responseObject;
+        return response;
     }
-    @Operation( summary = "delete an  AL City Object",  description = "delete an AL City Object entity and their data to data base")
+
+    @Operation( summary = "delete an Algoopia Object",  description = "delete an Algoopia Object entity and their data to data base")
     @DeleteMapping("/del/{id}")
     @CrossOrigin(origins = "*")
-    public ALCityResponseObject deleteALCityObjectById(@PathVariable Long id) {
-        Optional<BaseObject> existingRecord = service.findById(id);
-        if(existingRecord.isPresent()){
-            service.delete(existingRecord.get());
-            return new ALCityResponseObject(HttpStatus.OK.value(), "ok", id,"Record deleted Successfully!");
+    public ResponseObject delete(@PathVariable Long id) {
+        Optional<BaseObject>  requestedRecord = service.findById(id);
+        if(requestedRecord.isPresent()){
+            try {
+                service.delete(requestedRecord.get());
+            }
+            catch (Exception e) {
+                return new ResponseObject(ErrorType.ForeignKeyViolation, BaseObject.class.getSimpleName(),ActionStatus.Error, id,e.getCause().getMessage());
+            }
+            return new ResponseObject(ErrorType.DeleteSuccess, BaseObject.class.getSimpleName(),ActionStatus.OK, id,SystemMessage.DeleteMessage);
         }
-        return  new ALCityResponseObject(HttpStatus.NO_CONTENT.value(), "error", id,"Record not found!");
+        return  new ResponseObject(ErrorType.RecordNotFound,BaseObject.class.getSimpleName(), ActionStatus.Error, id,SystemMessage.RecordNotFound);
     }
 
     @Operation( summary = "Fetch all actions for an al city object ",  description = "Fetch all actions for an al city object")

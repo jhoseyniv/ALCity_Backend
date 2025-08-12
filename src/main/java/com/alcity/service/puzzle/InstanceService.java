@@ -17,7 +17,7 @@ import com.alcity.repository.puzzle.InstanceRepository;
 import com.alcity.service.alobject.ActionService;
 import com.alcity.service.alobject.AttributeService;
 import com.alcity.service.alobject.AttributeValueService;
-import com.alcity.service.customexception.ALCityResponseObject;
+import com.alcity.customexception.ResponseObject;
 import com.alcity.utility.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -220,7 +220,7 @@ public class InstanceService implements InstanceRepository {
 
     @Transactional
     public Collection<Instance> copyOneInstanceToOthers(Instance instance, PLGround plGround) {
-        ALCityResponseObject responseObject = new ALCityResponseObject();
+        ResponseObject responseObject = new ResponseObject();
         Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
         Collection<Instance> copiedInstances = new ArrayList<>();
         Integer instanceXPos = instance.getRow();

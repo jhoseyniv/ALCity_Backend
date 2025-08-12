@@ -114,6 +114,7 @@ public class PlayHistoryService implements PlayHistoryRepository {
 
     @Override
     public Optional<PlayHistory> findById(Long id) {
+        if(id==null) return Optional.empty();
         return playHistoryRepository.findById(id);
     }
 
