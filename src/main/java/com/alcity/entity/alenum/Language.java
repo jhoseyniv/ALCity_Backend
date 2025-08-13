@@ -20,7 +20,7 @@ public enum Language {
         {
             if (title.equalsIgnoreCase(e.name())) return e;
         }
-        throw new IllegalArgumentException("no");
+       return Language.English;
     }
 
 }
