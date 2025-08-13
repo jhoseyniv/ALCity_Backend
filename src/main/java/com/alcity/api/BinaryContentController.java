@@ -1,6 +1,7 @@
 package com.alcity.api;
 
 
+import com.alcity.customexception.ResponseMessage;
 import com.alcity.customexception.ResponseObject;
 import com.alcity.customexception.UniqueConstraintException;
 import com.alcity.customexception.ViolateForeignKeyException;
@@ -11,6 +12,9 @@ import com.alcity.entity.alenum.ErrorType;
 import com.alcity.entity.alenum.SystemMessage;
 import com.alcity.entity.alobject.ObjectAction;
 import com.alcity.entity.base.BinaryContent;
+import com.alcity.entity.journey.Journey;
+import com.alcity.entity.journey.RoadMap;
+import com.alcity.entity.puzzle.BaseObject;
 import com.alcity.service.base.BinaryContentService;
 import com.alcity.service.puzzle.PGService;
 import com.alcity.utility.DTOUtil;
@@ -85,44 +89,44 @@ public class BinaryContentController {
     @Operation( summary = "Save a Binary Content to database by DTO ",  description = "Save a Binary Content entity and their data to data base")
     @PostMapping("/save")
     @CrossOrigin(origins = "*")
-    public ResponseObject saveBinaryContentByDTO(@RequestBody BinaryContentDTO dto ) throws IOException {
-        BinaryContent savedBinaryContent = null;
-        ResponseObject responseObject = null;
-        if (dto.getId() == null || dto.getId() <= 0L) { //save
-            try {
-                savedBinaryContent = binaryContentService.save(dto,"Save");
-            } catch (RuntimeException e) {
-                throw new UniqueConstraintException(-1,"Unique Constraint in" + BinaryContent.class , "Error",dto.getId() );
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-            responseObject = new ResponseObject(ErrorType.SaveSuccess, ObjectAction.class.getSimpleName() , ActionStatus.OK, savedBinaryContent.getId(), SystemMessage.SaveOrEditMessage_Success);
-        } else if (dto.getId() > 0L ) {//edit
-            Optional<BinaryContent>  binaryContentOptional = binaryContentService.findById(dto.getId());
-            savedBinaryContent = binaryContentService.save(dto, "Edit");
-            responseObject = new ResponseObject(ErrorType.SaveSuccess, ObjectAction.class.getSimpleName() , ActionStatus.OK, savedBinaryContent.getId(), SystemMessage.SaveOrEditMessage_Success);
-        }
-        else
-            responseObject = new ResponseObject(ErrorType.RecordNotFound, ObjectAction.class.getSimpleName(), ActionStatus.Error, dto.getId(),SystemMessage.RecordNotFound);
+    public ResponseMessage saveBinaryContentByDTO(@RequestBody BinaryContentDTO dto ) throws IOException {
+        BinaryContent savedRecord = null;
+        ResponseMessage  response= null;
+        Optional<BinaryContent> binaryContentOptional = binaryContentService.findById(dto.getId());
 
-        return responseObject;
+        try{
+            if (binaryContentOptional.isEmpty())
+                savedRecord = binaryContentService.save(dto,"Save");
+            else
+                savedRecord = binaryContentService.save(dto, "Edit");
+        }
+        catch (Exception e) {
+            throw new ResponseObject(ErrorType.UniquenessViolation, RoadMap.class.getSimpleName() ,ActionStatus.Error , -1L ,e.getCause().getMessage());
+        }
+
+
+        if(savedRecord !=null)
+            response = new ResponseMessage(ErrorType.SaveSuccess, RoadMap.class.getSimpleName() ,ActionStatus.OK, savedRecord.getId(), SystemMessage.SaveOrEditMessage_Success);
+        else
+            response = new ResponseMessage(ErrorType.SaveFail, RoadMap.class.getSimpleName() ,ActionStatus.Error, -1L, SystemMessage.SaveOrEditMessage_Fail);
+        return response;
     }
+
     @Operation( summary = "Delete a  Binary Content ",  description = "Delete a Binary Content")
     @DeleteMapping("/del/{id}")
     @CrossOrigin(origins = "*")
     public ResponseObject deleteById(@PathVariable Long id) {
-        Optional<BinaryContent> existingRecord = this.binaryContentService.findById(id);
-        if(existingRecord.isPresent()){
+        Optional<BinaryContent> requestedRecord = binaryContentService.findById(id);
+        if(requestedRecord.isPresent()){
             try {
-                binaryContentService.removeForeignKeys(id);
-                binaryContentService.deleteById(existingRecord.get().getId());
-            }catch (Exception e )
-            {
-                throw new ViolateForeignKeyException(-1, "error", BinaryContent.class.toString(),existingRecord.get().getId());
+                binaryContentService.delete(requestedRecord.get());
             }
-            return new ResponseObject(ErrorType.DeleteSuccess, ObjectAction.class.getSimpleName(), ActionStatus.Error, id,SystemMessage.DeleteMessage);
+            catch (Exception e) {
+                return new ResponseObject(ErrorType.ForeignKeyViolation, Journey.class.getSimpleName(),ActionStatus.Error, id,e.getCause().getMessage());
+            }
+            return new ResponseObject(ErrorType.SaveSuccess, BaseObject.class.getSimpleName(),ActionStatus.OK, id,SystemMessage.DeleteMessage);
         }
-        return new ResponseObject(ErrorType.RecordNotFound, ObjectAction.class.getSimpleName(), ActionStatus.Error, id,SystemMessage.RecordNotFound);
+        return  new ResponseObject(ErrorType.RecordNotFound,BaseObject.class.getSimpleName(), ActionStatus.Error, id,SystemMessage.RecordNotFound);
     }
 
 }

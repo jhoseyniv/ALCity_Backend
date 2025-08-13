@@ -64,6 +64,7 @@ public class BinaryContentService implements BinaryContentRepository , BinaryCon
 
     @Override
     public Optional<BinaryContent> findById(Long id) {
+        if(id == null){return Optional.empty();}
         return binaryContentRepository.findById(id);
     }
 
