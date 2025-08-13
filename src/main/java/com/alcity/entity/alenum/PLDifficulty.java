@@ -14,7 +14,7 @@ public enum PLDifficulty {
         {
             if (id == e.ordinal()) return e;
         }
-        throw new IllegalArgumentException("no");
+        return Easy;
     }
 
     public static PLDifficulty getByTitle(String title)
@@ -23,7 +23,7 @@ public enum PLDifficulty {
         {
             if (title.equalsIgnoreCase(e.name())) return e;
         }
-        throw new IllegalArgumentException("no");
+        return PLDifficulty.Easy;
     }
 
     }

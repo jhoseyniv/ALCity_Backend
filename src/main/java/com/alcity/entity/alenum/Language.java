@@ -11,7 +11,7 @@ public enum Language {
         {
             if (id == e.ordinal()) return e;
         }
-        throw new IllegalArgumentException("no");
+        return Language.English;
     }
 
     public static Language getByTitle(String title)

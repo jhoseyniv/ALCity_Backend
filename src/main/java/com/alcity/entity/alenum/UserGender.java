@@ -13,7 +13,7 @@ public enum UserGender  {
         {
             if (id == e.ordinal()) return e;
         }
-        throw new IllegalArgumentException("no");
+        return UserGender.Unknow;
     }
     public static UserGender getByTitle(String title)
     {
@@ -21,7 +21,7 @@ public enum UserGender  {
         {
             if (title.equalsIgnoreCase(e.name())) return e;
         }
-        throw new IllegalArgumentException("no");
+        return UserGender.Unknow;
     }
 
 }
