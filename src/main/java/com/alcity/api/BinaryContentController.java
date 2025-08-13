@@ -103,8 +103,6 @@ public class BinaryContentController {
         catch (Exception e) {
             throw new ResponseObject(ErrorType.UniquenessViolation, RoadMap.class.getSimpleName() ,ActionStatus.Error , -1L ,e.getCause().getMessage());
         }
-
-
         if(savedRecord !=null)
             response = new ResponseMessage(ErrorType.SaveSuccess, RoadMap.class.getSimpleName() ,ActionStatus.OK, savedRecord.getId(), SystemMessage.SaveOrEditMessage_Success);
         else
