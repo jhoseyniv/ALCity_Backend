@@ -119,7 +119,9 @@ public class MemberTypeService implements MemberTypeRepository {
 
     @Override
     public Optional<MemberType> findByValue(String value) {
-        return Optional.empty();
+        if(memberTypeRepository.findByValue(value) == null) {return Optional.empty();}
+        else
+            return memberTypeRepository.findByValue(value);
     }
 
 

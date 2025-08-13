@@ -29,6 +29,7 @@ import com.alcity.repository.appmember.CustomizedUserRepository;
 import com.alcity.repository.appmember.WalletItemRespository;
 import com.alcity.repository.base.BinaryContentRepository;
 import com.alcity.repository.base.MemberTypeRepository;
+import com.alcity.service.base.MemberTypeService;
 import com.alcity.service.puzzle.PuzzleLevelService;
 import com.alcity.utility.DTOUtil;
 import com.alcity.utility.DateUtils;
@@ -52,7 +53,7 @@ public class AppMemberService implements AppMemberRepository, CustomizedUserRepo
     @Autowired
     private BinaryContentRepository binaryContentRepository;
     @Autowired
-    private MemberTypeRepository memberTypeRepository;
+    private MemberTypeService memberTypeService;
 
     @Autowired
     private AppMember_WalletItemRepository appMember_WalletItemRepository;
@@ -266,7 +267,7 @@ public class AppMemberService implements AppMemberRepository, CustomizedUserRepo
 
     public AppMember save(AppMemberDTO dto, String code) {
         Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
-        MemberType memberType = memberTypeRepository.findByValue(dto.getMemberType()).get();
+        MemberType memberType = memberTypeService.findByValue(dto.getMemberType()).get();
         UserGender gender = UserGender.getByTitle(dto.getGender());
         Language language = Language.getByTitle(dto.getLanguage());
         BinaryContent icon=null;
@@ -304,7 +305,7 @@ public class AppMemberService implements AppMemberRepository, CustomizedUserRepo
     }
     public AppMember saveGuestUser(Integer bornYear) {
         Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
-        MemberType memberType = memberTypeRepository.findByValue("Guest").get();
+        MemberType memberType = memberTypeService.findByValue("Guest").get();
 
         BinaryContent icon=null;
         AppMember guest=null;
@@ -328,7 +329,7 @@ public class AppMemberService implements AppMemberRepository, CustomizedUserRepo
     }
         public AppMember saveRemoteUser(RemoteRequestDTO accessDTO) {
         Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
-        MemberType memberType = memberTypeRepository.findByValue("Guest").get();
+        MemberType memberType = memberTypeService.findByValue("Guest").get();
         BinaryContent icon=null;
         AppMember guest=null;
         Integer age = DateUtils.calculateAgeFromJalali(accessDTO.getBirthYear());
