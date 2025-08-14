@@ -28,27 +28,27 @@ public class ObjectManagementException extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(ResponseObject.class)
     public ResponseEntity<Object> handleUniqueConstraintException(ResponseObject ex, WebRequest request) {
-
         Map<String, Object> body = new LinkedHashMap<>();
-        body.put("code ", ex.getType() );
-        body.put("status ", ex.getStatus() );
-        body.put("message ", ex.getMessage() );
-        body.put("recordId ", ex.getRecordId() );
+        body.put("type", ex.getType() );
+        body.put("status", ex.getStatus() );
+        body.put("entity", ex.getEntity() );
+        body.put("message", ex.getMessage() );
+        body.put("recordId", ex.getRecordId() );
         return new ResponseEntity<>(body, HttpStatus.CONFLICT);
     }
     @ExceptionHandler(ViolateForeignKeyException.class)
     public ResponseEntity<Object> handleViolateForeignKeyException(ResponseObject ex, WebRequest request) {
 
         Map<String, Object> body = new LinkedHashMap<>();
-        body.put("code ", "This record Id has a many related data in databes , violates foreign key constraint...." );
-        body.put("status ", ex.getStatus() );
-        body.put("message ", ex.getMessage() );
-        body.put("recordId ", ex.getRecordId() );
+        body.put("type", ex.getType() );
+        body.put("status", ex.getStatus() );
+        body.put("entity", ex.getEntity() );
+        body.put("message", ex.getMessage() );
+        body.put("recordId", ex.getRecordId() );
         return new ResponseEntity<>(body, HttpStatus.CONFLICT);
     }
     @ExceptionHandler(NotNullConstraintException.class)
     public ResponseEntity<Object> handleNotNullConstraintExceptionn(NotNullConstraintException ex, WebRequest request) {
-
         Map<String, Object> body = new LinkedHashMap<>();
         body.put("timestamp", LocalDateTime.now());
         body.put("message", ex.getMessage() );

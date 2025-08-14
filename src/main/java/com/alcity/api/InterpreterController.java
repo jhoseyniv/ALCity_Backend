@@ -65,7 +65,7 @@ public class InterpreterController {
         if(puzzleLevelOptional.isPresent()){
             plData = getJsonFile(id);
         }
-        return new ResponseObject(ErrorType.SaveSuccess, ObjectAction.class.getSimpleName() , ActionStatus.OK, id, SystemMessage.SaveOrEditMessage_Success);
+        return new ResponseObject(ErrorType.SaveSuccess, ObjectAction.class.getSimpleName() , Status.ok.name(), id, SystemMessage.SaveOrEditMessage_Success);
     }
 
     @Operation( summary = "Fetch a json ",  description = "Fetches all data that need to Interpret a puzzle level structure and rules")

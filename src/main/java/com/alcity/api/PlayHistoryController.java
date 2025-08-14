@@ -1,7 +1,7 @@
 package com.alcity.api;
 
 import com.alcity.dto.player.PlayHistoryDTO;
-import com.alcity.entity.alenum.ActionStatus;
+import com.alcity.entity.alenum.Status;
 import com.alcity.entity.alenum.ErrorType;
 import com.alcity.entity.alenum.SystemMessage;
 import com.alcity.entity.play.PlayHistory;
@@ -36,7 +36,7 @@ public class PlayHistoryController {
     @Operation( summary = "Save a play history for an Application Member + puzzle level",  description = "Save a play history for an Application Member + puzzle level ...")
     @PostMapping("/save")
     @CrossOrigin(origins = "*")
-    public ResponseObject savePlayHistory(@RequestBody PlayHistoryDTO dto)  {
+    public ResponseObject savePlayHistory(@RequestBody PlayHistoryDTO dto) throws ResponseObject {
         PlayHistory savedRecord = null;
         ResponseObject responseObject = new ResponseObject();
         Optional<PlayHistory> playHistoryOptional = playHistoryService.findById(dto.getId());
@@ -49,10 +49,10 @@ public class PlayHistoryController {
         }
         catch (Exception e) {
 
-            throw new ResponseObject(ErrorType.UniquenessViolation, PlayHistory.class.getSimpleName() , ActionStatus.Error , -1L ,e.getCause().getMessage());
+            throw new ResponseObject(ErrorType.UniquenessViolation, PlayHistory.class.getSimpleName() , Status.error.name() , -1L ,e.getCause().getMessage());
         }
         if(savedRecord !=null)
-            responseObject = new ResponseObject(ErrorType.SaveSuccess, BaseObject.class.getSimpleName() ,ActionStatus.OK, savedRecord.getId(), SystemMessage.DeleteMessage);
+            responseObject = new ResponseObject(ErrorType.SaveSuccess, BaseObject.class.getSimpleName() , Status.ok.name(), savedRecord.getId(), SystemMessage.DeleteMessage);
 
 
         return responseObject;

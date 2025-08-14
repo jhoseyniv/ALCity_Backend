@@ -4,7 +4,7 @@ import com.alcity.dto.appmember.*;
 import com.alcity.dto.player.PlayHistoryDTO;
 import com.alcity.dto.puzzle.PLDTO;
 import com.alcity.dto.search.AppMemberSearchCriteriaDTO;
-import com.alcity.entity.alenum.ActionStatus;
+import com.alcity.entity.alenum.Status;
 import com.alcity.entity.alenum.ErrorType;
 import com.alcity.entity.alenum.SystemMessage;
 import com.alcity.entity.appmember.*;
@@ -158,9 +158,9 @@ public class AppMemberController {
             {
                 throw new ViolateForeignKeyException(-1, "error", AppMember.class.toString(),existingRecord.get().getId());
             }
-            return new ResponseObject(ErrorType.SaveSuccess, BaseObject.class.getSimpleName(),ActionStatus.OK, id,SystemMessage.DeleteMessage);
+            return new ResponseObject(ErrorType.SaveSuccess, BaseObject.class.getSimpleName(), Status.ok.name(), id,SystemMessage.DeleteMessage);
         }
-        return new ResponseObject(ErrorType.RecordNotFound, BaseObject.class.getSimpleName() ,ActionStatus.Error , -1L ,"e.getCause().getMessage()");
+        return new ResponseObject(ErrorType.RecordNotFound, BaseObject.class.getSimpleName() , Status.error.name() , -1L ,"e.getCause().getMessage()");
     }
 
     @Operation( summary = "Update Avatar for an App Member ",  description = "Update Avatar for an App Member")
@@ -172,9 +172,9 @@ public class AppMemberController {
 
         updatedRecord = appMemberService.updateAvatar(memId, avatarId);
             if(updatedRecord !=null)
-                responseObject = new ResponseObject(ErrorType.SaveSuccess, BaseObject.class.getSimpleName() ,ActionStatus.OK, updatedRecord.getId(), SystemMessage.SaveOrEditMessage_Success);
+                responseObject = new ResponseObject(ErrorType.SaveSuccess, BaseObject.class.getSimpleName() , Status.ok.name(), updatedRecord.getId(), SystemMessage.SaveOrEditMessage_Success);
             else
-                responseObject = new ResponseObject(ErrorType.RecordNotFound, BaseObject.class.getSimpleName() ,ActionStatus.Error , -1L ,"e.getCause().getMessage()");
+                responseObject = new ResponseObject(ErrorType.RecordNotFound, BaseObject.class.getSimpleName() , Status.error.name() , -1L ,"e.getCause().getMessage()");
 
         return responseObject;
     }
@@ -193,18 +193,18 @@ public class AppMemberController {
             } catch (RuntimeException e) {
                 throw new UniqueConstraintException(-1,"Unique Constraint in" + AppMember.class , "Error",savedRecord.getId() );
             }
-            responseObject = new ResponseObject(ErrorType.SaveSuccess, BaseObject.class.getSimpleName() , ActionStatus.OK, savedRecord.getId(), SystemMessage.SaveOrEditMessage_Success);
+            responseObject = new ResponseObject(ErrorType.SaveSuccess, BaseObject.class.getSimpleName() , Status.ok.name(), savedRecord.getId(), SystemMessage.SaveOrEditMessage_Success);
         } else if (dto.getId() > 0L ) {//edit
             savedRecord = appMemberService.save(dto, "Edit");
             if(savedRecord !=null)
-                responseObject = new ResponseObject(ErrorType.SaveSuccess, AppMember_WalletItem.class.getSimpleName() ,ActionStatus.OK, savedRecord.getId(), SystemMessage.SaveOrEditMessage_Success);
+                responseObject = new ResponseObject(ErrorType.SaveSuccess, AppMember_WalletItem.class.getSimpleName() , Status.ok.name(), savedRecord.getId(), SystemMessage.SaveOrEditMessage_Success);
             else
-                responseObject = new ResponseObject(ErrorType.RecordNotFound, AppMember_WalletItem.class.getSimpleName() ,ActionStatus.Error , -1L ,"e.getCause().getMessage()");
+                responseObject = new ResponseObject(ErrorType.RecordNotFound, AppMember_WalletItem.class.getSimpleName() , Status.error.name() , -1L ,"e.getCause().getMessage()");
         }
         else if (savedRecord==null)
-            responseObject = new ResponseObject(ErrorType.RecordNotFound, AppMember_WalletItem.class.getSimpleName() ,ActionStatus.Error , -1L ,"e.getCause().getMessage()");
+            responseObject = new ResponseObject(ErrorType.RecordNotFound, AppMember_WalletItem.class.getSimpleName() , Status.error.name() , -1L ,"e.getCause().getMessage()");
         else
-            responseObject = new ResponseObject(ErrorType.RecordNotFound, AppMember_WalletItem.class.getSimpleName() ,ActionStatus.Error , -1L ,"e.getCause().getMessage()");
+            responseObject = new ResponseObject(ErrorType.RecordNotFound, AppMember_WalletItem.class.getSimpleName() , Status.error.name() , -1L ,"e.getCause().getMessage()");
 
         return responseObject;
     }
@@ -221,18 +221,18 @@ public class AppMemberController {
             } catch (RuntimeException e) {
                 throw new UniqueConstraintException(-1,"Unique Constraint in" + AppMember_WalletItem.class , "Error",savedRecord.getId() );
             }
-            responseObject = new ResponseObject(ErrorType.SaveSuccess, AppMember_WalletItem.class.getSimpleName() ,ActionStatus.OK, savedRecord.getId(), SystemMessage.SaveOrEditMessage_Success);
+            responseObject = new ResponseObject(ErrorType.SaveSuccess, AppMember_WalletItem.class.getSimpleName() , Status.ok.name(), savedRecord.getId(), SystemMessage.SaveOrEditMessage_Success);
         } else if (dto.getId() > 0L ) {//edit
             savedRecord = appMemberService.chargeOrDeChargeAppMemberWallet(dto, "Edit");
             if(savedRecord !=null)
-                responseObject = new ResponseObject(ErrorType.SaveSuccess, AppMember_WalletItem.class.getSimpleName() ,ActionStatus.OK, savedRecord.getId(), SystemMessage.SaveOrEditMessage_Success);
+                responseObject = new ResponseObject(ErrorType.SaveSuccess, AppMember_WalletItem.class.getSimpleName() , Status.ok.name(), savedRecord.getId(), SystemMessage.SaveOrEditMessage_Success);
             else
-                responseObject = new ResponseObject(ErrorType.RecordNotFound, AppMember_WalletItem.class.getSimpleName() ,ActionStatus.Error , -1L ,"e.getCause().getMessage()");
+                responseObject = new ResponseObject(ErrorType.RecordNotFound, AppMember_WalletItem.class.getSimpleName() , Status.error.name() , -1L ,"e.getCause().getMessage()");
         }
         else if (savedRecord==null)
-            responseObject = new ResponseObject(ErrorType.RecordNotFound, AppMember_WalletItem.class.getSimpleName() ,ActionStatus.Error , -1L ,"e.getCause().getMessage()");
+            responseObject = new ResponseObject(ErrorType.RecordNotFound, AppMember_WalletItem.class.getSimpleName() , Status.error.name() , -1L ,"e.getCause().getMessage()");
         else
-            responseObject = new ResponseObject(ErrorType.RecordNotFound, AppMember_WalletItem.class.getSimpleName() ,ActionStatus.Error , -1L ,"e.getCause().getMessage()");
+            responseObject = new ResponseObject(ErrorType.RecordNotFound, AppMember_WalletItem.class.getSimpleName() , Status.error.name() , -1L ,"e.getCause().getMessage()");
 
         return responseObject;
     }
@@ -263,11 +263,11 @@ public class AppMemberController {
         boolean checkIsRewardBefore = checkPLRewardConstraint(dto);
 
         if(checkIsRewardBefore == false)
-        responseObject = new ResponseObject(ErrorType.UniquenessViolation, WalletTransaction.class.getSimpleName() ,ActionStatus.OK, savedRecord.getId(), "The user got this a reward before!");
+        responseObject = new ResponseObject(ErrorType.UniquenessViolation, WalletTransaction.class.getSimpleName() , Status.ok.name(), savedRecord.getId(), "The user got this a reward before!");
 
         else {
             savedRecord = walletTransactionService.save(dto, "Save");
-            responseObject = new ResponseObject(ErrorType.SaveSuccess, WalletTransaction.class.getSimpleName() ,ActionStatus.OK, savedRecord.getId(), SystemMessage.SaveOrEditMessage_Success);
+            responseObject = new ResponseObject(ErrorType.SaveSuccess, WalletTransaction.class.getSimpleName() , Status.ok.name(), savedRecord.getId(), SystemMessage.SaveOrEditMessage_Success);
 
         }
         return responseObject;
@@ -282,10 +282,10 @@ public class AppMemberController {
         boolean checkIsRewardBefore = checkPLSkillConstraint(dto);
 
         if(checkIsRewardBefore == false)
-            return new ResponseObject(ErrorType.UniquenessViolation, LearningSkillTransaction.class.getSimpleName() ,ActionStatus.OK, savedRecord.getId(), "The user got this a learning skill before");
+            return new ResponseObject(ErrorType.UniquenessViolation, LearningSkillTransaction.class.getSimpleName() , Status.ok.name(), savedRecord.getId(), "The user got this a learning skill before");
        else {
             savedRecord = learningSkillTransactionService.save(dto, "Save");
-            responseObject = new ResponseObject(ErrorType.SaveSuccess, AppMember_WalletItem.class.getSimpleName() ,ActionStatus.OK, savedRecord.getId(), SystemMessage.SaveOrEditMessage_Success);
+            responseObject = new ResponseObject(ErrorType.SaveSuccess, AppMember_WalletItem.class.getSimpleName() , Status.ok.name(), savedRecord.getId(), SystemMessage.SaveOrEditMessage_Success);
         }
         return responseObject;
     }

@@ -1,20 +1,21 @@
 package com.alcity.entity.alenum;
 
-public enum ActionStatus {
-    OK,
-    Info,
-    Error;
-    public static ActionStatus getById(long id)
+public enum Status {
+    ok,
+    info,
+    warning,
+    error;
+    public static Status getById(long id)
     {
-        for (ActionStatus e : ActionStatus.values())
+        for (Status e : Status.values())
         {
             if (id == e.ordinal()) return e;
         }
         throw new IllegalArgumentException("no");
     }
-    public static ActionStatus getByTitle(String title)
+    public static Status getByTitle(String title)
     {
-        for (ActionStatus e : ActionStatus.values())
+        for (Status e : Status.values())
         {
             if (title.equalsIgnoreCase(e.name())) return e;
         }

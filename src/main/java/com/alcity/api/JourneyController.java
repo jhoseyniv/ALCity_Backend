@@ -1,16 +1,13 @@
 package com.alcity.api;
 
 import com.alcity.dto.journey.*;
-import com.alcity.entity.alenum.ActionStatus;
+import com.alcity.entity.alenum.Status;
 import com.alcity.entity.alenum.ErrorType;
 import com.alcity.entity.alenum.SystemMessage;
-import com.alcity.entity.alobject.ObjectAction;
 import com.alcity.entity.journey.RoadMap;
 import com.alcity.entity.puzzle.BaseObject;
 import com.alcity.service.Journey.RoadMapService;
 import com.alcity.customexception.ResponseObject;
-import com.alcity.customexception.UniqueConstraintException;
-import com.alcity.customexception.ViolateForeignKeyException;
 import com.alcity.entity.journey.Journey;
 import com.alcity.entity.journey.JourneyStep;
 import com.alcity.repository.appmember.AppMemberRepository;
@@ -21,8 +18,6 @@ import com.alcity.utility.DTOUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
@@ -82,7 +77,7 @@ public class JourneyController {
     @Operation( summary = "Save a  Journey ",  description = "save a Journey entity and their data to data base")
     @PostMapping("/save")
     @CrossOrigin(origins = "*")
-    public ResponseObject save(@RequestBody JourneyDTO dto)  {
+    public ResponseObject save(@RequestBody JourneyDTO dto) throws ResponseObject {
         Journey savedRecord = null;
         ResponseObject response = new ResponseObject();
         Optional<Journey> journeyOptional = service.findById(dto.getId());
@@ -93,20 +88,20 @@ public class JourneyController {
                 savedRecord = service.save(dto, "Edit");
         }
         catch (Exception e) {
-            throw new ResponseObject(ErrorType.UniquenessViolation, Journey.class.getSimpleName() ,ActionStatus.Error , -1L ,e.getCause().getMessage());
+            throw new ResponseObject(ErrorType.UniquenessViolation, Journey.class.getSimpleName() , Status.error.name() , -1L ,e.getCause().getMessage());
         }
 
         if(savedRecord !=null)
-            response = new ResponseObject(ErrorType.SaveSuccess, Journey.class.getSimpleName() ,ActionStatus.OK, savedRecord.getId(), SystemMessage.SaveOrEditMessage_Success);
+            response = new ResponseObject(ErrorType.SaveSuccess, Journey.class.getSimpleName() , Status.ok.name(), savedRecord.getId(), SystemMessage.SaveOrEditMessage_Success);
         else
-            response = new ResponseObject(ErrorType.SaveFail, Journey.class.getSimpleName() ,ActionStatus.Error, -1L, SystemMessage.SaveOrEditMessage_Fail);
+            response = new ResponseObject(ErrorType.SaveFail, Journey.class.getSimpleName() , Status.error.name(), -1L, SystemMessage.SaveOrEditMessage_Fail);
         return response;
     }
 
     @Operation( summary = "Save a  Journey Step",  description = "save a Journey Step and their data to data base")
     @PostMapping("/save/step")
     @CrossOrigin(origins = "*")
-    public ResponseObject saveOrEditJourneyStep(@RequestBody JourneyStepRecord dto)  {
+    public ResponseObject saveOrEditJourneyStep(@RequestBody JourneyStepRecord dto) throws ResponseObject {
         JourneyStep savedRecord = null;
         ResponseObject response = new ResponseObject();
         Optional<JourneyStep> journeyStepOptional = journeyStepService.findById(dto.getId());
@@ -117,12 +112,12 @@ public class JourneyController {
                 savedRecord = journeyStepService.save(dto, "Edit");
         }
         catch (Exception e) {
-            throw new ResponseObject(ErrorType.UniquenessViolation, JourneyStep.class.getSimpleName() ,ActionStatus.Error , -1L ,e.getCause().getMessage());
+            throw new ResponseObject(ErrorType.UniquenessViolation, JourneyStep.class.getSimpleName() , Status.error.name() , -1L ,e.getCause().getMessage());
         }
         if(savedRecord !=null)
-            response = new ResponseObject(ErrorType.SaveSuccess, JourneyStep.class.getSimpleName() ,ActionStatus.OK, savedRecord.getId(), SystemMessage.SaveOrEditMessage_Success);
+            response = new ResponseObject(ErrorType.SaveSuccess, JourneyStep.class.getSimpleName() , Status.ok.name(), savedRecord.getId(), SystemMessage.SaveOrEditMessage_Success);
         else
-            response = new ResponseObject(ErrorType.SaveFail, JourneyStep.class.getSimpleName() ,ActionStatus.Error, -1L, SystemMessage.SaveOrEditMessage_Fail);
+            response = new ResponseObject(ErrorType.SaveFail, JourneyStep.class.getSimpleName() , Status.error.name(), -1L, SystemMessage.SaveOrEditMessage_Fail);
      return response;
     }
 
@@ -133,9 +128,9 @@ public class JourneyController {
         ResponseObject response = new ResponseObject();
        Collection<RoadMap> roadMaps = roadMapService.updateAll(dtos);
        if(roadMaps == null || roadMaps.size() != dtos.size()) {
-           response = new ResponseObject(ErrorType.SaveFail, JourneyStep.class.getSimpleName() , ActionStatus.OK, 1L, SystemMessage.SaveOrEditMessage_Fail);
+           response = new ResponseObject(ErrorType.SaveFail, JourneyStep.class.getSimpleName() , Status.ok.name(), 1L, SystemMessage.SaveOrEditMessage_Fail);
        }else {
-           response = new ResponseObject(ErrorType.SaveSuccess, JourneyStep.class.getSimpleName() , ActionStatus.OK, 1L, SystemMessage.SaveOrEditMessage_Success);
+           response = new ResponseObject(ErrorType.SaveSuccess, JourneyStep.class.getSimpleName() , Status.ok.name(), 1L, SystemMessage.SaveOrEditMessage_Success);
        }
         return response;
     }
@@ -143,7 +138,7 @@ public class JourneyController {
     @Operation( summary = "Save a  Road Map",  description = "save a Road Map and their data to data base")
     @PostMapping("/save/road-map")
     @CrossOrigin(origins = "*")
-    public ResponseObject saveOrEditRoadMap(@RequestBody RoadMapDTO dto)  {
+    public ResponseObject saveOrEditRoadMap(@RequestBody RoadMapDTO dto) throws ResponseObject {
         RoadMap savedRecord = null;
         ResponseObject response = new ResponseObject();
         Optional<RoadMap> journeyStepOptional = roadMapService.findById(dto.getId());
@@ -154,12 +149,12 @@ public class JourneyController {
                 savedRecord = roadMapService.save(dto, "Edit");
         }
         catch (Exception e) {
-            throw new ResponseObject(ErrorType.UniquenessViolation, RoadMap.class.getSimpleName() ,ActionStatus.Error , -1L ,e.getCause().getMessage());
+            throw new ResponseObject(ErrorType.UniquenessViolation, RoadMap.class.getSimpleName() , Status.error.name() , -1L ,e.getCause().getMessage());
         }
         if(savedRecord !=null)
-            response = new ResponseObject(ErrorType.SaveSuccess, RoadMap.class.getSimpleName() ,ActionStatus.OK, savedRecord.getId(), SystemMessage.SaveOrEditMessage_Success);
+            response = new ResponseObject(ErrorType.SaveSuccess, RoadMap.class.getSimpleName() , Status.ok.name(), savedRecord.getId(), SystemMessage.SaveOrEditMessage_Success);
         else
-            response = new ResponseObject(ErrorType.SaveFail, RoadMap.class.getSimpleName() ,ActionStatus.Error, -1L, SystemMessage.SaveOrEditMessage_Fail);
+            response = new ResponseObject(ErrorType.SaveFail, RoadMap.class.getSimpleName() , Status.error.name(), -1L, SystemMessage.SaveOrEditMessage_Fail);
         return response;
     }
 
@@ -171,11 +166,11 @@ public class JourneyController {
                 roadMapService.delete(existingRecord.get());
             }
             catch (Exception e) {
-                return new ResponseObject(ErrorType.ForeignKeyViolation, RoadMap.class.getSimpleName(),ActionStatus.Error, id,e.getCause().getMessage());
+                return new ResponseObject(ErrorType.ForeignKeyViolation, RoadMap.class.getSimpleName(), Status.error.name(), id,e.getCause().getMessage());
             }
-            return new ResponseObject(ErrorType.SaveSuccess, BaseObject.class.getSimpleName(),ActionStatus.OK, id,SystemMessage.DeleteMessage);
+            return new ResponseObject(ErrorType.SaveSuccess, RoadMap.class.getSimpleName(), Status.ok.name(), id,SystemMessage.DeleteMessage);
         }
-        return  new ResponseObject(ErrorType.RecordNotFound,BaseObject.class.getSimpleName(), ActionStatus.Error, id,SystemMessage.RecordNotFound);
+        return  new ResponseObject(ErrorType.RecordNotFound,RoadMap.class.getSimpleName(), Status.error.name(), id,SystemMessage.RecordNotFound);
     }
 
     @DeleteMapping("/del/step/id/{id}")
@@ -186,11 +181,11 @@ public class JourneyController {
                 journeyStepService.delete(existingRecord.get());
             }
             catch (Exception e) {
-                return new ResponseObject(ErrorType.ForeignKeyViolation, JourneyStep.class.getSimpleName(),ActionStatus.Error, id,e.getCause().getMessage());
+                return new ResponseObject(ErrorType.ForeignKeyViolation, JourneyStep.class.getSimpleName(), Status.error.name(), id,e.getCause().getMessage());
             }
-            return new ResponseObject(ErrorType.SaveSuccess, BaseObject.class.getSimpleName(),ActionStatus.OK, id,SystemMessage.DeleteMessage);
+            return new ResponseObject(ErrorType.SaveSuccess, JourneyStep.class.getSimpleName(), Status.ok.name(), id,SystemMessage.DeleteMessage);
         }
-        return  new ResponseObject(ErrorType.RecordNotFound,BaseObject.class.getSimpleName(), ActionStatus.Error, id,SystemMessage.RecordNotFound);
+        return  new ResponseObject(ErrorType.RecordNotFound,JourneyStep.class.getSimpleName(), Status.error.name(), id,SystemMessage.RecordNotFound);
     }
 
     @DeleteMapping("/del/{id}")
@@ -201,11 +196,11 @@ public class JourneyController {
                  service.delete(requestedRecord.get());
              }
              catch (Exception e) {
-                 return new ResponseObject(ErrorType.ForeignKeyViolation, Journey.class.getSimpleName(),ActionStatus.Error, id,e.getCause().getMessage());
+                 return new ResponseObject(ErrorType.ForeignKeyViolation, Journey.class.getSimpleName(), Status.error.name(), id,e.getCause().getMessage());
              }
-            return new ResponseObject(ErrorType.SaveSuccess, BaseObject.class.getSimpleName(),ActionStatus.OK, id,SystemMessage.DeleteMessage);
+            return new ResponseObject(ErrorType.SaveSuccess, Journey.class.getSimpleName(), Status.ok.name(), id,SystemMessage.DeleteMessage);
         }
-        return  new ResponseObject(ErrorType.RecordNotFound,BaseObject.class.getSimpleName(), ActionStatus.Error, id,SystemMessage.RecordNotFound);
+        return  new ResponseObject(ErrorType.RecordNotFound,Journey.class.getSimpleName(), Status.error.name(), id,SystemMessage.RecordNotFound);
     }
 
     @Operation( summary = "Get all steps for a Journey ",  description = "Get all steps")

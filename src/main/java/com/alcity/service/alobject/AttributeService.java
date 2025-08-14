@@ -1044,7 +1044,7 @@ public class AttributeService implements AttributeRepository {
                 } catch (RuntimeException e) {
                     throw new UniqueConstraintException(-1,"Unique Constraint in" + Attribute.class , "Error",savedRecord.getId() );
                 }
-                response = new ResponseObject(ErrorType.SaveSuccess, Attribute.class.getSimpleName() , ActionStatus.OK, savedRecord.getId(), SystemMessage.SaveOrEditMessage_Success);
+                response = new ResponseObject(ErrorType.SaveSuccess, Attribute.class.getSimpleName() , Status.ok.name(), savedRecord.getId(), SystemMessage.SaveOrEditMessage_Success);
 
             }else{
                 try {
@@ -1052,7 +1052,7 @@ public class AttributeService implements AttributeRepository {
                 } catch (RuntimeException e) {
                     throw new UniqueConstraintException(-1,"Unique Constraint in" + Attribute.class , "Error",savedRecord.getId() );
                 }
-                response = new ResponseObject(ErrorType.SaveSuccess, Attribute.class.getSimpleName() , ActionStatus.OK, savedRecord.getId(), SystemMessage.SaveOrEditMessage_Success);
+                response = new ResponseObject(ErrorType.SaveSuccess, Attribute.class.getSimpleName() , Status.ok.name(), savedRecord.getId(), SystemMessage.SaveOrEditMessage_Success);
 
 
             }
@@ -1079,7 +1079,7 @@ public class AttributeService implements AttributeRepository {
                 } catch (RuntimeException e) {
                     throw new UniqueConstraintException(-1, "Unique Constraint in" + Attribute.class, "Error", savedRecord.getId());
                 }
-            responseObject = new ResponseObject(ErrorType.SaveSuccess, Attribute.class.getSimpleName() , ActionStatus.OK, savedRecord.getId(), SystemMessage.SaveOrEditMessage_Success);
+            responseObject = new ResponseObject(ErrorType.SaveSuccess, Attribute.class.getSimpleName() , Status.ok.name(), savedRecord.getId(), SystemMessage.SaveOrEditMessage_Success);
 
         }
         return responseObjects;

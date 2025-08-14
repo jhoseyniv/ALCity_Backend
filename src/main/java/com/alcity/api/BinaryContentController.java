@@ -1,19 +1,14 @@
 package com.alcity.api;
 
 
-import com.alcity.customexception.ResponseMessage;
 import com.alcity.customexception.ResponseObject;
-import com.alcity.customexception.UniqueConstraintException;
-import com.alcity.customexception.ViolateForeignKeyException;
 import com.alcity.dto.base.BinaryContentDTO;
 import com.alcity.dto.search.ContentSearchCriteriaDTO;
-import com.alcity.entity.alenum.ActionStatus;
+import com.alcity.entity.alenum.Status;
 import com.alcity.entity.alenum.ErrorType;
 import com.alcity.entity.alenum.SystemMessage;
-import com.alcity.entity.alobject.ObjectAction;
 import com.alcity.entity.base.BinaryContent;
 import com.alcity.entity.journey.Journey;
-import com.alcity.entity.journey.RoadMap;
 import com.alcity.entity.puzzle.BaseObject;
 import com.alcity.service.base.BinaryContentService;
 import com.alcity.service.puzzle.PGService;
@@ -89,9 +84,10 @@ public class BinaryContentController {
     @Operation( summary = "Save a Binary Content to database by DTO ",  description = "Save a Binary Content entity and their data to data base")
     @PostMapping("/save")
     @CrossOrigin(origins = "*")
-    public ResponseMessage saveBinaryContentByDTO(@RequestBody BinaryContentDTO dto ) throws IOException {
+    public ResponseObject saveBinaryContentByDTO(@RequestBody BinaryContentDTO dto ) throws IOException, ResponseObject {
         BinaryContent savedRecord = null;
-        ResponseMessage  response= null;
+        ResponseObject  response= null;
+        if(dto.getId()==null ) dto.setId(-1L);
         Optional<BinaryContent> binaryContentOptional = binaryContentService.findById(dto.getId());
 
         try{
@@ -101,12 +97,12 @@ public class BinaryContentController {
                 savedRecord = binaryContentService.save(dto, "Edit");
         }
         catch (Exception e) {
-            throw new ResponseObject(ErrorType.UniquenessViolation, RoadMap.class.getSimpleName() ,ActionStatus.Error , -1L ,e.getCause().getMessage());
+            throw new ResponseObject(ErrorType.UniquenessViolation, Status.error.name() , BinaryContent.class.getSimpleName() ,  -1L ,e.getCause().getMessage());
         }
         if(savedRecord !=null)
-            response = new ResponseMessage(ErrorType.SaveSuccess, RoadMap.class.getSimpleName() ,ActionStatus.OK, savedRecord.getId(), SystemMessage.SaveOrEditMessage_Success);
+            response = new ResponseObject(ErrorType.SaveSuccess, Status.ok.name() , BinaryContent.class.getSimpleName() ,  savedRecord.getId(), SystemMessage.SaveOrEditMessage_Success);
         else
-            response = new ResponseMessage(ErrorType.SaveFail, RoadMap.class.getSimpleName() ,ActionStatus.Error, -1L, SystemMessage.SaveOrEditMessage_Fail);
+            response = new ResponseObject(ErrorType.RecordNotFound, Status.error.name() , BinaryContent.class.getSimpleName() , dto.getId(), SystemMessage.SaveOrEditMessage_Fail);
         return response;
     }
 
@@ -120,11 +116,11 @@ public class BinaryContentController {
                 binaryContentService.delete(requestedRecord.get());
             }
             catch (Exception e) {
-                return new ResponseObject(ErrorType.ForeignKeyViolation, Journey.class.getSimpleName(),ActionStatus.Error, id,e.getCause().getMessage());
+                return new ResponseObject(ErrorType.ForeignKeyViolation, Status.error.name(), Journey.class.getSimpleName(), id,e.getCause().getMessage());
             }
-            return new ResponseObject(ErrorType.SaveSuccess, BaseObject.class.getSimpleName(),ActionStatus.OK, id,SystemMessage.DeleteMessage);
+            return new ResponseObject(ErrorType.SaveSuccess, Status.ok.name(), BaseObject.class.getSimpleName(),  id,SystemMessage.DeleteMessage);
         }
-        return  new ResponseObject(ErrorType.RecordNotFound,BaseObject.class.getSimpleName(), ActionStatus.Error, id,SystemMessage.RecordNotFound);
+        return  new ResponseObject(ErrorType.RecordNotFound, Status.error.name(),BaseObject.class.getSimpleName(),  id,SystemMessage.RecordNotFound);
     }
 
 }

@@ -119,7 +119,7 @@ public class ObjectController {
     @Operation( summary = "Save an Algoopia Object ",  description = "Save an Algoopia Object")
     @PostMapping("/save")
     @CrossOrigin(origins = "*")
-    public ResponseObject save(@RequestBody CityObjectDTO dto)  {
+    public ResponseObject save(@RequestBody CityObjectDTO dto) throws ResponseObject {
         BaseObject savedRecord = null;
         ResponseObject response = new ResponseObject();
         Optional<BaseObject> baseObjectOptional = service.findById(dto.getId());
@@ -130,12 +130,12 @@ public class ObjectController {
                    savedRecord = service.save(dto, "Edit");
         }
         catch (Exception e) {
-            throw new ResponseObject(ErrorType.UniquenessViolation, BaseObject.class.getSimpleName() ,ActionStatus.Error , -1L ,e.getCause().getMessage());
+            throw new ResponseObject(ErrorType.UniquenessViolation, Status.error.name() ,BaseObject.class.getSimpleName() ,  -1L ,e.getCause().getMessage());
         }
         if(savedRecord !=null)
-            response = new ResponseObject(ErrorType.SaveSuccess, BaseObject.class.getSimpleName() ,ActionStatus.OK, savedRecord.getId(), SystemMessage.SaveOrEditMessage_Success);
+            response = new ResponseObject(ErrorType.SaveSuccess,Status.ok.name(), BaseObject.class.getSimpleName() ,  savedRecord.getId(), SystemMessage.SaveOrEditMessage_Success);
         else
-            response = new ResponseObject(ErrorType.SaveFail, BaseObject.class.getSimpleName() ,ActionStatus.Error, -1L, SystemMessage.SaveOrEditMessage_Fail);
+            response = new ResponseObject(ErrorType.SaveFail,Status.ok.name(), BaseObject.class.getSimpleName() , -1L, SystemMessage.SaveOrEditMessage_Fail);
 
         return response;
     }
@@ -150,11 +150,11 @@ public class ObjectController {
                 service.delete(requestedRecord.get());
             }
             catch (Exception e) {
-                return new ResponseObject(ErrorType.ForeignKeyViolation, BaseObject.class.getSimpleName(),ActionStatus.Error, id,e.getCause().getMessage());
+                return new ResponseObject(ErrorType.ForeignKeyViolation, BaseObject.class.getSimpleName(), Status.error.name(), id,e.getCause().getMessage());
             }
-            return new ResponseObject(ErrorType.DeleteSuccess, BaseObject.class.getSimpleName(),ActionStatus.OK, id,SystemMessage.DeleteMessage);
+            return new ResponseObject(ErrorType.DeleteSuccess, BaseObject.class.getSimpleName(), Status.ok.name(), id,SystemMessage.DeleteMessage);
         }
-        return  new ResponseObject(ErrorType.RecordNotFound,BaseObject.class.getSimpleName(), ActionStatus.Error, id,SystemMessage.RecordNotFound);
+        return  new ResponseObject(ErrorType.RecordNotFound,BaseObject.class.getSimpleName(), Status.error.name(), id,SystemMessage.RecordNotFound);
     }
 
     @Operation( summary = "Fetch all actions for an al city object ",  description = "Fetch all actions for an al city object")

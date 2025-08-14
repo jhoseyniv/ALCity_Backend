@@ -3,7 +3,7 @@ package com.alcity.api;
 
 import com.alcity.dto.plimpexport.ActionData;
 import com.alcity.dto.puzzle.InstanceDTO;
-import com.alcity.entity.alenum.ActionStatus;
+import com.alcity.entity.alenum.Status;
 import com.alcity.entity.alenum.ErrorType;
 import com.alcity.entity.alenum.POActionOwnerType;
 import com.alcity.entity.alenum.SystemMessage;
@@ -58,18 +58,18 @@ public class InstanceController {
             } catch (RuntimeException e) {
                 throw new UniqueConstraintException(-1,"Unique Constraint in" + Instance.class , "Error",instance.getId() );
             }
-            responseObject = new ResponseObject(ErrorType.SaveSuccess, WalletItemType.class.getSimpleName() , ActionStatus.OK, instance.getId(), SystemMessage.SaveOrEditMessage_Success);
+            responseObject = new ResponseObject(ErrorType.SaveSuccess, WalletItemType.class.getSimpleName() , Status.ok.name(), instance.getId(), SystemMessage.SaveOrEditMessage_Success);
         } else if (dto.getId() > 0L ) {//edit
             instance = service.save(dto, "Edit");
             if(instance !=null)
-                responseObject = new ResponseObject(ErrorType.SaveSuccess, WalletItemType.class.getSimpleName() , ActionStatus.OK, instance.getId(), SystemMessage.SaveOrEditMessage_Success);
+                responseObject = new ResponseObject(ErrorType.SaveSuccess, WalletItemType.class.getSimpleName() , Status.ok.name(), instance.getId(), SystemMessage.SaveOrEditMessage_Success);
             else
-                responseObject = new ResponseObject(ErrorType.RecordNotFound, ObjectAction.class.getSimpleName(), ActionStatus.Error, dto.getId(),SystemMessage.RecordNotFound);
+                responseObject = new ResponseObject(ErrorType.RecordNotFound, ObjectAction.class.getSimpleName(), Status.error.name(), dto.getId(),SystemMessage.RecordNotFound);
         }
         else if (instance==null)
-            responseObject = new ResponseObject(ErrorType.RecordNotFound, ObjectAction.class.getSimpleName(), ActionStatus.Error, dto.getId(),SystemMessage.RecordNotFound);
+            responseObject = new ResponseObject(ErrorType.RecordNotFound, ObjectAction.class.getSimpleName(), Status.error.name(), dto.getId(),SystemMessage.RecordNotFound);
         else
-            responseObject = new ResponseObject(ErrorType.RecordNotFound, ObjectAction.class.getSimpleName(), ActionStatus.Error, dto.getId(),SystemMessage.RecordNotFound);
+            responseObject = new ResponseObject(ErrorType.RecordNotFound, ObjectAction.class.getSimpleName(), Status.error.name(), dto.getId(),SystemMessage.RecordNotFound);
 
         return responseObject;
     }
@@ -83,7 +83,7 @@ public class InstanceController {
         Optional<PLCell> plCellOptional = plCellService.findById(iid);
 
         if(plCellOptional.isEmpty() || instanceOptional.isEmpty())
-            return new ResponseObject(ErrorType.RecordNotFound, ObjectAction.class.getSimpleName(), ActionStatus.Error,cid,SystemMessage.RecordNotFound);
+            return new ResponseObject(ErrorType.RecordNotFound, ObjectAction.class.getSimpleName(), Status.error.name(),cid,SystemMessage.RecordNotFound);
 
         Instance instance = instanceOptional.get();
         instance.setPlCell(plCellOptional.get());
@@ -98,7 +98,7 @@ public class InstanceController {
         ResponseObject responseObject = new ResponseObject();
         Optional<Instance> instanceOptional = service.findById(id);
         if(instanceOptional.isEmpty()) return
-                 new ResponseObject(ErrorType.RecordNotFound, ObjectAction.class.getSimpleName(), ActionStatus.Error, id,SystemMessage.RecordNotFound);
+                 new ResponseObject(ErrorType.RecordNotFound, ObjectAction.class.getSimpleName(), Status.error.name(), id,SystemMessage.RecordNotFound);
 
         Instance instance = instanceOptional.get();
         PuzzleLevel puzzleLevel = instance.getPuzzleLevel();
@@ -107,7 +107,7 @@ public class InstanceController {
         Collection<Instance> copiedInstances = service.copyOneInstanceToOthers(instance,plGround);
 
         return
-                new ResponseObject(ErrorType.RecordNotFound, ObjectAction.class.getSimpleName(), ActionStatus.Error, id,SystemMessage.RecordNotFound);
+                new ResponseObject(ErrorType.RecordNotFound, ObjectAction.class.getSimpleName(), Status.error.name(), id,SystemMessage.RecordNotFound);
     }
 
 
@@ -163,9 +163,9 @@ public class InstanceController {
             {
                 throw new ViolateForeignKeyException(-1, "error", Instance.class.toString(),instance.get().getId());
             }
-            return new ResponseObject(ErrorType.DeleteSuccess, ObjectAction.class.getSimpleName(), ActionStatus.OK, instance.get().getId(),SystemMessage.DeleteMessage);
+            return new ResponseObject(ErrorType.DeleteSuccess, ObjectAction.class.getSimpleName(), Status.ok.name(), instance.get().getId(),SystemMessage.DeleteMessage);
         }
-        return new ResponseObject(ErrorType.RecordNotFound, ObjectAction.class.getSimpleName(), ActionStatus.Error, instance.get().getId(),SystemMessage.RecordNotFound);
+        return new ResponseObject(ErrorType.RecordNotFound, ObjectAction.class.getSimpleName(), Status.error.name(), instance.get().getId(),SystemMessage.RecordNotFound);
     }
 
 

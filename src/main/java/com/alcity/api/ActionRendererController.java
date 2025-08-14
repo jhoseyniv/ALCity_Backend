@@ -2,16 +2,12 @@ package com.alcity.api;
 
 import com.alcity.dto.plimpexport.AttributeData;
 import com.alcity.customexception.ResponseObject;
-import com.alcity.customexception.UniqueConstraintException;
-import com.alcity.customexception.ViolateForeignKeyException;
 import com.alcity.dto.alobject.RendererDTO;
-import com.alcity.entity.alenum.ActionStatus;
+import com.alcity.entity.alenum.Status;
 import com.alcity.entity.alenum.AttributeOwnerType;
 import com.alcity.entity.alenum.ErrorType;
 import com.alcity.entity.alenum.SystemMessage;
-import com.alcity.entity.alobject.ObjectAction;
 import com.alcity.entity.alobject.Renderer;
-import com.alcity.entity.puzzle.BaseObject;
 import com.alcity.service.alobject.RendererService;
 import com.alcity.service.alobject.AttributeService;
 import com.alcity.utility.DTOUtil;
@@ -53,7 +49,7 @@ public class ActionRendererController {
     @Operation( summary = "Save a Action Render Object  ",  description = "Save a Action Render  entity and their data to data base")
     @PostMapping("/save")
     @CrossOrigin(origins = "*")
-    public ResponseObject save(@RequestBody RendererDTO dto) throws Exception  {
+    public ResponseObject save(@RequestBody RendererDTO dto) throws Exception, ResponseObject {
         Renderer savedRecord = null;
         ResponseObject response = new ResponseObject();
         Optional<Renderer> rendererOptional = service.findById(dto.getId());
@@ -64,12 +60,12 @@ public class ActionRendererController {
                 savedRecord = service.save(dto, "Edit");
         }
         catch (Exception e) {
-            throw new ResponseObject(ErrorType.UniquenessViolation, Renderer.class.getSimpleName() ,ActionStatus.Error , -1L ,e.getCause().getMessage());
+            throw new ResponseObject(ErrorType.UniquenessViolation, Renderer.class.getSimpleName() , Status.error.name() , -1L ,e.getCause().getMessage());
         }
         if(savedRecord !=null)
-            response = new ResponseObject(ErrorType.SaveSuccess, Renderer.class.getSimpleName() ,ActionStatus.OK, savedRecord.getId(), SystemMessage.SaveOrEditMessage_Success);
+            response = new ResponseObject(ErrorType.SaveSuccess, Renderer.class.getSimpleName() , Status.ok.name(), savedRecord.getId(), SystemMessage.SaveOrEditMessage_Success);
         else
-            response = new ResponseObject(ErrorType.SaveFail, Renderer.class.getSimpleName() ,ActionStatus.Error, -1L, SystemMessage.SaveOrEditMessage_Fail);
+            response = new ResponseObject(ErrorType.SaveFail, Renderer.class.getSimpleName() , Status.error.name(), -1L, SystemMessage.SaveOrEditMessage_Fail);
 
         return response;
     }
@@ -95,11 +91,11 @@ public class ActionRendererController {
                     service.delete(requestedRecord.get());
                 }
             catch (Exception e) {
-                    return new ResponseObject(ErrorType.ForeignKeyViolation, Renderer.class.getSimpleName(),ActionStatus.Error, id,e.getCause().getMessage());
+                    return new ResponseObject(ErrorType.ForeignKeyViolation, Renderer.class.getSimpleName(), Status.error.name(), id,e.getCause().getMessage());
             }
-            return new ResponseObject(ErrorType.SaveSuccess, Renderer.class.getSimpleName(),ActionStatus.OK, id,SystemMessage.DeleteMessage);
+            return new ResponseObject(ErrorType.SaveSuccess, Renderer.class.getSimpleName(), Status.ok.name(), id,SystemMessage.DeleteMessage);
         }
-        return  new ResponseObject(ErrorType.RecordNotFound,Renderer.class.getSimpleName(), ActionStatus.Error, id,SystemMessage.RecordNotFound);
+        return  new ResponseObject(ErrorType.RecordNotFound,Renderer.class.getSimpleName(), Status.error.name(), id,SystemMessage.RecordNotFound);
 
     }
 

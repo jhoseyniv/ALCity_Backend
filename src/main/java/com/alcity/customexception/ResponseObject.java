@@ -1,13 +1,13 @@
 package com.alcity.customexception;
 
-import com.alcity.entity.alenum.ActionStatus;
+import com.alcity.entity.alenum.Status;
 import com.alcity.entity.alenum.ErrorType;
 
 public class ResponseObject extends  RuntimeException{
     private ErrorType type;
 
     private String entity;
-    private ActionStatus status; //ok or error
+    private String status; //ok or error
     private Long recordId;
     private String  message;
 
@@ -27,11 +27,11 @@ public class ResponseObject extends  RuntimeException{
         this.type = type;
     }
 
-    public ActionStatus getStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(ActionStatus status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 
@@ -56,10 +56,10 @@ public class ResponseObject extends  RuntimeException{
     public ResponseObject() {
     }
 
-    public ResponseObject(ErrorType type, String entity , ActionStatus status, Long recordId, String message) {
+    public ResponseObject(ErrorType type, String status, String entity , Long recordId, String message) {
         this.type = type;
-        this.entity =entity;
         this.status = status;
+        this.entity =entity;
         this.recordId = recordId;
         this.message = message;
     }

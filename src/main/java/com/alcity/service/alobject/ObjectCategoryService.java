@@ -56,6 +56,7 @@ public class ObjectCategoryService implements ObjectCategoryRepository {
 
     @Override
     public Optional<ObjectCategory> findById(Long id) {
+        if(id == null) return Optional.empty();
         return objectCategoryRepository.findById(id);
     }
 

@@ -1,10 +1,14 @@
 package com.alcity.api;
 
+import com.alcity.customexception.ResponseMessage;
 import com.alcity.customexception.ResponseObject;
 import com.alcity.customexception.ViolateForeignKeyException;
 import com.alcity.dto.alobject.*;
 import com.alcity.entity.alenum.*;
 import com.alcity.entity.alobject.*;
+import com.alcity.entity.journey.Journey;
+import com.alcity.entity.journey.RoadMap;
+import com.alcity.entity.puzzle.BaseObject;
 import com.alcity.service.alobject.*;
 import com.alcity.utility.DTOUtil;
 import io.swagger.v3.oas.annotations.Operation;
@@ -95,48 +99,42 @@ public class ALObjectController {
     @Operation( summary = "Save an Object Category ",  description = "Save an Object Category ")
     @PostMapping("/cat/save")
     @CrossOrigin(origins = "*")
-    public ResponseObject saveObjectCategory(@RequestBody ObjectCategoryDTO dto) throws Exception  {
+    public ResponseMessage saveObjectCategory(@RequestBody ObjectCategoryDTO dto) throws Exception  {
         ObjectCategory savedRecord = null;
-        ResponseObject responseObject = new ResponseObject();
-
-        if (dto.getId() == null || dto.getId() <= 0L) { //save
-            try {
+        ResponseMessage response = new ResponseMessage();
+        Optional<ObjectCategory> objectCategoryOptional = objectCategoryService.findById(dto.getId());
+        try{
+            if (objectCategoryOptional.isEmpty())
                 savedRecord = objectCategoryService.save(dto,"Save");
-            } catch (RuntimeException e) {
-                throw new ResponseObject(ErrorType.RecordNotFound, ObjectCategory.class.getSimpleName() , ActionStatus.OK, savedRecord.getId(), SystemMessage.RecordNotFound);
-
-            }
-            responseObject = new ResponseObject(ErrorType.SaveSuccess, Attribute.class.getSimpleName() , ActionStatus.OK, savedRecord.getId(), SystemMessage.SaveOrEditMessage_Success);
-        } else if (dto.getId() > 0L ) {//edit
-            savedRecord = objectCategoryService.save(dto, "Edit");
-            if(savedRecord !=null)
-                responseObject = new ResponseObject(ErrorType.SaveSuccess, Attribute.class.getSimpleName() , ActionStatus.OK, savedRecord.getId(), SystemMessage.SaveOrEditMessage_Success);
             else
-                responseObject = new ResponseObject(ErrorType.RecordNotFound, ObjectCategory.class.getSimpleName() , ActionStatus.OK, savedRecord.getId(), SystemMessage.RecordNotFound);
-
+                savedRecord = objectCategoryService.save(dto, "Edit");
         }
-        else if (savedRecord==null)
-            responseObject = new ResponseObject(ErrorType.RecordNotFound, ObjectCategory.class.getSimpleName() , ActionStatus.OK, savedRecord.getId(), SystemMessage.RecordNotFound);
+        catch (Exception e) {
+            throw new ResponseObject(ErrorType.UniquenessViolation,Status.error.name() , ObjectCategory.class.getSimpleName() ,  -1L ,e.getCause().getMessage());
+        }
+        if(savedRecord !=null)
+            response = new ResponseMessage(ErrorType.SaveSuccess, Status.ok.name(),ObjectCategory.class.getSimpleName() ,  savedRecord.getId(), SystemMessage.SaveOrEditMessage_Success);
         else
-            responseObject = new ResponseObject(ErrorType.RecordNotFound, ObjectCategory.class.getSimpleName() , ActionStatus.OK, savedRecord.getId(), SystemMessage.RecordNotFound);
+            response = new ResponseMessage(ErrorType.SaveFail,Status.error.name(), ObjectCategory.class.getSimpleName() ,  -1L, SystemMessage.SaveOrEditMessage_Fail);
+        return response;
+     }
 
-        return responseObject;
-    }
+
     @Operation( summary = "delete a  Object category entity",  description = "delete an object category entity and their data to data base")
     @DeleteMapping("/cat/del/{id}")
     @CrossOrigin(origins = "*")
-    public ResponseObject deleteObjectCategoryById(@PathVariable Long id) {
-        Optional<ObjectCategory> existingRecord = objectCategoryService.findById(id);
-        if(existingRecord.isPresent()){
+    public ResponseMessage deleteObjectCategoryById(@PathVariable Long id) {
+        Optional<ObjectCategory> requestedRecord = objectCategoryService.findById(id);
+        if(requestedRecord.isPresent()){
             try {
-                objectCategoryService.deleteById(existingRecord.get().getId());
-            }catch (Exception e )
-            {
-                throw new ViolateForeignKeyException(-1, "error", ObjectCategory.class.toString(),existingRecord.get().getId());
+                objectCategoryService.delete(requestedRecord.get());
             }
-            return new ResponseObject(ErrorType.DeleteSuccess, Attribute.class.getSimpleName() , ActionStatus.OK, existingRecord.get().getId(), SystemMessage.DeleteMessage);
+            catch (Exception e) {
+                throw  new ResponseObject(ErrorType.ForeignKeyViolation, ObjectCategory.class.getSimpleName(), Status.error.name(), id,e.getCause().getMessage());
+            }
+            return new ResponseMessage(ErrorType.SaveSuccess, ObjectCategory.class.getSimpleName(), Status.ok.name(), id,SystemMessage.DeleteMessage);
         }
-        return new ResponseObject(ErrorType.RecordNotFound, ObjectCategory.class.getSimpleName() , ActionStatus.OK, id, SystemMessage.RecordNotFound);
+        return  new ResponseMessage(ErrorType.RecordNotFound,ObjectCategory.class.getSimpleName(), Status.error.name(), id,SystemMessage.RecordNotFound);
     }
 
 

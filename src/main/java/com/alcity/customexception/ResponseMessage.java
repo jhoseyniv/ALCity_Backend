@@ -1,15 +1,29 @@
 package com.alcity.customexception;
 
-import com.alcity.entity.alenum.ActionStatus;
 import com.alcity.entity.alenum.ErrorType;
-import com.alcity.entity.alenum.MessageType;
 
 public class ResponseMessage {
     private ErrorType type;
+    private String status; //ok or error
     private String entity;
-    private ActionStatus status; //ok or error
     private Long recordId;
     private String  message;
+
+    public ErrorType getType() {
+        return type;
+    }
+
+    public void setType(ErrorType type) {
+        this.type = type;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
     public String getEntity() {
         return entity;
@@ -17,16 +31,6 @@ public class ResponseMessage {
 
     public void setEntity(String entity) {
         this.entity = entity;
-    }
-
-
-
-    public ActionStatus getStatus() {
-        return status;
-    }
-
-    public void setStatus(ActionStatus status) {
-        this.status = status;
     }
 
     public Long getRecordId() {
@@ -45,10 +49,13 @@ public class ResponseMessage {
         this.message = message;
     }
 
-    public ResponseMessage(ErrorType type,String entity, ActionStatus status, Long recordId, String message) {
+    public ResponseMessage() {
+    }
+
+    public ResponseMessage(ErrorType type, String status, String entity, Long recordId, String message) {
         this.type = type;
-        this.entity = entity;
         this.status = status;
+        this.entity = entity;
         this.recordId = recordId;
         this.message = message;
     }
