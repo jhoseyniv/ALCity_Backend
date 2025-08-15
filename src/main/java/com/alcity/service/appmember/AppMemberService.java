@@ -355,6 +355,7 @@ public class AppMemberService implements AppMemberRepository, CustomizedUserRepo
 
     @Override
     public Optional<AppMember> findById(Long id) {
+        if(id == null) return Optional.empty();
         return appMemberRepository.findById(id);
     }
 

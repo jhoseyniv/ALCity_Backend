@@ -1,5 +1,6 @@
 package com.alcity.api;
 
+import com.alcity.customexception.ResponseMessage;
 import com.alcity.dto.plimpexport.AttributeData;
 import com.alcity.customexception.ResponseObject;
 import com.alcity.dto.alobject.RendererDTO;
@@ -49,9 +50,9 @@ public class ActionRendererController {
     @Operation( summary = "Save a Action Render Object  ",  description = "Save a Action Render  entity and their data to data base")
     @PostMapping("/save")
     @CrossOrigin(origins = "*")
-    public ResponseObject save(@RequestBody RendererDTO dto) throws Exception, ResponseObject {
+    public ResponseMessage save(@RequestBody RendererDTO dto) throws Exception, ResponseObject {
         Renderer savedRecord = null;
-        ResponseObject response = new ResponseObject();
+        ResponseMessage response = new ResponseMessage();
         Optional<Renderer> rendererOptional = service.findById(dto.getId());
         try{
             if (rendererOptional.isEmpty())
@@ -63,9 +64,9 @@ public class ActionRendererController {
             throw new ResponseObject(ErrorType.UniquenessViolation, Renderer.class.getSimpleName() , Status.error.name() , -1L ,e.getCause().getMessage());
         }
         if(savedRecord !=null)
-            response = new ResponseObject(ErrorType.SaveSuccess, Renderer.class.getSimpleName() , Status.ok.name(), savedRecord.getId(), SystemMessage.SaveOrEditMessage_Success);
+            response = new ResponseMessage(ErrorType.SaveSuccess, Renderer.class.getSimpleName() , Status.ok.name(), savedRecord.getId(), SystemMessage.SaveOrEditMessage_Success);
         else
-            response = new ResponseObject(ErrorType.SaveFail, Renderer.class.getSimpleName() , Status.error.name(), -1L, SystemMessage.SaveOrEditMessage_Fail);
+            response = new ResponseMessage(ErrorType.SaveFail, Renderer.class.getSimpleName() , Status.error.name(), -1L, SystemMessage.SaveOrEditMessage_Fail);
 
         return response;
     }
@@ -83,7 +84,7 @@ public class ActionRendererController {
     @Operation( summary = "Delete a  Action renders ",  description = "delete a Action Render")
     @DeleteMapping("/del/{id}")
     @CrossOrigin(origins = "*")
-    public ResponseObject deleteActionRendersById(@PathVariable Long id) {
+    public ResponseMessage deleteActionRendersById(@PathVariable Long id) {
         Optional<Renderer> requestedRecord = service.findById(id);
 
         if(requestedRecord.isPresent()){
@@ -91,11 +92,11 @@ public class ActionRendererController {
                     service.delete(requestedRecord.get());
                 }
             catch (Exception e) {
-                    return new ResponseObject(ErrorType.ForeignKeyViolation, Renderer.class.getSimpleName(), Status.error.name(), id,e.getCause().getMessage());
+                    throw  new ResponseObject(ErrorType.ForeignKeyViolation, Renderer.class.getSimpleName(), Status.error.name(), id,e.getCause().getMessage());
             }
-            return new ResponseObject(ErrorType.SaveSuccess, Renderer.class.getSimpleName(), Status.ok.name(), id,SystemMessage.DeleteMessage);
+            return new ResponseMessage(ErrorType.SaveSuccess, Renderer.class.getSimpleName(), Status.ok.name(), id,SystemMessage.DeleteMessage);
         }
-        return  new ResponseObject(ErrorType.RecordNotFound,Renderer.class.getSimpleName(), Status.error.name(), id,SystemMessage.RecordNotFound);
+        return  new ResponseMessage(ErrorType.RecordNotFound,Renderer.class.getSimpleName(), Status.error.name(), id,SystemMessage.RecordNotFound);
 
     }
 

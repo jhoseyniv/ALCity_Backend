@@ -1,5 +1,6 @@
 package com.alcity.api;
 
+import com.alcity.customexception.ResponseMessage;
 import com.alcity.dto.appmember.*;
 import com.alcity.dto.player.PlayHistoryDTO;
 import com.alcity.dto.puzzle.PLDTO;
@@ -7,6 +8,7 @@ import com.alcity.dto.search.AppMemberSearchCriteriaDTO;
 import com.alcity.entity.alenum.Status;
 import com.alcity.entity.alenum.ErrorType;
 import com.alcity.entity.alenum.SystemMessage;
+import com.alcity.entity.alobject.ObjectCategory;
 import com.alcity.entity.appmember.*;
 import com.alcity.entity.journey.Journey;
 import com.alcity.entity.play.PlayHistory;
@@ -146,21 +148,22 @@ public class AppMemberController {
         Collection<AppMemberJourneyDTO> dtos = appMemberService.getAppMemberJourneysByScores(memberOptional.get(),journeys);
         return dtos;
     }
-    @Operation( summary = "delete an  Application Member ",  description = "delete an Application Member .....")
+
+    @Operation( summary = "Delete an  Application Member ",  description = "delete an Application Member .....")
     @DeleteMapping("/del/id/{id}")
     @CrossOrigin(origins = "*")
-    public ResponseObject deleteWalletItemById(@PathVariable Long id) {
-        Optional<AppMember> existingRecord = appMemberService.findById(id);
-        if(existingRecord.isPresent()){
+    public ResponseMessage deleteWalletItemById(@PathVariable Long id) {
+        Optional<AppMember> requestedRecord = appMemberService.findById(id);
+        if(requestedRecord.isPresent()){
             try {
-                appMemberService.deleteById(existingRecord.get().getId());
-            }catch (Exception e )
-            {
-                throw new ViolateForeignKeyException(-1, "error", AppMember.class.toString(),existingRecord.get().getId());
+                appMemberService.delete(requestedRecord.get());
             }
-            return new ResponseObject(ErrorType.SaveSuccess, BaseObject.class.getSimpleName(), Status.ok.name(), id,SystemMessage.DeleteMessage);
+            catch (Exception e) {
+                throw  new ResponseObject(ErrorType.ForeignKeyViolation, AppMember.class.getSimpleName(), Status.error.name(), id,e.getCause().getMessage());
+            }
+            return new ResponseMessage(ErrorType.SaveSuccess, AppMember.class.getSimpleName(), Status.ok.name(), id,SystemMessage.DeleteMessage);
         }
-        return new ResponseObject(ErrorType.RecordNotFound, BaseObject.class.getSimpleName() , Status.error.name() , -1L ,"e.getCause().getMessage()");
+        return  new ResponseMessage(ErrorType.RecordNotFound,AppMember.class.getSimpleName(), Status.error.name(), id,SystemMessage.RecordNotFound);
     }
 
     @Operation( summary = "Update Avatar for an App Member ",  description = "Update Avatar for an App Member")
@@ -183,30 +186,25 @@ public class AppMemberController {
     @Operation( summary = "Save an App Member ",  description = "Save an App Member ")
     @PostMapping("/save")
     @CrossOrigin(origins = "*")
-    public ResponseObject saveAppMember(@RequestBody AppMemberDTO dto)  {
+    public ResponseMessage saveAppMember(@RequestBody AppMemberDTO dto)  {
         AppMember savedRecord = null;
-        ResponseObject responseObject = new ResponseObject();
-
-        if (dto.getId() == null || dto.getId() <= 0L) { //save
-            try {
+        ResponseMessage response = new ResponseMessage();
+        Optional<AppMember> appMemberOptional = appMemberService.findById(dto.getId());
+        try{
+            if (appMemberOptional.isEmpty())
                 savedRecord = appMemberService.save(dto,"Save");
-            } catch (RuntimeException e) {
-                throw new UniqueConstraintException(-1,"Unique Constraint in" + AppMember.class , "Error",savedRecord.getId() );
-            }
-            responseObject = new ResponseObject(ErrorType.SaveSuccess, BaseObject.class.getSimpleName() , Status.ok.name(), savedRecord.getId(), SystemMessage.SaveOrEditMessage_Success);
-        } else if (dto.getId() > 0L ) {//edit
-            savedRecord = appMemberService.save(dto, "Edit");
-            if(savedRecord !=null)
-                responseObject = new ResponseObject(ErrorType.SaveSuccess, AppMember_WalletItem.class.getSimpleName() , Status.ok.name(), savedRecord.getId(), SystemMessage.SaveOrEditMessage_Success);
             else
-                responseObject = new ResponseObject(ErrorType.RecordNotFound, AppMember_WalletItem.class.getSimpleName() , Status.error.name() , -1L ,"e.getCause().getMessage()");
+                savedRecord = appMemberService.save(dto, "Edit");
         }
-        else if (savedRecord==null)
-            responseObject = new ResponseObject(ErrorType.RecordNotFound, AppMember_WalletItem.class.getSimpleName() , Status.error.name() , -1L ,"e.getCause().getMessage()");
+        catch (Exception e) {
+            throw new ResponseObject(ErrorType.UniquenessViolation,Status.error.name() , AppMember.class.getSimpleName() ,  -1L ,e.getCause().getMessage());
+        }
+        if(savedRecord !=null)
+            response = new ResponseMessage(ErrorType.SaveSuccess, Status.ok.name(),AppMember.class.getSimpleName() ,  savedRecord.getId(), SystemMessage.SaveOrEditMessage_Success);
         else
-            responseObject = new ResponseObject(ErrorType.RecordNotFound, AppMember_WalletItem.class.getSimpleName() , Status.error.name() , -1L ,"e.getCause().getMessage()");
+            response = new ResponseMessage(ErrorType.SaveFail,Status.error.name(), AppMember.class.getSimpleName() ,  -1L, SystemMessage.SaveOrEditMessage_Fail);
+        return response;
 
-        return responseObject;
     }
 
     @Operation( summary = "Charge or Decharge a wallet for specific  Member ",  description = "Save a record in APPMember_WalletItem Table : application member wallet management ")
