@@ -64,6 +64,7 @@ public class MemberTypeService implements MemberTypeRepository {
 
     @Override
     public Optional<MemberType> findById(Long id) {
+        if(id ==null) return Optional.empty();
         return memberTypeRepository.findById(id);
     }
 

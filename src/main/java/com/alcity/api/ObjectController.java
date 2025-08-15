@@ -1,6 +1,7 @@
 package com.alcity.api;
 
 
+import com.alcity.customexception.ResponseMessage;
 import com.alcity.dto.alobject.AttributeDTO;
 import com.alcity.dto.search.ObjectSearchCriteriaDTO;
 import com.alcity.dto.search.SearchResultCityObjectDTO;
@@ -143,18 +144,21 @@ public class ObjectController {
     @Operation( summary = "delete an Algoopia Object",  description = "delete an Algoopia Object entity and their data to data base")
     @DeleteMapping("/del/{id}")
     @CrossOrigin(origins = "*")
-    public ResponseObject delete(@PathVariable Long id) {
+    public ResponseMessage delete(@PathVariable Long id) {
         Optional<BaseObject>  requestedRecord = service.findById(id);
+        ResponseMessage response = new ResponseMessage();
         if(requestedRecord.isPresent()){
             try {
                 service.delete(requestedRecord.get());
             }
             catch (Exception e) {
-                return new ResponseObject(ErrorType.ForeignKeyViolation, BaseObject.class.getSimpleName(), Status.error.name(), id,e.getCause().getMessage());
+                throw  new ResponseObject(ErrorType.ForeignKeyViolation, BaseObject.class.getSimpleName(), Status.error.name(), id,e.getCause().getMessage());
             }
-            return new ResponseObject(ErrorType.DeleteSuccess, BaseObject.class.getSimpleName(), Status.ok.name(), id,SystemMessage.DeleteMessage);
+            response = new ResponseMessage(ErrorType.DeleteSuccess, BaseObject.class.getSimpleName(), Status.ok.name(), id,SystemMessage.DeleteMessage);
         }
-        return  new ResponseObject(ErrorType.RecordNotFound,BaseObject.class.getSimpleName(), Status.error.name(), id,SystemMessage.RecordNotFound);
+        response =  new ResponseMessage(ErrorType.RecordNotFound,BaseObject.class.getSimpleName(), Status.error.name(), id,SystemMessage.RecordNotFound);
+
+        return response;
     }
 
     @Operation( summary = "Fetch all actions for an al city object ",  description = "Fetch all actions for an al city object")

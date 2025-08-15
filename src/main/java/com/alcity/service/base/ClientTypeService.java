@@ -33,6 +33,7 @@ public class ClientTypeService  implements ClientTypeRepository {
 
     @Override
     public Optional<ClientType> findById(Long id) {
+        if(id ==null) return Optional.empty();
         return clientTypeRepository.findById(id);
     }
 

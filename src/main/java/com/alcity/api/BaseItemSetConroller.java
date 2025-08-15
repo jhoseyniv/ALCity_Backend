@@ -1,5 +1,6 @@
 package com.alcity.api;
 
+import com.alcity.customexception.ResponseMessage;
 import com.alcity.entity.alenum.PLRulePostActionType;
 import com.alcity.customexception.ResponseObject;
 import com.alcity.customexception.UniqueConstraintException;
@@ -11,6 +12,7 @@ import com.alcity.dto.appmember.MemberTypeDTO;
 import com.alcity.entity.alenum.*;
 import com.alcity.entity.alobject.ObjectAction;
 import com.alcity.entity.base.*;
+import com.alcity.entity.puzzle.BaseObject;
 import com.alcity.entity.puzzle.PLRuleEvent;
 import com.alcity.service.base.*;
 import com.alcity.service.puzzle.PLRuleEventService;
@@ -103,59 +105,50 @@ public class BaseItemSetConroller {
     @Operation( summary = "Save a Client Type ",  description = "save a  Client Types entity and their data to data base")
     @PostMapping("/client-type/save")
     @CrossOrigin(origins = "*")
-    public ResponseObject saveClientType(@RequestBody ClientTypeDTO dto)  {
+    public ResponseMessage saveClientType(@RequestBody ClientTypeDTO dto)  {
         ClientType savedRecord = null;
-        ResponseObject responseObject = new ResponseObject();
-
-        if (dto.getId() == null || dto.getId() <= 0L) { //save
-            try {
+        ResponseMessage response = new ResponseMessage();
+        Optional<ClientType> clientTypeOptional = clientTypeService.findById(dto.getId());
+        try{
+            if (clientTypeOptional.isEmpty())
                 savedRecord = clientTypeService.save(dto,"Save");
-            } catch (RuntimeException e) {
-                throw new UniqueConstraintException(-1,"Unique Constraint in" + ClientType.class , "Error",savedRecord.getId() );
-            }
-            responseObject = new ResponseObject(ErrorType.SaveSuccess, ObjectAction.class.getSimpleName() , Status.ok.name(), savedRecord.getId(), SystemMessage.SaveOrEditMessage_Success);
-        } else if (dto.getId() > 0L ) {//edit
-            savedRecord = clientTypeService.save(dto, "Edit");
-            if(savedRecord !=null)
-                responseObject = new ResponseObject(ErrorType.SaveSuccess, ObjectAction.class.getSimpleName() , Status.ok.name(), savedRecord.getId(), SystemMessage.SaveOrEditMessage_Success);
             else
-                return new ResponseObject(ErrorType.RecordNotFound, ObjectAction.class.getSimpleName(), Status.error.name(), dto.getId(),SystemMessage.RecordNotFound);
+                savedRecord = clientTypeService.save(dto, "Edit");
         }
-        else if (savedRecord==null)
-            return new ResponseObject(ErrorType.RecordNotFound, ObjectAction.class.getSimpleName(), Status.error.name(), dto.getId(),SystemMessage.RecordNotFound);
+        catch (Exception e) {
+            throw new ResponseObject(ErrorType.UniquenessViolation, Status.error.name() ,ClientType.class.getSimpleName() ,  -1L ,e.getCause().getMessage());
+        }
+        if(savedRecord !=null)
+            response = new ResponseMessage(ErrorType.SaveSuccess,Status.ok.name(), ClientType.class.getSimpleName() ,  savedRecord.getId(), SystemMessage.SaveOrEditMessage_Success);
         else
-            return new ResponseObject(ErrorType.RecordNotFound, ObjectAction.class.getSimpleName(), Status.error.name(), dto.getId(),SystemMessage.RecordNotFound);
+            response = new ResponseMessage(ErrorType.SaveFail,Status.ok.name(), ClientType.class.getSimpleName() , -1L, SystemMessage.SaveOrEditMessage_Fail);
 
-        return responseObject;
+        return response;
+
     }
     @Operation( summary = "Save a puzzle level privacy ",  description = "Save a puzzle level privacy entity and their data to data base")
     @PostMapping("/pl-privacy/save")
     @CrossOrigin(origins = "*")
-    public ResponseObject savePuzzleLevelPrivacy(@RequestBody PLPrivacyDTO dto)  {
+    public ResponseMessage savePuzzleLevelPrivacy(@RequestBody PLPrivacyDTO dto)  {
         PLPrivacy savedRecord = null;
-        ResponseObject responseObject = new ResponseObject();
-
-        if (dto.getId() == null || dto.getId() <= 0L) { //save
-            try {
+        ResponseMessage response = new ResponseMessage();
+        Optional<PLPrivacy> plPrivacyOptional = plPrivacyService.findById(dto.getId());
+        try{
+            if (plPrivacyOptional.isEmpty())
                 savedRecord = plPrivacyService.save(dto,"Save");
-            } catch (RuntimeException e) {
-                throw new UniqueConstraintException(-1,"Unique Constraint in" + PLPrivacy.class , "Error",savedRecord.getId() );
-            }
-            responseObject = new ResponseObject(ErrorType.SaveSuccess, ObjectAction.class.getSimpleName() , Status.ok.name(), savedRecord.getId(), SystemMessage.SaveOrEditMessage_Success);
-        } else if (dto.getId() > 0L ) {//edit
-            //Optional<PuzzleGroup>  puzzleGroupOptional = pgService.findById(dto.getId());
-            savedRecord = plPrivacyService.save(dto, "Edit");
-            if(savedRecord !=null)
-                responseObject = new ResponseObject(ErrorType.SaveSuccess, ObjectAction.class.getSimpleName() , Status.ok.name(), savedRecord.getId(), SystemMessage.SaveOrEditMessage_Success);
             else
-                responseObject = new ResponseObject(ErrorType.RecordNotFound, ObjectAction.class.getSimpleName(), Status.error.name(), dto.getId(),SystemMessage.RecordNotFound);
+                savedRecord = plPrivacyService.save(dto, "Edit");
         }
-        else if (savedRecord==null)
-            responseObject = new ResponseObject(ErrorType.RecordNotFound, ObjectAction.class.getSimpleName(), Status.error.name(), dto.getId(),SystemMessage.RecordNotFound);
+        catch (Exception e) {
+            throw new ResponseObject(ErrorType.UniquenessViolation, Status.error.name() ,PLPrivacy.class.getSimpleName() ,  -1L ,e.getCause().getMessage());
+        }
+        if(savedRecord !=null)
+            response = new ResponseMessage(ErrorType.SaveSuccess,Status.ok.name(), PLPrivacy.class.getSimpleName() ,  savedRecord.getId(), SystemMessage.SaveOrEditMessage_Success);
         else
-            responseObject = new ResponseObject(ErrorType.RecordNotFound, ObjectAction.class.getSimpleName(), Status.error.name(), dto.getId(),SystemMessage.RecordNotFound);
+            response = new ResponseMessage(ErrorType.SaveFail,Status.ok.name(), PLPrivacy.class.getSimpleName() , -1L, SystemMessage.SaveOrEditMessage_Fail);
 
-        return responseObject;
+        return response;
+
     }
 
     @Operation( summary = "Fetch all data Types ",  description = "fetches all data Types entities and their data from data base")
@@ -194,29 +187,26 @@ public class BaseItemSetConroller {
     @Operation( summary = "Save a Member Type ",  description = "Save a  Member Types entity and their data to data base")
     @PostMapping("/member-type/save")
     @CrossOrigin(origins = "*")
-    public ResponseObject saveMemberType(@RequestBody MemberTypeDTO dto)  {
+    public ResponseMessage saveMemberType(@RequestBody MemberTypeDTO dto)  {
         MemberType savedRecord = null;
-        ResponseObject responseObject = new ResponseObject();
-        if (dto.getId() == null || dto.getId() <= 0L) { //save
-            try {
+        ResponseMessage response = new ResponseMessage();
+        Optional<MemberType> memberTypeOptional = memberTypeService.findById(dto.getId());
+        try{
+            if (memberTypeOptional.isEmpty())
                 savedRecord = memberTypeService.save(dto,"Save");
-            } catch (RuntimeException e) {
-                throw new UniqueConstraintException(-1,"Unique Constraint in" + MemberType.class , "Error",savedRecord.getId() );
-            }
-            responseObject = new ResponseObject(ErrorType.SaveSuccess, ObjectAction.class.getSimpleName() , Status.ok.name(), savedRecord.getId(), SystemMessage.SaveOrEditMessage_Success);
-        } else if (dto.getId() > 0L ) {//edit
-            savedRecord = memberTypeService.save(dto, "Edit");
-            if(savedRecord !=null)
-                responseObject = new ResponseObject(ErrorType.SaveSuccess, ObjectAction.class.getSimpleName() , Status.ok.name(), savedRecord.getId(), SystemMessage.SaveOrEditMessage_Success);
             else
-                responseObject = new ResponseObject(ErrorType.RecordNotFound, ObjectAction.class.getSimpleName(), Status.error.name(), dto.getId(),SystemMessage.RecordNotFound);
+                savedRecord = memberTypeService.save(dto, "Edit");
         }
-        else if (savedRecord==null)
-            responseObject = new ResponseObject(ErrorType.RecordNotFound, ObjectAction.class.getSimpleName(), Status.error.name(), dto.getId(),SystemMessage.RecordNotFound);
+        catch (Exception e) {
+            throw new ResponseObject(ErrorType.UniquenessViolation, Status.error.name() ,MemberType.class.getSimpleName() ,  -1L ,e.getCause().getMessage());
+        }
+        if(savedRecord !=null)
+            response = new ResponseMessage(ErrorType.SaveSuccess,Status.ok.name(), MemberType.class.getSimpleName() ,  savedRecord.getId(), SystemMessage.SaveOrEditMessage_Success);
         else
-            responseObject = new ResponseObject(ErrorType.RecordNotFound, ObjectAction.class.getSimpleName(), Status.error.name(), dto.getId(),SystemMessage.RecordNotFound);
+            response = new ResponseMessage(ErrorType.SaveFail,Status.ok.name(), MemberType.class.getSimpleName() , -1L, SystemMessage.SaveOrEditMessage_Fail);
 
-        return responseObject;
+        return response;
+
     }
 
     @Operation( summary = "Fetch all puzzle level  difficulty  ",  description = "fetches all puzzle level  difficulty entities and their data from data base")
@@ -278,49 +268,52 @@ public class BaseItemSetConroller {
     }
     @DeleteMapping("/pl-privacy/del/id/{id}")
     @CrossOrigin(origins = "*")
-    public ResponseEntity<String> deletePLPrivacyById(@PathVariable Long id) {
-        Optional<PLPrivacy> existingRecord = plPrivacyService.findById(id);
-        if(existingRecord.isPresent()){
+    public ResponseMessage deletePLPrivacyById(@PathVariable Long id) {
+        Optional<PLPrivacy> requestedRecord = plPrivacyService.findById(id);
+       // ResponseMessage response = new ResponseMessage();
+        if(requestedRecord.isPresent()){
             try {
-                plPrivacyService.deleteById(existingRecord.get().getId());
-            }catch (Exception e )
-            {
-                throw new ViolateForeignKeyException(-1, "error", PLPrivacy.class.toString(),existingRecord.get().getId());
+                plPrivacyService.delete(requestedRecord.get());
             }
-            return new ResponseEntity<>("Record deleted Successfully!", HttpStatus.OK);
+            catch (Exception e) {
+                throw  new ResponseObject(ErrorType.ForeignKeyViolation, PLPrivacy.class.getSimpleName(), Status.error.name(), id,e.getCause().getMessage());
+            }
+            return new ResponseMessage(ErrorType.DeleteSuccess, PLPrivacy.class.getSimpleName(), Status.ok.name(), id,SystemMessage.DeleteMessage);
         }
-        return ResponseEntity.notFound().build();
+            return  new ResponseMessage(ErrorType.RecordNotFound,PLPrivacy.class.getSimpleName(), Status.error.name(), id,SystemMessage.RecordNotFound);
     }
 
     @DeleteMapping("/client-type/del/id/{id}")
     @CrossOrigin(origins = "*")
-    public ResponseEntity<String> deleteclientTypeById(@PathVariable Long id) {
-        Optional<ClientType> existingRecord = clientTypeService.findById(id);
-        if(existingRecord.isPresent()){
+    public ResponseMessage deleteClientTypeById(@PathVariable Long id) {
+        Optional<ClientType> requestedRecord = clientTypeService.findById(id);
+        if (requestedRecord.isPresent()) {
             try {
-                clientTypeService.deleteById(existingRecord.get().getId());
-            }catch (Exception e )
-            {
-                throw new ViolateForeignKeyException(-1, "error", ClientType.class.toString(),existingRecord.get().getId());
+                clientTypeService.deleteById(requestedRecord.get().getId());
             }
-            return new ResponseEntity<>("Record deleted Successfully!", HttpStatus.OK);
-        }
-        return ResponseEntity.notFound().build();
+            catch (Exception e) {
+                    throw  new ResponseObject(ErrorType.ForeignKeyViolation, ClientType.class.getSimpleName(), Status.error.name(), id,e.getCause().getMessage());
+                }
+                return new ResponseMessage(ErrorType.DeleteSuccess, ClientType.class.getSimpleName(), Status.ok.name(), id,SystemMessage.DeleteMessage);
+            }
+            return  new ResponseMessage(ErrorType.RecordNotFound,ClientType.class.getSimpleName(), Status.error.name(), id,SystemMessage.RecordNotFound);
     }
+
+
     @DeleteMapping("/member-type/del/id/{id}")
     @CrossOrigin(origins = "*")
-    public ResponseEntity<String> deleteMemberTypeById(@PathVariable Long id) {
-        Optional<MemberType> existingRecord = memberTypeService.findById(id);
-        if(existingRecord.isPresent()){
+    public ResponseMessage deleteMemberTypeById(@PathVariable Long id) {
+        Optional<MemberType> requestedRecord = memberTypeService.findById(id);
+        if (requestedRecord.isPresent()) {
             try {
-                memberTypeService.deleteById(existingRecord.get().getId());
-            }catch (Exception e )
-            {
-                throw new ViolateForeignKeyException(-1, "error", MemberType.class.toString(),existingRecord.get().getId());
+                memberTypeService.deleteById(requestedRecord.get().getId());
             }
-            return new ResponseEntity<>("Record deleted Successfully!", HttpStatus.OK);
+            catch (Exception e) {
+                throw  new ResponseObject(ErrorType.ForeignKeyViolation, MemberType.class.getSimpleName(), Status.error.name(), id,e.getCause().getMessage());
+            }
+            return new ResponseMessage(ErrorType.DeleteSuccess, MemberType.class.getSimpleName(), Status.ok.name(), id,SystemMessage.DeleteMessage);
         }
-        return ResponseEntity.notFound().build();
+        return  new ResponseMessage(ErrorType.RecordNotFound,MemberType.class.getSimpleName(), Status.error.name(), id,SystemMessage.RecordNotFound);
     }
 
     @GetMapping("/binary-type/all")
