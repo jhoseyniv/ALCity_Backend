@@ -1,5 +1,6 @@
 package com.alcity.api;
 
+import com.alcity.customexception.ResponseMessage;
 import com.alcity.dto.pgimport.PGImportDTO;
 import com.alcity.customexception.ResponseObject;
 import com.alcity.customexception.UniqueConstraintException;
@@ -136,54 +137,46 @@ public class PGController {
     @Operation( summary = "Save a Puzzle Group ",  description = "save a Puzzle Group entity to database")
     @PostMapping("/save")
     @CrossOrigin(origins = "*")
-    public ResponseObject savePuzzleGroup(@RequestBody PGDTO dto) {
+    public ResponseMessage savePuzzleGroup(@RequestBody PGDTO dto) {
         PuzzleGroup savedRecord = null;
-        ResponseObject responseObject = new ResponseObject();
-
-        if (dto.getId() == null || dto.getId() <= 0L) { //save
-            try {
+        ResponseMessage response = new ResponseMessage();
+        Optional<PuzzleGroup> puzzleGroupOptional = pgService.findById(dto.getId());
+        try{
+            if (puzzleGroupOptional.isEmpty())
                 savedRecord = pgService.save(dto,"Save");
-            } catch (RuntimeException e) {
-                throw new UniqueConstraintException(-1,"Unique Constraint in" + PuzzleCategory.class , "Error",savedRecord.getId() );
-            }
-            responseObject = new ResponseObject(ErrorType.SaveSuccess, ObjectAction.class.getSimpleName() , Status.ok.name(), savedRecord.getId(), SystemMessage.SaveOrEditMessage_Success);
-        } else if (dto.getId() > 0L ) {//edit
-            //Optional<PuzzleGroup>  puzzleGroupOptional = pgService.findById(dto.getId());
-            savedRecord = pgService.save(dto, "Edit");
-            if(savedRecord !=null)
-                responseObject = new ResponseObject(ErrorType.SaveSuccess, ObjectAction.class.getSimpleName() , Status.ok.name(), savedRecord.getId(), SystemMessage.SaveOrEditMessage_Success);
             else
-                responseObject = new ResponseObject(ErrorType.RecordNotFound, ObjectAction.class.getSimpleName(), Status.error.name(), dto.getId(),SystemMessage.RecordNotFound);
+                savedRecord = pgService.save(dto, "Edit");
         }
-        else if (savedRecord==null)
-            responseObject = new ResponseObject(ErrorType.RecordNotFound, ObjectAction.class.getSimpleName(), Status.error.name(), dto.getId(),SystemMessage.RecordNotFound);
+        catch (Exception e) {
+            throw new ResponseObject(ErrorType.UniquenessViolation, Status.error.name() , PuzzleGroup.class.getSimpleName() ,  -1L ,e.getCause().getMessage());
+        }
+        if(savedRecord !=null)
+            response = new ResponseMessage(ErrorType.SaveSuccess,Status.ok.name(), PuzzleGroup.class.getSimpleName() ,  savedRecord.getId(), SystemMessage.SaveOrEditMessage_Success);
         else
-            responseObject = new ResponseObject(ErrorType.RecordNotFound, ObjectAction.class.getSimpleName(), Status.error.name(), dto.getId(),SystemMessage.RecordNotFound);
+            response = new ResponseMessage(ErrorType.SaveFail,Status.ok.name(), PuzzleGroup.class.getSimpleName() , -1L, SystemMessage.SaveOrEditMessage_Fail);
 
-        return responseObject;
+        return response;
     }
 
     @Operation( summary = "Delete a  Puzzle Group ",  description = "Delete a Puzzle group entity and their data to data base")
     @DeleteMapping("/del/id/{id}")
     @CrossOrigin(origins = "*")
-    public ResponseObject deletePuzzleGroupById(@PathVariable Long id) throws Exception {
+    public ResponseMessage deletePuzzleGroupById(@PathVariable Long id) throws Exception {
         Optional<PuzzleGroup> puzzleGroupOptional = pgService.findById(id);
-        ResponseObject responseObject=null;
+        ResponseMessage response=null;
         if(puzzleGroupOptional.isPresent()) {
             Collection<PuzzleLevel> puzzleLevels = puzzleGroupOptional.get().getPuzzleLevels();
             if (puzzleLevels.isEmpty()) {  // if no puzzle level present
                 pgService.delete(puzzleGroupOptional.get());
-                responseObject = new ResponseObject(ErrorType.DeleteSuccess, ObjectAction.class.getSimpleName(), Status.error.name(), id,SystemMessage.DeleteMessage);
+                response = new ResponseMessage(ErrorType.DeleteSuccess, PuzzleGroup.class.getSimpleName(), Status.error.name(), id,SystemMessage.DeleteMessage);
             } else {
-                responseObject = new ResponseObject(ErrorType.SaveSuccess, ObjectAction.class.getSimpleName() , Status.ok.name(), id, SystemMessage.SaveOrEditMessage_Success);
-
+                response = new ResponseMessage(ErrorType.ForeignKeyViolation, PuzzleGroup.class.getSimpleName() , Status.ok.name(), id, SystemMessage.ForeignKeyViolation);
             }
         }
         else {
-                responseObject = new ResponseObject(ErrorType.DeleteSuccess, ObjectAction.class.getSimpleName(), Status.error.name(), id,SystemMessage.DeleteMessage);
+            response = new ResponseMessage(ErrorType.DeleteSuccess, PuzzleGroup.class.getSimpleName(), Status.error.name(), id,SystemMessage.DeleteMessage);
         }
-
-        return  responseObject;
+        return  response;
     }
 
 

@@ -70,6 +70,7 @@ public class PLCellService  implements PLCellRepository {
 
     @Override
     public Optional<PLCell> findById(Long aLong) {
+        if(aLong==null) return Optional.empty();
         return plCellRepository.findById(aLong);
     }
 

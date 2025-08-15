@@ -1,5 +1,6 @@
 package com.alcity.api;
 
+import com.alcity.customexception.ResponseMessage;
 import com.alcity.customexception.ResponseObject;
 import com.alcity.customexception.UniqueConstraintException;
 import com.alcity.customexception.ViolateForeignKeyException;
@@ -8,7 +9,9 @@ import com.alcity.entity.alenum.Status;
 import com.alcity.entity.alenum.ErrorType;
 import com.alcity.entity.alenum.SystemMessage;
 import com.alcity.entity.alobject.ObjectAction;
+import com.alcity.entity.base.BinaryContent;
 import com.alcity.entity.base.WalletItemType;
+import com.alcity.entity.learning.LearningContent;
 import com.alcity.entity.learning.LearningSkill;
 import com.alcity.service.learning.LearningSkillService;
 import com.alcity.utility.DTOUtil;
@@ -73,47 +76,43 @@ public class LearningSkillController {
     @ExceptionHandler(UniqueConstraintException.class)
     @PostMapping("skill/save")
     @CrossOrigin(origins = "*")
-    public ResponseObject saveLearningSkill(@RequestBody LearningSkillDTO dto)  {
+    public ResponseMessage saveLearningSkill(@RequestBody LearningSkillDTO dto)  {
         LearningSkill savedRecord = null;
-        ResponseObject responseObject = new ResponseObject();
-
-        if (dto.getId() == null || dto.getId() <= 0L) { //save
-            try {
+        ResponseMessage response = new ResponseMessage();
+        Optional<LearningSkill> learningSkillOptional = learningSkillService.findById(dto.getId());
+        try{
+            if (learningSkillOptional.isEmpty())
                 savedRecord = learningSkillService.save(dto,"Save");
-            } catch (RuntimeException e) {
-                throw new UniqueConstraintException(-1,"Unique Constraint in" + LearningSkill.class , "Error",savedRecord.getId() );
-            }
-            responseObject = new ResponseObject(ErrorType.SaveSuccess, WalletItemType.class.getSimpleName() , Status.ok.name(), savedRecord.getId(), SystemMessage.SaveOrEditMessage_Success);
-        } else if (dto.getId() > 0L ) {//edit
-            savedRecord = learningSkillService.save(dto, "Edit");
-            if(savedRecord !=null)
-                responseObject = new ResponseObject(ErrorType.SaveSuccess, WalletItemType.class.getSimpleName() , Status.ok.name(), savedRecord.getId(), SystemMessage.SaveOrEditMessage_Success);
             else
-                responseObject = new ResponseObject(ErrorType.RecordNotFound, ObjectAction.class.getSimpleName(), Status.error.name(), dto.getId(),SystemMessage.RecordNotFound);
+                savedRecord = learningSkillService.save(dto, "Edit");
         }
-        else if (savedRecord==null)
-            responseObject = new ResponseObject(ErrorType.RecordNotFound, ObjectAction.class.getSimpleName(), Status.error.name(), dto.getId(),SystemMessage.RecordNotFound);
+        catch (Exception e) {
+            throw new ResponseObject(ErrorType.UniquenessViolation, Status.error.name() , LearningSkill.class.getSimpleName() ,  -1L ,e.getCause().getMessage());
+        }
+        if(savedRecord !=null)
+            response = new ResponseMessage(ErrorType.SaveSuccess, Status.ok.name() , LearningSkill.class.getSimpleName() ,  savedRecord.getId(), SystemMessage.SaveOrEditMessage_Success);
         else
-            responseObject = new ResponseObject(ErrorType.RecordNotFound, ObjectAction.class.getSimpleName(), Status.error.name(), dto.getId(),SystemMessage.RecordNotFound);
-
-        return responseObject;
+            response = new ResponseMessage(ErrorType.RecordNotFound, Status.error.name() , LearningSkill.class.getSimpleName() , dto.getId(), SystemMessage.SaveOrEditMessage_Fail);
+        return response;
     }
+
+
     @DeleteMapping("skill/del/{id}")
     @CrossOrigin(origins = "*")
-    public ResponseEntity<String> deleteLearningSkillById(@PathVariable Long id) {
-        Optional<LearningSkill> existingRecord = learningSkillService.findById(id);
-        if(existingRecord.isPresent()){
+    public ResponseMessage deleteLearningSkillById(@PathVariable Long id) {
+        Optional<LearningSkill> requestedRecord = learningSkillService.findById(id);
+        if (requestedRecord.isPresent()) {
             try {
-                learningSkillService.deleteById(existingRecord.get().getId());
-
-            }catch (Exception e )
-            {
-                throw new ViolateForeignKeyException(-1, "error", LearningSkill.class.toString(),existingRecord.get().getId());
+                learningSkillService.delete(requestedRecord.get());
+            } catch (Exception e) {
+                throw  new ResponseObject(ErrorType.ForeignKeyViolation, Status.error.name(), LearningSkill.class.getSimpleName(), id, e.getCause().getMessage());
             }
-            return new ResponseEntity<>("Record deleted Successfully!", HttpStatus.OK);
+            return new ResponseMessage(ErrorType.SaveSuccess, Status.ok.name(), LearningSkill.class.getSimpleName(), id, SystemMessage.DeleteMessage);
         }
-        return ResponseEntity.notFound().build();
-    }
+        return new ResponseMessage(ErrorType.RecordNotFound, Status.error.name(), LearningSkill.class.getSimpleName(), id, SystemMessage.RecordNotFound);
+
+
+     }
 
 
 }

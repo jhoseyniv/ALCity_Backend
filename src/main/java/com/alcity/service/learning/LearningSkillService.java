@@ -31,8 +31,9 @@ public class LearningSkillService implements LearningSkillRepository {
 
     @Override
     public Optional<LearningSkill> findById(Long id) {
+        if(id==null) return Optional.empty();
         return learningSkillRepository.findById(id);
-                   }
+    }
 
     @Override
     public boolean existsById(Long aLong) {

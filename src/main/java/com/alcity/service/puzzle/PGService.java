@@ -54,6 +54,7 @@ public class PGService implements PGRepository {
 
     @Override
     public Optional<PuzzleGroup> findById(Long id) {
+        if(id == null){ return Optional.empty(); }
         return pgRepository.findById(id);
     }
 

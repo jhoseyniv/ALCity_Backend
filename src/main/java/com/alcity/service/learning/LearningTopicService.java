@@ -32,6 +32,7 @@ public class LearningTopicService implements LearningTopicRepository {
 
     @Override
     public Optional<LearningTopic> findById(Long id) {
+        if(id==null) return Optional.empty();
         return learningTopicRepository.findById(id);
     }
 

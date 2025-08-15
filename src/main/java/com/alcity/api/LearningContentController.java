@@ -1,5 +1,6 @@
 package com.alcity.api;
 
+import com.alcity.customexception.ResponseMessage;
 import com.alcity.customexception.ResponseObject;
 import com.alcity.customexception.UniqueConstraintException;
 import com.alcity.customexception.ViolateForeignKeyException;
@@ -8,7 +9,10 @@ import com.alcity.entity.alenum.Status;
 import com.alcity.entity.alenum.ErrorType;
 import com.alcity.entity.alenum.SystemMessage;
 import com.alcity.entity.alobject.ObjectAction;
+import com.alcity.entity.base.BinaryContent;
+import com.alcity.entity.journey.Journey;
 import com.alcity.entity.learning.LearningContent;
+import com.alcity.entity.puzzle.BaseObject;
 import com.alcity.service.learning.LearningContentService;
 import com.alcity.utility.DTOUtil;
 import io.swagger.v3.oas.annotations.Operation;
@@ -45,50 +49,44 @@ public class LearningContentController {
         LearningContentDTO  learningContentDTO= DTOUtil.getLearningContentDTO(learningContentOptional.get());
         return learningContentDTO;
     }
+
     @Operation( summary = "Save a Learning Content ",  description = "Save a Learning Content")
     @PostMapping("/save")
     @CrossOrigin(origins = "*")
-    public ResponseObject saveLearningContent(@RequestBody LearningContentDTO dto)  {
+    public ResponseMessage saveLearningContent(@RequestBody LearningContentDTO dto)  {
         LearningContent savedRecord = null;
-        ResponseObject responseObject = new ResponseObject();
-
-        if (dto.getId() == null || dto.getId() <= 0L) { //save
-            try {
+        ResponseMessage response = new ResponseMessage();
+        Optional<LearningContent> learningContentOptional = learningContentService.findById(dto.getId());
+        try{
+            if (learningContentOptional.isEmpty())
                 savedRecord = learningContentService.save(dto,"Save");
-            } catch (RuntimeException e) {
-                throw new UniqueConstraintException(-1,"Unique Constraint in" + LearningContent.class , "Error",savedRecord.getId() );
-            }
-            responseObject = new ResponseObject(ErrorType.SaveSuccess, ObjectAction.class.getSimpleName() , Status.ok.name(), savedRecord.getId(), SystemMessage.SaveOrEditMessage_Success);
-        } else if (dto.getId() > 0L ) {//edit
-            savedRecord = learningContentService.save(dto, "Edit");
-            if(savedRecord !=null)
-                responseObject = new ResponseObject(ErrorType.SaveSuccess, ObjectAction.class.getSimpleName() , Status.ok.name(), savedRecord.getId(), SystemMessage.SaveOrEditMessage_Success);
             else
-                responseObject = new ResponseObject(ErrorType.RecordNotFound, ObjectAction.class.getSimpleName(), Status.error.name(), dto.getId(),SystemMessage.RecordNotFound);
+                savedRecord = learningContentService.save(dto, "Edit");
         }
-        else if (savedRecord==null)
-            responseObject = new ResponseObject(ErrorType.RecordNotFound, ObjectAction.class.getSimpleName(), Status.error.name(), dto.getId(),SystemMessage.RecordNotFound);
+        catch (Exception e) {
+            throw new ResponseObject(ErrorType.UniquenessViolation, Status.error.name() , LearningContent.class.getSimpleName() ,  -1L ,e.getCause().getMessage());
+        }
+        if(savedRecord !=null)
+            response = new ResponseMessage(ErrorType.SaveSuccess, Status.ok.name() , LearningContent.class.getSimpleName() ,  savedRecord.getId(), SystemMessage.SaveOrEditMessage_Success);
         else
-            responseObject = new ResponseObject(ErrorType.RecordNotFound, ObjectAction.class.getSimpleName(), Status.error.name(), dto.getId(),SystemMessage.RecordNotFound);
+            response = new ResponseMessage(ErrorType.RecordNotFound, Status.error.name() , LearningContent.class.getSimpleName() , dto.getId(), SystemMessage.SaveOrEditMessage_Fail);
+        return response;
 
-        return responseObject;
-    }
+     }
+
     @Operation( summary = "delete a  Learning Content",  description = "delete a Learning Content entity and their data to data base")
     @DeleteMapping("/del/{id}")
     @CrossOrigin(origins = "*")
-    public ResponseObject deleteLearningContentById(@PathVariable Long id) {
-        Optional<LearningContent> existingRecord = learningContentService.findById(id);
-        if(existingRecord.isPresent()){
+    public ResponseMessage deleteLearningContentById(@PathVariable Long id) {
+        Optional<LearningContent> requestedRecord = learningContentService.findById(id);
+        if (requestedRecord.isPresent()) {
             try {
-                learningContentService.deleteById(existingRecord.get().getId());
-            }catch (Exception e )
-            {
-                throw new ViolateForeignKeyException(-1, "error", LearningContent.class.toString(),existingRecord.get().getId());
+                learningContentService.delete(requestedRecord.get());
+            } catch (Exception e) {
+                throw  new ResponseObject(ErrorType.ForeignKeyViolation, Status.error.name(), LearningContent.class.getSimpleName(), id, e.getCause().getMessage());
             }
-            return new ResponseObject(ErrorType.DeleteSuccess, ObjectAction.class.getSimpleName(), Status.error.name(), id,SystemMessage.DeleteMessage);
+            return new ResponseMessage(ErrorType.SaveSuccess, Status.ok.name(), LearningContent.class.getSimpleName(), id, SystemMessage.DeleteMessage);
         }
-        return new ResponseObject(ErrorType.RecordNotFound, ObjectAction.class.getSimpleName(), Status.error.name(), id, SystemMessage.RecordNotFound);
+        return new ResponseMessage(ErrorType.RecordNotFound, Status.error.name(), LearningContent.class.getSimpleName(), id, SystemMessage.RecordNotFound);
     }
-
-
 }

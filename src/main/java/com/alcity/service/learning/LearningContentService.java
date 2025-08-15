@@ -62,6 +62,7 @@ public class LearningContentService implements LearningContentRepository {
 
     @Override
     public Optional<LearningContent> findById(Long id) {
+        if(id==null || id<=0L) return Optional.empty();
         return learningContentRepository.findById(id);
     }
 
