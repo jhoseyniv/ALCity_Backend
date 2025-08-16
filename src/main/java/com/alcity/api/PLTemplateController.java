@@ -1,11 +1,13 @@
 package com.alcity.api;
 
+import com.alcity.customexception.ResponseMessage;
 import com.alcity.dto.puzzle.PLTemplateDTO;
 import com.alcity.entity.alenum.Status;
 import com.alcity.entity.alenum.ErrorType;
 import com.alcity.entity.alenum.SystemMessage;
 import com.alcity.entity.alobject.ObjectAction;
 import com.alcity.entity.base.WalletItemType;
+import com.alcity.entity.puzzle.BaseObject;
 import com.alcity.entity.puzzle.PLTemplate;
 import com.alcity.entity.puzzle.PuzzleLevel;
 import com.alcity.customexception.ResponseObject;
@@ -58,25 +60,23 @@ public class PLTemplateController {
     @Operation( summary = "Save a puzzle level Template  ",  description = "Save a puzzle level Template  entity and their data to data base")
     @PostMapping("/new")
     @CrossOrigin(origins = "*")
-    public ResponseObject saveNewPuzzleLevelTemplate(@RequestBody PLTemplateDTO dto)  {
+    public ResponseMessage saveNewPuzzleLevelTemplate(@RequestBody PLTemplateDTO dto)  {
         PLTemplate savedRecord = null;
-        ResponseObject responseObject = new ResponseObject();
+        ResponseMessage response = new ResponseMessage();
+        Optional<PLTemplate> plTemplateOptional = plTemplateService.findById(dto.getId());
 
-        if (dto.getId() == null || dto.getId() <= 0L) { //save
             try {
                 savedRecord = plTemplateService.saveNew(dto);
             } catch (RuntimeException e) {
-                throw new UniqueConstraintException(-1,"Unique Constraint in" + PLTemplate.class , "Error",dto.getId() );
+                throw new ResponseObject(ErrorType.UniquenessViolation, Status.error.name() ,BaseObject.class.getSimpleName() ,  -1L ,e.getCause().getMessage());
             }
-            responseObject = new ResponseObject(ErrorType.SaveSuccess, WalletItemType.class.getSimpleName() , Status.ok.name(), savedRecord.getId(), SystemMessage.SaveOrEditMessage_Success);
-        }
 
-        if (savedRecord==null)
-            responseObject = new ResponseObject(ErrorType.RecordNotFound, ObjectAction.class.getSimpleName(), Status.error.name(), dto.getId(),SystemMessage.RecordNotFound);
+        if(savedRecord !=null)
+            response = new ResponseMessage(ErrorType.SaveSuccess,Status.ok.name(), BaseObject.class.getSimpleName() ,  savedRecord.getId(), SystemMessage.SaveOrEditMessage_Success);
         else
-            responseObject = new ResponseObject(ErrorType.SaveSuccess, WalletItemType.class.getSimpleName() , Status.ok.name(), savedRecord.getId(), SystemMessage.SaveOrEditMessage_Success);
+            response = new ResponseMessage(ErrorType.SaveFail,Status.ok.name(), BaseObject.class.getSimpleName() , -1L, SystemMessage.SaveOrEditMessage_Fail);
 
-        return responseObject;
+        return response;
     }
     @Operation( summary = "edit a puzzle level Template content only  ",  description = "edit a puzzle level Template content  only")
     @PostMapping("/edit-content")

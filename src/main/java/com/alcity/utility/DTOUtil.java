@@ -202,6 +202,7 @@ public class DTOUtil {
                 1L,DateUtils.getNow(),DateUtils.getNow(),createdBy,createdBy,attribute.getOwnerId(),attribute.getAttributeOwnerType());
         return attributeValue;
     }
+
     public static AttributeValue getAttributeValueFromPLVariableImport(AttributeData dto, Attribute attribute, AppMember createdBy, Long ownerId, AttributeOwnerType ownerType){
         Attribute bindedAttribute =null;
         DataType dataType =  DataType.getByTitle(dto.getType());
@@ -214,21 +215,30 @@ public class DTOUtil {
         String expressionValue=null;
         String objectValue=null;
         String stringValue=null;
-        if(dataType.equals(DataType.Boolean))     booleanValue=Boolean.valueOf(dto.getValue());
-        if(dataType.equals(DataType.Long))     longValue=Long.valueOf(dto.getValue());
-        if(dataType.equals(DataType.Float))     floatValue=Float.valueOf(dto.getValue());
-        if(dataType.equals(DataType.Integer))     intValue=Integer.valueOf(dto.getValue());
-        if(dataType.equals(DataType.Binary))     binaryContentId=Long.valueOf(dto.getValue());
-        if(dataType.equals(DataType.String))     stringValue=dto.getValue();
+        if(dto.getValue() == null || dto.getValue().equalsIgnoreCase("")){
+            if(dataType.equals(DataType.Boolean)) dto.setValue("false");
+            if(dataType.equals(DataType.Long)) dto.setValue("1L");
+            if(dataType.equals(DataType.Integer)) dto.setValue("1");
+            if(dataType.equals(DataType.Binary)) dto.setValue("1");
+            if(dataType.equals(DataType.String)) dto.setValue("1");
+            if(dataType.equals(DataType.Float)) dto.setValue("1.0");
+
+        }
         if(dto.getExpression()==null || !dto.getExpression()){
-            System.out.println("here");
             isExpressionValue=Boolean.FALSE;
             expressionValue = null;
+            if(dataType.equals(DataType.Boolean))     booleanValue=Boolean.valueOf(dto.getValue());
+            if(dataType.equals(DataType.Long))     longValue=Long.valueOf(dto.getValue());
+            if(dataType.equals(DataType.Float))     floatValue=Float.valueOf(dto.getValue());
+            if(dataType.equals(DataType.Integer))     intValue=Integer.valueOf(dto.getValue());
+            if(dataType.equals(DataType.Binary))     binaryContentId=Long.valueOf(dto.getValue());
+            if(dataType.equals(DataType.String))     stringValue=dto.getValue();
         }
         else if(dto.getExpression()) {
             isExpressionValue=Boolean.TRUE;
             expressionValue = dto.getExpressionValue();
         }
+
         AttributeValue  attributeValue = new AttributeValue(booleanValue,intValue,longValue,stringValue,
                 objectValue,floatValue,binaryContentId, expressionValue,isExpressionValue,bindedAttribute ,attribute,
                 1L,DateUtils.getNow(),DateUtils.getNow(),createdBy,createdBy,ownerId,ownerType);

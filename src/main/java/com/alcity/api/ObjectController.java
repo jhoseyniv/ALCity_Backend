@@ -120,9 +120,9 @@ public class ObjectController {
     @Operation( summary = "Save an Algoopia Object ",  description = "Save an Algoopia Object")
     @PostMapping("/save")
     @CrossOrigin(origins = "*")
-    public ResponseObject save(@RequestBody CityObjectDTO dto) throws ResponseObject {
+    public ResponseMessage save(@RequestBody CityObjectDTO dto) throws ResponseObject {
         BaseObject savedRecord = null;
-        ResponseObject response = new ResponseObject();
+        ResponseMessage response = new ResponseMessage();
         Optional<BaseObject> baseObjectOptional = service.findById(dto.getId());
         try{
                if (baseObjectOptional.isEmpty())
@@ -134,9 +134,9 @@ public class ObjectController {
             throw new ResponseObject(ErrorType.UniquenessViolation, Status.error.name() ,BaseObject.class.getSimpleName() ,  -1L ,e.getCause().getMessage());
         }
         if(savedRecord !=null)
-            response = new ResponseObject(ErrorType.SaveSuccess,Status.ok.name(), BaseObject.class.getSimpleName() ,  savedRecord.getId(), SystemMessage.SaveOrEditMessage_Success);
+            response = new ResponseMessage(ErrorType.SaveSuccess,Status.ok.name(), BaseObject.class.getSimpleName() ,  savedRecord.getId(), SystemMessage.SaveOrEditMessage_Success);
         else
-            response = new ResponseObject(ErrorType.SaveFail,Status.ok.name(), BaseObject.class.getSimpleName() , -1L, SystemMessage.SaveOrEditMessage_Fail);
+            response = new ResponseMessage(ErrorType.SaveFail,Status.ok.name(), BaseObject.class.getSimpleName() , -1L, SystemMessage.SaveOrEditMessage_Fail);
 
         return response;
     }
