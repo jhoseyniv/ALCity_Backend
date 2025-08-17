@@ -17,6 +17,7 @@ public enum BinaryContentType {
     MAT,
     ANIM,
     MP3,
+    WAV,
     MAV,
     OGG,
     AMR,
