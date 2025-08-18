@@ -154,9 +154,38 @@ public class AttributeService implements AttributeRepository {
         return copyAttributes;
     }
 
-
     @Transactional
     public Attribute importVariables(AttributeData variableImport, Long ownerId, AttributeOwnerType ownerType) {
+        DataType dataType =  DataType.getByTitle(variableImport.getType());
+        Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
+        if(variableImport == null) variableImport.setId(0L);
+        Optional<Attribute> attributeOptional =  attributeRepository.findById(variableImport.getId());
+
+        if(attributeOptional.isPresent()){ // attribute is exist and only value must be import
+            Attribute attribute = attributeOptional.get();
+            Collection<AttributeValue> values = attribute.getAttributeValues();
+            AttributeValue attributeValue = DTOUtil.getAttributeValueFromPLVariableImport(variableImport, attribute, createdBy.get(),ownerId,AttributeOwnerType.Puzzle_Level_Rule_Post_Action_Parameter);
+            attributeValueRepository.save(attributeValue);
+            values.add(attributeValue);
+            attribute.setAttributeValues(values);
+            attributeRepository.save(attribute);
+            return attribute;
+        }else{
+            Attribute importedAttribute = new Attribute();
+            importedAttribute = new Attribute(variableImport.getName(), ownerId, ownerType, dataType,
+                    1L, DateUtils.getNow(), DateUtils.getNow(), createdBy.get(), createdBy.get());
+            attributeRepository.save(importedAttribute);
+            AttributeValue attributeValue = DTOUtil.getAttributeValueFromPLVariableImport(variableImport, importedAttribute, createdBy.get(),ownerId,AttributeOwnerType.Puzzle_Level_Rule_Post_Action_Parameter);
+            attributeValueRepository.save(attributeValue);
+            Collection<AttributeValue> values = new ArrayList<>();
+            values.add(attributeValue);
+            importedAttribute.setAttributeValues(values);
+
+            return importedAttribute;
+        }
+    }
+    @Transactional
+    public Attribute importVariable_PL(AttributeData variableImport, Long ownerId, AttributeOwnerType ownerType) {
         DataType dataType =  DataType.getByTitle(variableImport.getType());
         Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
         if(variableImport == null) variableImport.setId(0L);
@@ -191,7 +220,7 @@ public class AttributeService implements AttributeRepository {
         Iterator<AttributeData> iterator =variables.iterator();
         while(iterator.hasNext()) {
             AttributeData variableImport = iterator.next();
-            Attribute attribute = importVariables(variableImport,puzzleLevel.getId(),ownerType);
+            Attribute attribute = importVariable_PL(variableImport,puzzleLevel.getId(),ownerType);
             importedAttributes.add(attribute);
         }
         return importedAttributes;
@@ -201,7 +230,7 @@ public class AttributeService implements AttributeRepository {
         Iterator<AttributeData> iterator =variables.iterator();
         while(iterator.hasNext()) {
             AttributeData variableImport = iterator.next();
-            Attribute attribute = importVariables(variableImport,instance.getId(),ownerType);
+            Attribute attribute = importVariable_PL(variableImport,instance.getId(),ownerType);
             importedAttributes.add(attribute);
         }
         return importedAttributes;
