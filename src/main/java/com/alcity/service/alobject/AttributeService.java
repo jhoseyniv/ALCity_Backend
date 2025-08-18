@@ -184,6 +184,7 @@ public class AttributeService implements AttributeRepository {
             return importedAttribute;
         }
     }
+    /*
     @Transactional
     public Attribute importVariable_PL(AttributeData variableImport, Long ownerId, AttributeOwnerType ownerType) {
         DataType dataType =  DataType.getByTitle(variableImport.getType());
@@ -214,13 +215,13 @@ public class AttributeService implements AttributeRepository {
             return importedAttribute;
         }
     }
-
+*/
     public Collection<Attribute> importPLVariables(Collection<AttributeData> variables, PuzzleLevel puzzleLevel, AttributeOwnerType ownerType){
         Collection<Attribute>  importedAttributes = new ArrayList<>();
         Iterator<AttributeData> iterator =variables.iterator();
         while(iterator.hasNext()) {
             AttributeData variableImport = iterator.next();
-            Attribute attribute = importVariable_PL(variableImport,puzzleLevel.getId(),ownerType);
+            Attribute attribute = importVariables(variableImport,puzzleLevel.getId(),ownerType);
             importedAttributes.add(attribute);
         }
         return importedAttributes;
@@ -230,7 +231,7 @@ public class AttributeService implements AttributeRepository {
         Iterator<AttributeData> iterator =variables.iterator();
         while(iterator.hasNext()) {
             AttributeData variableImport = iterator.next();
-            Attribute attribute = importVariable_PL(variableImport,instance.getId(),ownerType);
+            Attribute attribute = importVariables(variableImport,instance.getId(),ownerType);
             importedAttributes.add(attribute);
         }
         return importedAttributes;
