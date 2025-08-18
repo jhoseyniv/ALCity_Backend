@@ -75,7 +75,7 @@ public class AppMemberController {
     @Operation( summary = "Get Avatar by User Id ",  description = "Get Avatar by User Id ...")
     @GetMapping("/get-avatar/id/{id}")
     @CrossOrigin(origins = "*")
-    public ResponseEntity<byte[]> getAvatar(@PathVariable Long id) {
+    public ResponseEntity<byte[]> getAvatarById(@PathVariable Long id) {
         Optional<AppMember>  appMemberOptional= appMemberService.findById(id);
         if(appMemberOptional.isEmpty()) return  null;
         BinaryContent binaryContent = appMemberOptional.get().getIcon();
@@ -84,6 +84,17 @@ public class AppMemberController {
                 .body(binaryContent.getContent());
     }
 
+    @Operation( summary = "Get Avatar by User name ",  description = "Get Avatar by User name ...")
+    @GetMapping("/get-avatar/user/{user}")
+    @CrossOrigin(origins = "*")
+    public ResponseEntity<byte[]> getAvatarByUserName(@PathVariable String user) {
+        Optional<AppMember>  appMemberOptional= appMemberService.findByUsername(user);
+        if(appMemberOptional.isEmpty()) return  null;
+        BinaryContent binaryContent = appMemberOptional.get().getIcon();
+        return ResponseEntity.ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + binaryContent.getFileName() + "\"")
+                .body(binaryContent.getContent());
+    }
     @Operation( summary = "Get public puzzle levels for a app member ",  description = "Get all puzzles for a user ...")
     @RequestMapping(value = "/id/{id}/all-pl", method = RequestMethod.GET)
     @ResponseBody
