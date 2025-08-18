@@ -258,17 +258,20 @@ public class PLController {
         Optional<PuzzleLevel> puzzleLevelOptional = plService.findById(dto.getId());
         if(puzzleLevelOptional.isEmpty()){
             importedPuzzleLevel =  plService.importPuzzleLevel(dto);
-            responseObject = new ResponseObject(ErrorType.ImportSuccess, PuzzleLevel.class.getSimpleName() , Status.ok.name(), importedPuzzleLevel.getId(), SystemMessage.SaveOrEditMessage_Success);
-            Optional<PLTemplate> plTemplateOptional = plTemplateService.findById(dto.getPuzzleTemplateId());
-            PLTemplate plTemplate = plTemplateOptional.get();
-            plTemplate.setPuzzleLevelId(importedPuzzleLevel.getId());
-            plTemplateService.save(plTemplate);
-        }else{
+         }else{
             //first delete exist puzzle level and then add new pl
             plService.deletePuzzleLevel(puzzleLevelOptional.get());
             importedPuzzleLevel =  plService.importPuzzleLevel(dto);
-            responseObject = new ResponseObject(ErrorType.ImportSuccess, PuzzleLevel.class.getSimpleName() , Status.ok.name(), importedPuzzleLevel.getId(), SystemMessage.SaveOrEditMessage_Success);
+//            Optional<PLTemplate> plTemplateOptional = plTemplateService.findById(dto.getPuzzleTemplateId());
+//            PLTemplate plTemplate = plTemplateOptional.get();
+//            plTemplate.setPuzzleLevelId(importedPuzzleLevel.getId());
+//            responseObject = new ResponseObject(ErrorType.ImportSuccess, PuzzleLevel.class.getSimpleName() , Status.ok.name(), importedPuzzleLevel.getId(), SystemMessage.SaveOrEditMessage_Success);
         }
+        Optional<PLTemplate> plTemplateOptional = plTemplateService.findById(dto.getPuzzleTemplateId());
+        PLTemplate plTemplate = plTemplateOptional.get();
+        plTemplate.setPuzzleLevelId(importedPuzzleLevel.getId());
+        plTemplateService.save(plTemplate);
+        responseObject = new ResponseObject(ErrorType.ImportSuccess, PuzzleLevel.class.getSimpleName() , Status.ok.name(), importedPuzzleLevel.getId(), SystemMessage.SaveOrEditMessage_Success);
 
         return responseObject;
     }
