@@ -242,11 +242,10 @@ public class PLController {
         ResponseObject responseObject = new ResponseObject();
         Optional<PuzzleLevel> puzzleLevelOptional = plService.findById(dto.getPuzzleLevelId());
         if(puzzleLevelOptional.isEmpty())
-        return new ResponseObject(ErrorType.RecordNotFound, ObjectAction.class.getSimpleName(), Status.error.name(), puzzleLevelOptional.get().getId(), SystemMessage.RecordNotFound);
+            return  new ResponseObject(ErrorType.RecordNotFound, ObjectAction.class.getSimpleName(), Status.error.name(), puzzleLevelOptional.get().getId(), SystemMessage.RecordNotFound);
         PuzzleLevel puzzleLevel = puzzleLevelOptional.get();
         PuzzleLevel copyPuzzleLevel =plService.copy(puzzleLevel,dto);
-        return
-               new ResponseObject(ErrorType.CopySuccess, ObjectAction.class.getSimpleName() , Status.ok.name(), copyPuzzleLevel.getId(), SystemMessage.SaveOrEditMessage_Success);
+        return  new ResponseObject(ErrorType.CopySuccess, ObjectAction.class.getSimpleName() , Status.ok.name(), copyPuzzleLevel.getId(), SystemMessage.SaveOrEditMessage_Success);
 
     }
 
@@ -312,11 +311,11 @@ public class PLController {
                 plService.deletePuzzleLevel(requestedRecord.get());
             }
             catch (Exception e) {
-                throw  new ResponseObject(ErrorType.ForeignKeyViolation, AppMember.class.getSimpleName(), Status.error.name(), id,e.getCause().getMessage());
+                throw  new ResponseObject(ErrorType.ForeignKeyViolation,Status.error.name(), AppMember.class.getSimpleName(),  id,e.getCause().getMessage());
             }
-            return new ResponseMessage(ErrorType.SaveSuccess, AppMember.class.getSimpleName(), Status.ok.name(), id,SystemMessage.DeleteMessage);
+            return new ResponseMessage(ErrorType.SaveSuccess, Status.ok.name(), AppMember.class.getSimpleName(), id,SystemMessage.DeleteMessage);
         }
-        return  new ResponseMessage(ErrorType.RecordNotFound,AppMember.class.getSimpleName(), Status.error.name(), id,SystemMessage.RecordNotFound);
+        return  new ResponseMessage(ErrorType.RecordNotFound,Status.error.name(),AppMember.class.getSimpleName(),  id,SystemMessage.RecordNotFound);
     }
 
 

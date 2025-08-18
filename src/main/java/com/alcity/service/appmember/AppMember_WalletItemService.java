@@ -32,7 +32,8 @@ public class AppMember_WalletItemService implements AppMember_WalletItemReposito
 
     @Override
     public Optional<AppMember_WalletItem> findById(Long id) {
-        return Optional.empty();
+        if(id == null){ return Optional.empty(); }
+        return appMember_WalletItemRepository.findById(id);
     }
 
     @Override

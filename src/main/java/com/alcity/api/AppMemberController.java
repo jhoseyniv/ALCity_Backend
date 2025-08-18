@@ -12,11 +12,14 @@ import com.alcity.entity.alobject.ObjectCategory;
 import com.alcity.entity.appmember.*;
 import com.alcity.entity.base.BinaryContent;
 import com.alcity.entity.journey.Journey;
+import com.alcity.entity.journey.RoadMap;
 import com.alcity.entity.play.PlayHistory;
 import com.alcity.entity.puzzle.BaseObject;
 import com.alcity.entity.puzzle.PLObjective;
+import com.alcity.repository.appmember.AppMember_WalletItemRepository;
 import com.alcity.service.Journey.JourneyService;
 import com.alcity.o3rdparty.ALCityAcessRight;
+import com.alcity.service.appmember.AppMember_WalletItemService;
 import com.alcity.service.appmember.LearningSkillTransactionService;
 import com.alcity.service.appmember.WalletTransactionService;
 import com.alcity.customexception.ResponseObject;
@@ -45,6 +48,8 @@ public class AppMemberController {
     private AppMemberService appMemberService;
     @Autowired
     private PLObjectiveService plObjectiveService;
+    @Autowired
+    private AppMember_WalletItemService appMemberWalletItemService;
 
     @Autowired
     private JourneyService journeyService;
@@ -184,27 +189,27 @@ public class AppMemberController {
                 appMemberService.delete(requestedRecord.get());
             }
             catch (Exception e) {
-                throw  new ResponseObject(ErrorType.ForeignKeyViolation, AppMember.class.getSimpleName(), Status.error.name(), id,e.getCause().getMessage());
+                throw  new ResponseObject(ErrorType.ForeignKeyViolation, Status.error.name(),AppMember.class.getSimpleName(),  id,e.getCause().getMessage());
             }
-            return new ResponseMessage(ErrorType.SaveSuccess, AppMember.class.getSimpleName(), Status.ok.name(), id,SystemMessage.DeleteMessage);
+            return new ResponseMessage(ErrorType.SaveSuccess, Status.ok.name(), AppMember.class.getSimpleName(), id,SystemMessage.DeleteMessage);
         }
-        return  new ResponseMessage(ErrorType.RecordNotFound,AppMember.class.getSimpleName(), Status.error.name(), id,SystemMessage.RecordNotFound);
+        return  new ResponseMessage(ErrorType.RecordNotFound,Status.error.name(),AppMember.class.getSimpleName(),  id,SystemMessage.RecordNotFound);
     }
 
     @Operation( summary = "Update Avatar for an App Member ",  description = "Update Avatar for an App Member")
     @RequestMapping(value ="/update-avatar/memberId/{memId}/avatarId/{avatarId}", method = RequestMethod.GET)
     @CrossOrigin(origins = "*")
-    public ResponseObject getPuzzleLevel(@PathVariable Long memId, @PathVariable Long avatarId) {
+    public ResponseMessage getPuzzleLevel(@PathVariable Long memId, @PathVariable Long avatarId) {
         AppMember updatedRecord = null;
-        ResponseObject responseObject = new ResponseObject();
+        ResponseMessage response = new ResponseMessage();
 
         updatedRecord = appMemberService.updateAvatar(memId, avatarId);
             if(updatedRecord !=null)
-                responseObject = new ResponseObject(ErrorType.SaveSuccess, BaseObject.class.getSimpleName() , Status.ok.name(), updatedRecord.getId(), SystemMessage.SaveOrEditMessage_Success);
+                response = new ResponseMessage(ErrorType.SaveSuccess, Status.ok.name(),AppMember.class.getSimpleName() ,  updatedRecord.getId(), SystemMessage.SaveOrEditMessage_Success);
             else
-                responseObject = new ResponseObject(ErrorType.RecordNotFound, BaseObject.class.getSimpleName() , Status.error.name() , -1L ,"e.getCause().getMessage()");
+                response = new ResponseMessage(ErrorType.RecordNotFound, Status.error.name() ,AppMember.class.getSimpleName() ,  memId ,SystemMessage.RecordNotFound);
 
-        return responseObject;
+        return response;
     }
 
 
@@ -220,44 +225,41 @@ public class AppMemberController {
                 savedRecord = appMemberService.save(dto,"Save");
             else
                 savedRecord = appMemberService.save(dto, "Edit");
+            if(savedRecord !=null)
+                response = new ResponseMessage(ErrorType.SaveSuccess, Status.ok.name(),AppMember.class.getSimpleName() ,  savedRecord.getId(), SystemMessage.SaveOrEditMessage_Success);
+            else
+                response = new ResponseMessage(ErrorType.SaveFail,Status.error.name(), AppMember.class.getSimpleName() ,  -1L, SystemMessage.SaveOrEditMessage_Fail);
         }
         catch (Exception e) {
             throw new ResponseObject(ErrorType.UniquenessViolation,Status.error.name() , AppMember.class.getSimpleName() ,  -1L ,e.getCause().getMessage());
         }
-        if(savedRecord !=null)
-            response = new ResponseMessage(ErrorType.SaveSuccess, Status.ok.name(),AppMember.class.getSimpleName() ,  savedRecord.getId(), SystemMessage.SaveOrEditMessage_Success);
-        else
-            response = new ResponseMessage(ErrorType.SaveFail,Status.error.name(), AppMember.class.getSimpleName() ,  -1L, SystemMessage.SaveOrEditMessage_Fail);
-        return response;
+           return response;
 
     }
 
-    @Operation( summary = "Charge or Decharge a wallet for specific  Member ",  description = "Save a record in APPMember_WalletItem Table : application member wallet management ")
+    @Operation( summary = "Charge or De charge a wallet for specific  Member ",  description = "Save a record in APPMember_WalletItem Table : application member wallet management ")
     @PostMapping("/id/{id}/wallet/charge")
     @CrossOrigin(origins = "*")
-    public ResponseObject chargeOrDechargeAppMemberWallet(@RequestBody AppMemberWalletDTO dto)  {
+    public ResponseMessage chargeOrDechargeAppMemberWallet(@RequestBody AppMemberWalletDTO dto)  {
         AppMember_WalletItem savedRecord = null;
-        ResponseObject responseObject = new ResponseObject();
-        if (dto.getId() == null || dto.getId() <= 0L) { //save
+        ResponseMessage response = new ResponseMessage();
+        Optional<AppMember_WalletItem> appMember_walletItemOptional = appMemberWalletItemService.findById(dto.getId());
             try {
-                savedRecord = appMemberService.chargeOrDeChargeAppMemberWallet(dto,"Save");
-            } catch (RuntimeException e) {
-                throw new UniqueConstraintException(-1,"Unique Constraint in" + AppMember_WalletItem.class , "Error",savedRecord.getId() );
-            }
-            responseObject = new ResponseObject(ErrorType.SaveSuccess, AppMember_WalletItem.class.getSimpleName() , Status.ok.name(), savedRecord.getId(), SystemMessage.SaveOrEditMessage_Success);
-        } else if (dto.getId() > 0L ) {//edit
-            savedRecord = appMemberService.chargeOrDeChargeAppMemberWallet(dto, "Edit");
-            if(savedRecord !=null)
-                responseObject = new ResponseObject(ErrorType.SaveSuccess, AppMember_WalletItem.class.getSimpleName() , Status.ok.name(), savedRecord.getId(), SystemMessage.SaveOrEditMessage_Success);
-            else
-                responseObject = new ResponseObject(ErrorType.RecordNotFound, AppMember_WalletItem.class.getSimpleName() , Status.error.name() , -1L ,"e.getCause().getMessage()");
-        }
-        else if (savedRecord==null)
-            responseObject = new ResponseObject(ErrorType.RecordNotFound, AppMember_WalletItem.class.getSimpleName() , Status.error.name() , -1L ,"e.getCause().getMessage()");
-        else
-            responseObject = new ResponseObject(ErrorType.RecordNotFound, AppMember_WalletItem.class.getSimpleName() , Status.error.name() , -1L ,"e.getCause().getMessage()");
+                if( appMember_walletItemOptional.isEmpty())
+                        savedRecord = appMemberService.chargeOrDeChargeAppMemberWallet(dto,"Save");
+                 else
+                        savedRecord = appMemberService.chargeOrDeChargeAppMemberWallet(dto, "Edit");
 
-        return responseObject;
+                if(savedRecord !=null)
+                    response = new ResponseMessage(ErrorType.SaveSuccess, Status.ok.name(), AppMember_WalletItem.class.getSimpleName() ,  savedRecord.getId(), SystemMessage.SaveOrEditMessage_Success);
+                else
+                    response = new ResponseMessage(ErrorType.SaveFail,Status.error.name(), AppMember_WalletItem.class.getSimpleName() ,  -1L, SystemMessage.SaveOrEditMessage_Fail);
+
+            } catch (RuntimeException e) {
+                throw new ResponseObject(ErrorType.UniquenessViolation,Status.error.name() , AppMember_WalletItem.class.getSimpleName() ,  -1L ,e.getCause().getMessage());
+            }
+
+        return response;
     }
 
     public boolean checkPLRewardConstraint(WalletItemTransactionDTO dto){
