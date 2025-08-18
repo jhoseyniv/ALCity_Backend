@@ -1,5 +1,6 @@
 package com.alcity.api;
 
+import com.alcity.customexception.ResponseMessage;
 import com.alcity.dto.alobject.AttributeDTOSave;
 import com.alcity.customexception.ResponseObject;
 import com.alcity.dto.alobject.AttributeDTO;
@@ -43,9 +44,9 @@ public class AttributeController {
     @Operation( summary = "Save an Attribute Entity ",  description = "Save an Attribute Entity...")
     @PostMapping("/save")
     @CrossOrigin(origins = "*")
-    public ResponseObject saveAttribute(@RequestBody AttributeDTOSave dto) throws ResponseObject {
+    public ResponseMessage saveAttribute(@RequestBody AttributeDTOSave dto) throws ResponseObject {
         Attribute savedRecord = null;
-        ResponseObject response = new ResponseObject();
+        ResponseMessage response = new ResponseMessage();
         Optional<Attribute> attributeOptional = service.findById(dto.getId());
         try{
             if (attributeOptional.isEmpty())
@@ -54,12 +55,12 @@ public class AttributeController {
                 savedRecord = service.save(dto, "Edit");
         }
         catch (Exception e) {
-            throw new ResponseObject(ErrorType.UniquenessViolation, Attribute.class.getSimpleName() , Status.error.name() , -1L ,e.getCause().getMessage());
+            throw new ResponseObject(ErrorType.UniquenessViolation,Status.error.name() , Attribute.class.getSimpleName() ,  -1L ,e.getCause().getMessage());
         }
         if(savedRecord !=null)
-            response = new ResponseObject(ErrorType.SaveSuccess, Attribute.class.getSimpleName() , Status.ok.name(), savedRecord.getId(), SystemMessage.SaveOrEditMessage_Success);
+            response = new ResponseMessage(ErrorType.SaveSuccess,  Status.ok.name(),Attribute.class.getSimpleName() , savedRecord.getId(), SystemMessage.SaveOrEditMessage_Success);
         else
-            response = new ResponseObject(ErrorType.SaveFail, Attribute.class.getSimpleName() , Status.error.name(), -1L, SystemMessage.SaveOrEditMessage_Fail);
+            response = new ResponseMessage(ErrorType.SaveFail, Status.error.name(),Attribute.class.getSimpleName() ,  -1L, SystemMessage.SaveOrEditMessage_Fail);
 
         return response;
 
@@ -77,18 +78,18 @@ public class AttributeController {
     @Operation( summary = "delete an Attribute with all values",  description = "delete an Attribute with all values from database")
     @DeleteMapping("/del/{id}")
     @CrossOrigin(origins = "*")
-    public ResponseObject deleteAttributeById(@PathVariable Long id) {
+    public ResponseMessage deleteAttributeById(@PathVariable Long id) {
         Optional<Attribute>  requestedRecord = service.findById(id);
         if(requestedRecord.isPresent()){
             try {
                 service.delete(requestedRecord.get());
             }
             catch (Exception e) {
-                return new ResponseObject(ErrorType.ForeignKeyViolation, Attribute.class.getSimpleName(), Status.error.name(), id,e.getCause().getMessage());
+                throw  new ResponseObject(ErrorType.ForeignKeyViolation,Status.error.name(), Attribute.class.getSimpleName(),  id,e.getCause().getMessage());
             }
-            return new ResponseObject(ErrorType.DeleteSuccess, Attribute.class.getSimpleName(), Status.ok.name(), id,SystemMessage.DeleteMessage);
+            return new ResponseMessage(ErrorType.DeleteSuccess,Status.ok.name(), Attribute.class.getSimpleName(),  id,SystemMessage.DeleteMessage);
         }
-        return  new ResponseObject(ErrorType.RecordNotFound,Attribute.class.getSimpleName(), Status.error.name(), id,SystemMessage.RecordNotFound);
+        return  new ResponseMessage(ErrorType.RecordNotFound, Status.error.name(),Attribute.class.getSimpleName(), id,SystemMessage.RecordNotFound);
     }
 
 
