@@ -10,6 +10,7 @@ import com.alcity.entity.alenum.ErrorType;
 import com.alcity.entity.alenum.SystemMessage;
 import com.alcity.entity.alobject.ObjectCategory;
 import com.alcity.entity.appmember.*;
+import com.alcity.entity.base.BinaryContent;
 import com.alcity.entity.journey.Journey;
 import com.alcity.entity.play.PlayHistory;
 import com.alcity.entity.puzzle.BaseObject;
@@ -27,6 +28,8 @@ import com.alcity.utility.DTOUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
@@ -69,6 +72,17 @@ public class AppMemberController {
         return dto;
     }
 
+    @Operation( summary = "Get Avatar by User Id ",  description = "Get Avatar by User Id ...")
+    @GetMapping("/get-avatar/id/{id}")
+    @CrossOrigin(origins = "*")
+    public ResponseEntity<byte[]> getAvatar(@PathVariable Long id) {
+        Optional<AppMember>  appMemberOptional= appMemberService.findById(id);
+        if(appMemberOptional.isEmpty()) return  null;
+        BinaryContent binaryContent = appMemberOptional.get().getIcon();
+        return ResponseEntity.ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + binaryContent.getFileName() + "\"")
+                .body(binaryContent.getContent());
+    }
 
     @Operation( summary = "Get public puzzle levels for a app member ",  description = "Get all puzzles for a user ...")
     @RequestMapping(value = "/id/{id}/all-pl", method = RequestMethod.GET)
