@@ -1,6 +1,7 @@
 package com.alcity.api;
 
 
+import com.alcity.customexception.ResponseMessage;
 import com.alcity.dto.plimpexport.ActionData;
 import com.alcity.dto.puzzle.InstanceDTO;
 import com.alcity.entity.alenum.Status;
@@ -8,6 +9,7 @@ import com.alcity.entity.alenum.ErrorType;
 import com.alcity.entity.alenum.POActionOwnerType;
 import com.alcity.entity.alenum.SystemMessage;
 import com.alcity.entity.alobject.ObjectAction;
+import com.alcity.entity.base.BinaryContent;
 import com.alcity.entity.base.WalletItemType;
 import com.alcity.entity.puzzle.*;
 import com.alcity.service.alobject.ActionService;
@@ -48,57 +50,54 @@ public class InstanceController {
     @Operation( summary = "Add a Object Instance to a Puzzle Level ",  description = "Add a Object Instance to a Puzzle Level ")
     @PostMapping("/save")
     @CrossOrigin(origins = "*")
-    public ResponseObject saveInstance(@RequestBody InstanceDTO dto)  {
-        Instance instance = null;
-        ResponseObject responseObject = new ResponseObject();
+    public ResponseMessage saveInstance(@RequestBody InstanceDTO dto)  {
+        Instance savedRecord = null;
+        ResponseMessage response = new ResponseMessage();
         if (dto.getName()==null) dto.setName("instance_"+dto.getRow()+"_"+dto.getCol()+"_"+dto.getzOrder()+"_puzzle_id"+dto.getPuzzleLevelId());
-        if (dto.getId() == null || dto.getId() <= 0L) { //save
-            try {
-                instance = service.save(dto,"Save");
-            } catch (RuntimeException e) {
-                throw new UniqueConstraintException(-1,"Unique Constraint in" + Instance.class , "Error",instance.getId() );
-            }
-            responseObject = new ResponseObject(ErrorType.SaveSuccess, WalletItemType.class.getSimpleName() , Status.ok.name(), instance.getId(), SystemMessage.SaveOrEditMessage_Success);
-        } else if (dto.getId() > 0L ) {//edit
-            instance = service.save(dto, "Edit");
-            if(instance !=null)
-                responseObject = new ResponseObject(ErrorType.SaveSuccess, WalletItemType.class.getSimpleName() , Status.ok.name(), instance.getId(), SystemMessage.SaveOrEditMessage_Success);
-            else
-                responseObject = new ResponseObject(ErrorType.RecordNotFound, ObjectAction.class.getSimpleName(), Status.error.name(), dto.getId(),SystemMessage.RecordNotFound);
-        }
-        else if (instance==null)
-            responseObject = new ResponseObject(ErrorType.RecordNotFound, ObjectAction.class.getSimpleName(), Status.error.name(), dto.getId(),SystemMessage.RecordNotFound);
-        else
-            responseObject = new ResponseObject(ErrorType.RecordNotFound, ObjectAction.class.getSimpleName(), Status.error.name(), dto.getId(),SystemMessage.RecordNotFound);
+        Optional<Instance> instanceOptional = service.findById(dto.getId());
 
-        return responseObject;
-    }
+        try{
+            if (instanceOptional.isEmpty())
+                savedRecord = service.save(dto,"Save");
+            else
+                savedRecord = service.save(dto, "Edit");
+        }
+        catch (Exception e) {
+            throw new ResponseObject(ErrorType.UniquenessViolation, Status.error.name() , Instance.class.getSimpleName() ,  -1L ,e.getCause().getMessage());
+        }
+        if(savedRecord !=null)
+            response = new ResponseMessage(ErrorType.SaveSuccess, Status.ok.name() , Instance.class.getSimpleName() ,  savedRecord.getId(), SystemMessage.SaveOrEditMessage_Success);
+        else
+            response = new ResponseMessage(ErrorType.RecordNotFound, Status.error.name() , Instance.class.getSimpleName() , dto.getId(), SystemMessage.SaveOrEditMessage_Fail);
+        return response;
+   }
+
     @Operation( summary = "Add an Instance to a PL Cell ",  description = "Add an Instance to a PL Cell ")
     @PostMapping("/{iid}/iid/add-to-cell/{cid}/cid")
     @CrossOrigin(origins = "*")
-    public ResponseObject addInstanceToCell(@PathVariable Long iid, @PathVariable Long cid)  {
+    public ResponseMessage addInstanceToCell(@PathVariable Long iid, @PathVariable Long cid)  {
         //Instance instance = null;
-        ResponseObject responseObject = new ResponseObject();
+        ResponseMessage response = new ResponseMessage();
         Optional<Instance> instanceOptional = service.findById(iid);
         Optional<PLCell> plCellOptional = plCellService.findById(iid);
 
         if(plCellOptional.isEmpty() || instanceOptional.isEmpty())
-            return new ResponseObject(ErrorType.RecordNotFound, ObjectAction.class.getSimpleName(), Status.error.name(),cid,SystemMessage.RecordNotFound);
+            return new ResponseMessage(ErrorType.RecordNotFound,  Status.error.name(),Instance.class.getSimpleName(),cid,SystemMessage.RecordNotFound);
 
         Instance instance = instanceOptional.get();
         instance.setPlCell(plCellOptional.get());
         service.save(instance);
-        return responseObject;
+        return response;
     }
 
     @Operation( summary = "Copy an Instance to a other cells of a puzzle ",  description = "Copy an Instance to  other cells of a puzzle")
     @RequestMapping(value = "/copy/instance/id/{id}", method = RequestMethod.GET)
     @CrossOrigin(origins = "*")
-    public ResponseObject copyInstanceToOtherCellsInPL(@PathVariable Long id) {
-        ResponseObject responseObject = new ResponseObject();
+    public ResponseMessage copyInstanceToOtherCellsInPL(@PathVariable Long id) {
+        ResponseMessage responseObject = new ResponseMessage();
         Optional<Instance> instanceOptional = service.findById(id);
         if(instanceOptional.isEmpty()) return
-                 new ResponseObject(ErrorType.RecordNotFound, ObjectAction.class.getSimpleName(), Status.error.name(), id,SystemMessage.RecordNotFound);
+                 new ResponseMessage(ErrorType.RecordNotFound, Status.error.name(),Instance.class.getSimpleName(),  id,SystemMessage.RecordNotFound);
 
         Instance instance = instanceOptional.get();
         PuzzleLevel puzzleLevel = instance.getPuzzleLevel();
@@ -107,7 +106,7 @@ public class InstanceController {
         Collection<Instance> copiedInstances = service.copyOneInstanceToOthers(instance,plGround);
 
         return
-                new ResponseObject(ErrorType.RecordNotFound, ObjectAction.class.getSimpleName(), Status.error.name(), id,SystemMessage.RecordNotFound);
+                new ResponseMessage(ErrorType.RecordNotFound,Status.error.name(), Instance.class.getSimpleName(),  id,SystemMessage.RecordNotFound);
     }
 
 
@@ -154,18 +153,18 @@ public class InstanceController {
     @Operation( summary = "Remove an Instance From a Puzzle Level",  description = "Remove an  AL City Object  Instance From a Puzzle Level")
     @DeleteMapping("/del/id/{id}")
     @CrossOrigin(origins = "*")
-    public ResponseObject deleteInstance(@PathVariable Long id) {
+    public ResponseMessage deleteInstance(@PathVariable Long id) {
         Optional<Instance> instance = service.findById(id);
         if(instance.isPresent()){
             try {
                 service.deleteById(instance.get().getId());
             }catch (Exception e )
             {
-                throw new ViolateForeignKeyException(-1, "error", Instance.class.toString(),instance.get().getId());
+                throw new ResponseObject(ErrorType.ForeignKeyViolation, Status.error.name() , Instance.class.getSimpleName() ,  -1L ,e.getCause().getMessage());
             }
-            return new ResponseObject(ErrorType.DeleteSuccess, ObjectAction.class.getSimpleName(), Status.ok.name(), instance.get().getId(),SystemMessage.DeleteMessage);
+            return new ResponseMessage(ErrorType.DeleteSuccess,  Status.ok.name(),Instance.class.getSimpleName(), instance.get().getId(),SystemMessage.DeleteMessage);
         }
-        return new ResponseObject(ErrorType.RecordNotFound, ObjectAction.class.getSimpleName(), Status.error.name(), instance.get().getId(),SystemMessage.RecordNotFound);
+        return new ResponseMessage(ErrorType.RecordNotFound, Status.error.name(),Instance.class.getSimpleName(),  instance.get().getId(),SystemMessage.RecordNotFound);
     }
 
 

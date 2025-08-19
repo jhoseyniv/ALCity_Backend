@@ -249,6 +249,7 @@ public class InstanceService implements InstanceRepository {
 
     @Override
     public Optional<Instance> findById(Long id) {
+        if(id==null || id<=0L) return Optional.empty();
         return instanceRepository.findById(id);
     }
 

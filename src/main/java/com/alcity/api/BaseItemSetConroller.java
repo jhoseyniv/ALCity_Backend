@@ -276,11 +276,11 @@ public class BaseItemSetConroller {
                 plPrivacyService.delete(requestedRecord.get());
             }
             catch (Exception e) {
-                throw  new ResponseObject(ErrorType.ForeignKeyViolation, PLPrivacy.class.getSimpleName(), Status.error.name(), id,e.getCause().getMessage());
+                throw  new ResponseObject(ErrorType.ForeignKeyViolation,  Status.error.name(),PLPrivacy.class.getSimpleName(), id,e.getCause().getMessage());
             }
-            return new ResponseMessage(ErrorType.DeleteSuccess, PLPrivacy.class.getSimpleName(), Status.ok.name(), id,SystemMessage.DeleteMessage);
+            return new ResponseMessage(ErrorType.DeleteSuccess, Status.ok.name(),PLPrivacy.class.getSimpleName(),  id,SystemMessage.DeleteMessage);
         }
-            return  new ResponseMessage(ErrorType.RecordNotFound,PLPrivacy.class.getSimpleName(), Status.error.name(), id,SystemMessage.RecordNotFound);
+            return  new ResponseMessage(ErrorType.RecordNotFound,Status.error.name(),PLPrivacy.class.getSimpleName(),  id,SystemMessage.RecordNotFound);
     }
 
     @DeleteMapping("/client-type/del/id/{id}")
@@ -292,11 +292,11 @@ public class BaseItemSetConroller {
                 clientTypeService.deleteById(requestedRecord.get().getId());
             }
             catch (Exception e) {
-                    throw  new ResponseObject(ErrorType.ForeignKeyViolation, ClientType.class.getSimpleName(), Status.error.name(), id,e.getCause().getMessage());
+                    throw  new ResponseObject(ErrorType.ForeignKeyViolation, Status.error.name(),ClientType.class.getSimpleName(),  id,e.getCause().getMessage());
                 }
-                return new ResponseMessage(ErrorType.DeleteSuccess, ClientType.class.getSimpleName(), Status.ok.name(), id,SystemMessage.DeleteMessage);
+                return new ResponseMessage(ErrorType.DeleteSuccess, Status.ok.name(),ClientType.class.getSimpleName(),  id,SystemMessage.DeleteMessage);
             }
-            return  new ResponseMessage(ErrorType.RecordNotFound,ClientType.class.getSimpleName(), Status.error.name(), id,SystemMessage.RecordNotFound);
+            return  new ResponseMessage(ErrorType.RecordNotFound,Status.error.name(),ClientType.class.getSimpleName(),  id,SystemMessage.RecordNotFound);
     }
 
 
@@ -309,11 +309,11 @@ public class BaseItemSetConroller {
                 memberTypeService.deleteById(requestedRecord.get().getId());
             }
             catch (Exception e) {
-                throw  new ResponseObject(ErrorType.ForeignKeyViolation, MemberType.class.getSimpleName(), Status.error.name(), id,e.getCause().getMessage());
+                throw  new ResponseObject(ErrorType.ForeignKeyViolation,Status.error.name(), MemberType.class.getSimpleName(),  id,e.getCause().getMessage());
             }
-            return new ResponseMessage(ErrorType.DeleteSuccess, MemberType.class.getSimpleName(), Status.ok.name(), id,SystemMessage.DeleteMessage);
+            return new ResponseMessage(ErrorType.DeleteSuccess,Status.ok.name(), MemberType.class.getSimpleName(),  id,SystemMessage.DeleteMessage);
         }
-        return  new ResponseMessage(ErrorType.RecordNotFound,MemberType.class.getSimpleName(), Status.error.name(), id,SystemMessage.RecordNotFound);
+        return  new ResponseMessage(ErrorType.RecordNotFound,Status.error.name(),MemberType.class.getSimpleName(),  id,SystemMessage.RecordNotFound);
     }
 
     @GetMapping("/binary-type/all")
