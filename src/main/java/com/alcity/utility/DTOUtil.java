@@ -1664,7 +1664,8 @@ public class DTOUtil {
         if (value.getExpressionValue()!=null )     return value.getExpressionValue();
         if (value.getBooleanValue()!=null )  return value.getBooleanValue().toString();
 
-        if (value.getDoubleValue()!=null )    return value.getDoubleValue().toString();
+        if (value.getDoubleValue()!=null )
+            return value.getDoubleValue().toString();
 
         if (value.getIntValue()!=null )      return value.getIntValue().toString();
 

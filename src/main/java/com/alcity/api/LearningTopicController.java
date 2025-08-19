@@ -90,11 +90,11 @@ public class LearningTopicController {
                 learningTopicService.delete(requestedRecord.get());
             }
             catch (Exception e) {
-                throw  new ResponseObject(ErrorType.ForeignKeyViolation, ObjectCategory.class.getSimpleName(), Status.error.name(), id,e.getCause().getMessage());
+                throw  new ResponseObject(ErrorType.ForeignKeyViolation,Status.error.name(), ObjectCategory.class.getSimpleName(),  id,e.getCause().getMessage());
             }
-            return new ResponseMessage(ErrorType.SaveSuccess, ObjectCategory.class.getSimpleName(), Status.ok.name(), id,SystemMessage.DeleteMessage);
+            return new ResponseMessage(ErrorType.SaveSuccess, Status.ok.name(), ObjectCategory.class.getSimpleName(), id,SystemMessage.DeleteMessage);
         }
-        return  new ResponseMessage(ErrorType.RecordNotFound,ObjectCategory.class.getSimpleName(), Status.error.name(), id,SystemMessage.RecordNotFound);
+        return  new ResponseMessage(ErrorType.RecordNotFound,Status.error.name(),ObjectCategory.class.getSimpleName(),  id,SystemMessage.RecordNotFound);
     }
 
 }

@@ -1,6 +1,7 @@
 package com.alcity.api;
 
 
+import com.alcity.customexception.ResponseMessage;
 import com.alcity.customexception.ResponseObject;
 import com.alcity.customexception.ViolateForeignKeyException;
 import com.alcity.dto.alobject.AttributeDTO;
@@ -11,6 +12,8 @@ import com.alcity.entity.alenum.POActionOwnerType;
 import com.alcity.entity.alenum.SystemMessage;
 import com.alcity.entity.alobject.Attribute;
 import com.alcity.entity.alobject.ObjectAction;
+import com.alcity.entity.learning.LearningContent;
+import com.alcity.entity.learning.LearningTopic;
 import com.alcity.service.alobject.AttributeService;
 import com.alcity.service.alobject.ActionService;
 import com.alcity.utility.DTOUtil;
@@ -39,19 +42,19 @@ public class ObjectActionController {
     @Operation( summary = "Delete a Puzzle Object Action ",  description = "Delete a Puzzle Object Action ")
     @DeleteMapping("/del/id/{id}")
     @CrossOrigin(origins = "*")
-    public ResponseObject deletePuzzleObjectActionById(@PathVariable Long id) {
-        Optional<ObjectAction> existingRecord = service.findById(id);
-        if(existingRecord.isPresent()){
+    public ResponseMessage deletePuzzleObjectActionById(@PathVariable Long id) {
+        Optional<ObjectAction> requestedRecord = service.findById(id);
+        if (requestedRecord.isPresent()) {
             try {
-                service.deleteById(existingRecord.get().getId());
-            }catch (Exception e )
-            {
-                throw new ViolateForeignKeyException(-1, "error", ObjectAction.class.toString(),existingRecord.get().getId());
+                service.delete(requestedRecord.get());
+            } catch (Exception e) {
+                throw  new ResponseObject(ErrorType.ForeignKeyViolation, Status.error.name(), ObjectAction.class.getSimpleName(), id, e.getCause().getMessage());
             }
-            return new ResponseObject(ErrorType.RecordNotFound, ObjectAction.class.getSimpleName(), Status.error.name(), existingRecord.get().getId(),SystemMessage.RecordNotFound);
+            return new ResponseMessage(ErrorType.SaveSuccess, Status.ok.name(), ObjectAction.class.getSimpleName(), id, SystemMessage.DeleteMessage);
         }
-        return new ResponseObject(ErrorType.DeleteSuccess, ObjectAction.class.getSimpleName(), Status.error.name(), existingRecord.get().getId(),SystemMessage.DeleteMessage);
+        return new ResponseMessage(ErrorType.RecordNotFound, Status.error.name(), ObjectAction.class.getSimpleName(), id, SystemMessage.RecordNotFound);
     }
+
 
    @Operation( summary = "Fetch all actions for an object by id  ",  description = "Fetch all actions for an object by id ")
     @RequestMapping(value = "/obj/id/{id}/all", method = RequestMethod.GET)
@@ -78,32 +81,26 @@ public class ObjectActionController {
     @Operation( summary = "Save a Object Action... ",  description = "Save a Object Action...")
     @PostMapping("/save")
     @CrossOrigin(origins = "*")
-    public ResponseObject saveObjectAction(@RequestBody ActionDTO dto)  {
+    public ResponseMessage saveObjectAction(@RequestBody ActionDTO dto)  {
         ObjectAction savedRecord = null;
-        ResponseObject responseObject = new ResponseObject();
-
-        if (dto.getId() == null || dto.getId() <= 0L) { //save
-            try {
+        ResponseMessage response = new ResponseMessage();
+        Optional<ObjectAction> objectActionOptional = service.findById(dto.getId());
+        try{
+            if (objectActionOptional.isEmpty())
                 savedRecord = service.save(dto,"Save");
-            } catch (RuntimeException e) {
-                responseObject = new ResponseObject(ErrorType.UniquenessViolation, ObjectAction.class.getSimpleName() , Status.error.name() , -1L ,e.getCause().getMessage());
-
-            }
-            responseObject = new ResponseObject(ErrorType.SaveSuccess, ObjectAction.class.getSimpleName() , Status.ok.name(), savedRecord.getId(), SystemMessage.SaveOrEditMessage_Success);
-
-        } else if (dto.getId() > 0L ) {//edit
-            savedRecord = service.save(dto, "Edit");
-            if(savedRecord !=null)
-                responseObject = new ResponseObject(ErrorType.SaveSuccess, ObjectAction.class.getSimpleName() , Status.ok.name(), savedRecord.getId(), SystemMessage.SaveOrEditMessage_Success);
             else
-            responseObject = new ResponseObject(ErrorType.RecordNotFound, ObjectAction.class.getSimpleName(), Status.error.name(), dto.getId(),SystemMessage.RecordNotFound);
+                savedRecord = service.save(dto, "Edit");
         }
-        else if (savedRecord==null)
-            responseObject = new ResponseObject(ErrorType.RecordNotFound, ObjectAction.class.getSimpleName(), Status.error.name(), dto.getId(),SystemMessage.RecordNotFound);
+        catch (Exception e) {
+            throw new ResponseObject(ErrorType.UniquenessViolation, Status.error.name() , ObjectAction.class.getSimpleName() ,  -1L ,e.getCause().getMessage());
+        }
+        if(savedRecord !=null)
+            response = new ResponseMessage(ErrorType.SaveSuccess,Status.ok.name(), ObjectAction.class.getSimpleName() ,  savedRecord.getId(), SystemMessage.SaveOrEditMessage_Success);
         else
-            responseObject = new ResponseObject(ErrorType.RecordNotFound, ObjectAction.class.getSimpleName(), Status.error.name(), dto.getId(),SystemMessage.RecordNotFound);
+            response = new ResponseMessage(ErrorType.SaveFail,Status.ok.name(), ObjectAction.class.getSimpleName() , -1L, SystemMessage.SaveOrEditMessage_Fail);
 
-        return responseObject;
+        return response;
+
     }
 
 

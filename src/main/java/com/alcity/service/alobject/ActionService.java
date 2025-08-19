@@ -103,6 +103,7 @@ public class ActionService implements ActionRepository {
 
     @Override
     public Optional<ObjectAction> findById(Long id) {
+        if(id == null) {return Optional.empty();}
         return actionRepository.findById(id);
     }
 
