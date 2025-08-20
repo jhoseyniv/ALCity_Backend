@@ -1,6 +1,8 @@
 package com.alcity.dto.plimpexport;
 
-public class PostionIntDTO {
+import java.io.Serializable;
+
+public class PostionIntDTO implements Serializable {
 
     private Integer X;
     private Integer Y;
