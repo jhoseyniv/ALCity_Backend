@@ -10,7 +10,7 @@ public class InstanceData implements Serializable {
     private Long pgoId;
     private String name;
 
-    private PositionDTO position;
+    private PostionIntDTO position;
     private Collection<AttributeData> properties;
     private Collection<AttributeData> variables;
 
@@ -30,11 +30,11 @@ public class InstanceData implements Serializable {
         this.name = name;
     }
 
-    public PositionDTO getPosition() {
+    public PostionIntDTO getPosition() {
         return position;
     }
 
-    public void setPosition(PositionDTO position) {
+    public void setPosition(PostionIntDTO position) {
         this.position = position;
     }
 
@@ -65,7 +65,7 @@ public class InstanceData implements Serializable {
     public InstanceData() {
     }
 
-    public InstanceData(Long id, String name, Long pgoId, PositionDTO position, Collection<AttributeData> properties) {
+    public InstanceData(Long id, String name, Long pgoId, PostionIntDTO position, Collection<AttributeData> properties) {
         this.id = id;
         this.name = name;
         this.pgoId = pgoId;

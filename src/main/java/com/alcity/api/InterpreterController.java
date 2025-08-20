@@ -147,7 +147,7 @@ public class InterpreterController {
             instanceDTO.setId(alCityInstanceInPL.getId());
             instanceDTO.setName(alCityInstanceInPL.getName());
             instanceDTO.setPgoId(pgo.getId());
-            PositionDTO instancePosition = new PositionDTO(alCityInstanceInPL.getRow().floatValue() , alCityInstanceInPL.getCol().floatValue(),zorder.floatValue());
+            PostionIntDTO instancePosition = new PostionIntDTO(alCityInstanceInPL.getRow() , alCityInstanceInPL.getCol(),zorder);
             instanceDTO.setPosition(instancePosition);
 
             Collection<Attribute> variables = attributeService.findInstanceVariables(alCityInstanceInPL.getId(),AttributeOwnerType.Instance_Puzzle_Group_Object_Variable);

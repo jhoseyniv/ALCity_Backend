@@ -1,9 +1,6 @@
 package com.alcity.service.puzzle;
 
-import com.alcity.dto.plimpexport.PLCellImport;
-import com.alcity.dto.plimpexport.PositionDTO;
-import com.alcity.dto.plimpexport.InstanceData;
-import com.alcity.dto.plimpexport.PGObjectData;
+import com.alcity.dto.plimpexport.*;
 import com.alcity.dto.puzzle.InstanceDTO;
 import com.alcity.entity.alenum.AttributeOwnerType;
 import com.alcity.entity.alenum.POActionOwnerType;
@@ -179,13 +176,13 @@ public class InstanceService implements InstanceRepository {
         Instance importedInstance = null;
         while(iterator.hasNext()) {
             InstanceData instanceDataImport = iterator.next();
-            PositionDTO position = instanceDataImport.getPosition();
+            PostionIntDTO position = instanceDataImport.getPosition();
 //            Collection<PLCell> matchValueOptional_row = cells.stream().filter(cell -> cell.getRow().equals(position.getX())).collect(Collectors.toList());
 //            Collection<PLCell> matchValueOptional_col = matchValueOptional_row.stream().filter(cell -> cell.getCol().equals(position.getY())).collect(Collectors.toList());
 //            Collection<PLCell> matchValueOptional_zorder = matchValueOptional_col.stream().filter(cell -> cell.getzOrder().equals(position.getZ())).collect(Collectors.toList());
 //            Optional<PLCell> cell = matchValueOptional_zorder.stream().findFirst();
-             PLCell cell = getPLCellFromGroundByPosition(cells, position.getX().intValue(), position.getY().intValue(), position.getZ().intValue());
-            importedInstance = new Instance(instanceDataImport.getName(),position.getX().intValue(),position.getY().intValue(),position.getZ().intValue(),cell,
+             PLCell cell = getPLCellFromGroundByPosition(cells, position.getX(), position.getY(), position.getZ());
+            importedInstance = new Instance(instanceDataImport.getName(),position.getX(),position.getY(),position.getZ(),cell,
                     alCityObjectInPG,importedPL,1L,DateUtils.getNow(),DateUtils.getNow(),createdBy.get(),createdBy.get());
             instanceRepository.save(importedInstance);
             attributeService.importPLInstanceVariables(instanceDataImport.getVariables(),importedInstance,AttributeOwnerType.Instance_Puzzle_Group_Object_Variable);
