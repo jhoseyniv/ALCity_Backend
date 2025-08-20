@@ -5,7 +5,7 @@ import java.util.Collection;
 
 public class PLCellData implements Serializable {
     private Long id;
-    private PositionDTO position;
+    private PostionIntDTO position;
     private Collection<AttributeData> properties;
 
     private Collection<AttributeData> variables;
@@ -18,11 +18,11 @@ public class PLCellData implements Serializable {
         this.id = id;
     }
 
-    public PositionDTO getPosition() {
+    public PostionIntDTO getPosition() {
         return position;
     }
 
-    public void setPosition(PositionDTO position) {
+    public void setPosition(PostionIntDTO position) {
         this.position = position;
     }
 
@@ -45,7 +45,7 @@ public class PLCellData implements Serializable {
     public PLCellData() {
     }
 
-    public PLCellData(Long id, PositionDTO position, Collection<AttributeData> properties, Collection<AttributeData> variables) {
+    public PLCellData(Long id, PostionIntDTO position, Collection<AttributeData> properties, Collection<AttributeData> variables) {
         this.id = id;
         this.position = position;
         this.properties = properties;

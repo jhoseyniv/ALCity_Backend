@@ -1,13 +1,9 @@
 package com.alcity.utility;
 
 import com.alcity.comparetors.*;
-import com.alcity.dto.plimpexport.PLCellData;
-import com.alcity.dto.plimpexport.PositionDTO;
-import com.alcity.dto.plimpexport.AttributeData;
-import com.alcity.dto.plimpexport.PLObjectiveData;
+import com.alcity.dto.plimpexport.*;
 import com.alcity.dto.plimpexport.ruleexport.PostActionTreeExport;
 import com.alcity.dto.plimpexport.ruleexport.RuleData;
-import com.alcity.dto.plimpexport.ActionData;
 import com.alcity.dto.alenum.EnumDTO;
 import com.alcity.dto.alobject.*;
 import com.alcity.dto.appmember.*;
@@ -1454,7 +1450,7 @@ public class DTOUtil {
         Iterator<PLCell> iterator = cells.iterator();
         while(iterator.hasNext()) {
             PLCell cell = iterator.next();
-            PositionDTO position = new PositionDTO(cell.getRow().floatValue(), cell.getCol().floatValue(), cell.getzOrder().floatValue());
+            PostionIntDTO position = new PostionIntDTO(cell.getRow(), cell.getCol(), cell.getzOrder());
             Collection<AttributeData>  cellProperties = DTOUtil.getAttributeForOwnerById(attributeService,cell.getId(),AttributeOwnerType.Puzzle_Level_Cell_Property);
             Collection<AttributeData>  cellVariables = DTOUtil.getAttributeForOwnerById(attributeService,cell.getId(),AttributeOwnerType.Puzzle_Level_Cell_Variable);
             PLCellData dto = new PLCellData(cell.getId(),position,cellProperties,cellVariables);
