@@ -168,13 +168,13 @@ public class PGController {
             Collection<PuzzleLevel> puzzleLevels = puzzleGroupOptional.get().getPuzzleLevels();
             if (puzzleLevels.isEmpty()) {  // if no puzzle level present
                 pgService.delete(puzzleGroupOptional.get());
-                response = new ResponseMessage(ErrorType.DeleteSuccess, PuzzleGroup.class.getSimpleName(), Status.error.name(), id,SystemMessage.DeleteMessage);
+                response = new ResponseMessage(ErrorType.DeleteSuccess,Status.error.name(), PuzzleGroup.class.getSimpleName(),  id,SystemMessage.DeleteMessage);
             } else {
-                response = new ResponseMessage(ErrorType.ForeignKeyViolation, PuzzleGroup.class.getSimpleName() , Status.ok.name(), id, SystemMessage.ForeignKeyViolation);
+                throw  new ResponseObject(ErrorType.ForeignKeyViolation,Status.ok.name(), PuzzleGroup.class.getSimpleName() ,  id, SystemMessage.ForeignKeyViolation);
             }
         }
         else {
-            response = new ResponseMessage(ErrorType.DeleteSuccess, PuzzleGroup.class.getSimpleName(), Status.error.name(), id,SystemMessage.DeleteMessage);
+            response = new ResponseMessage(ErrorType.DeleteSuccess, Status.error.name(), PuzzleGroup.class.getSimpleName(),  id,SystemMessage.DeleteMessage);
         }
         return  response;
     }

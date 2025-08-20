@@ -152,11 +152,11 @@ public class ObjectController {
                 service.delete(requestedRecord.get());
             }
             catch (Exception e) {
-                throw  new ResponseObject(ErrorType.ForeignKeyViolation, BaseObject.class.getSimpleName(), Status.error.name(), id,e.getCause().getMessage());
+                throw  new ResponseObject(ErrorType.ForeignKeyViolation,Status.error.name(), BaseObject.class.getSimpleName(),  id,e.getCause().getMessage());
             }
-            response = new ResponseMessage(ErrorType.DeleteSuccess, BaseObject.class.getSimpleName(), Status.ok.name(), id,SystemMessage.DeleteMessage);
+            response = new ResponseMessage(ErrorType.DeleteSuccess,Status.ok.name(), BaseObject.class.getSimpleName(),  id,SystemMessage.DeleteMessage);
         }
-        response =  new ResponseMessage(ErrorType.RecordNotFound,BaseObject.class.getSimpleName(), Status.error.name(), id,SystemMessage.RecordNotFound);
+        response =  new ResponseMessage(ErrorType.RecordNotFound,Status.error.name(),BaseObject.class.getSimpleName(),  id,SystemMessage.RecordNotFound);
 
         return response;
     }

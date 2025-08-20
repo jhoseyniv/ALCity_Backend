@@ -1,5 +1,6 @@
 package com.alcity.api;
 
+import com.alcity.customexception.ResponseMessage;
 import com.alcity.customexception.ResponseObject;
 import com.alcity.customexception.UniqueConstraintException;
 import com.alcity.customexception.ViolateForeignKeyException;
@@ -10,6 +11,7 @@ import com.alcity.entity.alenum.ErrorType;
 import com.alcity.entity.alenum.POActionOwnerType;
 import com.alcity.entity.alenum.SystemMessage;
 import com.alcity.entity.alobject.ObjectAction;
+import com.alcity.entity.alobject.Renderer;
 import com.alcity.entity.base.WalletItemType;
 import com.alcity.entity.puzzle.PGObject;
 import com.alcity.service.alobject.ActionService;
@@ -67,53 +69,44 @@ public class PGObjectController {
     @Operation( summary = "Add a Object to a Puzzle Group ",  description = "Add a Object to a Puzzle Group ")
     @PostMapping("/save")
     @CrossOrigin(origins = "*")
-    public ResponseObject saveALCityObjectInPG(@RequestBody PGObjectDTO dto)  {
+    public ResponseMessage saveALCityObjectInPG(@RequestBody PGObjectDTO dto)  {
         PGObject savedRecord = null;
-        ResponseObject responseObject = new ResponseObject();
-
-        if (dto.getId() == null || dto.getId() <= 0L) { //save
-            try {
+        ResponseMessage response = new ResponseMessage();
+        Optional<PGObject> pgObjectOptional = alCityObjectInPGService.findById(dto.getId());
+        try{
+            if (pgObjectOptional.isEmpty())
                 savedRecord = alCityObjectInPGService.save(dto,"Save");
-//                DTOUtil.copyActionFromTo(dto.getAlCityObjectId(), savedRecord.getId(),AttributeOwnerType.Object_Action_Handler_Parameter,
-//                        AttributeOwnerType.Puzzle_Group_Object_Action_Handler_Parameter,actionService,POActionOwnerType.Object,
-//                        POActionOwnerType.Puzzle_Group_Object,attributeService,attributeValueService);
-//                DTOUtil.copyPropertyFromTo(dto.getAlCityObjectId(),savedRecord.getId(),AttributeOwnerType.Object_Property,AttributeOwnerType.Puzzle_Group_Object_Property,attributeService,attributeValueService);
-//                DTOUtil.copyVariableFromTo(dto.getAlCityObjectId(),savedRecord.getId(),AttributeOwnerType.Object_Variable,AttributeOwnerType.Puzzle_Group_Object_Variable,attributeService,attributeValueService);
-
-            } catch (RuntimeException e) {
-                throw new UniqueConstraintException(-1,"Unique Constraint in" + PGObject.class , "Error",savedRecord.getId() );
-            }
-            responseObject = new ResponseObject(ErrorType.SaveSuccess, WalletItemType.class.getSimpleName() , Status.ok.name(), savedRecord.getId(), SystemMessage.SaveOrEditMessage_Success);
-        } else if (dto.getId() > 0L ) {//edit
-            savedRecord = alCityObjectInPGService.save(dto, "Edit");
-            if(savedRecord !=null)
-                responseObject = new ResponseObject(ErrorType.SaveSuccess, WalletItemType.class.getSimpleName() , Status.ok.name(), savedRecord.getId(), SystemMessage.SaveOrEditMessage_Success);
             else
-                responseObject = new ResponseObject(ErrorType.RecordNotFound, ObjectAction.class.getSimpleName(), Status.error.name(), dto.getId(),SystemMessage.RecordNotFound);
+                savedRecord = alCityObjectInPGService.save(dto, "Edit");
         }
-        else if (savedRecord==null)
-            responseObject = new ResponseObject(ErrorType.RecordNotFound, ObjectAction.class.getSimpleName(), Status.error.name(), dto.getId(),SystemMessage.RecordNotFound);
+        catch (Exception e) {
+            throw new ResponseObject(ErrorType.UniquenessViolation, Status.error.name() ,PGObject.class.getSimpleName() ,  -1L ,e.getCause().getMessage());
+        }
+        if(savedRecord !=null)
+            response = new ResponseMessage(ErrorType.SaveSuccess, Status.ok.name(),PGObject.class.getSimpleName() ,  savedRecord.getId(), SystemMessage.SaveOrEditMessage_Success);
         else
-            responseObject = new ResponseObject(ErrorType.RecordNotFound, ObjectAction.class.getSimpleName(), Status.error.name(), dto.getId(),SystemMessage.RecordNotFound);
+            response = new ResponseMessage(ErrorType.SaveFail, Status.error.name(),PGObject.class.getSimpleName() ,  -1L, SystemMessage.SaveOrEditMessage_Fail);
 
-        return responseObject;
+        return response;
     }
+
     @Operation( summary = "Remove a Object From a Puzzle Group",  description = "Remove an  AL City Object From a Puzzle Group")
     @DeleteMapping("/del/id/{id}")
     @CrossOrigin(origins = "*")
-    public ResponseObject deleteALCityObjectInPGById(@PathVariable Long id) {
-        Optional<PGObject> existingRecord = alCityObjectInPGService.findById(id);
-        if(existingRecord.isPresent()){
+    public ResponseMessage deleteALCityObjectInPGById(@PathVariable Long id) {
+        Optional<PGObject> requestedRecord = alCityObjectInPGService.findById(id);
+
+        if(requestedRecord.isPresent()){
             try {
-                alCityObjectInPGService.deleteById(existingRecord.get().getId());
-            }catch (Exception e )
-            {
-                throw new ViolateForeignKeyException(-1, "error", PGObject.class.toString(),existingRecord.get().getId());
+                alCityObjectInPGService.delete(requestedRecord.get());
             }
-            return new ResponseObject(ErrorType.DeleteSuccess, ObjectAction.class.getSimpleName(), Status.ok.name(), existingRecord.get().getId(),SystemMessage.DeleteMessage);
+            catch (Exception e) {
+                throw  new ResponseObject(ErrorType.ForeignKeyViolation,Status.error.name(), PGObject.class.getSimpleName(),  id,e.getCause().getMessage());
+            }
+            return new ResponseMessage(ErrorType.SaveSuccess, Status.ok.name(),PGObject.class.getSimpleName(),  id,SystemMessage.DeleteMessage);
         }
-        return new ResponseObject(ErrorType.RecordNotFound, ObjectAction.class.getSimpleName(), Status.error.name(), existingRecord.get().getId(),SystemMessage.RecordNotFound);
-    }
+        return  new ResponseMessage(ErrorType.RecordNotFound,Status.error.name(), PGObject.class.getSimpleName(),  id,SystemMessage.RecordNotFound);
+     }
 
 
 

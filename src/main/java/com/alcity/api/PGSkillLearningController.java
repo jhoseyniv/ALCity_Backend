@@ -1,11 +1,13 @@
 package com.alcity.api;
 
+import com.alcity.customexception.ResponseMessage;
 import com.alcity.dto.puzzle.PGLearningSkillDTO;
 import com.alcity.entity.alenum.Status;
 import com.alcity.entity.alenum.ErrorType;
 import com.alcity.entity.alenum.SystemMessage;
 import com.alcity.entity.alobject.ObjectAction;
 import com.alcity.entity.puzzle.PGLearningSkill;
+import com.alcity.entity.puzzle.PGObject;
 import com.alcity.entity.puzzle.PuzzleGroup;
 import com.alcity.customexception.ResponseObject;
 import com.alcity.customexception.UniqueConstraintException;
@@ -30,7 +32,7 @@ import java.util.Optional;
 public class PGSkillLearningController {
 
     @Autowired
-    private PGLearningSkillService pgSkillLearningContentService;
+    private PGLearningSkillService skillService;
     @Autowired
     private PGService pgService;
 
@@ -55,7 +57,7 @@ public class PGSkillLearningController {
 
         if (dto.getId() == null || dto.getId() <= 0L) { //save
             try {
-                savedRecord = pgSkillLearningContentService.save(dto,"Save");
+                savedRecord = skillService.save(dto,"Save");
             } catch (RuntimeException e) {
                 throw new UniqueConstraintException(-1,"Unique Constraint in" + PGLearningSkill.class , "Error",savedRecord.getId() );
             }
@@ -78,19 +80,20 @@ public class PGSkillLearningController {
     @Operation( summary = "Delete a  PG Skill learning Content ",  description = "Delete a  PG Skill learning Content")
     @DeleteMapping("/del/id/{id}")
     @CrossOrigin(origins = "*")
-    public ResponseObject deleteAPuzzleLevelLearningTopicById(@PathVariable Long id) {
-        Optional<PGLearningSkill> existingRecord = pgSkillLearningContentService.findById(id);
-        if(existingRecord.isPresent()){
+    public ResponseMessage deleteAPuzzleLevelLearningTopicById(@PathVariable Long id) {
+        Optional<PGLearningSkill> requestedRecord = skillService.findById(id);
+        if(requestedRecord.isPresent()){
             try {
-                pgSkillLearningContentService.deleteById(existingRecord.get().getId());
-            }catch (Exception e )
-            {
-                throw new ViolateForeignKeyException(-1, "error", PGLearningSkill.class.toString(),existingRecord.get().getId());
+                skillService.delete(requestedRecord.get());
             }
-            return new ResponseObject(ErrorType.DeleteSuccess, ObjectAction.class.getSimpleName(), Status.error.name(), existingRecord.get().getId(),SystemMessage.DeleteMessage);
+            catch (Exception e) {
+                throw  new ResponseObject(ErrorType.ForeignKeyViolation,Status.error.name(), PGLearningSkill.class.getSimpleName(),  id,e.getCause().getMessage());
+            }
+            return new ResponseMessage(ErrorType.SaveSuccess, Status.ok.name(),PGLearningSkill.class.getSimpleName(),  id,SystemMessage.DeleteMessage);
         }
-        return new ResponseObject(ErrorType.RecordNotFound, ObjectAction.class.getSimpleName(), Status.error.name(), existingRecord.get().getId(),SystemMessage.RecordNotFound);
-    }
+        return  new ResponseMessage(ErrorType.RecordNotFound,Status.error.name(), PGLearningSkill.class.getSimpleName(),  id,SystemMessage.RecordNotFound);
+
+      }
 
 
 }

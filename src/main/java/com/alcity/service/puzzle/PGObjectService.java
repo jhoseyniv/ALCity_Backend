@@ -75,6 +75,7 @@ public class PGObjectService implements PGObjectRepository {
 
     @Override
     public Optional<PGObject> findById(Long id) {
+        if(id == null){ return Optional.empty(); }
         return objectInPGRepository.findById(id);
     }
 
