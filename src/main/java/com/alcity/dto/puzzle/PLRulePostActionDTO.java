@@ -20,7 +20,7 @@ public class PLRulePostActionDTO {
     private String alertType;
     private String alertMessage;
 
-    private Long actionKey;
+    private String actionKey;
     private String plRulePostActionType;
 
     private Collection<Attribute> parameters ;
@@ -105,11 +105,11 @@ public class PLRulePostActionDTO {
         this.subAction = subAction;
     }
 
-    public Long getActionKey() {
+    public String getActionKey() {
         return actionKey;
     }
 
-    public void setActionKey(Long actionKey) {
+    public void setActionKey(String actionKey) {
         this.actionKey = actionKey;
     }
 
@@ -142,7 +142,7 @@ public class PLRulePostActionDTO {
 
 
     public PLRulePostActionDTO(Long id, StringBuffer valueExperssion,String subAction, String variable, Integer ordering, String objectId,
-                               String actionName, String alertType, String alertMessage,Long actionKey, String plRulePostActionType,Long ownerId,String ownerType) {
+                               String actionName, String alertType, String alertMessage,String actionKey, String plRulePostActionType,Long ownerId,String ownerType) {
         this.id = id;
         this.valueExperssion = valueExperssion;
         this.subAction = subAction;

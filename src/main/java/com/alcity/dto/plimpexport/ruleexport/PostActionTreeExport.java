@@ -20,7 +20,7 @@ public class PostActionTreeExport<P> implements Serializable {
     private StringBuffer valueExperssion;
     private String alertType;
     private String alertMessage;
-    private Long actionKey;
+    private String actionKey;
 
     private Collection<AttributeData> parameters;
 
@@ -67,11 +67,11 @@ public class PostActionTreeExport<P> implements Serializable {
         this.parameters = parameters;
     }
 
-    public Long getActionKey() {
+    public String getActionKey() {
         return actionKey;
     }
 
-    public void setActionKey(Long actionKey) {
+    public void setActionKey(String actionKey) {
         this.actionKey = actionKey;
     }
 
@@ -137,7 +137,7 @@ public class PostActionTreeExport<P> implements Serializable {
     }
 
     public PostActionTreeExport(String actionType,Integer ordering ,String objectId,String actionName,String variable,
-                                StringBuffer valueExperssion,String alertType,String alertMessage,Long actionKey,
+                                StringBuffer valueExperssion,String alertType,String alertMessage,String actionKey,
                                 List<PostActionTreeExport<PostActionTreeExport>> innerActions,List<PostActionTreeExport<PostActionTreeExport>> elseActions) {
         this.actionType = actionType;
         this.ordering = ordering;
@@ -153,7 +153,7 @@ public class PostActionTreeExport<P> implements Serializable {
         this.innerActions = innerActions;
     }
     public void setFiedlds(String actionType,Integer ordering ,String objectId,String actionName,String variable,
-                                StringBuffer valueExperssion,String alertType,String alertMessage,Long actionKey,Collection<AttributeData> parameters) {
+                                StringBuffer valueExperssion,String alertType,String alertMessage,String actionKey,Collection<AttributeData> parameters) {
         this.actionType = actionType;
         this.ordering = ordering;
         this.objectId = objectId;

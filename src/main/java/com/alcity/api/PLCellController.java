@@ -70,9 +70,6 @@ public class PLCellController {
 
     }
 
-
-
-
     @Operation( summary = "delete a  puzzle level Cell ",  description = "Delete a puzzle level Cell")
     @DeleteMapping("/del/{id}")
     @CrossOrigin(origins = "*")

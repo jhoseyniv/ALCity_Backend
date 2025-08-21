@@ -36,8 +36,9 @@ public class PLRulePostAction extends BaseTable implements Serializable {
 
     @Column(name="alertType")
     private String alertType;
+
     @Column(name="actionKey")
-    private Long actionKey;
+    private String actionKey;
 
     @Column(name="alertMessage")
     private String alertMessage;
@@ -158,16 +159,16 @@ public class PLRulePostAction extends BaseTable implements Serializable {
     public PLRulePostAction() {
     }
 
-    public Long getActionKey() {
+    public String getActionKey() {
         return actionKey;
     }
 
-    public void setActionKey(Long actionKey) {
+    public void setActionKey(String actionKey) {
         this.actionKey = actionKey;
     }
 
     public PLRulePostAction(Long ownerId,PLRulePostActionOwnerType ownerType , PLRulePostActionType plRulePostActionType, Integer ordering, String actionName, String objectId,
-                            String variable, StringBuffer valueExperssion,String subAction, String alertType, String alertMessage , Long actionKey,
+                            String variable, StringBuffer valueExperssion,String subAction, String alertType, String alertMessage , String actionKey,
                             Long version, String created, String updated, AppMember createdBy, AppMember updatedBy) {
         super(version, created, updated, createdBy, updatedBy);
         this.valueExperssion = valueExperssion;

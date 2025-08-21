@@ -14,7 +14,7 @@ public class PLRulePostActionImport implements Serializable {
     private String actionName;
     private String subAction;
 
-    private Long actionKey;
+    private String actionKey;
 
     private String variable;
     private StringBuffer valueExpression;
@@ -114,15 +114,15 @@ public class PLRulePostActionImport implements Serializable {
         this.subAction = subAction;
     }
 
-    public Long getActionKey() {
+    public String getActionKey() {
         return actionKey;
     }
 
-    public void setActionKey(Long actionKey) {
+    public void setActionKey(String actionKey) {
         this.actionKey = actionKey;
     }
 
-    public PLRulePostActionImport(String postActionType, String postActionOwnerType, Integer ordering, String objectId, String actionName,String subAction,Long actionKey,
+    public PLRulePostActionImport(String postActionType, String postActionOwnerType, Integer ordering, String objectId, String actionName,String subAction,String actionKey,
                                   String variable, StringBuffer valueExpression, String alertType, String alertMessage) {
         this.postActionOwnerType = postActionOwnerType;
         this.postActionType = postActionType;
