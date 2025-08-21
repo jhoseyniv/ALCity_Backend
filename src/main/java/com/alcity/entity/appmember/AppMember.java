@@ -5,7 +5,7 @@ import com.alcity.entity.alenum.AppMemberStatus;
 import com.alcity.entity.alenum.Language;
 import com.alcity.entity.alenum.UserGender;
 import com.alcity.entity.base.*;
-import com.alcity.entity.play.PermitedPlayer;
+import com.alcity.entity.play.PermittedPlayer;
 import com.alcity.entity.play.PlayHistory;
 import com.alcity.entity.puzzle.PuzzleLevel;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -143,7 +143,7 @@ public class AppMember extends BaseTable implements Serializable {
     private Collection<PlayHistory> playHistories;
 
     @OneToMany(mappedBy = "player", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Collection<PermitedPlayer> permitedPlayers;
+    private Collection<PermittedPlayer> permitedPlayers;
 
     public Collection<Authority> getAuthorities() {
         return authorities;
@@ -205,11 +205,11 @@ public class AppMember extends BaseTable implements Serializable {
         this.playHistories = playHistories;
     }
 
-    public Collection<PermitedPlayer> getPermitedPlayers() {
+    public Collection<PermittedPlayer> getPermitedPlayers() {
         return permitedPlayers;
     }
 
-    public void setPermitedPlayers(Collection<PermitedPlayer> permitedPlayers) {
+    public void setPermitedPlayers(Collection<PermittedPlayer> permitedPlayers) {
         this.permitedPlayers = permitedPlayers;
     }
 

@@ -4,7 +4,7 @@ package com.alcity.entity.puzzle;
 import com.alcity.entity.alenum.PLStatus;
 import com.alcity.entity.alenum.PLDifficulty;
 import com.alcity.entity.base.*;
-import com.alcity.entity.play.PermitedPlayer;
+import com.alcity.entity.play.PermittedPlayer;
 import com.alcity.entity.appmember.AppMember;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
@@ -166,14 +166,26 @@ public class PuzzleLevel extends BaseTable implements Serializable {
 
     @OneToMany(mappedBy = "puzzleLevel", fetch = FetchType.LAZY)
     @JsonIgnore
-    private Collection<PermitedPlayer> permitedPlayerCollection;
+    private Collection<PLGameInstance> plGameInstances;
 
-    public Collection<PermitedPlayer> getPermitedPlayerCollection() {
-        return permitedPlayerCollection;
+    public Collection<PLGameInstance> getPlGameInstances() {
+        return plGameInstances;
     }
 
-    public void setPermitedPlayerCollection(Collection<PermitedPlayer> permitedPlayerCollection) {
-        this.permitedPlayerCollection = permitedPlayerCollection;
+    public void setPlGameInstances(Collection<PLGameInstance> plGameInstances) {
+        this.plGameInstances = plGameInstances;
+    }
+
+    @OneToMany(mappedBy = "puzzleLevel", fetch = FetchType.LAZY)
+    @JsonIgnore
+    private Collection<PermittedPlayer> permittedPlayers;
+
+    public Collection<PermittedPlayer> getPermittedPlayers() {
+        return permittedPlayers;
+    }
+
+    public void setPermittedPlayers(Collection<PermittedPlayer> permittedPlayers) {
+        this.permittedPlayers = permittedPlayers;
     }
 
     public Collection<PLObjective> getPlObjectives() {

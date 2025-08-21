@@ -10,7 +10,7 @@ import jakarta.persistence.*;
 
 
 @Entity
-public class PermitedPlayer extends BaseTable {
+public class PermittedPlayer extends BaseTable {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "player_id", referencedColumnName = "id")
@@ -22,7 +22,7 @@ public class PermitedPlayer extends BaseTable {
     @JsonIgnore
     private PuzzleLevel puzzleLevel;
 
-    public PermitedPlayer() {
+    public PermittedPlayer() {
     }
 
     public AppMember getPlayer() {
@@ -41,7 +41,7 @@ public class PermitedPlayer extends BaseTable {
         this.puzzleLevel = puzzleLevel;
     }
 
-    public PermitedPlayer(AppMember player, PuzzleLevel puzzleLevel, Long version, String created, String updated, AppMember createdBy, AppMember updatedBy) {
+    public PermittedPlayer(AppMember player, PuzzleLevel puzzleLevel, Long version, String created, String updated, AppMember createdBy, AppMember updatedBy) {
         super(version, created, updated, createdBy, updatedBy);
         this.player = player;
         this.puzzleLevel = puzzleLevel;

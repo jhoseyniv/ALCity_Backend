@@ -1,7 +1,7 @@
 package com.alcity.service.play;
 
 
-import com.alcity.entity.play.PermitedPlayer;
+import com.alcity.entity.play.PermittedPlayer;
 import com.alcity.repository.play.PermitedPlayerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,17 +17,17 @@ public class PermitedPlayerService  implements PermitedPlayerRepository {
     @Autowired
     PermitedPlayerRepository permitedPlayerRepository;
     @Override
-    public <S extends PermitedPlayer> S save(S entity) {
+    public <S extends PermittedPlayer> S save(S entity) {
         return permitedPlayerRepository.save(entity);
     }
 
     @Override
-    public <S extends PermitedPlayer> Iterable<S> saveAll(Iterable<S> entities) {
+    public <S extends PermittedPlayer> Iterable<S> saveAll(Iterable<S> entities) {
         return null;
     }
 
     @Override
-    public Optional<PermitedPlayer> findById(Long id) {
+    public Optional<PermittedPlayer> findById(Long id) {
         return Optional.empty();
     }
 
@@ -37,12 +37,12 @@ public class PermitedPlayerService  implements PermitedPlayerRepository {
     }
 
     @Override
-    public Collection<PermitedPlayer> findAll() {
+    public Collection<PermittedPlayer> findAll() {
         return null;
     }
 
     @Override
-    public Iterable<PermitedPlayer> findAllById(Iterable<Long> longs) {
+    public Iterable<PermittedPlayer> findAllById(Iterable<Long> longs) {
         return null;
     }
 
@@ -57,7 +57,7 @@ public class PermitedPlayerService  implements PermitedPlayerRepository {
     }
 
     @Override
-    public void delete(PermitedPlayer entity) {
+    public void delete(PermittedPlayer entity) {
 
     }
 
@@ -67,7 +67,7 @@ public class PermitedPlayerService  implements PermitedPlayerRepository {
     }
 
     @Override
-    public void deleteAll(Iterable<? extends PermitedPlayer> entities) {
+    public void deleteAll(Iterable<? extends PermittedPlayer> entities) {
 
     }
 

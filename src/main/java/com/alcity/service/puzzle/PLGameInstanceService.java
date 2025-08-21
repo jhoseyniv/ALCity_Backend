@@ -47,8 +47,8 @@ public class PLGameInstanceService implements PLGameInstanceRepository {
         PLGameInstance  gameInstance = new PLGameInstance(appMemberOptional.get(),puzzleLevelOptional.get(), DateUtils.getNow(),null,gameStatus,
                 1L,DateUtils.getNow(),DateUtils.getNow(),appMemberOptional.get(),appMemberOptional.get());
         plGameInstanceRepository.save(gameInstance);
-        PLGameInstanceDTO instanceDTO = DTOUtil.getPLGameInstanceDTO(gameInstance);
-        return instanceDTO;
+        PLGameInstanceDTO gameInstanceDTO = DTOUtil.getPLGameInstanceDTO(gameInstance);
+        return gameInstanceDTO;
     }
 
 
@@ -71,6 +71,7 @@ public class PLGameInstanceService implements PLGameInstanceRepository {
 
     @Override
     public Optional<PLGameInstance> findById(Long id) {
+        if(id == null) { return Optional.empty(); }
         return Optional.empty();
     }
 
@@ -96,12 +97,12 @@ public class PLGameInstanceService implements PLGameInstanceRepository {
 
     @Override
     public void deleteById(Long aLong) {
-
+        plGameInstanceRepository.deleteById(aLong);
     }
 
     @Override
     public void delete(PLGameInstance entity) {
-
+        plGameInstanceRepository.delete(entity);
     }
 
     @Override
@@ -111,7 +112,7 @@ public class PLGameInstanceService implements PLGameInstanceRepository {
 
     @Override
     public void deleteAll(Iterable<? extends PLGameInstance> entities) {
-
+        plGameInstanceRepository.deleteAll(entities);
     }
 
     @Override

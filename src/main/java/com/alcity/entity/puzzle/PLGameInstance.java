@@ -10,8 +10,8 @@ import jakarta.persistence.*;
 import java.io.Serializable;
 
 @Entity
+@Table(name="plgame_instance")
 public class PLGameInstance extends BaseTable implements Serializable {
-
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "player_id", referencedColumnName = "id")

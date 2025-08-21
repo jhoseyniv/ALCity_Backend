@@ -48,8 +48,13 @@ public class PuzzleLevelService implements PuzzleLevelRepository {
 
     @Autowired
     PuzzleLevelRepository puzzleLevelRepository;
+
     @Autowired
     JourneyStepRepository journeyStepRepository;
+
+    @Autowired
+    PLGameInstanceService gameInstanceService;
+
 
     @Override
     public <S extends PuzzleLevel> S save(S entity) {
@@ -299,7 +304,7 @@ public class PuzzleLevelService implements PuzzleLevelRepository {
         return importedPuzzleLevel;
     }
 
-
+    @Transactional
     public void deletePuzzleLevel(PuzzleLevel puzzleLevel) {
 
         //delete puzzle learning topics
@@ -314,10 +319,6 @@ public class PuzzleLevelService implements PuzzleLevelRepository {
         //delete puzzle level instances
         Collection<Instance> instances = puzzleLevel.getInstances();
         instanceInPLService.deleteInstances(instances);
-
-        //delete puzzle level instances
-//        Collection<ALCityInstanceInPL> instances = puzzleLevel.getPuzzleGroupObjectInstanceCollection();
-//        instanceInPLService.deleteAll(instances);
 
 
         //delete puzzle level variables
@@ -339,6 +340,9 @@ public class PuzzleLevelService implements PuzzleLevelRepository {
 
         //delete puzzle level Grounds
         plGroundService.deleteAll(puzzleLevel.getPlGrounds());
+
+        Collection<PLGameInstance> gameInstances = puzzleLevel.getPlGameInstances();
+        gameInstanceService.deleteAll(gameInstances);
 
         //delete puzzle level
         puzzleLevelRepository.deleteById(puzzleLevel.getId());
