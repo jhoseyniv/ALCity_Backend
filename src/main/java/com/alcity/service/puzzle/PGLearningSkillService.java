@@ -87,6 +87,7 @@ public class PGLearningSkillService implements PGLearningSkillRepository {
 
     @Override
     public Optional<PGLearningSkill> findById(Long id) {
+        if(id == null) return Optional.empty();
         return pgLearningSkillRepository.findById(id);
     }
 

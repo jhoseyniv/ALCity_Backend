@@ -1,11 +1,13 @@
 package com.alcity.api;
 
+import com.alcity.customexception.ResponseMessage;
 import com.alcity.dto.puzzle.PlLearningTopicDTO;
 import com.alcity.entity.alenum.Status;
 import com.alcity.entity.alenum.ErrorType;
 import com.alcity.entity.alenum.SystemMessage;
 import com.alcity.entity.alobject.ObjectAction;
 import com.alcity.entity.base.WalletItemType;
+import com.alcity.entity.puzzle.PGLearningSkill;
 import com.alcity.entity.puzzle.PLLearningTopic;
 import com.alcity.entity.puzzle.PuzzleLevel;
 import com.alcity.customexception.ResponseObject;
@@ -33,13 +35,10 @@ public class PlLearningTopicController {
 
     @Autowired
     PLLearningTopicService plLearningTopicService;
+
     @Autowired
     private PuzzleLevelService puzzleLevelService;
 
-    @Autowired
-    private LearningContentService learningContentService;
-    @Autowired
-    private LearningTopicService learningTopicService;
 
     @Operation( summary = "Fetch all learning topics for a puzzle level by  Id ",  description = "Fetch all variables for a puzzle level by  Id")
     @RequestMapping(value = "/id/{id}/all", method = RequestMethod.GET)
@@ -56,47 +55,43 @@ public class PlLearningTopicController {
     @Operation( summary = "add a  learning topic to puzzle level ",  description = "Save a puzzle level learning topic entity and their data to data base")
     @PostMapping("/add")
     @CrossOrigin(origins = "*")
-    public ResponseObject savePLLearningTopic(@RequestBody PlLearningTopicDTO dto)  {
+    public ResponseMessage savePLLearningTopic(@RequestBody PlLearningTopicDTO dto)  {
         PLLearningTopic savedRecord = null;
-        ResponseObject responseObject = new ResponseObject();
+        ResponseMessage response = new ResponseMessage();
 
-        if (dto.getId() == null || dto.getId() <= 0L) { //save
-            try {
+        Optional<PLLearningTopic> plLearningTopicOptional = plLearningTopicService.findById(dto.getId());
+        try{
+            if (plLearningTopicOptional.isEmpty())
                 savedRecord = plLearningTopicService.save(dto,"Save");
-            } catch (RuntimeException e) {
-                throw new UniqueConstraintException(-1,"Unique Constraint in" + PLLearningTopic.class , "Error",savedRecord.getId() );
-            }
-            responseObject = new ResponseObject(ErrorType.SaveSuccess, WalletItemType.class.getSimpleName() , Status.ok.name(), savedRecord.getId(), SystemMessage.SaveOrEditMessage_Success);
-        } else if (dto.getId() > 0L ) {//edit
-            //Optional<PuzzleGroup>  puzzleGroupOptional = pgService.findById(dto.getId());
-            savedRecord =  null; //puzzleLevelService.save(dto, "Edit");
-            if(savedRecord !=null)
-                responseObject = new ResponseObject(ErrorType.SaveSuccess, WalletItemType.class.getSimpleName() , Status.ok.name(), savedRecord.getId(), SystemMessage.SaveOrEditMessage_Success);
             else
-                responseObject = new ResponseObject(ErrorType.RecordNotFound, ObjectAction.class.getSimpleName(), Status.error.name(), dto.getId(),SystemMessage.RecordNotFound);
+                savedRecord = plLearningTopicService.save(dto, "Edit");
         }
-        else if (savedRecord==null)
-            responseObject = new ResponseObject(ErrorType.RecordNotFound, ObjectAction.class.getSimpleName(), Status.error.name(), dto.getId(),SystemMessage.RecordNotFound);
+        catch (Exception e) {
+            throw new ResponseObject(ErrorType.UniquenessViolation, Status.error.name() ,PLLearningTopic.class.getSimpleName() ,  -1L ,e.getCause().getMessage());
+        }
+        if(savedRecord !=null)
+            response = new ResponseMessage(ErrorType.SaveSuccess, Status.ok.name(),PLLearningTopic.class.getSimpleName() ,  savedRecord.getId(), SystemMessage.SaveOrEditMessage_Success);
         else
-            responseObject = new ResponseObject(ErrorType.RecordNotFound, ObjectAction.class.getSimpleName(), Status.error.name(), dto.getId(),SystemMessage.RecordNotFound);
+            response = new ResponseMessage(ErrorType.SaveFail, Status.error.name(),PLLearningTopic.class.getSimpleName() ,  -1L, SystemMessage.SaveOrEditMessage_Fail);
 
-        return responseObject;
+        return response;
     }
-    @Operation( summary = "delete a  Puzzle Level learning Topic ",  description = "delete a Puzzle Level learning Topic")
+
+    @Operation( summary = "Delete a  Puzzle Level learning Topic ",  description = "delete a Puzzle Level learning Topic")
     @DeleteMapping("/del/id/{id}")
     @CrossOrigin(origins = "*")
-    public ResponseObject deleteAPuzzleLevelLearningTopicById(@PathVariable Long id) {
-        Optional<PLLearningTopic> existingRecord = plLearningTopicService.findById(id);
-        if(existingRecord.isPresent()){
+    public ResponseMessage deleteAPuzzleLevelLearningTopicById(@PathVariable Long id) {
+        Optional<PLLearningTopic> requestedRecord = plLearningTopicService.findById(id);
+        if(requestedRecord.isPresent()){
             try {
-                plLearningTopicService.deleteById(existingRecord.get().getId());
-            }catch (Exception e )
-            {
-                throw new ViolateForeignKeyException(-1, "error", PLLearningTopic.class.toString(),existingRecord.get().getId());
+                plLearningTopicService.delete(requestedRecord.get());
             }
-            return new ResponseObject(ErrorType.DeleteSuccess, ObjectAction.class.getSimpleName(), Status.ok.name(), existingRecord.get().getId(),SystemMessage.DeleteMessage);
+            catch (Exception e) {
+                throw  new ResponseObject(ErrorType.ForeignKeyViolation,Status.error.name(), PLLearningTopic.class.getSimpleName(),  id,e.getCause().getMessage());
+            }
+            return new ResponseMessage(ErrorType.SaveSuccess, Status.ok.name(),PLLearningTopic.class.getSimpleName(),  id,SystemMessage.DeleteMessage);
         }
-        return new ResponseObject(ErrorType.RecordNotFound, ObjectAction.class.getSimpleName(), Status.error.name(), existingRecord.get().getId(),SystemMessage.RecordNotFound);
+        return  new ResponseMessage(ErrorType.RecordNotFound,Status.error.name(), PLLearningTopic.class.getSimpleName(),  id,SystemMessage.RecordNotFound);
     }
 
 }

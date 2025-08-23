@@ -97,7 +97,6 @@ public class PGController {
           Optional<PuzzleGroup> puzzleGroup = pgService.findById(id);
         PGDTO puzzleGroupDTO = new PGDTO();
         if(puzzleGroup.isPresent())  puzzleGroupDTO = DTOUtil.getPuzzleGroupDTO(puzzleGroup.get());
-
         return  puzzleGroupDTO;
     }
 
@@ -114,9 +113,9 @@ public class PGController {
     @Operation( summary = "Import a Puzzle Group ",  description = "Import a Puzzle Group entity to database")
     @PostMapping("/import")
     @CrossOrigin(origins = "*")
-    public ResponseObject importPuzzleGroup(@RequestBody PGImportDTO dto) throws UniqueConstraintException {
+    public ResponseMessage importPuzzleGroup(@RequestBody PGImportDTO dto) throws UniqueConstraintException {
         PuzzleGroup savedRecord = null;
-        ResponseObject responseObject = new ResponseObject();
+        ResponseMessage responseObject = new ResponseMessage();
 
         if (dto.getId() == null || dto.getId() <= 0L) { //save
             try {
@@ -125,11 +124,10 @@ public class PGController {
                 PLTemplate plTemplate = plTemplateOptional.get();
                 plTemplate.setPuzzleGroupId(savedRecord.getId());
                 plTemplateService.save(plTemplate);
-
             } catch (RuntimeException e) {
-                throw new UniqueConstraintException(-1,"Unique Constraint in" + PuzzleGroup.class , "Error",savedRecord.getId() );
+                throw new ResponseObject(ErrorType.UniquenessViolation, Status.error.name() , PuzzleGroup.class.getSimpleName() ,  -1L ,e.getCause().getMessage());
             }
-            responseObject = new ResponseObject(ErrorType.SaveSuccess, ObjectAction.class.getSimpleName() , Status.ok.name(), savedRecord.getId(), SystemMessage.SaveOrEditMessage_Success);
+            responseObject = new ResponseMessage(ErrorType.SaveSuccess, ObjectAction.class.getSimpleName() , Status.ok.name(), savedRecord.getId(), SystemMessage.SaveOrEditMessage_Success);
         }
         return responseObject;
     }

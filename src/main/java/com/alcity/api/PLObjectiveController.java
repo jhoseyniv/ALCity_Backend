@@ -1,5 +1,6 @@
 package com.alcity.api;
 
+import com.alcity.customexception.ResponseMessage;
 import com.alcity.customexception.ResponseObject;
 import com.alcity.customexception.UniqueConstraintException;
 import com.alcity.customexception.ViolateForeignKeyException;
@@ -8,6 +9,8 @@ import com.alcity.entity.alenum.Status;
 import com.alcity.entity.alenum.ErrorType;
 import com.alcity.entity.alenum.SystemMessage;
 import com.alcity.entity.alobject.ObjectAction;
+import com.alcity.entity.puzzle.PGLearningSkill;
+import com.alcity.entity.puzzle.PLLearningTopic;
 import com.alcity.entity.puzzle.PLObjective;
 import com.alcity.service.puzzle.PLObjectiveService;
 import com.alcity.utility.DTOUtil;
@@ -35,30 +38,29 @@ public class PLObjectiveController {
     @GetMapping("/all")
     @CrossOrigin(origins = "*")
     public Collection<PLObjectiveDTO> getPuzzleLevelObjectives(Model model) {
-        Collection<PLObjectiveDTO> plObjectiveDTOCollection = new ArrayList<PLObjectiveDTO>();
-        Collection<PLObjective> plObjectiveCollection = plObjectiveService.findAll();
-        Iterator<PLObjective> itr = plObjectiveCollection.iterator();
-        while(itr.hasNext()){
-            PLObjectiveDTO plObjectiveDTO = DTOUtil.getPuzzleLevelObjectiveDTO(itr.next());
-            plObjectiveDTOCollection.add(plObjectiveDTO);
+        Collection<PLObjectiveDTO> objectiveDTOS = new ArrayList<PLObjectiveDTO>();
+        Collection<PLObjective> objectives = plObjectiveService.findAll();
+        for (PLObjective plObjective : objectives) {
+            PLObjectiveDTO plObjectiveDTO = DTOUtil.getPuzzleLevelObjectiveDTO(plObjective);
+            objectiveDTOS.add(plObjectiveDTO);
         }
-        return plObjectiveDTOCollection;
+        return objectiveDTOS;
     }
-    @Operation( summary = "delete a  Puzzle Level Objective",  description = "delete a Puzzle Level Objective")
+    @Operation( summary = "Delete a  Puzzle Level Objective",  description = "Delete a Puzzle Level Objective")
     @DeleteMapping("/del/{id}")
     @CrossOrigin(origins = "*")
-    public ResponseObject deletePuzzleLevelObjectiveById(@PathVariable Long id) {
-        Optional<PLObjective> existingRecord = plObjectiveService.findById(id);
-        if(existingRecord.isPresent()){
+    public ResponseMessage deletePuzzleLevelObjectiveById(@PathVariable Long id) {
+        Optional<PLObjective> requestedRecord = plObjectiveService.findById(id);
+        if(requestedRecord.isPresent()){
             try {
-                plObjectiveService.deleteById(existingRecord.get().getId());
-            }catch (Exception e )
-            {
-                throw new ViolateForeignKeyException(-1, "error", PLObjective.class.toString(),existingRecord.get().getId());
+                plObjectiveService.delete(requestedRecord.get());
             }
-            return new ResponseObject(ErrorType.DeleteSuccess, ObjectAction.class.getSimpleName(), Status.error.name(), id,SystemMessage.DeleteMessage);
+            catch (Exception e) {
+                throw  new ResponseObject(ErrorType.ForeignKeyViolation,Status.error.name(), PLObjective.class.getSimpleName(),  id,e.getCause().getMessage());
+            }
+            return new ResponseMessage(ErrorType.SaveSuccess, Status.ok.name(),PLObjective.class.getSimpleName(),  id,SystemMessage.DeleteMessage);
         }
-        return new ResponseObject(ErrorType.RecordNotFound, ObjectAction.class.getSimpleName(), Status.error.name(), id, SystemMessage.RecordNotFound);
+        return  new ResponseMessage(ErrorType.RecordNotFound,Status.error.name(), PLObjective.class.getSimpleName(),  id,SystemMessage.RecordNotFound);
     }
 
     @Operation( summary = "Fetch a objective by a Id ",  description = "fetches all data for a objectives")
@@ -76,31 +78,26 @@ public class PLObjectiveController {
     @Operation( summary = "Save a puzzle level  Objective  ",  description = "Save a puzzle level  objective entity and their data to data base")
     @PostMapping("/save")
     @CrossOrigin(origins = "*")
-    public ResponseObject savePLObjective(@RequestBody PLObjectiveDTO dto)  {
+    public ResponseMessage savePLObjective(@RequestBody PLObjectiveDTO dto)  {
         PLObjective savedRecord = null;
-        ResponseObject responseObject = new ResponseObject();
-
-        if (dto.getId() == null || dto.getId() <= 0L) { //save
-            try {
+        ResponseMessage response = new ResponseMessage();
+        Optional<PLObjective> plObjectiveOptional = plObjectiveService.findById(dto.getId());
+        try{
+            if (plObjectiveOptional.isEmpty())
                 savedRecord = plObjectiveService.save(dto,"Save");
-            } catch (RuntimeException e) {
-                throw new UniqueConstraintException(-1,"Unique Constraint in" + PLObjective.class , "Error",savedRecord.getId() );
-            }
-            responseObject = new ResponseObject(ErrorType.SaveSuccess, ObjectAction.class.getSimpleName() , Status.ok.name(), savedRecord.getId(), SystemMessage.SaveOrEditMessage_Success);
-        } else if (dto.getId() > 0L ) {//edit
-            //Optional<PuzzleGroup>  puzzleGroupOptional = pgService.findById(dto.getId());
-            savedRecord = plObjectiveService.save(dto, "Edit");
-            if(savedRecord !=null)
-                responseObject = new ResponseObject(ErrorType.SaveSuccess, ObjectAction.class.getSimpleName() , Status.ok.name(), savedRecord.getId(), SystemMessage.SaveOrEditMessage_Success);
             else
-                responseObject = new ResponseObject(ErrorType.RecordNotFound, ObjectAction.class.getSimpleName(), Status.error.name(), dto.getId(),SystemMessage.RecordNotFound);
+                savedRecord = plObjectiveService.save(dto, "Edit");
         }
-        else if (savedRecord==null)
-            responseObject = new ResponseObject(ErrorType.RecordNotFound, ObjectAction.class.getSimpleName(), Status.error.name(), dto.getId(),SystemMessage.RecordNotFound);
+        catch (Exception e) {
+            throw new ResponseObject(ErrorType.UniquenessViolation, Status.error.name() ,PLObjective.class.getSimpleName() ,  -1L ,e.getCause().getMessage());
+        }
+        if(savedRecord !=null)
+            response = new ResponseMessage(ErrorType.SaveSuccess, Status.ok.name(),PLObjective.class.getSimpleName() ,  savedRecord.getId(), SystemMessage.SaveOrEditMessage_Success);
         else
-            responseObject = new ResponseObject(ErrorType.RecordNotFound, ObjectAction.class.getSimpleName(), Status.error.name(), dto.getId(),SystemMessage.RecordNotFound);
+            response = new ResponseMessage(ErrorType.SaveFail, Status.error.name(),PLObjective.class.getSimpleName() ,  -1L, SystemMessage.SaveOrEditMessage_Fail);
 
-        return responseObject;
+        return response;
+
     }
 
 }

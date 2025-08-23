@@ -55,6 +55,7 @@ public class PLObjectiveService implements PLObjectiveRepository {
 
     @Override
     public Optional<PLObjective> findById(Long id) {
+        if(id == null) { return Optional.empty(); }
         return objectiveRepository.findById(id);
     }
 

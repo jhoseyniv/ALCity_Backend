@@ -119,6 +119,7 @@ public class PLLearningTopicService implements PLLearningTopicRepository {
 
     @Override
     public Optional<PLLearningTopic> findById(Long id) {
+        if(id == null) return Optional.empty();
         return plLearningTopicRepository.findById(id);
     }
 

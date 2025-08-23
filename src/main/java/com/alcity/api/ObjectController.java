@@ -141,7 +141,7 @@ public class ObjectController {
         return response;
     }
 
-    @Operation( summary = "delete an Algoopia Object",  description = "delete an Algoopia Object entity and their data to data base")
+    @Operation( summary = "ِDelete an Algoopia Object",  description = "delete an Algoopia Object entity and their data to data base")
     @DeleteMapping("/del/{id}")
     @CrossOrigin(origins = "*")
     public ResponseMessage delete(@PathVariable Long id) {

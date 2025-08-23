@@ -120,6 +120,7 @@ public class PLGroundService implements PLGroundRepository {
 
     @Override
     public Optional<PLGround> findById(Long id) {
+        if(id == null) return Optional.empty();
         return groundRepository.findById(id);
     }
 

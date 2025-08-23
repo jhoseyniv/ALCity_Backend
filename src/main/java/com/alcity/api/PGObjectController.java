@@ -37,7 +37,7 @@ public class PGObjectController {
     @Autowired
     private ActionService actionService;
     @Autowired
-    private PGObjectService alCityObjectInPGService;
+    private PGObjectService pgObjectService;
 
 //    @Autowired
 //    private AttributeService attributeService;
@@ -61,7 +61,7 @@ public class PGObjectController {
     @ResponseBody
     @CrossOrigin(origins = "*")
     public PGObjectDTO getAnAObjectInPGDTO(@PathVariable Long id) {
-        Optional<PGObject> alCityObjectInPGOptional = alCityObjectInPGService.findById(id);
+        Optional<PGObject> alCityObjectInPGOptional = pgObjectService.findById(id);
         PGObjectDTO alCityObjectInPGDTO = DTOUtil.getALCityObjectInPGDTO(alCityObjectInPGOptional.get());
         return  alCityObjectInPGDTO;
     }
@@ -72,12 +72,12 @@ public class PGObjectController {
     public ResponseMessage saveALCityObjectInPG(@RequestBody PGObjectDTO dto)  {
         PGObject savedRecord = null;
         ResponseMessage response = new ResponseMessage();
-        Optional<PGObject> pgObjectOptional = alCityObjectInPGService.findById(dto.getId());
+        Optional<PGObject> pgObjectOptional = pgObjectService.findById(dto.getId());
         try{
             if (pgObjectOptional.isEmpty())
-                savedRecord = alCityObjectInPGService.save(dto,"Save");
+                savedRecord = pgObjectService.save(dto,"Save");
             else
-                savedRecord = alCityObjectInPGService.save(dto, "Edit");
+                savedRecord = pgObjectService.save(dto, "Edit");
         }
         catch (Exception e) {
             throw new ResponseObject(ErrorType.UniquenessViolation, Status.error.name() ,PGObject.class.getSimpleName() ,  -1L ,e.getCause().getMessage());
@@ -94,11 +94,11 @@ public class PGObjectController {
     @DeleteMapping("/del/id/{id}")
     @CrossOrigin(origins = "*")
     public ResponseMessage deleteALCityObjectInPGById(@PathVariable Long id) {
-        Optional<PGObject> requestedRecord = alCityObjectInPGService.findById(id);
+        Optional<PGObject> requestedRecord = pgObjectService.findById(id);
 
         if(requestedRecord.isPresent()){
             try {
-                alCityObjectInPGService.delete(requestedRecord.get());
+                pgObjectService.delete(requestedRecord.get());
             }
             catch (Exception e) {
                 throw  new ResponseObject(ErrorType.ForeignKeyViolation,Status.error.name(), PGObject.class.getSimpleName(),  id,e.getCause().getMessage());
