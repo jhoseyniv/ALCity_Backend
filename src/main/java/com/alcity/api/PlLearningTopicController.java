@@ -39,7 +39,6 @@ public class PlLearningTopicController {
     @Autowired
     private PuzzleLevelService puzzleLevelService;
 
-
     @Operation( summary = "Fetch all learning topics for a puzzle level by  Id ",  description = "Fetch all variables for a puzzle level by  Id")
     @RequestMapping(value = "/id/{id}/all", method = RequestMethod.GET)
     @ResponseBody

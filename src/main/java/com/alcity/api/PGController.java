@@ -127,7 +127,7 @@ public class PGController {
             } catch (RuntimeException e) {
                 throw new ResponseObject(ErrorType.UniquenessViolation, Status.error.name() , PuzzleGroup.class.getSimpleName() ,  -1L ,e.getCause().getMessage());
             }
-            responseObject = new ResponseMessage(ErrorType.SaveSuccess, ObjectAction.class.getSimpleName() , Status.ok.name(), savedRecord.getId(), SystemMessage.SaveOrEditMessage_Success);
+            responseObject = new ResponseMessage(ErrorType.SaveSuccess,Status.ok.name(), ObjectAction.class.getSimpleName() ,  savedRecord.getId(), SystemMessage.SaveOrEditMessage_Success);
         }
         return responseObject;
     }
