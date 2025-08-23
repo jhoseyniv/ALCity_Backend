@@ -292,7 +292,7 @@ public class AppMemberService implements AppMemberRepository, CustomizedUserRepo
                 appMember.setIcon(icon);
                 appMember.setMemberType(memberType);
                 appMember.setGender(gender);
-                appMember.setAge(appMember.getAge());
+                appMember.setAge(dto.getAge());
                 appMember.setVersion(appMember.getVersion()+1);
                 appMember.setCreated(DateUtils.getNow());
                 appMember.setUpdated(DateUtils.getNow());
