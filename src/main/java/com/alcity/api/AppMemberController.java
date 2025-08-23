@@ -288,7 +288,7 @@ public class AppMemberController {
         boolean checkIsRewardBefore = checkPLRewardConstraint(dto);
 
         if(checkIsRewardBefore == false)
-        responseObject = new ResponseObject(ErrorType.UniquenessViolation, WalletTransaction.class.getSimpleName() , Status.ok.name(), savedRecord.getId(), "The user got this a reward before!");
+            responseObject = new ResponseObject(ErrorType.UniquenessViolation, WalletTransaction.class.getSimpleName() , Status.ok.name(), -1L,SystemMessage.UserGotThisRewardBefore );
 
         else {
             savedRecord = walletTransactionService.save(dto, "Save");

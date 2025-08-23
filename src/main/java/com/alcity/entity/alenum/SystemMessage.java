@@ -7,4 +7,6 @@ public  class SystemMessage  {
     public static String SaveOrEditMessage_Fail = "Record Not Save or Update (Fail)! ";
     public static String RecordNotFound = "Requested Record Not Found";
     public static String ForeignKeyViolation = "This record has some Foreign key in other entities";
+    public static String UserGotThisRewardBefore = "The user got this a reward before!";
+
 }
