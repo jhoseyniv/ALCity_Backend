@@ -26,12 +26,16 @@ public class PLGroundDTO  implements Serializable {
     private Boolean zoom;
     private Boolean pan;
     private Boolean rotation;
-    private Integer    boardCenterX;
     private Integer    initValueZoomLimit;
+    private Integer    boardCenterX;
     private Integer    boardCenterY;
     private Integer    boardCenterZ;
     private Integer    panLimit;
     private Integer    initValueZoom;
+    private Integer    initPanOffsetX;
+    private Integer    initPanOffsetY;
+    private Integer    initPanOffsetZ;
+
 
     private Long puzzleLevelId;
 
@@ -237,13 +241,39 @@ public class PLGroundDTO  implements Serializable {
         this.zrotation = zrotation;
     }
 
+    public Integer getInitPanOffsetX() {
+        return initPanOffsetX;
+    }
+
+    public void setInitPanOffsetX(Integer initPanOffsetX) {
+        this.initPanOffsetX = initPanOffsetX;
+    }
+
+    public Integer getInitPanOffsetY() {
+        return initPanOffsetY;
+    }
+
+    public void setInitPanOffsetY(Integer initPanOffsetY) {
+        this.initPanOffsetY = initPanOffsetY;
+    }
+
+    public Integer getInitPanOffsetZ() {
+        return initPanOffsetZ;
+    }
+
+    public void setInitPanOffsetZ(Integer initPanOffsetZ) {
+        this.initPanOffsetZ = initPanOffsetZ;
+    }
+
     public PLGroundDTO() {
     }
 
 
     public PLGroundDTO(Long id, Long version, String created, String updated, String createdBy, String updatedBy,
                        Integer numRows, Integer numColumns, Float xPosition,Float yPosition,Float zPosition,Float xRotation,Float yRotation ,Float zRotation,
-                       Long puzzleLevelId, Integer  boardCenterX, Integer boardCenterY, Integer boardCenterZ, Integer panLimit,Integer initValueZoomLimit,Integer initValueZoom,                       BoardGraphicDTO boardGraphicDTO) {
+                       Long puzzleLevelId, Integer  boardCenterX, Integer boardCenterY, Integer boardCenterZ, Integer panLimit,Integer initValueZoomLimit,Integer initValueZoom,
+                       Integer initPanOffsetX,Integer initPanOffsetY,Integer initPanOffsetZ,
+                       BoardGraphicDTO boardGraphicDTO) {
         this.id = id;
         this.version = version;
         this.created = created;
@@ -261,6 +291,9 @@ public class PLGroundDTO  implements Serializable {
         this.boardCenterX = boardCenterX;
         this.boardCenterY = boardCenterY;
         this.boardCenterZ = boardCenterZ;
+        this.initPanOffsetX = initPanOffsetX;
+        this.initPanOffsetY = initPanOffsetY;
+        this.initPanOffsetZ = initPanOffsetZ;
         this.panLimit = panLimit;
         this.initValueZoom = initValueZoom;
         this.initValueZoomLimit = initValueZoomLimit;

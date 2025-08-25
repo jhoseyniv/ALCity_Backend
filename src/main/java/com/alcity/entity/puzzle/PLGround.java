@@ -63,6 +63,38 @@ public class PLGround extends BaseTable {
     @Column(name="panLimit")
     private Integer panLimit;
 
+    @Column(name="initPanOffsetX")
+    private Integer initPanOffsetX;
+
+    @Column(name="initPanOffsetY")
+    private Integer initPanOffsetY;
+
+    @Column(name="initPanOffsetZ")
+    private Integer initPanOffsetZ;
+
+    public Integer getInitPanOffsetX() {
+        return initPanOffsetX;
+    }
+
+    public void setInitPanOffsetX(Integer initPanOffsetX) {
+        this.initPanOffsetX = initPanOffsetX;
+    }
+
+    public Integer getInitPanOffsetY() {
+        return initPanOffsetY;
+    }
+
+    public void setInitPanOffsetY(Integer initPanOffsetY) {
+        this.initPanOffsetY = initPanOffsetY;
+    }
+
+    public Integer getInitPanOffsetZ() {
+        return initPanOffsetZ;
+    }
+
+    public void setInitPanOffsetZ(Integer initPanOffsetZ) {
+        this.initPanOffsetZ = initPanOffsetZ;
+    }
 
     @OneToMany(mappedBy = "plGround", fetch = FetchType.LAZY)
     @JsonIgnore
@@ -244,7 +276,9 @@ public class PLGround extends BaseTable {
     }
 
     public PLGround(Integer numRows, Integer numColumns, Float xPosition,Float yPosition,Float zPosition,Float xRotation,Float yRotation ,Float zRotation,
-                     Boolean zoom , Boolean pan,Boolean rotation,PuzzleLevel puzzleLevel, byte[] boardGraphic,Integer initValueZoom, Integer initValueZoomLimit, Integer boardCenterX, Integer boardCenterY, Integer boardCenterZ,Integer panLimit ,
+                     Boolean zoom , Boolean pan,Boolean rotation,PuzzleLevel puzzleLevel, byte[] boardGraphic,Integer initValueZoom, Integer initValueZoomLimit,
+                    Integer boardCenterX, Integer boardCenterY, Integer boardCenterZ,Integer panLimit ,
+                    Integer initPanOffsetX,Integer initPanOffsetY,Integer initPanOffsetZ,
                     Long version, String created, String updated, AppMember createdBy, AppMember updatedBy) {
         super(version, created, updated, createdBy, updatedBy);
         this.numRows = numRows;
@@ -265,6 +299,9 @@ public class PLGround extends BaseTable {
         this.panLimit = panLimit;
         this.initValueZoom=initValueZoom;
         this.puzzleLevel = puzzleLevel;
+        this.initPanOffsetX=initPanOffsetX;
+        this.initPanOffsetY=initPanOffsetY;
+        this.initPanOffsetZ=initPanOffsetZ;
         this.boardGraphic = boardGraphic;
     }
 }

@@ -8,6 +8,7 @@ public class InitialValuesDTO implements Serializable {
     private Integer zoomLimit;
     private Integer panLimit;
     private BoardCenterDTO boardCenter;
+    private BoardCenterDTO initialPanOffset;
 
     public Integer getZoom() {
         return zoom;
@@ -41,13 +42,22 @@ public class InitialValuesDTO implements Serializable {
         this.boardCenter = boardCenter;
     }
 
+    public BoardCenterDTO getInitialPanOffset() {
+        return initialPanOffset;
+    }
+
+    public void setInitialPanOffset(BoardCenterDTO initialPanOffset) {
+        this.initialPanOffset = initialPanOffset;
+    }
+
     public InitialValuesDTO() {
     }
 
-    public InitialValuesDTO(Integer zoom, Integer zoomLimit, Integer panLimit, BoardCenterDTO boardCenter) {
+    public InitialValuesDTO(Integer zoom, Integer zoomLimit, Integer panLimit, BoardCenterDTO boardCenter, BoardCenterDTO initialPanOffset) {
         this.zoom = zoom;
         this.zoomLimit = zoomLimit;
         this.panLimit = panLimit;
         this.boardCenter = boardCenter;
+        this.initialPanOffset = initialPanOffset;
     }
 }

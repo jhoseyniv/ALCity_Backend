@@ -265,11 +265,13 @@ public class PuzzleLevelService implements PuzzleLevelRepository {
         FeaturesData features = cameraSetupImport.getFeatures();
         InitialValuesDTO initialValuesDTO = cameraSetupImport.getInitialValues();
         BoardCenterDTO boardCenterDTO = initialValuesDTO.getBoardCenter();
+        BoardCenterDTO initialPanOffset = initialValuesDTO.getInitialPanOffset();
         //byte[] boardGraphic=boardGraphicOptional.get().getContent();
         PLGround importPLGround = new PLGround(dto.getRows(), dto.getCols(),
                 position.getX(), position.getY(), position.getZ(), rotation.getX(), rotation.getY(), rotation.getZ(),
                 features.getZoom(), features.getPan(), features.getRotation(),importedPuzzleLevel, boardGraphic,initialValuesDTO.getZoom(),initialValuesDTO.getZoomLimit(),
-                initialValuesDTO.getPanLimit(),boardCenterDTO.getX(),boardCenterDTO.getY(),boardCenterDTO.getZ()
+                boardCenterDTO.getX(),boardCenterDTO.getY(),boardCenterDTO.getZ(),initialValuesDTO.getPanLimit(),
+                initialPanOffset.getX(),initialPanOffset.getY(),initialPanOffset.getZ()
                     , 1L, DateUtils.getNow(), DateUtils.getNow(), createdBy.get(), createdBy.get());
         plGroundService.save(importPLGround);
 
@@ -373,8 +375,9 @@ public class PuzzleLevelService implements PuzzleLevelRepository {
                     plGround.getZoom(), plGround.getPan(), plGround.getRotation(),
                     copyPuzzleLevel, plGround.getBoardGraphic(),
                     plGround.getInitValueZoom(), plGround.getInitValueZoomLimit(), plGround.getBoardCenterX(), plGround.getBoardCenterY(),
-                    plGround.getBoardCenterZ(), plGround.getPanLimit()
-                    , 1L, DateUtils.getNow(), DateUtils.getNow(), plGround.getCreatedBy(), plGround.getUpdatedBy());
+                    plGround.getBoardCenterZ(), plGround.getPanLimit(),
+                    plGround.getInitPanOffsetX(), plGround.getInitPanOffsetY(), plGround.getInitPanOffsetZ(),
+                    1L, DateUtils.getNow(), DateUtils.getNow(), plGround.getCreatedBy(), plGround.getUpdatedBy());
             plGroundService.save(copyPLGround);
         }
 
