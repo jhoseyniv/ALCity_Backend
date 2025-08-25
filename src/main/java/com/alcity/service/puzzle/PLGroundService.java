@@ -81,7 +81,7 @@ public class PLGroundService implements PLGroundRepository {
         if (code.equalsIgnoreCase("Save")) { //Save
             plGround = new PLGround(dto.getNumRows(),dto.getNumColumns(),dto.getXposition(),dto.getYposition(),dto.getZposition(),
                       dto.getXrotation(),dto.getYrotation(),dto.getZrotation(),dto.getZoom(),dto.getPan(),dto.getRotation(),
-                    puzzleLevel,boardGraphic
+                    puzzleLevel,boardGraphic,dto.getInitValueZoom(),dto.getInitValueZoomLimit(),dto.getBoardCenterX(),dto.getBoardCenterY(),dto.getBoardCenterZ(),dto.getPanLimit()
                                  , 1L, DateUtils.getNow(), DateUtils.getNow(), createdBy.get(), createdBy.get());
             groundRepository.save(plGround);
 

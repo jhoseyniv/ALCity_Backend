@@ -7,6 +7,7 @@ public class CameraSetupData implements Serializable {
     PositionDTO Position;
     PositionDTO Rotation;
     FeaturesData features;
+    InitialValuesDTO initialValues;
 
     public PositionDTO getPosition() {
         return Position;
@@ -32,12 +33,21 @@ public class CameraSetupData implements Serializable {
         this.features = features;
     }
 
+    public InitialValuesDTO getInitialValues() {
+        return initialValues;
+    }
+
+    public void setInitialValues(InitialValuesDTO initialValues) {
+        this.initialValues = initialValues;
+    }
+
     public CameraSetupData() {
     }
 
-    public CameraSetupData(PositionDTO position, PositionDTO rotation, FeaturesData features) {
-        Position = position;
-        Rotation = rotation;
-        features = features;
+    public CameraSetupData(PositionDTO position, PositionDTO rotation, FeaturesData features,InitialValuesDTO initialValues) {
+        this.Position = position;
+        this.Rotation = rotation;
+        this.features = features;
+        this.initialValues = initialValues;
     }
 }

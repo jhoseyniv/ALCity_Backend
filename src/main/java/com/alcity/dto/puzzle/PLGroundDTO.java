@@ -26,6 +26,12 @@ public class PLGroundDTO  implements Serializable {
     private Boolean zoom;
     private Boolean pan;
     private Boolean rotation;
+    private Integer    boardCenterX;
+    private Integer    initValueZoomLimit;
+    private Integer    boardCenterY;
+    private Integer    boardCenterZ;
+    private Integer    panLimit;
+    private Integer    initValueZoom;
 
     private Long puzzleLevelId;
 
@@ -127,14 +133,53 @@ public class PLGroundDTO  implements Serializable {
         this.puzzleLevelId = puzzleLevelId;
     }
 
-//    public String getPuzzleLevelTitle() {
-//        return puzzleLevelTitle;
-//    }
-//
-//    public void setPuzzleLevelTitle(String puzzleLevelTitle) {
-//        this.puzzleLevelTitle = puzzleLevelTitle;
-//    }
+    public Integer getBoardCenterX() {
+        return boardCenterX;
+    }
 
+    public void setBoardCenterX(Integer boardCenterX) {
+        this.boardCenterX = boardCenterX;
+    }
+
+    public Integer getInitValueZoomLimit() {
+        return initValueZoomLimit;
+    }
+
+    public void setInitValueZoomLimit(Integer initValueZoomLimit) {
+        this.initValueZoomLimit = initValueZoomLimit;
+    }
+
+    public Integer getBoardCenterY() {
+        return boardCenterY;
+    }
+
+    public void setBoardCenterY(Integer boardCenterY) {
+        this.boardCenterY = boardCenterY;
+    }
+
+    public Integer getBoardCenterZ() {
+        return boardCenterZ;
+    }
+
+    public void setBoardCenterZ(Integer boardCenterZ) {
+        this.boardCenterZ = boardCenterZ;
+    }
+
+    public Integer getPanLimit() {
+        return panLimit;
+    }
+
+    public void setPanLimit(Integer panLimit) {
+        this.panLimit = panLimit;
+    }
+
+    public Integer getInitValueZoom() {
+        return initValueZoom;
+    }
+
+    public void setInitValueZoom(Integer initValueZoom) {
+        this.initValueZoom = initValueZoom;
+    }
 
     public BoardGraphicDTO getBoardGraphicDTO() {
         return boardGraphicDTO;
@@ -198,8 +243,7 @@ public class PLGroundDTO  implements Serializable {
 
     public PLGroundDTO(Long id, Long version, String created, String updated, String createdBy, String updatedBy,
                        Integer numRows, Integer numColumns, Float xPosition,Float yPosition,Float zPosition,Float xRotation,Float yRotation ,Float zRotation,
-                       Long puzzleLevelId, //String puzzleLevelTitle,
-                       BoardGraphicDTO boardGraphicDTO) {
+                       Long puzzleLevelId, Integer  boardCenterX, Integer boardCenterY, Integer boardCenterZ, Integer panLimit,Integer initValueZoomLimit,Integer initValueZoom,                       BoardGraphicDTO boardGraphicDTO) {
         this.id = id;
         this.version = version;
         this.created = created;
@@ -214,9 +258,13 @@ public class PLGroundDTO  implements Serializable {
         this.xrotation = xRotation;
         this.yrotation = yRotation;
         this.zrotation = zRotation;
-
-        this.puzzleLevelId = puzzleLevelId;
-     //   this.puzzleLevelTitle = puzzleLevelTitle;
+        this.boardCenterX = boardCenterX;
+        this.boardCenterY = boardCenterY;
+        this.boardCenterZ = boardCenterZ;
+        this.panLimit = panLimit;
+        this.initValueZoom = initValueZoom;
+        this.initValueZoomLimit = initValueZoomLimit;
+         this.puzzleLevelId = puzzleLevelId;
         this.boardGraphicDTO = boardGraphicDTO;
     }
 }

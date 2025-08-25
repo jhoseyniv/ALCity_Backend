@@ -96,7 +96,9 @@ public class InterpreterController {
             PositionDTO Position = new PositionDTO(plGround.getxPosition(), plGround.getyPosition(), plGround.getzPosition());
             PositionDTO Rotation = new PositionDTO(plGround.getxRotation(),plGround.getyRotation(),plGround.getzRotation());
             FeaturesData features = new FeaturesData(plGround.getZoom(),plGround.getPan(),plGround.getRotation());
-            CameraSetupData cameraSetupData = new CameraSetupData(Position,Rotation,features);
+            BoardCenterDTO boardCenterDTO = new BoardCenterDTO(plGround.getBoardCenterX(), plGround.getBoardCenterY(),plGround.getBoardCenterZ());
+            InitialValuesDTO initialValuesDTO = new InitialValuesDTO(plGround.getInitValueZoom(), plGround.getInitValueZoomLimit(), plGround.getPanLimit(),boardCenterDTO);
+            CameraSetupData cameraSetupData = new CameraSetupData(Position,Rotation,features,initialValuesDTO);
             cameraSetupData.setFeatures(features);
             plData.setCameraSetup(cameraSetupData);
 

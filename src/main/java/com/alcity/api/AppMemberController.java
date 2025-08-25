@@ -282,20 +282,20 @@ public class AppMemberController {
     @Operation( summary = "Apply Reward for specific  Member after playing puzzles ",  description = "Apply Reward for specific  Member after playing puzzles")
     @PostMapping("/apply-reward")
     @CrossOrigin(origins = "*")
-    public ResponseObject applyReward(@RequestBody WalletItemTransactionDTO dto)  {
+    public ResponseMessage applyReward(@RequestBody WalletItemTransactionDTO dto)  {
         WalletTransaction savedRecord = null;
-        ResponseObject responseObject = new ResponseObject();
+        ResponseMessage response = new ResponseMessage();
         boolean checkIsRewardBefore = checkPLRewardConstraint(dto);
 
         if(checkIsRewardBefore == false)
-            responseObject = new ResponseObject(ErrorType.UniquenessViolation, WalletTransaction.class.getSimpleName() , Status.ok.name(), -1L,SystemMessage.UserGotThisRewardBefore );
+            response = new ResponseMessage(ErrorType.UniquenessViolation, WalletTransaction.class.getSimpleName() , Status.ok.name(), -1L,SystemMessage.UserGotThisRewardBefore );
 
         else {
             savedRecord = walletTransactionService.save(dto, "Save");
-            responseObject = new ResponseObject(ErrorType.SaveSuccess, WalletTransaction.class.getSimpleName() , Status.ok.name(), savedRecord.getId(), SystemMessage.SaveOrEditMessage_Success);
+            response = new ResponseMessage(ErrorType.SaveSuccess, WalletTransaction.class.getSimpleName() , Status.ok.name(), savedRecord.getId(), SystemMessage.SaveOrEditMessage_Success);
 
         }
-        return responseObject;
+        return response;
     }
 
     @Operation( summary = "Apply Skill for specific  Member after playing puzzles ",  description = "Apply Skill for specific  Member after playing puzzles")

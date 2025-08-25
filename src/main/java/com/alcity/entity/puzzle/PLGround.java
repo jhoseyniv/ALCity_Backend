@@ -45,6 +45,24 @@ public class PLGround extends BaseTable {
     @Column(name="rotation")
     private Boolean rotation;
 
+    @Column(name="initValueZoom")
+    private Integer initValueZoom;
+
+    @Column(name="initValueZoomLimit")
+    private Integer initValueZoomLimit;
+
+    @Column(name="boardCenterX")
+    private Integer boardCenterX;
+
+    @Column(name="boardCenterY")
+    private Integer boardCenterY;
+
+    @Column(name="boardCenterZ")
+    private Integer boardCenterZ;
+
+    @Column(name="panLimit")
+    private Integer panLimit;
+
 
     @OneToMany(mappedBy = "plGround", fetch = FetchType.LAZY)
     @JsonIgnore
@@ -174,11 +192,60 @@ public class PLGround extends BaseTable {
         this.rotation = rotation;
     }
 
+    public Integer getInitValueZoom() {
+        return initValueZoom;
+    }
+
+    public void setInitValueZoom(Integer initValueZoom) {
+        this.initValueZoom = initValueZoom;
+    }
+
+    public Integer getInitValueZoomLimit() {
+        return initValueZoomLimit;
+    }
+
+    public void setInitValueZoomLimit(Integer initValueZoomLimit) {
+        this.initValueZoomLimit = initValueZoomLimit;
+    }
+
+    public Integer getBoardCenterX() {
+        return boardCenterX;
+    }
+
+    public void setBoardCenterX(Integer boardCenterX) {
+        this.boardCenterX = boardCenterX;
+    }
+
+    public Integer getBoardCenterY() {
+        return boardCenterY;
+    }
+
+    public void setBoardCenterY(Integer boardCenterY) {
+        this.boardCenterY = boardCenterY;
+    }
+
+    public Integer getBoardCenterZ() {
+        return boardCenterZ;
+    }
+
+    public void setBoardCenterZ(Integer boardCenterZ) {
+        this.boardCenterZ = boardCenterZ;
+    }
+
+    public Integer getPanLimit() {
+        return panLimit;
+    }
+
+    public void setPanLimit(Integer panLimit) {
+        this.panLimit = panLimit;
+    }
+
     public PLGround() {
     }
 
     public PLGround(Integer numRows, Integer numColumns, Float xPosition,Float yPosition,Float zPosition,Float xRotation,Float yRotation ,Float zRotation,
-                     Boolean zoom , Boolean pan,Boolean rotation,PuzzleLevel puzzleLevel, byte[] boardGraphic,Long version, String created, String updated, AppMember createdBy, AppMember updatedBy) {
+                     Boolean zoom , Boolean pan,Boolean rotation,PuzzleLevel puzzleLevel, byte[] boardGraphic,Integer initValueZoom, Integer initValueZoomLimit, Integer boardCenterX, Integer boardCenterY, Integer boardCenterZ,Integer panLimit ,
+                    Long version, String created, String updated, AppMember createdBy, AppMember updatedBy) {
         super(version, created, updated, createdBy, updatedBy);
         this.numRows = numRows;
         this.numColumns = numColumns;
@@ -191,6 +258,12 @@ public class PLGround extends BaseTable {
         this.zoom =zoom;
         this.pan = pan;
         this.rotation = rotation;
+        this.initValueZoomLimit=initValueZoomLimit;
+        this.boardCenterX = boardCenterX;
+        this.boardCenterY = boardCenterY;
+        this.boardCenterZ = boardCenterZ;
+        this.panLimit = panLimit;
+        this.initValueZoom=initValueZoom;
         this.puzzleLevel = puzzleLevel;
         this.boardGraphic = boardGraphic;
     }

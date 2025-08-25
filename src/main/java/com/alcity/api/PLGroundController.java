@@ -84,7 +84,7 @@ public class PLGroundController {
 
 
 
-    @Operation( summary = "Fetch board graphic for a puzzle level by  Id ",  description = "Fetch board graphic for a puzzle level by  Id")
+    @Operation( summary = "Fetch board graphic for a puzzle ground   Id ",  description = "Fetch board graphic for a puzzle ground Id")
     @RequestMapping(value = "/id/{id}/boardgraphic", method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin(origins = "*")
