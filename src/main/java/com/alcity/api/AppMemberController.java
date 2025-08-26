@@ -11,6 +11,7 @@ import com.alcity.entity.alenum.SystemMessage;
 import com.alcity.entity.alobject.ObjectCategory;
 import com.alcity.entity.appmember.*;
 import com.alcity.entity.base.BinaryContent;
+import com.alcity.entity.base.ClientType;
 import com.alcity.entity.journey.Journey;
 import com.alcity.entity.journey.RoadMap;
 import com.alcity.entity.play.PlayHistory;
@@ -26,6 +27,7 @@ import com.alcity.customexception.ResponseObject;
 import com.alcity.customexception.UniqueConstraintException;
 import com.alcity.customexception.ViolateForeignKeyException;
 import com.alcity.service.appmember.AppMemberService;
+import com.alcity.service.base.ClientTypeService;
 import com.alcity.service.puzzle.PLObjectiveService;
 import com.alcity.utility.DTOUtil;
 import io.swagger.v3.oas.annotations.Operation;
@@ -46,6 +48,10 @@ public class AppMemberController {
 
     @Autowired
     private AppMemberService appMemberService;
+
+    @Autowired
+    private ClientTypeService clientTypeService;
+
     @Autowired
     private PLObjectiveService plObjectiveService;
     @Autowired
@@ -301,18 +307,18 @@ public class AppMemberController {
     @Operation( summary = "Apply Skill for specific  Member after playing puzzles ",  description = "Apply Skill for specific  Member after playing puzzles")
     @PostMapping("/apply-skill")
     @CrossOrigin(origins = "*")
-    public ResponseObject applySkill(@RequestBody LearningSkillTransactionDTO dto)  {
+    public ResponseMessage applySkill(@RequestBody LearningSkillTransactionDTO dto)  {
         LearningSkillTransaction savedRecord = null;
-        ResponseObject responseObject = new ResponseObject();
+        ResponseMessage response = new ResponseMessage();
         boolean checkIsRewardBefore = checkPLSkillConstraint(dto);
 
         if(checkIsRewardBefore == false)
-            return new ResponseObject(ErrorType.UniquenessViolation, LearningSkillTransaction.class.getSimpleName() , Status.ok.name(), savedRecord.getId(), "The user got this a learning skill before");
+            return new ResponseMessage(ErrorType.UniquenessViolation, Status.ok.name() , LearningSkillTransaction.class.getSimpleName() , savedRecord.getId(), "The user got this a learning skill before");
        else {
             savedRecord = learningSkillTransactionService.save(dto, "Save");
-            responseObject = new ResponseObject(ErrorType.SaveSuccess, AppMember_WalletItem.class.getSimpleName() , Status.ok.name(), savedRecord.getId(), SystemMessage.SaveOrEditMessage_Success);
+            response = new ResponseMessage(ErrorType.SaveSuccess, Status.ok.name() ,LearningSkillTransaction.class.getSimpleName() , savedRecord.getId(), SystemMessage.SaveOrEditMessage_Success);
         }
-        return responseObject;
+        return response;
     }
 
 
@@ -342,6 +348,20 @@ public class AppMemberController {
         Collection<AppMemberWalletDTO> dtos = DTOUtil.getAppMemberWalletDTOS(applicationMember_walletItems);
         return dtos;
     }
+    @Operation( summary = "Save Client Type for an app member",  description = "Save Client Type for an app member")
+    @RequestMapping(value = "/save-client-type/memId/{memId}/ctype/{ctype}", method = RequestMethod.GET)
+    @ResponseBody
+    @CrossOrigin(origins = "*")
+    public ResponseMessage saveClientType(@PathVariable Long memId,@PathVariable String ctype) {
+        Optional<AppMember> appMemberOptional = appMemberService.findById(memId);
+        if(appMemberOptional.isEmpty())
+            return new ResponseMessage(ErrorType.RecordNotFound, Status.error.name() ,AppMember.class.getSimpleName() ,  memId , SystemMessage.RecordNotFound);
+        ClientType clientType = clientTypeService.findByValue(ctype);
+        if(clientType == null)
+            return new ResponseMessage(ErrorType.RecordNotFound, Status.error.name() ,AppMember.class.getSimpleName() ,  memId , SystemMessage.RecordNotFound);
+        ResponseMessage response = appMemberService.setClientType(appMemberOptional.get(),clientType);
+        return response;
+    }
 
     @Operation( summary = "Login to System ",  description = "Login Action")
     @PostMapping("/login")
@@ -355,6 +375,7 @@ public class AppMemberController {
         appMemberService.login(member.get().getUsername(), member.get().getPassword());
         ALCityAcessRight accessRight = new ALCityAcessRight(member.get().getId(), member.get().getUsername(),0,"Login Successfull","JWT Token", member.get().getAge(), memberDTO.getNickname(), memberDTO.getMobile(),
                 memberDTO.getEmail(), memberDTO.getIconId(), memberDTO.getMemberType(), memberDTO.getGender());
+
         return accessRight;
     }
 

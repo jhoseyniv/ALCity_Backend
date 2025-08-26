@@ -1,6 +1,7 @@
 package com.alcity.service.appmember;
 
 import com.alcity.comparetors.JourneyStepComparator;
+import com.alcity.customexception.ResponseMessage;
 import com.alcity.dto.RemoteAccess.RemoteRequestDTO;
 import com.alcity.dto.appmember.*;
 import com.alcity.dto.journey.RoadMapDTO;
@@ -8,16 +9,16 @@ import com.alcity.dto.player.PlayHistoryDTO;
 import com.alcity.dto.puzzle.PLDTO;
 import com.alcity.dto.puzzle.PuzzleLevelStepMappingDTO;
 import com.alcity.dto.search.AppMemberSearchCriteriaDTO;
-import com.alcity.entity.alenum.Language;
+import com.alcity.entity.alenum.*;
 import com.alcity.entity.appmember.AppMemberJourneyInfo;
 import com.alcity.entity.appmember.AppMemberStepInfo;
+import com.alcity.entity.base.ClientType;
 import com.alcity.entity.journey.Journey;
 import com.alcity.entity.journey.JourneyStep;
 import com.alcity.entity.play.PlayHistory;
 import com.alcity.entity.puzzle.PuzzleLevel;
 import com.alcity.o3rdparty.ALCityAcessRight;
 import com.alcity.customexception.ResponseObject;
-import com.alcity.entity.alenum.UserGender;
 import com.alcity.entity.appmember.AppMember;
 import com.alcity.entity.appmember.AppMember_WalletItem;
 import com.alcity.entity.appmember.WalletItem;
@@ -423,7 +424,14 @@ public class AppMemberService implements AppMemberRepository, CustomizedUserRepo
     public Collection<AppMember> findByUsernameContainingIgnoreCaseOrNicknameContainingIgnoreCaseOrEmailIsContainingIgnoreCase(String userName, String nickName, String email) {
         return appMemberRepository.findByUsernameContainingIgnoreCaseOrNicknameContainingIgnoreCaseOrEmailIsContainingIgnoreCase(userName,nickName,email);
     }
+    public ResponseMessage setClientType(AppMember appMember, ClientType clientType) {
+        Collection<ClientType> clientTypes = appMember.getClientTypes();
+        clientTypes.add(clientType);
+        appMember.setClientTypes(clientTypes);
+        appMemberRepository.save(appMember);
+        return new ResponseMessage(ErrorType.SaveSuccess, Status.ok.name(),AppMember.class.getSimpleName() ,  appMember.getId(), SystemMessage.SaveOrEditMessage_Success);
 
+    }
     public ResponseObject login(String username, String password) {
         return null;
     }

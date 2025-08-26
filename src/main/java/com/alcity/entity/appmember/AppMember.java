@@ -187,14 +187,14 @@ public class AppMember extends BaseTable implements Serializable {
     @JoinTable(name = "ApplicationMember_ClientType_MAPPING", joinColumns = @JoinColumn(name = "application_member_id"),
             inverseJoinColumns = @JoinColumn(name = "client_type_id"))
 
-    private Set<ClientType> clientTypeSet;
+    private Collection<ClientType> clientTypes;
 
-    public Set<ClientType> getClientTypeSet() {
-        return clientTypeSet;
+    public Collection<ClientType> getClientTypes() {
+        return clientTypes;
     }
 
-    public void setClientTypeSet(Set<ClientType> clientTypeSet) {
-        this.clientTypeSet = clientTypeSet;
+    public void setClientTypes(Collection<ClientType> clientTypes) {
+        this.clientTypes = clientTypes;
     }
 
     public Collection<PlayHistory> getPlayHistories() {

@@ -15,12 +15,27 @@ public class ClientType extends BaseItemSet implements Serializable {
     @ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.ALL })
     @JoinTable(name = "ApplicationMember_ClientType_MAPPING", joinColumns = @JoinColumn(name = "client_type_id"),
             inverseJoinColumns = @JoinColumn(name = "application_member_id"))
-    private Set<AppMember> applicationMemberSet;
+    private Collection<AppMember> members;
 
     @OneToMany(mappedBy = "clientType", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JsonIgnore
-    private Collection<Renderer> actionRendererCollection;
+    private Collection<Renderer> renderers;
 
+    public Collection<AppMember> getMembers() {
+        return members;
+    }
+
+    public void setMembers(Collection<AppMember> members) {
+        this.members = members;
+    }
+
+    public Collection<Renderer> getRenderers() {
+        return renderers;
+    }
+
+    public void setRenderers(Collection<Renderer> renderers) {
+        this.renderers = renderers;
+    }
 
     public ClientType() {
     }
