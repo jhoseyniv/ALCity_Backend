@@ -86,11 +86,14 @@ public class BaseItemSetConroller {
     @Operation( summary = "Fetch all client Types ",  description = "fetches all Client Types entities and their data from data source")
     @GetMapping("/client-type/all")
     @CrossOrigin(origins = "*")
-    public Collection<ClientType> getClientTypes(Model model) {
-        Collection<ClientTypeDTO> clientTypeDTOCollection = new ArrayList<>();
+    public Collection<ClientTypeDTO> getClientTypes(Model model) {
+        Collection<ClientTypeDTO> clientTypeDTOS = new ArrayList<>();
         Collection<ClientType> clientTypes = clientTypeService.findAll();
-        return clientTypes;
+        clientTypeDTOS = DTOUtil.getClientTypeDTOS(clientTypes);
+        return clientTypeDTOS;
     }
+
+
     @Operation( summary = "Fetch a client Type by id ",  description = "fetch a  Client Types entity and their data from data source")
     @RequestMapping(value = "/client-type/id/{id}", method = RequestMethod.GET)
     @ResponseBody

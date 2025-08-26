@@ -1290,12 +1290,21 @@ public class DTOUtil {
         return dtos;
     }
 
+    public static Collection<ClientTypeDTO> getClientTypeDTOS(Collection<ClientType> clientTypes){
+        Iterator<ClientType> iterator = clientTypes.iterator();
+        Collection<ClientTypeDTO> dtos = new ArrayList<ClientTypeDTO>();
+        while(iterator.hasNext()) {
+            ClientTypeDTO dto = getClientTypeDTO(iterator.next());
+            dtos.add(dto);
+        }
+        return dtos;
+    }
 
-  public static ClientTypeDTO getClientTypeDTO(ClientType ctype){
-      ClientTypeDTO dto = new ClientTypeDTO(ctype.getId(), ctype.getLabel(),
-              ctype.getValue(),  ctype.getVersion(), ctype.getCreated(),ctype.getUpdated());
+    public static ClientTypeDTO getClientTypeDTO(ClientType ctype){
+      ClientTypeDTO dto = new ClientTypeDTO(ctype.getId(), ctype.getLabel(),ctype.getValue());
         return  dto;
    }
+
    public static MemberTypeDTO getMemberTypeDTO(MemberType mt){
         MemberTypeDTO dto = new MemberTypeDTO(mt.getId(), mt.getVersion(), mt.getLabel(), mt.getValue(),
                 mt.getCreated(), mt.getUpdated(), mt.getCreatedBy().getUsername(),mt.getUpdatedBy().getUsername(),mt.getCreatedBy().getId(),mt.getUpdatedBy().getId());
