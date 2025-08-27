@@ -39,6 +39,14 @@ public class PlayHistory extends BaseTable {
     @Enumerated(EnumType.ORDINAL)
     private GameStatus gameStatus;
 
+    public GameStatus getGameStatus() {
+        return gameStatus;
+    }
+
+    public void setGameStatus(GameStatus gameStatus) {
+        this.gameStatus = gameStatus;
+    }
+
     @Lob
     @Basic(fetch = FetchType.LAZY)
     private byte[] analyticalData;

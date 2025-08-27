@@ -985,6 +985,7 @@ public class DTOUtil {
         dto.setStars(entity.getStars());
         dto.setPlayerId(player.getId());
         dto.setPlayerUsername(player.getUsername());
+        dto.setGameStatus(entity.getGameStatus().name());
 
         dto.setPlId(pl.getId());
         dto.setPlTitle(pl.getTitle());

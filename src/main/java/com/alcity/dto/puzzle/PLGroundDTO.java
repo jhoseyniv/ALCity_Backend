@@ -35,7 +35,33 @@ public class PLGroundDTO  implements Serializable {
     private Integer    initPanOffsetX;
     private Integer    initPanOffsetY;
     private Integer    initPanOffsetZ;
+    private Long    skybox_id;
+    private Long    background_id;
+    private Integer    backgroundScale;
 
+    public Long getSkybox_id() {
+        return skybox_id;
+    }
+
+    public void setSkybox_id(Long skybox_id) {
+        this.skybox_id = skybox_id;
+    }
+
+    public Long getBackground_id() {
+        return background_id;
+    }
+
+    public void setBackground_id(Long background_id) {
+        this.background_id = background_id;
+    }
+
+    public Integer getBackgroundScale() {
+        return backgroundScale;
+    }
+
+    public void setBackgroundScale(Integer backgroundScale) {
+        this.backgroundScale = backgroundScale;
+    }
 
     private Long puzzleLevelId;
 

@@ -4,9 +4,9 @@ import com.alcity.entity.puzzle.PuzzleGroup;
 import com.alcity.entity.base.BaseTable;
 import com.alcity.entity.appmember.AppMember;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import jakarta.persistence.*;
 import java.io.Serializable;
+
 @Table( name ="JourneyStep" , uniqueConstraints={
         @UniqueConstraint(columnNames = {"title", "ordering","journey_id","puzzle_group_id"})
 })

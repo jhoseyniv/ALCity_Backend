@@ -8,6 +8,7 @@ public class PlayHistoryDTO {
     private Long playDuration;
     private Float playScore;
     private Integer stars;
+    private String gameStatus;
 
     private Long playerId;
     private String playerUsername;
@@ -34,6 +35,13 @@ public class PlayHistoryDTO {
 
     private  StringBuffer analyticalData;
 
+    public String getGameStatus() {
+        return gameStatus;
+    }
+
+    public void setGameStatus(String gameStatus) {
+        this.gameStatus = gameStatus;
+    }
 
     public Long getId() {
         return id;

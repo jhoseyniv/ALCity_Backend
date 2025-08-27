@@ -3,6 +3,7 @@ package com.alcity.entity.puzzle;
 
 import com.alcity.entity.base.BaseTable;
 import com.alcity.entity.appmember.AppMember;
+import com.alcity.entity.base.BinaryContent;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.*;
@@ -71,6 +72,44 @@ public class PLGround extends BaseTable {
 
     @Column(name="initPanOffsetZ")
     private Integer initPanOffsetZ;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "skybox_id" )
+    @JsonIgnore
+    private BinaryContent skybox;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "background_id" )
+    @JsonIgnore
+    private BinaryContent background;
+
+
+    @Column(name="backgroundScale")
+    private Integer backgroundScale;
+
+    public BinaryContent getSkybox() {
+        return skybox;
+    }
+
+    public void setSkybox(BinaryContent skybox) {
+        this.skybox = skybox;
+    }
+
+    public BinaryContent getBackground() {
+        return background;
+    }
+
+    public void setBackground(BinaryContent background) {
+        this.background = background;
+    }
+
+    public Integer getBackgroundScale() {
+        return backgroundScale;
+    }
+
+    public void setBackgroundScale(Integer backgroundScale) {
+        this.backgroundScale = backgroundScale;
+    }
 
     public Integer getInitPanOffsetX() {
         return initPanOffsetX;
@@ -278,7 +317,7 @@ public class PLGround extends BaseTable {
     public PLGround(Integer numRows, Integer numColumns, Float xPosition,Float yPosition,Float zPosition,Float xRotation,Float yRotation ,Float zRotation,
                      Boolean zoom , Boolean pan,Boolean rotation,PuzzleLevel puzzleLevel, byte[] boardGraphic,Integer initValueZoom, Integer initValueZoomLimit,
                     Integer boardCenterX, Integer boardCenterY, Integer boardCenterZ,Integer panLimit ,
-                    Integer initPanOffsetX,Integer initPanOffsetY,Integer initPanOffsetZ,
+                    Integer initPanOffsetX,Integer initPanOffsetY,Integer initPanOffsetZ,BinaryContent skybox,BinaryContent background , Integer backgroundScale,
                     Long version, String created, String updated, AppMember createdBy, AppMember updatedBy) {
         super(version, created, updated, createdBy, updatedBy);
         this.numRows = numRows;
@@ -302,6 +341,9 @@ public class PLGround extends BaseTable {
         this.initPanOffsetX=initPanOffsetX;
         this.initPanOffsetY=initPanOffsetY;
         this.initPanOffsetZ=initPanOffsetZ;
+        this.skybox = skybox;
+        this.background = background;
+        this.backgroundScale=backgroundScale;
         this.boardGraphic = boardGraphic;
     }
 }

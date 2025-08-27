@@ -2,6 +2,7 @@ package com.alcity.service.puzzle;
 
 import com.alcity.dto.puzzle.PLGroundDTO;
 import com.alcity.entity.appmember.AppMember;
+import com.alcity.entity.base.BinaryContent;
 import com.alcity.entity.puzzle.PLCell;
 import com.alcity.entity.puzzle.PLGround;
 import com.alcity.entity.puzzle.PuzzleLevel;
@@ -67,13 +68,12 @@ public class PLGroundService implements PLGroundRepository {
 
     public PLGround save(PLGroundDTO  dto, String code)  {
         Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
+        Optional<BinaryContent> skyBoxOptional = binaryContentRepository.findById(dto.getSkybox_id());
+        Optional<BinaryContent> backgroundOptional = binaryContentRepository.findById(dto.getBackground_id());
+
         PLGround plGround=null;
         PuzzleLevel puzzleLevel=null;
         byte[] boardGraphic = ImageUtil.convertObjectToBytes(dto.getBoardGraphicDTO());
-
-       // JSONObject objJsonObject = new JSONObject(dto.getBoardGraphic());
-       // byte[] boardGraphic = objJsonObject.toString().getBytes();
-        //pl.setInterpreterFile(bytes);
 
         Optional<PuzzleLevel> puzzleLevelOptional =  puzzleLevelRepository.findById(dto.getPuzzleLevelId());
         if(puzzleLevelOptional.isPresent())
@@ -82,7 +82,7 @@ public class PLGroundService implements PLGroundRepository {
             plGround = new PLGround(dto.getNumRows(),dto.getNumColumns(),dto.getXposition(),dto.getYposition(),dto.getZposition(),
                       dto.getXrotation(),dto.getYrotation(),dto.getZrotation(),dto.getZoom(),dto.getPan(),dto.getRotation(),
                     puzzleLevel,boardGraphic,dto.getInitValueZoom(),dto.getInitValueZoomLimit(),dto.getBoardCenterX(),dto.getBoardCenterY(),dto.getBoardCenterZ(),dto.getPanLimit(),
-                                 dto.getInitPanOffsetX(),dto.getInitPanOffsetY(),dto.getInitPanOffsetZ()
+                                 dto.getInitPanOffsetX(),dto.getInitPanOffsetY(),dto.getInitPanOffsetZ() ,skyBoxOptional.get(),backgroundOptional.get(),dto.getBackgroundScale()
                                  , 1L, DateUtils.getNow(), DateUtils.getNow(), createdBy.get(), createdBy.get());
             groundRepository.save(plGround);
 

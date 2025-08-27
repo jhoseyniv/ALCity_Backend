@@ -4,15 +4,20 @@ import com.alcity.dto.player.PlayHistoryDTO;
 import com.alcity.entity.alenum.Status;
 import com.alcity.entity.alenum.ErrorType;
 import com.alcity.entity.alenum.SystemMessage;
+import com.alcity.entity.appmember.AppMember;
 import com.alcity.entity.play.PlayHistory;
 import com.alcity.entity.puzzle.BaseObject;
 import com.alcity.customexception.ResponseObject;
+import com.alcity.service.appmember.AppMemberService;
 import com.alcity.service.play.PlayHistoryService;
+import com.alcity.utility.DTOUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Optional;
 
 @Tag(name = "Play History APIs", description = "Get Play history and related entities as rest api")
@@ -23,8 +28,25 @@ public class PlayHistoryController {
 
     @Autowired
     private PlayHistoryService playHistoryService;
-    @Operation( summary = "Get play history for an Application Member",  description = "get all play history for an Application Member ...")
+
+    @Autowired
+    private AppMemberService appMemberService;
+
+    @Operation( summary = "Get all play history for an Application Member",  description = "get all play history for an Application Member ...")
     @RequestMapping(value = "/user/id/{id}", method = RequestMethod.GET)
+    @ResponseBody
+    @CrossOrigin(origins = "*")
+    public Collection<PlayHistoryDTO> getAllPlayHistoryForAUserById(@PathVariable Long id) {
+        Collection<PlayHistoryDTO> dtos = new ArrayList<>();
+        Optional<AppMember> appMemberOptional = appMemberService.findById(id);
+        if(appMemberOptional.isEmpty()) return  null;
+        Collection<PlayHistory>  histories= playHistoryService.findByPlayer(appMemberOptional.get());
+        dtos = DTOUtil.getPlayHistoryDTOS(histories);
+        return dtos;
+    }
+
+    @Operation( summary = "Get a play history for an Application Member by history id",  description = "get a play history for an Application Member  by history id...")
+    @RequestMapping(value = "/id/{id}", method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin(origins = "*")
     public PlayHistoryDTO getPlayHistoryById(@PathVariable Long id) {

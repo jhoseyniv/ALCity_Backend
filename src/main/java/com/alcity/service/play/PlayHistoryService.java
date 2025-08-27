@@ -24,6 +24,7 @@ import org.springframework.stereotype.Service;
 
 import org.springframework.transaction.annotation.Transactional;;
 import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -166,5 +167,10 @@ public class PlayHistoryService implements PlayHistoryRepository {
     @Override
     public Collection<PlayHistory> findByplayScore(Float score) {
         return null;
+    }
+
+    @Override
+    public Collection<PlayHistory> findByPlayer(AppMember appMember) {
+        return playHistoryRepository.findByPlayer(appMember);
     }
 }
