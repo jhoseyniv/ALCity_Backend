@@ -1,5 +1,7 @@
 package com.alcity.entity.play;
 
+import com.alcity.entity.alenum.GameStatus;
+import com.alcity.entity.alenum.UserGender;
 import com.alcity.entity.base.BaseTable;
 import com.alcity.entity.puzzle.PuzzleLevel;
 import com.alcity.entity.appmember.AppMember;
@@ -33,6 +35,9 @@ public class PlayHistory extends BaseTable {
     private Long playDuration;
     @Column(name="stars")
     private Integer stars;
+
+    @Enumerated(EnumType.ORDINAL)
+    private GameStatus gameStatus;
 
     @Lob
     @Basic(fetch = FetchType.LAZY)

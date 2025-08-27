@@ -5,7 +5,8 @@ public enum GameStatus  {
     Canceled ,
     Playing ,
     Unknown,
-    Completed,
+    Win,
+    Lose,
     Not_Started,
     Paused;
 

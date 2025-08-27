@@ -73,12 +73,15 @@ public class JourneyStepService implements JourneyStepRepository {
     public JourneyStep save(JourneyStepRecord dto, String code) {
         Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
         JourneyStep journeyStep=null;
+        PuzzleGroup puzzleGroup=null;
+        Journey journey=null;
         Optional<JourneyStep> journeyStepOptional= journeyStepRepository.findByTitle(dto.getTitle());
-        Optional<PuzzleGroup> puzzleGroup =PGRepository.findById(dto.getPuzzleGroupId());
-        Optional<Journey>  journey = journeyRepository.findById(dto.getJourneyId());
-
+        Optional<PuzzleGroup> puzzleGroupOptional =PGRepository.findById(dto.getPuzzleGroupId());
+        Optional<Journey>  journeyOptional = journeyRepository.findById(dto.getJourneyId());
+        if(puzzleGroupOptional.isPresent())     puzzleGroup = puzzleGroupOptional.get();
+        if(journeyOptional.isPresent())     journey = journeyOptional.get();
         if (code.equalsIgnoreCase("Save")) { //Save
-            journeyStep = new JourneyStep(dto.getTitle() ,dto.getOrdering(),dto.getXpos(),dto.getYpos(),journey.get(),puzzleGroup.get()
+            journeyStep = new JourneyStep(dto.getTitle() ,dto.getOrdering(),dto.getXpos(),dto.getYpos(),journey,puzzleGroup
                     , 1L,DateUtils.getNow(), DateUtils.getNow(), createdBy.get(), createdBy.get());
             journeyStepRepository.save(journeyStep);
         }else{//edit
@@ -89,7 +92,8 @@ public class JourneyStepService implements JourneyStepRepository {
                 journeyStep.setOrdering(dto.getOrdering());
                 journeyStep.setXpos(dto.getXpos());
                 journeyStep.setYpos(dto.getYpos());
-                journeyStep.setPuzzleGroup(puzzleGroup.get());
+                journeyStep.setPuzzleGroup(puzzleGroup);
+                journeyStep.setJourney(journey);
                 journeyStep.setVersion(journeyStep.getVersion()+1);
                 journeyStep.setUpdated(DateUtils.getNow());
                 journeyStep.setUpdatedBy(createdBy.get());

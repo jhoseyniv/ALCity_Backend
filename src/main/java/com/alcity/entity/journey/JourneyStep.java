@@ -7,7 +7,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.*;
 import java.io.Serializable;
-
+@Table( name ="JourneyStep" , uniqueConstraints={
+        @UniqueConstraint(columnNames = {"title", "ordering","journey_id","puzzle_group_id"})
+})
 @Entity
 public class JourneyStep extends BaseTable implements Serializable {
 
