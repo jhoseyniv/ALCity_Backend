@@ -67,7 +67,7 @@ public class LearningSkillController {
 
 
     @ExceptionHandler(UniqueConstraintException.class)
-    @PostMapping("skill/save")
+    @PostMapping("/skill/save")
     @CrossOrigin(origins = "*")
     public ResponseMessage saveLearningSkill(@RequestBody LearningSkillDTO dto)  {
         LearningSkill savedRecord = null;

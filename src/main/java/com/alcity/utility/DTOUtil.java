@@ -1047,6 +1047,8 @@ public class DTOUtil {
     }
 
     public static LearningSkillDTO getLearningSkillDTO(LearningSkill ls) {
+        if(ls.getParentSkill() == null)
+            return  new LearningSkillDTO(ls.getId(), ls.getTitle(), ls.getType().name(),0L,"");;
         LearningSkillDTO lsDTO = new LearningSkillDTO(ls.getId(), ls.getTitle(), ls.getType().name(),ls.getParentSkill().getId(),ls.getParentSkill().getTitle());
         return lsDTO;
     }
