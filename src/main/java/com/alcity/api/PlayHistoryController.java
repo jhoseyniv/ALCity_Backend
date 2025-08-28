@@ -1,5 +1,6 @@
 package com.alcity.api;
 
+import com.alcity.customexception.ResponseMessage;
 import com.alcity.dto.player.PlayHistoryDTO;
 import com.alcity.entity.alenum.Status;
 import com.alcity.entity.alenum.ErrorType;
@@ -32,7 +33,7 @@ public class PlayHistoryController {
     @Autowired
     private AppMemberService appMemberService;
 
-    @Operation( summary = "Get all play history for an Application Member",  description = "get all play history for an Application Member ...")
+    @Operation( summary = "Get all play history for an Application Member by user id",  description = "get all play history for an Application Member  by user id...")
     @RequestMapping(value = "/user/id/{id}", method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin(origins = "*")
@@ -51,16 +52,26 @@ public class PlayHistoryController {
     @CrossOrigin(origins = "*")
     public PlayHistoryDTO getPlayHistoryById(@PathVariable Long id) {
         Optional<PlayHistory>  historyOptional= playHistoryService.findById(id);
-        PlayHistoryDTO dto = playHistoryService.getPlayHistory(historyOptional.get());
-        return dto;
+        if(historyOptional.isEmpty()) return  null;
+        return DTOUtil.getPlayHistoryDTO(historyOptional.get());
+    }
+
+    @Operation( summary = "Get a play history for an Application Member by history id",  description = "get a play history for an Application Member  by history id...")
+    @RequestMapping(value = "/analytical-data/id/{id}", method = RequestMethod.GET)
+    @ResponseBody
+    @CrossOrigin(origins = "*")
+    public byte[] getAnalyticalDataById(@PathVariable Long id) {
+        Optional<PlayHistory>  historyOptional= playHistoryService.findById(id);
+        if(historyOptional.isEmpty()) return  null;
+        return historyOptional.get().getAnalyticalData();
     }
 
     @Operation( summary = "Save a play history for an Application Member + puzzle level",  description = "Save a play history for an Application Member + puzzle level ...")
     @PostMapping("/save")
     @CrossOrigin(origins = "*")
-    public ResponseObject savePlayHistory(@RequestBody PlayHistoryDTO dto) throws ResponseObject {
+    public ResponseMessage savePlayHistory(@RequestBody PlayHistoryDTO dto) throws ResponseObject {
         PlayHistory savedRecord = null;
-        ResponseObject responseObject = new ResponseObject();
+        ResponseMessage response = new ResponseMessage();
         Optional<PlayHistory> playHistoryOptional = playHistoryService.findById(dto.getId());
 
         try {
@@ -71,12 +82,10 @@ public class PlayHistoryController {
         }
         catch (Exception e) {
 
-            throw new ResponseObject(ErrorType.UniquenessViolation, PlayHistory.class.getSimpleName() , Status.error.name() , -1L ,e.getCause().getMessage());
+            throw new ResponseObject(ErrorType.UniquenessViolation,Status.error.name() , PlayHistory.class.getSimpleName()  , -1L ,e.getCause().getMessage());
         }
         if(savedRecord !=null)
-            responseObject = new ResponseObject(ErrorType.SaveSuccess, BaseObject.class.getSimpleName() , Status.ok.name(), savedRecord.getId(), SystemMessage.DeleteMessage);
-
-
-        return responseObject;
+            response = new ResponseMessage(ErrorType.SaveSuccess,Status.ok.name(), PlayHistory.class.getSimpleName() ,  savedRecord.getId(), SystemMessage.DeleteMessage);
+        return response;
     }
 }
