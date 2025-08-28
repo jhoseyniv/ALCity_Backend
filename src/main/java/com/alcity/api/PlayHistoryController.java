@@ -56,7 +56,7 @@ public class PlayHistoryController {
         return DTOUtil.getPlayHistoryDTO(historyOptional.get());
     }
 
-    @Operation( summary = "Get a play history for an Application Member by history id",  description = "get a play history for an Application Member  by history id...")
+    @Operation( summary = "Get analytical data for a play history  by id",  description = "analytical data for a play history  by id..........")
     @RequestMapping(value = "/analytical-data/id/{id}", method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin(origins = "*")
@@ -65,6 +65,26 @@ public class PlayHistoryController {
         if(historyOptional.isEmpty()) return  null;
         return historyOptional.get().getAnalyticalData();
     }
+
+    @Operation( summary = "Save analytical data into database for a play history",  description = "Save analytical data into database for a play history...")
+    @PostMapping("/save-analytical-data/id/{id}")
+    @CrossOrigin(origins = "*")
+    public ResponseMessage saveAnalyticalData(@RequestBody byte[] analyticalData,Long id) throws ResponseObject {
+        ResponseMessage response = new ResponseMessage();
+        Optional<PlayHistory> playHistoryOptional = playHistoryService.findById(id);
+         if(playHistoryOptional.isEmpty())
+                return new  ResponseMessage(ErrorType.RecordNotFound,Status.error.name(), PlayHistory.class.getSimpleName() ,  id, SystemMessage.SaveOrEditMessage_Fail);
+         PlayHistory playHistory = playHistoryOptional.get();
+         playHistory.setAnalyticalData(analyticalData);
+        try {
+            playHistoryService.save(playHistory);
+            }
+        catch (Exception e) {
+            throw new ResponseObject(ErrorType.UniquenessViolation,Status.error.name() , PlayHistory.class.getSimpleName()  , -1L ,e.getCause().getMessage());
+        }
+        return  new ResponseMessage(ErrorType.SaveSuccess,Status.ok.name(), PlayHistory.class.getSimpleName() ,  playHistory.getId(), SystemMessage.SaveOrEditMessage_Success);
+    }
+
 
     @Operation( summary = "Save a play history for an Application Member + puzzle level",  description = "Save a play history for an Application Member + puzzle level ...")
     @PostMapping("/save")
@@ -88,4 +108,7 @@ public class PlayHistoryController {
             response = new ResponseMessage(ErrorType.SaveSuccess,Status.ok.name(), PlayHistory.class.getSimpleName() ,  savedRecord.getId(), SystemMessage.DeleteMessage);
         return response;
     }
+
+
+
 }
