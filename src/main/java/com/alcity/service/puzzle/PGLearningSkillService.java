@@ -32,8 +32,10 @@ public class PGLearningSkillService implements PGLearningSkillRepository {
     private AppMemberRepository appMemberRepository;
     @Autowired
     private LearningContentService learningContentService;
+
     @Autowired
     private LearningSkillService learningSkillService;
+
     @Autowired
     private PGService pgService;
 

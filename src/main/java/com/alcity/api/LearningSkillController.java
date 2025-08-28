@@ -4,6 +4,7 @@ import com.alcity.customexception.ResponseMessage;
 import com.alcity.customexception.ResponseObject;
 import com.alcity.customexception.UniqueConstraintException;
 import com.alcity.dto.learning.LearningSkillDTO;
+import com.alcity.entity.alenum.SkillType;
 import com.alcity.entity.alenum.Status;
 import com.alcity.entity.alenum.ErrorType;
 import com.alcity.entity.alenum.SystemMessage;
@@ -40,7 +41,8 @@ public class LearningSkillController {
     @ResponseBody
     public Collection<LearningSkillDTO> getLearningSkills(@PathVariable String type) {
         Collection<LearningSkill> skills = new ArrayList<>();
-        skills = learningSkillService.findByType(type);
+        SkillType skillType = SkillType.valueOf(type.toUpperCase());
+        skills = learningSkillService.findByType(skillType);
         Collection<LearningSkillDTO>  dtos = new ArrayList<LearningSkillDTO>();
         dtos = DTOUtil.getLearningSkillDTO(skills);
         return dtos;

@@ -17,7 +17,7 @@ import java.util.Optional;
 
 @Service
 @Transactional
-public abstract class LearningSkillService implements LearningSkillRepository {
+public class LearningSkillService implements LearningSkillRepository {
 
     @Autowired
     LearningSkillRepository learningSkillRepository;
@@ -48,7 +48,7 @@ public abstract class LearningSkillService implements LearningSkillRepository {
     }
 
     @Override
-    public Collection<LearningSkill> findByType(String type) {
+    public Collection<LearningSkill> findByType(SkillType type) {
         return learningSkillRepository.findByType(type);
     }
 
