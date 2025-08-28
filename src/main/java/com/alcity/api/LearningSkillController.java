@@ -3,21 +3,14 @@ package com.alcity.api;
 import com.alcity.customexception.ResponseMessage;
 import com.alcity.customexception.ResponseObject;
 import com.alcity.customexception.UniqueConstraintException;
-import com.alcity.customexception.ViolateForeignKeyException;
-import com.alcity.dto.base.LearningSkillDTO;
+import com.alcity.dto.learning.LearningSkillDTO;
 import com.alcity.entity.alenum.Status;
 import com.alcity.entity.alenum.ErrorType;
 import com.alcity.entity.alenum.SystemMessage;
-import com.alcity.entity.alobject.ObjectAction;
-import com.alcity.entity.base.BinaryContent;
-import com.alcity.entity.base.WalletItemType;
-import com.alcity.entity.learning.LearningContent;
 import com.alcity.entity.learning.LearningSkill;
 import com.alcity.service.learning.LearningSkillService;
 import com.alcity.utility.DTOUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
@@ -58,7 +51,7 @@ public class LearningSkillController {
     @RequestMapping(value = "/skill/cond/{criteria}", method = RequestMethod.GET)
     @ResponseBody
     public Collection<LearningSkillDTO> getLearningSkillByCriteria(@PathVariable String criteria) {
-        Collection<LearningSkill> learningSkillCollection = learningSkillService.findByValueContains(criteria);
+        Collection<LearningSkill> learningSkillCollection = learningSkillService.findByTitleContains(criteria);
         LearningSkillDTO learningSkillDTO = new LearningSkillDTO();
         Collection<LearningSkillDTO>  learningSkillDTOCollection = new ArrayList<LearningSkillDTO>();
         Iterator<LearningSkill> itr = learningSkillCollection.iterator();

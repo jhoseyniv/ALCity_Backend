@@ -1,6 +1,7 @@
 package com.alcity.service.learning;
 
-import com.alcity.dto.base.LearningSkillDTO;
+import com.alcity.dto.learning.LearningSkillDTO;
+import com.alcity.entity.alenum.SkillType;
 import com.alcity.entity.appmember.AppMember;
 import com.alcity.entity.learning.LearningSkill;
 import com.alcity.repository.appmember.AppMemberRepository;
@@ -46,8 +47,8 @@ public class LearningSkillService implements LearningSkillRepository {
     }
 
     @Override
-    public Collection<LearningSkill> findByValueContains(String criteria) {
-        return learningSkillRepository.findByValueContains(criteria);
+    public Collection<LearningSkill> findByTitleContains(String criteria) {
+        return learningSkillRepository.findByTitleContains(criteria);
     }
 
     @Override
@@ -86,29 +87,30 @@ public class LearningSkillService implements LearningSkillRepository {
     }
 
     @Override
-    public LearningSkill findByLabel(String label) {
+    public LearningSkill findByTitle(String label) {
 
-        return learningSkillRepository.findByLabel(label);
+        return learningSkillRepository.findByTitle(label);
     }
     @Autowired
     private AppMemberRepository appMemberRepository;
 
-    @Override
-    public LearningSkill findByValue(String value) {
-        return learningSkillRepository.findByValue(value);
-    }
-    public LearningSkill save(LearningSkillDTO dto, String code) {
+   public LearningSkill save(LearningSkillDTO dto, String code) {
         Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
+        SkillType type = SkillType.valueOf(dto.getType());
+        Optional<LearningSkill> parentSkillOptional = learningSkillRepository.findById(dto.getParentId());
+        if(parentSkillOptional.isEmpty()) {}
         LearningSkill learningSkill=null;
         if (code.equalsIgnoreCase("Save")) { //Save
-            learningSkill = new LearningSkill(dto.getLabel(), dto.getValue(),1L, DateUtils.getNow(), DateUtils.getNow(), createdBy.get(), createdBy.get());
+            learningSkill = new LearningSkill(1L, DateUtils.getNow(), DateUtils.getNow(), createdBy.get(), createdBy.get(),
+                    dto.getTitle(),type, parentSkillOptional.get());
             learningSkillRepository.save(learningSkill);
         }else{//edit
             Optional<LearningSkill> learningSkillOptional= learningSkillRepository.findById(dto.getId());
             if(learningSkillOptional.isPresent()) {
                 learningSkill = learningSkillOptional.get();
-                learningSkill.setLabel(dto.getLabel());
-                learningSkill.setValue(dto.getValue());
+                learningSkill.setTitle(dto.getTitle());
+                learningSkill.setType(type);
+                learningSkill.setParentSkill(parentSkillOptional.get());
                 learningSkill.setVersion(learningSkill.getVersion()+1);
                 learningSkill.setCreated(DateUtils.getNow());
                 learningSkill.setUpdated(DateUtils.getNow());

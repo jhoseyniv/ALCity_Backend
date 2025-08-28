@@ -1,6 +1,7 @@
 package com.alcity.utility;
 
 import com.alcity.comparetors.*;
+import com.alcity.dto.learning.LearningSkillDTO;
 import com.alcity.dto.plimpexport.*;
 import com.alcity.dto.plimpexport.ruleexport.PostActionTreeExport;
 import com.alcity.dto.plimpexport.ruleexport.RuleData;
@@ -598,7 +599,7 @@ public class DTOUtil {
 
             dto.setId(lsc.getId());
             dto.setLearningSkillId(lsc.getLearningSkill().getId());
-            dto.setLearningSkillTitle(lsc.getLearningSkill().getValue());
+            dto.setLearningSkillTitle(lsc.getLearningSkill().getTitle());
             dto.setLearningContentId(lsc.getLearningContent().getId());
             dto.setPuzzleGroupId(lsc.getPuzzleGroup().getId());
             dto.setPuzzleGroupTitle(lsc.getPuzzleGroup().getTitle());
@@ -769,8 +770,8 @@ public class DTOUtil {
         plObjectiveDTO.setUpdatedBy(plObjective.getUpdatedBy().getUsername());
         plObjectiveDTO.setUpdatedById(plObjective.getUpdatedBy().getId());
         plObjectiveDTO.setCreatedById(plObjective.getCreatedBy().getId());
-        plObjectiveDTO.setSkillLable(plObjective.getLearningSkill().getLabel());
-        plObjectiveDTO.setSkillValue(plObjective.getLearningSkill().getValue());
+        plObjectiveDTO.setSkillLable(plObjective.getLearningSkill().getTitle());
+        plObjectiveDTO.setSkillValue(plObjective.getLearningSkill().getTitle());
         plObjectiveDTO.setWalletItemId(plObjective.getWalletItem().getId());
         plObjectiveDTO.setWalletItemTitle(plObjective.getWalletItem().getValue());
         return  plObjectiveDTO;
@@ -1046,8 +1047,7 @@ public class DTOUtil {
     }
 
     public static LearningSkillDTO getLearningSkillDTO(LearningSkill ls) {
-        LearningSkillDTO lsDTO = new LearningSkillDTO(ls.getId(), ls.getLabel(), ls.getValue(),
-                ls.getVersion(), ls.getCreated(), ls.getUpdated(),ls.getCreatedBy().getUsername(),ls.getUpdatedBy().getUsername());
+        LearningSkillDTO lsDTO = new LearningSkillDTO(ls.getId(), ls.getTitle(), ls.getType().name(),ls.getParentSkill().getId(),ls.getParentSkill().getTitle());
         return lsDTO;
     }
 

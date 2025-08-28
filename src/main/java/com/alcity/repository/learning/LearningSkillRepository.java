@@ -9,8 +9,7 @@ import java.util.Optional;
 public interface LearningSkillRepository extends CrudRepository<LearningSkill,Long> {
     Optional<LearningSkill> findById(Long id);
     Collection<LearningSkill> findAll();
-    Collection<LearningSkill> findByValueContains(String criteria);
-    LearningSkill findByLabel(String label);
-    LearningSkill findByValue(String value);
+    Collection<LearningSkill> findByTitleContains(String criteria);
+    LearningSkill findByTitle(String label);
 
 }
