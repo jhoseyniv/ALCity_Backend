@@ -1046,6 +1046,19 @@ public class DTOUtil {
          return dto;
     }
 
+    public static Collection<LearningSkillDTO> getLearningSkillDTO(Collection<LearningSkill> skills) {
+        Collection<LearningSkillDTO>  dtos = new ArrayList<LearningSkillDTO>();
+        Iterator<LearningSkill> itr = skills.iterator();
+
+        while(itr.hasNext()){
+            LearningSkill skill = itr.next();
+            LearningSkillDTO dto = new LearningSkillDTO();
+            dto = DTOUtil.getLearningSkillDTO(skill);
+            dtos.add(dto);
+        }
+        return dtos;
+    }
+
     public static LearningSkillDTO getLearningSkillDTO(LearningSkill ls) {
         if(ls.getParentSkill() == null)
             return  new LearningSkillDTO(ls.getId(), ls.getTitle(), ls.getType().name(),0L,"");;

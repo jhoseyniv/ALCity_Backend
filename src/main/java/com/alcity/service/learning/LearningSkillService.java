@@ -12,11 +12,12 @@ import org.springframework.stereotype.Service;
 
 import org.springframework.transaction.annotation.Transactional;;
 import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 
 @Service
 @Transactional
-public class LearningSkillService implements LearningSkillRepository {
+public abstract class LearningSkillService implements LearningSkillRepository {
 
     @Autowired
     LearningSkillRepository learningSkillRepository;
@@ -44,6 +45,11 @@ public class LearningSkillService implements LearningSkillRepository {
     @Override
     public Collection<LearningSkill> findAll() {
         return learningSkillRepository.findAll();
+    }
+
+    @Override
+    public Collection<LearningSkill> findByType(String type) {
+        return learningSkillRepository.findByType(type);
     }
 
     @Override

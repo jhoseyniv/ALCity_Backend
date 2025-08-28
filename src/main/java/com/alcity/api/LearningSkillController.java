@@ -23,20 +23,27 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/learn")
 public class LearningSkillController {
+
     @Autowired
     private LearningSkillService learningSkillService;
+
     @GetMapping("/skill/all")
     public Collection<LearningSkillDTO> getLearningSkills(Model model) {
-        Collection<LearningSkill> lsCollection = new ArrayList<>();
-        Collection<LearningSkillDTO> lsDTOCollection = new ArrayList<LearningSkillDTO>();
-        lsCollection = learningSkillService.findAll();
-        Iterator<LearningSkill> iterator = lsCollection.iterator();
-        while(iterator.hasNext()){
-            LearningSkillDTO learningSkillDTO = new LearningSkillDTO();
-            learningSkillDTO = DTOUtil.getLearningSkillDTO(iterator.next());
-            lsDTOCollection.add(learningSkillDTO);
-        }
-        return lsDTOCollection;
+        Collection<LearningSkill> skills = new ArrayList<>();
+        skills = learningSkillService.findAll();
+        Collection<LearningSkillDTO>  dtos = new ArrayList<LearningSkillDTO>();
+        dtos = DTOUtil.getLearningSkillDTO(skills);
+        return dtos;
+    }
+
+    @RequestMapping(value = "/skill/type/{type}", method = RequestMethod.GET)
+    @ResponseBody
+    public Collection<LearningSkillDTO> getLearningSkills(@PathVariable String type) {
+        Collection<LearningSkill> skills = new ArrayList<>();
+        skills = learningSkillService.findByType(type);
+        Collection<LearningSkillDTO>  dtos = new ArrayList<LearningSkillDTO>();
+        dtos = DTOUtil.getLearningSkillDTO(skills);
+        return dtos;
     }
 
     @RequestMapping(value = "/skill/id/{id}", method = RequestMethod.GET)
@@ -51,17 +58,10 @@ public class LearningSkillController {
     @RequestMapping(value = "/skill/cond/{criteria}", method = RequestMethod.GET)
     @ResponseBody
     public Collection<LearningSkillDTO> getLearningSkillByCriteria(@PathVariable String criteria) {
-        Collection<LearningSkill> learningSkillCollection = learningSkillService.findByTitleContains(criteria);
-        LearningSkillDTO learningSkillDTO = new LearningSkillDTO();
-        Collection<LearningSkillDTO>  learningSkillDTOCollection = new ArrayList<LearningSkillDTO>();
-        Iterator<LearningSkill> itr = learningSkillCollection.iterator();
-
-        while(itr.hasNext()){
-            LearningSkill learningSkill = itr.next();
-            learningSkillDTO = DTOUtil.getLearningSkillDTO(learningSkill);
-            learningSkillDTOCollection.add(learningSkillDTO);
-        }
-        return learningSkillDTOCollection;
+        Collection<LearningSkill> skills = learningSkillService.findByTitleContains(criteria);
+        Collection<LearningSkillDTO>  dtos = new ArrayList<LearningSkillDTO>();
+         dtos = DTOUtil.getLearningSkillDTO(skills);
+        return dtos;
 
     }
 
