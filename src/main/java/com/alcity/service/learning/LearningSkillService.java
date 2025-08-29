@@ -108,7 +108,7 @@ public class LearningSkillService implements LearningSkillRepository {
         LearningSkill learningSkill=null;
         if (code.equalsIgnoreCase("Save")) { //Save
             learningSkill = new LearningSkill(1L, DateUtils.getNow(), DateUtils.getNow(), createdBy.get(), createdBy.get(),
-                    dto.getTitle(),type, parentSkillOptional.get());
+                    dto.getTitle(),type, parentSkillOptional.get(), dto.getWeight(), dto.getMaxValue());
             learningSkillRepository.save(learningSkill);
         }else{//edit
             Optional<LearningSkill> learningSkillOptional= learningSkillRepository.findById(dto.getId());

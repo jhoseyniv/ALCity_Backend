@@ -25,11 +25,34 @@ public class LearningSkill extends BaseTable implements Serializable {
     @Enumerated(EnumType.ORDINAL)
     private SkillType type;
 
+    @Column(name="weight")
+    private Float weight;
+
+    @Column(name="maxValue")
+    private Float maxValue;
+
+
     @ManyToOne(fetch = FetchType.LAZY)
     private LearningSkill parentSkill;
 
     @OneToMany( fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Collection<LearningSkill> learningSkills;
+
+    public Float getWeight() {
+        return weight;
+    }
+
+    public void setWeight(Float weight) {
+        this.weight = weight;
+    }
+
+    public Float getMaxValue() {
+        return maxValue;
+    }
+
+    public void setMaxValue(Float maxValue) {
+        this.maxValue = maxValue;
+    }
 
     public String getTitle() {
         return title;
@@ -66,10 +89,13 @@ public class LearningSkill extends BaseTable implements Serializable {
     public LearningSkill() {
     }
 
-    public LearningSkill(Long version, String created, String updated, AppMember createdBy, AppMember updatedBy, String title, SkillType type, LearningSkill parentSkill) {
+    public LearningSkill(Long version, String created, String updated, AppMember createdBy, AppMember updatedBy,
+                         String title, SkillType type, LearningSkill parentSkill,Float weight, Float maxValue) {
         super(version, created, updated, createdBy, updatedBy);
         this.title = title;
         this.type = type;
         this.parentSkill = parentSkill;
+        this.weight = weight;
+        this.maxValue = maxValue;
     }
 }
