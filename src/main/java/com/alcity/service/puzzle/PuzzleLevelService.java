@@ -267,8 +267,8 @@ public class PuzzleLevelService implements PuzzleLevelRepository {
         BoardCenterDTO boardCenterDTO = initialValuesDTO.getBoardCenter();
         BoardCenterDTO initialPanOffset = initialValuesDTO.getInitialPanOffset();
         //byte[] boardGraphic=boardGraphicOptional.get().getContent();
-        Optional<BinaryContent> skyBox = binaryContentRepository.findById(initialValuesDTO.getSkybox_id());
-        Optional<BinaryContent> background = binaryContentRepository.findById(initialValuesDTO.getBackground_id());
+        Optional<BinaryContent> skyBox = binaryContentRepository.findById(initialValuesDTO.getSkyboxID());
+        Optional<BinaryContent> background = binaryContentRepository.findById(initialValuesDTO.getBackgroundID());
 
         PLGround importPLGround = new PLGround(dto.getRows(), dto.getCols(),
                 position.getX(), position.getY(), position.getZ(), rotation.getX(), rotation.getY(), rotation.getZ(),

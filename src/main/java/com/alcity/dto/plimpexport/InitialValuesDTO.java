@@ -9,8 +9,8 @@ public class InitialValuesDTO implements Serializable {
     private Integer panLimit;
     private BoardCenterDTO boardCenter;
     private BoardCenterDTO initialPanOffset;
-    private Long skybox_id;
-    private Long background_id;
+    private Long backgroundID;
+    private Long skyboxID;
     private Integer backgroundScale;
 
     public Integer getZoom() {
@@ -56,20 +56,20 @@ public class InitialValuesDTO implements Serializable {
     public InitialValuesDTO() {
     }
 
-    public Long getSkybox_id() {
-        return skybox_id;
+    public Long getBackgroundID() {
+        return backgroundID;
     }
 
-    public void setSkybox_id(Long skybox_id) {
-        this.skybox_id = skybox_id;
+    public void setBackgroundID(Long backgroundID) {
+        this.backgroundID = backgroundID;
     }
 
-    public Long getBackground_id() {
-        return background_id;
+    public Long getSkyboxID() {
+        return skyboxID;
     }
 
-    public void setBackground_id(Long background_id) {
-        this.background_id = background_id;
+    public void setSkyboxID(Long skyboxID) {
+        this.skyboxID = skyboxID;
     }
 
     public Integer getBackgroundScale() {
@@ -80,11 +80,13 @@ public class InitialValuesDTO implements Serializable {
         this.backgroundScale = backgroundScale;
     }
 
-    public InitialValuesDTO(Integer zoom, Integer zoomLimit, Integer panLimit, BoardCenterDTO boardCenter, BoardCenterDTO initialPanOffset) {
+    public InitialValuesDTO(Integer zoom, Integer zoomLimit, Integer panLimit, BoardCenterDTO boardCenter, BoardCenterDTO initialPanOffset,Long backgroundID, Long skyboxID) {
         this.zoom = zoom;
         this.zoomLimit = zoomLimit;
         this.panLimit = panLimit;
         this.boardCenter = boardCenter;
         this.initialPanOffset = initialPanOffset;
+        this.backgroundID = backgroundID;
+        this.skyboxID = skyboxID;
     }
 }
