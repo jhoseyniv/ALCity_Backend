@@ -239,9 +239,9 @@ public class PuzzleLevelService implements PuzzleLevelRepository {
         Optional<BinaryContent> picOptional = binaryContentRepository.findById(dto.getPicId());
         Optional<BinaryContent> boardGraphicOptional = binaryContentRepository.findById(dto.getBoardGraphicId());
 
-        Optional<PLGround> plGroundOptional = plGroundService.findById(238L);
-        BoardGraphicDTO boardGraphicDTO = PLDTOUtil.getBoardGraphicJSON(plGroundOptional.get());
-        byte[] boardGraphic = ImageUtil.convertObjectToBytes(boardGraphicDTO);
+       // Optional<PLGround> plGroundOptional = plGroundService.findById(238L);
+       // BoardGraphicDTO boardGraphicDTO = PLDTOUtil.getBoardGraphicJSON(plGroundOptional.get());
+      //  byte[] boardGraphic = ImageUtil.convertObjectToBytes(boardGraphicDTO);
 
         PLDifficulty plDifficulty =  PLDifficulty.getByTitle(dto.getPuzzleLevelDifficulty());
         PLStatus  plStatus =  PLStatus.getByTitle(dto.getPuzzleLevelStatus());
@@ -272,7 +272,7 @@ public class PuzzleLevelService implements PuzzleLevelRepository {
 
         PLGround importPLGround = new PLGround(dto.getRows(), dto.getCols(),
                 position.getX(), position.getY(), position.getZ(), rotation.getX(), rotation.getY(), rotation.getZ(),
-                features.getZoom(), features.getPan(), features.getRotation(),importedPuzzleLevel, boardGraphic,initialValuesDTO.getZoom(),initialValuesDTO.getZoomLimit(),
+                features.getZoom(), features.getPan(), features.getRotation(),importedPuzzleLevel, null,initialValuesDTO.getZoom(),initialValuesDTO.getZoomLimit(),
                 boardCenterDTO.getX(),boardCenterDTO.getY(),boardCenterDTO.getZ(),initialValuesDTO.getPanLimit(),
                 initialPanOffset.getX(),initialPanOffset.getY(),initialPanOffset.getZ(),skyBox.get(),background.get(),initialValuesDTO.getBackgroundScale()
                     , 1L, DateUtils.getNow(), DateUtils.getNow(), createdBy.get(), createdBy.get());
