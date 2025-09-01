@@ -53,12 +53,14 @@ public class LearningSkillTransactionService implements LearningSkillTransaction
     }
 
     public void updateAppMemberSkills(LearningSkillTransaction transaction) {
+        Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
         AppMember_LearningSkill appMemberLearningSkill = null;
         AppMember appMember = transaction.getAppMember();
         LearningSkill learningSkill = transaction.getLearningSkill();
         Optional<AppMember_LearningSkill> appMemberLearningSkillOptional = appMember_LearningSkillRepository.findByApplicationMemberAndLearningSkill(appMember,learningSkill);
         if(appMemberLearningSkillOptional.isEmpty()) {
-            appMemberLearningSkill = new AppMember_LearningSkill(appMember,learningSkill, transaction.getAmount());
+            appMemberLearningSkill = new AppMember_LearningSkill(appMember,learningSkill, transaction.getAmount(),0L,1L,DateUtils.getNow(),DateUtils.getNow(),
+                    createdBy.get(),createdBy.get());
             appMember_LearningSkillRepository.save(appMemberLearningSkill);
         }else{
             appMemberLearningSkill = appMemberLearningSkillOptional.get();
@@ -68,6 +70,7 @@ public class LearningSkillTransactionService implements LearningSkillTransaction
             Float reminder = (Float) (sumAmount % levelUpSize);
             appMemberLearningSkill.setAmount(reminder);
             appMemberLearningSkill.setLevel(level);
+            appMemberLearningSkill.setVersion(appMemberLearningSkill.getVersion()+1);
             appMember_LearningSkillRepository.save(appMemberLearningSkill);
         }
     }

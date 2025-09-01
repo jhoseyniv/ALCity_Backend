@@ -68,6 +68,21 @@ public class AppMemberController {
 
 
 
+    @Operation( summary = "Get XP by this week for an app member ",  description = "Get XP by this week for an app member")
+    @RequestMapping(value = "/id/{id}/xp-week", method = RequestMethod.GET)
+    @ResponseBody
+    @CrossOrigin(origins = "*")
+    public Collection<LearningSkillRadarDTO> getXPByWeek(@PathVariable Long id) {
+        Collection<LearningSkillRadarDTO> dtos = new ArrayList<>();
+        Optional<AppMember> memberOptional = appMemberService.findById(id);
+        if(memberOptional.isEmpty())
+            return null;
+        Collection<AppMember_LearningSkill> memberSkills = appMemberLearningSkillService.findByApplicationMember(memberOptional.get());
+        Collection<AppMember_LearningSkill> majorSkills = memberSkills.stream().filter(memberLearningSkill -> memberLearningSkill.getLearningSkill().getType().equals(SkillType.Skill)).collect(Collectors.toList());
+        dtos = DTOUtil.getLearningSkillRadarDTOS(majorSkills);
+        return dtos;
+    }
+
     @Operation( summary = "Get skill Radar Chart for an app member ",  description = "this api get a radar chart from fundamental skills for a player ")
     @RequestMapping(value = "/id/{id}/skill-radar-chart", method = RequestMethod.GET)
     @ResponseBody

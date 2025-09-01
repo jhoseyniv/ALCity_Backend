@@ -70,10 +70,12 @@ public class AppMember_LearningSkill extends BaseTable implements Serializable {
     public AppMember_LearningSkill() {
     }
 
-    public AppMember_LearningSkill(AppMember applicationMember, LearningSkill learningSkill, Float amount) {
+    public AppMember_LearningSkill( AppMember applicationMember, LearningSkill learningSkill, Float amount, Long level ,
+                                    Long version, String created, String updated, AppMember createdBy, AppMember updatedBy) {
+        super(version, created, updated, createdBy, updatedBy);
         this.applicationMember = applicationMember;
         this.learningSkill = learningSkill;
         this.amount = amount;
+        this.level = level;
     }
-
 }
