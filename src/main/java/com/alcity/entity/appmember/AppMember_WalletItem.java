@@ -10,6 +10,9 @@ import jakarta.persistence.ManyToOne;
 import java.io.Serializable;
 import java.util.Set;
 
+@Table(uniqueConstraints={
+        @UniqueConstraint(columnNames = {"application_member_id", "wallet_item_id"})
+})
 @Entity
 public class AppMember_WalletItem extends BaseTable implements Serializable {
 

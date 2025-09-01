@@ -3,9 +3,12 @@ package com.alcity.service.appmember;
 
 import com.alcity.dto.appmember.LearningSkillTransactionDTO;
 import com.alcity.entity.appmember.AppMember;
+import com.alcity.entity.appmember.AppMember_LearningSkill;
 import com.alcity.entity.appmember.LearningSkillTransaction;
+import com.alcity.entity.appmember.WalletTransaction;
 import com.alcity.entity.learning.LearningSkill;
 import com.alcity.repository.appmember.AppMemberRepository;
+import com.alcity.repository.appmember.AppMember_LearningSkillRepository;
 import com.alcity.repository.appmember.LearningSkillTransactionRepository;
 import com.alcity.repository.learning.LearningSkillRepository;
 import com.alcity.utility.DateUtils;
@@ -13,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -26,6 +30,9 @@ public class LearningSkillTransactionService implements LearningSkillTransaction
     LearningSkillTransactionRepository learningSkillTransactionRepository;
     @Autowired
     LearningSkillRepository learningSkillRepository;
+
+    @Autowired
+    AppMember_LearningSkillRepository appMember_LearningSkillRepository;
 
     @Override
     public <S extends LearningSkillTransaction> S save(S entity) {
@@ -43,6 +50,24 @@ public class LearningSkillTransactionService implements LearningSkillTransaction
                 ,DateUtils.getNow(),dto.getAmount() ,dto.getDescription(),learningSkillOptional.get(),appMemberOptional.get());
         learningSkillTransactionRepository.save(transaction);
         return  transaction;
+    }
+
+    public void updateAppMemberSkills(LearningSkillTransaction transaction) {
+        AppMember_LearningSkill appMemberLearningSkill = null;
+        AppMember appMember = transaction.getAppMember();
+        LearningSkill learningSkill = transaction.getLearningSkill();
+        Optional<AppMember_LearningSkill> appMemberLearningSkillOptional = appMember_LearningSkillRepository.findByApplicationMemberAndLearningSkill(appMember,learningSkill);
+        if(appMemberLearningSkillOptional.isEmpty()) {
+            appMemberLearningSkill = new AppMember_LearningSkill(appMember,learningSkill, transaction.getAmount());
+            appMember_LearningSkillRepository.save(appMemberLearningSkill);
+        }else{
+            appMemberLearningSkill = appMemberLearningSkillOptional.get();
+            appMemberLearningSkill.setAmount(transaction.getAmount() + appMemberLearningSkill.getAmount());
+            appMember_LearningSkillRepository.save(appMemberLearningSkill);
+        }
+    }
+
+    public void updateAppMemberWalletItem(WalletTransaction transaction) {
     }
 
     @Override
@@ -75,6 +100,11 @@ public class LearningSkillTransactionService implements LearningSkillTransaction
     @Override
     public Collection<LearningSkillTransaction> findByAmount(Float amount) {
         return null;
+    }
+
+    @Override
+    public Collection<LearningSkillTransaction> findByAppMember(AppMember appMember) {
+        return learningSkillTransactionRepository.findByAppMember(appMember);
     }
 
     @Override

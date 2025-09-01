@@ -14,19 +14,17 @@ import com.alcity.entity.base.BinaryContent;
 import com.alcity.entity.base.ClientType;
 import com.alcity.entity.journey.Journey;
 import com.alcity.entity.journey.RoadMap;
+import com.alcity.entity.learning.LearningSkill;
 import com.alcity.entity.play.PlayHistory;
 import com.alcity.entity.puzzle.BaseObject;
 import com.alcity.entity.puzzle.PLObjective;
 import com.alcity.repository.appmember.AppMember_WalletItemRepository;
 import com.alcity.service.Journey.JourneyService;
 import com.alcity.o3rdparty.ALCityAcessRight;
-import com.alcity.service.appmember.AppMember_WalletItemService;
-import com.alcity.service.appmember.LearningSkillTransactionService;
-import com.alcity.service.appmember.WalletTransactionService;
+import com.alcity.service.appmember.*;
 import com.alcity.customexception.ResponseObject;
 import com.alcity.customexception.UniqueConstraintException;
 import com.alcity.customexception.ViolateForeignKeyException;
-import com.alcity.service.appmember.AppMemberService;
 import com.alcity.service.base.ClientTypeService;
 import com.alcity.service.puzzle.PLObjectiveService;
 import com.alcity.utility.DTOUtil;
@@ -66,6 +64,26 @@ public class AppMemberController {
     @Autowired
     private LearningSkillTransactionService learningSkillTransactionService;
 
+    @Autowired
+    private AppMember_LearningSkillService appMemberLearningSkillService;
+
+
+
+    @Operation( summary = "Get skill Radar Chart for an app member ",  description = "this api get a radar chart from fundamental skills for a player ")
+    @RequestMapping(value = "/id/{id}/radar-chart", method = RequestMethod.GET)
+    @ResponseBody
+    @CrossOrigin(origins = "*")
+    public Collection<LearningSkillRadarDTO> getRadarChartData(@PathVariable Long id) {
+        Collection<LearningSkillRadarDTO> dtos = new ArrayList<>();
+        Optional<AppMember> memberOptional = appMemberService.findById(id);
+        if(memberOptional.isEmpty())
+            return null;
+        Collection<AppMember_LearningSkill> memberSkills = appMemberLearningSkillService.findByApplicationMember(memberOptional.get());
+        Collection<LearningSkillRadarDTO> pldtos = DTOUtil.getLearningSkillRadarDTOS(memberSkills);
+        return dtos;
+    }
+
+
     @GetMapping("/all")
     @CrossOrigin(origins = "*")
     public Collection<AppMemberDTO> getApplicationMembers(Model model) {
@@ -73,6 +91,7 @@ public class AppMemberController {
         Collection<AppMemberDTO> dtos = DTOUtil.getAppMemberDTOS(appMemberCollection);
         return dtos;
     }
+
 
     @RequestMapping(value = "/id/{id}", method = RequestMethod.GET)
     @ResponseBody
@@ -115,6 +134,7 @@ public class AppMemberController {
         Collection<PLDTO> pldtos = appMemberService.getPublicPuzzleLevels(memberOptional.get());
         return pldtos;
     }
+
 
     @Operation( summary = "Get puzzle levels defined for a app member but not played ",  description = "Get all puzzle levels defined for a app member but not played ...")
     @RequestMapping(value = "/id/{id}/not-played", method = RequestMethod.GET)
@@ -317,7 +337,8 @@ public class AppMemberController {
        else {
             savedRecord = learningSkillTransactionService.save(dto, "Save");
             response = new ResponseMessage(ErrorType.SaveSuccess, Status.ok.name() ,LearningSkillTransaction.class.getSimpleName() , savedRecord.getId(), SystemMessage.SaveOrEditMessage_Success);
-        }
+            learningSkillTransactionService.updateAppMemberSkills(savedRecord);
+       }
         return response;
     }
 

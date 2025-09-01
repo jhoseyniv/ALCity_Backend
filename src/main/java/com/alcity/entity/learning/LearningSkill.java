@@ -28,8 +28,8 @@ public class LearningSkill extends BaseTable implements Serializable {
     @Column(name="weight")
     private Float weight;
 
-    @Column(name="maxValue")
-    private Float maxValue;
+    @Column(name="levelUpSize")
+    private Long levelUpSize;
 
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -46,12 +46,12 @@ public class LearningSkill extends BaseTable implements Serializable {
         this.weight = weight;
     }
 
-    public Float getMaxValue() {
-        return maxValue;
+    public Long getLevelUpSize() {
+        return levelUpSize;
     }
 
-    public void setMaxValue(Float maxValue) {
-        this.maxValue = maxValue;
+    public void setLevelUpSize(Long levelUpSize) {
+        this.levelUpSize = levelUpSize;
     }
 
     public String getTitle() {
@@ -90,12 +90,12 @@ public class LearningSkill extends BaseTable implements Serializable {
     }
 
     public LearningSkill(Long version, String created, String updated, AppMember createdBy, AppMember updatedBy,
-                         String title, SkillType type, LearningSkill parentSkill,Float weight, Float maxValue) {
+                         String title, SkillType type, LearningSkill parentSkill,Float weight, Long levelUpSize) {
         super(version, created, updated, createdBy, updatedBy);
         this.title = title;
         this.type = type;
         this.parentSkill = parentSkill;
         this.weight = weight;
-        this.maxValue = maxValue;
+        this.levelUpSize = levelUpSize;
     }
 }

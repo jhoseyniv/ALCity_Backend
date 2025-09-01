@@ -3,10 +3,7 @@ package com.alcity.entity.appmember;
 import com.alcity.entity.base.BaseTable;
 import com.alcity.entity.learning.LearningSkill;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 
 import java.io.Serializable;
@@ -32,7 +29,6 @@ public class LearningSkillTransaction   extends BaseTable implements Serializabl
     @JoinColumn(name = "applicationMember_id", nullable = false)
     @JsonIgnore
     private AppMember appMember;
-
 
     public String getTransactionDate() {
         return transactionDate;
@@ -65,6 +61,15 @@ public class LearningSkillTransaction   extends BaseTable implements Serializabl
     public void setLearningSkill(LearningSkill learningSkill) {
         this.learningSkill = learningSkill;
     }
+
+    public AppMember getAppMember() {
+        return appMember;
+    }
+
+    public void setAppMember(AppMember appMember) {
+        this.appMember = appMember;
+    }
+
 
     public LearningSkillTransaction() {
     }

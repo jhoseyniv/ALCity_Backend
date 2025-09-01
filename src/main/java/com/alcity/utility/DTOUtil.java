@@ -21,7 +21,7 @@ import com.alcity.dto.puzzle.*;
 import com.alcity.dto.puzzle.boardgraphic.BoardGraphicDTO;
 import com.alcity.entity.alenum.*;
 import com.alcity.entity.alobject.*;
-import com.alcity.entity.appmember.AppMember_WalletItem;
+import com.alcity.entity.appmember.*;
 import com.alcity.entity.base.*;
 import com.alcity.entity.journey.Journey;
 import com.alcity.entity.journey.JourneyStep;
@@ -31,8 +31,6 @@ import com.alcity.entity.learning.LearningSkill;
 import com.alcity.entity.learning.LearningTopic;
 import com.alcity.entity.play.PlayHistory;
 import com.alcity.entity.puzzle.*;
-import com.alcity.entity.appmember.AppMember;
-import com.alcity.entity.appmember.WalletItem;
 import com.alcity.repository.alobject.AttributeRepository;
 import com.alcity.repository.alobject.AttributeValueRepository;
 import com.alcity.service.alobject.ActionService;
@@ -903,6 +901,26 @@ public class DTOUtil {
 
         return dto;
     }
+    public static LearningSkillRadarDTO getLearningSkillRadarDTO(AppMember_LearningSkill appMemberLearningSkill) {
+        LearningSkillRadarDTO dto = new LearningSkillRadarDTO();
+        dto.setAmount(appMemberLearningSkill.getAmount());
+       // dto.setLevel(entity.getXpos());
+       // dto.setYpos(entity.getYpos());
+        dto.setSkillType(appMemberLearningSkill.getLearningSkill().getType().name());
+        return dto;
+    }
+
+    public static Collection<LearningSkillRadarDTO> getLearningSkillRadarDTOS(Collection<AppMember_LearningSkill> skillTransactions) {
+        Collection<LearningSkillRadarDTO> dtos = new ArrayList<LearningSkillRadarDTO>();
+        Iterator<AppMember_LearningSkill> iterator = skillTransactions.iterator();
+        while (iterator.hasNext()) {
+            LearningSkillRadarDTO dto = getLearningSkillRadarDTO(iterator.next());
+            dtos.add(dto);
+        }
+        return dtos;
+    }
+
+
     public static Collection<AppMemberDTO> getAppMemberDTOS(Collection<AppMember> appMemberCollection) {
         Collection<AppMemberDTO> dtos = new ArrayList<AppMemberDTO>();
         Iterator<AppMember> iterator = appMemberCollection.iterator();
@@ -986,8 +1004,10 @@ public class DTOUtil {
         dto.setStars(entity.getStars());
         dto.setPlayerId(player.getId());
         dto.setPlayerUsername(player.getUsername());
-        dto.setGameStatus(entity.getGameStatus().name());
-
+        if(entity.getGameStatus()!=null)
+            dto.setGameStatus(entity.getGameStatus().name());
+        else
+            dto.setGameStatus(GameStatus.Unknown.name());
         dto.setPlId(pl.getId());
         dto.setPlTitle(pl.getTitle());
         dto.setPlCode(pl.getCode());

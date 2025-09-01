@@ -7,7 +7,7 @@ public class LearningSkillDTO {
     private String parentTitle;
     private Long parentId;
     private Float weight;
-    private Float maxValue;
+    private Long maxValue;
 
     public String getTitle() {
         return title;
@@ -57,11 +57,11 @@ public class LearningSkillDTO {
         this.weight = weight;
     }
 
-    public Float getMaxValue() {
+    public Long getMaxValue() {
         return maxValue;
     }
 
-    public void setMaxValue(Float maxValue) {
+    public void setMaxValue(Long maxValue) {
         this.maxValue = maxValue;
     }
 

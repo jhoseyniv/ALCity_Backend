@@ -4,6 +4,7 @@ package com.alcity.service.play;
 import com.alcity.dto.appmember.AppMemberJourneyDTO;
 import com.alcity.dto.player.PlayHistoryDTO;
 import com.alcity.dto.puzzle.PLDTO;
+import com.alcity.entity.alenum.GameStatus;
 import com.alcity.entity.alenum.PLDifficulty;
 import com.alcity.entity.alenum.PLStatus;
 import com.alcity.entity.appmember.AppMember;
@@ -81,13 +82,13 @@ public class PlayHistoryService implements PlayHistoryRepository {
         Optional<PuzzleLevel> puzzleLevelOptional =  puzzleLevelService.findById(dto.getPlId());
         Optional<PuzzleGroup> puzzleGroupOptional =  pgService.findById(dto.getPgId());
         Optional<AppMember> playerOptional = appMemberRepository.findById(dto.getPlayerId());
-
+        GameStatus gameStatus = GameStatus.getByTitle(dto.getPlayerUsername());
         if(puzzleLevelOptional.isEmpty() || puzzleGroupOptional.isEmpty() || playerOptional.isEmpty()) return null;
 
 
        if (code.equalsIgnoreCase("Save")) { //Save
            playHistory = new PlayHistory(playerOptional.get(),puzzleLevelOptional.get(), dto.getStartPlayTime(), dto.getEndPlayTime(),
-                   dto.getPlayDuration(),dto.getPlayScore(),dto.getStars(),
+                   dto.getPlayDuration(),dto.getPlayScore(),dto.getStars(),gameStatus,
                    String.valueOf(dto.getAnalyticalData()).getBytes(), 1L, DateUtils.getNow(), DateUtils.getNow(), createdBy.get(), createdBy.get());
             playHistoryRepository.save(playHistory);
         }else{//edit

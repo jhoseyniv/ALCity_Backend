@@ -1,5 +1,6 @@
 package com.alcity.repository.appmember;
 
+import com.alcity.entity.appmember.AppMember;
 import com.alcity.entity.appmember.LearningSkillTransaction;
 import com.alcity.entity.appmember.WalletItem;
 import com.alcity.entity.appmember.WalletTransaction;
@@ -14,5 +15,7 @@ public interface LearningSkillTransactionRepository extends CrudRepository<Learn
     Collection<LearningSkillTransaction> findAll();
     LearningSkillTransaction findByTransactionDate(String label);
     Collection<LearningSkillTransaction> findByAmount(Float amount);
+
+    Collection<LearningSkillTransaction> findByAppMember(AppMember appMember);
 
 }

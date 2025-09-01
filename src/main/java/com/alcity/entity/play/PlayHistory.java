@@ -118,7 +118,8 @@ public class PlayHistory extends BaseTable {
     public PlayHistory() {
     }
 
-    public PlayHistory(AppMember player, PuzzleLevel puzzleLevel, String startPlayTime,String endPlayTime,Long playDuration , Float playScore,Integer stars,byte[] analyticalData, Long version, String created, String updated, AppMember createdBy, AppMember updatedBy) {
+    public PlayHistory(AppMember player, PuzzleLevel puzzleLevel, String startPlayTime,String endPlayTime,Long playDuration , Float playScore,Integer stars ,GameStatus gameStatus,byte[] analyticalData,
+                       Long version, String created, String updated, AppMember createdBy, AppMember updatedBy) {
         super(version, created, updated, createdBy, updatedBy);
         this.player = player;
         this.puzzleLevel = puzzleLevel;
@@ -127,6 +128,7 @@ public class PlayHistory extends BaseTable {
         this.playDuration = playDuration;
         this.playScore = playScore;
         this.stars = stars;
+        this.gameStatus = gameStatus;
         this.analyticalData=analyticalData;
     }
 }

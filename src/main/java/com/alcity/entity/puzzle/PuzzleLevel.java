@@ -12,9 +12,11 @@ import java.io.Serializable;
 import java.util.Collection;
 
 
-@Table(uniqueConstraints={
-        @UniqueConstraint(columnNames = {"title", "code","puzzle_group_id"})
-})
+@Table(
+        uniqueConstraints={
+                @UniqueConstraint(columnNames = {"title", "code","puzzle_group_id"})
+            }
+        )
 
 @Entity
 public class PuzzleLevel extends BaseTable implements Serializable {
