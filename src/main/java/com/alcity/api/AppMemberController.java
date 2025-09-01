@@ -5,9 +5,7 @@ import com.alcity.dto.appmember.*;
 import com.alcity.dto.player.PlayHistoryDTO;
 import com.alcity.dto.puzzle.PLDTO;
 import com.alcity.dto.search.AppMemberSearchCriteriaDTO;
-import com.alcity.entity.alenum.Status;
-import com.alcity.entity.alenum.ErrorType;
-import com.alcity.entity.alenum.SystemMessage;
+import com.alcity.entity.alenum.*;
 import com.alcity.entity.alobject.ObjectCategory;
 import com.alcity.entity.appmember.*;
 import com.alcity.entity.base.BinaryContent;
@@ -37,6 +35,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Tag(name = "Application Member APIs", description = "Get Application Member and related entities as rest api")
 @CrossOrigin(origins = "*" ,maxAge = 3600)
@@ -79,7 +78,8 @@ public class AppMemberController {
         if(memberOptional.isEmpty())
             return null;
         Collection<AppMember_LearningSkill> memberSkills = appMemberLearningSkillService.findByApplicationMember(memberOptional.get());
-        dtos = DTOUtil.getLearningSkillRadarDTOS(memberSkills);
+        Collection<AppMember_LearningSkill> majorSkills = memberSkills.stream().filter(memberLearningSkill -> memberLearningSkill.getLearningSkill().getType().equals(SkillType.Skill)).collect(Collectors.toList());
+        dtos = DTOUtil.getLearningSkillRadarDTOS(majorSkills);
         return dtos;
     }
 
