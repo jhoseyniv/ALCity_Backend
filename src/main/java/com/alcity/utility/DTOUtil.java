@@ -904,9 +904,9 @@ public class DTOUtil {
     public static LearningSkillRadarDTO getLearningSkillRadarDTO(AppMember_LearningSkill appMemberLearningSkill) {
         LearningSkillRadarDTO dto = new LearningSkillRadarDTO();
         dto.setAmount(appMemberLearningSkill.getAmount());
-       // dto.setLevel(entity.getXpos());
-       // dto.setYpos(entity.getYpos());
+        dto.setLevel(appMemberLearningSkill.getLevel());
         dto.setSkillType(appMemberLearningSkill.getLearningSkill().getType().name());
+        dto.setMemberId(appMemberLearningSkill.getApplicationMember().getId());
         return dto;
     }
 

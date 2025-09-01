@@ -70,7 +70,7 @@ public class AppMemberController {
 
 
     @Operation( summary = "Get skill Radar Chart for an app member ",  description = "this api get a radar chart from fundamental skills for a player ")
-    @RequestMapping(value = "/id/{id}/radar-chart", method = RequestMethod.GET)
+    @RequestMapping(value = "/id/{id}/skill-radar-chart", method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin(origins = "*")
     public Collection<LearningSkillRadarDTO> getRadarChartData(@PathVariable Long id) {
@@ -79,7 +79,7 @@ public class AppMemberController {
         if(memberOptional.isEmpty())
             return null;
         Collection<AppMember_LearningSkill> memberSkills = appMemberLearningSkillService.findByApplicationMember(memberOptional.get());
-        Collection<LearningSkillRadarDTO> pldtos = DTOUtil.getLearningSkillRadarDTOS(memberSkills);
+        dtos = DTOUtil.getLearningSkillRadarDTOS(memberSkills);
         return dtos;
     }
 
@@ -147,6 +147,7 @@ public class AppMemberController {
         Collection<PLDTO> pldtos = appMemberService.getPuzzleLevelsNotPlayed(publicPuzzleLevels,playedPuzlles);
         return pldtos;
     }
+
     @Operation( summary = "Get puzzle levels for an Application Member that played",  description = "Get all puzzle levels for an Application Member that played ...")
     @RequestMapping(value = "/id/{id}/played", method = RequestMethod.GET)
     @ResponseBody
@@ -182,7 +183,6 @@ public class AppMemberController {
     @CrossOrigin(origins = "*")
     public AppMemberJourneyInfo getPuzzleLevelMappedStepInJourney(@PathVariable Long id, @PathVariable Long jid) {
         long start_time = System.currentTimeMillis();
-
         Optional<AppMember> memberOptional = appMemberService.findById(id);
         Optional<Journey> journeyOptional = journeyService.findById(jid);
         AppMemberJourneyInfo journeyInfoWithScores =null;

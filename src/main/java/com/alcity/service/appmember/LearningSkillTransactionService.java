@@ -62,7 +62,12 @@ public class LearningSkillTransactionService implements LearningSkillTransaction
             appMember_LearningSkillRepository.save(appMemberLearningSkill);
         }else{
             appMemberLearningSkill = appMemberLearningSkillOptional.get();
-            appMemberLearningSkill.setAmount(transaction.getAmount() + appMemberLearningSkill.getAmount());
+            Float sumAmount = transaction.getAmount() + appMemberLearningSkill.getAmount();
+            Long  levelUpSize = learningSkill.getLevelUpSize();
+            Long level = (long) (sumAmount / levelUpSize);
+            Float reminder = (Float) (sumAmount % levelUpSize);
+            appMemberLearningSkill.setAmount(reminder);
+            appMemberLearningSkill.setLevel(level);
             appMember_LearningSkillRepository.save(appMemberLearningSkill);
         }
     }
