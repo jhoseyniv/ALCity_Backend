@@ -909,6 +909,8 @@ public class DTOUtil {
         dto.setAmount(appMemberLearningSkill.getAmount());
         dto.setLevel(appMemberLearningSkill.getLevel());
         dto.setSkillType(appMemberLearningSkill.getLearningSkill().getType().name());
+        dto.setSkillTitle(appMemberLearningSkill.getLearningSkill().getTitle());
+        dto.setSkillId(appMemberLearningSkill.getLearningSkill().getId());
         dto.setMemberId(appMemberLearningSkill.getApplicationMember().getId());
         return dto;
     }
