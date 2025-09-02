@@ -34,7 +34,7 @@ public class  DateUtils {
         return localDateTime.format(format);
     }
 
-    public static String getNowString(LocalDateTime current ){
+    public static String getDateByString(LocalDateTime current ){
        // LocalDateTime current = LocalDateTime.now();
         DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
         return current.format(format);

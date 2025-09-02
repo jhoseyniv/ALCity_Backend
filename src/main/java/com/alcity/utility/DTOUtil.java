@@ -931,10 +931,10 @@ public class DTOUtil {
 
         while(iterator.hasNext()){
             LearningSkillTransaction transaction = iterator.next();
-            dto.setDate(transaction.getTransactionDate().toString());
             xp += transaction.getAmount();
-            dto.setDayOfWeek(dayOfWeek.getValue());
         }
+        dto.setDate(DateUtils.getDateByString(date));
+        dto.setDayOfWeek(dayOfWeek.getValue());
         dto.setDayOfWeekName(dayOfWeek.name());
         dto.setXp(xp);
         dto.setMemberId(appMemberId);
