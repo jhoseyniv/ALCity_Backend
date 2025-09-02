@@ -7,10 +7,12 @@ import com.alcity.entity.appmember.AppMember_LearningSkill;
 import com.alcity.entity.appmember.LearningSkillTransaction;
 import com.alcity.entity.appmember.WalletTransaction;
 import com.alcity.entity.learning.LearningSkill;
+import com.alcity.entity.puzzle.PLObjective;
 import com.alcity.repository.appmember.AppMemberRepository;
 import com.alcity.repository.appmember.AppMember_LearningSkillRepository;
 import com.alcity.repository.appmember.LearningSkillTransactionRepository;
 import com.alcity.repository.learning.LearningSkillRepository;
+import com.alcity.service.puzzle.PLObjectiveService;
 import com.alcity.utility.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -36,6 +38,9 @@ public class LearningSkillTransactionService implements LearningSkillTransaction
     @Autowired
     AppMember_LearningSkillRepository appMember_LearningSkillRepository;
 
+    @Autowired
+    private PLObjectiveService plObjectiveService;
+
     @Override
     public <S extends LearningSkillTransaction> S save(S entity) {
         return null;
@@ -44,12 +49,13 @@ public class LearningSkillTransactionService implements LearningSkillTransaction
     public LearningSkillTransaction save(LearningSkillTransactionDTO dto, String code) {
         Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
         Optional<AppMember> appMemberOptional = appMemberRepository.findById(dto.getAppMemberId());
+        Optional<PLObjective> objectiveOptional = plObjectiveService.findById(dto.getObjectiveId());
         if(appMemberOptional.isEmpty()) return  null;
 
         Optional<LearningSkill> learningSkillOptional = learningSkillRepository.findById(dto.getLearningSkillId());
 
         LearningSkillTransaction transaction = new LearningSkillTransaction(1L,DateUtils.getNow(),DateUtils.getNow(),createdBy.get(),createdBy.get()
-                ,DateUtils.getNow(),dto.getAmount() ,dto.getDescription(),learningSkillOptional.get(),appMemberOptional.get());
+                ,DateUtils.getNow(),dto.getAmount() ,dto.getDescription(),learningSkillOptional.get(),appMemberOptional.get(),objectiveOptional.get());
         learningSkillTransactionRepository.save(transaction);
         return  transaction;
     }
@@ -106,6 +112,11 @@ public class LearningSkillTransactionService implements LearningSkillTransaction
     @Override
     public Collection<LearningSkillTransaction> findByAmount(Float amount) {
         return null;
+    }
+
+    @Override
+    public Optional<LearningSkillTransaction> findByPlObjectiveAndAppMember(PLObjective plObjective, AppMember appMember) {
+        return learningSkillTransactionRepository.findByPlObjectiveAndAppMember(plObjective,appMember);
     }
 
     @Override

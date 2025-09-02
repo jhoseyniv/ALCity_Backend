@@ -6,9 +6,8 @@ public class LearningSkillTransactionDTO implements Serializable {
     private Float amount;
     private Long appMemberId;
     private Long learningSkillId;
-
+    private Long objectiveId;
     private  String description;
-
     public Float getAmount() {
         return amount;
     }
@@ -41,13 +40,22 @@ public class LearningSkillTransactionDTO implements Serializable {
         this.description = description;
     }
 
+    public Long getObjectiveId() {
+        return objectiveId;
+    }
+
+    public void setObjectiveId(Long objectiveId) {
+        this.objectiveId = objectiveId;
+    }
+
     public LearningSkillTransactionDTO() {
     }
 
-    public LearningSkillTransactionDTO(Float amount, Long appMemberId, Long learningSkillId,String description) {
+    public LearningSkillTransactionDTO(Float amount, Long appMemberId, Long learningSkillId,Long objectiveId,String description) {
         this.amount = amount;
         this.appMemberId = appMemberId;
         this.learningSkillId = learningSkillId;
+        this.objectiveId = objectiveId;
         this.description = description;
     }
 }

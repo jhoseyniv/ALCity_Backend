@@ -4,6 +4,7 @@ import com.alcity.entity.appmember.AppMember;
 import com.alcity.entity.appmember.LearningSkillTransaction;
 import com.alcity.entity.appmember.WalletItem;
 import com.alcity.entity.appmember.WalletTransaction;
+import com.alcity.entity.puzzle.PLObjective;
 import org.springframework.data.repository.CrudRepository;
 
 import java.time.LocalDate;
@@ -17,6 +18,8 @@ public interface LearningSkillTransactionRepository extends CrudRepository<Learn
     Collection<LearningSkillTransaction> findAll();
 
     Collection<LearningSkillTransaction> findByAmount(Float amount);
+
+    Optional<LearningSkillTransaction> findByPlObjectiveAndAppMember(PLObjective plObjective, AppMember appMember);
 
     Collection<LearningSkillTransaction> findByTransactionDateContaining(String transactionDate);
     Collection<LearningSkillTransaction> findByTransactionDateContainingAndAppMember(String transactionDate, AppMember appMember);

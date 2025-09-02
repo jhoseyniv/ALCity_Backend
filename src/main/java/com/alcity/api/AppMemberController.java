@@ -345,6 +345,16 @@ public class AppMemberController {
         return true;
     }
     public boolean checkPLSkillConstraint(LearningSkillTransactionDTO dto){
+        Long objectiveId = dto.getObjectiveId();
+        Long appMemberId = dto.getAppMemberId();
+        Optional<AppMember> appMemberOptional = appMemberService.findById(appMemberId);
+        Optional<PLObjective> plObjectiveOptional = plObjectiveService.findById(objectiveId);
+
+        if(appMemberOptional.isEmpty() || plObjectiveOptional.isEmpty() ) return false;
+
+        Optional<LearningSkillTransaction> transactionOptional = learningSkillTransactionService.findByPlObjectiveAndAppMember(plObjectiveOptional.get(),appMemberOptional.get());
+        if(transactionOptional.isPresent()) return false;
+
         return true;
     }
 
