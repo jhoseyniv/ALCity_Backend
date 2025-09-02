@@ -386,7 +386,7 @@ public class AppMemberController {
         boolean checkIsRewardBefore = checkPLSkillConstraint(dto);
 
         if(checkIsRewardBefore == false)
-            return new ResponseMessage(ErrorType.UniquenessViolation, Status.ok.name() , LearningSkillTransaction.class.getSimpleName() , savedRecord.getId(), "The user got this a learning skill before");
+            return new ResponseMessage(ErrorType.UniquenessViolation, Status.ok.name() , LearningSkillTransaction.class.getSimpleName() , -1L, SystemMessage.UserGotThisRewardBefore );
        else {
             savedRecord = learningSkillTransactionService.save(dto, "Save");
             response = new ResponseMessage(ErrorType.SaveSuccess, Status.ok.name() ,LearningSkillTransaction.class.getSimpleName() , savedRecord.getId(), SystemMessage.SaveOrEditMessage_Success);
