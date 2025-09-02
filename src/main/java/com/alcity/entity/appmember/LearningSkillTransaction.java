@@ -7,6 +7,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 @Entity
 public class LearningSkillTransaction   extends BaseTable implements Serializable {

@@ -15,6 +15,8 @@ import com.alcity.utility.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
@@ -93,10 +95,6 @@ public class LearningSkillTransactionService implements LearningSkillTransaction
         return null;
     }
 
-    @Override
-    public LearningSkillTransaction findByTransactionDate(String label) {
-        return null;
-    }
 
     @Override
     public boolean existsById(Long aLong) {
@@ -108,6 +106,21 @@ public class LearningSkillTransactionService implements LearningSkillTransaction
     @Override
     public Collection<LearningSkillTransaction> findByAmount(Float amount) {
         return null;
+    }
+
+    @Override
+    public Collection<LearningSkillTransaction> findByTransactionDateContaining(String transactionDate) {
+        return learningSkillTransactionRepository.findByTransactionDateContaining(transactionDate);
+    }
+
+    @Override
+    public Collection<LearningSkillTransaction> findByTransactionDateContainingAndAppMember(String transactionDate, AppMember appMember) {
+        return learningSkillTransactionRepository.findByTransactionDateContainingAndAppMember(transactionDate, appMember);
+    }
+
+    @Override
+    public Collection<LearningSkillTransaction> findByCreatedContaining(String created) {
+        return learningSkillTransactionRepository.findByCreatedContaining(created);
     }
 
     @Override

@@ -23,12 +23,23 @@ public class  DateUtils {
 
         return zdtFromEpochSeconds.format(formatter);
     }
- public static String getNow(){
-     LocalDateTime current = LocalDateTime.now();
-     DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
-     return current.format(format);
 
- }
+    public static String getNow(){
+        LocalDateTime current = LocalDateTime.now();
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+        return current.format(format);
+    }
+    public static String getDate(LocalDateTime  localDateTime){
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        return localDateTime.format(format);
+    }
+
+    public static String getNowString(LocalDateTime current ){
+       // LocalDateTime current = LocalDateTime.now();
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+        return current.format(format);
+    }
+
     public static Integer calculateAgeFromGregorian(Integer birthYear) {
         LocalDate birthdate = LocalDate.of(birthYear, 12, 29);
         // Calculate period between birthdate and current date
@@ -36,6 +47,7 @@ public class  DateUtils {
 
         return period.getYears();
     }
+
     public static Integer calculateAgeFromJalali(Integer birthYear) {
         JalaliCalendar jalaliCalendar = new JalaliCalendar(birthYear, 12, 29);
         GregorianCalendar gc = jalaliCalendar.toGregorian();

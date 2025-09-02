@@ -42,7 +42,10 @@ import org.json.JSONException;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.time.DayOfWeek;
+import java.time.LocalDateTime;
 import java.util.*;
+import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.toList;
 
@@ -920,6 +923,45 @@ public class DTOUtil {
         return dtos;
     }
 
+    public static AppMemberWeekXPDTO getXPForADate(Collection<LearningSkillTransaction> transactions, LocalDateTime date,Long appMemberId) {
+        AppMemberWeekXPDTO dto = new AppMemberWeekXPDTO();
+        DayOfWeek dayOfWeek = date.getDayOfWeek();
+        Float xp=0f;
+        Iterator<LearningSkillTransaction> iterator = transactions.iterator();
+
+        while(iterator.hasNext()){
+            LearningSkillTransaction transaction = iterator.next();
+            dto.setDate(transaction.getTransactionDate().toString());
+            dto.setDayOfWeekName(dayOfWeek.name());
+            xp += transaction.getAmount();
+            dto.setDayOfWeek(dayOfWeek.getValue());
+        }
+        dto.setXp(xp);
+        dto.setMemberId(appMemberId);
+        return dto;
+    }
+
+    public static AppMemberWeekXPDTO getAppMemberWeekXPDTO(LearningSkillTransaction transaction) {
+        AppMemberWeekXPDTO dto = new AppMemberWeekXPDTO();
+        dto.setDate(transaction.getTransactionDate().toString());
+        dto.setMemberId(transaction.getAppMember().getId());
+        dto.setXp(transaction.getAmount());
+        return dto;
+    }
+
+    public static Collection<AppMemberWeekXPDTO> getAppMemberWeekXPDTOS(Collection<LearningSkillTransaction> transactions) {
+        Collection<AppMemberWeekXPDTO> dtos = new ArrayList<AppMemberWeekXPDTO>();
+        LocalDateTime date = LocalDateTime.now();
+//        AppMemberWeekXPDTO today = getXPForADate(transactions, date);
+//        AppMemberWeekXPDTO today_1 = getXPForADate(transactions, date.minusDays(1));
+//        AppMemberWeekXPDTO today_2 = getXPForADate(transactions, date.minusDays(2));
+
+//        dtos.add(today);
+//        dtos.add(today_1);
+//        dtos.add(today_2);
+
+        return dtos;
+    }
 
     public static Collection<AppMemberDTO> getAppMemberDTOS(Collection<AppMember> appMemberCollection) {
         Collection<AppMemberDTO> dtos = new ArrayList<AppMemberDTO>();
