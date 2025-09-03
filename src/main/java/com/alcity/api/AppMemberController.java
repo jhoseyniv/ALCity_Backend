@@ -368,7 +368,7 @@ public class AppMemberController {
         Optional<LearningSkillTransaction> transactionOptional = learningSkillTransactionService.findByPlObjectiveAndAppMember(plObjectiveOptional.get(),appMemberOptional.get());
         if(transactionOptional.isPresent()) return true;
 
-        return true;
+        return false;
     }
 
     @Operation( summary = "Apply Reward for specific  Member after playing puzzles ",  description = "Apply Reward for specific  Member after playing puzzles")
