@@ -1123,9 +1123,10 @@ public class DTOUtil {
     }
 
     public static LearningSkillDTO getLearningSkillDTO(LearningSkill ls) {
+
         if(ls.getParentSkill() == null)
-            return  new LearningSkillDTO(ls.getId(), ls.getTitle(), ls.getType().name(),0L,"");;
-        LearningSkillDTO lsDTO = new LearningSkillDTO(ls.getId(), ls.getTitle(), ls.getType().name(),ls.getParentSkill().getId(),ls.getParentSkill().getTitle());
+            return  new LearningSkillDTO(ls.getId(), ls.getTitle(), ls.getType().name(),0L,"",0L,ls.getIcon().getId());;
+        LearningSkillDTO lsDTO = new LearningSkillDTO(ls.getId(), ls.getTitle(), ls.getType().name(),ls.getParentSkill().getId(),ls.getParentSkill().getTitle(),ls.getLevelUpSize(),ls.getIcon().getId());
         return lsDTO;
     }
 

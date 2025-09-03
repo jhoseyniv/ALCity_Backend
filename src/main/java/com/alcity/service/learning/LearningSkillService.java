@@ -3,9 +3,11 @@ package com.alcity.service.learning;
 import com.alcity.dto.learning.LearningSkillDTO;
 import com.alcity.entity.alenum.SkillType;
 import com.alcity.entity.appmember.AppMember;
+import com.alcity.entity.base.BinaryContent;
 import com.alcity.entity.learning.LearningSkill;
 import com.alcity.repository.appmember.AppMemberRepository;
 import com.alcity.repository.learning.LearningSkillRepository;
+import com.alcity.service.base.BinaryContentService;
 import com.alcity.utility.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,6 +23,9 @@ public class LearningSkillService implements LearningSkillRepository {
 
     @Autowired
     LearningSkillRepository learningSkillRepository;
+    @Autowired
+    private BinaryContentService binaryContentService;
+
     @Override
     public <S extends LearningSkill> S save(S entity) {
         return learningSkillRepository.save(entity);
@@ -103,12 +108,19 @@ public class LearningSkillService implements LearningSkillRepository {
    public LearningSkill save(LearningSkillDTO dto, String code) {
         Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
         SkillType type = SkillType.valueOf(dto.getType());
+        BinaryContent icon=null;
         Optional<LearningSkill> parentSkillOptional = learningSkillRepository.findById(dto.getParentId());
-        if(parentSkillOptional.isEmpty()) {}
+        Optional<BinaryContent> binaryContentOptional = binaryContentService.findById(dto.getIconId());
+        if(binaryContentOptional.isEmpty()) {
+            icon = binaryContentService.findByfileName("no-photo.png");
+        } else{
+            icon = binaryContentOptional.get();
+        }
+       if(parentSkillOptional.isEmpty()) {}
         LearningSkill learningSkill=null;
         if (code.equalsIgnoreCase("Save")) { //Save
             learningSkill = new LearningSkill(1L, DateUtils.getNow(), DateUtils.getNow(), createdBy.get(), createdBy.get(),
-                    dto.getTitle(),type, parentSkillOptional.get(), dto.getWeight(), dto.getMaxValue());
+                    dto.getTitle(),type, parentSkillOptional.get(), dto.getWeight(), dto.getLevelUpSize(),icon);
             learningSkillRepository.save(learningSkill);
         }else{//edit
             Optional<LearningSkill> learningSkillOptional= learningSkillRepository.findById(dto.getId());

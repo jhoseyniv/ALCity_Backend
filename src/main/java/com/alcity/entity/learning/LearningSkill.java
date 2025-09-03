@@ -6,6 +6,7 @@ import com.alcity.entity.base.BaseItemSet;
 import com.alcity.entity.appmember.AppMember;
 
 import com.alcity.entity.base.BaseTable;
+import com.alcity.entity.base.BinaryContent;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -31,6 +32,10 @@ public class LearningSkill extends BaseTable implements Serializable {
     @Column(name="levelUpSize")
     private Long levelUpSize;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "icon_id", nullable = true)
+    @JsonIgnore
+    private BinaryContent icon;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private LearningSkill parentSkill;
@@ -86,16 +91,25 @@ public class LearningSkill extends BaseTable implements Serializable {
         this.learningSkills = learningSkills;
     }
 
+    public BinaryContent getIcon() {
+        return icon;
+    }
+
+    public void setIcon(BinaryContent icon) {
+        this.icon = icon;
+    }
+
     public LearningSkill() {
     }
 
     public LearningSkill(Long version, String created, String updated, AppMember createdBy, AppMember updatedBy,
-                         String title, SkillType type, LearningSkill parentSkill,Float weight, Long levelUpSize) {
+                         String title, SkillType type, LearningSkill parentSkill,Float weight, Long levelUpSize,BinaryContent icon) {
         super(version, created, updated, createdBy, updatedBy);
         this.title = title;
         this.type = type;
         this.parentSkill = parentSkill;
         this.weight = weight;
         this.levelUpSize = levelUpSize;
+        this.icon = icon;
     }
 }

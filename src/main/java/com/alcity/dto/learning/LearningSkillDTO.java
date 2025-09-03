@@ -7,7 +7,8 @@ public class LearningSkillDTO {
     private String parentTitle;
     private Long parentId;
     private Float weight;
-    private Long maxValue;
+    private Long levelUpSize;
+    private Long iconId;
 
     public String getTitle() {
         return title;
@@ -57,22 +58,32 @@ public class LearningSkillDTO {
         this.weight = weight;
     }
 
-    public Long getMaxValue() {
-        return maxValue;
+    public Long getLevelUpSize() {
+        return levelUpSize;
     }
 
-    public void setMaxValue(Long maxValue) {
-        this.maxValue = maxValue;
+    public void setLevelUpSize(Long levelUpSize) {
+        this.levelUpSize = levelUpSize;
+    }
+
+    public Long getIconId() {
+        return iconId;
+    }
+
+    public void setIconId(Long iconId) {
+        this.iconId = iconId;
     }
 
     public LearningSkillDTO() {
     }
 
-    public LearningSkillDTO(Long id, String title, String type, Long parentId,String parentTitle) {
+    public LearningSkillDTO(Long id, String title, String type, Long parentId,String parentTitle,Long levelUpSize,Long iconId) {
         this.id = id;
         this.title = title;
         this.type = type;
         this.parentId = parentId;
         this.parentTitle = parentTitle;
+        this.levelUpSize = levelUpSize;
+        this.iconId = iconId;
     }
 }
