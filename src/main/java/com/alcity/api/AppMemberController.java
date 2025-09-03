@@ -366,7 +366,7 @@ public class AppMemberController {
         if(appMemberOptional.isEmpty() || plObjectiveOptional.isEmpty() ) return false;
 
         Optional<LearningSkillTransaction> transactionOptional = learningSkillTransactionService.findByPlObjectiveAndAppMember(plObjectiveOptional.get(),appMemberOptional.get());
-        if(transactionOptional.isPresent()) return false;
+        if(transactionOptional.isPresent()) return true;
 
         return true;
     }
