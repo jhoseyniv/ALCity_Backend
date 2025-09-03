@@ -77,7 +77,7 @@ public class AppMemberController {
         if(memberOptional.isEmpty())
             return null;
 
-        Collection<LearningSkillTransaction> transactions_0 = learningSkillTransactionService.findByTransactionDateContainingAndAppMember(date,memberOptional.get());
+        Collection<LearningSkillTransaction> transactions_0 = learningSkillTransactionService.findByAppMemberAndTransactionDateContaining(memberOptional.get(),date);
         AppMemberWeekXPDTO dto = DTOUtil.getXPForADate(transactions_0,DateUtils.getDate(date),id);
         return dto;
     }
@@ -93,7 +93,7 @@ public class AppMemberController {
             return null;
         LocalDateTime today = LocalDateTime.now();
 
-        Collection<LearningSkillTransaction> transactions_0 = learningSkillTransactionService.findByTransactionDateContaining(DateUtils.getDate(today));
+        Collection<LearningSkillTransaction> transactions_0 = learningSkillTransactionService.findByAppMemberAndTransactionDateContaining(memberOptional.get(),DateUtils.getDate(today));
         AppMemberWeekXPDTO appMemberWeekXPDT_0 = DTOUtil.getXPForADate(transactions_0,today,id);
         dtos.add(appMemberWeekXPDT_0);
 
