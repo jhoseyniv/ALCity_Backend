@@ -6,12 +6,13 @@ import com.alcity.entity.appmember.WalletItem;
 import com.alcity.entity.appmember.WalletTransaction;
 import com.alcity.entity.puzzle.PLObjective;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Optional;
-
+@Repository
 public interface LearningSkillTransactionRepository extends CrudRepository<LearningSkillTransaction,Long> {
 
     Optional<LearningSkillTransaction> findById(Long id);
@@ -23,6 +24,8 @@ public interface LearningSkillTransactionRepository extends CrudRepository<Learn
 
     Collection<LearningSkillTransaction> findByTransactionDateContaining(String transactionDate);
     Collection<LearningSkillTransaction> findByTransactionDateContainingAndAppMember(String transactionDate, AppMember appMember);
+
+    Collection<LearningSkillTransaction> findByAppMemberAndTransactionDateContaining(AppMember appMember, String transactionDate);
     Collection<LearningSkillTransaction> findByCreatedContaining(String created);
 
     Collection<LearningSkillTransaction> findByAppMember(AppMember appMember);

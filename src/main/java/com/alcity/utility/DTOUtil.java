@@ -898,12 +898,11 @@ public class DTOUtil {
         return dto;
     }
     public static AdvertisementDTO getTermsAndCondDTO(Advertisement ads){
-
         AdvertisementDTO dto = new AdvertisementDTO(ads.getId(),ads.getAdText(), ads.getAdsType().name(),
                 ads.getVersion(), ads.getCreated(), ads.getUpdated(), ads.getCreatedBy().getUsername(), ads.getUpdatedBy().getUsername());
-
         return dto;
     }
+
     public static LearningSkillRadarDTO getLearningSkillRadarDTO(AppMember_LearningSkill appMemberLearningSkill) {
         LearningSkillRadarDTO dto = new LearningSkillRadarDTO();
         dto.setAmount(appMemberLearningSkill.getAmount());

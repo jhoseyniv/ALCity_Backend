@@ -68,6 +68,19 @@ public class AppMemberController {
     @Autowired
     private AppMember_LearningSkillService appMemberLearningSkillService;
 
+    @Operation( summary = "Get XP by a Date format 02-09-2025  ",  description = "Get XP by a Date format ")
+    @RequestMapping(value = "/id/{id}/xp/date/{date}", method = RequestMethod.GET)
+    @ResponseBody
+    @CrossOrigin(origins = "*")
+    public AppMemberWeekXPDTO getXPByADate(@PathVariable Long id,@PathVariable String date) {
+        Optional<AppMember> memberOptional = appMemberService.findById(id);
+        if(memberOptional.isEmpty())
+            return null;
+
+        Collection<LearningSkillTransaction> transactions_0 = learningSkillTransactionService.findByTransactionDateContainingAndAppMember(date,memberOptional.get());
+        AppMemberWeekXPDTO dto = DTOUtil.getXPForADate(transactions_0,DateUtils.getDate(date),id);
+        return dto;
+    }
 
     @Operation( summary = "Get XP by this week for an app member ",  description = "Get XP by this week for an app member")
     @RequestMapping(value = "/id/{id}/xp-week", method = RequestMethod.GET)
@@ -80,35 +93,35 @@ public class AppMemberController {
             return null;
         LocalDateTime today = LocalDateTime.now();
 
-        Collection<LearningSkillTransaction> transactions_0 = learningSkillTransactionService.findByTransactionDateContainingAndAppMember(DateUtils.getDate(today),memberOptional.get());
+        Collection<LearningSkillTransaction> transactions_0 = learningSkillTransactionService.findByTransactionDateContaining(DateUtils.getDate(today));
         AppMemberWeekXPDTO appMemberWeekXPDT_0 = DTOUtil.getXPForADate(transactions_0,today,id);
         dtos.add(appMemberWeekXPDT_0);
 
-        Collection<LearningSkillTransaction> transactions_1 = learningSkillTransactionService.findByTransactionDateContaining(DateUtils.getDate(today.minusDays(1)));
+        Collection<LearningSkillTransaction> transactions_1 = learningSkillTransactionService.findByAppMemberAndTransactionDateContaining(memberOptional.get(),DateUtils.getDate(today.minusDays(1)));
         AppMemberWeekXPDTO appMemberWeekXPDT_1 = DTOUtil.getXPForADate(transactions_1,today.minusDays(1),id);
         dtos.add(appMemberWeekXPDT_1);
 
-        Collection<LearningSkillTransaction> transactions_2 = learningSkillTransactionService.findByTransactionDateContaining(DateUtils.getDate(today.minusDays(2)));
+        Collection<LearningSkillTransaction> transactions_2 = learningSkillTransactionService.findByAppMemberAndTransactionDateContaining(memberOptional.get(),DateUtils.getDate(today.minusDays(2)));
         AppMemberWeekXPDTO appMemberWeekXPDT_2 = DTOUtil.getXPForADate(transactions_2,today.minusDays(2),id);
         dtos.add(appMemberWeekXPDT_2);
 
-        Collection<LearningSkillTransaction> transactions_3 = learningSkillTransactionService.findByTransactionDateContaining(DateUtils.getDate(today.minusDays(3)));
+        Collection<LearningSkillTransaction> transactions_3 = learningSkillTransactionService.findByAppMemberAndTransactionDateContaining(memberOptional.get(),DateUtils.getDate(today.minusDays(3)));
         AppMemberWeekXPDTO appMemberWeekXPDT_3 = DTOUtil.getXPForADate(transactions_3,today.minusDays(3),id);
         dtos.add(appMemberWeekXPDT_3);
 
-        Collection<LearningSkillTransaction> transactions_4 = learningSkillTransactionService.findByTransactionDateContaining(DateUtils.getDate(today.minusDays(4)));
+        Collection<LearningSkillTransaction> transactions_4 = learningSkillTransactionService.findByAppMemberAndTransactionDateContaining(memberOptional.get(),DateUtils.getDate(today.minusDays(4)));
         AppMemberWeekXPDTO appMemberWeekXPDT_4 = DTOUtil.getXPForADate(transactions_4,today.minusDays(4),id);
         dtos.add(appMemberWeekXPDT_4);
 
-        Collection<LearningSkillTransaction> transactions_5 = learningSkillTransactionService.findByTransactionDateContaining(DateUtils.getDate(today.minusDays(5)));
+        Collection<LearningSkillTransaction> transactions_5 = learningSkillTransactionService.findByAppMemberAndTransactionDateContaining(memberOptional.get(),DateUtils.getDate(today.minusDays(5)));
         AppMemberWeekXPDTO appMemberWeekXPDT_5 = DTOUtil.getXPForADate(transactions_5,today.minusDays(5),id);
         dtos.add(appMemberWeekXPDT_5);
 
-        Collection<LearningSkillTransaction> transactions_6 = learningSkillTransactionService.findByTransactionDateContaining(DateUtils.getDate(today.minusDays(6)));
+        Collection<LearningSkillTransaction> transactions_6 = learningSkillTransactionService.findByAppMemberAndTransactionDateContaining(memberOptional.get(),DateUtils.getDate(today.minusDays(6)));
         AppMemberWeekXPDTO appMemberWeekXPDT_6 = DTOUtil.getXPForADate(transactions_6,today.minusDays(6),id);
         dtos.add(appMemberWeekXPDT_6);
 
-        return dtos;
+       return dtos;
     }
 
     @Operation( summary = "Get skill Radar Chart for an app member ",  description = "this api get a radar chart from fundamental skills for a player ")
@@ -385,7 +398,7 @@ public class AppMemberController {
         ResponseMessage response = new ResponseMessage();
         boolean checkIsRewardBefore = checkPLSkillConstraint(dto);
 
-        if(checkIsRewardBefore == false)
+        if(checkIsRewardBefore == true)
             return new ResponseMessage(ErrorType.UniquenessViolation, Status.ok.name() , LearningSkillTransaction.class.getSimpleName() , -1L, SystemMessage.UserGotThisRewardBefore );
        else {
             savedRecord = learningSkillTransactionService.save(dto, "Save");

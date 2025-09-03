@@ -22,6 +22,7 @@ import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -126,7 +127,18 @@ public class LearningSkillTransactionService implements LearningSkillTransaction
 
     @Override
     public Collection<LearningSkillTransaction> findByTransactionDateContainingAndAppMember(String transactionDate, AppMember appMember) {
-        return learningSkillTransactionRepository.findByTransactionDateContainingAndAppMember(transactionDate, appMember);
+        return List.of();
+    }
+
+    public Collection<LearningSkillTransaction> findByTransactionAndAppMember(String transactionDate, AppMember appMember) {
+        Collection<LearningSkillTransaction> transactions = learningSkillTransactionRepository.findByAppMember(appMember);
+        Collection<LearningSkillTransaction> filteredTransactions = transactions.stream().filter(skillTransaction -> skillTransaction.getTransactionDate().contains(transactionDate)).collect(Collectors.toList());
+        return filteredTransactions;
+    }
+
+    @Override
+    public Collection<LearningSkillTransaction> findByAppMemberAndTransactionDateContaining(AppMember appMember, String transactionDate) {
+        return learningSkillTransactionRepository.findByAppMemberAndTransactionDateContaining(appMember,transactionDate);
     }
 
     @Override

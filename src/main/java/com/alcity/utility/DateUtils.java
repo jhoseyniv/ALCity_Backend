@@ -29,14 +29,21 @@ public class  DateUtils {
         DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
         return current.format(format);
     }
+
     public static String getDate(LocalDateTime  localDateTime){
         DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         return localDateTime.format(format);
     }
+    public static LocalDateTime getDate(String  date){
+        final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss a");
+        LocalDateTime dateTime = LocalDateTime.parse(date+" 00:00:00 AM", formatter);
+        System.out.println(dateTime);
+        return dateTime;
+    }
 
     public static String getDateByString(LocalDateTime current ){
        // LocalDateTime current = LocalDateTime.now();
-        DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         return current.format(format);
     }
 
@@ -54,9 +61,9 @@ public class  DateUtils {
         return calculateAgeFromGregorian(gc.get(Calendar.YEAR));
     }
 
-        public static void main(String[] args)  {
+    public static void main(String[] args)  {
         System.out.println("this is a get tumbnile of images.....");
-        System.out.println();
-        }
+        System.out.println(getDate("02-09-2025"));
+     }
 
 }
