@@ -6,24 +6,21 @@ import com.alcity.dto.player.PlayHistoryDTO;
 import com.alcity.dto.puzzle.PLDTO;
 import com.alcity.dto.search.AppMemberSearchCriteriaDTO;
 import com.alcity.entity.alenum.*;
-import com.alcity.entity.alobject.ObjectCategory;
 import com.alcity.entity.appmember.*;
 import com.alcity.entity.base.BinaryContent;
 import com.alcity.entity.base.ClientType;
 import com.alcity.entity.journey.Journey;
-import com.alcity.entity.journey.RoadMap;
 import com.alcity.entity.learning.LearningSkill;
 import com.alcity.entity.play.PlayHistory;
-import com.alcity.entity.puzzle.BaseObject;
 import com.alcity.entity.puzzle.PLObjective;
-import com.alcity.repository.appmember.AppMember_WalletItemRepository;
 import com.alcity.service.Journey.JourneyService;
 import com.alcity.o3rdparty.ALCityAcessRight;
 import com.alcity.service.appmember.*;
 import com.alcity.customexception.ResponseObject;
 import com.alcity.customexception.UniqueConstraintException;
-import com.alcity.customexception.ViolateForeignKeyException;
+import com.alcity.service.base.BinaryContentService;
 import com.alcity.service.base.ClientTypeService;
+import com.alcity.service.learning.LearningSkillService;
 import com.alcity.service.puzzle.PLObjectiveService;
 import com.alcity.utility.DTOUtil;
 import com.alcity.utility.DateUtils;
@@ -66,19 +63,42 @@ public class AppMemberController {
     private LearningSkillTransactionService learningSkillTransactionService;
 
     @Autowired
+    private LearningSkillService learningSkillService;
+
+    @Autowired
     private AppMember_LearningSkillService appMemberLearningSkillService;
+    @Autowired
+    private BinaryContentService binaryContentService;
 
     @Operation( summary = "Get XP by a Date format 02-09-2025  ",  description = "Get XP by a Date format ")
     @RequestMapping(value = "/id/{id}/xp/date/{date}", method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin(origins = "*")
-    public AppMemberWeekXPDTO getXPByADate(@PathVariable Long id,@PathVariable String date) {
+    public AppMemberXPDTO getXPByADate(@PathVariable Long id, @PathVariable String date) {
         Optional<AppMember> memberOptional = appMemberService.findById(id);
         if(memberOptional.isEmpty())
             return null;
 
         Collection<LearningSkillTransaction> transactions_0 = learningSkillTransactionService.findByAppMemberAndTransactionDateContaining(memberOptional.get(),date);
-        AppMemberWeekXPDTO dto = DTOUtil.getXPForADate(transactions_0,DateUtils.getDate(date),id);
+        AppMemberXPDTO dto = DTOUtil.getXPForADate(transactions_0,DateUtils.getDate(date),id);
+        return dto;
+    }
+    @Operation( summary = "Get XP's for a user by sub set skill of a main skill....",  description = "Get XP's for a user by sub set skill of a main skill....")
+    @RequestMapping(value = "/id/{id}/sub-set-skill/sid/{sid}", method = RequestMethod.GET)
+    @ResponseBody
+    @CrossOrigin(origins = "*")
+    public AppMemberSkillXPDTO getXPForAAppMemberBySubSetSkill(@PathVariable Long id, @PathVariable Long sid) {
+        Optional<AppMember> memberOptional = appMemberService.findById(id);
+        Optional<LearningSkill> learningSkillOptional = learningSkillService.findById(sid);
+        if(memberOptional.isEmpty())
+            return null;
+        if(learningSkillOptional.isEmpty())
+            return null;
+
+       // LearningSkill learningSkill = learningSkillOptional.get();
+
+        Collection<LearningSkillTransaction> transactions = learningSkillTransactionService.findByAppMemberAndLearningSkill(memberOptional.get(),learningSkillOptional.get());
+        AppMemberSkillXPDTO dto = DTOUtil.getXPForAAppMemberSkillDTO(memberOptional.get(),learningSkillOptional.get(),transactions,binaryContentService);
         return dto;
     }
 
@@ -86,39 +106,39 @@ public class AppMemberController {
     @RequestMapping(value = "/id/{id}/xp-week", method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin(origins = "*")
-    public Collection<AppMemberWeekXPDTO> getXPByWeek(@PathVariable Long id) {
-        Collection<AppMemberWeekXPDTO> dtos = new ArrayList<>();
+    public Collection<AppMemberXPDTO> getXPByWeek(@PathVariable Long id) {
+        Collection<AppMemberXPDTO> dtos = new ArrayList<>();
         Optional<AppMember> memberOptional = appMemberService.findById(id);
         if(memberOptional.isEmpty())
             return null;
         LocalDateTime today = LocalDateTime.now();
 
         Collection<LearningSkillTransaction> transactions_0 = learningSkillTransactionService.findByAppMemberAndTransactionDateContaining(memberOptional.get(),DateUtils.getDate(today));
-        AppMemberWeekXPDTO appMemberWeekXPDT_0 = DTOUtil.getXPForADate(transactions_0,today,id);
+        AppMemberXPDTO appMemberWeekXPDT_0 = DTOUtil.getXPForADate(transactions_0,today,id);
         dtos.add(appMemberWeekXPDT_0);
 
         Collection<LearningSkillTransaction> transactions_1 = learningSkillTransactionService.findByAppMemberAndTransactionDateContaining(memberOptional.get(),DateUtils.getDate(today.minusDays(1)));
-        AppMemberWeekXPDTO appMemberWeekXPDT_1 = DTOUtil.getXPForADate(transactions_1,today.minusDays(1),id);
+        AppMemberXPDTO appMemberWeekXPDT_1 = DTOUtil.getXPForADate(transactions_1,today.minusDays(1),id);
         dtos.add(appMemberWeekXPDT_1);
 
         Collection<LearningSkillTransaction> transactions_2 = learningSkillTransactionService.findByAppMemberAndTransactionDateContaining(memberOptional.get(),DateUtils.getDate(today.minusDays(2)));
-        AppMemberWeekXPDTO appMemberWeekXPDT_2 = DTOUtil.getXPForADate(transactions_2,today.minusDays(2),id);
+        AppMemberXPDTO appMemberWeekXPDT_2 = DTOUtil.getXPForADate(transactions_2,today.minusDays(2),id);
         dtos.add(appMemberWeekXPDT_2);
 
         Collection<LearningSkillTransaction> transactions_3 = learningSkillTransactionService.findByAppMemberAndTransactionDateContaining(memberOptional.get(),DateUtils.getDate(today.minusDays(3)));
-        AppMemberWeekXPDTO appMemberWeekXPDT_3 = DTOUtil.getXPForADate(transactions_3,today.minusDays(3),id);
+        AppMemberXPDTO appMemberWeekXPDT_3 = DTOUtil.getXPForADate(transactions_3,today.minusDays(3),id);
         dtos.add(appMemberWeekXPDT_3);
 
         Collection<LearningSkillTransaction> transactions_4 = learningSkillTransactionService.findByAppMemberAndTransactionDateContaining(memberOptional.get(),DateUtils.getDate(today.minusDays(4)));
-        AppMemberWeekXPDTO appMemberWeekXPDT_4 = DTOUtil.getXPForADate(transactions_4,today.minusDays(4),id);
+        AppMemberXPDTO appMemberWeekXPDT_4 = DTOUtil.getXPForADate(transactions_4,today.minusDays(4),id);
         dtos.add(appMemberWeekXPDT_4);
 
         Collection<LearningSkillTransaction> transactions_5 = learningSkillTransactionService.findByAppMemberAndTransactionDateContaining(memberOptional.get(),DateUtils.getDate(today.minusDays(5)));
-        AppMemberWeekXPDTO appMemberWeekXPDT_5 = DTOUtil.getXPForADate(transactions_5,today.minusDays(5),id);
+        AppMemberXPDTO appMemberWeekXPDT_5 = DTOUtil.getXPForADate(transactions_5,today.minusDays(5),id);
         dtos.add(appMemberWeekXPDT_5);
 
         Collection<LearningSkillTransaction> transactions_6 = learningSkillTransactionService.findByAppMemberAndTransactionDateContaining(memberOptional.get(),DateUtils.getDate(today.minusDays(6)));
-        AppMemberWeekXPDTO appMemberWeekXPDT_6 = DTOUtil.getXPForADate(transactions_6,today.minusDays(6),id);
+        AppMemberXPDTO appMemberWeekXPDT_6 = DTOUtil.getXPForADate(transactions_6,today.minusDays(6),id);
         dtos.add(appMemberWeekXPDT_6);
 
        return dtos;

@@ -36,6 +36,7 @@ import com.alcity.repository.alobject.AttributeValueRepository;
 import com.alcity.service.alobject.ActionService;
 import com.alcity.service.alobject.AttributeService;
 import com.alcity.service.alobject.AttributeValueService;
+import com.alcity.service.base.BinaryContentService;
 import com.alcity.service.puzzle.PLRulePostActionService;
 import org.json.JSONException;
 
@@ -45,7 +46,6 @@ import java.io.ObjectInputStream;
 import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.util.*;
-import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.toList;
 
@@ -924,8 +924,28 @@ public class DTOUtil {
         return dtos;
     }
 
-    public static AppMemberWeekXPDTO getXPForADate(Collection<LearningSkillTransaction> transactions, LocalDateTime date,Long appMemberId) {
-        AppMemberWeekXPDTO dto = new AppMemberWeekXPDTO();
+    public static AppMemberSkillXPDTO getXPForAAppMemberSkillDTO(AppMember appMember, LearningSkill learningSkill, Collection<LearningSkillTransaction> transactions, BinaryContentService binaryContentService){
+        Double sum = transactions.stream().mapToDouble(d-> d.getAmount()).sum();
+        Float sumAmount = Float.valueOf(sum.toString());
+        Long levelUpSize = learningSkill.getLevelUpSize();
+        Long level = (long) (sumAmount / levelUpSize);
+        Float reminder = (Float) (sumAmount % levelUpSize);
+
+        BinaryContent icon = null;
+        if(learningSkill.getIcon() == null){
+            icon = binaryContentService.findByfileName("no_photo_avatar");
+        }else{
+            icon = learningSkill.getIcon();
+        }
+        AppMemberSkillXPDTO   dto = new AppMemberSkillXPDTO(learningSkill.getId(),learningSkill.getTitle(),
+                learningSkill.getDescription(),level,learningSkill.getType().name(),
+                reminder,appMember.getId(),icon.getId());
+
+        return dto;
+    }
+
+    public static AppMemberXPDTO getXPForADate(Collection<LearningSkillTransaction> transactions, LocalDateTime date, Long appMemberId) {
+        AppMemberXPDTO dto = new AppMemberXPDTO();
         DayOfWeek dayOfWeek = date.getDayOfWeek();
         Float xp=0f;
         Iterator<LearningSkillTransaction> iterator = transactions.iterator();
@@ -942,16 +962,16 @@ public class DTOUtil {
         return dto;
     }
 
-    public static AppMemberWeekXPDTO getAppMemberWeekXPDTO(LearningSkillTransaction transaction) {
-        AppMemberWeekXPDTO dto = new AppMemberWeekXPDTO();
+    public static AppMemberXPDTO getAppMemberWeekXPDTO(LearningSkillTransaction transaction) {
+        AppMemberXPDTO dto = new AppMemberXPDTO();
         dto.setDate(transaction.getTransactionDate().toString());
         dto.setMemberId(transaction.getAppMember().getId());
         dto.setXp(transaction.getAmount());
         return dto;
     }
 
-    public static Collection<AppMemberWeekXPDTO> getAppMemberWeekXPDTOS(Collection<LearningSkillTransaction> transactions) {
-        Collection<AppMemberWeekXPDTO> dtos = new ArrayList<AppMemberWeekXPDTO>();
+    public static Collection<AppMemberXPDTO> getAppMemberWeekXPDTOS(Collection<LearningSkillTransaction> transactions) {
+        Collection<AppMemberXPDTO> dtos = new ArrayList<AppMemberXPDTO>();
         LocalDateTime date = LocalDateTime.now();
 //        AppMemberWeekXPDTO today = getXPForADate(transactions, date);
 //        AppMemberWeekXPDTO today_1 = getXPForADate(transactions, date.minusDays(1));
@@ -1125,8 +1145,8 @@ public class DTOUtil {
     public static LearningSkillDTO getLearningSkillDTO(LearningSkill ls) {
 
         if(ls.getParentSkill() == null)
-            return  new LearningSkillDTO(ls.getId(), ls.getTitle(), ls.getType().name(),0L,"",0L,ls.getIcon().getId());;
-        LearningSkillDTO lsDTO = new LearningSkillDTO(ls.getId(), ls.getTitle(), ls.getType().name(),ls.getParentSkill().getId(),ls.getParentSkill().getTitle(),ls.getLevelUpSize(),ls.getIcon().getId());
+            return  new LearningSkillDTO(ls.getId(), ls.getTitle(), ls.getType().name(),0L,"",0L,ls.getIcon().getId(),"Root of Skill Tree");;
+        LearningSkillDTO lsDTO = new LearningSkillDTO(ls.getId(), ls.getTitle(), ls.getType().name(),ls.getParentSkill().getId(),ls.getParentSkill().getTitle(),ls.getLevelUpSize(),ls.getIcon().getId(),ls.getDescription());
         return lsDTO;
     }
 

@@ -1,10 +1,8 @@
 package com.alcity.dto.appmember;
 
-import com.alcity.entity.appmember.AppMember;
-
 import java.io.Serializable;
 
-public class AppMemberWeekXPDTO implements Serializable {
+public class AppMemberXPDTO implements Serializable {
     Integer dayOfWeek;
     String dayOfWeekName;
     Float xp;
@@ -51,10 +49,10 @@ public class AppMemberWeekXPDTO implements Serializable {
         this.date = date;
     }
 
-    public AppMemberWeekXPDTO() {
+    public AppMemberXPDTO() {
     }
 
-    public AppMemberWeekXPDTO(Integer dayOfWeek, String dayOfWeekName, Float xp, Long memberId, String date) {
+    public AppMemberXPDTO(Integer dayOfWeek, String dayOfWeekName, Float xp, Long memberId, String date) {
         this.dayOfWeek = dayOfWeek;
         this.dayOfWeekName = dayOfWeekName;
         this.xp = xp;

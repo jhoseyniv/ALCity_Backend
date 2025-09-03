@@ -4,6 +4,7 @@ import com.alcity.entity.appmember.AppMember;
 import com.alcity.entity.appmember.LearningSkillTransaction;
 import com.alcity.entity.appmember.WalletItem;
 import com.alcity.entity.appmember.WalletTransaction;
+import com.alcity.entity.learning.LearningSkill;
 import com.alcity.entity.puzzle.PLObjective;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
@@ -29,5 +30,7 @@ public interface LearningSkillTransactionRepository extends CrudRepository<Learn
     Collection<LearningSkillTransaction> findByCreatedContaining(String created);
 
     Collection<LearningSkillTransaction> findByAppMember(AppMember appMember);
+
+    Collection<LearningSkillTransaction> findByAppMemberAndLearningSkill(AppMember appMember, LearningSkill learningSkill);
 
 }

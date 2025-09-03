@@ -34,6 +34,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/base")
 public class BaseItemSetConroller {
+
     @Operation( summary = "Fetch all Genders ",  description = "fetches all Gender entities and their data from data source")
     @GetMapping("/gender/all")
     @CrossOrigin(origins = "*")
@@ -41,6 +42,13 @@ public class BaseItemSetConroller {
 
         return DTOUtil.getEnumByClass(UserGender.class);
     }
+    @Operation( summary = "Fetch all Skill Types ",  description = "fetch all Skill types and their data from data source")
+    @GetMapping("/skill-type/all")
+    @CrossOrigin(origins = "*")
+    public Collection<EnumDTO> getSkillTypes(Model model) {
+        return DTOUtil.getEnumByClass(SkillType.class);
+    }
+
     @Operation( summary = "Fetch all PL Rule Post Action Owner Types ",  description = "fetches all PL Rule Post Action Owner Types entities and their data from data source")
     @GetMapping("/pl-rule-post-action-type/all")
     @CrossOrigin(origins = "*")

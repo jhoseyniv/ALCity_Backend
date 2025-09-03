@@ -32,6 +32,9 @@ public class LearningSkill extends BaseTable implements Serializable {
     @Column(name="levelUpSize")
     private Long levelUpSize;
 
+    @Column(name="description")
+    private String description;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "icon_id", nullable = true)
     @JsonIgnore
@@ -99,11 +102,19 @@ public class LearningSkill extends BaseTable implements Serializable {
         this.icon = icon;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     public LearningSkill() {
     }
 
     public LearningSkill(Long version, String created, String updated, AppMember createdBy, AppMember updatedBy,
-                         String title, SkillType type, LearningSkill parentSkill,Float weight, Long levelUpSize,BinaryContent icon) {
+                         String title, SkillType type, LearningSkill parentSkill,Float weight, Long levelUpSize,BinaryContent icon,String description) {
         super(version, created, updated, createdBy, updatedBy);
         this.title = title;
         this.type = type;
@@ -111,5 +122,6 @@ public class LearningSkill extends BaseTable implements Serializable {
         this.weight = weight;
         this.levelUpSize = levelUpSize;
         this.icon = icon;
+        this.description = description;
     }
 }

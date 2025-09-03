@@ -33,6 +33,7 @@ public class LearningSkillTransactionService implements LearningSkillTransaction
 
     @Autowired
     LearningSkillTransactionRepository learningSkillTransactionRepository;
+
     @Autowired
     LearningSkillRepository learningSkillRepository;
 
@@ -149,6 +150,11 @@ public class LearningSkillTransactionService implements LearningSkillTransaction
     @Override
     public Collection<LearningSkillTransaction> findByAppMember(AppMember appMember) {
         return learningSkillTransactionRepository.findByAppMember(appMember);
+    }
+
+    @Override
+    public Collection<LearningSkillTransaction> findByAppMemberAndLearningSkill(AppMember appMember, LearningSkill learningSkill) {
+        return learningSkillTransactionRepository.findByAppMemberAndLearningSkill(appMember,learningSkill);
     }
 
     @Override
