@@ -56,6 +56,7 @@ public class PuzzleCategoryService implements PuzzleCategoryRepository {
 
     @Override
     public Optional<PuzzleCategory> findById(Long id) {
+        if(id==null) return Optional.empty();
         return puzzleCategoryRepository.findById(id);
     }
 

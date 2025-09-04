@@ -1,11 +1,13 @@
 package com.alcity.api;
 
+import com.alcity.customexception.ResponseMessage;
 import com.alcity.dto.puzzle.PLDTO;
 import com.alcity.dto.puzzle.PLTemplateDTO;
 import com.alcity.entity.alenum.Status;
 import com.alcity.entity.alenum.ErrorType;
 import com.alcity.entity.alenum.SystemMessage;
 import com.alcity.entity.alobject.ObjectAction;
+import com.alcity.entity.base.WalletItemType;
 import com.alcity.entity.puzzle.PLTemplate;
 import com.alcity.customexception.ResponseObject;
 import com.alcity.customexception.UniqueConstraintException;
@@ -39,7 +41,7 @@ import java.util.Optional;
 public class PuzzleCategoryController {
     @Autowired
     private PuzzleCategoryService puzzleCategoryService;
-    @Operation( summary = "get all Puzzle Category ",  description = "get all Puzzle Category")
+    @Operation( summary = "Get all Puzzle Category ",  description = "get all Puzzle Category")
     @GetMapping("/all")
     @CrossOrigin(origins = "*")
     public Collection<PuzzleCategoryDTO> getPuzzleCategories(Model model) {
@@ -118,26 +120,25 @@ public class PuzzleCategoryController {
     @Operation( summary = "Save a  Puzzle Category ",  description = "save a Puzzle Category entity to database")
     @PostMapping("/save")
     @CrossOrigin(origins = "*")
-    public ResponseObject savePuzzleCategory(@RequestBody PuzzleCategoryDTO dto) {
-        PuzzleCategory savedPuzzleCategory = null;
-        ResponseObject responseObject = new ResponseObject();
-
-        if (dto.getId() == null || dto.getId() <= 0L) { //save
-            try {
-                savedPuzzleCategory = puzzleCategoryService.save(dto,"Save");
-            } catch (RuntimeException e) {
-                throw new UniqueConstraintException(-1,"Unique Constraint in" + PuzzleCategory.class , "Error",dto.getId() );
-            }
-            responseObject = new ResponseObject(ErrorType.SaveSuccess, ObjectAction.class.getSimpleName() , Status.ok.name(), savedPuzzleCategory.getId(), SystemMessage.SaveOrEditMessage_Success);
-        } else if (dto.getId() > 0L ) {//edit
-                Optional<PuzzleCategory>  puzzleCategoryOptional = puzzleCategoryService.findById(dto.getId());
-                savedPuzzleCategory = puzzleCategoryService.save(dto, "Edit");
-            responseObject = new ResponseObject(ErrorType.SaveSuccess, ObjectAction.class.getSimpleName() , Status.ok.name(), savedPuzzleCategory.getId(), SystemMessage.SaveOrEditMessage_Success);
-        }
+    public ResponseMessage savePuzzleCategory(@RequestBody PuzzleCategoryDTO dto) {
+        PuzzleCategory savedRecord = null;
+        ResponseMessage response = new ResponseMessage();
+        Optional<PuzzleCategory> puzzleCategoryOptional = puzzleCategoryService.findById(dto.getId());
+        try {
+            if(puzzleCategoryOptional.isEmpty())
+                savedRecord = puzzleCategoryService.save(dto,"Save");
             else
-            responseObject = new ResponseObject(ErrorType.RecordNotFound, ObjectAction.class.getSimpleName(), Status.error.name(), dto.getId(),SystemMessage.RecordNotFound);
+                savedRecord = puzzleCategoryService.save(dto,"Edit");
+            if(savedRecord !=null)
+                response = new ResponseMessage(ErrorType.SaveSuccess, Status.ok.name(),PuzzleCategory.class.getSimpleName() ,  savedRecord.getId(), SystemMessage.SaveOrEditMessage_Success);
+            else
+                response = new ResponseMessage(ErrorType.SaveFail,Status.error.name(), PuzzleCategory.class.getSimpleName() ,  -1L, SystemMessage.SaveOrEditMessage_Fail);
+        }
+        catch (RuntimeException e) {
+            throw new ResponseObject(ErrorType.UniquenessViolation,Status.error.name() , PuzzleCategory.class.getSimpleName() ,  -1L ,e.getCause().getMessage());
+        }
 
-        return responseObject;
+        return response;
     }
 
     @Operation( summary = "delete a  Puzzle Category ",  description = "delete a Puzzle Category entity and their data to data base")
