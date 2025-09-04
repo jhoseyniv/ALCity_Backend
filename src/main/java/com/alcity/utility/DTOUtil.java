@@ -1093,8 +1093,9 @@ public class DTOUtil {
         dto.setAmount(entity.getAmount());
         dto.setAppMemberId(entity.getApplicationMember().getId());
         dto.setAppMemberUsername(entity.getApplicationMember().getUsername());
-        dto.setThumbnail(entity.getWalletItem().getIcon().getThumbnail());
+        dto.setIconId(entity.getWalletItem().getIcon().getId());
         dto.setWalletItemType(entity.getWalletItem().getWalletItemType().getValue());
+        dto.setCurrency(entity.getWalletItem().getWalletItemType().getCurrency());
         return dto;
     }
 

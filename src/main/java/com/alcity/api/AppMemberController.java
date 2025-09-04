@@ -9,6 +9,7 @@ import com.alcity.entity.alenum.*;
 import com.alcity.entity.appmember.*;
 import com.alcity.entity.base.BinaryContent;
 import com.alcity.entity.base.ClientType;
+import com.alcity.entity.base.WalletItemType;
 import com.alcity.entity.journey.Journey;
 import com.alcity.entity.learning.LearningSkill;
 import com.alcity.entity.play.PlayHistory;
@@ -20,6 +21,7 @@ import com.alcity.customexception.ResponseObject;
 import com.alcity.customexception.UniqueConstraintException;
 import com.alcity.service.base.BinaryContentService;
 import com.alcity.service.base.ClientTypeService;
+import com.alcity.service.base.WalletItemTypeService;
 import com.alcity.service.learning.LearningSkillService;
 import com.alcity.service.puzzle.PLObjectiveService;
 import com.alcity.utility.DTOUtil;
@@ -70,15 +72,16 @@ public class AppMemberController {
     @Autowired
     private BinaryContentService binaryContentService;
 
+    @Autowired
+    private WalletItemTypeService walletItemTypeService;
+
     @Operation( summary = "Get XP by a Date format 02-09-2025  ",  description = "Get XP by a Date format ")
     @RequestMapping(value = "/id/{id}/xp/date/{date}", method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin(origins = "*")
     public AppMemberXPDTO getXPByADate(@PathVariable Long id, @PathVariable String date) {
         Optional<AppMember> memberOptional = appMemberService.findById(id);
-        if(memberOptional.isEmpty())
-            return null;
-
+        if(memberOptional.isEmpty())   return null;
         Collection<LearningSkillTransaction> transactions_0 = learningSkillTransactionService.findByAppMemberAndTransactionDateContaining(memberOptional.get(),date);
         AppMemberXPDTO dto = DTOUtil.getXPForADate(transactions_0,DateUtils.getDate(date),id);
         return dto;
@@ -102,6 +105,8 @@ public class AppMemberController {
              AppMemberSkillXPDTO dto = DTOUtil.getXPForAAppMemberSkillDTO(memberOptional.get(),learningSkill,transactions,binaryContentService);
              dtos.add(dto);
          }
+
+
         return dtos;
     }
 
@@ -392,9 +397,9 @@ public class AppMemberController {
         if(appMemberOptional.isEmpty() || plObjectiveOptional.isEmpty() ) return false;
 
         Optional<WalletTransaction> transactionOptional = walletTransactionService.findByAppMemberAndCounterpartyId(appMemberOptional.get(),plObjectiveOptional.get().getId());
-        if(transactionOptional.isPresent()) return false;
+        if(transactionOptional.isPresent()) return true;
 
-        return true;
+        return false;
     }
     public boolean checkPLSkillConstraint(LearningSkillTransactionDTO dto){
         Long objectiveId = dto.getObjectiveId();
@@ -418,13 +423,13 @@ public class AppMemberController {
         ResponseMessage response = new ResponseMessage();
         boolean checkIsRewardBefore = checkPLRewardConstraint(dto);
 
-        if(checkIsRewardBefore == false)
+        if(checkIsRewardBefore == true)
             response = new ResponseMessage(ErrorType.UniquenessViolation, WalletTransaction.class.getSimpleName() , Status.ok.name(), -1L,SystemMessage.UserGotThisRewardBefore );
 
         else {
             savedRecord = walletTransactionService.save(dto, "Save");
             response = new ResponseMessage(ErrorType.SaveSuccess, WalletTransaction.class.getSimpleName() , Status.ok.name(), savedRecord.getId(), SystemMessage.SaveOrEditMessage_Success);
-
+            walletTransactionService.updateAppMemberWalletItem(savedRecord);
         }
         return response;
     }
@@ -465,15 +470,28 @@ public class AppMemberController {
     }
 
     @Operation( summary = "Get all wallet items for an application member ",  description = "Get all wallet items")
-    @RequestMapping(value = "/id/{id}/wallet/all", method = RequestMethod.GET)
+    @RequestMapping(value = "/id/{id}/wallet-item/all", method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin(origins = "*")
-    public Collection<AppMemberWalletDTO> getWalletDataByUserId(@PathVariable Long id) {
+    public Collection<AppMemberWalletDTO> getAllWalletItemByUserId(@PathVariable Long id) {
         Optional<AppMember> member = appMemberService.findById(id);
         Collection<AppMember_WalletItem> applicationMember_walletItems = member.get().getApplicationMember_walletItems();
         Collection<AppMemberWalletDTO> dtos = DTOUtil.getAppMemberWalletDTOS(applicationMember_walletItems);
         return dtos;
     }
+    @Operation( summary = "Get all consumable wallet items for an application member include{fiat,alcoin,cityObject  ",  description ="Get all consumable wallet items for an application member include{fiat,alcoin,cityObject")
+    @RequestMapping(value = "/id/{id}/consum-wallet-item/all", method = RequestMethod.GET)
+    @ResponseBody
+    @CrossOrigin(origins = "*")
+    public Collection<AppMemberWalletDTO> getConsumableWalletItemByUserId(@PathVariable Long id) {
+        Optional<AppMember> member = appMemberService.findById(id);
+        Collection<AppMember_WalletItem> walletItems = member.get().getApplicationMember_walletItems();
+        Collection<AppMember_WalletItem> consumableWalletItems = walletItems.stream().filter(value ->value.getWalletItem().getWalletItemType().getCurrency()).collect(Collectors.toList());
+
+        Collection<AppMemberWalletDTO> dtos = DTOUtil.getAppMemberWalletDTOS(consumableWalletItems);
+        return dtos;
+    }
+
     @Operation( summary = "Save Client Type for an app member",  description = "Save Client Type for an app member")
     @RequestMapping(value = "/save-client-type/memId/{memId}/ctype/{ctype}", method = RequestMethod.GET)
     @ResponseBody

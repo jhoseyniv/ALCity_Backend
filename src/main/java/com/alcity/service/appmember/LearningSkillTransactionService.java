@@ -2,10 +2,7 @@ package com.alcity.service.appmember;
 
 
 import com.alcity.dto.appmember.LearningSkillTransactionDTO;
-import com.alcity.entity.appmember.AppMember;
-import com.alcity.entity.appmember.AppMember_LearningSkill;
-import com.alcity.entity.appmember.LearningSkillTransaction;
-import com.alcity.entity.appmember.WalletTransaction;
+import com.alcity.entity.appmember.*;
 import com.alcity.entity.learning.LearningSkill;
 import com.alcity.entity.puzzle.PLObjective;
 import com.alcity.repository.appmember.AppMemberRepository;
@@ -85,8 +82,6 @@ public class LearningSkillTransactionService implements LearningSkillTransaction
         }
     }
 
-    public void updateAppMemberWalletItem(WalletTransaction transaction) {
-    }
 
     @Override
     public <S extends LearningSkillTransaction> Iterable<S> saveAll(Iterable<S> entities) {

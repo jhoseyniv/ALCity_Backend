@@ -1,5 +1,7 @@
 package com.alcity.dto.appmember;
 
+import com.alcity.dto.plimpexport.BoardCenterDTO;
+
 import java.util.Collection;
 
 public class AppMemberWalletDTO {
@@ -11,9 +13,10 @@ public class AppMemberWalletDTO {
     private Long walletItemId;
     private String walletItemTitle;
 
-    private byte[] thumbnail;
+    private Long iconId;
 
     private String walletItemType;
+    private Boolean isCurrency;
 
     private  Float amount;
 
@@ -44,12 +47,12 @@ public class AppMemberWalletDTO {
     public AppMemberWalletDTO() {
     }
 
-    public byte[] getThumbnail() {
-        return thumbnail;
+    public Long getIconId() {
+        return iconId;
     }
 
-    public void setThumbnail(byte[] thumbnail) {
-        this.thumbnail = thumbnail;
+    public void setIconId(Long iconId) {
+        this.iconId = iconId;
     }
 
     public String getWalletItemType() {
@@ -84,14 +87,23 @@ public class AppMemberWalletDTO {
         this.id = id;
     }
 
-    public AppMemberWalletDTO(Long id, Long appMemberId, String appMemberUsername, Long walletItemId, String walletItemTitle, byte[] thumbnail, String walletItemType, Float amount) {
+    public Boolean getCurrency() {
+        return isCurrency;
+    }
+
+    public void setCurrency(Boolean currency) {
+        isCurrency = currency;
+    }
+
+    public AppMemberWalletDTO(Long id, Long appMemberId, String appMemberUsername, Long walletItemId, String walletItemTitle, String walletItemType,Boolean isCurrency, Float amount, Long iconId) {
         this.id = id;
         this.appMemberId = appMemberId;
         this.appMemberUsername = appMemberUsername;
         this.walletItemId = walletItemId;
         this.walletItemTitle = walletItemTitle;
-        this.thumbnail = thumbnail;
         this.walletItemType = walletItemType;
         this.amount = amount;
+        this.iconId = iconId;
+        this.isCurrency = isCurrency;
     }
 }

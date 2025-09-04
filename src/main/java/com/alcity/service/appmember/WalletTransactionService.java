@@ -3,9 +3,7 @@ package com.alcity.service.appmember;
 
 import com.alcity.dto.appmember.WalletItemTransactionDTO;
 import com.alcity.entity.alenum.WalletTransactionType;
-import com.alcity.entity.appmember.AppMember;
-import com.alcity.entity.appmember.WalletItem;
-import com.alcity.entity.appmember.WalletTransaction;
+import com.alcity.entity.appmember.*;
 import com.alcity.entity.puzzle.PLObjective;
 import com.alcity.repository.appmember.AppMemberRepository;
 import com.alcity.repository.appmember.WalletItemRespository;
@@ -29,6 +27,8 @@ public class WalletTransactionService implements WalletTransactionRepository {
 
   @Autowired
   private WalletItemRespository walletItemRespository;
+    @Autowired
+    private AppMember_WalletItemService appMember_WalletItemService;
 
 
   @Override
@@ -44,7 +44,8 @@ public class WalletTransactionService implements WalletTransactionRepository {
     WalletTransactionType transactionType = WalletTransactionType.getByTitle(dto.getWalletTransactionType());
     Optional<WalletItem> walletItem = walletItemRespository.findById(dto.getWalletItemId());
 
-    WalletTransaction transaction = new WalletTransaction(DateUtils.getNow(), dto.getAmount(), dto.getIncTransaction(),dto.getDescription(),
+    WalletTransaction transaction = new WalletTransaction(DateUtils.getNow(), dto.getAmount(),
+            dto.getIncTransaction(),dto.getDescription(),
             appMemberOptional.get(),walletItem.get(),dto.getCounterpartyId(), transactionType,
             1L,DateUtils.getNow(),DateUtils.getNow(),createdBy.get(),createdBy.get());
     walletTransactionRepository.save(transaction);
@@ -120,4 +121,23 @@ public class WalletTransactionService implements WalletTransactionRepository {
   public Optional<WalletTransaction> findByAppMemberAndCounterpartyId(AppMember appMember, Long plObjectiveId) {
     return walletTransactionRepository.findByAppMemberAndCounterpartyId(appMember,plObjectiveId);
   }
+
+  public void updateAppMemberWalletItem(WalletTransaction transaction) {
+    Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
+    AppMember_WalletItem appMemberWalletItem = null;
+    AppMember appMember = transaction.getAppMember();
+    WalletItem walletItem = transaction.getWalletItem();
+        Optional<AppMember_WalletItem> appMember_walletItemOptional = appMember_WalletItemService.findByApplicationMemberAndWalletItem(appMember,walletItem);
+       if(appMember_walletItemOptional.isEmpty()) {
+         appMemberWalletItem = new AppMember_WalletItem(appMember,walletItem, transaction.getAmount(),
+                 1L,DateUtils.getNow(),DateUtils.getNow(),createdBy.get(),createdBy.get());
+         appMember_WalletItemService.save(appMemberWalletItem);
+        }else{
+         appMemberWalletItem = appMember_walletItemOptional.get();
+            Float sumAmount = transaction.getAmount() + appMemberWalletItem.getAmount();
+         appMemberWalletItem.setAmount(sumAmount);
+         appMember_WalletItemService.save(appMemberWalletItem);
+        }
+  }
+
 }

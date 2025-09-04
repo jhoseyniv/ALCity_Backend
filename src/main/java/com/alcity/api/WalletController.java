@@ -1,6 +1,7 @@
 package com.alcity.api;
 
 
+import com.alcity.customexception.ResponseMessage;
 import com.alcity.customexception.ResponseObject;
 import com.alcity.customexception.UniqueConstraintException;
 import com.alcity.customexception.ViolateForeignKeyException;
@@ -143,18 +144,18 @@ public class WalletController {
     @Operation( summary = "delete a  Wallet Item ",  description = "delete a Wallet Item .....")
     @DeleteMapping("/item/del/id/{id}")
     @CrossOrigin(origins = "*")
-    public ResponseObject deleteWalletItemById(@PathVariable Long id) {
+    public ResponseMessage deleteWalletItemById(@PathVariable Long id) {
         Optional<WalletItem> existingRecord = walletItemService.findById(id);
         if(existingRecord.isPresent()){
             try {
                 walletItemService.deleteById(existingRecord.get().getId());
             }catch (Exception e )
             {
-                throw new ViolateForeignKeyException(-1, "error", WalletItem.class.toString(),existingRecord.get().getId());
+                throw new ResponseObject(ErrorType.ForeignKeyViolation, Status.error.name(), WalletItem.class.toString(),existingRecord.get().getId(),e.getClass().getName());
             }
-            return new ResponseObject(ErrorType.DeleteSuccess, ObjectAction.class.getSimpleName(), Status.ok.name(), existingRecord.get().getId(),SystemMessage.DeleteMessage);
+            return new ResponseMessage(ErrorType.DeleteSuccess,Status.ok.name(), ObjectAction.class.getSimpleName(),  existingRecord.get().getId(),SystemMessage.DeleteMessage);
         }
-        return new ResponseObject(ErrorType.RecordNotFound, ObjectAction.class.getSimpleName(), Status.error.name(), existingRecord.get().getId(),SystemMessage.RecordNotFound);
+        return new ResponseMessage(ErrorType.RecordNotFound, Status.error.name(),ObjectAction.class.getSimpleName(),  existingRecord.get().getId(),SystemMessage.RecordNotFound);
     }
 
 }
