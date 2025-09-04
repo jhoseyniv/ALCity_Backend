@@ -99,7 +99,7 @@ public class InterpreterController {
             BoardCenterDTO boardCenterDTO = new BoardCenterDTO(plGround.getBoardCenterX(), plGround.getBoardCenterY(),plGround.getBoardCenterZ());
             BoardCenterDTO initialOffsetDTO = new BoardCenterDTO(plGround.getInitPanOffsetX(), plGround.getInitPanOffsetY(),plGround.getInitPanOffsetZ());
             InitialValuesDTO initialValuesDTO = new InitialValuesDTO(plGround.getInitValueZoom(), plGround.getInitValueZoomLimit(), plGround.getPanLimit(),boardCenterDTO,initialOffsetDTO
-                    ,plGround.getBackground().getId(),plGround.getSkybox().getId() );
+                    ,plGround.getBackground().getId(),plGround.getSkybox().getId(),plGround.getBackgroundScale() );
             CameraSetupData cameraSetupData = new CameraSetupData(Position,Rotation,features,initialValuesDTO);
             cameraSetupData.setFeatures(features);
             plData.setCameraSetup(cameraSetupData);

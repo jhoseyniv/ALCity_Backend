@@ -80,7 +80,7 @@ public class InitialValuesDTO implements Serializable {
         this.backgroundScale = backgroundScale;
     }
 
-    public InitialValuesDTO(Integer zoom, Integer zoomLimit, Integer panLimit, BoardCenterDTO boardCenter, BoardCenterDTO initialPanOffset,Long backgroundID, Long skyboxID) {
+    public InitialValuesDTO(Integer zoom, Integer zoomLimit, Integer panLimit, BoardCenterDTO boardCenter, BoardCenterDTO initialPanOffset,Long backgroundID, Long skyboxID,Integer backgroundScale) {
         this.zoom = zoom;
         this.zoomLimit = zoomLimit;
         this.panLimit = panLimit;
@@ -88,5 +88,6 @@ public class InitialValuesDTO implements Serializable {
         this.initialPanOffset = initialPanOffset;
         this.backgroundID = backgroundID;
         this.skyboxID = skyboxID;
+        this.backgroundScale = backgroundScale;
     }
 }
