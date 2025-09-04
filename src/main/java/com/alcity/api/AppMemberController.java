@@ -83,8 +83,30 @@ public class AppMemberController {
         AppMemberXPDTO dto = DTOUtil.getXPForADate(transactions_0,DateUtils.getDate(date),id);
         return dto;
     }
+    @Operation( summary = "Get XP's for a few sub set skills of a main skill....",  description = "Get XP's for a few  sub set skills of a main skill....")
+    @RequestMapping(value = "/id/{id}/xp-sub-set-skill-all/sid/{sid}", method = RequestMethod.GET)
+    @ResponseBody
+    @CrossOrigin(origins = "*")
+    public Collection<AppMemberSkillXPDTO> getXPForAAppMemberBySubSetSkillAll(@PathVariable Long id, @PathVariable Long sid) {
+        Collection<AppMemberSkillXPDTO> dtos = new ArrayList<>();
+        Optional<AppMember> memberOptional = appMemberService.findById(id);
+        Optional<LearningSkill> learningSkillOptional = learningSkillService.findById(sid);
+        if(memberOptional.isEmpty())    return null;
+        if(learningSkillOptional.isEmpty())  return null;
+
+         Collection<LearningSkill> childLearningSkills = learningSkillService.findByParentSkill(learningSkillOptional.get());
+         Iterator<LearningSkill> iterator = childLearningSkills.iterator();
+         while(iterator.hasNext()){
+             LearningSkill learningSkill = iterator.next();
+             Collection<LearningSkillTransaction> transactions = learningSkillTransactionService.findByAppMemberAndLearningSkill(memberOptional.get(),learningSkill);
+             AppMemberSkillXPDTO dto = DTOUtil.getXPForAAppMemberSkillDTO(memberOptional.get(),learningSkill,transactions,binaryContentService);
+             dtos.add(dto);
+         }
+        return dtos;
+    }
+
     @Operation( summary = "Get XP's for a user by sub set skill of a main skill....",  description = "Get XP's for a user by sub set skill of a main skill....")
-    @RequestMapping(value = "/id/{id}/sub-set-skill/sid/{sid}", method = RequestMethod.GET)
+    @RequestMapping(value = "/id/{id}/xp-sub-set-skill/sid/{sid}", method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin(origins = "*")
     public AppMemberSkillXPDTO getXPForAAppMemberBySubSetSkill(@PathVariable Long id, @PathVariable Long sid) {
@@ -94,9 +116,6 @@ public class AppMemberController {
             return null;
         if(learningSkillOptional.isEmpty())
             return null;
-
-       // LearningSkill learningSkill = learningSkillOptional.get();
-
         Collection<LearningSkillTransaction> transactions = learningSkillTransactionService.findByAppMemberAndLearningSkill(memberOptional.get(),learningSkillOptional.get());
         AppMemberSkillXPDTO dto = DTOUtil.getXPForAAppMemberSkillDTO(memberOptional.get(),learningSkillOptional.get(),transactions,binaryContentService);
         return dto;
