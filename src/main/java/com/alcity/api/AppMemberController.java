@@ -479,6 +479,7 @@ public class AppMemberController {
         Collection<AppMemberWalletDTO> dtos = DTOUtil.getAppMemberWalletDTOS(applicationMember_walletItems);
         return dtos;
     }
+
     @Operation( summary = "Get all consumable wallet items for an application member include{fiat,alcoin,cityObject  ",  description ="Get all consumable wallet items for an application member include{fiat,alcoin,cityObject")
     @RequestMapping(value = "/id/{id}/consum-wallet-item/all", method = RequestMethod.GET)
     @ResponseBody

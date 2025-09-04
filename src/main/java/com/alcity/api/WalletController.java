@@ -11,6 +11,7 @@ import com.alcity.entity.alenum.Status;
 import com.alcity.entity.alenum.ErrorType;
 import com.alcity.entity.alenum.SystemMessage;
 import com.alcity.entity.alobject.ObjectAction;
+import com.alcity.entity.appmember.AppMember;
 import com.alcity.entity.base.WalletItemType;
 import com.alcity.entity.appmember.WalletItem;
 import com.alcity.service.base.WalletItemTypeService;
@@ -34,6 +35,7 @@ public class WalletController {
     private WalletItemTypeService walletItemTypeService;
     @Autowired
     private WalletItemService walletItemService;
+
     @GetMapping("/type/all")
     @CrossOrigin(origins = "*")
     public Collection<WalletItemTypeDTO> getWalletItemTypes(Model model) {
@@ -62,83 +64,73 @@ public class WalletController {
     @CrossOrigin(origins = "*")
     public WalletItemDTO getWalletItemById(@PathVariable Long id) {
         Optional<WalletItem> walletItemOptional = walletItemService.findById(id);
-        if(walletItemOptional.isPresent()) return  DTOUtil.getWalletItemDTO(walletItemOptional.get());
+        if (walletItemOptional.isPresent()) return DTOUtil.getWalletItemDTO(walletItemOptional.get());
         return null;
     }
 
-    @Operation( summary = "Save a Wallet Item Type  ",  description = "Save a Wallet Item Type  entity and their data to data base")
+    @Operation(summary = "Save a Wallet Item Type  ", description = "Save a Wallet Item Type  entity and their data to data base")
     @PostMapping("/type/save")
     @CrossOrigin(origins = "*")
-    public ResponseObject saveOrEditWalletItemType(@RequestBody WalletItemTypeDTO dto)  {
+    public ResponseMessage saveOrEditWalletItemType(@RequestBody WalletItemTypeDTO dto) {
         WalletItemType savedRecord = null;
-        ResponseObject responseObject = new ResponseObject();
-
-        if (dto.getId() == null || dto.getId() <= 0L) { //save
-            try {
-                savedRecord = walletItemTypeService.save(dto,"Save");
+        ResponseMessage response = new ResponseMessage();
+        Optional<WalletItemType> walletItemTypeOptional = walletItemTypeService.findById(dto.getId());
+          try {
+                if(walletItemTypeOptional.isEmpty())
+                    savedRecord = walletItemTypeService.save(dto, "Save");
+                else
+                    savedRecord = walletItemTypeService.save(dto, "Edit");
+                if(savedRecord !=null)
+                    response = new ResponseMessage(ErrorType.SaveSuccess, Status.ok.name(),WalletItemType.class.getSimpleName() ,  savedRecord.getId(), SystemMessage.SaveOrEditMessage_Success);
+                else
+                    response = new ResponseMessage(ErrorType.SaveFail,Status.error.name(), WalletItemType.class.getSimpleName() ,  -1L, SystemMessage.SaveOrEditMessage_Fail);
             } catch (RuntimeException e) {
-                throw new UniqueConstraintException(-1,"Unique Constraint in" + WalletItemType.class , "Error",savedRecord.getId() );
+                throw new ResponseObject(ErrorType.UniquenessViolation,Status.error.name() , WalletItemType.class.getSimpleName() ,  -1L ,e.getCause().getMessage());
             }
-            responseObject = new ResponseObject(ErrorType.SaveSuccess, WalletItemType.class.getSimpleName() , Status.ok.name(), savedRecord.getId(), SystemMessage.SaveOrEditMessage_Success);
-        } else if (dto.getId() > 0L ) {//edit
-            savedRecord = walletItemTypeService.save(dto, "Edit");
-            if(savedRecord !=null)
-                responseObject = new ResponseObject(ErrorType.SaveSuccess, WalletItemType.class.getSimpleName() , Status.ok.name(), savedRecord.getId(), SystemMessage.SaveOrEditMessage_Success);
-            else
-                responseObject = new ResponseObject(ErrorType.RecordNotFound, ObjectAction.class.getSimpleName(), Status.error.name(), dto.getId(),SystemMessage.RecordNotFound);
-        }
-        else if (savedRecord==null)
-            responseObject = new ResponseObject(ErrorType.RecordNotFound, ObjectAction.class.getSimpleName(), Status.error.name(), dto.getId(),SystemMessage.RecordNotFound);
-        else
-            responseObject = new ResponseObject(ErrorType.RecordNotFound, ObjectAction.class.getSimpleName(), Status.error.name(), dto.getId(),SystemMessage.RecordNotFound);
 
-        return responseObject;
+        return response;
     }
 
-    @Operation( summary = "Save a Wallet Item ",  description = "Save a Wallet Item entity and their data to data base")
+    @Operation(summary = "Save a Wallet Item ", description = "Save a Wallet Item entity and their data to data base")
     @PostMapping("/item/save")
     @CrossOrigin(origins = "*")
-    public ResponseObject saveOrEditWalletItem(@RequestBody WalletItemDTO dto)  {
+    public ResponseMessage saveOrEditWalletItem(@RequestBody WalletItemDTO dto) {
         WalletItem savedRecord = null;
-        ResponseObject responseObject = new ResponseObject();
+        ResponseMessage response = new ResponseMessage();
+        Optional<WalletItem> walletItemOptional = walletItemService.findById(dto.getId());
 
-        if (dto.getId() == null || dto.getId() <= 0L) { //save
-            try {
-                savedRecord = walletItemService.save(dto,"Save");
-            } catch (RuntimeException e) {
-                throw new UniqueConstraintException(-1,"Unique Constraint in" + WalletItem.class , "Error",savedRecord.getId() );
-            }
-            responseObject = new ResponseObject(ErrorType.SaveSuccess, WalletItemType.class.getSimpleName() , Status.ok.name(), savedRecord.getId(), SystemMessage.SaveOrEditMessage_Success);
-        } else if (dto.getId() > 0L ) {//edit
-            savedRecord = walletItemService.save(dto, "Edit");
-            if(savedRecord !=null)
-                responseObject = new ResponseObject(ErrorType.SaveSuccess, WalletItemType.class.getSimpleName() , Status.ok.name(), savedRecord.getId(), SystemMessage.SaveOrEditMessage_Success);
+        try {
+            if (walletItemOptional.isEmpty())
+                savedRecord = walletItemService.save(dto, "Save");
             else
-                responseObject = new ResponseObject(ErrorType.RecordNotFound, ObjectAction.class.getSimpleName(), Status.error.name(), dto.getId(),SystemMessage.RecordNotFound);
-        }
-        else if (savedRecord==null)
-            responseObject = new ResponseObject(ErrorType.RecordNotFound, ObjectAction.class.getSimpleName(), Status.error.name(), dto.getId(),SystemMessage.RecordNotFound);
-        else
-            responseObject = new ResponseObject(ErrorType.RecordNotFound, ObjectAction.class.getSimpleName(), Status.error.name(), dto.getId(),SystemMessage.RecordNotFound);
+                savedRecord = walletItemService.save(dto, "Edit");
 
-        return responseObject;
+            if(savedRecord !=null)
+                response = new ResponseMessage(ErrorType.SaveSuccess, Status.ok.name(),WalletItem.class.getSimpleName() ,  savedRecord.getId(), SystemMessage.SaveOrEditMessage_Success);
+            else
+                response = new ResponseMessage(ErrorType.SaveFail,Status.error.name(), WalletItem.class.getSimpleName() ,  -1L, SystemMessage.SaveOrEditMessage_Fail);
+        }
+        catch (Exception e) {
+             throw new ResponseObject(ErrorType.UniquenessViolation,Status.error.name() , WalletItem.class.getSimpleName() ,  -1L ,e.getCause().getMessage());
+        }
+        return response;
     }
 
     @Operation( summary = "delete a  Wallet Item Type  ",  description = "delete a Wallet Item type ")
     @DeleteMapping("/type/del/id/{id}")
     @CrossOrigin(origins = "*")
-    public ResponseObject deleteWalletItemTypeById(@PathVariable Long id) {
+    public ResponseMessage deleteWalletItemTypeById(@PathVariable Long id) {
         Optional<WalletItemType> existingRecord = walletItemTypeService.findById(id);
         if(existingRecord.isPresent()){
             try {
                 walletItemTypeService.deleteById(existingRecord.get().getId());
             }catch (Exception e )
             {
-                throw new ViolateForeignKeyException(-1, "error", WalletItemType.class.toString(),existingRecord.get().getId());
+                throw new ResponseObject(ErrorType.ForeignKeyViolation, Status.error.name(), WalletItemType.class.toString(),existingRecord.get().getId(),e.getClass().getName());
             }
-            return new ResponseObject(ErrorType.DeleteSuccess, ObjectAction.class.getSimpleName(), Status.ok.name(), existingRecord.get().getId(),SystemMessage.DeleteMessage);
+            return new ResponseMessage(ErrorType.DeleteSuccess, Status.ok.name(),WalletItemType.class.getSimpleName(),  existingRecord.get().getId(),SystemMessage.DeleteMessage);
         }
-        return new ResponseObject(ErrorType.RecordNotFound, ObjectAction.class.getSimpleName(), Status.error.name(), existingRecord.get().getId(),SystemMessage.RecordNotFound);
+        return new ResponseMessage(ErrorType.RecordNotFound,Status.error.name(), WalletItemType.class.getSimpleName(),  existingRecord.get().getId(),SystemMessage.RecordNotFound);
     }
 
     @Operation( summary = "delete a  Wallet Item ",  description = "delete a Wallet Item .....")
