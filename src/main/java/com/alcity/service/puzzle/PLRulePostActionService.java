@@ -159,6 +159,7 @@ public class PLRulePostActionService implements PLRulePostActionRepository {
 
     @Override
     public Optional<PLRulePostAction> findById(Long id) {
+        if(id == null) return Optional.empty();
         return plRulePostActionRepository.findById(id);
     }
 
