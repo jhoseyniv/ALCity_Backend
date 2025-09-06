@@ -76,9 +76,9 @@ public class PLRulePostActionService implements PLRulePostActionRepository {
     public PLRulePostAction importPostAction_New(PostActionTreeImport_New dto, Long newOwner) {
         Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
         PLRulePostActionOwnerType ownerType = PLRulePostActionOwnerType.getByTitle(dto.getPostActionOwnerType());
-        PLRulePostActionType plRulePostActionType = PLRulePostActionType.getByTitle(dto.getPostActionType());
+        PLRulePostActionType plRulePostActionType = PLRulePostActionType.getByTitle(dto.getActionType());
         PLRulePostAction importedPostAction = new PLRulePostAction(newOwner,ownerType,plRulePostActionType,
-                dto.getOrdering(),dto.getActionName(), dto.getObjectId(), dto.getVariable(), dto.getValueExpression(),
+                dto.getOrdering(),dto.getActionName(), dto.getObjectId(), dto.getVariable(), dto.getValueExperssion(),
                 dto.getSubAction(), dto.getAlertType(), dto.getAlertMessage(), dto.getActionKey(),
                 1L, DateUtils.getNow(), DateUtils.getNow(), createdBy.get(),createdBy.get());
         plRulePostActionRepository.save(importedPostAction);
