@@ -110,8 +110,10 @@ public class PLRulePostActionService implements PLRulePostActionRepository {
     public Collection<PLRulePostAction> importPLRulePostActionsTrees_New(Collection<PostActionTreeImport_New> postActionTreeImports, Long ruleId) {
         Collection<PLRulePostAction> importedPostActions = new ArrayList<>();
         Iterator<PostActionTreeImport_New> iterator = postActionTreeImports.iterator();
+        Integer ordering = 0;
         while(iterator.hasNext()){
             PostActionTreeImport_New postActionTreeImport = iterator.next();
+            postActionTreeImport.setOrdering(ordering);
             // for root of trees- owner_id will be Rule_id
             PLRulePostAction importedPostAction = importPLRulePostActionTree_New(postActionTreeImport,ruleId);
             importedPostActions.add(importedPostAction);
