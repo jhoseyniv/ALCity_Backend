@@ -84,6 +84,11 @@ public class PLRuleEventService implements PLRuleEventRepository {
     }
 
     @Override
+    public Optional<PLRuleEvent> findByNameIgnoreCase(String name) {
+        return plRuleEventRepository.findByNameIgnoreCase(name);
+    }
+
+    @Override
     public Iterable<PLRuleEvent> findAllById(Iterable<Long> longs) {
         return null;
     }
@@ -118,9 +123,5 @@ public class PLRuleEventService implements PLRuleEventRepository {
 
     }
 
-    @Override
-    public Optional<PLRuleEvent> findByName(String name) {
-        return plRuleEventRepository.findByName(name);
-    }
 
 }

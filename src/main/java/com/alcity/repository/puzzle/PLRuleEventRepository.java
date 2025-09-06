@@ -9,7 +9,7 @@ import java.util.Optional;
 public interface PLRuleEventRepository extends CrudRepository<PLRuleEvent,Long> {
     Optional<PLRuleEvent> findById(Long id);
     Collection<PLRuleEvent> findAll();
-    Optional<PLRuleEvent> findByName(String name);
+    Optional<PLRuleEvent> findByNameIgnoreCase(String name);
    // Optional<PLRuleEvent> findByNameAndSubEvent(String name,String subEvent);
 
 }
