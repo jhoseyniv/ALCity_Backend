@@ -27,8 +27,10 @@ public class PostActionTreeImport_New<P> implements Serializable {
     private String alertMessage;
     private Collection<AttributeData> parameters;
 
-    public PostActionTreeImport_New<PostActionTreeImport_New> innerActions;
-    public PostActionTreeImport_New<PostActionTreeImport_New> elseActions;
+    public List<PostActionTreeImport_New<PostActionTreeImport_New>> innerActions;
+    public List<PostActionTreeImport_New<PostActionTreeImport_New>> elseActions;
+
+
 
     public Integer getOrdering() {
         return ordering;
@@ -109,38 +111,6 @@ public class PostActionTreeImport_New<P> implements Serializable {
 
     public void setActionKey(String actionKey) {
         this.actionKey = actionKey;
-    }
-
-    public String getActionType() {
-        return actionType;
-    }
-
-    public void setActionType(String actionType) {
-        this.actionType = actionType;
-    }
-
-    public StringBuffer getValueExperssion() {
-        return valueExperssion;
-    }
-
-    public void setValueExperssion(StringBuffer valueExperssion) {
-        this.valueExperssion = valueExperssion;
-    }
-
-    public PostActionTreeImport_New<PostActionTreeImport_New> getInnerActions() {
-        return innerActions;
-    }
-
-    public void setInnerActions(PostActionTreeImport_New<PostActionTreeImport_New> innerActions) {
-        this.innerActions = innerActions;
-    }
-
-    public PostActionTreeImport_New<PostActionTreeImport_New> getElseActions() {
-        return elseActions;
-    }
-
-    public void setElseActions(PostActionTreeImport_New<PostActionTreeImport_New> elseActions) {
-        this.elseActions = elseActions;
     }
 
     public PostActionTreeImport_New() {

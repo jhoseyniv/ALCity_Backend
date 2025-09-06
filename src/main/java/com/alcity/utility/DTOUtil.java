@@ -1621,9 +1621,8 @@ public class DTOUtil {
         System.out.println(node.getActionName() + " ");
         node.setPostActionOwnerType(PLRulePostActionOwnerType.Puzzle_Level_Rule.name());
         PLRulePostAction postAction = plRulePostActionService.importPostAction_New(node,ownerId);
-        PostActionTreeImport_New<com.alcity.test.ruleimport_new.PostActionTreeImport_New> childs=node.getInnerActions();
-        while (childs.getInnerActions() !=null) {
-            PostActionTreeImport_New<com.alcity.test.ruleimport_new.PostActionTreeImport_New> child = node.getInnerActions();
+        if(node.innerActions==null){node.innerActions=new ArrayList<>();}
+        for (PostActionTreeImport_New<com.alcity.test.ruleimport_new.PostActionTreeImport_New> child : node.innerActions) {
             child.setPostActionOwnerType(PLRulePostActionOwnerType.Inner_Rule_Post_Action.name());
             preOrderTraversal_New(plRulePostActionService,child,postAction.getId());
         }
