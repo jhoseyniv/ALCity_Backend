@@ -143,9 +143,12 @@ public class PLRuleService implements PLRuleRepository {
         Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
 
         Collection<PostActionTreeImport_New> postActionTreeImports = importRule.getActions();
-        Optional<PLRuleEvent> plRuleEvent = plRuleEventService.findByName(importRule.getEvent());
+        String[] parts = importRule.getEvent().split(":");
+
+
+        Optional<PLRuleEvent> plRuleEvent = plRuleEventService.findByName(parts[0]);
         PLRule newRule = new PLRule(importRule.getTitle(),importRule.getOrdering(),
-                importRule.getCondition(),importRule.getIgnoreRemaining(),puzzleLevel,plRuleEvent.get(),importRule.getSubEvent(),
+                importRule.getCondition(),importRule.getIgnoreRemaining(),puzzleLevel,plRuleEvent.get(),parts[1],
                 1L,DateUtils.getNow(),DateUtils.getNow(),createdBy.get(),createdBy.get());
         ruleRepository.save(newRule);
         plRulePostActionService.importPLRulePostActionsTrees_New(postActionTreeImports,newRule.getId());
