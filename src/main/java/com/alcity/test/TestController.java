@@ -43,6 +43,7 @@ public class TestController {
             importedPuzzleLevel =  plService.importPuzzleLevel_New(dto);
         }else{
             //first delete exist puzzle level and then add new pl
+            plService.deletePuzzleLevel(puzzleLevelOptional.get());
             importedPuzzleLevel =  plService.importPuzzleLevel_New(dto);
         }
         response = new ResponseMessage(ErrorType.ImportSuccess,  Status.ok.name(),PuzzleLevel.class.getSimpleName() , importedPuzzleLevel.getId(), SystemMessage.SaveOrEditMessage_Success);
