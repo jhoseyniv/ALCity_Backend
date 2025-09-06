@@ -196,8 +196,8 @@ public class InstanceService implements InstanceRepository {
     public PLCell getPLCellFromGroundByPosition( Collection<PLCell> cells , Integer x,Integer y, Integer z){
         Collection<PLCell> matchValueOptional_row = cells.stream().filter(cell -> cell.getRow().equals(x)).collect(Collectors.toList());
         Collection<PLCell> matchValueOptional_col = matchValueOptional_row.stream().filter(cell -> cell.getCol().equals(y)).collect(Collectors.toList());
-        Collection<PLCell> matchValueOptional_zorder = matchValueOptional_col.stream().filter(cell -> cell.getzOrder().equals(z)).collect(Collectors.toList());
-        Optional<PLCell> cell = matchValueOptional_zorder.stream().findFirst();
+       // Collection<PLCell> matchValueOptional_zorder = matchValueOptional_col.stream().filter(cell -> cell.getzOrder().equals(z)).collect(Collectors.toList());
+        Optional<PLCell> cell = matchValueOptional_col.stream().findFirst();
         return cell.get();
     }
     public Collection<Instance> copyInstancesFromSourcePLToTargetPL(PuzzleLevel source , PuzzleLevel target) {
