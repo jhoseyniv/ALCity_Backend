@@ -12,7 +12,7 @@ import java.util.List;
 
 public class PostActionTreeImport_New<P> implements Serializable {
 
-    private String  postActionType;
+    private String  actionType;
     private String  postActionOwnerType;
     private Integer ordering;
     private String objectId;
@@ -22,30 +22,13 @@ public class PostActionTreeImport_New<P> implements Serializable {
     private String actionKey;
 
     private String variable;
-    private StringBuffer valueExpression;
+    private StringBuffer valueExperssion;
     private String alertType;
     private String alertMessage;
     private Collection<AttributeData> parameters;
 
     public List<PostActionTreeImport_New<PostActionTreeImport_New>> innerActions;
     public List<PostActionTreeImport_New<PostActionTreeImport_New>> elseActions;
-
-
-    public String getPostActionType() {
-        return postActionType;
-    }
-
-    public void setPostActionType(String postActionType) {
-        this.postActionType = postActionType;
-    }
-
-    public StringBuffer getValueExpression() {
-        return valueExpression;
-    }
-
-    public void setValueExpression(StringBuffer valueExpression) {
-        this.valueExpression = valueExpression;
-    }
 
     public Integer getOrdering() {
         return ordering;
@@ -126,6 +109,38 @@ public class PostActionTreeImport_New<P> implements Serializable {
 
     public void setActionKey(String actionKey) {
         this.actionKey = actionKey;
+    }
+
+    public String getActionType() {
+        return actionType;
+    }
+
+    public void setActionType(String actionType) {
+        this.actionType = actionType;
+    }
+
+    public StringBuffer getValueExperssion() {
+        return valueExperssion;
+    }
+
+    public void setValueExperssion(StringBuffer valueExperssion) {
+        this.valueExperssion = valueExperssion;
+    }
+
+    public List<PostActionTreeImport_New<PostActionTreeImport_New>> getInnerActions() {
+        return innerActions;
+    }
+
+    public void setInnerActions(List<PostActionTreeImport_New<PostActionTreeImport_New>> innerActions) {
+        this.innerActions = innerActions;
+    }
+
+    public List<PostActionTreeImport_New<PostActionTreeImport_New>> getElseActions() {
+        return elseActions;
+    }
+
+    public void setElseActions(List<PostActionTreeImport_New<PostActionTreeImport_New>> elseActions) {
+        this.elseActions = elseActions;
     }
 
     public PostActionTreeImport_New() {
