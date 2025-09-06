@@ -30,7 +30,21 @@ public class PostActionTreeImport_New<P> implements Serializable {
     public List<PostActionTreeImport_New<PostActionTreeImport_New>> innerActions;
     public List<PostActionTreeImport_New<PostActionTreeImport_New>> elseActions;
 
+    public String getActionType() {
+        return actionType;
+    }
 
+    public void setActionType(String actionType) {
+        this.actionType = actionType;
+    }
+
+    public StringBuffer getValueExperssion() {
+        return valueExperssion;
+    }
+
+    public void setValueExperssion(StringBuffer valueExperssion) {
+        this.valueExperssion = valueExperssion;
+    }
 
     public Integer getOrdering() {
         return ordering;
