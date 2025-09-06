@@ -16,6 +16,7 @@ import com.alcity.repository.puzzle.PLRulePostActionRepository;
 import com.alcity.repository.puzzle.PLRuleRepository;
 import com.alcity.service.alobject.AttributeService;
 import com.alcity.service.alobject.AttributeValueService;
+import com.alcity.test.ruleimport_new.PostActionTreeImport_New;
 import com.alcity.utility.DTOUtil;
 import com.alcity.utility.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -72,12 +73,52 @@ public class PLRulePostActionService implements PLRulePostActionRepository {
 
         return importedPostAction;
     }
+    public PLRulePostAction importPostAction_New(PostActionTreeImport_New dto, Long newOwner) {
+        Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
+        PLRulePostActionOwnerType ownerType = PLRulePostActionOwnerType.getByTitle(dto.getPostActionOwnerType());
+        PLRulePostActionType plRulePostActionType = PLRulePostActionType.getByTitle(dto.getPostActionType());
+        PLRulePostAction importedPostAction = new PLRulePostAction(newOwner,ownerType,plRulePostActionType,
+                dto.getOrdering(),dto.getActionName(), dto.getObjectId(), dto.getVariable(), dto.getValueExpression(),
+                dto.getSubAction(), dto.getAlertType(), dto.getAlertMessage(), dto.getActionKey(),
+                1L, DateUtils.getNow(), DateUtils.getNow(), createdBy.get(),createdBy.get());
+        plRulePostActionRepository.save(importedPostAction);
+
+        if(dto.getParameters().size()>0){
+            System.out.println("parameter is defined.............");
+            Collection<AttributeData> recordDataImports = dto.getParameters();
+            //Collection<AttributeDTOSave> dtos = new ArrayList<>();
+            attributeService.importPLRulePostActionParam(recordDataImports,importedPostAction,AttributeOwnerType.Puzzle_Level_Rule_Post_Action_Parameter);
+        }
+
+        return importedPostAction;
+    }
+
+
     public PLRulePostAction importPLRulePostActionTree(PostActionTreeImport root,Long ruleId) {
         Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
         PLRulePostAction newPostAction =null;
         DTOUtil.preOrderTraversal(this,root,ruleId);
         return newPostAction;
     }
+    public PLRulePostAction importPLRulePostActionTree_New(PostActionTreeImport_New root,Long ruleId) {
+        Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
+        PLRulePostAction newPostAction =null;
+        DTOUtil.preOrderTraversal_New(this,root,ruleId);
+        return newPostAction;
+    }
+
+    public Collection<PLRulePostAction> importPLRulePostActionsTrees_New(Collection<PostActionTreeImport_New> postActionTreeImports, Long ruleId) {
+        Collection<PLRulePostAction> importedPostActions = new ArrayList<>();
+        Iterator<PostActionTreeImport_New> iterator = postActionTreeImports.iterator();
+        while(iterator.hasNext()){
+            PostActionTreeImport_New postActionTreeImport = iterator.next();
+            // for root of trees- owner_id will be Rule_id
+            PLRulePostAction importedPostAction = importPLRulePostActionTree_New(postActionTreeImport,ruleId);
+            importedPostActions.add(importedPostAction);
+        }
+        return importedPostActions;
+    }
+
 
     public Collection<PLRulePostAction> importPLRulePostActionsTrees(Collection<PostActionTreeImport> postActionTreeImports, Long ruleId) {
         Collection<PLRulePostAction> importedPostActions = new ArrayList<>();

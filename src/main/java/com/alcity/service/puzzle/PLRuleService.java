@@ -9,6 +9,8 @@ import com.alcity.entity.puzzle.*;
 import com.alcity.repository.appmember.AppMemberRepository;
 import com.alcity.repository.puzzle.PLRuleRepository;
 import com.alcity.repository.puzzle.PuzzleLevelRepository;
+import com.alcity.test.ruleimport_new.PLRuleImport_New;
+import com.alcity.test.ruleimport_new.PostActionTreeImport_New;
 import com.alcity.utility.DTOUtil;
 import com.alcity.utility.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -136,6 +138,29 @@ public class PLRuleService implements PLRuleRepository {
         ruleRepository.save(newRule);
         plRulePostActionService.importPLRulePostActionsTrees(postActionTreeImports,newRule.getId());
         return newRule;
+    }
+    public PLRule importRule_New(PLRuleImport_New importRule,PuzzleLevel puzzleLevel) {
+        Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
+
+        Collection<PostActionTreeImport_New> postActionTreeImports = importRule.getActions();
+        Optional<PLRuleEvent> plRuleEvent = plRuleEventService.findByName(importRule.getEvent());
+        PLRule newRule = new PLRule(importRule.getTitle(),importRule.getOrdering(),
+                importRule.getCondition(),importRule.getIgnoreRemaining(),puzzleLevel,plRuleEvent.get(),importRule.getSubEvent(),
+                1L,DateUtils.getNow(),DateUtils.getNow(),createdBy.get(),createdBy.get());
+        ruleRepository.save(newRule);
+        plRulePostActionService.importPLRulePostActionsTrees_New(postActionTreeImports,newRule.getId());
+        return newRule;
+    }
+
+    public Collection<PLRule> importRules_New(Collection<PLRuleImport_New> plRuleImports, PuzzleLevel puzzleLevel) {
+        Collection<PLRule> importedRules = new ArrayList<>();
+        Iterator<PLRuleImport_New> iterator = plRuleImports.iterator();
+        while(iterator.hasNext()){
+            PLRuleImport_New plRuleImport = iterator.next();
+            PLRule importedRule = importRule_New(plRuleImport,puzzleLevel);
+            importedRules.add(importedRule);
+        }
+        return importedRules;
     }
 
     public Collection<PLRule> importRules(Collection<PLRuleImport> plRuleImports, PuzzleLevel puzzleLevel) {

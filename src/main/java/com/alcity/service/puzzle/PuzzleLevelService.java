@@ -27,6 +27,8 @@ import com.alcity.service.alobject.AttributeService;
 import com.alcity.service.alobject.AttributeValueService;
 import com.alcity.service.appmember.AppMemberService;
 import com.alcity.service.base.BinaryContentService;
+import com.alcity.test.importstruct.PLImportDTO_New;
+import com.alcity.test.ruleimport_new.PLRuleImport_New;
 import com.alcity.utility.DTOUtil;
 import com.alcity.utility.DateUtils;
 import com.alcity.utility.ImageUtil;
@@ -311,6 +313,86 @@ public class PuzzleLevelService implements PuzzleLevelRepository {
 
         return importedPuzzleLevel;
     }
+    public PuzzleLevel importPuzzleLevel_New(PLImportDTO_New dto) throws IOException, ClassNotFoundException {
+        // import puzzle level header
+        Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
+        Optional<BinaryContent> iconOptional = binaryContentRepository.findById(dto.getIconId());
+        Optional<BinaryContent> picOptional = binaryContentRepository.findById(dto.getPicId());
+        Optional<BinaryContent> boardGraphicOptional = binaryContentRepository.findById(dto.getBoardGraphicId());
+
+        // Optional<PLGround> plGroundOptional = plGroundService.findById(238L);
+        // BoardGraphicDTO boardGraphicDTO = PLDTOUtil.getBoardGraphicJSON(plGroundOptional.get());
+        //  byte[] boardGraphic = ImageUtil.convertObjectToBytes(boardGraphicDTO);
+
+        PLDifficulty plDifficulty =  PLDifficulty.getByTitle(dto.getPuzzleLevelDifficulty());
+        PLStatus  plStatus =  PLStatus.getByTitle(dto.getPuzzleLevelStatus());
+        PLPrivacy plPrivacy =  plPrivacyRepository.findByValue(dto.getPuzzleLevelPrivacy());
+        Optional<PuzzleGroup>  puzzleGroupOptional = pgRepository.findById(dto.getPuzzleGroupId());
+        Random random = new Random(); // Create a Random object
+        long generatedLong = random.nextLong(); // Generate a random long
+        String pcode= dto.getCode() + String.valueOf(generatedLong);
+
+        PuzzleLevel importedPuzzleLevel = new PuzzleLevel(createdBy.get(),dto.getApproveDate(), dto.getOrdering(),
+                dto.getTitle(),pcode,dto.getFromAge(),dto.getToAge(),
+                dto.getMaxScore(), dto.getFirstStarScore(), dto.getSecondStarScore(), dto.getThirdStartScore(),
+                puzzleGroupOptional.get(),plDifficulty,plStatus,plPrivacy, iconOptional.get(),picOptional.get() ,
+                1L, DateUtils.getNow(), DateUtils.getNow(), createdBy.get(), createdBy.get());
+        puzzleLevelRepository.save(importedPuzzleLevel);
+
+        // import puzzle level ground
+        CameraSetupData cameraSetupImport = dto.getCameraSetup();
+        PositionDTO position = cameraSetupImport.getPosition();
+        PositionDTO rotation = cameraSetupImport.getRotation();
+        FeaturesData features = cameraSetupImport.getFeatures();
+        InitialValuesDTO initialValuesDTO = cameraSetupImport.getInitialValues();
+        BoardCenterDTO boardCenterDTO = initialValuesDTO.getBoardCenter();
+        BoardCenterDTO initialPanOffset = initialValuesDTO.getInitialPanOffset();
+        //byte[] boardGraphic=boardGraphicOptional.get().getContent();
+        Optional<BinaryContent> skyBox = binaryContentRepository.findById(initialValuesDTO.getSkyboxID());
+        Optional<BinaryContent> background = binaryContentRepository.findById(initialValuesDTO.getBackgroundID());
+
+        PLGround importPLGround = new PLGround(dto.getRows(), dto.getCols(),
+                position.getX(), position.getY(), position.getZ(), rotation.getX(), rotation.getY(), rotation.getZ(),
+                features.getZoom(), features.getPan(), features.getRotation(),importedPuzzleLevel, null,initialValuesDTO.getZoom(),initialValuesDTO.getZoomLimit(),
+                boardCenterDTO.getX(),boardCenterDTO.getY(),boardCenterDTO.getZ(),initialValuesDTO.getPanLimit(),
+                initialPanOffset.getX(),initialPanOffset.getY(),initialPanOffset.getZ(),skyBox.get(),background.get(),initialValuesDTO.getBackgroundScale()
+                , 1L, DateUtils.getNow(), DateUtils.getNow(), createdBy.get(), createdBy.get());
+        plGroundService.save(importPLGround);
+
+        Collection<PLGround> plGrounds = new ArrayList<>();
+        plGrounds.add(importPLGround);
+
+        importedPuzzleLevel.setPlGrounds(plGrounds);
+        //import puzzle level objectives
+        Collection<PLObjectiveData> objectives = dto.getObjectives();
+        Collection<PLObjective> importedObjectives = plObjectiveService.importObjectives(objectives, importedPuzzleLevel);
+        importedPuzzleLevel.setPlObjectives(importedObjectives);
+
+        //import puzzle level variables
+        Collection<AttributeData> variables = dto.getVariables();
+        Collection<Attribute> copiedAttributes = attributeService.importPLVariables(variables, importedPuzzleLevel, AttributeOwnerType.Puzzle_Level_Variable);
+
+        //import puzzle level cells
+        Collection<PLCellImport> cells = dto.getCells();
+        Collection<PLCell> importedCells = instanceInPLService.importCells(cells, importedPuzzleLevel);
+        importPLGround.setPlCells(importedCells);
+
+        //import puzzle level instances
+        Collection<Instance> importInstances = instanceInPLService.importObjects(dto.getObjects(), importedPuzzleLevel);
+
+        //import puzzle level rules
+        Collection<PLRuleImport_New> rules = dto.getRules();
+        Collection<PLRule> importedRules = plRuleService.importRules_New(rules, importedPuzzleLevel);
+        importedPuzzleLevel.setRules(importedRules);
+
+        //import puzzle learning topics
+        Collection<PLLearningTopicData> topics = dto.getLearningTopics();
+        Collection<PLLearningTopic> importedTopics = plLearningTopicService.importLearningTopics(topics, importedPuzzleLevel);
+        importedPuzzleLevel.setLearningTopics(importedTopics);
+
+        return importedPuzzleLevel;
+    }
+
 
     @Transactional
     public void deletePuzzleLevel(PuzzleLevel puzzleLevel) {

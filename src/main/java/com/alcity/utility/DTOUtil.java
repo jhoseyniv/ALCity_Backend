@@ -38,6 +38,7 @@ import com.alcity.service.alobject.AttributeService;
 import com.alcity.service.alobject.AttributeValueService;
 import com.alcity.service.base.BinaryContentService;
 import com.alcity.service.puzzle.PLRulePostActionService;
+import com.alcity.test.ruleimport_new.PostActionTreeImport_New;
 import org.json.JSONException;
 
 import java.io.ByteArrayInputStream;
@@ -1612,6 +1613,15 @@ public class DTOUtil {
         PLRulePostAction postAction = plRulePostActionService.importPostAction(node.postAction,ownerId);
         for (PostActionTreeImport<com.alcity.dto.plimpexport.rulemport.PLRulePostActionImport> child : node.children) {
             preOrderTraversal(plRulePostActionService,child,postAction.getId());
+        }
+    }
+    public static <PLRulePostActionImport_New> void preOrderTraversal_New(PLRulePostActionService plRulePostActionService, PostActionTreeImport_New<com.alcity.test.ruleimport_new.PostActionTreeImport_New> node, Long ownerId) {
+        if (node == null) return;
+
+        System.out.println(node.getActionName() + " ");
+        PLRulePostAction postAction = plRulePostActionService.importPostAction_New(node,ownerId);
+        for (PostActionTreeImport_New<com.alcity.test.ruleimport_new.PostActionTreeImport_New> child : node.innerActions) {
+            preOrderTraversal_New(plRulePostActionService,child,postAction.getId());
         }
     }
 

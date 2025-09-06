@@ -1,4 +1,4 @@
-package com.alcity.test;
+package com.alcity.testdate;
 
 public class FloatToIntConversion {
     public static void main(String[] args) {
