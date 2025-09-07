@@ -1318,8 +1318,8 @@ public class DTOUtil {
         dto.setRotation(plGround.getRotation());
       //  String s = new String(plGround.getBoardGraphic(), StandardCharsets.US_ASCII);
       //  JSONObject objJsonObject = new JSONObject(s);
-        BoardGraphicDTO boardGraphicDTO = PLDTOUtil.getBoardGraphicJSON(plGround);
-        dto.setBoardGraphicDTO(boardGraphicDTO);
+       // BoardGraphicDTO boardGraphicDTO = PLDTOUtil.getBoardGraphicJSON(plGround);
+      //  dto.setBoardGraphicDTO(boardGraphicDTO);
         dto.setNumColumns(plGround.getNumColumns());
         dto.setPuzzleLevelId(plGround.getPuzzleLevel().getId());
        // dto.setPuzzleLevelTitle(plGround.getPuzzleLevel().getTitle());

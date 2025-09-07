@@ -84,19 +84,19 @@ public class PLGroundController {
 
 
 
-    @Operation( summary = "Fetch board graphic for a puzzle ground   Id ",  description = "Fetch board graphic for a puzzle ground Id")
-    @RequestMapping(value = "/id/{id}/boardgraphic", method = RequestMethod.GET)
-    @ResponseBody
-    @CrossOrigin(origins = "*")
-    public BoardGraphicDTO getBoardGraphicByPLGroundId(@PathVariable Long id) throws IOException, ClassNotFoundException {
-        Optional<PLGround> plGroundOptional = plGroundService.findById(id);
-        byte[] boardGraphic=null;
-        BoardGraphicDTO boardGraphicDTO = new BoardGraphicDTO();
-        if(plGroundOptional.isPresent()) {
-            boardGraphicDTO = PLDTOUtil.getBoardGraphicJSON(plGroundOptional.get());
-        }
-        return boardGraphicDTO;
-    }
+//    @Operation( summary = "Fetch board graphic for a puzzle ground   Id ",  description = "Fetch board graphic for a puzzle ground Id")
+//    @RequestMapping(value = "/id/{id}/boardgraphic", method = RequestMethod.GET)
+//    @ResponseBody
+//    @CrossOrigin(origins = "*")
+//    public BoardGraphicDTO getBoardGraphicByPLGroundId(@PathVariable Long id) throws IOException, ClassNotFoundException {
+//        Optional<PLGround> plGroundOptional = plGroundService.findById(id);
+//        byte[] boardGraphic=null;
+//        BoardGraphicDTO boardGraphicDTO = new BoardGraphicDTO();
+//        if(plGroundOptional.isPresent()) {
+//            boardGraphicDTO = PLDTOUtil.getBoardGraphicJSON(plGroundOptional.get());
+//        }
+//        return boardGraphicDTO;
+//    }
 
     @Operation( summary = "Delete a  PL Ground ",  description = "Delete a PL ground")
     @DeleteMapping("/del/{id}")

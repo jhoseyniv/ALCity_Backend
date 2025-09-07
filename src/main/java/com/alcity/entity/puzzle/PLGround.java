@@ -179,17 +179,17 @@ public class PLGround extends BaseTable {
         this.puzzleLevel = puzzleLevel;
     }
 
-    @Lob
-    @Basic(fetch = FetchType.LAZY)
-    private byte[] boardGraphic;
+//    @Lob
+//    @Basic(fetch = FetchType.LAZY)
+//    private byte[] boardGraphic;
 
-    public byte[] getBoardGraphic() {
-        return boardGraphic;
-    }
-
-    public void setBoardGraphic(byte[] boardGraphic) {
-        this.boardGraphic = boardGraphic;
-    }
+//    public byte[] getBoardGraphic() {
+//        return boardGraphic;
+//    }
+//
+//    public void setBoardGraphic(byte[] boardGraphic) {
+//        this.boardGraphic = boardGraphic;
+//    }
 
     public Float getxPosition() {
         return xPosition;
@@ -315,7 +315,7 @@ public class PLGround extends BaseTable {
     }
 
     public PLGround(Integer numRows, Integer numColumns, Float xPosition,Float yPosition,Float zPosition,Float xRotation,Float yRotation ,Float zRotation,
-                     Boolean zoom , Boolean pan,Boolean rotation,PuzzleLevel puzzleLevel, byte[] boardGraphic,Integer initValueZoom, Integer initValueZoomLimit,
+                     Boolean zoom , Boolean pan,Boolean rotation,PuzzleLevel puzzleLevel,Integer initValueZoom, Integer initValueZoomLimit,
                     Integer boardCenterX, Integer boardCenterY, Integer boardCenterZ,Integer panLimit ,
                     Integer initPanOffsetX,Integer initPanOffsetY,Integer initPanOffsetZ,BinaryContent skybox,BinaryContent background , Integer backgroundScale,
                     Long version, String created, String updated, AppMember createdBy, AppMember updatedBy) {
@@ -344,6 +344,6 @@ public class PLGround extends BaseTable {
         this.skybox = skybox;
         this.background = background;
         this.backgroundScale=backgroundScale;
-        this.boardGraphic = boardGraphic;
+       // this.boardGraphic = boardGraphic;
     }
 }

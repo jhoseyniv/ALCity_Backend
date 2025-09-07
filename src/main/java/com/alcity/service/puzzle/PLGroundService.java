@@ -73,7 +73,7 @@ public class PLGroundService implements PLGroundRepository {
 
         PLGround plGround=null;
         PuzzleLevel puzzleLevel=null;
-        byte[] boardGraphic = ImageUtil.convertObjectToBytes(dto.getBoardGraphicDTO());
+       // byte[] boardGraphic = ImageUtil.convertObjectToBytes(dto.getBoardGraphicDTO());
 
         Optional<PuzzleLevel> puzzleLevelOptional =  puzzleLevelRepository.findById(dto.getPuzzleLevelId());
         if(puzzleLevelOptional.isPresent())
@@ -81,7 +81,7 @@ public class PLGroundService implements PLGroundRepository {
         if (code.equalsIgnoreCase("Save")) { //Save
             plGround = new PLGround(dto.getNumRows(),dto.getNumColumns(),dto.getXposition(),dto.getYposition(),dto.getZposition(),
                       dto.getXrotation(),dto.getYrotation(),dto.getZrotation(),dto.getZoom(),dto.getPan(),dto.getRotation(),
-                    puzzleLevel,boardGraphic,dto.getInitValueZoom(),dto.getInitValueZoomLimit(),dto.getBoardCenterX(),dto.getBoardCenterY(),dto.getBoardCenterZ(),dto.getPanLimit(),
+                    puzzleLevel,dto.getInitValueZoom(),dto.getInitValueZoomLimit(),dto.getBoardCenterX(),dto.getBoardCenterY(),dto.getBoardCenterZ(),dto.getPanLimit(),
                                  dto.getInitPanOffsetX(),dto.getInitPanOffsetY(),dto.getInitPanOffsetZ() ,skyBoxOptional.get(),backgroundOptional.get(),dto.getBackgroundScale()
                                  , 1L, DateUtils.getNow(), DateUtils.getNow(), createdBy.get(), createdBy.get());
             groundRepository.save(plGround);
@@ -93,7 +93,7 @@ public class PLGroundService implements PLGroundRepository {
             Optional<PLGround> plGroundOptional =  groundRepository.findById(dto.getId());
             if(plGroundOptional.isPresent()) {
                 plGround = plGroundOptional.get();
-                plGround.setBoardGraphic(boardGraphic);
+                //plGround.setBoardGraphic(boardGraphic);
                 plGround.setNumColumns(dto.getNumColumns());
                 plGround.setNumRows(dto.getNumRows());
                 plGround.setxPosition(dto.getXposition());
@@ -108,7 +108,7 @@ public class PLGroundService implements PLGroundRepository {
                 plGround.setPuzzleLevel(puzzleLevel);
                 plGround.setVersion(plGround.getVersion()+1);
                 plGround.setUpdated(DateUtils.getNow());
-                plGround.setBoardGraphic(boardGraphic);
+               // plGround.setBoardGraphic(boardGraphic);
                 groundRepository.save(plGround);
             }
         }

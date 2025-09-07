@@ -65,7 +65,7 @@ public class PLGroundDTO  implements Serializable {
 
     private Long puzzleLevelId;
 
-    private BoardGraphicDTO boardGraphicDTO;
+   // private BoardGraphicDTO boardGraphicDTO;
 
     public Integer getNumRows() {
         return numRows;
@@ -211,13 +211,13 @@ public class PLGroundDTO  implements Serializable {
         this.initValueZoom = initValueZoom;
     }
 
-    public BoardGraphicDTO getBoardGraphicDTO() {
-        return boardGraphicDTO;
-    }
-
-    public void setBoardGraphicDTO(BoardGraphicDTO boardGraphicDTO) {
-        this.boardGraphicDTO = boardGraphicDTO;
-    }
+//    public BoardGraphicDTO getBoardGraphicDTO() {
+//        return boardGraphicDTO;
+//    }
+//
+//    public void setBoardGraphicDTO(BoardGraphicDTO boardGraphicDTO) {
+//        this.boardGraphicDTO = boardGraphicDTO;
+//    }
 
     public Float getXposition() {
         return xposition;
@@ -298,8 +298,8 @@ public class PLGroundDTO  implements Serializable {
     public PLGroundDTO(Long id, Long version, String created, String updated, String createdBy, String updatedBy,
                        Integer numRows, Integer numColumns, Float xPosition,Float yPosition,Float zPosition,Float xRotation,Float yRotation ,Float zRotation,
                        Long puzzleLevelId, Integer  boardCenterX, Integer boardCenterY, Integer boardCenterZ, Integer panLimit,Integer initValueZoomLimit,Integer initValueZoom,
-                       Integer initPanOffsetX,Integer initPanOffsetY,Integer initPanOffsetZ,
-                       BoardGraphicDTO boardGraphicDTO) {
+                       Integer initPanOffsetX,Integer initPanOffsetY,Integer initPanOffsetZ
+                      ) {
         this.id = id;
         this.version = version;
         this.created = created;
@@ -324,6 +324,6 @@ public class PLGroundDTO  implements Serializable {
         this.initValueZoom = initValueZoom;
         this.initValueZoomLimit = initValueZoomLimit;
          this.puzzleLevelId = puzzleLevelId;
-        this.boardGraphicDTO = boardGraphicDTO;
+     //   this.boardGraphicDTO = boardGraphicDTO;
     }
 }

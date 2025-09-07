@@ -121,13 +121,13 @@ public class PLDTOUtil {
         PLData plData1 = (PLData) ois.readObject();
         return plData1;
     }
-    public static BoardGraphicDTO getBoardGraphicJSON(PLGround plGround) throws IOException, ClassNotFoundException {
-        byte[] boardGraphic = plGround.getBoardGraphic();
-        ByteArrayInputStream bis = new ByteArrayInputStream(boardGraphic);
-        ObjectInputStream ois = new ObjectInputStream(bis);
-        BoardGraphicDTO boardGraphicDTO = (BoardGraphicDTO) ois.readObject();
-        return boardGraphicDTO;
-    }
+//    public static BoardGraphicDTO getBoardGraphicJSON(PLGround plGround) throws IOException, ClassNotFoundException {
+//        byte[] boardGraphic = plGround.getBoardGraphic();
+//        ByteArrayInputStream bis = new ByteArrayInputStream(boardGraphic);
+//        ObjectInputStream ois = new ObjectInputStream(bis);
+//        BoardGraphicDTO boardGraphicDTO = (BoardGraphicDTO) ois.readObject();
+//        return boardGraphicDTO;
+//    }
 
 
     /*

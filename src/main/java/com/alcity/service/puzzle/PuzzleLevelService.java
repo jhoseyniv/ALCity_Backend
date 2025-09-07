@@ -274,7 +274,7 @@ public class PuzzleLevelService implements PuzzleLevelRepository {
 
         PLGround importPLGround = new PLGround(dto.getRows(), dto.getCols(),
                 position.getX(), position.getY(), position.getZ(), rotation.getX(), rotation.getY(), rotation.getZ(),
-                features.getZoom(), features.getPan(), features.getRotation(),importedPuzzleLevel, null,initialValuesDTO.getZoom(),initialValuesDTO.getZoomLimit(),
+                features.getZoom(), features.getPan(), features.getRotation(),importedPuzzleLevel, initialValuesDTO.getZoom(),initialValuesDTO.getZoomLimit(),
                 boardCenterDTO.getX(),boardCenterDTO.getY(),boardCenterDTO.getZ(),initialValuesDTO.getPanLimit(),
                 initialPanOffset.getX(),initialPanOffset.getY(),initialPanOffset.getZ(),skyBox.get(),background.get(),initialValuesDTO.getBackgroundScale()
                     , 1L, DateUtils.getNow(), DateUtils.getNow(), createdBy.get(), createdBy.get());
@@ -353,7 +353,7 @@ public class PuzzleLevelService implements PuzzleLevelRepository {
 
         PLGround importPLGround = new PLGround(dto.getRows(), dto.getCols(),
                 position.getX(), position.getY(), position.getZ(), rotation.getX(), rotation.getY(), rotation.getZ(),
-                features.getZoom(), features.getPan(), features.getRotation(),importedPuzzleLevel, null,initialValuesDTO.getZoom(),initialValuesDTO.getZoomLimit(),
+                features.getZoom(), features.getPan(), features.getRotation(),importedPuzzleLevel, initialValuesDTO.getZoom(),initialValuesDTO.getZoomLimit(),
                 boardCenterDTO.getX(),boardCenterDTO.getY(),boardCenterDTO.getZ(),initialValuesDTO.getPanLimit(),
                 initialPanOffset.getX(),initialPanOffset.getY(),initialPanOffset.getZ(),skyBox.get(),background.get(),initialValuesDTO.getBackgroundScale()
                 , 1L, DateUtils.getNow(), DateUtils.getNow(), createdBy.get(), createdBy.get());
@@ -458,7 +458,7 @@ public class PuzzleLevelService implements PuzzleLevelRepository {
                     plGround.getxPosition(), plGround.getyPosition(), plGround.getzPosition(),
                     plGround.getxRotation(), plGround.getyRotation(), plGround.getzRotation(),
                     plGround.getZoom(), plGround.getPan(), plGround.getRotation(),
-                    copyPuzzleLevel, plGround.getBoardGraphic(),
+                    copyPuzzleLevel,
                     plGround.getInitValueZoom(), plGround.getInitValueZoomLimit(), plGround.getBoardCenterX(), plGround.getBoardCenterY(),
                     plGround.getBoardCenterZ(), plGround.getPanLimit(),
                     plGround.getInitPanOffsetX(), plGround.getInitPanOffsetY(), plGround.getInitPanOffsetZ(),
