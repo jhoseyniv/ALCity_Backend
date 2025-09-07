@@ -147,8 +147,10 @@ public class PLRuleService implements PLRuleRepository {
         String[] parts = importRule.getEvent().split(":");
         if(parts.length > 0){
            subEvent = parts[1];
+        } else {
+            ruleEvent = importRule.getEvent();
         }
-        Optional<PLRuleEvent> plRuleEvent = plRuleEventService.findByNameIgnoreCase(parts[0]);
+        Optional<PLRuleEvent> plRuleEvent = plRuleEventService.findByNameIgnoreCase(ruleEvent);
         PLRule newRule = new PLRule(importRule.getTitle(),importRule.getOrdering(),
                 importRule.getCondition(),importRule.getIgnoreRemaining(),puzzleLevel,plRuleEvent.get(),subEvent,
                 1L,DateUtils.getNow(),DateUtils.getNow(),createdBy.get(),createdBy.get());
