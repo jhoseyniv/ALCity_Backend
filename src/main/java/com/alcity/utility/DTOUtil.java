@@ -228,38 +228,19 @@ public class DTOUtil {
             longValue = Long.valueOf(dto.getValue());
             isExpressionValue = Boolean.FALSE;
         }
-      else {
-            isExpressionValue=Boolean.TRUE;
-            expressionValue = dto.getValue();
-        }
-
-        if(dataType.equals(DataType.Long) && ToolBox.isLong(dto.getValue())) {
+        else if(dataType.equals(DataType.Long) && ToolBox.isLong(dto.getValue())) {
             longValue = Long.valueOf(dto.getValue());
             isExpressionValue = Boolean.FALSE;
         }
-       else {
-            isExpressionValue=Boolean.TRUE;
-            expressionValue = dto.getValue();
-        }
-
-        if(dataType.equals(DataType.Integer) && ToolBox.isInteger(dto.getValue())) {
+        else if(dataType.equals(DataType.Integer) && ToolBox.isInteger(dto.getValue())) {
             intValue = Integer.valueOf(dto.getValue());
             isExpressionValue = Boolean.FALSE;
         }
-        else {
-            isExpressionValue=Boolean.TRUE;
-            expressionValue = dto.getValue();
-        }
-        if(dataType.equals(DataType.Float) && ToolBox.isFloat(dto.getValue())) {
+        else if(dataType.equals(DataType.Float) && ToolBox.isFloat(dto.getValue())) {
             floatValue = Float.valueOf(dto.getValue());
             isExpressionValue = Boolean.FALSE;
         }
-        else {
-            isExpressionValue=Boolean.TRUE;
-            expressionValue = dto.getValue();
-        }
-
-        if(dataType.equals(DataType.String)) {
+        else if(dataType.equals(DataType.String)) {
             stringValue = dto.getValue();
             isExpressionValue = Boolean.FALSE;
         }
