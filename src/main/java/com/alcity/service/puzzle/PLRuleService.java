@@ -163,8 +163,10 @@ public class PLRuleService implements PLRuleRepository {
     public Collection<PLRule> importRules_New(Collection<PLRuleImport_New> plRuleImports, PuzzleLevel puzzleLevel) {
         Collection<PLRule> importedRules = new ArrayList<>();
         Iterator<PLRuleImport_New> iterator = plRuleImports.iterator();
+        Integer ordering = 0;
         while(iterator.hasNext()){
             PLRuleImport_New plRuleImport = iterator.next();
+            plRuleImport.setOrdering(ordering++);
             PLRule importedRule = importRule_New(plRuleImport,puzzleLevel);
             importedRules.add(importedRule);
         }
