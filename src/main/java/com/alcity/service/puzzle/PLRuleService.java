@@ -145,7 +145,7 @@ public class PLRuleService implements PLRuleRepository {
         String subEvent="";
         Collection<PostActionTreeImport_New> postActionTreeImports = importRule.getActions();
         String[] parts = importRule.getEvent().split(":");
-        if(parts.length > 0){
+        if(parts.length > 1){
             ruleEvent = parts[0];
             subEvent = parts[1];
         } else {
