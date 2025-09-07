@@ -202,6 +202,93 @@ public class DTOUtil {
         return attributeValue;
     }
 
+    public static AttributeValue getAttributeValueFromPLVariableImport_New(AttributeData dto, Attribute attribute, AppMember createdBy, Long ownerId, AttributeOwnerType ownerType){
+        Attribute bindedAttribute =null;
+        DataType dataType =  DataType.getByTitle(dto.getType());
+        Boolean booleanValue=null;
+        Long longValue=null;
+        Float floatValue=null;
+        Integer intValue=null;
+        Long binaryContentId=null;
+        Boolean isExpressionValue=false;
+        String expressionValue=null;
+        String objectValue=null;
+        String stringValue=null;
+        if(dto.getValue() == null || dto.getValue().equalsIgnoreCase("")){
+            if(dataType.equals(DataType.Boolean)) dto.setValue("false");
+            if(dataType.equals(DataType.Long)) dto.setValue("1L");
+            if(dataType.equals(DataType.Integer)) dto.setValue("1");
+            if(dataType.equals(DataType.Binary)) dto.setValue("1");
+            if(dataType.equals(DataType.String)) dto.setValue("1");
+            if(dataType.equals(DataType.Float)) dto.setValue("1.0");
+
+        }
+
+        if(dataType.equals(DataType.Binary) && ToolBox.isLong(dto.getValue())) {
+            longValue = Long.valueOf(dto.getValue());
+            isExpressionValue = Boolean.FALSE;
+        }
+      else {
+            isExpressionValue=Boolean.TRUE;
+            expressionValue = dto.getValue();
+        }
+
+        if(dataType.equals(DataType.Long) && ToolBox.isLong(dto.getValue())) {
+            longValue = Long.valueOf(dto.getValue());
+            isExpressionValue = Boolean.FALSE;
+        }
+       else {
+            isExpressionValue=Boolean.TRUE;
+            expressionValue = dto.getValue();
+        }
+
+        if(dataType.equals(DataType.Integer) && ToolBox.isInteger(dto.getValue())) {
+            intValue = Integer.valueOf(dto.getValue());
+            isExpressionValue = Boolean.FALSE;
+        }
+        else {
+            isExpressionValue=Boolean.TRUE;
+            expressionValue = dto.getValue();
+        }
+        if(dataType.equals(DataType.Float) && ToolBox.isFloat(dto.getValue())) {
+            floatValue = Float.valueOf(dto.getValue());
+            isExpressionValue = Boolean.FALSE;
+        }
+        else {
+            isExpressionValue=Boolean.TRUE;
+            expressionValue = dto.getValue();
+        }
+
+        if(dataType.equals(DataType.String)) {
+            stringValue = dto.getValue();
+            isExpressionValue = Boolean.FALSE;
+        }
+        else {
+            isExpressionValue=Boolean.TRUE;
+            expressionValue = dto.getValue();
+        }
+
+//        if(dto.getExpression()==null || !dto.getExpression()){
+//            isExpressionValue=Boolean.FALSE;
+//            expressionValue = null;
+//            if(dataType.equals(DataType.Boolean))     booleanValue=Boolean.valueOf(dto.getValue());
+//            if(dataType.equals(DataType.Long))     longValue=Long.valueOf(dto.getValue());
+//            if(dataType.equals(DataType.Float))     floatValue=Float.valueOf(dto.getValue());
+//            if(dataType.equals(DataType.Integer))     intValue=Integer.valueOf(dto.getValue());
+//            if(dataType.equals(DataType.Binary))     binaryContentId=Long.valueOf(dto.getValue());
+//            if(dataType.equals(DataType.String))     stringValue=dto.getValue();
+//        }
+//        else if(dto.getExpression()) {
+//            isExpressionValue=Boolean.TRUE;
+//            expressionValue = dto.getExpressionValue();
+//        }
+
+        AttributeValue  attributeValue = new AttributeValue(booleanValue,intValue,longValue,stringValue,
+                objectValue,floatValue,binaryContentId, expressionValue,isExpressionValue,bindedAttribute ,attribute,
+                1L,DateUtils.getNow(),DateUtils.getNow(),createdBy,createdBy,ownerId,ownerType);
+        return attributeValue;
+    }
+
     public static AttributeValue getAttributeValueFromPLVariableImport(AttributeData dto, Attribute attribute, AppMember createdBy, Long ownerId, AttributeOwnerType ownerType){
         Attribute bindedAttribute =null;
         DataType dataType =  DataType.getByTitle(dto.getType());

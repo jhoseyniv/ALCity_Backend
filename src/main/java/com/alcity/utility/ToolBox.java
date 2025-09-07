@@ -3,6 +3,32 @@ package com.alcity.utility;
 import com.alcity.entity.alenum.ADSType;
 
 public class ToolBox {
+
+    public static boolean isLong(String str) {
+        try {
+            Long.parseLong(str);
+            return true;
+        } catch(NumberFormatException e){
+            return false;
+        }
+    }
+    public static boolean isInteger(String str) {
+        try {
+            Integer.parseInt(str);
+            return true;
+        } catch(NumberFormatException e){
+            return false;
+        }
+    }
+    public static boolean isFloat(String str) {
+        try {
+            Float.parseFloat(str);
+            return true;
+        } catch(NumberFormatException e){
+            return false;
+        }
+    }
+
     public static Class getEnumById(Class object,long id) {
         String fullClassName = object.getName();
         String className = fullClassName.substring(fullClassName.lastIndexOf('.') + 1);
