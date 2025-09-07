@@ -12,10 +12,8 @@ public class AppMemberDTO {
     private String nickname;
     private String mobile;
     private String email;
-    //private byte[] icon;
     private Long iconId;
 
-    private byte[] thumbnail;
     private String memberType;
     private String gender;
 
@@ -159,27 +157,18 @@ public class AppMemberDTO {
         this.memberType = memberType;
     }
 
-    public byte[] getThumbnail() {
-        return thumbnail;
-    }
 
-    public void setThumbnail(byte[] thumbnail) {
-        this.thumbnail = thumbnail;
-    }
-
-    public AppMemberDTO(Long id, Integer age,String language, String username, String password,byte[] thumbnail,Long iconId, String nickname, String mobile, String email, String gender, String memberType ,
+    public AppMemberDTO(Long id, Integer age,String language, String username, String password,Long iconId, String nickname, String mobile, String email, String gender, String memberType ,
                         Long version, String created, String updated, String createdBy, String updatedBy) {
         this.id = id;
         this.age = age;
         this.language=language;
         this.username = username;
         this.password = password;
-        this.thumbnail = thumbnail;
         this.nickname = nickname;
         this.mobile = mobile;
         this.email = email;
         this.memberType = memberType;
-//        this.icon = icon;
         this.iconId = iconId;
         this.gender = gender;
         this.version = version;
