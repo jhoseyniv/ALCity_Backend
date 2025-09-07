@@ -296,7 +296,7 @@ public class AttributeService implements AttributeRepository {
         Iterator<AttributeData> iterator =parameter.iterator();
         while(iterator.hasNext()) {
             AttributeData variableImport = iterator.next();
-            Attribute attribute = importVariables(variableImport,postAction.getId(),ownerType);
+            Attribute attribute = importVariables_New(variableImport,postAction.getId(),ownerType);
             importedAttributes.add(attribute);
         }
         return importedAttributes;

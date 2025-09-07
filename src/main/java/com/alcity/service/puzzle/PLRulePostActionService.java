@@ -87,7 +87,7 @@ public class PLRulePostActionService implements PLRulePostActionRepository {
             System.out.println("parameter is defined.............");
             Collection<AttributeData> recordDataImports = dto.getParameters();
             //Collection<AttributeDTOSave> dtos = new ArrayList<>();
-            attributeService.importPLRulePostActionParam(recordDataImports,importedPostAction,AttributeOwnerType.Puzzle_Level_Rule_Post_Action_Parameter);
+            attributeService.importPLRulePostActionParam_New(recordDataImports,importedPostAction,AttributeOwnerType.Puzzle_Level_Rule_Post_Action_Parameter);
         }
 
         return importedPostAction;
