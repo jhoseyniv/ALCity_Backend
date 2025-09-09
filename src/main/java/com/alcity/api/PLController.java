@@ -1,18 +1,22 @@
 package com.alcity.api;
 
 import com.alcity.customexception.ResponseMessage;
+import com.alcity.dto.learning.LearningSkillDTO;
+import com.alcity.dto.learning.LearningSkillTreeDTO;
 import com.alcity.dto.plimpexport.PLData;
 import com.alcity.dto.plimpexport.PLImportDTO;
 import com.alcity.entity.alenum.*;
 import com.alcity.entity.alobject.Attribute;
 import com.alcity.entity.alobject.ObjectAction;
 import com.alcity.entity.appmember.AppMember;
+import com.alcity.entity.learning.LearningSkill;
 import com.alcity.service.alobject.AttributeService;
 import com.alcity.service.appmember.AppMemberService;
 import com.alcity.customexception.ResponseObject;
 import com.alcity.customexception.UniqueConstraintException;
 import com.alcity.dto.puzzle.*;
 import com.alcity.entity.puzzle.*;
+import com.alcity.service.learning.LearningSkillService;
 import com.alcity.service.puzzle.PLGameInstanceService;
 import com.alcity.service.puzzle.PLGroundService;
 import com.alcity.service.puzzle.PLTemplateService;
@@ -38,8 +42,10 @@ import java.util.stream.Collectors;
 public class PLController {
     @Autowired
     private PuzzleLevelService plService;
+
     @Autowired
     private AppMemberService appMemberService;
+
     @Autowired
     private PLGroundService plGroundService;
 
@@ -48,6 +54,9 @@ public class PLController {
 
     @Autowired
     private PLGameInstanceService plGameInstanceService;
+
+    @Autowired
+    private LearningSkillService learningSkillService;
 
     @Operation( summary = "Fetch all puzzle level data ",  description = "fetches all data for all puzzle level structure ")
     @GetMapping("/all")
@@ -154,6 +163,19 @@ public class PLController {
             plObjectiveDTOCollection = DTOUtil.getPuzzleLevelObjectiveDTOS(puzzleLevelOptional.get());
         return plObjectiveDTOCollection;
     }
+    @Operation( summary = "Fetch all Learning Skills by a puzzle level Id ",  description = "fetches all Learning Skills for a puzzle level ")
+    @RequestMapping(value = "/id/{id}/learning-skills/all", method = RequestMethod.GET)
+    @ResponseBody
+    @CrossOrigin(origins = "*")
+    public Collection<LearningSkillTreeDTO> getAllLearningSkillById(@PathVariable Long id) {
+        Collection<LearningSkillTreeDTO> learningSkillDTOS= new ArrayList<LearningSkillTreeDTO>();
+        Optional<PuzzleLevel> puzzleLevelOptional = plService.findById(id);
+        if(puzzleLevelOptional.isPresent()) {
+            learningSkillDTOS = DTOUtil.getLearningSkillDTOSFromPL(puzzleLevelOptional.get(),learningSkillService);
+        }
+        return learningSkillDTOS;
+    }
+
     @Operation( summary = "Fetch Ground Information for a puzzle level by Id ",  description = "Fetch Ground Information for a puzzle level by Id ")
     @RequestMapping(value = "/id/{id}/ground", method = RequestMethod.GET)
     @ResponseBody
@@ -192,6 +214,7 @@ public class PLController {
             plInstancesDTOS = DTOUtil.getPuzzleLevelInstance(puzzleLevelOptional.get());
         return plInstancesDTOS;
     }
+
     @Operation( summary = "Start Puzzle (Game) after play by user ",  description = "Update Puzzle (Game) Status after play by user")
     @PostMapping("/start-play")
     @CrossOrigin(origins = "*")
@@ -219,6 +242,7 @@ public class PLController {
             plRuleDTOS = DTOUtil.getRulesForPuzzleLevel(puzzleLevelOptional.get());
         return plRuleDTOS;
     }
+
     @Operation( summary = "Copy a puzzle level by id  ",  description = "copy a puzzle level  entity and their data")
     @PostMapping("/copy")
     @CrossOrigin(origins = "*")
@@ -262,17 +286,12 @@ public class PLController {
             //first delete exist puzzle level and then add new pl
             plService.deletePuzzleLevel(puzzleLevelOptional.get());
             importedPuzzleLevel =  plService.importPuzzleLevel(dto);
-//            Optional<PLTemplate> plTemplateOptional = plTemplateService.findById(dto.getPuzzleTemplateId());
-//            PLTemplate plTemplate = plTemplateOptional.get();
-//            plTemplate.setPuzzleLevelId(importedPuzzleLevel.getId());
-//            responseObject = new ResponseObject(ErrorType.ImportSuccess, PuzzleLevel.class.getSimpleName() , Status.ok.name(), importedPuzzleLevel.getId(), SystemMessage.SaveOrEditMessage_Success);
-        }
+            }
         Optional<PLTemplate> plTemplateOptional = plTemplateService.findById(dto.getPuzzleTemplateId());
         PLTemplate plTemplate = plTemplateOptional.get();
         plTemplate.setPuzzleLevelId(importedPuzzleLevel.getId());
         plTemplateService.save(plTemplate);
         response = new ResponseMessage(ErrorType.ImportSuccess,  Status.ok.name(),PuzzleLevel.class.getSimpleName() , importedPuzzleLevel.getId(), SystemMessage.SaveOrEditMessage_Success);
-
         return response;
     }
 

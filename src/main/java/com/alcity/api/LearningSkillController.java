@@ -4,12 +4,19 @@ import com.alcity.customexception.ResponseMessage;
 import com.alcity.customexception.ResponseObject;
 import com.alcity.customexception.UniqueConstraintException;
 import com.alcity.dto.learning.LearningSkillDTO;
+import com.alcity.dto.learning.LearningSkillTreeDTO;
+import com.alcity.dto.plimpexport.ruleexport.PostActionTreeExport;
 import com.alcity.entity.alenum.SkillType;
 import com.alcity.entity.alenum.Status;
 import com.alcity.entity.alenum.ErrorType;
 import com.alcity.entity.alenum.SystemMessage;
 import com.alcity.entity.learning.LearningSkill;
+import com.alcity.entity.puzzle.PLRule;
+import com.alcity.entity.puzzle.PLRulePostAction;
+import com.alcity.service.alobject.AttributeService;
+import com.alcity.service.alobject.AttributeValueService;
 import com.alcity.service.learning.LearningSkillService;
+import com.alcity.service.puzzle.PLRulePostActionService;
 import com.alcity.utility.DTOUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
@@ -57,6 +64,19 @@ public class LearningSkillController {
             learningSkillDTO = DTOUtil.getLearningSkillDTO(learningSkillOptional.get());
         return learningSkillDTO;
     }
+
+
+
+    @RequestMapping(value = "/skill-tree/id/{id}", method = RequestMethod.GET)
+    @ResponseBody
+    public LearningSkillTreeDTO getLearnSkillTreeById(@PathVariable Long id) {
+        Optional<LearningSkill> learningSkillOptional = learningSkillService.findById(id);
+        LearningSkillTreeDTO  skillTree = new LearningSkillTreeDTO();
+        if(learningSkillOptional.isPresent())
+            skillTree =DTOUtil.traverseSkillTree(skillTree,learningSkillService ,learningSkillOptional.get());
+        return skillTree;
+    }
+
     @RequestMapping(value = "/skill/cond/{criteria}", method = RequestMethod.GET)
     @ResponseBody
     public Collection<LearningSkillDTO> getLearningSkillByCriteria(@PathVariable String criteria) {

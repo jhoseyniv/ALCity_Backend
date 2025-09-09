@@ -129,7 +129,7 @@ public class AppMemberService implements AppMemberRepository, CustomizedUserRepo
             if(journeyStep!=null){
                 if(journeyStep.getJourney().getId() == journey.getId()) {
                     AppMemberStepInfo dto = new AppMemberStepInfo(journeyStep.getId(), journeyStep.getTitle(),journeyStep.getXpos(),journeyStep.getYpos(),journeyStep.getOrdering(),
-                        pldto.getId(), pldto.getTitle(), pldto.getPuzzleGroupId(), pldto.getPuzzleGroupTitle(),0,Boolean.FALSE);
+                        pldto.getId(), pldto.getIconId(), pldto.getTitle(), pldto.getPuzzleGroupId(), pldto.getPuzzleGroupTitle(),0,Boolean.FALSE);
                     stepInfos.add(dto);
                 }
             }

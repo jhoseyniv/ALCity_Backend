@@ -2,6 +2,7 @@ package com.alcity.utility;
 
 import com.alcity.comparetors.*;
 import com.alcity.dto.learning.LearningSkillDTO;
+import com.alcity.dto.learning.LearningSkillTreeDTO;
 import com.alcity.dto.plimpexport.*;
 import com.alcity.dto.plimpexport.ruleexport.PostActionTreeExport;
 import com.alcity.dto.plimpexport.ruleexport.RuleData;
@@ -37,6 +38,7 @@ import com.alcity.service.alobject.ActionService;
 import com.alcity.service.alobject.AttributeService;
 import com.alcity.service.alobject.AttributeValueService;
 import com.alcity.service.base.BinaryContentService;
+import com.alcity.service.learning.LearningSkillService;
 import com.alcity.service.puzzle.PLRulePostActionService;
 import com.alcity.test.ruleimport_new.PostActionTreeImport_New;
 import org.json.JSONException;
@@ -847,6 +849,21 @@ public class DTOUtil {
         return  plObjectiveDTO;
     }
 
+    public static Collection<LearningSkillTreeDTO> getLearningSkillDTOSFromPL(PuzzleLevel input,LearningSkillService learningSkillService) {
+        Collection<LearningSkillTreeDTO> dtos = new ArrayList<LearningSkillTreeDTO>();
+        Collection<PLObjective> plObjectiveCollection = input.getPlObjectives();
+        Iterator<PLObjective> itr = plObjectiveCollection.iterator();
+
+        while (itr.hasNext()) {
+            PLObjective objective = itr.next();
+            LearningSkill learningSkill = objective.getLearningSkill();
+            LearningSkillTreeDTO  skillTree = new LearningSkillTreeDTO();
+            skillTree = DTOUtil.traverseSkillTree(skillTree,learningSkillService ,learningSkill);
+            dtos.add(skillTree);
+        }
+        return dtos;
+    }
+
     public static Collection<PLObjectiveDTO> getPuzzleLevelObjectiveDTOS(PuzzleLevel input) {
         Collection<PLObjectiveDTO> output = new ArrayList<PLObjectiveDTO>();
         Collection<PLObjective> plObjectiveCollection = input.getPlObjectives();
@@ -1215,8 +1232,8 @@ public class DTOUtil {
     public static LearningSkillDTO getLearningSkillDTO(LearningSkill ls) {
 
         if(ls.getParentSkill() == null)
-            return  new LearningSkillDTO(ls.getId(), ls.getTitle(), ls.getType().name(),0L,"",0L,ls.getIcon().getId(),"Root of Skill Tree");;
-        LearningSkillDTO lsDTO = new LearningSkillDTO(ls.getId(), ls.getTitle(), ls.getType().name(),ls.getParentSkill().getId(),ls.getParentSkill().getTitle(),ls.getLevelUpSize(),ls.getIcon().getId(),ls.getDescription());
+            return  new LearningSkillDTO(ls.getId(), ls.getTitle(), ls.getType().name(),0L,"",0L,ls.getIcon().getId(),1f,"Root of Skill Tree");;
+        LearningSkillDTO lsDTO = new LearningSkillDTO(ls.getId(), ls.getTitle(), ls.getType().name(),ls.getParentSkill().getId(),ls.getParentSkill().getTitle(),ls.getLevelUpSize(),ls.getIcon().getId(), ls.getWeight(), ls.getDescription());
         return lsDTO;
     }
 
@@ -1705,14 +1722,13 @@ public class DTOUtil {
         }
         return postActions;
     }
-
     public static void inorder(PLRulePostActionService plRulePostActionService,PLRulePostAction postAction)
     {
         ArrayList<PLRulePostAction>  postActions = plRulePostActionService.findByOwnerId(postAction.getId()) ;
         if (postAction == null || postActions.isEmpty())
             return;
         // Total children count
-         int total = postActions.size();
+        int total = postActions.size();
         // All the children except the last
         for (int i = 0; i < total - 1; i++)
             inorder(plRulePostActionService,postActions.get(i));
@@ -1722,6 +1738,7 @@ public class DTOUtil {
         // Last child
         inorder(plRulePostActionService,postActions.get(total - 1));
     }
+
 
     public static <PLRulePostActionImport> PostActionTreeExport preOrderTraversal(PostActionTreeExport treeExport , PLRulePostActionService plRulePostActionService,AttributeService attributeService,AttributeValueService attributeValueService ,PLRulePostAction root) {
         Collection<PLRulePostAction> children = plRulePostActionService.findByOwnerId(root.getId());
@@ -1743,6 +1760,37 @@ public class DTOUtil {
         }
         return treeExport;
      }
+
+    public static LearningSkillTreeDTO traverseSkillTree(LearningSkillTreeDTO skillTreeDTO , LearningSkillService learningSkillService ,LearningSkill root) {
+        Collection<LearningSkill> children = learningSkillService.findByParentSkill(root);
+        if (root == null)  return skillTreeDTO;
+        String parentTitle="";
+        Long parentId=0L;
+
+        if(root.getParentSkill()==null) {
+            parentTitle = "";
+            parentId =0L;
+        }
+        else {
+            parentTitle =root.getParentSkill().getTitle();
+            parentId =root.getParentSkill().getId();
+        }
+
+        skillTreeDTO.setFields(root.getId(), root.getTitle(),root.getType().name() ,parentTitle,parentId
+                ,root.getWeight(),root.getLevelUpSize(),
+                root.getIcon().getId(), root.getDescription());
+        skillTreeDTO.setChildren(new ArrayList<LearningSkillTreeDTO<LearningSkillTreeDTO>>());
+        Iterator<LearningSkill> childIterator = children.iterator();
+        while(childIterator.hasNext()){
+            LearningSkill child = childIterator.next();
+            LearningSkillTreeDTO<LearningSkillTreeDTO> subTree=skillTreeDTO.getChild(new LearningSkillTreeDTO<>(child.getId(), child.getTitle(),child.getType().name() ,child.getParentSkill().getTitle(),child.getParentSkill().getId()
+                    ,child.getWeight(),child.getLevelUpSize(),
+                    child.getIcon().getId(), child.getDescription()));
+            traverseSkillTree(subTree,learningSkillService,child) ;
+        }
+        return skillTreeDTO;
+    }
+
 
     public static Collection<PostActionTreeExport> getActionsTrees(PLRulePostActionService plRulePostActionService, AttributeService attributeService,AttributeValueService attributeValueService , PLRule plRule){
         Collection<PostActionTreeExport> actionTrees = new ArrayList<PostActionTreeExport>();
@@ -1792,6 +1840,9 @@ public class DTOUtil {
         }
         return records;
     }
+
+
+
     public static Collection<AttributeData>  getAttributesForRuleAction(Long ownerId,Collection<Attribute>  properties,AttributeValueService attributeValueService){
         Collection<AttributeData> records = new ArrayList<AttributeData>();
         AttributeData record =null;

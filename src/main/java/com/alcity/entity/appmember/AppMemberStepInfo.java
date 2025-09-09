@@ -10,6 +10,7 @@ public class AppMemberStepInfo {
 
     private Integer ordering;
     private Long puzzleLevelId;
+    private Long puzzleLevelIconId;
     private String puzzleLevelTitle;
 
     private Long puzzleGroupId;
@@ -107,16 +108,25 @@ public class AppMemberStepInfo {
         this.ordering = ordering;
     }
 
+    public Long getPuzzleLevelIconId() {
+        return puzzleLevelIconId;
+    }
+
+    public void setPuzzleLevelIconId(Long puzzleLevelIconId) {
+        this.puzzleLevelIconId = puzzleLevelIconId;
+    }
+
     public AppMemberStepInfo() {
     }
 
-    public AppMemberStepInfo(Long stepId, String stepTitle,Integer xPos,Integer yPos,Integer ordering, Long puzzleLevelId, String puzzleLevelTitle,
+    public AppMemberStepInfo(Long stepId, String stepTitle,Integer xPos,Integer yPos,Integer ordering, Long puzzleLevelId,Long puzzleLevelIconId, String puzzleLevelTitle,
                              Long puzzleGroupId, String puzzleGroupTitle,Integer stars,Boolean isCompleted) {
         this.stepId = stepId;
         this.stepTitle = stepTitle;
         this.puzzleLevelId = puzzleLevelId;
         this.puzzleLevelTitle = puzzleLevelTitle;
         this.puzzleGroupId = puzzleGroupId;
+        this.puzzleLevelIconId = puzzleLevelIconId;
         this.puzzleGroupTitle = puzzleGroupTitle;
         this.stars = stars;
         this.xPos =xPos;

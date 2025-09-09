@@ -86,7 +86,7 @@ public class LearningSkillDTO {
     public LearningSkillDTO() {
     }
 
-    public LearningSkillDTO(Long id, String title, String type, Long parentId,String parentTitle,Long levelUpSize,Long iconId,String description) {
+    public LearningSkillDTO(Long id, String title, String type, Long parentId,String parentTitle,Long levelUpSize,Long iconId,Float weight,String description) {
         this.id = id;
         this.title = title;
         this.type = type;
@@ -94,6 +94,7 @@ public class LearningSkillDTO {
         this.parentTitle = parentTitle;
         this.levelUpSize = levelUpSize;
         this.iconId = iconId;
+        this.weight = weight;
         this.description = description;
     }
 }
