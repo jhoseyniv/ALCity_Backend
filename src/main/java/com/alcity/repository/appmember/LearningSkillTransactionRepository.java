@@ -22,6 +22,7 @@ public interface LearningSkillTransactionRepository extends CrudRepository<Learn
     Collection<LearningSkillTransaction> findByAmount(Float amount);
 
     Optional<LearningSkillTransaction> findByPlObjectiveAndAppMember(PLObjective plObjective, AppMember appMember);
+    Collection<LearningSkillTransaction> findByPlObjective(PLObjective plObjective);
 
     Collection<LearningSkillTransaction> findByTransactionDateContaining(String transactionDate);
     Collection<LearningSkillTransaction> findByTransactionDateContainingAndAppMember(String transactionDate, AppMember appMember);

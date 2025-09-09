@@ -117,6 +117,11 @@ public class LearningSkillTransactionService implements LearningSkillTransaction
     }
 
     @Override
+    public Collection<LearningSkillTransaction> findByPlObjective(PLObjective plObjective) {
+        return learningSkillTransactionRepository.findByPlObjective(plObjective);
+    }
+
+    @Override
     public Collection<LearningSkillTransaction> findByTransactionDateContaining(String transactionDate) {
         return learningSkillTransactionRepository.findByTransactionDateContaining(transactionDate);
     }
@@ -179,7 +184,7 @@ public class LearningSkillTransactionService implements LearningSkillTransaction
 
     @Override
     public void deleteAll(Iterable<? extends LearningSkillTransaction> entities) {
-
+        learningSkillTransactionRepository.deleteAll(entities);
     }
 
     @Override
