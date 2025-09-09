@@ -50,11 +50,11 @@ public class LearningSkillTransactionService implements LearningSkillTransaction
         Optional<AppMember> appMemberOptional = appMemberRepository.findById(dto.getAppMemberId());
         Optional<PLObjective> objectiveOptional = plObjectiveService.findById(dto.getObjectiveId());
         if(appMemberOptional.isEmpty()) return  null;
-
+        Integer stars = 1;  //dto.getStars();
         Optional<LearningSkill> learningSkillOptional = learningSkillRepository.findById(dto.getLearningSkillId());
 
         LearningSkillTransaction transaction = new LearningSkillTransaction(1L,DateUtils.getNow(),DateUtils.getNow(),createdBy.get(),createdBy.get()
-                ,DateUtils.getNow(),dto.getAmount() ,dto.getDescription(),learningSkillOptional.get(),appMemberOptional.get(),objectiveOptional.get());
+                ,DateUtils.getNow(),dto.getAmount(), stars,dto.getDescription(),learningSkillOptional.get(),appMemberOptional.get(),objectiveOptional.get());
         learningSkillTransactionRepository.save(transaction);
         return  transaction;
     }

@@ -25,6 +25,9 @@ public class LearningSkillTransaction   extends BaseTable implements Serializabl
     @NotNull(message = "{amount.notempty}")
     private Float amount;
 
+    @NotNull(message = "{amount.notempty}")
+    private Integer stars;
+
     @NotNull(message = "{description.notempty}")
     private String description;
 
@@ -95,11 +98,20 @@ public class LearningSkillTransaction   extends BaseTable implements Serializabl
     public LearningSkillTransaction() {
     }
 
+    public Integer getStars() {
+        return stars;
+    }
+
+    public void setStars(Integer stars) {
+        this.stars = stars;
+    }
+
     public LearningSkillTransaction(Long version, String created, String updated, AppMember createdBy, AppMember updatedBy,
-                                    String transactionDate, Float amount, String description, LearningSkill learningSkill, AppMember appMember,PLObjective plObjective) {
+                                    String transactionDate, Float amount,Integer stars , String description, LearningSkill learningSkill, AppMember appMember, PLObjective plObjective) {
         super(version, created, updated, createdBy, updatedBy);
         this.transactionDate = transactionDate;
         this.amount = amount;
+        this.stars = stars;
         this.description = description;
         this.learningSkill = learningSkill;
         this.appMember = appMember;

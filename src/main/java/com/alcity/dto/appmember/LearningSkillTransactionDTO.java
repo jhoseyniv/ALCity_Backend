@@ -7,6 +7,7 @@ public class LearningSkillTransactionDTO implements Serializable {
     private Long appMemberId;
     private Long learningSkillId;
     private Long objectiveId;
+    private Integer stars;
     private  String description;
     public Float getAmount() {
         return amount;
@@ -48,11 +49,20 @@ public class LearningSkillTransactionDTO implements Serializable {
         this.objectiveId = objectiveId;
     }
 
+    public Integer getStars() {
+        return stars;
+    }
+
+    public void setStars(Integer stars) {
+        this.stars = stars;
+    }
+
     public LearningSkillTransactionDTO() {
     }
 
-    public LearningSkillTransactionDTO(Float amount, Long appMemberId, Long learningSkillId,Long objectiveId,String description) {
+    public LearningSkillTransactionDTO(Float amount,Integer stars , Long appMemberId, Long learningSkillId,Long objectiveId,String description) {
         this.amount = amount;
+        this.stars = stars;
         this.appMemberId = appMemberId;
         this.learningSkillId = learningSkillId;
         this.objectiveId = objectiveId;
