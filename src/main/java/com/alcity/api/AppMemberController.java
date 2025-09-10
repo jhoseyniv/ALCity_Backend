@@ -1,5 +1,6 @@
 package com.alcity.api;
 
+import com.alcity.comparetors.JourneyComparator;
 import com.alcity.customexception.ResponseMessage;
 import com.alcity.dto.appmember.*;
 import com.alcity.dto.player.PlayHistoryDTO;
@@ -37,6 +38,8 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.toList;
 
 @Tag(name = "Application Member APIs", description = "Get Application Member and related entities as rest api")
 @CrossOrigin(origins = "*" ,maxAge = 3600)
@@ -302,7 +305,10 @@ public class AppMemberController {
         Optional<AppMember> memberOptional = appMemberService.findById(id);
         Collection<Journey> journeys = journeyService.findAll();
         Collection<AppMemberJourneyDTO> dtos = appMemberService.getAppMemberJourneysByScores(memberOptional.get(),journeys);
-        return dtos;
+        Comparator<AppMemberJourneyDTO> journeyComparator = new JourneyComparator();
+        Collection<AppMemberJourneyDTO> sortedList = new ArrayList<AppMemberJourneyDTO>();
+        sortedList = dtos.stream().sorted(journeyComparator).collect(Collectors.toList());
+        return sortedList;
     }
 
     @Operation( summary = "Delete an  Application Member ",  description = "delete an Application Member .....")

@@ -180,6 +180,7 @@ public class AppMemberService implements AppMemberRepository, CustomizedUserRepo
         Integer currentStar=0;
         Iterator<PlayHistory> itr = histories.iterator();
         dto.setTitle(journey.getTitle());
+        dto.setOrdering(journey.getOrdering());
         dto.setAppMemberId(member.getId());
         dto.setOpen(Boolean.FALSE);
         dto.setPicId(journey.getPic().getId());
