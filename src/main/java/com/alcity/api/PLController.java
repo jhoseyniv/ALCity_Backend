@@ -163,7 +163,7 @@ public class PLController {
             plObjectiveDTOCollection = DTOUtil.getPuzzleLevelObjectiveDTOS(puzzleLevelOptional.get());
         return plObjectiveDTOCollection;
     }
-    @Operation( summary = "Fetch all Learning Skills by a puzzle level Id ",  description = "fetches all Learning Skills for a puzzle level ")
+    @Operation( summary = "Fetch Learning Skills tree for a puzzle level Id ",  description = "fetches Learning Skills trees for a puzzle level by id ")
     @RequestMapping(value = "/id/{id}/learning-skills/all", method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin(origins = "*")

@@ -9,6 +9,7 @@ import com.alcity.service.learning.LearningSkill_LearningTopicService;
 import com.alcity.service.play.PlayHistoryService;
 import com.alcity.service.puzzle.*;
 import com.alcity.service.appmember.AppMemberService;
+import com.ulisesbocchio.jasyptspringboot.annotation.EnableEncryptableProperties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 
+@EnableEncryptableProperties
 @Order(value=2)
 @SpringBootApplication
 public class ObjectManagmentApplication {
