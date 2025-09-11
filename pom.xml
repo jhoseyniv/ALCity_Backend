@@ -114,6 +114,12 @@
 			<artifactId>javax.json</artifactId>
 			<version>1.1.4</version>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/com.github.ulisesbocchio/jasypt-maven-plugin -->
+		<dependency>
+			<groupId>com.github.ulisesbocchio</groupId>
+			<artifactId>jasypt-maven-plugin</artifactId>
+			<version>3.0.4</version>
+		</dependency>
 	</dependencies>
 
 	<build>
