@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 
 import org.springframework.transaction.annotation.Transactional;;
 import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -39,12 +40,13 @@ public class PLGameInstanceService implements PLGameInstanceRepository {
     public <S extends PLGameInstance> S save(S entity) {
         return plGameInstanceRepository.save(entity);
     }
+
     public PLGameInstanceDTO startGameInstance(PLEventDTO plEventDTO) {
 
         Optional<AppMember> appMemberOptional = appMemberService.findById(plEventDTO.getAppMemberId());
         Optional<PuzzleLevel> puzzleLevelOptional = puzzleLevelService.findById(plEventDTO.getPuzzleLevelId());
         GameStatus gameStatus = GameStatus.getByTitle(plEventDTO.getEventType());
-        PLGameInstance  gameInstance = new PLGameInstance(appMemberOptional.get(),puzzleLevelOptional.get(), DateUtils.getNow(),null,gameStatus,
+        PLGameInstance  gameInstance = new PLGameInstance(appMemberOptional.get(),puzzleLevelOptional.get(), DateUtils.getNow(),null,gameStatus,null,0L,0,null,0f,null,0f,
                 1L,DateUtils.getNow(),DateUtils.getNow(),appMemberOptional.get(),appMemberOptional.get());
         plGameInstanceRepository.save(gameInstance);
         PLGameInstanceDTO gameInstanceDTO = DTOUtil.getPLGameInstanceDTO(gameInstance);
@@ -83,6 +85,16 @@ public class PLGameInstanceService implements PLGameInstanceRepository {
     @Override
     public Collection<PLGameInstance> findAll() {
         return null;
+    }
+
+    @Override
+    public Collection<PLGameInstance> findByPlayerAndPuzzleLevel(AppMember player, PuzzleLevel puzzleLevel) {
+        return plGameInstanceRepository.findByPlayerAndPuzzleLevel(player, puzzleLevel);
+    }
+
+    @Override
+    public Collection<PLGameInstance> findByPlayer(AppMember player) {
+        return plGameInstanceRepository.findByPlayer(player);
     }
 
     @Override

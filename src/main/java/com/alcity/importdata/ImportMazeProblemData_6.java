@@ -15,7 +15,6 @@ import com.alcity.service.base.PuzzleCategoryService;
 import com.alcity.service.learning.LearningContentService;
 import com.alcity.service.learning.LearningSkillService;
 import com.alcity.service.learning.LearningTopicService;
-import com.alcity.service.play.PlayHistoryService;
 import com.alcity.service.puzzle.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -57,8 +56,8 @@ public class ImportMazeProblemData_6 implements CommandLineRunner {
     @Autowired
     PLLearningTopicService plLearningTopicService;
 
-    @Autowired
-    PlayHistoryService playHistoryService;
+//    @Autowired
+//    PlayHistoryService playHistoryService;
 
     @Autowired
     ActionService puzzleObjectActionService;

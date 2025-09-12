@@ -16,10 +16,8 @@ import com.alcity.dto.journey.RoadMapDTO;
 import com.alcity.dto.learning.LearningContentDTO;
 import com.alcity.dto.learning.LearningTopicDTO;
 import com.alcity.dto.pgimport.PGObjectVariableImportDTO;
-import com.alcity.dto.player.PlayHistoryDTO;
 import com.alcity.dto.plimpexport.rulemport.PostActionTreeImport;
 import com.alcity.dto.puzzle.*;
-import com.alcity.dto.puzzle.boardgraphic.BoardGraphicDTO;
 import com.alcity.entity.alenum.*;
 import com.alcity.entity.alobject.*;
 import com.alcity.entity.appmember.*;
@@ -30,7 +28,6 @@ import com.alcity.entity.journey.RoadMap;
 import com.alcity.entity.learning.LearningContent;
 import com.alcity.entity.learning.LearningSkill;
 import com.alcity.entity.learning.LearningTopic;
-import com.alcity.entity.play.PlayHistory;
 import com.alcity.entity.puzzle.*;
 import com.alcity.repository.alobject.AttributeRepository;
 import com.alcity.repository.alobject.AttributeValueRepository;
@@ -87,6 +84,7 @@ public class DTOUtil {
         return  dtos;
 
     }
+
     public static PLGameInstanceDTO getPLGameInstanceDTO(PLGameInstance gameInstance){
         PLGameInstanceDTO dto = new PLGameInstanceDTO();
         dto.setId(gameInstance.getId());
@@ -98,6 +96,16 @@ public class DTOUtil {
         dto.setPuzzleLevelTitle(gameInstance.getPuzzleLevel().getTitle());
         return  dto;
     }
+    public static Collection<PLGameInstanceDTO> getPLGameInstanceDTOS(Collection<PLGameInstance> gameInstances){
+        Collection<PLGameInstanceDTO> dtos = new  ArrayList<>();
+        Iterator<PLGameInstance> itr = gameInstances.iterator();
+        while(itr.hasNext()){
+            PLGameInstanceDTO dto = getPLGameInstanceDTO(itr.next());
+            dtos.add(dto);
+        }
+        return  dtos;
+    }
+
     public static PLDTO getPuzzleLevelDTO(PuzzleLevel entity) {
         PLDTO dto = new PLDTO();
         Collection<PLGround> plGrounds = entity.getPlGrounds();
@@ -1130,16 +1138,17 @@ public class DTOUtil {
     }
 
      */
-    public static Collection<PlayHistoryDTO> getPlayHistoryDTOS(Collection<PlayHistory> histories) {
+
+  /*  public static Collection<PlayHistoryDTO> getPlayHistoryDTOS(Collection<PlayHistory_Old> histories) {
         Collection<PlayHistoryDTO> dtos = new ArrayList<PlayHistoryDTO>();
-        Iterator<PlayHistory> itr = histories.iterator();
+        Iterator<PlayHistory_Old> itr = histories.iterator();
         while (itr.hasNext()) {
             PlayHistoryDTO dto = getPlayHistoryDTO(itr.next());
             dtos.add(dto);
         }
         return dtos;
     }
-    public static PlayHistoryDTO getPlayHistoryDTO(PlayHistory entity) {
+    public static PlayHistoryDTO getPlayHistoryDTO(PlayHistory_Old entity) {
         PlayHistoryDTO dto = new PlayHistoryDTO();
         PuzzleLevel pl = entity.getPuzzleLevel();
         AppMember player = entity.getPlayer();
@@ -1169,7 +1178,7 @@ public class DTOUtil {
 
         return dto;
     }
-
+*/
     public static AppMemberWalletDTO getAppMemberWalletDTO(AppMember_WalletItem entity) {
         AppMemberWalletDTO dto = new AppMemberWalletDTO();
         WalletItem walletItem = entity.getWalletItem();
@@ -1359,13 +1368,13 @@ public class DTOUtil {
         return dtos;
     }
 
-     */
-    public static Collection<PLDTO> getPlayedPuzzlesByAppMemberDTOS(Collection<PlayHistory> histories) {
+*/
+    public static Collection<PLDTO> getPlayedPuzzlesByAppMemberDTOS(Collection<PLGameInstance> histories) {
         Collection<PLDTO> dtos = new ArrayList<PLDTO>();
-        Iterator<PlayHistory> itr = histories.iterator();
+        Iterator<PLGameInstance> itr = histories.iterator();
 
         while(itr.hasNext()){
-            PlayHistory entity = itr.next();
+            PLGameInstance entity = itr.next();
             PLDTO dto = new PLDTO();
             dto.setId(entity.getPuzzleLevel().getId());
             dto.setCode(entity.getPuzzleLevel().getCode());
@@ -1391,6 +1400,8 @@ public class DTOUtil {
         }
         return dtos;
     }
+
+
     /*
     public static Collection<PLDTO> getNotPlayedPuzzlesByAppMemberDTOS(Collection<PlayHistory> histories) {
         Collection<PLDTO> dtos = new ArrayList<PLDTO>();

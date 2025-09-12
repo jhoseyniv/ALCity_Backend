@@ -1,16 +1,16 @@
 package com.alcity.api;
 
 import com.alcity.customexception.ResponseMessage;
-import com.alcity.dto.player.PlayHistoryDTO;
+import com.alcity.dto.puzzle.PLEventDTO;
+import com.alcity.dto.puzzle.PLGameInstanceDTO;
 import com.alcity.entity.alenum.Status;
 import com.alcity.entity.alenum.ErrorType;
 import com.alcity.entity.alenum.SystemMessage;
 import com.alcity.entity.appmember.AppMember;
-import com.alcity.entity.play.PlayHistory;
-import com.alcity.entity.puzzle.BaseObject;
 import com.alcity.customexception.ResponseObject;
+import com.alcity.entity.puzzle.PLGameInstance;
 import com.alcity.service.appmember.AppMemberService;
-import com.alcity.service.play.PlayHistoryService;
+import com.alcity.service.puzzle.PLGameInstanceService;
 import com.alcity.utility.DTOUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -24,11 +24,11 @@ import java.util.Optional;
 @Tag(name = "Play History APIs", description = "Get Play history and related entities as rest api")
 @CrossOrigin(origins = "*" ,maxAge = 3600)
 @RestController
-@RequestMapping("/ph")
-public class PlayHistoryController {
+@RequestMapping("/pl-game-instance")
+public class PLGameInstanceController {
 
     @Autowired
-    private PlayHistoryService playHistoryService;
+    private PLGameInstanceService plGameInstanceService;
 
     @Autowired
     private AppMemberService appMemberService;
@@ -37,12 +37,12 @@ public class PlayHistoryController {
     @RequestMapping(value = "/user/id/{id}", method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin(origins = "*")
-    public Collection<PlayHistoryDTO> getAllPlayHistoryForAUserById(@PathVariable Long id) {
-        Collection<PlayHistoryDTO> dtos = new ArrayList<>();
+    public Collection<PLGameInstanceDTO> getAllPlayHistoryForAUserById(@PathVariable Long id) {
+        Collection<PLGameInstanceDTO> dtos = new ArrayList<>();
         Optional<AppMember> appMemberOptional = appMemberService.findById(id);
         if(appMemberOptional.isEmpty()) return  null;
-        Collection<PlayHistory>  histories= playHistoryService.findByPlayer(appMemberOptional.get());
-        dtos = DTOUtil.getPlayHistoryDTOS(histories);
+        Collection<PLGameInstance>  histories= plGameInstanceService.findByPlayer(appMemberOptional.get());
+        dtos = DTOUtil.getPLGameInstanceDTOS(histories);
         return dtos;
     }
 
@@ -50,10 +50,10 @@ public class PlayHistoryController {
     @RequestMapping(value = "/id/{id}", method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin(origins = "*")
-    public PlayHistoryDTO getPlayHistoryById(@PathVariable Long id) {
-        Optional<PlayHistory>  historyOptional= playHistoryService.findById(id);
+    public PLGameInstanceDTO getPlayHistoryById(@PathVariable Long id) {
+        Optional<PLGameInstance>  historyOptional= plGameInstanceService.findById(id);
         if(historyOptional.isEmpty()) return  null;
-        return DTOUtil.getPlayHistoryDTO(historyOptional.get());
+        return DTOUtil.getPLGameInstanceDTO(historyOptional.get());
     }
 
     @Operation( summary = "Get analytical data for a play history  by id",  description = "analytical data for a play history  by id..........")
@@ -61,7 +61,7 @@ public class PlayHistoryController {
     @ResponseBody
     @CrossOrigin(origins = "*")
     public byte[] getAnalyticalDataById(@PathVariable Long id) {
-        Optional<PlayHistory>  historyOptional= playHistoryService.findById(id);
+        Optional<PLGameInstance>  historyOptional= plGameInstanceService.findById(id);
         if(historyOptional.isEmpty()) return  null;
         return historyOptional.get().getAnalyticalData();
     }
@@ -71,41 +71,41 @@ public class PlayHistoryController {
     @CrossOrigin(origins = "*")
     public ResponseMessage saveAnalyticalData(@RequestBody byte[] analyticalData,Long id) throws ResponseObject {
         ResponseMessage response = new ResponseMessage();
-        Optional<PlayHistory> playHistoryOptional = playHistoryService.findById(id);
+        Optional<PLGameInstance> playHistoryOptional = plGameInstanceService.findById(id);
          if(playHistoryOptional.isEmpty())
-                return new  ResponseMessage(ErrorType.RecordNotFound,Status.error.name(), PlayHistory.class.getSimpleName() ,  id, SystemMessage.SaveOrEditMessage_Fail);
-         PlayHistory playHistory = playHistoryOptional.get();
+                return new  ResponseMessage(ErrorType.RecordNotFound,Status.error.name(), PLGameInstance.class.getSimpleName() ,  id, SystemMessage.SaveOrEditMessage_Fail);
+         PLGameInstance playHistory = playHistoryOptional.get();
          playHistory.setAnalyticalData(analyticalData);
         try {
-            playHistoryService.save(playHistory);
+            plGameInstanceService.save(playHistory);
             }
         catch (Exception e) {
-            throw new ResponseObject(ErrorType.UniquenessViolation,Status.error.name() , PlayHistory.class.getSimpleName()  , -1L ,e.getCause().getMessage());
+            throw new ResponseObject(ErrorType.UniquenessViolation,Status.error.name() , PLGameInstance.class.getSimpleName()  , -1L ,e.getCause().getMessage());
         }
-        return  new ResponseMessage(ErrorType.SaveSuccess,Status.ok.name(), PlayHistory.class.getSimpleName() ,  playHistory.getId(), SystemMessage.SaveOrEditMessage_Success);
+        return  new ResponseMessage(ErrorType.SaveSuccess,Status.ok.name(), PLGameInstance.class.getSimpleName() ,  playHistory.getId(), SystemMessage.SaveOrEditMessage_Success);
     }
 
 
     @Operation( summary = "Save a play history for an Application Member + puzzle level",  description = "Save a play history for an Application Member + puzzle level ...")
     @PostMapping("/save")
     @CrossOrigin(origins = "*")
-    public ResponseMessage savePlayHistory(@RequestBody PlayHistoryDTO dto) throws ResponseObject {
-        PlayHistory savedRecord = null;
+    public ResponseMessage savePlayHistory(@RequestBody PLEventDTO dto) throws ResponseObject {
+        PLGameInstanceDTO savedRecord = null;
         ResponseMessage response = new ResponseMessage();
-        Optional<PlayHistory> playHistoryOptional = playHistoryService.findById(dto.getId());
+        Optional<PLGameInstance> playHistoryOptional = plGameInstanceService.findById(dto.getId());
 
         try {
             if (playHistoryOptional.isEmpty())
-                savedRecord = playHistoryService.save(dto,"Save");
+                savedRecord = plGameInstanceService.startGameInstance(dto);
             else
-                savedRecord = playHistoryService.save(dto, "Edit");
+                savedRecord = plGameInstanceService.updateGameInstanceStatus(dto);
         }
         catch (Exception e) {
 
-            throw new ResponseObject(ErrorType.UniquenessViolation,Status.error.name() , PlayHistory.class.getSimpleName()  , -1L ,e.getCause().getMessage());
+            throw new ResponseObject(ErrorType.UniquenessViolation,Status.error.name() , PLGameInstance.class.getSimpleName()  , -1L ,e.getCause().getMessage());
         }
         if(savedRecord !=null)
-            response = new ResponseMessage(ErrorType.SaveSuccess,Status.ok.name(), PlayHistory.class.getSimpleName() ,  savedRecord.getId(), SystemMessage.DeleteMessage);
+            response = new ResponseMessage(ErrorType.SaveSuccess,Status.ok.name(), PLGameInstance.class.getSimpleName() ,  savedRecord.getId(), SystemMessage.DeleteMessage);
         return response;
     }
 

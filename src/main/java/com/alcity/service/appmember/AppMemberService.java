@@ -5,8 +5,8 @@ import com.alcity.customexception.ResponseMessage;
 import com.alcity.dto.RemoteAccess.RemoteRequestDTO;
 import com.alcity.dto.appmember.*;
 import com.alcity.dto.journey.RoadMapDTO;
-import com.alcity.dto.player.PlayHistoryDTO;
 import com.alcity.dto.puzzle.PLDTO;
+import com.alcity.dto.puzzle.PLGameInstanceDTO;
 import com.alcity.dto.puzzle.PuzzleLevelStepMappingDTO;
 import com.alcity.dto.search.AppMemberSearchCriteriaDTO;
 import com.alcity.entity.alenum.*;
@@ -15,7 +15,7 @@ import com.alcity.entity.appmember.AppMemberStepInfo;
 import com.alcity.entity.base.ClientType;
 import com.alcity.entity.journey.Journey;
 import com.alcity.entity.journey.JourneyStep;
-import com.alcity.entity.play.PlayHistory;
+import com.alcity.entity.puzzle.PLGameInstance;
 import com.alcity.entity.puzzle.PuzzleLevel;
 import com.alcity.o3rdparty.ALCityAcessRight;
 import com.alcity.customexception.ResponseObject;
@@ -29,7 +29,6 @@ import com.alcity.repository.appmember.AppMember_WalletItemRepository;
 import com.alcity.repository.appmember.CustomizedUserRepository;
 import com.alcity.repository.appmember.WalletItemRespository;
 import com.alcity.repository.base.BinaryContentRepository;
-import com.alcity.repository.base.MemberTypeRepository;
 import com.alcity.service.base.MemberTypeService;
 import com.alcity.service.puzzle.PuzzleLevelService;
 import com.alcity.utility.DTOUtil;
@@ -52,6 +51,7 @@ import static java.util.stream.Collectors.toList;
 public class AppMemberService implements AppMemberRepository, CustomizedUserRepository {
 
     @Autowired
+
     private AppMemberRepository appMemberRepository;
     @Autowired
     private BinaryContentRepository binaryContentRepository;
@@ -91,10 +91,11 @@ public class AppMemberService implements AppMemberRepository, CustomizedUserRepo
         Collection<PLDTO>  notPlayed = puzzles.stream().filter(pldto -> played.contains(pldto)).collect(Collectors.toList());
         return notPlayed;
     }
+
     public  Collection<PLDTO> getPuzzleLevelsPlayed(AppMember appMember){
         Collection<PLDTO>  pldtos= new ArrayList<PLDTO>();
-        Collection<PlayHistory> histories = appMember.getPlayHistories();
-        pldtos =DTOUtil.getPlayedPuzzlesByAppMemberDTOS(histories);
+        Collection<PLGameInstance> gameInstances = appMember.getPlGameInstances();
+        pldtos =DTOUtil.getPlayedPuzzlesByAppMemberDTOS(gameInstances);
 
         return pldtos;
     }
@@ -156,14 +157,14 @@ public class AppMemberService implements AppMemberRepository, CustomizedUserRepo
         journeyInfoWithScores.setAppMemberId(member.getId());
         journeyInfoWithScores.setAppMemberUserName(member.getUsername());
 
-        Collection<PlayHistory>  histories= member.getPlayHistories();
-        Collection<PlayHistoryDTO> playedPuzzles = DTOUtil.getPlayHistoryDTOS(histories);
-        Iterator<PlayHistoryDTO> itr = playedPuzzles.iterator();
+        Collection<PLGameInstance>  histories= member.getPlGameInstances();
+        Collection<PLGameInstanceDTO> playedPuzzles = DTOUtil.getPLGameInstanceDTOS(histories);
+        Iterator<PLGameInstanceDTO> itr = playedPuzzles.iterator();
         Collection<AppMemberStepInfo> stepInfos = journeyInfo.getSteps();
 
         while (itr.hasNext()){
-            PlayHistoryDTO historyDTO = itr.next();
-            Optional<AppMemberStepInfo> stepInfoOptional = stepInfos.stream().filter(AppMemberStepInfo -> AppMemberStepInfo.getPuzzleLevelId() == historyDTO.getPlId()).findFirst();
+            PLGameInstanceDTO historyDTO = itr.next();
+            Optional<AppMemberStepInfo> stepInfoOptional = stepInfos.stream().filter(AppMemberStepInfo -> AppMemberStepInfo.getPuzzleLevelId() == historyDTO.getPuzzleLevelId()).findFirst();
             if(stepInfoOptional.isPresent()){
                 AppMemberStepInfo stepInfo =stepInfoOptional.get();
                 stepInfo.setCompleted(Boolean.TRUE);
@@ -176,11 +177,11 @@ public class AppMemberService implements AppMemberRepository, CustomizedUserRepo
     }
 
     public AppMemberJourneyDTO getJourneyScoresForAppMember(AppMember member, Journey journey) {
-        Collection<PlayHistory> histories = member.getPlayHistories();
+        Collection<PLGameInstance> histories = member.getPlGameInstances();
         Collection<PuzzleLevelStepMappingDTO> mappingDTOS = new ArrayList<>();
         AppMemberJourneyDTO dto = new AppMemberJourneyDTO();
         Integer currentStar=0;
-        Iterator<PlayHistory> itr = histories.iterator();
+        Iterator<PLGameInstance> itr = histories.iterator();
         dto.setTitle(journey.getTitle());
         dto.setOrdering(journey.getOrdering());
         dto.setAppMemberId(member.getId());
@@ -190,7 +191,7 @@ public class AppMemberService implements AppMemberRepository, CustomizedUserRepo
         dto.setMinToPassStar(journey.getMinToPassStar());
         dto.setJourneyId(journey.getId());
         while(itr.hasNext()) {
-            PlayHistory playHistory = itr.next();
+            PLGameInstance playHistory = itr.next();
             Long journeyId = puzzleLevelService.getJourneyIdMappedWithPuzzleLevel(playHistory.getPuzzleLevel());
             if(journeyId == journey.getId()) {
                 currentStar += playHistory.getStars();

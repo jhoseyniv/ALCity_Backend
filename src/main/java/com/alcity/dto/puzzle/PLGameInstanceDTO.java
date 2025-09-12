@@ -1,5 +1,8 @@
 package com.alcity.dto.puzzle;
 
+import com.alcity.entity.appmember.WalletItem;
+import com.alcity.entity.learning.LearningSkill;
+
 public class PLGameInstanceDTO {
 
     Long id;
@@ -9,6 +12,13 @@ public class PLGameInstanceDTO {
     String puzzleLevelTitle;
     String startPlayTime;
     String gameStatus;
+    private byte[] analyticalData;
+    private Integer stars;
+    private Long learningSkillId;
+    private Float skillAmount;
+    private Long walletItemId;
+    private Float walletItemAmount;
+
 
     public Long getId() {
         return id;
@@ -64,6 +74,54 @@ public class PLGameInstanceDTO {
 
     public void setGameStatus(String gameStatus) {
         this.gameStatus = gameStatus;
+    }
+
+    public byte[] getAnalyticalData() {
+        return analyticalData;
+    }
+
+    public void setAnalyticalData(byte[] analyticalData) {
+        this.analyticalData = analyticalData;
+    }
+
+    public Integer getStars() {
+        return stars;
+    }
+
+    public void setStars(Integer stars) {
+        this.stars = stars;
+    }
+
+    public Long getLearningSkillId() {
+        return learningSkillId;
+    }
+
+    public void setLearningSkillId(Long learningSkillId) {
+        this.learningSkillId = learningSkillId;
+    }
+
+    public Float getSkillAmount() {
+        return skillAmount;
+    }
+
+    public void setSkillAmount(Float skillAmount) {
+        this.skillAmount = skillAmount;
+    }
+
+    public Long getWalletItemId() {
+        return walletItemId;
+    }
+
+    public void setWalletItemId(Long walletItemId) {
+        this.walletItemId = walletItemId;
+    }
+
+    public Float getWalletItemAmount() {
+        return walletItemAmount;
+    }
+
+    public void setWalletItemAmount(Float walletItemAmount) {
+        this.walletItemAmount = walletItemAmount;
     }
 
     public PLGameInstanceDTO() {

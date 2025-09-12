@@ -9,7 +9,6 @@ import com.alcity.service.base.*;
 import com.alcity.service.learning.LearningContentService;
 import com.alcity.service.learning.LearningSkillService;
 import com.alcity.service.learning.LearningTopicService;
-import com.alcity.service.play.PlayHistoryService;
 import com.alcity.service.puzzle.*;
 import com.alcity.service.appmember.AppMemberService;
 import com.alcity.service.appmember.AppMember_WalletItemService;
@@ -54,8 +53,8 @@ public class ImportMemoryGameProblemData_4 implements CommandLineRunner {
     @Autowired
     PLLearningTopicService plLearningTopicService;
 
-    @Autowired
-    PlayHistoryService playHistoryService;
+//    @Autowired
+//    PlayHistoryService playHistoryService;
 
     @Autowired
     ActionService puzzleObjectActionService;

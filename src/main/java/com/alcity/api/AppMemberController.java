@@ -3,18 +3,18 @@ package com.alcity.api;
 import com.alcity.comparetors.JourneyComparator;
 import com.alcity.customexception.ResponseMessage;
 import com.alcity.dto.appmember.*;
-import com.alcity.dto.player.PlayHistoryDTO;
 import com.alcity.dto.puzzle.PLDTO;
+import com.alcity.dto.puzzle.PLGameInstanceDTO;
 import com.alcity.dto.search.AppMemberSearchCriteriaDTO;
 import com.alcity.entity.alenum.*;
 import com.alcity.entity.appmember.*;
 import com.alcity.entity.base.BinaryContent;
 import com.alcity.entity.base.ClientType;
-import com.alcity.entity.base.WalletItemType;
 import com.alcity.entity.journey.Journey;
 import com.alcity.entity.learning.LearningSkill;
-import com.alcity.entity.play.PlayHistory;
+import com.alcity.entity.puzzle.PLGameInstance;
 import com.alcity.entity.puzzle.PLObjective;
+import com.alcity.entity.puzzle.PuzzleLevel;
 import com.alcity.service.Journey.JourneyService;
 import com.alcity.o3rdparty.ALCityAcessRight;
 import com.alcity.service.appmember.*;
@@ -24,7 +24,9 @@ import com.alcity.service.base.BinaryContentService;
 import com.alcity.service.base.ClientTypeService;
 import com.alcity.service.base.WalletItemTypeService;
 import com.alcity.service.learning.LearningSkillService;
+import com.alcity.service.puzzle.PLGameInstanceService;
 import com.alcity.service.puzzle.PLObjectiveService;
+import com.alcity.service.puzzle.PuzzleLevelService;
 import com.alcity.utility.DTOUtil;
 import com.alcity.utility.DateUtils;
 import io.swagger.v3.oas.annotations.Operation;
@@ -38,8 +40,6 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
-
-import static java.util.stream.Collectors.toList;
 
 @Tag(name = "Application Member APIs", description = "Get Application Member and related entities as rest api")
 @CrossOrigin(origins = "*" ,maxAge = 3600)
@@ -77,6 +77,12 @@ public class AppMemberController {
 
     @Autowired
     private WalletItemTypeService walletItemTypeService;
+
+
+    @Autowired
+    private PuzzleLevelService puzzleLevelService;
+    @Autowired
+    private PLGameInstanceService pLGameInstanceService;
 
     @Operation( summary = "Get XP by a Date format 02-09-2025  ",  description = "Get XP by a Date format ")
     @RequestMapping(value = "/id/{id}/xp/date/{date}", method = RequestMethod.GET)
@@ -270,16 +276,32 @@ public class AppMemberController {
         return DTOUtil.getAppMemberDTOS(appMembers);
     }
 
-    @Operation( summary = "Get all history for an Application Member",  description = "get all play history for an Application Member ...")
-    @RequestMapping(value = "/id/{id}/playhistory", method = RequestMethod.GET)
+    @Operation( summary = "Get all Game Play for an Application Member",  description = "get all Game Play  for an Application Member ...")
+    @RequestMapping(value = "/id/{id}/game-play-all", method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin(origins = "*")
-    public Collection<PlayHistoryDTO> getPlayHistoryByUserId(@PathVariable Long id) {
+    public Collection<PLGameInstanceDTO> getAllPlayGameForUser(@PathVariable Long id) {
         Optional<AppMember> memberOptional = appMemberService.findById(id);
-        Collection<PlayHistory>  histories= memberOptional.get().getPlayHistories();
-        Collection<PlayHistoryDTO> dtos = DTOUtil.getPlayHistoryDTOS(histories);
+        Collection<PLGameInstance>  histories= memberOptional.get().getPlGameInstances();
+        Collection<PLGameInstanceDTO> dtos =  DTOUtil.getPLGameInstanceDTOS(histories);
         return dtos;
     }
+
+    @Operation( summary = "Get a Game Play for an Application Member + puzzle Level",  description = "get all Game Play  for an Application Member ...")
+    @RequestMapping(value = "/id/{id}/game-play/pid/{pid}", method = RequestMethod.GET)
+    @ResponseBody
+    @CrossOrigin(origins = "*")
+    public Collection<PLGameInstanceDTO> getGamePlayByUserIdAndPuzzleLevel(@PathVariable Long id,@PathVariable Long pid) {
+        Collection<PLGameInstance> histories = new ArrayList<>();
+        Collection<PLGameInstanceDTO> historyDTOS = new ArrayList<>();
+        Optional<AppMember> memberOptional = appMemberService.findById(id);
+        Optional<PuzzleLevel> puzzleLevelOptional = puzzleLevelService.findById(pid);
+        if(memberOptional.isEmpty() || puzzleLevelOptional.isEmpty()) {return null;}
+        histories = pLGameInstanceService.findByPlayerAndPuzzleLevel(memberOptional.get(),puzzleLevelOptional.get());
+        Collection<PLGameInstanceDTO> dtos = DTOUtil.getPLGameInstanceDTOS(histories);
+        return dtos;
+    }
+
     @Operation( summary = "Get a Journey Information with steps and scores for an Application Member",  description = "get a data structure that encompass steps and puzzles for an member and a journey ...")
     @RequestMapping(value = "/id/{id}/journey/jid/{jid}", method = RequestMethod.GET)
     @ResponseBody

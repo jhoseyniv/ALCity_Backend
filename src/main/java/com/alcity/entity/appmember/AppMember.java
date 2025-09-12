@@ -6,14 +6,14 @@ import com.alcity.entity.alenum.Language;
 import com.alcity.entity.alenum.UserGender;
 import com.alcity.entity.base.*;
 import com.alcity.entity.play.PermittedPlayer;
-import com.alcity.entity.play.PlayHistory;
 import com.alcity.entity.puzzle.PuzzleLevel;
+import com.alcity.entity.puzzle.PLGameInstance;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
 import java.util.Collection;
-import java.util.Set;
 
 @Entity
 @Table(name="ApplicationMember")
@@ -140,7 +140,7 @@ public class AppMember extends BaseTable implements Serializable {
     private Collection<PuzzleLevel> puzzleLevels;
 
     @OneToMany(mappedBy = "player", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Collection<PlayHistory> playHistories;
+    private Collection<PLGameInstance> plGameInstances;
 
     @OneToMany(mappedBy = "player", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Collection<PermittedPlayer> permitedPlayers;
@@ -197,13 +197,6 @@ public class AppMember extends BaseTable implements Serializable {
         this.clientTypes = clientTypes;
     }
 
-    public Collection<PlayHistory> getPlayHistories() {
-        return playHistories;
-    }
-
-    public void setPlayHistories(Collection<PlayHistory> playHistories) {
-        this.playHistories = playHistories;
-    }
 
     public Collection<PermittedPlayer> getPermitedPlayers() {
         return permitedPlayers;
@@ -240,7 +233,15 @@ public class AppMember extends BaseTable implements Serializable {
     public AppMember() {
     }
 
-    public AppMember(Integer age,Language language ,String username, String password, String nickname, String mobile, String email,BinaryContent icon, UserGender gender, MemberType memberType, Long version, String created, String updated, AppMember createdBy, AppMember updatedBy) {
+    public Collection<PLGameInstance> getPlGameInstances() {
+        return plGameInstances;
+    }
+
+    public void setPlGameInstances(Collection<PLGameInstance> plGameInstances) {
+        this.plGameInstances = plGameInstances;
+    }
+
+    public AppMember(Integer age, Language language , String username, String password, String nickname, String mobile, String email, BinaryContent icon, UserGender gender, MemberType memberType, Long version, String created, String updated, AppMember createdBy, AppMember updatedBy) {
         super(version, created, updated, createdBy, updatedBy);
         this.age = age;
         this.language = language;

@@ -223,8 +223,8 @@ public class PLController {
         return instanceDTO;
     }
 
-    @Operation( summary = "Update Puzzle (Game) Status after change status by user ",  description = "Update Puzzle (Game) Status after change status play by user")
-    @PostMapping("/update-play")
+    @Operation( summary = "End Puzzle (Game) Status after change status by user ",  description = "Update Puzzle (Game) Status after change status play by user")
+    @PostMapping("/end-play")
     @CrossOrigin(origins = "*")
     public PLGameInstanceDTO updateGameEvent(@RequestBody PLEventDTO eventDTO) {
         PLGameInstanceDTO instanceDTO =  plGameInstanceService.updateGameInstanceStatus(eventDTO);

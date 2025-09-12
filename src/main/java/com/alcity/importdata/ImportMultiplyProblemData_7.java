@@ -14,7 +14,6 @@ import com.alcity.service.base.PuzzleCategoryService;
 import com.alcity.service.learning.LearningContentService;
 import com.alcity.service.learning.LearningSkillService;
 import com.alcity.service.learning.LearningTopicService;
-import com.alcity.service.play.PlayHistoryService;
 import com.alcity.service.puzzle.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -53,8 +52,8 @@ public class ImportMultiplyProblemData_7 implements CommandLineRunner {
     @Autowired
     PLLearningTopicService plLearningTopicService;
 
-    @Autowired
-    PlayHistoryService playHistoryService;
+//    @Autowired
+//    PlayHistoryService playHistoryService;
 
     @Autowired
     ActionService puzzleObjectActionService;
