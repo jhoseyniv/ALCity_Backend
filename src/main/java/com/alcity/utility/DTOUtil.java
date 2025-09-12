@@ -970,7 +970,7 @@ public class DTOUtil {
         if(member.getLanguage() ==null) member.setLanguage(Language.English);
 
         AppMemberDTO dto = new AppMemberDTO(member.getId(),member.getAge(),member.getLanguage().name(),
-                member.getUsername(),member.getPassword(),member.getIcon().getId(), member.getNickname(),
+                member.getUsername(),"*************",member.getIcon().getId(), member.getNickname(),
                 member.getMobile(), member.getEmail(),member.getGender().name(),member.getMemberType().getValue(),
                 member.getVersion(), member.getCreated(), member.getUpdated(), userName, userName);
 

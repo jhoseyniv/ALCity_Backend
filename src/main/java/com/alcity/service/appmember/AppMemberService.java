@@ -34,11 +34,13 @@ import com.alcity.service.base.MemberTypeService;
 import com.alcity.service.puzzle.PuzzleLevelService;
 import com.alcity.utility.DTOUtil;
 import com.alcity.utility.DateUtils;
+import com.alcity.utility.GenerateSHA256;
 import com.alcity.utility.SlicedStream;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.security.NoSuchAlgorithmException;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -284,9 +286,16 @@ public class AppMemberService implements AppMemberRepository, CustomizedUserRepo
         else
             icon = binaryContentRepository.findById(dto.getIconId()).get();
 
+        byte [] hash = null;
+        try {
+             hash = GenerateSHA256.getSHA(dto.getPassword());
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
+        }
+        String hashedPassword = GenerateSHA256.toHexString(hash) ;
         AppMember appMember=null;
         if (code.equalsIgnoreCase("Save")) { //Save
-            appMember = new AppMember(dto.getAge(),language,dto.getUsername(), dto.getPassword(), dto.getNickname(), dto.getMobile(),dto.getEmail(),icon,gender ,memberType
+            appMember = new AppMember(dto.getAge(),language,dto.getUsername(), hashedPassword, dto.getNickname(), dto.getMobile(),dto.getEmail(),icon,gender ,memberType
                     ,1L, DateUtils.getNow(), DateUtils.getNow(), createdBy.get(), createdBy.get());
             appMemberRepository.save(appMember);
         }else{//edit
@@ -295,7 +304,7 @@ public class AppMemberService implements AppMemberRepository, CustomizedUserRepo
                 appMember = appMemberOptional.get();
                 appMember.setNickname(dto.getNickname());
                 appMember.setUsername(dto.getUsername());
-                appMember.setPassword(dto.getPassword());
+                appMember.setPassword(hashedPassword);
                 appMember.setMobile(dto.getMobile());
                 appMember.setIcon(icon);
                 appMember.setMemberType(memberType);
