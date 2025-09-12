@@ -532,11 +532,12 @@ public class AppMemberController {
         ClientType clientType = clientTypeService.findByValue(ctype);
         if(clientType == null)
             return new ResponseMessage(ErrorType.RecordNotFound, Status.error.name() ,AppMember.class.getSimpleName() ,  memId , SystemMessage.RecordNotFound);
-        ResponseMessage response = appMemberService.setClientType(appMemberOptional.get(),clientType);
         Collection<ClientType> clientTypes = appMemberOptional.get().getClientTypes();
         Optional<ClientType> clientTypeOptional = clientTypes.stream().filter(value -> value.getValue().equals(ctype)).collect(Collectors.toList()).stream().findFirst();
         if(clientTypeOptional.isPresent())
             return new ResponseMessage(ErrorType.UniquenessViolation, Status.error.name() ,AppMember.class.getSimpleName() ,  memId , SystemMessage.UniquenessViolation);
+
+        ResponseMessage response = appMemberService.setClientType(appMemberOptional.get(),clientType);
 
         return response;
     }
