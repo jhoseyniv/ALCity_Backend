@@ -7,6 +7,7 @@ import com.alcity.dto.puzzle.PLGameInstanceDTO;
 import com.alcity.entity.alenum.GameStatus;
 import com.alcity.entity.appmember.AppMember;
 import com.alcity.entity.puzzle.PLGameInstance;
+import com.alcity.entity.puzzle.PLObjective;
 import com.alcity.entity.puzzle.PuzzleLevel;
 import com.alcity.repository.appmember.AppMemberRepository;
 import com.alcity.repository.puzzle.PLGameInstanceRepository;
@@ -18,6 +19,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import org.springframework.transaction.annotation.Transactional;;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
@@ -46,6 +48,9 @@ public class PLGameInstanceService implements PLGameInstanceRepository {
         Optional<AppMember> appMemberOptional = appMemberService.findById(plEventDTO.getAppMemberId());
         Optional<PuzzleLevel> puzzleLevelOptional = puzzleLevelService.findById(plEventDTO.getPuzzleLevelId());
         GameStatus gameStatus = GameStatus.getByTitle(plEventDTO.getEventType());
+        if(appMemberOptional.isEmpty() || puzzleLevelOptional.isEmpty()){ return null;}
+        Collection<PLObjective> objectives = puzzleLevelOptional.get().getPlObjectives();
+
         PLGameInstance  gameInstance = new PLGameInstance(appMemberOptional.get(),puzzleLevelOptional.get(), DateUtils.getNow(),null,gameStatus,null,0L,0,null,0f,null,0f,
                 1L,DateUtils.getNow(),DateUtils.getNow(),appMemberOptional.get(),appMemberOptional.get());
         plGameInstanceRepository.save(gameInstance);

@@ -356,7 +356,6 @@ public class AppMemberController {
     public ResponseMessage getPuzzleLevel(@PathVariable Long memId, @PathVariable Long avatarId) {
         AppMember updatedRecord = null;
         ResponseMessage response = new ResponseMessage();
-
         updatedRecord = appMemberService.updateAvatar(memId, avatarId);
             if(updatedRecord !=null)
                 response = new ResponseMessage(ErrorType.SaveSuccess, Status.ok.name(),AppMember.class.getSimpleName() ,  updatedRecord.getId(), SystemMessage.SaveOrEditMessage_Success);

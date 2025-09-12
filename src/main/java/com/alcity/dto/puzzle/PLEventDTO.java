@@ -4,10 +4,9 @@ public class PLEventDTO {
     private Long id;
     private Long puzzleLevelId;
     private Long appMemberId;
-
     private String eventTime;
-
     private String eventType;
+
 
     public Long getPuzzleLevelId() {
         return puzzleLevelId;
