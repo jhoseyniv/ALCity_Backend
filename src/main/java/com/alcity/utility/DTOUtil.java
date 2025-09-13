@@ -94,6 +94,7 @@ public class DTOUtil {
         dto.setStartPlayTime(gameInstance.getStartPlayTime());
         dto.setPuzzleLevelId(gameInstance.getPuzzleLevel().getId());
         dto.setPuzzleLevelTitle(gameInstance.getPuzzleLevel().getTitle());
+        dto.setStars(gameInstance.getStars());
         return  dto;
     }
     public static Collection<PLGameInstanceDTO> getPLGameInstanceDTOS(Collection<PLGameInstance> gameInstances){
