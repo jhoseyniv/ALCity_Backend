@@ -6,7 +6,10 @@ public class PLEventDTO {
     private Long appMemberId;
     private String eventTime;
     private String eventType;
-
+    private Float skillAmount;
+    private Float walletItemAmount;
+    private Integer gameStatusId;
+    private byte[] analyticalData;
 
     public Long getPuzzleLevelId() {
         return puzzleLevelId;
@@ -40,6 +43,37 @@ public class PLEventDTO {
         this.eventType = eventType;
     }
 
+    public Float getSkillAmount() {
+        return skillAmount;
+    }
+
+    public void setSkillAmount(Float skillAmount) {
+        this.skillAmount = skillAmount;
+    }
+
+    public Float getWalletItemAmount() {
+        return walletItemAmount;
+    }
+
+    public void setWalletItemAmount(Float walletItemAmount) {
+        this.walletItemAmount = walletItemAmount;
+    }
+
+    public Integer getGameStatusId() {
+        return gameStatusId;
+    }
+
+    public void setGameStatusId(Integer gameStatusId) {
+        this.gameStatusId = gameStatusId;
+    }
+
+    public byte[] getAnalyticalData() {
+        return analyticalData;
+    }
+    public void setAnalyticalData(byte[] analyticalData) {
+        this.analyticalData = analyticalData;
+    }
+
     public PLEventDTO() {
     }
 
@@ -51,10 +85,16 @@ public class PLEventDTO {
         this.id = id;
     }
 
-    public PLEventDTO(Long id , Long puzzleLevelId, Long appMemberId, String eventTime, String eventType) {
+    public PLEventDTO(Long id, Long puzzleLevelId, Long appMemberId, String eventTime, String eventType,
+                      Float skillAmount, Float walletItemAmount, Integer gameStatusId, byte[] analyticalData) {
+        this.id = id;
         this.puzzleLevelId = puzzleLevelId;
         this.appMemberId = appMemberId;
         this.eventTime = eventTime;
         this.eventType = eventType;
+        this.skillAmount = skillAmount;
+        this.walletItemAmount = walletItemAmount;
+        this.gameStatusId = gameStatusId;
+        this.analyticalData = analyticalData;
     }
 }

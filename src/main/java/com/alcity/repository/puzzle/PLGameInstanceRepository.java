@@ -14,5 +14,6 @@ public interface PLGameInstanceRepository extends CrudRepository<PLGameInstance,
 
     Collection<PLGameInstance> findByPlayerAndPuzzleLevel(AppMember player, PuzzleLevel puzzleLevel);
     Collection<PLGameInstance> findByPlayer(AppMember player);
+    Collection<PLGameInstance> findByPuzzleLevel(PuzzleLevel puzzleLevel);
 
 }

@@ -103,6 +103,11 @@ public class PLGameInstanceService implements PLGameInstanceRepository {
     }
 
     @Override
+    public Collection<PLGameInstance> findByPuzzleLevel(PuzzleLevel puzzleLevel) {
+        return plGameInstanceRepository.findByPuzzleLevel(puzzleLevel);
+    }
+
+    @Override
     public Iterable<PLGameInstance> findAllById(Iterable<Long> longs) {
         return null;
     }

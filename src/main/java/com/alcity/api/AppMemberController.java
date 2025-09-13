@@ -293,13 +293,13 @@ public class AppMemberController {
     @ResponseBody
     @CrossOrigin(origins = "*")
     public Collection<PLGameInstanceDTO> getGamePlayByUserIdAndPuzzleLevel(@PathVariable Long id,@PathVariable Long pid) {
-        Collection<PLGameInstance> histories = new ArrayList<>();
+        Collection<PLGameInstance> gameInstances = new ArrayList<>();
         Collection<PLGameInstanceDTO> historyDTOS = new ArrayList<>();
         Optional<AppMember> memberOptional = appMemberService.findById(id);
         Optional<PuzzleLevel> puzzleLevelOptional = puzzleLevelService.findById(pid);
         if(memberOptional.isEmpty() || puzzleLevelOptional.isEmpty()) {return null;}
-        histories = pLGameInstanceService.findByPlayerAndPuzzleLevel(memberOptional.get(),puzzleLevelOptional.get());
-        Collection<PLGameInstanceDTO> dtos = DTOUtil.getPLGameInstanceDTOS(histories);
+        gameInstances = pLGameInstanceService.findByPlayerAndPuzzleLevel(memberOptional.get(),puzzleLevelOptional.get());
+        Collection<PLGameInstanceDTO> dtos = DTOUtil.getPLGameInstanceDTOS(gameInstances);
         return dtos;
     }
 

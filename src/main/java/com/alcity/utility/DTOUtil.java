@@ -95,6 +95,10 @@ public class DTOUtil {
         dto.setPuzzleLevelId(gameInstance.getPuzzleLevel().getId());
         dto.setPuzzleLevelTitle(gameInstance.getPuzzleLevel().getTitle());
         dto.setStars(gameInstance.getStars());
+        dto.setLearningSkillId(gameInstance.getLearningSkill().getId());
+        dto.setSkillAmount(gameInstance.getSkillAmount());
+        dto.setWalletItemId(gameInstance.getWalletItem().getId());
+        dto.setWalletItemAmount(gameInstance.getWalletItemAmount());
         return  dto;
     }
     public static Collection<PLGameInstanceDTO> getPLGameInstanceDTOS(Collection<PLGameInstance> gameInstances){

@@ -231,6 +231,18 @@ public class PLController {
         return instanceDTO;
     }
 
+    @Operation( summary = "Get all Game Play for a puzzle Level Member",  description = "get all Game Play  for a Puzzle Level ...")
+    @RequestMapping(value = "/id/{id}/game-play-all", method = RequestMethod.GET)
+    @ResponseBody
+    @CrossOrigin(origins = "*")
+    public Collection<PLGameInstanceDTO> getAllPlayGameForUser(@PathVariable Long id) {
+        Optional<PuzzleLevel> puzzleLevelOptional = plService.findById(id);
+        if(puzzleLevelOptional.isEmpty()) return  null;
+        Collection<PLGameInstance>  histories= plGameInstanceService.findByPuzzleLevel(puzzleLevelOptional.get());
+        Collection<PLGameInstanceDTO> dtos =  DTOUtil.getPLGameInstanceDTOS(histories);
+        return dtos;
+    }
+
     @Operation( summary = "Fetch all Rules by a puzzle level Id ",  description = "fetches all Rules for a puzzle level ")
     @RequestMapping(value = "/id/{id}/rules/all", method = RequestMethod.GET)
     @ResponseBody
