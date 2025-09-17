@@ -233,15 +233,15 @@ public class BinaryContentService implements BinaryContentRepository , BinaryCon
                 binaryContent.setTag3(dto.getTag3());
                 binaryContent.setIs3dContent(dto.getIs3dContent());
 
-                if(dto.getIos3Dcontent().length > 0 && dto.getIos3Dcontent()!=null )
-                     binaryContent.setIos3Dcontent(dto.getIos3Dcontent());
-
-                if(dto.getAndroid3Dcontent().length > 0 && dto.getAndroid3Dcontent() !=null)
-                     binaryContent.setAndriod3Dcontent(dto.getAndroid3Dcontent());
-
-                if(dto.getWeb3Dcontent().length > 0  && dto.getWeb3Dcontent() !=null)
+                if(dto.getIos3Dcontent()!=null) {
+                    binaryContent.setIos3Dcontent(dto.getIos3Dcontent());
+                } else if(dto.getAndroid3Dcontent()!=null) {
+                    binaryContent.setAndriod3Dcontent(dto.getAndroid3Dcontent());
+                } else if(dto.getWeb3Dcontent()!=null) {
                     binaryContent.setWeb3Dcontent(dto.getWeb3Dcontent());
-
+                } else if(dto.getContent()!=null) {
+                    binaryContent.setContent(dto.getContent());
+                }
                 binaryContent.setFileName(dto.getFileName());
                 binaryContent.setVersion(binaryContent.getVersion()+1);
                 binaryContentRepository.save(binaryContent);
