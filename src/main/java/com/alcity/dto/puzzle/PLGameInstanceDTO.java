@@ -7,17 +7,12 @@ public class PLGameInstanceDTO {
 
     Long id;
     Long appMemmberId;
-    String userName;
     Long puzzleLevelId;
     String puzzleLevelTitle;
     String startPlayTime;
+    String endPlayTime;
     String gameStatus;
     private byte[] analyticalData;
-    private Integer stars;
-    private Long learningSkillId;
-    private Float skillAmount;
-    private Long walletItemId;
-    private Float walletItemAmount;
 
 
     public Long getId() {
@@ -36,13 +31,6 @@ public class PLGameInstanceDTO {
         this.appMemmberId = appMemmberId;
     }
 
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
 
     public Long getPuzzleLevelId() {
         return puzzleLevelId;
@@ -84,56 +72,26 @@ public class PLGameInstanceDTO {
         this.analyticalData = analyticalData;
     }
 
-    public Integer getStars() {
-        return stars;
-    }
-
-    public void setStars(Integer stars) {
-        this.stars = stars;
-    }
-
-    public Long getLearningSkillId() {
-        return learningSkillId;
-    }
-
-    public void setLearningSkillId(Long learningSkillId) {
-        this.learningSkillId = learningSkillId;
-    }
-
-    public Float getSkillAmount() {
-        return skillAmount;
-    }
-
-    public void setSkillAmount(Float skillAmount) {
-        this.skillAmount = skillAmount;
-    }
-
-    public Long getWalletItemId() {
-        return walletItemId;
-    }
-
-    public void setWalletItemId(Long walletItemId) {
-        this.walletItemId = walletItemId;
-    }
-
-    public Float getWalletItemAmount() {
-        return walletItemAmount;
-    }
-
-    public void setWalletItemAmount(Float walletItemAmount) {
-        this.walletItemAmount = walletItemAmount;
-    }
 
     public PLGameInstanceDTO() {
     }
 
-    public PLGameInstanceDTO(Long id, Long appMemmberId, String userName, Long puzzleLevelId, String puzzleLevelTitle, String startPlayTime, String gameStatus) {
+    public String getEndPlayTime() {
+        return endPlayTime;
+    }
+
+    public void setEndPlayTime(String endPlayTime) {
+        this.endPlayTime = endPlayTime;
+    }
+
+    public PLGameInstanceDTO(Long id, Long appMemmberId, Long puzzleLevelId, String puzzleLevelTitle, String startPlayTime, String endPlayTime, String gameStatus, byte[] analyticalData) {
         this.id = id;
         this.appMemmberId = appMemmberId;
-        this.userName = userName;
         this.puzzleLevelId = puzzleLevelId;
         this.puzzleLevelTitle = puzzleLevelTitle;
         this.startPlayTime = startPlayTime;
+        this.endPlayTime = endPlayTime;
         this.gameStatus = gameStatus;
+        this.analyticalData = analyticalData;
     }
 }

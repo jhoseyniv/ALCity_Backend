@@ -2,14 +2,10 @@ package com.alcity.service.base;
 
 
 import com.alcity.dto.appmember.MemberTypeDTO;
-import com.alcity.dto.base.WalletItemTypeDTO;
-import com.alcity.entity.alenum.WalletItemCategory;
 import com.alcity.entity.base.MemberType;
 import com.alcity.entity.appmember.AppMember;
-import com.alcity.entity.base.WalletItemType;
 import com.alcity.repository.appmember.AppMemberRepository;
 import com.alcity.repository.base.MemberTypeRepository;
-import com.alcity.service.appmember.AppMemberService;
 import com.alcity.utility.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

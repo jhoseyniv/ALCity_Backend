@@ -2,7 +2,7 @@ package com.alcity.dto.appmember;
 
 import java.io.Serializable;
 
-public class AppMemberSkillXPDTO implements Serializable {
+public class AppMemberSkillScoreDTO implements Serializable {
     Long skillId;
     String skillTitle;
     String skillDescription;
@@ -76,11 +76,11 @@ public class AppMemberSkillXPDTO implements Serializable {
         this.skillIconId = skillIconId;
     }
 
-    public AppMemberSkillXPDTO() {
+    public AppMemberSkillScoreDTO() {
     }
 
-    public AppMemberSkillXPDTO(Long skillId, String skillTitle, String skillDescription,
-                               Long skillLevel, String skillType, Float amount, Long appMemberId, Long skillIconId) {
+    public AppMemberSkillScoreDTO(Long skillId, String skillTitle, String skillDescription,
+                                  Long skillLevel, String skillType, Float amount, Long appMemberId, Long skillIconId) {
         this.skillId = skillId;
         this.skillTitle = skillTitle;
         this.skillDescription = skillDescription;

@@ -7,7 +7,7 @@ import jakarta.persistence.*;
 import java.io.Serializable;
 
 @Entity
-public class CurrencyChangeRate extends BaseTable implements Serializable {
+public class WalletItemChangeRate extends BaseTable implements Serializable {
 
     @Column(name="fromDate")
     private Long fromDate;
@@ -25,10 +25,10 @@ public class CurrencyChangeRate extends BaseTable implements Serializable {
     @JsonIgnore
     private WalletItem toCurrency;
 
-    public CurrencyChangeRate() {
+    public WalletItemChangeRate() {
     }
 
-    public CurrencyChangeRate(Long fromDate, Float rate, WalletItem fromCurrency, WalletItem toCurrency, Long version, String created, String updated, AppMember createdBy, AppMember updatedBy) {
+    public WalletItemChangeRate(Long fromDate, Float rate, WalletItem fromCurrency, WalletItem toCurrency, Long version, String created, String updated, AppMember createdBy, AppMember updatedBy) {
         super(version, created, updated, createdBy, updatedBy);
         this.fromDate = fromDate;
         this.rate = rate;

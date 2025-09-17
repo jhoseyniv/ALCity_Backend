@@ -10,8 +10,7 @@ import com.alcity.dto.puzzle.PLGameInstanceDTO;
 import com.alcity.dto.puzzle.PuzzleLevelStepMappingDTO;
 import com.alcity.dto.search.AppMemberSearchCriteriaDTO;
 import com.alcity.entity.alenum.*;
-import com.alcity.entity.appmember.AppMemberJourneyInfo;
-import com.alcity.entity.appmember.AppMemberStepInfo;
+import com.alcity.entity.appmember.*;
 import com.alcity.entity.base.ClientType;
 import com.alcity.entity.journey.Journey;
 import com.alcity.entity.journey.JourneyStep;
@@ -19,9 +18,6 @@ import com.alcity.entity.puzzle.PLGameInstance;
 import com.alcity.entity.puzzle.PuzzleLevel;
 import com.alcity.o3rdparty.ALCityAcessRight;
 import com.alcity.customexception.ResponseObject;
-import com.alcity.entity.appmember.AppMember;
-import com.alcity.entity.appmember.AppMember_WalletItem;
-import com.alcity.entity.appmember.WalletItem;
 import com.alcity.entity.base.BinaryContent;
 import com.alcity.entity.base.MemberType;
 import com.alcity.repository.appmember.AppMemberRepository;
@@ -53,8 +49,10 @@ public class AppMemberService implements AppMemberRepository, CustomizedUserRepo
     @Autowired
 
     private AppMemberRepository appMemberRepository;
+
     @Autowired
     private BinaryContentRepository binaryContentRepository;
+
     @Autowired
     private MemberTypeService memberTypeService;
 
@@ -66,6 +64,9 @@ public class AppMemberService implements AppMemberRepository, CustomizedUserRepo
 
     @Autowired
     private PuzzleLevelService puzzleLevelService;
+
+    @Autowired
+    private AppMemberPuzzleLevelScoreService appMemberPuzzleLevelScoreService;
 
 
     public Collection<AppMember> findByCriteria(AppMemberSearchCriteriaDTO dto) {
@@ -145,6 +146,7 @@ public class AppMemberService implements AppMemberRepository, CustomizedUserRepo
         journeyInfo.setSteps(sortedList);
         return journeyInfo;
     }
+
     public AppMemberJourneyInfo getAppMemberJourneyInfoWithScores(AppMember member, AppMemberJourneyInfo journeyInfo) {
         AppMemberJourneyInfo journeyInfoWithScores = new AppMemberJourneyInfo();
         journeyInfoWithScores.setRoadMaps(journeyInfo.getRoadMaps());
@@ -167,13 +169,33 @@ public class AppMemberService implements AppMemberRepository, CustomizedUserRepo
             Optional<AppMemberStepInfo> stepInfoOptional = stepInfos.stream().filter(AppMemberStepInfo -> AppMemberStepInfo.getPuzzleLevelId() == historyDTO.getPuzzleLevelId()).findFirst();
             if(stepInfoOptional.isPresent()){
                 AppMemberStepInfo stepInfo =stepInfoOptional.get();
+                Optional<PuzzleLevel> puzzleLevelOptional = puzzleLevelService.findById(stepInfo.getPuzzleLevelId());
+                PuzzleLevel puzzleLevel = puzzleLevelOptional.get();
+                Optional<AppMemberPuzzleLevelScore> scoreOptional = appMemberPuzzleLevelScoreService.findByPuzzleLevelAndPlayer(puzzleLevel,member);
                 stepInfo.setCompleted(Boolean.TRUE);
-                stepInfo.setStars(historyDTO.getStars());
+                Float score = scoreOptional.get().getScoreByBaseCurrency();
+                Integer stars=getPuzzleLevelAppMemberStars(score,puzzleLevel);
+
+                stepInfo.setStars(stars);
             }
 
         }
         journeyInfoWithScores.setSteps(stepInfos);
         return journeyInfoWithScores;
+    }
+
+    public Integer getPuzzleLevelAppMemberStars(Float score, PuzzleLevel puzzleLevel) {
+        Float firstScoreStar = puzzleLevel.getFirstStarScore();
+        Float secondScoreStar = puzzleLevel.getSecondStarScore();
+        Float thirdScoreStar = puzzleLevel.getThirdStartScore();
+        if(score>=firstScoreStar && score<=secondScoreStar )
+            return 1;
+        if(score>secondScoreStar && score<thirdScoreStar )
+            return 2;
+        if(score>=thirdScoreStar )
+            return  3;
+
+        return 0;
     }
 
     public AppMemberJourneyDTO getJourneyScoresForAppMember(AppMember member, Journey journey) {
@@ -193,8 +215,12 @@ public class AppMemberService implements AppMemberRepository, CustomizedUserRepo
         while(itr.hasNext()) {
             PLGameInstance playHistory = itr.next();
             Long journeyId = puzzleLevelService.getJourneyIdMappedWithPuzzleLevel(playHistory.getPuzzleLevel());
-            if(journeyId == journey.getId()) {
-                currentStar += playHistory.getStars();
+            if(journeyId.equals(journey.getId())) {
+                Optional<AppMemberPuzzleLevelScore> puzzleLevelScoreOptional = appMemberPuzzleLevelScoreService.findByPuzzleLevelAndPlayer(playHistory.getPuzzleLevel(),playHistory.getPlayer());
+                if(puzzleLevelScoreOptional.isEmpty())
+                    currentStar+=0;
+                else
+                    currentStar += getPuzzleLevelAppMemberStars(puzzleLevelScoreOptional.get().getScoreByBaseCurrency(),playHistory.getPuzzleLevel());
             }
         }
         dto.setCurrentStar(currentStar);

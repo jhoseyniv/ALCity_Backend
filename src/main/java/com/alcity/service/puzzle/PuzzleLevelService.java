@@ -6,13 +6,12 @@ import com.alcity.dto.plimpexport.rulemport.PLRuleImport;
 import com.alcity.dto.puzzle.PLCopyDTO;
 import com.alcity.dto.puzzle.PLDTO;
 import com.alcity.dto.puzzle.PuzzleLevelStepMappingDTO;
-import com.alcity.dto.puzzle.boardgraphic.BoardGraphicDTO;
 import com.alcity.entity.alenum.AttributeOwnerType;
 import com.alcity.entity.alenum.PLDifficulty;
 import com.alcity.entity.alenum.PLStatus;
 import com.alcity.entity.alobject.Attribute;
 import com.alcity.entity.alobject.AttributeValue;
-import com.alcity.entity.appmember.LearningSkillTransaction;
+import com.alcity.entity.appmember.PLObjectiveTransaction;
 import com.alcity.entity.base.BinaryContent;
 import com.alcity.entity.base.PLPrivacy;
 import com.alcity.entity.journey.JourneyStep;
@@ -27,14 +26,12 @@ import com.alcity.repository.appmember.AppMemberRepository;
 import com.alcity.service.alobject.AttributeService;
 import com.alcity.service.alobject.AttributeValueService;
 import com.alcity.service.appmember.AppMemberService;
-import com.alcity.service.appmember.LearningSkillTransactionService;
+import com.alcity.service.appmember.PLObjectiveTransactionService;
 import com.alcity.service.base.BinaryContentService;
 import com.alcity.test.importstruct.PLImportDTO_New;
 import com.alcity.test.ruleimport_new.PLRuleImport_New;
 import com.alcity.utility.DTOUtil;
 import com.alcity.utility.DateUtils;
-import com.alcity.utility.ImageUtil;
-import com.alcity.utility.PLDTOUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Lazy;
@@ -59,7 +56,7 @@ public class PuzzleLevelService implements PuzzleLevelRepository {
     @Autowired
     PLGameInstanceService gameInstanceService;
     @Autowired
-    private LearningSkillTransactionService learningSkillTransactionService;
+    private PLObjectiveTransactionService learningSkillTransactionService;
 
 
     @Override
@@ -426,7 +423,7 @@ public class PuzzleLevelService implements PuzzleLevelRepository {
         Iterator<PLObjective> iterator = objectives.iterator();
         while (iterator.hasNext()) {
             PLObjective objective = iterator.next();
-           Collection<LearningSkillTransaction> transactions = learningSkillTransactionService.findByPlObjective(objective);
+           Collection<PLObjectiveTransaction> transactions = learningSkillTransactionService.findByPlObjective(objective);
            learningSkillTransactionService.deleteAll(transactions);
         }
         plObjectiveService.deleteAll(objectives);

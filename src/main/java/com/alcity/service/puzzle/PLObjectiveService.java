@@ -120,6 +120,12 @@ public class PLObjectiveService implements PLObjectiveRepository {
     public Collection<PLObjective> findByCondition(StringBuffer condition) {
         return null;
     }
+
+    @Override
+    public Optional<PLObjective> findByLearningSkill(LearningSkill learningSkill) {
+        return objectiveRepository.findByLearningSkill(learningSkill);
+    }
+
     @Autowired
     private AppMemberRepository appMemberRepository;
 

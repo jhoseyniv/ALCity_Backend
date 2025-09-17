@@ -1,16 +1,11 @@
 package com.alcity.entity.appmember;
 
-import com.alcity.entity.alenum.PLStatus;
 import com.alcity.entity.alenum.WalletTransactionType;
 import com.alcity.entity.base.BaseTable;
-import com.alcity.entity.puzzle.PLObjective;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-
 import jakarta.validation.constraints.NotNull;
-
 import java.io.Serializable;
-import java.util.Collection;
 
 @Entity
 public class WalletTransaction extends BaseTable implements Serializable {
@@ -31,6 +26,19 @@ public class WalletTransaction extends BaseTable implements Serializable {
     @JoinColumn(name = "applicationMember_id", nullable = false)
     @JsonIgnore
     private AppMember appMember;
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "appMember_WalletItem_id", referencedColumnName = "id")
+    @JsonIgnore
+    private AppMember_WalletItem appMemberWalletItem;
+
+    public AppMember_WalletItem getAppMemberWalletItem() {
+        return appMemberWalletItem;
+    }
+
+    public void setAppMemberWalletItem(AppMember_WalletItem appMemberWalletItem) {
+        this.appMemberWalletItem = appMemberWalletItem;
+    }
 
     @Enumerated(EnumType.ORDINAL)
     private WalletTransactionType walletTransactionType;

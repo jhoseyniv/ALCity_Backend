@@ -1,6 +1,7 @@
 package com.alcity.entity.puzzle;
 
 import com.alcity.entity.alenum.GameStatus;
+import com.alcity.entity.appmember.PLObjectiveTransaction;
 import com.alcity.entity.appmember.WalletItem;
 import com.alcity.entity.base.BaseTable;
 import com.alcity.entity.appmember.AppMember;
@@ -12,6 +13,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 
 import java.io.Serializable;
+import java.util.Collection;
 
 @Entity
 @Table(name="plgame_instance")
@@ -43,27 +45,9 @@ public class PLGameInstance extends BaseTable implements Serializable {
     @Column(name="playDuration")
     private Long playDuration;
 
-    @Column(name="stars")
-    private Integer stars;
-
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "learning_skill_id", nullable = false)
+    @OneToMany(mappedBy = "gameInstance", fetch = FetchType.LAZY)
     @JsonIgnore
-    private LearningSkill learningSkill;
-
-    @NotNull(message = "{amount.notempty}")
-    @Column(name="skillAmount")
-    private Float skillAmount;
-
-
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "walletItem_id", nullable = false)
-    @JsonIgnore
-    private WalletItem walletItem;
-
-    @NotNull(message = "{amount.notempty}")
-    @Column(name="walletItemAmount")
-    private Float walletItemAmount;
+    private Collection<PLObjectiveTransaction> objectiveTransactions;
 
     public AppMember getPlayer() {
         return player;
@@ -121,51 +105,19 @@ public class PLGameInstance extends BaseTable implements Serializable {
         this.playDuration = playDuration;
     }
 
-    public Integer getStars() {
-        return stars;
+    public Collection<PLObjectiveTransaction> getObjectiveTransactions() {
+        return objectiveTransactions;
     }
 
-    public void setStars(Integer stars) {
-        this.stars = stars;
-    }
-
-    public LearningSkill getLearningSkill() {
-        return learningSkill;
-    }
-
-    public void setLearningSkill(LearningSkill learningSkill) {
-        this.learningSkill = learningSkill;
-    }
-
-    public Float getSkillAmount() {
-        return skillAmount;
-    }
-
-    public void setSkillAmount(Float skillAmount) {
-        this.skillAmount = skillAmount;
-    }
-
-    public WalletItem getWalletItem() {
-        return walletItem;
-    }
-
-    public void setWalletItem(WalletItem walletItem) {
-        this.walletItem = walletItem;
-    }
-
-    public Float getWalletItemAmount() {
-        return walletItemAmount;
-    }
-
-    public void setWalletItemAmount(Float walletItemAmount) {
-        this.walletItemAmount = walletItemAmount;
+    public void setObjectiveTransactions(Collection<PLObjectiveTransaction> objectiveTransactions) {
+        this.objectiveTransactions = objectiveTransactions;
     }
 
     public PLGameInstance() {
     }
 
-    public PLGameInstance(AppMember player, PuzzleLevel puzzleLevel, String startPlayTime, String endPlayTime, GameStatus gameStatus, byte[] analyticalData, Long playDuration, Integer stars, LearningSkill learningSkill, Float skillAmount, WalletItem walletItem, Float walletItemAmount,
-                          Long version, String created, String updated, AppMember createdBy, AppMember updatedBy) {
+    public PLGameInstance(AppMember player, PuzzleLevel puzzleLevel, String startPlayTime, String endPlayTime, GameStatus gameStatus, byte[] analyticalData, Long playDuration
+            ,Long version, String created, String updated, AppMember createdBy, AppMember updatedBy) {
         super(version, created, updated, createdBy, updatedBy);
         this.player = player;
         this.puzzleLevel = puzzleLevel;
@@ -174,10 +126,5 @@ public class PLGameInstance extends BaseTable implements Serializable {
         this.gameStatus = gameStatus;
         this.analyticalData = analyticalData;
         this.playDuration = playDuration;
-        this.stars = stars;
-        this.learningSkill = learningSkill;
-        this.skillAmount = skillAmount;
-        this.walletItem = walletItem;
-        this.walletItemAmount = walletItemAmount;
     }
 }

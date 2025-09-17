@@ -1,6 +1,7 @@
 package com.alcity.api;
 
 import com.alcity.customexception.ResponseMessage;
+import com.alcity.dto.base.WalletItemTypeDTO;
 import com.alcity.entity.alenum.PLRulePostActionType;
 import com.alcity.customexception.ResponseObject;
 import com.alcity.customexception.UniqueConstraintException;
@@ -35,6 +36,9 @@ import java.util.Optional;
 @RequestMapping("/base")
 public class BaseItemSetConroller {
 
+    @Autowired
+    private WalletItemTypeService walletItemTypeService;
+
     @Operation( summary = "Fetch all Genders ",  description = "fetches all Gender entities and their data from data source")
     @GetMapping("/gender/all")
     @CrossOrigin(origins = "*")
@@ -63,13 +67,16 @@ public class BaseItemSetConroller {
         return UserGender.getById(id);
     }
 
-     @Operation( summary = "Fetch all Wallet Item Types ",  description = "fetches all Wallet Item Types  entities and their data from data source")
+    @Operation( summary = "Fetch all Wallet Item Types ",  description = "fetches all Wallet Item Types  entities and their data from data source")
     @GetMapping("/wallet/type/all")
     @CrossOrigin(origins = "*")
-    public Collection<EnumDTO> getWalletItemType(Model model) {
-
-        return DTOUtil.getEnumByClass(WalletItemCategory.class);
+    public Collection<WalletItemTypeDTO> getWalletItemType(Model model) {
+            Collection<WalletItemType> walletItemTypes = walletItemTypeService.findAll();
+            Collection<WalletItemTypeDTO> dtos = new ArrayList<>();
+            dtos = DTOUtil.getWalletItemTypeDTOS(walletItemTypes);
+        return dtos;
     }
+
     @Operation( summary = "Fetch all pl rule post action Types ",  description = "fetches all pl rule post action type their data from data source")
     @GetMapping("/pl-rule/post-action-type/all")
     @CrossOrigin(origins = "*")

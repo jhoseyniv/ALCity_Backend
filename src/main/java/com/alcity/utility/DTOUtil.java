@@ -38,6 +38,7 @@ import com.alcity.service.base.BinaryContentService;
 import com.alcity.service.learning.LearningSkillService;
 import com.alcity.service.puzzle.PLRulePostActionService;
 import com.alcity.test.ruleimport_new.PostActionTreeImport_New;
+import jdk.jfr.ContentType;
 import org.json.JSONException;
 
 import java.io.ByteArrayInputStream;
@@ -90,15 +91,9 @@ public class DTOUtil {
         dto.setId(gameInstance.getId());
         dto.setGameStatus(gameInstance.getGameStatus().name());
         dto.setAppMemmberId(gameInstance.getPlayer().getId());
-        dto.setUserName(gameInstance.getPlayer().getUsername());
         dto.setStartPlayTime(gameInstance.getStartPlayTime());
         dto.setPuzzleLevelId(gameInstance.getPuzzleLevel().getId());
         dto.setPuzzleLevelTitle(gameInstance.getPuzzleLevel().getTitle());
-        dto.setStars(gameInstance.getStars());
-        dto.setLearningSkillId(gameInstance.getLearningSkill().getId());
-        dto.setSkillAmount(gameInstance.getSkillAmount());
-        dto.setWalletItemId(gameInstance.getWalletItem().getId());
-        dto.setWalletItemAmount(gameInstance.getWalletItemAmount());
         return  dto;
     }
     public static Collection<PLGameInstanceDTO> getPLGameInstanceDTOS(Collection<PLGameInstance> gameInstances){
@@ -444,6 +439,29 @@ public class DTOUtil {
                 dtos.add(valueOptional.get().getBinaryContentId());
         }
         return dtos;
+    }
+    public static Collection<PLBinaryContentDTO> getPLBinaryContentsDTOS(BinaryContentService binaryContentService,Set<Long> attributes) {
+        Collection<PLBinaryContentDTO> contents = new ArrayList<>();
+        Iterator<Long> itr = attributes.iterator();
+        while(itr.hasNext()) {
+            Optional<BinaryContent> binaryContentOptional = binaryContentService.findById(itr.next());
+            if(binaryContentOptional.isPresent()) {
+                String deviceType="";
+                BinaryContent bc = binaryContentOptional.get();
+                if(bc.getIs3dContent()){
+                    if(bc.getAndriod3Dcontent()!=null && bc.getAndriod3Dcontent().length >0) {
+                        deviceType=DeviceType.Android.name();
+                    }else if(bc.getIos3Dcontent()!=null && bc.getIos3Dcontent().length>0) {
+                        deviceType=DeviceType.IOS.name();
+                    }else if(bc.getWeb3Dcontent()!=null && bc.getWeb3Dcontent().length>0) {
+                        deviceType=DeviceType.Web.name();
+                    }
+                }
+                PLBinaryContentDTO dto = new PLBinaryContentDTO(bc.getId(),bc.getFileName(),bc.getSize(),bc.getContentType().name(),bc.getIs3dContent(),deviceType);
+                contents.add(dto);
+            }
+        }
+        return contents;
     }
 
     public static JourneyStepDTO getJorenyStepsDTO(JourneyStep entity) {
@@ -968,7 +986,7 @@ public class DTOUtil {
     }
 
     public static BinaryContentDTO getBinaryContentDTOWithoutContent(BinaryContent content){
-        BinaryContentDTO binaryContentDTO = new BinaryContentDTO(content.getId(), content.getVersion(), content.getCreated(), content.getUpdated(), content.getCreatedBy().getUsername(), content.getUpdatedBy().getUsername(),
+        BinaryContentDTO binaryContentDTO = new BinaryContentDTO(content.getId(),
                 content.getFileName(), content.getSize(), null, content.getThumbnail(),content.getIos3Dcontent(),content.getAndriod3Dcontent(),content.getWeb3Dcontent(),
                 content.getContentType().name(),content.getIs3dContent(),
                 content.getTag1(), content.getTag2(), content.getTag3());
@@ -1023,7 +1041,7 @@ public class DTOUtil {
         return dtos;
     }
 
-    public static AppMemberSkillXPDTO getXPForAAppMemberSkillDTO(AppMember appMember, LearningSkill learningSkill, Collection<LearningSkillTransaction> transactions, BinaryContentService binaryContentService){
+    public static AppMemberSkillScoreDTO getXPForAAppMemberSkillDTO(AppMember appMember, LearningSkill learningSkill, Collection<PLObjectiveTransaction> transactions, BinaryContentService binaryContentService){
         Double sum = transactions.stream().mapToDouble(d-> d.getAmount()).sum();
         Float sumAmount = Float.valueOf(sum.toString());
         Long levelUpSize = learningSkill.getLevelUpSize();
@@ -1036,21 +1054,21 @@ public class DTOUtil {
         }else{
             icon = learningSkill.getIcon();
         }
-        AppMemberSkillXPDTO   dto = new AppMemberSkillXPDTO(learningSkill.getId(),learningSkill.getTitle(),
+        AppMemberSkillScoreDTO dto = new AppMemberSkillScoreDTO(learningSkill.getId(),learningSkill.getTitle(),
                 learningSkill.getDescription(),level,learningSkill.getType().name(),
                 reminder,appMember.getId(),icon.getId());
 
         return dto;
     }
 
-    public static AppMemberXPDTO getXPForADate(Collection<LearningSkillTransaction> transactions, LocalDateTime date, Long appMemberId) {
+    public static AppMemberXPDTO getXPForADate(Collection<PLObjectiveTransaction> transactions, LocalDateTime date, Long appMemberId) {
         AppMemberXPDTO dto = new AppMemberXPDTO();
         DayOfWeek dayOfWeek = date.getDayOfWeek();
         Float xp=0f;
-        Iterator<LearningSkillTransaction> iterator = transactions.iterator();
+        Iterator<PLObjectiveTransaction> iterator = transactions.iterator();
 
         while(iterator.hasNext()){
-            LearningSkillTransaction transaction = iterator.next();
+            PLObjectiveTransaction transaction = iterator.next();
             xp += transaction.getAmount();
         }
         dto.setDate(DateUtils.getDateByString(date));
@@ -1061,15 +1079,15 @@ public class DTOUtil {
         return dto;
     }
 
-    public static AppMemberXPDTO getAppMemberWeekXPDTO(LearningSkillTransaction transaction) {
+    public static AppMemberXPDTO getAppMemberWeekXPDTO(PLObjectiveTransaction transaction) {
         AppMemberXPDTO dto = new AppMemberXPDTO();
         dto.setDate(transaction.getTransactionDate().toString());
-        dto.setMemberId(transaction.getAppMember().getId());
+        dto.setMemberId(transaction.getGameInstance().getPlayer().getId());
         dto.setXp(transaction.getAmount());
         return dto;
     }
 
-    public static Collection<AppMemberXPDTO> getAppMemberWeekXPDTOS(Collection<LearningSkillTransaction> transactions) {
+    public static Collection<AppMemberXPDTO> getAppMemberWeekXPDTOS(Collection<PLObjectiveTransaction> transactions) {
         Collection<AppMemberXPDTO> dtos = new ArrayList<AppMemberXPDTO>();
         LocalDateTime date = LocalDateTime.now();
 //        AppMemberWeekXPDTO today = getXPForADate(transactions, date);
@@ -1297,7 +1315,7 @@ public class DTOUtil {
      */
 
     public static WalletItemTypeDTO getWalletItemTypeDTO(WalletItemType wit) {
-        WalletItemTypeDTO walletItemTypeDTO = new WalletItemTypeDTO(wit.getId(),wit.getValue(),wit.getLabel(),wit.getCurrency(),wit.getWalletItemCategory().name(),
+        WalletItemTypeDTO walletItemTypeDTO = new WalletItemTypeDTO(wit.getId(),wit.getValue(),wit.getLabel(),wit.getCurrency(),
                 wit.getVersion(),wit.getCreated(),wit.getUpdated(),wit.getCreatedBy().getUsername(),wit.getUpdatedBy().getUsername() );
         return walletItemTypeDTO;
     }

@@ -6,7 +6,6 @@ public class WalletItemTypeDTO {
     private String label;
     private String value;
     private Boolean isCurrency;
-    private String walletItemCategory;
 
     private Long version;
     private String created;
@@ -46,13 +45,6 @@ public class WalletItemTypeDTO {
         isCurrency = currency;
     }
 
-    public String getWalletItemCategory() {
-        return walletItemCategory;
-    }
-
-    public void setWalletItemCategory(String walletItemCategory) {
-        this.walletItemCategory = walletItemCategory;
-    }
 
     public Long getVersion() {
         return version;
@@ -94,13 +86,12 @@ public class WalletItemTypeDTO {
         this.updatedBy = updatedBy;
     }
 
-    public WalletItemTypeDTO(Long id, String value,String label,Boolean isCurrency, String walletItemCategory,
+    public WalletItemTypeDTO(Long id, String value,String label,Boolean isCurrency,
                              Long version, String created, String updated, String createdBY, String updatedBy) {
         this.id =id;
         this.value=value;
         this.label=label;
         this.isCurrency = isCurrency;
-        this.walletItemCategory = walletItemCategory;
         this.version = version;
         this.created = created;
         this.updated = updated;

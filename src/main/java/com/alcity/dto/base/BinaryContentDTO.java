@@ -1,16 +1,11 @@
 package com.alcity.dto.base;
 
 
-public class BinaryContentDTO {
+import java.io.Serializable;
+
+public class BinaryContentDTO implements Serializable {
 
     private Long id;
-    private Long version;
-//    private String created;
-//    private String updated;
-//    private String createdBy;
-//
-//    private String updatedBy;
-
     private String fileName;
     private Integer size;
     private byte[] content;
@@ -59,13 +54,6 @@ public class BinaryContentDTO {
         this.content = content;
     }
 
-    public Long getVersion() {
-        return version;
-    }
-
-    public void setVersion(Long version) {
-        this.version = version;
-    }
 
 
     public String getContentType() {
@@ -143,12 +131,11 @@ public class BinaryContentDTO {
         this.web3Dcontent = web3Dcontent;
     }
 
-    public BinaryContentDTO(Long id, Long version, String created, String updated, String createdBy, String updatedBy,
+    public BinaryContentDTO(Long id,
                             String fileName, Integer size, byte[] content, byte[] thumbnail,
                             byte[] ios3Dcontent , byte[] android3Dcontent , byte[] web3Dcontent,
                             String contentType, Boolean is3dContent, String tag1, String tag2, String tag3) {
         this.id = id;
-        this.version = version;
         this.fileName = fileName;
         this.size = size;
         this.content = content;

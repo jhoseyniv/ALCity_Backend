@@ -2,7 +2,6 @@ package com.alcity.service.base;
 
 
 import com.alcity.dto.base.WalletItemTypeDTO;
-import com.alcity.entity.alenum.WalletItemCategory;
 import com.alcity.entity.base.WalletItemType;
 import com.alcity.entity.appmember.AppMember;
 import com.alcity.repository.base.WalletItemTypeRepository;
@@ -31,19 +30,17 @@ public class WalletItemTypeService implements WalletItemTypeRepository {
 
     public WalletItemType save(WalletItemTypeDTO dto, String code) {
         Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
-        WalletItemCategory walletItemCategory = WalletItemCategory.getByTitle(dto.getWalletItemCategory());
         WalletItemType walletItemType=null;
         Optional<WalletItemType> walletItemTypeOptional= walletItemTypeRepository.findByValue(dto.getValue());
         if(dto.getCurrency()==null) dto.setCurrency(false);
         if (code.equalsIgnoreCase("Save")) { //Save
-            walletItemType = new WalletItemType(walletItemCategory ,dto.getLabel(),dto.getValue(),dto.getCurrency() , 1L,
+            walletItemType = new WalletItemType(dto.getLabel(),dto.getValue(),dto.getCurrency() , 1L,
                     DateUtils.getNow(), DateUtils.getNow(), createdBy.get(), createdBy.get());
             walletItemTypeRepository.save(walletItemType);
         }else{//edit
             walletItemTypeOptional= walletItemTypeRepository.findById(dto.getId());
             if(walletItemTypeOptional.isPresent()) {
                 walletItemType = walletItemTypeOptional.get();
-                walletItemType.setWalletItemCategory(walletItemCategory);
                 walletItemType.setLabel(dto.getLabel());
                 walletItemType.setValue(dto.getValue());
                 walletItemType.setCurrency(dto.getCurrency());

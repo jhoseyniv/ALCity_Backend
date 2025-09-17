@@ -219,7 +219,11 @@ public class BinaryContentService implements BinaryContentRepository , BinaryCon
             binaryContentRepository.save(binaryContent);
         }else{//edit
             Optional<BinaryContent> binaryContentOptional= binaryContentRepository.findById(dto.getId());
-            byte[]  tumb = ImageUtil.getThumbnail(dto.getContent(),dto.getFileName());
+            if(dto.getContent()!=null) {
+                byte[] tumb = ImageUtil.getThumbnail(dto.getContent(), dto.getFileName());
+                binaryContent.setThumbnail(tumb);
+                binaryContent.setContent(dto.getContent());
+            }
             if(binaryContentOptional.isPresent()) {
                 binaryContent = binaryContentOptional.get();
                 binaryContent.setContentType(BinaryContentType.getByTitle(dto.getContentType()));
@@ -228,7 +232,6 @@ public class BinaryContentService implements BinaryContentRepository , BinaryCon
                 binaryContent.setTag2(dto.getTag2());
                 binaryContent.setTag3(dto.getTag3());
                 binaryContent.setIs3dContent(dto.getIs3dContent());
-                binaryContent.setThumbnail(tumb);
 
                 if(dto.getIos3Dcontent().length > 0 && dto.getIos3Dcontent()!=null )
                      binaryContent.setIos3Dcontent(dto.getIos3Dcontent());

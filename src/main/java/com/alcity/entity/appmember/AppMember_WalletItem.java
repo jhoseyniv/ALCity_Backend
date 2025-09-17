@@ -2,12 +2,14 @@ package com.alcity.entity.appmember;
 
 
 import com.alcity.entity.base.BaseTable;
+import com.alcity.entity.puzzle.PLGameInstance;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Set;
 
 @Table(uniqueConstraints={
@@ -25,6 +27,9 @@ public class AppMember_WalletItem extends BaseTable implements Serializable {
     @JoinColumn(name = "wallet_item_id", referencedColumnName = "id")
     @JsonIgnore
     private WalletItem walletItem;
+
+    @OneToMany(mappedBy = "appMemberWalletItem", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Collection<WalletTransaction> walletTransactions;
 
     @Column(name="amount")
     private Float amount;
@@ -53,6 +58,13 @@ public class AppMember_WalletItem extends BaseTable implements Serializable {
         this.walletItem = walletItem;
     }
 
+    public Collection<WalletTransaction> getWalletTransactions() {
+        return walletTransactions;
+    }
+
+    public void setWalletTransactions(Collection<WalletTransaction> walletTransactions) {
+        this.walletTransactions = walletTransactions;
+    }
 
     public AppMember_WalletItem() {
     }

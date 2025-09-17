@@ -3,6 +3,7 @@ package com.alcity.repository.puzzle;
 import com.alcity.dto.journey.JourneyDTO;
 import com.alcity.dto.puzzle.PLObjectiveDTO;
 import com.alcity.entity.journey.Journey;
+import com.alcity.entity.learning.LearningSkill;
 import com.alcity.entity.puzzle.PLObjective;
 import org.springframework.data.repository.CrudRepository;
 
@@ -15,5 +16,6 @@ public interface PLObjectiveRepository extends CrudRepository<PLObjective,Long> 
     Collection<PLObjective> findPuzzleLevelObjectiveByPuzzleLevelId(Long plId);
     Collection<PLObjective> findByTitle(String title);
     Collection<PLObjective> findByCondition(StringBuffer condition);
+    Optional<PLObjective> findByLearningSkill(LearningSkill learningSkill);
 
 }

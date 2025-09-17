@@ -27,8 +27,6 @@ public class WalletTransactionService implements WalletTransactionRepository {
 
   @Autowired
   private WalletItemRespository walletItemRespository;
-    @Autowired
-    private AppMember_WalletItemService appMember_WalletItemService;
 
 
   @Override
@@ -122,22 +120,5 @@ public class WalletTransactionService implements WalletTransactionRepository {
     return walletTransactionRepository.findByAppMemberAndCounterpartyId(appMember,plObjectiveId);
   }
 
-  public void updateAppMemberWalletItem(WalletTransaction transaction) {
-    Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
-    AppMember_WalletItem appMemberWalletItem = null;
-    AppMember appMember = transaction.getAppMember();
-    WalletItem walletItem = transaction.getWalletItem();
-        Optional<AppMember_WalletItem> appMember_walletItemOptional = appMember_WalletItemService.findByApplicationMemberAndWalletItem(appMember,walletItem);
-       if(appMember_walletItemOptional.isEmpty()) {
-         appMemberWalletItem = new AppMember_WalletItem(appMember,walletItem, transaction.getAmount(),
-                 1L,DateUtils.getNow(),DateUtils.getNow(),createdBy.get(),createdBy.get());
-         appMember_WalletItemService.save(appMemberWalletItem);
-        }else{
-         appMemberWalletItem = appMember_walletItemOptional.get();
-            Float sumAmount = transaction.getAmount() + appMemberWalletItem.getAmount();
-         appMemberWalletItem.setAmount(sumAmount);
-         appMember_WalletItemService.save(appMemberWalletItem);
-        }
-  }
 
 }

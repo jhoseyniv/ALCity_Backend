@@ -145,6 +145,17 @@ public class AppMember extends BaseTable implements Serializable {
     @OneToMany(mappedBy = "player", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Collection<PermittedPlayer> permitedPlayers;
 
+    @OneToMany(mappedBy = "player", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Collection<AppMemberPuzzleLevelScore> puzzleLevelScores;
+
+    public Collection<AppMemberPuzzleLevelScore> getPuzzleLevelScores() {
+        return puzzleLevelScores;
+    }
+
+    public void setPuzzleLevelScores(Collection<AppMemberPuzzleLevelScore> puzzleLevelScores) {
+        this.puzzleLevelScores = puzzleLevelScores;
+    }
+
     public Collection<Authority> getAuthorities() {
         return authorities;
     }

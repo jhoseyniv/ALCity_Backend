@@ -7,7 +7,6 @@ import com.alcity.dto.puzzle.PLDTO;
 import com.alcity.dto.puzzle.PLGameInstanceDTO;
 import com.alcity.dto.search.AppMemberSearchCriteriaDTO;
 import com.alcity.entity.alenum.*;
-import com.alcity.entity.alobject.AttributeValue;
 import com.alcity.entity.appmember.*;
 import com.alcity.entity.base.BinaryContent;
 import com.alcity.entity.base.ClientType;
@@ -56,17 +55,22 @@ public class AppMemberController {
 
     @Autowired
     private PLObjectiveService plObjectiveService;
+
     @Autowired
     private AppMember_WalletItemService appMemberWalletItemService;
 
     @Autowired
-    private JourneyService journeyService;
+    private AppMemberPuzzleLevelScoreService appMemberPuzzleLevelScoreService;
 
     @Autowired
     private WalletTransactionService walletTransactionService;
 
     @Autowired
-    private LearningSkillTransactionService learningSkillTransactionService;
+    private JourneyService journeyService;
+
+
+    @Autowired
+    private PLObjectiveTransactionService objectiveTransactionService;
 
     @Autowired
     private LearningSkillService learningSkillService;
@@ -84,6 +88,10 @@ public class AppMemberController {
     private PuzzleLevelService puzzleLevelService;
     @Autowired
     private PLGameInstanceService pLGameInstanceService;
+    @Autowired
+    private PLObjectiveTransactionService pLObjectiveTransactionService;
+    @Autowired
+    private WalletItemService walletItemService;
 
     @Operation( summary = "Get XP by a Date format 02-09-2025  ",  description = "Get XP by a Date format ")
     @RequestMapping(value = "/id/{id}/xp/date/{date}", method = RequestMethod.GET)
@@ -92,7 +100,7 @@ public class AppMemberController {
     public AppMemberXPDTO getXPByADate(@PathVariable Long id, @PathVariable String date) {
         Optional<AppMember> memberOptional = appMemberService.findById(id);
         if(memberOptional.isEmpty())   return null;
-        Collection<LearningSkillTransaction> transactions_0 = learningSkillTransactionService.findByAppMemberAndTransactionDateContaining(memberOptional.get(),date);
+        Collection<PLObjectiveTransaction> transactions_0 = objectiveTransactionService.findByAppMemberAndTransactionDateContaining(memberOptional.get(),date);
         AppMemberXPDTO dto = DTOUtil.getXPForADate(transactions_0,DateUtils.getDate(date),id);
         return dto;
     }
@@ -100,39 +108,77 @@ public class AppMemberController {
     @RequestMapping(value = "/id/{id}/xp-sub-set-skill-all/sid/{sid}", method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin(origins = "*")
-    public Collection<AppMemberSkillXPDTO> getXPForAAppMemberBySubSetSkillAll(@PathVariable Long id, @PathVariable Long sid) {
-        Collection<AppMemberSkillXPDTO> dtos = new ArrayList<>();
+    public Collection<AppMemberSkillScoreDTO> getXPForAAppMemberBySubSetSkillAll(@PathVariable Long id, @PathVariable Long sid) {
+        Collection<AppMemberSkillScoreDTO> dtos = new ArrayList<>();
         Optional<AppMember> memberOptional = appMemberService.findById(id);
         Optional<LearningSkill> learningSkillOptional = learningSkillService.findById(sid);
+        PLObjectiveTransactionType transactionType = PLObjectiveTransactionType.LearningSkill;
+        Optional<PLObjective> objectiveOptional = plObjectiveService.findByLearningSkill(learningSkillOptional.get());
         if(memberOptional.isEmpty())    return null;
         if(learningSkillOptional.isEmpty())  return null;
-
          Collection<LearningSkill> childLearningSkills = learningSkillService.findByParentSkill(learningSkillOptional.get());
          Iterator<LearningSkill> iterator = childLearningSkills.iterator();
          while(iterator.hasNext()){
              LearningSkill learningSkill = iterator.next();
-             Collection<LearningSkillTransaction> transactions = learningSkillTransactionService.findByAppMemberAndLearningSkill(memberOptional.get(),learningSkill);
-             AppMemberSkillXPDTO dto = DTOUtil.getXPForAAppMemberSkillDTO(memberOptional.get(),learningSkill,transactions,binaryContentService);
+             Collection<PLObjectiveTransaction> transactions = objectiveTransactionService.findByPlObjectiveAndTransactionTypeAndAppMember(objectiveOptional.get(),transactionType , memberOptional.get());
+             AppMemberSkillScoreDTO dto = DTOUtil.getXPForAAppMemberSkillDTO(memberOptional.get(),learningSkill,transactions,binaryContentService);
              dtos.add(dto);
          }
 
 
         return dtos;
     }
+    @Operation( summary = "Get Score for a Sub-Set skill by User id ....",  description = "Get Score for a Sub-Set skill by User id ....")
+    @RequestMapping(value = "/uid/{uid}/sub-skill-score/sid/{sid}", method = RequestMethod.GET)
+    @ResponseBody
+    @CrossOrigin(origins = "*")
+    public AppMemberSkillScoreDTO getSubSkillScoreByUserIdAndSkillID(@PathVariable Long uid, @PathVariable Long sid) {
+        Optional<AppMember> memberOptional = appMemberService.findById(uid);
+        Optional<LearningSkill> learningSkillOptional = learningSkillService.findById(sid);
+        if(memberOptional.isEmpty() || learningSkillOptional.isEmpty())   return null;
+
+        Collection<LearningSkill> microskills = learningSkillService.findByParentSkill(learningSkillOptional.get());
+        PLObjectiveTransactionType transactionType = PLObjectiveTransactionType.LearningSkill;
+        Optional<PLObjective> objectiveOptional = plObjectiveService.findByLearningSkill(learningSkillOptional.get());
+        if(memberOptional.isEmpty() || learningSkillOptional.isEmpty() || objectiveOptional.isEmpty())  return null;
+
+        Collection<PLObjectiveTransaction> transactions = objectiveTransactionService.findByPlObjectiveAndTransactionTypeAndAppMember(objectiveOptional.get(),transactionType,memberOptional.get());
+        AppMemberSkillScoreDTO dto = DTOUtil.getXPForAAppMemberSkillDTO(memberOptional.get(),learningSkillOptional.get(),transactions,binaryContentService);
+        return dto;
+    }
+
+    @Operation( summary = "Get Score for a micro skill by User id ....",  description = "Get Score for a micro skill by User id ....")
+    @RequestMapping(value = "/uid/{uid}/micro-skill-score/sid/{sid}", method = RequestMethod.GET)
+    @ResponseBody
+    @CrossOrigin(origins = "*")
+    public AppMemberSkillScoreDTO getMicroSkillScoreByUserIdAndSkillID(@PathVariable Long uid, @PathVariable Long sid) {
+        Optional<AppMember> memberOptional = appMemberService.findById(uid);
+        Optional<LearningSkill> learningSkillOptional = learningSkillService.findById(sid);
+        PLObjectiveTransactionType transactionType = PLObjectiveTransactionType.LearningSkill;
+        Optional<PLObjective> objectiveOptional = plObjectiveService.findByLearningSkill(learningSkillOptional.get());
+        if(memberOptional.isEmpty() || learningSkillOptional.isEmpty() || objectiveOptional.isEmpty())  return null;
+
+        Collection<PLObjectiveTransaction> transactions = objectiveTransactionService.findByPlObjectiveAndTransactionTypeAndAppMember(objectiveOptional.get(),transactionType,memberOptional.get());
+        AppMemberSkillScoreDTO dto = DTOUtil.getXPForAAppMemberSkillDTO(memberOptional.get(),learningSkillOptional.get(),transactions,binaryContentService);
+        return dto;
+    }
+
 
     @Operation( summary = "Get XP's for a user by sub set skill of a main skill....",  description = "Get XP's for a user by sub set skill of a main skill....")
     @RequestMapping(value = "/id/{id}/xp-sub-set-skill/sid/{sid}", method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin(origins = "*")
-    public AppMemberSkillXPDTO getXPForAAppMemberBySubSetSkill(@PathVariable Long id, @PathVariable Long sid) {
+    public AppMemberSkillScoreDTO getXPForAAppMemberBySubSetSkill(@PathVariable Long id, @PathVariable Long sid) {
         Optional<AppMember> memberOptional = appMemberService.findById(id);
         Optional<LearningSkill> learningSkillOptional = learningSkillService.findById(sid);
+        PLObjectiveTransactionType transactionType = PLObjectiveTransactionType.LearningSkill;
+        Optional<PLObjective> objectiveOptional = plObjectiveService.findByLearningSkill(learningSkillOptional.get());
         if(memberOptional.isEmpty())
             return null;
         if(learningSkillOptional.isEmpty())
             return null;
-        Collection<LearningSkillTransaction> transactions = learningSkillTransactionService.findByAppMemberAndLearningSkill(memberOptional.get(),learningSkillOptional.get());
-        AppMemberSkillXPDTO dto = DTOUtil.getXPForAAppMemberSkillDTO(memberOptional.get(),learningSkillOptional.get(),transactions,binaryContentService);
+        Collection<PLObjectiveTransaction> transactions = objectiveTransactionService.findByPlObjectiveAndTransactionTypeAndAppMember(objectiveOptional.get(),transactionType,memberOptional.get());
+        AppMemberSkillScoreDTO dto = DTOUtil.getXPForAAppMemberSkillDTO(memberOptional.get(),learningSkillOptional.get(),transactions,binaryContentService);
         return dto;
     }
 
@@ -147,31 +193,31 @@ public class AppMemberController {
             return null;
         LocalDateTime today = LocalDateTime.now();
 
-        Collection<LearningSkillTransaction> transactions_0 = learningSkillTransactionService.findByAppMemberAndTransactionDateContaining(memberOptional.get(),DateUtils.getDate(today));
+        Collection<PLObjectiveTransaction> transactions_0 = objectiveTransactionService.findByAppMemberAndTransactionDateContaining(memberOptional.get(),DateUtils.getDate(today));
         AppMemberXPDTO appMemberWeekXPDT_0 = DTOUtil.getXPForADate(transactions_0,today,id);
         dtos.add(appMemberWeekXPDT_0);
 
-        Collection<LearningSkillTransaction> transactions_1 = learningSkillTransactionService.findByAppMemberAndTransactionDateContaining(memberOptional.get(),DateUtils.getDate(today.minusDays(1)));
+        Collection<PLObjectiveTransaction> transactions_1 = objectiveTransactionService.findByAppMemberAndTransactionDateContaining(memberOptional.get(),DateUtils.getDate(today.minusDays(1)));
         AppMemberXPDTO appMemberWeekXPDT_1 = DTOUtil.getXPForADate(transactions_1,today.minusDays(1),id);
         dtos.add(appMemberWeekXPDT_1);
 
-        Collection<LearningSkillTransaction> transactions_2 = learningSkillTransactionService.findByAppMemberAndTransactionDateContaining(memberOptional.get(),DateUtils.getDate(today.minusDays(2)));
+        Collection<PLObjectiveTransaction> transactions_2 = objectiveTransactionService.findByAppMemberAndTransactionDateContaining(memberOptional.get(),DateUtils.getDate(today.minusDays(2)));
         AppMemberXPDTO appMemberWeekXPDT_2 = DTOUtil.getXPForADate(transactions_2,today.minusDays(2),id);
         dtos.add(appMemberWeekXPDT_2);
 
-        Collection<LearningSkillTransaction> transactions_3 = learningSkillTransactionService.findByAppMemberAndTransactionDateContaining(memberOptional.get(),DateUtils.getDate(today.minusDays(3)));
+        Collection<PLObjectiveTransaction> transactions_3 = objectiveTransactionService.findByAppMemberAndTransactionDateContaining(memberOptional.get(),DateUtils.getDate(today.minusDays(3)));
         AppMemberXPDTO appMemberWeekXPDT_3 = DTOUtil.getXPForADate(transactions_3,today.minusDays(3),id);
         dtos.add(appMemberWeekXPDT_3);
 
-        Collection<LearningSkillTransaction> transactions_4 = learningSkillTransactionService.findByAppMemberAndTransactionDateContaining(memberOptional.get(),DateUtils.getDate(today.minusDays(4)));
+        Collection<PLObjectiveTransaction> transactions_4 = objectiveTransactionService.findByAppMemberAndTransactionDateContaining(memberOptional.get(),DateUtils.getDate(today.minusDays(4)));
         AppMemberXPDTO appMemberWeekXPDT_4 = DTOUtil.getXPForADate(transactions_4,today.minusDays(4),id);
         dtos.add(appMemberWeekXPDT_4);
 
-        Collection<LearningSkillTransaction> transactions_5 = learningSkillTransactionService.findByAppMemberAndTransactionDateContaining(memberOptional.get(),DateUtils.getDate(today.minusDays(5)));
+        Collection<PLObjectiveTransaction> transactions_5 = objectiveTransactionService.findByAppMemberAndTransactionDateContaining(memberOptional.get(),DateUtils.getDate(today.minusDays(5)));
         AppMemberXPDTO appMemberWeekXPDT_5 = DTOUtil.getXPForADate(transactions_5,today.minusDays(5),id);
         dtos.add(appMemberWeekXPDT_5);
 
-        Collection<LearningSkillTransaction> transactions_6 = learningSkillTransactionService.findByAppMemberAndTransactionDateContaining(memberOptional.get(),DateUtils.getDate(today.minusDays(6)));
+        Collection<PLObjectiveTransaction> transactions_6 = objectiveTransactionService.findByAppMemberAndTransactionDateContaining(memberOptional.get(),DateUtils.getDate(today.minusDays(6)));
         AppMemberXPDTO appMemberWeekXPDT_6 = DTOUtil.getXPForADate(transactions_6,today.minusDays(6),id);
         dtos.add(appMemberWeekXPDT_6);
 
@@ -416,67 +462,89 @@ public class AppMemberController {
         return response;
     }
 
-    public boolean checkPLRewardConstraint(WalletItemTransactionDTO dto){
-        Long objectiveId = dto.getCounterpartyId();
-        Long appMemberId = dto.getAppMemberId();
-        Optional<AppMember> appMemberOptional = appMemberService.findById(appMemberId);
-        Optional<PLObjective> plObjectiveOptional = plObjectiveService.findById(objectiveId);
+//    public boolean checkPLRewardConstraint(WalletItemTransactionDTO dto){
+//        Long objectiveId = dto.getCounterpartyId();
+//        Long appMemberId = dto.getAppMemberId();
+//        Optional<AppMember> appMemberOptional = appMemberService.findById(appMemberId);
+//        Optional<PLObjective> plObjectiveOptional = plObjectiveService.findById(objectiveId);
+//
+//        if(appMemberOptional.isEmpty() || plObjectiveOptional.isEmpty() ) return false;
+//
+//        Optional<WalletTransaction> transactionOptional = walletTransactionService.findByAppMemberAndCounterpartyId(appMemberOptional.get(),plObjectiveOptional.get().getId());
+//        if(transactionOptional.isPresent()) return true;
+//
+//        return false;
+//    }
 
-        if(appMemberOptional.isEmpty() || plObjectiveOptional.isEmpty() ) return false;
-
-        Optional<WalletTransaction> transactionOptional = walletTransactionService.findByAppMemberAndCounterpartyId(appMemberOptional.get(),plObjectiveOptional.get().getId());
-        if(transactionOptional.isPresent()) return true;
-
-        return false;
-    }
-    public boolean checkPLSkillConstraint(LearningSkillTransactionDTO dto){
+    public boolean isCurrentTransactionAmountGrater(PLObjectiveTransactionDTO dto){
         Long objectiveId = dto.getObjectiveId();
-        Long appMemberId = dto.getAppMemberId();
-        Optional<AppMember> appMemberOptional = appMemberService.findById(appMemberId);
+        Long gameInstanceId = dto.getGameInstanceId();
+        Long  appMemberId = dto.getAppMemberId();
         Optional<PLObjective> plObjectiveOptional = plObjectiveService.findById(objectiveId);
+        Optional<PLGameInstance> gameInstanceOptional = pLGameInstanceService.findById(gameInstanceId);
+        Optional<AppMember> appMemberOptional = appMemberService.findById(appMemberId);
+        PLObjectiveTransactionType transactionType = PLObjectiveTransactionType.getByTitle(dto.getObjectiveType());
 
-        if(appMemberOptional.isEmpty() || plObjectiveOptional.isEmpty() ) return false;
+        if(plObjectiveOptional.isEmpty() || gameInstanceOptional.isEmpty() || appMemberOptional.isEmpty() ) return false;
 
-        Optional<LearningSkillTransaction> transactionOptional = learningSkillTransactionService.findByPlObjectiveAndAppMember(plObjectiveOptional.get(),appMemberOptional.get());
-        if(transactionOptional.isPresent()) return true;
-
+        Collection<PLObjectiveTransaction> transactions = pLObjectiveTransactionService.findByPlObjectiveAndTransactionTypeAndAppMember(plObjectiveOptional.get(),transactionType,appMemberOptional.get());
+        PLObjectiveTransaction transaction = Collections.max(transactions ,Comparator.comparing(PLObjectiveTransaction  -> PLObjectiveTransaction.getAmount()));
+        if(transaction == null)  return true;
+        if(transaction.getAmount().compareTo(dto.getAmount())<0){
+            return true;
+        }
         return false;
     }
 
     @Operation( summary = "Apply Reward for specific  Member after playing puzzles ",  description = "Apply Reward for specific  Member after playing puzzles")
     @PostMapping("/apply-reward")
     @CrossOrigin(origins = "*")
-    public ResponseMessage applyReward(@RequestBody WalletItemTransactionDTO dto)  {
-        WalletTransaction savedRecord = null;
+    public ResponseMessage applyReward(@RequestBody PLObjectiveTransactionDTO dto)  {
+        PLObjectiveTransaction savedRecord = null;
         ResponseMessage response = new ResponseMessage();
-        boolean checkIsRewardBefore = checkPLRewardConstraint(dto);
-
-        if(checkIsRewardBefore == true)
-            response = new ResponseMessage(ErrorType.UniquenessViolation, WalletTransaction.class.getSimpleName() , Status.ok.name(), -1L,SystemMessage.UserGotThisRewardBefore );
-
-        else {
-            savedRecord = walletTransactionService.save(dto, "Save");
-            response = new ResponseMessage(ErrorType.SaveSuccess, WalletTransaction.class.getSimpleName() , Status.ok.name(), savedRecord.getId(), SystemMessage.SaveOrEditMessage_Success);
-            walletTransactionService.updateAppMemberWalletItem(savedRecord);
+        Optional<AppMember> appMemberOptional = appMemberService.findById(dto.getAppMemberId());
+        Optional<PLObjective> plObjectiveOptional = plObjectiveService.findById(dto.getObjectiveId());
+        if(plObjectiveOptional.isEmpty()) {
+            return new ResponseMessage(ErrorType.RecordNotFound, Status.error.name() , PLObjectiveTransaction.class.getSimpleName() , savedRecord.getId(), SystemMessage.SaveOrEditMessage_Success);
         }
-        return response;
+
+        WalletItem walletItem = plObjectiveOptional.get().getWalletItem();
+
+        if(appMemberOptional.isEmpty() || walletItem==null) {
+            return new ResponseMessage(ErrorType.RecordNotFound, Status.error.name() , PLObjectiveTransaction.class.getSimpleName() , savedRecord.getId(), SystemMessage.SaveOrEditMessage_Success);
+        }
+        savedRecord = objectiveTransactionService.save(dto, "Save");
+        boolean isNewRewardGrater = isCurrentTransactionAmountGrater(dto);
+        response = new ResponseMessage(ErrorType.SaveSuccess, Status.ok.name() , PLObjectiveTransaction.class.getSimpleName() , savedRecord.getId(), SystemMessage.SaveOrEditMessage_Success);
+        if(isNewRewardGrater) {
+            appMemberWalletItemService.updateAppMemberWalletItem(savedRecord);
+            WalletTransaction walletTransaction = new WalletTransaction(DateUtils.getNow(), dto.getAmount(), true,dto.getObjectiveType(),
+                    appMemberOptional.get(),walletItem,plObjectiveOptional.get().getId(),WalletTransactionType.Puzzle_Objective,
+                    1L,DateUtils.getNow(),DateUtils.getNow(),appMemberOptional.get(),appMemberOptional.get());
+            walletTransactionService.save(walletTransaction);
+
+
+            AppMemberPuzzleLevelScore appMemberPuzzleLevelScore = new AppMemberPuzzleLevelScore();
+            appMemberPuzzleLevelScoreService.save(appMemberPuzzleLevelScore);
+
+        }
+            return response;
     }
 
     @Operation( summary = "Apply Skill for specific  Member after playing puzzles ",  description = "Apply Skill for specific  Member after playing puzzles")
     @PostMapping("/apply-skill")
     @CrossOrigin(origins = "*")
-    public ResponseMessage applySkill(@RequestBody LearningSkillTransactionDTO dto)  {
-        LearningSkillTransaction savedRecord = null;
+    public ResponseMessage applySkill(@RequestBody PLObjectiveTransactionDTO dto)  {
+        PLObjectiveTransaction savedRecord = null;
         ResponseMessage response = new ResponseMessage();
-        boolean checkIsRewardBefore = checkPLSkillConstraint(dto);
-
-        if(checkIsRewardBefore == true)
-            return new ResponseMessage(ErrorType.UniquenessViolation, Status.ok.name() , LearningSkillTransaction.class.getSimpleName() , -1L, SystemMessage.UserGotThisRewardBefore );
-       else {
-            savedRecord = learningSkillTransactionService.save(dto, "Save");
-            response = new ResponseMessage(ErrorType.SaveSuccess, Status.ok.name() ,LearningSkillTransaction.class.getSimpleName() , savedRecord.getId(), SystemMessage.SaveOrEditMessage_Success);
-            learningSkillTransactionService.updateAppMemberSkills(savedRecord);
-       }
+        boolean isNewRewardGrater = isCurrentTransactionAmountGrater(dto);
+        savedRecord = objectiveTransactionService.save(dto, "Save");
+        response = new ResponseMessage(ErrorType.SaveSuccess, Status.ok.name() , PLObjectiveTransaction.class.getSimpleName() , savedRecord.getId(), SystemMessage.SaveOrEditMessage_Success);
+        if(isNewRewardGrater) {
+            appMemberLearningSkillService.updateAppMemberMicroSkills(savedRecord);
+            appMemberLearningSkillService.updateAppMemberSubSetSkills(savedRecord);
+            appMemberLearningSkillService.updateAppMemberSkills(savedRecord);
+        }
         return response;
     }
 

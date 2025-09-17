@@ -1,6 +1,7 @@
 package com.alcity.api;
 
 import com.alcity.customexception.ResponseMessage;
+import com.alcity.dto.base.PLBinaryContentDTO;
 import com.alcity.dto.learning.LearningSkillDTO;
 import com.alcity.dto.learning.LearningSkillTreeDTO;
 import com.alcity.dto.plimpexport.PLData;
@@ -16,6 +17,7 @@ import com.alcity.customexception.ResponseObject;
 import com.alcity.customexception.UniqueConstraintException;
 import com.alcity.dto.puzzle.*;
 import com.alcity.entity.puzzle.*;
+import com.alcity.service.base.BinaryContentService;
 import com.alcity.service.learning.LearningSkillService;
 import com.alcity.service.puzzle.PLGameInstanceService;
 import com.alcity.service.puzzle.PLGroundService;
@@ -57,6 +59,8 @@ public class PLController {
 
     @Autowired
     private LearningSkillService learningSkillService;
+    @Autowired
+    private BinaryContentService binaryContentService;
 
     @Operation( summary = "Fetch all puzzle level data ",  description = "fetches all data for all puzzle level structure ")
     @GetMapping("/all")
@@ -97,7 +101,7 @@ public class PLController {
     @RequestMapping(value = "/id/{id}/contents", method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin(origins = "*")
-    public Collection<Long> getPuzzleLevelContentsIdById(@PathVariable Long id) {
+    public Collection<PLBinaryContentDTO> getPuzzleLevelContentsIdById(@PathVariable Long id) {
         Set<Long> attributeDTOS = new HashSet<>();
         Optional<PuzzleLevel> puzzleLevelOptional = plService.findById(id);
 
@@ -122,10 +126,11 @@ public class PLController {
             instance_variables = instance_variables.stream().filter(property -> property.getDataType().equals(DataType.Binary)).collect(Collectors.toList());
             variables = DTOUtil.getBinaryContentFromAttributeDTOS(instance_variables);
             properties.addAll(variables);
-
             attributeDTOS.addAll(properties);
         }
-        return  attributeDTOS;
+        Collection<PLBinaryContentDTO> contents = new ArrayList<>();
+        contents = DTOUtil.getPLBinaryContentsDTOS(binaryContentService,attributeDTOS);
+        return  contents;
     }
 
 

@@ -1,5 +1,6 @@
 package com.alcity.entity.puzzle;
 
+import com.alcity.entity.appmember.PLObjectiveTransaction;
 import com.alcity.entity.base.BaseTable;
 import com.alcity.entity.learning.LearningSkill;
 import com.alcity.entity.appmember.AppMember;
@@ -8,6 +9,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.*;
 import java.io.Serializable;
+import java.util.Collection;
 
 @Entity
 public class PLObjective extends BaseTable implements Serializable {
@@ -26,6 +28,11 @@ public class PLObjective extends BaseTable implements Serializable {
 
     @Column(name="condition" )
     private StringBuffer condition;
+
+
+    @OneToMany(mappedBy = "plObjective", fetch = FetchType.LAZY)
+    @JsonIgnore
+    private Collection<PLObjectiveTransaction> objectiveTransactions;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = true)
     @JoinColumn(name = "learning_skill_id", nullable = true)
@@ -104,6 +111,14 @@ public class PLObjective extends BaseTable implements Serializable {
 
     public void setCondition(StringBuffer condition) {
         this.condition = condition;
+    }
+
+    public Collection<PLObjectiveTransaction> getObjectiveTransactions() {
+        return objectiveTransactions;
+    }
+
+    public void setObjectiveTransactions(Collection<PLObjectiveTransaction> objectiveTransactions) {
+        this.objectiveTransactions = objectiveTransactions;
     }
 
     public PLObjective() {

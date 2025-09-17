@@ -1,7 +1,6 @@
 package com.alcity.entity.base;
 
 import com.alcity.entity.alenum.MessageType;
-import com.alcity.entity.alenum.WalletItemCategory;
 import com.alcity.entity.appmember.AppMember;
 import jakarta.persistence.*;
 

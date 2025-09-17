@@ -5,6 +5,7 @@ import com.alcity.customexception.ResponseMessage;
 import com.alcity.customexception.ResponseObject;
 import com.alcity.dto.base.BinaryContentDTO;
 import com.alcity.dto.search.ContentSearchCriteriaDTO;
+import com.alcity.entity.alenum.DeviceType;
 import com.alcity.entity.alenum.Status;
 import com.alcity.entity.alenum.ErrorType;
 import com.alcity.entity.alenum.SystemMessage;
@@ -45,6 +46,31 @@ public class BinaryContentController {
         Optional<BinaryContent> binaryContentOptional = binaryContentService.findById(id);
         if(binaryContentOptional.isPresent())
             return binaryContentOptional.get();
+        return null;
+    }
+    @RequestMapping(value="/id/{id}/device-type/{deviceType}", method = RequestMethod.GET)
+    @ResponseBody
+    @CrossOrigin(origins = "*")
+    public BinaryContentDTO getBinaryContentByIdAndDevice(@PathVariable Long id,@PathVariable String deviceType) {
+        Optional<BinaryContent> binaryContentOptional = binaryContentService.findById(id);
+        BinaryContentDTO binaryContentDTO = new BinaryContentDTO();
+        if(binaryContentOptional.isPresent()) {
+            BinaryContent bc = binaryContentOptional.get();
+            if (deviceType.equals(DeviceType.IOS.name())) {
+
+                return  new BinaryContentDTO(bc.getId(),bc.getFileName(),bc.getSize(),null,null,
+                        bc.getIos3Dcontent(),null,null,bc.getContentType().name(),bc.getIs3dContent(),bc.getTag1(),bc.getTag2(),bc.getTag3());
+            }else if(deviceType.equals(DeviceType.Android.name())) {
+                return  new BinaryContentDTO(bc.getId(),bc.getFileName(),bc.getSize(),null,null,null,bc.getAndriod3Dcontent(),null,bc.getContentType().name(),bc.getIs3dContent(),bc.getTag1(),bc.getTag2(),bc.getTag3());
+
+            }else if(deviceType.equals(DeviceType.Web.name())) {
+                return  new BinaryContentDTO(bc.getId(),bc.getFileName(),bc.getSize(),null,null,null,null,bc.getWeb3Dcontent(),bc.getContentType().name(),bc.getIs3dContent(),bc.getTag1(),bc.getTag2(),bc.getTag3());
+
+            }else {
+                return  new BinaryContentDTO(bc.getId(),bc.getFileName(),bc.getSize(),bc.getContent(),null,null,null,null,bc.getContentType().name(),bc.getIs3dContent(),bc.getTag1(),bc.getTag2(),bc.getTag3());
+
+            }
+        }
         return null;
     }
 
