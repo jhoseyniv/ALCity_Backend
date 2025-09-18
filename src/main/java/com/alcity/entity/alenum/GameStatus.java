@@ -20,6 +20,7 @@ public enum GameStatus  {
     }
     public static GameStatus getByTitle(String title)
     {
+        if(title == null || title.isEmpty()) return GameStatus.Not_Started;
         for (GameStatus e : GameStatus.values())
         {
             if (title.equalsIgnoreCase(e.name())) return e;
