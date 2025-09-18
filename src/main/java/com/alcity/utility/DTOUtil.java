@@ -1125,6 +1125,7 @@ public class DTOUtil {
         dto.setId(entity.getId());
         dto.setXpos(entity.getXpos());
         dto.setYpos(entity.getYpos());
+        dto.setJourneyId(entity.getJourney().getId());
         dto.setGraphicId(entity.getGraphic().getId());
         return dto;
     }
