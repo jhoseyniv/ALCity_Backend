@@ -1056,7 +1056,7 @@ public class DTOUtil {
         }
         AppMemberSkillScoreDTO dto = new AppMemberSkillScoreDTO(learningSkill.getId(),learningSkill.getTitle(),
                 learningSkill.getDescription(),level,learningSkill.getType().name(),
-                reminder,appMember.getId(),icon.getId());
+                reminder,learningSkill.getWeight(),appMember.getId(),icon.getId());
 
         return dto;
     }

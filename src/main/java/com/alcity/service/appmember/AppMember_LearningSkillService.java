@@ -83,7 +83,7 @@ public class AppMember_LearningSkillService implements AppMember_LearningSkillRe
         Float sum = 0.0f;
         while(iterator.hasNext()){
             AppMemberSkillScoreDTO appMemberSkillScoreDTO = iterator.next();
-            sum += getMin(appMemberSkillScoreDTO.getAmount(),10f);
+            sum += getMin(appMemberSkillScoreDTO.getAmount()*appMemberSkillScoreDTO.getWeight(),10f);
         }
         return sum;
     }
@@ -97,10 +97,10 @@ public class AppMember_LearningSkillService implements AppMember_LearningSkillRe
             Optional<AppMember_LearningSkill> appMemberMicroSkillOptional =  appMember_LearningSkillRepository.findByApplicationMemberAndLearningSkill(appMemberLearningSkill.getApplicationMember(),microSkill);
             if(appMemberMicroSkillOptional.isPresent()){
                 AppMember_LearningSkill appMemberLearningSkill1 = appMemberMicroSkillOptional.get();
-                AppMemberSkillScoreDTO dto= new AppMemberSkillScoreDTO(microSkill.getId(), microSkill.getTitle(),microSkill.getDescription(),appMemberLearningSkill1.getLevel(), SkillType.MicroSkill.name(), appMemberLearningSkill1.getAmount(),null,null);
+                AppMemberSkillScoreDTO dto= new AppMemberSkillScoreDTO(microSkill.getId(), microSkill.getTitle(),microSkill.getDescription(),appMemberLearningSkill1.getLevel(), SkillType.MicroSkill.name(), appMemberLearningSkill1.getAmount(),microSkill.getWeight(),null,null);
                 dtos.add(dto);
             }else{
-                AppMemberSkillScoreDTO dto= new AppMemberSkillScoreDTO(microSkill.getId(), microSkill.getTitle(),microSkill.getDescription(),0L, SkillType.MicroSkill.name(), 0f,null,null);
+                AppMemberSkillScoreDTO dto= new AppMemberSkillScoreDTO(microSkill.getId(), microSkill.getTitle(),microSkill.getDescription(),0L, SkillType.MicroSkill.name(), 0f,microSkill.getWeight(),null,null);
                 dtos.add(dto);
             }
         }
@@ -134,14 +134,14 @@ public class AppMember_LearningSkillService implements AppMember_LearningSkillRe
         Collection<AppMemberSkillScoreDTO> dtos = new ArrayList<>();
         Iterator<LearningSkill> iterator = subSetSkills.iterator();
         while(iterator.hasNext()){
-            LearningSkill microSkill = iterator.next();
-            Optional<AppMember_LearningSkill> appMemberMicroSkillOptional =  appMember_LearningSkillRepository.findByApplicationMemberAndLearningSkill(appMemberLearningSkill.getApplicationMember(),microSkill);
+            LearningSkill subSetSkill = iterator.next();
+            Optional<AppMember_LearningSkill> appMemberMicroSkillOptional =  appMember_LearningSkillRepository.findByApplicationMemberAndLearningSkill(appMemberLearningSkill.getApplicationMember(),subSetSkill);
             if(appMemberMicroSkillOptional.isPresent()){
                 AppMember_LearningSkill appMemberLearningSkill1 = appMemberMicroSkillOptional.get();
-                AppMemberSkillScoreDTO dto= new AppMemberSkillScoreDTO(microSkill.getId(), microSkill.getTitle(),microSkill.getDescription(),appMemberLearningSkill1.getLevel(), SkillType.MicroSkill.name(), appMemberLearningSkill1.getAmount(),null,null);
+                AppMemberSkillScoreDTO dto= new AppMemberSkillScoreDTO(subSetSkill.getId(), subSetSkill.getTitle(),subSetSkill.getDescription(),appMemberLearningSkill1.getLevel(), SkillType.MicroSkill.name(), appMemberLearningSkill1.getAmount(),subSetSkill.getWeight(),null,null);
                 dtos.add(dto);
             }else{
-                AppMemberSkillScoreDTO dto= new AppMemberSkillScoreDTO(microSkill.getId(), microSkill.getTitle(),microSkill.getDescription(),0L, SkillType.MicroSkill.name(), 0f,null,null);
+                AppMemberSkillScoreDTO dto= new AppMemberSkillScoreDTO(subSetSkill.getId(), subSetSkill.getTitle(),subSetSkill.getDescription(),0L, SkillType.MicroSkill.name(), 0f,subSetSkill.getWeight(),null,null);
                 dtos.add(dto);
             }
             AppMemberSkillScoreDTO minLevel =  Collections.max(dtos, Comparator.comparing(s -> s.getSkillLevel()));
@@ -160,7 +160,7 @@ public class AppMember_LearningSkillService implements AppMember_LearningSkillRe
         Optional<AppMember_LearningSkill> appMemberLearningSkillOptional =  appMember_LearningSkillRepository.findByApplicationMemberAndLearningSkill(transaction.getAppMember(),skill);
         if(appMemberLearningSkillOptional.isPresent()) {
             AppMember_LearningSkill appMemberLearningSkill= appMemberLearningSkillOptional.get();
-            appMemberLearningSkill = calculateSkillScore(appMemberLearningSkill,subSetSkill);
+            appMemberLearningSkill = calculateSkillScore(appMemberLearningSkill,skill);
             appMember_LearningSkillRepository.save(appMemberLearningSkill);
         }else{
             AppMember_LearningSkill appMemberLearningSkill = new AppMember_LearningSkill(transaction.getAppMember(),subSetSkill,0f,0L,1L,

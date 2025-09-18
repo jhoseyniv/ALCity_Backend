@@ -9,6 +9,7 @@ public class AppMemberSkillScoreDTO implements Serializable {
     Long skillLevel;
     String skillType;
     Float amount;
+    Float weight;
     Long appMemberId;
     Long skillIconId;
 
@@ -76,17 +77,26 @@ public class AppMemberSkillScoreDTO implements Serializable {
         this.skillIconId = skillIconId;
     }
 
+    public Float getWeight() {
+        return weight;
+    }
+
+    public void setWeight(Float weight) {
+        this.weight = weight;
+    }
+
     public AppMemberSkillScoreDTO() {
     }
 
     public AppMemberSkillScoreDTO(Long skillId, String skillTitle, String skillDescription,
-                                  Long skillLevel, String skillType, Float amount, Long appMemberId, Long skillIconId) {
+                                  Long skillLevel, String skillType, Float amount,Float weight, Long appMemberId, Long skillIconId) {
         this.skillId = skillId;
         this.skillTitle = skillTitle;
         this.skillDescription = skillDescription;
         this.skillLevel = skillLevel;
         this.skillType = skillType;
         this.amount = amount;
+        this.weight = weight;
         this.appMemberId = appMemberId;
         this.skillIconId = skillIconId;
     }
