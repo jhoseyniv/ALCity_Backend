@@ -144,11 +144,11 @@ public class AppMember_LearningSkillService implements AppMember_LearningSkillRe
                 AppMemberSkillScoreDTO dto= new AppMemberSkillScoreDTO(subSetSkill.getId(), subSetSkill.getTitle(),subSetSkill.getDescription(),0L, SkillType.MicroSkill.name(), 0f,subSetSkill.getWeight(),null,null);
                 dtos.add(dto);
             }
-            AppMemberSkillScoreDTO minLevel =  Collections.max(dtos, Comparator.comparing(s -> s.getSkillLevel()));
-            appMemberLearningSkill.setLevel(minLevel.getSkillLevel());
-            Float score = sigmaOfSkillScores(dtos);
-            appMemberLearningSkill.setAmount(score);
         }
+        AppMemberSkillScoreDTO minLevel =  Collections.max(dtos, Comparator.comparing(s -> s.getSkillLevel()));
+        appMemberLearningSkill.setLevel(minLevel.getSkillLevel());
+        Float score = sigmaOfSkillScores(dtos);
+        appMemberLearningSkill.setAmount(score);
         return appMemberLearningSkill;
     }
 
