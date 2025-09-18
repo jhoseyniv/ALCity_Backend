@@ -34,6 +34,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
@@ -488,6 +489,7 @@ public class AppMemberController {
         if(plObjectiveOptional.isEmpty() || gameInstanceOptional.isEmpty() || appMemberOptional.isEmpty() ) return false;
 
         Collection<PLObjectiveTransaction> transactions = pLObjectiveTransactionService.findByPlObjectiveAndTransactionTypeAndAppMember(plObjectiveOptional.get(),transactionType,appMemberOptional.get());
+        if(transactions.isEmpty()) return true;
         PLObjectiveTransaction transaction = Collections.max(transactions ,Comparator.comparing(PLObjectiveTransaction  -> PLObjectiveTransaction.getAmount()));
         if(transaction == null)  return true;
         if(transaction.getAmount().compareTo(dto.getAmount())<0){
@@ -530,7 +532,7 @@ public class AppMemberController {
         }
             return response;
     }
-
+    @Transactional
     @Operation( summary = "Apply Skill for specific  Member after playing puzzles ",  description = "Apply Skill for specific  Member after playing puzzles")
     @PostMapping("/apply-skill")
     @CrossOrigin(origins = "*")

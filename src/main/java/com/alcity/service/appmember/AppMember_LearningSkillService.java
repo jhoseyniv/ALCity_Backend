@@ -7,6 +7,7 @@ import com.alcity.entity.appmember.AppMember;
 import com.alcity.entity.appmember.AppMember_LearningSkill;
 import com.alcity.entity.appmember.PLObjectiveTransaction;
 import com.alcity.entity.learning.LearningSkill;
+import com.alcity.entity.puzzle.PLObjective;
 import com.alcity.repository.appmember.AppMemberRepository;
 import com.alcity.repository.appmember.AppMember_LearningSkillRepository;
 import com.alcity.repository.appmember.AppMember_WalletItemRepository;
@@ -45,10 +46,17 @@ public class AppMember_LearningSkillService implements AppMember_LearningSkillRe
         Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
         AppMember_LearningSkill appMemberLearningSkill = null;
         AppMember appMember = transaction.getGameInstance().getPlayer();
-        LearningSkill learningSkill = transaction.getPlObjective().getLearningSkill();
+        PLObjective objective = transaction.getPlObjective();
+        LearningSkill learningSkill = objective.getLearningSkill();
         Optional<AppMember_LearningSkill> appMemberLearningSkillOptional = appMember_LearningSkillRepository.findByApplicationMemberAndLearningSkill(appMember,learningSkill);
         if(appMemberLearningSkillOptional.isEmpty()) {
-            appMemberLearningSkill = new AppMember_LearningSkill(appMember,learningSkill, transaction.getAmount(),0L,1L, DateUtils.getNow(),DateUtils.getNow(),
+            Float sumAmount = transaction.getAmount() + appMemberLearningSkill.getAmount();
+            Long  levelUpSize = learningSkill.getLevelUpSize();
+            Long level = (long) (sumAmount / levelUpSize);
+            Float reminder = (Float) (sumAmount % levelUpSize);
+            appMemberLearningSkill.setAmount(reminder);
+            appMemberLearningSkill.setLevel(level);
+            appMemberLearningSkill = new AppMember_LearningSkill(appMember,learningSkill, reminder,level,1L, DateUtils.getNow(),DateUtils.getNow(),
                     createdBy.get(),createdBy.get());
             appMember_LearningSkillRepository.save(appMemberLearningSkill);
         }else{
@@ -95,11 +103,11 @@ public class AppMember_LearningSkillService implements AppMember_LearningSkillRe
                 AppMemberSkillScoreDTO dto= new AppMemberSkillScoreDTO(microSkill.getId(), microSkill.getTitle(),microSkill.getDescription(),0L, SkillType.MicroSkill.name(), 0f,null,null);
                 dtos.add(dto);
             }
-            AppMemberSkillScoreDTO minLevel =  Collections.max(dtos, Comparator.comparing(s -> s.getSkillLevel()));
-            appMemberLearningSkill.setLevel(minLevel.getSkillLevel());
-            Float score = sigmaOfSkillScores(dtos);
-            appMemberLearningSkill.setAmount(score);
         }
+        AppMemberSkillScoreDTO minLevel =  Collections.min(dtos, Comparator.comparing(s -> s.getSkillLevel()));
+        appMemberLearningSkill.setLevel(minLevel.getSkillLevel());
+        Float score = sigmaOfSkillScores(dtos);
+        appMemberLearningSkill.setAmount(score);
 
        return appMemberLearningSkill;
     }

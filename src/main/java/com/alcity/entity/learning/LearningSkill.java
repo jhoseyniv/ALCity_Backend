@@ -2,11 +2,13 @@ package com.alcity.entity.learning;
 
 import com.alcity.entity.alenum.SkillType;
 import com.alcity.entity.alenum.UserGender;
+import com.alcity.entity.appmember.PLObjectiveTransaction;
 import com.alcity.entity.base.BaseItemSet;
 import com.alcity.entity.appmember.AppMember;
 
 import com.alcity.entity.base.BaseTable;
 import com.alcity.entity.base.BinaryContent;
+import com.alcity.entity.puzzle.PLObjective;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -46,6 +48,18 @@ public class LearningSkill extends BaseTable implements Serializable {
     @OneToMany( fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Collection<LearningSkill> learningSkills;
 
+    @OneToMany(mappedBy = "learningSkill", fetch = FetchType.LAZY)
+    @JsonIgnore
+    private Collection<PLObjective> plObjectives;
+
+    public Collection<PLObjective> getPlObjectives() {
+        return plObjectives;
+    }
+
+    public void setPlObjectives(Collection<PLObjective> plObjectives) {
+        this.plObjectives = plObjectives;
+    }
+
     public Float getWeight() {
         return weight;
     }
@@ -57,6 +71,7 @@ public class LearningSkill extends BaseTable implements Serializable {
     public Long getLevelUpSize() {
         return levelUpSize;
     }
+
 
     public void setLevelUpSize(Long levelUpSize) {
         this.levelUpSize = levelUpSize;

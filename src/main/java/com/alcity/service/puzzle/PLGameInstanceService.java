@@ -78,7 +78,7 @@ public class PLGameInstanceService implements PLGameInstanceRepository {
     @Override
     public Optional<PLGameInstance> findById(Long id) {
         if(id == null) { return Optional.empty(); }
-        return Optional.empty();
+        return plGameInstanceRepository.findById(id);
     }
 
     @Override

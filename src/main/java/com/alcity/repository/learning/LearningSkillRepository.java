@@ -15,4 +15,4 @@ public interface LearningSkillRepository extends CrudRepository<LearningSkill,Lo
     Collection<LearningSkill> findByTitleContains(String criteria);
     LearningSkill findByTitle(String label);
 
-}
+ }
