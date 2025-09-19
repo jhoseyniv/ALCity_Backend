@@ -105,8 +105,8 @@ public class AppMemberController {
         AppMemberXPDTO dto = DTOUtil.getXPForADate(transactions_0,DateUtils.getDate(date),id);
         return dto;
     }
-    @Operation( summary = "Get XP's for a few sub set skills of a main skill....",  description = "Get XP's for a few  sub set skills of a main skill....")
-    @RequestMapping(value = "/id/{id}/xp-sub-set-skill-all/sid/{sid}", method = RequestMethod.GET)
+    @Operation( summary = "Get XP's for a skills and their children ",  description = "Get XP's for a skills and their children")
+    @RequestMapping(value = "/id/{id}/children-xp/sid/{sid}", method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin(origins = "*")
     public Collection<AppMemberSkillScoreDTO> getXPForAAppMemberBySubSetSkillAll(@PathVariable Long id, @PathVariable Long sid) {
@@ -147,7 +147,7 @@ public class AppMemberController {
         AppMemberSkillScoreDTO dto = DTOUtil.getXPForAAppMemberSkillDTO(memberOptional.get(),learningSkillOptional.get(),transactions,binaryContentService);
         return dto;
     }
-
+/*
     @Operation( summary = "Get Score for a micro skill by User id ....",  description = "Get Score for a micro skill by User id ....")
     @RequestMapping(value = "/uid/{uid}/micro-skill-score/sid/{sid}", method = RequestMethod.GET)
     @ResponseBody
@@ -164,22 +164,27 @@ public class AppMemberController {
         return dto;
     }
 
-
-    @Operation( summary = "Get XP's for a user by sub set skill of a main skill....",  description = "Get XP's for a user by sub set skill of a main skill....")
+*/
+    @Operation( summary = "Get last accumulative  XP's  for a user by skill id ",  description = "Get last accumulative XP's for a user by skill id")
     @RequestMapping(value = "/id/{id}/xp-sub-set-skill/sid/{sid}", method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin(origins = "*")
     public AppMemberSkillScoreDTO getXPForAAppMemberBySubSetSkill(@PathVariable Long id, @PathVariable Long sid) {
         Optional<AppMember> memberOptional = appMemberService.findById(id);
         Optional<LearningSkill> learningSkillOptional = learningSkillService.findById(sid);
-        PLObjectiveTransactionType transactionType = PLObjectiveTransactionType.LearningSkill;
-        Optional<PLObjective> objectiveOptional = plObjectiveService.findByLearningSkill(learningSkillOptional.get());
-        if(memberOptional.isEmpty())
-            return null;
-        if(learningSkillOptional.isEmpty())
-            return null;
-        Collection<PLObjectiveTransaction> transactions = objectiveTransactionService.findByPlObjectiveAndTransactionTypeAndAppMember(objectiveOptional.get(),transactionType,memberOptional.get());
-        AppMemberSkillScoreDTO dto = DTOUtil.getXPForAAppMemberSkillDTO(memberOptional.get(),learningSkillOptional.get(),transactions,binaryContentService);
+        if(memberOptional.isEmpty() || learningSkillOptional.isEmpty())   return null;
+        //PLObjectiveTransactionType transactionType = PLObjectiveTransactionType.LearningSkill;
+        Optional<AppMember_LearningSkill> appMemberLearningSkillOptional = appMemberLearningSkillService.findByApplicationMemberAndLearningSkill(memberOptional.get(),learningSkillOptional.get());
+        if(appMemberLearningSkillOptional.isEmpty()) {
+            LearningSkill skill=learningSkillOptional.get();
+           return new AppMemberSkillScoreDTO(skill.getId(),skill.getTitle(),skill.getDescription(),
+                   0L,skill.getType().name(),0f,skill.getWeight(),memberOptional.get().getId(),skill.getIcon().getId());
+
+        }
+        AppMember_LearningSkill appmember_skill = appMemberLearningSkillOptional.get();
+        LearningSkill skill=learningSkillOptional.get();
+        AppMemberSkillScoreDTO dto = new AppMemberSkillScoreDTO(skill.getId(),skill.getTitle(),skill.getDescription(),
+                appmember_skill.getLevel(),skill.getType().name(),appmember_skill.getAmount(),skill.getWeight(),memberOptional.get().getId(),skill.getIcon().getId());
         return dto;
     }
 
@@ -532,7 +537,7 @@ public class AppMemberController {
         }
             return response;
     }
-    @Transactional
+
     @Operation( summary = "Apply Skill for specific  Member after playing puzzles ",  description = "Apply Skill for specific  Member after playing puzzles")
     @PostMapping("/apply-skill")
     @CrossOrigin(origins = "*")

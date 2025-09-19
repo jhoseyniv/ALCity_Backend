@@ -50,12 +50,10 @@ public class AppMember_LearningSkillService implements AppMember_LearningSkillRe
         LearningSkill learningSkill = objective.getLearningSkill();
         Optional<AppMember_LearningSkill> appMemberLearningSkillOptional = appMember_LearningSkillRepository.findByApplicationMemberAndLearningSkill(appMember,learningSkill);
         if(appMemberLearningSkillOptional.isEmpty()) {
-            Float sumAmount = transaction.getAmount() + appMemberLearningSkill.getAmount();
+            Float sumAmount = transaction.getAmount() ;
             Long  levelUpSize = learningSkill.getLevelUpSize();
             Long level = (long) (sumAmount / levelUpSize);
             Float reminder = (Float) (sumAmount % levelUpSize);
-            appMemberLearningSkill.setAmount(reminder);
-            appMemberLearningSkill.setLevel(level);
             appMemberLearningSkill = new AppMember_LearningSkill(appMember,learningSkill, reminder,level,1L, DateUtils.getNow(),DateUtils.getNow(),
                     createdBy.get(),createdBy.get());
             appMember_LearningSkillRepository.save(appMemberLearningSkill);
@@ -163,9 +161,9 @@ public class AppMember_LearningSkillService implements AppMember_LearningSkillRe
             appMemberLearningSkill = calculateSkillScore(appMemberLearningSkill,skill);
             appMember_LearningSkillRepository.save(appMemberLearningSkill);
         }else{
-            AppMember_LearningSkill appMemberLearningSkill = new AppMember_LearningSkill(transaction.getAppMember(),subSetSkill,0f,0L,1L,
+            AppMember_LearningSkill appMemberLearningSkill = new AppMember_LearningSkill(transaction.getAppMember(),skill,0f,0L,1L,
                     DateUtils.getNow(),DateUtils.getNow(),transaction.getAppMember(),transaction.getAppMember());
-            appMemberLearningSkill = calculateSkillScore(appMemberLearningSkill,subSetSkill);
+            appMemberLearningSkill = calculateSkillScore(appMemberLearningSkill,skill);
             appMember_LearningSkillRepository.save(appMemberLearningSkill);
         }
 
