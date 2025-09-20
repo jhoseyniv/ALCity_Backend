@@ -98,6 +98,18 @@ public class BinaryContentController {
         }
            return  null;
     }
+
+    @GetMapping("/get-file/{id}")
+    @CrossOrigin(origins = "*")
+    public ResponseEntity<byte[]> getFile(@PathVariable Long id) {
+        Optional<BinaryContent>  binaryContentOptional= binaryContentService.findById(id);
+        if(binaryContentOptional.isEmpty()) return  null;
+        BinaryContent binaryContent = binaryContentOptional.get();
+        return ResponseEntity.ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + binaryContent.getFileName() + "\"")
+                .body(binaryContent.getContent());
+    }
+
     @PostMapping("/search")
     @ResponseBody
     @CrossOrigin(origins = "*")
