@@ -7,7 +7,7 @@ import java.io.Serializable;
 public class WalletItemChangeRateDTO implements Serializable {
 
     private Long id;
-    private Long fromDate;
+    private String fromDate;
     private Float rate;
     private WalletItem fromCurrencyId;
     private WalletItem toCurrencyId;
@@ -20,11 +20,11 @@ public class WalletItemChangeRateDTO implements Serializable {
         this.id = id;
     }
 
-    public Long getFromDate() {
+    public String getFromDate() {
         return fromDate;
     }
 
-    public void setFromDate(Long fromDate) {
+    public void setFromDate(String fromDate) {
         this.fromDate = fromDate;
     }
 
@@ -55,7 +55,7 @@ public class WalletItemChangeRateDTO implements Serializable {
     public WalletItemChangeRateDTO() {
     }
 
-    public WalletItemChangeRateDTO(Long id, Long fromDate, Float rate, WalletItem fromCurrencyId, WalletItem toCurrencyId) {
+    public WalletItemChangeRateDTO(Long id, String fromDate, Float rate, WalletItem fromCurrencyId, WalletItem toCurrencyId) {
         this.id = id;
         this.fromDate = fromDate;
         this.rate = rate;

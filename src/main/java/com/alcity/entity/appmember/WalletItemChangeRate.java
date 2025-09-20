@@ -10,7 +10,7 @@ import java.io.Serializable;
 public class WalletItemChangeRate extends BaseTable implements Serializable {
 
     @Column(name="fromDate")
-    private Long fromDate;
+    private String fromDate;
 
     @Column(name="rate")
     private Float rate;
@@ -26,11 +26,11 @@ public class WalletItemChangeRate extends BaseTable implements Serializable {
     private WalletItem toCurrency;
 
 
-    public Long getFromDate() {
+    public String getFromDate() {
         return fromDate;
     }
 
-    public void setFromDate(Long fromDate) {
+    public void setFromDate(String fromDate) {
         this.fromDate = fromDate;
     }
 
@@ -61,7 +61,7 @@ public class WalletItemChangeRate extends BaseTable implements Serializable {
     public WalletItemChangeRate() {
     }
 
-    public WalletItemChangeRate(Long fromDate, Float rate, WalletItem fromCurrency, WalletItem toCurrency, Long version, String created, String updated, AppMember createdBy, AppMember updatedBy) {
+    public WalletItemChangeRate(String fromDate, Float rate, WalletItem fromCurrency, WalletItem toCurrency, Long version, String created, String updated, AppMember createdBy, AppMember updatedBy) {
         super(version, created, updated, createdBy, updatedBy);
         this.fromDate = fromDate;
         this.rate = rate;
