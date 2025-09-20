@@ -1,4 +1,13 @@
 {
+  "amount": 14,
+  "gameInstanceId": 53437,
+  "appMemberId": 59,
+  "objectiveId": 49592,
+  "objectiveType": "WalletItem"
+}
+
+
+{
   "amount": 13,
   "gameInstanceId": 53437,
   "appMemberId": 59,

@@ -1,12 +1,12 @@
 package com.alcity.service.appmember;
 
 
-import com.alcity.entity.appmember.AppMember;
-import com.alcity.entity.appmember.AppMemberPuzzleLevelScore;
+import com.alcity.entity.appmember.*;
 import com.alcity.entity.puzzle.PuzzleLevel;
 import com.alcity.repository.appmember.AppMemberPuzzleLevelScoreRepository;
 import com.alcity.repository.appmember.PLObjectiveTransactionRepository;
 import com.alcity.repository.appmember.WalletItemRespository;
+import com.alcity.utility.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -24,11 +24,48 @@ public class AppMemberPuzzleLevelScoreService implements AppMemberPuzzleLevelSco
     @Autowired
     AppMemberPuzzleLevelScoreRepository appMemberPuzzleLevelScoreRepository;
 
+    @Autowired
+    WalletItemService walletItemService;
+
+    @Autowired
+    WalletItemChangeRateService walletItemChangeRateService;
+
 
     @Override
     public <S extends AppMemberPuzzleLevelScore> S save(S entity) {
         return null;
     }
+
+    public Float getScoreByBaseCurrency(WalletItem walletItem,Float amount) {
+        if(walletItem.isBaseCurrency()) return amount;
+        Optional<WalletItem> baseCurrencyOptional = walletItemService.findByBaseCurrency(true);
+        if(baseCurrencyOptional.isEmpty()) return amount;
+        Optional<WalletItemChangeRate>  changeRateOptional = walletItemChangeRateService.findByFromCurrencyAndToCurrency(walletItem,baseCurrencyOptional.get());
+        Float changeRateAmount = changeRateOptional.get().getRate();
+        return amount*changeRateAmount;
+    }
+
+    public void updateScores(PLObjectiveTransaction transaction) {
+        AppMember appMember = transaction.getAppMember();
+        WalletItem walletItem = transaction.getPlObjective().getWalletItem();
+        Float amount = transaction.getAmount();
+        PuzzleLevel puzzleLevel = transaction.getPlObjective().getPuzzleLevel();
+        Float scoreByBaseCurrency = getScoreByBaseCurrency(walletItem,amount);
+        Optional<AppMemberPuzzleLevelScore> appMemberPuzzleLevelScoreOptional = appMemberPuzzleLevelScoreRepository.findByPuzzleLevelAndPlayer(puzzleLevel, appMember);
+        if(appMemberPuzzleLevelScoreOptional.isEmpty()){
+            AppMemberPuzzleLevelScore puzzleLevelScore = new AppMemberPuzzleLevelScore(appMember,puzzleLevel,scoreByBaseCurrency,
+                    1L, DateUtils.getNow(),DateUtils.getNow(),appMember,appMember);
+            appMemberPuzzleLevelScoreRepository.save(puzzleLevelScore);
+        }else{
+            AppMemberPuzzleLevelScore puzzleLevelScore = appMemberPuzzleLevelScoreOptional.get();
+            if(puzzleLevelScore.getScoreByBaseCurrency() < scoreByBaseCurrency) {
+                puzzleLevelScore.setScoreByBaseCurrency(scoreByBaseCurrency);
+                appMemberPuzzleLevelScoreRepository.save(puzzleLevelScore);
+            }
+        }
+    }
+
+
 
     @Override
     public <S extends AppMemberPuzzleLevelScore> Iterable<S> saveAll(Iterable<S> entities) {

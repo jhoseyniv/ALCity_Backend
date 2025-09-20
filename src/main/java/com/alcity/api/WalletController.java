@@ -5,6 +5,7 @@ import com.alcity.customexception.ResponseMessage;
 import com.alcity.customexception.ResponseObject;
 import com.alcity.customexception.UniqueConstraintException;
 import com.alcity.customexception.ViolateForeignKeyException;
+import com.alcity.dto.appmember.WalletItemChangeRateDTO;
 import com.alcity.dto.base.WalletItemTypeDTO;
 import com.alcity.dto.appmember.WalletItemDTO;
 import com.alcity.entity.alenum.Status;
@@ -12,8 +13,10 @@ import com.alcity.entity.alenum.ErrorType;
 import com.alcity.entity.alenum.SystemMessage;
 import com.alcity.entity.alobject.ObjectAction;
 import com.alcity.entity.appmember.AppMember;
+import com.alcity.entity.appmember.WalletItemChangeRate;
 import com.alcity.entity.base.WalletItemType;
 import com.alcity.entity.appmember.WalletItem;
+import com.alcity.service.appmember.WalletItemChangeRateService;
 import com.alcity.service.base.WalletItemTypeService;
 import com.alcity.service.appmember.WalletItemService;
 import com.alcity.utility.DTOUtil;
@@ -33,8 +36,12 @@ import java.util.Optional;
 public class WalletController {
     @Autowired
     private WalletItemTypeService walletItemTypeService;
+
     @Autowired
     private WalletItemService walletItemService;
+
+    @Autowired
+    private WalletItemChangeRateService walletItemChangeRateService;
 
     @GetMapping("/type/all")
     @CrossOrigin(origins = "*")
@@ -64,6 +71,15 @@ public class WalletController {
     @CrossOrigin(origins = "*")
     public WalletItemDTO getWalletItemById(@PathVariable Long id) {
         Optional<WalletItem> walletItemOptional = walletItemService.findById(id);
+        if (walletItemOptional.isPresent()) return DTOUtil.getWalletItemDTO(walletItemOptional.get());
+        return null;
+    }
+
+    @RequestMapping(value = "/item/base-currency", method = RequestMethod.GET)
+    @ResponseBody
+    @CrossOrigin(origins = "*")
+    public WalletItemDTO getBaseWalletItemById() {
+        Optional<WalletItem> walletItemOptional = walletItemService.findByBaseCurrency(true);
         if (walletItemOptional.isPresent()) return DTOUtil.getWalletItemDTO(walletItemOptional.get());
         return null;
     }
@@ -98,7 +114,9 @@ public class WalletController {
         WalletItem savedRecord = null;
         ResponseMessage response = new ResponseMessage();
         Optional<WalletItem> walletItemOptional = walletItemService.findById(dto.getId());
-
+        Optional<WalletItem> baseWalletItemOptional = walletItemService.findByBaseCurrency(true);
+        if (baseWalletItemOptional.isPresent())
+            return  new ResponseMessage(ErrorType.UniquenessViolation, Status.ok.name(),WalletItem.class.getSimpleName() ,  -1L, SystemMessage.baseCurrencyIsExist);
         try {
             if (walletItemOptional.isEmpty())
                 savedRecord = walletItemService.save(dto, "Save");
@@ -116,7 +134,30 @@ public class WalletController {
         return response;
     }
 
-    @Operation( summary = "delete a  Wallet Item Type  ",  description = "delete a Wallet Item type ")
+    @Operation(summary = "Save a Wallet Item Change Rate ", description = "Save a Wallet Item Change Rate entity and their data to data base")
+    @PostMapping("/item/save/change-rate")
+    @CrossOrigin(origins = "*")
+    public ResponseMessage saveOrEditWalletItemChangeRate(@RequestBody WalletItemChangeRateDTO dto) {
+        WalletItemChangeRate savedRecord = null;
+        ResponseMessage response = new ResponseMessage();
+        Optional<WalletItemChangeRate> walletItemChangeRateOptional = walletItemChangeRateService.findById(dto.getId());
+        try {
+            if (walletItemChangeRateOptional.isEmpty())
+                savedRecord = walletItemChangeRateService.save(dto, "Save");
+            else
+                savedRecord = walletItemChangeRateService.save(dto, "Edit");
+            if(savedRecord !=null)
+                response = new ResponseMessage(ErrorType.SaveSuccess, Status.ok.name(),WalletItemChangeRate.class.getSimpleName() ,  savedRecord.getId(), SystemMessage.SaveOrEditMessage_Success);
+            else
+                response = new ResponseMessage(ErrorType.SaveFail,Status.error.name(), WalletItemChangeRate.class.getSimpleName() ,  -1L, SystemMessage.SaveOrEditMessage_Fail);
+        }
+        catch (Exception e) {
+            throw new ResponseObject(ErrorType.UniquenessViolation,Status.error.name() , WalletItemChangeRate.class.getSimpleName() ,  -1L ,e.getCause().getMessage());
+        }
+        return response;
+    }
+
+    @Operation( summary = "Delete a  Wallet Item Type  ",  description = "delete a Wallet Item type ")
     @DeleteMapping("/type/del/id/{id}")
     @CrossOrigin(origins = "*")
     public ResponseMessage deleteWalletItemTypeById(@PathVariable Long id) {
@@ -148,6 +189,23 @@ public class WalletController {
             return new ResponseMessage(ErrorType.DeleteSuccess,Status.ok.name(), ObjectAction.class.getSimpleName(),  existingRecord.get().getId(),SystemMessage.DeleteMessage);
         }
         return new ResponseMessage(ErrorType.RecordNotFound, Status.error.name(),ObjectAction.class.getSimpleName(),  existingRecord.get().getId(),SystemMessage.RecordNotFound);
+    }
+
+    @Operation( summary = "Delete a  Wallet Item Change Rate by id",  description = "Delete a  Wallet Item Change Rate by id")
+    @DeleteMapping("/item/del/change-rate/id/{id}")
+    @CrossOrigin(origins = "*")
+    public ResponseMessage deleteWalletItemChangeRateById(@PathVariable Long id) {
+        Optional<WalletItemChangeRate> existingRecord = walletItemChangeRateService.findById(id);
+        if(existingRecord.isPresent()){
+            try {
+                walletItemChangeRateService.deleteById(existingRecord.get().getId());
+            }catch (Exception e )
+            {
+                throw new ResponseObject(ErrorType.ForeignKeyViolation, Status.error.name(), WalletItemChangeRate.class.toString(),existingRecord.get().getId(),e.getClass().getName());
+            }
+            return new ResponseMessage(ErrorType.DeleteSuccess,Status.ok.name(), WalletItemChangeRate.class.getSimpleName(),  existingRecord.get().getId(),SystemMessage.DeleteMessage);
+        }
+        return new ResponseMessage(ErrorType.RecordNotFound, Status.error.name(),WalletItemChangeRate.class.getSimpleName(),  existingRecord.get().getId(),SystemMessage.RecordNotFound);
     }
 
 }

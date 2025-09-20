@@ -17,6 +17,17 @@ public class WalletItem extends BaseItemSet implements Serializable {
     @JsonIgnore
     private WalletItemType walletItemType;
 
+    @Column(columnDefinition="tinyint(1) default 0")
+    private boolean baseCurrency;
+
+    public boolean isBaseCurrency() {
+        return baseCurrency;
+    }
+
+    public void setBaseCurrency(boolean baseCurrency) {
+        this.baseCurrency = baseCurrency;
+    }
+
     public WalletItemType getWalletItemType() {
         return walletItemType;
     }
@@ -52,9 +63,11 @@ public class WalletItem extends BaseItemSet implements Serializable {
     public WalletItem() {
     }
 
-    public WalletItem(WalletItemType walletItemType, BinaryContent icon, String label, String value, Long version, String created, String updated, AppMember createdBy, AppMember updatedBy) {
+    public WalletItem(WalletItemType walletItemType, BinaryContent icon, String label, String value, Boolean baseCurrency,
+                      Long version, String created, String updated, AppMember createdBy, AppMember updatedBy) {
         super(label, value, version, created, updated, createdBy, updatedBy);
         this.walletItemType = walletItemType;
+        this.baseCurrency = baseCurrency;
         this.icon = icon;
     }
 }

@@ -25,6 +25,39 @@ public class WalletItemChangeRate extends BaseTable implements Serializable {
     @JsonIgnore
     private WalletItem toCurrency;
 
+
+    public Long getFromDate() {
+        return fromDate;
+    }
+
+    public void setFromDate(Long fromDate) {
+        this.fromDate = fromDate;
+    }
+
+    public Float getRate() {
+        return rate;
+    }
+
+    public void setRate(Float rate) {
+        this.rate = rate;
+    }
+
+    public WalletItem getFromCurrency() {
+        return fromCurrency;
+    }
+
+    public void setFromCurrency(WalletItem fromCurrency) {
+        this.fromCurrency = fromCurrency;
+    }
+
+    public WalletItem getToCurrency() {
+        return toCurrency;
+    }
+
+    public void setToCurrency(WalletItem toCurrency) {
+        this.toCurrency = toCurrency;
+    }
+
     public WalletItemChangeRate() {
     }
 

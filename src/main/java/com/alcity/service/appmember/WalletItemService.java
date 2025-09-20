@@ -26,6 +26,8 @@ public class WalletItemService implements WalletItemRespository {
 
     @Autowired
     private AppMemberRepository appMemberRepository;
+
+
     @Autowired
     WalletItemTypeRepository walletItemTypeRepository;
     @Autowired
@@ -42,7 +44,7 @@ public class WalletItemService implements WalletItemRespository {
         Optional<WalletItem> walletItemOptional= walletItemRespository.findByValue(dto.getValue());
 
         if (code.equalsIgnoreCase("Save")) { //Save
-            walletItem = new WalletItem(walletItemType.get() ,icon.get(),dto.getLabel(),dto.getValue() , 1L,
+            walletItem = new WalletItem(walletItemType.get() ,icon.get(),dto.getLabel(),dto.getValue(),false , 1L,
                     DateUtils.getNow(), DateUtils.getNow(), createdBy.get(), createdBy.get());
             walletItemRespository.save(walletItem);
         }else{//edit
@@ -136,6 +138,11 @@ public class WalletItemService implements WalletItemRespository {
     @Override
     public Optional<WalletItem> findByIcon(BinaryContent icon) {
         return walletItemRespository.findByIcon(icon);
+    }
+
+    @Override
+    public Optional<WalletItem> findByBaseCurrency(boolean baseCurrency) {
+        return Optional.empty();
     }
 
 
