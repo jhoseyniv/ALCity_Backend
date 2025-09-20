@@ -56,16 +56,13 @@ public class BinaryContentController {
         BinaryContentDTO binaryContentDTO = new BinaryContentDTO();
         if(binaryContentOptional.isPresent()) {
             BinaryContent bc = binaryContentOptional.get();
-            if (deviceType.equals(DeviceType.IOS.name())) {
-
+            if (deviceType.equalsIgnoreCase(DeviceType.IOS.name())) {
                 return  new BinaryContentDTO(bc.getId(),bc.getFileName(),bc.getSize(),null,null,
                         bc.getIos3Dcontent(),null,null,bc.getContentType().name(),bc.getIs3dContent(),bc.getTag1(),bc.getTag2(),bc.getTag3());
-            }else if(deviceType.equals(DeviceType.Android.name())) {
+            }else if(deviceType.equalsIgnoreCase(DeviceType.Android.name())) {
                 return  new BinaryContentDTO(bc.getId(),bc.getFileName(),bc.getSize(),null,null,null,bc.getAndriod3Dcontent(),null,bc.getContentType().name(),bc.getIs3dContent(),bc.getTag1(),bc.getTag2(),bc.getTag3());
-
-            }else if(deviceType.equals(DeviceType.Web.name())) {
+            }else if(deviceType.equalsIgnoreCase(DeviceType.Web.name())) {
                 return  new BinaryContentDTO(bc.getId(),bc.getFileName(),bc.getSize(),null,null,null,null,bc.getWeb3Dcontent(),bc.getContentType().name(),bc.getIs3dContent(),bc.getTag1(),bc.getTag2(),bc.getTag3());
-
             }else {
                 return  new BinaryContentDTO(bc.getId(),bc.getFileName(),bc.getSize(),bc.getContent(),null,null,null,null,bc.getContentType().name(),bc.getIs3dContent(),bc.getTag1(),bc.getTag2(),bc.getTag3());
 
