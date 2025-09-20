@@ -71,15 +71,32 @@ public class BinaryContentController {
         return null;
     }
 
-    @GetMapping("/get-file/{id}")
+    @GetMapping("/get-file/id/{id}/device-type/{deviceType}")
     @CrossOrigin(origins = "*")
-    public ResponseEntity<byte[]> getFile(@PathVariable Long id) {
+    public ResponseEntity<byte[]> getFileByDeviceType(@PathVariable Long id , @PathVariable String deviceType) {
        Optional<BinaryContent>  binaryContentOptional= binaryContentService.findById(id);
-       if(binaryContentOptional.isEmpty()) return  null;
-       BinaryContent binaryContent = binaryContentOptional.get();
-        return ResponseEntity.ok()
-                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + binaryContent.getFileName() + "\"")
-                .body(binaryContent.getContent());
+
+        if(binaryContentOptional.isPresent()) {
+            BinaryContent bc = binaryContentOptional.get();
+            if (deviceType.equalsIgnoreCase(DeviceType.IOS.name())) {
+                return ResponseEntity.ok()
+                        .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + bc.getFileName() + "\"")
+                        .body(bc.getIos3Dcontent());
+             }else if(deviceType.equalsIgnoreCase(DeviceType.Android.name())) {
+                return ResponseEntity.ok()
+                        .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + bc.getFileName() + "\"")
+                        .body(bc.getAndriod3Dcontent());
+            }else if(deviceType.equalsIgnoreCase(DeviceType.Web.name())) {
+                return ResponseEntity.ok()
+                        .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + bc.getFileName() + "\"")
+                        .body(bc.getWeb3Dcontent());
+            }else {
+                return ResponseEntity.ok()
+                        .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + bc.getFileName() + "\"")
+                        .body(bc.getContent());
+            }
+        }
+           return  null;
     }
     @PostMapping("/search")
     @ResponseBody
