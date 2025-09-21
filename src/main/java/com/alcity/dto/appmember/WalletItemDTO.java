@@ -1,6 +1,8 @@
 package com.alcity.dto.appmember;
 
-public class WalletItemDTO {
+import java.io.Serializable;
+
+public class WalletItemDTO implements Serializable {
     private Long id;
     private String label;
     private String value;
@@ -8,12 +10,8 @@ public class WalletItemDTO {
     private byte[] thumbnail;
     private String walletItemType;
     private Boolean isCurrency;
+    private Boolean isBaseCurrency;
 
-    private Long version;
-    private String created;
-    private String updated;
-    private String createdBY;
-    private String updatedBy;
 
     public byte[] getThumbnail() {
         return thumbnail;
@@ -55,46 +53,6 @@ public class WalletItemDTO {
         this.value = value;
     }
 
-    public Long getVersion() {
-        return version;
-    }
-
-    public void setVersion(Long version) {
-        this.version = version;
-    }
-
-    public String getCreated() {
-        return created;
-    }
-
-    public void setCreated(String created) {
-        this.created = created;
-    }
-
-    public String getUpdated() {
-        return updated;
-    }
-
-    public void setUpdated(String updated) {
-        this.updated = updated;
-    }
-
-    public String getCreatedBY() {
-        return createdBY;
-    }
-
-    public void setCreatedBY(String createdBY) {
-        this.createdBY = createdBY;
-    }
-
-    public String getUpdatedBy() {
-        return updatedBy;
-    }
-
-    public void setUpdatedBy(String updatedBy) {
-        this.updatedBy = updatedBy;
-    }
-
     public Long getIconId() {
         return iconId;
     }
@@ -115,19 +73,14 @@ public class WalletItemDTO {
 
     }
 
-    public WalletItemDTO(Long id, String label, String value, Long iconId, String walletItemType,Boolean isCurrency,byte[] thumbnail,
-                         Long version, String created, String updated, String createdBY, String updatedBy) {
+    public WalletItemDTO(Long id, String label, String value, Long iconId, String walletItemType,Boolean isCurrency,Boolean isBaseCurrency,byte[] thumbnail ) {
         this.id = id;
         this.label = label;
         this.value = value;
         this.iconId = iconId;
         this.walletItemType = walletItemType;
         this.isCurrency = isCurrency;
+        this.isBaseCurrency = isBaseCurrency;
         this.thumbnail =thumbnail;
-        this.version = version;
-        this.created = created;
-        this.updated = updated;
-        this.createdBY = createdBY;
-        this.updatedBy = updatedBy;
     }
 }

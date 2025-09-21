@@ -3,6 +3,7 @@ package com.alcity.api;
 import com.alcity.comparetors.JourneyComparator;
 import com.alcity.customexception.ResponseMessage;
 import com.alcity.dto.appmember.*;
+import com.alcity.dto.learning.LearningSkillDTO;
 import com.alcity.dto.puzzle.PLDTO;
 import com.alcity.dto.puzzle.PLGameInstanceDTO;
 import com.alcity.dto.search.AppMemberSearchCriteriaDTO;
@@ -370,6 +371,16 @@ public class AppMemberController {
         journeyInfoWithScores =appMemberService.getAppMemberJourneyInfoWithScores(memberOptional.get(),journeyInfo);
         System.out.println("Milliseconds for running getPuzzleLevelMappedStepInJourney Method = " + (end_time - start_time));
         return journeyInfoWithScores;
+    }
+    @Operation( summary = "Init Skill Set Wallet Information for an Application Member ",  description = "Init Skill Set Scores Information for an Application Member")
+    @RequestMapping(value = "/init-skill-wallet/id/{id}/", method = RequestMethod.GET)
+    @ResponseBody
+    @CrossOrigin(origins = "*")
+    public ResponseMessage initSkillWalletByUserId(@PathVariable Long id) {
+        Optional<AppMember> memberOptional = appMemberService.findById(id);
+        Collection<LearningSkill> majorSkills = learningSkillService.findByType(SkillType.Skill);
+        Collection<LearningSkill> subSetSkills = learningSkillService.findByType(SkillType.SubSetSkill);
+        return new ResponseMessage();
     }
 
     @Operation( summary = "Get all journeys for an Application Member with scores",  description = "get all journeys for an Application Member and scores ...")
