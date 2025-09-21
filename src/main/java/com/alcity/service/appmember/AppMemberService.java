@@ -184,7 +184,6 @@ public class AppMemberService implements AppMemberRepository, CustomizedUserRepo
                     appMemberPuzzleLevelScoreService.save(puzzleLevelScore);
                 }
                 Integer stars=getPuzzleLevelAppMemberStars(score,puzzleLevel);
-
                 stepInfo.setStars(stars);
             }
 

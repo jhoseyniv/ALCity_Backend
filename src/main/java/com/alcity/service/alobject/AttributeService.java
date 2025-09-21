@@ -155,7 +155,7 @@ public class AttributeService implements AttributeRepository {
     }
 
     @Transactional
-    public Attribute importVariables(AttributeData variableImport, Long ownerId, AttributeOwnerType ownerType) {
+    public Attribute  importVariables(AttributeData variableImport, Long ownerId, AttributeOwnerType ownerType) {
         DataType dataType =  DataType.getByTitle(variableImport.getType());
         Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
         if(variableImport == null || variableImport.getId()==null) variableImport.setId(0L);
