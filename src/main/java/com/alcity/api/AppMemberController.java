@@ -372,14 +372,32 @@ public class AppMemberController {
         System.out.println("Milliseconds for running getPuzzleLevelMappedStepInJourney Method = " + (end_time - start_time));
         return journeyInfoWithScores;
     }
-    @Operation( summary = "Init Skill Set Wallet Information for an Application Member ",  description = "Init Skill Set Scores Information for an Application Member")
-    @RequestMapping(value = "/init-skill-wallet/id/{id}/", method = RequestMethod.GET)
+    @Operation( summary = "Init Skill Set Wallet Information for an Application Member id ",  description = "Init Skill Set Scores Information for an Application Member")
+    @RequestMapping(value = "/init-skill-wallet/id/{id}", method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin(origins = "*")
     public ResponseMessage initSkillWalletByUserId(@PathVariable Long id) {
         Optional<AppMember> memberOptional = appMemberService.findById(id);
+        if(memberOptional.isEmpty())
+                return  new ResponseMessage(ErrorType.RecordNotFound,Status.error.name(),AppMember.class.getSimpleName(),  id,SystemMessage.RecordNotFound);
+
         Collection<LearningSkill> majorSkills = learningSkillService.findByType(SkillType.Skill);
+        Iterator<LearningSkill> iteratorMajor = majorSkills.iterator();
+        while(iteratorMajor.hasNext()) {
+            LearningSkill learningSkill = iteratorMajor.next();
+            AppMember_LearningSkill appMemberLearningSkill = new AppMember_LearningSkill(memberOptional.get(),learningSkill,0f,0L,
+                    1L,DateUtils.getNow(),DateUtils.getNow(),memberOptional.get(),memberOptional.get());
+            appMemberLearningSkillService.save(appMemberLearningSkill);
+        }
+
         Collection<LearningSkill> subSetSkills = learningSkillService.findByType(SkillType.SubSetSkill);
+        Iterator<LearningSkill> iteratorSubSetSkill = subSetSkills.iterator();
+        while(iteratorMajor.hasNext()) {
+            LearningSkill learningSkill = iteratorSubSetSkill.next();
+            AppMember_LearningSkill appMemberLearningSkill = new AppMember_LearningSkill(memberOptional.get(),learningSkill,0f,0L,
+                    1L,DateUtils.getNow(),DateUtils.getNow(),memberOptional.get(),memberOptional.get());
+            appMemberLearningSkillService.save(appMemberLearningSkill);
+        }
         return new ResponseMessage();
     }
 

@@ -9,6 +9,7 @@ import com.alcity.entity.alenum.SystemMessage;
 import com.alcity.entity.puzzle.PLTemplate;
 import com.alcity.entity.puzzle.PuzzleLevel;
 import com.alcity.service.appmember.AppMemberService;
+import com.alcity.service.puzzle.PLTemplateService;
 import com.alcity.service.puzzle.PuzzleLevelService;
 import com.alcity.test.importstruct.PLImportDTO_New;
 import io.swagger.v3.oas.annotations.Operation;
@@ -30,6 +31,8 @@ public class TestController {
     @Autowired
     private AppMemberService appMemberService;
 
+    @Autowired
+    private PLTemplateService plTemplateService;
 
 
     @Operation( summary = "Import a puzzle level test",  description = "Import a puzzle level test entity and their data")
@@ -46,6 +49,10 @@ public class TestController {
             plService.deletePuzzleLevel(puzzleLevelOptional.get());
             importedPuzzleLevel =  plService.importPuzzleLevel_New(dto);
         }
+        Optional<PLTemplate> plTemplateOptional = plTemplateService.findById(dto.getPuzzleTemplateId());
+        PLTemplate plTemplate = plTemplateOptional.get();
+        plTemplate.setPuzzleLevelId(importedPuzzleLevel.getId());
+        plTemplateService.save(plTemplate);
         response = new ResponseMessage(ErrorType.ImportSuccess,  Status.ok.name(),PuzzleLevel.class.getSimpleName() , importedPuzzleLevel.getId(), SystemMessage.SaveOrEditMessage_Success);
 
         return response;
