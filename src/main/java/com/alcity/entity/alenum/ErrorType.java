@@ -3,6 +3,7 @@ package com.alcity.entity.alenum;
 public enum ErrorType {
     SaveSuccess,
     ImportSuccess,
+    InitSkillsSuccess,
     UpdateSuccess,
     CopySuccess,
     DeleteSuccess,

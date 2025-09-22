@@ -1,8 +1,12 @@
 package com.alcity.service.appmember;
 
 
+import com.alcity.customexception.ResponseMessage;
 import com.alcity.dto.appmember.AppMemberSkillScoreDTO;
+import com.alcity.entity.alenum.ErrorType;
 import com.alcity.entity.alenum.SkillType;
+import com.alcity.entity.alenum.Status;
+import com.alcity.entity.alenum.SystemMessage;
 import com.alcity.entity.appmember.AppMember;
 import com.alcity.entity.appmember.AppMember_LearningSkill;
 import com.alcity.entity.appmember.PLObjectiveTransaction;
@@ -35,6 +39,27 @@ public class AppMember_LearningSkillService implements AppMember_LearningSkillRe
     @Override
     public Collection<AppMember_LearningSkill> findByApplicationMember(AppMember applicationMember) {
         return appMember_LearningSkillRepository.findByApplicationMember(applicationMember);
+    }
+
+    public ResponseMessage initSkillWalletByUser(AppMember appMember) {
+        Collection<LearningSkill> majorSkills = learningSkillService.findByType(SkillType.Skill);
+        Iterator<LearningSkill> iteratorMajor = majorSkills.iterator();
+        while (iteratorMajor.hasNext()) {
+            LearningSkill learningSkill = iteratorMajor.next();
+            AppMember_LearningSkill appMemberLearningSkill = new AppMember_LearningSkill(appMember, learningSkill, 0f, 0L,
+                    1L, DateUtils.getNow(), DateUtils.getNow(), appMember, appMember);
+            appMember_LearningSkillRepository.save(appMemberLearningSkill);
+
+        }
+        Collection<LearningSkill> subSetSkills = learningSkillService.findByType(SkillType.SubSetSkill);
+        Iterator<LearningSkill> iteratorSubSetSkill = subSetSkills.iterator();
+        while(iteratorMajor.hasNext()) {
+            LearningSkill learningSkill = iteratorSubSetSkill.next();
+            AppMember_LearningSkill appMemberLearningSkill = new AppMember_LearningSkill(appMember,learningSkill,0f,0L,
+                    1L,DateUtils.getNow(),DateUtils.getNow(),appMember,appMember);
+            appMember_LearningSkillRepository.save(appMemberLearningSkill);
+        }
+        return  new ResponseMessage(ErrorType.InitSkillsSuccess, Status.ok.name(),AppMember.class.getSimpleName(),  0L, SystemMessage.InitSkillsSuccess);
     }
 
     @Override
