@@ -380,25 +380,7 @@ public class AppMemberController {
         Optional<AppMember> memberOptional = appMemberService.findById(id);
         if(memberOptional.isEmpty())
                 return  new ResponseMessage(ErrorType.RecordNotFound,Status.error.name(),AppMember.class.getSimpleName(),  id,SystemMessage.RecordNotFound);
-
-        Collection<LearningSkill> majorSkills = learningSkillService.findByType(SkillType.Skill);
-        Iterator<LearningSkill> iteratorMajor = majorSkills.iterator();
-        while(iteratorMajor.hasNext()) {
-            LearningSkill learningSkill = iteratorMajor.next();
-            AppMember_LearningSkill appMemberLearningSkill = new AppMember_LearningSkill(memberOptional.get(),learningSkill,0f,0L,
-                    1L,DateUtils.getNow(),DateUtils.getNow(),memberOptional.get(),memberOptional.get());
-            appMemberLearningSkillService.save(appMemberLearningSkill);
-        }
-
-        Collection<LearningSkill> subSetSkills = learningSkillService.findByType(SkillType.SubSetSkill);
-        Iterator<LearningSkill> iteratorSubSetSkill = subSetSkills.iterator();
-        while(iteratorMajor.hasNext()) {
-            LearningSkill learningSkill = iteratorSubSetSkill.next();
-            AppMember_LearningSkill appMemberLearningSkill = new AppMember_LearningSkill(memberOptional.get(),learningSkill,0f,0L,
-                    1L,DateUtils.getNow(),DateUtils.getNow(),memberOptional.get(),memberOptional.get());
-            appMemberLearningSkillService.save(appMemberLearningSkill);
-        }
-        return new ResponseMessage();
+        return appMemberLearningSkillService.initSkillWalletByUser(memberOptional.get());
     }
 
     @Operation( summary = "Get all journeys for an Application Member with scores",  description = "get all journeys for an Application Member and scores ...")
@@ -458,6 +440,7 @@ public class AppMemberController {
         try{
             if (appMemberOptional.isEmpty())
                 savedRecord = appMemberService.save(dto,"Save");
+
             else
                 savedRecord = appMemberService.save(dto, "Edit");
             if(savedRecord !=null)

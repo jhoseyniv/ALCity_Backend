@@ -67,6 +67,8 @@ public class AppMemberService implements AppMemberRepository, CustomizedUserRepo
 
     @Autowired
     private AppMemberPuzzleLevelScoreService appMemberPuzzleLevelScoreService;
+    @Autowired
+    private AppMember_LearningSkillService appMember_LearningSkillService;
 
 
     public Collection<AppMember> findByCriteria(AppMemberSearchCriteriaDTO dto) {
@@ -333,6 +335,7 @@ public class AppMemberService implements AppMemberRepository, CustomizedUserRepo
             appMember = new AppMember(dto.getAge(),language,dto.getUsername(), hashedPassword, dto.getNickname(), dto.getMobile(),dto.getEmail(),icon,gender ,memberType
                     ,1L, DateUtils.getNow(), DateUtils.getNow(), createdBy.get(), createdBy.get());
             appMemberRepository.save(appMember);
+            appMember_LearningSkillService.initSkillWalletByUser(appMember);
         }else{//edit
             Optional<AppMember> appMemberOptional= appMemberRepository.findById(dto.getId());
             if(appMemberOptional.isPresent()) {
