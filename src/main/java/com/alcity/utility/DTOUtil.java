@@ -1734,6 +1734,7 @@ public class DTOUtil {
             preOrderTraversal(plRulePostActionService,child,postAction.getId());
         }
     }
+
     public static <PLRulePostActionImport_New> void preOrderTraversal_New(PLRulePostActionService plRulePostActionService, PostActionTreeImport_New<com.alcity.test.ruleimport_new.PostActionTreeImport_New> node, Long ownerId) {
         if (node == null) return;
 
@@ -1781,9 +1782,12 @@ public class DTOUtil {
 
         parameters = attributeService.findPostActionParameters(root.getId(), AttributeOwnerType.Puzzle_Level_Rule_Post_Action_Parameter);
         Collection<AttributeData> parametersData = DTOUtil.getAttributesForRuleAction(root.getId(),parameters,attributeValueService);
+        String actionName=root.getPlRulePostActionType().name();
+        String subAction = root.getSubAction();
+        if(subAction !=null)
+            actionName = actionName + subAction+ ":" + subAction;
 
-
-        treeExport.setFiedlds(root.getPlRulePostActionType().name()+":"+root.getSubAction(), root.getOrdering(), root.getObjectId(),root.getActionName(),root.getVariable(),root.getValueExperssion(),
+        treeExport.setFiedlds(actionName, root.getOrdering(), root.getObjectId(),root.getActionName(),root.getVariable(),root.getValueExperssion(),
                 root.getAlertType(), root.getAlertMessage(), root.getActionKey(),parametersData);
         Iterator<PLRulePostAction> childIterator = children.iterator();
         while(childIterator.hasNext()){
