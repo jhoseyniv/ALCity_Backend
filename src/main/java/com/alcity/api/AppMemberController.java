@@ -524,7 +524,7 @@ public class AppMemberController {
         Optional<AppMember> appMemberOptional = appMemberService.findById(dto.getAppMemberId());
         Optional<PLObjective> plObjectiveOptional = plObjectiveService.findById(dto.getObjectiveId());
         if(plObjectiveOptional.isEmpty()) {
-            return new ResponseMessage(ErrorType.RecordNotFound, Status.error.name() , PLObjectiveTransaction.class.getSimpleName() , savedRecord.getId(), SystemMessage.SaveOrEditMessage_Success);
+            return new ResponseMessage(ErrorType.RecordNotFound, Status.error.name() , PLObjectiveTransaction.class.getSimpleName() , 0L, SystemMessage.SaveOrEditMessage_Success);
         }
 
         WalletItem walletItem = plObjectiveOptional.get().getWalletItem();
@@ -555,6 +555,9 @@ public class AppMemberController {
         ResponseMessage response = new ResponseMessage();
         boolean isNewRewardGrater = isCurrentTransactionAmountGrater(dto);
         savedRecord = objectiveTransactionService.save(dto, "Save");
+        if(savedRecord ==null)
+            return new ResponseMessage(ErrorType.SaveFail, Status.error.name() , PLObjectiveTransaction.class.getSimpleName() , 0L, SystemMessage.SaveOrEditMessage_Fail);
+
         response = new ResponseMessage(ErrorType.SaveSuccess, Status.ok.name() , PLObjectiveTransaction.class.getSimpleName() , savedRecord.getId(), SystemMessage.SaveOrEditMessage_Success);
         if(isNewRewardGrater) {
             appMemberLearningSkillService.updateAppMemberMicroSkills(savedRecord);
