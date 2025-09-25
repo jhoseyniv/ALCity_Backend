@@ -120,6 +120,7 @@
 			<artifactId>jasypt-maven-plugin</artifactId>
 			<version>3.0.4</version>
 		</dependency>
+	<!--
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-web</artifactId>
@@ -128,6 +129,7 @@
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-config</artifactId>
 		</dependency>
+		-->
 		<dependency>
 			<groupId>io.jsonwebtoken</groupId>
 			<artifactId>jjwt-api</artifactId>
