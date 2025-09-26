@@ -159,7 +159,7 @@ public class InterpreterController {
             instanceDTO.setVariables(variableDTOS);
 
             Collection<Attribute> properties = attributeService.findInstanceProperties(alCityInstanceInPL.getId(),AttributeOwnerType.Instance_Puzzle_Group_Object_Property);
-            Collection<AttributeData> propertyDTOS = DTOUtil.getPropertiesDTOForPGObject(properties);
+            Collection<AttributeData> propertyDTOS = DTOUtil.getPropertiesDTOForPGOInstance(properties);
             instanceDTO.setProperties(propertyDTOS);
             instanceDTOS.add(instanceDTO);
         }
