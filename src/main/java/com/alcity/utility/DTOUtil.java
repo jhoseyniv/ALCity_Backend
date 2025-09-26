@@ -1866,6 +1866,7 @@ public class DTOUtil {
     }
     public static Collection<AttributeData>  getPropertiesDTOForPGObject(Collection<Attribute>  properties){
         Collection<AttributeData> records = new ArrayList<AttributeData>();
+
         Iterator<Attribute> iterator = properties.iterator();
         while(iterator.hasNext()) {
             Attribute attribute = iterator.next();
@@ -1884,7 +1885,18 @@ public class DTOUtil {
 
     public static Collection<AttributeData>  getPropertiesDTOForPGOInstance(Collection<Attribute>  properties){
         Collection<AttributeData> records = new ArrayList<AttributeData>();
-        properties = properties.stream().filter(property -> property.getAttributeOwnerType().equals(AttributeOwnerType.Instance_Puzzle_Group_Object_Property)).collect(Collectors.toList());
+        Collection<Attribute> duplicated = properties.stream().collect(Collectors.groupingBy(Attribute::getName))
+                .entrySet().stream().filter(e -> e.getValue().size() > 1)
+                .flatMap(e -> e.getValue().stream()).toList();
+
+        Iterator<Attribute> iteratorDuplicate = duplicated.iterator();
+        while(iteratorDuplicate.hasNext()) {
+            Attribute attribute = iteratorDuplicate.next();
+            if(attribute.getAttributeOwnerType().equals(AttributeOwnerType.Puzzle_Group_Object_Property)) {
+                properties.remove(attribute);
+            }
+        }
+
         Iterator<Attribute> iterator = properties.iterator();
         while(iterator.hasNext()) {
             Attribute attribute = iterator.next();
