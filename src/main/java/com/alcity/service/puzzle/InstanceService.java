@@ -142,6 +142,35 @@ public class InstanceService implements InstanceRepository {
         return  importedProperties;
     }
 
+    public static Collection<AttributeData> getMergedProperties(Collection<AttributeData> objectProperties, Collection<AttributeData> instanceProperties) {
+        Iterator<AttributeData> iteratorOne = objectProperties.iterator();
+        Iterator<AttributeData> iteratorTwo = instanceProperties.iterator();
+
+        while(iteratorOne.hasNext()) {
+            AttributeData one = iteratorOne.next();
+            Collection<AttributeData> find =   instanceProperties.stream().filter(attributeData -> attributeData.getName().equals(one.getName())).collect(Collectors.toList());
+            if(find.isEmpty()) {
+
+                instanceProperties.add(one);
+            }
+        }
+        return  instanceProperties;
+    }
+
+    public Collection<InstanceData> processInstanceData(PGObjectData objectData ) {
+        Collection<InstanceData> instances =objectData.getInstances();
+        Collection<AttributeData> objectProperties = objectData.getProperties();
+        Iterator<InstanceData> iterator = instances.iterator();
+        while(iterator.hasNext()) {
+            InstanceData instance = iterator.next();
+            Collection<AttributeData> instanceProperties = instance.getProperties();
+            Collection<AttributeData> mergedProperties = new ArrayList<>();
+            mergedProperties =  getMergedProperties(objectProperties,instanceProperties);
+            instance.setProperties(mergedProperties);
+        }
+        return instances;
+    }
+
     public Collection<Instance> importObjects(Collection<PGObjectData> objectImports , PuzzleLevel importedPL) {
         Collection<Instance> importedInstances = new ArrayList<>();
         Iterator<PGObjectData> iterator = objectImports.iterator();
@@ -151,9 +180,10 @@ public class InstanceService implements InstanceRepository {
             Optional<PGObject> alCityObjectInPGOptional = objectInPGService.findByPuzzleGroupAndAlCityObject(importedPL.getPuzzleGroup(),cityObjectOptional.get().getId());
             PLGround  plGround = importedPL.getPlGrounds().iterator().next();
             Collection<PLCell> cells = plGround.getPlCells();
-            Collection<Attribute> properties = importObjectAttributes(objectImport.getProperties(),alCityObjectInPGOptional.get().getId(),AttributeOwnerType.Puzzle_Group_Object_Property);
-            Collection<Attribute> variables = importObjectAttributes(objectImport.getVariables(),alCityObjectInPGOptional.get().getId(),AttributeOwnerType.Puzzle_Group_Object_Variable);
-            Collection<Instance> instances = importInstances(alCityObjectInPGOptional.get(),objectImport.getInstances(),cells,importedPL);
+            Collection<InstanceData> instanceData = processInstanceData(objectImport);
+            //Collection<Attribute> properties = importObjectAttributes(objectImport.getProperties(),alCityObjectInPGOptional.get().getId(),AttributeOwnerType.Puzzle_Group_Object_Property);
+            //Collection<Attribute> variables = importObjectAttributes(objectImport.getVariables(),alCityObjectInPGOptional.get().getId(),AttributeOwnerType.Puzzle_Group_Object_Variable);
+            Collection<Instance> instances = importInstances(alCityObjectInPGOptional.get(),instanceData,cells,importedPL);
             importedInstances.addAll(instances);
         }
         return importedInstances;
@@ -197,6 +227,7 @@ public class InstanceService implements InstanceRepository {
             importedInstance = new Instance(instanceDataImport.getName(),position.getX(),position.getY(),position.getZ(),cell,
                     alCityObjectInPG,importedPL,1L,DateUtils.getNow(),DateUtils.getNow(),createdBy.get(),createdBy.get());
             instanceRepository.save(importedInstance);
+
             attributeService.importPLInstanceVariables(instanceDataImport.getVariables(),importedInstance,AttributeOwnerType.Instance_Puzzle_Group_Object_Variable);
             attributeService.importPLInstanceVariables(instanceDataImport.getProperties(),importedInstance,AttributeOwnerType.Instance_Puzzle_Group_Object_Property);
 
