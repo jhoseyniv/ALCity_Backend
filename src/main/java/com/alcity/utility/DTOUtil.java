@@ -1786,9 +1786,11 @@ public class DTOUtil {
         String subAction = root.getSubAction();
         if(subAction !=null)
             actionName = actionName + subAction+ ":" + subAction;
-
+        String actionKey = root.getActionKey();
+        if(actionKey.equals("") || actionKey == null)
+            actionKey = "0";
         treeExport.setFiedlds(actionName, root.getOrdering(), root.getObjectId(),root.getActionName(),root.getVariable(),root.getValueExperssion(),
-                root.getAlertType(), root.getAlertMessage(), root.getActionKey(),parametersData);
+                root.getAlertType(), root.getAlertMessage(), actionKey,parametersData);
         Iterator<PLRulePostAction> childIterator = children.iterator();
         while(childIterator.hasNext()){
             PLRulePostAction child = childIterator.next();
