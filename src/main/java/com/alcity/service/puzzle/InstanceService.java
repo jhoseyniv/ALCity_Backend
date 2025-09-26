@@ -180,10 +180,10 @@ public class InstanceService implements InstanceRepository {
             Optional<PGObject> alCityObjectInPGOptional = objectInPGService.findByPuzzleGroupAndAlCityObject(importedPL.getPuzzleGroup(),cityObjectOptional.get().getId());
             PLGround  plGround = importedPL.getPlGrounds().iterator().next();
             Collection<PLCell> cells = plGround.getPlCells();
-            Collection<InstanceData> instanceData = processInstanceData(objectImport);
+            //Collection<InstanceData> instanceData = processInstanceData(objectImport);
             //Collection<Attribute> properties = importObjectAttributes(objectImport.getProperties(),alCityObjectInPGOptional.get().getId(),AttributeOwnerType.Puzzle_Group_Object_Property);
             //Collection<Attribute> variables = importObjectAttributes(objectImport.getVariables(),alCityObjectInPGOptional.get().getId(),AttributeOwnerType.Puzzle_Group_Object_Variable);
-            Collection<Instance> instances = importInstances(alCityObjectInPGOptional.get(),instanceData,cells,importedPL);
+            Collection<Instance> instances = importInstances(alCityObjectInPGOptional.get(),objectImport.getInstances(),cells,importedPL);
             importedInstances.addAll(instances);
         }
         return importedInstances;

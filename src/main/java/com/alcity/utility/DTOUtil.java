@@ -47,6 +47,7 @@ import java.io.ObjectInputStream;
 import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.util.*;
+import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.toList;
 
@@ -1865,6 +1866,25 @@ public class DTOUtil {
     }
     public static Collection<AttributeData>  getPropertiesDTOForPGObject(Collection<Attribute>  properties){
         Collection<AttributeData> records = new ArrayList<AttributeData>();
+        Iterator<Attribute> iterator = properties.iterator();
+        while(iterator.hasNext()) {
+            Attribute attribute = iterator.next();
+            Collection<AttributeValue> attributeValues = attribute.getAttributeValues();
+            Iterator<AttributeValue> iteratorValues = attributeValues.iterator();
+            while(iteratorValues.hasNext() ) {
+                AttributeValue alCityAttributeValue = iteratorValues.next();
+                String value = getDataValue(alCityAttributeValue);
+                String type = getDataType(attribute);
+                AttributeData record = new AttributeData(attribute.getId(), attribute.getName(),alCityAttributeValue.getId(),value,type,false,"");
+                records.add(record);
+            }
+        }
+        return records;
+    }
+
+    public static Collection<AttributeData>  getPropertiesDTOForPGOInstance(Collection<Attribute>  properties){
+        Collection<AttributeData> records = new ArrayList<AttributeData>();
+        properties = properties.stream().filter(property -> property.getAttributeOwnerType().equals(AttributeOwnerType.Instance_Puzzle_Group_Object_Property)).collect(Collectors.toList());
         Iterator<Attribute> iterator = properties.iterator();
         while(iterator.hasNext()) {
             Attribute attribute = iterator.next();
