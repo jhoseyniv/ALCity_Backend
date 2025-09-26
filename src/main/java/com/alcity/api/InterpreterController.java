@@ -161,7 +161,6 @@ public class InterpreterController {
             Collection<Attribute> properties = attributeService.findInstanceProperties(alCityInstanceInPL.getId(),AttributeOwnerType.Instance_Puzzle_Group_Object_Property);
             Collection<AttributeData> propertyDTOS = DTOUtil.getPropertiesDTOForPGObject(properties);
             instanceDTO.setProperties(propertyDTOS);
-
             instanceDTOS.add(instanceDTO);
         }
         return instanceDTOS;
@@ -172,7 +171,7 @@ public class InterpreterController {
 
        poData.setId(alCityObjectInPG.getId());
        poData.setTitle(alCityObjectInPG.getTitle());
-       poData.setCode(alCityObjectInPG.getCode());
+       poData.setCode(alCityObjectInPG.getTitle());
 
        BinaryContent picture = alCityObjectInPG.getAlCityObject().getPic();
        poData.setImageGraphicId(picture.getId());
