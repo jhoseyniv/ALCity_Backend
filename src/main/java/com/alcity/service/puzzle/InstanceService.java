@@ -131,6 +131,16 @@ public class InstanceService implements InstanceRepository {
         }
         return importedCells;
     }
+    public Collection<Attribute> importObjectAttributes(Collection<AttributeData> attributes,Long ownerId, AttributeOwnerType ownerType) {
+        Collection<Attribute> importedProperties = new ArrayList<>();
+        Iterator<AttributeData> iterator = attributes.iterator();
+        while(iterator.hasNext()) {
+            AttributeData attributeData = iterator.next();
+           Attribute attribute = attributeService.importVariables_New(attributeData,ownerId,ownerType);
+            importedProperties.add(attribute);
+        }
+        return  importedProperties;
+    }
 
     public Collection<Instance> importObjects(Collection<PGObjectData> objectImports , PuzzleLevel importedPL) {
         Collection<Instance> importedInstances = new ArrayList<>();
@@ -141,6 +151,8 @@ public class InstanceService implements InstanceRepository {
             Optional<PGObject> alCityObjectInPGOptional = objectInPGService.findByPuzzleGroupAndAlCityObject(importedPL.getPuzzleGroup(),cityObjectOptional.get().getId());
             PLGround  plGround = importedPL.getPlGrounds().iterator().next();
             Collection<PLCell> cells = plGround.getPlCells();
+            Collection<Attribute> properties = importObjectAttributes(objectImport.getProperties(),alCityObjectInPGOptional.get().getId(),AttributeOwnerType.Puzzle_Group_Object_Property);
+            Collection<Attribute> variables = importObjectAttributes(objectImport.getVariables(),alCityObjectInPGOptional.get().getId(),AttributeOwnerType.Puzzle_Group_Object_Variable);
             Collection<Instance> instances = importInstances(alCityObjectInPGOptional.get(),objectImport.getInstances(),cells,importedPL);
             importedInstances.addAll(instances);
         }
