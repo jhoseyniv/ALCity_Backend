@@ -379,7 +379,7 @@ public class PuzzleLevelService implements PuzzleLevelRepository {
         importPLGround.setPlCells(importedCells);
 
         //import puzzle level instances
-        Collection<Instance> importInstances = instanceInPLService.importObjects(dto.getObjects(), importedPuzzleLevel);
+        Collection<Instance> importInstances = instanceInPLService.importObjects_New(dto.getObjects(), importedPuzzleLevel);
 
         //import puzzle level rules
         Collection<PLRuleImport_New> rules = dto.getRules();

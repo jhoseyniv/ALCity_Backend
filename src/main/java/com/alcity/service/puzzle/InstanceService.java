@@ -180,6 +180,25 @@ public class InstanceService implements InstanceRepository {
             Optional<PGObject> alCityObjectInPGOptional = objectInPGService.findByPuzzleGroupAndAlCityObject(importedPL.getPuzzleGroup(),cityObjectOptional.get().getId());
             PLGround  plGround = importedPL.getPlGrounds().iterator().next();
             Collection<PLCell> cells = plGround.getPlCells();
+
+            //Collection<InstanceData> instanceData = processInstanceData(objectImport);
+            //Collection<Attribute> properties = importObjectAttributes(objectImport.getProperties(),alCityObjectInPGOptional.get().getId(),AttributeOwnerType.Puzzle_Group_Object_Property);
+            //Collection<Attribute> variables = importObjectAttributes(objectImport.getVariables(),alCityObjectInPGOptional.get().getId(),AttributeOwnerType.Puzzle_Group_Object_Variable);
+            Collection<Instance> instances = importInstances(alCityObjectInPGOptional.get(),objectImport.getInstances(),cells,importedPL);
+            importedInstances.addAll(instances);
+        }
+        return importedInstances;
+    }
+    public Collection<Instance> importObjects_New(Collection<PGObjectData> objectImports , PuzzleLevel importedPL) {
+        Collection<Instance> importedInstances = new ArrayList<>();
+        Iterator<PGObjectData> iterator = objectImports.iterator();
+        while(iterator.hasNext()) {
+            PGObjectData objectImport = iterator.next();
+            Optional<BaseObject> cityObjectOptional = objectService.findById(objectImport.getId());
+            Optional<PGObject> alCityObjectInPGOptional = objectInPGService.findByPuzzleGroupAndAlCityObject(importedPL.getPuzzleGroup(),cityObjectOptional.get().getId());
+            PLGround  plGround = importedPL.getPlGrounds().iterator().next();
+            Collection<PLCell> cells = plGround.getPlCells();
+            Collection<Attribute> cityObjectProperties =attributeService.findPropertiesForALCityObject(cityObjectOptional.get().getId(),AttributeOwnerType.Object_Property);
             //Collection<InstanceData> instanceData = processInstanceData(objectImport);
             //Collection<Attribute> properties = importObjectAttributes(objectImport.getProperties(),alCityObjectInPGOptional.get().getId(),AttributeOwnerType.Puzzle_Group_Object_Property);
             //Collection<Attribute> variables = importObjectAttributes(objectImport.getVariables(),alCityObjectInPGOptional.get().getId(),AttributeOwnerType.Puzzle_Group_Object_Variable);
