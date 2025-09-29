@@ -125,4 +125,9 @@ public class RendererService implements RendererRepository {
     public Collection<Renderer> findByClientTypeId(Long id) {
         return null;
     }
+
+    @Override
+    public Optional<Renderer> findByHandler(String handler) {
+        return rendererRepository.findByHandler(handler);
+    }
 }

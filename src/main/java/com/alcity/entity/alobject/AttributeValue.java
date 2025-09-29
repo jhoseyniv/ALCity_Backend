@@ -32,6 +32,7 @@ public class AttributeValue extends BaseTable implements Serializable {
 
     @Column(name="ownerId")
     private Long ownerId;
+
     @Column(name="binaryContentId")
     private Long binaryContentId;
 

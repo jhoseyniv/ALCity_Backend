@@ -4,8 +4,10 @@ import com.alcity.dto.pgimport.PGLearningSkillContentImportDTO;
 import com.alcity.dto.pgimport.PGObjectImportDTO;
 import com.alcity.dto.puzzle.PGDTO;
 import com.alcity.dto.pgimport.PGImportDTO;
+import com.alcity.entity.alobject.Attribute;
 import com.alcity.entity.base.BinaryContent;
 import com.alcity.entity.base.PuzzleCategory;
+import com.alcity.entity.puzzle.BaseObject;
 import com.alcity.entity.puzzle.PGObject;
 import com.alcity.entity.puzzle.PGLearningSkill;
 import com.alcity.entity.puzzle.PuzzleGroup;
@@ -21,6 +23,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import org.springframework.transaction.annotation.Transactional;;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.Optional;
@@ -41,6 +44,8 @@ public class PGService implements PGRepository {
 
     @Autowired
     PGObjectService objectInPGService;
+    @Autowired
+    private BaseObjectService baseObjectService;
 
     @Override
     public <S extends PuzzleGroup> S save(S entity) {
@@ -98,21 +103,25 @@ public class PGService implements PGRepository {
     @Autowired
     private AttributeService attributeService;
 
-    public PuzzleGroup importPG(PGImportDTO dto) {
+    @Transactional
+    public PuzzleGroup importPG(PGImportDTO dto) throws IOException {
         Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
         PuzzleGroup puzzleGroup=null;
         Optional<BinaryContent> iconOptional = binaryContentRepository.findById(dto.getIconInfo());
         Optional<BinaryContent> picOptional = binaryContentRepository.findById(dto.getPicInfo());
         Optional<PuzzleCategory>  puzzleCategoryOptional = puzzleCategoryRepository.findById(dto.getPuzzleCategoryId());
+
         if(puzzleCategoryOptional.isEmpty()) return null;
+
         puzzleGroup = new PuzzleGroup(dto.getTitle(),puzzleCategoryOptional.get(),iconOptional.get(),picOptional.get(), 1L, DateUtils.getNow(), DateUtils.getNow(), createdBy.get(), createdBy.get());
         pgRepository.save(puzzleGroup);
-        Collection<PGObjectImportDTO> cityObjectInPGS = dto.getObjects();
 
-        Iterator<PGObjectImportDTO> objectIterator = cityObjectInPGS.iterator();
-        while(objectIterator.hasNext()) {
-            PGObjectImportDTO objectImportDTO = objectIterator.next();
-            objectInPGService.importObjInPG(objectImportDTO,puzzleGroup);
+        Collection<PGObjectImportDTO> baseObjects = dto.getObjects();
+
+        Iterator<PGObjectImportDTO> baseItreator = baseObjects.iterator();
+        while(baseItreator.hasNext()) {
+            PGObjectImportDTO baseObject = baseItreator.next();
+            objectInPGService.importObjInPG(baseObject,puzzleGroup);
         }
 
         Collection<PGLearningSkillContentImportDTO> learningSkills = dto.getSkills();
@@ -153,13 +162,12 @@ public class PGService implements PGRepository {
         Collection<PGLearningSkill> learningSkillContents = entity.getLearningSkillContents();
         pgSkillLearningContentService.deleteAll(learningSkillContents);
 
-        Collection<PGObject> alCityObjectInPGS = entity.getAlCityObjectInPGS();
+        Collection<PGObject> objectInPGS = entity.getAlCityObjectInPGS();
         //first must delete attribute values defined for this objects
-
-        objectInPGService.deleteAll(alCityObjectInPGS);
-
-
-
+        Iterator<PGObject> iterator = objectInPGS.iterator();
+        while(iterator.hasNext()) {
+            objectInPGService.delete(iterator.next());
+        }
         pgRepository.delete(entity);
 
     }

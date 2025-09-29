@@ -260,9 +260,23 @@ public class AttributeService implements AttributeRepository {
         }
         return importedAttributes;
     }
+    public Collection<Attribute> importPLInstanceVariables_New(Collection<AttributeData> variables,PGObject pgObject, Instance instance ,AttributeOwnerType ownerType){
+        Collection<Attribute>  importedAttributes = new ArrayList<>();
+        Iterator<AttributeData> iterator =variables.iterator();
+        Collection<Attribute> pgObjectVariables = attributeRepository.findByOwnerIdAndAttributeOwnerType(pgObject.getId(),ownerType);
+
+        while(iterator.hasNext()) {
+            AttributeData variableImport = iterator.next();
+
+            Attribute attribute = importVariables(variableImport,instance.getId(),ownerType);
+            importedAttributes.add(attribute);
+        }
+        return importedAttributes;
+    }
     public Collection<Attribute> importPLInstanceVariables(Collection<AttributeData> variables, Instance instance, AttributeOwnerType ownerType){
         Collection<Attribute>  importedAttributes = new ArrayList<>();
         Iterator<AttributeData> iterator =variables.iterator();
+
         while(iterator.hasNext()) {
             AttributeData variableImport = iterator.next();
             Attribute attribute = importVariables(variableImport,instance.getId(),ownerType);
@@ -270,6 +284,7 @@ public class AttributeService implements AttributeRepository {
         }
         return importedAttributes;
     }
+
     public Collection<Attribute> importPLCellVariables(Collection<AttributeData> variables, PLCell plCell, AttributeOwnerType ownerType){
         Collection<Attribute>  importedAttributes = new ArrayList<>();
         Iterator<AttributeData> iterator =variables.iterator();
@@ -297,6 +312,16 @@ public class AttributeService implements AttributeRepository {
         while(iterator.hasNext()) {
             AttributeData variableImport = iterator.next();
             Attribute attribute = importVariables_New(variableImport,postAction.getId(),ownerType);
+            importedAttributes.add(attribute);
+        }
+        return importedAttributes;
+    }
+    public Collection<Attribute> importPGOActionParams_New(Collection<AttributeData> parameters, ObjectAction objectAction,AttributeOwnerType ownerType){
+        Collection<Attribute>  importedAttributes = new ArrayList<>();
+        Iterator<AttributeData> iterator =parameters.iterator();
+        while(iterator.hasNext()) {
+            AttributeData parameter = iterator.next();
+            Attribute attribute = importVariables_New(parameter,objectAction.getId(),ownerType);
             importedAttributes.add(attribute);
         }
         return importedAttributes;
@@ -551,6 +576,7 @@ public class AttributeService implements AttributeRepository {
         }
         return outputAttributes;
     }
+
     public Collection<Attribute> findVariablesForObject(Long ownerId) {
         Collection<Attribute> outputAttributes = new ArrayList<Attribute>();
         //fetch properties for a object
@@ -561,7 +587,7 @@ public class AttributeService implements AttributeRepository {
             Attribute parameter = itr.next();
             Collection<AttributeValue> outputValues = new ArrayList<>();
             Collection<AttributeValue> parameterValues = parameter.getAttributeValues();
-            Optional<AttributeValue> isObjectHasValue = parameterValues.stream().filter(value -> value.getOwnerType().equals(AttributeOwnerType.Object_Property)).findFirst();
+            Optional<AttributeValue> isObjectHasValue = parameterValues.stream().filter(value -> value.getOwnerType().equals(AttributeOwnerType.Object_Variable)).findFirst();
 
             if (isObjectHasValue.isPresent())
                 outputValues.add(isObjectHasValue.get());
@@ -1074,10 +1100,10 @@ public class AttributeService implements AttributeRepository {
         }else{//edit
             if(attributeOptional.isPresent()) {
                 attribute = attributeOptional.get();
-                attribute.setName(newValue.getName());
-                attribute.setDataType(dataType);
-                attribute.setOwnerId(newValue.getOwnerId());
-                attributeRepository.save(attribute);
+               // attribute.setName(newValue.getName());
+                //attribute.setDataType(dataType);
+                //attribute.setOwnerId(newValue.getOwnerId());
+               // attributeRepository.save(attribute);
                 if(valueDTO.getId() == 0) { // save new value by owner id
                     attributeValue = new AttributeValue(valueDTO.getBooleanValue(),valueDTO.getIntValue(),valueDTO.getLongValue(),valueDTO.getStringValue(),
                             valueDTO.getObjectValue(),valueDTO.getDoubleValue(),valueDTO.getBinaryContentId(), valueDTO.getExpressionValue(),valueDTO.getExpression(),bindAttribute ,attribute,
@@ -1135,17 +1161,18 @@ public class AttributeService implements AttributeRepository {
         }
         return responseObjects;
     }
-    public Collection<ResponseObject> importPGObjectVariables(Collection<PGObjectVariableImportDTO> dtos, Long ownerId, AttributeOwnerType ownerType) {
+
+    public Collection<ResponseObject> importPGObjectVariables(Collection<AttributeData> dtos, Long ownerId, AttributeOwnerType ownerType) {
         Collection<ResponseObject> responseObjects = new ArrayList<>();
         Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
         Attribute savedRecord = new Attribute();
-        Iterator<PGObjectVariableImportDTO> itr = dtos.iterator();
+        Iterator<AttributeData> itr = dtos.iterator();
         while(itr.hasNext()) {
-            PGObjectVariableImportDTO dto = itr.next();
+            AttributeData dto = itr.next();
             ResponseObject responseObject = new ResponseObject();
                 try {
                     Attribute attribute=null;
-                    DataType dataType =  DataType.getByTitle(dto.getDataType());
+                    DataType dataType =  DataType.getByTitle(dto.getType());
                     attribute = new Attribute(dto.getName(), ownerId,ownerType,
                             dataType ,1L, DateUtils.getNow(), DateUtils.getNow(), createdBy.get(), createdBy.get());
                     attributeRepository.save(attribute);
@@ -1154,6 +1181,84 @@ public class AttributeService implements AttributeRepository {
                 } catch (RuntimeException e) {
                     throw new UniqueConstraintException(-1, "Unique Constraint in" + Attribute.class, "Error", savedRecord.getId());
                 }
+            responseObject = new ResponseObject(ErrorType.SaveSuccess, Attribute.class.getSimpleName() , Status.ok.name(), savedRecord.getId(), SystemMessage.SaveOrEditMessage_Success);
+
+        }
+        return responseObjects;
+    }
+
+    public Attribute isPropertyIsInBasedObjectProperties(AttributeData dto ,Collection<Attribute> baseObjectProperties){
+        return baseObjectProperties.stream().filter(attribute -> attribute.getName().equals(dto.getName())).findFirst().get();
+    }
+
+
+    public Attribute updateAttribute(Attribute attribute, AttributeData dto,Long ownerId, AttributeOwnerType ownerType) {
+        AttributeValue attributeValue=null;
+        Collection<AttributeValue> values =attribute.getAttributeValues();
+        Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
+        attributeValue = DTOUtil.getAttributeValueFromPLVariableImport_New(dto,attribute,createdBy.get(),ownerId,ownerType);
+        attributeValueRepository.save(attributeValue);
+        values.add(attributeValue);
+        attribute.setAttributeValues(values);
+        return attribute;
+    }
+
+    public Attribute saveAttribute(AttributeData dto, Long ownerId, AttributeOwnerType ownerType){
+        Attribute attribute = new Attribute();
+        AttributeValue attributeValue=null;
+        ArrayList<AttributeValue> values = new ArrayList<>();
+        Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
+        DataType dataType =  DataType.getByTitle(dto.getType());
+        attribute = new Attribute(dto.getName(), ownerId,ownerType,dataType ,
+                1L, DateUtils.getNow(), DateUtils.getNow(), createdBy.get(), createdBy.get());
+        attributeRepository.save(attribute);
+
+        attributeValue = DTOUtil.getAttributeValueFromPLVariableImport_New(dto,attribute,createdBy.get(),ownerId,ownerType);
+        attributeValueRepository.save(attributeValue);
+        values.add(attributeValue);
+        attribute.setAttributeValues(values);
+        return attribute;
+    }
+
+    public ResponseObject importPGObjectProperties_New(Collection<Attribute> baseObjectProperties,Collection<AttributeData> dtos, Long ownerId, AttributeOwnerType ownerType) {
+        ResponseObject responseObject = new ResponseObject();
+        Iterator<AttributeData> itr = dtos.iterator();
+        while(itr.hasNext()) {
+            AttributeData dto = itr.next();
+            Optional<Attribute> attributeOptional = baseObjectProperties.stream().filter(att -> att.getName().equals(dto.getName())).findFirst();
+            if (attributeOptional.isPresent()) {
+                updateAttribute(attributeOptional.get(),dto,ownerId,ownerType);
+            }else {
+                saveAttribute(dto,ownerId,ownerType);
+            }
+
+        }
+
+
+        return responseObject;
+    }
+
+
+        public Collection<ResponseObject> importPGObjectProperties(Collection<Attribute> baseObjectProperties,Collection<AttributeData> dtos, Long ownerId, AttributeOwnerType ownerType) {
+        Collection<ResponseObject> responseObjects = new ArrayList<>();
+        Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
+        Attribute savedRecord = new Attribute();
+        Iterator<AttributeData> itr = dtos.iterator();
+        while(itr.hasNext()) {
+            AttributeData dto = itr.next();
+            ResponseObject responseObject = new ResponseObject();
+
+            try {
+                Attribute attribute=null;
+                DataType dataType =  DataType.getByTitle(dto.getType());
+                attribute = new Attribute(dto.getName(), ownerId,ownerType,
+                        dataType ,1L, DateUtils.getNow(), DateUtils.getNow(), createdBy.get(), createdBy.get());
+                attributeRepository.save(attribute);
+                AttributeValue  attributeValue = DTOUtil.getAttributeValueFromPGVariableImport(dto,attribute,createdBy.get());
+                attributeValueRepository.save(attributeValue);
+            } catch (RuntimeException e) {
+                throw new UniqueConstraintException(-1, "Unique Constraint in" + Attribute.class, "Error", savedRecord.getId());
+            }
             responseObject = new ResponseObject(ErrorType.SaveSuccess, Attribute.class.getSimpleName() , Status.ok.name(), savedRecord.getId(), SystemMessage.SaveOrEditMessage_Success);
 
         }

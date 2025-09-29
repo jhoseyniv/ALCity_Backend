@@ -10,6 +10,8 @@ public class InstanceData implements Serializable {
     private Long pgoId;
     private String name;
 
+    private Long baseObjectId;
+
     private PostionIntDTO position;
     private Collection<AttributeData> properties;
     private Collection<AttributeData> variables;
@@ -62,13 +64,22 @@ public class InstanceData implements Serializable {
         this.pgoId = pgoId;
     }
 
+    public Long getBaseObjectId() {
+        return baseObjectId;
+    }
+
+    public void setBaseObjectId(Long baseObjectId) {
+        this.baseObjectId = baseObjectId;
+    }
+
     public InstanceData() {
     }
 
-    public InstanceData(Long id, String name, Long pgoId, PostionIntDTO position, Collection<AttributeData> properties) {
+    public InstanceData(Long id, String name, Long pgoId,Long baseObjectId, PostionIntDTO position, Collection<AttributeData> properties) {
         this.id = id;
         this.name = name;
         this.pgoId = pgoId;
+        this.baseObjectId = baseObjectId;
         this.position = position;
         this.properties = properties;
     }

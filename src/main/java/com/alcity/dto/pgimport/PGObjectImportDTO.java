@@ -1,5 +1,9 @@
 package com.alcity.dto.pgimport;
 
+import com.alcity.dto.alobject.AttributeDTOSave;
+import com.alcity.dto.plimpexport.AttributeData;
+import com.alcity.entity.alobject.Attribute;
+
 import java.util.Collection;
 
 public class PGObjectImportDTO {
@@ -9,7 +13,8 @@ public class PGObjectImportDTO {
     private String code;
     private String title;
 
-    private Collection<PGObjectVariableImportDTO> variables;
+    private Collection<AttributeData> variables;
+    private Collection<AttributeData> properties;
     private Collection<PGObjectActionImportDTO> actions;
 
     public Long getId() {
@@ -44,11 +49,11 @@ public class PGObjectImportDTO {
         this.title = title;
     }
 
-    public Collection<PGObjectVariableImportDTO> getVariables() {
+    public Collection<AttributeData> getVariables() {
         return variables;
     }
 
-    public void setVariables(Collection<PGObjectVariableImportDTO> variables) {
+    public void setVariables(Collection<AttributeData> variables) {
         this.variables = variables;
     }
 
@@ -60,16 +65,25 @@ public class PGObjectImportDTO {
         this.actions = actions;
     }
 
+    public Collection<AttributeData> getProperties() {
+        return properties;
+    }
+
+    public void setProperties(Collection<AttributeData> properties) {
+        this.properties = properties;
+    }
+
     public PGObjectImportDTO() {
     }
 
     public PGObjectImportDTO(Long id, Long objectId, String code, String title,
-                             Collection<PGObjectVariableImportDTO> variables, Collection<PGObjectActionImportDTO> actions) {
+                             Collection<AttributeData> variables,Collection<AttributeData> properties, Collection<PGObjectActionImportDTO> actions) {
         this.id = id;
         this.objectId = objectId;
         this.code = code;
         this.title = title;
         this.variables = variables;
+        this.properties = properties;
         this.actions = actions;
     }
 }

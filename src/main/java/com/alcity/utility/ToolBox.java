@@ -2,6 +2,13 @@ package com.alcity.utility;
 
 import com.alcity.entity.alenum.ADSType;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
 public class ToolBox {
 
     public static boolean isLong(String str) {
@@ -28,7 +35,18 @@ public class ToolBox {
             return false;
         }
     }
+    public static void SendMessageToImportLogs(String message,String Date) throws IOException {
+        Path path = Paths.get("C:\\Import-Logs\\Import-PG.txt");
+        if(!path.toFile().exists())
+            Files.createFile(path);
+        else {
+            BufferedWriter writer = new BufferedWriter(new FileWriter(path.toFile(), true));
+            writer.append("\n");
+            writer.append(Date + "-----"+ message);
+            writer.close();
+        }
 
+    }
     public static Class getEnumById(Class object,long id) {
         String fullClassName = object.getName();
         String className = fullClassName.substring(fullClassName.lastIndexOf('.') + 1);

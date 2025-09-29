@@ -22,6 +22,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Optional;
@@ -116,7 +117,6 @@ public class PGController {
     public ResponseMessage importPuzzleGroup(@RequestBody PGImportDTO dto) throws UniqueConstraintException {
         PuzzleGroup savedRecord = null;
         ResponseMessage responseObject = new ResponseMessage();
-
         if (dto.getId() == null || dto.getId() <= 0L) { //save
             try {
                 savedRecord = pgService.importPG(dto);
@@ -126,6 +126,8 @@ public class PGController {
                 plTemplateService.save(plTemplate);
             } catch (RuntimeException e) {
                 throw new ResponseObject(ErrorType.UniquenessViolation, Status.error.name() , PuzzleGroup.class.getSimpleName() ,  -1L ,e.getCause().getMessage());
+            } catch (IOException e) {
+                throw new RuntimeException(e);
             }
             responseObject = new ResponseMessage(ErrorType.SaveSuccess,Status.ok.name(), PuzzleGroup.class.getSimpleName() ,  savedRecord.getId(), SystemMessage.SaveOrEditMessage_Success);
         }

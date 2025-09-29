@@ -1,15 +1,37 @@
 package com.alcity.dto.pgimport;
 
-public class PGObjectActionImportDTO {
-    private  Long actionId;
-    private String actionName;
+import com.alcity.dto.plimpexport.AttributeData;
 
-    public Long getActionId() {
-        return actionId;
+import java.util.Collection;
+
+public class PGObjectActionImportDTO {
+    private  Long id;
+    private String actionName;
+    private String handler;
+    private Collection<AttributeData> parameters;
+
+    public Collection<AttributeData> getParameters() {
+        return parameters;
     }
 
-    public void setActionId(Long actionId) {
-        this.actionId = actionId;
+    public void setParameters(Collection<AttributeData> parameters) {
+        this.parameters = parameters;
+    }
+
+    public String getHandler() {
+        return handler;
+    }
+
+    public void setHandler(String handler) {
+        this.handler = handler;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getActionName() {
@@ -23,8 +45,10 @@ public class PGObjectActionImportDTO {
     public PGObjectActionImportDTO() {
     }
 
-    public PGObjectActionImportDTO(Long actionId, String actionName) {
-        this.actionId = actionId;
+    public PGObjectActionImportDTO(Long id, String actionName,String handler, Collection<AttributeData> parameters) {
+        this.id = id;
         this.actionName = actionName;
+        this.handler = handler;
+        this.parameters = parameters;
     }
 }
