@@ -211,10 +211,10 @@ public class PGObjectService implements PGObjectRepository {
 
 
         //load variables for base object
-        Collection<AttributeData> pgObjectVariables = dto.getVariables();
         Collection<Attribute> baseObjectVariables = attributeService.findByOwnerIdAndAttributeOwnerTypeNew(dto.getId(),AttributeOwnerType.Object_Variable);
+        Collection<AttributeData> pgObjectVariables = dto.getVariables();
 
-        attributeService.importPGObjectProperties_New(baseObjectProperties ,pgObjectVariables,pgObject.getId(), AttributeOwnerType.Puzzle_Group_Object_Variable);
+        attributeService.importPGObjectProperties_New(baseObjectVariables ,pgObjectVariables,pgObject.getId(), AttributeOwnerType.Puzzle_Group_Object_Variable);
 
         return pgObject;
     }

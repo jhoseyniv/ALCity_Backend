@@ -577,10 +577,10 @@ public class AttributeService implements AttributeRepository {
         return outputAttributes;
     }
 
-    public Collection<Attribute> findVariablesForObject(Long ownerId) {
+    public Collection<Attribute> findVariablesForObject(Long ownerId,AttributeOwnerType ownerType) {
         Collection<Attribute> outputAttributes = new ArrayList<Attribute>();
         //fetch properties for a object
-        Collection<Attribute> parameters = attributeRepository.findByOwnerId(ownerId);
+        Collection<Attribute> parameters = attributeRepository.findByOwnerIdAndAttributeOwnerType(ownerId,ownerType);
 
         Iterator<Attribute> itr = parameters.iterator();
         while (itr.hasNext()) {
@@ -959,7 +959,7 @@ public class AttributeService implements AttributeRepository {
             outputAttributes = findPropertiesForObject(ownerId);
         }
         if(ownerType == AttributeOwnerType.Object_Variable) {
-            outputAttributes = findVariablesForObject(ownerId);
+            outputAttributes = findVariablesForObject(ownerId,AttributeOwnerType.Object_Variable);
         }
         if(ownerType == AttributeOwnerType.Puzzle_Group_Object_Property) {
             outputAttributes = findPropertiesForPuzzleGroupObject(ownerId,ownerType);
