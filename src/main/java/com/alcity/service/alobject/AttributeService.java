@@ -1100,10 +1100,10 @@ public class AttributeService implements AttributeRepository {
         }else{//edit
             if(attributeOptional.isPresent()) {
                 attribute = attributeOptional.get();
-               // attribute.setName(newValue.getName());
-                //attribute.setDataType(dataType);
+                attribute.setName(newValue.getName());
+                attribute.setDataType(dataType);
                 //attribute.setOwnerId(newValue.getOwnerId());
-               // attributeRepository.save(attribute);
+                attributeRepository.save(attribute);
                 if(valueDTO.getId() == 0) { // save new value by owner id
                     attributeValue = new AttributeValue(valueDTO.getBooleanValue(),valueDTO.getIntValue(),valueDTO.getLongValue(),valueDTO.getStringValue(),
                             valueDTO.getObjectValue(),valueDTO.getDoubleValue(),valueDTO.getBinaryContentId(), valueDTO.getExpressionValue(),valueDTO.getExpression(),bindAttribute ,attribute,
