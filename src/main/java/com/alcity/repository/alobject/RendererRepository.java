@@ -12,5 +12,5 @@ public interface RendererRepository extends CrudRepository<Renderer,Long> {
     Collection<Renderer> findAll();
     Optional<Renderer> findByHandlerAndObjectAction(String handler, ObjectActionType action);
     Collection<Renderer> findByClientTypeId(Long id);
-
+    Optional<Renderer> findByHandler(String handler);
 }

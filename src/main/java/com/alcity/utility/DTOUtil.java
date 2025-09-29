@@ -183,9 +183,9 @@ public class DTOUtil {
                 value.getStringValue(),value.getObjectValue(),value.getAttributeId().getId(),bindedAttribute, value.getOwnerId(), value.getOwnerType().name());
         return valueDTO;
     }
-    public static AttributeValue getAttributeValueFromPGVariableImport(PGObjectVariableImportDTO dto,Attribute attribute,AppMember createdBy){
+    public static AttributeValue getAttributeValueFromPGVariableImport(AttributeData dto,Attribute attribute,AppMember createdBy){
         Attribute bindedAttribute =null;
-        DataType dataType =  DataType.getByTitle(dto.getDataType());
+        DataType dataType =  DataType.getByTitle(dto.getType());
         Boolean booleanValue=null;
         Long longValue=null;
         Float floatValue=null;
@@ -236,7 +236,7 @@ public class DTOUtil {
         }
 
         if(dataType.equals(DataType.Binary) && ToolBox.isLong(dto.getValue())) {
-            longValue = Long.valueOf(dto.getValue());
+            binaryContentId = Long.valueOf(dto.getValue());
             isExpressionValue = Boolean.FALSE;
         }
         else if(dataType.equals(DataType.Long) && ToolBox.isLong(dto.getValue())) {

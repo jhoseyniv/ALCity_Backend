@@ -1,8 +1,11 @@
 package com.alcity.service.puzzle;
 
+import com.alcity.dto.alobject.AttributeDTOSave;
 import com.alcity.dto.pgimport.PGObjectImportDTO;
 import com.alcity.dto.pgimport.PGObjectVariableImportDTO;
+import com.alcity.dto.plimpexport.AttributeData;
 import com.alcity.dto.puzzle.PGObjectDTO;
+import com.alcity.entity.alenum.AttributeOwnerType;
 import com.alcity.entity.alobject.Attribute;
 import com.alcity.entity.alobject.AttributeValue;
 import com.alcity.entity.alobject.ObjectAction;
@@ -24,6 +27,7 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import org.springframework.transaction.annotation.Transactional;;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Optional;
 import java.util.Random;
@@ -117,7 +121,15 @@ public class PGObjectService implements PGObjectRepository {
 
     @Override
     public void delete(PGObject entity) {
+        //first delete properties and variables for pg object
+        Collection<Attribute> attributes = attributeService.findByOwnerId(entity.getId());
+        Collection<AttributeValue> attributeValues = attributeValueService.findByOwnerId(entity.getId());
+        attributeValueService.deleteAll(attributeValues);
+        attributeService.deleteAll(attributes);
 
+        //find actions for pg object and delete them
+        Collection<ObjectAction> actionsInPG = actionService.findByOwnerObjectid(entity.getId());
+        actionService.deleteAllActions(actionsInPG);
     }
 
     @Override
@@ -127,6 +139,7 @@ public class PGObjectService implements PGObjectRepository {
 
     @Override
     public void deleteAll(Iterable<? extends PGObject> entities) {
+
         objectInPGRepository.deleteAll(entities);
     }
 
@@ -170,22 +183,40 @@ public class PGObjectService implements PGObjectRepository {
     @Autowired
     private AppMemberRepository appMemberRepository;
 
-    public PGObject importObjInPG(PGObjectImportDTO dto, PuzzleGroup puzzleGroup) {
+    public PGObject importObjInPG(PGObjectImportDTO dto, PuzzleGroup puzzleGroup) throws IOException {
         Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
-        Optional<BaseObject> alCityObjectOptional = objectService.findById(dto.getObjectId());
-        PGObject alCityObjectInPG=null;
+        Optional<BaseObject> baseObjectOptional = objectService.findById(dto.getId());
+        BaseObject baseObject = baseObjectOptional.get();
+        PGObject pgObject=null;
         Random random = new Random(); // Create a Random object
         long generatedLong = random.nextLong(); // Generate a random long
         String code= dto.getTitle() + String.valueOf(generatedLong);
-        alCityObjectInPG = new PGObject(dto.getTitle(), code,puzzleGroup,alCityObjectOptional.get(),
+
+        //save puzzle group object in the database
+        pgObject = new PGObject(dto.getTitle(), code,puzzleGroup,baseObject,
                 1L, DateUtils.getNow(), DateUtils.getNow(), createdBy.get(), createdBy.get());
-        objectInPGRepository.save(alCityObjectInPG);
-        Collection<PGObjectVariableImportDTO> variableImportDTOS = dto.getVariables();
-       // attributeService.importPGObjectVariables(variableImportDTOS,alCityObjectInPG.getId(), AttributeOwnerType.Puzzle_Group_Object_Variable);
-        objectActionService.importPGObjectActions(dto.getActions(),alCityObjectInPG.getId());
+        objectInPGRepository.save(pgObject);
+
+        //load actions for base object by id
+        Collection<ObjectAction> baseObjectActions = objectActionService.findByOwnerObjectid(dto.getId());
+        //compare import actions and parameters with base objects and then imports
+        objectActionService.importPGObjectActions(dto.getActions(),baseObjectActions,pgObject.getId());
+
+        //load properties for base object
+        Collection<Attribute> baseObjectProperties = attributeService.findByOwnerIdAndAttributeOwnerTypeNew(dto.getId(),AttributeOwnerType.Object_Property);
+        Collection<AttributeData> pgObjectProperties = dto.getProperties();
+
+        //compare and import properties for base object and puzzle group object that defined in import file
+        attributeService.importPGObjectProperties_New(baseObjectProperties ,pgObjectProperties,pgObject.getId(), AttributeOwnerType.Puzzle_Group_Object_Property);
 
 
-        return alCityObjectInPG;
+        //load variables for base object
+        Collection<AttributeData> pgObjectVariables = dto.getVariables();
+        Collection<Attribute> baseObjectVariables = attributeService.findByOwnerIdAndAttributeOwnerTypeNew(dto.getId(),AttributeOwnerType.Object_Variable);
+
+        attributeService.importPGObjectProperties_New(baseObjectProperties ,pgObjectVariables,pgObject.getId(), AttributeOwnerType.Puzzle_Group_Object_Variable);
+
+        return pgObject;
     }
         public PGObject save(PGObjectDTO dto, String code) {
         Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");

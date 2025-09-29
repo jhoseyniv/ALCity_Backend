@@ -198,10 +198,6 @@ public class InstanceService implements InstanceRepository {
             Optional<PGObject> alCityObjectInPGOptional = objectInPGService.findByPuzzleGroupAndAlCityObject(importedPL.getPuzzleGroup(),cityObjectOptional.get().getId());
             PLGround  plGround = importedPL.getPlGrounds().iterator().next();
             Collection<PLCell> cells = plGround.getPlCells();
-            Collection<Attribute> cityObjectProperties =attributeService.findPropertiesForALCityObject(cityObjectOptional.get().getId(),AttributeOwnerType.Object_Property);
-            //Collection<InstanceData> instanceData = processInstanceData(objectImport);
-            //Collection<Attribute> properties = importObjectAttributes(objectImport.getProperties(),alCityObjectInPGOptional.get().getId(),AttributeOwnerType.Puzzle_Group_Object_Property);
-            //Collection<Attribute> variables = importObjectAttributes(objectImport.getVariables(),alCityObjectInPGOptional.get().getId(),AttributeOwnerType.Puzzle_Group_Object_Variable);
             Collection<Instance> instances = importInstances(alCityObjectInPGOptional.get(),objectImport.getInstances(),cells,importedPL);
             importedInstances.addAll(instances);
         }
@@ -238,17 +234,26 @@ public class InstanceService implements InstanceRepository {
         while(iterator.hasNext()) {
             InstanceData instanceDataImport = iterator.next();
             PostionIntDTO position = instanceDataImport.getPosition();
-//            Collection<PLCell> matchValueOptional_row = cells.stream().filter(cell -> cell.getRow().equals(position.getX())).collect(Collectors.toList());
-//            Collection<PLCell> matchValueOptional_col = matchValueOptional_row.stream().filter(cell -> cell.getCol().equals(position.getY())).collect(Collectors.toList());
-//            Collection<PLCell> matchValueOptional_zorder = matchValueOptional_col.stream().filter(cell -> cell.getzOrder().equals(position.getZ())).collect(Collectors.toList());
-//            Optional<PLCell> cell = matchValueOptional_zorder.stream().findFirst();
-             PLCell cell = getPLCellFromGroundByPosition(cells, position.getX(), position.getY(), position.getZ());
+
+            PLCell cell = getPLCellFromGroundByPosition(cells, position.getX(), position.getY(), position.getZ());
+
             importedInstance = new Instance(instanceDataImport.getName(),position.getX(),position.getY(),position.getZ(),cell,
                     alCityObjectInPG,importedPL,1L,DateUtils.getNow(),DateUtils.getNow(),createdBy.get(),createdBy.get());
             instanceRepository.save(importedInstance);
 
-            attributeService.importPLInstanceVariables(instanceDataImport.getVariables(),importedInstance,AttributeOwnerType.Instance_Puzzle_Group_Object_Variable);
-            attributeService.importPLInstanceVariables(instanceDataImport.getProperties(),importedInstance,AttributeOwnerType.Instance_Puzzle_Group_Object_Property);
+            //load properties for pg object
+            Collection<Attribute> pgObjectProperties = attributeService.findByOwnerIdAndAttributeOwnerTypeNew(alCityObjectInPG.getId(),AttributeOwnerType.Puzzle_Group_Object_Property);
+            Collection<AttributeData> instanceImportProperties = instanceDataImport.getProperties();
+
+            //compare and import properties for base object and instance object that defined in import file
+            attributeService.importPGObjectProperties_New(pgObjectProperties ,instanceImportProperties,importedInstance.getId(), AttributeOwnerType.Instance_Puzzle_Group_Object_Property);
+
+            //load variables for pg object
+            Collection<Attribute> pgObjectVariables = attributeService.findByOwnerIdAndAttributeOwnerTypeNew(alCityObjectInPG.getId(),AttributeOwnerType.Puzzle_Group_Object_Variable);
+            Collection<AttributeData> instanceImportVariables = instanceDataImport.getVariables();
+
+            //compare and import variables for base object and instance object that defined in import file
+            attributeService.importPGObjectProperties_New(pgObjectVariables ,instanceImportVariables,importedInstance.getId(), AttributeOwnerType.Instance_Puzzle_Group_Object_Variable);
 
             importedInstances.add(importedInstance);
         }
