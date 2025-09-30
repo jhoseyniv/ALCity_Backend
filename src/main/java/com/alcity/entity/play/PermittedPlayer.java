@@ -7,9 +7,16 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 
 @Entity
+@Getter
+@Setter
+@NoArgsConstructor
+
 public class PermittedPlayer extends BaseTable {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
@@ -21,25 +28,6 @@ public class PermittedPlayer extends BaseTable {
     @JoinColumn(name = "puzzle_Level_id", nullable = true)
     @JsonIgnore
     private PuzzleLevel puzzleLevel;
-
-    public PermittedPlayer() {
-    }
-
-    public AppMember getPlayer() {
-        return player;
-    }
-
-    public void setPlayer(AppMember player) {
-        this.player = player;
-    }
-
-    public PuzzleLevel getPuzzleLevel() {
-        return puzzleLevel;
-    }
-
-    public void setPuzzleLevel(PuzzleLevel puzzleLevel) {
-        this.puzzleLevel = puzzleLevel;
-    }
 
     public PermittedPlayer(AppMember player, PuzzleLevel puzzleLevel, Long version, String created, String updated, AppMember createdBy, AppMember updatedBy) {
         super(version, created, updated, createdBy, updatedBy);

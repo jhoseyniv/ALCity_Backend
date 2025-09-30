@@ -7,10 +7,18 @@ import com.alcity.entity.appmember.AppMember;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import java.io.Serializable;
 @Table(name = "pglearning_skill_content")
 
 @Entity
+@Getter
+@Setter
+@NoArgsConstructor
+
 public class PGLearningSkill extends BaseTable implements Serializable {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = true)
@@ -23,37 +31,10 @@ public class PGLearningSkill extends BaseTable implements Serializable {
     @JsonIgnore
     private PuzzleGroup puzzleGroup;
 
-    public PuzzleGroup getPuzzleGroup() {
-        return puzzleGroup;
-    }
-
-    public void setPuzzleGroup(PuzzleGroup puzzleGroup) {
-        this.puzzleGroup = puzzleGroup;
-    }
-
     @ManyToOne(fetch = FetchType.LAZY, optional = true)
     @JoinColumn(name = "learning_content_id", nullable = true)
     @JsonIgnore
     private LearningContent learningContent;
-
-    public LearningSkill getLearningSkill() {
-        return learningSkill;
-    }
-
-    public void setLearningSkill(LearningSkill learningSkill) {
-        this.learningSkill = learningSkill;
-    }
-
-    public LearningContent getLearningContent() {
-        return learningContent;
-    }
-
-    public void setLearningContent(LearningContent learningContent) {
-        this.learningContent = learningContent;
-    }
-
-    public PGLearningSkill() {
-    }
 
     public PGLearningSkill(LearningSkill learningSkill, PuzzleGroup puzzleGroup, LearningContent learningContent, Long version, String created, String updated, AppMember createdBy, AppMember updatedBy) {
         super(version, created, updated, createdBy, updatedBy);

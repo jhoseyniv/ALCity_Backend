@@ -144,8 +144,8 @@ public class InterpreterController {
         while(iterator.hasNext()) {
             Instance alCityInstanceInPL = iterator.next();
 
-            if( alCityInstanceInPL.getzOrder()!=0 &&  alCityInstanceInPL.getzOrder()!=null)
-                zorder = alCityInstanceInPL.getzOrder();
+            if( alCityInstanceInPL.getZorder()!=0 &&  alCityInstanceInPL.getZorder()!=null)
+                zorder = alCityInstanceInPL.getZorder();
 
             InstanceData instanceDTO = new InstanceData();
             instanceDTO.setId(alCityInstanceInPL.getId());

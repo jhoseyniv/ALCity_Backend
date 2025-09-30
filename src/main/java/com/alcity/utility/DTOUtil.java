@@ -737,7 +737,7 @@ public class DTOUtil {
         dto.setCol(instance.getCol());
         dto.setRow(instance.getRow());
 
-        dto.setzOrder(instance.getzOrder());
+        dto.setzOrder(instance.getZorder());
         dto.setPGObjectId(instance.getAlCityObjectInPG().getId());
         dto.setPuzzleLevelId(instance.getPuzzleLevel().getId());
 
@@ -1496,7 +1496,7 @@ public class DTOUtil {
             dto.setVersion(instance.getVersion());
             dto.setCol(instance.getCol());
             dto.setRow(instance.getRow());
-            dto.setzOrder(instance.getzOrder());
+            dto.setzOrder(instance.getZorder());
             dto.setCreated(instance.getCreated());
             dto.setUpdated(instance.getUpdated());
             dto.setCreatedById(instance.getCreatedBy().getId());
@@ -1666,13 +1666,13 @@ public class DTOUtil {
         Iterator<PLCell> iterator = cells.iterator();
         while(iterator.hasNext()) {
             PLCell cell = iterator.next();
-            PLCellDTO dto = new PLCellDTO(cell.getId(), cell.getRow(), cell.getCol(), cell.getzOrder(),cell.getPlGround().getId());
+            PLCellDTO dto = new PLCellDTO(cell.getId(), cell.getRow(), cell.getCol(), cell.getZorder(),cell.getPlGround().getId());
             dtos.add(dto);
         }
         return dtos;
     }
     public static PLCellDTO getPLCellDTO(PLCell cell) {
-            PLCellDTO dto = new PLCellDTO(cell.getId(), cell.getRow(), cell.getCol(), cell.getzOrder(),cell.getPlGround().getId());
+            PLCellDTO dto = new PLCellDTO(cell.getId(), cell.getRow(), cell.getCol(), cell.getZorder(),cell.getPlGround().getId());
         return dto;
     }
 
@@ -1681,7 +1681,7 @@ public class DTOUtil {
         Iterator<PLCell> iterator = cells.iterator();
         while(iterator.hasNext()) {
             PLCell cell = iterator.next();
-            PostionIntDTO position = new PostionIntDTO(cell.getRow(), cell.getCol(), cell.getzOrder());
+            PostionIntDTO position = new PostionIntDTO(cell.getRow(), cell.getCol(), cell.getZorder());
             Collection<AttributeData>  cellProperties = DTOUtil.getAttributeForOwnerById(attributeService,cell.getId(),AttributeOwnerType.Puzzle_Level_Cell_Property);
             Collection<AttributeData>  cellVariables = DTOUtil.getAttributeForOwnerById(attributeService,cell.getId(),AttributeOwnerType.Puzzle_Level_Cell_Variable);
             PLCellData dto = new PLCellData(cell.getId(),position,cellProperties,cellVariables);

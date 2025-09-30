@@ -15,6 +15,6 @@ public interface InstanceRepository extends CrudRepository<Instance,Long> {
     Collection<Instance> findAll();
     Collection<Instance> findByRow(Integer row);
     Collection<Instance> findByCol(Integer col);
-    Collection<Instance> findByzOrder(Integer zOrder);
+    Collection<Instance> findByZorder(Integer zorder);
     Collection<Instance> findByAlCityObjectInPGAndPuzzleLevel(PGObject pgObject, PuzzleLevel pl);
 }

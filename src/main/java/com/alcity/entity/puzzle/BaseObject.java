@@ -8,12 +8,20 @@ import com.alcity.entity.appmember.AppMember;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import java.io.Serializable;
 import java.util.Collection;
 
 
 @Table(name = "alcity_object")
 @Entity
+@Getter
+@Setter
+@NoArgsConstructor
+
 public class BaseObject extends BaseTable implements Serializable {
 
     @Column(name="title",unique = true)
@@ -50,49 +58,6 @@ public class BaseObject extends BaseTable implements Serializable {
     @JsonIgnore
     private Collection<PGObject> alCityObjectInPGCollection;
 
-
-    public Collection<PGObject> getAlCityObjectInPGCollection() {
-        return alCityObjectInPGCollection;
-    }
-
-    public void setAlCityObjectInPGCollection(Collection<PGObject> alCityObjectInPGCollection) {
-        this.alCityObjectInPGCollection = alCityObjectInPGCollection;
-    }
-
-    public ObjectCategory getObjectCategory() {
-        return objectCategory;
-    }
-
-    public void setObjectCategory(ObjectCategory objectCategory) {
-        this.objectCategory = objectCategory;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public BinaryContent getPic() {
-        return pic;
-    }
-
-    public void setPic(BinaryContent pic) {
-        this.pic = pic;
-    }
-
-    public BinaryContent getIcon() {
-        return icon;
-    }
-
-    public void setIcon(BinaryContent icon) {
-        this.icon = icon;
-    }
-
-    public BaseObject() {
-    }
 
     public BaseObject(Long version, String created, String updated, AppMember createdBy, AppMember updatedBy,
                       String title, ObjectCategory objectCategory, Boolean is3dObject , BinaryContent pic, BinaryContent icon) {

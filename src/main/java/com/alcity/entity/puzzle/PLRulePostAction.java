@@ -9,10 +9,18 @@ import com.alcity.entity.appmember.AppMember;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import java.io.Serializable;
 import java.util.Collection;
 
 @Entity
+@Getter
+@Setter
+@NoArgsConstructor
+
 public class PLRulePostAction extends BaseTable implements Serializable {
 
 
@@ -43,37 +51,6 @@ public class PLRulePostAction extends BaseTable implements Serializable {
     @Column(name="alertMessage")
     private String alertMessage;
 
-    public StringBuffer getValueExperssion() {
-        return valueExperssion;
-    }
-
-    public void setValueExperssion(StringBuffer valueExperssion) {
-        this.valueExperssion = valueExperssion;
-    }
-
-    public String getVariable() {
-        return variable;
-    }
-
-    public void setVariable(String variable) {
-        this.variable = variable;
-    }
-
-    public String getAlertType() {
-        return alertType;
-    }
-
-    public void setAlertType(String alertType) {
-        this.alertType = alertType;
-    }
-
-    public String getAlertMessage() {
-        return alertMessage;
-    }
-
-    public void setAlertMessage(String alertMessage) {
-        this.alertMessage = alertMessage;
-    }
 
     @Enumerated(EnumType.ORDINAL)
     private PLRulePostActionType plRulePostActionType;
@@ -82,90 +59,10 @@ public class PLRulePostAction extends BaseTable implements Serializable {
     @JsonIgnore
     private Collection<RulePostActionEvent> rulePostActionEventCollection;
 
-    public Long getOwnerId() {
-        return ownerId;
-    }
-
-    public void setOwnerId(Long ownerId) {
-        this.ownerId = ownerId;
-    }
-
-    public PLRulePostActionOwnerType getOwnerType() {
-        return ownerType;
-    }
-
-    public void setOwnerType(PLRulePostActionOwnerType ownerType) {
-        this.ownerType = ownerType;
-    }
-
-    public String getObjectId() {
-        return objectId;
-    }
-
-    public void setObjectId(String objectId) {
-        this.objectId = objectId;
-    }
-
-    public String getActionName() {
-        return actionName;
-    }
-
-    public void setActionName(String actionName) {
-        this.actionName = actionName;
-    }
-
-    public Collection<RulePostActionEvent> getRulePostActionEventCollection() {
-        return rulePostActionEventCollection;
-    }
-
-    public void setRulePostActionEventCollection(Collection<RulePostActionEvent> rulePostActionEventCollection) {
-        this.rulePostActionEventCollection = rulePostActionEventCollection;
-    }
-
-    public String getSubAction() {
-        return subAction;
-    }
-
-    public void setSubAction(String subAction) {
-        this.subAction = subAction;
-    }
-
-    public Integer getOrdering() {
-        return ordering;
-    }
-
-    public void setOrdering(Integer ordering) {
-        this.ordering = ordering;
-    }
-
-    public PLRulePostActionType getPlRulePostActionType() {
-        return plRulePostActionType;
-    }
-
-    public void setPlRulePostActionType(PLRulePostActionType plRulePostActionType) {
-        this.plRulePostActionType = plRulePostActionType;
-    }
-
-//    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-//    @JoinColumn(name = "puzzle_Level_rule_id", nullable = false)
-//    @JsonIgnore
-
     private Long ownerId;
 
     @Enumerated(EnumType.ORDINAL)
     private PLRulePostActionOwnerType ownerType;
-
-
-    public PLRulePostAction() {
-    }
-
-    public String getActionKey() {
-        return actionKey;
-    }
-
-    public void setActionKey(String actionKey) {
-        this.actionKey = actionKey;
-    }
 
     public PLRulePostAction(Long ownerId,PLRulePostActionOwnerType ownerType , PLRulePostActionType plRulePostActionType, Integer ordering, String actionName, String objectId,
                             String variable, StringBuffer valueExperssion,String subAction, String alertType, String alertMessage , String actionKey,

@@ -83,7 +83,7 @@ public class InstanceService implements InstanceRepository {
                     instance.setName(dto.getName());
                     instance.setRow(dto.getRow());
                     instance.setCol(dto.getCol());
-                    instance.setzOrder(dto.getzOrder());
+                    instance.setZorder(dto.getzOrder());
                     instance.setAlCityObjectInPG(pgObjectOptional.get());
                     instance.setPuzzleLevel(puzzleLevelOptional.get());
                     instanceRepository.save(instance);
@@ -276,8 +276,8 @@ public class InstanceService implements InstanceRepository {
 
         while(iterator.hasNext()) {
             Instance instance = iterator.next();
-            PLCell  plCell = getPLCellFromGroundByPosition(plGround.getPlCells(), instance.getRow(), instance.getCol(),instance.getzOrder());
-            copyInstanceByPosition(instance,target,plCell,instance.getRow(),instance.getCol(),instance.getzOrder());
+            PLCell  plCell = getPLCellFromGroundByPosition(plGround.getPlCells(), instance.getRow(), instance.getCol(),instance.getZorder());
+            copyInstanceByPosition(instance,target,plCell,instance.getRow(),instance.getCol(),instance.getZorder());
         }
         return copiedInstances;
     }
@@ -289,7 +289,7 @@ public class InstanceService implements InstanceRepository {
         Collection<Instance> copiedInstances = new ArrayList<>();
         Integer instanceXPos = instance.getRow();
         Integer instanceYPos = instance.getCol();
-        Integer instanceZPos = instance.getzOrder();
+        Integer instanceZPos = instance.getZorder();
         Integer numOfRows = plGround.getNumRows();
         Integer numOfCols = plGround.getNumColumns();
         Collection<PLCell> cells = plGround.getPlCells();
@@ -379,8 +379,8 @@ public class InstanceService implements InstanceRepository {
     }
 
     @Override
-    public Collection<Instance> findByzOrder(Integer zOrder) {
-        return null;
+    public Collection<Instance> findByZorder(Integer zorder) {
+        return instanceRepository.findByZorder(zorder);
     }
 
     @Override

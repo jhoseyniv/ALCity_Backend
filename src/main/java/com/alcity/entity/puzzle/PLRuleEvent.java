@@ -6,10 +6,18 @@ import com.alcity.entity.appmember.AppMember;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import java.io.Serializable;
 import java.util.Collection;
 
 @Entity
+@Getter
+@Setter
+@NoArgsConstructor
+
 public class PLRuleEvent extends BaseTable implements Serializable {
 
 
@@ -25,41 +33,6 @@ public class PLRuleEvent extends BaseTable implements Serializable {
     @OneToMany(mappedBy = "plRuleEvent", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JsonIgnore
     private Collection<PLRule> plRules;
-
-    public Collection<PLRule> getPlRules() {
-        return plRules;
-    }
-
-    public void setPlRules(Collection<PLRule> plRules) {
-        this.plRules = plRules;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public PLRuleEventType getPlRuleEventType() {
-        return plRuleEventType;
-    }
-
-    public void setPlRuleEventType(PLRuleEventType plRuleEventType) {
-        this.plRuleEventType = plRuleEventType;
-    }
-
-    public Integer getEventId() {
-        return eventId;
-    }
-
-    public void setEventId(Integer eventId) {
-        this.eventId = eventId;
-    }
-
-    public PLRuleEvent() {
-    }
 
     public PLRuleEvent(String name, PLRuleEventType plRuleEventType, Integer eventId, Long version, String created, String updated, AppMember createdBy, AppMember updatedBy) {
         super(version, created, updated, createdBy, updatedBy);
