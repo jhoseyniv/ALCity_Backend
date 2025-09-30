@@ -1083,7 +1083,7 @@ public class AttributeService implements AttributeRepository {
         AttributeOwnerType attributeValueOwnerType =  AttributeOwnerType.getByTitle(valueDTO.getOwnerType());
         DataType dataType =  DataType.getByTitle(newValue.getDataType());
         Attribute bindAttribute=null;
-        if(valueDTO.getBindedAttributeId() != null ) {
+       if(valueDTO.getBindedAttributeId() != null ) {
             Optional<Attribute> bindedAttributeOptional =  attributeRepository.findById(valueDTO.getBindedAttributeId());
             bindAttribute =bindedAttributeOptional.get();
         }
