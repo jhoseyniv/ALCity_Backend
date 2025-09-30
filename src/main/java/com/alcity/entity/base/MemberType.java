@@ -5,14 +5,19 @@ import com.alcity.entity.appmember.AppMember;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import java.io.Serializable;
 import java.util.Set;
 
 @Entity
-public class MemberType  extends BaseItemSet implements Serializable {
+@Getter
+@Setter
+@NoArgsConstructor
 
-    public MemberType() {
-    }
+public class MemberType  extends BaseItemSet implements Serializable {
 
     @OneToMany(mappedBy = "gender", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JsonIgnore

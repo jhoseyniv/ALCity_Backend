@@ -8,35 +8,23 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.io.Serializable;
 
 @Entity
+@Getter
+@Setter
+@NoArgsConstructor
+
 public class Advertisement extends BaseTable implements Serializable {
     @Column(name="adText")
     private String adText;
 
     @Enumerated(EnumType.ORDINAL)
     private ADSType adsType;
-
-    public String getAdText() {
-        return adText;
-    }
-
-    public void setAdText(String adText) {
-        this.adText = adText;
-    }
-
-    public ADSType getAdsType() {
-        return adsType;
-    }
-
-    public void setAdsType(ADSType adsType) {
-        this.adsType = adsType;
-    }
-
-    public Advertisement() {
-    }
 
     public Advertisement (String adText, ADSType adsType,Long version, String created, String updated, AppMember createdBy, AppMember updatedBy) {
         super(version, created, updated, createdBy, updatedBy);
