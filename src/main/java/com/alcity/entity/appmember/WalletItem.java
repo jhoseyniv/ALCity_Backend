@@ -5,11 +5,18 @@ import com.alcity.entity.base.BinaryContent;
 import com.alcity.entity.base.WalletItemType;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.io.Serializable;
 import java.util.Set;
 
 @Entity
+@Getter
+@Setter
+@NoArgsConstructor
+
 public class WalletItem extends BaseItemSet implements Serializable {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
@@ -19,14 +26,6 @@ public class WalletItem extends BaseItemSet implements Serializable {
 
     @Column(columnDefinition="tinyint(1) default 0")
     private boolean baseCurrency;
-
-    public boolean isBaseCurrency() {
-        return baseCurrency;
-    }
-
-    public void setBaseCurrency(boolean baseCurrency) {
-        this.baseCurrency = baseCurrency;
-    }
 
     public WalletItemType getWalletItemType() {
         return walletItemType;
@@ -41,27 +40,10 @@ public class WalletItem extends BaseItemSet implements Serializable {
     @JsonIgnore
     private BinaryContent icon;
 
-    public BinaryContent getIcon() {
-        return icon;
-    }
-
-    public void setIcon(BinaryContent icon) {
-        this.icon = icon;
-    }
-
     @OneToMany(mappedBy = "walletItem", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<AppMember_WalletItem> applicationMember_walletItems;
 
-    public Set<AppMember_WalletItem> getApplicationMember_walletItems() {
-        return applicationMember_walletItems;
-    }
 
-    public void setApplicationMember_walletItems(Set<AppMember_WalletItem> applicationMember_walletItems) {
-        this.applicationMember_walletItems = applicationMember_walletItems;
-    }
-
-    public WalletItem() {
-    }
 
     public WalletItem(WalletItemType walletItemType, BinaryContent icon, String label, String value, Boolean baseCurrency,
                       Long version, String created, String updated, AppMember createdBy, AppMember updatedBy) {

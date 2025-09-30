@@ -5,6 +5,9 @@ import com.alcity.entity.base.BaseTable;
 import com.alcity.entity.learning.LearningSkill;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.io.Serializable;
 
@@ -17,6 +20,10 @@ import java.io.Serializable;
       )
 
 @Entity
+@Getter
+@Setter
+@NoArgsConstructor
+
 public class AppMember_LearningSkill extends BaseTable implements Serializable {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
@@ -35,40 +42,6 @@ public class AppMember_LearningSkill extends BaseTable implements Serializable {
     @Column(name="level")
     private Long level;
 
-    public Long getLevel() {
-        return level;
-    }
-
-    public void setLevel(Long level) {
-        this.level = level;
-    }
-
-    public AppMember getApplicationMember() {
-        return applicationMember;
-    }
-
-    public void setApplicationMember(AppMember applicationMember) {
-        this.applicationMember = applicationMember;
-    }
-
-    public LearningSkill getLearningSkill() {
-        return learningSkill;
-    }
-
-    public void setLearningSkill(LearningSkill learningSkill) {
-        this.learningSkill = learningSkill;
-    }
-
-    public Float getAmount() {
-        return amount;
-    }
-
-    public void setAmount(Float amount) {
-        this.amount = amount;
-    }
-
-    public AppMember_LearningSkill() {
-    }
 
     public AppMember_LearningSkill( AppMember applicationMember, LearningSkill learningSkill, Float amount, Long level ,
                                     Long version, String created, String updated, AppMember createdBy, AppMember updatedBy) {
