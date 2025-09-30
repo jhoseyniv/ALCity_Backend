@@ -1785,8 +1785,10 @@ public class DTOUtil {
         Collection<AttributeData> parametersData = DTOUtil.getAttributesForRuleAction(root.getId(),parameters,attributeValueService);
         String actionName=root.getPlRulePostActionType().name();
         String subAction = root.getSubAction();
-        if(subAction !=null)
-            actionName = actionName + subAction+ ":" + subAction;
+        if(subAction !=null) {
+            AttributeData subActionData = new AttributeData(0L,"eventsubtype",0L,subAction,DataType.String.name(),false,null);
+            parametersData.add(subActionData);
+        }
         String actionKey = root.getActionKey();
         if(actionKey == null)
             actionKey = "0";
