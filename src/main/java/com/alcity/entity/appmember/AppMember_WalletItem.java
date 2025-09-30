@@ -8,6 +8,10 @@ import jakarta.persistence.*;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Set;
@@ -16,6 +20,10 @@ import java.util.Set;
         @UniqueConstraint(columnNames = {"application_member_id", "wallet_item_id"})
 })
 @Entity
+@Getter
+@Setter
+@NoArgsConstructor
+
 public class AppMember_WalletItem extends BaseTable implements Serializable {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
@@ -34,40 +42,7 @@ public class AppMember_WalletItem extends BaseTable implements Serializable {
     @Column(name="amount")
     private Float amount;
 
-    public Float getAmount() {
-        return amount;
-    }
 
-    public void setAmount(Float amount) {
-        this.amount = amount;
-    }
-
-    public AppMember getApplicationMember() {
-        return applicationMember;
-    }
-
-    public void setApplicationMember(AppMember applicationMember) {
-        this.applicationMember = applicationMember;
-    }
-
-    public WalletItem getWalletItem() {
-        return walletItem;
-    }
-
-    public void setWalletItem(WalletItem walletItem) {
-        this.walletItem = walletItem;
-    }
-
-    public Collection<WalletTransaction> getWalletTransactions() {
-        return walletTransactions;
-    }
-
-    public void setWalletTransactions(Collection<WalletTransaction> walletTransactions) {
-        this.walletTransactions = walletTransactions;
-    }
-
-    public AppMember_WalletItem() {
-    }
 
     public AppMember_WalletItem(AppMember applicationMember, WalletItem walletItem, Float amount, Long version, String created, String updated, AppMember createdBy, AppMember updatedBy) {
         super(version, created, updated, createdBy, updatedBy);
