@@ -11,6 +11,7 @@ import jakarta.persistence.*;
 import java.util.Collection;
 
 @Entity
+
 public class PLGround extends BaseTable {
 
     @Column(name="numRows")

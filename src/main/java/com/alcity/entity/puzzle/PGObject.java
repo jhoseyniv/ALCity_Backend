@@ -5,6 +5,10 @@ import com.alcity.entity.appmember.AppMember;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import java.io.Serializable;
 import java.util.Collection;
 
@@ -12,6 +16,9 @@ import java.util.Collection;
         @UniqueConstraint(columnNames = {"title", "code"})
 })
 @Entity
+@Getter
+@Setter
+@NoArgsConstructor
 public class PGObject extends BaseTable implements Serializable {
 
     @Column(name="title")
@@ -33,49 +40,6 @@ public class PGObject extends BaseTable implements Serializable {
     @OneToMany(mappedBy = "alCityObjectInPG", fetch = FetchType.LAZY)
     @JsonIgnore
     private Collection<Instance> alCityInstanceInPLCollection;
-
-    public Collection<Instance> getAlCityInstanceInPLCollection() {
-        return alCityInstanceInPLCollection;
-    }
-
-    public void setAlCityInstanceInPLCollection(Collection<Instance> alCityInstanceInPLCollection) {
-        this.alCityInstanceInPLCollection = alCityInstanceInPLCollection;
-    }
-
-    public PGObject() {
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
-    }
-
-    public PuzzleGroup getPuzzleGroup() {
-        return puzzleGroup;
-    }
-
-    public void setPuzzleGroup(PuzzleGroup puzzleGroup) {
-        this.puzzleGroup = puzzleGroup;
-    }
-
-    public BaseObject getAlCityObject() {
-        return alCityObject;
-    }
-
-    public void setAlCityObject(BaseObject alCityObject) {
-        this.alCityObject = alCityObject;
-    }
 
     public PGObject(String title, String code, PuzzleGroup puzzleGroup, BaseObject alCityObject, Long version, String created, String updated, AppMember createdBy, AppMember updatedBy) {
         super(version, created, updated, createdBy, updatedBy);

@@ -50,7 +50,7 @@ public class PLCellService  implements PLCellRepository {
             if(plCellOptional.isPresent()) {
                 plCell = plCellOptional.get();
                 plCell.setCol(dto.getCol());
-                plCell.setzOrder(dto.getZorder());
+                plCell.setZorder(dto.getZorder());
                 plCell.setRow(dto.getRow());
                 plCellRepository.save(plCell);
             }

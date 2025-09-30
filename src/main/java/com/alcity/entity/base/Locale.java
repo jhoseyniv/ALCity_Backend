@@ -8,10 +8,17 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.io.Serializable;
 
 @Entity
+@Getter
+@Setter
+@NoArgsConstructor
+
 public class Locale extends BaseTable implements Serializable {
     @Column(name="country")
     private String country;
@@ -21,33 +28,6 @@ public class Locale extends BaseTable implements Serializable {
 
     @Enumerated(EnumType.ORDINAL)
     private Language language;
-
-    public String getCountry() {
-        return country;
-    }
-
-    public void setCountry(String country) {
-        this.country = country;
-    }
-
-    public String getCountryCode() {
-        return countryCode;
-    }
-
-    public void setCountryCode(String countryCode) {
-        this.countryCode = countryCode;
-    }
-
-    public Language getLanguage() {
-        return language;
-    }
-
-    public void setLanguage(Language language) {
-        this.language = language;
-    }
-
-    public Locale() {
-    }
 
     public Locale(String country, String countryCode, Language language ,
                   Long version, String created, String updated, AppMember createdBy, AppMember updatedBy ) {

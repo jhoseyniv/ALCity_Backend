@@ -5,10 +5,18 @@ import com.alcity.entity.appmember.AppMember;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import java.io.Serializable;
 import java.util.Collection;
 
 @Entity
+@Getter
+@Setter
+@NoArgsConstructor
+
 public class PLRule extends BaseTable implements Serializable {
     @Column(name="title")
     private String title;
@@ -22,9 +30,6 @@ public class PLRule extends BaseTable implements Serializable {
     @Column(name="condition")
     private StringBuffer condition;
 
-    //why this column is in puzzle level rule
-//    @Column(name="ruleEventid")
-//    private Integer ruleEventid;
 
     @Column(name="subEvent" )
     private String subEvent;
@@ -80,25 +85,6 @@ public class PLRule extends BaseTable implements Serializable {
     @JoinColumn(name = "PL_rule_event_id", nullable = false)
     @JsonIgnore
     private PLRuleEvent plRuleEvent;
-
-    public PLRuleEvent getPlRuleEvent() {
-        return plRuleEvent;
-    }
-
-    public void setPlRuleEvent(PLRuleEvent plRuleEvent) {
-        this.plRuleEvent = plRuleEvent;
-    }
-
-    public PuzzleLevel getPuzzleLevel() {
-        return puzzleLevel;
-    }
-
-    public void setPuzzleLevel(PuzzleLevel puzzleLevel) {
-        this.puzzleLevel = puzzleLevel;
-    }
-
-    public PLRule() {
-    }
 
     public PLRule(String title ,Integer ordering, StringBuffer condition,boolean ignoreRemaining,  PuzzleLevel puzzleLevel, PLRuleEvent plRuleEvent,String subEvent , Long version, String created, String updated, AppMember createdBy, AppMember updatedBy) {
         super(version, created, updated, createdBy, updatedBy);

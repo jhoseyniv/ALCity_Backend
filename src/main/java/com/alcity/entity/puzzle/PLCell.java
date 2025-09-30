@@ -4,11 +4,18 @@ import com.alcity.entity.appmember.AppMember;
 import com.alcity.entity.base.BaseTable;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.io.Serializable;
 import java.util.Collection;
 
 @Entity
+@Getter
+@Setter
+@NoArgsConstructor
+
 public class PLCell extends BaseTable implements Serializable {
 
     @Column(name="roow")
@@ -18,7 +25,7 @@ public class PLCell extends BaseTable implements Serializable {
     private Integer col;
 
     @Column(name="zOrder")
-    private Integer zOrder;
+    private Integer zorder;
 
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
@@ -30,54 +37,11 @@ public class PLCell extends BaseTable implements Serializable {
     @JsonIgnore
     private Collection<Instance> instances;
 
-    public Integer getRow() {
-        return row;
-    }
-
-    public void setRow(Integer row) {
-        this.row = row;
-    }
-
-    public Integer getCol() {
-        return col;
-    }
-
-    public void setCol(Integer col) {
-        this.col = col;
-    }
-
-    public Integer getzOrder() {
-        return zOrder;
-    }
-
-    public void setzOrder(Integer zOrder) {
-        this.zOrder = zOrder;
-    }
-
-    public PLGround getPlGround() {
-        return plGround;
-    }
-
-    public void setPlGround(PLGround plGround) {
-        this.plGround = plGround;
-    }
-
-    public Collection<Instance> getInstances() {
-        return instances;
-    }
-
-    public void setInstances(Collection<Instance> instances) {
-        this.instances = instances;
-    }
-
-    public PLCell() {
-    }
-
-    public PLCell(Long version, String created, String updated, AppMember createdBy, AppMember updatedBy, Integer row, Integer col, Integer zOrder, PLGround plGround) {
+    public PLCell(Long version, String created, String updated, AppMember createdBy, AppMember updatedBy, Integer row, Integer col, Integer zorder, PLGround plGround) {
         super(version, created, updated, createdBy, updatedBy);
         this.row = row;
         this.col = col;
-        this.zOrder = zOrder;
+        this.zorder = zorder;
         this.plGround = plGround;
     }
 }

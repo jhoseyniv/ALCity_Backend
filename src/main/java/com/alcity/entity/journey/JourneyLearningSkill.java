@@ -6,9 +6,17 @@ import com.alcity.entity.appmember.AppMember;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import java.io.Serializable;
 
 @Entity
+@Getter
+@Setter
+@NoArgsConstructor
+
 public class JourneyLearningSkill extends BaseTable implements Serializable {
 
     @Column(name="requiredAmount")
@@ -23,33 +31,6 @@ public class JourneyLearningSkill extends BaseTable implements Serializable {
     @JoinColumn(name = "learning_skill_id", nullable = false)
     @JsonIgnore
     private LearningSkill learningSkill;
-
-    public Float getRequiredAmount() {
-        return requiredAmount;
-    }
-
-    public void setRequiredAmount(Float requiredAmount) {
-        this.requiredAmount = requiredAmount;
-    }
-
-    public Journey getJourney() {
-        return journey;
-    }
-
-    public void setJourney(Journey journey) {
-        this.journey = journey;
-    }
-
-    public LearningSkill getLearningSkill() {
-        return learningSkill;
-    }
-
-    public void setLearningSkill(LearningSkill learningSkill) {
-        this.learningSkill = learningSkill;
-    }
-
-    public JourneyLearningSkill() {
-    }
 
     public JourneyLearningSkill(Float requiredAmount, Journey journey, LearningSkill learningSkill , Long version, String created, String updated, AppMember createdBy, AppMember updatedBy) {
         super(version, created, updated, createdBy, updatedBy);

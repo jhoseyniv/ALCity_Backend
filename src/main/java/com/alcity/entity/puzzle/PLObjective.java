@@ -8,10 +8,18 @@ import com.alcity.entity.appmember.WalletItem;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import java.io.Serializable;
 import java.util.Collection;
 
 @Entity
+@Getter
+@Setter
+@NoArgsConstructor
+
 public class PLObjective extends BaseTable implements Serializable {
 
     @Column(name="title")
@@ -39,90 +47,15 @@ public class PLObjective extends BaseTable implements Serializable {
     @JsonIgnore
     private LearningSkill learningSkill;
 
-    public LearningSkill getLearningSkill() {
-        return learningSkill;
-    }
-
-    public void setLearningSkill(LearningSkill learningSkill) {
-        this.learningSkill = learningSkill;
-    }
-
     @ManyToOne(fetch = FetchType.LAZY, optional = true)
     @JoinColumn(name = "wallet_item_id", nullable = true)
     @JsonIgnore
     private WalletItem walletItem;
 
-    public WalletItem getWalletItem() {
-        return walletItem;
-    }
-
-    public void setWalletItem(WalletItem walletItem) {
-        this.walletItem = walletItem;
-    }
-
     @ManyToOne(fetch = FetchType.LAZY, optional = true)
     @JoinColumn(name = "puzzle_Level_id", nullable = true)
     @JsonIgnore
     private PuzzleLevel puzzleLevel;
-
-    public PuzzleLevel getPuzzleLevel() {
-        return puzzleLevel;
-    }
-
-    public void setPuzzleLevel(PuzzleLevel puzzleLevel) {
-        this.puzzleLevel = puzzleLevel;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public Float getSkillAmount() {
-        return skillAmount;
-    }
-
-    public void setSkillAmount(Float skillAmount) {
-        this.skillAmount = skillAmount;
-    }
-
-    public Float getRewardAmount() {
-        return rewardAmount;
-    }
-
-    public void setRewardAmount(Float rewardAmount) {
-        this.rewardAmount = rewardAmount;
-    }
-
-    public StringBuffer getCondition() {
-        return condition;
-    }
-
-    public void setCondition(StringBuffer condition) {
-        this.condition = condition;
-    }
-
-    public Collection<PLObjectiveTransaction> getObjectiveTransactions() {
-        return objectiveTransactions;
-    }
-
-    public void setObjectiveTransactions(Collection<PLObjectiveTransaction> objectiveTransactions) {
-        this.objectiveTransactions = objectiveTransactions;
-    }
-
-    public PLObjective() {
-    }
 
     public PLObjective(String title, String description, Float skillAmount, Float rewardAmount, StringBuffer condition, LearningSkill learningSkill, WalletItem walletItem, PuzzleLevel puzzleLevel,
                        Long version, String created, String updated, AppMember createdBy, AppMember updatedBy) {

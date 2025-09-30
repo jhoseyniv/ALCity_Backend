@@ -11,11 +11,18 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.io.Serializable;
 import java.util.Collection;
 
 @Entity
+@Getter
+@Setter
+@NoArgsConstructor
+
 @Table(name="plgame_instance")
 public class PLGameInstance extends BaseTable implements Serializable {
 
@@ -48,73 +55,6 @@ public class PLGameInstance extends BaseTable implements Serializable {
     @OneToMany(mappedBy = "gameInstance", fetch = FetchType.LAZY)
     @JsonIgnore
     private Collection<PLObjectiveTransaction> objectiveTransactions;
-
-    public AppMember getPlayer() {
-        return player;
-    }
-
-    public void setPlayer(AppMember player) {
-        this.player = player;
-    }
-
-    public PuzzleLevel getPuzzleLevel() {
-        return puzzleLevel;
-    }
-
-    public void setPuzzleLevel(PuzzleLevel puzzleLevel) {
-        this.puzzleLevel = puzzleLevel;
-    }
-
-    public String getStartPlayTime() {
-        return startPlayTime;
-    }
-
-    public void setStartPlayTime(String startPlayTime) {
-        this.startPlayTime = startPlayTime;
-    }
-
-    public String getEndPlayTime() {
-        return endPlayTime;
-    }
-
-    public void setEndPlayTime(String endPlayTime) {
-        this.endPlayTime = endPlayTime;
-    }
-
-    public GameStatus getGameStatus() {
-        return gameStatus;
-    }
-
-    public void setGameStatus(GameStatus gameStatus) {
-        this.gameStatus = gameStatus;
-    }
-
-    public byte[] getAnalyticalData() {
-        return analyticalData;
-    }
-
-    public void setAnalyticalData(byte[] analyticalData) {
-        this.analyticalData = analyticalData;
-    }
-
-    public Long getPlayDuration() {
-        return playDuration;
-    }
-
-    public void setPlayDuration(Long playDuration) {
-        this.playDuration = playDuration;
-    }
-
-    public Collection<PLObjectiveTransaction> getObjectiveTransactions() {
-        return objectiveTransactions;
-    }
-
-    public void setObjectiveTransactions(Collection<PLObjectiveTransaction> objectiveTransactions) {
-        this.objectiveTransactions = objectiveTransactions;
-    }
-
-    public PLGameInstance() {
-    }
 
     public PLGameInstance(AppMember player, PuzzleLevel puzzleLevel, String startPlayTime, String endPlayTime, GameStatus gameStatus, byte[] analyticalData, Long playDuration
             ,Long version, String created, String updated, AppMember createdBy, AppMember updatedBy) {

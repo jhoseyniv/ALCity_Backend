@@ -5,10 +5,17 @@ import com.alcity.entity.base.BaseTable;
 import com.alcity.entity.base.BinaryContent;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.io.Serializable;
 
 @Entity
+@Getter
+@Setter
+@NoArgsConstructor
+
 @Table(name="RoadMap")
 public class RoadMap  extends BaseTable implements Serializable {
 
@@ -27,42 +34,6 @@ public class RoadMap  extends BaseTable implements Serializable {
     @JoinColumn(name = "journey_id", nullable = false)
     @JsonIgnore
     private Journey journey;
-
-
-    public Integer getXpos() {
-        return xpos;
-    }
-
-    public void setXpos(Integer xpos) {
-        this.xpos = xpos;
-    }
-
-    public Integer getYpos() {
-        return ypos;
-    }
-
-    public void setYpos(Integer ypos) {
-        this.ypos = ypos;
-    }
-
-    public BinaryContent getGraphic() {
-        return graphic;
-    }
-
-    public void setGraphic(BinaryContent graphic) {
-        this.graphic = graphic;
-    }
-
-    public Journey getJourney() {
-        return journey;
-    }
-
-    public void setJourney(Journey journey) {
-        this.journey = journey;
-    }
-
-    public RoadMap() {
-    }
 
     public RoadMap(Integer xpos, Integer ypos, BinaryContent graphic,Journey journey,Long version, String created, String updated, AppMember createdBy, AppMember updatedBy) {
         super(version, created, updated, createdBy, updatedBy);

@@ -7,9 +7,16 @@ import com.alcity.entity.appmember.AppMember;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Table(name = "learning_topic_inpl")
 @Entity
+@Getter
+@Setter
+@NoArgsConstructor
+
 public class PLLearningTopic extends BaseTable {
 
 
@@ -28,32 +35,6 @@ public class PLLearningTopic extends BaseTable {
     @JsonIgnore
     private LearningContent learningContent;
 
-    public LearningTopic getLearningTopic() {
-        return learningTopic;
-    }
-
-    public void setLearningTopic(LearningTopic learningTopic) {
-        this.learningTopic = learningTopic;
-    }
-
-    public LearningContent getLearningContent() {
-        return learningContent;
-    }
-
-    public void setLearningContent(LearningContent learningContent) {
-        this.learningContent = learningContent;
-    }
-
-    public PuzzleLevel getPuzzleLevel() {
-        return puzzleLevel;
-    }
-
-    public void setPuzzleLevel(PuzzleLevel puzzleLevel) {
-        this.puzzleLevel = puzzleLevel;
-    }
-
-    public PLLearningTopic() {
-    }
 
     public PLLearningTopic(PuzzleLevel puzzleLevel, LearningTopic learningTopic, LearningContent learningContent, Long version, String created, String updated, AppMember createdBy, AppMember updatedBy) {
         super(version, created, updated, createdBy, updatedBy);

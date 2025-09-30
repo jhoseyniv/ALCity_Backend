@@ -5,9 +5,17 @@ import com.alcity.entity.appmember.AppMember;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import java.util.Set;
 
 @Entity
+@Getter
+@Setter
+@NoArgsConstructor
+
 public class LearningTopic extends BaseTable {
 
     @NotNull(message = "{bHeight.notempty}")
@@ -19,33 +27,6 @@ public class LearningTopic extends BaseTable {
 
     @OneToMany( fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<LearningTopic> learningTopicSet;
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public LearningTopic getParentTopic() {
-        return parentTopic;
-    }
-
-    public void setParentTopic(LearningTopic parentTopic) {
-        this.parentTopic = parentTopic;
-    }
-
-    public Set<LearningTopic> getLearningTopicSet() {
-        return learningTopicSet;
-    }
-
-    public void setLearningTopicSet(Set<LearningTopic> learningTopicSet) {
-        this.learningTopicSet = learningTopicSet;
-    }
-
-    public LearningTopic() {
-    }
 
     public LearningTopic(String title, LearningTopic parentTopic , Long version, String created, String updated, AppMember createdBy, AppMember updatedBy) {
         super(version, created, updated, createdBy, updatedBy);

@@ -5,9 +5,17 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import java.io.Serializable;
 
 @Entity
+@Getter
+@Setter
+@NoArgsConstructor
+
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS )
 public abstract class BaseTable implements Serializable {
     @Id
@@ -38,54 +46,7 @@ public abstract class BaseTable implements Serializable {
     @JsonIgnore
     private AppMember updatedBy;
 
-    public Long getVersion() {
-        return version;
-    }
-
-    public String getCreated() {
-        return created;
-    }
-
-    public String getUpdated() {
-        return updated;
-    }
-
-    public AppMember getCreatedBy() {
-        return createdBy;
-    }
-
-    public AppMember getUpdatedBy() {
-        return updatedBy;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public void setVersion(Long version) {
-        this.version = version;
-    }
-
-    public void setCreated(String created) {
-        this.created = created;
-    }
-
-    public void setUpdated(String updated) {
-        this.updated = updated;
-    }
-
-    public void setCreatedBy(AppMember createdBy) {
-        this.createdBy = createdBy;
-    }
-
-    public void setUpdatedBy(AppMember updatedBy) {
-        this.updatedBy = updatedBy;
-    }
-
-    public BaseTable() {
-    }
-
-    public BaseTable(Long version, String created, String updated, AppMember createdBy, AppMember updatedBy) {
+     public BaseTable(Long version, String created, String updated, AppMember createdBy, AppMember updatedBy) {
         this.version = version;
         this.created = created;
         this.updated = updated;
