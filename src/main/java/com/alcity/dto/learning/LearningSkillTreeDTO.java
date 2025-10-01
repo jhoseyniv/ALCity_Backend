@@ -3,9 +3,15 @@ package com.alcity.dto.learning;
 import com.alcity.dto.plimpexport.ruleexport.PostActionTreeExport;
 import com.alcity.dto.plimpexport.rulemport.PLRulePostActionImport;
 import com.alcity.dto.plimpexport.rulemport.PostActionTreeImport;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.io.Serializable;
 import java.util.List;
+@Getter
+@Setter
+@NoArgsConstructor
 
 public class LearningSkillTreeDTO<P> implements Serializable {
 
@@ -20,88 +26,6 @@ public class LearningSkillTreeDTO<P> implements Serializable {
     private String description;
     public List<LearningSkillTreeDTO<LearningSkillTreeDTO>> children;
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public String getParentTitle() {
-        return parentTitle;
-    }
-
-    public void setParentTitle(String parentTitle) {
-        this.parentTitle = parentTitle;
-    }
-
-    public Long getParentId() {
-        return parentId;
-    }
-
-    public void setParentId(Long parentId) {
-        this.parentId = parentId;
-    }
-
-    public Float getWeight() {
-        return weight;
-    }
-
-    public void setWeight(Float weight) {
-        this.weight = weight;
-    }
-
-    public Long getLevelUpSize() {
-        return levelUpSize;
-    }
-
-    public void setLevelUpSize(Long levelUpSize) {
-        this.levelUpSize = levelUpSize;
-    }
-
-    public Long getIconId() {
-        return iconId;
-    }
-
-    public void setIconId(Long iconId) {
-        this.iconId = iconId;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public List<LearningSkillTreeDTO<LearningSkillTreeDTO>> getChildren() {
-        return children;
-    }
-
-    public void setChildren(List<LearningSkillTreeDTO<LearningSkillTreeDTO>> children) {
-        this.children = children;
-    }
-
-    public LearningSkillTreeDTO() {
-    }
     public LearningSkillTreeDTO<LearningSkillTreeDTO> getChild(LearningSkillTreeDTO<LearningSkillTreeDTO> child) {
         children.add(child);
         return child;

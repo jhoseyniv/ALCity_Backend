@@ -1,6 +1,13 @@
 package com.alcity.dto.base;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import java.time.ZonedDateTime;
+@Getter
+@Setter
+@NoArgsConstructor
 
 public class BaseItemSetDTO {
     private Long id;
@@ -11,73 +18,6 @@ public class BaseItemSetDTO {
     private String updated;
     private String createdBY;
     private String updatedBy;
-
-    public String getCreatedBY() {
-        return createdBY;
-    }
-
-    public void setCreatedBY(String createdBY) {
-        this.createdBY = createdBY;
-    }
-
-    public String getUpdatedBy() {
-        return updatedBy;
-    }
-
-    public void setUpdatedBy(String updatedBy) {
-        this.updatedBy = updatedBy;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getLabel() {
-        return label;
-    }
-
-    public void setLabel(String label) {
-        this.label = label;
-    }
-
-    public String getValue() {
-        return value;
-    }
-
-    public void setValue(String value) {
-        this.value = value;
-    }
-
-    public Long getVersion() {
-        return version;
-    }
-
-    public void setVersion(Long version) {
-        this.version = version;
-    }
-
-    public String getCreated() {
-        return created;
-    }
-
-    public void setCreated(String created) {
-        this.created = created;
-    }
-
-    public String getUpdated() {
-        return updated;
-    }
-
-    public void setUpdated(String updated) {
-        this.updated = updated;
-    }
-
-    public BaseItemSetDTO() {
-    }
 
     public BaseItemSetDTO(Long id, String label, String value, Long version, String created, String updated) {
         this.id = id;

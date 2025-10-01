@@ -1,5 +1,13 @@
 package com.alcity.dto.base;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Getter
+@Setter
+@NoArgsConstructor
+
 public class AdvertisementDTO {
 
     private Long id;
@@ -15,72 +23,6 @@ public class AdvertisementDTO {
     private String createdBy;
     private String updatedBy;
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getAdText() {
-        return adText;
-    }
-
-    public void setAdText(String adText) {
-        this.adText = adText;
-    }
-
-    public String getAdsType() {
-        return adsType;
-    }
-
-    public void setAdsType(String adsType) {
-        this.adsType = adsType;
-    }
-
-    public Long getVersion() {
-        return version;
-    }
-
-    public void setVersion(Long version) {
-        this.version = version;
-    }
-
-    public String getCreated() {
-        return created;
-    }
-
-    public void setCreated(String created) {
-        this.created = created;
-    }
-
-    public String getUpdated() {
-        return updated;
-    }
-
-    public void setUpdated(String updated) {
-        this.updated = updated;
-    }
-
-    public String getCreatedBy() {
-        return createdBy;
-    }
-
-    public void setCreatedBy(String createdBy) {
-        this.createdBy = createdBy;
-    }
-
-    public String getUpdatedBy() {
-        return updatedBy;
-    }
-
-    public void setUpdatedBy(String updatedBy) {
-        this.updatedBy = updatedBy;
-    }
-
-    public AdvertisementDTO() {
-    }
 
     public AdvertisementDTO(Long id,String adText, String adsType, Long version, String created, String updated, String createdBy, String updatedBy) {
         this.id = id;

@@ -737,7 +737,7 @@ public class DTOUtil {
         dto.setCol(instance.getCol());
         dto.setRow(instance.getRow());
 
-        dto.setzOrder(instance.getZorder());
+        dto.setZorder(instance.getZorder());
         dto.setPGObjectId(instance.getAlCityObjectInPG().getId());
         dto.setPuzzleLevelId(instance.getPuzzleLevel().getId());
 
@@ -1496,7 +1496,7 @@ public class DTOUtil {
             dto.setVersion(instance.getVersion());
             dto.setCol(instance.getCol());
             dto.setRow(instance.getRow());
-            dto.setzOrder(instance.getZorder());
+            dto.setZorder(instance.getZorder());
             dto.setCreated(instance.getCreated());
             dto.setUpdated(instance.getUpdated());
             dto.setCreatedById(instance.getCreatedBy().getId());

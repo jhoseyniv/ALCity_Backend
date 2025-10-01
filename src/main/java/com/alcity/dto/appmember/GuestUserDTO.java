@@ -1,5 +1,13 @@
 package com.alcity.dto.appmember;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Getter
+@Setter
+@NoArgsConstructor
+
 public class GuestUserDTO {
     private Long id;
     private String username;
@@ -13,76 +21,15 @@ public class GuestUserDTO {
     private String createdBy;
     private String updatedBy;
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
+    public GuestUserDTO(Long id, String username, String password, String memberType, Long version, String created, String updated, String createdBy, String updatedBy) {
         this.id = id;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
         this.username = username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
         this.password = password;
-    }
-
-    public String getMemberType() {
-        return memberType;
-    }
-
-    public void setMemberType(String memberType) {
         this.memberType = memberType;
-    }
-
-    public Long getVersion() {
-        return version;
-    }
-
-    public void setVersion(Long version) {
         this.version = version;
-    }
-
-    public String getCreated() {
-        return created;
-    }
-
-    public void setCreated(String created) {
         this.created = created;
-    }
-
-    public String getUpdated() {
-        return updated;
-    }
-
-    public void setUpdated(String updated) {
         this.updated = updated;
-    }
-
-    public String getCreatedBy() {
-        return createdBy;
-    }
-
-    public void setCreatedBy(String createdBy) {
         this.createdBy = createdBy;
-    }
-
-    public String getUpdatedBy() {
-        return updatedBy;
-    }
-
-    public void setUpdatedBy(String updatedBy) {
         this.updatedBy = updatedBy;
     }
-
 }

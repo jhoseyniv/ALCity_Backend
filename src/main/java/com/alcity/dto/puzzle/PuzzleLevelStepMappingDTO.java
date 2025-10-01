@@ -2,7 +2,13 @@ package com.alcity.dto.puzzle;
 
 import com.alcity.dto.journey.JourneyStepDTO;
 import com.alcity.entity.journey.JourneyStep;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+@Getter
+@Setter
+@NoArgsConstructor
 public class PuzzleLevelStepMappingDTO {
     private Long plId;
     private String plApproveDate;
@@ -31,193 +37,6 @@ public class PuzzleLevelStepMappingDTO {
     private Integer journeyMaxStar;
 
     private Integer journeyMinStar;
-
-    public Integer getJourneyMaxStar() {
-        return journeyMaxStar;
-    }
-
-    public void setJourneyMaxStar(Integer journeyMaxStar) {
-        this.journeyMaxStar = journeyMaxStar;
-    }
-
-    public Integer getJourneyMinStar() {
-        return journeyMinStar;
-    }
-
-    public void setJourneyMinStar(Integer journeyMinStar) {
-        this.journeyMinStar = journeyMinStar;
-    }
-
-    public PuzzleLevelStepMappingDTO() {
-    }
-
-    public Long getPlId() {
-        return plId;
-    }
-
-    public void setPlId(Long plId) {
-        this.plId = plId;
-    }
-
-    public String getPlApproveDate() {
-        return plApproveDate;
-    }
-
-    public void setPlApproveDate(String plApproveDate) {
-        this.plApproveDate = plApproveDate;
-    }
-
-    public Long getPlOrdering() {
-        return plOrdering;
-    }
-
-    public Long getJourneyId() {
-        return journeyId;
-    }
-
-    public void setJourneyId(Long journeyId) {
-        this.journeyId = journeyId;
-    }
-
-    public void setPlOrdering(Long plOrdering) {
-        this.plOrdering = plOrdering;
-    }
-
-    public String getPlTitle() {
-        return plTitle;
-    }
-
-    public void setPlTitle(String plTitle) {
-        this.plTitle = plTitle;
-    }
-
-    public String getPlCode() {
-        return plCode;
-    }
-
-    public void setPlCode(String plCode) {
-        this.plCode = plCode;
-    }
-
-    public Integer getPlFromAge() {
-        return plFromAge;
-    }
-
-    public void setPlFromAge(Integer plFromAge) {
-        this.plFromAge = plFromAge;
-    }
-
-    public Integer getPlToAge() {
-        return plToAge;
-    }
-
-    public void setPlToAge(Integer plToAge) {
-        this.plToAge = plToAge;
-    }
-
-    public Float getPlMaxScore() {
-        return plMaxScore;
-    }
-
-    public void setPlMaxScore(Float plMaxScore) {
-        this.plMaxScore = plMaxScore;
-    }
-
-    public Float getFirstStarScore() {
-        return firstStarScore;
-    }
-
-    public void setFirstStarScore(Float firstStarScore) {
-        this.firstStarScore = firstStarScore;
-    }
-
-    public Float getSecondStarScore() {
-        return secondStarScore;
-    }
-
-    public void setSecondStarScore(Float secondStarScore) {
-        this.secondStarScore = secondStarScore;
-    }
-
-    public Float getThirdStartScore() {
-        return thirdStartScore;
-    }
-
-    public void setThirdStartScore(Float thirdStartScore) {
-        this.thirdStartScore = thirdStartScore;
-    }
-
-    public Long getPgId() {
-        return pgId;
-    }
-
-    public void setPgId(Long pgId) {
-        this.pgId = pgId;
-    }
-
-    public String getPgTitle() {
-        return pgTitle;
-    }
-
-    public void setPgTitle(String pgTitle) {
-        this.pgTitle = pgTitle;
-    }
-
-    public String getStepTitle() {
-        return stepTitle;
-    }
-
-    public void setStepTitle(String stepTitle) {
-        this.stepTitle = stepTitle;
-    }
-
-    public Integer getStepOrdering() {
-        return stepOrdering;
-    }
-
-    public void setStepOrdering(Integer stepOrdering) {
-        this.stepOrdering = stepOrdering;
-    }
-
-    public Integer getStepXpos() {
-        return stepXpos;
-    }
-
-    public void setStepXpos(Integer stepXpos) {
-        this.stepXpos = stepXpos;
-    }
-
-    public Integer getStepYpos() {
-        return stepYpos;
-    }
-
-    public void setStepYpos(Integer stepYpos) {
-        this.stepYpos = stepYpos;
-    }
-
-    public String getJourneyTitle() {
-        return journeyTitle;
-    }
-
-    public void setJourneyTitle(String journeyTitle) {
-        this.journeyTitle = journeyTitle;
-    }
-
-    public Integer getJourneyOrdering() {
-        return journeyOrdering;
-    }
-
-    public void setJourneyOrdering(Integer journeyOrdering) {
-        this.journeyOrdering = journeyOrdering;
-    }
-
-    public Long getStepId() {
-        return stepId;
-    }
-
-    public void setStepId(Long stepId) {
-        this.stepId = stepId;
-    }
 
     public PuzzleLevelStepMappingDTO(Long plId, String plApproveDate, Long plOrdering, String plTitle, String plCode, Integer plFromAge, Integer plToAge, Float plMaxScore, Float firstStarScore, Float secondStarScore, Float thirdStartScore, Long pgId, String pgTitle,
                                      Long stepId,String stepTitle, Integer stepOrdering, Integer stepXpos, Integer stepYpos, String journeyTitle, Integer journeyOrdering,Integer journeyMaxStar, Integer journeyMinStar) {

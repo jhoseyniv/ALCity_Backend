@@ -1,5 +1,13 @@
 package com.alcity.dto.puzzle;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Getter
+@Setter
+@NoArgsConstructor
+
 public class PGObjectDTO {
 
     private Long id;
@@ -13,69 +21,6 @@ public class PGObjectDTO {
     private Long alCityObjectId;
 
     private String alCityObjectTitle;
-
-    public String getAlCityObjectTitle() {
-        return alCityObjectTitle;
-    }
-
-    public void setAlCityObjectTitle(String alCityObjectTitle) {
-        this.alCityObjectTitle = alCityObjectTitle;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
-    }
-
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-
-    public String getPuzzleGroup() {
-        return puzzleGroup;
-    }
-
-    public void setPuzzleGroup(String puzzleGroup) {
-        this.puzzleGroup = puzzleGroup;
-    }
-
-    public Long getPuzzleGroupId() {
-        return puzzleGroupId;
-    }
-
-    public void setPuzzleGroupId(Long puzzleGroupId) {
-        this.puzzleGroupId = puzzleGroupId;
-    }
-
-    public PGObjectDTO() {
-    }
-
-
-    public Long getAlCityObjectId() {
-        return alCityObjectId;
-    }
-
-    public void setAlCityObjectId(Long alCityObjectId) {
-        this.alCityObjectId = alCityObjectId;
-    }
-
 
     public PGObjectDTO(Long id, String title, String code, String puzzleGroup, Long puzzleGroupId, Long alCityObjectId, String alCityObjectTitle
                              ) {

@@ -459,7 +459,7 @@ public class PuzzleLevelService implements PuzzleLevelRepository {
         puzzleLevelRepository.save(copyPuzzleLevel);
 
         // copy puzzle level ground
-        if(dto.getPLGround()) {
+        if(dto.getPlGround()) {
             PLGround plGround = puzzleLevel.getPlGrounds().iterator().next();
             PLGround copyPLGround = new PLGround(plGround.getNumRows(), plGround.getNumColumns(),
                     plGround.getxPosition(), plGround.getyPosition(), plGround.getzPosition(),
@@ -475,13 +475,13 @@ public class PuzzleLevelService implements PuzzleLevelRepository {
         }
 
         //copy puzzle level objectives
-        if(dto.getObjectives()) {
+        if(dto.getObjective()) {
             Collection<PLObjective> objectives = puzzleLevel.getPlObjectives();
             Collection<PLObjective> copiedObjectives = plObjectiveService.copyObjectives(objectives, copyPuzzleLevel);
         }
 
         //copy puzzle level instances
-        if(dto.getInstances()) {
+        if(dto.getInstance()) {
             Collection<Instance> copiedInstances = instanceInPLService.copyInstancesFromSourcePLToTargetPL(puzzleLevel, copyPuzzleLevel);
         }
 

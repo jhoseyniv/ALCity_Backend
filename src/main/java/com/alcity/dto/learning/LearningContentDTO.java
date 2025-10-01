@@ -1,5 +1,14 @@
 package com.alcity.dto.learning;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Getter
+@Setter
+@NoArgsConstructor
+
+
 public class LearningContentDTO  {
     private Long id;
     private Long version;
@@ -18,107 +27,6 @@ public class LearningContentDTO  {
     private String contentType;
 
     private Long binaryContentId;
-
-
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getVersion() {
-        return version;
-    }
-
-    public void setVersion(Long version) {
-        this.version = version;
-    }
-
-    public String getCreated() {
-        return created;
-    }
-
-    public void setCreated(String created) {
-        this.created = created;
-    }
-
-    public String getUpdated() {
-        return updated;
-    }
-
-    public void setUpdated(String updated) {
-        this.updated = updated;
-    }
-
-    public String getCreatedBy() {
-        return createdBy;
-    }
-
-    public void setCreatedBy(String createdBy) {
-        this.createdBy = createdBy;
-    }
-
-    public String getUpdatedBy() {
-        return updatedBy;
-    }
-
-    public void setUpdatedBy(String updatedBy) {
-        this.updatedBy = updatedBy;
-    }
-
-    public String getDescText() {
-        return descText;
-    }
-
-    public void setDescText(String descText) {
-        this.descText = descText;
-    }
-
-    public String getDescBrief() {
-        return descBrief;
-    }
-
-    public void setDescBrief(String descBrief) {
-        this.descBrief = descBrief;
-    }
-
-    public String getFileName() {
-        return fileName;
-    }
-
-    public void setFileName(String fileName) {
-        this.fileName = fileName;
-    }
-
-    public Integer getSize() {
-        return size;
-    }
-
-    public void setSize(Integer size) {
-        this.size = size;
-    }
-
-    public String getContentType() {
-        return contentType;
-    }
-
-    public void setContentType(String contentType) {
-        this.contentType = contentType;
-    }
-
-    public Long getBinaryContentId() {
-        return binaryContentId;
-    }
-
-    public void setBinaryContentId(Long binaryContentId) {
-        this.binaryContentId = binaryContentId;
-    }
-
-    public LearningContentDTO() {
-    }
 
     public LearningContentDTO(Long id, Long version, String created, String updated, String createdBy, String updatedBy, String descText, String descBrief, String fileName, Integer size, String contentType, Long binaryContentId) {
         this.id = id;

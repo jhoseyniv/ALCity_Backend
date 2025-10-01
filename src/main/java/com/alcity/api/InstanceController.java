@@ -53,7 +53,7 @@ public class InstanceController {
     public ResponseMessage saveInstance(@RequestBody InstanceDTO dto)  {
         Instance savedRecord = null;
         ResponseMessage response = new ResponseMessage();
-        if (dto.getName()==null) dto.setName("instance_"+dto.getRow()+"_"+dto.getCol()+"_"+dto.getzOrder()+"_puzzle_id"+dto.getPuzzleLevelId());
+        if (dto.getName()==null) dto.setName("instance_"+dto.getRow()+"_"+dto.getCol()+"_"+dto.getZorder()+"_puzzle_id"+dto.getPuzzleLevelId());
         Optional<Instance> instanceOptional = service.findById(dto.getId());
 
         try{
