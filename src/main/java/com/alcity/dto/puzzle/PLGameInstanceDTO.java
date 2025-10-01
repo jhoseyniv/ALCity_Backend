@@ -20,7 +20,8 @@ public class PLGameInstanceDTO {
     String endPlayTime;
     String gameStatus;
     private byte[] analyticalData;
-    public PLGameInstanceDTO(Long id, Long appMemmberId, Long puzzleLevelId, String puzzleLevelTitle, String startPlayTime, String endPlayTime, String gameStatus, byte[] analyticalData) {
+    public PLGameInstanceDTO(Long id, Long appMemmberId, Long puzzleLevelId, String puzzleLevelTitle, String startPlayTime,
+                             String endPlayTime, String gameStatus, byte[] analyticalData) {
         this.id = id;
         this.appMemmberId = appMemmberId;
         this.puzzleLevelId = puzzleLevelId;

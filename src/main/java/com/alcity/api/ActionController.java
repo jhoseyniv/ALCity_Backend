@@ -22,12 +22,12 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.Optional;
 
-@Tag(name = "Action Renderer", description = "the Al City Action Renders Api ")
+@Tag(name = "Action Renderer", description = "The Action Renders API ")
 @CrossOrigin(origins = "*" ,maxAge = 3600)
 
 @RestController
 @RequestMapping("/ar")
-public class ActionRendererController {
+public class ActionController {
 
     @Autowired
     private RendererService service;
@@ -35,18 +35,23 @@ public class ActionRendererController {
     @Autowired
     private AttributeService attributeService;
 
+
+    @Operation( summary = "Fetch an action render by id  ",  description = "Fetch an action render by id")
+    @RequestMapping(value = "/id/{id}", method = RequestMethod.GET)
+    @ResponseBody
+    public RendererDTO get(@PathVariable Long id) {
+        Optional<Renderer> rendererOptional = service.findById(id);
+        return rendererOptional.map(DTOUtil::getActionRendererDTO).orElse(null);
+    }
+
     @Operation( summary = "Fetch all action renders ",  description = "fetches all renderers for all actions")
     @GetMapping("/all")
-    public Collection<RendererDTO> getActionRenderers(Model model) {
-        Collection<RendererDTO> rendererDTOS = new ArrayList<RendererDTO>();
+    public Collection<RendererDTO> getAll(Model model) {
         Collection<Renderer> renderers = service.findAll();
-        Iterator<Renderer> iterator = renderers.iterator();
-        while(iterator.hasNext()){
-            RendererDTO rendererDTO = DTOUtil.getActionRendererDTO(iterator.next());
-            rendererDTOS.add(rendererDTO);
-        }
-        return rendererDTOS;
+        return DTOUtil.getActionRendererDTOS(renderers);
     }
+
+
     @Operation( summary = "Save a Action Render Object  ",  description = "Save a Action Render  entity and their data to data base")
     @PostMapping("/save")
     @CrossOrigin(origins = "*")
@@ -71,22 +76,12 @@ public class ActionRendererController {
         return response;
     }
 
-    @Operation( summary = "Fetch an action render by id  ",  description = "Fetch an action render by id")
-    @RequestMapping(value = "/id/{id}", method = RequestMethod.GET)
-    @ResponseBody
-    public RendererDTO getObjectActionRendererById(@PathVariable Long id) {
-        Optional<Renderer> actionRendererOptional = service.findById(id);
-        if(actionRendererOptional.isPresent())
-            return  DTOUtil.getActionRendererDTO(actionRendererOptional.get());
-        return null;
-    }
 
-    @Operation( summary = "Delete a  Action renders ",  description = "delete a Action Render")
-    @DeleteMapping("/del/{id}")
-    @CrossOrigin(origins = "*")
-    public ResponseMessage deleteActionRendersById(@PathVariable Long id) {
-        Optional<Renderer> requestedRecord = service.findById(id);
-
+@Operation( summary = "Delete an  Action renders ",  description = "delete an Action Render")
+@DeleteMapping("/del/{id}")
+@CrossOrigin(origins = "*")
+public ResponseMessage deleteRender(@PathVariable Long id) {
+    Optional<Renderer> requestedRecord = service.findById(id);
         if(requestedRecord.isPresent()){
             try {
                     service.delete(requestedRecord.get());
@@ -100,13 +95,13 @@ public class ActionRendererController {
 
     }
 
-    @Operation( summary = "Fetch all parameters fo a render by  rendere-id  ",  description = "Fetch all parameters fo a render by  rendere-id ")
+    @Operation( summary = "Fetch all parameters for a render by  rendere-id  ",  description = "Fetch all parameters for a render by  rendere-id ")
     @RequestMapping(value = "/id/{id}/params", method = RequestMethod.GET)
     @ResponseBody
-    public  Collection<AttributeData> getObjectActionRendererParameters(@PathVariable Long id) {
-        Optional<Renderer> actionRendererOptional = service.findById(id);
-        if(actionRendererOptional.isPresent())
-            return  DTOUtil.getAttributeForOwnerById(attributeService,actionRendererOptional.get().getId(), AttributeOwnerType.Action_Handler_Parameter);;
+    public  Collection<AttributeData> getParameters(@PathVariable Long id) {
+        Optional<Renderer> rendererOptional = service.findById(id);
+        if(rendererOptional.isPresent())
+            return  DTOUtil.getAttributeForOwnerById(attributeService,rendererOptional.get().getId(), AttributeOwnerType.Action_Handler_Parameter);;
         return null;
     }
 

@@ -22,7 +22,8 @@ public class RendererDTO {
 
     private String updatedBy;
 
-    public RendererDTO(String objectAction, String handler, String clientType, Long id, Long version, String created, String updated, String createdBy, String updatedBy) {
+    public RendererDTO(String objectAction, String handler, String clientType,
+                       Long id, Long version, String created, String updated, String createdBy, String updatedBy) {
         this.objectAction = objectAction;
         this.handler = handler;
         this.clientType = clientType;
