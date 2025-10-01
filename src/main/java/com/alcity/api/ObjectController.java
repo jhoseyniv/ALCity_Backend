@@ -110,8 +110,8 @@ public class ObjectController {
         Collection<PGObjectDTO> alCityObjectInPGDTOS = new ArrayList<PGObjectDTO>();
         Optional<BaseObject> alCityObjectOptional = service.findById(id);
         if(alCityObjectOptional.isPresent()) {
-            Collection<PGObject> alCityObjects = alCityObjectInPGService.findByalCityObject(alCityObjectOptional.get());
-            alCityObjectInPGDTOS = DTOUtil.getALCityObjectInPGDTOS(alCityObjects);
+            Collection<PGObject> pgObjects = alCityObjectInPGService.findByalCityObject(alCityObjectOptional.get());
+            alCityObjectInPGDTOS = DTOUtil.getPGObjectDTOS(pgObjects);
         }
         else throw new RecordNotFoundException(id,"alicty object","not found");
 
@@ -204,7 +204,7 @@ public class ObjectController {
         Optional<BaseObject> alCityObjectOptional = service.findById(id);
         if(alCityObjectOptional.isEmpty()) return dtos;
 
-        dtos = DTOUtil.getALCityObjectInPGDTOS(alCityObjectOptional.get().getAlCityObjectInPGCollection());
+        dtos = DTOUtil.getPGObjectDTOS(alCityObjectOptional.get().getAlCityObjectInPGCollection());
         return  dtos;
     }
 

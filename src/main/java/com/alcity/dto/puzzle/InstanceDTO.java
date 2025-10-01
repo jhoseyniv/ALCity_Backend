@@ -14,12 +14,10 @@ public class InstanceDTO {
     private Long version;
     private String created;
     private String updated;
-    private String createdBy;
 
     private String updatedBy;
-    private Long createdById;
+    private String createdBy;
 
-    private Long updatedByID;
 
     private String name;
 
@@ -32,7 +30,7 @@ public class InstanceDTO {
     private Long puzzleLevelId;
 
     public InstanceDTO(Long id,String name, Integer row, Integer col, Integer zorder, Long PGObjectId, String PGObjectTitle, String PGObjectCode, Long puzzleLevelId,
-                         Long version, String created, String updated, String createdBy, String updatedBy, Long createdById, Long updatedByID) {
+                         Long version, String created, String updated, String createdBy, String updatedBy) {
         this.id = id;
         this.name = name;
         this.version = version;
@@ -40,8 +38,6 @@ public class InstanceDTO {
         this.updated = updated;
         this.createdBy = createdBy;
         this.updatedBy = updatedBy;
-        this.createdById = createdById;
-        this.updatedByID = updatedByID;
         this.row = row;
         this.col = col;
         this.zorder = zorder;

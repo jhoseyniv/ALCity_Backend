@@ -43,14 +43,14 @@ public class PGController {
     @RequestMapping(value = "/id/{id}/objects/all", method = RequestMethod.GET)
     @ResponseBody
     public Collection<PGObjectDTO> getObjectsForAPG(@PathVariable Long id) {
-        Collection<PGObjectDTO> alCityObjectInPGDTOS = new ArrayList<PGObjectDTO>();
-        Collection<PGObject> alCityObjectInPGS = new ArrayList<PGObject>();
+        Collection<PGObjectDTO> pgObjectDTOS = new ArrayList<PGObjectDTO>();
+        Collection<PGObject> pgObjects = new ArrayList<PGObject>();
         Optional<PuzzleGroup> puzzleGroup = pgService.findById(id);
         if(puzzleGroup.isPresent()) {
-            alCityObjectInPGS = puzzleGroup.get().getAlCityObjectInPGS();
-            alCityObjectInPGDTOS = DTOUtil.getALCityObjectInPGDTOS(alCityObjectInPGS);
+            pgObjects = puzzleGroup.get().getAlCityObjectInPGS();
+            pgObjectDTOS = DTOUtil.getPGObjectDTOS(pgObjects);
         }
-        return  alCityObjectInPGDTOS;
+        return  pgObjectDTOS;
     }
     @Operation( summary = "Fetch all Journey Step that define for a puzzle group ",  description = "Fetch all Journey Step that define for a puzzle group")
     @RequestMapping(value = "/id/{id}/journey-step/all", method = RequestMethod.GET)
@@ -61,7 +61,7 @@ public class PGController {
         Optional<PuzzleGroup> puzzleGroup = pgService.findById(id);
         if(puzzleGroup.isPresent()) {
             journeySteps = puzzleGroup.get().getJourneyStepCollection();
-            journeyStepDTOS = DTOUtil.getJorneyStepsDTOS(journeySteps);
+            journeyStepDTOS = DTOUtil.getJourneyStepsDTOS(journeySteps);
         }
         return  journeyStepDTOS;
     }

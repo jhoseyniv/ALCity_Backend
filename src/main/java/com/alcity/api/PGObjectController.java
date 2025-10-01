@@ -39,12 +39,6 @@ public class PGObjectController {
     @Autowired
     private PGObjectService pgObjectService;
 
-//    @Autowired
-//    private AttributeService attributeService;
-//    @Autowired
-//    private AttributeValueService attributeValueService;
-
-
     @Operation( summary = "Fetch all actions for an al city object that define in a puzzle group ",  description = "Fetch all actions for an al city object")
     @RequestMapping(value = "/id/{id}/actions/all", method = RequestMethod.GET)
     @ResponseBody
@@ -61,9 +55,9 @@ public class PGObjectController {
     @ResponseBody
     @CrossOrigin(origins = "*")
     public PGObjectDTO getAnAObjectInPGDTO(@PathVariable Long id) {
-        Optional<PGObject> alCityObjectInPGOptional = pgObjectService.findById(id);
-        PGObjectDTO alCityObjectInPGDTO = DTOUtil.getALCityObjectInPGDTO(alCityObjectInPGOptional.get());
-        return  alCityObjectInPGDTO;
+        Optional<PGObject> pgObjectOptional = pgObjectService.findById(id);
+        if(pgObjectOptional.isPresent()) return null;
+        return DTOUtil.getPGObjectDTO(pgObjectOptional.get());
     }
 
     @Operation( summary = "Add a Object to a Puzzle Group ",  description = "Add a Object to a Puzzle Group ")

@@ -216,7 +216,7 @@ public class PLController {
         Collection<InstanceDTO> plInstancesDTOS= new ArrayList<InstanceDTO>();
         Optional<PuzzleLevel> puzzleLevelOptional = plService.findById(id);
         if(puzzleLevelOptional.isPresent())
-            plInstancesDTOS = DTOUtil.getPuzzleLevelInstance(puzzleLevelOptional.get());
+            plInstancesDTOS = DTOUtil.getInstancesDTOS(puzzleLevelOptional.get());
         return plInstancesDTOS;
     }
 
@@ -372,7 +372,7 @@ public class PLController {
             while(itr.hasNext()) {
                 PGObjectDTO dto = new PGObjectDTO();
                 PGObject entity = itr.next();
-                dto = DTOUtil.getALCityObjectInPGDTO(entity);
+                dto = DTOUtil.getPGObjectDTO(entity);
                 //Collection<Attribute> attributes = attributeService.findByOwnerIdAndAttributeOwnerType(entity.getId(), AttributeOwnerType.Object_In_Puzzle_Group);
                 dtos.add(dto);
             }

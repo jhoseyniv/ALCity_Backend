@@ -221,7 +221,7 @@ public class PGObjectService implements PGObjectRepository {
         public PGObject save(PGObjectDTO dto, String code) {
         Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
         Optional<PuzzleGroup> puzzleGroupOptional =  pgRepository.findByTitle(dto.getPuzzleGroup());
-        Optional<BaseObject> alCityObjectOptional =  objectService.findById(dto.getAlCityObjectId());
+        Optional<BaseObject> alCityObjectOptional =  objectService.findById(dto.getObjectId());
         PGObject alCityObjectInPG=null;
         if(puzzleGroupOptional.isPresent())
         if (code.equalsIgnoreCase("Save")) { //Save

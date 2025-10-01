@@ -211,7 +211,7 @@ public class JourneyController {
     public Collection<JourneyStepDTO> getJourneyStepsById(@PathVariable Long id) {
         Optional<Journey> journey = service.findById(id);
         Collection<JourneyStep> steps = journey.get().getJourneyStepCollection();
-        Collection<JourneyStepDTO> dtos = DTOUtil.getJorneyStepsDTOS(steps);
+        Collection<JourneyStepDTO> dtos = DTOUtil.getJourneyStepsDTOS(steps);
         return dtos;
     }
 

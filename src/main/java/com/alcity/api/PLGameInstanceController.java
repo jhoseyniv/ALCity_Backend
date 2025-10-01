@@ -53,7 +53,7 @@ public class PLGameInstanceController {
     public PLGameInstanceDTO getPlayHistoryById(@PathVariable Long id) {
         Optional<PLGameInstance>  historyOptional= plGameInstanceService.findById(id);
         if(historyOptional.isEmpty()) return  null;
-        return DTOUtil.getPLGameInstanceDTO(historyOptional.get());
+        return DTOUtil.getGameInstanceDTO(historyOptional.get());
     }
 
     @Operation( summary = "Get analytical data for a play history  by id",  description = "analytical data for a play history  by id..........")
