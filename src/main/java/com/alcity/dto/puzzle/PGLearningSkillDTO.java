@@ -1,5 +1,12 @@
 package com.alcity.dto.puzzle;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Getter
+@Setter
+@NoArgsConstructor
 public class PGLearningSkillDTO {
 
     private Long id;
@@ -11,67 +18,6 @@ public class PGLearningSkillDTO {
     private Long puzzleGroupId;
     private Long learningContentId;
     private String learningContentDescText;
-
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-
-     public String getLearningSkillTitle() {
-        return learningSkillTitle;
-    }
-
-    public void setLearningSkillTitle(String learningSkillTitle) {
-        this.learningSkillTitle = learningSkillTitle;
-    }
-
-    public Long getLearningSkillId() {
-        return learningSkillId;
-    }
-
-    public void setLearningSkillId(Long learningSkillId) {
-        this.learningSkillId = learningSkillId;
-    }
-
-    public String getPuzzleGroupTitle() {
-        return puzzleGroupTitle;
-    }
-
-    public void setPuzzleGroupTitle(String puzzleGroupTitle) {
-        this.puzzleGroupTitle = puzzleGroupTitle;
-    }
-
-    public Long getPuzzleGroupId() {
-        return puzzleGroupId;
-    }
-
-    public void setPuzzleGroupId(Long puzzleGroupId) {
-        this.puzzleGroupId = puzzleGroupId;
-    }
-
-    public Long getLearningContentId() {
-        return learningContentId;
-    }
-
-    public void setLearningContentId(Long learningContentId) {
-        this.learningContentId = learningContentId;
-    }
-
-    public PGLearningSkillDTO() {
-    }
-
-    public String getLearningContentDescText() {
-        return learningContentDescText;
-    }
-
-    public void setLearningContentDescText(String learningContentDescText) {
-        this.learningContentDescText = learningContentDescText;
-    }
 
     public PGLearningSkillDTO(Long id , String learningSkillTitle,
                               Long learningSkillId, String puzzleGroupTitle, Long puzzleGroupId, Long learningContentId, String learningContentDescText) {

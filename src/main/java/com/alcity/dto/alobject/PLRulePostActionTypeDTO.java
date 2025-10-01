@@ -4,9 +4,6 @@ import com.alcity.dto.base.BaseItemSetDTO;
 
 public class PLRulePostActionTypeDTO extends BaseItemSetDTO {
 
-
-
-
     public PLRulePostActionTypeDTO() {
     }
 

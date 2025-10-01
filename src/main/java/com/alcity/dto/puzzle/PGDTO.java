@@ -1,8 +1,15 @@
 package com.alcity.dto.puzzle;
 
 import com.alcity.dto.journey.JourneyStepDTO;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.Collection;
+@Getter
+@Setter
+@NoArgsConstructor
+
 
 public class PGDTO  {
     private Long id;
@@ -24,121 +31,6 @@ public class PGDTO  {
     private Collection<PGObjectDTO> puzzleGroup_puzzleObjectDTOCollection;
 
     private Collection<PGLearningSkillDTO> puzzleSkillLearningContentDTOCollection;
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public Long getIconId() {
-        return iconId;
-    }
-
-    public void setIconId(Long iconId) {
-        this.iconId = iconId;
-    }
-
-    public Long getPicId() {
-        return picId;
-    }
-
-    public void setPicId(Long picId) {
-        this.picId = picId;
-    }
-
-    public Collection<JourneyStepDTO> getJourneyStepDTOCollection() {
-        return journeyStepDTOCollection;
-    }
-
-    public void setJourneyStepDTOCollection(Collection<JourneyStepDTO> journeyStepDTOCollection) {
-        this.journeyStepDTOCollection = journeyStepDTOCollection;
-    }
-
-    public Collection<PLDTO> getPuzzleLevelDTOCollection() {
-        return puzzleLevelDTOCollection;
-    }
-
-    public void setPuzzleLevelDTOCollection(Collection<PLDTO> puzzleLevelDTOCollection) {
-        this.puzzleLevelDTOCollection = puzzleLevelDTOCollection;
-    }
-
-    public Collection<PGLearningSkillDTO> getPuzzleSkillLearningContentDTOCollection() {
-        return puzzleSkillLearningContentDTOCollection;
-    }
-
-    public void setPuzzleSkillLearningContentDTOCollection(Collection<PGLearningSkillDTO> puzzleSkillLearningContentDTOCollection) {
-        this.puzzleSkillLearningContentDTOCollection = puzzleSkillLearningContentDTOCollection;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getVersion() {
-        return version;
-    }
-
-    public void setVersion(Long version) {
-        this.version = version;
-    }
-
-    public String getCreated() {
-        return created;
-    }
-
-    public void setCreated(String created) {
-        this.created = created;
-    }
-
-    public String getUpdated() {
-        return updated;
-    }
-
-    public void setUpdated(String updated) {
-        this.updated = updated;
-    }
-
-    public String getCreatedBy() {
-        return createdBy;
-    }
-
-    public void setCreatedBy(String createdBy) {
-        this.createdBy = createdBy;
-    }
-
-    public String getUpdatedBy() {
-        return updatedBy;
-    }
-
-    public void setUpdatedBy(String updatedBy) {
-        this.updatedBy = updatedBy;
-    }
-
-    public PGDTO() {
-    }
-
-    public Collection<PGObjectDTO> getPuzzleGroup_puzzleObjectDTOCollection() {
-        return puzzleGroup_puzzleObjectDTOCollection;
-    }
-
-    public void setPuzzleGroup_puzzleObjectDTOCollection(Collection<PGObjectDTO> puzzleGroup_puzzleObjectDTOCollection) {
-        this.puzzleGroup_puzzleObjectDTOCollection = puzzleGroup_puzzleObjectDTOCollection;
-    }
-
-    public Long getPuzzleCategoryId() {
-        return puzzleCategoryId;
-    }
-
-    public void setPuzzleCategoryId(Long puzzleCategoryId) {
-        this.puzzleCategoryId = puzzleCategoryId;
-    }
 
     public PGDTO(Long id, Long version, String created, String updated, String createdBy, String updatedBy, String title, Long puzzleCategoryId, Long iconId, Long picId) {
         this.id = id;

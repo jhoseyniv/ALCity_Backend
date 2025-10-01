@@ -67,13 +67,13 @@ public class InstanceService implements InstanceRepository {
         Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
         Optional<PuzzleLevel> puzzleLevelOptional =  puzzleLevelService.findById(dto.getPuzzleLevelId());
         Optional<PGObject> pgObjectOptional =  objectInPGService.findById(dto.getPGObjectId());
-        PLCell cell = getCell(puzzleLevelOptional,dto.getRow(),dto.getCol(),dto.getzOrder());
+        PLCell cell = getCell(puzzleLevelOptional,dto.getRow(),dto.getCol(),dto.getZorder());
         if(puzzleLevelOptional.isEmpty() || pgObjectOptional.isEmpty()) return null;
 
 
         Instance instance=null;
             if (code.equalsIgnoreCase("Save")) { //Save
-                instance = new Instance(dto.getName(), dto.getRow(),dto.getCol(),dto.getzOrder(),cell,pgObjectOptional.get(),
+                instance = new Instance(dto.getName(), dto.getRow(),dto.getCol(),dto.getZorder(),cell,pgObjectOptional.get(),
                         puzzleLevelOptional.get(), 1L, DateUtils.getNow(), DateUtils.getNow(), createdBy.get(), createdBy.get());
                 instanceRepository.save(instance);
             }else{//edit
@@ -83,7 +83,7 @@ public class InstanceService implements InstanceRepository {
                     instance.setName(dto.getName());
                     instance.setRow(dto.getRow());
                     instance.setCol(dto.getCol());
-                    instance.setZorder(dto.getzOrder());
+                    instance.setZorder(dto.getZorder());
                     instance.setAlCityObjectInPG(pgObjectOptional.get());
                     instance.setPuzzleLevel(puzzleLevelOptional.get());
                     instanceRepository.save(instance);

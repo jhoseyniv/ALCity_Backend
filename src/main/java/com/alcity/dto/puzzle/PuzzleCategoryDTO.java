@@ -1,9 +1,15 @@
 package com.alcity.dto.puzzle;
 
 import com.alcity.dto.base.BaseItemSetDTO;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.Collection;
 
+@Getter
+@Setter
+@NoArgsConstructor
 public class PuzzleCategoryDTO {
     private Long id;
 
@@ -21,97 +27,6 @@ public class PuzzleCategoryDTO {
 
     private Long updatedById;
     private Long createdById;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getLabel() {
-        return label;
-    }
-
-    public void setLabel(String label) {
-        this.label = label;
-    }
-
-    public String getValue() {
-        return value;
-    }
-
-    public void setValue(String value) {
-        this.value = value;
-    }
-
-    public Long getVersion() {
-        return version;
-    }
-
-    public void setVersion(Long version) {
-        this.version = version;
-    }
-
-    public String getCreated() {
-        return created;
-    }
-
-    public void setCreated(String created) {
-        this.created = created;
-    }
-
-    public String getUpdated() {
-        return updated;
-    }
-
-    public void setUpdated(String updated) {
-        this.updated = updated;
-    }
-
-    public String getCreatedBy() {
-        return createdBy;
-    }
-
-    public void setCreatedBy(String createdBy) {
-        this.createdBy = createdBy;
-    }
-
-    public String getUpdatedBy() {
-        return updatedBy;
-    }
-
-    public void setUpdatedBy(String updatedBy) {
-        this.updatedBy = updatedBy;
-    }
-
-    public Long getUpdatedById() {
-        return updatedById;
-    }
-
-    public void setUpdatedById(Long updatedById) {
-        this.updatedById = updatedById;
-    }
-
-    public Long getCreatedById() {
-        return createdById;
-    }
-
-    public void setCreatedById(Long createdById) {
-        this.createdById = createdById;
-    }
-
-    public String getTemplateEditor() {
-        return templateEditor;
-    }
-
-    public void setTemplateEditor(String templateEditor) {
-        this.templateEditor = templateEditor;
-    }
-
-    public PuzzleCategoryDTO() {
-    }
 
     public PuzzleCategoryDTO(Long id, String label, String value,String templateEditor ,Long version,
                              String created, String updated, String createdBy, String updatedBy, Long updatedById, Long getCreatedById) {
