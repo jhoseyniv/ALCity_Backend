@@ -103,7 +103,7 @@ public class DTOUtil {
                 pl.getApproveDate(), pl.getPlGrounds().iterator().next().getId(), pl.getPuzzleGroup().getId(), pl.getPuzzleGroup().getTitle(),
                 pl.getOrdering(), pl.getTitle(), pl.getCode(), pl.getFromAge(), pl.getToAge(), pl.getMaxScore(),
                 pl.getFirstStarScore() , pl.getSecondStarScore(), pl.getThirdStartScore(),
-                pl.getPuzzleLevelStatus().name(), pl.getPuzzleLevelPrivacy().getValue(), pl.getPuzzleDifficulty().name());
+                pl.getPuzzleLevelStatus().name(), pl.getPuzzleLevelPrivacy().getValue(), pl.getPuzzleDifficulty().name(),pl.getPuzzleGroup().getIcon().getId(),pl.getPuzzleGroup().getPic().getId());
     }
     public static void copyActionFromTo(Long fromOwnerId, Long toOwnerId,AttributeOwnerType from,AttributeOwnerType to,
                                         ActionService actionService,POActionOwnerType  fromAction,POActionOwnerType toAction,
@@ -1060,7 +1060,8 @@ public class DTOUtil {
                 instance.getPuzzleLevel().getOrdering(), instance.getPuzzleLevel().getTitle(), instance.getPuzzleLevel().getCode(),
                 instance.getPuzzleLevel().getFromAge(), instance.getPuzzleLevel().getToAge(), instance.getPuzzleLevel().getMaxScore(),
                 instance.getPuzzleLevel().getFirstStarScore() , instance.getPuzzleLevel().getSecondStarScore(), instance.getPuzzleLevel().getThirdStartScore(),
-                instance.getPuzzleLevel().getPuzzleLevelStatus().name(), instance.getPuzzleLevel().getPuzzleLevelPrivacy().getValue(), instance.getPuzzleLevel().getPuzzleDifficulty().name());
+                instance.getPuzzleLevel().getPuzzleLevelStatus().name(), instance.getPuzzleLevel().getPuzzleLevelPrivacy().getValue(), instance.getPuzzleLevel().getPuzzleDifficulty().name(),
+                instance.getPuzzleLevel().getPuzzleGroup().getIcon().getId(),instance.getPuzzleLevel().getPuzzleGroup().getPic().getId());
             return dto;
         }
 
