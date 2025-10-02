@@ -2,13 +2,9 @@ package com.alcity.api;
 
 import com.alcity.customexception.ResponseMessage;
 import com.alcity.customexception.ResponseObject;
-import com.alcity.customexception.ViolateForeignKeyException;
 import com.alcity.dto.alobject.*;
 import com.alcity.entity.alenum.*;
 import com.alcity.entity.alobject.*;
-import com.alcity.entity.journey.Journey;
-import com.alcity.entity.journey.RoadMap;
-import com.alcity.entity.puzzle.BaseObject;
 import com.alcity.service.alobject.*;
 import com.alcity.utility.DTOUtil;
 import io.swagger.v3.oas.annotations.Operation;
@@ -28,7 +24,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/obj")
 
-public class ALObjectController {
+public class ObjectCategoryController {
 
     @Autowired
     private ObjectCategoryService objectCategoryService;
@@ -118,7 +114,6 @@ public class ALObjectController {
             response = new ResponseMessage(ErrorType.SaveFail,Status.error.name(), ObjectCategory.class.getSimpleName() ,  -1L, SystemMessage.SaveOrEditMessage_Fail);
         return response;
      }
-
 
     @Operation( summary = "delete a  Object category entity",  description = "delete an object category entity and their data to data base")
     @DeleteMapping("/cat/del/{id}")
