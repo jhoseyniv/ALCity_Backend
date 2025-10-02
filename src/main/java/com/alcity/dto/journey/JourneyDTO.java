@@ -19,9 +19,6 @@ public class JourneyDTO   {
     private String createdBy;
 
     private String updatedBy;
-    private Long createdById;
-
-    private Long updatedById;
 
     private String title;
 
@@ -37,7 +34,7 @@ public class JourneyDTO   {
     private Integer minToOpenStar;
 
 
-    public JourneyDTO(Long id, Long version, String created, String updated, String createdBy, String updatedBy, Long createdById, Long updatedById,
+    public JourneyDTO(Long id, Long version, String created, String updated, String createdBy, String updatedBy,
                       String title, Long picId, Long buttonPassedIconId, Long buttonCurrenIconId, Long buttonLockedIconId, Integer ordering, Integer minToPassStar, Integer minToOpenStar) {
         this.id = id;
         this.version = version;
@@ -45,8 +42,6 @@ public class JourneyDTO   {
         this.updated = updated;
         this.createdBy = createdBy;
         this.updatedBy = updatedBy;
-        this.createdById = createdById;
-        this.updatedById = updatedById;
         this.title = title;
         this.picId = picId;
         this.buttonPassedIconId = buttonPassedIconId;

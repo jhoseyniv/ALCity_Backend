@@ -43,18 +43,18 @@ public class PlLearningTopicController {
     @RequestMapping(value = "/id/{id}/all", method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin(origins = "*")
-    public Collection<PlLearningTopicDTO> getAllLearningTopicsForPuzzleLevelById(@PathVariable Long id) {
+    public Collection<PlLearningTopicDTO> getAllByPuzzleLevelId(@PathVariable Long id) {
         Optional<PuzzleLevel> puzzleLevelOptional = puzzleLevelService.findById(id);
         if(puzzleLevelOptional.isEmpty()) return  null;
         PuzzleLevel puzzleLevel = puzzleLevelOptional.get();
-        Collection<PlLearningTopicDTO>  plLearningTopicDTOS = DTOUtil.getPl_LearningTopicDTOS(puzzleLevel);
+        Collection<PlLearningTopicDTO>  plLearningTopicDTOS = DTOUtil.getPlLearningTopicDTOS(puzzleLevel);
         return  plLearningTopicDTOS;
     }
 
     @Operation( summary = "add a  learning topic to puzzle level ",  description = "Save a puzzle level learning topic entity and their data to data base")
     @PostMapping("/add")
     @CrossOrigin(origins = "*")
-    public ResponseMessage savePLLearningTopic(@RequestBody PlLearningTopicDTO dto)  {
+    public ResponseMessage save(@RequestBody PlLearningTopicDTO dto)  {
         PLLearningTopic savedRecord = null;
         ResponseMessage response = new ResponseMessage();
 
@@ -79,7 +79,7 @@ public class PlLearningTopicController {
     @Operation( summary = "Delete a  Puzzle Level learning Topic ",  description = "delete a Puzzle Level learning Topic")
     @DeleteMapping("/del/id/{id}")
     @CrossOrigin(origins = "*")
-    public ResponseMessage deleteAPuzzleLevelLearningTopicById(@PathVariable Long id) {
+    public ResponseMessage delete(@PathVariable Long id) {
         Optional<PLLearningTopic> requestedRecord = plLearningTopicService.findById(id);
         if(requestedRecord.isPresent()){
             try {
