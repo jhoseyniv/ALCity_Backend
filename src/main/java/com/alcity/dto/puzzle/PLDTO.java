@@ -17,10 +17,7 @@ public class PLDTO {
     private String createdBy;
     private String updatedBy;
 
-    private Long createdById;
-    private Long updatedById;
-
-     private String approveDate;
+    private String approveDate;
     private Long ordering;
     private String title;
     private String code;
@@ -49,7 +46,7 @@ public class PLDTO {
     private Long iconId;
     private Long picId;
 
-    public PLDTO(Long id, Long version, String created, String updated, String createdBy, String updatedBy, Long createdById, Long updatedById,
+    public PLDTO(Long id, Long version, String created, String updated, String createdBy, String updatedBy,
                  String approveDate, Long plGroundId, Long puzzleGroupId, String puzzleGroupTitle, Long ordering, String title, String code, Integer fromAge, Integer toAge, Float maxScore, Float firstStarScore , Float secondStarScore, Float thirdStarScore, String puzzleLevelStatus, String puzzleLevelPrivacy, String puzzleLevelDifficulty) {
         this.id = id;
         this.version = version;
@@ -57,8 +54,6 @@ public class PLDTO {
         this.updated = updated;
         this.createdBy = createdBy;
         this.updatedBy = updatedBy;
-        this.createdById = createdById;
-        this.updatedById = updatedById;
         this.approveDate = approveDate;
         this.ordering = ordering;
         this.title = title;

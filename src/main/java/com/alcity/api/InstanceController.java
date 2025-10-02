@@ -114,12 +114,13 @@ public class InstanceController {
     @RequestMapping(value = "/id/{id}", method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin(origins = "*")
-    public InstanceDTO getAnAObjectInPLDTO(@PathVariable Long id) {
+    public InstanceDTO getInstance(@PathVariable Long id) {
         Optional<Instance> instanceOptional = service.findById(id);
         if(instanceOptional.isEmpty()) return null;
-        InstanceDTO instanceDTO = DTOUtil.getALCityObjectInPLDTO(instanceOptional.get());
+        InstanceDTO instanceDTO = DTOUtil.getInstanceDTO(instanceOptional.get());
         return  instanceDTO;
     }
+
     @Operation( summary = "Fetch all actions for an Algoopia object instance in a puzzle level by instance Id ",  description = "Fetch all actions for an Algoopia object instance ")
     @RequestMapping(value = "/id/{id}/actions/all", method = RequestMethod.GET)
     @ResponseBody
@@ -132,25 +133,7 @@ public class InstanceController {
         return  actionsData;
     }
 
- /*   @Operation( summary = "Fetch all variables for a city object instance in a puzzle level by instance Id ",  description = "Fetch all variables for an alcity object instance ")
-    @RequestMapping(value = "/id/{id}/variables/all", method = RequestMethod.GET)
-    @ResponseBody
-    @CrossOrigin(origins = "*")
-    public Collection<RecordData> getAllVariablesForAnALCityInstanceInPuzzleLevelById(@PathVariable Long id) {
-        Collection<RecordData>  variables = DTOUtil.getAttributeForOwnerById(attributeService,id,AttributeOwnerType.Instance_Puzzle_Group_Object_Variable);
-        return  variables;
-    }
-    @Operation( summary = "Fetch all properties for an object instance in a puzzle level by instance Id ",  description = "Fetch all properties for an alcity object instance  ")
-    @RequestMapping(value = "/id/{id}/properties/all", method = RequestMethod.GET)
-    @ResponseBody
-    @CrossOrigin(origins = "*")
-    public Collection<RecordData> getAllPropertiesForAnALCityInstanceInPuzzleLevelById(@PathVariable Long id) {
-        Collection<RecordData>  properties = DTOUtil.getAttributeForOwnerById(attributeService,id,AttributeOwnerType.Instance_Puzzle_Group_Object_Property);
-        return  properties;
-    }
-*/
-
-    @Operation( summary = "Remove an Instance From a Puzzle Level",  description = "Remove an  AL City Object  Instance From a Puzzle Level")
+   @Operation( summary = "Remove an Instance From a Puzzle Level",  description = "Remove an  AL City Object  Instance From a Puzzle Level")
     @DeleteMapping("/del/id/{id}")
     @CrossOrigin(origins = "*")
     public ResponseMessage deleteInstance(@PathVariable Long id) {

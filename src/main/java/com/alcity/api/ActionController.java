@@ -41,14 +41,14 @@ public class ActionController {
     @ResponseBody
     public RendererDTO get(@PathVariable Long id) {
         Optional<Renderer> rendererOptional = service.findById(id);
-        return rendererOptional.map(DTOUtil::getActionRendererDTO).orElse(null);
+        return rendererOptional.map(DTOUtil::getRendererDTO).orElse(null);
     }
 
     @Operation( summary = "Fetch all action renders ",  description = "fetches all renderers for all actions")
     @GetMapping("/all")
     public Collection<RendererDTO> getAll(Model model) {
         Collection<Renderer> renderers = service.findAll();
-        return DTOUtil.getActionRendererDTOS(renderers);
+        return DTOUtil.getRendererDTOS(renderers);
     }
 
 
