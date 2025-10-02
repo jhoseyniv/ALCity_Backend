@@ -96,41 +96,14 @@ public class DTOUtil {
         }
         return  dtos;
     }
-    public static PLDTO getPuzzleLevelDTO(PuzzleLevel entity) {
-        PLDTO dto = new PLDTO();
-        Collection<PLGround> plGrounds = entity.getPlGrounds();
-        Iterator<PLGround> iterator = plGrounds.iterator();
-        PLGround plGround = new PLGround();
-        while(iterator.hasNext()) {
-            plGround = iterator.next();
-        }
-        dto.setId(entity.getId());
-        dto.setVersion(entity.getVersion());
-        dto.setCode(entity.getCode());
-        dto.setApproveDate(entity.getApproveDate());
-        dto.setTitle(entity.getTitle());
-        dto.setToAge(entity.getToAge());
-        dto.setFromAge(entity.getFromAge());
-        dto.setCol(plGround.getNumColumns());
-        dto.setRow(plGround.getNumRows());
-        dto.setOrdering(entity.getOrdering());
-        dto.setPuzzleGroupId(entity.getPuzzleGroup().getId());
-        dto.setPuzzleGroupTitle(entity.getPuzzleGroup().getTitle());
-        dto.setPlGroundId(plGround.getId());
-        dto.setMaxScore(entity.getMaxScore());
-        dto.setFirstStarScore(entity.getFirstStarScore());
-        dto.setSecondStarScore(entity.getSecondStarScore());
-        dto.setThirdStartScore(entity.getThirdStartScore());
-        dto.setPuzzleLevelPrivacy(entity.getPuzzleLevelPrivacy().getValue());
-        dto.setPuzzleLevelStatus(entity.getPuzzleLevelStatus().name());
-        dto.setPuzzleLevelDifficulty(entity.getPuzzleDifficulty().name());
-        dto.setUpdated(entity.getUpdated());
-        dto.setCreated(entity.getCreated());
-        dto.setCreatedBy(entity.getCreatedBy().getUsername());
-        dto.setUpdatedBy(entity.getUpdatedBy().getUsername());
-        dto.setPicId(entity.getPuzzleGroup().getIcon().getId());
-        dto.setIconId(entity.getPuzzleGroup().getIcon().getId());
-        return dto;
+    public static PLDTO getPuzzleLevelDTO(PuzzleLevel pl) {
+
+        return new PLDTO(pl.getId(), pl.getVersion(), pl.getCreated(),
+                pl.getUpdated(), pl.getCreatedBy().getUsername(), pl.getUpdatedBy().getUsername(),
+                pl.getApproveDate(), pl.getPlGrounds().iterator().next().getId(), pl.getPuzzleGroup().getId(), pl.getPuzzleGroup().getTitle(),
+                pl.getOrdering(), pl.getTitle(), pl.getCode(), pl.getFromAge(), pl.getToAge(), pl.getMaxScore(),
+                pl.getFirstStarScore() , pl.getSecondStarScore(), pl.getThirdStartScore(),
+                pl.getPuzzleLevelStatus().name(), pl.getPuzzleLevelPrivacy().getValue(), pl.getPuzzleDifficulty().name());
     }
     public static void copyActionFromTo(Long fromOwnerId, Long toOwnerId,AttributeOwnerType from,AttributeOwnerType to,
                                         ActionService actionService,POActionOwnerType  fromAction,POActionOwnerType toAction,
@@ -341,17 +314,8 @@ public class DTOUtil {
         dto.setAttributeValueDTO(valueDTO);
         return dto;
     }
-/*
-  public static AttributeDTO getAttributeDTOSave(Attribute att){
-        Collection<AttributeValueDTO> valueDTOS = getAttributesValueDTOS(att.getAttributeValues()) ;
-        AttributeValueDTO valueDTO = getFirstAttributeValueDTO(valueDTOS);
-        AttributeDTO dto = new AttributeDTO(att.getId(), att.getName(),
-                att.getOwnerId(), att.getAttributeOwnerType().name(),
-                att.getDataType().name(),valueDTO);
-        return dto;
-    }
-*/
-    public static Collection<AttributeDTO> getAttributesDTOS(Collection<Attribute> attributes) {
+
+   public static Collection<AttributeDTO> getAttributesDTOS(Collection<Attribute> attributes) {
         Collection<AttributeDTO> dtos = new ArrayList<AttributeDTO>();
         Iterator<Attribute> itr = attributes.iterator();
         while (itr.hasNext()) {
@@ -360,7 +324,7 @@ public class DTOUtil {
             dtos.add(dto);
         }
         return dtos;
-    }
+   }
 
   public static Set<Long> getBinaryContentFromAttributeDTOS(Collection<Attribute> attributes) {
         Set<Long> dtos = new HashSet<>();
@@ -373,8 +337,9 @@ public class DTOUtil {
                 dtos.add(valueOptional.get().getBinaryContentId());
         }
         return dtos;
-    }
-    public static Collection<PLBinaryContentDTO> getPLBinaryContentsDTOS(BinaryContentService binaryContentService,Set<Long> attributes) {
+ }
+
+ public static Collection<PLBinaryContentDTO> getPLBinaryContentsDTOS(BinaryContentService binaryContentService,Set<Long> attributes) {
         Collection<PLBinaryContentDTO> contents = new ArrayList<>();
         Iterator<Long> itr = attributes.iterator();
         while(itr.hasNext()) {
@@ -405,6 +370,7 @@ public class DTOUtil {
                 step.getPuzzleGroup().getTitle(), step.getPuzzleGroup().getId(), step.getPuzzleGroup().getIcon().getId(), step.getJourney().getPic().getId(),
                 step.getVersion(), step.getCreated(), step.getUpdated(), step.getCreatedBy().getUsername(), step.getUpdatedBy().getUsername());
     }
+
     public static Collection<JourneyStepDTO> getJourneyStepsDTOS(Collection<JourneyStep> input) {
         Collection<JourneyStepDTO> dtos = new ArrayList<JourneyStepDTO>();
         for (JourneyStep journeyStep : input) {
@@ -414,28 +380,7 @@ public class DTOUtil {
         return dtos;
     }
 
-    /*
-    public static boolean isAttributeChanged(Attribute attribute , AttributeDTOSave newAttribute) {
-        if(!attribute.getName().equalsIgnoreCase(newAttribute.getName())
-             || attribute.getDataType().equals(newAttribute.getDataType())
-        ){
-            return true;
-        }
-
-        return false;
-    }
-
-    public static boolean isAttributeValueSChanged(Collection<AttributeValue> values , AttributeValueDTOSave newValues) {
-        Iterator<AttributeValue> itr = values.iterator();
-        while(itr.hasNext()){
-            if(isAttributeValueChanged(itr.next(),newValues))
-                return true;
-        }
-        return false;
-    }
-*/
-
-        public static boolean isAttributeValueChanged(AttributeValue value , AttributeValueDTOSave newValue) {
+    public static boolean isAttributeValueChanged(AttributeValue value , AttributeValueDTOSave newValue) {
         Attribute bindedAttribute = value.getBindedAttributeId();
         Long bindedAttributeId=null;
         if(bindedAttribute != null)   bindedAttributeId = bindedAttribute.getId();
@@ -659,10 +604,9 @@ public class DTOUtil {
 
     public static Collection<PLDTO> getPuzzleLevelsDTOS(Collection<PuzzleGroup> inputs) {
         Collection<PLDTO> outputs = new ArrayList<PLDTO>();
-        Iterator<PuzzleGroup> itr = inputs.iterator();
-        while (itr.hasNext()) {
+        for (PuzzleGroup input : inputs) {
             Collection<PLDTO> dtos = new ArrayList<PLDTO>();
-            dtos = getPuzzleLevelsByPuzzleGroup(itr.next());
+            dtos = getPuzzleLevelsByPuzzleGroup(input);
             outputs.addAll(dtos);
         }
         return outputs;

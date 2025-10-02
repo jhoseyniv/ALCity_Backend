@@ -148,24 +148,7 @@ public class AppMemberController {
         AppMemberSkillScoreDTO dto = DTOUtil.getXPForAAppMemberSkillDTO(memberOptional.get(),learningSkillOptional.get(),transactions,binaryContentService);
         return dto;
     }
-/*
-    @Operation( summary = "Get Score for a micro skill by User id ....",  description = "Get Score for a micro skill by User id ....")
-    @RequestMapping(value = "/uid/{uid}/micro-skill-score/sid/{sid}", method = RequestMethod.GET)
-    @ResponseBody
-    @CrossOrigin(origins = "*")
-    public AppMemberSkillScoreDTO getMicroSkillScoreByUserIdAndSkillID(@PathVariable Long uid, @PathVariable Long sid) {
-        Optional<AppMember> memberOptional = appMemberService.findById(uid);
-        Optional<LearningSkill> learningSkillOptional = learningSkillService.findById(sid);
-        PLObjectiveTransactionType transactionType = PLObjectiveTransactionType.LearningSkill;
-        Optional<PLObjective> objectiveOptional = plObjectiveService.findByLearningSkill(learningSkillOptional.get());
-        if(memberOptional.isEmpty() || learningSkillOptional.isEmpty() || objectiveOptional.isEmpty())  return null;
 
-        Collection<PLObjectiveTransaction> transactions = objectiveTransactionService.findByPlObjectiveAndTransactionTypeAndAppMember(objectiveOptional.get(),transactionType,memberOptional.get());
-        AppMemberSkillScoreDTO dto = DTOUtil.getXPForAAppMemberSkillDTO(memberOptional.get(),learningSkillOptional.get(),transactions,binaryContentService);
-        return dto;
-    }
-
-*/
     @Operation( summary = "Get last accumulative  XP's  for a user by skill id ",  description = "Get last accumulative XP's for a user by skill id")
     @RequestMapping(value = "/id/{id}/xp-sub-set-skill/sid/{sid}", method = RequestMethod.GET)
     @ResponseBody
@@ -288,6 +271,7 @@ public class AppMemberController {
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + binaryContent.getFileName() + "\"")
                 .body(binaryContent.getContent());
     }
+
     @Operation( summary = "Get public puzzle levels for a app member ",  description = "Get all puzzles for a user ...")
     @RequestMapping(value = "/id/{id}/all-pl", method = RequestMethod.GET)
     @ResponseBody

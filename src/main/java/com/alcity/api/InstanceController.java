@@ -37,12 +37,8 @@ public class InstanceController {
     @Autowired
     private InstanceService service;
 
-//    @Autowired
-//    private AttributeService attributeService;
-
     @Autowired
     private PLCellService plCellService;
-
 
     @Autowired
     ActionService actionService;
@@ -76,7 +72,6 @@ public class InstanceController {
     @PostMapping("/{iid}/iid/add-to-cell/{cid}/cid")
     @CrossOrigin(origins = "*")
     public ResponseMessage addInstanceToCell(@PathVariable Long iid, @PathVariable Long cid)  {
-        //Instance instance = null;
         ResponseMessage response = new ResponseMessage();
         Optional<Instance> instanceOptional = service.findById(iid);
         Optional<PLCell> plCellOptional = plCellService.findById(iid);
@@ -125,7 +120,7 @@ public class InstanceController {
     @RequestMapping(value = "/id/{id}/actions/all", method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin(origins = "*")
-    public Collection<ActionData> getAllActionsForAnALCityInstanceInPuzzleLevelById(@PathVariable Long id) {
+    public Collection<ActionData> getAllActionsForInstance(@PathVariable Long id) {
         Collection<ActionData> actionsData = new ArrayList<ActionData>();
         Collection<ObjectAction> actions = new ArrayList<ObjectAction>();
         actions = actionService.findByOwnerObjectidAndPoActionOwnerType(id, POActionOwnerType.Puzzle_Level_Instance);

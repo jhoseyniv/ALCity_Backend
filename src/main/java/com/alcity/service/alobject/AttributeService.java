@@ -360,7 +360,9 @@ public class AttributeService implements AttributeRepository {
 
     @Override
     public void delete(Attribute entity) {
-
+        Collection<AttributeValue> values = entity.getAttributeValues();
+        attributeValueRepository.deleteAll(values);
+        attributeRepository.delete(entity);
     }
 
     @Override
