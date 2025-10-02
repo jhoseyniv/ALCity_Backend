@@ -47,7 +47,10 @@ public class PLDTO {
     private Long picId;
 
     public PLDTO(Long id, Long version, String created, String updated, String createdBy, String updatedBy,
-                 String approveDate, Long plGroundId, Long puzzleGroupId, String puzzleGroupTitle, Long ordering, String title, String code, Integer fromAge, Integer toAge, Float maxScore, Float firstStarScore , Float secondStarScore, Float thirdStarScore, String puzzleLevelStatus, String puzzleLevelPrivacy, String puzzleLevelDifficulty) {
+                 String approveDate, Long plGroundId, Long puzzleGroupId, String puzzleGroupTitle, Long ordering,
+                 String title, String code, Integer fromAge, Integer toAge, Float maxScore, Float firstStarScore ,
+                 Float secondStarScore, Float thirdStarScore, String puzzleLevelStatus, String puzzleLevelPrivacy,
+                 String puzzleLevelDifficulty,Long iconId, Long picId) {
         this.id = id;
         this.version = version;
         this.created = created;
@@ -67,9 +70,12 @@ public class PLDTO {
         this.maxScore = maxScore;
         this.firstStarScore = firstStarScore;
         this.secondStarScore =secondStarScore;
-        this.thirdStartScore = thirdStartScore;
+        this.thirdStartScore = thirdStarScore;
         this.puzzleLevelStatus = puzzleLevelStatus;
         this.puzzleLevelPrivacy = puzzleLevelPrivacy;
         this.puzzleLevelDifficulty = puzzleLevelDifficulty;
+        this.iconId = iconId;
+        this.picId = picId;
+
     }
 }
