@@ -73,7 +73,6 @@ public class PLGroundDTO  implements Serializable {
         this.panLimit = panLimit;
         this.initValueZoom = initValueZoom;
         this.initValueZoomLimit = initValueZoomLimit;
-         this.puzzleLevelId = puzzleLevelId;
-     //   this.boardGraphicDTO = boardGraphicDTO;
+        this.puzzleLevelId = puzzleLevelId;
     }
 }
