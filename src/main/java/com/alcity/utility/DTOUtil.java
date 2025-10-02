@@ -128,9 +128,8 @@ public class DTOUtil {
         dto.setCreated(entity.getCreated());
         dto.setCreatedBy(entity.getCreatedBy().getUsername());
         dto.setUpdatedBy(entity.getUpdatedBy().getUsername());
-        dto.setIconId(entity.getIcon().getId());
-        dto.setPicId(entity.getPicture().getId());
-
+        dto.setPicId(entity.getPuzzleGroup().getIcon().getId());
+        dto.setIconId(entity.getPuzzleGroup().getIcon().getId());
         return dto;
     }
     public static void copyActionFromTo(Long fromOwnerId, Long toOwnerId,AttributeOwnerType from,AttributeOwnerType to,
