@@ -9,12 +9,11 @@ import com.alcity.entity.alenum.Status;
 import com.alcity.entity.alenum.SystemMessage;
 import com.alcity.entity.appmember.AppMember;
 import com.alcity.entity.appmember.AppMember_LearningSkill;
-import com.alcity.entity.appmember.PLObjectiveTransaction;
+import com.alcity.entity.appmember.ObjectiveTransaction;
 import com.alcity.entity.learning.LearningSkill;
 import com.alcity.entity.puzzle.PLObjective;
 import com.alcity.repository.appmember.AppMemberRepository;
 import com.alcity.repository.appmember.AppMember_LearningSkillRepository;
-import com.alcity.repository.appmember.AppMember_WalletItemRepository;
 import com.alcity.service.learning.LearningSkillService;
 import com.alcity.utility.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,7 +66,7 @@ public class AppMember_LearningSkillService implements AppMember_LearningSkillRe
         return appMember_LearningSkillRepository.findByApplicationMemberAndLearningSkill(applicationMember,learningSkill);
     }
 
-    public void updateAppMemberMicroSkills(PLObjectiveTransaction transaction) {
+    public void updateAppMemberMicroSkills(ObjectiveTransaction transaction) {
         Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
         AppMember_LearningSkill appMemberLearningSkill = null;
         AppMember appMember = transaction.getGameInstance().getPlayer();
@@ -135,7 +134,7 @@ public class AppMember_LearningSkillService implements AppMember_LearningSkillRe
        return appMemberLearningSkill;
     }
 
-    public void updateAppMemberSubSetSkills(PLObjectiveTransaction transaction) {
+    public void updateAppMemberSubSetSkills(ObjectiveTransaction transaction) {
        LearningSkill microSkill = transaction.getPlObjective().getLearningSkill();
        LearningSkill subSetSkill = microSkill.getParentSkill();
        Optional<AppMember_LearningSkill> appMemberLearningSkillOptional =  appMember_LearningSkillRepository.findByApplicationMemberAndLearningSkill(transaction.getAppMember(),subSetSkill);
@@ -175,7 +174,7 @@ public class AppMember_LearningSkillService implements AppMember_LearningSkillRe
         return appMemberLearningSkill;
     }
 
-    public void updateAppMemberSkills(PLObjectiveTransaction transaction) {
+    public void updateAppMemberSkills(ObjectiveTransaction transaction) {
         LearningSkill microSkill = transaction.getPlObjective().getLearningSkill();
         LearningSkill subSetSkill = microSkill.getParentSkill();
         LearningSkill skill = subSetSkill.getParentSkill();

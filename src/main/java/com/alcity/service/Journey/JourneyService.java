@@ -132,8 +132,8 @@ public class JourneyService implements JourneyRepository {
     @Override
     public Journey save(JourneyDTO dto) throws UniqueConstraintException {
         Journey journey = null;
-        Optional<AppMember> createdBy = appMemberRepository.findById(dto.getCreatedById());
-        Optional<AppMember> updatedBy = appMemberRepository.findById(dto.getUpdatedById());
+        Optional<AppMember> createdBy = appMemberRepository.findByUsername(dto.getCreatedBy());
+        Optional<AppMember> updatedBy = appMemberRepository.findByUsername(dto.getUpdatedBy());
         Optional<BinaryContent> pictureOptional = binaryContentRepository.findById(dto.getPicId());
         Optional<BinaryContent> buttonPassedIconOptional = binaryContentRepository.findById(dto.getPicId());
         Optional<BinaryContent> buttonCurrenIconOptional = binaryContentRepository.findById(dto.getPicId());

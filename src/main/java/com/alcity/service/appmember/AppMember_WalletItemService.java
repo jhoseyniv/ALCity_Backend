@@ -3,7 +3,7 @@ package com.alcity.service.appmember;
 
 import com.alcity.entity.appmember.AppMember;
 import com.alcity.entity.appmember.AppMember_WalletItem;
-import com.alcity.entity.appmember.PLObjectiveTransaction;
+import com.alcity.entity.appmember.ObjectiveTransaction;
 import com.alcity.entity.appmember.WalletItem;
 import com.alcity.repository.appmember.AppMemberRepository;
 import com.alcity.repository.appmember.AppMember_WalletItemRepository;
@@ -40,7 +40,7 @@ public class AppMember_WalletItemService implements AppMember_WalletItemReposito
         if(id == null){ return Optional.empty(); }
         return appMember_WalletItemRepository.findById(id);
     }
-    public void updateAppMemberWalletItem(PLObjectiveTransaction transaction) {
+    public void updateAppMemberWalletItem(ObjectiveTransaction transaction) {
         Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
         AppMember_WalletItem appMemberWalletItem = null;
         AppMember appMember = transaction.getAppMember();

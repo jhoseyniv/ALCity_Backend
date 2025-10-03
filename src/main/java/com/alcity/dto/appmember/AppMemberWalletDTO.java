@@ -26,7 +26,9 @@ public class AppMemberWalletDTO {
 
     private  Float amount;
 
-    public AppMemberWalletDTO(Long id, Long appMemberId, String appMemberUsername, Long walletItemId, String walletItemTitle, String walletItemType,Boolean currency, Float amount, Long iconId) {
+    public AppMemberWalletDTO(Long id, Long appMemberId, String appMemberUsername,
+                              Long walletItemId, String walletItemTitle, String walletItemType,
+                              Boolean currency, Float amount, Long iconId) {
         this.id = id;
         this.appMemberId = appMemberId;
         this.appMemberUsername = appMemberUsername;

@@ -204,8 +204,8 @@ public class PLController {
         Optional<PuzzleLevel> puzzleLevelOptional = plService.findById(id);
         if(puzzleLevelOptional.isEmpty()) return  null;
         PuzzleLevel puzzleLevel = puzzleLevelOptional.get();
-        Collection<PlLearningTopicDTO>  plLearningTopicDTOS = DTOUtil.getPl_LearningTopicDTOS(puzzleLevel);
-        return  plLearningTopicDTOS;
+        Collection<PlLearningTopicDTO>  learningTopicDTOS = DTOUtil.getPlLearningTopicDTOS(puzzleLevel);
+        return  learningTopicDTOS;
     }
 
     @Operation( summary = "Fetch all Instances by a puzzle level Id ",  description = "fetches all Instances for a puzzle level ")

@@ -15,7 +15,6 @@ import com.alcity.dto.journey.JourneyStepDTO;
 import com.alcity.dto.journey.RoadMapDTO;
 import com.alcity.dto.learning.LearningContentDTO;
 import com.alcity.dto.learning.LearningTopicDTO;
-import com.alcity.dto.pgimport.PGObjectVariableImportDTO;
 import com.alcity.dto.plimpexport.rulemport.PostActionTreeImport;
 import com.alcity.dto.puzzle.*;
 import com.alcity.entity.alenum.*;
@@ -34,17 +33,17 @@ import com.alcity.repository.alobject.AttributeValueRepository;
 import com.alcity.service.alobject.ActionService;
 import com.alcity.service.alobject.AttributeService;
 import com.alcity.service.alobject.AttributeValueService;
+import com.alcity.service.appmember.ObjectiveTransactionService;
 import com.alcity.service.base.BinaryContentService;
 import com.alcity.service.learning.LearningSkillService;
 import com.alcity.service.puzzle.PLRulePostActionService;
 import com.alcity.test.ruleimport_new.PostActionTreeImport_New;
-import jdk.jfr.ContentType;
 import org.json.JSONException;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
-import java.time.DayOfWeek;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -744,7 +743,7 @@ public class DTOUtil {
         }
         return output;
     }
-  public static PlLearningTopicDTO getPl_LearningTopicDTO(PLLearningTopic entity){
+  public static PlLearningTopicDTO getPlLearningTopicDTO(PLLearningTopic entity){
         PlLearningTopicDTO dto = new PlLearningTopicDTO();
         PuzzleLevel puzzleLevel = entity.getPuzzleLevel();
         LearningTopic learningTopic = entity.getLearningTopic();
@@ -773,14 +772,11 @@ public class DTOUtil {
         String plData1 = (String) ois.readObject();
         return plData1;
     }
-    public static Collection<PlLearningTopicDTO> getPl_LearningTopicDTOS(PuzzleLevel puzzleLevel) {
+    public static Collection<PlLearningTopicDTO> getPlLearningTopicDTOS(PuzzleLevel puzzleLevel) {
         Collection<PlLearningTopicDTO> dtos = new ArrayList<PlLearningTopicDTO>();
         Collection<PLLearningTopic> learningTopics = puzzleLevel.getLearningTopics();
-        Iterator<PLLearningTopic> itr = learningTopics.iterator();
-        PlLearningTopicDTO dto = new PlLearningTopicDTO();
-        while(itr.hasNext()) {
-            PLLearningTopic pl_learningTopic = itr.next();
-            dto = getPl_LearningTopicDTO(pl_learningTopic);
+        for (PLLearningTopic learningTopic : learningTopics) {
+            PlLearningTopicDTO dto = getPlLearningTopicDTO(learningTopic);
             dtos.add(dto);
         }
 
@@ -812,31 +808,26 @@ public class DTOUtil {
             userName="admin";
         if(member.getLanguage() ==null) member.setLanguage(Language.English);
 
-        AppMemberDTO dto = new AppMemberDTO(member.getId(),member.getAge(),member.getLanguage().name(),
+        return new AppMemberDTO(member.getId(),member.getAge(),member.getLanguage().name(),
                 member.getUsername(),member.getPassword(),member.getIcon().getId(), member.getNickname(),
                 member.getMobile(), member.getEmail(),member.getGender().name(),member.getMemberType().getValue(),
                 member.getVersion(), member.getCreated(), member.getUpdated(), userName, userName);
-
-        return dto;
     }
+
     public static AdvertisementDTO getAdvertisementDTO(Advertisement ads){
         return new AdvertisementDTO(ads.getId(),ads.getAdText(), ads.getAdsType().name(),
                 ads.getVersion(), ads.getCreated(), ads.getUpdated(), ads.getCreatedBy().getUsername(), ads.getUpdatedBy().getUsername());
     }
+
     public static AdvertisementDTO getTermsAndCondDTO(Advertisement ads){
         return new AdvertisementDTO(ads.getId(),ads.getAdText(), ads.getAdsType().name(),
                 ads.getVersion(), ads.getCreated(), ads.getUpdated(), ads.getCreatedBy().getUsername(), ads.getUpdatedBy().getUsername());
     }
 
-    public static LearningSkillRadarDTO getLearningSkillRadarDTO(AppMember_LearningSkill appMemberLearningSkill) {
-        LearningSkillRadarDTO dto = new LearningSkillRadarDTO();
-        dto.setAmount(appMemberLearningSkill.getAmount());
-        dto.setLevel(appMemberLearningSkill.getLevel());
-        dto.setSkillType(appMemberLearningSkill.getLearningSkill().getType().name());
-        dto.setSkillTitle(appMemberLearningSkill.getLearningSkill().getTitle());
-        dto.setSkillId(appMemberLearningSkill.getLearningSkill().getId());
-        dto.setMemberId(appMemberLearningSkill.getApplicationMember().getId());
-        return dto;
+    public static LearningSkillRadarDTO getLearningSkillRadarDTO(AppMember_LearningSkill memberSkill) {
+        return new LearningSkillRadarDTO(memberSkill.getLearningSkill().getId(),memberSkill.getApplicationMember().getId(),
+                memberSkill.getLearningSkill().getTitle(), memberSkill.getLearningSkill().getType().name(),
+                memberSkill.getLevel(),memberSkill.getAmount());
     }
 
     public static Collection<LearningSkillRadarDTO> getLearningSkillRadarDTOS(Collection<AppMember_LearningSkill> skillTransactions) {
@@ -848,7 +839,7 @@ public class DTOUtil {
         return dtos;
     }
 
-    public static AppMemberSkillScoreDTO getXPForAAppMemberSkillDTO(AppMember appMember, LearningSkill learningSkill, Collection<PLObjectiveTransaction> transactions, BinaryContentService binaryContentService){
+    public static AppMemberSkillScoreDTO getXPForAAppMemberSkillDTO(AppMember appMember, LearningSkill learningSkill, Collection<ObjectiveTransaction> transactions, BinaryContentService binaryContentService){
         Double sum = transactions.stream().mapToDouble(d-> d.getAmount()).sum();
         Float sumAmount = Float.valueOf(sum.toString());
         Long levelUpSize = learningSkill.getLevelUpSize();
@@ -868,22 +859,50 @@ public class DTOUtil {
         return dto;
     }
 
-    public static AppMemberXPDTO getXPForADate(Collection<PLObjectiveTransaction> transactions, LocalDateTime date, Long appMemberId) {
-        AppMemberXPDTO dto = new AppMemberXPDTO();
-        DayOfWeek dayOfWeek = date.getDayOfWeek();
-        Float xp=0f;
-        Iterator<PLObjectiveTransaction> iterator = transactions.iterator();
+    public static Collection<AppMemberXPDTO> getXPByWeek(LocalDateTime today, AppMember member, ObjectiveTransactionService objectiveTransactionService) {
+        Collection<AppMemberXPDTO> dtos = new ArrayList<>();
+        AppMemberXPDTO appMemberWeekXPDT_0 = DTOUtil.getXPByDate(DateUtils.getDateByString(today),member,objectiveTransactionService);
+        dtos.add(appMemberWeekXPDT_0);
 
-        while(iterator.hasNext()){
-            PLObjectiveTransaction transaction = iterator.next();
+        AppMemberXPDTO appMemberWeekXPDT_1 = DTOUtil.getXPByDate(DateUtils.getDateByString(today.minusDays(1)),member,objectiveTransactionService);
+        dtos.add(appMemberWeekXPDT_1);
+
+        AppMemberXPDTO appMemberWeekXPDT_2 = DTOUtil.getXPByDate(DateUtils.getDateByString(today.minusDays(2)),member,objectiveTransactionService);
+        dtos.add(appMemberWeekXPDT_2);
+
+        AppMemberXPDTO appMemberWeekXPDT_3 = DTOUtil.getXPByDate(DateUtils.getDateByString(today.minusDays(3)),member,objectiveTransactionService);
+        dtos.add(appMemberWeekXPDT_3);
+
+        AppMemberXPDTO appMemberWeekXPDT_4 = DTOUtil.getXPByDate(DateUtils.getDateByString(today.minusDays(4)),member,objectiveTransactionService);
+        dtos.add(appMemberWeekXPDT_4);
+
+        AppMemberXPDTO appMemberWeekXPDT_5 = DTOUtil.getXPByDate(DateUtils.getDateByString(today.minusDays(5)),member,objectiveTransactionService);
+        dtos.add(appMemberWeekXPDT_5);
+
+        AppMemberXPDTO appMemberWeekXPDT_6 = DTOUtil.getXPByDate(DateUtils.getDateByString(today.minusDays(6)),member,objectiveTransactionService);
+        dtos.add(appMemberWeekXPDT_6);
+        return dtos;
+    }
+
+    /*
+    public static AppMemberXPDTO getXPByDate(Collection<ObjectiveTransaction> transactions, LocalDateTime date, Long memberId,ObjectiveTransactionService objectiveTransactionService) {
+        Float xp=0f;
+        for (ObjectiveTransaction transaction : transactions) {
             xp += transaction.getAmount();
         }
-        dto.setDate(DateUtils.getDateByString(date));
-        dto.setDayOfWeek(dayOfWeek.getValue());
-        dto.setDayOfWeekName(dayOfWeek.name());
-        dto.setXp(xp);
-        dto.setMemberId(appMemberId);
-        return dto;
+        return new AppMemberXPDTO( date.getDayOfWeek().getValue(), date.getDayOfWeek().name(), xp, memberId, DateUtils.getDateByString(date) );
+    }
+     */
+
+    public static AppMemberXPDTO getXPByDate( String date,AppMember member, ObjectiveTransactionService objectiveTransactionService) {
+        Float xp=0f;
+        LocalDateTime localDate = DateUtils.getDate(date);
+        Collection<ObjectiveTransaction> transactions = objectiveTransactionService.findByAppMemberAndTransactionDateContaining(member,date);
+
+        for (ObjectiveTransaction transaction : transactions) {
+            xp += transaction.getAmount();
+        }
+        return new AppMemberXPDTO( localDate.getDayOfWeek().getValue(), localDate.getDayOfWeek().name(), xp, member.getId(), date );
     }
 
 
@@ -895,6 +914,7 @@ public class DTOUtil {
         }
         return dtos;
     }
+
     public static Collection<JourneyDTO> getJourneyDTOS(Collection<Journey> journeys) {
         Collection<JourneyDTO> dtos = new ArrayList<JourneyDTO>();
         for (Journey journey : journeys) {
@@ -905,38 +925,29 @@ public class DTOUtil {
     }
 
     public static RoadMapDTO getJourneyRoadMapDTO(RoadMap entity) {
-        RoadMapDTO dto = new RoadMapDTO();
-        dto.setId(entity.getId());
-        dto.setXpos(entity.getXpos());
-        dto.setYpos(entity.getYpos());
-        dto.setJourneyId(entity.getJourney().getId());
-        dto.setGraphicId(entity.getGraphic().getId());
-        return dto;
+        return new RoadMapDTO(entity.getId(), entity.getXpos(), entity.getYpos(), entity.getJourney().getId(), entity.getGraphic().getId());
     }
 
     public static Collection<RoadMapDTO> getJourneyRoadMapsDTOS(Collection<RoadMap> roadMaps) {
         Collection<RoadMapDTO> dtos = new ArrayList<RoadMapDTO>();
-        Iterator<RoadMap> itr = roadMaps.iterator();
-        while (itr.hasNext()) {
-            RoadMapDTO dto = getJourneyRoadMapDTO(itr.next());
+        for (RoadMap roadMap : roadMaps) {
+            RoadMapDTO dto = getJourneyRoadMapDTO(roadMap);
             dtos.add(dto);
         }
         return dtos;
     }
 
     public static AppMemberWalletDTO getAppMemberWalletDTO(AppMember_WalletItem entity) {
-        AppMemberWalletDTO dto = new AppMemberWalletDTO();
-        WalletItem walletItem = entity.getWalletItem();
-        dto.setId(entity.getId());
-        dto.setWalletItemTitle(walletItem.getLabel());
-        dto.setWalletItemId(walletItem.getId());
-        dto.setAmount(entity.getAmount());
-        dto.setAppMemberId(entity.getApplicationMember().getId());
-        dto.setAppMemberUsername(entity.getApplicationMember().getUsername());
-        dto.setIconId(entity.getWalletItem().getIcon().getId());
-        dto.setWalletItemType(entity.getWalletItem().getWalletItemType().getValue());
-        dto.setCurrency(entity.getWalletItem().getWalletItemType().getCurrency());
-        return dto;
+        return new AppMemberWalletDTO
+                (
+                    entity.getId(),
+                    entity.getApplicationMember().getId(),
+                    entity.getApplicationMember().getUsername(),
+                    entity.getWalletItem().getId(), entity.getWalletItem().getLabel(),
+                    entity.getWalletItem().getWalletItemType().getValue(),
+                    entity.getWalletItem().getWalletItemType().getCurrency(),
+                    entity.getAmount(), entity.getWalletItem().getIcon().getId()
+                );
     }
 
     public static Collection<AppMemberWalletDTO> getAppMemberWalletDTOS(Collection<AppMember_WalletItem> appMember_walletItems) {
@@ -947,42 +958,26 @@ public class DTOUtil {
         }
         return dtos;
     }
-        public static JourneyDTO getJourneyDTO(Journey entity) {
-            JourneyDTO dto = new JourneyDTO();
-            dto.setId(entity.getId());
-            dto.setVersion(entity.getVersion());
-            dto.setCreated(entity.getCreated());
-            dto.setUpdated(entity.getUpdated());
-            dto.setTitle(entity.getTitle());
-            dto.setOrdering(entity.getOrdering());
-            dto.setMinToOpenStar(entity.getMinToOpenStar());
-            dto.setMinToPassStar(entity.getMinToPassStar());
-            dto.setPicId(entity.getPic().getId());
-            dto.setButtonCurrenIconId(entity.getButtonCurrenIcon().getId());
-            dto.setButtonLockedIconId(entity.getButtonLockedIcon().getId());
-            dto.setButtonPassedIconId(entity.getButtonPassedIcon().getId());
-            dto.setCreatedBy(entity.getCreatedBy().getUsername());
-            dto.setUpdatedBy(entity.getUpdatedBy().getUsername());
-            dto.setCreatedById(entity.getCreatedBy().getId());
-            dto.setUpdatedById(entity.getUpdatedBy().getId());
-         return dto;
+
+    public static JourneyDTO getJourneyDTO(Journey journey) {
+            return new JourneyDTO(journey.getId(), journey.getVersion(), journey.getCreated(), journey.getUpdated(),
+                    journey.getCreatedBy().getUsername(), journey.getUpdatedBy().getUsername(),
+                    journey.getTitle(),journey.getPic().getId(), journey.getButtonPassedIcon().getId(),
+                    journey.getButtonCurrenIcon().getId(), journey.getButtonLockedIcon().getId(),
+                    journey.getOrdering(), journey.getMinToPassStar(), journey.getMinToOpenStar());
     }
 
     public static Collection<LearningSkillDTO> getLearningSkillDTO(Collection<LearningSkill> skills) {
         Collection<LearningSkillDTO>  dtos = new ArrayList<LearningSkillDTO>();
-        Iterator<LearningSkill> itr = skills.iterator();
 
-        while(itr.hasNext()){
-            LearningSkill skill = itr.next();
-            LearningSkillDTO dto = new LearningSkillDTO();
-            dto = DTOUtil.getLearningSkillDTO(skill);
+        for (LearningSkill skill : skills) {
+            LearningSkillDTO dto = DTOUtil.getLearningSkillDTO(skill);
             dtos.add(dto);
         }
         return dtos;
     }
 
     public static LearningSkillDTO getLearningSkillDTO(LearningSkill ls) {
-
         if(ls.getParentSkill() == null)
             return  new LearningSkillDTO(ls.getId(), ls.getTitle(), ls.getType().name(),0L,"",0L,ls.getIcon().getId(),1f,"Root of Skill Tree");;
         LearningSkillDTO lsDTO = new LearningSkillDTO(ls.getId(), ls.getTitle(), ls.getType().name(),ls.getParentSkill().getId(),ls.getParentSkill().getTitle(),ls.getLevelUpSize(),ls.getIcon().getId(), ls.getWeight(), ls.getDescription());
@@ -1019,6 +1014,7 @@ public class DTOUtil {
         return new WalletItemTypeDTO(wit.getId(),wit.getValue(),wit.getLabel(),wit.getCurrency(),
                 wit.getVersion(),wit.getCreated(),wit.getUpdated(),wit.getCreatedBy().getUsername(),wit.getUpdatedBy().getUsername() );
     }
+
     public static Collection<WalletItemTypeDTO> getWalletItemTypeDTOS(Collection<WalletItemType> walletItemTypes) {
         Collection<WalletItemTypeDTO> dtos = new ArrayList<WalletItemTypeDTO>();
         for (WalletItemType walletItemType : walletItemTypes) {
@@ -1027,11 +1023,13 @@ public class DTOUtil {
         }
         return dtos;
     }
+
     public static WalletItemDTO getWalletItemDTO(WalletItem wi)  {
         WalletItemTypeDTO walletItemTypeDTO = getWalletItemTypeDTO(wi.getWalletItemType());
         return new WalletItemDTO(wi.getId(), wi.getLabel(), wi.getValue(),wi.getIcon().getId(),
                wi.getWalletItemType().getValue(),walletItemTypeDTO.getCurrency(),wi.isBaseCurrency(),wi.getIcon().getThumbnail());
     }
+
     public static Collection<WalletItemDTO> getWalletItemDTOS(Collection<WalletItem> walletItems){
         Collection<WalletItemDTO> dtos = new ArrayList<WalletItemDTO>();
         for (WalletItem walletItem : walletItems) {
@@ -1053,7 +1051,7 @@ public class DTOUtil {
     }
 
     public static PLDTO getPlayedPuzzleByAppMemberDTO(PLGameInstance instance) {
-        PLDTO dto = new PLDTO(instance.getPuzzleLevel().getId(), instance.getVersion(), instance.getCreated(),
+        return new PLDTO(instance.getPuzzleLevel().getId(), instance.getVersion(), instance.getCreated(),
                 instance.getUpdated(), instance.getCreatedBy().getUsername(), instance.getUpdatedBy().getUsername(),
                 instance.getPuzzleLevel().getApproveDate(), instance.getPuzzleLevel().getPlGrounds().iterator().next().getId(),
                 instance.getPuzzleLevel().getPuzzleGroup().getId(), instance.getPuzzleLevel().getPuzzleGroup().getTitle(),
@@ -1062,7 +1060,6 @@ public class DTOUtil {
                 instance.getPuzzleLevel().getFirstStarScore() , instance.getPuzzleLevel().getSecondStarScore(), instance.getPuzzleLevel().getThirdStartScore(),
                 instance.getPuzzleLevel().getPuzzleLevelStatus().name(), instance.getPuzzleLevel().getPuzzleLevelPrivacy().getValue(), instance.getPuzzleLevel().getPuzzleDifficulty().name(),
                 instance.getPuzzleLevel().getPuzzleGroup().getIcon().getId(),instance.getPuzzleLevel().getPuzzleGroup().getPic().getId());
-            return dto;
         }
 
     public static Collection<PLDTO> getPlayedPuzzlesByAppMemberDTOS(Collection<PLGameInstance> histories) {
@@ -1186,21 +1183,12 @@ public class DTOUtil {
         return  sortedList;
     }
     public static PLRuleDTO getPLRuleDTO(PLRule plRule) {
-        PLRuleDTO dto = new PLRuleDTO();
-        dto.setId(plRule.getId());
-        dto.setTitle(plRule.getTitle());
-        dto.setOrdering(plRule.getOrdering());
-        dto.setCondition(plRule.getCondition());
-        dto.setIgnoreRemaining(plRule.getIgnoreRemaining());
-        dto.setPuzzleLevelId(plRule.getPuzzleLevel().getId());
-        dto.setPuzzleLeveTitle(plRule.getPuzzleLevel().getTitle());
-        dto.setPLRuleEventId(plRule.getPlRuleEvent().getId());
-        dto.setPLRuleEventName(plRule.getPlRuleEvent().getName());
-        dto.setPLRuleSubEventName(plRule.getSubEvent());
-        dto.setPlRuleEventTypeId(plRule.getPlRuleEvent().getPlRuleEventType().ordinal());
-        dto.setPlRuleEventTypeTitle(plRule.getPlRuleEvent().getPlRuleEventType().name());
-        return dto;
+        return new PLRuleDTO(plRule.getId(), plRule.getTitle(), plRule.getOrdering(),
+                plRule.getIgnoreRemaining(), plRule.getCondition(), plRule.getPuzzleLevel().getId(), plRule.getPuzzleLevel().getTitle(),
+                plRule.getPlRuleEvent().getId(), plRule.getPlRuleEvent().getName(),plRule.getSubEvent(),
+                plRule.getPlRuleEvent().getPlRuleEventType().ordinal(), plRule.getPlRuleEvent().getPlRuleEventType().name());
     }
+
     public static Collection<PLRuleDTO> getRulesForPuzzleLevel(PuzzleLevel pl){
         Collection<PLRuleDTO> dtos = new ArrayList<PLRuleDTO>();
         Collection<PLRule>  puzzleLevelRules = pl.getRules();
@@ -1225,6 +1213,7 @@ public class DTOUtil {
         }
         return dtos;
     }
+
     public static PLCellDTO getPLCellDTO(PLCell cell) {
         return new PLCellDTO(cell.getId(), cell.getRow(), cell.getCol(), cell.getZorder(),cell.getPlGround().getId());
     }
@@ -1402,6 +1391,7 @@ public class DTOUtil {
 
         return actionTrees;
     }
+
     public static Collection<AttributeData>  getActionParametersDTOS(Collection<Attribute>  attributes){
         Collection<AttributeData> records = new ArrayList<AttributeData>();
         Iterator<Attribute> iterator = attributes.iterator();
