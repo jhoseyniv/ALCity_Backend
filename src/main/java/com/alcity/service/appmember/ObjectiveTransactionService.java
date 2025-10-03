@@ -30,7 +30,6 @@ public class ObjectiveTransactionService implements ObjectiveTransactionReposito
     @Autowired
     private AppMemberRepository appMemberRepository;
 
-    @Qualifier("ObjectiveTransactionRepository")
     @Autowired
     ObjectiveTransactionRepository objectiveTransactionRepository;
 
