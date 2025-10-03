@@ -4,16 +4,12 @@ package com.alcity.service.appmember;
 import com.alcity.entity.appmember.*;
 import com.alcity.entity.puzzle.PuzzleLevel;
 import com.alcity.repository.appmember.AppMemberPuzzleLevelScoreRepository;
-import com.alcity.repository.appmember.PLObjectiveTransactionRepository;
-import com.alcity.repository.appmember.WalletItemRespository;
 import com.alcity.utility.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collection;
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -45,7 +41,7 @@ public class AppMemberPuzzleLevelScoreService implements AppMemberPuzzleLevelSco
         return amount*changeRateAmount;
     }
 
-    public void updateScores(PLObjectiveTransaction transaction) {
+    public void updateScores(ObjectiveTransaction transaction) {
         AppMember appMember = transaction.getAppMember();
         WalletItem walletItem = transaction.getPlObjective().getWalletItem();
         Float amount = transaction.getAmount();

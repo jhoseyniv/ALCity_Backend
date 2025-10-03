@@ -11,7 +11,7 @@ import com.alcity.entity.alenum.PLDifficulty;
 import com.alcity.entity.alenum.PLStatus;
 import com.alcity.entity.alobject.Attribute;
 import com.alcity.entity.alobject.AttributeValue;
-import com.alcity.entity.appmember.PLObjectiveTransaction;
+import com.alcity.entity.appmember.ObjectiveTransaction;
 import com.alcity.entity.base.BinaryContent;
 import com.alcity.entity.base.PLPrivacy;
 import com.alcity.entity.journey.JourneyStep;
@@ -26,7 +26,7 @@ import com.alcity.repository.appmember.AppMemberRepository;
 import com.alcity.service.alobject.AttributeService;
 import com.alcity.service.alobject.AttributeValueService;
 import com.alcity.service.appmember.AppMemberService;
-import com.alcity.service.appmember.PLObjectiveTransactionService;
+import com.alcity.service.appmember.ObjectiveTransactionService;
 import com.alcity.service.base.BinaryContentService;
 import com.alcity.test.importstruct.PLImportDTO_New;
 import com.alcity.test.ruleimport_new.PLRuleImport_New;
@@ -56,7 +56,7 @@ public class PuzzleLevelService implements PuzzleLevelRepository {
     @Autowired
     PLGameInstanceService gameInstanceService;
     @Autowired
-    private PLObjectiveTransactionService learningSkillTransactionService;
+    private ObjectiveTransactionService learningSkillTransactionService;
 
 
     @Override
@@ -423,7 +423,7 @@ public class PuzzleLevelService implements PuzzleLevelRepository {
         Iterator<PLObjective> iterator = objectives.iterator();
         while (iterator.hasNext()) {
             PLObjective objective = iterator.next();
-           Collection<PLObjectiveTransaction> transactions = learningSkillTransactionService.findByPlObjective(objective);
+           Collection<ObjectiveTransaction> transactions = learningSkillTransactionService.findByPlObjective(objective);
            learningSkillTransactionService.deleteAll(transactions);
         }
         plObjectiveService.deleteAll(objectives);

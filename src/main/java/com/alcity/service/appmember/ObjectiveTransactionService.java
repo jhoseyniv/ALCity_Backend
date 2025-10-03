@@ -4,12 +4,11 @@ package com.alcity.service.appmember;
 import com.alcity.dto.appmember.PLObjectiveTransactionDTO;
 import com.alcity.entity.alenum.PLObjectiveTransactionType;
 import com.alcity.entity.appmember.*;
-import com.alcity.entity.learning.LearningSkill;
 import com.alcity.entity.puzzle.PLGameInstance;
 import com.alcity.entity.puzzle.PLObjective;
 import com.alcity.repository.appmember.AppMemberRepository;
 import com.alcity.repository.appmember.AppMember_LearningSkillRepository;
-import com.alcity.repository.appmember.PLObjectiveTransactionRepository;
+import com.alcity.repository.appmember.ObjectiveTransactionRepository;
 import com.alcity.repository.learning.LearningSkillRepository;
 import com.alcity.service.puzzle.PLGameInstanceService;
 import com.alcity.service.puzzle.PLObjectiveService;
@@ -26,14 +25,14 @@ import java.util.stream.Collectors;
 
 @Service
 @Transactional
-public class PLObjectiveTransactionService implements PLObjectiveTransactionRepository {
+public class ObjectiveTransactionService implements ObjectiveTransactionRepository {
 
     @Autowired
     private AppMemberRepository appMemberRepository;
 
-    @Qualifier("PLObjectiveTransactionRepository")
+    @Qualifier("ObjectiveTransactionRepository")
     @Autowired
-    PLObjectiveTransactionRepository objectiveTransactionRepository;
+    ObjectiveTransactionRepository objectiveTransactionRepository;
 
     @Autowired
     LearningSkillRepository learningSkillRepository;
@@ -51,11 +50,11 @@ public class PLObjectiveTransactionService implements PLObjectiveTransactionRepo
     private PLGameInstanceService gameInstanceService;
 
     @Override
-    public <S extends PLObjectiveTransaction> S save(S entity) {
+    public <S extends ObjectiveTransaction> S save(S entity) {
         return null;
     }
 
-    public PLObjectiveTransaction save(PLObjectiveTransactionDTO dto, String code) {
+    public ObjectiveTransaction save(PLObjectiveTransactionDTO dto, String code) {
         Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
         Optional<PLGameInstance> plGameInstanceOptional = gameInstanceService.findById(dto.getGameInstanceId());
         Optional<PLObjective> objectiveOptional = plObjectiveService.findById(dto.getObjectiveId());
@@ -63,24 +62,24 @@ public class PLObjectiveTransactionService implements PLObjectiveTransactionRepo
         PLObjectiveTransactionType transactionType = PLObjectiveTransactionType.getByTitle(dto.getObjectiveType());
         if(plGameInstanceOptional.isEmpty()) return  null;
 
-        PLObjectiveTransaction transaction = new PLObjectiveTransaction(DateUtils.getNow(),appMemberOptional.get(),dto.getAmount(),plGameInstanceOptional.get(),objectiveOptional.get(),transactionType
+        ObjectiveTransaction transaction = new ObjectiveTransaction(DateUtils.getNow(),appMemberOptional.get(),dto.getAmount(),plGameInstanceOptional.get(),objectiveOptional.get(),transactionType
                 ,1L,DateUtils.getNow(),DateUtils.getNow(),createdBy.get(),createdBy.get());
         objectiveTransactionRepository.save(transaction);
         return  transaction;
     }
 
     @Override
-    public <S extends PLObjectiveTransaction> Iterable<S> saveAll(Iterable<S> entities) {
+    public <S extends ObjectiveTransaction> Iterable<S> saveAll(Iterable<S> entities) {
         return null;
     }
 
     @Override
-    public Optional<PLObjectiveTransaction> findById(Long aLong) {
+    public Optional<ObjectiveTransaction> findById(Long aLong) {
         return objectiveTransactionRepository.findById(aLong);
     }
 
     @Override
-    public Collection<PLObjectiveTransaction> findAll() {
+    public Collection<ObjectiveTransaction> findAll() {
         return null;
     }
 
@@ -93,65 +92,65 @@ public class PLObjectiveTransactionService implements PLObjectiveTransactionRepo
 
 
     @Override
-    public Collection<PLObjectiveTransaction> findByAmount(Float amount) {
+    public Collection<ObjectiveTransaction> findByAmount(Float amount) {
         return null;
     }
 
     @Override
-    public Optional<PLObjectiveTransaction> findByPlObjectiveAndGameInstance(PLObjective plObjective, PLGameInstance gameInstance) {
+    public Optional<ObjectiveTransaction> findByPlObjectiveAndGameInstance(PLObjective plObjective, PLGameInstance gameInstance) {
         return Optional.empty();
     }
 
 
     @Override
-    public Collection<PLObjectiveTransaction> findByPlObjective(PLObjective plObjective) {
+    public Collection<ObjectiveTransaction> findByPlObjective(PLObjective plObjective) {
         return objectiveTransactionRepository.findByPlObjective(plObjective);
     }
 
     @Override
-    public Collection<PLObjectiveTransaction> findByPlObjectiveAndTransactionType(PLObjective plObjective, PLObjectiveTransactionType transactionType) {
+    public Collection<ObjectiveTransaction> findByPlObjectiveAndTransactionType(PLObjective plObjective, PLObjectiveTransactionType transactionType) {
         return List.of();
     }
 
     @Override
-    public Collection<PLObjectiveTransaction> findByPlObjectiveAndTransactionTypeAndAppMember(PLObjective plObjective, PLObjectiveTransactionType transactionType, AppMember appMember) {
+    public Collection<ObjectiveTransaction> findByPlObjectiveAndTransactionTypeAndAppMember(PLObjective plObjective, PLObjectiveTransactionType transactionType, AppMember appMember) {
         return objectiveTransactionRepository.findByPlObjectiveAndTransactionTypeAndAppMember(plObjective,transactionType,appMember);
     }
 
     @Override
-    public Collection<PLObjectiveTransaction> findByTransactionDateContaining(String transactionDate) {
+    public Collection<ObjectiveTransaction> findByTransactionDateContaining(String transactionDate) {
         return objectiveTransactionRepository.findByTransactionDateContaining(transactionDate);
     }
 
     @Override
-    public Collection<PLObjectiveTransaction> findByTransactionDateContainingAndAppMember(String transactionDate, AppMember appMember) {
+    public Collection<ObjectiveTransaction> findByTransactionDateContainingAndAppMember(String transactionDate, AppMember appMember) {
         return List.of();
     }
 
 
-    public Collection<PLObjectiveTransaction> findByTransactionAndAppMember(String transactionDate, AppMember appMember) {
-        Collection<PLObjectiveTransaction> transactions = objectiveTransactionRepository.findByAppMember(appMember);
-        Collection<PLObjectiveTransaction> filteredTransactions = transactions.stream().filter(skillTransaction -> skillTransaction.getTransactionDate().contains(transactionDate)).collect(Collectors.toList());
+    public Collection<ObjectiveTransaction> findByTransactionAndAppMember(String transactionDate, AppMember appMember) {
+        Collection<ObjectiveTransaction> transactions = objectiveTransactionRepository.findByAppMember(appMember);
+        Collection<ObjectiveTransaction> filteredTransactions = transactions.stream().filter(skillTransaction -> skillTransaction.getTransactionDate().contains(transactionDate)).collect(Collectors.toList());
         return filteredTransactions;
     }
 
     @Override
-    public Collection<PLObjectiveTransaction> findByAppMemberAndTransactionDateContaining(AppMember appMember, String transactionDate) {
+    public Collection<ObjectiveTransaction> findByAppMemberAndTransactionDateContaining(AppMember appMember, String transactionDate) {
         return objectiveTransactionRepository.findByAppMemberAndTransactionDateContaining(appMember,transactionDate);
     }
 
     @Override
-    public Collection<PLObjectiveTransaction> findByCreatedContaining(String created) {
+    public Collection<ObjectiveTransaction> findByCreatedContaining(String created) {
         return objectiveTransactionRepository.findByCreatedContaining(created);
     }
 
     @Override
-    public Collection<PLObjectiveTransaction> findByAppMember(AppMember appMember) {
+    public Collection<ObjectiveTransaction> findByAppMember(AppMember appMember) {
         return objectiveTransactionRepository.findByAppMember(appMember);
     }
 
     @Override
-    public Iterable<PLObjectiveTransaction> findAllById(Iterable<Long> longs) {
+    public Iterable<ObjectiveTransaction> findAllById(Iterable<Long> longs) {
         return null;
     }
 
@@ -166,7 +165,7 @@ public class PLObjectiveTransactionService implements PLObjectiveTransactionRepo
     }
 
     @Override
-    public void delete(PLObjectiveTransaction entity) {
+    public void delete(ObjectiveTransaction entity) {
 
     }
 
@@ -176,7 +175,7 @@ public class PLObjectiveTransactionService implements PLObjectiveTransactionRepo
     }
 
     @Override
-    public void deleteAll(Iterable<? extends PLObjectiveTransaction> entities) {
+    public void deleteAll(Iterable<? extends ObjectiveTransaction> entities) {
         objectiveTransactionRepository.deleteAll(entities);
     }
 

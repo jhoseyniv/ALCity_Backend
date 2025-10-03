@@ -15,7 +15,6 @@ import com.alcity.dto.journey.JourneyStepDTO;
 import com.alcity.dto.journey.RoadMapDTO;
 import com.alcity.dto.learning.LearningContentDTO;
 import com.alcity.dto.learning.LearningTopicDTO;
-import com.alcity.dto.pgimport.PGObjectVariableImportDTO;
 import com.alcity.dto.plimpexport.rulemport.PostActionTreeImport;
 import com.alcity.dto.puzzle.*;
 import com.alcity.entity.alenum.*;
@@ -34,17 +33,17 @@ import com.alcity.repository.alobject.AttributeValueRepository;
 import com.alcity.service.alobject.ActionService;
 import com.alcity.service.alobject.AttributeService;
 import com.alcity.service.alobject.AttributeValueService;
+import com.alcity.service.appmember.ObjectiveTransactionService;
 import com.alcity.service.base.BinaryContentService;
 import com.alcity.service.learning.LearningSkillService;
 import com.alcity.service.puzzle.PLRulePostActionService;
 import com.alcity.test.ruleimport_new.PostActionTreeImport_New;
-import jdk.jfr.ContentType;
 import org.json.JSONException;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
-import java.time.DayOfWeek;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -809,17 +808,17 @@ public class DTOUtil {
             userName="admin";
         if(member.getLanguage() ==null) member.setLanguage(Language.English);
 
-        AppMemberDTO dto = new AppMemberDTO(member.getId(),member.getAge(),member.getLanguage().name(),
+        return new AppMemberDTO(member.getId(),member.getAge(),member.getLanguage().name(),
                 member.getUsername(),member.getPassword(),member.getIcon().getId(), member.getNickname(),
                 member.getMobile(), member.getEmail(),member.getGender().name(),member.getMemberType().getValue(),
                 member.getVersion(), member.getCreated(), member.getUpdated(), userName, userName);
-
-        return dto;
     }
+
     public static AdvertisementDTO getAdvertisementDTO(Advertisement ads){
         return new AdvertisementDTO(ads.getId(),ads.getAdText(), ads.getAdsType().name(),
                 ads.getVersion(), ads.getCreated(), ads.getUpdated(), ads.getCreatedBy().getUsername(), ads.getUpdatedBy().getUsername());
     }
+
     public static AdvertisementDTO getTermsAndCondDTO(Advertisement ads){
         return new AdvertisementDTO(ads.getId(),ads.getAdText(), ads.getAdsType().name(),
                 ads.getVersion(), ads.getCreated(), ads.getUpdated(), ads.getCreatedBy().getUsername(), ads.getUpdatedBy().getUsername());
@@ -840,7 +839,7 @@ public class DTOUtil {
         return dtos;
     }
 
-    public static AppMemberSkillScoreDTO getXPForAAppMemberSkillDTO(AppMember appMember, LearningSkill learningSkill, Collection<PLObjectiveTransaction> transactions, BinaryContentService binaryContentService){
+    public static AppMemberSkillScoreDTO getXPForAAppMemberSkillDTO(AppMember appMember, LearningSkill learningSkill, Collection<ObjectiveTransaction> transactions, BinaryContentService binaryContentService){
         Double sum = transactions.stream().mapToDouble(d-> d.getAmount()).sum();
         Float sumAmount = Float.valueOf(sum.toString());
         Long levelUpSize = learningSkill.getLevelUpSize();
@@ -860,22 +859,50 @@ public class DTOUtil {
         return dto;
     }
 
-    public static AppMemberXPDTO getXPForADate(Collection<PLObjectiveTransaction> transactions, LocalDateTime date, Long appMemberId) {
-        AppMemberXPDTO dto = new AppMemberXPDTO();
-        DayOfWeek dayOfWeek = date.getDayOfWeek();
-        Float xp=0f;
-        Iterator<PLObjectiveTransaction> iterator = transactions.iterator();
+    public static Collection<AppMemberXPDTO> getXPByWeek(LocalDateTime today, AppMember member, ObjectiveTransactionService objectiveTransactionService) {
+        Collection<AppMemberXPDTO> dtos = new ArrayList<>();
+        AppMemberXPDTO appMemberWeekXPDT_0 = DTOUtil.getXPByDate(DateUtils.getDateByString(today),member,objectiveTransactionService);
+        dtos.add(appMemberWeekXPDT_0);
 
-        while(iterator.hasNext()){
-            PLObjectiveTransaction transaction = iterator.next();
+        AppMemberXPDTO appMemberWeekXPDT_1 = DTOUtil.getXPByDate(DateUtils.getDateByString(today.minusDays(1)),member,objectiveTransactionService);
+        dtos.add(appMemberWeekXPDT_1);
+
+        AppMemberXPDTO appMemberWeekXPDT_2 = DTOUtil.getXPByDate(DateUtils.getDateByString(today.minusDays(2)),member,objectiveTransactionService);
+        dtos.add(appMemberWeekXPDT_2);
+
+        AppMemberXPDTO appMemberWeekXPDT_3 = DTOUtil.getXPByDate(DateUtils.getDateByString(today.minusDays(3)),member,objectiveTransactionService);
+        dtos.add(appMemberWeekXPDT_3);
+
+        AppMemberXPDTO appMemberWeekXPDT_4 = DTOUtil.getXPByDate(DateUtils.getDateByString(today.minusDays(4)),member,objectiveTransactionService);
+        dtos.add(appMemberWeekXPDT_4);
+
+        AppMemberXPDTO appMemberWeekXPDT_5 = DTOUtil.getXPByDate(DateUtils.getDateByString(today.minusDays(5)),member,objectiveTransactionService);
+        dtos.add(appMemberWeekXPDT_5);
+
+        AppMemberXPDTO appMemberWeekXPDT_6 = DTOUtil.getXPByDate(DateUtils.getDateByString(today.minusDays(6)),member,objectiveTransactionService);
+        dtos.add(appMemberWeekXPDT_6);
+        return dtos;
+    }
+
+    /*
+    public static AppMemberXPDTO getXPByDate(Collection<ObjectiveTransaction> transactions, LocalDateTime date, Long memberId,ObjectiveTransactionService objectiveTransactionService) {
+        Float xp=0f;
+        for (ObjectiveTransaction transaction : transactions) {
             xp += transaction.getAmount();
         }
-        dto.setDate(DateUtils.getDateByString(date));
-        dto.setDayOfWeek(dayOfWeek.getValue());
-        dto.setDayOfWeekName(dayOfWeek.name());
-        dto.setXp(xp);
-        dto.setMemberId(appMemberId);
-        return dto;
+        return new AppMemberXPDTO( date.getDayOfWeek().getValue(), date.getDayOfWeek().name(), xp, memberId, DateUtils.getDateByString(date) );
+    }
+     */
+
+    public static AppMemberXPDTO getXPByDate( String date,AppMember member, ObjectiveTransactionService objectiveTransactionService) {
+        Float xp=0f;
+        LocalDateTime localDate = DateUtils.getDate(date);
+        Collection<ObjectiveTransaction> transactions = objectiveTransactionService.findByAppMemberAndTransactionDateContaining(member,date);
+
+        for (ObjectiveTransaction transaction : transactions) {
+            xp += transaction.getAmount();
+        }
+        return new AppMemberXPDTO( localDate.getDayOfWeek().getValue(), localDate.getDayOfWeek().name(), xp, member.getId(), date );
     }
 
 
@@ -887,6 +914,7 @@ public class DTOUtil {
         }
         return dtos;
     }
+
     public static Collection<JourneyDTO> getJourneyDTOS(Collection<Journey> journeys) {
         Collection<JourneyDTO> dtos = new ArrayList<JourneyDTO>();
         for (Journey journey : journeys) {
@@ -897,10 +925,7 @@ public class DTOUtil {
     }
 
     public static RoadMapDTO getJourneyRoadMapDTO(RoadMap entity) {
-        return new RoadMapDTO(
-                                entity.getId(), entity.getXpos(), entity.getYpos(),
-                                entity.getJourney().getId(), entity.getGraphic().getId()
-                             );
+        return new RoadMapDTO(entity.getId(), entity.getXpos(), entity.getYpos(), entity.getJourney().getId(), entity.getGraphic().getId());
     }
 
     public static Collection<RoadMapDTO> getJourneyRoadMapsDTOS(Collection<RoadMap> roadMaps) {
@@ -946,8 +971,7 @@ public class DTOUtil {
         Collection<LearningSkillDTO>  dtos = new ArrayList<LearningSkillDTO>();
 
         for (LearningSkill skill : skills) {
-            LearningSkillDTO dto = new LearningSkillDTO();
-            dto = DTOUtil.getLearningSkillDTO(skill);
+            LearningSkillDTO dto = DTOUtil.getLearningSkillDTO(skill);
             dtos.add(dto);
         }
         return dtos;

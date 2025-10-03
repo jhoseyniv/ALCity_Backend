@@ -1,9 +1,6 @@
 package com.alcity.entity.learning;
 
 import com.alcity.entity.alenum.SkillType;
-import com.alcity.entity.alenum.UserGender;
-import com.alcity.entity.appmember.PLObjectiveTransaction;
-import com.alcity.entity.base.BaseItemSet;
 import com.alcity.entity.appmember.AppMember;
 
 import com.alcity.entity.base.BaseTable;
@@ -18,7 +15,6 @@ import lombok.Setter;
 
 import java.io.Serializable;
 import java.util.Collection;
-import java.util.Set;
 
 
 @Entity

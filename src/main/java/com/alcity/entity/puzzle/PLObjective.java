@@ -1,6 +1,6 @@
 package com.alcity.entity.puzzle;
 
-import com.alcity.entity.appmember.PLObjectiveTransaction;
+import com.alcity.entity.appmember.ObjectiveTransaction;
 import com.alcity.entity.base.BaseTable;
 import com.alcity.entity.learning.LearningSkill;
 import com.alcity.entity.appmember.AppMember;
@@ -40,7 +40,7 @@ public class PLObjective extends BaseTable implements Serializable {
 
     @OneToMany(mappedBy = "plObjective", fetch = FetchType.LAZY)
     @JsonIgnore
-    private Collection<PLObjectiveTransaction> objectiveTransactions;
+    private Collection<ObjectiveTransaction> objectiveTransactions;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = true)
     @JoinColumn(name = "learning_skill_id", nullable = true)

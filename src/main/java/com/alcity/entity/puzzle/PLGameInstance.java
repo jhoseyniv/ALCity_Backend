@@ -1,16 +1,13 @@
 package com.alcity.entity.puzzle;
 
 import com.alcity.entity.alenum.GameStatus;
-import com.alcity.entity.appmember.PLObjectiveTransaction;
-import com.alcity.entity.appmember.WalletItem;
+import com.alcity.entity.appmember.ObjectiveTransaction;
 import com.alcity.entity.base.BaseTable;
 import com.alcity.entity.appmember.AppMember;
-import com.alcity.entity.learning.LearningSkill;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -54,7 +51,7 @@ public class PLGameInstance extends BaseTable implements Serializable {
 
     @OneToMany(mappedBy = "gameInstance", fetch = FetchType.LAZY)
     @JsonIgnore
-    private Collection<PLObjectiveTransaction> objectiveTransactions;
+    private Collection<ObjectiveTransaction> objectiveTransactions;
 
     public PLGameInstance(AppMember player, PuzzleLevel puzzleLevel, String startPlayTime, String endPlayTime, GameStatus gameStatus, byte[] analyticalData, Long playDuration
             ,Long version, String created, String updated, AppMember createdBy, AppMember updatedBy) {

@@ -1,9 +1,7 @@
 package com.alcity.entity.appmember;
 
 import com.alcity.entity.alenum.PLObjectiveTransactionType;
-import com.alcity.entity.alenum.UserGender;
 import com.alcity.entity.base.BaseTable;
-import com.alcity.entity.learning.LearningSkill;
 import com.alcity.entity.puzzle.PLGameInstance;
 import com.alcity.entity.puzzle.PLObjective;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -25,7 +23,7 @@ import java.io.Serializable;
 @Setter
 @NoArgsConstructor
 
-public class PLObjectiveTransaction extends BaseTable implements Serializable {
+public class ObjectiveTransaction extends BaseTable implements Serializable {
 
     @NotNull(message = "{transactionDate.notempty}")
     private String transactionDate;
@@ -52,8 +50,8 @@ public class PLObjectiveTransaction extends BaseTable implements Serializable {
     private PLObjectiveTransactionType transactionType;
 
 
-    public PLObjectiveTransaction( String transactionDate,AppMember appMember, Float amount,  PLGameInstance gameInstance, PLObjective plObjective, PLObjectiveTransactionType transactionType,
-                                   Long version, String created, String updated, AppMember createdBy, AppMember updatedBy) {
+    public ObjectiveTransaction(String transactionDate, AppMember appMember, Float amount, PLGameInstance gameInstance, PLObjective plObjective, PLObjectiveTransactionType transactionType,
+                                Long version, String created, String updated, AppMember createdBy, AppMember updatedBy) {
         super(version, created, updated, createdBy, updatedBy);
         this.appMember = appMember;
         this.transactionDate = transactionDate;
