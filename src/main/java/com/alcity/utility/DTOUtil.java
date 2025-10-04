@@ -861,9 +861,14 @@ public class DTOUtil {
 
     public static Collection<AppMemberXPDTO> getXPByWeek(LocalDateTime today, AppMember member, ObjectiveTransactionService objectiveTransactionService) {
         Collection<AppMemberXPDTO> dtos = new ArrayList<>();
-        AppMemberXPDTO appMemberWeekXPDT_0 = DTOUtil.getXPByDate(DateUtils.getDateByString(today),member,objectiveTransactionService);
-        dtos.add(appMemberWeekXPDT_0);
 
+        for (int index = 0; index < 7; index++){
+            AppMemberXPDTO appMemberWeekXPDT_index = DTOUtil.getXPByDate(DateUtils.getDateByString(today.minusDays(index)),member,objectiveTransactionService);
+            dtos.add(appMemberWeekXPDT_index);
+
+        }
+        return dtos;
+        /*
         AppMemberXPDTO appMemberWeekXPDT_1 = DTOUtil.getXPByDate(DateUtils.getDateByString(today.minusDays(1)),member,objectiveTransactionService);
         dtos.add(appMemberWeekXPDT_1);
 
@@ -881,7 +886,9 @@ public class DTOUtil {
 
         AppMemberXPDTO appMemberWeekXPDT_6 = DTOUtil.getXPByDate(DateUtils.getDateByString(today.minusDays(6)),member,objectiveTransactionService);
         dtos.add(appMemberWeekXPDT_6);
-        return dtos;
+
+         */
+
     }
 
     /*

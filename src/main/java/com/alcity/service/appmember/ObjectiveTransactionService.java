@@ -149,6 +149,11 @@ public class ObjectiveTransactionService implements ObjectiveTransactionReposito
     }
 
     @Override
+    public Collection<ObjectiveTransaction> findByAppMemberAndTransactionType(AppMember appMember, PLObjectiveTransactionType transactionType) {
+        return objectiveTransactionRepository.findByAppMemberAndTransactionType(appMember,transactionType);
+    }
+
+    @Override
     public Iterable<ObjectiveTransaction> findAllById(Iterable<Long> longs) {
         return null;
     }
