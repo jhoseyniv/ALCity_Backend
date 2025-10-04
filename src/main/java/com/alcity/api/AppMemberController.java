@@ -507,9 +507,12 @@ public class AppMemberController {
         ObjectiveTransaction savedRecord = null;
         ResponseMessage response = new ResponseMessage();
         boolean isNewRewardGrater = isCurrentTransactionAmountGrater(dto);
-        savedRecord = objectiveTransactionService.save(dto, "Save");
-        if(savedRecord ==null)
-            return new ResponseMessage(ErrorType.SaveFail, Status.error.name() , ObjectiveTransaction.class.getSimpleName() , 0L, SystemMessage.SaveOrEditMessage_Fail);
+        try {
+            savedRecord = objectiveTransactionService.save(dto, "Save");
+        }catch (Exception e) {
+            throw new ResponseObject(ErrorType.UniquenessViolation,Status.error.name() , ObjectiveTransaction.class.getSimpleName() ,  -1L ,e.getCause().getMessage());
+
+        }
 
         response = new ResponseMessage(ErrorType.SaveSuccess, Status.ok.name() , ObjectiveTransaction.class.getSimpleName() , savedRecord.getId(), SystemMessage.SaveOrEditMessage_Success);
         if(isNewRewardGrater) {
