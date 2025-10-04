@@ -33,5 +33,7 @@ public interface ObjectiveTransactionRepository extends CrudRepository<Objective
 
     Collection<ObjectiveTransaction> findByAppMember(AppMember appMember);
 
+    Collection<ObjectiveTransaction> findByAppMemberAndTransactionType(AppMember appMember, PLObjectiveTransactionType transactionType);
+
 
 }

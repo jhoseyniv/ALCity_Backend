@@ -48,7 +48,7 @@ import java.util.stream.Collectors;
 public class AppMemberController {
 
     @Autowired
-    private AppMemberService appMemberService;
+    private AppMemberService service;
 
     @Autowired
     private ClientTypeService clientTypeService;
@@ -98,39 +98,42 @@ public class AppMemberController {
     @ResponseBody
     @CrossOrigin(origins = "*")
     public AppMemberXPDTO getXPByDate(@PathVariable Long id, @PathVariable String date) {
-        Optional<AppMember> memberOptional = appMemberService.findById(id);
+        Optional<AppMember> memberOptional = service.findById(id);
         return memberOptional.map(appMember -> DTOUtil.getXPByDate(date, appMember, objectiveTransactionService)).orElse(null);
     }
-
+/*
     @Operation( summary = "Get XP's for a skills and their children ",  description = "Get XP's for a skills and their children")
     @RequestMapping(value = "/id/{id}/children-xp/sid/{sid}", method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin(origins = "*")
-    public Collection<AppMemberSkillScoreDTO> getXPForAAppMemberBySubSetSkillAll(@PathVariable Long id, @PathVariable Long sid) {
+    public Collection<AppMemberSkillScoreDTO> getXPForAppMemberBySubSetSkillAll(@PathVariable Long id, @PathVariable Long sid) {
         Collection<AppMemberSkillScoreDTO> dtos = new ArrayList<>();
-        Optional<AppMember> memberOptional = appMemberService.findById(id);
+        Optional<AppMember> memberOptional = service.findById(id);
         Optional<LearningSkill> learningSkillOptional = learningSkillService.findById(sid);
+        if(memberOptional.isEmpty()|| learningSkillOptional.isEmpty() )    return null;
+
         PLObjectiveTransactionType transactionType = PLObjectiveTransactionType.LearningSkill;
-        Optional<PLObjective> objectiveOptional = plObjectiveService.findByLearningSkill(learningSkillOptional.get());
-        if(memberOptional.isEmpty())    return null;
-        if(learningSkillOptional.isEmpty())  return null;
+//        if(objectiveOptional.isEmpty()) return null;
+
          Collection<LearningSkill> childLearningSkills = learningSkillService.findByParentSkill(learningSkillOptional.get());
          Iterator<LearningSkill> iterator = childLearningSkills.iterator();
          while(iterator.hasNext()){
              LearningSkill learningSkill = iterator.next();
-             Collection<ObjectiveTransaction> transactions = objectiveTransactionService.findByPlObjectiveAndTransactionTypeAndAppMember(objectiveOptional.get(),transactionType , memberOptional.get());
+             Collection<ObjectiveTransaction> transactions = objectiveTransactionService.findByAppMemberAndTransactionType(memberOptional.get(),transactionType);
+             Optional<PLObjective> objectiveOptional = plObjectiveService.findByLearningSkill(learningSkillOptional.get());
              AppMemberSkillScoreDTO dto = DTOUtil.getXPForAAppMemberSkillDTO(memberOptional.get(),learningSkill,transactions,binaryContentService);
              dtos.add(dto);
          }
         return dtos;
     }
 
-    @Operation( summary = "Get Score for a Sub-Set skill by User id ....",  description = "Get Score for a Sub-Set skill by User id ....")
+
+    @Operation( summary = "Get Score for a Sub-Set skill by user id ....",  description = "Get Score for a Sub-Set skill by user id ....")
     @RequestMapping(value = "/uid/{uid}/sub-skill-score/sid/{sid}", method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin(origins = "*")
     public AppMemberSkillScoreDTO getSubSkillScoreByUserIdAndSkillID(@PathVariable Long uid, @PathVariable Long sid) {
-        Optional<AppMember> memberOptional = appMemberService.findById(uid);
+        Optional<AppMember> memberOptional = service.findById(uid);
         Optional<LearningSkill> learningSkillOptional = learningSkillService.findById(sid);
         if(memberOptional.isEmpty() || learningSkillOptional.isEmpty())   return null;
 
@@ -143,28 +146,26 @@ public class AppMemberController {
         AppMemberSkillScoreDTO dto = DTOUtil.getXPForAAppMemberSkillDTO(memberOptional.get(),learningSkillOptional.get(),transactions,binaryContentService);
         return dto;
     }
+*/
 
     @Operation( summary = "Get last accumulative  XP's  for a user by skill id ",  description = "Get last accumulative XP's for a user by skill id")
-    @RequestMapping(value = "/id/{id}/xp-sub-set-skill/sid/{sid}", method = RequestMethod.GET)
+    @RequestMapping(value = "/id/{id}/xp-by-skill/sid/{sid}", method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin(origins = "*")
-    public AppMemberSkillScoreDTO getXPForAAppMemberBySubSetSkill(@PathVariable Long id, @PathVariable Long sid) {
-        Optional<AppMember> memberOptional = appMemberService.findById(id);
-        Optional<LearningSkill> learningSkillOptional = learningSkillService.findById(sid);
-        if(memberOptional.isEmpty() || learningSkillOptional.isEmpty())   return null;
-        //PLObjectiveTransactionType transactionType = PLObjectiveTransactionType.LearningSkill;
-        Optional<AppMember_LearningSkill> appMemberLearningSkillOptional = appMemberLearningSkillService.findByApplicationMemberAndLearningSkill(memberOptional.get(),learningSkillOptional.get());
+    public AppMemberSkillScoreDTO getXPForAppMemberBySkillId(@PathVariable Long id, @PathVariable Long sid) {
+        Optional<AppMember> memberOptional = service.findById(id);
+        Optional<LearningSkill> lsOptional = learningSkillService.findById(sid);
+        if(memberOptional.isEmpty() || lsOptional.isEmpty())   return null;
+        Optional<AppMember_LearningSkill> appMemberLearningSkillOptional = appMemberLearningSkillService.findByApplicationMemberAndLearningSkill(memberOptional.get(),lsOptional.get());
         if(appMemberLearningSkillOptional.isEmpty()) {
-            LearningSkill skill=learningSkillOptional.get();
+            LearningSkill skill = lsOptional.get();
            return new AppMemberSkillScoreDTO(skill.getId(),skill.getTitle(),skill.getDescription(),
                    0L,skill.getType().name(),0f,skill.getWeight(),memberOptional.get().getId(),skill.getIcon().getId());
-
         }
         AppMember_LearningSkill appmember_skill = appMemberLearningSkillOptional.get();
-        LearningSkill skill=learningSkillOptional.get();
-        AppMemberSkillScoreDTO dto = new AppMemberSkillScoreDTO(skill.getId(),skill.getTitle(),skill.getDescription(),
+        LearningSkill skill = lsOptional.get();
+        return new AppMemberSkillScoreDTO(skill.getId(),skill.getTitle(),skill.getDescription(),
                 appmember_skill.getLevel(),skill.getType().name(),appmember_skill.getAmount(),skill.getWeight(),memberOptional.get().getId(),skill.getIcon().getId());
-        return dto;
     }
 
     @Operation( summary = "Get XP by last week for an app member ",  description = "Get XP by last week for an app member")
@@ -173,7 +174,7 @@ public class AppMemberController {
     @CrossOrigin(origins = "*")
     public Collection<AppMemberXPDTO> getXPByLastWeek(@PathVariable Long id) {
         Collection<AppMemberXPDTO> dtos = new ArrayList<>();
-        Optional<AppMember> memberOptional = appMemberService.findById(id);
+        Optional<AppMember> memberOptional = service.findById(id);
         if(memberOptional.isEmpty())   return null;
         LocalDateTime today = LocalDateTime.now();
         DTOUtil.getXPByWeek(today,memberOptional.get(),objectiveTransactionService);
@@ -187,7 +188,7 @@ public class AppMemberController {
     @CrossOrigin(origins = "*")
     public Collection<LearningSkillRadarDTO> getRadarChartData(@PathVariable Long id) {
         Collection<LearningSkillRadarDTO> dtos = new ArrayList<>();
-        Optional<AppMember> memberOptional = appMemberService.findById(id);
+        Optional<AppMember> memberOptional = service.findById(id);
         if(memberOptional.isEmpty())
             return null;
         Collection<AppMember_LearningSkill> memberSkills = appMemberLearningSkillService.findByApplicationMember(memberOptional.get());
@@ -200,7 +201,7 @@ public class AppMemberController {
     @GetMapping("/all")
     @CrossOrigin(origins = "*")
     public Collection<AppMemberDTO> getApplicationMembers(Model model) {
-        Collection<AppMember> appMemberCollection = appMemberService.findAll();
+        Collection<AppMember> appMemberCollection = service.findAll();
         Collection<AppMemberDTO> dtos = DTOUtil.getAppMemberDTOS(appMemberCollection);
         return dtos;
     }
@@ -210,7 +211,7 @@ public class AppMemberController {
     @ResponseBody
     @CrossOrigin(origins = "*")
     public AppMemberDTO getApplicationMemberById(@PathVariable Long id) {
-        Optional<AppMember> member = appMemberService.findById(id);
+        Optional<AppMember> member = service.findById(id);
         AppMemberDTO dto = DTOUtil.getAppMemberDTO(member.get());
         return dto;
     }
@@ -219,7 +220,7 @@ public class AppMemberController {
     @GetMapping("/get-avatar/id/{id}")
     @CrossOrigin(origins = "*")
     public ResponseEntity<byte[]> getAvatarById(@PathVariable Long id) {
-        Optional<AppMember>  appMemberOptional= appMemberService.findById(id);
+        Optional<AppMember>  appMemberOptional= service.findById(id);
         if(appMemberOptional.isEmpty()) return  null;
         BinaryContent binaryContent = appMemberOptional.get().getIcon();
         return ResponseEntity.ok()
@@ -231,7 +232,7 @@ public class AppMemberController {
     @GetMapping("/get-avatar/user/{user}")
     @CrossOrigin(origins = "*")
     public ResponseEntity<byte[]> getAvatarByUserName(@PathVariable String user) {
-        Optional<AppMember>  appMemberOptional= appMemberService.findByUsername(user);
+        Optional<AppMember>  appMemberOptional= service.findByUsername(user);
         if(appMemberOptional.isEmpty()) return  null;
         BinaryContent binaryContent = appMemberOptional.get().getIcon();
         return ResponseEntity.ok()
@@ -243,9 +244,9 @@ public class AppMemberController {
     @RequestMapping(value = "/id/{id}/all-pl", method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin(origins = "*")
-    public Collection<PLDTO> getPublicPuzzleLevels(@PathVariable Long id) {
-        Optional<AppMember> memberOptional = appMemberService.findById(id);
-        Collection<PLDTO> pldtos = appMemberService.getPublicPuzzleLevels(memberOptional.get());
+    public Collection<PLDTO> getPublicPL(@PathVariable Long id) {
+        Optional<AppMember> memberOptional = service.findById(id);
+        Collection<PLDTO> pldtos = service.getPublicPuzzleLevels(memberOptional.get());
         return pldtos;
     }
 
@@ -254,11 +255,11 @@ public class AppMemberController {
     @RequestMapping(value = "/id/{id}/not-played", method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin(origins = "*")
-    public Collection<PLDTO> getApplicationMemberPuzzleLevelsNotPlayed(@PathVariable Long id) {
-        Optional<AppMember> memberOptional = appMemberService.findById(id);
-        Collection<PLDTO>  publicPuzzleLevels = appMemberService.getPublicPuzzleLevels(memberOptional.get());
-        Collection<PLDTO>  playedPuzlles = appMemberService.getPuzzleLevelsPlayed(memberOptional.get());
-        Collection<PLDTO> pldtos = appMemberService.getPuzzleLevelsNotPlayed(publicPuzzleLevels,playedPuzlles);
+    public Collection<PLDTO> getPLNotPlayedByMember(@PathVariable Long id) {
+        Optional<AppMember> memberOptional = service.findById(id);
+        Collection<PLDTO>  publicPuzzleLevels = service.getPublicPuzzleLevels(memberOptional.get());
+        Collection<PLDTO>  playedPuzlles = service.getPuzzleLevelsPlayed(memberOptional.get());
+        Collection<PLDTO> pldtos = service.getPuzzleLevelsNotPlayed(publicPuzzleLevels,playedPuzlles);
         return pldtos;
     }
 
@@ -267,8 +268,8 @@ public class AppMemberController {
     @ResponseBody
     @CrossOrigin(origins = "*")
     public Collection<PLDTO> getPuzzleLevelsPlayedByUserId(@PathVariable Long id) {
-        Optional<AppMember> memberOptional = appMemberService.findById(id);
-        Collection<PLDTO> pldtos = appMemberService.getPuzzleLevelsPlayed(memberOptional.get());
+        Optional<AppMember> memberOptional = service.findById(id);
+        Collection<PLDTO> pldtos = service.getPuzzleLevelsPlayed(memberOptional.get());
         return pldtos;
     }
 
@@ -277,7 +278,7 @@ public class AppMemberController {
     @ResponseBody
     @CrossOrigin(origins = "*")
     public Collection<AppMemberDTO> getBinaryContentBySearchCriteria(@RequestBody AppMemberSearchCriteriaDTO criteriaDTO ) {
-        Collection<AppMember> appMembers = appMemberService.findByCriteria(criteriaDTO);
+        Collection<AppMember> appMembers = service.findByCriteria(criteriaDTO);
         return DTOUtil.getAppMemberDTOS(appMembers);
     }
 
@@ -286,7 +287,7 @@ public class AppMemberController {
     @ResponseBody
     @CrossOrigin(origins = "*")
     public Collection<PLGameInstanceDTO> getAllPlayGameForUser(@PathVariable Long id) {
-        Optional<AppMember> memberOptional = appMemberService.findById(id);
+        Optional<AppMember> memberOptional = service.findById(id);
         Collection<PLGameInstance>  histories= memberOptional.get().getPlGameInstances();
         Collection<PLGameInstanceDTO> dtos =  DTOUtil.getPLGameInstanceDTOS(histories);
         return dtos;
@@ -299,7 +300,7 @@ public class AppMemberController {
     public Collection<PLGameInstanceDTO> getGamePlayByUserIdAndPuzzleLevel(@PathVariable Long id,@PathVariable Long pid) {
         Collection<PLGameInstance> gameInstances = new ArrayList<>();
         Collection<PLGameInstanceDTO> historyDTOS = new ArrayList<>();
-        Optional<AppMember> memberOptional = appMemberService.findById(id);
+        Optional<AppMember> memberOptional = service.findById(id);
         Optional<PuzzleLevel> puzzleLevelOptional = puzzleLevelService.findById(pid);
         if(memberOptional.isEmpty() || puzzleLevelOptional.isEmpty()) {return null;}
         gameInstances = pLGameInstanceService.findByPlayerAndPuzzleLevel(memberOptional.get(),puzzleLevelOptional.get());
@@ -313,22 +314,23 @@ public class AppMemberController {
     @CrossOrigin(origins = "*")
     public AppMemberJourneyInfo getPuzzleLevelMappedStepInJourney(@PathVariable Long id, @PathVariable Long jid) {
         long start_time = System.currentTimeMillis();
-        Optional<AppMember> memberOptional = appMemberService.findById(id);
+        Optional<AppMember> memberOptional = service.findById(id);
         Optional<Journey> journeyOptional = journeyService.findById(jid);
         AppMemberJourneyInfo journeyInfoWithScores =null;
         if(memberOptional.isEmpty()  || journeyOptional.isEmpty()) return  null;
-        AppMemberJourneyInfo journeyInfo = appMemberService.getAppMemberJourneyInfo(memberOptional.get(),journeyOptional.get());
+        AppMemberJourneyInfo journeyInfo = service.getAppMemberJourneyInfo(memberOptional.get(),journeyOptional.get());
         long end_time = System.currentTimeMillis();
-        journeyInfoWithScores =appMemberService.getAppMemberJourneyInfoWithScores(memberOptional.get(),journeyInfo);
+        journeyInfoWithScores =service.getAppMemberJourneyInfoWithScores(memberOptional.get(),journeyInfo);
         System.out.println("Milliseconds for running getPuzzleLevelMappedStepInJourney Method = " + (end_time - start_time));
         return journeyInfoWithScores;
     }
+
     @Operation( summary = "Init Skill Set Wallet Information for an Application Member id ",  description = "Init Skill Set Scores Information for an Application Member")
     @RequestMapping(value = "/init-skill-wallet/id/{id}", method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin(origins = "*")
     public ResponseMessage initSkillWalletByUserId(@PathVariable Long id) {
-        Optional<AppMember> memberOptional = appMemberService.findById(id);
+        Optional<AppMember> memberOptional = service.findById(id);
         if(memberOptional.isEmpty())
                 return  new ResponseMessage(ErrorType.RecordNotFound,Status.error.name(),AppMember.class.getSimpleName(),  id,SystemMessage.RecordNotFound);
         return appMemberLearningSkillService.initSkillWalletByUser(memberOptional.get());
@@ -339,9 +341,9 @@ public class AppMemberController {
     @ResponseBody
     @CrossOrigin(origins = "*")
     public Collection<AppMemberJourneyDTO> getJourneysByUserId(@PathVariable Long id) {
-        Optional<AppMember> memberOptional = appMemberService.findById(id);
+        Optional<AppMember> memberOptional = service.findById(id);
         Collection<Journey> journeys = journeyService.findAll();
-        Collection<AppMemberJourneyDTO> dtos = appMemberService.getAppMemberJourneysByScores(memberOptional.get(),journeys);
+        Collection<AppMemberJourneyDTO> dtos = service.getAppMemberJourneysByScores(memberOptional.get(),journeys);
         Comparator<AppMemberJourneyDTO> journeyComparator = new JourneyComparator();
         Collection<AppMemberJourneyDTO> sortedList = new ArrayList<AppMemberJourneyDTO>();
         sortedList = dtos.stream().sorted(journeyComparator).collect(Collectors.toList());
@@ -352,10 +354,10 @@ public class AppMemberController {
     @DeleteMapping("/del/id/{id}")
     @CrossOrigin(origins = "*")
     public ResponseMessage deleteWalletItemById(@PathVariable Long id) {
-        Optional<AppMember> requestedRecord = appMemberService.findById(id);
+        Optional<AppMember> requestedRecord = service.findById(id);
         if(requestedRecord.isPresent()){
             try {
-                appMemberService.delete(requestedRecord.get());
+                service.delete(requestedRecord.get());
             }
             catch (Exception e) {
                 throw  new ResponseObject(ErrorType.ForeignKeyViolation, Status.error.name(),AppMember.class.getSimpleName(),  id,e.getCause().getMessage());
@@ -371,7 +373,7 @@ public class AppMemberController {
     public ResponseMessage getPuzzleLevel(@PathVariable Long memId, @PathVariable Long avatarId) {
         AppMember updatedRecord = null;
         ResponseMessage response = new ResponseMessage();
-        updatedRecord = appMemberService.updateAvatar(memId, avatarId);
+        updatedRecord = service.updateAvatar(memId, avatarId);
             if(updatedRecord !=null)
                 response = new ResponseMessage(ErrorType.SaveSuccess, Status.ok.name(),AppMember.class.getSimpleName() ,  updatedRecord.getId(), SystemMessage.SaveOrEditMessage_Success);
             else
@@ -387,13 +389,13 @@ public class AppMemberController {
     public ResponseMessage saveAppMember(@RequestBody AppMemberDTO dto)  {
         AppMember savedRecord = null;
         ResponseMessage response = new ResponseMessage();
-        Optional<AppMember> appMemberOptional = appMemberService.findById(dto.getId());
+        Optional<AppMember> appMemberOptional = service.findById(dto.getId());
         try{
             if (appMemberOptional.isEmpty())
-                savedRecord = appMemberService.save(dto,"Save");
+                savedRecord = service.save(dto,"Save");
 
             else
-                savedRecord = appMemberService.save(dto, "Edit");
+                savedRecord = service.save(dto, "Edit");
             if(savedRecord !=null)
                 response = new ResponseMessage(ErrorType.SaveSuccess, Status.ok.name(),AppMember.class.getSimpleName() ,  savedRecord.getId(), SystemMessage.SaveOrEditMessage_Success);
             else
@@ -415,9 +417,9 @@ public class AppMemberController {
         Optional<AppMember_WalletItem> appMember_walletItemOptional = appMemberWalletItemService.findById(dto.getId());
             try {
                 if( appMember_walletItemOptional.isEmpty())
-                        savedRecord = appMemberService.chargeOrDeChargeAppMemberWallet(dto,"Save");
+                        savedRecord = service.chargeOrDeChargeAppMemberWallet(dto,"Save");
                  else
-                        savedRecord = appMemberService.chargeOrDeChargeAppMemberWallet(dto, "Edit");
+                        savedRecord = service.chargeOrDeChargeAppMemberWallet(dto, "Edit");
 
                 if(savedRecord !=null)
                     response = new ResponseMessage(ErrorType.SaveSuccess, Status.ok.name(), AppMember_WalletItem.class.getSimpleName() ,  savedRecord.getId(), SystemMessage.SaveOrEditMessage_Success);
@@ -451,7 +453,7 @@ public class AppMemberController {
         Long  appMemberId = dto.getAppMemberId();
         Optional<PLObjective> plObjectiveOptional = plObjectiveService.findById(objectiveId);
         Optional<PLGameInstance> gameInstanceOptional = pLGameInstanceService.findById(gameInstanceId);
-        Optional<AppMember> appMemberOptional = appMemberService.findById(appMemberId);
+        Optional<AppMember> appMemberOptional = service.findById(appMemberId);
         PLObjectiveTransactionType transactionType = PLObjectiveTransactionType.getByTitle(dto.getObjectiveType());
 
         if(plObjectiveOptional.isEmpty() || gameInstanceOptional.isEmpty() || appMemberOptional.isEmpty() ) return false;
@@ -472,7 +474,7 @@ public class AppMemberController {
     public ResponseMessage applyReward(@RequestBody PLObjectiveTransactionDTO dto)  {
         ObjectiveTransaction savedRecord = null;
         ResponseMessage response = new ResponseMessage();
-        Optional<AppMember> appMemberOptional = appMemberService.findById(dto.getAppMemberId());
+        Optional<AppMember> appMemberOptional = service.findById(dto.getAppMemberId());
         Optional<PLObjective> plObjectiveOptional = plObjectiveService.findById(dto.getObjectiveId());
         if(plObjectiveOptional.isEmpty()) {
             return new ResponseMessage(ErrorType.RecordNotFound, Status.error.name() , ObjectiveTransaction.class.getSimpleName() , 0L, SystemMessage.SaveOrEditMessage_Success);
@@ -527,7 +529,7 @@ public class AppMemberController {
         AppMemberDTO appMemberDTO = new AppMemberDTO();
 
             try {
-                savedRecord = appMemberService.saveGuestUser(byear);
+                savedRecord = service.saveGuestUser(byear);
             } catch (RuntimeException e) {
                 throw new UniqueConstraintException(-1,"Unique Constraint in" + AppMember.class , "Error",savedRecord.getId() );
             }
@@ -540,7 +542,7 @@ public class AppMemberController {
     @ResponseBody
     @CrossOrigin(origins = "*")
     public Collection<AppMemberWalletDTO> getAllWalletItemByUserId(@PathVariable Long id) {
-        Optional<AppMember> member = appMemberService.findById(id);
+        Optional<AppMember> member = service.findById(id);
         Collection<AppMember_WalletItem> applicationMember_walletItems = member.get().getApplicationMember_walletItems();
         Collection<AppMemberWalletDTO> dtos = DTOUtil.getAppMemberWalletDTOS(applicationMember_walletItems);
         return dtos;
@@ -551,7 +553,7 @@ public class AppMemberController {
     @ResponseBody
     @CrossOrigin(origins = "*")
     public Collection<AppMemberWalletDTO> getConsumableWalletItemByUserId(@PathVariable Long id) {
-        Optional<AppMember> member = appMemberService.findById(id);
+        Optional<AppMember> member = service.findById(id);
         Collection<AppMember_WalletItem> walletItems = member.get().getApplicationMember_walletItems();
         Collection<AppMember_WalletItem> consumableWalletItems = walletItems.stream().filter(value ->value.getWalletItem().getWalletItemType().getCurrency()).collect(Collectors.toList());
 
@@ -564,7 +566,7 @@ public class AppMemberController {
     @ResponseBody
     @CrossOrigin(origins = "*")
     public ResponseMessage saveClientType(@PathVariable Long memId,@PathVariable String ctype) {
-        Optional<AppMember> appMemberOptional = appMemberService.findById(memId);
+        Optional<AppMember> appMemberOptional = service.findById(memId);
         if(appMemberOptional.isEmpty())
             return new ResponseMessage(ErrorType.RecordNotFound, Status.error.name() ,AppMember.class.getSimpleName() ,  memId , SystemMessage.RecordNotFound);
         ClientType clientType = clientTypeService.findByValue(ctype);
@@ -575,7 +577,7 @@ public class AppMemberController {
         if(clientTypeOptional.isPresent())
             return new ResponseMessage(ErrorType.UniquenessViolation, Status.error.name() ,AppMember.class.getSimpleName() ,  memId , SystemMessage.UniquenessViolation);
 
-        ResponseMessage response = appMemberService.setClientType(appMemberOptional.get(),clientType);
+        ResponseMessage response = service.setClientType(appMemberOptional.get(),clientType);
 
         return response;
     }
@@ -584,12 +586,12 @@ public class AppMemberController {
     @PostMapping("/login")
     @CrossOrigin(origins = "*")
     public ALCityAcessRight login(@RequestBody AppMemberDTO memberDTO)  {
-        Optional<AppMember> member = appMemberService.findByUsername(memberDTO.getUsername());
+        Optional<AppMember> member = service.findByUsername(memberDTO.getUsername());
         if(member.isEmpty())
             return  new ALCityAcessRight(-1L, memberDTO.getUsername(),-1,"data not found","-1",-1,"error","error","error",-1L,"error","error");
         if(!member.get().getPassword().equals(memberDTO.getPassword()))
             return  new ALCityAcessRight(-1L, memberDTO.getUsername(),-1,"data not found","-1",-1,"error","error","error",-1L,"error","error");
-        appMemberService.login(member.get().getUsername(), member.get().getPassword());
+        service.login(member.get().getUsername(), member.get().getPassword());
         ALCityAcessRight accessRight = new ALCityAcessRight(member.get().getId(), member.get().getUsername(),0,"Login Successfull","JWT Token", member.get().getAge(), memberDTO.getNickname(), memberDTO.getMobile(),
                 memberDTO.getEmail(), memberDTO.getIconId(), memberDTO.getMemberType(), memberDTO.getGender());
 
