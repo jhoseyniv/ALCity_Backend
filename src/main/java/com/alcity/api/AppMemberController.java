@@ -102,7 +102,7 @@ public class AppMemberController {
         LocalDateTime localDateTime = DateUtils.getDateTime(date);
         return memberOptional.map(appMember -> DTOUtil.getXPByDate(localDateTime, appMember, objectiveTransactionService)).orElse(null);
     }
-/*
+
     @Operation( summary = "Get XP's for a skills and their children ",  description = "Get XP's for a skills and their children")
     @RequestMapping(value = "/id/{id}/children-xp/sid/{sid}", method = RequestMethod.GET)
     @ResponseBody
@@ -129,25 +129,40 @@ public class AppMemberController {
     }
 
 
-    @Operation( summary = "Get Score for a Sub-Set skill by user id ....",  description = "Get Score for a Sub-Set skill by user id ....")
-    @RequestMapping(value = "/uid/{uid}/sub-skill-score/sid/{sid}", method = RequestMethod.GET)
+    @Operation( summary = "Get Score for a Sub-Set skill by user id and major skill ....",  description = "Get Score for a Sub-Set skill by user id and major skill ....")
+    @RequestMapping(value = "/uid/{uid}/major-skill/sid/{sid}", method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin(origins = "*")
-    public AppMemberSkillScoreDTO getSubSkillScoreByUserIdAndSkillID(@PathVariable Long uid, @PathVariable Long sid) {
+    public Collection<AppMemberSkillScoreDTO> getSubSkillScores(@PathVariable Long uid, @PathVariable Long sid) {
+        Collection<AppMemberSkillScoreDTO> dtos = new ArrayList<>();
+        AppMember_LearningSkill appMemberLearningSkill =null;
+
         Optional<AppMember> memberOptional = service.findById(uid);
         Optional<LearningSkill> learningSkillOptional = learningSkillService.findById(sid);
         if(memberOptional.isEmpty() || learningSkillOptional.isEmpty())   return null;
 
-        Collection<LearningSkill> microskills = learningSkillService.findByParentSkill(learningSkillOptional.get());
-        PLObjectiveTransactionType transactionType = PLObjectiveTransactionType.LearningSkill;
-        Optional<PLObjective> objectiveOptional = plObjectiveService.findByLearningSkill(learningSkillOptional.get());
-        if(memberOptional.isEmpty() || learningSkillOptional.isEmpty() || objectiveOptional.isEmpty())  return null;
+        Collection<LearningSkill> susetSkills = learningSkillService.findByParentSkill(learningSkillOptional.get());
+        Iterator<LearningSkill> iterator = susetSkills.iterator();
+        while(iterator.hasNext()){
+            LearningSkill learningSkill = iterator.next();
+            Optional<AppMember_LearningSkill> memberLearningSkillOptional = appMemberLearningSkillService.findByApplicationMemberAndLearningSkill(memberOptional.get(),learningSkill);
+            //if is not here must be inserted.........
+            if(memberLearningSkillOptional.isEmpty()) {
+                appMemberLearningSkill = new AppMember_LearningSkill(memberOptional.get(), learningSkill, 0f, 0L,
+                        1L, DateUtils.getNow(), DateUtils.getNow(), memberOptional.get(), memberOptional.get());
+                appMemberLearningSkillService.save(appMemberLearningSkill);
 
-        Collection<ObjectiveTransaction> transactions = objectiveTransactionService.findByPlObjectiveAndTransactionTypeAndAppMember(objectiveOptional.get(),transactionType,memberOptional.get());
-        AppMemberSkillScoreDTO dto = DTOUtil.getXPForAAppMemberSkillDTO(memberOptional.get(),learningSkillOptional.get(),transactions,binaryContentService);
-        return dto;
+            }else{
+                appMemberLearningSkill = memberLearningSkillOptional.get();
+            }
+            AppMemberSkillScoreDTO dto = new AppMemberSkillScoreDTO(learningSkill.getId(),learningSkill.getTitle(),learningSkill.getDescription(),
+                    appMemberLearningSkill.getLevel(),learningSkill.getType().name(),appMemberLearningSkill.getAmount(),
+                    learningSkill.getWeight(),memberOptional.get().getId(),learningSkill.getIcon().getId());
+            dtos.add(dto);
+        }
+        return dtos;
     }
-*/
+
 
     @Operation( summary = "Get last accumulative  XP's  for a user by skill id ",  description = "Get last accumulative XP's for a user by skill id")
     @RequestMapping(value = "/id/{id}/xp-by-skill/sid/{sid}", method = RequestMethod.GET)
