@@ -3,7 +3,9 @@ package com.alcity.entity.alenum;
 public enum SkillType {
     Skill,
     SubSetSkill,
-    MicroSkill;
+    MicroSkill,
+    Root;
+
     public static SkillType getById(long id)
     {
         for (SkillType e : SkillType.values())

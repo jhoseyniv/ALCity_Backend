@@ -440,7 +440,17 @@ public class AppMemberService implements AppMemberRepository, CustomizedUserRepo
     }
 
     @Override
-    public void delete(AppMember entity) {
+    public void delete(AppMember member) {
+        //load and delete member client types
+         Collection<ClientType>  clientTypes=member.getClientTypes();
+         member.getClientTypes().removeAll(clientTypes);
+        //load and delete member instances game
+
+        //load and delete puzzleLevelScore for a member
+
+        //load and delete AppMember_WalletItems
+
+        //load and delete AppMember_LearningSkill
 
     }
 
