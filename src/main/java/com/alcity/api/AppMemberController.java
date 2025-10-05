@@ -177,7 +177,7 @@ public class AppMemberController {
         Collection<AppMemberXPDTO> dtos = new ArrayList<>();
         Optional<AppMember> memberOptional = service.findById(id);
         if(memberOptional.isEmpty())   return null;
-        DTOUtil.getXPByWeek(memberOptional.get(),objectiveTransactionService);
+        dtos = DTOUtil.getXPByWeek(memberOptional.get(),objectiveTransactionService);
 
        return dtos;
 
