@@ -859,11 +859,11 @@ public class DTOUtil {
         return dto;
     }
 
-    public static Collection<AppMemberXPDTO> getXPByWeek(LocalDateTime today, AppMember member, ObjectiveTransactionService objectiveTransactionService) {
+    public static Collection<AppMemberXPDTO> getXPByWeek(AppMember member, ObjectiveTransactionService objectiveTransactionService) {
         Collection<AppMemberXPDTO> dtos = new ArrayList<>();
-
+        LocalDateTime today = LocalDateTime.now();
         for (int index = 0; index < 7; index++){
-            AppMemberXPDTO appMemberWeekXPDT_index = DTOUtil.getXPByDate(DateUtils.getDateByString(today.minusDays(index)),member,objectiveTransactionService);
+            AppMemberXPDTO appMemberWeekXPDT_index = DTOUtil.getXPByDate(today.minusDays(index),member,objectiveTransactionService);
             dtos.add(appMemberWeekXPDT_index);
 
         }
@@ -901,15 +901,15 @@ public class DTOUtil {
     }
      */
 
-    public static AppMemberXPDTO getXPByDate( String date,AppMember member, ObjectiveTransactionService objectiveTransactionService) {
+    public static AppMemberXPDTO getXPByDate( LocalDateTime date,AppMember member, ObjectiveTransactionService objectiveTransactionService) {
         Float xp=0f;
-        LocalDateTime localDate = DateUtils.getDate(date);
-        Collection<ObjectiveTransaction> transactions = objectiveTransactionService.findByAppMemberAndTransactionDateContaining(member,date);
+        String dateString = DateUtils.getDateToString(date);
+        Collection<ObjectiveTransaction> transactions = objectiveTransactionService.findByAppMemberAndTransactionDateContaining(member,dateString);
 
         for (ObjectiveTransaction transaction : transactions) {
             xp += transaction.getAmount();
         }
-        return new AppMemberXPDTO( localDate.getDayOfWeek().getValue(), localDate.getDayOfWeek().name(), xp, member.getId(), date );
+        return new AppMemberXPDTO( date.getDayOfWeek().getValue(), date.getDayOfWeek().name(), xp, member.getId(), dateString );
     }
 
 

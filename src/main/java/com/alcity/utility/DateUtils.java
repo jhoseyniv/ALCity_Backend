@@ -30,20 +30,31 @@ public class  DateUtils {
         return current.format(format);
     }
 
-    public static String getDate(LocalDateTime  localDateTime){
+    public static String getDateToString(LocalDateTime  localDateTime){
         DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         return localDateTime.format(format);
     }
     public static LocalDateTime getDate(String  date){
+        final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        LocalDateTime dateTime = LocalDateTime.parse(date+"T00:00:00 AM", formatter);
+        System.out.println(dateTime);
+        return dateTime;
+    }
+    public static LocalDateTime getDateTime(String  date){
         final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss a");
         LocalDateTime dateTime = LocalDateTime.parse(date+" 00:00:00 AM", formatter);
         System.out.println(dateTime);
         return dateTime;
     }
 
-    public static String getDateByString(LocalDateTime current ){
-       // LocalDateTime current = LocalDateTime.now();
+    public static String getDateTimeByString(LocalDateTime current ){
+        // LocalDateTime current = LocalDateTime.now();
         DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        return current.format(format);
+    }
+    public static String getDateByString(LocalDateTime current ){
+        // LocalDateTime current = LocalDateTime.now();
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         return current.format(format);
     }
 
