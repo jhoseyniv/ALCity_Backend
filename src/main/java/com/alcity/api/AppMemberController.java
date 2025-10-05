@@ -99,7 +99,8 @@ public class AppMemberController {
     @CrossOrigin(origins = "*")
     public AppMemberXPDTO getXPByDate(@PathVariable Long id, @PathVariable String date) {
         Optional<AppMember> memberOptional = service.findById(id);
-        return memberOptional.map(appMember -> DTOUtil.getXPByDate(date, appMember, objectiveTransactionService)).orElse(null);
+        LocalDateTime localDateTime = DateUtils.getDateTime(date);
+        return memberOptional.map(appMember -> DTOUtil.getXPByDate(localDateTime, appMember, objectiveTransactionService)).orElse(null);
     }
 /*
     @Operation( summary = "Get XP's for a skills and their children ",  description = "Get XP's for a skills and their children")
@@ -176,8 +177,7 @@ public class AppMemberController {
         Collection<AppMemberXPDTO> dtos = new ArrayList<>();
         Optional<AppMember> memberOptional = service.findById(id);
         if(memberOptional.isEmpty())   return null;
-        LocalDateTime today = LocalDateTime.now();
-        DTOUtil.getXPByWeek(today,memberOptional.get(),objectiveTransactionService);
+        DTOUtil.getXPByWeek(memberOptional.get(),objectiveTransactionService);
 
        return dtos;
 

@@ -6,6 +6,7 @@ public enum SkillType {
     MicroSkill,
     Root;
 
+
     public static SkillType getById(long id)
     {
         for (SkillType e : SkillType.values())
