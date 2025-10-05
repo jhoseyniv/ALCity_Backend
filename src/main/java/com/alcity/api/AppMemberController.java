@@ -180,6 +180,7 @@ public class AppMemberController {
         DTOUtil.getXPByWeek(today,memberOptional.get(),objectiveTransactionService);
 
        return dtos;
+
     }
 
     @Operation( summary = "Get skill Radar Chart for an app member ",  description = "this api get a radar chart from fundamental skills for a player ")
