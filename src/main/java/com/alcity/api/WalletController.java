@@ -22,6 +22,7 @@ import com.alcity.service.appmember.WalletItemService;
 import com.alcity.utility.DTOUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -49,7 +50,7 @@ public class WalletController {
         Collection<WalletItemType> walletItemTypes = walletItemTypeService.findAll();
         return DTOUtil.getWalletItemTypeDTOS(walletItemTypes);
     }
-
+    @Transactional
     @GetMapping("/item/all")
     @CrossOrigin(origins = "*")
     public Collection<WalletItemDTO> getWalletItems(Model model) {
