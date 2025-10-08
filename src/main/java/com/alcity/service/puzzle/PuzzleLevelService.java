@@ -578,7 +578,7 @@ public class PuzzleLevelService implements PuzzleLevelRepository {
            }
       return journeyStep;
     }
-    public PLContents getContents(Long id)  {
+    public Collection<PLBinaryContentDTO>  getContents(Long id)  {
         Set<Long> attributeDTOS = new HashSet<>();
         Optional<PuzzleLevel> puzzleLevelOptional = puzzleLevelRepository.findById(id);
 
@@ -611,9 +611,9 @@ public class PuzzleLevelService implements PuzzleLevelRepository {
         }
         Collection<PLBinaryContentDTO> contents = new ArrayList<>();
         contents = DTOUtil.getPLBinaryContentsDTOS(binaryContentService,attributeDTOS);
-        PLContents plContents = new PLContents();
-        plContents.setContents(contents);
-        return  plContents;
+//        PLContentsDTO plContents = new PLContentsDTO();
+   //     plContents.setContents(contents);
+        return  contents;
 
     }
 

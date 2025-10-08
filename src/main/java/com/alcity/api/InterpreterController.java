@@ -1,6 +1,7 @@
 package com.alcity.api;
 
 
+import com.alcity.dto.base.PLBinaryContentDTO;
 import com.alcity.dto.plimpexport.*;
 import com.alcity.dto.plimpexport.InstanceData;
 import com.alcity.dto.plimpexport.AttributeData;
@@ -63,7 +64,7 @@ public class InterpreterController {
     public ResponseObject createJsonFile(@PathVariable Long id) throws IOException, ClassNotFoundException {
         Optional<PuzzleLevel> puzzleLevelOptional = puzzleLevelService.findById(id);
         PLData plData = new PLData();
-        PLContents plContents = new PLContents();
+        Collection<PLBinaryContentDTO> plContents= new ArrayList<>();
         if(puzzleLevelOptional.isPresent()){
             plData = getJsonFile(id);
             plContents = puzzleLevelService.getContents(id);

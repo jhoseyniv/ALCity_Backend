@@ -1,5 +1,6 @@
 package com.alcity.utility;
 
+import com.alcity.dto.base.PLBinaryContentDTO;
 import com.alcity.entity.alenum.BinaryContentType;
 
 import java.io.ByteArrayOutputStream;
@@ -9,7 +10,10 @@ import java.io.ObjectOutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Collection;
 
+import com.alcity.entity.alobject.ObjectAction;
 import net.coobird.thumbnailator.*;
 public class ImageUtil {
     public static String imageUrls="src/main/resources/images/image-utility/";
@@ -170,7 +174,7 @@ public class ImageUtil {
 
     }
 
-    public static byte[] convertObjectToBytes(Object obj) {
+    public static byte[] convertObjectToBytes( Object obj) {
         ByteArrayOutputStream boas = new ByteArrayOutputStream();
         try (ObjectOutputStream ois = new ObjectOutputStream(boas)) {
             ois.writeObject(obj);
@@ -181,6 +185,18 @@ public class ImageUtil {
         }
         throw new RuntimeException();
     }
+    public static byte[] convertCollectionToBytes( Collection<PLBinaryContentDTO> contentDTOS) {
+        ByteArrayOutputStream boas = new ByteArrayOutputStream();
+        try (ObjectOutputStream ois = new ObjectOutputStream(boas)) {
+            ois.writeObject(contentDTOS);
+            return boas.toByteArray();
+
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+        }
+        throw new RuntimeException();
+    }
+
     public  static byte[] getBytesOfThumbnail(File file) throws IOException {
         byte[] imageBytes=null;
         Thumbnails.of(file).size(100,100)
