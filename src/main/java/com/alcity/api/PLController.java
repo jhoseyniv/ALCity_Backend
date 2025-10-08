@@ -110,7 +110,7 @@ public class PLController {
         PuzzleLevel puzzleLevel = puzzleLevelOptional.get();
         Collection<Instance> instances = puzzleLevel.getInstances();
         Iterator<Instance> itr = instances.iterator();
-
+        int counter = 0;
         while(itr.hasNext()) {
             Set<Long> properties = new HashSet<>();
             Set<Long> variables = new HashSet<>();
@@ -120,13 +120,13 @@ public class PLController {
             Collection<Attribute> instance_properties = attributeService.findInstanceProperties(instance.getId(), AttributeOwnerType.Instance_Puzzle_Group_Object_Property);
             instance_properties = instance_properties.stream().filter(property -> property.getDataType().equals(DataType.Binary)).collect(Collectors.toList());
             properties = DTOUtil.getBinaryContentFromAttributeDTOS(instance_properties);
-
-            //find contents for pl instances properties
+            //find contents for pl instances variables
             Collection<Attribute> instance_variables = attributeService.findInstanceVariables(instance.getId(), AttributeOwnerType.Instance_Puzzle_Group_Object_Variable);
             instance_variables = instance_variables.stream().filter(property -> property.getDataType().equals(DataType.Binary)).collect(Collectors.toList());
             variables = DTOUtil.getBinaryContentFromAttributeDTOS(instance_variables);
             properties.addAll(variables);
             attributeDTOS.addAll(properties);
+            System.out.println("pl instance ="+counter++);
         }
         Collection<PLBinaryContentDTO> contents = new ArrayList<>();
         contents = DTOUtil.getPLBinaryContentsDTOS(binaryContentService,attributeDTOS);
