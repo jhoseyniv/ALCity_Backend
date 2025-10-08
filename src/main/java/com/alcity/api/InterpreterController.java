@@ -22,6 +22,7 @@ import com.alcity.service.puzzle.PLRulePostActionService;
 import com.alcity.service.puzzle.PuzzleLevelService;
 import com.alcity.utility.DTOUtil;
 import com.alcity.utility.ImageUtil;
+import com.alcity.utility.PLDTOUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,8 +63,15 @@ public class InterpreterController {
     public ResponseObject createJsonFile(@PathVariable Long id) throws IOException, ClassNotFoundException {
         Optional<PuzzleLevel> puzzleLevelOptional = puzzleLevelService.findById(id);
         PLData plData = new PLData();
+        PLContents plContents = new PLContents();
         if(puzzleLevelOptional.isPresent()){
             plData = getJsonFile(id);
+            plContents = puzzleLevelService.getContents(id);
+            PuzzleLevel puzzleLevel = puzzleLevelOptional.get();
+            byte[] plContentsBytes = ImageUtil.convertObjectToBytes(plContents);
+            puzzleLevel.setPlconetents(plContentsBytes);
+            puzzleLevelService.save(puzzleLevel);
+
         }
         return new ResponseObject(ErrorType.SaveSuccess, ObjectAction.class.getSimpleName() , Status.ok.name(), id, SystemMessage.SaveOrEditMessage_Success);
     }
@@ -76,15 +84,32 @@ public class InterpreterController {
         PLData plData = new PLData();
         if(puzzleLevelOptional.isPresent()){
             PuzzleLevel puzzleLevel = puzzleLevelOptional.get();
-           // if(puzzleLevel.getInterpreterFile()!=null)
-           //     plData = PLDTOUtil.getInterpreterJSON(puzzleLevel);
-          //  else {
+            if(puzzleLevel.getInterpreterFile()!=null)
+                plData = PLDTOUtil.getInterpreterJSON(puzzleLevel);
+            else {
                 plData = getJsonFile(id);
-         //   }
+           }
         }
         return plData;
     }
-
+/*
+    @Operation( summary = "Fetch PL Contents from DB  by puzzle level Id",  description = "Fetches PL Contents for a puzzle level from DB")
+    @RequestMapping(value = "/id/{id}", method = RequestMethod.GET)
+    @ResponseBody
+    public PLContents getPuzzleLevelContents(@PathVariable Long id) throws IOException, ClassNotFoundException {
+        Optional<PuzzleLevel> puzzleLevelOptional = puzzleLevelService.findById(id);
+        PLContents plContents = new PLContents();
+        if(puzzleLevelOptional.isPresent()){
+            PuzzleLevel puzzleLevel = puzzleLevelOptional.get();
+            if(puzzleLevel.getPlconetents()!=null)
+                plContents = PLDTOUtil.getPLContentsJSON(puzzleLevel);
+            else {
+                plContents = puzzleLevelService.getContents(id);
+            }
+        }
+        return plContents;
+    }
+*/
     public PLData getJsonFile(Long plID) {
         PLData plData= new PLData();
 

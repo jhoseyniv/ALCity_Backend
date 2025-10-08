@@ -1,5 +1,6 @@
 package com.alcity.service.puzzle;
 
+import com.alcity.dto.base.PLBinaryContentDTO;
 import com.alcity.dto.plimpexport.*;
 import com.alcity.dto.plimpexport.AttributeData;
 import com.alcity.dto.plimpexport.rulemport.PLRuleImport;
@@ -7,6 +8,7 @@ import com.alcity.dto.puzzle.PLCopyDTO;
 import com.alcity.dto.puzzle.PLDTO;
 import com.alcity.dto.puzzle.PuzzleLevelStepMappingDTO;
 import com.alcity.entity.alenum.AttributeOwnerType;
+import com.alcity.entity.alenum.DataType;
 import com.alcity.entity.alenum.PLDifficulty;
 import com.alcity.entity.alenum.PLStatus;
 import com.alcity.entity.alobject.Attribute;
@@ -40,6 +42,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;;
 import java.io.IOException;
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 @Service
@@ -561,6 +564,7 @@ public class PuzzleLevelService implements PuzzleLevelRepository {
             Collection<PuzzleLevel> filterdByAge = puzzleLevels.stream().filter(PuzzleLevel -> PuzzleLevel.getFromAge() <=member.getAge()  && member.getAge() <= PuzzleLevel.getToAge()).collect(Collectors.toList());
          return  filterdByAge;
     }
+
    public JourneyStep getPuzzleLevelMappedStep(Long id){
         JourneyStep journeyStep = null;
         PuzzleLevel puzzleLevel = new PuzzleLevel();
@@ -574,4 +578,46 @@ public class PuzzleLevelService implements PuzzleLevelRepository {
            }
       return journeyStep;
     }
+    public PLContents getContents(Long id)  {
+        Set<Long> attributeDTOS = new HashSet<>();
+        Optional<PuzzleLevel> puzzleLevelOptional = puzzleLevelRepository.findById(id);
+
+        if(puzzleLevelOptional.isEmpty()) return null;
+
+        PuzzleLevel puzzleLevel = puzzleLevelOptional.get();
+        Collection<Instance> instances = puzzleLevel.getInstances();
+        Iterator<Instance> itr = instances.iterator();
+        int counter = 0;
+        while(itr.hasNext()) {
+            long start_time = System.currentTimeMillis();
+            Set<Long> properties = new HashSet<>();
+            Set<Long> variables = new HashSet<>();
+            Instance instance = itr.next();
+
+            //find contents for pl instances properties
+            Collection<Attribute> instance_properties = attributeService.findInstanceProperties(instance.getId(), AttributeOwnerType.Instance_Puzzle_Group_Object_Property);
+            instance_properties = instance_properties.stream().filter(property -> property.getDataType().equals(DataType.Binary)).collect(Collectors.toList());
+            properties = DTOUtil.getBinaryContentFromAttributeDTOS(instance_properties);
+            //find contents for pl instances variables
+            Collection<Attribute> instance_variables = attributeService.findInstanceVariables(instance.getId(), AttributeOwnerType.Instance_Puzzle_Group_Object_Variable);
+            instance_variables = instance_variables.stream().filter(property -> property.getDataType().equals(DataType.Binary)).collect(Collectors.toList());
+            variables = DTOUtil.getBinaryContentFromAttributeDTOS(instance_variables);
+            properties.addAll(variables);
+            attributeDTOS.addAll(properties);
+            long end_time = System.currentTimeMillis();
+            System.out.println("find conetens for an instanc= " + "counter="+ counter +" time is = " + TimeUnit.MILLISECONDS.toSeconds(end_time - start_time));
+
+            System.out.println("pl instance ="+counter++);
+        }
+        Collection<PLBinaryContentDTO> contents = new ArrayList<>();
+        contents = DTOUtil.getPLBinaryContentsDTOS(binaryContentService,attributeDTOS);
+        PLContents plContents = new PLContents();
+        plContents.setContents(contents);
+        return  plContents;
+
     }
+
+
+
+
+}
