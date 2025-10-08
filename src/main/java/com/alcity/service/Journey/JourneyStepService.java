@@ -105,7 +105,7 @@ public class JourneyStepService implements JourneyStepRepository {
 
     @Override
     public void delete(JourneyStep entity) {
-
+        journeyStepRepository.delete(entity);
     }
 
     @Override
