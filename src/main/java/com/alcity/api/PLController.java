@@ -4,6 +4,7 @@ import com.alcity.customexception.ResponseMessage;
 import com.alcity.dto.base.PLBinaryContentDTO;
 import com.alcity.dto.learning.LearningSkillDTO;
 import com.alcity.dto.learning.LearningSkillTreeDTO;
+import com.alcity.dto.plimpexport.PLContents;
 import com.alcity.dto.plimpexport.PLData;
 import com.alcity.dto.plimpexport.PLImportDTO;
 import com.alcity.entity.alenum.*;
@@ -24,6 +25,7 @@ import com.alcity.service.puzzle.PLGroundService;
 import com.alcity.service.puzzle.PLTemplateService;
 import com.alcity.service.puzzle.PuzzleLevelService;
 import com.alcity.utility.DTOUtil;
+import com.alcity.utility.ImageUtil;
 import com.alcity.utility.PLDTOUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -34,6 +36,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.*;
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 
@@ -97,40 +100,26 @@ public class PLController {
         return plData;
     }
 
+
     @Operation( summary = "Fetch all Binary Contents for a puzzle level by id ",  description = "Fetch all binary contents a puzzle leve")
     @RequestMapping(value = "/id/{id}/contents", method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin(origins = "*")
-    public Collection<PLBinaryContentDTO> getPuzzleLevelContentsIdById(@PathVariable Long id) {
-        Set<Long> attributeDTOS = new HashSet<>();
+    public PLContents getPuzzleLevelContents(@PathVariable Long id) throws IOException, ClassNotFoundException {
         Optional<PuzzleLevel> puzzleLevelOptional = plService.findById(id);
-
-        if(puzzleLevelOptional.isEmpty()) return null;
-
-        PuzzleLevel puzzleLevel = puzzleLevelOptional.get();
-        Collection<Instance> instances = puzzleLevel.getInstances();
-        Iterator<Instance> itr = instances.iterator();
-        int counter = 0;
-        while(itr.hasNext()) {
-            Set<Long> properties = new HashSet<>();
-            Set<Long> variables = new HashSet<>();
-            Instance instance = itr.next();
-
-            //find contents for pl instances properties
-            Collection<Attribute> instance_properties = attributeService.findInstanceProperties(instance.getId(), AttributeOwnerType.Instance_Puzzle_Group_Object_Property);
-            instance_properties = instance_properties.stream().filter(property -> property.getDataType().equals(DataType.Binary)).collect(Collectors.toList());
-            properties = DTOUtil.getBinaryContentFromAttributeDTOS(instance_properties);
-            //find contents for pl instances variables
-            Collection<Attribute> instance_variables = attributeService.findInstanceVariables(instance.getId(), AttributeOwnerType.Instance_Puzzle_Group_Object_Variable);
-            instance_variables = instance_variables.stream().filter(property -> property.getDataType().equals(DataType.Binary)).collect(Collectors.toList());
-            variables = DTOUtil.getBinaryContentFromAttributeDTOS(instance_variables);
-            properties.addAll(variables);
-            attributeDTOS.addAll(properties);
-            System.out.println("pl instance ="+counter++);
+        PLContents plContents = new PLContents();
+        if(puzzleLevelOptional.isPresent()){
+            PuzzleLevel puzzleLevel = puzzleLevelOptional.get();
+            if(puzzleLevel.getPlconetents()!=null)
+                plContents = PLDTOUtil.getPLContentsJSON(puzzleLevel);
+            else {
+                plContents = plService.getContents(id);
+                byte[] plContentsBytes = ImageUtil.convertObjectToBytes(plContents);
+                puzzleLevel.setPlconetents(plContentsBytes);
+                plService.save(puzzleLevel);
+            }
         }
-        Collection<PLBinaryContentDTO> contents = new ArrayList<>();
-        contents = DTOUtil.getPLBinaryContentsDTOS(binaryContentService,attributeDTOS);
-        return  contents;
+        return plContents;
     }
 
 

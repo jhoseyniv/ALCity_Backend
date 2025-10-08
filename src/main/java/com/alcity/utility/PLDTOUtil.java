@@ -1,5 +1,6 @@
 package com.alcity.utility;
 
+import com.alcity.dto.plimpexport.PLContents;
 import com.alcity.dto.plimpexport.PLData;
 import com.alcity.dto.puzzle.boardgraphic.BoardGraphicDTO;
 import com.alcity.dto.puzzle.object.ActionDTO;
@@ -115,19 +116,15 @@ public class PLDTOUtil {
         byte[] plData = pl.getInterpreterFile();
         ByteArrayInputStream bis = new ByteArrayInputStream(plData);
         ObjectInputStream ois = new ObjectInputStream(bis);
-        //FileOutputStream outputStream = new FileOutputStream("file.ser");
-        //outputStream.write(plData);
-        //FileInputStream inputStream = new FileInputStream("file.ser");
-        PLData plData1 = (PLData) ois.readObject();
-        return plData1;
+        return (PLData) ois.readObject();
     }
-//    public static BoardGraphicDTO getBoardGraphicJSON(PLGround plGround) throws IOException, ClassNotFoundException {
-//        byte[] boardGraphic = plGround.getBoardGraphic();
-//        ByteArrayInputStream bis = new ByteArrayInputStream(boardGraphic);
-//        ObjectInputStream ois = new ObjectInputStream(bis);
-//        BoardGraphicDTO boardGraphicDTO = (BoardGraphicDTO) ois.readObject();
-//        return boardGraphicDTO;
-//    }
+
+    public static PLContents getPLContentsJSON(PuzzleLevel pl) throws IOException, ClassNotFoundException {
+        byte[] plContentsStream = pl.getPlconetents();
+        ByteArrayInputStream bis = new ByteArrayInputStream(plContentsStream);
+        ObjectInputStream ois = new ObjectInputStream(bis);
+        return (PLContents) ois.readObject();
+    }
 
 
     /*

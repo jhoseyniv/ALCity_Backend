@@ -54,6 +54,9 @@ public class PuzzleLevel extends BaseTable implements Serializable {
     @Column(name="interpreterFile")
     private byte[] interpreterFile;
 
+    @Column(name="plconetents")
+    private byte[] plconetents;
+
     public byte[] getInterpreterFile() {
         return interpreterFile;
     }
@@ -139,10 +142,13 @@ public class PuzzleLevel extends BaseTable implements Serializable {
     @JsonIgnore
     private BinaryContent picture;
 
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "boardGraphic_id")
-//    @JsonIgnore
-//    private BinaryContent boardGraphic;
+    public byte[] getPlconetents() {
+        return plconetents;
+    }
+
+    public void setPlconetents(byte[] plconetents) {
+        this.plconetents = plconetents;
+    }
 
     @ManyToOne(fetch = FetchType.LAZY )
     @JoinColumn(name = "icon_id")

@@ -847,6 +847,7 @@ public class AttributeService implements AttributeRepository {
         }
         return outputs;
     }
+
     public Collection<Attribute> defined_properties_in_instance(Long instanceId,Long pgo_id,long object_id) {
         Collection<Attribute> outputs = new ArrayList<>();
         Collection<Attribute> properties_for_instance = attributeRepository.findByOwnerIdAndAttributeOwnerType(instanceId,AttributeOwnerType.Instance_Puzzle_Group_Object_Property);
@@ -911,8 +912,8 @@ public class AttributeService implements AttributeRepository {
 
         return  outputs;
     }
+
     public Collection<Attribute> findInstanceProperties(Long instanceId,AttributeOwnerType ownerType){
-       //     Collection<Attribute> outputAttributes = new ArrayList<Attribute>();
             Collection<Attribute> definedAttributes = new ArrayList<Attribute>();
 
         Long pgo_id = getPGOForThisInstance(instanceId);
