@@ -1,8 +1,8 @@
 package com.alcity.utility;
 
-import com.alcity.dto.plimpexport.PLContents;
+import com.alcity.dto.base.PLBinaryContentDTO;
+import com.alcity.dto.plimpexport.PLContentsDTO;
 import com.alcity.dto.plimpexport.PLData;
-import com.alcity.dto.puzzle.boardgraphic.BoardGraphicDTO;
 import com.alcity.dto.puzzle.object.ActionDTO;
 import com.alcity.dto.puzzle.object.CityObjectDTO;
 import com.alcity.dto.puzzle.object.PropertyDTO;
@@ -119,11 +119,13 @@ public class PLDTOUtil {
         return (PLData) ois.readObject();
     }
 
-    public static PLContents getPLContentsJSON(PuzzleLevel pl) throws IOException, ClassNotFoundException {
+    public static Collection<PLBinaryContentDTO> getPLContentsJSON(PuzzleLevel pl) throws IOException, ClassNotFoundException {
         byte[] plContentsStream = pl.getPlconetents();
         ByteArrayInputStream bis = new ByteArrayInputStream(plContentsStream);
         ObjectInputStream ois = new ObjectInputStream(bis);
-        return (PLContents) ois.readObject();
+        Collection<PLBinaryContentDTO> list = (ArrayList<PLBinaryContentDTO>) ois.readObject();
+
+        return list;
     }
 
 

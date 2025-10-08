@@ -2,20 +2,16 @@ package com.alcity.api;
 
 import com.alcity.customexception.ResponseMessage;
 import com.alcity.dto.base.PLBinaryContentDTO;
-import com.alcity.dto.learning.LearningSkillDTO;
 import com.alcity.dto.learning.LearningSkillTreeDTO;
-import com.alcity.dto.plimpexport.PLContents;
+import com.alcity.dto.plimpexport.PLContentsDTO;
 import com.alcity.dto.plimpexport.PLData;
 import com.alcity.dto.plimpexport.PLImportDTO;
 import com.alcity.entity.alenum.*;
-import com.alcity.entity.alobject.Attribute;
 import com.alcity.entity.alobject.ObjectAction;
 import com.alcity.entity.appmember.AppMember;
-import com.alcity.entity.learning.LearningSkill;
 import com.alcity.service.alobject.AttributeService;
 import com.alcity.service.appmember.AppMemberService;
 import com.alcity.customexception.ResponseObject;
-import com.alcity.customexception.UniqueConstraintException;
 import com.alcity.dto.puzzle.*;
 import com.alcity.entity.puzzle.*;
 import com.alcity.service.base.BinaryContentService;
@@ -36,8 +32,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.*;
 import java.util.*;
-import java.util.concurrent.TimeUnit;
-import java.util.stream.Collectors;
 
 
 @Tag(name = "Puzzle Level API's ", description = "Get Puzzle Levels data Format for other systems...")
@@ -105,9 +99,9 @@ public class PLController {
     @RequestMapping(value = "/id/{id}/contents", method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin(origins = "*")
-    public PLContents getPuzzleLevelContents(@PathVariable Long id) throws IOException, ClassNotFoundException {
+    public Collection<PLBinaryContentDTO> getPuzzleLevelContents(@PathVariable Long id) throws IOException, ClassNotFoundException {
         Optional<PuzzleLevel> puzzleLevelOptional = plService.findById(id);
-        PLContents plContents = new PLContents();
+        Collection<PLBinaryContentDTO> plContents = new ArrayList<>();
         if(puzzleLevelOptional.isPresent()){
             PuzzleLevel puzzleLevel = puzzleLevelOptional.get();
             if(puzzleLevel.getPlconetents()!=null)

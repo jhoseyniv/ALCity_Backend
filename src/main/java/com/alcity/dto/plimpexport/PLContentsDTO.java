@@ -11,7 +11,7 @@ import java.util.Collection;
 @Setter
 @NoArgsConstructor
 
-public class PLContents implements Serializable {
+public class PLContentsDTO implements Serializable {
     Collection<PLBinaryContentDTO> contents;
 
 }
