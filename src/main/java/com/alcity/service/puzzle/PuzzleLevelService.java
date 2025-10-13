@@ -434,9 +434,10 @@ public class PuzzleLevelService implements PuzzleLevelRepository {
 
         // this is ...........
         //delete puzzle cells
-        PLGround plGround = puzzleLevel.getPlGrounds().iterator().next();
-        plCellService.deleteAll(plGround.getPlCells());
-
+        if(!puzzleLevel.getPlGrounds().isEmpty()) {
+            PLGround plGround = puzzleLevel.getPlGrounds().iterator().next();
+            plCellService.deleteAll(plGround.getPlCells());
+        }
 
         //delete puzzle level Grounds
         plGroundService.deleteAll(puzzleLevel.getPlGrounds());
