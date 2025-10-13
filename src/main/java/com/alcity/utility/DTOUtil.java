@@ -96,10 +96,15 @@ public class DTOUtil {
         return  dtos;
     }
     public static PLDTO getPuzzleLevelDTO(PuzzleLevel pl) {
+        Long plGroundId = 0L;
+        if(pl.getPlGrounds().isEmpty())
+            plGroundId = 0L;
+         else
+            plGroundId =pl.getPlGrounds().iterator().next().getId();
 
         return new PLDTO(pl.getId(), pl.getVersion(), pl.getCreated(),
                 pl.getUpdated(), pl.getCreatedBy().getUsername(), pl.getUpdatedBy().getUsername(),
-                pl.getApproveDate(), pl.getPlGrounds().iterator().next().getId(), pl.getPuzzleGroup().getId(), pl.getPuzzleGroup().getTitle(),
+                pl.getApproveDate(), plGroundId, pl.getPuzzleGroup().getId(), pl.getPuzzleGroup().getTitle(),
                 pl.getOrdering(), pl.getTitle(), pl.getCode(), pl.getFromAge(), pl.getToAge(), pl.getMaxScore(),
                 pl.getFirstStarScore() , pl.getSecondStarScore(), pl.getThirdStartScore(),
                 pl.getPuzzleLevelStatus().name(), pl.getPuzzleLevelPrivacy().getValue(), pl.getPuzzleDifficulty().name(),pl.getPuzzleGroup().getIcon().getId(),pl.getPuzzleGroup().getPic().getId());
