@@ -115,7 +115,7 @@ public class PGController {
     @Operation( summary = "Import a Puzzle Group ",  description = "Import a Puzzle Group entity to database")
     @PostMapping("/import")
     @CrossOrigin(origins = "*")
-    @Transactional
+    //@Transactional
     public ResponseMessage importPuzzleGroup(@RequestBody PGImportDTO dto) throws UniqueConstraintException {
         PuzzleGroup savedRecord = null;
         ResponseMessage responseObject = new ResponseMessage();
