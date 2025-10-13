@@ -152,4 +152,9 @@ public class PLTemplateService  implements PLTemplateRepository {
     public Collection<PLTemplate> findByTitle(String title) {
         return null;
     }
+
+    @Override
+    public Optional<PLTemplate> findByPuzzleGroupId(Long puzzleGroupId) {
+        return templateRepository.findByPuzzleGroupId(puzzleGroupId);
+    }
 }

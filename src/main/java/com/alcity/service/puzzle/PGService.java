@@ -7,10 +7,7 @@ import com.alcity.dto.pgimport.PGImportDTO;
 import com.alcity.entity.alobject.Attribute;
 import com.alcity.entity.base.BinaryContent;
 import com.alcity.entity.base.PuzzleCategory;
-import com.alcity.entity.puzzle.BaseObject;
-import com.alcity.entity.puzzle.PGObject;
-import com.alcity.entity.puzzle.PGLearningSkill;
-import com.alcity.entity.puzzle.PuzzleGroup;
+import com.alcity.entity.puzzle.*;
 import com.alcity.entity.appmember.AppMember;
 import com.alcity.repository.base.BinaryContentRepository;
 import com.alcity.repository.base.PuzzleCategoryRepository;
@@ -46,6 +43,9 @@ public class PGService implements PGRepository {
     PGObjectService objectInPGService;
     @Autowired
     private BaseObjectService baseObjectService;
+
+    @Autowired
+    PLTemplateService plTemplateService;
 
     @Override
     public <S extends PuzzleGroup> S save(S entity) {
@@ -170,6 +170,14 @@ public class PGService implements PGRepository {
         }
         pgRepository.delete(entity);
 
+        // fix puzzle level template
+       Optional<PLTemplate> plTemplateOptional = plTemplateService.findByPuzzleGroupId(entity.getId());
+       if(plTemplateOptional.isPresent()) {
+           PLTemplate plTemplate = plTemplateOptional.get();
+           plTemplate.setPuzzleGroupId(0L);
+           plTemplate.setPuzzleLevelId(0L);
+           plTemplateService.save(plTemplate);
+       }
     }
 
     @Override
