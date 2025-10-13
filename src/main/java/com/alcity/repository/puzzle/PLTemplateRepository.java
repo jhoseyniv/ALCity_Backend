@@ -2,6 +2,7 @@ package com.alcity.repository.puzzle;
 
 import com.alcity.entity.puzzle.PLRule;
 import com.alcity.entity.puzzle.PLTemplate;
+import com.alcity.entity.puzzle.PuzzleGroup;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.Collection;
@@ -12,4 +13,5 @@ public interface PLTemplateRepository extends CrudRepository<PLTemplate,Long> {
     Collection<PLTemplate> findAll();
     Collection<PLTemplate> findByTitle(String title);
 
+    Optional<PLTemplate> findByPuzzleGroupId(Long puzzleGroupId);
 }
