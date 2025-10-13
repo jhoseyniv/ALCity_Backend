@@ -27,6 +27,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.json.JSONException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
@@ -272,7 +273,7 @@ public class PLController {
         return  new ResponseObject(ErrorType.CopySuccess, ObjectAction.class.getSimpleName() , Status.ok.name(), copyPuzzleLevel.getId(), SystemMessage.SaveOrEditMessage_Success);
 
     }
-
+    @Transactional
     @Operation( summary = "Import a puzzle level",  description = "Import a puzzle level  entity and their data")
     @PostMapping("/import")
     @CrossOrigin(origins = "*")
