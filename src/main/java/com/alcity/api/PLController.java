@@ -273,10 +273,10 @@ public class PLController {
         return  new ResponseObject(ErrorType.CopySuccess, ObjectAction.class.getSimpleName() , Status.ok.name(), copyPuzzleLevel.getId(), SystemMessage.SaveOrEditMessage_Success);
 
     }
-    @Transactional
     @Operation( summary = "Import a puzzle level",  description = "Import a puzzle level  entity and their data")
     @PostMapping("/import")
     @CrossOrigin(origins = "*")
+    @Transactional
     public ResponseMessage importPuzzleLevel(@RequestBody PLImportDTO dto) throws IOException, ClassNotFoundException {
         PuzzleLevel importedPuzzleLevel=null;
         ResponseMessage response = new ResponseMessage();
