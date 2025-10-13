@@ -19,6 +19,7 @@ import com.alcity.utility.DTOUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
@@ -114,6 +115,7 @@ public class PGController {
     @Operation( summary = "Import a Puzzle Group ",  description = "Import a Puzzle Group entity to database")
     @PostMapping("/import")
     @CrossOrigin(origins = "*")
+    @Transactional
     public ResponseMessage importPuzzleGroup(@RequestBody PGImportDTO dto) throws UniqueConstraintException {
         PuzzleGroup savedRecord = null;
         ResponseMessage responseObject = new ResponseMessage();
