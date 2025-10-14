@@ -956,7 +956,7 @@ public class DTOUtil {
                     entity.getApplicationMember().getId(),
                     entity.getApplicationMember().getUsername(),
                     entity.getWalletItem().getId(), entity.getWalletItem().getLabel(),
-                    entity.getWalletItem().getWalletItemType().getValue(),
+                    entity.getWalletItem().getWalletItemType().getValue(),entity.getWalletItem().getDescription(),
                     entity.getWalletItem().getWalletItemType().getCurrency(),
                     entity.getAmount(), entity.getWalletItem().getIcon().getId()
                 );
