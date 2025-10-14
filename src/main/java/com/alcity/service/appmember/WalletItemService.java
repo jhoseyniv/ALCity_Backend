@@ -44,7 +44,7 @@ public class WalletItemService implements WalletItemRespository {
         Optional<WalletItem> walletItemOptional= walletItemRespository.findByValue(dto.getValue());
 
         if (code.equalsIgnoreCase("Save")) { //Save
-            walletItem = new WalletItem(walletItemType.get() ,icon.get(),dto.getLabel(),dto.getValue(),false , 1L,
+            walletItem = new WalletItem(walletItemType.get() ,icon.get(),dto.getLabel(),dto.getValue(),false ,dto.getDescription(), 1L,
                     DateUtils.getNow(), DateUtils.getNow(), createdBy.get(), createdBy.get());
             walletItemRespository.save(walletItem);
         }else{//edit

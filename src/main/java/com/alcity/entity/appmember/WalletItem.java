@@ -43,9 +43,11 @@ public class WalletItem extends BaseItemSet implements Serializable {
     @OneToMany(mappedBy = "walletItem", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<AppMember_WalletItem> applicationMember_walletItems;
 
+    @Column(name="description", nullable = true)
+    private String description;
 
 
-    public WalletItem(WalletItemType walletItemType, BinaryContent icon, String label, String value, Boolean baseCurrency,
+    public WalletItem(WalletItemType walletItemType, BinaryContent icon, String label, String value, Boolean baseCurrency,String description,
                       Long version, String created, String updated, AppMember createdBy, AppMember updatedBy) {
         super(label, value, version, created, updated, createdBy, updatedBy);
         this.walletItemType = walletItemType;
