@@ -18,6 +18,7 @@ public class AppMemberWalletDTO {
 
     private Long walletItemId;
     private String walletItemTitle;
+    private String description ;
 
     private Long iconId;
 
@@ -27,7 +28,7 @@ public class AppMemberWalletDTO {
     private  Float amount;
 
     public AppMemberWalletDTO(Long id, Long appMemberId, String appMemberUsername,
-                              Long walletItemId, String walletItemTitle, String walletItemType,
+                              Long walletItemId, String walletItemTitle, String walletItemType,String description,
                               Boolean currency, Float amount, Long iconId) {
         this.id = id;
         this.appMemberId = appMemberId;
@@ -35,6 +36,7 @@ public class AppMemberWalletDTO {
         this.walletItemId = walletItemId;
         this.walletItemTitle = walletItemTitle;
         this.walletItemType = walletItemType;
+        this.description = description;
         this.amount = amount;
         this.iconId = iconId;
         this.currency = currency;
