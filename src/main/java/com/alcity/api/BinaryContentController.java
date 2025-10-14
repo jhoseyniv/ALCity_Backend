@@ -43,7 +43,7 @@ public class BinaryContentController {
     @RequestMapping(value="/id/{id}", method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin(origins = "*")
-    @Transactional
+    @Transactional(readOnly = true)
     public BinaryContent getBinaryContentById(@PathVariable Long id) {
         Optional<BinaryContent> binaryContentOptional = binaryContentService.findById(id);
         if(binaryContentOptional.isPresent())
@@ -53,6 +53,7 @@ public class BinaryContentController {
     @RequestMapping(value="/id/{id}/device-type/{deviceType}", method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin(origins = "*")
+    @Transactional(readOnly = true)
     public BinaryContentDTO getBinaryContentByIdAndDevice(@PathVariable Long id,@PathVariable String deviceType) {
         Optional<BinaryContent> binaryContentOptional = binaryContentService.findById(id);
         BinaryContentDTO binaryContentDTO = new BinaryContentDTO();
@@ -75,6 +76,7 @@ public class BinaryContentController {
 
     @GetMapping("/get-file/id/{id}/device-type/{deviceType}")
     @CrossOrigin(origins = "*")
+    @Transactional(readOnly = true)
     public ResponseEntity<byte[]> getFileByDeviceType(@PathVariable Long id , @PathVariable String deviceType) {
        Optional<BinaryContent>  binaryContentOptional= binaryContentService.findById(id);
 
@@ -103,6 +105,7 @@ public class BinaryContentController {
 
     @GetMapping("/get-file/{id}")
     @CrossOrigin(origins = "*")
+    @Transactional(readOnly = true)
     public ResponseEntity<byte[]> getFile(@PathVariable Long id) {
         Optional<BinaryContent>  binaryContentOptional= binaryContentService.findById(id);
         if(binaryContentOptional.isEmpty()) return  null;
@@ -139,6 +142,7 @@ public class BinaryContentController {
     @Operation( summary = "Save a Binary Content to database by DTO ",  description = "Save a Binary Content entity and their data to data base")
     @PostMapping("/save")
     @CrossOrigin(origins = "*")
+    @Transactional
     public ResponseMessage saveBinaryContentByDTO(@RequestBody BinaryContentDTO dto ) throws IOException, ResponseObject {
         BinaryContent savedRecord = null;
         ResponseMessage response= null;
