@@ -276,7 +276,7 @@ public class PLController {
     @Operation( summary = "Import a puzzle level",  description = "Import a puzzle level  entity and their data")
     @PostMapping("/import")
     @CrossOrigin(origins = "*")
-    //@Transactional
+    @Transactional
     public ResponseMessage importPuzzleLevel(@RequestBody PLImportDTO dto) throws IOException, ClassNotFoundException {
         PuzzleLevel importedPuzzleLevel=null;
         ResponseMessage response = new ResponseMessage();
