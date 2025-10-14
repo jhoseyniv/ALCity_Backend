@@ -18,8 +18,9 @@ public class WalletItemDTO implements Serializable {
     private String walletItemType;
     private Boolean isCurrency;
     private Boolean isBaseCurrency;
+    private String description;
 
-    public WalletItemDTO(Long id, String label, String value, Long iconId, String walletItemType,Boolean isCurrency,Boolean isBaseCurrency,byte[] thumbnail ) {
+    public WalletItemDTO(Long id, String label, String value, Long iconId, String walletItemType,Boolean isCurrency,Boolean isBaseCurrency,byte[] thumbnail,String description  ) {
         this.id = id;
         this.label = label;
         this.value = value;
@@ -28,5 +29,6 @@ public class WalletItemDTO implements Serializable {
         this.isCurrency = isCurrency;
         this.isBaseCurrency = isBaseCurrency;
         this.thumbnail =thumbnail;
+        this.description  = description ;
     }
 }

@@ -1039,7 +1039,7 @@ public class DTOUtil {
     public static WalletItemDTO getWalletItemDTO(WalletItem wi)  {
         WalletItemTypeDTO walletItemTypeDTO = getWalletItemTypeDTO(wi.getWalletItemType());
         return new WalletItemDTO(wi.getId(), wi.getLabel(), wi.getValue(),wi.getIcon().getId(),
-               wi.getWalletItemType().getValue(),walletItemTypeDTO.getCurrency(),wi.isBaseCurrency(),wi.getIcon().getThumbnail());
+               wi.getWalletItemType().getValue(),walletItemTypeDTO.getCurrency(),wi.isBaseCurrency(),wi.getIcon().getThumbnail(),wi.getValue());
     }
 
     public static Collection<WalletItemDTO> getWalletItemDTOS(Collection<WalletItem> walletItems){
