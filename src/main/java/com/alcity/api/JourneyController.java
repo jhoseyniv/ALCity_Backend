@@ -56,8 +56,7 @@ public class JourneyController {
     @ResponseBody
     public JourneyDTO getJourneyById(@PathVariable Long id) {
         Optional<Journey> journey = service.findById(id);
-        JourneyDTO journeyDTO = DTOUtil.getJourneyDTO(journey.get());
-        return journeyDTO;
+        return journey.map(DTOUtil::getJourneyDTO).orElse(null);
     }
 
     @RequestMapping(value = "/cond/{criteria}", method = RequestMethod.GET)
@@ -221,9 +220,9 @@ public class JourneyController {
     @CrossOrigin(origins = "*")
     public Collection<RoadMapDTO> getJourneyRoadMapsById(@PathVariable Long id) {
         Optional<Journey> journeyOptional = service.findById(id);
+        if(journeyOptional.isEmpty()) return null;
         Collection<RoadMap> roadMaps = journeyOptional.get().getRoadMaps();
-        Collection<RoadMapDTO> dtos = DTOUtil.getJourneyRoadMapsDTOS(roadMaps);
-        return dtos;
+        return DTOUtil.getJourneyRoadMapsDTOS(roadMaps);
     }
 
 

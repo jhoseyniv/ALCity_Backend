@@ -390,10 +390,24 @@ public class AppMemberController {
         AppMember updatedRecord = null;
         ResponseMessage response = new ResponseMessage();
         updatedRecord = service.updateAvatar(memId, avatarId);
-            if(updatedRecord !=null)
-                response = new ResponseMessage(ErrorType.SaveSuccess, Status.ok.name(),AppMember.class.getSimpleName() ,  updatedRecord.getId(), SystemMessage.SaveOrEditMessage_Success);
-            else
-                response = new ResponseMessage(ErrorType.RecordNotFound, Status.error.name() ,AppMember.class.getSimpleName() ,  memId ,SystemMessage.RecordNotFound);
+        if(updatedRecord !=null)
+            response = new ResponseMessage(ErrorType.SaveSuccess, Status.ok.name(),AppMember.class.getSimpleName() ,  updatedRecord.getId(), SystemMessage.SaveOrEditMessage_Success);
+        else
+            response = new ResponseMessage(ErrorType.RecordNotFound, Status.error.name() ,AppMember.class.getSimpleName() ,  memId ,SystemMessage.RecordNotFound);
+
+        return response;
+    }
+    @Operation( summary = "Update password for an App Member ",  description = "Update password for an App Member")
+    @RequestMapping(value ="/update-password/memberId/{memId}/old/{oldpass}/new/{newpass}", method = RequestMethod.GET)
+    @CrossOrigin(origins = "*")
+    public ResponseMessage getPuzzleLevel(@PathVariable Long memId, @PathVariable String oldpass, @PathVariable String newpass) {
+        AppMember updatedRecord = null;
+        ResponseMessage response = new ResponseMessage();
+        updatedRecord = service.updatePassword(memId, oldpass,newpass);
+        if(updatedRecord !=null)
+            response = new ResponseMessage(ErrorType.SaveSuccess, Status.ok.name(),AppMember.class.getSimpleName() ,  updatedRecord.getId(), SystemMessage.PasswordChange_Success);
+        else
+            response = new ResponseMessage(ErrorType.RecordNotFound, Status.error.name() ,AppMember.class.getSimpleName() ,  memId ,SystemMessage.PasswordChange_Fail);
 
         return response;
     }
@@ -608,7 +622,8 @@ public class AppMemberController {
         Optional<AppMember> member = service.findByUsername(memberDTO.getUsername());
         if(member.isEmpty())
             return  new ALCityAcessRight(-1L, memberDTO.getUsername(),-1,"data not found","-1",-1,"error","error","error",-1L,"error","error");
-        if(!member.get().getPassword().equals(memberDTO.getPassword()))
+
+        if(!service.isUserPasswordMatched(member.get(), memberDTO.getUsername(), memberDTO.getPassword()))
             return  new ALCityAcessRight(-1L, memberDTO.getUsername(),-1,"data not found","-1",-1,"error","error","error",-1L,"error","error");
         service.login(member.get().getUsername(), member.get().getPassword());
         ALCityAcessRight accessRight = new ALCityAcessRight(member.get().getId(), member.get().getUsername(),0,"Login Successfull","JWT Token", member.get().getAge(), memberDTO.getNickname(), memberDTO.getMobile(),
