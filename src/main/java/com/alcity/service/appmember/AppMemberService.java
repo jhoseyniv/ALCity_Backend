@@ -323,14 +323,20 @@ public class AppMemberService implements AppMemberRepository, CustomizedUserRepo
     public AppMember save(AppMemberDTO dto, String code) {
         Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
         Language language=null;
+        UserGender gender=null;
         if(dto.getLanguage()==null || dto.getLanguage().equalsIgnoreCase(""))
             language = Language.English;
         else
             language = Language.getByTitle(dto.getLanguage());
         if(language==null) language = Language.English;
 
+        if(dto.getGender()==null || dto.getGender().equalsIgnoreCase(""))
+            gender=UserGender.Male;
+        else
+            gender = UserGender.getByTitle(dto.getGender());
+        if(gender==null) gender = UserGender.Male;
+
         MemberType memberType = memberTypeService.findByValue(dto.getMemberType()).get();
-        UserGender gender = UserGender.getByTitle(dto.getGender());
         BinaryContent icon=null;
         if(dto.getIconId() == null || dto.getIconId() ==0)
                 icon = binaryContentRepository.findByfileName("no_photo_avatar");
