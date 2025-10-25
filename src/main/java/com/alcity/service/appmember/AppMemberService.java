@@ -295,14 +295,28 @@ public class AppMemberService implements AppMemberRepository, CustomizedUserRepo
         else
             icon = binaryContentRepository.findById(avatarId).get();
 
-            Optional<AppMember> appMemberOptional= appMemberRepository.findById(appMemmberId);
+        Optional<AppMember> appMemberOptional= appMemberRepository.findById(appMemmberId);
 
-            if(appMemberOptional.isPresent()) {
-                appMember = appMemberOptional.get();
-                appMember.setIcon(icon);
-                appMemberRepository.save(appMember);
-            }
+        if(appMemberOptional.isPresent()) {
+            appMember = appMemberOptional.get();
+            appMember.setIcon(icon);
+            appMemberRepository.save(appMember);
+        }
 
+        return appMember;
+    }
+
+    public AppMember updatePassword(Long appMemmberId,String oldPassword,String newPassword) {
+        Optional<AppMember> memberOptional = appMemberRepository.findById(appMemmberId);
+        AppMember appMember=null;
+        ResponseMessage  responseMessage = null;
+        if(memberOptional == null  || memberOptional.isEmpty())
+            return appMember;
+        else {
+            appMember = memberOptional.get();
+            appMember.setPassword(newPassword);
+            appMemberRepository.save(appMember);
+        }
         return appMember;
     }
 
@@ -495,6 +509,19 @@ public class AppMemberService implements AppMemberRepository, CustomizedUserRepo
         appMemberRepository.save(appMember);
         return new ResponseMessage(ErrorType.SaveSuccess, Status.ok.name(),AppMember.class.getSimpleName() ,  appMember.getId(), SystemMessage.SaveOrEditMessage_Success);
 
+    }
+    public Boolean isUserPasswordMatched(AppMember member,String username, String password) {
+        byte [] hash = null;
+        if(!member.getUsername().equals(username)) return false;
+        try {
+            hash = GenerateSHA256.getSHA(password);
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
+        }
+        String hashedPassword = GenerateSHA256.toHexString(hash) ;
+
+        if(!hashedPassword.equals(member.getPassword())) return false;
+        return true;
     }
     public ResponseObject login(String username, String password) {
         return null;
