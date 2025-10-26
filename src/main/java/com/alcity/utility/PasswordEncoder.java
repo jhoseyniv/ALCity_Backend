@@ -17,8 +17,8 @@ public class PasswordEncoder {
         } catch (NoSuchAlgorithmException e) {
             throw new RuntimeException(e);
         }
-        String hashedMoslem = GenerateSHA256.toHexString(hash_Admin) ;
-        String hashedPassword = GenerateSHA256.toHexString(hash_moslem) ;
+        String hashedMoslem = GenerateSHA256.toHexString(hash_moslem) ;
+        String hashedPassword = GenerateSHA256.toHexString(hash_Admin) ;
         String hashed123456 = GenerateSHA256.toHexString(hash_123456) ;
         System.out.println("admin=" + hashedPassword);
         System.out.println("moslem 1 =" + hashedMoslem);
