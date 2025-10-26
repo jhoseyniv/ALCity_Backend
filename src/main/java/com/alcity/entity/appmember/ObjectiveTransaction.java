@@ -15,7 +15,7 @@ import java.io.Serializable;
 
 @Table(
         name="PL_Objective_Transaction" , uniqueConstraints={
-                @UniqueConstraint(columnNames = {"app_member_id", "game_instance_id","pl_objective_id"})
+                @UniqueConstraint(columnNames = {"app_member_id", "game_instance_id","pl_objective_id","transaction_type"})
         }
 )
 @Entity
