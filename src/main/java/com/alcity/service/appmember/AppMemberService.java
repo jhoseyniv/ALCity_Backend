@@ -387,7 +387,15 @@ public class AppMemberService implements AppMemberRepository, CustomizedUserRepo
         AppMember guest=null;
         Integer age = DateUtils.calculateAgeFromJalali(bornYear);
         icon = binaryContentRepository.findByfileName("no_photo_avatar");
-        guest = new AppMember(age,Language.English,"Guest", "Guest"+bornYear, "Guest"+bornYear, "","",icon,UserGender.Unknow ,memberType
+        byte [] hash = null;
+        try {
+            hash = GenerateSHA256.getSHA("Guest"+bornYear);
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
+        }
+        String hashedPassword = GenerateSHA256.toHexString(hash) ;
+
+        guest = new AppMember(age,Language.English,"Guest", hashedPassword, "Guest"+bornYear, "","",icon,UserGender.Unknow ,memberType
                 ,1L, DateUtils.getNow(), DateUtils.getNow(), createdBy.get(), createdBy.get());
         save(guest);
         String UniqueUserName= guest.getUsername() + guest.getId();
