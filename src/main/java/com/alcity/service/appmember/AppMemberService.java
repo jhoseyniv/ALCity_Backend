@@ -378,6 +378,7 @@ public class AppMemberService implements AppMemberRepository, CustomizedUserRepo
         }
         return appMember;
     }
+
     public AppMember saveGuestUser(Integer bornYear) {
         Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
         MemberType memberType = memberTypeService.findByValue("Guest").get();
@@ -386,9 +387,9 @@ public class AppMemberService implements AppMemberRepository, CustomizedUserRepo
         AppMember guest=null;
         Integer age = DateUtils.calculateAgeFromJalali(bornYear);
         icon = binaryContentRepository.findByfileName("no_photo_avatar");
-        guest = new AppMember(age,Language.English,"Guest", "Guest", "Guest", "","",icon,UserGender.Unknow ,memberType
+        guest = new AppMember(age,Language.English,"Guest", "Guest"+bornYear, "Guest"+bornYear, "","",icon,UserGender.Unknow ,memberType
                 ,1L, DateUtils.getNow(), DateUtils.getNow(), createdBy.get(), createdBy.get());
-        appMemberRepository.save(guest);
+        save(guest);
         String UniqueUserName= guest.getUsername() + guest.getId();
         guest.setUsername(UniqueUserName);
         appMemberRepository.save(guest);
