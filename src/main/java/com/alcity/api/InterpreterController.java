@@ -246,8 +246,8 @@ public class InterpreterController {
        Collection<AttributeData> propertiesDTO = DTOUtil.getPropertiesDTOForPGObject(properties);
        poData.setProperties(propertiesDTO);
        //get instances  for an object that define in PG and used in a puzzle level
-       //Collection<InstanceData> instances = getInstanceData(alCityObjectInPG,pl);
-       Collection<InstanceData> instances = getInstanceDataWithVariablesOnly(alCityObjectInPG,pl);
+       Collection<InstanceData> instances = getInstanceData(alCityObjectInPG,pl);
+       //Collection<InstanceData> instances = getInstanceDataWithVariablesOnly(alCityObjectInPG,pl);
        poData.setInstances(instances);
 
        poData.setVersion(alCityObjectInPG.getVersion());
