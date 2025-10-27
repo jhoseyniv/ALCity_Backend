@@ -589,9 +589,23 @@ public class AppMemberController {
         Optional<AppMember> member = service.findById(id);
         Collection<AppMember_WalletItem> walletItems = member.get().getApplicationMember_walletItems();
         Collection<AppMember_WalletItem> consumableWalletItems = walletItems.stream().filter(value ->value.getWalletItem().getWalletItemType().getCurrency()).collect(Collectors.toList());
+        return DTOUtil.getAppMemberWalletDTOS(consumableWalletItems);
+    }
+    @Operation( summary = "Get Base Currency wallet item for an application member  ",  description ="Get Base currency wallet items for an application member ")
+    @RequestMapping(value = "/id/{id}/base-wallet-item/", method = RequestMethod.GET)
+    @ResponseBody
+    @CrossOrigin(origins = "*")
+    public AppMemberWalletDTO getBaseCurrencyWalletItemByUserId(@PathVariable Long id) {
+        Optional<AppMember> member = service.findById(id);
+        Collection<AppMember_WalletItem> walletItems = member.get().getApplicationMember_walletItems();
+        Collection<AppMember_WalletItem> baseWalletItems = walletItems.stream().filter(value ->value.getWalletItem().isBaseCurrency()).collect(Collectors.toList());
+        AppMember_WalletItem baseCurrency = null;
+        if(baseWalletItems.isEmpty())
+            return null;
+        else
+            baseCurrency = baseWalletItems.iterator().next();
 
-        Collection<AppMemberWalletDTO> dtos = DTOUtil.getAppMemberWalletDTOS(consumableWalletItems);
-        return dtos;
+        return DTOUtil.getAppMemberWalletDTO(baseCurrency);
     }
 
     @Operation( summary = "Save Client Type for an app member",  description = "Save Client Type for an app member")
