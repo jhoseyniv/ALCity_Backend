@@ -801,6 +801,39 @@ public class AttributeService implements AttributeRepository {
         return defined_variables_in_a_pg_object;
     }
 
+    public Collection<Attribute> findInstanceVariablesOnly(Long instanceId,AttributeOwnerType ownerType){
+        Collection<Attribute> outputAttributes = new ArrayList<Attribute>();
+        Collection<Attribute> temp_Bug_variables_in_a_pg_object = new ArrayList<>();
+
+        //check is_defined_and_init_in_instance_only ?
+        Collection<Attribute> variables_for_instance = attributeRepository.findByOwnerIdAndAttributeOwnerType(instanceId,ownerType);
+        // state 1 : if variables_for_instance is not empty mean that variables is_defined_and_init_in_instance_only
+        outputAttributes = variables_for_instance;
+
+//        // check is_defined_in_pgo_and_reinit_in_instance ?
+//        // find pgo - get parent object id for this instance
+//        Long pgo_id = getPGOForThisInstance(instanceId);
+//
+//        //fetch variables for a parent object of this instance
+//        Collection<Attribute> variables_in_a_pg_object = attributeRepository.findByOwnerId(pgo_id);
+//         variables_in_a_pg_object = variables_in_a_pg_object.stream().filter(attribute -> attribute.getAttributeOwnerType().equals(AttributeOwnerType.Puzzle_Group_Object_Variable)).collect(Collectors.toList());
+//         Iterator<Attribute> iterator = variables_in_a_pg_object.iterator();
+//         while(iterator.hasNext()){
+//             Attribute attribute = iterator.next();
+//            Collection<AttributeValue> values = attributeValueRepository.findByAttributeId(attribute);
+//            System.out.println(values.size());
+//            attribute.setAttributeValues(values);
+//             temp_Bug_variables_in_a_pg_object.add(attribute);
+//         }
+//        //state 2 + state 3 : if variables_in_a_pg_object is not empty mean that variables is defined in parent(pgo)
+//        //sate 2 : variables are defined in pgo and initialize there only
+//        //state 3 : variables are defined in pgo but initialize in instance
+//        //following method find variables and values for state 2 and 3
+//        Collection<Attribute> defined_variables_in_a_pgo = defined_variables_in_pog(temp_Bug_variables_in_a_pg_object,instanceId,pgo_id);
+//        outputAttributes.addAll(defined_variables_in_a_pgo);
+
+        return outputAttributes;
+    }
     public Collection<Attribute> findInstanceVariables(Long instanceId,AttributeOwnerType ownerType){
         Collection<Attribute> outputAttributes = new ArrayList<Attribute>();
         Collection<Attribute> temp_Bug_variables_in_a_pg_object = new ArrayList<>();
@@ -816,15 +849,15 @@ public class AttributeService implements AttributeRepository {
 
         //fetch variables for a parent object of this instance
         Collection<Attribute> variables_in_a_pg_object = attributeRepository.findByOwnerId(pgo_id);
-         variables_in_a_pg_object = variables_in_a_pg_object.stream().filter(attribute -> attribute.getAttributeOwnerType().equals(AttributeOwnerType.Puzzle_Group_Object_Variable)).collect(Collectors.toList());
-         Iterator<Attribute> iterator = variables_in_a_pg_object.iterator();
-         while(iterator.hasNext()){
-             Attribute attribute = iterator.next();
+        variables_in_a_pg_object = variables_in_a_pg_object.stream().filter(attribute -> attribute.getAttributeOwnerType().equals(AttributeOwnerType.Puzzle_Group_Object_Variable)).collect(Collectors.toList());
+        Iterator<Attribute> iterator = variables_in_a_pg_object.iterator();
+        while(iterator.hasNext()){
+            Attribute attribute = iterator.next();
             Collection<AttributeValue> values = attributeValueRepository.findByAttributeId(attribute);
             System.out.println(values.size());
             attribute.setAttributeValues(values);
-             temp_Bug_variables_in_a_pg_object.add(attribute);
-         }
+            temp_Bug_variables_in_a_pg_object.add(attribute);
+        }
         //state 2 + state 3 : if variables_in_a_pg_object is not empty mean that variables is defined in parent(pgo)
         //sate 2 : variables are defined in pgo and initialize there only
         //state 3 : variables are defined in pgo but initialize in instance
