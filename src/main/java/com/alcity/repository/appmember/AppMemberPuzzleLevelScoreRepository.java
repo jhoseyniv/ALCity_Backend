@@ -18,5 +18,7 @@ public interface AppMemberPuzzleLevelScoreRepository extends CrudRepository<AppM
 
     Collection<AppMemberPuzzleLevelScore> findByPlayer(AppMember player);
 
+    Collection<AppMemberPuzzleLevelScore> findByPuzzleLevel(PuzzleLevel puzzleLevel);
+
     Optional<AppMemberPuzzleLevelScore> findByPuzzleLevelAndPlayer(PuzzleLevel puzzleLevel, AppMember player);
 }

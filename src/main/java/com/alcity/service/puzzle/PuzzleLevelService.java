@@ -13,6 +13,7 @@ import com.alcity.entity.alenum.PLDifficulty;
 import com.alcity.entity.alenum.PLStatus;
 import com.alcity.entity.alobject.Attribute;
 import com.alcity.entity.alobject.AttributeValue;
+import com.alcity.entity.appmember.AppMemberPuzzleLevelScore;
 import com.alcity.entity.appmember.ObjectiveTransaction;
 import com.alcity.entity.base.BinaryContent;
 import com.alcity.entity.base.PLPrivacy;
@@ -27,6 +28,7 @@ import com.alcity.repository.puzzle.PuzzleLevelRepository;
 import com.alcity.repository.appmember.AppMemberRepository;
 import com.alcity.service.alobject.AttributeService;
 import com.alcity.service.alobject.AttributeValueService;
+import com.alcity.service.appmember.AppMemberPuzzleLevelScoreService;
 import com.alcity.service.appmember.AppMemberService;
 import com.alcity.service.appmember.ObjectiveTransactionService;
 import com.alcity.service.base.BinaryContentService;
@@ -224,6 +226,9 @@ public class PuzzleLevelService implements PuzzleLevelRepository {
     PLRulePostActionService plRulePostActionService;
 
     @Autowired
+    AppMemberPuzzleLevelScoreService memberPuzzleLevelScore;
+
+    @Autowired
     @Lazy
     private InstanceService instanceInPLService;
 
@@ -413,6 +418,10 @@ public class PuzzleLevelService implements PuzzleLevelRepository {
         //delete puzzle level instances
         Collection<Instance> instances = puzzleLevel.getInstances();
         instanceInPLService.deleteInstances(instances);
+
+        //delete puzzle level Scores for puzzle levels
+        Collection<AppMemberPuzzleLevelScore> puzzleLevelScores = memberPuzzleLevelScore.findByPuzzleLevel(puzzleLevel);
+        memberPuzzleLevelScore.deleteAll(puzzleLevelScores);
 
 
         //delete puzzle level variables
