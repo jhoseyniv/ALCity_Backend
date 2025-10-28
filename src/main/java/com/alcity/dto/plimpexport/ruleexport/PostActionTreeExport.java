@@ -1,6 +1,8 @@
 package com.alcity.dto.plimpexport.ruleexport;
 
 import com.alcity.dto.plimpexport.AttributeData;
+import com.alcity.entity.alenum.PLRulePostActionOwnerType;
+import com.alcity.entity.puzzle.PLRulePostAction;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -171,9 +173,13 @@ public class PostActionTreeExport<P> implements Serializable {
     // Optional: add a method to add a child
     public void addChild(PostActionTreeExport<PostActionTreeExport> child) {
         innerActions.add(child);
+        elseActions.add(child);
     }
-    public PostActionTreeExport<PostActionTreeExport> getChild(PostActionTreeExport<PostActionTreeExport> child) {
-        innerActions.add(child);
+    public PostActionTreeExport<PostActionTreeExport> getChild(PostActionTreeExport<PostActionTreeExport> child, PLRulePostActionOwnerType ownerType) {
+        if(ownerType.equals(PLRulePostActionOwnerType.Inner_Rule_Post_Action))
+            innerActions.add(child);
+        if(ownerType.equals(PLRulePostActionOwnerType.Else))
+            elseActions.add(child);
         return child;
     }
 
