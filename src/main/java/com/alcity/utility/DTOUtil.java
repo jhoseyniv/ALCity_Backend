@@ -1189,10 +1189,10 @@ public class DTOUtil {
             dtos.add(dto);
         }
         List<PLRulePostActionDTO> sortedList =new ArrayList<PLRulePostActionDTO>();
-        sortedList = dtos.stream().collect(toList());
-        sortedList.sort(actionOrderingComparetor);
+      //  sortedList = dtos.stream().collect(toList());
+      //  sortedList.sort(actionOrderingComparetor);
 
-        return  sortedList;
+        return  dtos;
     }
     public static PLRuleDTO getPLRuleDTO(PLRule plRule) {
         return new PLRuleDTO(plRule.getId(), plRule.getTitle(), plRule.getOrdering(),
@@ -1294,11 +1294,16 @@ public class DTOUtil {
         if (node == null) return;
 
         System.out.println(node.getActionName() + " ");
-        node.setPostActionOwnerType(PLRulePostActionOwnerType.Puzzle_Level_Rule.name());
+        node.setPostActionOwnerType(node.getPostActionOwnerType());
         PLRulePostAction postAction = plRulePostActionService.importPostAction_New(node,ownerId);
-        if(node.innerActions==null){node.innerActions=new ArrayList<>();}
+        if(node.innerActions==null){node.innerActions= new ArrayList<>();}
+        if(node.elseActions==null){node.elseActions = new ArrayList<>();}
         for (PostActionTreeImport_New<com.alcity.test.ruleimport_new.PostActionTreeImport_New> child : node.innerActions) {
             child.setPostActionOwnerType(PLRulePostActionOwnerType.Inner_Rule_Post_Action.name());
+            preOrderTraversal_New(plRulePostActionService,child,postAction.getId());
+        }
+        for (PostActionTreeImport_New<com.alcity.test.ruleimport_new.PostActionTreeImport_New> child : node.elseActions) {
+            child.setPostActionOwnerType(PLRulePostActionOwnerType.Else.name());
             preOrderTraversal_New(plRulePostActionService,child,postAction.getId());
         }
     }
@@ -1349,11 +1354,17 @@ public class DTOUtil {
         treeExport.setFiedlds(actionName, root.getOrdering(), root.getObjectId(),root.getActionName(),root.getVariable(),root.getValueExperssion(),
                 root.getAlertType(), root.getAlertMessage(), actionKey,parametersData);
         Iterator<PLRulePostAction> childIterator = children.iterator();
+        Integer counter = 0;
         while(childIterator.hasNext()){
+            if(counter == 3) {
+                System.out.println("childIterator.next().getActionName()");
+            }
             PLRulePostAction child = childIterator.next();
+           PLRulePostActionOwnerType ownerType = child.getOwnerType();
             PostActionTreeExport<PostActionTreeExport> subTree=treeExport.getChild(new PostActionTreeExport<>(child.getPlRulePostActionType().name()+":"+child.getSubAction(), child.getOrdering(), child.getObjectId(),child.getActionName(),
-                    child.getVariable(),child.getValueExperssion(),child.getAlertType(), child.getAlertMessage(), child.getActionKey(),null,null));
+                    child.getVariable(),child.getValueExperssion(),child.getAlertType(), child.getAlertMessage(), child.getActionKey(),null,null),ownerType);
             preOrderTraversal(subTree,plRulePostActionService,attributeService,attributeValueService,child) ;
+            counter++;
         }
         return treeExport;
      }
@@ -1392,11 +1403,19 @@ public class DTOUtil {
     public static Collection<PostActionTreeExport> getActionsTrees(PLRulePostActionService plRulePostActionService, AttributeService attributeService,AttributeValueService attributeValueService , PLRule plRule){
         Collection<PostActionTreeExport> actionTrees = new ArrayList<PostActionTreeExport>();
         Collection<PLRulePostAction>  postActions = plRulePostActionService.findByOwnerId(plRule.getId()) ;
+        if(plRule.getTitle().equalsIgnoreCase("CheckQueue")){
+            System.out.println(plRule.getTitle());
 
+        }
         Iterator<PLRulePostAction> iterator = postActions.iterator();
+        Integer counter = 0;
         while(iterator.hasNext()) {
             PLRulePostAction postAction =iterator.next();
+            counter++;
             PostActionTreeExport tree = new PostActionTreeExport();
+            if(counter==10){
+                System.out.println(postAction.getPlRulePostActionType());
+            }
             tree =  preOrderTraversal(tree,plRulePostActionService,attributeService,attributeValueService ,postAction);
             actionTrees.add(tree);
         }

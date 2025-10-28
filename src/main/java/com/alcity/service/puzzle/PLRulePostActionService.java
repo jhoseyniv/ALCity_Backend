@@ -73,8 +73,12 @@ public class PLRulePostActionService implements PLRulePostActionRepository {
 
         return importedPostAction;
     }
+
     public PLRulePostAction importPostAction_New(PostActionTreeImport_New dto, Long newOwner) {
         Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
+        if(dto.elseActions!=null ){
+            System.out.println("else action is defined.............");
+        }
         PLRulePostActionOwnerType ownerType = PLRulePostActionOwnerType.getByTitle(dto.getPostActionOwnerType());
         PLRulePostActionType plRulePostActionType = PLRulePostActionType.getByTitle(dto.getActionType());
         PLRulePostAction importedPostAction = new PLRulePostAction(newOwner,ownerType,plRulePostActionType,
@@ -82,7 +86,6 @@ public class PLRulePostActionService implements PLRulePostActionRepository {
                 dto.getSubAction(), dto.getAlertType(), dto.getAlertMessage(), dto.getActionKey(),
                 1L, DateUtils.getNow(), DateUtils.getNow(), createdBy.get(),createdBy.get());
         plRulePostActionRepository.save(importedPostAction);
-
         if(dto.getParameters().size()>0){
             System.out.println("parameter is defined.............");
             Collection<AttributeData> recordDataImports = dto.getParameters();
@@ -103,6 +106,8 @@ public class PLRulePostActionService implements PLRulePostActionRepository {
     public PLRulePostAction importPLRulePostActionTree_New(PostActionTreeImport_New root,Long ruleId) {
         Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
         PLRulePostAction newPostAction =null;
+        //for root of trees action owner_type will be pl rule
+        root.setPostActionOwnerType(PLRulePostActionOwnerType.Puzzle_Level_Rule.name());
         DTOUtil.preOrderTraversal_New(this,root,ruleId);
         return newPostAction;
     }
