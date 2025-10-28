@@ -3,11 +3,16 @@ package com.alcity.dto.plimpexport.ruleexport;
 import com.alcity.dto.plimpexport.AttributeData;
 import com.alcity.entity.alenum.PLRulePostActionOwnerType;
 import com.alcity.entity.puzzle.PLRulePostAction;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+@Getter
+@Setter
 
 public class PostActionTreeExport<P> implements Serializable {
     private static final long serialVersionUID = 120L;
@@ -16,8 +21,6 @@ public class PostActionTreeExport<P> implements Serializable {
     private Integer ordering;
     private String objectId;
     private String actionName;
-
-  //  private String subAction;
 
     private String variable;
     private StringBuffer valueExperssion;
@@ -30,6 +33,7 @@ public class PostActionTreeExport<P> implements Serializable {
     public List<PostActionTreeExport<PostActionTreeExport>> innerActions;
     public List<PostActionTreeExport<PostActionTreeExport>> elseActions;
 
+    /*
     public String getActionType() {
         return actionType;
     }
@@ -138,10 +142,14 @@ public class PostActionTreeExport<P> implements Serializable {
     public PostActionTreeExport() {
         this.innerActions = new ArrayList<>();
     }
+*/
 
-    public PostActionTreeExport(String actionType,Integer ordering ,String objectId,String actionName,String variable,
-                                StringBuffer valueExperssion,String alertType,String alertMessage,String actionKey,
-                                List<PostActionTreeExport<PostActionTreeExport>> innerActions,List<PostActionTreeExport<PostActionTreeExport>> elseActions) {
+    public PostActionTreeExport() {
+    }
+
+    public PostActionTreeExport(String actionType, Integer ordering , String objectId, String actionName, String variable,
+                                StringBuffer valueExperssion, String alertType, String alertMessage, String actionKey,
+                                List<PostActionTreeExport<PostActionTreeExport>> innerActions, List<PostActionTreeExport<PostActionTreeExport>> elseActions) {
         this.actionType = actionType;
         this.ordering = ordering;
         this.objectId = objectId;
