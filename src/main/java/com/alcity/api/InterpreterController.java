@@ -85,11 +85,11 @@ public class InterpreterController {
         PLData plData = new PLData();
         if(puzzleLevelOptional.isPresent()){
             PuzzleLevel puzzleLevel = puzzleLevelOptional.get();
-          //  if(puzzleLevel.getInterpreterFile()!=null)
-            //    plData = PLDTOUtil.getInterpreterJSON(puzzleLevel);
-           // else {
+            if(puzzleLevel.getInterpreterFile()!=null)
+                plData = PLDTOUtil.getInterpreterJSON(puzzleLevel);
+            else {
                 plData = getJsonFile(id);
-          // }
+           }
         }
         return plData;
     }
