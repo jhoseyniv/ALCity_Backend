@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -79,6 +80,11 @@ public class AppMemberPuzzleLevelScoreService implements AppMemberPuzzleLevelSco
     }
 
     @Override
+    public Collection<AppMemberPuzzleLevelScore> findByPuzzleLevel(PuzzleLevel puzzleLevel) {
+        return appMemberPuzzleLevelScoreRepository.findByPuzzleLevel(puzzleLevel);
+    }
+
+    @Override
     public Optional<AppMemberPuzzleLevelScore> findByPuzzleLevelAndPlayer(PuzzleLevel puzzleLevel, AppMember player) {
         return appMemberPuzzleLevelScoreRepository.findByPuzzleLevelAndPlayer(puzzleLevel, player);
     }
@@ -120,7 +126,7 @@ public class AppMemberPuzzleLevelScoreService implements AppMemberPuzzleLevelSco
 
     @Override
     public void deleteAll(Iterable<? extends AppMemberPuzzleLevelScore> entities) {
-
+        appMemberPuzzleLevelScoreRepository.deleteAll(entities);
     }
 
     @Override

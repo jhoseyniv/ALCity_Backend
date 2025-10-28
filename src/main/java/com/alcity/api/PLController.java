@@ -321,7 +321,7 @@ public class PLController {
     }
 
 
-    @Operation( summary = "delete a  Puzzle Level ",  description = "delete a Puzzle Level ")
+    @Operation( summary = "Delete a  Puzzle Level ",  description = "delete a Puzzle Level ")
     @DeleteMapping("/del/{id}")
     @CrossOrigin(origins = "*")
     public ResponseMessage deletePuzzleLevelById(@PathVariable Long id) {
