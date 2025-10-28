@@ -10,7 +10,7 @@ import java.util.Collection;
 import java.util.List;
 
 public class PostActionTreeExport<P> implements Serializable {
-    private static final long serialVersionUID = 9163653642043598195L;
+    private static final long serialVersionUID = 120L;
 
     private String actionType;
     private Integer ordering;
