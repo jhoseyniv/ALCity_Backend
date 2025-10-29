@@ -18,6 +18,8 @@ public interface ObjectiveTransactionRepository extends CrudRepository<Objective
 
     Collection<ObjectiveTransaction> findByAmount(Float amount);
 
+    Collection<ObjectiveTransaction> findByGameInstance(PLGameInstance gameInstance);
+
     Optional<ObjectiveTransaction> findByPlObjectiveAndGameInstance(PLObjective plObjective, PLGameInstance gameInstance);
     Collection<ObjectiveTransaction> findByPlObjective(PLObjective plObjective);
 

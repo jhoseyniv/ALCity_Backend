@@ -6,12 +6,14 @@ import com.alcity.dto.puzzle.PLEventDTO;
 import com.alcity.dto.puzzle.PLGameInstanceDTO;
 import com.alcity.entity.alenum.GameStatus;
 import com.alcity.entity.appmember.AppMember;
+import com.alcity.entity.appmember.ObjectiveTransaction;
 import com.alcity.entity.puzzle.PLGameInstance;
 import com.alcity.entity.puzzle.PLObjective;
 import com.alcity.entity.puzzle.PuzzleLevel;
 import com.alcity.repository.appmember.AppMemberRepository;
 import com.alcity.repository.puzzle.PLGameInstanceRepository;
 import com.alcity.service.appmember.AppMemberService;
+import com.alcity.service.appmember.ObjectiveTransactionService;
 import com.alcity.utility.DTOUtil;
 import com.alcity.utility.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,10 +21,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import org.springframework.transaction.annotation.Transactional;;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 @Transactional
@@ -34,6 +33,9 @@ public class PLGameInstanceService implements PLGameInstanceRepository {
 
     @Autowired
     private AppMemberService appMemberService;
+
+    @Autowired
+    private ObjectiveTransactionService objectiveTransactionService;
 
     @Autowired
     private PuzzleLevelService puzzleLevelService;
@@ -133,6 +135,13 @@ public class PLGameInstanceService implements PLGameInstanceRepository {
 
     @Override
     public void deleteAll(Iterable<? extends PLGameInstance> entities) {
+        Iterator<PLGameInstance> iterator = (Iterator<PLGameInstance>) entities.iterator();
+        while(iterator.hasNext()) {
+            PLGameInstance gameInstance = iterator.next();
+            Collection<ObjectiveTransaction> objectiveTransactions = objectiveTransactionService.findByGameInstance(gameInstance);
+            objectiveTransactionService.deleteAll(objectiveTransactions);
+        }
+
         plGameInstanceRepository.deleteAll(entities);
     }
 
