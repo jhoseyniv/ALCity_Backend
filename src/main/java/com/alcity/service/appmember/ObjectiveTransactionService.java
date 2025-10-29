@@ -96,6 +96,11 @@ public class ObjectiveTransactionService implements ObjectiveTransactionReposito
     }
 
     @Override
+    public Collection<ObjectiveTransaction> findByGameInstance(PLGameInstance gameInstance) {
+        return objectiveTransactionRepository.findByGameInstance(gameInstance);
+    }
+
+    @Override
     public Optional<ObjectiveTransaction> findByPlObjectiveAndGameInstance(PLObjective plObjective, PLGameInstance gameInstance) {
         return Optional.empty();
     }
