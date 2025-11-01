@@ -133,6 +133,12 @@ public class PLGameInstanceService implements PLGameInstanceRepository {
 
     }
 
+
+
+
+
+
+
     @Override
     public void deleteAll(Iterable<? extends PLGameInstance> entities) {
         Iterator<PLGameInstance> iterator = (Iterator<PLGameInstance>) entities.iterator();

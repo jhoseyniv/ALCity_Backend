@@ -1290,21 +1290,21 @@ public class DTOUtil {
         }
     }
 
-    public static <PLRulePostActionImport_New> void preOrderTraversal_New(PLRulePostActionService plRulePostActionService, PostActionTreeImport_New<com.alcity.test.ruleimport_new.PostActionTreeImport_New> node, Long ownerId) {
+    public static <PLRulePostActionImport_New> void preOrderTraversal_New(PLRulePostActionService plRulePostActionService, PostActionTreeImport_New<com.alcity.test.ruleimport_new.PostActionTreeImport_New> node, Long ownerId,Integer ordering) {
         if (node == null) return;
 
         System.out.println(node.getActionName() + " ");
         node.setPostActionOwnerType(node.getPostActionOwnerType());
-        PLRulePostAction postAction = plRulePostActionService.importPostAction_New(node,ownerId);
+        PLRulePostAction postAction = plRulePostActionService.importPostAction_New(node,ownerId,ordering);
         if(node.innerActions==null){node.innerActions= new ArrayList<>();}
         if(node.elseActions==null){node.elseActions = new ArrayList<>();}
         for (PostActionTreeImport_New<com.alcity.test.ruleimport_new.PostActionTreeImport_New> child : node.innerActions) {
             child.setPostActionOwnerType(PLRulePostActionOwnerType.Inner_Rule_Post_Action.name());
-            preOrderTraversal_New(plRulePostActionService,child,postAction.getId());
+            preOrderTraversal_New(plRulePostActionService,child,postAction.getId(),++ordering);
         }
         for (PostActionTreeImport_New<com.alcity.test.ruleimport_new.PostActionTreeImport_New> child : node.elseActions) {
             child.setPostActionOwnerType(PLRulePostActionOwnerType.Else.name());
-            preOrderTraversal_New(plRulePostActionService,child,postAction.getId());
+            preOrderTraversal_New(plRulePostActionService,child,postAction.getId(),++ordering);
         }
     }
 
