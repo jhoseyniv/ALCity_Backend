@@ -103,12 +103,11 @@ public class PLRulePostActionService implements PLRulePostActionRepository {
         DTOUtil.preOrderTraversal(this,root,ruleId);
         return newPostAction;
     }
-    public PLRulePostAction importPLRulePostActionTree_New(PostActionTreeImport_New root,Long ruleId) {
+    public PLRulePostAction importPLRulePostActionTree_New(PostActionTreeImport_New root,Long ruleId,Integer ordering) {
         Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
         PLRulePostAction newPostAction =null;
         //for root of trees action owner_type will be pl rule
         root.setPostActionOwnerType(PLRulePostActionOwnerType.Puzzle_Level_Rule.name());
-        Integer ordering = 0;
         DTOUtil.preOrderTraversal_New(this,root,ruleId,ordering);
         return newPostAction;
     }
@@ -121,7 +120,7 @@ public class PLRulePostActionService implements PLRulePostActionRepository {
             PostActionTreeImport_New postActionTreeImport = iterator.next();
             postActionTreeImport.setOrdering(ordering++);
             // for root of trees- owner_id will be Rule_id
-            PLRulePostAction importedPostAction = importPLRulePostActionTree_New(postActionTreeImport,ruleId);
+            PLRulePostAction importedPostAction = importPLRulePostActionTree_New(postActionTreeImport,ruleId,ordering);
             importedPostActions.add(importedPostAction);
         }
         return importedPostActions;
