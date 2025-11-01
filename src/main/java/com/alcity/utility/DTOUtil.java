@@ -1299,12 +1299,14 @@ public class DTOUtil {
         if(node.innerActions==null){node.innerActions= new ArrayList<>();}
         if(node.elseActions==null){node.elseActions = new ArrayList<>();}
         for (PostActionTreeImport_New<com.alcity.test.ruleimport_new.PostActionTreeImport_New> child : node.innerActions) {
+            Integer order = 0;
             child.setPostActionOwnerType(PLRulePostActionOwnerType.Inner_Rule_Post_Action.name());
-            preOrderTraversal_New(plRulePostActionService,child,postAction.getId(),++ordering);
+            preOrderTraversal_New(plRulePostActionService,child,postAction.getId(),order++);
         }
         for (PostActionTreeImport_New<com.alcity.test.ruleimport_new.PostActionTreeImport_New> child : node.elseActions) {
+            Integer order = 0;
             child.setPostActionOwnerType(PLRulePostActionOwnerType.Else.name());
-            preOrderTraversal_New(plRulePostActionService,child,postAction.getId(),++ordering);
+            preOrderTraversal_New(plRulePostActionService,child,postAction.getId(),order++);
         }
     }
 
