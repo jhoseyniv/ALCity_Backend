@@ -1399,11 +1399,18 @@ public class DTOUtil {
     public static Collection<PostActionTreeExport> getActionsTrees(PLRulePostActionService plRulePostActionService, AttributeService attributeService,AttributeValueService attributeValueService , PLRule plRule){
         Collection<PostActionTreeExport> actionTrees = new ArrayList<PostActionTreeExport>();
         Collection<PLRulePostAction>  postActions = plRulePostActionService.findByOwnerId(plRule.getId()) ;
-        Iterator<PLRulePostAction> iterator = postActions.iterator();
+
+        Comparator ruleActionComparator = new PLRulePostActionComparator();
+        List<PLRulePostAction> sortedAction =new ArrayList<PLRulePostAction>();
+        sortedAction = postActions.stream().collect(toList());
+        sortedAction.sort(ruleActionComparator);
+
+        Iterator<PLRulePostAction> iterator = sortedAction.iterator();
         while(iterator.hasNext()) {
             PLRulePostAction postAction =iterator.next();
             PostActionTreeExport tree = new PostActionTreeExport();
             tree =  preOrderTraversal(tree,plRulePostActionService,attributeService,attributeValueService ,postAction);
+
             actionTrees.add(tree);
         }
 
