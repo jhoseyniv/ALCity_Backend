@@ -43,7 +43,6 @@ import org.json.JSONException;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -1180,7 +1179,7 @@ public class DTOUtil {
 
     public static Collection<PLRulePostActionDTO> getPLRulePostActionDTOS(Collection<PLRulePostAction> postActions,AttributeService attributeService) {
         Collection<PLRulePostActionDTO> dtos = new ArrayList<>();
-        Comparator actionOrderingComparetor = new PLRulePostActionComparator();
+        Comparator actionOrderingComparetor = new PLRulePostActionDTOComparator();
 
         Iterator<PLRulePostAction> itr = postActions.iterator();
         while(itr.hasNext()){
