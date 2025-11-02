@@ -1,10 +1,9 @@
 package com.alcity.comparetors;
 
+import com.alcity.dto.puzzle.PLRulePostActionDTO;
 
-import com.alcity.entity.puzzle.PLRulePostAction;
-
-public class PLRulePostActionComparator implements java.util.Comparator<PLRulePostAction> {
-    public int compare(PLRulePostAction a, PLRulePostAction b) {
+public class PLRulePostActionDTOComparator implements java.util.Comparator<PLRulePostActionDTO>{
+    public int compare(PLRulePostActionDTO a, PLRulePostActionDTO b) {
         if (a.getOrdering() < b.getOrdering()) return -1; // The first car has a smaller year
         if (a.getOrdering() > b.getOrdering()) return 1;  // The first car has a larger year
         return 0; // Both cars have the same year
