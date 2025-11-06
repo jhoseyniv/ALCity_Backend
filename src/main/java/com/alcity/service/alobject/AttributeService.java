@@ -570,8 +570,12 @@ public class AttributeService implements AttributeRepository {
             Collection<AttributeValue> parameterValues = parameter.getAttributeValues();
             Optional<AttributeValue> isObjectHasValue = parameterValues.stream().filter(value -> value.getOwnerType().equals(AttributeOwnerType.Object_Property)).findFirst();
 
-            if (isObjectHasValue.isPresent())
-                outputValues.add(isObjectHasValue.get());
+            if (isObjectHasValue.isPresent()) {
+                AttributeValue value = new AttributeValue();
+                value = isObjectHasValue.get();
+                value.setAttributeId(parameter);
+                outputValues.add(value);
+            }
 
             parameter.setAttributeValues(outputValues);
             outputAttributes.add(parameter);
