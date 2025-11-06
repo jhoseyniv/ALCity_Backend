@@ -19,7 +19,7 @@ public enum PLRulePostActionType  {
     ObjectActionList,
     Condition,
     Loop,
-    BreakLoop,
+    Break,
     ContinueLoop,
     EndRule
     ;
