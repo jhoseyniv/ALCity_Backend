@@ -15,7 +15,7 @@ import java.util.List;
 @Setter
 
 public class PostActionTreeExport<P> implements Serializable {
-    private static final long serialVersionUID = 7631687898019922884L;
+    private static final long serialVersionUID = 1L;
 
     private String actionType;
     private Integer ordering;
