@@ -24,6 +24,7 @@ public abstract class BaseTable implements Serializable {
     public Long getId() {
         return id;
     }
+
     @NotNull(message = "{version.notempty}")
     private Long version;
 
