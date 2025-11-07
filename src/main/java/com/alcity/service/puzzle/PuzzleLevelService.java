@@ -36,6 +36,7 @@ import com.alcity.test.importstruct.PLImportDTO_New;
 import com.alcity.test.ruleimport_new.PLRuleImport_New;
 import com.alcity.utility.DTOUtil;
 import com.alcity.utility.DateUtils;
+import com.alcity.utility.ToolBox;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Lazy;
@@ -345,6 +346,8 @@ public class PuzzleLevelService implements PuzzleLevelRepository {
                 1L, DateUtils.getNow(), DateUtils.getNow(), createdBy.get(), createdBy.get());
         puzzleLevelRepository.save(importedPuzzleLevel);
         long end_time = System.currentTimeMillis();
+        String message_1 = "Time for running import puzzle header  = " + (end_time - start_time);
+        ToolBox.SendMessageToImportLogs(message_1, DateUtils.getNow());
         System.out.println("Time for running import puzzle header  = " + (end_time - start_time));
 
         // import puzzle level ground
@@ -368,6 +371,8 @@ public class PuzzleLevelService implements PuzzleLevelRepository {
                 , 1L, DateUtils.getNow(), DateUtils.getNow(), createdBy.get(), createdBy.get());
         plGroundService.save(importPLGround);
         long end_time_2 = System.currentTimeMillis();
+        String message_2 = "Time for running import puzzle ground  = " + (end_time_2 - start_time_2);
+        ToolBox.SendMessageToImportLogs(message_2, DateUtils.getNow());
         System.out.println("Time for running import puzzle ground  = " + (end_time_2 - start_time_2));
 
         long start_time_3 = System.currentTimeMillis();
@@ -381,6 +386,8 @@ public class PuzzleLevelService implements PuzzleLevelRepository {
         Collection<PLObjective> importedObjectives = plObjectiveService.importObjectives(objectives, importedPuzzleLevel);
         importedPuzzleLevel.setPlObjectives(importedObjectives);
         long end_time_3 = System.currentTimeMillis();
+        String message_3 = "Time for running import puzzle objective  = " + (end_time_3 - start_time_3);
+        ToolBox.SendMessageToImportLogs(message_3, DateUtils.getNow());
         System.out.println("Time for running import puzzle objective  = " + (end_time_3 - start_time_3));
 
         //import puzzle level variables
@@ -388,6 +395,8 @@ public class PuzzleLevelService implements PuzzleLevelRepository {
         Collection<AttributeData> variables = dto.getVariables();
         Collection<Attribute> copiedAttributes = attributeService.importPLVariables(variables, importedPuzzleLevel, AttributeOwnerType.Puzzle_Level_Variable);
         long end_time_4 = System.currentTimeMillis();
+        String message_4 = "Time for running import puzzle variables  = " + (end_time_4 - start_time_4);
+        ToolBox.SendMessageToImportLogs(message_4, DateUtils.getNow());
         System.out.println("Time for running import puzzle variables  = " + (end_time_4 - start_time_4));
 
         //import puzzle level cells
@@ -396,12 +405,17 @@ public class PuzzleLevelService implements PuzzleLevelRepository {
         Collection<PLCell> importedCells = instanceInPLService.importCells(cells, importedPuzzleLevel);
         importPLGround.setPlCells(importedCells);
         long end_time_5 = System.currentTimeMillis();
+        String message_5 = "Time for running import puzzle cells  = " + (end_time_5 - start_time_5);
+        ToolBox.SendMessageToImportLogs(message_5, DateUtils.getNow());
+
         System.out.println("Time for running import puzzle cells  = " + (end_time_5 - start_time_5));
 
         //import puzzle level instances
         long start_time_6 = System.currentTimeMillis();
         Collection<Instance> importInstances = instanceInPLService.importObjects_New(dto.getObjects(), importedPuzzleLevel);
         long end_time_6 = System.currentTimeMillis();
+        String message_6 = "Time for running import puzzle instances  = " + (end_time_6 - start_time_6);
+        ToolBox.SendMessageToImportLogs(message_6, DateUtils.getNow());
         System.out.println("Time for running import puzzle cells  = " + (end_time_6 - start_time_6));
 
         //import puzzle level rules
@@ -410,6 +424,9 @@ public class PuzzleLevelService implements PuzzleLevelRepository {
         Collection<PLRule> importedRules = plRuleService.importRules_New(rules, importedPuzzleLevel);
         importedPuzzleLevel.setRules(importedRules);
         long end_time_7 = System.currentTimeMillis();
+        String message_7 = "Time for running import puzzle rules  = " + (end_time_7 - start_time_7);
+        ToolBox.SendMessageToImportLogs(message_7, DateUtils.getNow());
+
         System.out.println("Time for running import puzzle rules  = " + (end_time_7 - start_time_7));
 
         //import puzzle learning topics
@@ -418,9 +435,13 @@ public class PuzzleLevelService implements PuzzleLevelRepository {
         Collection<PLLearningTopic> importedTopics = plLearningTopicService.importLearningTopics(topics, importedPuzzleLevel);
         importedPuzzleLevel.setLearningTopics(importedTopics);
         long end_time_8 = System.currentTimeMillis();
+        String message_8 = "Time for running import  learning topics  = " + (end_time_8 - start_time_8);
+        ToolBox.SendMessageToImportLogs(message_8, DateUtils.getNow());
         System.out.println("Time for running import learning topics = " + (end_time_8 - start_time_8));
 
-        System.out.println("Time for running import totaly = " + (end_time_8 - start_time));
+        String message_9 = "Time for running import  totally  = " + (end_time_8 - start_time);
+        System.out.println("Time for running import totally = " + (end_time_8 - start_time));
+        ToolBox.SendMessageToImportLogs(message_9, DateUtils.getNow());
 
         return importedPuzzleLevel;
     }
