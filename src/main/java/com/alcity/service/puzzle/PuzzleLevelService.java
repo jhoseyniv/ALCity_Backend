@@ -324,14 +324,11 @@ public class PuzzleLevelService implements PuzzleLevelRepository {
     }
     public PuzzleLevel importPuzzleLevel_New(PLImportDTO_New dto) throws IOException, ClassNotFoundException {
         // import puzzle level header
+        long start_time = System.currentTimeMillis();
         Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
         Optional<BinaryContent> iconOptional = binaryContentRepository.findById(dto.getIconId());
         Optional<BinaryContent> picOptional = binaryContentRepository.findById(dto.getPicId());
         Optional<BinaryContent> boardGraphicOptional = binaryContentRepository.findById(dto.getBoardGraphicId());
-
-        // Optional<PLGround> plGroundOptional = plGroundService.findById(238L);
-        // BoardGraphicDTO boardGraphicDTO = PLDTOUtil.getBoardGraphicJSON(plGroundOptional.get());
-        //  byte[] boardGraphic = ImageUtil.convertObjectToBytes(boardGraphicDTO);
 
         PLDifficulty plDifficulty =  PLDifficulty.getByTitle(dto.getPuzzleLevelDifficulty());
         PLStatus  plStatus =  PLStatus.getByTitle(dto.getPuzzleLevelStatus());
@@ -347,8 +344,11 @@ public class PuzzleLevelService implements PuzzleLevelRepository {
                 puzzleGroupOptional.get(),plDifficulty,plStatus,plPrivacy, iconOptional.get(),picOptional.get() ,
                 1L, DateUtils.getNow(), DateUtils.getNow(), createdBy.get(), createdBy.get());
         puzzleLevelRepository.save(importedPuzzleLevel);
+        long end_time = System.currentTimeMillis();
+        System.out.println("Time for running import puzzle header  = " + (end_time - start_time));
 
         // import puzzle level ground
+        long start_time_2 = System.currentTimeMillis();
         CameraSetupData cameraSetupImport = dto.getCameraSetup();
         PositionDTO position = cameraSetupImport.getPosition();
         PositionDTO rotation = cameraSetupImport.getRotation();
@@ -367,6 +367,10 @@ public class PuzzleLevelService implements PuzzleLevelRepository {
                 initialPanOffset.getX(),initialPanOffset.getY(),initialPanOffset.getZ(),skyBox.get(),background.get(),initialValuesDTO.getBackgroundScale()
                 , 1L, DateUtils.getNow(), DateUtils.getNow(), createdBy.get(), createdBy.get());
         plGroundService.save(importPLGround);
+        long end_time_2 = System.currentTimeMillis();
+        System.out.println("Time for running import puzzle ground  = " + (end_time_2 - start_time_2));
+
+        long start_time_3 = System.currentTimeMillis();
 
         Collection<PLGround> plGrounds = new ArrayList<>();
         plGrounds.add(importPLGround);
@@ -376,28 +380,47 @@ public class PuzzleLevelService implements PuzzleLevelRepository {
         Collection<PLObjectiveData> objectives = dto.getObjectives();
         Collection<PLObjective> importedObjectives = plObjectiveService.importObjectives(objectives, importedPuzzleLevel);
         importedPuzzleLevel.setPlObjectives(importedObjectives);
+        long end_time_3 = System.currentTimeMillis();
+        System.out.println("Time for running import puzzle objective  = " + (end_time_3 - start_time_3));
 
         //import puzzle level variables
+        long start_time_4 = System.currentTimeMillis();
         Collection<AttributeData> variables = dto.getVariables();
         Collection<Attribute> copiedAttributes = attributeService.importPLVariables(variables, importedPuzzleLevel, AttributeOwnerType.Puzzle_Level_Variable);
+        long end_time_4 = System.currentTimeMillis();
+        System.out.println("Time for running import puzzle variables  = " + (end_time_4 - start_time_4));
 
         //import puzzle level cells
+        long start_time_5 = System.currentTimeMillis();
         Collection<PLCellImport> cells = dto.getCells();
         Collection<PLCell> importedCells = instanceInPLService.importCells(cells, importedPuzzleLevel);
         importPLGround.setPlCells(importedCells);
+        long end_time_5 = System.currentTimeMillis();
+        System.out.println("Time for running import puzzle cells  = " + (end_time_5 - start_time_5));
 
         //import puzzle level instances
+        long start_time_6 = System.currentTimeMillis();
         Collection<Instance> importInstances = instanceInPLService.importObjects_New(dto.getObjects(), importedPuzzleLevel);
+        long end_time_6 = System.currentTimeMillis();
+        System.out.println("Time for running import puzzle cells  = " + (end_time_6 - start_time_6));
 
         //import puzzle level rules
+        long start_time_7 = System.currentTimeMillis();
         Collection<PLRuleImport_New> rules = dto.getRules();
         Collection<PLRule> importedRules = plRuleService.importRules_New(rules, importedPuzzleLevel);
         importedPuzzleLevel.setRules(importedRules);
+        long end_time_7 = System.currentTimeMillis();
+        System.out.println("Time for running import puzzle rules  = " + (end_time_7 - start_time_7));
 
         //import puzzle learning topics
+        long start_time_8 = System.currentTimeMillis();
         Collection<PLLearningTopicData> topics = dto.getLearningTopics();
         Collection<PLLearningTopic> importedTopics = plLearningTopicService.importLearningTopics(topics, importedPuzzleLevel);
         importedPuzzleLevel.setLearningTopics(importedTopics);
+        long end_time_8 = System.currentTimeMillis();
+        System.out.println("Time for running import learning topics = " + (end_time_8 - start_time_8));
+
+        System.out.println("Time for running import totaly = " + (end_time_8 - start_time));
 
         return importedPuzzleLevel;
     }
