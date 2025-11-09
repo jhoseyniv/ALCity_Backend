@@ -21,7 +21,7 @@ public enum PLRulePostActionType  {
     Loop,
     Break,
     ContinueLoop,
-    EndRule
+    End
     ;
     public static PLRulePostActionType getById(long id)
     {
