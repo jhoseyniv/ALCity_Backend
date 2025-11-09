@@ -64,6 +64,7 @@ public class PLRulePostActionService implements PLRulePostActionRepository {
                 1L, DateUtils.getNow(), DateUtils.getNow(), createdBy.get(),createdBy.get());
         plRulePostActionRepository.save(importedPostAction);
         if(dto.getParameters()==null){
+            System.out.println(".......");
 
         }
         else if(dto.getParameters().size()>0){
