@@ -112,6 +112,13 @@ public class ActionService implements ActionRepository {
         ObjectAction updatedAction = new ObjectAction();
 
         //check number of parameters
+
+        if( importAction.getParameters()==null )  {
+            ToolBox.SendMessageToImportLogs( " params is  0 " + importAction.getActionName() +" at date : ",DateUtils.getNow());
+            return;
+        }
+
+
         Integer numberOfParameterDTO = importAction.getParameters().size();
         Collection<Attribute> attributes = attributeService.findByOwnerId(action.getActionRenderer().getId());
         Integer numberOfParameterAction = attributes.size();

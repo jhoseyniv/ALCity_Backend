@@ -55,8 +55,7 @@ public class PLGameInstanceService implements PLGameInstanceRepository {
         PLGameInstance  gameInstance = new PLGameInstance(appMemberOptional.get(),puzzleLevelOptional.get(), DateUtils.getNow(),"",gameStatus,null,0L,
                 1L,DateUtils.getNow(),DateUtils.getNow(),appMemberOptional.get(),appMemberOptional.get());
         plGameInstanceRepository.save(gameInstance);
-        PLGameInstanceDTO gameInstanceDTO = DTOUtil.getGameInstanceDTO(gameInstance);
-        return gameInstanceDTO;
+        return DTOUtil.getGameInstanceDTO(gameInstance);
     }
 
 
