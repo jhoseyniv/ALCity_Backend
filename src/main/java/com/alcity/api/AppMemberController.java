@@ -517,7 +517,7 @@ public class AppMemberController {
             return new ResponseMessage(ErrorType.RecordNotFound, Status.error.name() , ObjectiveTransaction.class.getSimpleName() , savedRecord.getId(), SystemMessage.SaveOrEditMessage_Success);
         }
         WalletItemType itemType = walletItemTypeService.findByLabel("HUD");
-        if(walletItem.getWalletItemType().equals(itemType))
+        if(!walletItem.getWalletItemType().equals(itemType))
             savedRecord = objectiveTransactionService.save(dto, "Save");
 
         boolean isNewRewardGrater = isCurrentTransactionAmountGrater(dto);
