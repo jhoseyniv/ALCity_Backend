@@ -185,7 +185,7 @@ public class PGObjectService implements PGObjectRepository {
 
     public PGObject importObjInPG(PGObjectImportDTO dto, PuzzleGroup puzzleGroup) throws IOException {
         Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
-        Optional<BaseObject> baseObjectOptional = objectService.findById(dto.getId());
+        Optional<BaseObject> baseObjectOptional = objectService.findById(dto.getObjectId());
         BaseObject baseObject = baseObjectOptional.get();
         PGObject pgObject=null;
         Random random = new Random(); // Create a Random object
