@@ -10,6 +10,7 @@ import com.alcity.entity.alenum.*;
 import com.alcity.entity.appmember.*;
 import com.alcity.entity.base.BinaryContent;
 import com.alcity.entity.base.ClientType;
+import com.alcity.entity.base.WalletItemType;
 import com.alcity.entity.journey.Journey;
 import com.alcity.entity.learning.LearningSkill;
 import com.alcity.entity.puzzle.PLGameInstance;
@@ -515,7 +516,10 @@ public class AppMemberController {
         if(appMemberOptional.isEmpty() || walletItem==null) {
             return new ResponseMessage(ErrorType.RecordNotFound, Status.error.name() , ObjectiveTransaction.class.getSimpleName() , savedRecord.getId(), SystemMessage.SaveOrEditMessage_Success);
         }
-        savedRecord = objectiveTransactionService.save(dto, "Save");
+        WalletItemType itemType = walletItemTypeService.findByLabel("HUD");
+        if(walletItem.getWalletItemType().equals(itemType))
+            savedRecord = objectiveTransactionService.save(dto, "Save");
+
         boolean isNewRewardGrater = isCurrentTransactionAmountGrater(dto);
         response = new ResponseMessage(ErrorType.SaveSuccess, Status.ok.name() , ObjectiveTransaction.class.getSimpleName() , savedRecord.getId(), SystemMessage.SaveOrEditMessage_Success);
         if(isNewRewardGrater) {
