@@ -219,13 +219,13 @@ public class BinaryContentService implements BinaryContentRepository , BinaryCon
             binaryContentRepository.save(binaryContent);
         }else{//edit
             Optional<BinaryContent> binaryContentOptional= binaryContentRepository.findById(dto.getId());
+            binaryContent = binaryContentOptional.get();
             if(dto.getContent()!=null) {
                 byte[] tumb = ImageUtil.getThumbnail(dto.getContent(), dto.getFileName());
                 binaryContent.setThumbnail(tumb);
                 binaryContent.setContent(dto.getContent());
             }
             if(binaryContentOptional.isPresent()) {
-                binaryContent = binaryContentOptional.get();
                 binaryContent.setContentType(BinaryContentType.getByTitle(dto.getContentType()));
                 binaryContent.setFileName(dto.getFileName());
                 binaryContent.setTag1(dto.getTag1());
