@@ -36,7 +36,7 @@ public class WalletTransaction extends BaseTable implements Serializable {
     private AppMember appMember;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "appMember_WalletItem_id", referencedColumnName = "id")
+    @JoinColumn(name = "appMember_Wallet_Item_id", referencedColumnName = "id")
     @JsonIgnore
     private AppMember_WalletItem appMemberWalletItem;
 
