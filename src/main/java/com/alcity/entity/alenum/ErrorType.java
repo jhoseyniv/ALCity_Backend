@@ -13,6 +13,7 @@ public enum ErrorType {
     UniquenessViolation,
     ForeignKeyViolation,
     NullValueViolation,
+    HUDAction_WalletItem_Must_NOT_Apply,
     ;
     public static ErrorType getById(long id)
     {

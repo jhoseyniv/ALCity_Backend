@@ -13,5 +13,6 @@ public  class SystemMessage  {
     public static String UniquenessViolation = "Unique value ";
     public static String baseCurrencyIsExist = "Base Currency Exist and must be unique ";
     public static String InitSkillsSuccess = "Init Skills Success";
+    public static String HUDAction_WalletItem_Must_NOT_Apply = "HUD Item Type Must not be applied";
 
 }
