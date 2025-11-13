@@ -507,18 +507,18 @@ public class AppMemberController {
         ResponseMessage response = new ResponseMessage();
         Optional<AppMember> appMemberOptional = service.findById(dto.getAppMemberId());
         Optional<PLObjective> plObjectiveOptional = plObjectiveService.findById(dto.getObjectiveId());
-        if(plObjectiveOptional.isEmpty()) {
-            return new ResponseMessage(ErrorType.RecordNotFound, Status.error.name() , ObjectiveTransaction.class.getSimpleName() , 0L, SystemMessage.SaveOrEditMessage_Success);
-        }
-
         WalletItem walletItem = plObjectiveOptional.get().getWalletItem();
+        WalletItemType hudWalletType = walletItemTypeService.findByLabel("HUD");
+
+        if(walletItem.getWalletItemType().equals(hudWalletType))
+            return new ResponseMessage(ErrorType.HUDAction_WalletItem_Must_NOT_Apply, Status.info.name(), ObjectiveTransaction.class.getSimpleName() , 0L, SystemMessage.HUDAction_WalletItem_Must_NOT_Apply);
+
+        if(plObjectiveOptional.isEmpty())
+            return new ResponseMessage(ErrorType.RecordNotFound, Status.error.name() , ObjectiveTransaction.class.getSimpleName() , 0L, SystemMessage.SaveOrEditMessage_Success);
 
         if(appMemberOptional.isEmpty() || walletItem==null) {
             return new ResponseMessage(ErrorType.RecordNotFound, Status.error.name() , ObjectiveTransaction.class.getSimpleName() , savedRecord.getId(), SystemMessage.SaveOrEditMessage_Success);
         }
-        WalletItemType itemType = walletItemTypeService.findByLabel("HUD");
-        if(!walletItem.getWalletItemType().equals(itemType))
-            savedRecord = objectiveTransactionService.save(dto, "Save");
 
         boolean isNewRewardGrater = isCurrentTransactionAmountGrater(dto);
         response = new ResponseMessage(ErrorType.SaveSuccess, Status.ok.name() , ObjectiveTransaction.class.getSimpleName() , savedRecord.getId(), SystemMessage.SaveOrEditMessage_Success);
@@ -531,7 +531,9 @@ public class AppMemberController {
             appMemberPuzzleLevelScoreService.updateScores(savedRecord);
 
         }
-            return response;
+        savedRecord = objectiveTransactionService.save(dto, "Save");
+
+       return response;
     }
 
     @Operation( summary = "Apply Skill for specific  Member after playing puzzles ",  description = "Apply Skill for specific  Member after playing puzzles")
@@ -541,18 +543,18 @@ public class AppMemberController {
         ObjectiveTransaction savedRecord = null;
         ResponseMessage response = new ResponseMessage();
         boolean isNewRewardGrater = isCurrentTransactionAmountGrater(dto);
-        try {
-            savedRecord = objectiveTransactionService.save(dto, "Save");
-        }catch (Exception e) {
-            throw new ResponseObject(ErrorType.UniquenessViolation,Status.error.name() , ObjectiveTransaction.class.getSimpleName() ,  -1L ,e.getCause().getMessage());
-
-        }
 
         response = new ResponseMessage(ErrorType.SaveSuccess, Status.ok.name() , ObjectiveTransaction.class.getSimpleName() , savedRecord.getId(), SystemMessage.SaveOrEditMessage_Success);
         if(isNewRewardGrater) {
             appMemberLearningSkillService.updateAppMemberMicroSkills(savedRecord);
             appMemberLearningSkillService.updateAppMemberSubSetSkills(savedRecord);
             appMemberLearningSkillService.updateAppMemberSkills(savedRecord);
+        }
+        try {
+            savedRecord = objectiveTransactionService.save(dto, "Save");
+        }catch (Exception e) {
+            throw new ResponseObject(ErrorType.UniquenessViolation,Status.error.name() , ObjectiveTransaction.class.getSimpleName() ,  -1L ,e.getCause().getMessage());
+
         }
         return response;
     }
