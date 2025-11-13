@@ -521,8 +521,9 @@ public class AppMemberController {
         }
 
         boolean isNewRewardGrater = isCurrentTransactionAmountGrater(dto);
-        response = new ResponseMessage(ErrorType.SaveSuccess, Status.ok.name() , ObjectiveTransaction.class.getSimpleName() , savedRecord.getId(), SystemMessage.SaveOrEditMessage_Success);
         if(isNewRewardGrater) {
+            savedRecord = objectiveTransactionService.save(dto, "Save");
+            response = new ResponseMessage(ErrorType.SaveSuccess, Status.ok.name() , ObjectiveTransaction.class.getSimpleName() , savedRecord.getId(), SystemMessage.SaveOrEditMessage_Success);
             appMemberWalletItemService.updateAppMemberWalletItem(savedRecord);
             WalletTransaction walletTransaction = new WalletTransaction(DateUtils.getNow(), dto.getAmount(), true,dto.getObjectiveType(),
                     appMemberOptional.get(),walletItem,plObjectiveOptional.get().getId(),WalletTransactionType.Puzzle_Objective,
@@ -531,7 +532,6 @@ public class AppMemberController {
             appMemberPuzzleLevelScoreService.updateScores(savedRecord);
 
         }
-        savedRecord = objectiveTransactionService.save(dto, "Save");
 
        return response;
     }
@@ -544,17 +544,17 @@ public class AppMemberController {
         ResponseMessage response = new ResponseMessage();
         boolean isNewRewardGrater = isCurrentTransactionAmountGrater(dto);
 
-        response = new ResponseMessage(ErrorType.SaveSuccess, Status.ok.name() , ObjectiveTransaction.class.getSimpleName() , savedRecord.getId(), SystemMessage.SaveOrEditMessage_Success);
         if(isNewRewardGrater) {
+            try {
+                savedRecord = objectiveTransactionService.save(dto, "Save");
+                response = new ResponseMessage(ErrorType.SaveSuccess, Status.ok.name() , ObjectiveTransaction.class.getSimpleName() , savedRecord.getId(), SystemMessage.SaveOrEditMessage_Success);
+            }catch (Exception e) {
+                throw new ResponseObject(ErrorType.UniquenessViolation,Status.error.name() , ObjectiveTransaction.class.getSimpleName() ,  -1L ,e.getCause().getMessage());
+
+            }
             appMemberLearningSkillService.updateAppMemberMicroSkills(savedRecord);
             appMemberLearningSkillService.updateAppMemberSubSetSkills(savedRecord);
             appMemberLearningSkillService.updateAppMemberSkills(savedRecord);
-        }
-        try {
-            savedRecord = objectiveTransactionService.save(dto, "Save");
-        }catch (Exception e) {
-            throw new ResponseObject(ErrorType.UniquenessViolation,Status.error.name() , ObjectiveTransaction.class.getSimpleName() ,  -1L ,e.getCause().getMessage());
-
         }
         return response;
     }
