@@ -100,13 +100,17 @@ public class DTOUtil {
             plGroundId = 0L;
          else
             plGroundId =pl.getPlGrounds().iterator().next().getId();
+        Collection<PLObjective> plObjectives = pl.getPlObjectives();
+        Collection<PLObjectiveDTO> objectives = getPuzzleLevelObjectiveDTOS(plObjectives);
 
-        return new PLDTO(pl.getId(), pl.getVersion(), pl.getCreated(),
+        PLDTO dto = new PLDTO(pl.getId(), pl.getVersion(), pl.getCreated(),
                 pl.getUpdated(), pl.getCreatedBy().getUsername(), pl.getUpdatedBy().getUsername(),
                 pl.getApproveDate(), plGroundId, pl.getPuzzleGroup().getId(), pl.getPuzzleGroup().getTitle(),
                 pl.getOrdering(), pl.getTitle(), pl.getCode(), pl.getFromAge(), pl.getToAge(), pl.getMaxScore(),
                 pl.getFirstStarScore() , pl.getSecondStarScore(), pl.getThirdStartScore(),
                 pl.getPuzzleLevelStatus().name(), pl.getPuzzleLevelPrivacy().getValue(), pl.getPuzzleDifficulty().name(),pl.getPuzzleGroup().getIcon().getId(),pl.getPuzzleGroup().getPic().getId());
+            dto.setObjectives(objectives);
+    return  dto;
     }
     public static void copyActionFromTo(Long fromOwnerId, Long toOwnerId,AttributeOwnerType from,AttributeOwnerType to,
                                         ActionService actionService,POActionOwnerType  fromAction,POActionOwnerType toAction,
@@ -681,7 +685,16 @@ public class DTOUtil {
         plObjectiveDTO.setDescription(plObjective.getDescription());
         plObjectiveDTO.setRewardAmount(plObjective.getRewardAmount());
         plObjectiveDTO.setSkillAmount(plObjective.getSkillAmount());
-        plObjectiveDTO.setSkillId(plObjective.getLearningSkill().getId());
+
+        if(plObjective.getLearningSkill()==null) {
+            System.out.println("plObjective id is =" +  plObjective.getId());
+            System.out.println("plObjective Learning Skill id is =" +  plObjective.getLearningSkill());
+
+        }
+
+        LearningSkill learningSkill = plObjective.getLearningSkill();
+        plObjectiveDTO.setSkillId(learningSkill.getId());
+        plObjectiveDTO.setWalletItemTitle(plObjective.getWalletItem().getValue());
         plObjectiveDTO.setPuzzleLevelId(plObjective.getPuzzleLevel().getId());
         plObjectiveDTO.setUpdated(plObjective.getUpdated());
         plObjectiveDTO.setCreated(plObjective.getCreated());
@@ -692,7 +705,6 @@ public class DTOUtil {
         plObjectiveDTO.setSkillLable(plObjective.getLearningSkill().getTitle());
         plObjectiveDTO.setSkillValue(plObjective.getLearningSkill().getTitle());
         plObjectiveDTO.setWalletItemId(plObjective.getWalletItem().getId());
-        plObjectiveDTO.setWalletItemTitle(plObjective.getWalletItem().getValue());
         return  plObjectiveDTO;
     }
 
@@ -711,6 +723,14 @@ public class DTOUtil {
         return dtos;
     }
 
+    public static Collection<PLObjectiveDTO> getPuzzleLevelObjectiveDTOS(Collection<PLObjective> plObjectives) {
+        Collection<PLObjectiveDTO> output = new ArrayList<PLObjectiveDTO>();
+        for (PLObjective plObjective : plObjectives) {
+            PLObjectiveDTO dto = getPuzzleLevelObjectiveDTO(plObjective);
+            output.add(dto);
+        }
+        return output;
+    }
     public static Collection<PLObjectiveDTO> getPuzzleLevelObjectiveDTOS(PuzzleLevel input) {
         Collection<PLObjectiveDTO> output = new ArrayList<PLObjectiveDTO>();
         Collection<PLObjective> plObjectiveCollection = input.getPlObjectives();
@@ -723,6 +743,27 @@ public class DTOUtil {
         return output;
     }
 
+    public static Collection<PLObjectiveData> getPLObjectivesData(Collection<PLObjectiveDTO> dtos) {
+        Collection<PLObjectiveData> output = new ArrayList<PLObjectiveData>();
+
+        Iterator<PLObjectiveDTO> iterator = dtos.iterator();
+
+        while (iterator.hasNext()) {
+            PLObjectiveDTO dto = iterator.next();
+            PLObjectiveData objectiveData = new PLObjectiveData();
+            objectiveData.setId(dto.getId());
+            objectiveData.setTitle(dto.getTitle());
+            objectiveData.setDescription(dto.getDescription());
+            objectiveData.setCondition(dto.getCondition());
+            objectiveData.setRewardAmount(dto.getRewardAmount());
+            objectiveData.setRewardId(dto.getWalletItemId());
+            objectiveData.setSkillAmount(dto.getSkillAmount());
+            objectiveData.setSkillId(dto.getSkillId());
+
+            output.add(objectiveData);
+        }
+        return output;
+    }
 
     //this method used for create Interpreter json
     public static Collection<PLObjectiveData> getPLObjectiveData(PuzzleLevel input) {

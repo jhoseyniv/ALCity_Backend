@@ -5,8 +5,10 @@ import com.alcity.customexception.ResponseMessage;
 import com.alcity.dto.RemoteAccess.RemoteRequestDTO;
 import com.alcity.dto.appmember.*;
 import com.alcity.dto.journey.RoadMapDTO;
+import com.alcity.dto.plimpexport.PLObjectiveData;
 import com.alcity.dto.puzzle.PLDTO;
 import com.alcity.dto.puzzle.PLGameInstanceDTO;
+import com.alcity.dto.puzzle.PLObjectiveDTO;
 import com.alcity.dto.puzzle.PuzzleLevelStepMappingDTO;
 import com.alcity.dto.search.AppMemberSearchCriteriaDTO;
 import com.alcity.entity.alenum.*;
@@ -15,6 +17,7 @@ import com.alcity.entity.base.ClientType;
 import com.alcity.entity.journey.Journey;
 import com.alcity.entity.journey.JourneyStep;
 import com.alcity.entity.puzzle.PLGameInstance;
+import com.alcity.entity.puzzle.PLObjective;
 import com.alcity.entity.puzzle.PuzzleLevel;
 import com.alcity.o3rdparty.ALCityAcessRight;
 import com.alcity.customexception.ResponseObject;
@@ -131,11 +134,13 @@ public class AppMemberService implements AppMemberRepository, CustomizedUserRepo
         journeyInfo.setLockedIconId(journey.getButtonLockedIcon().getId());
         while (itr.hasNext()){
             PLDTO pldto = itr.next();
+            Collection<PLObjectiveDTO> objectives = pldto.getObjectives();
+            Collection<PLObjectiveData> objectivesData = DTOUtil.getPLObjectivesData(objectives);
             JourneyStep journeyStep = puzzleLevelService.getPuzzleLevelMappedStep(pldto.getId());
             if(journeyStep!=null){
                 if(journeyStep.getJourney().getId() == journey.getId()) {
                     AppMemberStepInfo dto = new AppMemberStepInfo(journeyStep.getId(), journeyStep.getTitle(),journeyStep.getXpos(),journeyStep.getYpos(),journeyStep.getOrdering(),
-                        pldto.getId(), pldto.getIconId(), pldto.getTitle(), pldto.getPuzzleGroupId(), pldto.getPuzzleGroupTitle(),0,Boolean.FALSE);
+                        pldto.getId(), pldto.getIconId(), pldto.getTitle(), pldto.getPuzzleGroupId(), pldto.getPuzzleGroupTitle(),0,Boolean.FALSE,objectivesData);
                     stepInfos.add(dto);
                 }
             }

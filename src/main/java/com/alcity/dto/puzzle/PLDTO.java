@@ -1,15 +1,17 @@
 package com.alcity.dto.puzzle;
 
 import com.alcity.dto.player.PermitedPlayerDTO;
+import com.alcity.dto.plimpexport.PLObjectiveData;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.io.Serializable;
 import java.util.Collection;
 @Getter
 @Setter
 @NoArgsConstructor
-public class PLDTO {
+public class PLDTO implements Serializable {
     private Long id;
     private Long version;
     private String created;
@@ -45,6 +47,7 @@ public class PLDTO {
 
     private Long iconId;
     private Long picId;
+    private Collection<PLObjectiveDTO> objectives;
 
     public PLDTO(Long id, Long version, String created, String updated, String createdBy, String updatedBy,
                  String approveDate, Long plGroundId, Long puzzleGroupId, String puzzleGroupTitle, Long ordering,

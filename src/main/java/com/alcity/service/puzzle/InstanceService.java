@@ -16,10 +16,12 @@ import com.alcity.service.alobject.AttributeService;
 import com.alcity.service.alobject.AttributeValueService;
 import com.alcity.customexception.ResponseObject;
 import com.alcity.utility.DateUtils;
+import com.alcity.utility.ToolBox;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import org.springframework.transaction.annotation.Transactional;;
+import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -189,7 +191,7 @@ public class InstanceService implements InstanceRepository {
         }
         return importedInstances;
     }
-    public Collection<Instance> importObjects_New(Collection<PGObjectData> objectImports , PuzzleLevel importedPL) {
+    public Collection<Instance> importObjects_New(Collection<PGObjectData> objectImports , PuzzleLevel importedPL) throws IOException {
         Collection<Instance> importedInstances = new ArrayList<>();
         Iterator<PGObjectData> iterator = objectImports.iterator();
         while(iterator.hasNext()) {
@@ -198,8 +200,13 @@ public class InstanceService implements InstanceRepository {
             Optional<PGObject> alCityObjectInPGOptional = objectInPGService.findByPuzzleGroupAndAlCityObject(importedPL.getPuzzleGroup(),cityObjectOptional.get().getId());
             PLGround  plGround = importedPL.getPlGrounds().iterator().next();
             Collection<PLCell> cells = plGround.getPlCells();
+            long start_time_7 = System.currentTimeMillis();
             Collection<Instance> instances = importInstances(alCityObjectInPGOptional.get(),objectImport.getInstances(),cells,importedPL);
             importedInstances.addAll(instances);
+            long end_time_7 = System.currentTimeMillis();
+            String message_7 = "Time for running import puzzle instances pure------- = " + (end_time_7 - start_time_7);
+            ToolBox.SendMessageToImportLogs(message_7, DateUtils.getNow());
+
         }
         return importedInstances;
     }

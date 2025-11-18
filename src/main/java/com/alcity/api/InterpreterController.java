@@ -21,9 +21,7 @@ import com.alcity.service.puzzle.InstanceService;
 import com.alcity.service.puzzle.PLGroundService;
 import com.alcity.service.puzzle.PLRulePostActionService;
 import com.alcity.service.puzzle.PuzzleLevelService;
-import com.alcity.utility.DTOUtil;
-import com.alcity.utility.ImageUtil;
-import com.alcity.utility.PLDTOUtil;
+import com.alcity.utility.*;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -111,7 +109,7 @@ public class InterpreterController {
         return plContents;
     }
 */
-    public PLData getJsonFile(Long plID) {
+    public PLData getJsonFile(Long plID) throws IOException {
         PLData plData= new PLData();
 
         Optional<PLGround> plGroundOptional = plGroundService.findByPuzzleLevelId(plID);
@@ -134,17 +132,47 @@ public class InterpreterController {
             plData.setCode(pl.getCode());
             plData.setName(pl.getTitle());
 
+            long start_time_7 = System.currentTimeMillis();
             Collection<AttributeData>  variables = DTOUtil.getAttributeForOwnerById(attributeService,pl.getId(),AttributeOwnerType.Puzzle_Level_Variable);
+            long end_time_7 = System.currentTimeMillis();
+            String message_7 = "Time for get json variables  = " + (end_time_7 - start_time_7);
+            ToolBox.SendMessageToImportLogs(message_7, DateUtils.getNow());
+            System.out.println("Time for get json variables  =" + (end_time_7 - start_time_7));
 
+            long start_time_8 = System.currentTimeMillis();
             Collection<PLObjectiveData> objectives = DTOUtil.getPLObjectiveData(pl);
             plData.setObjectives(objectives);
+            long end_time_8 = System.currentTimeMillis();
+            String message_8 = "Time for get json objectives  = " + (end_time_8 - start_time_8);
+            ToolBox.SendMessageToImportLogs(message_8, DateUtils.getNow());
+            System.out.println("Time for get json objectives  =" + (end_time_8 - start_time_8));
 
+            long start_time_9 = System.currentTimeMillis();
             Collection<PGObjectData> objects = getObjectsForPuzzleGroup(pl);
-            Collection<PLCell> cells = plGround.getPlCells();
+            long end_time_9 = System.currentTimeMillis();
+            String message_9 = "Time for get json objects  = " + (end_time_9 - start_time_9);
+            ToolBox.SendMessageToImportLogs(message_9, DateUtils.getNow());
+            System.out.println("Time for get json objects  =" + (end_time_9 - start_time_9));
 
+
+            long start_time_10 = System.currentTimeMillis();
+
+            Collection<PLCell> cells = plGround.getPlCells();
             Collection<PLCellData> cellDTOS = DTOUtil.getPLCellDTOS(cells,attributeService);
 
+            long end_time_10 = System.currentTimeMillis();
+            String message_10 = "Time for get cells   = " + (end_time_10 - start_time_10);
+            ToolBox.SendMessageToImportLogs(message_10, DateUtils.getNow());
+            System.out.println("Time for get cells   =" + (end_time_10 - start_time_10));
+
+
+            long start_time_11 = System.currentTimeMillis();
             Collection<RuleData> rules = DTOUtil.getPLRules(pl,attributeService,attributeValueService,plRulePostActionService);
+
+            long end_time_11 = System.currentTimeMillis();
+            String message_11 = "Time for get rules objects  = " + (end_time_11 - start_time_11);
+            ToolBox.SendMessageToImportLogs(message_11, DateUtils.getNow());
+            System.out.println("Time for get rules objects  =" + (end_time_11 - start_time_11));
 
             plData.setCols(plGround.getNumColumns());
             plData.setRows(plGround.getNumRows());
@@ -189,6 +217,7 @@ public class InterpreterController {
             instanceDTO.setProperties(propertyDTOS);
             instanceDTOS.add(instanceDTO);
         }
+
         return instanceDTOS;
     }
     public Collection<InstanceData> getInstanceDataWithVariablesOnly(PGObject pgo, PuzzleLevel  pl) {
@@ -260,11 +289,9 @@ public class InterpreterController {
         Collection<PGObjectData> objectData = new ArrayList<PGObjectData>();
         Collection<PGObject> objects = new ArrayList<>();
         objects = pg.getAlCityObjectInPGS();
-        Iterator<PGObject> iterator = objects.iterator();
-        while(iterator.hasNext()) {
-            PGObject object = iterator.next();
-            //fetch puzzle object that used in a pl including instances properties , vriables , ...
-            PGObjectData poData =getPGObjectData(object,pl);
+        for (PGObject object : objects) {
+            //fetch puzzle object that used in a pl including instances properties , variables , ...
+            PGObjectData poData = getPGObjectData(object, pl);
             objectData.add(poData);
         }
         return objectData;

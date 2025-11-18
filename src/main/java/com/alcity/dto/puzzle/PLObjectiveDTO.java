@@ -4,11 +4,13 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.io.Serializable;
+
 @Getter
 @Setter
 @NoArgsConstructor
 
-public class PLObjectiveDTO {
+public class PLObjectiveDTO implements Serializable {
     private Long id;
     private Long version;
     private String created;
