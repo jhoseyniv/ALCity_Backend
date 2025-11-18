@@ -665,6 +665,7 @@ public class AttributeService implements AttributeRepository {
         }
         return output;
     }
+
     public Collection<Attribute> defined_properties_in_pg_object(Collection<Attribute> properties,Long pgo_id,long object_id) {
         Collection<Attribute> defined_properties_in_object = new ArrayList<>();
         Iterator<Attribute> itr = properties.iterator();
@@ -688,6 +689,7 @@ public class AttributeService implements AttributeRepository {
 
         return defined_properties_in_object;
     }
+
     public Collection<Attribute> removeUnRelatedAttributeValues(Collection<Attribute>  inputs,AttributeOwnerType type){
         Collection<Attribute> outputAttributes = new ArrayList<>();
         Iterator<Attribute>  itr = inputs.iterator();
@@ -706,11 +708,12 @@ public class AttributeService implements AttributeRepository {
         }
         return outputAttributes;
     }
+
     public Collection<Attribute> findPropertiesForPuzzleGroupObject(Long pgo_Id,AttributeOwnerType ownerType){
         //find properties for an object as parent of pgo + find properties for a pgo
 
         Collection<Attribute> outputAttributes = new ArrayList<Attribute>();
-        Collection<Attribute> temp_Bug_properties_in_an_object = new ArrayList<>();
+   //     Collection<Attribute> temp_Bug_properties_in_an_object = new ArrayList<>();
 
         //check is_defined_and_init_in_pgo_only ?
         Collection<Attribute> properties_for_pgo = attributeRepository.findByOwnerIdAndAttributeOwnerType(pgo_Id,ownerType);
@@ -722,8 +725,9 @@ public class AttributeService implements AttributeRepository {
         Long object_id = getObjectForThisPOG(pgo_Id);
 
         //fetch properties for a parent object of this pgo
-        Collection<Attribute> properties_in_a_object = attributeRepository.findByOwnerId(object_id);
-        properties_in_a_object = properties_in_a_object.stream().filter(attribute -> attribute.getAttributeOwnerType().equals(AttributeOwnerType.Object_Property)).collect(Collectors.toList());
+        Collection<Attribute> properties_in_a_object = attributeRepository.findByOwnerIdAndAttributeOwnerType(object_id,AttributeOwnerType.Object_Property);
+        properties_in_a_object = properties_in_a_object.stream().filter(attribute -> attribute.getAttributeOwnerType().equals(AttributeOwnerType.Object_Property)).toList();
+        /*
         Iterator<Attribute> iterator = properties_in_a_object.iterator();
         while(iterator.hasNext()){
             Attribute attribute = iterator.next();
@@ -732,11 +736,12 @@ public class AttributeService implements AttributeRepository {
             attribute.setAttributeValues(values);
             temp_Bug_properties_in_an_object.add(attribute);
         }
+         */
         //state 2 + state 3 : if properties_in_a_pg_object is not empty mean that variables is defined in parent(object)
         //sate 2 : properties are defined in object and initialize there only
         //state 3 : properties are defined in object but re-initialize in pgo
         //following method find variables and values for state 2 and 3
-        Collection<Attribute> defined_properties_in_a_object = defined_properties_in_pg_object(temp_Bug_properties_in_an_object,pgo_Id,object_id);
+        Collection<Attribute> defined_properties_in_a_object = defined_properties_in_pg_object(properties_in_a_object,pgo_Id,object_id);
         outputAttributes.addAll(defined_properties_in_a_object);
         return outputAttributes;
     }
@@ -978,7 +983,7 @@ public class AttributeService implements AttributeRepository {
     }
 
 
-
+/*
     public Collection<Attribute> findByOwnerIdAndAttributeOwnerTypeNew(Long ownerId, AttributeOwnerType ownerType) {
 
         Collection<Attribute> outputAttributes = new ArrayList<Attribute>();
@@ -986,7 +991,7 @@ public class AttributeService implements AttributeRepository {
         if(ownerType == AttributeOwnerType.Action_Handler_Parameter) {
             outputAttributes = findAttributesForActionHandler(ownerId);
         }
-        if(ownerType == AttributeOwnerType.Object_Action_Handler_Parameter) {
+        else  if(ownerType == AttributeOwnerType.Object_Action_Handler_Parameter) {
             outputAttributes = findAttributesForObjectActionHandler(ownerId);
         }
         if(ownerType == AttributeOwnerType.Puzzle_Group_Object_Action_Handler_Parameter) {
@@ -1030,84 +1035,63 @@ public class AttributeService implements AttributeRepository {
         }
 
         return outputAttributes;
+    }
+    */
+
+    public Collection<Attribute> findByOwnerIdAndAttributeOwnerTypeNew(Long ownerId, AttributeOwnerType ownerType) {
+
+        Collection<Attribute> outputAttributes = new ArrayList<Attribute>();
+
+        if(ownerType == AttributeOwnerType.Action_Handler_Parameter) {
+            outputAttributes = findAttributesForActionHandler(ownerId);
         }
-/*
-    public Collection<Attribute> findByOwnerIdAndAttributeOwnerType(Long ownerId, AttributeOwnerType ownerType) {
-        Collection<Attribute> alCityAttributes = attributeRepository.findByOwnerId(ownerId);
-
-        ArrayList<Attribute> outputAttributes = new ArrayList<Attribute>();
-
-        if(ownerType == AttributeOwnerType.Puzzle_Group_Object_Action_Handler_Parameter)
-            outputAttributes = alCityAttributes.stream().
-                    filter(attribute -> attribute.getAttributeOwnerType().equals(AttributeOwnerType.Puzzle_Group_Object_Action_Handler_Parameter))
-                    .collect(Collectors.toCollection(ArrayList::new));
-        if(ownerType == AttributeOwnerType.Puzzle_Level_Rule_Post_Action)
-            outputAttributes = alCityAttributes.stream().
-                    filter(attribute -> attribute.getAttributeOwnerType().equals(AttributeOwnerType.Puzzle_Level_Rule_Post_Action))
-                    .collect(Collectors.toCollection(ArrayList::new));
-        if(ownerType == AttributeOwnerType.Puzzle_Level_Variable)
-            outputAttributes = alCityAttributes.stream().
-                    filter(attribute -> attribute.getAttributeOwnerType().equals(AttributeOwnerType.Puzzle_Level_Variable))
-
-                    .collect(Collectors.toCollection(ArrayList::new));
-        if(ownerType == AttributeOwnerType.Instance_Puzzle_Group_Object_Variable)
-            outputAttributes = alCityAttributes.stream().
-                    filter(attribute -> attribute.getAttributeOwnerType().equals(AttributeOwnerType.Instance_Puzzle_Group_Object_Variable))
-                    .collect(Collectors.toCollection(ArrayList::new));
-
-        if(ownerType == AttributeOwnerType.Instance_Puzzle_Group_Object_Property)
-            outputAttributes = alCityAttributes.stream().
-                    filter(attribute -> attribute.getAttributeOwnerType().equals(AttributeOwnerType.Instance_Puzzle_Group_Object_Property))
-                    .collect(Collectors.toCollection(ArrayList::new));
-
-//        if(ownerType == AttributeOwnerType.Puzzle_Level_Instance_Property)
-//            outputAttributes = alCityAttributes.stream().
-//                    filter(attribute -> attribute.getAttributeOwnerType().equals(AttributeOwnerType.Puzzle_Level_Instance_Property))
-//                    .collect(Collectors.toCollection(ArrayList::new));
-        if(ownerType == AttributeOwnerType.Object_Action_Handler_Parameter)
-            outputAttributes = alCityAttributes.stream().
-                    filter(attribute -> attribute.getAttributeOwnerType().equals(AttributeOwnerType.Object_Action_Handler_Parameter))
-                    .collect(Collectors.toCollection(ArrayList::new));
-
-        if(ownerType == AttributeOwnerType.Instance_Puzzle_Group_Object_Variable)
-            outputAttributes = alCityAttributes.stream().
-                    filter(attribute -> attribute.getAttributeOwnerType().equals(AttributeOwnerType.Instance_Puzzle_Group_Object_Variable))
-                    .collect(Collectors.toCollection(ArrayList::new));
-
-        if(ownerType == AttributeOwnerType.Puzzle_Group_Object_Variable)
-            outputAttributes = alCityAttributes.stream().
-                    filter(attribute -> attribute.getAttributeOwnerType().equals(AttributeOwnerType.Puzzle_Group_Object_Variable))
-                    .collect(Collectors.toCollection(ArrayList::new));
-
-        if(ownerType == AttributeOwnerType.Puzzle_Group_Object_Property)
-            outputAttributes = alCityAttributes.stream().
-                    filter(attribute -> attribute.getAttributeOwnerType().equals(AttributeOwnerType.Puzzle_Group_Object_Property))
-                    .collect(Collectors.toCollection(ArrayList::new));
-
-        if(ownerType == AttributeOwnerType.Action_Handler_Parameter)
-            outputAttributes = alCityAttributes.stream().
-                    filter(attribute -> attribute.getAttributeOwnerType().equals(AttributeOwnerType.Action_Handler_Parameter))
-                    .collect(Collectors.toCollection(ArrayList::new));
-        if(ownerType == AttributeOwnerType.Object_Property)
-            outputAttributes = alCityAttributes.stream().
-                    filter(attribute -> attribute.getAttributeOwnerType().equals(AttributeOwnerType.Object_Property))
-                    .collect(Collectors.toCollection(ArrayList::new));
-        if(ownerType == AttributeOwnerType.Object_Property)
-            outputAttributes = alCityAttributes.stream().
-                    filter(attribute -> attribute.getAttributeOwnerType().equals(AttributeOwnerType.Object_Property))
-                    .collect(Collectors.toCollection(ArrayList::new));
-        if(ownerType == AttributeOwnerType.Object_Variable)
-            outputAttributes = alCityAttributes.stream().
-                    filter(attribute -> attribute.getAttributeOwnerType().equals(AttributeOwnerType.Object_Variable))
-                    .collect(Collectors.toCollection(ArrayList::new));
-        if(ownerType == AttributeOwnerType.Puzzle_Group_Object)
-            outputAttributes = alCityAttributes.stream().
-                    filter(attribute -> attribute.getAttributeOwnerType().equals(AttributeOwnerType.Puzzle_Group_Object))
-                    .collect(Collectors.toCollection(ArrayList::new));
+        else  if(ownerType == AttributeOwnerType.Object_Action_Handler_Parameter) {
+            outputAttributes = findAttributesForObjectActionHandler(ownerId);
+        }
+        else if(ownerType == AttributeOwnerType.Puzzle_Group_Object_Action_Handler_Parameter) {
+            outputAttributes = findAttributesForPuzzleGroupObjectActionHandler(ownerId);
+        }
+        else if(ownerType == AttributeOwnerType.Instance_Puzzle_Group_Object_Action_Handler_Parameter) {
+            outputAttributes = findAttributesForInstancePuzzleGroupObjectActionHandler(ownerId);
+        }
+        else if(ownerType == AttributeOwnerType.Object_Property) {
+            outputAttributes = findPropertiesForObject(ownerId);
+        }
+        else if(ownerType == AttributeOwnerType.Object_Variable) {
+            outputAttributes = findVariablesForObject(ownerId,AttributeOwnerType.Object_Variable);
+        }
+        else if(ownerType == AttributeOwnerType.Puzzle_Group_Object_Property) {
+            outputAttributes = findPropertiesForPuzzleGroupObject(ownerId,ownerType);
+        }
+        else if(ownerType == AttributeOwnerType.Puzzle_Group_Object_Variable) {
+            outputAttributes = findVariablesForPuzzleGroupObject(ownerId,ownerType);
+        }
+        else if(ownerType == AttributeOwnerType.Instance_Puzzle_Group_Object_Variable) {
+            outputAttributes = findInstanceVariables(ownerId,ownerType);
+        }
+        else if(ownerType == AttributeOwnerType.Instance_Puzzle_Group_Object_Property) {
+            outputAttributes = findInstanceProperties(ownerId,ownerType);
+        }
+        else if(ownerType == AttributeOwnerType.Puzzle_Level_Variable) {
+            outputAttributes = findPuzzleLevelVariable(ownerId,ownerType);
+        }
+        else if(ownerType == AttributeOwnerType.Puzzle_Level_Rule_Post_Action) {
+            outputAttributes = findPuzzleLevelRulePostAction(ownerId,ownerType);
+        }
+        else if(ownerType == AttributeOwnerType.Puzzle_Level_Rule_Post_Action_Parameter) {
+            outputAttributes = findPuzzleLevelRulePostActionParameters(ownerId,ownerType);
+        }
+        else if(ownerType == AttributeOwnerType.Puzzle_Level_Cell_Variable) {
+            outputAttributes = findPuzzleLevelCellVariable(ownerId,ownerType);
+        }
+        else if(ownerType == AttributeOwnerType.Puzzle_Level_Cell_Property) {
+            outputAttributes = findPuzzleLevelCellVariable(ownerId,ownerType);
+        }
 
         return outputAttributes;
     }
-*/
+
+
     @Override
     public Optional<Attribute> findByOwnerIdAndName(Long ownerId, String name) {
         return attributeRepository.findByOwnerIdAndName(ownerId,name);

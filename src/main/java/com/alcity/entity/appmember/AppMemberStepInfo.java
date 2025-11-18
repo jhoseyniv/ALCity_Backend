@@ -1,14 +1,18 @@
 package com.alcity.entity.appmember;
 
+import com.alcity.dto.plimpexport.PLObjectiveData;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.io.Serializable;
+import java.util.Collection;
 
 @Getter
 @Setter
 @NoArgsConstructor
 
-public class AppMemberStepInfo {
+public class AppMemberStepInfo implements Serializable {
 
     private Long stepId;
     private String stepTitle;
@@ -25,11 +29,12 @@ public class AppMemberStepInfo {
     private String puzzleGroupTitle;
 
     private Integer stars;
+    private Collection<PLObjectiveData> objectives;
 
     private Boolean completed ;
 
     public AppMemberStepInfo(Long stepId, String stepTitle,Integer xPos,Integer yPos,Integer ordering, Long puzzleLevelId,Long puzzleLevelIconId, String puzzleLevelTitle,
-                             Long puzzleGroupId, String puzzleGroupTitle,Integer stars,Boolean completed) {
+                             Long puzzleGroupId, String puzzleGroupTitle,Integer stars,Boolean completed,Collection<PLObjectiveData> objectives) {
         this.stepId = stepId;
         this.stepTitle = stepTitle;
         this.puzzleLevelId = puzzleLevelId;
@@ -42,5 +47,6 @@ public class AppMemberStepInfo {
         this.yPos =yPos;
         this.ordering = ordering;
         this.completed = completed;
+        this.objectives = objectives;
     }
 }

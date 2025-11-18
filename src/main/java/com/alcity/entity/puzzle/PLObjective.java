@@ -8,9 +8,7 @@ import com.alcity.entity.appmember.WalletItem;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.io.Serializable;
 import java.util.Collection;
@@ -46,6 +44,30 @@ public class PLObjective extends BaseTable implements Serializable {
     @JoinColumn(name = "learning_skill_id", nullable = true)
     @JsonIgnore
     private LearningSkill learningSkill;
+
+    public LearningSkill getLearningSkill() {
+        return learningSkill;
+    }
+
+    public void setLearningSkill(LearningSkill learningSkill) {
+        this.learningSkill = learningSkill;
+    }
+
+    public WalletItem getWalletItem() {
+        return walletItem;
+    }
+
+    public void setWalletItem(WalletItem walletItem) {
+        this.walletItem = walletItem;
+    }
+
+    public PuzzleLevel getPuzzleLevel() {
+        return puzzleLevel;
+    }
+
+    public void setPuzzleLevel(PuzzleLevel puzzleLevel) {
+        this.puzzleLevel = puzzleLevel;
+    }
 
     @ManyToOne(fetch = FetchType.LAZY, optional = true)
     @JoinColumn(name = "wallet_item_id", nullable = true)
