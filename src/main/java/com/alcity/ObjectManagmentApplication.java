@@ -3,9 +3,12 @@ package com.alcity;
 import com.ulisesbocchio.jasyptspringboot.annotation.EnableEncryptableProperties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cache.CacheManager;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.annotation.Order;
@@ -17,8 +20,10 @@ import java.time.format.DateTimeFormatter;
 @EnableEncryptableProperties
 @Order(value=2)
 @SpringBootApplication
+@EnableCaching
 public class ObjectManagmentApplication {
-
+	@Autowired
+	private CacheManager cacheManager;
 	public static void main(String[] args) {
 		SpringApplication.run(ObjectManagmentApplication.class, args);
 	}
