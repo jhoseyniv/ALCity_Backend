@@ -153,6 +153,11 @@ public class PuzzleLevelService implements PuzzleLevelRepository {
     }
 
     @Override
+    public Collection<PuzzleLevel> findByPuzzleLevelPrivacyByAge(PLPrivacy privacy, Integer age) {
+        return puzzleLevelRepository.findByPuzzleLevelPrivacyByAge(privacy,age);
+    }
+
+     @Override
     public Iterable<PuzzleLevel> findAllById(Iterable<Long> longs) {
         return null;
     }
@@ -612,12 +617,15 @@ public class PuzzleLevelService implements PuzzleLevelRepository {
 
         return puzzleLevel;
     }
+
+/*
     public Collection<PuzzleLevel> getPublicPuzzleLevelByAppMember(AppMember member) {
-            PLPrivacy pub = plPrivacyRepository.findByValue("Public");
-            Collection<PuzzleLevel> puzzleLevels = puzzleLevelRepository.findByPuzzleLevelPrivacy(pub);
-            Collection<PuzzleLevel> filterdByAge = puzzleLevels.stream().filter(PuzzleLevel -> PuzzleLevel.getFromAge() <=member.getAge()  && member.getAge() <= PuzzleLevel.getToAge()).collect(Collectors.toList());
-         return  filterdByAge;
+        PLPrivacy pub = plPrivacyRepository.findByValue("Public");
+        Collection<PuzzleLevel> puzzleLevels = puzzleLevelRepository.findByPuzzleLevelPrivacy(pub);
+        Collection<PuzzleLevel> filterdByAge = puzzleLevels.stream().filter(PuzzleLevel -> PuzzleLevel.getFromAge() <=member.getAge()  && member.getAge() <= PuzzleLevel.getToAge()).collect(Collectors.toList());
+        return  filterdByAge;
     }
+*/
 
    public JourneyStep getPuzzleLevelMappedStep(Long id){
         JourneyStep journeyStep = null;

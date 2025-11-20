@@ -14,6 +14,7 @@ import com.alcity.dto.search.AppMemberSearchCriteriaDTO;
 import com.alcity.entity.alenum.*;
 import com.alcity.entity.appmember.*;
 import com.alcity.entity.base.ClientType;
+import com.alcity.entity.base.PLPrivacy;
 import com.alcity.entity.journey.Journey;
 import com.alcity.entity.journey.JourneyStep;
 import com.alcity.entity.puzzle.PLGameInstance;
@@ -28,6 +29,7 @@ import com.alcity.repository.appmember.AppMember_WalletItemRepository;
 import com.alcity.repository.appmember.CustomizedUserRepository;
 import com.alcity.repository.appmember.WalletItemRespository;
 import com.alcity.repository.base.BinaryContentRepository;
+import com.alcity.repository.base.PLPrivacyRepository;
 import com.alcity.service.base.MemberTypeService;
 import com.alcity.service.puzzle.PuzzleLevelService;
 import com.alcity.utility.DTOUtil;
@@ -35,6 +37,7 @@ import com.alcity.utility.DateUtils;
 import com.alcity.utility.GenerateSHA256;
 import com.alcity.utility.SlicedStream;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -65,6 +68,10 @@ public class AppMemberService implements AppMemberRepository, CustomizedUserRepo
     @Autowired
     private WalletItemRespository walletItemRespository;
 
+    @Qualifier("PLPrivacyRepository")
+    @Autowired
+    private PLPrivacyRepository plPrivacyRepository;
+
     @Autowired
     private PuzzleLevelService puzzleLevelService;
 
@@ -88,8 +95,13 @@ public class AppMemberService implements AppMemberRepository, CustomizedUserRepo
 
     public  Collection<PLDTO> getPublicPuzzleLevels(AppMember appMember){
         Collection<PLDTO>  pldtos= new ArrayList<PLDTO>();
-        Collection<PuzzleLevel> puzzleLevels = puzzleLevelService.getPublicPuzzleLevelByAppMember(appMember);
+        long start_time2 = System.currentTimeMillis();
+        PLPrivacy pub = plPrivacyRepository.findByValue("Public");
+        Collection<PuzzleLevel> puzzleLevels = puzzleLevelService.findByPuzzleLevelPrivacyByAge(pub,appMember.getAge());
+
         pldtos =DTOUtil.getPuzzleLevelDTOS(puzzleLevels);
+        long end_time2 = System.currentTimeMillis();
+        System.out.println("time for running getPublicPuzzleLevelByAppMemberNew Method = " + (end_time2 - start_time2)*0.001);
         return pldtos;
     }
 
@@ -136,6 +148,7 @@ public class AppMemberService implements AppMemberRepository, CustomizedUserRepo
             PLDTO pldto = itr.next();
             Collection<PLObjectiveDTO> objectives = pldto.getObjectives();
             Collection<PLObjectiveData> objectivesData = DTOUtil.getPLObjectivesData(objectives);
+
             JourneyStep journeyStep = puzzleLevelService.getPuzzleLevelMappedStep(pldto.getId());
             if(journeyStep!=null){
                 if(journeyStep.getJourney().getId() == journey.getId()) {

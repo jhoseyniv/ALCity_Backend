@@ -18,6 +18,7 @@ import com.alcity.utility.DTOUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
@@ -118,6 +119,7 @@ public class BinaryContentController {
     @PostMapping("/search")
     @ResponseBody
     @CrossOrigin(origins = "*")
+    @Cacheable(value = "getBinaryContent", key = "#p0")
     public Collection<BinaryContentDTO> getBinaryContentBySearchCriteria(@RequestBody ContentSearchCriteriaDTO criteriaDTO ) {
         Collection<BinaryContent> binaryContentCollection = binaryContentService.findByCriteria(criteriaDTO);
         return DTOUtil.getBinaryContentsWithoutContent(binaryContentCollection);
