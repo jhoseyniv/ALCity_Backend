@@ -19,6 +19,7 @@ import com.alcity.utility.DTOUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -85,6 +86,7 @@ public class PGController {
     @Operation( summary = "get all Puzzle Groups ",  description = "get all Puzzle Groups")
     @GetMapping("/all")
     @CrossOrigin
+    @Cacheable(value = "getPuzzleGroups", key = "#p0")
     public Collection<PGDTO> getPuzzleGroups(Model model) {
         Collection<PuzzleGroup> puzzleGroupCollection = pgService.findAll();
         Collection<PGDTO> puzzleGroupDTOCollection = new ArrayList<PGDTO>();

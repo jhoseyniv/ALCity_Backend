@@ -94,6 +94,8 @@ public class DTOUtil {
         }
         return  dtos;
     }
+
+
     public static PLDTO getPuzzleLevelDTO(PuzzleLevel pl) {
         Long plGroundId = 0L;
         if(pl.getPlGrounds().isEmpty())
@@ -108,10 +110,12 @@ public class DTOUtil {
                 pl.getApproveDate(), plGroundId, pl.getPuzzleGroup().getId(), pl.getPuzzleGroup().getTitle(),
                 pl.getOrdering(), pl.getTitle(), pl.getCode(), pl.getFromAge(), pl.getToAge(), pl.getMaxScore(),
                 pl.getFirstStarScore() , pl.getSecondStarScore(), pl.getThirdStartScore(),
-                pl.getPuzzleLevelStatus().name(), pl.getPuzzleLevelPrivacy().getValue(), pl.getPuzzleDifficulty().name(),pl.getPuzzleGroup().getIcon().getId(),pl.getPuzzleGroup().getPic().getId());
+                pl.getPuzzleLevelStatus().name(), pl.getPuzzleLevelPrivacy().getValue(), pl.getPuzzleDifficulty().name(),
+                pl.getPuzzleGroup().getIcon().getId(),pl.getPuzzleGroup().getPic().getId());
             dto.setObjectives(objectives);
     return  dto;
     }
+
     public static void copyActionFromTo(Long fromOwnerId, Long toOwnerId,AttributeOwnerType from,AttributeOwnerType to,
                                         ActionService actionService,POActionOwnerType  fromAction,POActionOwnerType toAction,
                                         AttributeService attributeService, AttributeValueService attributeValueService) {

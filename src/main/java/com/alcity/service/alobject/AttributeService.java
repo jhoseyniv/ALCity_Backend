@@ -408,10 +408,15 @@ public class AttributeService implements AttributeRepository {
             Collection<AttributeValue> parameterValues = parameter.getAttributeValues();
             Optional<AttributeValue> isActionHasValue = parameterValues.stream().filter(value -> value.getOwnerType().equals(AttributeOwnerType.Action_Handler_Parameter)).findFirst();
 
-            if (isActionHasValue.isPresent())
-                outputValues.add(isActionHasValue.get());
+            if (isActionHasValue.isPresent()) {
+                AttributeValue value = new AttributeValue();
+                value = isActionHasValue.get();
+                value.setAttributeId(parameter);
+                outputValues.add(value);
+            }
             else {
                AttributeValue defaultValue = setDefaultValue(parameter);
+                defaultValue.setAttributeId(parameter);
                 outputValues.add(defaultValue);
             }
             parameter.setAttributeValues(outputValues);

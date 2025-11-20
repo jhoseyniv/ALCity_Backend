@@ -24,7 +24,6 @@ public class AppMemberJourneyInfo {
     private Collection<RoadMapDTO> roadMaps;
     private Collection<AppMemberStepInfo> steps;
 
-
     public AppMemberJourneyInfo(Long journeyId, String journeyTitle,Long passedIconId,Long currentIconId,Long lockedIconId, Long appMemberId, String appMemberUserName,Collection<AppMemberStepInfo> steps , Collection<RoadMapDTO> roadMaps) {
         this.journeyId = journeyId;
         this.journeyTitle = journeyTitle;
