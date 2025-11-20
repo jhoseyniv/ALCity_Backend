@@ -33,6 +33,8 @@ import com.alcity.utility.DateUtils;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.CacheManager;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
@@ -203,6 +205,7 @@ public class AppMemberController {
     @RequestMapping(value = "/id/{id}/skill-radar-chart", method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin(origins = "*")
+    @Cacheable(value = "getRadarChartData", key = "#p1")
     public Collection<LearningSkillRadarDTO> getRadarChartData(@PathVariable Long id) {
         Collection<LearningSkillRadarDTO> dtos = new ArrayList<>();
         Optional<AppMember> memberOptional = service.findById(id);
@@ -324,11 +327,14 @@ public class AppMemberController {
         Collection<PLGameInstanceDTO> dtos = DTOUtil.getPLGameInstanceDTOS(gameInstances);
         return dtos;
     }
+    @Autowired
+    CacheManager cacheManager;
 
     @Operation( summary = "Get a Journey Information with steps and scores for an Application Member",  description = "get a data structure that encompass steps and puzzles for an member and a journey ...")
     @RequestMapping(value = "/id/{id}/journey/jid/{jid}", method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin(origins = "*")
+    @Cacheable(value = "JourneyCache", key = "#p0")
     public AppMemberJourneyInfo getPuzzleLevelMappedStepInJourney(@PathVariable Long id, @PathVariable Long jid) {
         long start_time = System.currentTimeMillis();
         Optional<AppMember> memberOptional = service.findById(id);
@@ -336,9 +342,12 @@ public class AppMemberController {
         AppMemberJourneyInfo journeyInfoWithScores =null;
         if(memberOptional.isEmpty()  || journeyOptional.isEmpty()) return  null;
         AppMemberJourneyInfo journeyInfo = service.getAppMemberJourneyInfo(memberOptional.get(),journeyOptional.get());
-        long end_time = System.currentTimeMillis();
         journeyInfoWithScores =service.getAppMemberJourneyInfoWithScores(memberOptional.get(),journeyInfo);
-        System.out.println("Milliseconds for running getPuzzleLevelMappedStepInJourney Method = " + (end_time - start_time));
+        long end_time = System.currentTimeMillis();
+
+        cacheManager.getCache("AppMemberJourneyInfo").put(journeyInfoWithScores.getJourneyId(), journeyInfoWithScores);
+
+        System.out.println("Time for running getPuzzleLevelMappedStepInJourney Method = " + (end_time - start_time)*0.001);
         return journeyInfoWithScores;
     }
 
