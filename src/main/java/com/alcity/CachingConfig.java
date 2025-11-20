@@ -59,7 +59,7 @@ public class CachingConfig {
                 .withCacheConfiguration("getRadarChart", myDefaultCacheConfig(Duration.ofMinutes(10)))
                 .withCacheConfiguration("getBinaryContent", myDefaultCacheConfig(Duration.ofMinutes(50)))
                 .withCacheConfiguration("getPuzzleGroups", myDefaultCacheConfig(Duration.ofMinutes(50)))
-                .withCacheConfiguration("getPuzzleCategories", myDefaultCacheConfig(Duration.ofMinutes(50)))
+                .withCacheConfiguration("all-PuzzleCategoryDTO", myDefaultCacheConfig(Duration.ofMinutes(50)))
                 .withCacheConfiguration("all-TemplateDTO", myDefaultCacheConfig(Duration.ofMinutes(50)))
                 .withCacheConfiguration("all-PLDTO", myDefaultCacheConfig(Duration.ofMinutes(50)))
                 .withCacheConfiguration("getPuzzleLevelContents", myDefaultCacheConfig(Duration.ofMinutes(50)))
