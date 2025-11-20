@@ -60,13 +60,15 @@ public class CachingConfig {
                 .withCacheConfiguration("getBinaryContent", myDefaultCacheConfig(Duration.ofMinutes(50)))
                 .withCacheConfiguration("getPuzzleGroups", myDefaultCacheConfig(Duration.ofMinutes(50)))
                 .withCacheConfiguration("getPuzzleCategories", myDefaultCacheConfig(Duration.ofMinutes(50)))
-                .withCacheConfiguration("getPLTemplates", myDefaultCacheConfig(Duration.ofMinutes(50)))
-                .withCacheConfiguration("getPuzzleLevels", myDefaultCacheConfig(Duration.ofMinutes(50)))
+                .withCacheConfiguration("all-TemplateDTO", myDefaultCacheConfig(Duration.ofMinutes(50)))
+                .withCacheConfiguration("all-PLDTO", myDefaultCacheConfig(Duration.ofMinutes(50)))
                 .withCacheConfiguration("getPuzzleLevelContents", myDefaultCacheConfig(Duration.ofMinutes(50)))
                 .withCacheConfiguration("getFileContent", myDefaultCacheConfig(Duration.ofMinutes(50)))
                 .withCacheConfiguration("getFileByDeviceType", myDefaultCacheConfig(Duration.ofMinutes(50)))
                 .withCacheConfiguration("getBinaryContentByIdAndDevice", myDefaultCacheConfig(Duration.ofMinutes(50)))
                 .withCacheConfiguration("getBinaryContentById", myDefaultCacheConfig(Duration.ofMinutes(50)))
+                .withCacheConfiguration("getRelatedPuzzleGroupsOfACategory", myDefaultCacheConfig(Duration.ofMinutes(50)))
+                .withCacheConfiguration("getRelatedPuzzleLevelTemplatesOfACategory", myDefaultCacheConfig(Duration.ofMinutes(50)))
                 .build();
 
     }
