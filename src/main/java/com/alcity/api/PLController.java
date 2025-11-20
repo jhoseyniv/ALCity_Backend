@@ -64,8 +64,8 @@ public class PLController {
     @Operation( summary = "Fetch all puzzle level data ",  description = "fetches all data for all puzzle level structure ")
     @GetMapping("/all")
     @CrossOrigin(origins = "*")
-    @Cacheable(value = "getPuzzleLevels", key = "#p0")
-    public Collection<PLDTO> getPuzzleLevels(Model model) {
+    @Cacheable("all-PLDTO")
+    public Collection<PLDTO> getPuzzleLevels() {
         Collection<PLDTO> pldtos = new ArrayList<PLDTO>();
         Collection<PuzzleLevel> puzzleLevels = plService.findAll();
         Iterator<PuzzleLevel> itr = puzzleLevels.iterator();

@@ -63,6 +63,10 @@ public class CachingConfig {
                 .withCacheConfiguration("getPLTemplates", myDefaultCacheConfig(Duration.ofMinutes(50)))
                 .withCacheConfiguration("getPuzzleLevels", myDefaultCacheConfig(Duration.ofMinutes(50)))
                 .withCacheConfiguration("getPuzzleLevelContents", myDefaultCacheConfig(Duration.ofMinutes(50)))
+                .withCacheConfiguration("getFileContent", myDefaultCacheConfig(Duration.ofMinutes(50)))
+                .withCacheConfiguration("getFileByDeviceType", myDefaultCacheConfig(Duration.ofMinutes(50)))
+                .withCacheConfiguration("getBinaryContentByIdAndDevice", myDefaultCacheConfig(Duration.ofMinutes(50)))
+                .withCacheConfiguration("getBinaryContentById", myDefaultCacheConfig(Duration.ofMinutes(50)))
                 .build();
 
     }
@@ -73,20 +77,9 @@ public class CachingConfig {
                 .entryTtl(duration)
                 .serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(new GenericJackson2JsonRedisSerializer()));
     }
-    /*
-    public static String objectToString(Object object) {
-        String result = "";
-        if (object != null) {
-            try {
-                result = (new ObjectMapper()).writeValueAsString(object);
-            } catch (JsonProcessingException var3) {
-                JsonProcessingException e = var3;
-                // catching exception if any
-            }
-        }
-        return result;
-    }
 
+
+    /*
     @Bean
     public RedisCustomConversions redisCustomConversions(OffsetDateTimeToBytesConverter offsetToBytes,
                                                          BytesToOffsetDateTimeConverter bytesToOffset) {
