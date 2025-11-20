@@ -18,6 +18,7 @@ import com.alcity.utility.DTOUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
@@ -36,6 +37,7 @@ public class PLTemplateController {
     @Operation( summary = "Fetch all puzzle level templates data ",  description = "fetches all data for all puzzle level templates structure ")
     @GetMapping("/all")
     @CrossOrigin(origins = "*")
+    @Cacheable(value = "getPLTemplates", key = "#p0")
     public Collection<PLTemplateDTO> getPLTemplates(Model model) {
         Collection<PLTemplateDTO> templateDTOS = new ArrayList<PLTemplateDTO>();
         Collection<PLTemplate> templates = plTemplateService.findAll();
