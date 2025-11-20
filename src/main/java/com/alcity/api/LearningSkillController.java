@@ -81,6 +81,7 @@ public class LearningSkillController {
 
     @RequestMapping(value = "/skill/cond/{criteria}", method = RequestMethod.GET)
     @ResponseBody
+    @Cacheable(value = "getLearningSkillByCriteria", key = "#p0")
     public Collection<LearningSkillDTO> getLearningSkillByCriteria(@PathVariable String criteria) {
         Collection<LearningSkill> skills = learningSkillService.findByTitleContains(criteria);
         Collection<LearningSkillDTO>  dtos = new ArrayList<LearningSkillDTO>();

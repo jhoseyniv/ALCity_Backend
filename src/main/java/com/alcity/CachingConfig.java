@@ -57,8 +57,8 @@ public class CachingConfig {
                 .cacheDefaults(cacheConfig)
                 .withCacheConfiguration("JourneyCache", myDefaultCacheConfig(Duration.ofMinutes(50)))
                 .withCacheConfiguration("getRadarChart", myDefaultCacheConfig(Duration.ofMinutes(10)))
-                .withCacheConfiguration("getBinaryContent", myDefaultCacheConfig(Duration.ofMinutes(50)))
-                .withCacheConfiguration("getPuzzleGroups", myDefaultCacheConfig(Duration.ofMinutes(50)))
+                .withCacheConfiguration("getBinaryContent", myDefaultCacheConfig(Duration.ofMinutes(30)))
+                .withCacheConfiguration("getPuzzleGroups", myDefaultCacheConfig(Duration.ofMinutes(30)))
                 .withCacheConfiguration("all-PuzzleCategoryDTO", myDefaultCacheConfig(Duration.ofMinutes(50)))
                 .withCacheConfiguration("all-TemplateDTO", myDefaultCacheConfig(Duration.ofMinutes(50)))
                 .withCacheConfiguration("all-PLDTO", myDefaultCacheConfig(Duration.ofMinutes(50)))
@@ -72,7 +72,13 @@ public class CachingConfig {
                 .withCacheConfiguration("all-LearningSkillDTO", myDefaultCacheConfig(Duration.ofMinutes(50)))
                 .withCacheConfiguration("getLearningSkillsByType", myDefaultCacheConfig(Duration.ofMinutes(50)))
                 .withCacheConfiguration("getLearnSkillTreeById", myDefaultCacheConfig(Duration.ofMinutes(50)))
+                .withCacheConfiguration("getLearningSkillByCriteria", myDefaultCacheConfig(Duration.ofMinutes(50)))
+                .withCacheConfiguration("getJourneysByUserId", myDefaultCacheConfig(Duration.ofMinutes(50)))
+                .withCacheConfiguration("getGamePlayByUserIdAndPuzzleLevel", myDefaultCacheConfig(Duration.ofMinutes(10)))
+                .withCacheConfiguration("getAllPlayGameForUser", myDefaultCacheConfig(Duration.ofMinutes(10)))
+                .withCacheConfiguration("getAppMemberBySearchCriteria", myDefaultCacheConfig(Duration.ofMinutes(10)))
                  .build();
+
     }
 
     private RedisCacheConfiguration myDefaultCacheConfig(Duration duration) {
