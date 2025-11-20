@@ -27,6 +27,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.json.JSONException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -63,6 +64,7 @@ public class PLController {
     @Operation( summary = "Fetch all puzzle level data ",  description = "fetches all data for all puzzle level structure ")
     @GetMapping("/all")
     @CrossOrigin(origins = "*")
+    @Cacheable(value = "getPuzzleLevels", key = "#p0")
     public Collection<PLDTO> getPuzzleLevels(Model model) {
         Collection<PLDTO> pldtos = new ArrayList<PLDTO>();
         Collection<PuzzleLevel> puzzleLevels = plService.findAll();
@@ -100,6 +102,7 @@ public class PLController {
     @RequestMapping(value = "/id/{id}/contents", method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin(origins = "*")
+    @Cacheable(value = "getPuzzleLevelContents", key = "#p0")
     public Collection<PLBinaryContentDTO> getPuzzleLevelContents(@PathVariable Long id) throws IOException, ClassNotFoundException {
         Optional<PuzzleLevel> puzzleLevelOptional = plService.findById(id);
         Collection<PLBinaryContentDTO> plContents = new ArrayList<>();

@@ -61,6 +61,8 @@ public class CachingConfig {
                 .withCacheConfiguration("getPuzzleGroups", myDefaultCacheConfig(Duration.ofMinutes(50)))
                 .withCacheConfiguration("getPuzzleCategories", myDefaultCacheConfig(Duration.ofMinutes(50)))
                 .withCacheConfiguration("getPLTemplates", myDefaultCacheConfig(Duration.ofMinutes(50)))
+                .withCacheConfiguration("getPuzzleLevels", myDefaultCacheConfig(Duration.ofMinutes(50)))
+                .withCacheConfiguration("getPuzzleLevelContents", myDefaultCacheConfig(Duration.ofMinutes(50)))
                 .build();
 
     }
