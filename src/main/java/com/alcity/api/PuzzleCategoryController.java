@@ -23,6 +23,7 @@ import com.alcity.utility.SearchSpecification;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -44,6 +45,7 @@ public class PuzzleCategoryController {
     @Operation( summary = "Get all Puzzle Category ",  description = "get all Puzzle Category")
     @GetMapping("/all")
     @CrossOrigin(origins = "*")
+    @Cacheable(value = "getPuzzleCategories", key = "#p0")
     public Collection<PuzzleCategoryDTO> getPuzzleCategories(Model model) {
         Collection<PuzzleCategoryDTO> puzzleCategoryDTOS = new ArrayList<PuzzleCategoryDTO>();
         Collection<PuzzleCategory> puzzleCategoryCollection = puzzleCategoryService.findAll();

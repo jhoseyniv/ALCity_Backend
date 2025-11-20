@@ -59,6 +59,7 @@ public class CachingConfig {
                 .withCacheConfiguration("getRadarChart", myDefaultCacheConfig(Duration.ofMinutes(10)))
                 .withCacheConfiguration("getBinaryContent", myDefaultCacheConfig(Duration.ofMinutes(50)))
                 .withCacheConfiguration("getPuzzleGroups", myDefaultCacheConfig(Duration.ofMinutes(50)))
+                .withCacheConfiguration("getPuzzleCategories", myDefaultCacheConfig(Duration.ofMinutes(50)))
                 .build();
 
     }
