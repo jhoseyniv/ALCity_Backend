@@ -69,8 +69,10 @@ public class CachingConfig {
                 .withCacheConfiguration("getBinaryContentById", myDefaultCacheConfig(Duration.ofMinutes(50)))
                 .withCacheConfiguration("getRelatedPuzzleGroupsOfACategory", myDefaultCacheConfig(Duration.ofMinutes(50)))
                 .withCacheConfiguration("getRelatedPuzzleLevelTemplatesOfACategory", myDefaultCacheConfig(Duration.ofMinutes(50)))
-                .build();
-
+                .withCacheConfiguration("all-LearningSkillDTO", myDefaultCacheConfig(Duration.ofMinutes(50)))
+                .withCacheConfiguration("getLearningSkillsByType", myDefaultCacheConfig(Duration.ofMinutes(50)))
+                .withCacheConfiguration("getLearnSkillTreeById", myDefaultCacheConfig(Duration.ofMinutes(50)))
+                 .build();
     }
 
     private RedisCacheConfiguration myDefaultCacheConfig(Duration duration) {

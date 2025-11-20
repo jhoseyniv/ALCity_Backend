@@ -19,6 +19,7 @@ import com.alcity.service.learning.LearningSkillService;
 import com.alcity.service.puzzle.PLRulePostActionService;
 import com.alcity.utility.DTOUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
@@ -36,7 +37,8 @@ public class LearningSkillController {
     private LearningSkillService learningSkillService;
 
     @GetMapping("/skill/all")
-    public Collection<LearningSkillDTO> getLearningSkills(Model model) {
+    @Cacheable("all-LearningSkillDTO")
+    public Collection<LearningSkillDTO> getLearningSkills() {
         Collection<LearningSkill> skills = new ArrayList<>();
         skills = learningSkillService.findAll();
         Collection<LearningSkillDTO>  dtos = new ArrayList<LearningSkillDTO>();
@@ -46,9 +48,10 @@ public class LearningSkillController {
 
     @RequestMapping(value = "/skill/type/{type}", method = RequestMethod.GET)
     @ResponseBody
-    public Collection<LearningSkillDTO> getLearningSkills(@PathVariable String type) {
+    @Cacheable(value = "getLearningSkillsByType", key = "#p0")
+    public Collection<LearningSkillDTO> getLearningSkillsByType(@PathVariable String type) {
         Collection<LearningSkill> skills = new ArrayList<>();
-        SkillType skillType = SkillType.valueOf(type.toUpperCase());
+        SkillType skillType = SkillType.getByTitle(type);
         skills = learningSkillService.findByType(skillType);
         Collection<LearningSkillDTO>  dtos = new ArrayList<LearningSkillDTO>();
         dtos = DTOUtil.getLearningSkillDTO(skills);
@@ -65,10 +68,9 @@ public class LearningSkillController {
         return learningSkillDTO;
     }
 
-
-
     @RequestMapping(value = "/skill-tree/id/{id}", method = RequestMethod.GET)
     @ResponseBody
+    @Cacheable(value = "getLearnSkillTreeById", key = "#p0")
     public LearningSkillTreeDTO getLearnSkillTreeById(@PathVariable Long id) {
         Optional<LearningSkill> learningSkillOptional = learningSkillService.findById(id);
         LearningSkillTreeDTO  skillTree = new LearningSkillTreeDTO();
