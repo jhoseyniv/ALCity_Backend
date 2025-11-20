@@ -47,4 +47,5 @@ public class BinaryContentDTO implements Serializable {
         this.tag2 = tag2;
         this.tag3 = tag3;
     }
+
 }

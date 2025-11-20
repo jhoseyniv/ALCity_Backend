@@ -20,4 +20,8 @@ public class AppMemberSearchCriteriaDTO {
         this.lastIndex = lastIndex;
         this.pageSize = pageSize;
     }
+    public String toString() {
+        return "criteria: '" + this.criteria + "', age: '" + this.age + "', lastIndex: '" + this.lastIndex + "'"+
+                "', pageSize: '" + this.pageSize + "'";
+    }
 }

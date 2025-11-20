@@ -297,7 +297,8 @@ public class AppMemberController {
     @PostMapping("/search")
     @ResponseBody
     @CrossOrigin(origins = "*")
-    public Collection<AppMemberDTO> getBinaryContentBySearchCriteria(@RequestBody AppMemberSearchCriteriaDTO criteriaDTO ) {
+    @Cacheable(value = "getAppMemberBySearchCriteria", key = "#p0")
+    public Collection<AppMemberDTO> getAppMemberBySearchCriteria(@RequestBody AppMemberSearchCriteriaDTO criteriaDTO ) {
         Collection<AppMember> appMembers = service.findByCriteria(criteriaDTO);
         return DTOUtil.getAppMemberDTOS(appMembers);
     }
@@ -306,6 +307,7 @@ public class AppMemberController {
     @RequestMapping(value = "/id/{id}/game-play-all", method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin(origins = "*")
+    @Cacheable(value = "getAllPlayGameForUser", key = "#p0")
     public Collection<PLGameInstanceDTO> getAllPlayGameForUser(@PathVariable Long id) {
         Optional<AppMember> memberOptional = service.findById(id);
         Collection<PLGameInstance>  histories= memberOptional.get().getPlGameInstances();
@@ -317,6 +319,7 @@ public class AppMemberController {
     @RequestMapping(value = "/id/{id}/game-play/pid/{pid}", method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin(origins = "*")
+    @Cacheable(value = "getGamePlayByUserIdAndPuzzleLevel", key = "#p0")
     public Collection<PLGameInstanceDTO> getGamePlayByUserIdAndPuzzleLevel(@PathVariable Long id,@PathVariable Long pid) {
         Collection<PLGameInstance> gameInstances = new ArrayList<>();
         Collection<PLGameInstanceDTO> historyDTOS = new ArrayList<>();
@@ -366,6 +369,7 @@ public class AppMemberController {
     @RequestMapping(value = "/id/{id}/journeys", method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin(origins = "*")
+    @Cacheable(value = "getJourneysByUserId", key = "#p0")
     public Collection<AppMemberJourneyDTO> getJourneysByUserId(@PathVariable Long id) {
         Optional<AppMember> memberOptional = service.findById(id);
         Collection<Journey> journeys = journeyService.findAll();
@@ -472,20 +476,6 @@ public class AppMemberController {
 
         return response;
     }
-
-//    public boolean checkPLRewardConstraint(WalletItemTransactionDTO dto){
-//        Long objectiveId = dto.getCounterpartyId();
-//        Long appMemberId = dto.getAppMemberId();
-//        Optional<AppMember> appMemberOptional = appMemberService.findById(appMemberId);
-//        Optional<PLObjective> plObjectiveOptional = plObjectiveService.findById(objectiveId);
-//
-//        if(appMemberOptional.isEmpty() || plObjectiveOptional.isEmpty() ) return false;
-//
-//        Optional<WalletTransaction> transactionOptional = walletTransactionService.findByAppMemberAndCounterpartyId(appMemberOptional.get(),plObjectiveOptional.get().getId());
-//        if(transactionOptional.isPresent()) return true;
-//
-//        return false;
-//    }
 
     public boolean isCurrentTransactionAmountGrater(PLObjectiveTransactionDTO dto){
         Long objectiveId = dto.getObjectiveId();
