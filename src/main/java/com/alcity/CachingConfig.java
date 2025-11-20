@@ -60,6 +60,7 @@ public class CachingConfig {
                 .withCacheConfiguration("getBinaryContent", myDefaultCacheConfig(Duration.ofMinutes(50)))
                 .withCacheConfiguration("getPuzzleGroups", myDefaultCacheConfig(Duration.ofMinutes(50)))
                 .withCacheConfiguration("getPuzzleCategories", myDefaultCacheConfig(Duration.ofMinutes(50)))
+                .withCacheConfiguration("getPLTemplates", myDefaultCacheConfig(Duration.ofMinutes(50)))
                 .build();
 
     }
