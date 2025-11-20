@@ -45,8 +45,8 @@ public class PuzzleCategoryController {
     @Operation( summary = "Get all Puzzle Category ",  description = "get all Puzzle Category")
     @GetMapping("/all")
     @CrossOrigin(origins = "*")
-    @Cacheable(value = "getPuzzleCategories", key = "#p0")
-    public Collection<PuzzleCategoryDTO> getPuzzleCategories(Model model) {
+    @Cacheable("all-PuzzleCategoryDTO")
+    public Collection<PuzzleCategoryDTO> getPuzzleCategories() {
         Collection<PuzzleCategoryDTO> puzzleCategoryDTOS = new ArrayList<PuzzleCategoryDTO>();
         Collection<PuzzleCategory> puzzleCategoryCollection = puzzleCategoryService.findAll();
         puzzleCategoryDTOS = DTOUtil.getPuzzleCategoryDTOS(puzzleCategoryCollection);
@@ -56,6 +56,7 @@ public class PuzzleCategoryController {
     @Operation( summary = "Get all Puzzle Group for a puzzle Category ",  description = "Get all Puzzle Category")
     @GetMapping("/id/{id}/pg/all")
     @CrossOrigin(origins = "*")
+    @Cacheable("getRelatedPuzzleGroupsOfACategory")
     public Collection<PGDTO> getRelatedPuzzleGroupsOfACategory(@PathVariable Long id) {
         Collection<PGDTO> pgdtos = new ArrayList<PGDTO>();
         Optional<PuzzleCategory> puzzleCategoryOptional = puzzleCategoryService.findById(id);
@@ -69,6 +70,7 @@ public class PuzzleCategoryController {
     @Operation( summary = "Get all Puzzle Level Templates by a puzzle Category id ",  description = "Get all Puzzle Level Templates")
     @GetMapping("/id/{id}/plt/all")
     @CrossOrigin(origins = "*")
+    @Cacheable("getRelatedPuzzleLevelTemplatesOfACategory")
     public Collection<PLTemplateDTO> getRelatedPuzzleLevelTemplatesOfACategory(@PathVariable Long id) {
         Collection<PLTemplateDTO> plTemplateDTOS = new ArrayList<PLTemplateDTO>();
         Optional<PuzzleCategory> puzzleCategoryOptional = puzzleCategoryService.findById(id);
