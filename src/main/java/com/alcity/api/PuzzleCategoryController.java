@@ -70,7 +70,7 @@ public class PuzzleCategoryController {
     @Operation( summary = "Get all Puzzle Level Templates by a puzzle Category id ",  description = "Get all Puzzle Level Templates")
     @GetMapping("/id/{id}/plt/all")
     @CrossOrigin(origins = "*")
-    @Cacheable("getRelatedPuzzleLevelTemplatesOfACategory")
+    @Cacheable(value = "getRelatedPuzzleLevelTemplatesOfACategory", key = "#id")
     public Collection<PLTemplateDTO> getRelatedPuzzleLevelTemplatesOfACategory(@PathVariable Long id) {
         Collection<PLTemplateDTO> plTemplateDTOS = new ArrayList<PLTemplateDTO>();
         Optional<PuzzleCategory> puzzleCategoryOptional = puzzleCategoryService.findById(id);
