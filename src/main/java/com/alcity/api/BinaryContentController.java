@@ -128,22 +128,6 @@ public class BinaryContentController {
         Collection<BinaryContent> binaryContentCollection = binaryContentService.findByCriteria(criteriaDTO);
         return DTOUtil.getBinaryContentsWithoutContent(binaryContentCollection);
     }
-//    @Operation( summary = "Save a Binary Content to database  By Multipart",  description = "save a  Binary Content entity and their data to data base")
-//    @PostMapping( value = "/upload" , consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-//    @CrossOrigin(origins = "*")
-//    public ALCityResponseObject saveBinaryContent(@RequestParam("file") MultipartFile file )  {
-//        ALCityResponseObject responseObject = null;
-//        try {
-//
-//            BinaryContent binaryContent = binaryContentService.save(file.getOriginalFilename(),file);
-//            responseObject = new ALCityResponseObject(200,"ok",binaryContent.getId(), file.getOriginalFilename() + "binary content Saved Successfully..");
-//
-//        }catch (RuntimeException | IOException e ) {
-//            //  throw new UniqueConstraintException(clientType.getLabel(), clientType.getId(), ClientType.class.toString());
-//            // Optional<ClientType> output = clientTypeService.findById(savedRecord.getId());
-//        }
-//        return responseObject;
-//    }
 
     @Operation( summary = "Save a Binary Content to database by DTO ",  description = "Save a Binary Content entity and their data to data base")
     @PostMapping("/save")

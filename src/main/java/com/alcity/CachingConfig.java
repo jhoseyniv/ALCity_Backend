@@ -1,27 +1,16 @@
 package com.alcity;
 
 
-import com.alcity.dto.search.ContentSearchCriteriaDTO;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.EnableCaching;
-import org.springframework.cache.concurrent.ConcurrentMapCacheManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.convert.converter.Converter;
-import org.springframework.data.convert.CustomConversions;
-import org.springframework.data.convert.ReadingConverter;
-import org.springframework.data.convert.WritingConverter;
 import org.springframework.data.redis.cache.RedisCacheConfiguration;
 import org.springframework.data.redis.cache.RedisCacheManager;
 import org.springframework.data.redis.connection.RedisStandaloneConfiguration;
 import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory;
-import org.springframework.data.redis.core.convert.RedisCustomConversions;
 import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.RedisSerializationContext;
-import org.springframework.stereotype.Component;
 
 import java.time.Duration;
 import java.time.OffsetDateTime;
@@ -77,7 +66,21 @@ public class CachingConfig {
                 .withCacheConfiguration("getGamePlayByUserIdAndPuzzleLevel", myDefaultCacheConfig(Duration.ofMinutes(10)))
                 .withCacheConfiguration("getAllPlayGameForUser", myDefaultCacheConfig(Duration.ofMinutes(10)))
                 .withCacheConfiguration("getAppMemberBySearchCriteria", myDefaultCacheConfig(Duration.ofMinutes(10)))
-                 .build();
+                .withCacheConfiguration("all-PGDTO", myDefaultCacheConfig(Duration.ofMinutes(30)))
+                .withCacheConfiguration("all-JourneyDTO", myDefaultCacheConfig(Duration.ofMinutes(30)))
+                .withCacheConfiguration("getLearningSKillsForPuzzleGroupById", myDefaultCacheConfig(Duration.ofMinutes(30)))
+                .withCacheConfiguration("getXPByDate", myDefaultCacheConfig(Duration.ofMinutes(30)))
+                .withCacheConfiguration("getXPForAppMemberBySubSetSkillAll", myDefaultCacheConfig(Duration.ofMinutes(30)))
+                .withCacheConfiguration("getSubSkillScores", myDefaultCacheConfig(Duration.ofMinutes(30)))
+                .withCacheConfiguration("getXPForAppMemberBySkillId", myDefaultCacheConfig(Duration.ofMinutes(30)))
+                .withCacheConfiguration("getXPByLastWeek", myDefaultCacheConfig(Duration.ofMinutes(30)))
+                .withCacheConfiguration("all-AppMemberDTO", myDefaultCacheConfig(Duration.ofMinutes(30)))
+                .withCacheConfiguration("getAvatarById", myDefaultCacheConfig(Duration.ofMinutes(50)))
+                .withCacheConfiguration("getAvatarByUserName", myDefaultCacheConfig(Duration.ofMinutes(50)))
+                .withCacheConfiguration("getPublicPuzzleLevels", myDefaultCacheConfig(Duration.ofMinutes(50)))
+                .withCacheConfiguration("getPLNotPlayedByMember", myDefaultCacheConfig(Duration.ofMinutes(50)))
+
+                .build();
 
     }
 

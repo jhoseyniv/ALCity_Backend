@@ -38,6 +38,7 @@ import com.alcity.utility.GenerateSHA256;
 import com.alcity.utility.SlicedStream;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -92,7 +93,7 @@ public class AppMemberService implements AppMemberRepository, CustomizedUserRepo
         return page;
     }
 
-
+    @Cacheable(value = "getPublicPuzzleLevels", key = "#p1")
     public  Collection<PLDTO> getPublicPuzzleLevels(AppMember appMember){
         Collection<PLDTO>  pldtos= new ArrayList<PLDTO>();
         long start_time2 = System.currentTimeMillis();
