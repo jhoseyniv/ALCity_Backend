@@ -306,7 +306,7 @@ public class AppMemberController {
     @PostMapping("/search")
     @ResponseBody
     @CrossOrigin(origins = "*")
-    @Cacheable(value = "getAppMemberBySearchCriteria", key = "#p0")
+    @Cacheable(value = "getAppMemberBySearchCriteria", key = "#criteriaDTO")
     public Collection<AppMemberDTO> getAppMemberBySearchCriteria(@RequestBody AppMemberSearchCriteriaDTO criteriaDTO ) {
         Collection<AppMember> appMembers = service.findByCriteria(criteriaDTO);
         return DTOUtil.getAppMemberDTOS(appMembers);
@@ -316,7 +316,7 @@ public class AppMemberController {
     @RequestMapping(value = "/id/{id}/game-play-all", method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin(origins = "*")
-    @Cacheable(value = "getAllPlayGameForUser", key = "#p0")
+    @Cacheable(value = "getAllPlayGameForUser", key = "#id")
     public Collection<PLGameInstanceDTO> getAllPlayGameForUser(@PathVariable Long id) {
         Optional<AppMember> memberOptional = service.findById(id);
         Collection<PLGameInstance>  histories= memberOptional.get().getPlGameInstances();
@@ -328,7 +328,7 @@ public class AppMemberController {
     @RequestMapping(value = "/id/{id}/game-play/pid/{pid}", method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin(origins = "*")
-    @Cacheable(value = "getGamePlayByUserIdAndPuzzleLevel", key = "#p0")
+    @Cacheable(value = "getGamePlayByUserIdAndPuzzleLevel", key = "{ #id, #pid }")
     public Collection<PLGameInstanceDTO> getGamePlayByUserIdAndPuzzleLevel(@PathVariable Long id,@PathVariable Long pid) {
         Collection<PLGameInstance> gameInstances = new ArrayList<>();
         Collection<PLGameInstanceDTO> historyDTOS = new ArrayList<>();

@@ -123,7 +123,7 @@ public class BinaryContentController {
     @PostMapping("/search")
     @ResponseBody
     @CrossOrigin(origins = "*")
-    @Cacheable(value = "getBinaryContent", key = "#p0")
+    @Cacheable(value = "getBinaryContent", key = "#criteriaDTO")
     public Collection<BinaryContentDTO> getBinaryContentBySearchCriteria(@RequestBody ContentSearchCriteriaDTO criteriaDTO ) {
         Collection<BinaryContent> binaryContentCollection = binaryContentService.findByCriteria(criteriaDTO);
         return DTOUtil.getBinaryContentsWithoutContent(binaryContentCollection);
