@@ -19,6 +19,7 @@ import com.alcity.utility.DTOUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
@@ -47,6 +48,7 @@ public class JourneyController {
     private PGService pgService;
 
     @GetMapping("/all")
+    @Cacheable("all-JourneyDTO")
     public Collection<JourneyDTO> getJourneis(Model model) {
         Collection<JourneyDTO> journeyDTOCollection = DTOUtil.getJourneyDTOS(service.findAll());
         return journeyDTOCollection;
