@@ -346,7 +346,6 @@ public class AppMemberController {
     @RequestMapping(value = "/id/{id}/journey/jid/{jid}", method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin(origins = "*")
-    @Cacheable(value = "JourneyCache", key = "#p0")
     public AppMemberJourneyInfo getPuzzleLevelMappedStepInJourney(@PathVariable Long id, @PathVariable Long jid) {
         long start_time = System.currentTimeMillis();
         Optional<AppMember> memberOptional = service.findById(id);
