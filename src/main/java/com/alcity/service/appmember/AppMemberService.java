@@ -372,7 +372,7 @@ public class AppMemberService implements AppMemberRepository, CustomizedUserRepo
         String hashedPassword = GenerateSHA256.toHexString(hash) ;
         AppMember appMember=null;
         if (code.equalsIgnoreCase("Save")) { //Save
-            appMember = new AppMember(dto.getAge(),language,dto.getUsername(), hashedPassword, dto.getNickname(), dto.getMobile(),dto.getEmail(),icon,gender ,memberType
+            appMember = new AppMember(dto.getAge(),language,dto.getUsername(), hashedPassword, dto.getNickname(), dto.getMobile(),dto.getEmail(),icon,gender ,memberType,dto.getEnergy()
                     ,1L, DateUtils.getNow(), DateUtils.getNow(), createdBy.get(), createdBy.get());
             appMemberRepository.save(appMember);
             appMember_LearningSkillService.initSkillWalletByUser(appMember);
@@ -415,7 +415,7 @@ public class AppMemberService implements AppMemberRepository, CustomizedUserRepo
         }
         String hashedPassword = GenerateSHA256.toHexString(hash) ;
 
-        guest = new AppMember(age,Language.English,"Guest", hashedPassword, "Guest"+bornYear, "","",icon,UserGender.Unknow ,memberType
+        guest = new AppMember(age,Language.English,"Guest", hashedPassword, "Guest"+bornYear, "","",icon,UserGender.Unknow ,memberType,10
                 ,1L, DateUtils.getNow(), DateUtils.getNow(), createdBy.get(), createdBy.get());
         save(guest);
         String UniqueUserName= guest.getUsername() + guest.getId();
@@ -438,7 +438,7 @@ public class AppMemberService implements AppMemberRepository, CustomizedUserRepo
         AppMember guest=null;
         Integer age = DateUtils.calculateAgeFromJalali(accessDTO.getBirthYear());
         icon = binaryContentRepository.findByfileName("no_photo_avatar");
-        guest = new AppMember(age,Language.English,accessDTO.getRemoteHost() + "-" + accessDTO.getRemoteUserName(), "Guest", "Guest", "","",icon,UserGender.Unknow ,memberType
+        guest = new AppMember(age,Language.English,accessDTO.getRemoteHost() + "-" + accessDTO.getRemoteUserName(), "Guest", "Guest", "","",icon,UserGender.Unknow ,memberType,10
                 ,1L, DateUtils.getNow(), DateUtils.getNow(), createdBy.get(), createdBy.get());
         appMemberRepository.save(guest);
         String UniqueUserName= guest.getUsername() + guest.getId();

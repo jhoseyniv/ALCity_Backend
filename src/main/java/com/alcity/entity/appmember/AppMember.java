@@ -47,6 +47,9 @@ public class AppMember extends BaseTable implements Serializable {
     @Column(name="email")
     private String email;
 
+    @Column(name="energy")
+    private Integer energy;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "icon_id")
     @JsonIgnore
@@ -109,7 +112,8 @@ public class AppMember extends BaseTable implements Serializable {
 
 
 
-    public AppMember(Integer age, Language language , String username, String password, String nickname, String mobile, String email, BinaryContent icon, UserGender gender, MemberType memberType, Long version, String created, String updated, AppMember createdBy, AppMember updatedBy) {
+    public AppMember(Integer age, Language language , String username, String password, String nickname, String mobile, String email, BinaryContent icon, UserGender gender, MemberType memberType,
+                     Integer energy,Long version, String created, String updated, AppMember createdBy, AppMember updatedBy) {
         super(version, created, updated, createdBy, updatedBy);
         this.age = age;
         this.language = language;
@@ -121,5 +125,6 @@ public class AppMember extends BaseTable implements Serializable {
         this.icon = icon;
         this.gender = gender;
         this.memberType = memberType;
+        this.energy = energy;
     }
 }
