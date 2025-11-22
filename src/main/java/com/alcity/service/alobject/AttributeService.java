@@ -848,6 +848,7 @@ public class AttributeService implements AttributeRepository {
 
         return outputAttributes;
     }
+
     public Collection<Attribute> findInstanceVariables(Long instanceId,AttributeOwnerType ownerType){
         Collection<Attribute> outputAttributes = new ArrayList<Attribute>();
         Collection<Attribute> temp_Bug_variables_in_a_pg_object = new ArrayList<>();
