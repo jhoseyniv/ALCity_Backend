@@ -19,6 +19,7 @@ import com.alcity.service.learning.LearningSkillService;
 import com.alcity.service.puzzle.PLRulePostActionService;
 import com.alcity.utility.DTOUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -94,6 +95,7 @@ public class LearningSkillController {
     @ExceptionHandler(UniqueConstraintException.class)
     @PostMapping("/skill/save")
     @CrossOrigin(origins = "*")
+    //@CacheEvict(value = "saveLearningSkill", key = "#dto")
     public ResponseMessage saveLearningSkill(@RequestBody LearningSkillDTO dto)  {
         LearningSkill savedRecord = null;
         ResponseMessage response = new ResponseMessage();

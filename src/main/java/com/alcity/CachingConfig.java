@@ -79,6 +79,7 @@ public class CachingConfig {
                 .withCacheConfiguration("getAvatarByUserName", myDefaultCacheConfig(Duration.ofMinutes(50)))
                 .withCacheConfiguration("getPublicPuzzleLevels", myDefaultCacheConfig(Duration.ofMinutes(50)))
                 .withCacheConfiguration("getPLNotPlayedByMember", myDefaultCacheConfig(Duration.ofMinutes(50)))
+                .withCacheConfiguration("saveLearningSkill", myDefaultCacheConfig(Duration.ofMinutes(50)))
 
                 .build();
 
