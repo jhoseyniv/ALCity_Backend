@@ -22,8 +22,6 @@ import java.time.format.DateTimeFormatter;
 @SpringBootApplication
 @EnableCaching
 public class ObjectManagmentApplication {
-	@Autowired
-	private CacheManager cacheManager;
 	public static void main(String[] args) {
 		SpringApplication.run(ObjectManagmentApplication.class, args);
 	}

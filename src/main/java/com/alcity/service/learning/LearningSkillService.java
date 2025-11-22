@@ -112,7 +112,7 @@ public class LearningSkillService implements LearningSkillRepository {
     private AppMemberRepository appMemberRepository;
 
    public LearningSkill save(LearningSkillDTO dto, String code) {
-        Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
+        Optional<AppMember> createdBy = appMemberRepository.findByUsername("Guest3103");
         SkillType type = SkillType.getByTitle(dto.getType());
 
         BinaryContent icon=null;
@@ -137,6 +137,7 @@ public class LearningSkillService implements LearningSkillRepository {
                 learningSkill.setType(type);
                 learningSkill.setWeight(dto.getWeight());
                 learningSkill.setLevelUpSize(dto.getLevelUpSize());
+                learningSkill.setDescription(dto.getDescription());
                 learningSkill.setParentSkill(parentSkillOptional.get());
                 learningSkill.setVersion(learningSkill.getVersion()+1);
                 learningSkill.setCreated(DateUtils.getNow());
