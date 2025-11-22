@@ -30,4 +30,14 @@ public class LearningSkillDTO {
         this.weight = weight;
         this.description = description;
     }
+    public String toString() {
+        return "id: '" + this.id + "', title: '" + this.title + "', type: '" + this.type + "'"+
+                "', parentId: '" + this.parentId + "'" + "', parentTitle: '" + this.parentTitle + "'"
+                + "', levelUpSize: '" + this.levelUpSize + "'"
+                + "', iconId: '" + this.iconId + "'"
+                + "', weight: '" + this.weight + "'"
+                + "', description: '" + this.description + "'"
+                ;
+    }
+
 }
