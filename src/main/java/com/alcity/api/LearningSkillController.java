@@ -19,6 +19,7 @@ import com.alcity.service.learning.LearningSkillService;
 import com.alcity.service.puzzle.PLRulePostActionService;
 import com.alcity.utility.DTOUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.ui.Model;
@@ -38,7 +39,7 @@ public class LearningSkillController {
     private LearningSkillService learningSkillService;
 
     @GetMapping("/skill/all")
-    //@Cacheable("all-LearningSkillDTO")
+    @Cacheable("all-LearningSkillDTO")
     public Collection<LearningSkillDTO> getLearningSkills() {
         Collection<LearningSkill> skills = new ArrayList<>();
         skills = learningSkillService.findAll();
@@ -90,12 +91,14 @@ public class LearningSkillController {
         return dtos;
 
     }
+    @Autowired
+    private CacheManager cacheManager;
 
 
     @ExceptionHandler(UniqueConstraintException.class)
     @PostMapping("/skill/save")
     @CrossOrigin(origins = "*")
-    @CacheEvict(value = "saveLearningSkill", key = "#dto")
+    //@CacheEvict(value = "saveLearningSkill", key = "#dto.id")
     public ResponseMessage saveLearningSkill(@RequestBody LearningSkillDTO dto)  {
         LearningSkill savedRecord = null;
         ResponseMessage response = new ResponseMessage();
@@ -113,6 +116,7 @@ public class LearningSkillController {
             response = new ResponseMessage(ErrorType.SaveSuccess, Status.ok.name() , LearningSkill.class.getSimpleName() ,  savedRecord.getId(), SystemMessage.SaveOrEditMessage_Success);
         else
             response = new ResponseMessage(ErrorType.RecordNotFound, Status.error.name() , LearningSkill.class.getSimpleName() , dto.getId(), SystemMessage.SaveOrEditMessage_Fail);
+        cacheManager.getCache("all-LearningSkillDTO").clear();
         return response;
     }
 
