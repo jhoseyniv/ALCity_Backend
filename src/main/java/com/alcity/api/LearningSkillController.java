@@ -38,7 +38,7 @@ public class LearningSkillController {
     private LearningSkillService learningSkillService;
 
     @GetMapping("/skill/all")
-    @Cacheable("all-LearningSkillDTO")
+    //@Cacheable("all-LearningSkillDTO")
     public Collection<LearningSkillDTO> getLearningSkills() {
         Collection<LearningSkill> skills = new ArrayList<>();
         skills = learningSkillService.findAll();
@@ -95,7 +95,7 @@ public class LearningSkillController {
     @ExceptionHandler(UniqueConstraintException.class)
     @PostMapping("/skill/save")
     @CrossOrigin(origins = "*")
-    //@CacheEvict(value = "saveLearningSkill", key = "#dto")
+    @CacheEvict(value = "saveLearningSkill", key = "#dto")
     public ResponseMessage saveLearningSkill(@RequestBody LearningSkillDTO dto)  {
         LearningSkill savedRecord = null;
         ResponseMessage response = new ResponseMessage();
