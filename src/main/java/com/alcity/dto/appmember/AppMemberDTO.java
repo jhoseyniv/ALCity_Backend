@@ -19,6 +19,7 @@ public class AppMemberDTO {
     private String mobile;
     private String email;
     private Long iconId;
+    private Integer energy;
 
     private String memberType;
     private String gender;
