@@ -874,7 +874,7 @@ public class DTOUtil {
     }
 
     public static LearningSkillRadarDTO getLearningSkillRadarDTO(AppMember_LearningSkill memberSkill) {
-        return new LearningSkillRadarDTO(memberSkill.getLearningSkill().getId(),memberSkill.getApplicationMember().getId(),
+        return new LearningSkillRadarDTO(memberSkill.getApplicationMember().getId(),memberSkill.getLearningSkill().getId(),
                 memberSkill.getLearningSkill().getTitle(), memberSkill.getLearningSkill().getType().name(),
                 memberSkill.getLevel(),memberSkill.getAmount());
     }
