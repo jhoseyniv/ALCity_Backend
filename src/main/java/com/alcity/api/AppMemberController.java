@@ -93,8 +93,6 @@ public class AppMemberController {
     private PLGameInstanceService pLGameInstanceService;
     @Autowired
     private ObjectiveTransactionService pLObjectiveTransactionService;
-    @Autowired
-    private WalletItemService walletItemService;
 
     @Operation( summary = "Get User XP by a Date format 02-09-2025  ",  description = "Get XP by a Date format ")
     @RequestMapping(value = "/id/{id}/xp/date/{date}", method = RequestMethod.GET)

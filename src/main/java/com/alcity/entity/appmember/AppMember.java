@@ -110,6 +110,10 @@ public class AppMember extends BaseTable implements Serializable {
     private Collection<ClientType> clientTypes;
 
 
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "appmember_id", nullable = false)
+    @JsonIgnore
+    private EnergyConfig energyConfig;
 
 
     public AppMember(Integer age, Language language , String username, String password, String nickname, String mobile, String email, BinaryContent icon, UserGender gender, MemberType memberType,
