@@ -65,12 +65,13 @@ public class BinaryContent extends BaseTable implements Serializable {
     @Enumerated(EnumType.ORDINAL)
     private BinaryContentType contentType;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "binaryContent", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<LearningContent> learningContentSet;
 
 
-    @OneToMany(mappedBy = "binaryContentId", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JsonIgnore
+    @OneToMany(mappedBy = "binaryContentId", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Collection<AttributeValue> attributeValueCollection;
 
     public BinaryContent(Long version, String created, String updated, AppMember createdBy, AppMember updatedBy,
