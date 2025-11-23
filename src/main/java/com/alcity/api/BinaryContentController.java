@@ -60,7 +60,7 @@ public class BinaryContentController {
     @ResponseBody
     @CrossOrigin(origins = "*")
     @Transactional(readOnly = true)
-    @Cacheable(value = "getBinaryContentByIdAndDevice", key = "{ #id, #deviceType }")
+//    @Cacheable(value = "getBinaryContentByIdAndDevice", key = "{ #id, #deviceType }")
     public BinaryContentDTO getBinaryContentByIdAndDevice(@PathVariable Long id,@PathVariable String deviceType) {
         Optional<BinaryContent> binaryContentOptional = binaryContentService.findById(id);
         BinaryContentDTO binaryContentDTO = new BinaryContentDTO();
@@ -84,7 +84,7 @@ public class BinaryContentController {
     @GetMapping("/get-file/id/{id}/device-type/{deviceType}")
     @CrossOrigin(origins = "*")
     @Transactional(readOnly = true)
-    @Cacheable(value = "getFileByDeviceType", key = "{ #id, #deviceType }")
+//    @Cacheable(value = "getFileByDeviceType", key = "{ #id, #deviceType }")
     public ResponseEntity<byte[]> getFileByDeviceType(@PathVariable Long id , @PathVariable String deviceType) {
        Optional<BinaryContent>  binaryContentOptional= binaryContentService.findById(id);
 
@@ -114,7 +114,7 @@ public class BinaryContentController {
     @GetMapping("/get-file/{id}")
     @CrossOrigin(origins = "*")
     @Transactional(readOnly = true)
-    @Cacheable(value = "getFileContent", key = "#id")
+//    @Cacheable(value = "getFileContent", key = "#id")
     public ResponseEntity<byte[]> getFile(@PathVariable Long id) {
         Optional<BinaryContent>  binaryContentOptional= binaryContentService.findById(id);
         if(binaryContentOptional.isEmpty()) return  null;
@@ -127,7 +127,7 @@ public class BinaryContentController {
     @PostMapping("/search")
     @ResponseBody
     @CrossOrigin(origins = "*")
-    @Cacheable(value = "getBinaryContent", key = "#criteriaDTO")
+ //   @Cacheable(value = "getBinaryContent", key = "#criteriaDTO")
     public Collection<BinaryContentDTO> getBinaryContentBySearchCriteria(@RequestBody ContentSearchCriteriaDTO criteriaDTO ) {
         Collection<BinaryContent> binaryContentCollection = binaryContentService.findByCriteria(criteriaDTO);
         return DTOUtil.getBinaryContentsWithoutContent(binaryContentCollection);
