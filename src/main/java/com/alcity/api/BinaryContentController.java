@@ -46,10 +46,14 @@ public class BinaryContentController {
     @CrossOrigin(origins = "*")
     @Transactional(readOnly = true)
     @Cacheable(value = "getBinaryContentById", key = "#id")
-    public BinaryContent getBinaryContentById(@PathVariable Long id) {
+    public BinaryContentDTO getBinaryContentById(@PathVariable Long id) {
         Optional<BinaryContent> binaryContentOptional = binaryContentService.findById(id);
-        if(binaryContentOptional.isPresent())
-            return binaryContentOptional.get();
+        if(binaryContentOptional.isPresent()) {
+            BinaryContent bc = binaryContentOptional.get();
+            BinaryContentDTO binaryContentDTO = new BinaryContentDTO(bc.getId(),bc.getFileName(),bc.getSize(), bc.getContent(), null,
+                    bc.getIos3Dcontent(),bc.getAndriod3Dcontent(), bc.getContent(), bc.getContentType().name(),bc.getIs3dContent(),bc.getTag1(),bc.getTag2(),bc.getTag3());
+            return binaryContentDTO;
+        }
         return null;
     }
     @RequestMapping(value="/id/{id}/device-type/{deviceType}", method = RequestMethod.GET)
