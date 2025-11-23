@@ -206,7 +206,7 @@ public class AppMemberController {
 
     }
 
-    @Operation( summary = "Get skill Radar Chart for an app member this a test ",  description = "this api get a radar chart from fundamental skills for a player ")
+    @Operation( summary = "Get skill Radar Chart for an app member this a test............. ",  description = "this api get a radar chart from fundamental skills for a player ")
     @RequestMapping(value = "/id/{id}/skill-radar-chart", method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin(origins = "*")
