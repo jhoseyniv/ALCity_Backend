@@ -45,7 +45,7 @@ public class BinaryContentController {
     @ResponseBody
     @CrossOrigin(origins = "*")
     @Transactional(readOnly = true)
-    @Cacheable(value = "getBinaryContentById", key = "#p0")
+    @Cacheable(value = "getBinaryContentById", key = "#id")
     public BinaryContent getBinaryContentById(@PathVariable Long id) {
         Optional<BinaryContent> binaryContentOptional = binaryContentService.findById(id);
         if(binaryContentOptional.isPresent())
@@ -56,7 +56,7 @@ public class BinaryContentController {
     @ResponseBody
     @CrossOrigin(origins = "*")
     @Transactional(readOnly = true)
-    @Cacheable(value = "getBinaryContentByIdAndDevice", key = "#p0")
+    @Cacheable(value = "getBinaryContentByIdAndDevice", key = "{ #id, #deviceType }")
     public BinaryContentDTO getBinaryContentByIdAndDevice(@PathVariable Long id,@PathVariable String deviceType) {
         Optional<BinaryContent> binaryContentOptional = binaryContentService.findById(id);
         BinaryContentDTO binaryContentDTO = new BinaryContentDTO();
@@ -80,7 +80,7 @@ public class BinaryContentController {
     @GetMapping("/get-file/id/{id}/device-type/{deviceType}")
     @CrossOrigin(origins = "*")
     @Transactional(readOnly = true)
-    @Cacheable(value = "getFileByDeviceType", key = "#p0")
+    @Cacheable(value = "getFileByDeviceType", key = "{ #id, #deviceType }")
     public ResponseEntity<byte[]> getFileByDeviceType(@PathVariable Long id , @PathVariable String deviceType) {
        Optional<BinaryContent>  binaryContentOptional= binaryContentService.findById(id);
 
@@ -110,7 +110,7 @@ public class BinaryContentController {
     @GetMapping("/get-file/{id}")
     @CrossOrigin(origins = "*")
     @Transactional(readOnly = true)
-    @Cacheable(value = "getFileContent", key = "#p0")
+    @Cacheable(value = "getFileContent", key = "#id")
     public ResponseEntity<byte[]> getFile(@PathVariable Long id) {
         Optional<BinaryContent>  binaryContentOptional= binaryContentService.findById(id);
         if(binaryContentOptional.isEmpty()) return  null;
