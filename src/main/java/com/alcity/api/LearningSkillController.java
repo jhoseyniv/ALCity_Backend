@@ -120,7 +120,6 @@ public class LearningSkillController {
         return response;
     }
 
-
     @DeleteMapping("skill/del/{id}")
     @CrossOrigin(origins = "*")
     public ResponseMessage deleteLearningSkillById(@PathVariable Long id) {
@@ -131,6 +130,7 @@ public class LearningSkillController {
             } catch (Exception e) {
                 throw  new ResponseObject(ErrorType.ForeignKeyViolation, Status.error.name(), LearningSkill.class.getSimpleName(), id, e.getCause().getMessage());
             }
+            cacheManager.getCache("all-LearningSkillDTO").clear();
             return new ResponseMessage(ErrorType.SaveSuccess, Status.ok.name(), LearningSkill.class.getSimpleName(), id, SystemMessage.DeleteMessage);
         }
         return new ResponseMessage(ErrorType.RecordNotFound, Status.error.name(), LearningSkill.class.getSimpleName(), id, SystemMessage.RecordNotFound);
