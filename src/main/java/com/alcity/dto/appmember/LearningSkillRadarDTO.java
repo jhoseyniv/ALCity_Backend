@@ -10,16 +10,17 @@ import java.io.Serializable;
 @NoArgsConstructor
 
 public class LearningSkillRadarDTO implements Serializable {
+
+    private Long id;
     private Long skillId;
-    private Long memberId;
     private String skillTitle;
     private String skillType;
     private Long level;
     private Float amount;
 
-    public LearningSkillRadarDTO(Long skillId, Long memberId, String skillTitle, String skillType, Long level, Float amount) {
+    public LearningSkillRadarDTO(Long id,Long skillId,  String skillTitle, String skillType, Long level, Float amount) {
         this.skillId = skillId;
-        this.memberId = memberId;
+        this.id = id;
         this.skillTitle = skillTitle;
         this.skillType = skillType;
         this.level = level;
