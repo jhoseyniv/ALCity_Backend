@@ -384,6 +384,8 @@ public class AppMemberService implements AppMemberRepository, CustomizedUserRepo
                 appMember.setUsername(dto.getUsername());
                 appMember.setPassword(hashedPassword);
                 appMember.setMobile(dto.getMobile());
+                appMember.setEmail(dto.getEmail());
+                appMember.setEnergy(dto.getEnergy());
                 appMember.setIcon(icon);
                 appMember.setMemberType(memberType);
                 appMember.setGender(gender);

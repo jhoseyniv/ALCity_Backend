@@ -228,8 +228,7 @@ public class AppMemberController {
     @Cacheable("all-AppMemberDTO")
     public Collection<AppMemberDTO> getApplicationMembers() {
         Collection<AppMember> appMemberCollection = service.findAll();
-        Collection<AppMemberDTO> dtos = DTOUtil.getAppMemberDTOS(appMemberCollection);
-        return dtos;
+        return DTOUtil.getAppMemberDTOS(appMemberCollection);
     }
 
 
@@ -237,9 +236,8 @@ public class AppMemberController {
     @ResponseBody
     @CrossOrigin(origins = "*")
     public AppMemberDTO getApplicationMemberById(@PathVariable Long id) {
-        Optional<AppMember> member = service.findById(id);
-        AppMemberDTO dto = DTOUtil.getAppMemberDTO(member.get());
-        return dto;
+        Optional<AppMember> memberOptional = service.findById(id);
+        return memberOptional.map(DTOUtil::getAppMemberDTO).orElse(null);
     }
 
     @Operation( summary = "Get Avatar by User Id ",  description = "Get Avatar by User Id ...")
@@ -457,7 +455,9 @@ public class AppMemberController {
         catch (Exception e) {
             throw new ResponseObject(ErrorType.UniquenessViolation,Status.error.name() , AppMember.class.getSimpleName() ,  -1L ,e.getCause().getMessage());
         }
-           return response;
+        cacheManager.getCache("all-AppMemberDTO").clear();
+
+        return response;
 
     }
 

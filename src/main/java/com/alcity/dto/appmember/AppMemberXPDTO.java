@@ -10,10 +10,10 @@ import java.io.Serializable;
 @NoArgsConstructor
 
 public class AppMemberXPDTO implements Serializable {
+    Long id;
     Integer dayOfWeek;
     String dayOfWeekName;
     Float xp;
-    Long id;
     String date;
 
     public AppMemberXPDTO(Long id, Integer dayOfWeek, String dayOfWeekName, Float xp,  String date) {

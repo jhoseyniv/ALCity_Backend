@@ -33,7 +33,7 @@ public class AppMemberDTO {
     private String updatedBy;
 
 
-    public AppMemberDTO(Long id, Integer age,String language, String username, String password,Long iconId, String nickname, String mobile, String email, String gender, String memberType ,
+    public AppMemberDTO(Long id, Integer age,String language, String username, String password,Long iconId, String nickname, String mobile, String email, String gender, String memberType ,Integer energy ,
                         Long version, String created, String updated, String createdBy, String updatedBy) {
         this.id = id;
         this.age = age;
@@ -44,9 +44,11 @@ public class AppMemberDTO {
         this.mobile = mobile;
         this.email = email;
         this.memberType = memberType;
-        this.iconId = iconId;
         this.gender = gender;
         this.version = version;
+        this.energy = energy;
+        this.iconId = iconId;
+        this.gender = gender;
         this.created = created;
         this.updated = updated;
         this.createdBy = createdBy;
