@@ -958,7 +958,7 @@ public class DTOUtil {
         for (ObjectiveTransaction transaction : transactions) {
             xp += transaction.getAmount();
         }
-        return new AppMemberXPDTO( date.getDayOfWeek().getValue(), date.getDayOfWeek().name(), xp, member.getId(), dateString );
+        return new AppMemberXPDTO(member.getId(), date.getDayOfWeek().getValue(), date.getDayOfWeek().name(), xp,  dateString );
     }
 
 

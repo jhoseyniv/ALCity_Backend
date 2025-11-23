@@ -100,7 +100,7 @@ public class AppMemberController {
     @RequestMapping(value = "/id/{id}/xp/date/{date}", method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin(origins = "*")
-    @Cacheable(value = "getXPByDate", key = "#date")
+    @Cacheable(value = "getXPByDate", key = "{ #id, #date }")
     public AppMemberXPDTO getXPByDate(@PathVariable Long id, @PathVariable String date) {
         Optional<AppMember> memberOptional = service.findById(id);
         LocalDateTime localDateTime = DateUtils.getDateTime(date);

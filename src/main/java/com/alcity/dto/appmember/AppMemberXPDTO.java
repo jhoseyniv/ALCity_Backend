@@ -13,14 +13,14 @@ public class AppMemberXPDTO implements Serializable {
     Integer dayOfWeek;
     String dayOfWeekName;
     Float xp;
-    Long memberId;
+    Long id;
     String date;
 
-    public AppMemberXPDTO(Integer dayOfWeek, String dayOfWeekName, Float xp, Long memberId, String date) {
+    public AppMemberXPDTO(Long id, Integer dayOfWeek, String dayOfWeekName, Float xp,  String date) {
         this.dayOfWeek = dayOfWeek;
         this.dayOfWeekName = dayOfWeekName;
         this.xp = xp;
-        this.memberId = memberId;
+        this.id = id;
         this.date = date;
     }
 }
