@@ -118,7 +118,6 @@ public class ActionService implements ActionRepository {
             return;
         }
 
-
         Integer numberOfParameterDTO = importAction.getParameters().size();
         Collection<Attribute> attributes = attributeService.findByOwnerId(action.getActionRenderer().getId());
         Integer numberOfParameterAction = attributes.size();

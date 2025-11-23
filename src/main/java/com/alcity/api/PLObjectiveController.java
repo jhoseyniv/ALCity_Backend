@@ -2,15 +2,10 @@ package com.alcity.api;
 
 import com.alcity.customexception.ResponseMessage;
 import com.alcity.customexception.ResponseObject;
-import com.alcity.customexception.UniqueConstraintException;
-import com.alcity.customexception.ViolateForeignKeyException;
 import com.alcity.dto.puzzle.PLObjectiveDTO;
 import com.alcity.entity.alenum.Status;
 import com.alcity.entity.alenum.ErrorType;
 import com.alcity.entity.alenum.SystemMessage;
-import com.alcity.entity.alobject.ObjectAction;
-import com.alcity.entity.puzzle.PGLearningSkill;
-import com.alcity.entity.puzzle.PLLearningTopic;
 import com.alcity.entity.puzzle.PLObjective;
 import com.alcity.service.puzzle.PLObjectiveService;
 import com.alcity.utility.DTOUtil;

@@ -99,7 +99,6 @@ public class PGService implements PGRepository {
     @Autowired
     private PuzzleCategoryRepository puzzleCategoryRepository;
 
-
     @Autowired
     private AttributeService attributeService;
 

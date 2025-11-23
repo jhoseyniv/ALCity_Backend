@@ -1,0 +1,602 @@
+{
+  "amount": 14,
+  "gameInstanceId": 53437,
+  "appMemberId": 59,
+  "objectiveId": 49592,
+  "objectiveType": "WalletItem"
+}
+
+
+{
+  "amount": 13,
+  "gameInstanceId": 53437,
+  "appMemberId": 59,
+  "objectiveId": 49592,
+  "objectiveType": "LearningSkill"
+}
+
+
+
+{
+  "id": 0,
+  "title": "immmmmmm",
+  "iconInfo": 54,
+  "picInfo": 55,
+  "puzzleCategoryId": 8,
+  "objects": [
+    {
+      "id": 0,
+      "objectId": 210,
+      "code": "code3333",
+      "title": "code3333",
+      "variables": [
+        {
+          "name": "canMove",
+          "dataType": "Boolean",
+          "value": "true",
+          "expression": false,
+          "expressionValue": ""
+        }
+      ],
+      "actions": [
+        {
+          "actionId": 159,
+          "actionName": "ShowImage"
+        }
+      ]
+    }
+  ],
+  "skills": [
+    {
+      "id": 0,
+      "learningSkillTitle": "constraint",
+      "learningSkillId": 31,
+      "puzzleGroupTitle": "string",
+      "puzzleGroupId": 0,
+      "learningContentId": 81,
+      "learningContentDescText": "constraint"
+    }
+  ]
+}
+
+
+{
+  "amount": 1.5,
+  "appMemberId": 56,
+  "learningSkillId": 37,
+  "description": ""
+}
+
+{
+  "amount": 2,
+  "walletItemId": 18,
+  "counterpartyId": 398,
+  "appMemberId": 57,
+  "walletTransactionType": "Puzzle_Objective",
+  "incTransaction": true,
+  "description": "Reward Applied"
+}
+
+
+ {
+    "id": 117,
+    "version": 1,
+    "created": "17-04-2025 18:25:19",
+    "updated": "17-04-2025 18:25:19",
+    "createdBy": "admin",
+    "updatedBy": "admin",
+    "createdById": 56,
+    "updatedById": 56,
+    "title": "Journey_4",
+    "picId": 111,
+    "buttonPassedIconId": 114,
+    "buttonCurrenIconId": 115,
+    "buttonLockedIconId": 116,
+    "ordering": 1,
+    "minToPassStar": 5,
+
+}
+
+
+{
+  "referenceId": "sandcat,sandcat-mo981,11-04-2025 22:26:10",
+  "puzzleLevelId": 350,
+  "status": 1
+}
+{
+  "remoteHost": "sandcat",
+  "remoteUserName": "mo",
+  "birthYear": 1380,
+  "puzzleCode": "4500"
+}
+
+{
+  "id": 0,
+  "numRows": 4,
+  "numColumns": 5,
+  "xposition": 2,
+  "yposition": 3,
+  "zposition": 4,
+  "xrotation": 5,
+  "yrotation": 3,
+  "zrotation": 3,
+  "puzzleLevelId": 334,
+  "boardGraphicDTO": {
+    "settings": {
+      "skyboxId": "dreamy_sky",
+      "environmentId": "rural_area",
+      "startPosition": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      }
+    },
+    "rows": [
+      {
+                 "id": 1,
+                 "tileObjId": "grass_11",
+                 "alpha": 1,
+                 "zPosition": 0,
+                 "margin": {
+                   "top": 0,
+                   "bottom": 0,
+                   "left": 0,
+                   "right": 0
+                 }
+      },
+       {
+         "id": 2,
+         "alpha": 0.5,
+         "tileObjId": "water_3456",
+         "zPosition": 0,
+         "margin": {
+              "top": 0,
+              "bottom": 0,
+              "left": 0,
+               "right": 0
+           }
+       },
+       {
+
+       "id": 3,
+        "tileObjId": "mountain_82",
+        "alpha": 1,
+         "zPosition": 0,
+         "margin": {
+           "top": 0,
+           "bottom": 0,
+            "left": 0,
+             "right": 0
+          }
+      }
+    ]
+  }
+}
+
+
+
+
+
+{
+  "id": 2473,
+  "name": "gggg",
+  "row": 90,
+  "col": 100,
+  "zorder": 101,
+  "alCityObjectInPGId": 2449,
+  "puzzleLevelId": 2458
+}
+
+
+//save an alcity instance in a puzzle level
+{
+  "id": 0,
+  "puzzleLevelId": 2458,
+  "appMemberId": 59,
+  "eventTime": "19-02-2025 20:09:23",
+  "eventType": "Playing"
+}
+
+//save an alcity instance in a puzzle level
+{
+  "id": 0,
+  "name": "fox",
+  "row": 0,
+  "col": 0,
+  "getzOrder": 0,
+  "alCityObjectInPGId": 190,
+  "puzzleLevelId": 2567
+}
+
+
+//save camera setup
+{
+    "id": 2569,
+    "title": "setup 1",
+    "xPosition": 1,
+    "yPosition": 1,
+    "zPosition": 1,
+    "xRotation": 0,
+    "yRotation": 0,
+    "zRotation": 0
+  }
+
+[
+{
+  "id": -1,
+  "name": "TextObject",
+  "ownerId": 137,
+  "ownerTypeId": 1,
+  "dataType": "Binary",
+  "attributeValueDTO": {
+    "id": -1,
+    "longValue": 0,
+    "doubleValue": 0,
+    "intValue": 0,
+    "binaryContentId": 55,
+    "stringValue": "string",
+    "objectValue": "string",
+    "booleanValue": true,
+    "attributeId": 0,
+    "ownerId": 137,
+    "ownerTypeId": 1
+  }
+},
+{
+  "id": -1,
+  "name": "TextObject",
+  "ownerId": 137,
+  "ownerTypeId": 1,
+  "dataType": "String",
+  "attributeValueDTO": {
+    "id": -1,
+    "longValue": 0,
+    "doubleValue": 0,
+    "intValue": 0,
+    "binaryContentId": 55,
+    "stringValue": "Jalal123",
+    "objectValue": "string",
+    "booleanValue": true,
+    "attributeId": 0,
+    "ownerId": 137,
+    "ownerTypeId": 1
+  }
+},
+{
+  "id": -1,
+  "name": "TextObject",
+  "ownerId": 137,
+  "ownerTypeId": 1,
+  "dataType": "Integer",
+  "attributeValueDTO": {
+    "id": -1,
+    "longValue": 0,
+    "doubleValue": 0,
+    "intValue": 2000,
+    "binaryContentId": 55,
+    "stringValue": "null",
+    "objectValue": "string",
+    "booleanValue": true,
+    "attributeId": 0,
+    "ownerId": 137,
+    "ownerTypeId": 1
+  }
+}
+
+
+
+]
+
+{
+  "criteria": "image",
+  "contentTypeId": 0,
+  "lastIndex": 0,
+  "pageSize": 0
+}
+
+
+
+//save a puzzle object action
+
+{
+        "id": 139,
+        "ownerObjectid": 138,
+        "objectAction": "Move",
+        "objectActionId": 0,
+        "actionRender": "Move",
+        "actionRenderId": 110,
+        "ownerType": "ALCity_Object",
+        "ownerTypeId": 0
+}
+
+
+
+//save app member in database
+
+{
+    "id": 53,
+    "age": 35,
+    "username": "admin",
+    "password": "admin",
+    "nickname": "admin0",
+    "mobile": "0912350550",
+    "email": "j_hoseyni@yahoo.com",
+    "avatarId": 52
+ }
+
+
+//save item type in database .....
+ {
+    "id": 17,
+    "label": "tether",
+    "value": "tether",
+    "iconId": 66,
+    "walletItemType": "fiat"
+  }
+
+
+//Save Wallet Item Type  in Database...
+
+
+
+{
+    "id": 13,
+    "label": "fiat",
+    "value": "fiat",
+    "walletItemCategory": "CryptoCurrency",
+     "currency": true
+  }
+
+
+//Save Learning Content in Database...
+
+{
+    "id": 63,
+    "descText": "help to maze",
+    "descBrief": "this content is about maze tables",
+    "fileName": "MazeImage",
+    "size": 90465,
+    "contentType": "Image",
+    "binaryContentId": 61
+  }
+
+
+//Save AL City Object in a Puzzle Group Entity
+
+{
+    "id": 174,
+    "title": "Image Hash Puzzle Group with Image Object",
+    "code": "Hash_ImageObject",
+    "puzzleGroup": "Hash Image - Puzzle Group 1",
+    "puzzleGroupId": 64,
+    "alCityObject": "ImageObject01",
+    "alCityObjectId": 135
+}
+
+
+//Save Learning Topic
+{
+    "id": 78,
+    "title": "Hash Image",
+     "parentTitle": "Root Topic",
+     "parentId": 77
+}
+
+
+//save Object Category
+{
+    "id": 22,
+    "label": "Animal",
+    "value": "Animal"
+  }
+
+
+//Save Action Renders
+
+{
+        "id": 99,
+        "objectAction": "Create",
+        "handler": "Show",
+        "clientType": "mobile"
+    }
+
+//Save Puzzle Level Privacy
+ {
+    "id": 28,
+    "label": "privacy 1",
+    "value": "privacy1"
+  }
+
+
+//save puzzle level objective
+
+{
+        "id": 175,
+        "title": "arrange image pieces",
+        "description": "arrange image pieces as correct image",
+        "skillAmount": 10.0,
+        "skillTitle": "timeManagement",
+        "skillId": 33,
+        "puzzleLevelId": 164,
+        "rewardAmount": 2.0,
+        "walletItemId": 18,
+        "walletItemTitle": "al_coin_10",
+        "condition": "(img1.x == img1.targetX)&&(img1.y == img1.targetY),(img2.x == img2.targetX)&&(img2.y == img2.targetY),(img3.x == img3.targetX)&&(img3.y == img3.targetY),(img4.x == img4.targetX)&&(img4.y == img4.targetY),(img5.x == img5.targetX)&&(img5.y == img5.targetY),(img6.x == img6.targetX)&&(img6.y == img6.targetY),(img7.x == img7.targetX)&&(img7.y == img7.targetY),(img8.x == img8.targetX)&&(img8.y == img8.targetY)"
+    }
+
+//save ALCity Object
+
+{
+    "id": 124,
+    "title": "TextObject",
+    "objectCategory": "TextObject",
+  }
+
+//save Puzzle Level
+
+{
+    "id": -1,
+    "approveDate": "25-06-2024 07:59:06",
+    "ordering": 1,
+    "title": "hashed image with a empty cell 2222",
+    "code": "4545",
+    "fromAge": 10,
+    "toAge": 14,
+    "maxScore": 5,
+    "puzzleGroupId":64,
+    "puzzleLevelStatus": "Ongoing",
+    "puzzleLevelPrivacy": "privacy 1",
+    "puzzleLevelDifficulty": "Easy"
+  }
+
+
+
+//Save Puzzle Level Objective
+
+  {
+      "id": 105,
+      "version": 1,
+      "created": "06-05-2024 20:22:53",
+      "updated": "06-05-2024 20:22:53",
+      "createdBy": "admin",
+      "updatedBy": "admin",
+      "createdById": 52,
+      "updatedById": 52,
+      "title": "arrange image pieces",
+      "description": "arrange image pieces as correct image",
+      "skillAmount": 10.0,
+      "rewardAmount": 2.0,
+      "condition": "(img1.x == img1.targetX)&&(img1.y == img1.targetY),(img2.x == img2.targetX)&&(img2.y == img2.targetY),(img3.x == img3.targetX)&&(img3.y == img3.targetY),(img4.x == img4.targetX)&&(img4.y == img4.targetY),(img5.x == img5.targetX)&&(img5.y == img5.targetY),(img6.x == img6.targetX)&&(img6.y == img6.targetY),(img7.x == img7.targetX)&&(img7.y == img7.targetY),(img8.x == img8.targetX)&&(img8.y == img8.targetY)",
+      "walletItemDTO": {
+          "id": 13,
+          "label": "al_coin_10",
+          "value": "al_coin_10",
+          "version": 1,
+          "created": "06-05-2024 20:22:53",
+          "updated": "06-05-2024 20:22:53",
+          "createdBY": "admin",
+          "updatedBy": "admin",
+          "createdBYId": 52,
+          "updatedById": 52,
+          "walletItemTypeDTO": {
+              "id": 10,
+              "label": "al_coin",
+              "value": "al_coin",
+              "version": 1,
+              "created": "06-05-2024 20:22:53",
+              "updated": "06-05-2024 20:22:53",
+              "createdBY": null,
+              "updatedBy": null,
+              "walletItemCategory": "AL_Coin",
+              "currency": true
+          }
+      },
+      "learningSkillDTO": {
+          "id": 31,
+          "label": "time Management",
+          "value": "timeManagement"
+      }
+  }
+
+
+//save Member Type
+
+ {
+        "id": 0,
+        "version": 1,
+        "label": "Puzzle Player_2",
+        "value": "Puzzle_Player_2",
+        "created": "05-05-2024 15:24:18",
+        "updated": "05-05-2024 15:24:18",
+        "createdBy": "admin",
+        "updatedBy": "admin"
+    }
+
+//save Journey
+
+{
+    "version": 1,
+    "created": "02-05-2024 11:10:16",
+    "updated": "02-05-2024 11:10:16",
+    "createdBy": "admin",
+    "updatedBy": "admin",
+    "createdById": 8,
+    "updatedById": 8,
+    "title": "Journey_3",
+    "graphic": {
+        "id": 66,
+        "version": 1,
+        "created": "02-05-2024 11:10:16",
+        "updated": "02-05-2024 11:10:16",
+        "createdBy": "admin",
+        "updatedBy": "admin",
+        "fileName": "image_journey_3",
+        "size": 114853,
+        "content": null
+    },
+    "journeyStepDTOSet": null,
+    "journeyLearningSkillSet": null
+}
+
+//add a learning skill
+
+{
+        "label": "Constraint_time_2",
+        "value": "Constraint_time_2",
+        "version": 1,
+        "created": 1713681393,
+        "updated": 1713681393
+ }
+
+ //add a Data Type
+
+ {
+         "label": "Integer",
+         "value": "Integer",
+         "version": 1,
+         "created": 1713703087,
+         "updated": 1713703087
+     }
+
+
+//add client Type record
+     {
+             "label": "mobile",
+             "value": "mobile",
+             "version": 1,
+             "created": 1713814148,
+             "updated": 1713814148
+         }
+
+
+// add puzzle category
+
+ {
+
+        "label": "Graph",
+        "value": "Graph",
+        "version": 1,
+        "created": 1714379790,
+        "updated": 1714379790,
+        "createdBy": 8,
+        "updatedBy": 8
+    }
+    //save puzzle group
+
+ {
+     "id": -1,
+     "version": 1,
+     "created": "29-11-2024 06:13:46",
+     "updated": "29-11-2024 06:13:46",
+     "createdBy": "admin",
+     "updatedBy": "admin",
+     "title": "IQ Puzzle Group 1403",
+     "puzzleCategoryId": 8,
+     "iconId": 60,
+     "picId": 61,
+     "journeyStepDTOCollection": null,
+     "puzzleLevelDTOCollection": null,
+     "puzzleGroup_puzzleObjectDTOCollection": null,
+     "puzzleSkillLearningContentDTOCollection": null
+   }
+
