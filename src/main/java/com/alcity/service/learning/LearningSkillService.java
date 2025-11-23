@@ -85,7 +85,7 @@ public class LearningSkillService implements LearningSkillRepository {
 
     @Override
     public void delete(LearningSkill entity) {
-
+        learningSkillRepository.delete(entity);
     }
 
     @Override
