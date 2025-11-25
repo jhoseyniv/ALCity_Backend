@@ -83,6 +83,7 @@ public class CachingConfig {
                 .withCacheConfiguration("findVariablesForPuzzleGroupObject", myDefaultCacheConfig(Duration.ofMinutes(50)))
                 .withCacheConfiguration("findVariablesForPuzzleGroupObject", myDefaultCacheConfig(Duration.ofMinutes(50)))
                 .withCacheConfiguration("defined_properties_in_instance", myDefaultCacheConfig(Duration.ofMinutes(50)))
+                .withCacheConfiguration("findByOwnerIdAndAttributeOwnerTypeNew", myDefaultCacheConfig(Duration.ofMinutes(50)))
                    .build();
 
     }

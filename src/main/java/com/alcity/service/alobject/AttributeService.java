@@ -715,7 +715,7 @@ public class AttributeService implements AttributeRepository {
         return outputAttributes;
     }
 
-    @Cacheable(value = "findPropertiesForPuzzleGroupObject", key= "{ #pgo_Id, #ownerType }")
+   // @Cacheable(value = "findPropertiesForPuzzleGroupObject", key= "{ #pgo_Id, #ownerType }")
     public Collection<Attribute> findPropertiesForPuzzleGroupObject(Long pgo_Id,AttributeOwnerType ownerType){
         //find properties for an object as parent of pgo + find properties for a pgo
 
@@ -949,7 +949,7 @@ public class AttributeService implements AttributeRepository {
         }
         return outputs;
     }
-    @Cacheable(value = "defined_properties_in_instance", key= "{ #instanceId ,#pgo_Id, #object_id }")
+    //@Cacheable(value = "defined_properties_in_instance", key= "{ #instanceId ,#pgo_Id, #object_id }")
     public Collection<Attribute> defined_properties_in_instance(Long instanceId,Long pgo_id,long object_id) {
         Collection<Attribute> outputs = new ArrayList<>();
         Collection<Attribute> properties_for_instance = attributeRepository.findByOwnerIdAndAttributeOwnerType(instanceId,AttributeOwnerType.Instance_Puzzle_Group_Object_Property);
@@ -1098,6 +1098,7 @@ public class AttributeService implements AttributeRepository {
     }
     */
 
+    @Cacheable(value = "findByOwnerIdAndAttributeOwnerTypeNew", key= "{ #ownerId ,#ownerType }")
     public Collection<Attribute> findByOwnerIdAndAttributeOwnerTypeNew(Long ownerId, AttributeOwnerType ownerType) {
 
         Collection<Attribute> outputAttributes = new ArrayList<Attribute>();
