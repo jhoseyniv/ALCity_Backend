@@ -1098,7 +1098,7 @@ public class AttributeService implements AttributeRepository {
     }
     */
 
-    @Cacheable(value = "findByOwnerIdAndAttributeOwnerTypeNew", key= "{ #ownerId ,#ownerType }")
+    //@Cacheable(value = "findByOwnerIdAndAttributeOwnerTypeNew", key= "{ #ownerId ,#ownerType }")
     public Collection<Attribute> findByOwnerIdAndAttributeOwnerTypeNew(Long ownerId, AttributeOwnerType ownerType) {
 
         Collection<Attribute> outputAttributes = new ArrayList<Attribute>();
