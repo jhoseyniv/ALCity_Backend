@@ -80,8 +80,10 @@ public class CachingConfig {
                 .withCacheConfiguration("getPublicPuzzleLevels", myDefaultCacheConfig(Duration.ofMinutes(50)))
                 .withCacheConfiguration("getPLNotPlayedByMember", myDefaultCacheConfig(Duration.ofMinutes(50)))
                 .withCacheConfiguration("saveLearningSkill", myDefaultCacheConfig(Duration.ofMinutes(50)))
-
-                .build();
+                .withCacheConfiguration("findVariablesForPuzzleGroupObject", myDefaultCacheConfig(Duration.ofMinutes(50)))
+                .withCacheConfiguration("findVariablesForPuzzleGroupObject", myDefaultCacheConfig(Duration.ofMinutes(50)))
+                .withCacheConfiguration("defined_properties_in_instance", myDefaultCacheConfig(Duration.ofMinutes(50)))
+                   .build();
 
     }
 

@@ -85,7 +85,7 @@ public class AppMemberService implements AppMemberRepository, CustomizedUserRepo
     public Collection<AppMember> findByCriteria(AppMemberSearchCriteriaDTO dto) {
         Integer age =dto.getAge();
         Collection<AppMember> appMembers = appMemberRepository.findByUsernameContainingIgnoreCaseOrNicknameContainingIgnoreCaseOrEmailIsContainingIgnoreCase(dto.getCriteria(), dto.getCriteria(), dto.getCriteria());
-      //  Collection<AppMember> matchValues = appMembers.stream().filter(appMember ->  appMember.getAge().equals(age)).toList();
+        //  Collection<AppMember> matchValues = appMembers.stream().filter(appMember ->  appMember.getAge().equals(age)).toList();
         Stream<AppMember> appMemberStream = appMembers.stream();
         if(dto.getLastIndex() < 0L ) dto.setLastIndex(0L);
         if(dto.getPageSize() <= 0 ) dto.setPageSize(1);
@@ -154,7 +154,7 @@ public class AppMemberService implements AppMemberRepository, CustomizedUserRepo
             if(journeyStep!=null){
                 if(journeyStep.getJourney().getId() == journey.getId()) {
                     AppMemberStepInfo dto = new AppMemberStepInfo(journeyStep.getId(), journeyStep.getTitle(),journeyStep.getXpos(),journeyStep.getYpos(),journeyStep.getOrdering(),
-                        pldto.getId(), pldto.getIconId(), pldto.getTitle(), pldto.getPuzzleGroupId(), pldto.getPuzzleGroupTitle(),0,Boolean.FALSE,objectivesData);
+                            pldto.getId(), pldto.getIconId(), pldto.getTitle(), pldto.getPuzzleGroupId(), pldto.getPuzzleGroupTitle(),0,Boolean.FALSE,objectivesData);
                     stepInfos.add(dto);
                 }
             }
@@ -205,7 +205,6 @@ public class AppMemberService implements AppMemberRepository, CustomizedUserRepo
                     appMemberPuzzleLevelScoreService.save(puzzleLevelScore);
                 }
                 Integer stars=getPuzzleLevelAppMemberStars(score,puzzleLevel);
-
                 stepInfo.setStars(stars);
             }
 
@@ -283,7 +282,7 @@ public class AppMemberService implements AppMemberRepository, CustomizedUserRepo
                     ,1L, DateUtils.getNow(), DateUtils.getNow(), createdBy.get(), createdBy.get());
             appMember_WalletItemRepository.save(appMember_walletItem);
         } else if(code.equalsIgnoreCase("Save") && isWalletItemPresent.isPresent()){
-             appMember_walletItem = isWalletItemPresent.get();
+            appMember_walletItem = isWalletItemPresent.get();
             appMember_walletItem.setAmount(appMember_walletItem.getAmount() + dto.getAmount());
             appMember_WalletItemRepository.save(appMember_walletItem);
         }
@@ -359,20 +358,20 @@ public class AppMemberService implements AppMemberRepository, CustomizedUserRepo
         MemberType memberType = memberTypeService.findByValue(dto.getMemberType()).get();
         BinaryContent icon=null;
         if(dto.getIconId() == null || dto.getIconId() ==0)
-                icon = binaryContentRepository.findByfileName("no_photo_avatar");
+            icon = binaryContentRepository.findByfileName("no_photo_avatar");
         else
             icon = binaryContentRepository.findById(dto.getIconId()).get();
 
         byte [] hash = null;
         try {
-             hash = GenerateSHA256.getSHA(dto.getPassword());
+            hash = GenerateSHA256.getSHA(dto.getPassword());
         } catch (NoSuchAlgorithmException e) {
             throw new RuntimeException(e);
         }
         String hashedPassword = GenerateSHA256.toHexString(hash) ;
         AppMember appMember=null;
         if (code.equalsIgnoreCase("Save")) { //Save
-            appMember = new AppMember(dto.getAge(),language,dto.getUsername(), hashedPassword, dto.getNickname(), dto.getMobile(),dto.getEmail(),icon,gender ,memberType,dto.getEnergy()
+            appMember = new AppMember(dto.getAge(),language,dto.getUsername(), hashedPassword, dto.getNickname(), dto.getMobile(),dto.getEmail(),icon,gender ,memberType
                     ,1L, DateUtils.getNow(), DateUtils.getNow(), createdBy.get(), createdBy.get());
             appMemberRepository.save(appMember);
             appMember_LearningSkillService.initSkillWalletByUser(appMember);
@@ -385,7 +384,7 @@ public class AppMemberService implements AppMemberRepository, CustomizedUserRepo
                 appMember.setPassword(hashedPassword);
                 appMember.setMobile(dto.getMobile());
                 appMember.setEmail(dto.getEmail());
-                appMember.setEnergy(dto.getEnergy());
+                //appMember.setEnergy(dto.getEnergy());
                 appMember.setIcon(icon);
                 appMember.setMemberType(memberType);
                 appMember.setGender(gender);
@@ -417,7 +416,7 @@ public class AppMemberService implements AppMemberRepository, CustomizedUserRepo
         }
         String hashedPassword = GenerateSHA256.toHexString(hash) ;
 
-        guest = new AppMember(age,Language.English,"Guest", hashedPassword, "Guest"+bornYear, "","",icon,UserGender.Unknow ,memberType,10
+        guest = new AppMember(age,Language.English,"Guest", hashedPassword, "Guest"+bornYear, "","",icon,UserGender.Unknow ,memberType
                 ,1L, DateUtils.getNow(), DateUtils.getNow(), createdBy.get(), createdBy.get());
         save(guest);
         String UniqueUserName= guest.getUsername() + guest.getId();
@@ -433,14 +432,14 @@ public class AppMemberService implements AppMemberRepository, CustomizedUserRepo
             return  new ALCityAcessRight(-1L, remoteAccessDTO.getRemoteUserName(),-1,"data not found","-1",-1,"error","error","error",-1L,"error","error");
         return  null;
     }
-        public AppMember saveRemoteUser(RemoteRequestDTO accessDTO) {
+    public AppMember saveRemoteUser(RemoteRequestDTO accessDTO) {
         Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
         MemberType memberType = memberTypeService.findByValue("Guest").get();
         BinaryContent icon=null;
         AppMember guest=null;
         Integer age = DateUtils.calculateAgeFromJalali(accessDTO.getBirthYear());
         icon = binaryContentRepository.findByfileName("no_photo_avatar");
-        guest = new AppMember(age,Language.English,accessDTO.getRemoteHost() + "-" + accessDTO.getRemoteUserName(), "Guest", "Guest", "","",icon,UserGender.Unknow ,memberType,10
+        guest = new AppMember(age,Language.English,accessDTO.getRemoteHost() + "-" + accessDTO.getRemoteUserName(), "Guest", "Guest", "","",icon,UserGender.Unknow ,memberType
                 ,1L, DateUtils.getNow(), DateUtils.getNow(), createdBy.get(), createdBy.get());
         appMemberRepository.save(guest);
         String UniqueUserName= guest.getUsername() + guest.getId();
@@ -493,8 +492,8 @@ public class AppMemberService implements AppMemberRepository, CustomizedUserRepo
     @Override
     public void delete(AppMember member) {
         //load and delete member client types
-         Collection<ClientType>  clientTypes=member.getClientTypes();
-         member.getClientTypes().removeAll(clientTypes);
+        Collection<ClientType>  clientTypes=member.getClientTypes();
+        member.getClientTypes().removeAll(clientTypes);
         //load and delete member instances game
 
         //load and delete puzzleLevelScore for a member

@@ -26,6 +26,8 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import java.util.concurrent.ForkJoinPool;
+import java.util.concurrent.RecursiveTask;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -38,7 +40,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/puzz")
-public class InterpreterController {
+public class InterpreterController  {
 
     @Autowired
     private PLGroundService plGroundService;
@@ -59,26 +61,27 @@ public class InterpreterController {
     @Operation( summary = "Create  json File ",  description = "Create Json file for a puzzle level structure and rules")
     @RequestMapping(value = "/create-json/id/{id}", method = RequestMethod.GET)
     @ResponseBody
-    public ResponseObject createJsonFile(@PathVariable Long id) throws IOException, ClassNotFoundException {
+    public PLData createJsonFile(@PathVariable Long id) throws IOException, ClassNotFoundException, InterruptedException {
         Optional<PuzzleLevel> puzzleLevelOptional = puzzleLevelService.findById(id);
         PLData plData = new PLData();
         Collection<PLBinaryContentDTO> plContents= new ArrayList<>();
         if(puzzleLevelOptional.isPresent()){
             plData = getJsonFile(id);
-            plContents = puzzleLevelService.getContents(id);
-            PuzzleLevel puzzleLevel = puzzleLevelOptional.get();
-            byte[] plContentsBytes = ImageUtil.convertObjectToBytes(plContents);
-            puzzleLevel.setPlconetents(plContentsBytes);
-            puzzleLevelService.save(puzzleLevel);
+            //plContents = puzzleLevelService.getContents(id);
+           // PuzzleLevel puzzleLevel = puzzleLevelOptional.get();
+           // byte[] plContentsBytes = ImageUtil.convertObjectToBytes(plContents);
+            //puzzleLevel.setPlconetents(plContentsBytes);
+           // puzzleLevelService.save(puzzleLevel);
 
         }
-        return new ResponseObject(ErrorType.SaveSuccess, ObjectAction.class.getSimpleName() , Status.ok.name(), id, SystemMessage.SaveOrEditMessage_Success);
+        return plData;
+       // return new ResponseObject(ErrorType.SaveSuccess, ObjectAction.class.getSimpleName() , Status.ok.name(), id, SystemMessage.SaveOrEditMessage_Success);
     }
 
     @Operation( summary = "Fetch a json ",  description = "Fetches all data that need to Interpret a puzzle level structure and rules")
     @RequestMapping(value = "/id/{id}", method = RequestMethod.GET)
     @ResponseBody
-    public PLData getPuzzleLevelForInterpreter(@PathVariable Long id) throws IOException, ClassNotFoundException {
+    public PLData getPuzzleLevelForInterpreter(@PathVariable Long id) throws IOException, ClassNotFoundException, InterruptedException {
         Optional<PuzzleLevel> puzzleLevelOptional = puzzleLevelService.findById(id);
         PLData plData = new PLData();
         if(puzzleLevelOptional.isPresent()){
@@ -109,86 +112,74 @@ public class InterpreterController {
         return plContents;
     }
 */
-    public PLData getJsonFile(Long plID) throws IOException {
-        PLData plData= new PLData();
 
-        Optional<PLGround> plGroundOptional = plGroundService.findByPuzzleLevelId(plID);
-        PLGround plGround = new PLGround();
-        if(plGroundOptional.isPresent()){
-            plGround = plGroundOptional.get();
-
-            PositionDTO Position = new PositionDTO(plGround.getxPosition(), plGround.getyPosition(), plGround.getzPosition());
-            PositionDTO Rotation = new PositionDTO(plGround.getxRotation(),plGround.getyRotation(),plGround.getzRotation());
-            FeaturesData features = new FeaturesData(plGround.getZoom(),plGround.getPan(),plGround.getRotation());
-            BoardCenterDTO boardCenterDTO = new BoardCenterDTO(plGround.getBoardCenterX(), plGround.getBoardCenterY(),plGround.getBoardCenterZ());
-            BoardCenterDTO initialOffsetDTO = new BoardCenterDTO(plGround.getInitPanOffsetX(), plGround.getInitPanOffsetY(),plGround.getInitPanOffsetZ());
-            InitialValuesDTO initialValuesDTO = new InitialValuesDTO(plGround.getInitValueZoom(), plGround.getInitValueZoomLimit(), plGround.getPanLimit(),boardCenterDTO,initialOffsetDTO
-                    ,plGround.getBackground().getId(),plGround.getSkybox().getId(),plGround.getBackgroundScale() );
-            CameraSetupData cameraSetupData = new CameraSetupData(Position,Rotation,features,initialValuesDTO);
-            cameraSetupData.setFeatures(features);
-            plData.setCameraSetup(cameraSetupData);
-
-            PuzzleLevel pl = plGround.getPuzzleLevel();
-            plData.setCode(pl.getCode());
-            plData.setName(pl.getTitle());
-
-            long start_time_7 = System.currentTimeMillis();
-            Collection<AttributeData>  variables = DTOUtil.getAttributeForOwnerById(attributeService,pl.getId(),AttributeOwnerType.Puzzle_Level_Variable);
-            long end_time_7 = System.currentTimeMillis();
-            String message_7 = "Time for get json variables  = " + (end_time_7 - start_time_7);
-            ToolBox.SendMessageToImportLogs(message_7, DateUtils.getNow());
-            System.out.println("Time for get json variables  =" + (end_time_7 - start_time_7));
-
-            long start_time_8 = System.currentTimeMillis();
-            Collection<PLObjectiveData> objectives = DTOUtil.getPLObjectiveData(pl);
-            plData.setObjectives(objectives);
-            long end_time_8 = System.currentTimeMillis();
-            String message_8 = "Time for get json objectives  = " + (end_time_8 - start_time_8);
-            ToolBox.SendMessageToImportLogs(message_8, DateUtils.getNow());
-            System.out.println("Time for get json objectives  =" + (end_time_8 - start_time_8));
-
-            long start_time_9 = System.currentTimeMillis();
-            Collection<PGObjectData> objects = getObjectsForPuzzleGroup(pl);
-            long end_time_9 = System.currentTimeMillis();
-            String message_9 = "Time for get json objects  = " + (end_time_9 - start_time_9);
-            ToolBox.SendMessageToImportLogs(message_9, DateUtils.getNow());
-            System.out.println("Time for get json objects  =" + (end_time_9 - start_time_9));
-
-
-            long start_time_10 = System.currentTimeMillis();
-
-            Collection<PLCell> cells = plGround.getPlCells();
-            Collection<PLCellData> cellDTOS = DTOUtil.getPLCellDTOS(cells,attributeService);
-
-            long end_time_10 = System.currentTimeMillis();
-            String message_10 = "Time for get cells   = " + (end_time_10 - start_time_10);
-            ToolBox.SendMessageToImportLogs(message_10, DateUtils.getNow());
-            System.out.println("Time for get cells   =" + (end_time_10 - start_time_10));
-
-
-            long start_time_11 = System.currentTimeMillis();
-            Collection<RuleData> rules = DTOUtil.getPLRules(pl,attributeService,attributeValueService,plRulePostActionService);
-
-            long end_time_11 = System.currentTimeMillis();
-            String message_11 = "Time for get rules objects  = " + (end_time_11 - start_time_11);
-            ToolBox.SendMessageToImportLogs(message_11, DateUtils.getNow());
-            System.out.println("Time for get rules objects  =" + (end_time_11 - start_time_11));
-
-            plData.setCols(plGround.getNumColumns());
-            plData.setRows(plGround.getNumRows());
-            plData.setVariables(variables);
-            plData.setObjects(objects);
-            plData.setCells(cellDTOS);
-            plData.setRules(rules);
-
-            byte[] jsonBytes = ImageUtil.convertObjectToBytes(plData);
-            pl.setInterpreterFile(jsonBytes);
-
-            puzzleLevelService.save(pl);
-        }
-        return plData;
-
+    public Collection<AttributeData>  getAttributes(PuzzleLevel pl){
+        return DTOUtil.getAttributeForOwnerById(attributeService,pl.getId(),AttributeOwnerType.Puzzle_Level_Variable);
     }
+
+
+ public PLData getJsonFile(Long plID) throws IOException, InterruptedException {
+    PLData plData= new PLData();
+
+
+    Optional<PLGround> plGroundOptional = plGroundService.findByPuzzleLevelId(plID);
+    PLGround plGround = new PLGround();
+    if(plGroundOptional.isPresent()){
+        plGround = plGroundOptional.get();
+
+        long start_time = System.currentTimeMillis();
+
+        PositionDTO Position = new PositionDTO(plGround.getxPosition(), plGround.getyPosition(), plGround.getzPosition());
+        PositionDTO Rotation = new PositionDTO(plGround.getxRotation(),plGround.getyRotation(),plGround.getzRotation());
+        FeaturesData features = new FeaturesData(plGround.getZoom(),plGround.getPan(),plGround.getRotation());
+        BoardCenterDTO boardCenterDTO = new BoardCenterDTO(plGround.getBoardCenterX(), plGround.getBoardCenterY(),plGround.getBoardCenterZ());
+        BoardCenterDTO initialOffsetDTO = new BoardCenterDTO(plGround.getInitPanOffsetX(), plGround.getInitPanOffsetY(),plGround.getInitPanOffsetZ());
+        InitialValuesDTO initialValuesDTO = new InitialValuesDTO(plGround.getInitValueZoom(), plGround.getInitValueZoomLimit(), plGround.getPanLimit(),boardCenterDTO,initialOffsetDTO
+                ,plGround.getBackground().getId(),plGround.getSkybox().getId(),plGround.getBackgroundScale() );
+        CameraSetupData cameraSetupData = new CameraSetupData(Position,Rotation,features,initialValuesDTO);
+        cameraSetupData.setFeatures(features);
+        plData.setCameraSetup(cameraSetupData);
+
+        PuzzleLevel pl = plGround.getPuzzleLevel();
+        plData.setCode(pl.getCode());
+        plData.setName(pl.getTitle());
+
+              //  Collection<AttributeData>  variables = DTOUtil.getAttributeForOwnerById(attributeService,pl.getId(),AttributeOwnerType.Puzzle_Level_Variable);
+            PLGround finalPlGround = plGround;
+                Collection<AttributeData> variables = DTOUtil.getAttributeForOwnerById(attributeService,plID, AttributeOwnerType.Puzzle_Level_Variable);
+                plData.setVariables(variables);
+                Collection<PLObjectiveData> objectives = DTOUtil.getPLObjectiveData(pl);
+                plData.setObjectives(objectives);
+                Collection<PGObjectData> objects = getObjectsForPuzzleGroup(pl);
+                plData.setObjects(objects);
+                Collection<PLCell> cells = finalPlGround.getPlCells();
+
+                Collection<PLCellData> cellDTOS = DTOUtil.getPLCellDTOS(cells,attributeService);
+                plData.setCells(cellDTOS);
+
+        long start_time2 = System.currentTimeMillis();
+
+                Collection<RuleData> rules = DTOUtil.getPLRules(pl,attributeService,attributeValueService,plRulePostActionService);
+                plData.setRules(rules);
+        long end_time2 = System.currentTimeMillis();
+        String message_6 = "Time for running get json puzzle Rules  is ------- = " + (end_time2 - start_time2)/1000 + " Seconds";
+        ToolBox.SendMessageToImportLogs(message_6, DateUtils.getNow());
+
+        plData.setCols(plGround.getNumColumns());
+        plData.setRows(plGround.getNumRows());
+
+        long end_time = System.currentTimeMillis();
+        String message_7 = "Time for running get json puzzle  is ------- = " + (end_time - start_time)/1000 + " Seconds";
+        ToolBox.SendMessageToImportLogs(message_7, DateUtils.getNow());
+
+        byte[] jsonBytes = ImageUtil.convertObjectToBytes(plData);
+        pl.setInterpreterFile(jsonBytes);
+
+        puzzleLevelService.save(pl);
+    }
+    return plData;
+
+}
 
     public Collection<InstanceData> getInstanceData(PGObject pgo, PuzzleLevel  pl) {
         Collection<InstanceData> instanceDTOS = new ArrayList<InstanceData>();
@@ -323,6 +314,5 @@ public class InterpreterController {
 
         return actionsData;
     }
-
 
 }

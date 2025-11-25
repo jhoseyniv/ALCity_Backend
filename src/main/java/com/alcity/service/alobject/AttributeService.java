@@ -22,6 +22,7 @@ import com.alcity.service.puzzle.PGObjectService;
 import com.alcity.utility.DTOUtil;
 import com.alcity.utility.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -714,6 +715,7 @@ public class AttributeService implements AttributeRepository {
         return outputAttributes;
     }
 
+    @Cacheable(value = "findPropertiesForPuzzleGroupObject", key= "{ #pgo_Id, #ownerType }")
     public Collection<Attribute> findPropertiesForPuzzleGroupObject(Long pgo_Id,AttributeOwnerType ownerType){
         //find properties for an object as parent of pgo + find properties for a pgo
 
@@ -750,6 +752,48 @@ public class AttributeService implements AttributeRepository {
         outputAttributes.addAll(defined_properties_in_a_object);
         return outputAttributes;
     }
+    public Collection<AttributeData> findPropertiesForPuzzleGroupObjectDTOS(Long pgo_Id,AttributeOwnerType ownerType){
+        //find properties for an object as parent of pgo + find properties for a pgo
+
+        Collection<Attribute> outputAttributes = new ArrayList<Attribute>();
+        //     Collection<Attribute> temp_Bug_properties_in_an_object = new ArrayList<>();
+
+        //check is_defined_and_init_in_pgo_only ?
+        Collection<Attribute> properties_for_pgo = attributeRepository.findByOwnerIdAndAttributeOwnerType(pgo_Id,ownerType);
+        // state 1 : if properties_for_pgo is not empty mean that properties is_defined_and_init_in_instance_only
+        outputAttributes = removeUnRelatedAttributeValues(properties_for_pgo,AttributeOwnerType.Instance_Puzzle_Group_Object_Property);
+
+        // check is_defined_in_object_and_reinit_in_pog ?
+        // find object - get parent object id for this pgo
+        Long object_id = getObjectForThisPOG(pgo_Id);
+
+        //fetch properties for a parent object of this pgo
+        Collection<Attribute> properties_in_a_object = attributeRepository.findByOwnerIdAndAttributeOwnerType(object_id,AttributeOwnerType.Object_Property);
+        properties_in_a_object = properties_in_a_object.stream().filter(attribute -> attribute.getAttributeOwnerType().equals(AttributeOwnerType.Object_Property)).toList();
+        /*
+        Iterator<Attribute> iterator = properties_in_a_object.iterator();
+        while(iterator.hasNext()){
+            Attribute attribute = iterator.next();
+            Collection<AttributeValue> values = attributeValueRepository.findByAttributeId(attribute);
+            System.out.println(values.size());
+            attribute.setAttributeValues(values);
+            temp_Bug_properties_in_an_object.add(attribute);
+        }
+         */
+        //state 2 + state 3 : if properties_in_a_pg_object is not empty mean that variables is defined in parent(object)
+        //sate 2 : properties are defined in object and initialize there only
+        //state 3 : properties are defined in object but re-initialize in pgo
+        //following method find variables and values for state 2 and 3
+        Collection<Attribute> defined_properties_in_a_object = defined_properties_in_pg_object(properties_in_a_object,pgo_Id,object_id);
+        outputAttributes.addAll(defined_properties_in_a_object);
+        Collection<AttributeData> propertiesDTO = DTOUtil.getPropertiesDTOForPGObject(outputAttributes);
+
+
+        return propertiesDTO;
+    }
+
+
+
     public Collection<Attribute> findPropertiesForALCityObject(Long object_id,AttributeOwnerType ownerType){
         //find properties for a object as parent of pgo + find properties for a pgo
        Collection<Attribute> properties_for_object = attributeRepository.findByOwnerIdAndAttributeOwnerType(object_id,ownerType);
@@ -778,12 +822,22 @@ public class AttributeService implements AttributeRepository {
         return output_attributes;
     }
 
+    //@Cacheable(value = "findVariablesForPuzzleGroupObject", key= "{ #ownerId, #ownerType }")
     public Collection<Attribute> findVariablesForPuzzleGroupObject(Long ownerId,AttributeOwnerType ownerType){
         Collection<Attribute> outputAttributes = new ArrayList<Attribute>();
         //fetch variables for an object in a puzzle group
         Collection<Attribute> variables_PGO = attributeRepository.findByOwnerIdAndAttributeOwnerType(ownerId,ownerType);
         outputAttributes = getVariablesValuesForThisOwner(variables_PGO,ownerId);
         return outputAttributes;
+    }
+
+    public Collection<AttributeData> findVariablesForPuzzleGroupObjectDTOS(Long ownerId,AttributeOwnerType ownerType){
+        Collection<Attribute> outputAttributes = new ArrayList<Attribute>();
+        //fetch variables for an object in a puzzle group
+        Collection<Attribute> variables_PGO = attributeRepository.findByOwnerIdAndAttributeOwnerType(ownerId,ownerType);
+        outputAttributes = getVariablesValuesForThisOwner(variables_PGO,ownerId);
+
+        return DTOUtil.getVariablesDTOForPGObject(outputAttributes);
     }
 
     public Long getPGOForThisInstance(Long instanceId) {
@@ -895,7 +949,7 @@ public class AttributeService implements AttributeRepository {
         }
         return outputs;
     }
-
+    @Cacheable(value = "defined_properties_in_instance", key= "{ #instanceId ,#pgo_Id, #object_id }")
     public Collection<Attribute> defined_properties_in_instance(Long instanceId,Long pgo_id,long object_id) {
         Collection<Attribute> outputs = new ArrayList<>();
         Collection<Attribute> properties_for_instance = attributeRepository.findByOwnerIdAndAttributeOwnerType(instanceId,AttributeOwnerType.Instance_Puzzle_Group_Object_Property);

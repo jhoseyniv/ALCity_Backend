@@ -98,7 +98,6 @@ public class LearningSkillController {
     @ExceptionHandler(UniqueConstraintException.class)
     @PostMapping("/skill/save")
     @CrossOrigin(origins = "*")
-    //@CacheEvict(value = "saveLearningSkill", key = "#dto.id")
     public ResponseMessage saveLearningSkill(@RequestBody LearningSkillDTO dto)  {
         LearningSkill savedRecord = null;
         ResponseMessage response = new ResponseMessage();

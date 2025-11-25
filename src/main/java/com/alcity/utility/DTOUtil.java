@@ -45,6 +45,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.time.LocalDateTime;
 import java.util.*;
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.toList;
@@ -859,7 +860,7 @@ public class DTOUtil {
 
         return new AppMemberDTO(member.getId(),member.getAge(),member.getLanguage().name(),
                 member.getUsername(),member.getPassword(),member.getIcon().getId(), member.getNickname(),
-                member.getMobile(), member.getEmail(),member.getGender().name(),member.getMemberType().getValue(),member.getEnergy(),
+                member.getMobile(), member.getEmail(),member.getGender().name(),member.getMemberType().getValue(),
                 member.getVersion(), member.getCreated(), member.getUpdated(), userName, userName);
     }
 
@@ -1288,7 +1289,7 @@ public class DTOUtil {
         return dtos;
     }
 
-        public static Collection<RuleData> getPLRules(PuzzleLevel pl, AttributeService attributeService,AttributeValueService attributeValueService, PLRulePostActionService plRulePostActionService){
+    public static Collection<RuleData> getPLRules(PuzzleLevel pl, AttributeService attributeService,AttributeValueService attributeValueService, PLRulePostActionService plRulePostActionService){
         Collection<RuleData> rulesData = new ArrayList<RuleData>();
         Collection<PLRule>  rules = pl.getRules();
         Iterator<PLRule> iterator = rules.iterator();
@@ -1315,6 +1316,56 @@ public class DTOUtil {
 //            ruleData.setActionTreeExports(sortedAction);
 
             rulesData.add(ruleData);
+        }
+
+        Comparator ruleComparator = new RuleDataComparator();
+        List<RuleData> sortedRules =new ArrayList<RuleData>();
+        sortedRules = rulesData.stream().collect(toList());
+        sortedRules.sort(ruleComparator);
+
+        return sortedRules;
+    }
+
+    private Runnable createRunnable(final String paramStr){
+
+        Runnable aRunnable = new Runnable(){
+            public void run(){
+            }
+        };
+
+        return aRunnable;
+
+    }
+    public static RuleData getPLRuleData(PLRule rule, AttributeService attributeService,AttributeValueService attributeValueService, PLRulePostActionService plRulePostActionService){
+        RuleData ruleData = new RuleData();
+        ruleData.setTitle(rule.getTitle());
+        ruleData.setOrdering(rule.getOrdering());
+        ruleData.setConditions(rule.getCondition());
+        ruleData.setIgnoreRemaining(rule.getIgnoreRemaining());
+        String event = rule.getPlRuleEvent().getName();
+        String subEvent = rule.getSubEvent();
+        if (subEvent == null || subEvent.isBlank()) subEvent = "";
+        if (!subEvent.equalsIgnoreCase(""))
+            event = event + ":" + subEvent;
+        ruleData.setEvent(event);
+        Collection<PostActionTreeExport> actions = getActionsTrees(plRulePostActionService ,attributeService,attributeValueService ,rule);
+        ruleData.setActions(actions);
+        return ruleData;
+    }
+
+    public static Collection<RuleData> getPLRulesParalles(PuzzleLevel pl, AttributeService attributeService,AttributeValueService attributeValueService, PLRulePostActionService plRulePostActionService){
+        Collection<RuleData> rulesData = new ArrayList<RuleData>();
+        Collection<PLRule>  rules = pl.getRules();
+        for (PLRule rule : rules) {
+            AtomicReference<RuleData> ruleData = new AtomicReference<>(new RuleData());
+            Runnable runnable = () -> {
+                ruleData.set(getPLRuleData(rule, attributeService, attributeValueService, plRulePostActionService));
+                // perform some operation
+                System.out.println(Thread.currentThread().getName());
+
+            };
+
+            rulesData.add(ruleData.get());
         }
 
         Comparator ruleComparator = new RuleDataComparator();
