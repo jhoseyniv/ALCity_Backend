@@ -21,13 +21,13 @@ import com.alcity.service.puzzle.InstanceService;
 import com.alcity.service.puzzle.PLGroundService;
 import com.alcity.service.puzzle.PLRulePostActionService;
 import com.alcity.service.puzzle.PuzzleLevelService;
-import com.alcity.utility.*;
+import com.alcity.utility.DTOUtil;
+import com.alcity.utility.ImageUtil;
+import com.alcity.utility.PLDTOUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import java.util.concurrent.ForkJoinPool;
-import java.util.concurrent.RecursiveTask;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -40,7 +40,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/puzz")
-public class InterpreterController  {
+public class InterpreterController {
 
     @Autowired
     private PLGroundService plGroundService;
@@ -61,7 +61,7 @@ public class InterpreterController  {
     @Operation( summary = "Create  json File ",  description = "Create Json file for a puzzle level structure and rules")
     @RequestMapping(value = "/create-json/id/{id}", method = RequestMethod.GET)
     @ResponseBody
-    public ResponseObject createJsonFile(@PathVariable Long id) throws IOException, ClassNotFoundException, InterruptedException {
+    public ResponseObject createJsonFile(@PathVariable Long id) throws IOException, ClassNotFoundException {
         Optional<PuzzleLevel> puzzleLevelOptional = puzzleLevelService.findById(id);
         PLData plData = new PLData();
         Collection<PLBinaryContentDTO> plContents= new ArrayList<>();
@@ -80,7 +80,7 @@ public class InterpreterController  {
     @Operation( summary = "Fetch a json ",  description = "Fetches all data that need to Interpret a puzzle level structure and rules")
     @RequestMapping(value = "/id/{id}", method = RequestMethod.GET)
     @ResponseBody
-    public PLData getPuzzleLevelForInterpreter(@PathVariable Long id) throws IOException, ClassNotFoundException, InterruptedException {
+    public PLData getPuzzleLevelForInterpreter(@PathVariable Long id) throws IOException, ClassNotFoundException {
         Optional<PuzzleLevel> puzzleLevelOptional = puzzleLevelService.findById(id);
         PLData plData = new PLData();
         if(puzzleLevelOptional.isPresent()){
@@ -111,74 +111,56 @@ public class InterpreterController  {
         return plContents;
     }
 */
+    public PLData getJsonFile(Long plID) {
+        PLData plData= new PLData();
 
-    public Collection<AttributeData>  getAttributes(PuzzleLevel pl){
-        return DTOUtil.getAttributeForOwnerById(attributeService,pl.getId(),AttributeOwnerType.Puzzle_Level_Variable);
+        Optional<PLGround> plGroundOptional = plGroundService.findByPuzzleLevelId(plID);
+        PLGround plGround = new PLGround();
+        if(plGroundOptional.isPresent()){
+            plGround = plGroundOptional.get();
+
+            PositionDTO Position = new PositionDTO(plGround.getxPosition(), plGround.getyPosition(), plGround.getzPosition());
+            PositionDTO Rotation = new PositionDTO(plGround.getxRotation(),plGround.getyRotation(),plGround.getzRotation());
+            FeaturesData features = new FeaturesData(plGround.getZoom(),plGround.getPan(),plGround.getRotation());
+            BoardCenterDTO boardCenterDTO = new BoardCenterDTO(plGround.getBoardCenterX(), plGround.getBoardCenterY(),plGround.getBoardCenterZ());
+            BoardCenterDTO initialOffsetDTO = new BoardCenterDTO(plGround.getInitPanOffsetX(), plGround.getInitPanOffsetY(),plGround.getInitPanOffsetZ());
+            InitialValuesDTO initialValuesDTO = new InitialValuesDTO(plGround.getInitValueZoom(), plGround.getInitValueZoomLimit(), plGround.getPanLimit(),boardCenterDTO,initialOffsetDTO
+                    ,plGround.getBackground().getId(),plGround.getSkybox().getId(),plGround.getBackgroundScale() );
+            CameraSetupData cameraSetupData = new CameraSetupData(Position,Rotation,features,initialValuesDTO);
+            cameraSetupData.setFeatures(features);
+            plData.setCameraSetup(cameraSetupData);
+
+            PuzzleLevel pl = plGround.getPuzzleLevel();
+            plData.setCode(pl.getCode());
+            plData.setName(pl.getTitle());
+
+            Collection<AttributeData>  variables = DTOUtil.getAttributeForOwnerById(attributeService,pl.getId(),AttributeOwnerType.Puzzle_Level_Variable);
+
+            Collection<PLObjectiveData> objectives = DTOUtil.getPLObjectiveData(pl);
+            plData.setObjectives(objectives);
+
+            Collection<PGObjectData> objects = getObjectsForPuzzleGroup(pl);
+            Collection<PLCell> cells = plGround.getPlCells();
+
+            Collection<PLCellData> cellDTOS = DTOUtil.getPLCellDTOS(cells,attributeService);
+
+            Collection<RuleData> rules = DTOUtil.getPLRules(pl,attributeService,attributeValueService,plRulePostActionService);
+
+            plData.setCols(plGround.getNumColumns());
+            plData.setRows(plGround.getNumRows());
+            plData.setVariables(variables);
+            plData.setObjects(objects);
+            plData.setCells(cellDTOS);
+            plData.setRules(rules);
+
+            byte[] jsonBytes = ImageUtil.convertObjectToBytes(plData);
+            pl.setInterpreterFile(jsonBytes);
+
+            puzzleLevelService.save(pl);
+        }
+        return plData;
+
     }
-
-
- public PLData getJsonFile(Long plID) throws IOException, InterruptedException {
-    PLData plData= new PLData();
-
-
-    Optional<PLGround> plGroundOptional = plGroundService.findByPuzzleLevelId(plID);
-    PLGround plGround = new PLGround();
-    if(plGroundOptional.isPresent()){
-        plGround = plGroundOptional.get();
-
-        long start_time = System.currentTimeMillis();
-
-        PositionDTO Position = new PositionDTO(plGround.getxPosition(), plGround.getyPosition(), plGround.getzPosition());
-        PositionDTO Rotation = new PositionDTO(plGround.getxRotation(),plGround.getyRotation(),plGround.getzRotation());
-        FeaturesData features = new FeaturesData(plGround.getZoom(),plGround.getPan(),plGround.getRotation());
-        BoardCenterDTO boardCenterDTO = new BoardCenterDTO(plGround.getBoardCenterX(), plGround.getBoardCenterY(),plGround.getBoardCenterZ());
-        BoardCenterDTO initialOffsetDTO = new BoardCenterDTO(plGround.getInitPanOffsetX(), plGround.getInitPanOffsetY(),plGround.getInitPanOffsetZ());
-        InitialValuesDTO initialValuesDTO = new InitialValuesDTO(plGround.getInitValueZoom(), plGround.getInitValueZoomLimit(), plGround.getPanLimit(),boardCenterDTO,initialOffsetDTO
-                ,plGround.getBackground().getId(),plGround.getSkybox().getId(),plGround.getBackgroundScale() );
-        CameraSetupData cameraSetupData = new CameraSetupData(Position,Rotation,features,initialValuesDTO);
-        cameraSetupData.setFeatures(features);
-        plData.setCameraSetup(cameraSetupData);
-
-        PuzzleLevel pl = plGround.getPuzzleLevel();
-        plData.setCode(pl.getCode());
-        plData.setName(pl.getTitle());
-
-              //  Collection<AttributeData>  variables = DTOUtil.getAttributeForOwnerById(attributeService,pl.getId(),AttributeOwnerType.Puzzle_Level_Variable);
-            PLGround finalPlGround = plGround;
-                Collection<AttributeData> variables = DTOUtil.getAttributeForOwnerById(attributeService,plID, AttributeOwnerType.Puzzle_Level_Variable);
-                plData.setVariables(variables);
-                Collection<PLObjectiveData> objectives = DTOUtil.getPLObjectiveData(pl);
-                plData.setObjectives(objectives);
-                Collection<PGObjectData> objects = getObjectsForPuzzleGroup(pl);
-                plData.setObjects(objects);
-                Collection<PLCell> cells = finalPlGround.getPlCells();
-
-                Collection<PLCellData> cellDTOS = DTOUtil.getPLCellDTOS(cells,attributeService);
-                plData.setCells(cellDTOS);
-
-        long start_time2 = System.currentTimeMillis();
-
-                Collection<RuleData> rules = DTOUtil.getPLRules(pl,attributeService,attributeValueService,plRulePostActionService);
-                plData.setRules(rules);
-        long end_time2 = System.currentTimeMillis();
-        String message_6 = "Time for running get json puzzle Rules  is ------- = " + (end_time2 - start_time2)/1000 + " Seconds";
-        ToolBox.SendMessageToImportLogs(message_6, DateUtils.getNow());
-
-        plData.setCols(plGround.getNumColumns());
-        plData.setRows(plGround.getNumRows());
-
-        long end_time = System.currentTimeMillis();
-        String message_7 = "Time for running get json puzzle  is ------- = " + (end_time - start_time)/1000 + " Seconds";
-        ToolBox.SendMessageToImportLogs(message_7, DateUtils.getNow());
-
-        byte[] jsonBytes = ImageUtil.convertObjectToBytes(plData);
-        pl.setInterpreterFile(jsonBytes);
-
-        puzzleLevelService.save(pl);
-    }
-    return plData;
-
-}
 
     public Collection<InstanceData> getInstanceData(PGObject pgo, PuzzleLevel  pl) {
         Collection<InstanceData> instanceDTOS = new ArrayList<InstanceData>();
@@ -207,7 +189,6 @@ public class InterpreterController  {
             instanceDTO.setProperties(propertyDTOS);
             instanceDTOS.add(instanceDTO);
         }
-
         return instanceDTOS;
     }
     public Collection<InstanceData> getInstanceDataWithVariablesOnly(PGObject pgo, PuzzleLevel  pl) {
@@ -279,9 +260,11 @@ public class InterpreterController  {
         Collection<PGObjectData> objectData = new ArrayList<PGObjectData>();
         Collection<PGObject> objects = new ArrayList<>();
         objects = pg.getAlCityObjectInPGS();
-        for (PGObject object : objects) {
-            //fetch puzzle object that used in a pl including instances properties , variables , ...
-            PGObjectData poData = getPGObjectData(object, pl);
+        Iterator<PGObject> iterator = objects.iterator();
+        while(iterator.hasNext()) {
+            PGObject object = iterator.next();
+            //fetch puzzle object that used in a pl including instances properties , vriables , ...
+            PGObjectData poData =getPGObjectData(object,pl);
             objectData.add(poData);
         }
         return objectData;
@@ -313,5 +296,6 @@ public class InterpreterController  {
 
         return actionsData;
     }
+
 
 }
