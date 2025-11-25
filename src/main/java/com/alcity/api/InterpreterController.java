@@ -61,7 +61,7 @@ public class InterpreterController  {
     @Operation( summary = "Create  json File ",  description = "Create Json file for a puzzle level structure and rules")
     @RequestMapping(value = "/create-json/id/{id}", method = RequestMethod.GET)
     @ResponseBody
-    public PLData createJsonFile(@PathVariable Long id) throws IOException, ClassNotFoundException, InterruptedException {
+    public ResponseObject createJsonFile(@PathVariable Long id) throws IOException, ClassNotFoundException, InterruptedException {
         Optional<PuzzleLevel> puzzleLevelOptional = puzzleLevelService.findById(id);
         PLData plData = new PLData();
         Collection<PLBinaryContentDTO> plContents= new ArrayList<>();
@@ -74,8 +74,7 @@ public class InterpreterController  {
             puzzleLevelService.save(puzzleLevel);
 
         }
-        return plData;
-       // return new ResponseObject(ErrorType.SaveSuccess, ObjectAction.class.getSimpleName() , Status.ok.name(), id, SystemMessage.SaveOrEditMessage_Success);
+        return new ResponseObject(ErrorType.SaveSuccess, ObjectAction.class.getSimpleName() , Status.ok.name(), id, SystemMessage.SaveOrEditMessage_Success);
     }
 
     @Operation( summary = "Fetch a json ",  description = "Fetches all data that need to Interpret a puzzle level structure and rules")
