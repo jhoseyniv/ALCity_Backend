@@ -18,6 +18,8 @@ import com.alcity.utility.DTOUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.Cache;
+import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
@@ -39,7 +41,7 @@ public class BinaryContentController {
     @Autowired
     private BinaryContentService binaryContentService;
     @Autowired
-    private PGService pgService;
+    private CacheManager cacheManager;
 
     @RequestMapping(value="/id/{id}", method = RequestMethod.GET)
     @ResponseBody
@@ -60,10 +62,9 @@ public class BinaryContentController {
     @ResponseBody
     @CrossOrigin(origins = "*")
     @Transactional(readOnly = true)
-//    @Cacheable(value = "getBinaryContentByIdAndDevice", key = "{ #id, #deviceType }")
+   @Cacheable(value = "getBinaryContentByIdAndDevice", key = "{ #id }")
     public BinaryContentDTO getBinaryContentByIdAndDevice(@PathVariable Long id,@PathVariable String deviceType) {
         Optional<BinaryContent> binaryContentOptional = binaryContentService.findById(id);
-        BinaryContentDTO binaryContentDTO = new BinaryContentDTO();
         if(binaryContentOptional.isPresent()) {
             BinaryContent bc = binaryContentOptional.get();
             if (deviceType.equalsIgnoreCase(DeviceType.IOS.name())) {
@@ -84,7 +85,7 @@ public class BinaryContentController {
     @GetMapping("/get-file/id/{id}/device-type/{deviceType}")
     @CrossOrigin(origins = "*")
     @Transactional(readOnly = true)
-//    @Cacheable(value = "getFileByDeviceType", key = "{ #id, #deviceType }")
+    @Cacheable(value = "getFileByDeviceType", key = "{ #id }")
     public ResponseEntity<byte[]> getFileByDeviceType(@PathVariable Long id , @PathVariable String deviceType) {
        Optional<BinaryContent>  binaryContentOptional= binaryContentService.findById(id);
 
@@ -114,7 +115,7 @@ public class BinaryContentController {
     @GetMapping("/get-file/{id}")
     @CrossOrigin(origins = "*")
     @Transactional(readOnly = true)
-//    @Cacheable(value = "getFileContent", key = "#id")
+    @Cacheable(value = "get-file-id", key = "#id")
     public ResponseEntity<byte[]> getFile(@PathVariable Long id) {
         Optional<BinaryContent>  binaryContentOptional= binaryContentService.findById(id);
         if(binaryContentOptional.isEmpty()) return  null;
@@ -126,8 +127,7 @@ public class BinaryContentController {
 
     @GetMapping("/get-tumb/{id}")
     @CrossOrigin(origins = "*")
-    @Transactional(readOnly = true)
-    @Cacheable(value = "getFileContent", key = "#id")
+    @Cacheable(value = "getThumbnailBinaryContent", key = "#id")
     public ResponseEntity<byte[]> getThumbnail(@PathVariable Long id) {
         Optional<BinaryContent>  binaryContentOptional= binaryContentService.findById(id);
         if(binaryContentOptional.isEmpty()) return  null;
@@ -169,7 +169,36 @@ public class BinaryContentController {
             response = new ResponseMessage(ErrorType.SaveSuccess, Status.ok.name() , BinaryContent.class.getSimpleName() ,  savedRecord.getId(), SystemMessage.SaveOrEditMessage_Success);
         else
             response = new ResponseMessage(ErrorType.RecordNotFound, Status.error.name() , BinaryContent.class.getSimpleName() , dto.getId(), SystemMessage.SaveOrEditMessage_Fail);
+        clearCache(dto.getId());
         return response;
+    }
+
+
+    public void clearCache(Long id){
+        Cache cache = cacheManager.getCache("getBinaryContentById");
+        if (cache != null) {
+            cache.evict(id);
+        }
+
+        Cache cache2 = cacheManager.getCache("getBinaryContentByIdAndDevice");
+        if (cache2 != null) {
+            cache2.evict(id);
+        }
+        Cache cache3 = cacheManager.getCache("getFileByDeviceType");
+        if (cache3 != null) {
+            cache3.evict(id);
+        }
+        Cache cache4 = cacheManager.getCache("get-file-id");
+        if (cache4 != null) {
+            cache4.evict(id);
+        }
+        Cache cache5 = cacheManager.getCache("getThumbnailBinaryContent");
+        if (cache5 != null) {
+            cache5.evict(id);
+        }
+
+
+
     }
 
     @Operation( summary = "Delete a  Binary Content ",  description = "Delete a Binary Content")
@@ -184,6 +213,7 @@ public class BinaryContentController {
             catch (Exception e) {
                 return new ResponseObject(ErrorType.ForeignKeyViolation, Status.error.name(), BinaryContent.class.getSimpleName(), id,e.getCause().getMessage());
             }
+            clearCache(id);
             return new ResponseObject(ErrorType.SaveSuccess, Status.ok.name(), BinaryContent.class.getSimpleName(),  id,SystemMessage.DeleteMessage);
         }
         return  new ResponseObject(ErrorType.RecordNotFound, Status.error.name(),BinaryContent.class.getSimpleName(),  id,SystemMessage.RecordNotFound);

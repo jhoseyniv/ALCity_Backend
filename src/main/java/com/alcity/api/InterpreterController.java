@@ -66,14 +66,14 @@ public class InterpreterController {
     @Operation( summary = "Create  json File ",  description = "Create Json file for a puzzle level structure and rules")
     @RequestMapping(value = "/create-json/id/{id}", method = RequestMethod.GET)
     @ResponseBody
-    public PLData createJsonFile(@PathVariable Long id) throws IOException, ClassNotFoundException, ExecutionException, InterruptedException {
+    public ResponseMessage createJsonFile(@PathVariable Long id) throws IOException, ClassNotFoundException, ExecutionException, InterruptedException {
         Optional<PuzzleLevel> puzzleLevelOptional = puzzleLevelService.findById(id);
         PLData plData = new PLData();
         Collection<PLBinaryContentDTO> plContents= new ArrayList<>();
         if(puzzleLevelOptional.isPresent()){
             try {
-               // plData = getJsonFile(id);
-                plData = getJsonFileAsync(id);
+                plData = getJsonFile(id);
+                //plData = getJsonFileAsync(id);
             } catch (ExecutionException e) {
                 throw new RuntimeException(e);
             } catch (InterruptedException e) {
@@ -86,10 +86,10 @@ public class InterpreterController {
           //  puzzleLevelService.save(puzzleLevel);
 
         }
-        //else
-          //  return new ResponseMessage(ErrorType.PUZZLE_LEVEL_NOT_CREATED, InterpreterController.class.getSimpleName() , Status.ok.name(), id, SystemMessage.PUZZLE_LEVEL_NOT_CREATED);
-        return plData;
-       // return new ResponseMessage(ErrorType.JSON_CREATED_SUCCESSFULLY, InterpreterController.class.getSimpleName() , Status.ok.name(), id, SystemMessage.JSON_CREATED_SUCCESSFULLY);
+        else
+            return new ResponseMessage(ErrorType.PUZZLE_LEVEL_NOT_CREATED, InterpreterController.class.getSimpleName() , Status.ok.name(), id, SystemMessage.PUZZLE_LEVEL_NOT_CREATED);
+       // return plData;
+        return new ResponseMessage(ErrorType.JSON_CREATED_SUCCESSFULLY, InterpreterController.class.getSimpleName() , Status.ok.name(), id, SystemMessage.JSON_CREATED_SUCCESSFULLY);
     }
 
     @Operation( summary = "Fetch a json ",  description = "Fetches all data that need to Interpret a puzzle level structure and rules")

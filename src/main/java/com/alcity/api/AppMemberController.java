@@ -37,7 +37,6 @@ import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
@@ -98,7 +97,7 @@ public class AppMemberController {
     @RequestMapping(value = "/id/{id}/xp/date/{date}", method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin(origins = "*")
-    @Cacheable(value = "getXPByDate", key = "{ #id, #date }")
+   // @Cacheable(value = "getXPByDate", key = "{ #id, #date }")
     public AppMemberXPDTO getXPByDate(@PathVariable Long id, @PathVariable String date) {
         Optional<AppMember> memberOptional = service.findById(id);
         LocalDateTime localDateTime = DateUtils.getDateTime(date);
@@ -109,7 +108,7 @@ public class AppMemberController {
     @RequestMapping(value = "/id/{id}/children-xp/sid/{sid}", method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin(origins = "*")
-    @Cacheable(value = "getXPForAppMemberBySubSetSkillAll", key = "{ #id, #sid }")
+    //@Cacheable(value = "getXPForAppMemberBySubSetSkillAll", key = "{ #id, #sid }")
     public Collection<AppMemberSkillScoreDTO> getXPForAppMemberBySubSetSkillAll(@PathVariable Long id, @PathVariable Long sid) {
         Collection<AppMemberSkillScoreDTO> dtos = new ArrayList<>();
         Optional<AppMember> memberOptional = service.findById(id);
@@ -136,7 +135,7 @@ public class AppMemberController {
     @RequestMapping(value = "/uid/{uid}/major-skill/sid/{sid}", method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin(origins = "*")
-    @Cacheable(value = "getSubSkillScores", key = "{ #uid, #sid }")
+    //@Cacheable(value = "getSubSkillScores", key = "{ #uid, #sid }")
     public Collection<AppMemberSkillScoreDTO> getSubSkillScores(@PathVariable Long uid, @PathVariable Long sid) {
         Collection<AppMemberSkillScoreDTO> dtos = new ArrayList<>();
         AppMember_LearningSkill appMemberLearningSkill =null;
@@ -172,7 +171,7 @@ public class AppMemberController {
     @RequestMapping(value = "/id/{id}/xp-by-skill/sid/{sid}", method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin(origins = "*")
-    @Cacheable(value = "getXPForAppMemberBySkillId", key = "{ #id, #sid }")
+   // @Cacheable(value = "getXPForAppMemberBySkillId", key = "{ #id, #sid }")
     public AppMemberSkillScoreDTO getXPForAppMemberBySkillId(@PathVariable Long id, @PathVariable Long sid) {
         Optional<AppMember> memberOptional = service.findById(id);
         Optional<LearningSkill> lsOptional = learningSkillService.findById(sid);
@@ -193,7 +192,7 @@ public class AppMemberController {
     @RequestMapping(value = "/id/{id}/xp-week", method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin(origins = "*")
-    @Cacheable(value = "getXPByLastWeek", key = "#id")
+    //@Cacheable(value = "getXPByLastWeek", key = "#id")
     public Collection<AppMemberXPDTO> getXPByLastWeek(@PathVariable Long id) {
         Collection<AppMemberXPDTO> dtos = new ArrayList<>();
         Optional<AppMember> memberOptional = service.findById(id);
@@ -223,7 +222,7 @@ public class AppMemberController {
 
     @GetMapping("/all")
     @CrossOrigin(origins = "*")
-    @Cacheable("all-AppMemberDTO")
+    //@Cacheable("all-AppMemberDTO")
     public Collection<AppMemberDTO> getApplicationMembers() {
         Collection<AppMember> appMemberCollection = service.findAll();
         return DTOUtil.getAppMemberDTOS(appMemberCollection);
@@ -241,7 +240,7 @@ public class AppMemberController {
     @Operation( summary = "Get Avatar by User Id ",  description = "Get Avatar by User Id ...")
     @GetMapping("/get-avatar/id/{id}")
     @CrossOrigin(origins = "*")
-    @Cacheable(value = "getAvatarById", key = "#id")
+    //@Cacheable(value = "getAvatarById", key = "#id")
     public ResponseEntity<byte[]> getAvatarById(@PathVariable Long id) {
         Optional<AppMember>  appMemberOptional= service.findById(id);
         if(appMemberOptional.isEmpty()) return  null;
@@ -254,7 +253,7 @@ public class AppMemberController {
     @Operation( summary = "Get Avatar by User name ",  description = "Get Avatar by User name ...")
     @GetMapping("/get-avatar/user/{user}")
     @CrossOrigin(origins = "*")
-    @Cacheable(value = "getAvatarByUserName", key = "#user")
+    //@Cacheable(value = "getAvatarByUserName", key = "#user")
     public ResponseEntity<byte[]> getAvatarByUserName(@PathVariable String user) {
         Optional<AppMember>  appMemberOptional= service.findByUsername(user);
         if(appMemberOptional.isEmpty()) return  null;
@@ -279,7 +278,7 @@ public class AppMemberController {
     @RequestMapping(value = "/id/{id}/not-played", method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin(origins = "*")
-    @Cacheable(value = "getPLNotPlayedByMember", key = "#id")
+    //@Cacheable(value = "getPLNotPlayedByMember", key = "#id")
     public Collection<PLDTO> getPLNotPlayedByMember(@PathVariable Long id) {
         Optional<AppMember> memberOptional = service.findById(id);
         Collection<PLDTO>  publicPuzzleLevels = service.getPublicPuzzleLevels(memberOptional.get());
@@ -302,7 +301,7 @@ public class AppMemberController {
     @PostMapping("/search")
     @ResponseBody
     @CrossOrigin(origins = "*")
-    @Cacheable(value = "getAppMemberBySearchCriteria", key = "#criteriaDTO")
+   // @Cacheable(value = "getAppMemberBySearchCriteria", key = "#criteriaDTO")
     public Collection<AppMemberDTO> getAppMemberBySearchCriteria(@RequestBody AppMemberSearchCriteriaDTO criteriaDTO ) {
         Collection<AppMember> appMembers = service.findByCriteria(criteriaDTO);
         return DTOUtil.getAppMemberDTOS(appMembers);
@@ -312,7 +311,7 @@ public class AppMemberController {
     @RequestMapping(value = "/id/{id}/game-play-all", method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin(origins = "*")
-    @Cacheable(value = "getAllPlayGameForUser", key = "#id")
+    //@Cacheable(value = "getAllPlayGameForUser", key = "#id")
     public Collection<PLGameInstanceDTO> getAllPlayGameForUser(@PathVariable Long id) {
         Optional<AppMember> memberOptional = service.findById(id);
         Collection<PLGameInstance>  histories= memberOptional.get().getPlGameInstances();
@@ -324,7 +323,7 @@ public class AppMemberController {
     @RequestMapping(value = "/id/{id}/game-play/pid/{pid}", method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin(origins = "*")
-    @Cacheable(value = "getGamePlayByUserIdAndPuzzleLevel", key = "{ #id, #pid }")
+   // @Cacheable(value = "getGamePlayByUserIdAndPuzzleLevel", key = "{ #id, #pid }")
     public Collection<PLGameInstanceDTO> getGamePlayByUserIdAndPuzzleLevel(@PathVariable Long id,@PathVariable Long pid) {
         Collection<PLGameInstance> gameInstances = new ArrayList<>();
         Collection<PLGameInstanceDTO> historyDTOS = new ArrayList<>();
@@ -342,7 +341,7 @@ public class AppMemberController {
     @RequestMapping(value = "/id/{id}/journey/jid/{jid}", method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin(origins = "*")
-    @Cacheable(value = "JourneyCache", key = "{ #id, #jid }")
+   // @Cacheable(value = "JourneyCache", key = "{ #id, #jid }")
     public AppMemberJourneyInfo getPuzzleLevelMappedStepInJourney(@PathVariable Long id, @PathVariable Long jid) {
         long start_time = System.currentTimeMillis();
         Optional<AppMember> memberOptional = service.findById(id);
@@ -374,7 +373,7 @@ public class AppMemberController {
     @RequestMapping(value = "/id/{id}/journeys", method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin(origins = "*")
-    @Cacheable(value = "getJourneysByUserId", key = "#id")
+    //@Cacheable(value = "getJourneysByUserId", key = "#id")
     public Collection<AppMemberJourneyDTO> getJourneysByUserId(@PathVariable Long id) {
         Optional<AppMember> memberOptional = service.findById(id);
         Collection<Journey> journeys = journeyService.findAll();

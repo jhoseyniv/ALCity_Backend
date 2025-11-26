@@ -93,7 +93,7 @@ public class AppMemberService implements AppMemberRepository, CustomizedUserRepo
         return page;
     }
 
-    @Cacheable(value = "getPublicPuzzleLevels", key = "#p1")
+    @Cacheable(value = "getPublicPuzzleLevels", key = "#appMember.id")
     public  Collection<PLDTO> getPublicPuzzleLevels(AppMember appMember){
         Collection<PLDTO>  pldtos= new ArrayList<PLDTO>();
         long start_time2 = System.currentTimeMillis();

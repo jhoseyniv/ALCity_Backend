@@ -1,3 +1,7 @@
 UPDATE binary_content SET is3d_content = false WHERE 1 = 1;
 UPDATE alcity_object SET is3d_object = false WHERE 1 = 1;
 UPDATE public.puzzle_category SET template_editor =''  WHERE 1 = 1;
+
+//    @Query(
+//            value = "SELECT DISTINCT av.* FROM attribute_value as attval RIGHT JOIN attribute as att ON attva.attribute_id = a.id  WHERE a.owner_id = :ownerId AND a.owner_type = :ownerType",
+//            nativeQuery = true)

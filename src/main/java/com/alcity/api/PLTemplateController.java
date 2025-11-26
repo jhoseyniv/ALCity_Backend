@@ -38,7 +38,7 @@ public class PLTemplateController {
     @Operation( summary = "Fetch all puzzle level templates data ",  description = "fetches all data for all puzzle level templates structure ")
     @GetMapping("/all")
     @CrossOrigin(origins = "*")
-    @Cacheable("all-TemplateDTO")
+  //  @Cacheable("all-TemplateDTO")
     public Collection<PLTemplateDTO> getPLTemplates() {
         Collection<PLTemplateDTO> templateDTOS = new ArrayList<PLTemplateDTO>();
         Collection<PLTemplate> templates = plTemplateService.findAll();

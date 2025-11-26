@@ -48,7 +48,7 @@ public class JourneyController {
     private PGService pgService;
 
     @GetMapping("/all")
-    @Cacheable("all-JourneyDTO")
+   // @Cacheable("all-JourneyDTO")
     public Collection<JourneyDTO> getJourneis(Model model) {
         Collection<JourneyDTO> journeyDTOCollection = DTOUtil.getJourneyDTOS(service.findAll());
         return journeyDTOCollection;

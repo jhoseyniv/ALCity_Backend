@@ -50,7 +50,7 @@ public class LearningSkillController {
 
     @RequestMapping(value = "/skill/type/{type}", method = RequestMethod.GET)
     @ResponseBody
-    @Cacheable(value = "getLearningSkillsByType", key = "#p0")
+    //@Cacheable(value = "getLearningSkillsByType", key = "#p0")
     public Collection<LearningSkillDTO> getLearningSkillsByType(@PathVariable String type) {
         Collection<LearningSkill> skills = new ArrayList<>();
         SkillType skillType = SkillType.getByTitle(type);
@@ -72,7 +72,7 @@ public class LearningSkillController {
 
     @RequestMapping(value = "/skill-tree/id/{id}", method = RequestMethod.GET)
     @ResponseBody
-    @Cacheable(value = "getLearnSkillTreeById", key = "#p0")
+    //@Cacheable(value = "getLearnSkillTreeById", key = "#p0")
     public LearningSkillTreeDTO getLearnSkillTreeById(@PathVariable Long id) {
         Optional<LearningSkill> learningSkillOptional = learningSkillService.findById(id);
         LearningSkillTreeDTO  skillTree = new LearningSkillTreeDTO();
@@ -83,7 +83,7 @@ public class LearningSkillController {
 
     @RequestMapping(value = "/skill/cond/{criteria}", method = RequestMethod.GET)
     @ResponseBody
-    @Cacheable(value = "getLearningSkillByCriteria", key = "#p0")
+    //@Cacheable(value = "getLearningSkillByCriteria", key = "#p0")
     public Collection<LearningSkillDTO> getLearningSkillByCriteria(@PathVariable String criteria) {
         Collection<LearningSkill> skills = learningSkillService.findByTitleContains(criteria);
         Collection<LearningSkillDTO>  dtos = new ArrayList<LearningSkillDTO>();

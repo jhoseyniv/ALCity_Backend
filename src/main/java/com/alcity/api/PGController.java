@@ -86,7 +86,7 @@ public class PGController {
     @Operation( summary = "get all Puzzle Groups ",  description = "get all Puzzle Groups")
     @GetMapping("/all")
     @CrossOrigin
-    @Cacheable("all-PGDTO")
+    //@Cacheable("all-PGDTO")
     public Collection<PGDTO> getPuzzleGroups() {
         Collection<PuzzleGroup> puzzleGroupCollection = pgService.findAll();
         Collection<PGDTO> puzzleGroupDTOCollection = new ArrayList<PGDTO>();
@@ -107,7 +107,7 @@ public class PGController {
     @Operation( summary = "get all learning skill content for  a Puzzle Group ",  description = "get all learning skill for  a Puzzle Group")
     @RequestMapping(value = "/id/{id}/skills/all", method = RequestMethod.GET)
     @ResponseBody
-    @Cacheable(value = "getLearningSKillsForPuzzleGroupById", key = "#p1")
+    //@Cacheable(value = "getLearningSKillsForPuzzleGroupById", key = "#p1")
     public Collection<PGLearningSkillDTO> getLearningSKillsForPuzzleGroupById(@PathVariable Long id) {
         Optional<PuzzleGroup> puzzleGroup = pgService.findById(id);
         Collection<PGLearningSkillDTO> dtos = new ArrayList<PGLearningSkillDTO>();
