@@ -26,8 +26,9 @@ public class Journey  extends BaseTable implements Serializable {
     @Column(name="ordering",unique = true)
     private Integer ordering;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "pic_id")
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "pic_id", nullable = true)
+    @JsonIgnore
     private BinaryContent pic;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = true)
