@@ -36,6 +36,7 @@ import com.alcity.service.alobject.AttributeValueService;
 import com.alcity.service.appmember.ObjectiveTransactionService;
 import com.alcity.service.base.BinaryContentService;
 import com.alcity.service.learning.LearningSkillService;
+import com.alcity.service.puzzle.InstanceService;
 import com.alcity.service.puzzle.PLRulePostActionService;
 import com.alcity.test.ruleimport_new.PostActionTreeImport_New;
 import org.json.JSONException;
@@ -51,6 +52,113 @@ import java.util.stream.Collectors;
 import static java.util.stream.Collectors.toList;
 
 public class DTOUtil {
+
+    public static Collection<ActionData> getActionsDTOForALCityObjectInPG(PGObject alCityObjectInPG,AttributeService attributeService,ActionService actionService) {
+        Collection<ActionData> actionsData = new ArrayList<ActionData>();
+        Collection<ObjectAction> actions = new ArrayList<ObjectAction>();
+        actions = actionService.findActionsForALCityObjectInPG(alCityObjectInPG);
+
+        Iterator<ObjectAction> iterator = actions.iterator();
+        while(iterator.hasNext()) {
+            ObjectAction puzzleObjectAction = iterator.next();
+            ObjectActionType objectAction = puzzleObjectAction.getObjectAction();
+            Collection<Attribute> actionParameters = attributeService.findAttributesForPuzzleGroupObjectActionHandler(puzzleObjectAction.getId());
+
+            Collection<AttributeData> parametersData = DTOUtil.getActionParametersDTOS(actionParameters);
+
+            ActionData objectActionData = new ActionData();
+            objectActionData.setActionName(objectAction);
+            objectActionData.setId(puzzleObjectAction.getId());
+            objectActionData.setHandler(puzzleObjectAction.getActionRenderer().getHandler());
+            objectActionData.setParameters(parametersData);
+
+            actionsData.add(objectActionData);
+        }
+
+        return actionsData;
+    }
+
+    public static Collection<InstanceData> getInstanceData(PGObject pgo, PuzzleLevel  pl, AttributeService attributeService, InstanceService pgObjectInstanceService) {
+        Collection<InstanceData> instanceDTOS = new ArrayList<InstanceData>();
+        Collection<Instance> instances = pgObjectInstanceService.findByAlCityObjectInPGAndPuzzleLevel(pgo,pl);
+        Iterator<Instance> iterator = instances.iterator();
+        Integer zorder =1;
+        while(iterator.hasNext()) {
+            Instance alCityInstanceInPL = iterator.next();
+
+            if( alCityInstanceInPL.getZorder()!=0 &&  alCityInstanceInPL.getZorder()!=null)
+                zorder = alCityInstanceInPL.getZorder();
+
+            InstanceData instanceDTO = new InstanceData();
+            instanceDTO.setId(alCityInstanceInPL.getId());
+            instanceDTO.setName(alCityInstanceInPL.getName());
+            instanceDTO.setPgoId(pgo.getId());
+            PostionIntDTO instancePosition = new PostionIntDTO(alCityInstanceInPL.getRow() , alCityInstanceInPL.getCol(),zorder);
+            instanceDTO.setPosition(instancePosition);
+
+            Collection<Attribute> variables = attributeService.findInstanceVariables(alCityInstanceInPL.getId(),AttributeOwnerType.Instance_Puzzle_Group_Object_Variable);
+            Collection<AttributeData> variableDTOS = DTOUtil.getVariablesDTOForPGObject(variables);
+            instanceDTO.setVariables(variableDTOS);
+
+            Collection<Attribute> properties = attributeService.findInstanceProperties(alCityInstanceInPL.getId(),AttributeOwnerType.Instance_Puzzle_Group_Object_Property);
+            Collection<AttributeData> propertyDTOS = DTOUtil.getPropertiesDTOForPGObject(properties);
+            instanceDTO.setProperties(propertyDTOS);
+            instanceDTOS.add(instanceDTO);
+        }
+        return instanceDTOS;
+    }
+
+
+    public static PGObjectData getPGObjectData(PGObject alCityObjectInPG, PuzzleLevel pl,AttributeService attributeService,ActionService actionService, InstanceService pgObjectInstanceService) {
+        PGObjectData poData = new PGObjectData();
+
+        poData.setId(alCityObjectInPG.getId());
+        poData.setTitle(alCityObjectInPG.getTitle());
+        poData.setCode(alCityObjectInPG.getTitle());
+
+        BinaryContent picture = alCityObjectInPG.getAlCityObject().getPic();
+        poData.setImageGraphicId(picture.getId());
+
+        BinaryContent icon = alCityObjectInPG.getAlCityObject().getIcon();
+        poData.setIconGraphicId(icon.getId());
+
+        Collection<ActionData> actions = getActionsDTOForALCityObjectInPG(alCityObjectInPG,attributeService,actionService);
+        poData.setActions(actions);
+
+        Collection<Attribute> variables = attributeService.findVariablesForPuzzleGroupObject(alCityObjectInPG.getId(),AttributeOwnerType.Puzzle_Group_Object_Variable);
+        Collection<AttributeData> variablesDTO = DTOUtil.getVariablesDTOForPGObject(variables);
+
+        poData.setVariables(variablesDTO);
+
+        Collection<Attribute> properties = attributeService.findPropertiesForPuzzleGroupObject(alCityObjectInPG.getId(),AttributeOwnerType.Puzzle_Group_Object_Property);
+        Collection<AttributeData> propertiesDTO = DTOUtil.getPropertiesDTOForPGObject(properties);
+        poData.setProperties(propertiesDTO);
+        //get instances  for an object that define in PG and used in a puzzle level
+        Collection<InstanceData> instances = getInstanceData(alCityObjectInPG,pl,attributeService,pgObjectInstanceService);
+        //Collection<InstanceData> instances = getInstanceDataWithVariablesOnly(alCityObjectInPG,pl);
+        poData.setInstances(instances);
+
+        poData.setVersion(alCityObjectInPG.getVersion());
+
+        return  poData;
+    }
+
+
+    public static Collection<PGObjectData> getObjectsForPuzzleGroup(PuzzleLevel pl,AttributeService attributeService,ActionService actionService, InstanceService pgObjectInstanceService) {
+        PuzzleGroup pg = pl.getPuzzleGroup();
+        Collection<PGObjectData> objectData = new ArrayList<PGObjectData>();
+        Collection<PGObject> objects = new ArrayList<>();
+        objects = pg.getAlCityObjectInPGS();
+        Iterator<PGObject> iterator = objects.iterator();
+        while(iterator.hasNext()) {
+            PGObject object = iterator.next();
+            //fetch puzzle object that used in a pl including instances properties , vriables , ...
+            PGObjectData poData =getPGObjectData(object,pl,attributeService,actionService,pgObjectInstanceService);
+            objectData.add(poData);
+        }
+        return objectData;
+    }
+
 
 
     public static PLTemplateDTO getPLTemplateDTO(PLTemplate template){

@@ -1,6 +1,8 @@
 package com.alcity.api;
 
 
+import com.alcity.api.async.HeavyService;
+import com.alcity.customexception.ResponseMessage;
 import com.alcity.dto.base.PLBinaryContentDTO;
 import com.alcity.dto.plimpexport.*;
 import com.alcity.dto.plimpexport.InstanceData;
@@ -21,9 +23,7 @@ import com.alcity.service.puzzle.InstanceService;
 import com.alcity.service.puzzle.PLGroundService;
 import com.alcity.service.puzzle.PLRulePostActionService;
 import com.alcity.service.puzzle.PuzzleLevelService;
-import com.alcity.utility.DTOUtil;
-import com.alcity.utility.ImageUtil;
-import com.alcity.utility.PLDTOUtil;
+import com.alcity.utility.*;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +34,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.Optional;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 @Tag(name = "Interpreter APIs", description = "Get Puzzle Level in the Json Format for Other Systems")
 @CrossOrigin(origins = "*" ,maxAge = 3600)
@@ -50,6 +52,9 @@ public class InterpreterController {
 
     @Autowired
     AttributeService attributeService;
+
+    @Autowired
+    HeavyService heavyTaskService;
     @Autowired
     AttributeValueService attributeValueService;
     @Autowired
@@ -61,26 +66,36 @@ public class InterpreterController {
     @Operation( summary = "Create  json File ",  description = "Create Json file for a puzzle level structure and rules")
     @RequestMapping(value = "/create-json/id/{id}", method = RequestMethod.GET)
     @ResponseBody
-    public ResponseObject createJsonFile(@PathVariable Long id) throws IOException, ClassNotFoundException {
+    public PLData createJsonFile(@PathVariable Long id) throws IOException, ClassNotFoundException, ExecutionException, InterruptedException {
         Optional<PuzzleLevel> puzzleLevelOptional = puzzleLevelService.findById(id);
         PLData plData = new PLData();
         Collection<PLBinaryContentDTO> plContents= new ArrayList<>();
         if(puzzleLevelOptional.isPresent()){
-            plData = getJsonFile(id);
-            plContents = puzzleLevelService.getContents(id);
-            PuzzleLevel puzzleLevel = puzzleLevelOptional.get();
-            byte[] plContentsBytes = ImageUtil.convertObjectToBytes(plContents);
-            puzzleLevel.setPlconetents(plContentsBytes);
-            puzzleLevelService.save(puzzleLevel);
+            try {
+               // plData = getJsonFile(id);
+                plData = getJsonFileAsync(id);
+            } catch (ExecutionException e) {
+                throw new RuntimeException(e);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+            //    plContents = puzzleLevelService.getContents(id);
+         //   PuzzleLevel puzzleLevel = puzzleLevelOptional.get();
+          //  byte[] plContentsBytes = ImageUtil.convertObjectToBytes(plContents);
+          //  puzzleLevel.setPlconetents(plContentsBytes);
+          //  puzzleLevelService.save(puzzleLevel);
 
         }
-        return new ResponseObject(ErrorType.SaveSuccess, ObjectAction.class.getSimpleName() , Status.ok.name(), id, SystemMessage.SaveOrEditMessage_Success);
+        //else
+          //  return new ResponseMessage(ErrorType.PUZZLE_LEVEL_NOT_CREATED, InterpreterController.class.getSimpleName() , Status.ok.name(), id, SystemMessage.PUZZLE_LEVEL_NOT_CREATED);
+        return plData;
+       // return new ResponseMessage(ErrorType.JSON_CREATED_SUCCESSFULLY, InterpreterController.class.getSimpleName() , Status.ok.name(), id, SystemMessage.JSON_CREATED_SUCCESSFULLY);
     }
 
     @Operation( summary = "Fetch a json ",  description = "Fetches all data that need to Interpret a puzzle level structure and rules")
     @RequestMapping(value = "/id/{id}", method = RequestMethod.GET)
     @ResponseBody
-    public PLData getPuzzleLevelForInterpreter(@PathVariable Long id) throws IOException, ClassNotFoundException {
+    public PLData getPuzzleLevelForInterpreter(@PathVariable Long id) throws IOException, ClassNotFoundException, ExecutionException, InterruptedException {
         Optional<PuzzleLevel> puzzleLevelOptional = puzzleLevelService.findById(id);
         PLData plData = new PLData();
         if(puzzleLevelOptional.isPresent()){
@@ -111,13 +126,72 @@ public class InterpreterController {
         return plContents;
     }
 */
-    public PLData getJsonFile(Long plID) {
+public PLData getJsonFile(Long plID) throws ExecutionException, InterruptedException, IOException {
+    PLData plData= new PLData();
+
+    Optional<PLGround> plGroundOptional = plGroundService.findByPuzzleLevelId(plID);
+    PLGround plGround = new PLGround();
+    if(plGroundOptional.isPresent()){
+        plGround = plGroundOptional.get();
+        long start_time = System.currentTimeMillis();
+
+        PositionDTO Position = new PositionDTO(plGround.getxPosition(), plGround.getyPosition(), plGround.getzPosition());
+        PositionDTO Rotation = new PositionDTO(plGround.getxRotation(),plGround.getyRotation(),plGround.getzRotation());
+        FeaturesData features = new FeaturesData(plGround.getZoom(),plGround.getPan(),plGround.getRotation());
+        BoardCenterDTO boardCenterDTO = new BoardCenterDTO(plGround.getBoardCenterX(), plGround.getBoardCenterY(),plGround.getBoardCenterZ());
+        BoardCenterDTO initialOffsetDTO = new BoardCenterDTO(plGround.getInitPanOffsetX(), plGround.getInitPanOffsetY(),plGround.getInitPanOffsetZ());
+        InitialValuesDTO initialValuesDTO = new InitialValuesDTO(plGround.getInitValueZoom(), plGround.getInitValueZoomLimit(), plGround.getPanLimit(),boardCenterDTO,initialOffsetDTO
+                ,plGround.getBackground().getId(),plGround.getSkybox().getId(),plGround.getBackgroundScale() );
+        CameraSetupData cameraSetupData = new CameraSetupData(Position,Rotation,features,initialValuesDTO);
+        cameraSetupData.setFeatures(features);
+        plData.setCameraSetup(cameraSetupData);
+
+        PuzzleLevel pl = plGround.getPuzzleLevel();
+        plData.setCode(pl.getCode());
+        plData.setName(pl.getTitle());
+
+        Collection<AttributeData>  variables = DTOUtil.getAttributeForOwnerById(attributeService,pl.getId(),AttributeOwnerType.Puzzle_Level_Variable);
+
+        Collection<PLObjectiveData> objectives = DTOUtil.getPLObjectiveData(pl);
+        plData.setObjectives(objectives);
+
+        Collection<PGObjectData> objects = DTOUtil.getObjectsForPuzzleGroup(pl,attributeService,actionService,pgObjectInstanceService);
+
+        Collection<PLCell> cells = plGround.getPlCells();
+
+        Collection<PLCellData> cellDTOS = DTOUtil.getPLCellDTOS(cells,attributeService);
+
+
+         Collection<RuleData> rules = DTOUtil.getPLRules(pl,attributeService,attributeValueService,plRulePostActionService);
+
+        plData.setCols(plGround.getNumColumns());
+        plData.setRows(plGround.getNumRows());
+        plData.setVariables(variables);
+        plData.setObjects(objects);
+        plData.setCells(cellDTOS);
+        plData.setRules(rules);
+
+        byte[] jsonBytes = ImageUtil.convertObjectToBytes(plData);
+        pl.setInterpreterFile(jsonBytes);
+        long end_time = System.currentTimeMillis();
+        String message_1 = "Time for running get Json Method  = " + (end_time - start_time);
+        ToolBox.SendMessageToImportLogs(message_1, DateUtils.getNow());
+        System.out.println(message_1);
+
+        puzzleLevelService.save(pl);
+    }
+    return plData;
+
+}
+
+    public PLData getJsonFileAsync(Long plID) throws ExecutionException, InterruptedException, IOException {
         PLData plData= new PLData();
 
         Optional<PLGround> plGroundOptional = plGroundService.findByPuzzleLevelId(plID);
         PLGround plGround = new PLGround();
         if(plGroundOptional.isPresent()){
             plGround = plGroundOptional.get();
+            long start_time = System.currentTimeMillis();
 
             PositionDTO Position = new PositionDTO(plGround.getxPosition(), plGround.getyPosition(), plGround.getzPosition());
             PositionDTO Rotation = new PositionDTO(plGround.getxRotation(),plGround.getyRotation(),plGround.getzRotation());
@@ -139,12 +213,27 @@ public class InterpreterController {
             Collection<PLObjectiveData> objectives = DTOUtil.getPLObjectiveData(pl);
             plData.setObjectives(objectives);
 
-            Collection<PGObjectData> objects = getObjectsForPuzzleGroup(pl);
+            //Collection<PGObjectData> objects = DTOUtil.getObjectsForPuzzleGroup(pl,attributeService,actionService,pgObjectInstanceService);
+            CompletableFuture<Collection<PGObjectData>> futureObjects = heavyTaskService.getObjectsForPuzzleGroup(pl);
+
             Collection<PLCell> cells = plGround.getPlCells();
 
             Collection<PLCellData> cellDTOS = DTOUtil.getPLCellDTOS(cells,attributeService);
 
-            Collection<RuleData> rules = DTOUtil.getPLRules(pl,attributeService,attributeValueService,plRulePostActionService);
+           // CompletableFuture<Collection<PLCellData>> futureCells = heavyTaskService.getCells(plGround.getPlCells());
+
+            // Collection<RuleData> rules = DTOUtil.getPLRules(pl,attributeService,attributeValueService,plRulePostActionService);
+            CompletableFuture<Collection<RuleData>> futureRules = heavyTaskService.getRules(pl);
+
+            CompletableFuture.allOf(futureObjects, futureRules).join();
+
+            Collection<PGObjectData> objects = futureObjects.join();
+            //Collection<PLCellData> cellDTOS = futureCells.join();
+            Collection<RuleData> rules = futureRules.join();
+
+           // Collection<PLCellData> cellDTOS = futureCelss.get(); // اینجا نتیجه را دریافت می‌کنیم
+           // Collection<PGObjectData> objects = futureObjects.get(); // اینجا نتیجه را دریافت می‌کنیم
+           // Collection<RuleData> rules = futureRules.get(); // اینجا نتیجه را دریافت می‌کنیم
 
             plData.setCols(plGround.getNumColumns());
             plData.setRows(plGround.getNumRows());
@@ -155,6 +244,10 @@ public class InterpreterController {
 
             byte[] jsonBytes = ImageUtil.convertObjectToBytes(plData);
             pl.setInterpreterFile(jsonBytes);
+            long end_time = System.currentTimeMillis();
+            String message_1 = "Time for running get Json by Async Method  = " + (end_time - start_time);
+            ToolBox.SendMessageToImportLogs(message_1, DateUtils.getNow());
+            System.out.println(message_1);
 
             puzzleLevelService.save(pl);
         }
@@ -162,35 +255,6 @@ public class InterpreterController {
 
     }
 
-    public Collection<InstanceData> getInstanceData(PGObject pgo, PuzzleLevel  pl) {
-        Collection<InstanceData> instanceDTOS = new ArrayList<InstanceData>();
-        Collection<Instance> instances = pgObjectInstanceService.findByAlCityObjectInPGAndPuzzleLevel(pgo,pl);
-        Iterator<Instance> iterator = instances.iterator();
-        Integer zorder =1;
-        while(iterator.hasNext()) {
-            Instance alCityInstanceInPL = iterator.next();
-
-            if( alCityInstanceInPL.getZorder()!=0 &&  alCityInstanceInPL.getZorder()!=null)
-                zorder = alCityInstanceInPL.getZorder();
-
-            InstanceData instanceDTO = new InstanceData();
-            instanceDTO.setId(alCityInstanceInPL.getId());
-            instanceDTO.setName(alCityInstanceInPL.getName());
-            instanceDTO.setPgoId(pgo.getId());
-            PostionIntDTO instancePosition = new PostionIntDTO(alCityInstanceInPL.getRow() , alCityInstanceInPL.getCol(),zorder);
-            instanceDTO.setPosition(instancePosition);
-
-            Collection<Attribute> variables = attributeService.findInstanceVariables(alCityInstanceInPL.getId(),AttributeOwnerType.Instance_Puzzle_Group_Object_Variable);
-            Collection<AttributeData> variableDTOS = DTOUtil.getVariablesDTOForPGObject(variables);
-            instanceDTO.setVariables(variableDTOS);
-
-            Collection<Attribute> properties = attributeService.findInstanceProperties(alCityInstanceInPL.getId(),AttributeOwnerType.Instance_Puzzle_Group_Object_Property);
-            Collection<AttributeData> propertyDTOS = DTOUtil.getPropertiesDTOForPGObject(properties);
-            instanceDTO.setProperties(propertyDTOS);
-            instanceDTOS.add(instanceDTO);
-        }
-        return instanceDTOS;
-    }
     public Collection<InstanceData> getInstanceDataWithVariablesOnly(PGObject pgo, PuzzleLevel  pl) {
         Collection<InstanceData> instanceDTOS = new ArrayList<InstanceData>();
         Collection<Instance> instances = pgObjectInstanceService.findByAlCityObjectInPGAndPuzzleLevel(pgo,pl);
@@ -221,81 +285,10 @@ public class InterpreterController {
         return instanceDTOS;
     }
 
-   public PGObjectData getPGObjectData(PGObject alCityObjectInPG, PuzzleLevel pl){
-       PGObjectData poData = new PGObjectData();
 
-       poData.setId(alCityObjectInPG.getId());
-       poData.setTitle(alCityObjectInPG.getTitle());
-       poData.setCode(alCityObjectInPG.getTitle());
-
-       BinaryContent picture = alCityObjectInPG.getAlCityObject().getPic();
-       poData.setImageGraphicId(picture.getId());
-
-       BinaryContent icon = alCityObjectInPG.getAlCityObject().getIcon();
-       poData.setIconGraphicId(icon.getId());
-
-       Collection<ActionData> actions = getActionsDTOForALCityObjectInPG(alCityObjectInPG);
-       poData.setActions(actions);
-
-       Collection<Attribute> variables = attributeService.findVariablesForPuzzleGroupObject(alCityObjectInPG.getId(),AttributeOwnerType.Puzzle_Group_Object_Variable);
-       Collection<AttributeData> variablesDTO = DTOUtil.getVariablesDTOForPGObject(variables);
-
-       poData.setVariables(variablesDTO);
-
-       Collection<Attribute> properties = attributeService.findPropertiesForPuzzleGroupObject(alCityObjectInPG.getId(),AttributeOwnerType.Puzzle_Group_Object_Property);
-       Collection<AttributeData> propertiesDTO = DTOUtil.getPropertiesDTOForPGObject(properties);
-       poData.setProperties(propertiesDTO);
-       //get instances  for an object that define in PG and used in a puzzle level
-       Collection<InstanceData> instances = getInstanceData(alCityObjectInPG,pl);
-       //Collection<InstanceData> instances = getInstanceDataWithVariablesOnly(alCityObjectInPG,pl);
-       poData.setInstances(instances);
-
-       poData.setVersion(alCityObjectInPG.getVersion());
-
-       return  poData;
-   }
-
-    public Collection<PGObjectData> getObjectsForPuzzleGroup(PuzzleLevel pl) {
-        PuzzleGroup pg = pl.getPuzzleGroup();
-        Collection<PGObjectData> objectData = new ArrayList<PGObjectData>();
-        Collection<PGObject> objects = new ArrayList<>();
-        objects = pg.getAlCityObjectInPGS();
-        Iterator<PGObject> iterator = objects.iterator();
-        while(iterator.hasNext()) {
-            PGObject object = iterator.next();
-            //fetch puzzle object that used in a pl including instances properties , vriables , ...
-            PGObjectData poData =getPGObjectData(object,pl);
-            objectData.add(poData);
-        }
-        return objectData;
-    }
 
     @Autowired
     ActionService actionService;
-    public Collection<ActionData> getActionsDTOForALCityObjectInPG(PGObject alCityObjectInPG){
-        Collection<ActionData> actionsData = new ArrayList<ActionData>();
-        Collection<ObjectAction> actions = new ArrayList<ObjectAction>();
-        actions = actionService.findActionsForALCityObjectInPG(alCityObjectInPG);
-
-        Iterator<ObjectAction> iterator = actions.iterator();
-        while(iterator.hasNext()) {
-            ObjectAction puzzleObjectAction = iterator.next();
-            ObjectActionType objectAction = puzzleObjectAction.getObjectAction();
-            Collection<Attribute> actionParameters = attributeService.findAttributesForPuzzleGroupObjectActionHandler(puzzleObjectAction.getId());
-
-            Collection<AttributeData> parametersData = DTOUtil.getActionParametersDTOS(actionParameters);
-
-            ActionData objectActionData = new ActionData();
-            objectActionData.setActionName(objectAction);
-            objectActionData.setId(puzzleObjectAction.getId());
-            objectActionData.setHandler(puzzleObjectAction.getActionRenderer().getHandler());
-            objectActionData.setParameters(parametersData);
-
-            actionsData.add(objectActionData);
-        }
-
-        return actionsData;
-    }
 
 
 }

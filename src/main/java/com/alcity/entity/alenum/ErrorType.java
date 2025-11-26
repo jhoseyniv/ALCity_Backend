@@ -14,6 +14,8 @@ public enum ErrorType {
     ForeignKeyViolation,
     NullValueViolation,
     HUDAction_WalletItem_Must_NOT_Apply,
+    PUZZLE_LEVEL_NOT_CREATED,
+    JSON_CREATED_SUCCESSFULLY
     ;
     public static ErrorType getById(long id)
     {

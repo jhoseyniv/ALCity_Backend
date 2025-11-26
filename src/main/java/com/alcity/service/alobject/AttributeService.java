@@ -22,7 +22,6 @@ import com.alcity.service.puzzle.PGObjectService;
 import com.alcity.utility.DTOUtil;
 import com.alcity.utility.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -417,8 +416,8 @@ public class AttributeService implements AttributeRepository {
             }
             else {
                AttributeValue defaultValue = setDefaultValue(parameter);
-                defaultValue.setAttributeId(parameter);
-                outputValues.add(defaultValue);
+               defaultValue.setAttributeId(parameter);
+               outputValues.add(defaultValue);
             }
             parameter.setAttributeValues(outputValues);
             outputAttributes.add(parameter);
@@ -510,18 +509,30 @@ public class AttributeService implements AttributeRepository {
             Optional<AttributeValue> isObjectActionHasValue = parameterValues.stream().filter(value -> value.getOwnerType().equals(AttributeOwnerType.Object_Action_Handler_Parameter)).findFirst();
             Optional<AttributeValue> isActionHasValue = parameterValues.stream().filter(value -> value.getOwnerType().equals(AttributeOwnerType.Action_Handler_Parameter)).findFirst();
 
-            if (isPuzzleGroupObjectActionHasValue.isPresent())
+            if (isPuzzleGroupObjectActionHasValue.isPresent()) {
                 outputValues.add(isPuzzleGroupObjectActionHasValue.get());
-            else if (isObjectActionHasValue.isPresent())
-                outputValues.add(isObjectActionHasValue.get());
-            else if (isActionHasValue.isPresent())
-                outputValues.add(isActionHasValue.get());
+            }
+            else if (isObjectActionHasValue.isPresent()) {
+                AttributeValue value = new AttributeValue();
+                value = isObjectActionHasValue.get();
+                value.setAttributeId(parameter);
+                outputValues.add(value);
+            }
+            else if (isActionHasValue.isPresent()) {
+                AttributeValue value = new AttributeValue();
+                value = isActionHasValue.get();
+                value.setAttributeId(parameter);
+                outputValues.add(value);
+            }
             else {
-                AttributeValue value= setDefaultValue(parameter);
-                attributeValueRepository.save(value);
+                AttributeValue defaultValue= setDefaultValue(parameter);
+                defaultValue.setAttributeId(parameter);
+                outputValues.add(defaultValue);
+                attributeValueRepository.save(defaultValue);
             }
 
             parameter.setAttributeValues(outputValues);
+
             outputAttributes.add(parameter);
         }
         return outputAttributes;

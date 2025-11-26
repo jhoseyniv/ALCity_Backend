@@ -136,6 +136,7 @@ public class LearningSkillService implements LearningSkillRepository {
                 learningSkill.setTitle(dto.getTitle());
                 learningSkill.setType(type);
                 learningSkill.setWeight(dto.getWeight());
+                learningSkill.setIcon(icon);
                 learningSkill.setLevelUpSize(dto.getLevelUpSize());
                 learningSkill.setDescription(dto.getDescription());
                 learningSkill.setParentSkill(parentSkillOptional.get());

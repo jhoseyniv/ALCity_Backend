@@ -353,7 +353,7 @@ public class AppMemberController {
         journeyInfoWithScores =service.getAppMemberJourneyInfoWithScores(memberOptional.get(),journeyInfo);
         long end_time = System.currentTimeMillis();
 
-        cacheManager.getCache("AppMemberJourneyInfo").put(journeyInfoWithScores.getJourneyId(), journeyInfoWithScores);
+       // cacheManager.getCache("AppMemberJourneyInfo").put(journeyInfoWithScores.getJourneyId(), journeyInfoWithScores);
 
         System.out.println("Time for running getPuzzleLevelMappedStepInJourney Method = " + (end_time - start_time)*0.001);
         return journeyInfoWithScores;

@@ -124,6 +124,19 @@ public class BinaryContentController {
                 .body(binaryContent.getContent());
     }
 
+    @GetMapping("/get-tumb/{id}")
+    @CrossOrigin(origins = "*")
+    @Transactional(readOnly = true)
+    @Cacheable(value = "getFileContent", key = "#id")
+    public ResponseEntity<byte[]> getThumbnail(@PathVariable Long id) {
+        Optional<BinaryContent>  binaryContentOptional= binaryContentService.findById(id);
+        if(binaryContentOptional.isEmpty()) return  null;
+        BinaryContent binaryContent = binaryContentOptional.get();
+        return ResponseEntity.ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + binaryContent.getFileName() + "\"")
+                .body(binaryContent.getThumbnail());
+    }
+
     @PostMapping("/search")
     @ResponseBody
     @CrossOrigin(origins = "*")

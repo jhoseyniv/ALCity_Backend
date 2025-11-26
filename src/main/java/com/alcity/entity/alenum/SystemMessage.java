@@ -14,5 +14,7 @@ public  class SystemMessage  {
     public static String baseCurrencyIsExist = "Base Currency Exist and must be unique ";
     public static String InitSkillsSuccess = "Init Skills Success";
     public static String HUDAction_WalletItem_Must_NOT_Apply = "HUD Item Type Must not be applied";
+    public static String  PUZZLE_LEVEL_NOT_CREATED= "PUZZLE LEVEL NOT CREATED";
+    public static String  JSON_CREATED_SUCCESSFULLY= "JSON Created Successfully";
 
 }
