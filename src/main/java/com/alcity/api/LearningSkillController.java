@@ -62,6 +62,7 @@ public class LearningSkillController {
 
     @RequestMapping(value = "/skill/id/{id}", method = RequestMethod.GET)
     @ResponseBody
+    @Cacheable("getLearnSkillById")
     public LearningSkillDTO getLearnSkillById(@PathVariable Long id) {
         Optional<LearningSkill> learningSkillOptional = learningSkillService.findById(id);
         LearningSkillDTO learningSkillDTO = new LearningSkillDTO();

@@ -24,7 +24,7 @@ public class DynamicSchedulerService {
 
     private ScheduledFuture<?> scheduledFuture;
 
-    private long dynamicRate = 6000000L; // 60 ثانیه
+    private long dynamicRate = 60000000L; // 60 ثانیه
 
     public void startScheduler() {
         Optional<EnergyConfig> config = energyConfigService.findByExpireIsFalse();

@@ -31,7 +31,11 @@ public class LearningSkill extends BaseTable implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     public Long getId() {
-        return super.getId();
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     @NotNull(message = "{bHeight.notempty}")

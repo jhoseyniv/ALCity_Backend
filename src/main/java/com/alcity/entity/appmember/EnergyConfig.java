@@ -15,7 +15,19 @@ import java.util.Collection;
 @Getter
 @Setter
 @NoArgsConstructor
+
+@AttributeOverrides({
+        @AttributeOverride(name = "id", column = @Column(name = "id"))
+})
+
 public class EnergyConfig  extends BaseItemSet implements Serializable {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    public Long getId() {
+        return super.getId();
+    }
 
     @Column(name="energy")
     private Integer energy;
