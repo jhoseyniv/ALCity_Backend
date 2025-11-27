@@ -85,7 +85,7 @@ public class BinaryContentController {
     @GetMapping("/get-file/id/{id}/device-type/{deviceType}")
     @CrossOrigin(origins = "*")
     @Transactional(readOnly = true)
-    @Cacheable(value = "getFileByDeviceType", key = "{ #id }")
+    //@Cacheable(value = "getFileByDeviceType", key = "{ #id }")
     public ResponseEntity<byte[]> getFileByDeviceType(@PathVariable Long id , @PathVariable String deviceType) {
        Optional<BinaryContent>  binaryContentOptional= binaryContentService.findById(id);
 
@@ -115,7 +115,7 @@ public class BinaryContentController {
     @GetMapping("/get-file/{id}")
     @CrossOrigin(origins = "*")
     @Transactional(readOnly = true)
-    @Cacheable(value = "get-file-id", key = "#id")
+    //@Cacheable(value = "get-file-id", key = "#id")
     public ResponseEntity<byte[]> getFile(@PathVariable Long id) {
         Optional<BinaryContent>  binaryContentOptional= binaryContentService.findById(id);
         if(binaryContentOptional.isEmpty()) return  null;
@@ -127,7 +127,7 @@ public class BinaryContentController {
 
     @GetMapping("/get-tumb/{id}")
     @CrossOrigin(origins = "*")
-    @Cacheable(value = "getThumbnailBinaryContent", key = "#id")
+    //@Cacheable(value = "getThumbnailBinaryContent", key = "#id")
     public ResponseEntity<byte[]> getThumbnail(@PathVariable Long id) {
         Optional<BinaryContent>  binaryContentOptional= binaryContentService.findById(id);
         if(binaryContentOptional.isEmpty()) return  null;
