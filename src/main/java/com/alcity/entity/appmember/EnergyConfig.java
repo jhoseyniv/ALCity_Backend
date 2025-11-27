@@ -1,8 +1,7 @@
-package com.alcity.entity.base;
+package com.alcity.entity.appmember;
 
 
-import com.alcity.entity.alobject.Renderer;
-import com.alcity.entity.appmember.AppMember;
+import com.alcity.entity.base.BaseItemSet;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -16,7 +15,6 @@ import java.util.Collection;
 @Getter
 @Setter
 @NoArgsConstructor
-
 public class EnergyConfig  extends BaseItemSet implements Serializable {
 
     @Column(name="energy")
@@ -29,8 +27,7 @@ public class EnergyConfig  extends BaseItemSet implements Serializable {
     @JsonIgnore
     private Collection<AppMember> members;
 
-
-    @Column(name="expire")
+    @Column(name="expire", unique = true)
     private Boolean expire;
 
 }

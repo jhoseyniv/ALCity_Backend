@@ -16,6 +16,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Collection;
 
 @Entity
@@ -113,6 +114,11 @@ public class AppMember extends BaseTable implements Serializable {
     @JsonIgnore
     private EnergyConfig energyConfig;
 
+    @Column(name="refillEnergyExpirationTime")
+    private LocalDateTime refillEnergyExpirationTime;
+
+    @Column(name="energy")
+    private Integer energy;
 
     public AppMember(Integer age, Language language , String username, String password, String nickname, String mobile, String email, BinaryContent icon, UserGender gender, MemberType memberType,
                      Long version, String created, String updated, AppMember createdBy, AppMember updatedBy) {

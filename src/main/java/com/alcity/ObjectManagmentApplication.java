@@ -13,6 +13,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.annotation.Order;
 import org.springframework.scheduling.annotation.EnableAsync;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -23,6 +24,7 @@ import java.time.format.DateTimeFormatter;
 @SpringBootApplication
 @EnableCaching
 @EnableAsync
+@EnableScheduling
 public class ObjectManagmentApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(ObjectManagmentApplication.class, args);

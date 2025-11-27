@@ -477,11 +477,18 @@ public class AttributeService implements AttributeRepository {
             Optional<AttributeValue> isObjectActionHasValue = parameterValues.stream().filter(value -> value.getOwnerType().equals(AttributeOwnerType.Object_Action_Handler_Parameter)).findFirst();
             Optional<AttributeValue> isActionHasValue = parameterValues.stream().filter(value -> value.getOwnerType().equals(AttributeOwnerType.Action_Handler_Parameter)).findFirst();
 
-            if (isObjectActionHasValue.isPresent())
-                outputValues.add(isObjectActionHasValue.get());
-            else if (isActionHasValue.isPresent())
-                outputValues.add(isActionHasValue.get());
-
+            if (isObjectActionHasValue.isPresent()) {
+                AttributeValue value = new AttributeValue();
+                value = isObjectActionHasValue.get();
+                value.setAttributeId(parameter);
+                outputValues.add(value);
+            }
+            else if (isActionHasValue.isPresent()) {
+                AttributeValue value = new AttributeValue();
+                value = isActionHasValue.get();
+                value.setAttributeId(parameter);
+                outputValues.add(value);
+            }
             parameter.setAttributeValues(outputValues);
             outputAttributes.add(parameter);
         }
@@ -510,7 +517,10 @@ public class AttributeService implements AttributeRepository {
             Optional<AttributeValue> isActionHasValue = parameterValues.stream().filter(value -> value.getOwnerType().equals(AttributeOwnerType.Action_Handler_Parameter)).findFirst();
 
             if (isPuzzleGroupObjectActionHasValue.isPresent()) {
-                outputValues.add(isPuzzleGroupObjectActionHasValue.get());
+                AttributeValue value = new AttributeValue();
+                value = isPuzzleGroupObjectActionHasValue.get();
+                value.setAttributeId(parameter);
+                outputValues.add(value);
             }
             else if (isObjectActionHasValue.isPresent()) {
                 AttributeValue value = new AttributeValue();
@@ -560,15 +570,30 @@ public class AttributeService implements AttributeRepository {
             Optional<AttributeValue> isObjectActionHasValue = parameterValues.stream().filter(value -> value.getOwnerType().equals(AttributeOwnerType.Object_Action_Handler_Parameter)).findFirst();
             Optional<AttributeValue> isActionHasValue = parameterValues.stream().filter(value -> value.getOwnerType().equals(AttributeOwnerType.Action_Handler_Parameter)).findFirst();
 
-            if (isInstancePuzzleGroupObjectActionHasValue.isPresent())
-                outputValues.add(isInstancePuzzleGroupObjectActionHasValue.get());
-            else if (isPuzzleGroupObjectActionHasValue.isPresent())
-                outputValues.add(isPuzzleGroupObjectActionHasValue.get());
-            else if (isObjectActionHasValue.isPresent())
-                outputValues.add(isObjectActionHasValue.get());
-            else if (isActionHasValue.isPresent())
-                outputValues.add(isActionHasValue.get());
-
+            if (isInstancePuzzleGroupObjectActionHasValue.isPresent()) {
+                AttributeValue value = new AttributeValue();
+                value = isInstancePuzzleGroupObjectActionHasValue.get();
+                value.setAttributeId(parameter);
+                outputValues.add(value);
+            }
+            else if (isPuzzleGroupObjectActionHasValue.isPresent()) {
+                AttributeValue value = new AttributeValue();
+                value = isPuzzleGroupObjectActionHasValue.get();
+                value.setAttributeId(parameter);
+                outputValues.add(value);
+            }
+            else if (isObjectActionHasValue.isPresent()) {
+                AttributeValue value = new AttributeValue();
+                value = isObjectActionHasValue.get();
+                value.setAttributeId(parameter);
+                outputValues.add(value);
+            }
+            else if (isActionHasValue.isPresent()) {
+                AttributeValue value = new AttributeValue();
+                value = isActionHasValue.get();
+                value.setAttributeId(parameter);
+                outputValues.add(value);
+            }
             parameter.setAttributeValues(outputValues);
             outputAttributes.add(parameter);
         }
@@ -612,9 +637,12 @@ public class AttributeService implements AttributeRepository {
             Collection<AttributeValue> parameterValues = parameter.getAttributeValues();
             Optional<AttributeValue> isObjectHasValue = parameterValues.stream().filter(value -> value.getOwnerType().equals(AttributeOwnerType.Object_Variable)).findFirst();
 
-            if (isObjectHasValue.isPresent())
-                outputValues.add(isObjectHasValue.get());
-
+            if (isObjectHasValue.isPresent()) {
+                AttributeValue value = new AttributeValue();
+                value = isObjectHasValue.get();
+                value.setAttributeId(parameter);
+                outputValues.add(value);
+            }
             parameter.setAttributeValues(outputValues);
             outputAttributes.add(parameter);
         }

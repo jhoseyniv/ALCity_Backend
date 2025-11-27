@@ -39,10 +39,12 @@ import com.alcity.utility.SlicedStream;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.security.NoSuchAlgorithmException;
+import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -91,6 +93,31 @@ public class AppMemberService implements AppMemberRepository, CustomizedUserRepo
         if(dto.getPageSize() <= 0 ) dto.setPageSize(1);
         Collection<AppMember> page = SlicedStream.getSliceOfStream(appMemberStream,dto.getLastIndex() ,dto.getLastIndex()  + dto.getPageSize() -1 ).toList();
         return page;
+    }
+
+    public void startUserTimer(Long userId) {
+        AppMember member = appMemberRepository.findById(userId).orElseThrow();
+        Integer timerByMinute = member.getEnergyConfig().getTimeToRefill();
+        member.setRefillEnergyExpirationTime(LocalDateTime.now().plusMinutes(timerByMinute));
+        appMemberRepository.save(member);
+    }
+
+    @Transactional
+    public void checkAndUpdateExpiredUsers() {
+
+        Collection<AppMember> expiredUsers = appMemberRepository.findByRefillEnergyExpirationTimeBefore(LocalDateTime.now());
+
+        expiredUsers.forEach(user -> {
+            Integer energy = user.getEnergy();
+            Integer maxEnergy = user.getEnergyConfig() != null ? user.getEnergyConfig().getEnergy() : null;
+
+            if (energy != null && maxEnergy != null && energy < maxEnergy) {
+                user.setEnergy(energy + 1); // تغییر فقط در صورت نیاز
+                System.out.println("User energy updated: " + user.getId() + ", new Energy: " + user.getEnergy());
+            } else {
+                System.out.println("No update needed for user: " + user.getId());
+            }
+        });
     }
 
     @Cacheable(value = "getPublicPuzzleLevels", key = "#appMember.id")
@@ -538,6 +565,12 @@ public class AppMemberService implements AppMemberRepository, CustomizedUserRepo
     public Collection<AppMember> findByUsernameContainingIgnoreCaseOrNicknameContainingIgnoreCaseOrEmailIsContainingIgnoreCase(String userName, String nickName, String email) {
         return appMemberRepository.findByUsernameContainingIgnoreCaseOrNicknameContainingIgnoreCaseOrEmailIsContainingIgnoreCase(userName,nickName,email);
     }
+
+    @Override
+    public Collection<AppMember> findByRefillEnergyExpirationTimeBefore(LocalDateTime time) {
+        return appMemberRepository.findByRefillEnergyExpirationTimeBefore(time);
+    }
+
     public ResponseMessage setClientType(AppMember appMember, ClientType clientType) {
         Collection<ClientType> clientTypes = appMember.getClientTypes();
         clientTypes.add(clientType);
