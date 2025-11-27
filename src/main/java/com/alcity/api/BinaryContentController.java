@@ -127,7 +127,7 @@ public class BinaryContentController {
 
     @GetMapping("/get-tumb/{id}")
     @CrossOrigin(origins = "*")
-    //@Cacheable(value = "getThumbnailBinaryContent", key = "#id")
+    @Cacheable(value = "getThumbnailBinaryContent", key = "#id")
     public ResponseEntity<byte[]> getThumbnail(@PathVariable Long id) {
         Optional<BinaryContent>  binaryContentOptional= binaryContentService.findById(id);
         if(binaryContentOptional.isEmpty()) return  null;
