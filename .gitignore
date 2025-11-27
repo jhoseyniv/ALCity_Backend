@@ -1,0 +1,43 @@
+# -----------------------
+# IntelliJ IDEA
+# -----------------------
+/.idea/
+/*.iml
+/out/
+/*.ipr
+/*.iws
+
+# -----------------------
+# Maven / Spring Boot
+# -----------------------
+/target/
+!.mvn/wrapper/maven-wrapper.jar
+
+# -----------------------
+# Logs
+# -----------------------
+*.log
+/logs/
+
+# -----------------------
+# OS files
+# -----------------------
+.DS_Store
+Thumbs.db
+
+# -----------------------
+# Spring Boot sensitive files
+# -----------------------
+application.properties
+/application.yml
+
+# -----------------------
+# Compiled / temporary files
+# -----------------------
+*.class
+*.jar
+*.war
+*.tmp
+*.swp
+*.bak
+*.orig

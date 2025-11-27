@@ -53,6 +53,7 @@ public class CachingConfig {
                 .withCacheConfiguration("getThumbnailBinaryContent", myDefaultCacheConfig(Duration.ofMinutes(50)))
                 .withCacheConfiguration("all-LearningSkillDTO", myDefaultCacheConfig(Duration.ofMinutes(50)))
                 .withCacheConfiguration("getLearnSkillById", myDefaultCacheConfig(Duration.ofMinutes(50)))
+                .withCacheConfiguration("getPuzzleLevelContents", myDefaultCacheConfig(Duration.ofMinutes(50)))
 
                 //.withCacheConfiguration("JourneyCache", myDefaultCacheConfig(Duration.ofMinutes(50)))
                 //.withCacheConfiguration("getBinaryContent", myDefaultCacheConfig(Duration.ofMinutes(30)))
@@ -60,7 +61,6 @@ public class CachingConfig {
                 //.withCacheConfiguration("all-PuzzleCategoryDTO", myDefaultCacheConfig(Duration.ofMinutes(50)))
                 //.withCacheConfiguration("all-TemplateDTO", myDefaultCacheConfig(Duration.ofMinutes(50)))
                 //.withCacheConfiguration("all-PLDTO", myDefaultCacheConfig(Duration.ofMinutes(50)))
-                .withCacheConfiguration("getPuzzleLevelContents", myDefaultCacheConfig(Duration.ofMinutes(50)))
                 .withCacheConfiguration("getRelatedPuzzleGroupsOfACategory", myDefaultCacheConfig(Duration.ofMinutes(50)))
                 .withCacheConfiguration("getRelatedPuzzleLevelTemplatesOfACategory", myDefaultCacheConfig(Duration.ofMinutes(50)))
                 .withCacheConfiguration("getLearnSkillTreeById", myDefaultCacheConfig(Duration.ofMinutes(50)))
