@@ -22,7 +22,17 @@ import java.util.Collection;
 @Setter
 @NoArgsConstructor
 
+@AttributeOverrides({
+        @AttributeOverride(name = "id", column = @Column(name = "id"))
+})
 public class LearningSkill extends BaseTable implements Serializable {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    public Long getId() {
+        return super.getId();
+    }
 
     @NotNull(message = "{bHeight.notempty}")
     @Column(name="title",unique = true)

@@ -24,13 +24,11 @@ public class DynamicSchedulerService {
 
     private ScheduledFuture<?> scheduledFuture;
 
-    private long dynamicRate = 2400000L; // 60 ثانیه
+    private long dynamicRate = 6000000L; // 60 ثانیه
 
     public void startScheduler() {
         Optional<EnergyConfig> config = energyConfigService.findByExpireIsFalse();
         stopScheduler(); // جلوگیری از تسک تکراری
-        if (config.isPresent())
-            dynamicRate = config.get().getTimeToRefill()*60*10000;
         scheduledFuture = taskScheduler.scheduleAtFixedRate(() -> {
             memberService.checkAndUpdateExpiredUsers(); // 👈 متد خودکار اجرا می‌شود
         }, dynamicRate);
