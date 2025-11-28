@@ -15,7 +15,9 @@ public enum ErrorType {
     NullValueViolation,
     HUDAction_WalletItem_Must_NOT_Apply,
     PUZZLE_LEVEL_NOT_CREATED,
-    JSON_CREATED_SUCCESSFULLY
+    JSON_CREATED_SUCCESSFULLY,
+    Energy_Is_Not_Sufficient_To_PLay_Game,
+    Energy_Is_Low_And_Timer_Start_To_Refill
     ;
     public static ErrorType getById(long id)
     {

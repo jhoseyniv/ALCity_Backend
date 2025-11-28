@@ -16,5 +16,9 @@ public  class SystemMessage  {
     public static String HUDAction_WalletItem_Must_NOT_Apply = "HUD Item Type Must not be applied";
     public static String  PUZZLE_LEVEL_NOT_CREATED= "PUZZLE LEVEL NOT CREATED";
     public static String  JSON_CREATED_SUCCESSFULLY= "JSON Created Successfully";
+    public static String  Game_Instance_Created_Successfully= "Game Instance Created Successfully";
+    public static String  Energy_Is_Not_Sufficient_To_PLay_Game= "Energy Is Not Sufficient To PLay Game";
+    public static String  Energy_Is_Low_And_Timer_Start_To_Refill= "Energy Is Low And Timer Start To Refill";
+
 
 }

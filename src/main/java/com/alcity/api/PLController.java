@@ -9,11 +9,14 @@ import com.alcity.dto.plimpexport.PLImportDTO;
 import com.alcity.entity.alenum.*;
 import com.alcity.entity.alobject.ObjectAction;
 import com.alcity.entity.appmember.AppMember;
+import com.alcity.entity.appmember.EnergyConfig;
 import com.alcity.service.alobject.AttributeService;
 import com.alcity.service.appmember.AppMemberService;
 import com.alcity.customexception.ResponseObject;
 import com.alcity.dto.puzzle.*;
 import com.alcity.entity.puzzle.*;
+import com.alcity.service.appmember.DynamicSchedulerService;
+import com.alcity.service.appmember.EnergyConfigService;
 import com.alcity.service.base.BinaryContentService;
 import com.alcity.service.learning.LearningSkillService;
 import com.alcity.service.puzzle.PLGameInstanceService;
@@ -46,6 +49,9 @@ public class PLController {
 
     @Autowired
     private AppMemberService appMemberService;
+
+    @Autowired
+    private EnergyConfigService energyConfigService;
 
     @Autowired
     private PLGroundService plGroundService;
@@ -210,8 +216,31 @@ public class PLController {
     @Operation( summary = "Start Puzzle (Game) after play by user ",  description = "Update Puzzle (Game) Status after play by user")
     @PostMapping("/start-play")
     @CrossOrigin(origins = "*")
-    public PLGameInstanceDTO StartGameEvent(@RequestBody PLEventDTO plEventDTO) {
-        return plGameInstanceService.startGameInstance(plEventDTO);
+    public ResponseMessage StartGameEvent(@RequestBody PLEventDTO plEventDTO) {
+        ResponseMessage response = new ResponseMessage();
+        //check is user enough energy or not
+        Integer energy =5;
+        Optional<AppMember> memberOptional = appMemberService.findById(plEventDTO.getAppMemberId());
+        Optional<EnergyConfig> energyConfigOptional = energyConfigService.findByExpireIsFalse();
+        if(energyConfigOptional.isPresent())
+            energy = energyConfigOptional.get().getEnergy();
+        if(memberOptional.isPresent()) {
+            if(memberOptional.get().getEnergy()==0) {
+                return
+                        new ResponseMessage(ErrorType.Energy_Is_Not_Sufficient_To_PLay_Game, Status.ok.name(), AppMember.class.getSimpleName(),
+                                memberOptional.get().getId(), SystemMessage.Energy_Is_Not_Sufficient_To_PLay_Game);
+            }
+            if(memberOptional.get().getEnergy()<energy) {
+                appMemberService.startUserTimer(plEventDTO.getAppMemberId());
+                return
+                        new ResponseMessage(ErrorType.Energy_Is_Low_And_Timer_Start_To_Refill,  Status.ok.name(),AppMember.class.getSimpleName() ,
+                                                memberOptional.get().getId(), SystemMessage.Energy_Is_Low_And_Timer_Start_To_Refill);
+            }
+            PLGameInstanceDTO gameInstance = plGameInstanceService.startGameInstance(plEventDTO);
+            response = new ResponseMessage(ErrorType.SaveSuccess,  Status.ok.name(),PLGameInstanceDTO.class.getSimpleName() , gameInstance.getId(), SystemMessage.Game_Instance_Created_Successfully);
+        }
+
+        return response;
     }
 
     @Operation( summary = "End Puzzle (Game) Status after change status by user ",  description = "Update Puzzle (Game) Status after change status play by user")
