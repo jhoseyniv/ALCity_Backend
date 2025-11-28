@@ -1,4 +1,4 @@
-package com.alcity;
+package com.alcity.config;
 
 
 import org.springframework.beans.factory.annotation.Value;
@@ -13,8 +13,6 @@ import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSeriali
 import org.springframework.data.redis.serializer.RedisSerializationContext;
 
 import java.time.Duration;
-import java.time.OffsetDateTime;
-import java.util.Arrays;
 
 @Configuration
 @EnableCaching
@@ -55,7 +53,7 @@ public class CachingConfig {
                 .withCacheConfiguration("getLearnSkillById", myDefaultCacheConfig(Duration.ofMinutes(50)))
                 .withCacheConfiguration("getPuzzleLevelContents", myDefaultCacheConfig(Duration.ofMinutes(50)))
 
-                //.withCacheConfiguration("JourneyCache", myDefaultCacheConfig(Duration.ofMinutes(50)))
+                .withCacheConfiguration("JourneyCache", myDefaultCacheConfig(Duration.ofMinutes(50)))
                 //.withCacheConfiguration("getBinaryContent", myDefaultCacheConfig(Duration.ofMinutes(30)))
                 //.withCacheConfiguration("getPuzzleGroups", myDefaultCacheConfig(Duration.ofMinutes(30)))
                 //.withCacheConfiguration("all-PuzzleCategoryDTO", myDefaultCacheConfig(Duration.ofMinutes(50)))

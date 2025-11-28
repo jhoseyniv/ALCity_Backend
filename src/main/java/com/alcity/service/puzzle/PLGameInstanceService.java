@@ -21,6 +21,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import org.springframework.transaction.annotation.Transactional;;
+import java.time.LocalDateTime;
 import java.util.*;
 
 @Service
@@ -44,13 +45,20 @@ public class PLGameInstanceService implements PLGameInstanceRepository {
     public <S extends PLGameInstance> S save(S entity) {
         return plGameInstanceRepository.save(entity);
     }
-
+    @Transactional
     public PLGameInstanceDTO startGameInstance(PLEventDTO plEventDTO) {
 
         Optional<AppMember> appMemberOptional = appMemberService.findById(plEventDTO.getAppMemberId());
         Optional<PuzzleLevel> puzzleLevelOptional = puzzleLevelService.findById(plEventDTO.getPuzzleLevelId());
         GameStatus gameStatus = GameStatus.getByTitle(plEventDTO.getGameStatus());
         if(appMemberOptional.isEmpty() || puzzleLevelOptional.isEmpty()){ return null;}
+        // decrease an energy one unit after start a game by user
+        AppMember member = appMemberOptional.get();
+        member.setEnergy(member.getEnergy() - 1);
+        LocalDateTime now = LocalDateTime.now();
+        if (member.getRefillEnergyExpirationTime() == null || member.getRefillEnergyExpirationTime().isBefore(now)) {
+            member.setRefillEnergyExpirationTime(now.plusMinutes(member.getEnergyConfig().getTimeToRefill())); // مقدار دلخواه شما برای ریکاوری انرژی
+        }
 
         PLGameInstance  gameInstance = new PLGameInstance(appMemberOptional.get(),puzzleLevelOptional.get(), DateUtils.getNow(),"",gameStatus,null,0L,
                 1L,DateUtils.getNow(),DateUtils.getNow(),appMemberOptional.get(),appMemberOptional.get());

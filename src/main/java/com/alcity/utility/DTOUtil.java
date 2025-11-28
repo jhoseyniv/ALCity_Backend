@@ -1145,7 +1145,6 @@ public class DTOUtil {
     public static LearningSkillDTO getLearningSkillDTO(LearningSkill ls) {
         if(ls.getParentSkill() == null)
             return  new LearningSkillDTO(ls.getId(), ls.getTitle(), ls.getType().name(),0L,"",0L,ls.getIcon().getId(),1f,"Root of Skill Tree");;
-            System.out.println(ls.getId());
             LearningSkillDTO lsDTO = new LearningSkillDTO(ls.getId(), ls.getTitle(), ls.getType().name(),ls.getParentSkill().getId(),ls.getParentSkill().getTitle(),ls.getLevelUpSize(),ls.getIcon().getId(), ls.getWeight(), ls.getDescription());
         return lsDTO;
     }

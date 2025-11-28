@@ -26,7 +26,7 @@ public class EnergyConfig  extends BaseItemSet implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     public Long getId() {
-        return super.getId();
+        return getId();
     }
 
     @Column(name="energy")

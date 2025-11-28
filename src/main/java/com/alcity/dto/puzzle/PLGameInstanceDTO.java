@@ -13,17 +13,17 @@ import lombok.Setter;
 public class PLGameInstanceDTO {
 
     Long id;
-    Long appMemmberId;
+    Long appMemberId;
     Long puzzleLevelId;
     String puzzleLevelTitle;
     String startPlayTime;
     String endPlayTime;
     String gameStatus;
     private byte[] analyticalData;
-    public PLGameInstanceDTO(Long id, Long appMemmberId, Long puzzleLevelId, String puzzleLevelTitle, String startPlayTime,
+    public PLGameInstanceDTO(Long id, Long appMemberId, Long puzzleLevelId, String puzzleLevelTitle, String startPlayTime,
                              String endPlayTime, String gameStatus, byte[] analyticalData) {
         this.id = id;
-        this.appMemmberId = appMemmberId;
+        this.appMemberId = appMemberId;
         this.puzzleLevelId = puzzleLevelId;
         this.puzzleLevelTitle = puzzleLevelTitle;
         this.startPlayTime = startPlayTime;

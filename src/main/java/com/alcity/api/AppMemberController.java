@@ -70,6 +70,8 @@ public class AppMemberController {
     @Autowired
     private JourneyService journeyService;
 
+    @Autowired
+    private PLGameInstanceService plGameInstanceService;
 
     @Autowired
     private ObjectiveTransactionService objectiveTransactionService;
@@ -535,7 +537,7 @@ public class AppMemberController {
                     1L,DateUtils.getNow(),DateUtils.getNow(),appMemberOptional.get(),appMemberOptional.get());
             walletTransactionService.save(walletTransaction);
             appMemberPuzzleLevelScoreService.updateScores(savedRecord);
-
+            //plGameInstanceService.updateGameInstanceStatus(eventDTO);
         }
 
        return response;

@@ -215,8 +215,8 @@ public class AppMemberService implements AppMemberRepository, CustomizedUserRepo
         while (itr.hasNext()){
             PLGameInstanceDTO historyDTO = itr.next();
             Optional<AppMemberStepInfo> stepInfoOptional = stepInfos.stream().filter(AppMemberStepInfo -> AppMemberStepInfo.getPuzzleLevelId() == historyDTO.getPuzzleLevelId()).findFirst();
-            Float score =0.f;
             if(stepInfoOptional.isPresent()){
+                Float score =0.f;
                 AppMemberStepInfo stepInfo =stepInfoOptional.get();
                 Optional<PuzzleLevel> puzzleLevelOptional = puzzleLevelService.findById(stepInfo.getPuzzleLevelId());
                 PuzzleLevel puzzleLevel = puzzleLevelOptional.get();
