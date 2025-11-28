@@ -1,6 +1,7 @@
 package com.alcity.service.base;
 
 import com.alcity.dto.base.BinaryContentDTO;
+import com.alcity.dto.base.ThumbnailDTO;
 import com.alcity.dto.search.ContentSearchCriteriaDTO;
 import com.alcity.entity.alenum.BinaryContentType;
 import com.alcity.entity.appmember.WalletItem;
@@ -23,6 +24,7 @@ import com.alcity.utility.ImageUtil;
 import com.alcity.utility.SlicedStream;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import org.springframework.transaction.annotation.Transactional;
@@ -68,6 +70,14 @@ public class BinaryContentService implements BinaryContentRepository , BinaryCon
         return binaryContentRepository.findById(id);
     }
 
+    @Cacheable(value = "getThumbnailBinaryContent", key = "#id")
+    public ThumbnailDTO getThumbnailBytes(Long id) {
+        Optional<BinaryContent>  binaryContentOptional= binaryContentRepository.findById(id);
+        if(binaryContentOptional.isEmpty()) return  null;
+        BinaryContent bc = binaryContentOptional.get();
+
+        return new ThumbnailDTO(bc.getId(),bc.getFileName(),bc.getSize(),bc.getThumbnail());
+    }
     @Override
     public boolean existsById(Long aLong) {
         return false;

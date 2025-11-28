@@ -4,6 +4,7 @@ package com.alcity.api;
 import com.alcity.customexception.ResponseMessage;
 import com.alcity.customexception.ResponseObject;
 import com.alcity.dto.base.BinaryContentDTO;
+import com.alcity.dto.base.ThumbnailDTO;
 import com.alcity.dto.search.ContentSearchCriteriaDTO;
 import com.alcity.entity.alenum.DeviceType;
 import com.alcity.entity.alenum.Status;
@@ -115,7 +116,6 @@ public class BinaryContentController {
     @GetMapping("/get-file/{id}")
     @CrossOrigin(origins = "*")
     @Transactional(readOnly = true)
-    //@Cacheable(value = "get-file-id", key = "#id")
     public ResponseEntity<byte[]> getFile(@PathVariable Long id) {
         Optional<BinaryContent>  binaryContentOptional= binaryContentService.findById(id);
         if(binaryContentOptional.isEmpty()) return  null;
@@ -127,14 +127,12 @@ public class BinaryContentController {
 
     @GetMapping("/get-tumb/{id}")
     @CrossOrigin(origins = "*")
-    @Cacheable(value = "getThumbnailBinaryContent", key = "#id")
     public ResponseEntity<byte[]> getThumbnail(@PathVariable Long id) {
-        Optional<BinaryContent>  binaryContentOptional= binaryContentService.findById(id);
-        if(binaryContentOptional.isEmpty()) return  null;
-        BinaryContent binaryContent = binaryContentOptional.get();
+        ThumbnailDTO dto = binaryContentService.getThumbnailBytes(id); // از cache یا DB
+
         return ResponseEntity.ok()
-                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + binaryContent.getFileName() + "\"")
-                .body(binaryContent.getThumbnail());
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + dto.getFileName() + "\"")
+                .body(dto.getThumbnail());
     }
 
     @PostMapping("/search")
