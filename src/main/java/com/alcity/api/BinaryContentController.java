@@ -41,29 +41,25 @@ public class BinaryContentController {
 
     @Autowired
     private BinaryContentService binaryContentService;
-    @Autowired
-    private CacheManager cacheManager;
 
     @RequestMapping(value="/id/{id}", method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin(origins = "*")
     @Transactional(readOnly = true)
-    @Cacheable(value = "getBinaryContentById", key = "#id")
     public BinaryContentDTO getBinaryContentById(@PathVariable Long id) {
         Optional<BinaryContent> binaryContentOptional = binaryContentService.findById(id);
         if(binaryContentOptional.isPresent()) {
             BinaryContent bc = binaryContentOptional.get();
-            BinaryContentDTO binaryContentDTO = new BinaryContentDTO(bc.getId(),bc.getFileName(),bc.getSize(), bc.getContent(), null,
+            return new BinaryContentDTO(bc.getId(),bc.getFileName(),bc.getSize(), bc.getContent(), null,
                     bc.getIos3Dcontent(),bc.getAndriod3Dcontent(), bc.getContent(), bc.getContentType().name(),bc.getIs3dContent(),bc.getTag1(),bc.getTag2(),bc.getTag3());
-            return binaryContentDTO;
         }
         return null;
     }
+
     @RequestMapping(value="/id/{id}/device-type/{deviceType}", method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin(origins = "*")
     @Transactional(readOnly = true)
-   @Cacheable(value = "getBinaryContentByIdAndDevice", key = "{ #id }")
     public BinaryContentDTO getBinaryContentByIdAndDevice(@PathVariable Long id,@PathVariable String deviceType) {
         Optional<BinaryContent> binaryContentOptional = binaryContentService.findById(id);
         if(binaryContentOptional.isPresent()) {
@@ -86,7 +82,6 @@ public class BinaryContentController {
     @GetMapping("/get-file/id/{id}/device-type/{deviceType}")
     @CrossOrigin(origins = "*")
     @Transactional(readOnly = true)
-    //@Cacheable(value = "getFileByDeviceType", key = "{ #id }")
     public ResponseEntity<byte[]> getFileByDeviceType(@PathVariable Long id , @PathVariable String deviceType) {
        Optional<BinaryContent>  binaryContentOptional= binaryContentService.findById(id);
 
@@ -167,37 +162,11 @@ public class BinaryContentController {
             response = new ResponseMessage(ErrorType.SaveSuccess, Status.ok.name() , BinaryContent.class.getSimpleName() ,  savedRecord.getId(), SystemMessage.SaveOrEditMessage_Success);
         else
             response = new ResponseMessage(ErrorType.RecordNotFound, Status.error.name() , BinaryContent.class.getSimpleName() , dto.getId(), SystemMessage.SaveOrEditMessage_Fail);
-        clearCache(dto.getId());
+       // clearCache(dto.getId());
         return response;
     }
 
 
-    public void clearCache(Long id){
-        Cache cache = cacheManager.getCache("getBinaryContentById");
-        if (cache != null) {
-            cache.evict(id);
-        }
-
-        Cache cache2 = cacheManager.getCache("getBinaryContentByIdAndDevice");
-        if (cache2 != null) {
-            cache2.evict(id);
-        }
-        Cache cache3 = cacheManager.getCache("getFileByDeviceType");
-        if (cache3 != null) {
-            cache3.evict(id);
-        }
-        Cache cache4 = cacheManager.getCache("get-file-id");
-        if (cache4 != null) {
-            cache4.evict(id);
-        }
-        Cache cache5 = cacheManager.getCache("getThumbnailBinaryContent");
-        if (cache5 != null) {
-            cache5.evict(id);
-        }
-
-
-
-    }
 
     @Operation( summary = "Delete a  Binary Content ",  description = "Delete a Binary Content")
     @DeleteMapping("/del/{id}")
@@ -211,7 +180,7 @@ public class BinaryContentController {
             catch (Exception e) {
                 return new ResponseObject(ErrorType.ForeignKeyViolation, Status.error.name(), BinaryContent.class.getSimpleName(), id,e.getCause().getMessage());
             }
-            clearCache(id);
+         //   clearCache(id);
             return new ResponseObject(ErrorType.SaveSuccess, Status.ok.name(), BinaryContent.class.getSimpleName(),  id,SystemMessage.DeleteMessage);
         }
         return  new ResponseObject(ErrorType.RecordNotFound, Status.error.name(),BinaryContent.class.getSimpleName(),  id,SystemMessage.RecordNotFound);

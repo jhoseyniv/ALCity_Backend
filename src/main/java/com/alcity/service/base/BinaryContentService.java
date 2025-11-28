@@ -24,6 +24,8 @@ import com.alcity.utility.ImageUtil;
 import com.alcity.utility.SlicedStream;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.cache.Cache;
+import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
@@ -65,12 +67,13 @@ public class BinaryContentService implements BinaryContentRepository , BinaryCon
     }
 
     @Override
+    @Cacheable(value = "getFileContent", key = "#id")
     public Optional<BinaryContent> findById(Long id) {
         if(id == null){return Optional.empty();}
         return binaryContentRepository.findById(id);
     }
 
-    @Cacheable(value = "getThumbnailBinaryContent", key = "#id")
+    @Cacheable(value = "getFileThumbnail", key = "#id")
     public ThumbnailDTO getThumbnailBytes(Long id) {
         Optional<BinaryContent>  binaryContentOptional= binaryContentRepository.findById(id);
         if(binaryContentOptional.isEmpty()) return  null;
@@ -101,6 +104,8 @@ public class BinaryContentService implements BinaryContentRepository , BinaryCon
     @Override
     public void deleteById(Long aLong) {
         binaryContentRepository.deleteById(aLong);
+        clearCache(aLong);
+
     }
 
     @Override
@@ -137,14 +142,14 @@ public class BinaryContentService implements BinaryContentRepository , BinaryCon
     public Collection<BinaryContent> findByFileNameContainsIgnoreCaseOrTag1ContainsIgnoreCaseOrTag2ContainsIgnoreCaseOrTag3ContainsIgnoreCase(String fileName, String tag1, String tag2, String tag3) {
         return binaryContentRepository.findByFileNameContainsIgnoreCaseOrTag1ContainsIgnoreCaseOrTag2ContainsIgnoreCaseOrTag3ContainsIgnoreCase(fileName, tag1, tag2, tag3);
     }
-
+/*
     public byte[] getFile(Long id){
        Optional<BinaryContent> binaryContentOptional = binaryContentRepository.findById(id);
        if(binaryContentOptional.isPresent())
            return binaryContentOptional.get().getContent();
        return null;
     }
-
+*/
     public Collection<BinaryContent> findByCriteria(ContentSearchCriteriaDTO dto) {
         BinaryContentType contentType =BinaryContentType.getById(dto.getContentTypeId());
         Collection<BinaryContent> binaryContents = binaryContentRepository.findByFileNameContainsIgnoreCaseOrTag1ContainsIgnoreCaseOrTag2ContainsIgnoreCaseOrTag3ContainsIgnoreCase(dto.getCriteria(), dto.getCriteria(), dto.getCriteria(), dto.getCriteria());
@@ -257,7 +262,21 @@ public class BinaryContentService implements BinaryContentRepository , BinaryCon
                 binaryContentRepository.save(binaryContent);
             }
         }
+        clearCache(dto.getId());
         return binaryContent;
+    }
+    @Autowired
+    private CacheManager cacheManager;
+
+    public void clearCache(Long id){
+        Cache cache = cacheManager.getCache("getFileThumbnail");
+        if (cache != null) {
+            cache.evict(id);
+        }
+        Cache cache2 = cacheManager.getCache("getFileContent");
+        if (cache2 != null) {
+            cache2.evict(id);
+        }
     }
 
 }
