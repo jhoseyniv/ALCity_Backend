@@ -232,14 +232,15 @@ public class PLController {
             }
             if(memberOptional.get().getEnergy()<energy) {
                 appMemberService.startUserTimer(plEventDTO.getAppMemberId());
-                return
-                        new ResponseMessage(ErrorType.Energy_Is_Low_And_Timer_Start_To_Refill,  Status.ok.name(),AppMember.class.getSimpleName() ,
-                                                memberOptional.get().getId(), SystemMessage.Energy_Is_Low_And_Timer_Start_To_Refill);
+                   new ResponseMessage(ErrorType.Energy_Is_Low_And_Timer_Start_To_Refill, Status.ok.name(), AppMember.class.getSimpleName(),
+                                memberOptional.get().getId(), SystemMessage.Energy_Is_Low_And_Timer_Start_To_Refill);
+                PLGameInstanceDTO gameInstance = plGameInstanceService.startGameInstance(plEventDTO);
+                response = new ResponseMessage(ErrorType.SaveSuccess, Status.ok.name(), PLGameInstanceDTO.class.getSimpleName(), gameInstance.getId(), SystemMessage.Game_Instance_Created_Successfully + SystemMessage.Energy_Is_Low_And_Timer_Start_To_Refill);
+            }else{
+                PLGameInstanceDTO gameInstance = plGameInstanceService.startGameInstance(plEventDTO);
+                response = new ResponseMessage(ErrorType.SaveSuccess, Status.ok.name(), PLGameInstanceDTO.class.getSimpleName(), gameInstance.getId(), SystemMessage.Game_Instance_Created_Successfully);
             }
-            PLGameInstanceDTO gameInstance = plGameInstanceService.startGameInstance(plEventDTO);
-            response = new ResponseMessage(ErrorType.SaveSuccess,  Status.ok.name(),PLGameInstanceDTO.class.getSimpleName() , gameInstance.getId(), SystemMessage.Game_Instance_Created_Successfully);
         }
-
         return response;
     }
 
