@@ -38,6 +38,15 @@ public class EnergyConfigController {
             return energyConfigOptional.get().getTimeToRefill();
         return 40;
     }
+    @Operation( summary = "Fetch Minimum Energy setting Score for Users   ",  description = "Fetch Minimum Energy Score for Users ")
+    @RequestMapping(value = "/energy-level/", method = RequestMethod.GET)
+    @ResponseBody
+    public Integer getEnergyLevel() {
+        Optional<EnergyConfig> energyConfigOptional = energyConfigService.findByExpireIsFalse();
+        if (energyConfigOptional.isPresent())
+            return energyConfigOptional.get().getEnergy();
+        return 8;
+    }
 
     @Operation( summary = "Fetch expiration time to refill energy for a app member by id  ",  description = "Fetch expiration time to refill energy for a app member by id")
     @RequestMapping(value = "/member/id/{id}", method = RequestMethod.GET)

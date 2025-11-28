@@ -968,7 +968,7 @@ public class DTOUtil {
 
         return new AppMemberDTO(member.getId(),member.getAge(),member.getLanguage().name(),
                 member.getUsername(),member.getPassword(),member.getIcon().getId(), member.getNickname(),
-                member.getMobile(), member.getEmail(),member.getGender().name(),member.getMemberType().getValue(),
+                member.getMobile(), member.getEmail(),member.getGender().name(),member.getMemberType().getValue(), member.getEnergy(), member.getRefillEnergyExpirationTime().toString(),
                 member.getVersion(), member.getCreated(), member.getUpdated(), userName, userName);
     }
 
