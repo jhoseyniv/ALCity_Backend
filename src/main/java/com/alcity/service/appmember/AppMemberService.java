@@ -45,6 +45,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.security.NoSuchAlgorithmException;
 import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
+import java.time.ZoneOffset;
+import java.time.ZonedDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -98,14 +101,14 @@ public class AppMemberService implements AppMemberRepository, CustomizedUserRepo
     public void startUserTimer(Long userId) {
         AppMember member = appMemberRepository.findById(userId).orElseThrow();
         Integer timerByMinute = member.getEnergyConfig().getTimeToRefill();
-        member.setRefillEnergyExpirationTime(LocalDateTime.now().plusMinutes(timerByMinute));
+        member.setRefillEnergyExpirationTime(ZonedDateTime.now().plusMinutes(timerByMinute));
         appMemberRepository.save(member);
     }
 
     @Transactional
     public void checkAndUpdateExpiredUsers() {
 
-        Collection<AppMember> expiredUsers = appMemberRepository.findByRefillEnergyExpirationTimeBefore(LocalDateTime.now());
+        Collection<AppMember> expiredUsers = appMemberRepository.findByRefillEnergyExpirationTimeBefore(ZonedDateTime.now());
 
         expiredUsers.forEach(user -> {
             Integer energy = user.getEnergy();
@@ -567,7 +570,7 @@ public class AppMemberService implements AppMemberRepository, CustomizedUserRepo
     }
 
     @Override
-    public Collection<AppMember> findByRefillEnergyExpirationTimeBefore(LocalDateTime time) {
+    public Collection<AppMember> findByRefillEnergyExpirationTimeBefore(ZonedDateTime time) {
         return appMemberRepository.findByRefillEnergyExpirationTimeBefore(time);
     }
 

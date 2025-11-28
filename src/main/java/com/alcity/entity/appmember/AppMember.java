@@ -17,6 +17,7 @@ import lombok.Setter;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 import java.util.Collection;
 
 @Entity
@@ -115,7 +116,7 @@ public class AppMember extends BaseTable implements Serializable {
     private EnergyConfig energyConfig;
 
     @Column(name="refillEnergyExpirationTime")
-    private LocalDateTime refillEnergyExpirationTime;
+    private ZonedDateTime refillEnergyExpirationTime;
 
     @Column(name="energy")
     private Integer energy;

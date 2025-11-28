@@ -7,6 +7,7 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 import java.util.Collection;
 import java.util.Optional;
 
@@ -17,7 +18,7 @@ public interface AppMemberRepository extends CrudRepository<AppMember,Long> {
     Collection<AppMember> findByMobile(String mobile);
     AppMember findByEmail(String email);
     Collection<AppMember> findByUsernameContainingIgnoreCaseOrNicknameContainingIgnoreCaseOrEmailIsContainingIgnoreCase(String userName, String nickName, String email);
-    Collection<AppMember> findByRefillEnergyExpirationTimeBefore(LocalDateTime time);
+    Collection<AppMember> findByRefillEnergyExpirationTimeBefore(ZonedDateTime time);
 
 
 }

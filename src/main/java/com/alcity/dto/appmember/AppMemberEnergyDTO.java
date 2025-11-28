@@ -6,6 +6,7 @@ import lombok.Setter;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 
 @Getter
 @Setter
@@ -13,9 +14,9 @@ import java.time.LocalDateTime;
 public class AppMemberEnergyDTO  implements Serializable {
 
     private Integer energy;
-    private LocalDateTime refillEnergyExpirationTime;
+    private ZonedDateTime refillEnergyExpirationTime;
 
-    public AppMemberEnergyDTO(Integer energy, LocalDateTime refillEnergyExpirationTime) {
+    public AppMemberEnergyDTO(Integer energy, ZonedDateTime refillEnergyExpirationTime) {
         this.energy = energy;
         this.refillEnergyExpirationTime = refillEnergyExpirationTime;
     }

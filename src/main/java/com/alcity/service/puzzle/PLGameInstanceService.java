@@ -22,6 +22,7 @@ import org.springframework.stereotype.Service;
 
 import org.springframework.transaction.annotation.Transactional;;
 import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 import java.util.*;
 
 @Service
@@ -55,7 +56,7 @@ public class PLGameInstanceService implements PLGameInstanceRepository {
         // decrease an energy one unit after start a game by user
         AppMember member = appMemberOptional.get();
         member.setEnergy(member.getEnergy() - 1);
-        LocalDateTime now = LocalDateTime.now();
+        ZonedDateTime now = ZonedDateTime.now();
         if (member.getRefillEnergyExpirationTime() == null || member.getRefillEnergyExpirationTime().isBefore(now)) {
             member.setRefillEnergyExpirationTime(now.plusMinutes(member.getEnergyConfig().getTimeToRefill())); // مقدار دلخواه شما برای ریکاوری انرژی
         }

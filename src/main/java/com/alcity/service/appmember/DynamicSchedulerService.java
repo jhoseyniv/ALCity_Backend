@@ -2,7 +2,6 @@ package com.alcity.service.appmember;
 
 
 import com.alcity.entity.appmember.EnergyConfig;
-import com.alcity.repository.appmember.AppMemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.TaskScheduler;
 import org.springframework.stereotype.Service;
@@ -24,7 +23,7 @@ public class DynamicSchedulerService {
 
     private ScheduledFuture<?> scheduledFuture;
 
-    private long dynamicRate = 60000000L; // 60 ثانیه
+    private long dynamicRate = 600000L; // 60 ثانیه
 
     public void startScheduler() {
         Optional<EnergyConfig> config = energyConfigService.findByExpireIsFalse();
@@ -32,7 +31,6 @@ public class DynamicSchedulerService {
         scheduledFuture = taskScheduler.scheduleAtFixedRate(() -> {
             memberService.checkAndUpdateExpiredUsers(); // 👈 متد خودکار اجرا می‌شود
         }, dynamicRate);
-
         System.out.println("Scheduler started with rate: " + dynamicRate);
     }
 
