@@ -59,8 +59,10 @@ import static java.util.stream.Collectors.toList;
 public class AppMemberService implements AppMemberRepository, CustomizedUserRepository {
 
     @Autowired
-
     private AppMemberRepository appMemberRepository;
+
+    @Autowired
+    private EnergyConfigService energyConfigService;
 
     @Autowired
     private BinaryContentRepository binaryContentRepository;
@@ -379,6 +381,14 @@ public class AppMemberService implements AppMemberRepository, CustomizedUserRepo
             language = Language.getByTitle(dto.getLanguage());
         if(language==null) language = Language.English;
 
+        Optional<EnergyConfig> energyConfigOptional = energyConfigService.findByExpireIsFalse();
+        Integer energy = 8;
+        ZonedDateTime timeToRefill = ZonedDateTime.now().plusMinutes(40);
+        if(energyConfigOptional.isPresent())  {
+            energy = energyConfigOptional.get().getEnergy();
+            timeToRefill = ZonedDateTime.now().plusMinutes(energyConfigOptional.get().getTimeToRefill());
+        }
+
         if(dto.getGender()==null || dto.getGender().equalsIgnoreCase(""))
             gender=UserGender.Male;
         else
@@ -401,7 +411,7 @@ public class AppMemberService implements AppMemberRepository, CustomizedUserRepo
         String hashedPassword = GenerateSHA256.toHexString(hash) ;
         AppMember appMember=null;
         if (code.equalsIgnoreCase("Save")) { //Save
-            appMember = new AppMember(dto.getAge(),language,dto.getUsername(), hashedPassword, dto.getNickname(), dto.getMobile(),dto.getEmail(),icon,gender ,memberType
+            appMember = new AppMember(dto.getAge(),language,dto.getUsername(), hashedPassword, dto.getNickname(), dto.getMobile(),dto.getEmail(),icon,gender ,memberType,timeToRefill,energy
                     ,1L, DateUtils.getNow(), DateUtils.getNow(), createdBy.get(), createdBy.get());
             appMemberRepository.save(appMember);
             appMember_LearningSkillService.initSkillWalletByUser(appMember);
@@ -434,6 +444,14 @@ public class AppMemberService implements AppMemberRepository, CustomizedUserRepo
         Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
         MemberType memberType = memberTypeService.findByValue("Guest").get();
 
+        Optional<EnergyConfig> energyConfigOptional = energyConfigService.findByExpireIsFalse();
+        Integer energy = 8;
+        ZonedDateTime timeToRefill = ZonedDateTime.now().plusMinutes(40);
+        if(energyConfigOptional.isPresent())  {
+            energy = energyConfigOptional.get().getEnergy();
+            timeToRefill = ZonedDateTime.now().plusMinutes(energyConfigOptional.get().getTimeToRefill());
+        }
+
         BinaryContent icon=null;
         AppMember guest=null;
         Integer age = DateUtils.calculateAgeFromJalali(bornYear);
@@ -446,7 +464,7 @@ public class AppMemberService implements AppMemberRepository, CustomizedUserRepo
         }
         String hashedPassword = GenerateSHA256.toHexString(hash) ;
 
-        guest = new AppMember(age,Language.English,"Guest", hashedPassword, "Guest"+bornYear, "","",icon,UserGender.Unknow ,memberType
+        guest = new AppMember(age,Language.English,"Guest", hashedPassword, "Guest"+bornYear, "","",icon,UserGender.Unknow ,memberType,timeToRefill,energy
                 ,1L, DateUtils.getNow(), DateUtils.getNow(), createdBy.get(), createdBy.get());
         save(guest);
         String UniqueUserName= guest.getUsername() + guest.getId();
@@ -465,11 +483,19 @@ public class AppMemberService implements AppMemberRepository, CustomizedUserRepo
     public AppMember saveRemoteUser(RemoteRequestDTO accessDTO) {
         Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
         MemberType memberType = memberTypeService.findByValue("Guest").get();
+        Optional<EnergyConfig> energyConfigOptional = energyConfigService.findByExpireIsFalse();
+        Integer energy = 8;
+        ZonedDateTime timeToRefill = ZonedDateTime.now().plusMinutes(40);
+        if(energyConfigOptional.isPresent())  {
+            energy = energyConfigOptional.get().getEnergy();
+            timeToRefill = ZonedDateTime.now().plusMinutes(energyConfigOptional.get().getTimeToRefill());
+        }
+
         BinaryContent icon=null;
         AppMember guest=null;
         Integer age = DateUtils.calculateAgeFromJalali(accessDTO.getBirthYear());
         icon = binaryContentRepository.findByfileName("no_photo_avatar");
-        guest = new AppMember(age,Language.English,accessDTO.getRemoteHost() + "-" + accessDTO.getRemoteUserName(), "Guest", "Guest", "","",icon,UserGender.Unknow ,memberType
+        guest = new AppMember(age,Language.English,accessDTO.getRemoteHost() + "-" + accessDTO.getRemoteUserName(), "Guest", "Guest", "","",icon,UserGender.Unknow ,memberType,timeToRefill,energy
                 ,1L, DateUtils.getNow(), DateUtils.getNow(), createdBy.get(), createdBy.get());
         appMemberRepository.save(guest);
         String UniqueUserName= guest.getUsername() + guest.getId();

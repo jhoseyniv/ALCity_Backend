@@ -73,7 +73,6 @@ public class BinaryContentController {
                 return  new BinaryContentDTO(bc.getId(),bc.getFileName(),bc.getSize(),null,null,null,null,bc.getWeb3Dcontent(),bc.getContentType().name(),bc.getIs3dContent(),bc.getTag1(),bc.getTag2(),bc.getTag3());
             }else {
                 return  new BinaryContentDTO(bc.getId(),bc.getFileName(),bc.getSize(),bc.getContent(),null,null,null,null,bc.getContentType().name(),bc.getIs3dContent(),bc.getTag1(),bc.getTag2(),bc.getTag3());
-
             }
         }
         return null;
