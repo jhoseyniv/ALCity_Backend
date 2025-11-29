@@ -73,7 +73,7 @@ public class BinaryContentService implements BinaryContentRepository , BinaryCon
         return binaryContentRepository.findById(id);
     }
 
-    @Cacheable(value = "getFileThumbnail", key = "#id")
+    //@Cacheable(value = "getFileThumbnail", key = "#id")
     public ThumbnailDTO getThumbnailBytes(Long id) {
         Optional<BinaryContent>  binaryContentOptional= binaryContentRepository.findById(id);
         if(binaryContentOptional.isEmpty()) return  null;
@@ -269,10 +269,10 @@ public class BinaryContentService implements BinaryContentRepository , BinaryCon
     private CacheManager cacheManager;
 
     public void clearCache(Long id){
-        Cache cache = cacheManager.getCache("getFileThumbnail");
-        if (cache != null) {
-            cache.evict(id);
-        }
+//        Cache cache = cacheManager.getCache("getFileThumbnail");
+//        if (cache != null) {
+//            cache.evict(id);
+//        }
         Cache cache2 = cacheManager.getCache("getFileContent");
         if (cache2 != null) {
             cache2.evict(id);
