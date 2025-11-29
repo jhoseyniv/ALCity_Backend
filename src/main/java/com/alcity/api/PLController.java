@@ -108,7 +108,7 @@ public class PLController {
     @RequestMapping(value = "/id/{id}/contents", method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin(origins = "*")
-    @Cacheable(value = "getPuzzleLevelContents", key = "#id")
+    //@Cacheable(value = "getPuzzleLevelContents", key = "#id")
     public Collection<PLBinaryContentDTO> getPuzzleLevelContents(@PathVariable Long id) throws IOException, ClassNotFoundException {
         Optional<PuzzleLevel> puzzleLevelOptional = plService.findById(id);
         Collection<PLBinaryContentDTO> plContents = new ArrayList<>();

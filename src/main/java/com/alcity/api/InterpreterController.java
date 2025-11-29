@@ -79,11 +79,11 @@ public class InterpreterController {
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
-            //    plContents = puzzleLevelService.getContents(id);
-         //   PuzzleLevel puzzleLevel = puzzleLevelOptional.get();
-          //  byte[] plContentsBytes = ImageUtil.convertObjectToBytes(plContents);
-          //  puzzleLevel.setPlconetents(plContentsBytes);
-          //  puzzleLevelService.save(puzzleLevel);
+            plContents = puzzleLevelService.getContents(id);
+            PuzzleLevel puzzleLevel = puzzleLevelOptional.get();
+            byte[] plContentsBytes = ImageUtil.convertObjectToBytes(plContents);
+            puzzleLevel.setPlconetents(plContentsBytes);
+            puzzleLevelService.save(puzzleLevel);
 
         }
         else

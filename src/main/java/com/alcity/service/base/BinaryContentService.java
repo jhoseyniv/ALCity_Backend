@@ -67,7 +67,7 @@ public class BinaryContentService implements BinaryContentRepository , BinaryCon
     }
 
     @Override
-    @Cacheable(value = "getFileContent", key = "#id")
+    //@Cacheable(value = "getFileContent", key = "#p0" , unless = "#p0 == null")
     public Optional<BinaryContent> findById(Long id) {
         if(id == null){return Optional.empty();}
         return binaryContentRepository.findById(id);

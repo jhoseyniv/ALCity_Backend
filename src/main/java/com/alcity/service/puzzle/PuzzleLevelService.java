@@ -642,11 +642,18 @@ public class PuzzleLevelService implements PuzzleLevelRepository {
     }
     public Collection<PLBinaryContentDTO>  getContents(Long id)  {
         Set<Long> attributeDTOS = new HashSet<>();
+        Set<Long> puzzleLevel_variables_ID = new HashSet<>();
         Optional<PuzzleLevel> puzzleLevelOptional = puzzleLevelRepository.findById(id);
 
         if(puzzleLevelOptional.isEmpty()) return null;
 
         PuzzleLevel puzzleLevel = puzzleLevelOptional.get();
+        //find contents for pl variables
+        Collection<Attribute> puzzle_variables = attributeService.findPuzzleLevelVariable(puzzleLevel.getId(), AttributeOwnerType.Puzzle_Level_Variable);
+        puzzle_variables = puzzle_variables.stream().filter(property -> property.getDataType().equals(DataType.Binary)).collect(Collectors.toList());
+        puzzleLevel_variables_ID = DTOUtil.getBinaryContentFromAttributeDTOS(puzzle_variables);
+
+
         Collection<Instance> instances = puzzleLevel.getInstances();
         Iterator<Instance> itr = instances.iterator();
         int counter = 0;
@@ -660,6 +667,7 @@ public class PuzzleLevelService implements PuzzleLevelRepository {
             Collection<Attribute> instance_properties = attributeService.findInstanceProperties(instance.getId(), AttributeOwnerType.Instance_Puzzle_Group_Object_Property);
             instance_properties = instance_properties.stream().filter(property -> property.getDataType().equals(DataType.Binary)).collect(Collectors.toList());
             properties = DTOUtil.getBinaryContentFromAttributeDTOS(instance_properties);
+
             //find contents for pl instances variables
             Collection<Attribute> instance_variables = attributeService.findInstanceVariables(instance.getId(), AttributeOwnerType.Instance_Puzzle_Group_Object_Variable);
             instance_variables = instance_variables.stream().filter(property -> property.getDataType().equals(DataType.Binary)).collect(Collectors.toList());
@@ -667,10 +675,11 @@ public class PuzzleLevelService implements PuzzleLevelRepository {
             properties.addAll(variables);
             attributeDTOS.addAll(properties);
             long end_time = System.currentTimeMillis();
-            System.out.println("find conetens for an instanc= " + "counter="+ counter +" time is = " + TimeUnit.MILLISECONDS.toSeconds(end_time - start_time));
+            System.out.println("find contents for an instance= " + "counter="+ counter +" time is = " + TimeUnit.MILLISECONDS.toSeconds(end_time - start_time));
 
             System.out.println("pl instance ="+counter++);
         }
+        attributeDTOS.addAll(puzzleLevel_variables_ID);
         Collection<PLBinaryContentDTO> contents = new ArrayList<>();
         contents = DTOUtil.getPLBinaryContentsDTOS(binaryContentService,attributeDTOS);
 //        PLContentsDTO plContents = new PLContentsDTO();
