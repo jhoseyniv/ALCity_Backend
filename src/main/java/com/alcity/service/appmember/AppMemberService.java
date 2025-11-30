@@ -44,10 +44,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.security.NoSuchAlgorithmException;
-import java.time.LocalDateTime;
-import java.time.OffsetDateTime;
-import java.time.ZoneOffset;
-import java.time.ZonedDateTime;
+import java.time.*;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -109,16 +106,30 @@ public class AppMemberService implements AppMemberRepository, CustomizedUserRepo
 
     @Transactional
     public void checkAndUpdateExpiredUsers() {
+        Integer  timeToRefillByMin;
+        Optional<EnergyConfig> energyConfigOptional = energyConfigService.findByExpireIsFalse();
+        if(energyConfigOptional.isPresent())
+            timeToRefillByMin = energyConfigOptional.get().getTimeToRefill();
+        else {
+            timeToRefillByMin = 40;
+        }
 
-        Collection<AppMember> expiredUsers = appMemberRepository.findByRefillEnergyExpirationTimeBefore(ZonedDateTime.now());
+        ZonedDateTime now = ZonedDateTime.now();
+        Collection<AppMember> expiredUsers =
+                appMemberRepository.findByRefillEnergyExpirationTimeBefore(now);
 
         expiredUsers.forEach(user -> {
             Integer energy = user.getEnergy();
             Integer maxEnergy = user.getEnergyConfig() != null ? user.getEnergyConfig().getEnergy() : null;
 
             if (energy != null && maxEnergy != null && energy < maxEnergy) {
-                user.setEnergy(energy + 1); // تغییر فقط در صورت نیاز
-                System.out.println("User energy updated: " + user.getId() + ", new Energy: " + user.getEnergy());
+                user.setEnergy(energy + 1);
+                // تنظیم زمان شارژ بعدی (مثلاً 40 دقیقه بعد)
+                user.setRefillEnergyExpirationTime(now.plusMinutes(timeToRefillByMin));
+
+                System.out.println("User updated: " + user.getId() +
+                        ", new Energy: " + user.getEnergy() +
+                        ", next refill: " + user.getRefillEnergyExpirationTime());
             } else {
                 System.out.println("No update needed for user: " + user.getId());
             }

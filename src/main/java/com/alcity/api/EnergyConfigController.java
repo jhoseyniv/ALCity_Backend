@@ -11,9 +11,12 @@ import com.alcity.utility.DTOUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.Optional;
 
 @Tag(name = "Energy Config", description = "The Energy  API's ")
@@ -56,6 +59,23 @@ public class EnergyConfigController {
         return appMemberOptional.map(member -> new AppMemberEnergyDTO(
                 member.getEnergy(),
                 member.getRefillEnergyExpirationTime())).orElse(null);
+    }
+    @Operation( summary = "Fetch  rest of seconds for expiration time to refill energy for a app member by id  ",  description = "Fetch expiration time to refill energy for a app member by id")
+    @RequestMapping(value = "/member-seconds/id/{id}", method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseEntity<Long> getRemainingEnergyRefillSeconds(@PathVariable Long id) {
+
+        return memberService.findById(id)
+                .map(member -> {
+                    ZonedDateTime expiration = member.getRefillEnergyExpirationTime();
+                    if (expiration == null) {
+                        return ResponseEntity.ok(0L);
+                    }
+
+                    long secondsRemaining = ChronoUnit.SECONDS.between(ZonedDateTime.now(), expiration);
+                    return ResponseEntity.ok(Math.max(secondsRemaining, 0)); // اگر منفی بود صفر
+                })
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
 
