@@ -1,6 +1,8 @@
 package com.alcity.service.appmember;
 
 import com.alcity.entity.appmember.EnergyConfig;
+import com.alcity.entity.appmember.WalletItem;
+import com.alcity.entity.appmember.WalletItemChangeRate;
 import com.alcity.repository.appmember.EnergyConfigRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -72,6 +74,24 @@ public class EnergyConfigService implements EnergyConfigRepository{
     @Override
     public void deleteAll() {
 
+    }
+    @Autowired
+    WalletItemService walletItemService;
+
+    @Autowired
+    WalletItemChangeRateService walletItemChangeRateService;
+
+    public float getChangeRateForEnergyToALCoin(){
+        Float changeRate=20.f;
+
+        Optional<WalletItem> alCoinOptional = walletItemService.findByValue("AL Coin");
+        Optional<WalletItem> energyOptional = walletItemService.findByValue("Energy");
+        if (alCoinOptional.isPresent() && energyOptional.isPresent()) {
+            Optional<WalletItemChangeRate> changeRateOptional = walletItemChangeRateService.findByFromCurrencyAndToCurrency(energyOptional.get(), alCoinOptional.get());
+            if (changeRateOptional.isPresent())
+                changeRate = changeRateOptional.get().getRate();
+        }
+        return changeRate;
     }
 
     @Override

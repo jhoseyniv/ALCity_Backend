@@ -22,6 +22,7 @@ import java.util.Optional;
 @Transactional
 public class WalletItemChangeRateService implements WalletItemChangeRateRepository {
 
+    @Autowired
     WalletItemChangeRateRepository walletItemChangeRateRepository;
 
     @Autowired

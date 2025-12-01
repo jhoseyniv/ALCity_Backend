@@ -17,8 +17,10 @@ public enum ErrorType {
     PUZZLE_LEVEL_NOT_CREATED,
     JSON_CREATED_SUCCESSFULLY,
     Energy_Is_Not_Sufficient_To_PLay_Game,
-    Energy_Is_Low_And_Timer_Start_To_Refill
-    ;
+    Energy_Is_Low_And_Timer_Start_To_Refill,
+    Not_Enough_AL_Coin_To_Buy_Energy,
+    Your_Energy_Refill_Successfully,
+    Your_Energy_Is_Full_Or_Grater_Than_You_Want_To_Buy;    ;
     public static ErrorType getById(long id)
     {
         for (ErrorType e : ErrorType.values())
