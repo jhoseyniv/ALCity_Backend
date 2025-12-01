@@ -123,8 +123,8 @@ public class EnergyConfigController {
                 Integer newEnergy = currentEnergy + num;
                 if(requiredALCoin > walletItem.getAmount())
                     return new ResponseMessage(ErrorType.Not_Enough_AL_Coin_To_Buy_Energy, Status.info.name(), AppMember_WalletItem.class.getSimpleName() , 0L, SystemMessage.Not_Enough_AL_Coin_To_Buy_Energy);
-                else if( newEnergy >= maxEnergy ) {
-                    return new ResponseMessage(ErrorType.Your_Energy_Is_Full_Or_Grater_Than_You_Want_To_Buy, Status.info.name(), AppMember_WalletItem.class.getSimpleName() , 0L, SystemMessage.Not_Enough_AL_Coin_To_Buy_Energy);
+                else if( newEnergy > maxEnergy ) {
+                    return new ResponseMessage(ErrorType.Your_Energy_Is_Full_Or_Grater_Than_You_Want_To_Buy, Status.info.name(), AppMember_WalletItem.class.getSimpleName() , 0L, SystemMessage.Your_Energy_Is_Full_Or_Grater_Than_You_Want_To_Buy);
                 }
                 else {
                     walletItem.setAmount(walletItem.getAmount() - requiredALCoin);

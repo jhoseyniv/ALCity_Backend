@@ -21,6 +21,7 @@ public  class SystemMessage  {
     public static String  Energy_Is_Low_And_Timer_Start_To_Refill= "Energy Is Low And Timer Start To Refill";
     public static String  Not_Enough_AL_Coin_To_Buy_Energy= "Not Enough AL Coin To Buy Energy";
     public static String  Your_Energy_Refill_Successfully= "Your Energy Refill Successfully";
+    public static String  Your_Energy_Is_Full_Or_Grater_Than_You_Want_To_Buy= "Your Energy Is Full Or Grater Than You Want To Buy";
 
 
 
