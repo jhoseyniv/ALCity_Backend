@@ -3,15 +3,22 @@ package com.alcity.service.challenge;
 
 import com.alcity.entity.challenge.Challenge;
 import com.alcity.repository.challenge.ChallengeRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.config.AutowireCapableBeanFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Collection;
 import java.util.Optional;
 
 @Service
 @Transactional
 
 public class ChallengeService  implements ChallengeRepository {
+
+    @Autowired
+    ChallengeRepository challengeRepository;
+
     @Override
     public <S extends Challenge> S save(S entity) {
         return null;
@@ -33,8 +40,8 @@ public class ChallengeService  implements ChallengeRepository {
     }
 
     @Override
-    public Iterable<Challenge> findAll() {
-        return null;
+    public Collection<Challenge> findAll() {
+        return challengeRepository.findAll();
     }
 
     @Override

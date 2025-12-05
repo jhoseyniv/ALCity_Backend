@@ -47,5 +47,14 @@ public class Challenge  implements Serializable {
     @OneToMany(mappedBy = "challenge", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Collection<ChallengeAppMemberPuzzle> challengeAppMemberPuzzles;
 
-
+    public Challenge(String title, ZonedDateTime startTime, ZonedDateTime endTime, Integer timeIntervalByHour, Integer sizeOfParticipantGroup, String description,
+                     ChallengeInitiator initiator) {
+        this.title = title;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.timeIntervalByHour = timeIntervalByHour;
+        this.sizeOfParticipantGroup = sizeOfParticipantGroup;
+        this.description = description;
+        this.initiator = initiator;
+    }
 }
