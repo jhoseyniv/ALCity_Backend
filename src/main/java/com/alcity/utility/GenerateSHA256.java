@@ -56,6 +56,9 @@ public class GenerateSHA256 {
 
             String s3 = "James Bond";
             System.out.println("\n" + s3 + " : " + toHexString(getSHA(s3)));
+
+            String s4 = "moharrami19";
+            System.out.println("\n" + s4 + " : " + toHexString(getSHA(s4)));
         }
         catch (NoSuchAlgorithmException e) {
             System.out.println("Exception thrown for incorrect algorithm: " + e);
