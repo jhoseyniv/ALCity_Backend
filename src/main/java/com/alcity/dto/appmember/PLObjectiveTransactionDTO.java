@@ -23,6 +23,7 @@ public class PLObjectiveTransactionDTO implements Serializable {
     public PLObjectiveTransactionDTO(Long appMemberId, Float amount, Long gameInstanceId, Long objectiveId,
                                      String objectiveType, byte[] analyticalData, Long playDuration) {
         this.amount = amount;
+        //this.stars = stars;
         this.gameInstanceId = gameInstanceId;
         this.appMemberId = appMemberId;
         this.objectiveId = objectiveId;

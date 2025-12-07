@@ -1,17 +1,16 @@
 package com.alcity.api;
 
+
 import com.alcity.customexception.ResponseMessage;
 import com.alcity.customexception.ResponseObject;
-import com.alcity.dto.appmember.AppMemberDTO;
-import com.alcity.dto.challenge.ChallengeDTO;
+import com.alcity.dto.challenge.ChallengeInitiatorDTO;
 import com.alcity.entity.alenum.ErrorType;
 import com.alcity.entity.alenum.Status;
 import com.alcity.entity.alenum.SystemMessage;
-import com.alcity.entity.appmember.AppMember;
 import com.alcity.entity.challenge.Challenge;
+import com.alcity.entity.challenge.ChallengeInitiator;
 import com.alcity.entity.journey.RoadMap;
-import com.alcity.service.appmember.AppMemberService;
-import com.alcity.service.challenge.ChallengeService;
+import com.alcity.service.challenge.ChallengeInitiatorService;
 import com.alcity.utility.DTOUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -22,50 +21,47 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Optional;
 
-@Tag(name = "Challenge Entity  API's ", description = "Get Challenge API for ...")
+@Tag(name = "Challenge Initiator Entity  API's ", description = "Get Challenge  Initiator API for ...")
 @CrossOrigin(origins = "*" ,maxAge = 3600)
 @RestController
-@RequestMapping("/challenge")
+@RequestMapping("/challenge-initiator")
 
-public class ChallengeController {
-
+public class ChallengeInitiatorController {
     @Autowired
-    private ChallengeService challengeService;
+    private ChallengeInitiatorService challengeInitiatorService;
 
 
     @GetMapping("/all")
     @CrossOrigin(origins = "*")
-    //@Cacheable("all-AppMemberDTO")
-    @Operation( summary = "Get All Challenge ",  description = "Get All Challenge  ...")
-    public Collection<ChallengeDTO> getAllChallenges() {
-        Collection<Challenge> challenges = challengeService.findAll();
-        Collection<ChallengeDTO> dtos = new ArrayList<>();
-        dtos = DTOUtil.getChallengeDTOS(challenges);
+    @Operation( summary = "Get All Challenge initiator ",  description = "Get All Challenge initiator ...")
+    public Collection<ChallengeInitiatorDTO> getAllChallengesInitiator() {
+        Collection<ChallengeInitiator> challenges = challengeInitiatorService.findAll();
+        Collection<ChallengeInitiatorDTO> dtos = new ArrayList<>();
+        dtos = DTOUtil.getChallengeInitiatorDTOS(challenges);
         return dtos;
     }
 
-    @Operation( summary = "Get Challenge by Id ",  description = "Get Challenge by Id ...")
+    @Operation( summary = "Get Challenge Initiator by Id ",  description = "Get Challenge Initiator by Id ...")
     @RequestMapping(value = "/id/{id}", method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin(origins = "*")
-    public ChallengeDTO getChallengeById(@PathVariable Long id) {
-        Optional<Challenge> challengeOptional = challengeService.findById(id);
-        return challengeOptional.map(DTOUtil::getChallengeDTO).orElse(null);
+    public ChallengeInitiatorDTO getChallengeInitiatorById(@PathVariable Long id) {
+        Optional<ChallengeInitiator> challengeInitiatorOptional = challengeInitiatorService.findById(id);
+        return challengeInitiatorOptional.map(DTOUtil::getChallengeInitiatorDTO).orElse(null);
     }
 
-    @Operation( summary = "Save a Challenge  ",  description = "Save a Challenge ")
+    @Operation( summary = "Save a Challenge Initiator  ",  description = "Save a Challenge Initiator ")
     @PostMapping("/save")
     @CrossOrigin(origins = "*")
-    public ResponseMessage saveChallenge(@RequestBody ChallengeDTO dto)  {
-        Challenge savedRecord = null;
+    public ResponseMessage saveChallengeInitiator(@RequestBody ChallengeInitiatorDTO dto)  {
+        ChallengeInitiator savedRecord = null;
         ResponseMessage response = new ResponseMessage();
-        Optional<Challenge> challengeOptional = challengeService.findById(dto.getId());
+        Optional<ChallengeInitiator> challengeInitiatorOptional = challengeInitiatorService.findById(dto.getId());
         try{
-            if (challengeOptional.isEmpty())
-                savedRecord = challengeService.save(dto,"Save");
-
+            if (challengeInitiatorOptional.isEmpty())
+                savedRecord = challengeInitiatorService.save(dto,"Save");
             else
-                savedRecord = challengeService.save(dto, "Edit");
+                savedRecord = challengeInitiatorService.save(dto, "Edit");
             if(savedRecord !=null)
                 response = new ResponseMessage(ErrorType.SaveSuccess, Status.ok.name(),Challenge.class.getSimpleName() ,  savedRecord.getId(), SystemMessage.SaveOrEditMessage_Success);
             else
@@ -74,24 +70,22 @@ public class ChallengeController {
         catch (Exception e) {
             throw new ResponseObject(ErrorType.UniquenessViolation,Status.error.name() , Challenge.class.getSimpleName() ,  -1L ,e.getCause().getMessage());
         }
-
         return response;
-
     }
+
     @DeleteMapping("/del/id/{id}")
-    public ResponseMessage deleteChallengeById(@PathVariable Long id) {
-        Optional<Challenge> existingRecord = challengeService.findById(id);
+    public ResponseMessage deleteChallengeInitiatorById(@PathVariable Long id) {
+        Optional<ChallengeInitiator> existingRecord = challengeInitiatorService.findById(id);
         if(existingRecord.isPresent()){
             try {
-                challengeService.delete(existingRecord.get());
+                challengeInitiatorService.delete(existingRecord.get());
             }
             catch (Exception e) {
-                throw  new ResponseObject(ErrorType.ForeignKeyViolation,  Status.error.name(),RoadMap.class.getSimpleName(), id,e.getCause().getMessage());
+                throw  new ResponseObject(ErrorType.ForeignKeyViolation,  Status.error.name(), RoadMap.class.getSimpleName(), id,e.getCause().getMessage());
             }
             return new ResponseMessage(ErrorType.SaveSuccess,Status.ok.name(), RoadMap.class.getSimpleName(),  id,SystemMessage.DeleteMessage);
         }
         return  new ResponseMessage(ErrorType.RecordNotFound,Status.error.name(),RoadMap.class.getSimpleName(),  id,SystemMessage.RecordNotFound);
     }
-
 
 }

@@ -29,4 +29,7 @@ public class ChallengeInitiator  implements Serializable {
         this.title = title;
         this.initiatorId = initiatorId;
     }
+
+
+
 }

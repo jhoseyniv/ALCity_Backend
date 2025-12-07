@@ -1,6 +1,8 @@
 package com.alcity.service.challenge;
 
+import com.alcity.entity.challenge.ChallengeAppMemberPuzzle;
 import com.alcity.entity.challenge.ChallengeInitiator;
+import com.alcity.repository.challenge.ChallengeAppMemberPuzzleRepository;
 import com.alcity.repository.challenge.ChallengeInitiatorRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -9,19 +11,19 @@ import java.util.Optional;
 
 @Service
 @Transactional
-public class ChallengeAppMemberPuzzleService  implements ChallengeInitiatorRepository {
+public class ChallengeAppMemberPuzzleService  implements ChallengeAppMemberPuzzleRepository {
     @Override
-    public <S extends ChallengeInitiator> S save(S entity) {
+    public <S extends ChallengeAppMemberPuzzle> S save(S entity) {
         return null;
     }
 
     @Override
-    public <S extends ChallengeInitiator> Iterable<S> saveAll(Iterable<S> entities) {
+    public <S extends ChallengeAppMemberPuzzle> Iterable<S> saveAll(Iterable<S> entities) {
         return null;
     }
 
     @Override
-    public Optional<ChallengeInitiator> findById(Long aLong) {
+    public Optional<ChallengeAppMemberPuzzle> findById(Long aLong) {
         return Optional.empty();
     }
 
@@ -31,12 +33,12 @@ public class ChallengeAppMemberPuzzleService  implements ChallengeInitiatorRepos
     }
 
     @Override
-    public Iterable<ChallengeInitiator> findAll() {
+    public Iterable<ChallengeAppMemberPuzzle> findAll() {
         return null;
     }
 
     @Override
-    public Iterable<ChallengeInitiator> findAllById(Iterable<Long> longs) {
+    public Iterable<ChallengeAppMemberPuzzle> findAllById(Iterable<Long> longs) {
         return null;
     }
 
@@ -51,7 +53,7 @@ public class ChallengeAppMemberPuzzleService  implements ChallengeInitiatorRepos
     }
 
     @Override
-    public void delete(ChallengeInitiator entity) {
+    public void delete(ChallengeAppMemberPuzzle entity) {
 
     }
 
@@ -61,7 +63,7 @@ public class ChallengeAppMemberPuzzleService  implements ChallengeInitiatorRepos
     }
 
     @Override
-    public void deleteAll(Iterable<? extends ChallengeInitiator> entities) {
+    public void deleteAll(Iterable<? extends ChallengeAppMemberPuzzle> entities) {
 
     }
 

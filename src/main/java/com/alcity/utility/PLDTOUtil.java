@@ -128,7 +128,19 @@ public class PLDTOUtil {
         return list;
     }
 
+    public static Integer getPuzzleLevelAppMemberStars(Float score, PuzzleLevel puzzleLevel) {
+        Float firstScoreStar = puzzleLevel.getFirstStarScore();
+        Float secondScoreStar = puzzleLevel.getSecondStarScore();
+        Float thirdScoreStar = puzzleLevel.getThirdStartScore();
+        if(score>=firstScoreStar && score<=secondScoreStar )
+            return 1;
+        if(score>secondScoreStar && score<thirdScoreStar )
+            return 2;
+        if(score>=thirdScoreStar )
+            return  3;
 
+        return 0;
+    }
     /*
     public static BoardGraphicDTO getBoardGraphicJSON(byte[] boardGraphic) throws IOException, ClassNotFoundException {
         ByteArrayInputStream bis = new ByteArrayInputStream(boardGraphic);

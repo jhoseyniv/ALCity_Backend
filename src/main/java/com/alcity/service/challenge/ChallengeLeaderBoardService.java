@@ -1,7 +1,7 @@
 package com.alcity.service.challenge;
 
-import com.alcity.entity.challenge.ChallengeInitiator;
-import com.alcity.repository.challenge.ChallengeInitiatorRepository;
+import com.alcity.entity.challenge.ChallengeLeaderBoard;
+import com.alcity.repository.challenge.ChallengeLeaderBoardRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -9,19 +9,20 @@ import java.util.Optional;
 
 @Service
 @Transactional
-public class ChallengeLeaderBoardService implements ChallengeInitiatorRepository {
+public class ChallengeLeaderBoardService implements ChallengeLeaderBoardRepository {
+
     @Override
-    public <S extends ChallengeInitiator> S save(S entity) {
+    public <S extends ChallengeLeaderBoard> S save(S entity) {
         return null;
     }
 
     @Override
-    public <S extends ChallengeInitiator> Iterable<S> saveAll(Iterable<S> entities) {
+    public <S extends ChallengeLeaderBoard> Iterable<S> saveAll(Iterable<S> entities) {
         return null;
     }
 
     @Override
-    public Optional<ChallengeInitiator> findById(Long aLong) {
+    public Optional<ChallengeLeaderBoard> findById(Long aLong) {
         return Optional.empty();
     }
 
@@ -31,12 +32,12 @@ public class ChallengeLeaderBoardService implements ChallengeInitiatorRepository
     }
 
     @Override
-    public Iterable<ChallengeInitiator> findAll() {
+    public Iterable<ChallengeLeaderBoard> findAll() {
         return null;
     }
 
     @Override
-    public Iterable<ChallengeInitiator> findAllById(Iterable<Long> longs) {
+    public Iterable<ChallengeLeaderBoard> findAllById(Iterable<Long> longs) {
         return null;
     }
 
@@ -51,7 +52,7 @@ public class ChallengeLeaderBoardService implements ChallengeInitiatorRepository
     }
 
     @Override
-    public void delete(ChallengeInitiator entity) {
+    public void delete(ChallengeLeaderBoard entity) {
 
     }
 
@@ -61,7 +62,7 @@ public class ChallengeLeaderBoardService implements ChallengeInitiatorRepository
     }
 
     @Override
-    public void deleteAll(Iterable<? extends ChallengeInitiator> entities) {
+    public void deleteAll(Iterable<? extends ChallengeLeaderBoard> entities) {
 
     }
 

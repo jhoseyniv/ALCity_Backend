@@ -1,4 +1,40 @@
 {
+  "id": 0,
+  "title": "challenge one",
+  "description": "challenge one for students with level 3",
+  "startTime": "2025-12-07T10:53:16.354Z",
+  "endTime": "2025-12-14T10:53:16.354Z",
+  "timeIntervalByHour": 12,
+  "sizeOfParticipantGroup": 20,
+  "initiator": "admin",
+  "initiatorId":1
+}
+
+{
+  "id": 0,
+  "title": "challenge two",
+  "description": "challenge one for students with level 2",
+  "startTime": "2025-12-07T10:53:16.354Z",
+  "endTime": "2025-12-21T10:53:16.354Z",
+  "timeIntervalByHour": 24,
+  "sizeOfParticipantGroup": 25,
+  "initiator": "admin",
+  "initiatorId":1
+}
+
+{
+  "id": 0,
+  "title": "admin",
+  "initiatorId": 56
+}
+{
+  "id": 0,
+  "title": "jalal",
+  "initiatorId": 57
+}
+
+
+{
   "amount": 14,
   "gameInstanceId": 53437,
   "appMemberId": 59,

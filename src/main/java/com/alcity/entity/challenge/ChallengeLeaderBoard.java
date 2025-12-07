@@ -29,5 +29,9 @@ public class ChallengeLeaderBoard  implements Serializable {
     @Column(name="description" )
     private String description;
 
-
+    public ChallengeLeaderBoard(Float totalScore, Integer streak, String description) {
+        this.totalScore = totalScore;
+        this.streak = streak;
+        this.description = description;
+    }
 }

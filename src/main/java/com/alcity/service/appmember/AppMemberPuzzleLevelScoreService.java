@@ -41,7 +41,7 @@ public class AppMemberPuzzleLevelScoreService implements AppMemberPuzzleLevelSco
         Float changeRateAmount = changeRateOptional.get().getRate();
         return amount*changeRateAmount;
     }
-
+/*
     public void updateScores(ObjectiveTransaction transaction) {
         AppMember appMember = transaction.getAppMember();
         WalletItem walletItem = transaction.getPlObjective().getWalletItem();
@@ -61,7 +61,7 @@ public class AppMemberPuzzleLevelScoreService implements AppMemberPuzzleLevelSco
             }
         }
     }
-
+*/
 
 
     @Override

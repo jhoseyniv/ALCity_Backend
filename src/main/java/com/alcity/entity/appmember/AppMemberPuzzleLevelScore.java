@@ -32,11 +32,11 @@ public class AppMemberPuzzleLevelScore extends BaseTable implements Serializable
     @Column(name="scoreByBaseCurrency")
     private Float scoreByBaseCurrency;
 
-    public AppMemberPuzzleLevelScore(AppMember player, PuzzleLevel puzzleLevel, Float scoreByBaseCurrency ,
-                                     Long version, String created, String updated, AppMember createdBy, AppMember updatedBy) {
-        super(version, created, updated, createdBy, updatedBy);
-        this.player = player;
-        this.puzzleLevel = puzzleLevel;
-        this.scoreByBaseCurrency = scoreByBaseCurrency;
-    }
+//    public AppMemberPuzzleLevelScore(AppMember player, PuzzleLevel puzzleLevel, Float scoreByBaseCurrency ,
+//                                     Long version, String created, String updated, AppMember createdBy, AppMember updatedBy) {
+//        super(version, created, updated, createdBy, updatedBy);
+//        this.player = player;
+//        this.puzzleLevel = puzzleLevel;
+//        this.scoreByBaseCurrency = scoreByBaseCurrency;
+//    }
 }

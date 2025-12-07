@@ -1,6 +1,8 @@
 package com.alcity.utility;
 
 import com.alcity.comparetors.*;
+import com.alcity.dto.challenge.ChallengeDTO;
+import com.alcity.dto.challenge.ChallengeInitiatorDTO;
 import com.alcity.dto.learning.LearningSkillDTO;
 import com.alcity.dto.learning.LearningSkillTreeDTO;
 import com.alcity.dto.plimpexport.*;
@@ -21,6 +23,8 @@ import com.alcity.entity.alenum.*;
 import com.alcity.entity.alobject.*;
 import com.alcity.entity.appmember.*;
 import com.alcity.entity.base.*;
+import com.alcity.entity.challenge.Challenge;
+import com.alcity.entity.challenge.ChallengeInitiator;
 import com.alcity.entity.journey.Journey;
 import com.alcity.entity.journey.JourneyStep;
 import com.alcity.entity.journey.RoadMap;
@@ -1069,6 +1073,36 @@ public class DTOUtil {
         }
         return new AppMemberXPDTO(member.getId(), date.getDayOfWeek().getValue(), date.getDayOfWeek().name(), xp,  dateString );
     }
+
+    public static ChallengeDTO getChallengeDTO(Challenge challenge) {
+        return new ChallengeDTO(challenge.getId(),challenge.getTitle(),challenge.getDescription(),
+                challenge.getStartTime(),challenge.getEndTime(),challenge.getTimeIntervalByHour(), challenge.getSizeOfParticipantGroup(),
+                challenge.getInitiator().getTitle(), challenge.getInitiator().getId());
+    }
+
+
+    public static Collection<ChallengeDTO> getChallengeDTOS(Collection<Challenge> challenges) {
+        Collection<ChallengeDTO> dtos = new ArrayList<ChallengeDTO>();
+        for (Challenge challenge : challenges) {
+            ChallengeDTO dto = getChallengeDTO(challenge);
+            dtos.add(dto);
+        }
+        return dtos;
+    }
+    public static ChallengeInitiatorDTO getChallengeInitiatorDTO(ChallengeInitiator initiator) {
+        return new ChallengeInitiatorDTO(initiator.getId(),initiator.getTitle(),initiator.getInitiatorId() );
+    }
+
+
+    public static Collection<ChallengeInitiatorDTO> getChallengeInitiatorDTOS(Collection<ChallengeInitiator> challengeInitiators) {
+        Collection<ChallengeInitiatorDTO> dtos = new ArrayList<ChallengeInitiatorDTO>();
+        for (ChallengeInitiator initiator : challengeInitiators) {
+            ChallengeInitiatorDTO dto = getChallengeInitiatorDTO(initiator);
+            dtos.add(dto);
+        }
+        return dtos;
+    }
+
 
 
     public static Collection<AppMemberDTO> getAppMemberDTOS(Collection<AppMember> appMemberCollection) {

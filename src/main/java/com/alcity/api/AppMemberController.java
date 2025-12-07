@@ -536,7 +536,7 @@ public class AppMemberController {
                     appMemberOptional.get(),walletItem,plObjectiveOptional.get().getId(),WalletTransactionType.Puzzle_Objective,
                     1L,DateUtils.getNow(),DateUtils.getNow(),appMemberOptional.get(),appMemberOptional.get());
             walletTransactionService.save(walletTransaction);
-            appMemberPuzzleLevelScoreService.updateScores(savedRecord);
+            //appMemberPuzzleLevelScoreService.updateScores(savedRecord);
             //plGameInstanceService.updateGameInstanceStatus(eventDTO);
         }
 

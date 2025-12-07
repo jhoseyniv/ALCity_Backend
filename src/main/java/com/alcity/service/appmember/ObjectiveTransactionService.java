@@ -13,6 +13,7 @@ import com.alcity.repository.learning.LearningSkillRepository;
 import com.alcity.service.puzzle.PLGameInstanceService;
 import com.alcity.service.puzzle.PLObjectiveService;
 import com.alcity.utility.DateUtils;
+import com.alcity.utility.PLDTOUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -34,15 +35,6 @@ public class ObjectiveTransactionService implements ObjectiveTransactionReposito
     ObjectiveTransactionRepository objectiveTransactionRepository;
 
     @Autowired
-    LearningSkillRepository learningSkillRepository;
-
-    @Autowired
-    AppMember_LearningSkillRepository appMember_LearningSkillRepository;
-
-    @Autowired
-    private AppMember_WalletItemService appMember_WalletItemRepository;
-
-    @Autowired
     private PLObjectiveService plObjectiveService;
 
     @Autowired
@@ -60,8 +52,11 @@ public class ObjectiveTransactionService implements ObjectiveTransactionReposito
         Optional<AppMember> appMemberOptional = appMemberRepository.findById(dto.getAppMemberId());
         PLObjectiveTransactionType transactionType = PLObjectiveTransactionType.getByTitle(dto.getObjectiveType());
         if(plGameInstanceOptional.isEmpty()) return  null;
+        Integer stars =0;
+        if(transactionType.name().equalsIgnoreCase("WalletItem"))
+            stars= PLDTOUtil.getPuzzleLevelAppMemberStars(dto.getAmount(),objectiveOptional.get().getPuzzleLevel());
 
-        ObjectiveTransaction transaction = new ObjectiveTransaction(DateUtils.getNow(),appMemberOptional.get(),dto.getAmount(),plGameInstanceOptional.get(),objectiveOptional.get(),transactionType
+        ObjectiveTransaction transaction = new ObjectiveTransaction(DateUtils.getNow(),appMemberOptional.get(),dto.getAmount(),plGameInstanceOptional.get(),objectiveOptional.get(),transactionType,stars
                 ,1L,DateUtils.getNow(),DateUtils.getNow(),createdBy.get(),createdBy.get());
         objectiveTransactionRepository.save(transaction);
         return  transaction;

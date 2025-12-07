@@ -57,5 +57,16 @@ public class ChallengeAppMemberPuzzle  implements Serializable {
     @JsonIgnore
     private ChallengeLeaderBoard leaderBoard;
 
+    public ChallengeAppMemberPuzzle(String groupTitle, Long groupId, AppMember applicationMember, Challenge challenge, PuzzleLevel puzzleLevel,
+                                    ZonedDateTime timePlanedToChallenge, ZonedDateTime timePlayedChallenge, Float score) {
+        this.groupTitle = groupTitle;
+        this.groupId = groupId;
+        this.applicationMember = applicationMember;
+        this.challenge = challenge;
+        this.puzzleLevel = puzzleLevel;
+        this.timePlanedToChallenge = timePlanedToChallenge;
+        this.timePlayedChallenge = timePlayedChallenge;
+        this.score = score;
+    }
 
 }

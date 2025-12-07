@@ -15,8 +15,8 @@ import java.util.Collection;
 @Getter
 @Setter
 @NoArgsConstructor
-
 public class Challenge  implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;

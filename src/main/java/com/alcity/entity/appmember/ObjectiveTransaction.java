@@ -31,6 +31,9 @@ public class ObjectiveTransaction extends BaseTable implements Serializable {
     @NotNull(message = "{amount.notempty}")
     private Float amount;
 
+    @NotNull(message = "{amount.notempty}")
+    private Integer stars;
+
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "app_member_id", nullable = false)
     @JsonIgnore
@@ -50,12 +53,13 @@ public class ObjectiveTransaction extends BaseTable implements Serializable {
     private PLObjectiveTransactionType transactionType;
 
 
-    public ObjectiveTransaction(String transactionDate, AppMember appMember, Float amount, PLGameInstance gameInstance, PLObjective plObjective, PLObjectiveTransactionType transactionType,
-                                Long version, String created, String updated, AppMember createdBy, AppMember updatedBy) {
+    public ObjectiveTransaction(String transactionDate, AppMember appMember, Float amount, PLGameInstance gameInstance, PLObjective plObjective, PLObjectiveTransactionType transactionType,Integer stars
+                                ,Long version, String created, String updated, AppMember createdBy, AppMember updatedBy) {
         super(version, created, updated, createdBy, updatedBy);
         this.appMember = appMember;
         this.transactionDate = transactionDate;
         this.amount = amount;
+        this.stars = stars;
         this.gameInstance = gameInstance;
         this.plObjective = plObjective;
         this.transactionType = transactionType;

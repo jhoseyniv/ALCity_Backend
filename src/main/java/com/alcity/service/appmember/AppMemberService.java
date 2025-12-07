@@ -32,10 +32,7 @@ import com.alcity.repository.base.BinaryContentRepository;
 import com.alcity.repository.base.PLPrivacyRepository;
 import com.alcity.service.base.MemberTypeService;
 import com.alcity.service.puzzle.PuzzleLevelService;
-import com.alcity.utility.DTOUtil;
-import com.alcity.utility.DateUtils;
-import com.alcity.utility.GenerateSHA256;
-import com.alcity.utility.SlicedStream;
+import com.alcity.utility.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.cache.annotation.Cacheable;
@@ -49,6 +46,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import static com.alcity.utility.PLDTOUtil.getPuzzleLevelAppMemberStars;
 import static java.util.stream.Collectors.toList;
 
 @Service
@@ -84,6 +82,9 @@ public class AppMemberService implements AppMemberRepository, CustomizedUserRepo
     private AppMemberPuzzleLevelScoreService appMemberPuzzleLevelScoreService;
     @Autowired
     private AppMember_LearningSkillService appMember_LearningSkillService;
+
+    @Autowired
+    private ObjectiveTransactionService objectiveTransactionService;
 
 
     public Collection<AppMember> findByCriteria(AppMemberSearchCriteriaDTO dto) {
@@ -232,23 +233,44 @@ public class AppMemberService implements AppMemberRepository, CustomizedUserRepo
             PLGameInstanceDTO historyDTO = itr.next();
             Optional<AppMemberStepInfo> stepInfoOptional = stepInfos.stream().filter(AppMemberStepInfo -> AppMemberStepInfo.getPuzzleLevelId() == historyDTO.getPuzzleLevelId()).findFirst();
             if(stepInfoOptional.isPresent()){
-                Float score =0.f;
                 AppMemberStepInfo stepInfo =stepInfoOptional.get();
                 Optional<PuzzleLevel> puzzleLevelOptional = puzzleLevelService.findById(stepInfo.getPuzzleLevelId());
                 PuzzleLevel puzzleLevel = puzzleLevelOptional.get();
-                Optional<AppMemberPuzzleLevelScore> scoreOptional = appMemberPuzzleLevelScoreService.findByPuzzleLevelAndPlayer(puzzleLevel,member);
-                if(scoreOptional.isPresent()) {
-                    stepInfo.setCompleted(Boolean.TRUE);
-                    score = scoreOptional.get().getScoreByBaseCurrency();
-                }else {
-                    stepInfo.setCompleted(Boolean.FALSE);
-                    score =0f;
-                    AppMemberPuzzleLevelScore puzzleLevelScore = new AppMemberPuzzleLevelScore(member,puzzleLevel,0f,
-                            1L,DateUtils.getNow(),DateUtils.getNow(),member,member);
-                    appMemberPuzzleLevelScoreService.save(puzzleLevelScore);
-                }
-                Integer stars=getPuzzleLevelAppMemberStars(score,puzzleLevel);
-                stepInfo.setStars(stars);
+               Collection<PLObjective> objectives = puzzleLevel.getPlObjectives();
+
+                Collection<ObjectiveTransaction> transactions = objectiveTransactionService.findByAppMemberAndTransactionType(member,PLObjectiveTransactionType.WalletItem);
+
+             //   List<ObjectiveTransaction> matchedTransactions = transactions.stream().filter(objectives::contains).toList();
+//                Optional<ObjectiveTransaction> maxStar =
+//                        matchedTransactions.stream()
+//                                .max(Comparator.comparing(ObjectiveTransaction::getStars));
+
+                Set<Long> objectiveIds = objectives.stream()
+                        .map(PLObjective::getId)
+                        .collect(Collectors.toSet());
+
+                List<ObjectiveTransaction> filteredTransactions =
+                        transactions.stream()
+                                .filter(tx -> objectiveIds.contains(tx.getPlObjective().getId()))
+                                .toList();
+                Optional<ObjectiveTransaction> maxStar =
+                        filteredTransactions.stream()
+                                .max(Comparator.comparing(ObjectiveTransaction::getStars));
+
+                Integer stars = maxStar.isPresent() ? maxStar.get().getStars() : 0;
+
+//                if(scoreOptional.isPresent()) {
+//                    stepInfo.setCompleted(Boolean.TRUE);
+//                    score = scoreOptional.get().getScoreByBaseCurrency();
+//                }else {
+//                    stepInfo.setCompleted(Boolean.FALSE);
+//                    score =0f;
+//                    AppMemberPuzzleLevelScore puzzleLevelScore = new AppMemberPuzzleLevelScore(member,puzzleLevel,0f,
+//                            1L,DateUtils.getNow(),DateUtils.getNow(),member,member);
+//                    appMemberPuzzleLevelScoreService.save(puzzleLevelScore);
+//                }
+//                Integer stars= getPuzzleLevelAppMemberStars(score,puzzleLevel);
+               stepInfo.setStars(stars);
             }
 
         }
@@ -256,19 +278,7 @@ public class AppMemberService implements AppMemberRepository, CustomizedUserRepo
         return journeyInfoWithScores;
     }
 
-    public Integer getPuzzleLevelAppMemberStars(Float score, PuzzleLevel puzzleLevel) {
-        Float firstScoreStar = puzzleLevel.getFirstStarScore();
-        Float secondScoreStar = puzzleLevel.getSecondStarScore();
-        Float thirdScoreStar = puzzleLevel.getThirdStartScore();
-        if(score>=firstScoreStar && score<=secondScoreStar )
-            return 1;
-        if(score>secondScoreStar && score<thirdScoreStar )
-            return 2;
-        if(score>=thirdScoreStar )
-            return  3;
 
-        return 0;
-    }
 
     public AppMemberJourneyDTO getJourneyScoresForAppMember(AppMember member, Journey journey) {
         Collection<PLGameInstance> histories = member.getPlGameInstances();
@@ -292,7 +302,7 @@ public class AppMemberService implements AppMemberRepository, CustomizedUserRepo
                 if(puzzleLevelScoreOptional.isEmpty())
                     currentStar+=0;
                 else
-                    currentStar += getPuzzleLevelAppMemberStars(puzzleLevelScoreOptional.get().getScoreByBaseCurrency(),playHistory.getPuzzleLevel());
+                    currentStar += PLDTOUtil.getPuzzleLevelAppMemberStars(puzzleLevelScoreOptional.get().getScoreByBaseCurrency(),playHistory.getPuzzleLevel());
             }
         }
         dto.setCurrentStar(currentStar);
