@@ -11,6 +11,7 @@ import com.alcity.repository.journey.JourneyStepRepository;
 import com.alcity.repository.puzzle.PGRepository;
 import com.alcity.utility.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.CacheManager;
 import org.springframework.stereotype.Service;
 
 import org.springframework.transaction.annotation.Transactional;;
@@ -25,6 +26,10 @@ public class JourneyStepService implements JourneyStepRepository {
     JourneyStepRepository journeyStepRepository;
     @Autowired
     PGRepository PGRepository;
+
+    @Autowired
+    CacheManager cacheManager;
+
     @Override
     public <S extends JourneyStep> S save(S entity) {
         return journeyStepRepository.save(entity);
@@ -100,6 +105,7 @@ public class JourneyStepService implements JourneyStepRepository {
                 journeyStepRepository.save(journeyStep);
             }
         }
+        cacheManager.getCache("JourneyCache").clear();
         return journeyStep;
     }
 

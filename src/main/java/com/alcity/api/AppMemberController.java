@@ -343,7 +343,7 @@ public class AppMemberController {
     @RequestMapping(value = "/id/{id}/journey/jid/{jid}", method = RequestMethod.GET)
     @ResponseBody
     @CrossOrigin(origins = "*")
-   // @Cacheable(value = "JourneyCache", key = "{ #id, #jid }")
+    @Cacheable(value = "JourneyCache", key = "{ #id, #jid }")
     public AppMemberJourneyInfo getPuzzleLevelMappedStepInJourney(@PathVariable Long id, @PathVariable Long jid) {
         long start_time = System.currentTimeMillis();
         Optional<AppMember> memberOptional = service.findById(id);
@@ -353,9 +353,6 @@ public class AppMemberController {
         AppMemberJourneyInfo journeyInfo = service.getAppMemberJourneyInfo(memberOptional.get(),journeyOptional.get());
         journeyInfoWithScores =service.getAppMemberJourneyInfoWithScores(memberOptional.get(),journeyInfo);
         long end_time = System.currentTimeMillis();
-
-       // cacheManager.getCache("AppMemberJourneyInfo").put(journeyInfoWithScores.getJourneyId(), journeyInfoWithScores);
-
         System.out.println("Time for running getPuzzleLevelMappedStepInJourney Method = " + (end_time - start_time)*0.001);
         return journeyInfoWithScores;
     }
