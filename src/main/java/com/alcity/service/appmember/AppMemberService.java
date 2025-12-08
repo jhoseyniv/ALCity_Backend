@@ -253,11 +253,13 @@ public class AppMemberService implements AppMemberRepository, CustomizedUserRepo
                         transactions.stream()
                                 .filter(tx -> objectiveIds.contains(tx.getPlObjective().getId()))
                                 .toList();
-                Optional<ObjectiveTransaction> maxStar =
+                Optional<ObjectiveTransaction> maxStarObject =
                         filteredTransactions.stream()
                                 .max(Comparator.comparing(ObjectiveTransaction::getStars));
-
-                Integer stars = maxStar.isPresent() ? maxStar.get().getStars() : 0;
+                Integer stars =0;
+                if(maxStarObject.isPresent() && maxStarObject.get().getStars()!=null){
+                    stars = maxStarObject.get().getStars();
+                }
 
 //                if(scoreOptional.isPresent()) {
 //                    stepInfo.setCompleted(Boolean.TRUE);
