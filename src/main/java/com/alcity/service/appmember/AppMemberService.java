@@ -273,6 +273,7 @@ public class AppMemberService implements AppMemberRepository, CustomizedUserRepo
 //                }
 //                Integer stars= getPuzzleLevelAppMemberStars(score,puzzleLevel);
                stepInfo.setStars(stars);
+               stepInfo.setCompleted(true);
             }
 
         }
