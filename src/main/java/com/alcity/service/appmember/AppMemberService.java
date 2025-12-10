@@ -475,6 +475,8 @@ public class AppMemberService implements AppMemberRepository, CustomizedUserRepo
     public AppMember saveGuestUser(Integer bornYear) {
         Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
         MemberType memberType = memberTypeService.findByValue("Guest").get();
+        WalletItem baseWalletItem =null;
+        Optional<WalletItem> baseCurrencyOptional = walletItemService.findByBaseCurrency(true);
 
         Optional<EnergyConfig> energyConfigOptional = energyConfigService.findByExpireIsFalse();
         Integer energy = 8;
@@ -502,6 +504,10 @@ public class AppMemberService implements AppMemberRepository, CustomizedUserRepo
         String UniqueUserName= guest.getUsername() + guest.getId();
         guest.setUsername(UniqueUserName);
         appMemberRepository.save(guest);
+        AppMember_WalletItem walletItem = new AppMember_WalletItem(guest,baseWalletItem,0f,
+                1L, DateUtils.getNow(), DateUtils.getNow(), createdBy.get(), createdBy.get());
+        appMember_WalletItemRepository.save(walletItem);
+
         return guest;
     }
 
