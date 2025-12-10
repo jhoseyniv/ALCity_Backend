@@ -142,7 +142,7 @@ public class WalletItemService implements WalletItemRespository {
 
     @Override
     public Optional<WalletItem> findByBaseCurrency(boolean baseCurrency) {
-        return Optional.empty();
+        return walletItemRespository.findByBaseCurrency(baseCurrency);
     }
 
 

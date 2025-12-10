@@ -478,6 +478,9 @@ public class AppMemberService implements AppMemberRepository, CustomizedUserRepo
         WalletItem baseWalletItem =null;
         Optional<WalletItem> baseCurrencyOptional = walletItemService.findByBaseCurrency(true);
 
+        if(baseCurrencyOptional.isPresent())
+            baseWalletItem = baseCurrencyOptional.get();
+
         Optional<EnergyConfig> energyConfigOptional = energyConfigService.findByExpireIsFalse();
         Integer energy = 8;
         ZonedDateTime timeToRefill = ZonedDateTime.now().plusMinutes(40);
