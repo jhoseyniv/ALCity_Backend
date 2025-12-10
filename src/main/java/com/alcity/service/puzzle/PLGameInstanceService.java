@@ -6,6 +6,7 @@ import com.alcity.dto.puzzle.PLEventDTO;
 import com.alcity.dto.puzzle.PLGameInstanceDTO;
 import com.alcity.entity.alenum.GameStatus;
 import com.alcity.entity.appmember.AppMember;
+import com.alcity.entity.appmember.EnergyConfig;
 import com.alcity.entity.appmember.ObjectiveTransaction;
 import com.alcity.entity.puzzle.PLGameInstance;
 import com.alcity.entity.puzzle.PLObjective;
@@ -21,6 +22,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import org.springframework.transaction.annotation.Transactional;;
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 import java.util.*;
@@ -52,13 +54,18 @@ public class PLGameInstanceService implements PLGameInstanceRepository {
         Optional<AppMember> appMemberOptional = appMemberService.findById(plEventDTO.getAppMemberId());
         Optional<PuzzleLevel> puzzleLevelOptional = puzzleLevelService.findById(plEventDTO.getPuzzleLevelId());
         GameStatus gameStatus = GameStatus.getByTitle(plEventDTO.getGameStatus());
+        Integer refiilEnergyTime = 40;
         if(appMemberOptional.isEmpty() || puzzleLevelOptional.isEmpty()){ return null;}
-        // decrease one unit energy  after start a game by user
         AppMember member = appMemberOptional.get();
+        EnergyConfig energyConfig = member.getEnergyConfig();
+        if(energyConfig != null)
+            refiilEnergyTime = energyConfig.getTimeToRefill();
+
+        // decrease one unit energy  after start a game by user
         member.setEnergy(member.getEnergy() - 1);
         ZonedDateTime now = ZonedDateTime.now();
         if (member.getRefillEnergyExpirationTime() == null || member.getRefillEnergyExpirationTime().isBefore(now)) {
-            member.setRefillEnergyExpirationTime(now.plusMinutes(member.getEnergyConfig().getTimeToRefill())); // مقدار دلخواه شما برای ریکاوری انرژی
+            member.setRefillEnergyExpirationTime(now.plusMinutes(refiilEnergyTime)); // مقدار دلخواه شما برای ریکاوری انرژی
         }
 
         PLGameInstance  gameInstance = new PLGameInstance(appMemberOptional.get(),puzzleLevelOptional.get(), DateUtils.getNow(),"",gameStatus,null,0L,
