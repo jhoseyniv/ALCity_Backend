@@ -110,7 +110,7 @@ public class AppMember extends BaseTable implements Serializable {
     private Collection<ClientType> clientTypes;
 
 
-    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "energyConfig_id", nullable = false)
     @JsonIgnore
     private EnergyConfig energyConfig;
