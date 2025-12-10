@@ -35,7 +35,7 @@ public class EnergyConfig  extends BaseItemSet implements Serializable {
     @Column(name="time_to_refill")
     private Integer timeToRefill;
 
-    @OneToMany(mappedBy = "energyConfig", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "energyConfig", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JsonIgnore
     private Collection<AppMember> members;
 
