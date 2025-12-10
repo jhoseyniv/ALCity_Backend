@@ -395,7 +395,7 @@ public class AppMemberController {
             catch (Exception e) {
                 throw  new ResponseObject(ErrorType.ForeignKeyViolation, Status.error.name(),AppMember.class.getSimpleName(),  id,e.getCause().getMessage());
             }
-            return new ResponseMessage(ErrorType.SaveSuccess, Status.ok.name(), AppMember.class.getSimpleName(), id,SystemMessage.DeleteMessage);
+            return new ResponseMessage(ErrorType.DeleteSuccess, Status.ok.name(), AppMember.class.getSimpleName(), id,SystemMessage.DeleteMessage);
         }
         return  new ResponseMessage(ErrorType.RecordNotFound,Status.error.name(),AppMember.class.getSimpleName(),  id,SystemMessage.RecordNotFound);
     }

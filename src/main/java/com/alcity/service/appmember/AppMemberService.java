@@ -581,6 +581,12 @@ public class AppMemberService implements AppMemberRepository, CustomizedUserRepo
         //load and delete member client types
         Collection<ClientType>  clientTypes=member.getClientTypes();
         member.getClientTypes().removeAll(clientTypes);
+
+        Collection<AppMember_LearningSkill> learningSkills =appMember_LearningSkillService.findByApplicationMember(member);
+        appMember_LearningSkillService.deleteAll(learningSkills);
+
+        appMemberRepository.delete(member);
+
         //load and delete member instances game
 
         //load and delete puzzleLevelScore for a member

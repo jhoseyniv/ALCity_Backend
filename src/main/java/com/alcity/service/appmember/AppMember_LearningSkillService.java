@@ -245,7 +245,7 @@ public class AppMember_LearningSkillService implements AppMember_LearningSkillRe
 
     @Override
     public void deleteAll(Iterable<? extends AppMember_LearningSkill> entities) {
-
+        appMember_LearningSkillRepository.deleteAll(entities);
     }
 
     @Override
