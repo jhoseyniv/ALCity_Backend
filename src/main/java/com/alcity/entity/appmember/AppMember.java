@@ -121,7 +121,7 @@ public class AppMember extends BaseTable implements Serializable {
     @Column(name="energy")
     private Integer energy;
 
-    public AppMember(Integer age, Language language , String username, String password, String nickname, String mobile, String email, BinaryContent icon, UserGender gender, MemberType memberType,ZonedDateTime refillEnergyExpirationTime,Integer energy
+    public AppMember(Integer age, Language language , String username, String password, String nickname, String mobile, String email, BinaryContent icon, UserGender gender, MemberType memberType,ZonedDateTime refillEnergyExpirationTime,Integer energy,EnergyConfig energyConfig
                      ,Long version, String created, String updated, AppMember createdBy, AppMember updatedBy) {
         super(version, created, updated, createdBy, updatedBy);
         this.age = age;
@@ -136,5 +136,6 @@ public class AppMember extends BaseTable implements Serializable {
         this.memberType = memberType;
         this.refillEnergyExpirationTime = refillEnergyExpirationTime;
         this.energy = energy;
+        this.energyConfig = energyConfig;
     }
 }

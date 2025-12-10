@@ -411,11 +411,13 @@ public class AppMemberService implements AppMemberRepository, CustomizedUserRepo
             baseWalletItem = baseCurrencyOptional.get();
 
         Optional<EnergyConfig> energyConfigOptional = energyConfigService.findByExpireIsFalse();
+        EnergyConfig energyConfig = null;
         Integer energy = 8;
         ZonedDateTime timeToRefill = ZonedDateTime.now().plusMinutes(40);
         if(energyConfigOptional.isPresent())  {
             energy = energyConfigOptional.get().getEnergy();
             timeToRefill = ZonedDateTime.now().plusMinutes(energyConfigOptional.get().getTimeToRefill());
+            energyConfig = energyConfigOptional.get();
         }
 
         if(dto.getGender()==null || dto.getGender().equalsIgnoreCase(""))
@@ -440,7 +442,7 @@ public class AppMemberService implements AppMemberRepository, CustomizedUserRepo
         String hashedPassword = GenerateSHA256.toHexString(hash) ;
         AppMember appMember=null;
         if (code.equalsIgnoreCase("Save")) { //Save
-            appMember = new AppMember(dto.getAge(),language,dto.getUsername(), hashedPassword, dto.getNickname(), dto.getMobile(),dto.getEmail(),icon,gender ,memberType,timeToRefill,energy
+            appMember = new AppMember(dto.getAge(),language,dto.getUsername(), hashedPassword, dto.getNickname(), dto.getMobile(),dto.getEmail(),icon,gender ,memberType,timeToRefill,energy,energyConfig
                     ,1L, DateUtils.getNow(), DateUtils.getNow(), createdBy.get(), createdBy.get());
             appMemberRepository.save(appMember);
             appMember_LearningSkillService.initSkillWalletByUser(appMember);
@@ -484,9 +486,11 @@ public class AppMemberService implements AppMemberRepository, CustomizedUserRepo
         Optional<EnergyConfig> energyConfigOptional = energyConfigService.findByExpireIsFalse();
         Integer energy = 8;
         ZonedDateTime timeToRefill = ZonedDateTime.now().plusMinutes(40);
+        EnergyConfig energyConfig = null;
         if(energyConfigOptional.isPresent())  {
             energy = energyConfigOptional.get().getEnergy();
             timeToRefill = ZonedDateTime.now().plusMinutes(energyConfigOptional.get().getTimeToRefill());
+            energyConfig = energyConfigOptional.get();
         }
 
         BinaryContent icon=null;
@@ -500,8 +504,7 @@ public class AppMemberService implements AppMemberRepository, CustomizedUserRepo
             throw new RuntimeException(e);
         }
         String hashedPassword = GenerateSHA256.toHexString(hash) ;
-
-        guest = new AppMember(age,Language.English,"Guest", hashedPassword, "Guest"+bornYear, "","",icon,UserGender.Unknow ,memberType,timeToRefill,energy
+        guest = new AppMember(age,Language.English,"Guest", hashedPassword, "Guest"+bornYear, "","",icon,UserGender.Unknow ,memberType,timeToRefill,energy,energyConfig
                 ,1L, DateUtils.getNow(), DateUtils.getNow(), createdBy.get(), createdBy.get());
         save(guest);
         String UniqueUserName= guest.getUsername() + guest.getId();
@@ -510,7 +513,6 @@ public class AppMemberService implements AppMemberRepository, CustomizedUserRepo
         AppMember_WalletItem walletItem = new AppMember_WalletItem(guest,baseWalletItem,0f,
                 1L, DateUtils.getNow(), DateUtils.getNow(), createdBy.get(), createdBy.get());
         appMember_WalletItemRepository.save(walletItem);
-
         return guest;
     }
 
@@ -526,9 +528,11 @@ public class AppMemberService implements AppMemberRepository, CustomizedUserRepo
         MemberType memberType = memberTypeService.findByValue("Guest").get();
         Optional<EnergyConfig> energyConfigOptional = energyConfigService.findByExpireIsFalse();
         Integer energy = 8;
+        EnergyConfig energyConfig = null;
         ZonedDateTime timeToRefill = ZonedDateTime.now().plusMinutes(40);
         if(energyConfigOptional.isPresent())  {
             energy = energyConfigOptional.get().getEnergy();
+            energyConfig = energyConfigOptional.get();
             timeToRefill = ZonedDateTime.now().plusMinutes(energyConfigOptional.get().getTimeToRefill());
         }
 
@@ -536,7 +540,7 @@ public class AppMemberService implements AppMemberRepository, CustomizedUserRepo
         AppMember guest=null;
         Integer age = DateUtils.calculateAgeFromJalali(accessDTO.getBirthYear());
         icon = binaryContentRepository.findByfileName("no_photo_avatar");
-        guest = new AppMember(age,Language.English,accessDTO.getRemoteHost() + "-" + accessDTO.getRemoteUserName(), "Guest", "Guest", "","",icon,UserGender.Unknow ,memberType,timeToRefill,energy
+        guest = new AppMember(age,Language.English,accessDTO.getRemoteHost() + "-" + accessDTO.getRemoteUserName(), "Guest", "Guest", "","",icon,UserGender.Unknow ,memberType,timeToRefill,energy, energyConfig
                 ,1L, DateUtils.getNow(), DateUtils.getNow(), createdBy.get(), createdBy.get());
         appMemberRepository.save(guest);
         String UniqueUserName= guest.getUsername() + guest.getId();
