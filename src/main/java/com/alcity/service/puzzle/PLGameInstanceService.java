@@ -53,7 +53,7 @@ public class PLGameInstanceService implements PLGameInstanceRepository {
         Optional<PuzzleLevel> puzzleLevelOptional = puzzleLevelService.findById(plEventDTO.getPuzzleLevelId());
         GameStatus gameStatus = GameStatus.getByTitle(plEventDTO.getGameStatus());
         if(appMemberOptional.isEmpty() || puzzleLevelOptional.isEmpty()){ return null;}
-        // decrease an energy one unit after start a game by user
+        // decrease one unit energy  after start a game by user
         AppMember member = appMemberOptional.get();
         member.setEnergy(member.getEnergy() - 1);
         ZonedDateTime now = ZonedDateTime.now();
@@ -64,6 +64,7 @@ public class PLGameInstanceService implements PLGameInstanceRepository {
         PLGameInstance  gameInstance = new PLGameInstance(appMemberOptional.get(),puzzleLevelOptional.get(), DateUtils.getNow(),"",gameStatus,null,0L,
                 1L,DateUtils.getNow(),DateUtils.getNow(),appMemberOptional.get(),appMemberOptional.get());
         plGameInstanceRepository.save(gameInstance);
+        appMemberService.save(member);
         return DTOUtil.getGameInstanceDTO(gameInstance);
     }
 
