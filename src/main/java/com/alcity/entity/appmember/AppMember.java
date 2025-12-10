@@ -98,6 +98,9 @@ public class AppMember extends BaseTable implements Serializable {
     @Enumerated(EnumType.ORDINAL)
     private Language language;
 
+    @Column(name="notificationCode")
+    private StringBuffer notificationCode;
+
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "member_type_id", nullable = false)
     @JsonIgnore

@@ -94,6 +94,8 @@ public class AppMemberController {
     private PLGameInstanceService pLGameInstanceService;
     @Autowired
     private ObjectiveTransactionService pLObjectiveTransactionService;
+    @Autowired
+    private AppMemberService appMemberService;
 
     @Operation( summary = "Get User XP by a Date format 02-09-2025  ",  description = "Get XP by a Date format ")
     @RequestMapping(value = "/id/{id}/xp/date/{date}", method = RequestMethod.GET)
@@ -563,6 +565,32 @@ public class AppMemberController {
         return response;
     }
 
+    @Operation( summary = "Set Notification Code for a User ",  description = "Set Notification Code for a User")
+    @PostMapping(value = "/set-notification-code")
+    @CrossOrigin(origins = "*")
+    public ResponseMessage setNotificationCode(@RequestBody AppMemberNotificationDTO dto) {
+        Optional<AppMember> appMemberOptional= appMemberService.findById(dto.getId());
+        if(appMemberOptional.isEmpty())
+            return new ResponseMessage(ErrorType.RecordNotFound, Status.error.name() ,AppMember.class.getSimpleName() ,  dto.getId() , SystemMessage.RecordNotFound);
+
+        AppMember appMember = appMemberOptional.get();
+        //StringBuffer stringBuffer = new StringBuffer(dto.getNotificationCode());
+        appMember.setNotificationCode(dto.getNotificationCode());
+        appMemberService.save(appMember);
+        return new ResponseMessage(ErrorType.SaveSuccess, Status.error.name() ,AppMember.class.getSimpleName() ,  dto.getId() , SystemMessage.Notification_Code_Is_Set);
+    }
+
+    @Operation( summary = "Get Notification Code for a User ",  description = "Set Notification Code for a User")
+    @RequestMapping(value = "/notification-code/id/{id}", method = RequestMethod.GET)
+    @CrossOrigin(origins = "*")
+    public StringBuffer setNotificationCode(@PathVariable  Long id)  {
+        Optional<AppMember> appMemberOptional= appMemberService.findById(id);
+        if(appMemberOptional.isEmpty())
+            return new StringBuffer( SystemMessage.RecordNotFound + " --" + id);
+
+        AppMember appMember = appMemberOptional.get();
+        return appMember.getNotificationCode();
+    }
 
     @Operation( summary = "Save a Guest User ",  description = "Save a Guest User ")
     @RequestMapping(value = "/save/guest/byear/{byear}", method = RequestMethod.GET)
