@@ -69,7 +69,7 @@ public class AppMemberService implements AppMemberRepository, CustomizedUserRepo
     private AppMember_WalletItemRepository appMember_WalletItemRepository;
 
     @Autowired
-    private WalletItemRespository walletItemRespository;
+    private WalletItemService walletItemService;
 
     @Qualifier("PLPrivacyRepository")
     @Autowired
@@ -318,7 +318,7 @@ public class AppMemberService implements AppMemberRepository, CustomizedUserRepo
 
     public AppMember_WalletItem chargeOrDeChargeAppMemberWallet(AppMemberWalletDTO dto, String code) {
         Optional<AppMember> createdBy = appMemberRepository.findByUsername("admin");
-        Optional<WalletItem> walletItemOptional = walletItemRespository.findById(dto.getWalletItemId());
+        Optional<WalletItem> walletItemOptional = walletItemService.findById(dto.getWalletItemId());
         Optional<AppMember> appMemberOptional = appMemberRepository.findById(dto.getAppMemberId());
         WalletItem walletItem =null;
         AppMember appMember =null;
@@ -403,6 +403,11 @@ public class AppMemberService implements AppMemberRepository, CustomizedUserRepo
         else
             language = Language.getByTitle(dto.getLanguage());
         if(language==null) language = Language.English;
+        WalletItem baseWalletItem =null;
+        Optional<WalletItem> baseCurrencyOptional = walletItemService.findByBaseCurrency(true);
+
+        if(baseCurrencyOptional.isPresent())
+            baseWalletItem = baseCurrencyOptional.get();
 
         Optional<EnergyConfig> energyConfigOptional = energyConfigService.findByExpireIsFalse();
         Integer energy = 8;
@@ -438,6 +443,9 @@ public class AppMemberService implements AppMemberRepository, CustomizedUserRepo
                     ,1L, DateUtils.getNow(), DateUtils.getNow(), createdBy.get(), createdBy.get());
             appMemberRepository.save(appMember);
             appMember_LearningSkillService.initSkillWalletByUser(appMember);
+                        AppMember_WalletItem walletItem = new AppMember_WalletItem(appMember,baseWalletItem,0f,
+                    1L, DateUtils.getNow(), DateUtils.getNow(), createdBy.get(), createdBy.get());
+            appMember_WalletItemRepository.save(walletItem);
         }else{//edit
             Optional<AppMember> appMemberOptional= appMemberRepository.findById(dto.getId());
             if(appMemberOptional.isPresent()) {
