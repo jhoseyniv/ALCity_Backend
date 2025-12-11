@@ -50,6 +50,8 @@ public class CachingConfig {
                 .withCacheConfiguration("getLearnSkillById", myDefaultCacheConfig(Duration.ofMinutes(30)))
                 .withCacheConfiguration("getPuzzleLevelContents", myDefaultCacheConfig(Duration.ofMinutes(30)))
                 .withCacheConfiguration("JourneyCache", myDefaultCacheConfig(Duration.ofMinutes(30)))
+                .withCacheConfiguration("getRadarChartData", myDefaultCacheConfig(Duration.ofMinutes(15)))
+
                 //.withCacheConfiguration("getBinaryContent", myDefaultCacheConfig(Duration.ofMinutes(30)))
                 //.withCacheConfiguration("getPuzzleGroups", myDefaultCacheConfig(Duration.ofMinutes(30)))
                 //.withCacheConfiguration("all-PuzzleCategoryDTO", myDefaultCacheConfig(Duration.ofMinutes(50)))

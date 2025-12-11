@@ -15,7 +15,6 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Optional;
@@ -75,7 +74,7 @@ public class AttributeController {
         return responseObjects;
     }
 
-    @Operation( summary = "delete an Attribute with all values",  description = "delete an Attribute with all values from database")
+ /*   @Operation( summary = "delete an Attribute with all values",  description = "delete an Attribute with all values from database")
     @DeleteMapping("/del/{id}")
     @CrossOrigin(origins = "*")
     public ResponseMessage deleteAttributeById(@PathVariable Long id) {
@@ -91,7 +90,7 @@ public class AttributeController {
         }
         return  new ResponseMessage(ErrorType.RecordNotFound, Status.error.name(),Attribute.class.getSimpleName(), id,SystemMessage.RecordNotFound);
     }
-
+*/
 
   @Operation( summary = "Fetch all attributes for an owner by id and type ",  description = "Fetch all attributes for an owner by id and type ")
   @RequestMapping(value = "/owner/{id}/type/{type}", method = RequestMethod.GET)
