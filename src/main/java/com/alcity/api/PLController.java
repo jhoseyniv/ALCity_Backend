@@ -3,7 +3,6 @@ package com.alcity.api;
 import com.alcity.customexception.ResponseMessage;
 import com.alcity.dto.base.PLBinaryContentDTO;
 import com.alcity.dto.learning.LearningSkillTreeDTO;
-import com.alcity.dto.plimpexport.PLContentsDTO;
 import com.alcity.dto.plimpexport.PLData;
 import com.alcity.dto.plimpexport.PLImportDTO;
 import com.alcity.entity.alenum.*;
@@ -15,7 +14,6 @@ import com.alcity.service.appmember.AppMemberService;
 import com.alcity.customexception.ResponseObject;
 import com.alcity.dto.puzzle.*;
 import com.alcity.entity.puzzle.*;
-import com.alcity.service.appmember.DynamicSchedulerService;
 import com.alcity.service.appmember.EnergyConfigService;
 import com.alcity.service.base.BinaryContentService;
 import com.alcity.service.learning.LearningSkillService;
@@ -32,7 +30,6 @@ import org.json.JSONException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.*;
@@ -216,11 +213,11 @@ public class PLController {
     @Operation( summary = "Start Puzzle (Game) after play by user ",  description = "Update Puzzle (Game) Status after play by user")
     @PostMapping("/start-play")
     @CrossOrigin(origins = "*")
-    public ResponseMessage StartGameEvent(@RequestBody PLEventDTO plEventDTO) {
+    public ResponseMessage StartGameEvent(@RequestBody PLStartPlayDTO startPlayDTO) {
         ResponseMessage response = new ResponseMessage();
         //check is user enough energy or not
         Integer energy =5;
-        Optional<AppMember> memberOptional = appMemberService.findById(plEventDTO.getAppMemberId());
+        Optional<AppMember> memberOptional = appMemberService.findById(startPlayDTO.getAppMemberId());
         Optional<EnergyConfig> energyConfigOptional = energyConfigService.findByExpireIsFalse();
         if(energyConfigOptional.isPresent())
             energy = energyConfigOptional.get().getEnergy();
@@ -231,13 +228,13 @@ public class PLController {
                                 memberOptional.get().getId(), SystemMessage.Energy_Is_Not_Sufficient_To_PLay_Game);
             }
             if(memberOptional.get().getEnergy()<energy) {
-                appMemberService.startUserTimer(plEventDTO.getAppMemberId());
+                appMemberService.startUserTimer(startPlayDTO.getAppMemberId());
                    new ResponseMessage(ErrorType.Energy_Is_Low_And_Timer_Start_To_Refill, Status.ok.name(), AppMember.class.getSimpleName(),
                                 memberOptional.get().getId(), SystemMessage.Energy_Is_Low_And_Timer_Start_To_Refill);
-                PLGameInstanceDTO gameInstance = plGameInstanceService.startGameInstance(plEventDTO);
+                PLGameInstanceDTO gameInstance = plGameInstanceService.startGameInstance(startPlayDTO);
                 response = new ResponseMessage(ErrorType.SaveSuccess, Status.ok.name(), PLGameInstanceDTO.class.getSimpleName(), gameInstance.getId(), SystemMessage.Game_Instance_Created_Successfully + SystemMessage.Energy_Is_Low_And_Timer_Start_To_Refill);
             }else{
-                PLGameInstanceDTO gameInstance = plGameInstanceService.startGameInstance(plEventDTO);
+                PLGameInstanceDTO gameInstance = plGameInstanceService.startGameInstance(startPlayDTO);
                 response = new ResponseMessage(ErrorType.SaveSuccess, Status.ok.name(), PLGameInstanceDTO.class.getSimpleName(), gameInstance.getId(), SystemMessage.Game_Instance_Created_Successfully);
             }
         }
@@ -247,8 +244,8 @@ public class PLController {
     @Operation( summary = "End Puzzle (Game) Status after change status by user ",  description = "Update Puzzle (Game) Status after change status play by user")
     @PostMapping("/end-play")
     @CrossOrigin(origins = "*")
-    public PLGameInstanceDTO updateGameEvent(@RequestBody PLEventDTO eventDTO) {
-        return plGameInstanceService.updateGameInstanceStatus(eventDTO);
+    public PLGameInstanceDTO updateGameEvent(@RequestBody PLEndPlayDTO endPlayDTO) {
+        return plGameInstanceService.updateGameInstanceStatus(endPlayDTO);
     }
 
     @Operation( summary = "Get all Game Play for a puzzle Level Member",  description = "get all Game Play  for a Puzzle Level ...")

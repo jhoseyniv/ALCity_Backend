@@ -1,7 +1,8 @@
 package com.alcity.api;
 
 import com.alcity.customexception.ResponseMessage;
-import com.alcity.dto.puzzle.PLEventDTO;
+import com.alcity.dto.puzzle.PLEndPlayDTO;
+import com.alcity.dto.puzzle.PLStartPlayDTO;
 import com.alcity.dto.puzzle.PLGameInstanceDTO;
 import com.alcity.entity.alenum.Status;
 import com.alcity.entity.alenum.ErrorType;
@@ -85,14 +86,14 @@ public class PLGameInstanceController {
         return  new ResponseMessage(ErrorType.SaveSuccess,Status.ok.name(), PLGameInstance.class.getSimpleName() ,  playHistory.getId(), SystemMessage.SaveOrEditMessage_Success);
     }
 
-
+/*
     @Operation( summary = "Save a play history for an Application Member + puzzle level",  description = "Save a play history for an Application Member + puzzle level ...")
     @PostMapping("/save")
     @CrossOrigin(origins = "*")
-    public ResponseMessage savePlayHistory(@RequestBody PLEventDTO dto) throws ResponseObject {
+    public ResponseMessage savePlayHistory(@RequestBody PLEndPlayDTO dto) throws ResponseObject {
         PLGameInstanceDTO savedRecord = null;
         ResponseMessage response = new ResponseMessage();
-        Optional<PLGameInstance> playHistoryOptional = plGameInstanceService.findById(dto.getId());
+        Optional<PLGameInstance> playHistoryOptional = plGameInstanceService.findById(dto.getInstanceId());
 
         try {
             if (playHistoryOptional.isEmpty())
@@ -108,7 +109,7 @@ public class PLGameInstanceController {
             response = new ResponseMessage(ErrorType.SaveSuccess,Status.ok.name(), PLGameInstance.class.getSimpleName() ,  savedRecord.getId(), SystemMessage.DeleteMessage);
         return response;
     }
-
+*/
 
 
 }

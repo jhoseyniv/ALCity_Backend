@@ -1,17 +1,15 @@
 package com.alcity.service.puzzle;
 
 
-import com.alcity.dto.puzzle.PLDTO;
-import com.alcity.dto.puzzle.PLEventDTO;
+import com.alcity.dto.puzzle.PLEndPlayDTO;
+import com.alcity.dto.puzzle.PLStartPlayDTO;
 import com.alcity.dto.puzzle.PLGameInstanceDTO;
 import com.alcity.entity.alenum.GameStatus;
 import com.alcity.entity.appmember.AppMember;
 import com.alcity.entity.appmember.EnergyConfig;
 import com.alcity.entity.appmember.ObjectiveTransaction;
 import com.alcity.entity.puzzle.PLGameInstance;
-import com.alcity.entity.puzzle.PLObjective;
 import com.alcity.entity.puzzle.PuzzleLevel;
-import com.alcity.repository.appmember.AppMemberRepository;
 import com.alcity.repository.puzzle.PLGameInstanceRepository;
 import com.alcity.service.appmember.AppMemberService;
 import com.alcity.service.appmember.ObjectiveTransactionService;
@@ -22,8 +20,6 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import org.springframework.transaction.annotation.Transactional;;
-import java.time.Instant;
-import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 import java.util.*;
 
@@ -49,11 +45,10 @@ public class PLGameInstanceService implements PLGameInstanceRepository {
         return plGameInstanceRepository.save(entity);
     }
     @Transactional
-    public PLGameInstanceDTO startGameInstance(PLEventDTO plEventDTO) {
+    public PLGameInstanceDTO startGameInstance(PLStartPlayDTO plEventDTO) {
 
         Optional<AppMember> appMemberOptional = appMemberService.findById(plEventDTO.getAppMemberId());
         Optional<PuzzleLevel> puzzleLevelOptional = puzzleLevelService.findById(plEventDTO.getPuzzleLevelId());
-        GameStatus gameStatus = GameStatus.getByTitle(plEventDTO.getGameStatus());
         Integer refiilEnergyTime = 40;
         if(appMemberOptional.isEmpty() || puzzleLevelOptional.isEmpty()){ return null;}
         AppMember member = appMemberOptional.get();
@@ -76,16 +71,14 @@ public class PLGameInstanceService implements PLGameInstanceRepository {
     }
 
 
-    public PLGameInstanceDTO updateGameInstanceStatus(PLEventDTO plEventDTO) {
-        Optional<AppMember> appMemberOptional = appMemberService.findById(plEventDTO.getAppMemberId());
-        Optional<PuzzleLevel> puzzleLevelOptional = puzzleLevelService.findById(plEventDTO.getPuzzleLevelId());
-        GameStatus gameStatus = GameStatus.getByTitle(plEventDTO.getEventType());
-        Optional<PLGameInstance> plGameInstanceOptional = plGameInstanceRepository.findById(plEventDTO.getId());
-        PLGameInstance plGameInstance = plGameInstanceOptional.get();
-        plGameInstance.setGameStatus(gameStatus);
-        plGameInstanceRepository.save(plGameInstance);
-        PLGameInstanceDTO instanceDTO = DTOUtil.getGameInstanceDTO(plGameInstance);
-        return  instanceDTO;
+    public PLGameInstanceDTO updateGameInstanceStatus(PLEndPlayDTO endPlayDTO) {
+        Optional<PLGameInstance> plGameInstanceOptional = plGameInstanceRepository.findById(endPlayDTO.getInstanceId());
+        PLGameInstance gameInstance = plGameInstanceOptional.get();
+        GameStatus gameStatus = GameStatus.getByTitle(endPlayDTO.getGameStatus());
+        gameInstance.setGameStatus(gameStatus);
+        gameInstance.setAnalyticalData(endPlayDTO.getAnalyticalData());
+        plGameInstanceRepository.save(gameInstance);
+        return DTOUtil.getGameInstanceDTO(gameInstance);
     }
 
     @Override
