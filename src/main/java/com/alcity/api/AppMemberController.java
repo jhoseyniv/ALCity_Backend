@@ -495,6 +495,12 @@ public class AppMemberController {
 
         if(plObjectiveOptional.isEmpty() || gameInstanceOptional.isEmpty() || appMemberOptional.isEmpty() ) return false;
 
+        //update game status
+        PLGameInstance gameInstance = gameInstanceOptional.get();
+        gameInstance.setGameStatus(GameStatus.Win);
+        pLGameInstanceService.save(gameInstance);
+
+        //check last reward is grater than older rewards for playing this game or not?
         Collection<ObjectiveTransaction> transactions = pLObjectiveTransactionService.findByPlObjectiveAndTransactionTypeAndAppMember(plObjectiveOptional.get(),transactionType,appMemberOptional.get());
         if(transactions.isEmpty()) return true;
         ObjectiveTransaction transaction = Collections.max(transactions ,Comparator.comparing(PLObjectiveTransaction  -> PLObjectiveTransaction.getAmount()));
@@ -535,7 +541,6 @@ public class AppMemberController {
                     appMemberOptional.get(),walletItem,plObjectiveOptional.get().getId(),WalletTransactionType.Puzzle_Objective,
                     1L,DateUtils.getNow(),DateUtils.getNow(),appMemberOptional.get(),appMemberOptional.get());
             walletTransactionService.save(walletTransaction);
-            //appMemberPuzzleLevelScoreService.updateScores(savedRecord);
             //plGameInstanceService.updateGameInstanceStatus(eventDTO);
         }
 

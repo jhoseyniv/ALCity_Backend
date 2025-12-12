@@ -68,7 +68,7 @@ public class PLGameInstanceService implements PLGameInstanceRepository {
             member.setRefillEnergyExpirationTime(now.plusMinutes(refiilEnergyTime)); // مقدار دلخواه شما برای ریکاوری انرژی
         }
 
-        PLGameInstance  gameInstance = new PLGameInstance(appMemberOptional.get(),puzzleLevelOptional.get(), DateUtils.getNow(),"",gameStatus,null,0L,
+        PLGameInstance  gameInstance = new PLGameInstance(appMemberOptional.get(),puzzleLevelOptional.get(), DateUtils.getNow(),"",GameStatus.Playing,null,0L,
                 1L,DateUtils.getNow(),DateUtils.getNow(),appMemberOptional.get(),appMemberOptional.get());
         plGameInstanceRepository.save(gameInstance);
         appMemberService.save(member);
