@@ -498,6 +498,7 @@ public class AppMemberController {
         //update game status
         PLGameInstance gameInstance = gameInstanceOptional.get();
         gameInstance.setGameStatus(GameStatus.Win);
+        gameInstance.setPlayDuration(dto.getPlayDuration());
         pLGameInstanceService.save(gameInstance);
 
         //check last reward is grater than older rewards for playing this game or not?
