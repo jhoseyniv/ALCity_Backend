@@ -23,6 +23,7 @@ public  class SystemMessage  {
     public static String  Your_Energy_Refill_Successfully= "Your Energy Refill Successfully";
     public static String  Your_Energy_Is_Full_Or_Grater_Than_You_Want_To_Buy= "Your Energy Is Full Or Grater Than You Want To Buy";
     public static String Notification_Code_Is_Set = "Notification Code Is Set for this user";
+    public static String Your_Score_Is_Lower_ThanIn_Previous_Attempts = "Your score is lower than in previous attempts.";
 
 
 

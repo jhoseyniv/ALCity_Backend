@@ -20,7 +20,9 @@ public enum ErrorType {
     Energy_Is_Low_And_Timer_Start_To_Refill,
     Not_Enough_AL_Coin_To_Buy_Energy,
     Your_Energy_Refill_Successfully,
-    Your_Energy_Is_Full_Or_Grater_Than_You_Want_To_Buy;    ;
+    Your_Energy_Is_Full_Or_Grater_Than_You_Want_To_Buy,
+    Score_Lower_Previous_Attempts
+    ;    ;
     public static ErrorType getById(long id)
     {
         for (ErrorType e : ErrorType.values())
