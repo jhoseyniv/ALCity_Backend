@@ -543,7 +543,7 @@ public class AppMemberController {
             walletTransactionService.save(walletTransaction);
             //plGameInstanceService.updateGameInstanceStatus(eventDTO);
         }else {
-            response = new ResponseMessage(ErrorType.Score_Lower_Previous_Attempts, Status.ok.name() , ObjectiveTransaction.class.getSimpleName() , savedRecord.getId(), SystemMessage.Your_Score_Is_Lower_ThanIn_Previous_Attempts);
+            response = new ResponseMessage(ErrorType.Score_Lower_Previous_Attempts, Status.ok.name() , ObjectiveTransaction.class.getSimpleName() , -1L, SystemMessage.Your_Score_Is_Lower_ThanIn_Previous_Attempts);
 
         }
 
@@ -571,7 +571,7 @@ public class AppMemberController {
             appMemberLearningSkillService.updateAppMemberSkills(savedRecord);
        }
         else {
-        response = new ResponseMessage(ErrorType.Score_Lower_Previous_Attempts, Status.ok.name() , ObjectiveTransaction.class.getSimpleName() , savedRecord.getId(), SystemMessage.Your_Score_Is_Lower_ThanIn_Previous_Attempts);
+        response = new ResponseMessage(ErrorType.Score_Lower_Previous_Attempts, Status.ok.name() , ObjectiveTransaction.class.getSimpleName() , -1L, SystemMessage.Your_Score_Is_Lower_ThanIn_Previous_Attempts);
 
     }
 
